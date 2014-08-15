@@ -1,0 +1,117 @@
+{{#texts.transactions}}
+	<main class="transactions-page">
+		<div class="container">
+			<section id="transactions-page">
+				<div class="head">
+					<h1>{{.title}}</h1>
+					<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{status.nisUnavailable}}" on-click="openSendNem">{{.sendNem}}</button>
+					<div class="overview">
+						<h1>{{.balance}}</h1>
+						<p><span title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></span></p>
+					</div>
+				</div>
+				<div class="body">
+					<div class="filter-bar">
+						<ul class="filter">
+							<li>
+								<input type="radio" class="hidden" id="rad-transaction-filter-all" name="{{transactions.filter}}" value="all" checked />
+								<label for="rad-transaction-filter-all">{{.filters.all}}</label>
+							</li>
+							<li>
+								<input type="radio" class="hidden" id="rad-transaction-filter-pending" name="{{transactions.filter}}" value="pending" />
+								<label for="rad-transaction-filter-pending">{{.filters.pending}}</label>
+							</li>
+							<li>
+								<input type="radio" class="hidden" id="rad-transaction-filter-incoming" name="{{transactions.filter}}" value="incoming" />
+								<label for="rad-transaction-filter-incoming">{{.filters.incoming}}</label>
+							</li>
+							<li>
+								<input type="radio" class="hidden" id="rad-transaction-filter-outgoing" name="{{transactions.filter}}" value="outgoing" />
+								<label for="rad-transaction-filter-outgoing">{{.filters.outgoing}}</label>
+							</li>
+						</ul>
+						<div class="search-area">
+							<div class="search">
+								<input type="text" />
+								<button type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
+							</div>
+						</div>
+					</div>
+					<div class="list">
+						<table>
+							<thead>
+								<tr>
+									<th class="type">{{.table.columns.0}}</th>
+									<th class="date">{{.table.columns.1}}</th>
+									<th class="sender">{{.table.columns.2}}</th>
+									<th class="message">{{.table.columns.3}}</th>
+									<th class="encrypted">{{.table.columns.4}}</th>
+									<th class="details">{{.table.columns.5}}</th>
+									<th class="confirmations">{{.table.columns.6}}</th>
+									<th class="fee">{{.table.columns.7}} <span class="dimmed">(NEM)</span></th>
+									<th class="amount">{{.table.columns.8}} <span class="dimmed">(NEM)</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#transactions.filtered}}
+									<tr>
+	                                    {{^.confirmed}}
+	                                        <td class="type pending icon-clock" title="{{texts.transactions.table.types.pending}}" on-mouseover="registerToolTip"></td>
+	                                    {{/}}
+	                                    {{#.confirmed}}
+	                                        {{#.isSelf}}
+	                                            <td class="type icon-self" title="{{texts.transactions.table.types.self}}" on-mouseover="registerToolTip"></td>
+	                                        {{/}}
+	                                        {{#.isOutgoing}}
+	                                            <td class="type outgoing icon-minus" title="{{texts.transactions.table.types.outgoing}}" on-mouseover="registerToolTip"></td>
+	                                        {{/}}
+	                                        {{#.isIncoming}}
+	                                            <td class="type incoming icon-plus" title="{{texts.transactions.table.types.incoming}}" on-mouseover="registerToolTip"></td>
+	                                        {{/}}
+	                                    {{/}}
+										<td class="date">{{.formattedDate}}</td>
+	                                    {{#.isSelf || .isOutgoing}}
+	                                        <td class="sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
+	                                    {{/}}
+	                                    {{#.isIncoming}}
+	                                        <td class="sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
+	                                    {{/}}
+										<td class="message">
+											{{#.message}}{{.message}}{{/}}
+											{{^.message}}<span class="dimmed">{{texts.transactions.table.noMessage}}</span>{{/}}
+										</td>
+										<td class="encrypted">
+											{{#.encrypted}}
+												<span class="icon-lock" title="{{texts.transactions.table.encrypted}}" on-mouseover="registerToolTip"></span>
+											{{/}}
+										</td>
+										<td class="details" on-click="viewTransaction:{{.}}">{{texts.transactions.table.view}}</td>
+										<td class="confirmations">
+											{{^.confirmed}}{{texts.transactions.table.pending}}{{/}}
+											{{#.confirmed}}{{.confirmations}}{{/}}
+										</td>
+	                                    <td class="fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+	                                    <td class="amount">
+		                                    {{#.isSelf}}&plusmn;{{/}}<!--
+		                                    -->{{#.isOutgoing}}-{{/}}<!--
+		                                    -->{{#.isIncoming}}+{{/}}<!--
+		                                    -->{{{formattedAmount}}}
+	                                    </td>
+									</tr>
+								{{/}}
+							</tbody>
+						</table>
+						{{^transactions.filtered}}
+							<p class="no-records">{{texts.transactions.table.noTransactions}}</p>
+						{{/}}
+						<div class="pager">
+							{{#status.loadingOlderTransactions}}
+								<span type="buttton" class="loading">{{texts.transactions.table.loading}}</span>
+							{{/}}
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+{{/}}

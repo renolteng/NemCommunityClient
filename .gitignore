@@ -1,0 +1,13 @@
+/target
+.idea
+nem-client-api/nem-ncc.log.*
+nem-client-api/nem-ncc-0.log
+nem-client-api/nem-ncc-0.log.lck
+nem-client-api/obfuscation/META-INF/MANIFEST.MF
+nem-client-api/obfuscation/obfuscate-ws.bat
+nem-client-api/nem-ncc-*.log.*
+*.wlt
+*.cfg
+xyz-file
+ncc-nis.log
+*.iml

@@ -1,0 +1,73 @@
+package org.nem.ncc.controller;
+
+import org.nem.core.connect.*;
+import org.nem.core.crypto.PrivateKey;
+import org.nem.core.serialization.JsonSerializer;
+import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.controller.requests.BootNodeRequest;
+import org.nem.ncc.model.NisApiId;
+import org.nem.ncc.services.WalletServices;
+import org.nem.ncc.wallet.Wallet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * Handles requests related to the REST resource "node".
+ */
+@RestController
+public class NodeController {
+	private final WalletServices walletServices;
+	private final SimpleNisConnector nisConnector;
+
+	/**
+	 * Creates a new node controller.
+	 *
+	 * @param walletServices The wallet services.
+	 * @param nisConnector The NIS connector.
+	 */
+	@Autowired(required = true)
+	public NodeController(
+			final WalletServices walletServices,
+			final SimpleNisConnector nisConnector) {
+		this.walletServices = walletServices;
+		this.nisConnector = nisConnector;
+	}
+
+	/**
+	 * Boots the local node.
+	 *
+	 * @param bootNode Information about the node to boot.
+	 */
+	@RequestMapping(value = "/node/boot", method = RequestMethod.POST)
+	public void bootNode(@RequestBody final BootNodeRequest bootNode) {
+		final Wallet wallet = this.walletServices.get(bootNode.getWalletName());
+		final PrivateKey privateKey = wallet.getAccountPrivateKey(bootNode.getAccountId());
+		this.nisConnector.voidPost(NisApiId.NIS_REST_NODE_BOOT, this.createBootNodeRequest(privateKey, bootNode.getNodeName()));
+	}
+
+	private HttpPostRequest createBootNodeRequest(final PrivateKey privateKey, final String nodeName) {
+		final JsonSerializer serializer = new JsonSerializer();
+		serializer.writeObject("identity", childSerializer -> {
+			childSerializer.writeBigInteger("private-key", privateKey.getRaw());
+			childSerializer.writeString("name", nodeName);
+		});
+		serializer.writeObject("endpoint", childSerializer -> {
+			childSerializer.writeString("protocol", "http");
+			childSerializer.writeString("host", "localhost");
+			childSerializer.writeInt("port", 7890);
+		});
+		serializer.writeObject(
+				"metaData",
+				childSerializer -> childSerializer.writeString("application", "NIS"));
+
+		return new HttpJsonPostRequest(serializer.getObject());
+	}
+
+	/**
+	 * Checks the status of the local node.
+	 */
+	@RequestMapping(value = "/node/status", method = RequestMethod.GET)
+	public void checkNodeStatus() {
+		this.nisConnector.get(NisApiId.NIS_REST_NODE_INFO, null);
+	}
+}

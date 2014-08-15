@@ -1,0 +1,32 @@
+<main>
+	<div class="container">
+		<div id="settings-page">
+			<div class="head">
+				<h1>{{texts.settings.title}}</h1>
+			</div>
+			<div class="body">
+				<div class="setting-options">
+					<section class="setting">
+						<div class="setting-name">
+							<h1>{{texts.settings.settings.0.name}}</h1>
+						</div>
+						<div class="setting-controls">
+							<div class="language-list">
+								{{#languages:i}}
+									{{#i !== 0}}
+										<span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+									{{/}}
+									<input id="setting-language-{{.id}}" class="language hidden" type="radio" name="{{settings.language}}" value="{{.id}}">
+									<label for="setting-language-{{.id}}">{{.name}}</label>
+								{{/}}
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="buttons">
+					<button type="button" on-click="saveSettings">{{texts.settings.save}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

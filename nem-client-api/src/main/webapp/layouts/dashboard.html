@@ -1,0 +1,338 @@
+{{#texts.dashboard}}
+	<main class="dashboard-page">
+		<div class="container gridster">
+			<ul id="dashboard">
+				<li class="tile assets" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+					<article>
+						<h1 class="main-title">{{.assets.title}}</h1>
+						<!--/*<div>
+							<p class="assets-count">0 <span class="unit">assets</span></p>
+						</div>*/-->
+						<p class="not-available whole">{{.notAvailable}}</p>
+					</article>
+					<div class="dragger"></div>
+				</li>
+				<li class="tile importance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
+					<article>
+						<h1 class="main-title">{{.importance.title}}</h1>
+						{{#status.lostConnection || status.nisUnavailable || activeAccount.status === 'UNKNOWN'}}
+							<button type="button" class="harvesting-btn unknown icon-question-circle">
+								<span>{{.importance.unknown}}</span>
+							</button>
+						{{/}}
+						{{^status.lostConnection || status.nisUnavailable}}
+							{{#activeAccount.status === 'LOCKED'}}
+								<button type="button" class="harvesting-btn not-harvesting icon-play" on-click="startHarvesting">
+									<span>{{.importance.start}}</span>
+								</button>
+							{{/}}
+							{{#activeAccount.status === 'UNLOCKED'}}
+								<button type="button" class="harvesting-btn harvesting icon-pause" on-click="stopHarvesting">
+									<span class="status">{{.importance.harvesting}}</span><span class="hover">{{.importance.stop}}</span>
+								</button>
+							{{/}}
+						{{/}}
+						<div class="content">
+							<p class="number">{{Math.round(activeAccount.importance * 10000) / 100}}%</p>
+							<p class="text">{{.importance.description}}</p>
+						</div>
+					</article>
+					<div class="dragger"></div>
+				</li>
+				<li class="tile transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
+					<article>
+						<h1 class="main-title">{{.transactions.title}}</h1>
+						<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{status.nisUnavailable}}" on-click="openSendNem">{{.transactions.sendNem}}</button>
+						<div class="overview">
+							<h1>{{.transactions.balance}}</h1>
+							<p class="balance"><span class="number" title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">
+								{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></span> 
+								<span>{{fill(.transactions.syncStatus, nis.nodeMetaData.nodeBlockChainHeight)}}</span>
+							</p>
+						</div>
+						<table>
+							<tr>
+								<th class="type">{{.transactions.columns.0}}</th>
+								<th class="date">{{.transactions.columns.1}}</th>
+								<th class="sender">{{.transactions.columns.2}}</th>
+								<th class="message">{{.transactions.columns.3}}</th>
+								<th class="encrypted">{{.transactions.columns.4}}</th>
+								<th class="details">{{.transactions.columns.5}}</th>
+								<th class="confirmations">{{.transactions.columns.6}}</th>
+								<th class="fee">{{.transactions.columns.7}} <span class="dimmed">(NEM)</span></th>
+								<th class="amount">{{.transactions.columns.8}} <span class="dimmed">(NEM)</span></th>
+							</tr>
+							{{#activeAccount.transactions:i}}
+								{{#i < 4}}
+									<tr>
+	                                    {{^.confirmed}}
+	                                        <td class="type pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
+	                                    {{/}}
+	                                    {{#.confirmed}}
+	                                        {{#.isSelf}}
+	                                            <td class="type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip"></td>
+	                                        {{/}}
+	                                        {{#.isOutgoing}}
+	                                            <td class="type outgoing icon-minus" title="{{texts.dashboard.transactions.types.outgoing}}" on-mouseover="registerToolTip"></td>
+	                                        {{/}}
+	                                        {{#.isIncoming}}
+	                                            <td class="type incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip"></td>
+	                                        {{/}}
+	                                    {{/}}
+										<td class="date">{{.formattedDate}}</td>
+	                                    {{#.isSelf || .isOutgoing}}
+	                                        <td class="sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
+	                                    {{/}}
+	                                    {{#.isIncoming}}
+	                                        <td class="sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
+	                                    {{/}}
+										<td class="message">
+											{{#.message}}{{.message}}{{/}}
+											{{^.message}}<span class="dimmed">{{texts.dashboard.transactions.noMessage}}</span>{{/}}
+										</td>
+										<td class="encrypted">
+											{{#.encrypted}}
+												<span class="icon-lock" title="{{texts.dashboard.transactions.encrypted}}" on-mouseover="registerToolTip"></span>
+											{{/}}
+										</td>
+										<td class="details" on-click="viewTransaction:{{.}}">{{texts.dashboard.transactions.view}}</td>
+										<td class="confirmations">
+											{{^.confirmed}}{{texts.dashboard.transactions.pending}}{{/}}
+											{{#.confirmed}}{{.confirmations}}{{/}}
+										</td>
+	                                    <td class="fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+	                                    <td class="amount">
+		                                    {{#.isSelf}}&plusmn;{{/}}<!--
+		                                    -->{{#.isOutgoing}}-{{/}}<!--
+		                                    -->{{#.isIncoming}}+{{/}}<!--
+		                                    -->{{{formattedAmount}}}
+	                                    </td>
+									</tr>
+								{{/}}
+							{{/}}
+						</table>
+						{{#activeAccount.transactions.length > 4 }}
+							<p class="see-all"><a href="javascript:;" on-click="redirect:'transactions'">{{.transactions.seeAll}} <span class="arrow icon-arrow-right"></span></a></p>
+						{{/}}
+						{{^activeAccount.transactions}}
+							<p class="no-transactions">{{.transactions.noTransactions}}</p>
+						{{/}}
+					</article>
+					<div class="dragger"></div>
+				</li>
+				<li class="tile nem-value" data-row="4" data-col="1" data-sizex="2" data-sizey="2">
+					<article>
+						<h1 class="main-title">{{.nemValue.title}}</h1>
+						<!--/*<p class="value">
+							4,158,666,000
+							<select id="nem-value-unit-chooser" class="unit">
+								<option value="btc">BTC</option>
+								<option value="usd">USD</option>
+								<option value="eur">EUR</option>
+							</select>
+							<span class="variation">
+								<span class="amount">15%</span>
+								<span class="arrow icon-arrow-down"></span>
+							</span>
+						</p>
+						<div id="nem-value-chart"></div>*/-->
+						<p class="not-available whole">{{.notAvailable}}</p>
+					</article>
+					<div class="dragger"></div>
+				</li>
+				<!--/*<li class="tile balance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
+					<article>
+						<h1>Your balance</h1>
+						<div>
+							<div class="last-month">
+								<p>Last month</p>
+								<p class="not-available">{{.notAvailable}}</p>
+								/*<p class="number">50,000,000 <span class="unit">NEM</span></p>*/
+							</div>
+							<div class="current">
+								<p>
+									/*<span class="variation">
+										<span class="arrow icon-arrow-up"></span>
+										<span class="amount">3%</span>
+									</span>*/
+									{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></p>
+							</div>
+						</div>
+					</article>
+					<div class="dragger"></div>
+				</li>*/-->
+				<li class="tile messages" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
+					<article>
+						<h1 class="icon-envelope main-title" title="{{.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>
+						<!--/*<div class="message-preview">
+							<div class="viewport">
+								<ul class="overview">
+									<li>
+										<article class="message">
+											<p>
+												&#8220;Are you willing to send me 1 coin in advance for the party tomorrow&#8221;
+												<a class="read-more" href="javascripts:;">Read more</a>
+											</p>
+											<footer>
+												<a href="account" class="sender">
+													<span>@Johny</span>
+													<img src="assets/ava_1.png" alt="Willy Tran" />
+												</a>
+											</footer>
+										</article>
+									</li>
+									<li>
+										<article class="message">
+											<p>
+												&#8220;Are you willing to send me 1 coin in advance for the party tomorrow&#8221;
+											</p>
+											<footer>
+												<a href="account" class="sender">
+													<span>@William Cuong</span>
+													<img src="assets/ava_1.png" alt="Willy Tran" />
+												</a>
+											</footer>
+										</article>
+									</li>
+									<li>
+										<article class="message">
+											<p>
+												&#8220;Are you willing to send me 1 coin in advance for the party tomorrow&#8221;
+											</p>
+											<footer>
+												<a href="account" class="sender">
+													<span>@Loi</span>
+													<img src="assets/ava_1.png" alt="Willy Tran" />
+												</a>
+											</footer>
+										</article>
+									</li>
+								</ul>
+							</div>
+							<ul class="bullets">
+								<li><a href="javascript:;" class="bullet" data-slide="0"></a></li>
+								<li><a href="javascript:;" class="bullet" data-slide="1"></a></li>
+								<li><a href="javascript:;" class="bullet" data-slide="2"></a></li>
+							</ul>
+						</div>*/-->
+						<p class="not-available whole">{{.notAvailable}}</p>
+					</article>
+					<div class="dragger"></div>
+				</li>
+				<!--/*<li class="tile apps" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
+					<article>
+						<h1 class="main-title">NEM applications</h1>
+						<div class="scrollable">
+							<ul>
+								<li>
+									<article class="app">
+										<div class="app-icon">
+											<a href="app"><img src="assets/appicon_1.png" alt="App name"></a>
+										</div>
+										<div class="app-info">
+											<a href="app"><h1 title="App Name Goes Here">App Name Goes Here</h1></a>
+											<p class="vendor-name">Vendor Name</p>
+										</div>
+										<div class="delete-button">
+											<a class="icon-trash" href="javascript:;"></a>
+										</div>
+									</article>
+								</li>
+								<li>
+									<article class="app">
+										<div class="app-icon">
+											<a href="app"><img src="assets/appicon_1.png" alt="App name"></a>
+										</div>
+										<div class="app-info">
+											<a href="app"><h1 title="App Name Goes Here">App Name Goes Here</h1></a>
+											<p class="vendor-name">Vendor Name</p>
+										</div>
+										<div class="delete-button">
+											<a class="icon-trash" href="javascript:;"></a>
+										</div>
+									</article>
+								</li>
+								<li>
+									<article class="app">
+										<div class="app-icon">
+											<a href="app"><img src="assets/appicon_1.png" alt="App name"></a>
+										</div>
+										<div class="app-info">
+											<a href="app"><h1 title="App Name Goes Here">App Name Goes Here</h1></a>
+											<p class="vendor-name">Vendor Name</p>
+										</div>
+										<div class="delete-button">
+											<a class="icon-trash" href="javascript:;"></a>
+										</div>
+									</article>
+								</li>
+							</ul>
+						</div>
+						<p class="not-available whole">{{.notAvailable}}</p>
+					</article>
+					<div class="dragger"></div>
+				</li>*/-->
+				<li class="tile news" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
+					<article>
+						<h1 class="icon-sound main-title" title="{{.news.titleTooltip}}" on-mouseover="registerToolTip"></h1>
+						<!--/*<div class="news-preview">
+							<div class="viewport">
+								<ul class="overview">
+									<li>
+										<article class="news-article">
+											<h1>Beta release 1</h1>
+											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porttitor urna ut justo sagittis ornare. Aliquam ... <a class="read-more" href="javascripts:;">Read more</a></p>
+										</article>
+									</li>
+									<li>
+										<article class="news-article">
+											<h1>Some News 2</h1>
+											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porttitor urna</p>
+										</article>
+									</li>
+									<li>
+										<article class="news-article">
+											<h1>Count to 3</h1>
+											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porttitor urna ut justo sagittis ornare. Aliquam... <a class="read-more" href="javascripts:;">Read more</a></p>
+										</article>
+									</li>
+								</ul>
+							</div>
+							<ul class="bullets">
+								<li><a href="javascript:;" class="bullet" data-slide="0"></a></li>
+								<li><a href="javascript:;" class="bullet" data-slide="1"></a></li>
+								<li><a href="javascript:;" class="bullet" data-slide="2"></a></li>
+							</ul>
+						</div>*/-->
+						<p class="not-available whole">{{.notAvailable}}</p>
+					</article>
+					<div class="dragger"></div>
+				</li>
+				<!--/*<li class="tile send" data-row="3" data-col="1" data-sizex="1" data-sizey="3">
+					<article>
+						<h1 class="main-title">Send NEM</h1>
+						<div class="content">
+							<div class="form-control amount">
+								<input type="text" placeholder="Amount" value="{{sendTransactionForm.amount}}" on-change={{formInputChange}} /><span class="unit">NEM</span>
+							</div>
+							<input type="text" placeholder="Recipient's account" class="recipient form-control" />
+							<textarea placeholder="Message" class="form-control" value="{{sendTransactionForm.message}}"></textarea>
+							<div class="form-control fee">
+								<label>Fee</label><input value="{{sendTransactionForm.fee}}" /><span class="unit">NEM</span>
+							</div>
+							<a href="javascript:;" class="set-fee" on-click="resetFee">Reset to minimum fee</a>
+							<div class="form-control due-by">
+								<label>Due by (hours)</label><input value="{{sendTransactionForm.dueBy}}" min="0" />
+							</div>
+							<input type="password" placeholder="Password" class="form-control" value="{{sendTransactionForm.password}}" on-keypress="sendFormKeypress" />
+							<div class="submit">
+								<button type="button" on-click="sendTransaction">Send</button>
+							</div>
+						</div>
+					</article>
+					<div class="dragger"></div>
+				</li>*/-->
+			</ul>
+		</div>
+	</main>
+{{/}}

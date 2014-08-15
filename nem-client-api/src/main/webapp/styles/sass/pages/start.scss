@@ -1,0 +1,84 @@
+@import 'compass';
+@import '../config';
+@import '../mixins';
+
+main.start {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	font-size: 16px;
+	color: #333333;
+	overflow: auto;
+
+	.container {
+		width: 1020px;
+		height: 100%;
+		background: transparent url(../../images/start-bg.jpg) no-repeat center bottom;
+		background-size: contain;
+		overflow: auto;
+	}
+
+	.logo {
+		margin-top: 66px;
+	}
+
+	.title {
+		font-weight: $fontWeight-light;
+
+		strong {
+			font-weight: $fontWeight-bold;
+		}
+	}
+
+	.content {
+		margin-top: 130px;
+		font-weight: $fontWeight-medium;
+
+		.title {
+			font-size: 39px;
+			margin-bottom: 22px;
+		}
+	}
+
+	.buttons {
+		margin-top: 130px;
+	}
+
+	.launch-btn {
+		display: inline-block;
+		background-color: #d1d1d1;
+		color: #fff;
+		@include border-radius(4px);
+		font-weight: $fontWeight-medium;
+		font-size: 9px;
+		text-transform: uppercase;
+		padding: 14px 27px 13px;
+		position: relative;
+		@include transition-property(background-color, color);
+		@include transition-duration(.3s);
+
+		.title {
+			font-size: 17px;
+			margin-bottom: 2px;
+		}
+
+		&:hover {
+			background-color: #41ce7d;
+		}
+
+		& > a {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			& > img {
+				display: none;
+			}
+		}
+	}
+}

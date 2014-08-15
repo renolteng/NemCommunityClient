@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="7.0+" href="$outputFile" codebase="$nem-code-base" version="$project.version">
+  <information>
+    <title>NEM Community Client</title>
+    <vendor>NEM Community</vendor>
+    <homepage href="http://www.ournem.com"/>
+    <description>NEM Community Client, everything you need to communicate with the NEM Cloud.</description>
+    <description kind="short">NEM Community Client (NCC)</description>
+    <description kind="one-line">Your NEM Wallet.</description>
+    <description kind="tooltip">Start participating in NEM.</description>
+    <icon href="images/desktop_64x64.png"/>
+    <icon kind="shortcut" href="images/desktop_32x32.png"/>
+    <icon kind="splash" href="images/splash_screen.png"/>
+    <shortcut online="true" install="true">
+      <desktop/>
+      <menu submenu="NEM"/>
+    </shortcut>
+  </information>
+  <security>
+      <all-permissions/>
+  </security>
+  <update check="always" policy="always"></update>
+  <resources>
+    <java version="1.8+" java-vm-args="-esa -Xnoclassgc"/>
+    $dependencies
+<!-- Progress Bar add download="progress" -->
+</resources>
+  <application-desc main-class="$mainClass" progress-class="org.nem.client.download.SplashProgressBar">
+     <argument>-nis_jnlp</argument>
+     <argument>${nem-code-base}/nem-server.jnlp</argument>
+  </application-desc>
+</jnlp> 

@@ -1,0 +1,203 @@
+<header id="scroll-header" class="{{#active.scrollHeader}}in{{/}}">
+	<a href="" class="logo"><h1><img src="images/nem_logo.png" alt="NEM - New economy movement"></h1></a>
+	<nav>
+		<ul>
+			<li>
+				<a href="javascript:;" on-click="scrollTo:'#getting-started'">{{{texts.landing.nav.start}}}</a>
+			</li>
+			<li>
+				<a href="javascript:;" on-click="scrollTo:'#about'">{{{texts.landing.nav.about}}}</a>
+			</li>
+			<li>
+				<a href="javascript:;"><strong>{{{texts.landing.nav.help}}}</strong></a>
+			</li>
+		</ul>
+	</nav>
+</header>
+<main class="{{#active.gateClosed}}closed{{/}} {{#active.overlayIn}}in{{/}} {{#active.hexagon}}hex{{/}} {{active.landingRegion}}">
+	<div id="getting-started">
+		<div id="bg-slideshow">
+		</div>
+		<div id="sliding-gate">
+			<svg viewBox="0 0 1600 706">
+				<defs>
+					<mask id="mask">
+						<rect x="0" y="0" width="100%" height="100%" fill="#fff" />
+						<path id="hexagon" d="m777.0423,414.43436c-4.30273,0 -9.5863,-3.04678 -11.74127,-6.77118l-15.14606,-26.17484c-2.15497,-3.72437 -2.15497,-9.81796 0,-13.54233l15.14606,-26.17484c2.15497,-3.7244 7.43854,-6.77118 11.74127,-6.77118l30.31744,0c4.30267,0 9.58624,3.04678 11.74121,6.77118l15.14606,26.17484c2.15497,3.72437 2.15497,9.81796 0,13.54233l-15.14606,26.17484c-2.15497,3.7244 -7.43854,6.77118 -11.74121,6.77118l-30.31744,0z" fill="#000" />
+					</mask>
+				</defs>
+				<g mask="url(#mask)">
+					<rect id="left-half" x="0" y="0" width="956" height="100%" fill="#33c56d" fill-opacity=".66" />
+					<rect id="right-half" x="962" y="0" width="1278" height="100%" fill="#e6801d" fill-opacity=".66" />
+				</g>
+				<text id="or" x="770" y="386" fill="#3b3b3b">OR</text>
+			</svg>
+			<div class="iefix">
+				<div class="left-half"></div>
+				<div class="right-half"></div>
+			</div>
+		</div>
+		<div id="overlay-content">
+			<div class="cta-area">
+				<section class="left region {{#active.landingRegion === 'left'}}active{{/}}">
+					<h1>{{{texts.landing.main.leftTitle}}}</h1>
+					<button class="cta" id="btn-create-wallet" on-click="switchLeft">{{texts.landing.main.leftButton}}</button>
+					<div class="form expandable" id="create-wallet-ractive">
+						<div class="content">
+							<div class="custom-input">
+								<input type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{createdWallet.wallet}}" on-keypress="createWalletKeypress" />
+								<div class="underline"></div>
+							</div>
+							<div class="custom-input">
+								<input type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{createdWallet.password}}" on-keypress="createWalletKeypress" />
+								<div class="underline"></div>
+							</div>
+							<div class="submit">
+								<div class="loader {{#status.creatingWallet}}loading{{/}}">
+									<div class="loader-container">
+									    <span class="loader-quarter quarter-1"></span>
+									    <span class="loader-quarter quarter-2"></span>
+									    <span class="loader-quarter quarter-3"></span>
+									    <span class="loader-quarter quarter-4"></span>
+								    </div>
+								</div>
+								<input type="submit" value="{{texts.landing.main.create}}" on-click="createWallet" disabled="{{status.creatingWallet}}" />
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="right region {{#active.landingRegion === 'right'}}active{{/}}">
+					<h1>{{{texts.landing.main.rightTitle}}}</h1>
+					<button class="cta" id="btn-import-wallet" on-click="switchRight">{{texts.landing.main.rightButton}}</button>
+					<div class="form expandable">
+						<div class="content">
+							<p class="headline">
+								{{{fill(texts.landing.main.walletsFound, wallets.length || 0)}}}
+								<span class="loader {{# status.listingWallets || status.openingWallet}}loading{{/}}">
+									<span class="loader-container">
+									    <span class="loader-quarter quarter-1"></span>
+									    <span class="loader-quarter quarter-2"></span>
+									    <span class="loader-quarter quarter-3"></span>
+									    <span class="loader-quarter quarter-4"></span>
+								    </span>
+								</span>
+							</p>
+							<div class="wallets scrollable">
+								<ul>
+									{{#wallets:i}}
+										<li>
+											<input id="wallet-{{i}}" name="wallet-choice" type="radio" />
+											<label for="wallet-{{i}}" class="wallet" on-click="walletSelected">{{wallet}}</label>
+											<div class="password-prompt">
+												<input type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{inputPassword[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}" /><input type="button" class="red-button" on-click="openWallet:{{.wallet}}" value="{{texts.landing.main.openButton}}" />
+											</div>
+										</li>
+									{{/wallets}}
+								</ul>
+								<!--/*<p class="horizontal-separator"><span class="content">or</span></p>
+								<button type="button" class="red-button import-btn" on-click="selectFile:fileToImport">Import your wallet</button>
+								<div class="hider">
+									<input type="file" id="fileToImport" on-change="fileToImportSelected" />
+								</div>
+								{{#fileToImport}}
+									<p class="imported-file">{{.import_path}}</p>
+									<div class="password-prompt">
+										<input type="password" placeholder="Password" value="{{.password}}" on-keypress="importKeypress" /><input type="button" class="red-button" on-click="importWallet" value="Import" />
+									</div>
+								{{/}}*/-->
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div id="static-header">
+				<a href="" class="logo"><img src="images/nem_logo.png" alt="NEM - New economy movement"></a>
+				<nav>
+					<ul>
+						<li>
+							<a href="javascript:;" on-click="scrollTo:'#getting-started'">{{{texts.landing.nav.start}}}</a>
+						</li>
+						<li>
+							<a href="javascript:;" on-click="scrollTo:'#about'">{{{texts.landing.nav.about}}}</a>
+						</li>
+						<li>
+							<a href="javascript:;">{{{texts.landing.nav.help}}}</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<p class="copyright">{{{texts.landing.main.copyright}}}</p>
+		</div>
+	</div>
+	<div id="tips-carousel">
+		<div class="container">
+			<a href="javascript:;" class="buttons prev icon-arrow-left"></a>
+			<div class="viewport">
+				{{#texts.landing.carousel}}
+					<ul class="overview">
+						<li>
+							<article>
+								<h1><span>{{.items.0.title}}</span></h1>
+								<p><span>{{{.items.0.description}}}</span></p>
+							</article>
+						</li>
+						<li>
+							<article>
+								<h1><span>{{.items.1.title}}</span></h1>
+								<p><span>{{{.items.1.description}}}</span></p>
+							</article>
+						</li>
+					</ul>
+				{{/}}
+			</div>
+			<a href="javascript:;" class="buttons next icon-arrow-right"></a>
+		</div>
+	</div>
+	<section id="about">
+		{{#texts.landing.about}}
+			<div class="content">
+				{{#.sections.0}}
+					<section class="how-ncc-works">
+						<h1>{{.title}}</h1>
+						<p>{{{.paragraphs.0}}}</p>
+						<mark>
+							<ul>
+								<li><span>{{{.listItems.0}}}</span></li>
+								<li><span>{{{.listItems.1}}}</span></li>
+							</ul>
+						</mark>
+						<p>{{{.paragraphs.1}}}</p>
+						<p>{{{.paragraphs.2}}}</p>
+					</section>
+				{{/}}
+				{{#.sections.1}}
+					<section class="what-is-nis">
+						<h1>{{{.title}}}</h1>
+						<p>{{{.paragraphs.0}}}</p>
+						<p>{{{.paragraphs.1}}}.</p>
+						<p>{{{.paragraphs.2}}}</p>
+						<br />
+						<p class="legend"><mark>{{{.legend}}}</mark></p>
+					</section>
+				{{/}}
+			</div>
+		{{/}}
+	</section>
+</main>
+<footer>
+	<div class="container">
+		<div class="left">
+			<p>{{{texts.landing.footer.copyright}}}</p>
+		</div>
+		<div class="right">
+			<div class="vmiddle-container">
+				<div class="social-links vmiddle">
+					<a href="https://plus.google.com/111473125648226690421/about" class="icon google-plus"></a>
+					<a href="https://www.facebook.com/ourNEM" class="icon facebook"></a>
+					<a href="https://twitter.com/nemcoin" class="icon twitter"></a>
+					<a href="http://www.reddit.com/r/nem/" class="icon reddit"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

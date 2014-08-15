@@ -1,0 +1,83 @@
+@import 'compass';
+@import '../config';
+@import '../mixins';
+
+#settings-page {
+	margin-top: 25px;
+	margin-bottom: 36px;
+	background-color: #fff;
+	border-top: 8px solid #5b5b5b;
+	color: #444444;
+	font-size: 13px;
+
+	.head {
+		border-bottom: 1px solid #aeaeae;
+		padding: 34px 30px 16px 44px;
+
+		h1 {
+			font-size: 28px;
+			font-weight: $fontWeight-bold;
+			color: #5b5b5b;
+			text-transform: uppercase;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+
+	.body {
+		padding: 0 30px 0 44px;
+		background: transparent url(../../images/world-map.png) no-repeat center -20px;
+		min-height: 600px;
+	}
+
+	.setting-options {
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	section.setting {
+		$settingName-width: 150px;
+		@extend %clearfix;
+
+		.setting-name {
+			float: left;
+			width: $settingName-width;
+
+			h1 {
+				font-size: inherit;
+			}
+		}
+
+		.setting-controls {
+			float: left;
+			font-weight: $fontWeight-bold;
+
+			input.language {
+				& + label {
+					cursor: pointer;
+				}
+
+				&:checked + label {
+					font-weight: $fontWeight-black;
+					color: #3498db;
+				}
+			}
+		}
+	}
+
+	.buttons {
+		padding-top: 10px;
+		padding-bottom: 30px;
+
+		button {
+			background-color: #5b5b5b;
+			color: #fff;
+			font-weight: $fontWeight-medium;
+			padding: 7px 12px;
+
+			&:hover {
+				background-color: lighten(#5b5b5b, 10%);
+			}
+		}
+	}
+}
