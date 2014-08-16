@@ -37,11 +37,11 @@ define({
 	        	nisStatus: {
 	        		unavailable: 'NIS is nicht verfügbar',
 	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popupdialoges.',
-	        		synchronizing: 'NIS synchronisiert. Block {{1}}, etwa. {{2}} Tage im Rückstand.',
+	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
                     daysBehind: {
                         0: 'weniger als 1 Tag',
-                        1: '1 Tag',
-                        many: '{{1}} Tage'
+                        1: 'etwa 1 Tag',
+                        many: 'etwa {{1}} Tage'
                     }
 	        	}
         },
