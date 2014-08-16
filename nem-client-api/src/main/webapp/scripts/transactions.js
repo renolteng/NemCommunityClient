@@ -38,7 +38,7 @@
 				ncc.loadTransactions(true);
 			}));
 
-			local.txesUpdate = setInterval(function() {
+			local.intervalJobs.push(setInterval(function() {
 				var api = ncc.get('transactions.filter');
 				var currAccount = ncc.get('activeAccount.address');
 				var currTxes = ncc.get('transactions.filtered');
@@ -49,7 +49,7 @@
                         return obj.hash;
                     }));
                 }, null, true);
-			}, local.autoRefreshInterval);
+			}, local.autoRefreshInterval));
 
 			var $win = $(window);
 			var $doc = $(document);
@@ -61,7 +61,6 @@
     	},
     	leave: [function() {
     		$(window).off('scroll.txesInfiniteScrolling');
-    		clearInterval(this.local.txesUpdate);
     	}]
     });
 });

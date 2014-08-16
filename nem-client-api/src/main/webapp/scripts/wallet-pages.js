@@ -754,7 +754,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 dueBy: 12
             });
 
-            local.accountUpdate = setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval);
+            local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             if (!ncc.get('status.nodeBooted')) {
                 var success = false;
@@ -777,7 +777,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             }
         },
         leave: [function() {
-            clearInterval(this.local.accountUpdate);
             ncc.set({
                 wallet: null,
                 activeAccount: null,
