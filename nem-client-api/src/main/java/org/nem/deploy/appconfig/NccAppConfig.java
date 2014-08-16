@@ -1,5 +1,6 @@
 package org.nem.deploy.appconfig;
 
+import org.apache.commons.cli.Option;
 import org.nem.core.connect.*;
 import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
@@ -161,6 +162,14 @@ public class NccAppConfig {
 	@Bean
 	public NemConfigurationPolicy configurationPolicy() {
 		return new NccConfigurationPolicy();
+	}
+
+	@Bean
+	public NemCommandLine nemCommandLine() {
+		return new NemCommandLine(Arrays.asList(
+				new Option(CommonConfiguration.NEM_FOLDER, true, CommonConfiguration.NEM_FOLDER_DESCRIPTION),
+				new Option(CommonConfiguration.WEBSTART, true, CommonConfiguration.WEBSTART_DESCRIPTION),
+				new Option(CommonConfiguration.NIS_JNLP_URL, true, CommonConfiguration.NIS_JNLP_URL_DESCRIPTION)));
 	}
 
 	private File getNemFolder() {
