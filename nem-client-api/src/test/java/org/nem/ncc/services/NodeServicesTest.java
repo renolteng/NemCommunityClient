@@ -7,7 +7,7 @@ import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.node.*;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.time.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
@@ -133,7 +133,7 @@ public class NodeServicesTest {
 	}
 
 	private static class TestContext {
-		final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		final AsyncNisConnector connector = Mockito.mock(AsyncNisConnector.class);
 		final NodeServices services = new NodeServices(this.connector);
 
 		private void setNodeInfoForNode(final Node node, final CompletableFuture<Deserializer> future) {

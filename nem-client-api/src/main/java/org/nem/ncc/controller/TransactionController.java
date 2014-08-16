@@ -4,7 +4,7 @@ import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.crypto.Signer;
 import org.nem.core.model.*;
 import org.nem.core.serialization.BinarySerializer;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.FeeViewModel;
 import org.nem.ncc.model.NisApiId;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TransactionController {
 	private final TransactionMapper transactionMapper;
-	private final SimpleNisConnector nisConnector;
+	private final PrimaryNisConnector nisConnector;
 
 	/**
 	 * Creates a new transaction controller.
@@ -29,7 +29,7 @@ public class TransactionController {
 	@Autowired(required = true)
 	public TransactionController(
 			final TransactionMapper transactionMapper,
-			final SimpleNisConnector nisConnector) {
+			final PrimaryNisConnector nisConnector) {
 		this.transactionMapper = transactionMapper;
 		this.nisConnector = nisConnector;
 	}

@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.nem.core.connect.FatalPeerException;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.model.NisApiId;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +27,7 @@ public class ServicesUtils {
 	 */
 	public static void assertSuccessfulDelegationToConnector(
 			final Function<NodeEndpoint, SerializableEntity> action,
-			final SimpleNisConnector connector,
+			final AsyncNisConnector connector,
 			final NisApiId apiId,
 			final SerializableEntity entity) {
 		// Arrange:
@@ -52,7 +52,7 @@ public class ServicesUtils {
 	 */
 	public static void assertFailureDelegationToConnector(
 			final Function<NodeEndpoint, SerializableEntity> action,
-			final SimpleNisConnector connector,
+			final AsyncNisConnector connector,
 			final NisApiId apiId) {
 		// Arrange:
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.0.0.4");
@@ -66,5 +66,21 @@ public class ServicesUtils {
 
 		// Assert:
 		Mockito.verify(connector, Mockito.times(1)).getAsync(endpoint, apiId, null);
+	}
+
+	/**
+	 * Sets up forwarding so that connector.forward executes the function parameter.
+	 *
+	 * @param connector The connector.
+	 * @param endpoint The endpoint to which requests should be forwarded.
+	 */
+	@SuppressWarnings("unchecked")
+	public static void setupForwarding(final PrimaryNisConnector connector, final NodeEndpoint endpoint) {
+		// Arrange:
+		Mockito.when(connector.forward(Mockito.any())).then(invocationOnMock -> {
+			final Function funcArgument = (Function)invocationOnMock.getArguments()[0];
+			final CompletableFuture<?> future = (CompletableFuture<?>)funcArgument.apply(endpoint);
+			return future.get();
+		});
 	}
 }

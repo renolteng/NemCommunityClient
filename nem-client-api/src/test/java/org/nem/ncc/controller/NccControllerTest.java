@@ -8,12 +8,12 @@ import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.node.*;
 import org.nem.core.time.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.model.*;
 import org.nem.ncc.services.*;
-import org.nem.ncc.test.ExceptionAssert;
+import org.nem.ncc.test.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -87,11 +87,11 @@ public class NccControllerTest {
 		final NisInfoViewModel viewModel = createNisInfoViewModel(nodeIdentity);
 
 		final NisNodeInfo originalInfo = viewModel.getNodeInfo();
-		Mockito.when(context.nodeServices.getNisNodeInfoAsync(NodeEndpoint.fromHost("localhost")))
+		Mockito.when(context.nodeServices.getNisNodeInfoAsync(context.nisEndpoint))
 				.thenReturn(CompletableFuture.completedFuture(originalInfo));
 
 		final NisNodeMetaData originalMetaData = viewModel.getNodeMetaData();
-		Mockito.when(context.chainServices.getNodeMetaDataAsync(NodeEndpoint.fromHost("localhost")))
+		Mockito.when(context.chainServices.getNodeMetaDataAsync(context.nisEndpoint))
 				.thenReturn(CompletableFuture.completedFuture(originalMetaData));
 	}
 
@@ -140,9 +140,10 @@ public class NccControllerTest {
 	//endregion
 
 	private static class TestContext {
+		private final NodeEndpoint nisEndpoint = NodeEndpoint.fromHost("10.0.0.99");
 		private final ApplicationMetaData metaData;
 		private final Configuration configuration;
-		private final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 		private final NccController controller;
 		private final ChainServices chainServices = Mockito.mock(ChainServices.class);
 		private final NodeServices nodeServices = Mockito.mock(NodeServices.class);
@@ -159,6 +160,8 @@ public class NccControllerTest {
 					this.connector,
 					this.chainServices,
 					this.nodeServices);
+
+			ServicesUtils.setupForwarding(this.connector, this.nisEndpoint);
 		}
 	}
 }

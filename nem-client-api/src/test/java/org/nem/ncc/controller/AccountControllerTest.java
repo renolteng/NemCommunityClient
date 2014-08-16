@@ -12,12 +12,12 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.time.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.*;
-import org.nem.ncc.test.Utils;
+import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 
 import java.util.*;
@@ -375,11 +375,12 @@ public class AccountControllerTest {
 	}
 
 	private static class TestContext {
+		private final NodeEndpoint nisEndpoint = NodeEndpoint.fromHost("10.0.0.99");
 		private final AccountServices accountServices = Mockito.mock(AccountServices.class);
 		private final AccountMapper accountMapper = Mockito.mock(AccountMapper.class);
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
 		private final ChainServices chainServices = Mockito.mock(ChainServices.class);
-		private final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 
 		private final AccountController controller = new AccountController(
 				this.accountServices,
@@ -390,10 +391,11 @@ public class AccountControllerTest {
 
 		private TestContext() {
 			this.setLastBlockHeight(1);
+			ServicesUtils.setupForwarding(this.connector, this.nisEndpoint);
 		}
 
 		private void setLastBlockHeight(final int height) {
-			Mockito.when(this.chainServices.getLastBlockHeightAsync(NodeEndpoint.fromHost("localhost")))
+			Mockito.when(this.chainServices.getLastBlockHeightAsync(this.nisEndpoint))
 					.thenReturn(CompletableFuture.completedFuture(new BlockHeight(height)));
 		}
 	}

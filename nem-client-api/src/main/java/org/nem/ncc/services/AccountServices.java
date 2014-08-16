@@ -5,7 +5,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.time.TimeInstant;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.model.NisApiId;
 
 import java.util.List;
@@ -14,14 +14,14 @@ import java.util.List;
  * This class provides higher-level functions around accessing accounts.
  */
 public class AccountServices {
-	private final SimpleNisConnector nisConnector;
+	private final PrimaryNisConnector nisConnector;
 
 	/**
 	 * Creates new account services.
 	 *
 	 * @param nisConnector The NIS connector.
 	 */
-	public AccountServices(final SimpleNisConnector nisConnector) {
+	public AccountServices(final PrimaryNisConnector nisConnector) {
 		this.nisConnector = nisConnector;
 	}
 

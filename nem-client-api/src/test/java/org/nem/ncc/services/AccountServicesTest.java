@@ -9,7 +9,7 @@ import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
@@ -220,7 +220,7 @@ public class AccountServicesTest {
 	}
 
 	private static class TestContext {
-		private final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 
 		private final AccountServices services = new AccountServices(this.connector);
 	}
