@@ -539,16 +539,7 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
             var currentAccount = this.get('activeAccount.address');
 
             if (account.transactions) {
-                this.processTransactions(account.transactions, account.address);
-                var updatedTxes = account.transactions;
-
-                if (account.address !== currentAccount) {
-                    this.set('transactions.gotAll', updatedTxes.length < this.consts.txesPerPage);
-                } else {
-                    account.transactions = this.updateNewer(updatedTxes, this.get('activeAccount.transactions'), function(obj) {
-                        return obj.hash;
-                    });
-                }
+            	account.transactions = this.processTransactions(account.transactions);
             }
 
             return account;
@@ -730,16 +721,6 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
             this.set('daysPassed', this.daysPassed);
             this.set('toNem', this.toNem);
             var self = this;
-
-            require(['languages'], function(languages) {
-                self.observe('settings.language', function(newValue, oldValue, keypath) {
-                    for (var i = 0; i < languages.length; i++) {
-                        if (languages[i].id === newValue) {
-                            this.set('texts', languages[i].texts);
-                        }
-                    }
-                });
-            });
         }
     });
 

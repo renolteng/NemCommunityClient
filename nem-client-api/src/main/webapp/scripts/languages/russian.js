@@ -349,10 +349,10 @@
                                        sendNem: 'Послать NEM',
                                        balance: 'Текущий Баланс',
                                        filters: {
-                                                   all: 'Все Транзакции',
-                                                   pending: 'В ожидании',
-                                                   incoming: 'Входящие',
-                                                   outgoing: 'Исходящие',
+													confirmed: 'Confirmed',
+													unconfirmed: 'Unconfirmed',
+                                                   	incoming: 'Входящие',
+                                                   	outgoing: 'Исходящие',
                                        },
                                        table: {
                                                    columns: [

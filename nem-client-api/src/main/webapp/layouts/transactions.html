@@ -14,19 +14,19 @@
 					<div class="filter-bar">
 						<ul class="filter">
 							<li>
-								<input type="radio" class="hidden" id="rad-transaction-filter-all" name="{{transactions.filter}}" value="all" checked />
-								<label for="rad-transaction-filter-all">{{.filters.all}}</label>
+                                <input type="radio" class="hidden" id="rad-transaction-filter-all" name="{{transactions.filter}}" value="account/transactions/all" checked />
+                                <label for="rad-transaction-filter-all">{{.filters.confirmed}}</label>
 							</li>
 							<li>
-								<input type="radio" class="hidden" id="rad-transaction-filter-pending" name="{{transactions.filter}}" value="pending" />
-								<label for="rad-transaction-filter-pending">{{.filters.pending}}</label>
+                                <input type="radio" class="hidden" id="rad-transaction-filter-pending" name="{{transactions.filter}}" value="account/transactions/unconfirmed" />
+                                <label for="rad-transaction-filter-pending">{{.filters.unconfirmed}}</label>
 							</li>
 							<li>
-								<input type="radio" class="hidden" id="rad-transaction-filter-incoming" name="{{transactions.filter}}" value="incoming" />
-								<label for="rad-transaction-filter-incoming">{{.filters.incoming}}</label>
+                                <input type="radio" class="hidden" id="rad-transaction-filter-incoming" name="{{transactions.filter}}" value="account/transactions/incoming" />
+                                <label for="rad-transaction-filter-incoming">{{.filters.incoming}}</label>
 							</li>
 							<li>
-								<input type="radio" class="hidden" id="rad-transaction-filter-outgoing" name="{{transactions.filter}}" value="outgoing" />
+                                <input type="radio" class="hidden" id="rad-transaction-filter-outgoing" name="{{transactions.filter}}" value="account/transactions/outgoing" />
 								<label for="rad-transaction-filter-outgoing">{{.filters.outgoing}}</label>
 							</li>
 						</ul>
