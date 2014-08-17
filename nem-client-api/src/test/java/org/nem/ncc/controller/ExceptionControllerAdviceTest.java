@@ -62,33 +62,6 @@ public class ExceptionControllerAdviceTest {
 	}
 
 	@Test
-	public void handleCompletionExceptionCreatesAppropriateResponse() {
-		// Arrange:
-		final ExceptionControllerAdvice advice = createAdvice();
-		final ErrorResponse response = new ErrorResponse(CURRENT_TIME, "network has not been booted yet", 500);
-		final ResponseEntity<ErrorResponse> entity = advice.handleCompletionException(new CompletionException(new NisException(response)));
-
-		// Assert:
-		Assert.assertThat(entity.getStatusCode(), IsEqual.equalTo(HttpStatus.BAD_REQUEST));
-		Assert.assertThat(entity.getBody().getTimeStamp(), IsEqual.equalTo(CURRENT_TIME));
-		Assert.assertThat(entity.getBody().getStatus(), IsEqual.equalTo(600));
-		Assert.assertThat(entity.getBody().getMessage(), IsEqual.equalTo("NODE_NOT_BOOTED"));
-	}
-
-	@Test
-	public void handleCompletionExceptionOtherExceptionCreatesAppropriateResponse() {
-		// Arrange:
-		final ExceptionControllerAdvice advice = createAdvice();
-		final ResponseEntity<ErrorResponse> entity = advice.handleCompletionException(new CompletionException(new Exception("badness")));
-
-		// Assert:
-		Assert.assertThat(entity.getStatusCode(), IsEqual.equalTo(HttpStatus.INTERNAL_SERVER_ERROR));
-		Assert.assertThat(entity.getBody().getTimeStamp(), IsEqual.equalTo(CURRENT_TIME));
-		Assert.assertThat(entity.getBody().getStatus(), IsEqual.equalTo(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-		Assert.assertThat(entity.getBody().getMessage(), IsEqual.equalTo("java.lang.Exception: badness"));
-	}
-
-	@Test
 	public void handleUnauthorizedAccessExceptionCreatesAppropriateResponse() {
 		// Arrange:
 		final ExceptionControllerAdvice advice = createAdvice();
