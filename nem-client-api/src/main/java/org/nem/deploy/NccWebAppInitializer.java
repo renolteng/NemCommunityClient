@@ -2,9 +2,10 @@ package org.nem.deploy;
 
 import org.nem.core.deploy.*;
 import org.nem.core.serialization.AccountLookup;
-import org.nem.ncc.controller.interceptors.AuditInterceptor;
+import org.nem.ncc.controller.interceptors.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -19,6 +20,9 @@ import java.util.List;
 public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 	@Autowired
 	private AccountLookup accountLookup;
+
+	@Autowired
+	org.nem.ncc.model.Configuration configuration;
 
 	private static void addConvertersForPolicy(
 			final List<HttpMessageConverter<?>> converters,
@@ -39,6 +43,7 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 	@Override
 	protected void addInterceptors(final InterceptorRegistry registry) {
 		registry.addInterceptor(new AuditInterceptor());
+		registry.addInterceptor(new LocalNisInterceptor(this.configuration));
 		super.addInterceptors(registry);
 	}
 }

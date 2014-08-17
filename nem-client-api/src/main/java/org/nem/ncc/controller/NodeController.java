@@ -4,6 +4,7 @@ import org.nem.core.connect.*;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
+import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.BootNodeRequest;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.WalletServices;
@@ -39,6 +40,7 @@ public class NodeController {
 	 * @param bootNode Information about the node to boot.
 	 */
 	@RequestMapping(value = "/node/boot", method = RequestMethod.POST)
+	@RequiresTrustedNis
 	public void bootNode(@RequestBody final BootNodeRequest bootNode) {
 		final Wallet wallet = this.walletServices.get(bootNode.getWalletName());
 		final PrivateKey privateKey = wallet.getAccountPrivateKey(bootNode.getAccountId());

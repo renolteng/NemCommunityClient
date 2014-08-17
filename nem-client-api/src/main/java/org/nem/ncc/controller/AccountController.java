@@ -7,6 +7,7 @@ import org.nem.core.model.ncc.HarvestInfo;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
+import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.model.NisApiId;
@@ -191,6 +192,7 @@ public class AccountController {
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/unlock", method = RequestMethod.POST)
+	@RequiresTrustedNis
 	public void unlock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
@@ -201,6 +203,7 @@ public class AccountController {
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/lock", method = RequestMethod.POST)
+	@RequiresTrustedNis
 	public void lock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
