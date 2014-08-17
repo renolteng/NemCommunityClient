@@ -84,10 +84,10 @@ public class ExceptionControllerAdvice {
 	public ResponseEntity<ErrorResponse> handleCompletionException(final CompletionException e) {
 		// TODO-CR: 20140817 J->T i think it would be more appropriate to fix this in an interceptor if possible
 		Throwable ex = e.getCause();
-		if(ex instanceof NisException) {
+		if (ex instanceof NisException) {
 			return this.handleNccException((NisException)ex);
 		}
-		
+
 		return this.createResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

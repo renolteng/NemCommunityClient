@@ -4,7 +4,7 @@ import net.minidev.json.*;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
-import org.nem.core.connect.*;
+import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.NisRequestResult;
@@ -106,7 +106,7 @@ public class TransactionControllerTest {
 		final JsonSerializer serializer = new JsonSerializer();
 		result.serialize(serializer);
 
-		return new JsonDeserializer(serializer.getObject(),	new DeserializationContext(accountLookup));
+		return new JsonDeserializer(serializer.getObject(), new DeserializationContext(accountLookup));
 	}
 
 	private static class TestContext {

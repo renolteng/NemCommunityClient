@@ -133,7 +133,7 @@ public class NisException extends NccException {
 	}
 
 	/**
- 	 * Creates a new NIS exception.
+	 * Creates a new NIS exception.
 	 *
 	 * @param result The result of a request to the NIS server.
 	 */

@@ -59,7 +59,6 @@ public class TransactionController {
 		if (result.isError()) {
 			throw new NisException(result);
 		}
-
 	}
 
 	/**
