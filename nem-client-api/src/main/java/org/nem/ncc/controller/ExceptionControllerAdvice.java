@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.ConnectException;
 import java.util.MissingResourceException;
+import java.util.concurrent.CompletionException;
 
 /**
  * ControllerAdvice-annotated class that maps thrown exceptions to JSON errors.
@@ -71,6 +72,22 @@ public class ExceptionControllerAdvice {
 	@ExceptionHandler(NccException.class)
 	public ResponseEntity<ErrorResponse> handleNccException(final NccException e) {
 		return this.createResponse(e.getCode());
+	}
+
+	/**
+	 * Handler for future completion exceptions.
+	 *
+	 * @param e The exception.
+	 * @return The appropriate JSON indicating an error.
+	 */
+	@ExceptionHandler(CompletionException.class)
+	public ResponseEntity<ErrorResponse> handleCompletionException(final CompletionException e) {
+		Throwable ex = e.getCause();
+		if(ex instanceof NisException) {
+			return this.handleNccException((NisException)ex);
+		}
+		
+		return this.createResponse(e, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	/**

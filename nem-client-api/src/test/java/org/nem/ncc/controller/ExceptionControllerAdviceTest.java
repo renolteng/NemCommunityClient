@@ -1,11 +1,14 @@
 package org.nem.ncc.controller;
 
+import java.util.concurrent.CompletionException;
+
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.connect.ErrorResponse;
 import org.nem.core.time.*;
 import org.nem.ncc.exceptions.NccException;
+import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.wallet.WalletException;
 import org.springframework.http.*;
 
@@ -57,6 +60,33 @@ public class ExceptionControllerAdviceTest {
 		Assert.assertThat(entity.getBody().getTimeStamp(), IsEqual.equalTo(CURRENT_TIME));
 		Assert.assertThat(entity.getBody().getStatus(), IsEqual.equalTo(code.value()));
 		Assert.assertThat(entity.getBody().getMessage(), IsEqual.equalTo("WALLET_ALREADY_CONTAINS_ACCOUNT"));
+	}
+
+	@Test
+	public void handleCompletionExceptionCreatesAppropriateResponse() {
+		// Arrange:
+		final ExceptionControllerAdvice advice = createAdvice();
+		final ErrorResponse response = new ErrorResponse(CURRENT_TIME, "network has not been booted yet", 500);
+		final ResponseEntity<ErrorResponse> entity = advice.handleCompletionException(new CompletionException(new NisException(response)));
+
+		// Assert:
+		Assert.assertThat(entity.getStatusCode(), IsEqual.equalTo(HttpStatus.BAD_REQUEST));
+		Assert.assertThat(entity.getBody().getTimeStamp(), IsEqual.equalTo(CURRENT_TIME));
+		Assert.assertThat(entity.getBody().getStatus(), IsEqual.equalTo(600));
+		Assert.assertThat(entity.getBody().getMessage(), IsEqual.equalTo("NODE_NOT_BOOTED"));
+	}
+
+	@Test
+	public void handleCompletionExceptionOtherExceptionCreatesAppropriateResponse() {
+		// Arrange:
+		final ExceptionControllerAdvice advice = createAdvice();
+		final ResponseEntity<ErrorResponse> entity = advice.handleCompletionException(new CompletionException(new Exception("badness")));
+
+		// Assert:
+		Assert.assertThat(entity.getStatusCode(), IsEqual.equalTo(HttpStatus.INTERNAL_SERVER_ERROR));
+		Assert.assertThat(entity.getBody().getTimeStamp(), IsEqual.equalTo(CURRENT_TIME));
+		Assert.assertThat(entity.getBody().getStatus(), IsEqual.equalTo(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+		Assert.assertThat(entity.getBody().getMessage(), IsEqual.equalTo("java.lang.Exception: badness"));
 	}
 
 	@Test

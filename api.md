@@ -14,7 +14,7 @@ Gets information about the NCC server.
 
 * Request Method: _GET_
 * Request: `-`
-* Response: [NisInfoViewModel](viewModel.md)
+* Response: [NisInfoViewModel](viewModel.md#nisinfoviewmodel)
 * Dependent from NIS: _No_
 
 ***
@@ -24,7 +24,7 @@ Gets information about the NIS server.
 
 * Request Method: _GET_
 * Request: `-`
-* Response: [NisInfoViewModel](viewModel.md)
+* Response: [NisInfoViewModel](viewModel.md#nisinfoviewmodel)
 * Dependent from NIS: _Yes_
 
 ***
@@ -35,6 +35,8 @@ Checks availability of NIS server.
 * Request Method: _GET_
 * Request: `-`
 * Response:
+
 ** 0 - NIS server is not running
 ** 1 - NIS server is running (but may not be booted)
+
 * Dependent from NIS: _Yes_
