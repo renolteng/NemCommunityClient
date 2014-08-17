@@ -17,7 +17,8 @@ public class AuditInterceptor extends HandlerInterceptorAdapter {
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Object handler) throws Exception {
-		LOGGER.info(String.format("entering %s [%s]", request.getServletPath(), request.getRemoteAddr()));
+		final AuditEntry entry = new AuditEntry(request);
+		LOGGER.info(String.format("entering %s [%s]", entry.path, entry.host));
 		return true;
 	}
 
@@ -28,10 +29,21 @@ public class AuditInterceptor extends HandlerInterceptorAdapter {
 			final Object handler,
 			final Exception ex)
 			throws Exception {
+		final AuditEntry entry = new AuditEntry(request);
 		if (null == ex) {
-			LOGGER.info(String.format("exiting %s [%s]", request.getServletPath(), request.getRemoteAddr()));
+			LOGGER.info(String.format("exiting %s [%s]", entry.path, entry.host));
 		} else {
-			LOGGER.severe(String.format("exiting %s [%s]: %s", request.getServletPath(), request.getRemoteAddr(), ex));
+			LOGGER.severe(String.format("exiting %s [%s]: %s", entry.path, entry.host, ex));
+		}
+	}
+
+	private static class AuditEntry {
+		private String host;
+		private String path;
+
+		private AuditEntry(final HttpServletRequest request) {
+			this.host = request.getRemoteAddr();
+			this.path = request.getRequestURI();
 		}
 	}
 }
