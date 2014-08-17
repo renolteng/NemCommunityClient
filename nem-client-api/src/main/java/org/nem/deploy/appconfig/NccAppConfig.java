@@ -42,8 +42,9 @@ public class NccAppConfig {
 
 	@Bean
 	public PrimaryNisConnector primaryNisConnector() {
-		// TODO: read primary nis endpoint from config
-		return new DefaultNisConnector(NodeEndpoint.fromHost("localhost"), this.cloudConnector());
+		return new DefaultNisConnector(
+				() -> this.configuration().getNisBootInfo().getRemoteEndpoint(),
+				this.cloudConnector());
 	}
 
 	private HttpMethodClient<ErrorResponseDeserializerUnion> httpMethodClient() {

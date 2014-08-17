@@ -246,7 +246,18 @@ public class DefaultNisConnectorTest {
 	private static class TestContext {
 		private final NodeEndpoint defaultEndpoint = NodeEndpoint.fromHost("10.0.0.11");
 		private final AsyncNisConnector asyncNisConnector = Mockito.mock(AsyncNisConnector.class);
-		private final DefaultNisConnector connector = new DefaultNisConnector(this.defaultEndpoint, this.asyncNisConnector);
+		private final DefaultNisConnector connector;
+
+		private TestContext() {
+			// Arrange: when creating the DefaultNisConnector, have the supplier return a different endpoint
+			// during its construction than after its construction; this validates against the constructor
+			// caching the endpoint
+			final int[] flags = new int[] { 0 };
+			this.connector = new DefaultNisConnector(
+					() -> 0 == flags[0] ? NodeEndpoint.fromHost("10.0.0.90") : this.defaultEndpoint,
+					this.asyncNisConnector);
+			flags[0] = 1;
+		}
 
 		private void setGetToken(final NisApiId apiId, final String query, final CompletableFuture<Deserializer> future) {
 			Mockito.when(this.asyncNisConnector.getAsync(this.defaultEndpoint, apiId, query)).thenReturn(future);

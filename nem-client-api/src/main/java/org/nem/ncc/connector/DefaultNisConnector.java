@@ -8,7 +8,7 @@ import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.model.NisApiId;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
+import java.util.function.*;
 import java.util.logging.Logger;
 
 /**
@@ -16,19 +16,19 @@ import java.util.logging.Logger;
  */
 public class DefaultNisConnector implements PrimaryNisConnector {
 	final private static Logger LOGGER = Logger.getLogger(DefaultNisConnector.class.getName());
-	private final NodeEndpoint defaultEndpoint;
+	private final Supplier<NodeEndpoint> defaultEndpointSupplier;
 	private final AsyncNisConnector nisConnector;
 
 	/**
 	 * Creates a new default NIS connector.
 	 *
-	 * @param defaultEndpoint The default node endpoint.
+	 * @param defaultEndpointSupplier The default node endpoint supplier.
 	 * @param nisConnector The async NIS connector.
 	 */
 	public DefaultNisConnector(
-			final NodeEndpoint defaultEndpoint,
+			final Supplier<NodeEndpoint> defaultEndpointSupplier,
 			final AsyncNisConnector nisConnector) {
-		this.defaultEndpoint = defaultEndpoint;
+		this.defaultEndpointSupplier = defaultEndpointSupplier;
 		this.nisConnector = nisConnector;
 	}
 
@@ -50,21 +50,25 @@ public class DefaultNisConnector implements PrimaryNisConnector {
 
 	@Override
 	public Deserializer get(final NisApiId apiId, final String query) {
-		return ExceptionUtils.propagate(() -> this.nisConnector.getAsync(this.defaultEndpoint, apiId, query).get());
+		return ExceptionUtils.propagate(() -> this.nisConnector.getAsync(this.getDefaultEndpoint(), apiId, query).get());
 	}
 
 	@Override
 	public <T> T forward(final Function<NodeEndpoint, CompletableFuture<T>> request) {
-		return ExceptionUtils.propagate(() -> request.apply(this.defaultEndpoint).get());
+		return ExceptionUtils.propagate(() -> request.apply(this.getDefaultEndpoint()).get());
 	}
 
 	@Override
 	public Deserializer post(final NisApiId apiId, final HttpPostRequest postRequest) {
-		return ExceptionUtils.propagate(() -> this.nisConnector.postAsync(this.defaultEndpoint, apiId, postRequest).get());
+		return ExceptionUtils.propagate(() -> this.nisConnector.postAsync(this.getDefaultEndpoint(), apiId, postRequest).get());
 	}
 
 	@Override
 	public void voidPost(final NisApiId apiId, final HttpPostRequest postRequest) {
-		ExceptionUtils.propagateVoid(() -> this.nisConnector.postVoidAsync(this.defaultEndpoint, apiId, postRequest).get());
+		ExceptionUtils.propagateVoid(() -> this.nisConnector.postVoidAsync(this.getDefaultEndpoint(), apiId, postRequest).get());
+	}
+
+	private NodeEndpoint getDefaultEndpoint() {
+		return this.defaultEndpointSupplier.get();
 	}
 }
