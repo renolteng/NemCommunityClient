@@ -92,7 +92,6 @@ public class AccountController {
 
 	/**
 	 * Gets information about the specified account and unconfirmed transactions.
-	 *
 	 * TODO: this method doesn't handle any paging now, but it shouldn't be a problem for now.
 	 *
 	 * @param ahRequest The account identifier.

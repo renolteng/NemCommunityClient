@@ -76,6 +76,8 @@
                 }).data('gridster').disable(); //disable tiles drag & drop
             });
 
+            ncc.refreshAccount();
+
             /*require(['scroller'], function() {
                 $('.scrollable').scroller();
             });

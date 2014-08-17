@@ -3,10 +3,12 @@ package org.nem.ncc.controller;
 import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.crypto.Signer;
 import org.nem.core.model.*;
+import org.nem.core.model.ncc.NisRequestResult;
 import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.FeeViewModel;
+import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.TransactionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +53,12 @@ public class TransactionController {
 		final RequestAnnounce announce = new RequestAnnounce(
 				preparedTransaction.getData(),
 				signer.sign(preparedTransaction.getData()).getBytes());
-		this.nisConnector.post(
+		final NisRequestResult result = new NisRequestResult(this.nisConnector.post(
 				NisApiId.NIS_REST_TRANSACTION_ANNOUNCE,
-				new HttpJsonPostRequest(announce));
+				new HttpJsonPostRequest(announce)));
+		if (result.isError()) {
+			throw new NisException(result);
+		}
 	}
 
 	/**

@@ -20,7 +20,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 if (!account) account = ncc.get('activeAccount.address');
 
                 var success = false;
-                ncc.postRequest('account/transactions', { wallet: wallet, account: account }, function(data) {
+                ncc.postRequest('account/transactions/all', { wallet: wallet, account: account }, function(data) {
                     success = true;
                     ncc.set('activeAccount', ncc.processAccount(data));
                     ncc.set('status.lostConnection', false);
@@ -754,11 +754,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 dueBy: 12
             });
 
-            local.accountRefresh = setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval);
-
-            ncc.postRequest('account/transactions', { wallet: ncc.get('wallet.name'), account: ncc.get('activeAccount.address') }, function(data) {
-                ncc.set('activeAccount', ncc.processAccount(data));
-            });
+            local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             if (!ncc.get('status.nodeBooted')) {
                 var success = false;
@@ -781,8 +777,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             }
         },
         leave: [function() {
-            clearInterval(this.local.accountRefresh);
-            clearTimeout(this.local.nisInfoRefresh);
             ncc.set({
                 wallet: null,
                 activeAccount: null,

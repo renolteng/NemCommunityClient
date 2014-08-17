@@ -349,8 +349,8 @@ define({
 			sendNem: 'NEMを送金する',
 			balance: '現在の残高',
 			filters: {
-				all: '取引一覧',
-				pending: '未処理（未検証）',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: '入金',
 				outgoing: '出金',
 			},

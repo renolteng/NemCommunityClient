@@ -349,8 +349,8 @@ define({
 			sendNem: 'Gửi NEM',
 			balance: 'Số dư hiện tại',
 			filters: {
-				all: 'Tất cả',
-				pending: 'Đang chờ xác nhận',
+				confirmed: 'Đã xác nhận',
+				unconfirmed: 'Chưa xác nhận',
 				incoming: 'Gửi đến',
 				outgoing: 'Gửi đi',
 			},

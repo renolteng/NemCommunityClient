@@ -95,10 +95,9 @@
 			});
 
 			ncc.refreshHarvestedBlocks();
-			local.autoRefresh = setInterval(ncc.refreshHarvestedBlocks, local.autoRefreshInterval);
+			local.intervalJobs.push(setInterval(ncc.refreshHarvestedBlocks, local.autoRefreshInterval));
     	},
     	leave: [function() {
-    		clearInterval(this.local.autoRefresh);
     		$(window).off('scroll.harvestedBlocksInfiniteScrolling');
     	}]
     });

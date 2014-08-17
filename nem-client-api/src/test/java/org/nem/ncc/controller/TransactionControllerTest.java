@@ -7,23 +7,29 @@ import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
+import org.nem.core.model.ncc.NisRequestResult;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.FeeViewModel;
+import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.TransactionMapper;
 import org.nem.ncc.test.*;
 
 public class TransactionControllerTest {
 
+	//region sendTransaction
+
 	@Test
 	public void sendTransactionDelegatesToTransactionMapper() {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Transaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
+		final Deserializer deserializer = getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
 		Mockito.when(context.transactionMapper.toModel(context.request)).thenReturn(model);
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
 		// Act:
 		context.controller.sendTransaction(context.request);
@@ -37,7 +43,9 @@ public class TransactionControllerTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final MockTransaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
+		final Deserializer deserializer = getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
 		Mockito.when(context.transactionMapper.toModel(context.request)).thenReturn(model);
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
 		// Act:
 		context.controller.sendTransaction(context.request);
@@ -54,6 +62,23 @@ public class TransactionControllerTest {
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
 
+	@Test(expected = NisException.class)
+	public void sendTransactionWithNisRequestResultErrorThrowsException() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Transaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
+		final Deserializer deserializer = getNisRequestResultDeserializer(ValidationResult.FAILURE_TIMESTAMP_TOO_FAR_IN_PAST.getValue());
+		Mockito.when(context.transactionMapper.toModel(context.request)).thenReturn(model);
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
+
+		// Act:
+		context.controller.sendTransaction(context.request);
+	}
+
+	//endregion
+
+	//region getMinimumFee
+
 	@Test
 	public void getMinimumFeeDelegatesToTransactionMapper() {
 		// Arrange:
@@ -68,6 +93,20 @@ public class TransactionControllerTest {
 		// Assert:
 		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel((TransferFeeRequest)context.request);
 		Assert.assertThat(feeViewModel.getFee(), IsEqual.equalTo(Amount.fromNem(274)));
+	}
+
+	//endregion
+
+	private Deserializer getNisRequestResultDeserializer(int code) {
+		final MockAccountLookup accountLookup = new MockAccountLookup();
+		final NisRequestResult result = new NisRequestResult(
+				NisRequestResult.TYPE_VALIDATION_RESULT,
+				code,
+				"RESULT_STRING");
+		final JsonSerializer serializer = new JsonSerializer();
+		result.serialize(serializer);
+
+		return new JsonDeserializer(serializer.getObject(), new DeserializationContext(accountLookup));
 	}
 
 	private static class TestContext {
