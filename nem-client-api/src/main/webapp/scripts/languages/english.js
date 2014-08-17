@@ -349,8 +349,8 @@ define({
 			sendNem: 'Send NEM',
 			balance: 'Current Balance',
 			filters: {
-				all: 'All transactions',
-				pending: 'Pending',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: 'Incoming',
 				outgoing: 'Outgoing',
 			},

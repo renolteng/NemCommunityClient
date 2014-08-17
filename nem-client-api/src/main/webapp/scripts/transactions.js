@@ -10,88 +10,52 @@
         	scrollBottomTolerance: 100
         },
         setupOnce: function() {
-        	ncc.loadOlderTransactions = function() {
-				var currTxes = ncc.get('activeAccount.transactions');
-				if (currTxes && currTxes[0] && !ncc.get('transactions.gotAll')) {
-					ncc.set('status.loadingOlderTransactions', true);
-					var requestData = {
-						account: ncc.get('activeAccount.address'),
-						timeStamp: currTxes[currTxes.length - 1].timeStamp
-					};
-					ncc.postRequest('account/transactions', requestData, function(data) {
-						var oldTxes = data.transactions;
-
-	                    if (oldTxes) {
-	                    	oldTxes = ncc.processTransactions(oldTxes);
-	                    	
-	                    	if (oldTxes.length > 0) {
-		                        var topTxHash = oldTxes[0].hash;
-		                        
-		                        for (var i = 0; i < currTxes.length; i++) {
-		                            if (currTxes[i].hash === topTxHash) {
-		                                break;
-		                            }
-		                        }
-
-		                        var nonDuplicatedTxes = currTxes.slice(0, i);
-		                        var txes = nonDuplicatedTxes.concat(oldTxes);
-		                        ncc.set('activeAccount.transactions', txes);
-		                    }
-
-		                    if (oldTxes.length < ncc.consts.txesPerPage) {
-		                    	ncc.set('transactions.gotAll', true);
-		                    }
-		                }
-					}, {
-						complete: function() {
-							ncc.set('status.loadingOlderTransactions', false);
-						}
-					});
+			ncc.loadTransactions = function(reload) {
+				var api = ncc.get('transactions.filter');
+				var currAccount = ncc.get('activeAccount.address');
+				var requestData = { account: currAccount };
+				var currTxes;
+				if (!reload) {
+					currTxes = ncc.get('transactions.filtered');
+					var lastHash = (currTxes && currTxes.length)? currTxes[currTxes.length - 1] : null;
+					if (lastHash) requestData.hash = lastHash;
 				}
+
+				ncc.postRequest(api, requestData, function(data) {
+					var updatedTxes = ncc.processTransactions(data.transactions);
+					var concat = (!reload && currTxes && currTxes.concat)? currTxes.concat(updatedTxes) : updatedTxes;
+                    ncc.set('transactions.filtered', concat);
+                	ncc.set('transactions.gotAll', updatedTxes.length < ncc.consts.txesPerPage);
+                }, null, true);
 			};
 		},
     	setupEverytime: function() {
     		var local = this.local;
 
-			local.listeners.push(ncc.observe('activeAccount.transactions transactions.filter', function() {
-				var filter = ncc.get('transactions.filter');
-				var transactions = ncc.get('activeAccount.transactions');
+			ncc.loadTransactions(false);
 
-				if (filter === 'all') {
-					ncc.set('transactions.filtered', transactions);
-				} else {
-					var filtered = [];
-
-					switch (filter) {
-						case 'pending':
-							for (var i = 0; i < transactions.length; i++) {
-								var t = transactions[i];
-								if (!t.confirmed) filtered.push(t);
-							}
-							break;
-						case 'incoming':
-							for (var i = 0; i < transactions.length; i++) {
-								var t = transactions[i];
-								if (!t.isPending && (t.isIncoming || t.isSelf)) filtered.push(t);
-							}
-							break;
-						case 'outgoing':
-							for (var i = 0; i < transactions.length; i++) {
-								var t = transactions[i];
-								if (!t.isPending && (t.isOutgoing || t.isSelf)) filtered.push(t);
-							}
-							break;
-					}
-
-					ncc.set('transactions.filtered', filtered);
-				}
+			local.listeners.push(ncc.observe('activeAccount.address transactions.filter', function() {
+				ncc.loadTransactions(true);
 			}));
-			
+
+			local.intervalJobs.push(setInterval(function() {
+				var api = ncc.get('transactions.filter');
+				var currAccount = ncc.get('activeAccount.address');
+				var currTxes = ncc.get('transactions.filtered');
+
+				ncc.postRequest(api, { account: currAccount }, function(data) {
+					var updatedTxes = ncc.processTransactions(data.transactions);
+                    ncc.set('transactions.filtered', ncc.updateNewer(updatedTxes, currTxes, function(obj) {
+                        return obj.hash;
+                    }));
+                }, null, true);
+			}, local.autoRefreshInterval));
+
 			var $win = $(window);
 			var $doc = $(document);
 			$win.on('scroll.txesInfiniteScrolling', function(event) {
 				if (!ncc.get('status.loadingOlderTransactions') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
-					ncc.loadOlderTransactions();
+					ncc.loadTransactions(false);
 				}
 			});
     	},

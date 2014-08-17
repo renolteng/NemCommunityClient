@@ -4,6 +4,8 @@
  	return {
  		local: {
             listeners: [],
+            intervalJobs: [],
+            timeoutJobs: [],
             autoRefreshInterval: 30000
         },
         leave: [
@@ -13,6 +15,16 @@
 					this.cancel();
 				});
 				this.local.listeners = [];
+
+				$.each(this.local.intervalJobs, function() {
+					clearInterval(this);
+				});
+				this.local.intervalJobs = [];
+
+				$.each(this.local.timeoutJobs, function() {
+					clearInterval(this);
+				});
+				this.local.timeoutJobs = [];
         	}
         ]
  	};

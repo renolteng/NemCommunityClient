@@ -349,8 +349,8 @@ define({
 			sendNem: 'Invia NEM',
 			balance: 'Bilancio attuale',
 			filters: {
-				all: 'Tutte le transazioni',
-				pending: 'In attesa',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: 'In ingresso',
 				outgoing: 'In uscita',
 			},
