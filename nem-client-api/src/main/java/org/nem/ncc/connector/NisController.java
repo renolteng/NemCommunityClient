@@ -15,7 +15,7 @@ public class NisController {
 	/**
 	 * If configured as web start, start NIS server.
 	 *
-	 * @param nisJnlpUrl The url to the java networl launching protocol.
+	 * @param nisJnlpUrl The url to the java network launching protocol.
 	 */
 	public void startNisViaWebStart(final String nisJnlpUrl) {
 		// Will only be called if configured to do so.

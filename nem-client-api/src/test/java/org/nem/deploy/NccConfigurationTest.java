@@ -9,7 +9,7 @@ public class NccConfigurationTest {
 	//region nis.webStart
 
 	@Test
-	public void canReadConfigurationWithtWebStart() {
+	public void canReadConfigurationWithWebStart() {
 		// Arrange:
 		final Properties properties = this.getCommonProperties();
 		properties.setProperty("ncc.isWebStart", "true");
