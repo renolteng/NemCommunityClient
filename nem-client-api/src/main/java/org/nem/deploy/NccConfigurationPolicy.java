@@ -1,11 +1,13 @@
 package org.nem.deploy;
 
-import org.nem.core.deploy.NemConfigurationPolicy;
+import org.apache.commons.cli.Option;
+import org.nem.core.deploy.*;
 import org.nem.deploy.appconfig.NccAppConfig;
 import org.nem.ncc.connector.NisController;
 import org.nem.ncc.web.servlet.*;
 
 import javax.servlet.http.HttpServlet;
+import java.util.Arrays;
 
 /**
  * Class for supplying addition NCC configuration information.
@@ -56,7 +58,24 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 	}
 
 	@Override
-	public void startNisViaWebStart(final String nisJnlpUrl) {
-		this.controller.startNisViaWebStart(nisJnlpUrl);
+	public void handleWebStart(final String[] args) {
+		NccConfiguration config = loadConfig(args);
+		if (config.isWebStart()) {
+			this.controller.startNisViaWebStart(config.getNisJnlpUrl());
+		}
+	}
+
+	@Override
+	public NccConfiguration loadConfig(final String[] args) {
+		NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
+				new Option(NccConfiguration.WEBSTART, true, NccConfiguration.WEBSTART_DESCRIPTION),
+				new Option(NccConfiguration.NIS_JNLP_URL, true, NccConfiguration.NIS_JNLP_URL_DESCRIPTION)));
+		if (commandLine.parse(args)){
+			return new NccConfiguration(
+					"1".equals(commandLine.getParameter(NccConfiguration.WEBSTART)),
+					commandLine.getParameter(NccConfiguration.NIS_JNLP_URL));
+		}
+
+		return new NccConfiguration();
 	}
 }

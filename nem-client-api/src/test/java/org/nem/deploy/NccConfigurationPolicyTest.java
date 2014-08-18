@@ -62,13 +62,13 @@ public class NccConfigurationPolicyTest {
 	}
 
 	@Test
-	public void startNisViaWebStartDelegatesToNisController() {
+	public void handleWebStartDelegatesToNisController() {
 		// Arrange:
 		final NisController nisController = Mockito.mock(NisController.class);
 		final NccConfigurationPolicy policy = new NccConfigurationPolicy(Mockito.mock(WebStartProxy.class), nisController);
 
 		// Act:
-		policy.startNisViaWebStart("someUrl");
+		policy.handleWebStart(new String[] { "-isWebStart", "1", "-nisJnlpUrl", "someUrl" });
 
 		// Assert:
 		Mockito.verify(nisController, Mockito.times(1)).startNisViaWebStart("someUrl");
