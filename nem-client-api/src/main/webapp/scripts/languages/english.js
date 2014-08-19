@@ -192,6 +192,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'Wallet has been sucessfully imported!',
 			nav: {
 				start: 'Getting <strong>Started</strong>',
@@ -252,6 +253,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: 'About {{1}} days ago',
 			lastAccessJustNow: 'Just now',
 			lastAccessTooltip: 'Last access was {{1}}',

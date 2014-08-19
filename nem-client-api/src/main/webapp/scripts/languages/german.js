@@ -192,6 +192,7 @@ define({
 				}
         },
         landing: {
+                logo: 'images/nem_logo.png',
                 importSuccess: 'Die Brieftasche wurde erfolgreich importiert!',
                 nav: {
                         start: 'Erste <strong>Schritte</strong>',
@@ -252,6 +253,7 @@ define({
                 }
         },
         wallet: {
+                logo: 'images/nem_logo.png',
                 lastAccess: 'Ungefähr vor {{1}} Tagen',
                 lastAccessJustNow: 'Gerade eben',
 	 			lastAccessTooltip: 'Letzter Zugriff war {{1}}',

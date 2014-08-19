@@ -192,6 +192,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'Pinigine importuota sekmingai!',
 			nav: {
 				start: '<strong>Prad�iamokslis</strong>',
@@ -252,6 +253,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: '{{1}} dienos prie� tai',
 			lastAccessJustNow: 'Dabar',
 			lastAccessTooltip: 'Paskutini karta buvo prisijungta {{1}}',

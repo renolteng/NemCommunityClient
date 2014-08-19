@@ -192,6 +192,7 @@
                                        }
                             },
                             landing: {
+                                       logo: 'images/nem_logo.png',
                                        importSuccess: 'Кошелёк успешно импортирован!',
                                        nav: {
                                                    start: '<strong>Введение</strong>',
@@ -252,6 +253,7 @@
                                        }
                             },
                             wallet: {
+                                       logo: 'images/nem_logo.png',
                                        lastAccess: 'Примерно {{1}} дней назад',
                                        lastAccessJustNow: 'Недавно',
                                        lastAccessTooltip: 'Последний доступ был {{1}}',
