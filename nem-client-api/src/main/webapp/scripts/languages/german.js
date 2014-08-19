@@ -214,11 +214,11 @@ define({
                         items: [
                                 {
                                         title: 'NCC verschlüsselt Deine Brieftasche',
-                                        description: '<em>Sicherheit</em> ist sehr wichtig bei NEM um den Diebstahl von NEM Münzen & Anlagen zu verhindern.'
-                                },
+                                        description: '<em>Sicherheit</em> ist sehr wichtig um den Raub von Münzen &amp; Anlagen zu verhindern.'
+                               },
                                 {
                                         title: 'NCC verschlüsselt Deine Brieftasche',
-                                        description: '<em>Sicherheit</em> ist sehr wichtig bei NEM um den Diebstahl von NEM Münzen & Anlagen zu verhindern.'
+                                        description: '<em>Sicherheit</em> ist sehr wichtig um den Raub von Münzen &amp; Anlagen zu verhindern.'
                                 }
                         ]
                 },
