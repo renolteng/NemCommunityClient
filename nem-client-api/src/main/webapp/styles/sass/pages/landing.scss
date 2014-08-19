@@ -332,7 +332,7 @@ $formContent-sidePadding: 19px;
 		}
 	}
 
-	$button-width: 230px;
+	$button-width: 240px;
 	button.cta {
 		font-size: 17px;
 		font-weight: $fontWeight-light;
@@ -369,7 +369,7 @@ $formContent-sidePadding: 19px;
 
 	button.cta:hover:after, .region.active button.cta:after {
 		opacity: 1;
-		height: 195px;
+		height: 202px;
 	}
 
 	.form {
@@ -757,14 +757,12 @@ main.right .left.region h1 {
 
 	.how-ncc-works {
 		position: absolute;
-		width: 472px;
 		top: 0;
-		right: 65px;
+		left: 634px;
 	}
 
 	.what-is-nis {
 		position: absolute;
-		width: 450px;
 		top: 470px;
 		right: 570px;
 		text-align: right;
