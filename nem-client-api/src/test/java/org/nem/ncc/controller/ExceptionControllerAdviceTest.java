@@ -62,6 +62,16 @@ public class ExceptionControllerAdviceTest {
 	}
 
 	@Test
+	public void handleUnauthorizedAccessExceptionCreatesAppropriateResponse() {
+		// Arrange:
+		final ExceptionControllerAdvice advice = createAdvice();
+		final ResponseEntity<ErrorResponse> entity = advice.handleUnauthorizedAccessException(new Exception("badness"));
+
+		// Assert:
+		assertEntity(entity, HttpStatus.UNAUTHORIZED);
+	}
+
+	@Test
 	public void handleExceptionCreatesAppropriateResponse() {
 		// Arrange:
 		final ExceptionControllerAdvice advice = createAdvice();

@@ -1,7 +1,7 @@
 package org.nem.ncc.services;
 
 import org.nem.core.node.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.model.NisApiId;
 
 import java.util.*;
@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
  * This class provides higher-level functions around accessing NIS nodes.
  */
 public class NodeServices {
-	private final SimpleNisConnector nisConnector;
+	private final AsyncNisConnector nisConnector;
 
 	/**
 	 * Creates new node services.
 	 *
 	 * @param nisConnector The NIS connector.
 	 */
-	public NodeServices(final SimpleNisConnector nisConnector) {
+	public NodeServices(final AsyncNisConnector nisConnector) {
 		this.nisConnector = nisConnector;
 	}
 

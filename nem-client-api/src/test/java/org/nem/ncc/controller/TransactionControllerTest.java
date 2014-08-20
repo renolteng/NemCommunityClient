@@ -10,7 +10,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.NisRequestResult;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.FeeViewModel;
 import org.nem.ncc.exceptions.NisException;
@@ -111,7 +111,7 @@ public class TransactionControllerTest {
 
 	private static class TestContext {
 		private final TransactionMapper transactionMapper = Mockito.mock(TransactionMapper.class);
-		private final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 		private final TransferSendRequest request = Mockito.mock(TransferSendRequest.class);
 		private final TransactionController controller = new TransactionController(this.transactionMapper, this.connector);
 	}

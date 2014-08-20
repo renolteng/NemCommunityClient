@@ -5,9 +5,9 @@ import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.model.ncc.HarvestInfo;
 import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
+import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.model.NisApiId;
@@ -27,7 +27,7 @@ public class AccountController {
 	private final AccountMapper accountMapper;
 	private final WalletServices walletServices;
 	private final ChainServices chainServices;
-	private final SimpleNisConnector nisConnector;
+	private final PrimaryNisConnector nisConnector;
 
 	/**
 	 * Creates a new account controller.
@@ -44,7 +44,7 @@ public class AccountController {
 			final AccountMapper accountMapper,
 			final WalletServices walletServices,
 			final ChainServices chainServices,
-			final SimpleNisConnector nisConnector) {
+			final PrimaryNisConnector nisConnector) {
 		this.accountServices = accountServices;
 		this.accountMapper = accountMapper;
 		this.walletServices = walletServices;
@@ -77,7 +77,7 @@ public class AccountController {
 		final Address address = atsRequest.getAccountId();
 		final AccountViewModel account = this.getAccountInfo(atsRequest);
 
-		final BlockHeight lastBlockHeight = this.chainServices.getLastBlockHeightAsync(NodeEndpoint.fromHost("localhost")).join();
+		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getLastBlockHeightAsync);
 		final List<TransferViewModel> allTransfers = new ArrayList<>();
 		allTransfers.addAll(
 				this.accountServices.getUnconfirmedTransactions(address).stream()
@@ -116,7 +116,7 @@ public class AccountController {
 		final Address address = ahRequest.getAccountId();
 		final AccountViewModel account = this.getAccountInfo(ahRequest);
 
-		final BlockHeight lastBlockHeight = this.chainServices.getLastBlockHeightAsync(NodeEndpoint.fromHost("localhost")).join();
+		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getLastBlockHeightAsync);
 		final List<TransferViewModel> allTransfers = new ArrayList<>();
 
 		allTransfers.addAll(
@@ -192,6 +192,7 @@ public class AccountController {
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/unlock", method = RequestMethod.POST)
+	@RequiresTrustedNis
 	public void unlock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
@@ -202,6 +203,7 @@ public class AccountController {
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/lock", method = RequestMethod.POST)
+	@RequiresTrustedNis
 	public void lock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}

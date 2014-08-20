@@ -2,7 +2,7 @@ package org.nem.ncc.controller;
 
 import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.node.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.model.*;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class NccController {
 	private final Configuration configuration;
 	private final ApplicationMetaData metaData;
-	private final SimpleNisConnector connector;
+	private final PrimaryNisConnector connector;
 	private final ChainServices chainServices;
 	private final NodeServices nodeServices;
 
@@ -34,7 +34,7 @@ public class NccController {
 	public NccController(
 			final Configuration configuration,
 			final ApplicationMetaData metaData,
-			final SimpleNisConnector connector,
+			final PrimaryNisConnector connector,
 			final ChainServices chainServices,
 			final NodeServices nodeServices) {
 		this.configuration = configuration;
@@ -65,8 +65,8 @@ public class NccController {
 			throw new NccException(NccException.Code.NIS_NOT_AVAILABLE);
 		}
 
-		final NisNodeInfo nodeInfo = this.nodeServices.getNisNodeInfoAsync(NodeEndpoint.fromHost("localhost")).join();
-		final NisNodeMetaData nodeMetaData = this.chainServices.getNodeMetaDataAsync(NodeEndpoint.fromHost("localhost")).join();
+		final NisNodeInfo nodeInfo = this.connector.forward(this.nodeServices::getNisNodeInfoAsync);
+		final NisNodeMetaData nodeMetaData = this.connector.forward(this.chainServices::getNodeMetaDataAsync);
 		return new NisInfoViewModel(nodeInfo, nodeMetaData);
 	}
 

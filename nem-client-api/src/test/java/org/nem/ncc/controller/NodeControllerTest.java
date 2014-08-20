@@ -7,7 +7,7 @@ import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.crypto.*;
 import org.nem.core.model.Account;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.BootNodeRequest;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.WalletServices;
@@ -90,7 +90,7 @@ public class NodeControllerTest {
 
 	private static class TestContext {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
-		private final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 		private final NodeController controller = new NodeController(this.walletServices, this.connector);
 	}
 }

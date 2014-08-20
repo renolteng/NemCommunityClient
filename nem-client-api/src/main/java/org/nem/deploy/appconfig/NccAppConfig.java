@@ -24,20 +24,27 @@ import java.util.Arrays;
  */
 @Configuration
 public class NccAppConfig {
-	private DefaultNisConnector connector;
+	private DefaultAsyncNisConnector connector;
 
 	@Bean
-	public SimpleNisConnector cloudConnector() {
+	public AsyncNisConnector cloudConnector() {
 		// work around a dependency loop
-		// DefaultNisConnector -> accountCache -> accountServices -> DefaultNisConnector
+		// AsyncNisConnector -> accountCache -> accountServices -> PrimaryNisConnector -> AsyncNisConnector
 		// not sure if there is a better way to deal with it
 		if (null != this.connector) {
 			return this.connector;
 		}
 
-		this.connector = new DefaultNisConnector(NodeEndpoint.fromHost("localhost"), this.httpMethodClient());
+		this.connector = new DefaultAsyncNisConnector(this.httpMethodClient());
 		this.connector.setAccountLookup(this.accountLookup());
 		return this.connector;
+	}
+
+	@Bean
+	public PrimaryNisConnector primaryNisConnector() {
+		return new DefaultNisConnector(
+				() -> this.configuration().getNisBootInfo().getRemoteEndpoint(),
+				this.cloudConnector());
 	}
 
 	private HttpMethodClient<ErrorResponseDeserializerUnion> httpMethodClient() {
@@ -59,7 +66,7 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountServices accountServices() {
-		return new AccountServices(this.cloudConnector());
+		return new AccountServices(this.primaryNisConnector());
 	}
 
 	@Bean

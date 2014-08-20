@@ -1,7 +1,7 @@
 package org.nem.ncc.services;
 
 import org.nem.core.node.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.model.NisApiId;
 
 import java.util.*;
@@ -11,14 +11,14 @@ import java.util.concurrent.CompletableFuture;
  * This class provides higher-level functions around accessing the NIS network.
  */
 public class NetworkServices {
-	private final SimpleNisConnector nisConnector;
+	private final AsyncNisConnector nisConnector;
 
 	/**
 	 * Creates new network services.
 	 *
 	 * @param nisConnector The NIS connector.
 	 */
-	public NetworkServices(final SimpleNisConnector nisConnector) {
+	public NetworkServices(final AsyncNisConnector nisConnector) {
 		this.nisConnector = nisConnector;
 	}
 

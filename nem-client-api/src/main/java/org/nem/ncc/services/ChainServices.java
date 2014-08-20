@@ -2,7 +2,7 @@ package org.nem.ncc.services;
 
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.node.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.model.*;
 
 import java.util.*;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * This class provides higher-level functions around accessing information about the NIS block chain.
  */
 public class ChainServices {
-	private final SimpleNisConnector connector;
+	private final AsyncNisConnector connector;
 	private final NetworkServices networkServices;
 
 	/**
@@ -22,7 +22,7 @@ public class ChainServices {
 	 * @param networkServices The graph services
 	 */
 	public ChainServices(
-			final SimpleNisConnector connector,
+			final AsyncNisConnector connector,
 			final NetworkServices networkServices) {
 		this.connector = connector;
 		this.networkServices = networkServices;

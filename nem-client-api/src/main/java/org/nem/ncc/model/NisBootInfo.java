@@ -1,5 +1,6 @@
 package org.nem.ncc.model;
 
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.StringUtils;
 
@@ -81,6 +82,15 @@ public class NisBootInfo implements SerializableEntity {
 	 */
 	public String getRemoteServer() {
 		return this.remoteServer;
+	}
+
+	/**
+	 * Gets the remote NIS endpoint.
+	 *
+	 * @return The remote NIS endpoint.
+	 */
+	public NodeEndpoint getRemoteEndpoint() {
+		return NodeEndpoint.fromHost(this.isNisLocal() ? "localhost" : this.remoteServer);
 	}
 
 	/**

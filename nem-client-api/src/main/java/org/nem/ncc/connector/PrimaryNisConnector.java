@@ -6,11 +6,12 @@ import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.model.NisApiId;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 /**
- * A simple NIS connector.
+ * A simple NIS connector that allows communication with a single node.
  */
-public interface SimpleNisConnector {
+public interface PrimaryNisConnector {
 
 	/**
 	 * Gets a value indicating whether or not this a NIS instance is accessible.
@@ -29,17 +30,12 @@ public interface SimpleNisConnector {
 	public Deserializer get(final NisApiId apiId, final String query);
 
 	/**
-	 * Gets a response from the specified NIS relative url path (asynchronously).
+	 * Forwards a synchronous request to the primary NIS node.
 	 *
-	 * @param endpoint The NIS endpoint.
-	 * @param apiId The api to call.
-	 * @param query The get query string or null.
+	 * @param request The request to forward.
 	 * @return The result.
 	 */
-	public CompletableFuture<Deserializer> getAsync(
-			final NodeEndpoint endpoint,
-			final NisApiId apiId,
-			final String query);
+	public <T> T forward(final Function<NodeEndpoint, CompletableFuture<T>> request);
 
 	/**
 	 * Posts a request to the specified NIS relative url path.

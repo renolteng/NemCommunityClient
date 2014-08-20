@@ -3,6 +3,7 @@ package org.nem.ncc.controller;
 import org.nem.core.connect.*;
 import org.nem.core.serialization.MissingRequiredPropertyException;
 import org.nem.core.time.TimeProvider;
+import org.nem.ncc.controller.interceptors.UnauthorizedAccessException;
 import org.nem.ncc.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -72,6 +73,17 @@ public class ExceptionControllerAdvice {
 	@ExceptionHandler(NccException.class)
 	public ResponseEntity<ErrorResponse> handleNccException(final NccException e) {
 		return this.createResponse(e.getCode());
+	}
+
+	/**
+	 * Handler for unauthorized-access exceptions.
+	 *
+	 * @param e The exception.
+	 * @return The appropriate JSON indicating an error.
+	 */
+	@ExceptionHandler(UnauthorizedAccessException.class)
+	public ResponseEntity<ErrorResponse> handleUnauthorizedAccessException(final Exception e) {
+		return this.createResponse(e, HttpStatus.UNAUTHORIZED);
 	}
 
 	/**

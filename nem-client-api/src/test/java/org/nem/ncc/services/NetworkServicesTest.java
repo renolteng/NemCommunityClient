@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.nem.core.connect.FatalPeerException;
 import org.nem.core.node.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.SimpleNisConnector;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
@@ -117,7 +117,7 @@ public class NetworkServicesTest {
 	}
 
 	private static class TestContext {
-		final SimpleNisConnector connector = Mockito.mock(SimpleNisConnector.class);
+		final AsyncNisConnector connector = Mockito.mock(AsyncNisConnector.class);
 		final NetworkServices services = new NetworkServices(this.connector);
 
 		private void setPeerListForNode(final Node node, final CompletableFuture<Deserializer> future) {
