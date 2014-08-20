@@ -34,10 +34,9 @@ require.config({
 define(['ncc'], function(ncc) {
     ncc.getRequest('configuration/get', function(data) {
         ncc.set('settings', data);
-        ncc.loadPage(entryPage);
+        ncc.loadPage(entryPage, null, null, false, null, true);
     });
 
-    history.replaceState(entryPage, 'entry');
     window.onpopstate = function(event) {
         ncc.loadPage(event.state, null, null, true);
     };
