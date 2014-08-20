@@ -192,6 +192,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'ウォレットのインポートに成功しました。',
 			nav: {
 				start: '<strong>始め方</strong>',
@@ -252,6 +253,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: '約 {{1}} 日前',
 			lastAccessJustNow: '現在',
 			lastAccessTooltip: '最後のアクセスは {{1}}',

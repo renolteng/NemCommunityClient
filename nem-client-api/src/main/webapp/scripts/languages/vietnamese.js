@@ -192,6 +192,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'Ví đã được nhập thành công!',
 			nav: {
 				start: '<strong>Khởi đầu</strong>',
@@ -252,6 +253,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: 'Khoảng {{1}} ngày trước',
 			lastAccessJustNow: 'Mới đây',
 			lastAccessTooltip: 'Truy cập lần cuối từ {{1}}',

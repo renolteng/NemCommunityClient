@@ -710,7 +710,6 @@ $drop-arrow-width: 33px;
 	.unit {
 		display: inline-block;
 		text-align: center;
-		padding-right: 8px;
 	}
 
 	textarea {
@@ -722,6 +721,10 @@ $drop-arrow-width: 33px;
 		input {
 			padding: 6px 8px;
 			width: calc(100% - #{$unit-width});
+		}
+
+		.unit {
+			width: $unit-width;
 		}
 	}
 
@@ -762,6 +765,7 @@ $drop-arrow-width: 33px;
 		.unit {
 			float: right;
 			padding-top: 6px;
+			padding-right: 8px;
 		}
 	}
 

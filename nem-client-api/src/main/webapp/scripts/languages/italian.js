@@ -192,6 +192,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'Il portafoglio è stato importato!',
 			nav: {
 				start: '<strong>Vai</strong>',
@@ -252,6 +253,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: 'Circa {{1}} giorni fa',
 			lastAccessJustNow: 'Proprio ora',
 			lastAccessTooltip: "L'ultimo accesso è stato {{1}}",

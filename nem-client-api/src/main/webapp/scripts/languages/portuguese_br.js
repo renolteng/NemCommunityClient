@@ -190,6 +190,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'A carteira foi importada com sucesso!',
 			nav: {
 				start: 'Inicie <strong>Aqui</strong>',
@@ -250,6 +251,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: 'Aproximadamente {{1}} dia(s) atrás',
 			lastAccessJustNow: 'Agora pouco',
 			lastAccessTooltip: 'Ultimo acesso foi em {{1}}',
