@@ -482,10 +482,10 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
         },
         updateNewer: function(updatedArr, currentArr, comparedProp) {
             if (currentArr && currentArr[0]) {
-                var comparedValue = comparedProp(updatedArr[updatedArr.length - 1]);
+                var comparedValue = updatedArr[updatedArr.length - 1][comparedProp];
                 
                 for (var i = currentArr.length - 1; i >= 0; i--) {
-                    if (comparedProp(currentArr[i]) === comparedValue) {
+                    if (currentArr[i][comparedProp] === comparedValue) {
                         break;
                     }
                 }
@@ -562,7 +562,7 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
                 });
             });
         },
-        loadPage: function(page, level, childInit, isBack, params) {
+        loadPage: function(page, level, childInit, isBack, params, isInit) {
             var self = this;
             var isInnermost = false;
             if (!level && level !== 0) {
@@ -572,7 +572,12 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
 
             require([page], function(layout) {
                 if (isInnermost && !isBack) {
-                    history.pushState(page, null, layout.url + (params? self.toQueryString(params) : ''));
+                    var url = layout.url + (params? self.toQueryString(params) : location.search);
+                    if (isInit) {
+                        history.replaceState(page, 'entry', url);
+                    } else {
+                        history.pushState(page, null, url);
+                    }
                 }
 
                 var init = function() {

@@ -125,6 +125,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 return;
             } else {
                 if (!ncc.get('wallet') || ncc.get('wallet.name') != wallet) {
+                    ncc.set('wallet.name', wallet);
                     ncc.refreshWallet(wallet);
                 }
             }
@@ -135,7 +136,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 return;
             } else {
                 if (!ncc.get('activeAccount') || ncc.get('activeAccount.address') != account) {
-                    ncc.refreshWallet(account);
+                    ncc.set('activeAccount.address', account);
+                    ncc.refreshAccount(wallet, account);
                 }
             }
 

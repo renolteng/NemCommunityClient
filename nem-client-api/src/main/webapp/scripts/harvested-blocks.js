@@ -10,61 +10,32 @@
         	scrollBottomTolerance: 100
         },
         setupOnce: function() {
-        	ncc.refreshHarvestedBlocks = function(account) {
-        		var activeAccount = account || ncc.get('activeAccount.address');
-
-				ncc.postRequest('account/harvests', { account: activeAccount }, function(data) {
-					var updatedBlocks = ncc.processHarvestedBlocks(data.data);
-
-					if (account) {
-						ncc.set('harvestedBlocks.list', updatedBlocks);
-						ncc.set('harvestedBlocks.gotAll', updatedBlocks.length < ncc.consts.blocksPerPage);
-					} else {
-	                    ncc.set('harvestedBlocks.list', ncc.updateNewer(updatedBlocks, ncc.get('harvestedBlocks.list'), function(obj) {
-	                        return obj.hash;
-	                    }));
-					}
-				});
-			};
-
-			ncc.loadOlderHarvestedBlocks = function() {
-				var currBlocks = ncc.get('harvestedBlocks.list');
-				if (currBlocks && currBlocks[0] && !ncc.get('harvestedBlocks.gotAll')) {
-					ncc.set('status.loadingOlderBlocks', true);
-					var requestData = {
-						account: ncc.get('activeAccount.address'),
-						timeStamp: currBlocks[currBlocks.length - 1].timeStamp
-					};
-					ncc.postRequest('account/harvests', requestData, function(data) {
-						var oldBlocks = data.data;
-
-	                    if (oldBlocks) {
-	                    	oldBlocks = ncc.processHarvestedBlocks(oldBlocks);
-	                    	
-	                    	if (oldBlocks.length > 0) {
-		                        var topBlockHash = oldBlocks[0].hash;
-		                        
-		                        for (var i = 0; i < currBlocks.length; i++) {
-		                            if (currBlocks[i].hash === topBlockHash) {
-		                                break;
-		                            }
-		                        }
-
-		                        var nonDup = currBlocks.slice(0, i);
-		                        var blocks = nonDup.concat(oldBlocks);
-		                        ncc.set('harvestedBlocks.list', blocks);
-		                    }
-
-		                    if (oldBlocks.length < ncc.consts.blocksPerPage) {
-		                    	ncc.set('harvestedBlocks.gotAll', true);
-		                    }
-		                }
-					}, {
-						complete: function() {
-							ncc.set('status.loadingOlderBlocks', false);
-						}
-					});
+        	ncc.loadHarvestedBlocks = function(reload, update) {
+        		var currAccount = ncc.get('activeAccount.address');
+        		var requestData = { account: currAccount };
+        		var currBlocks;
+        		if (!reload && !update) {
+					currBlocks = ncc.get('harvestedBlocks.list');
+					var lastTimeStamp = (currBlocks && currBlocks.length)? currBlocks[currBlocks.length - 1].timeStamp : null;
+					if (lastTimeStamp) requestData.hash = lastTimeStamp;
 				}
+
+				ncc.postRequest('account/harvests', requestData, function(data) {
+					var updatedBlocks = ncc.processHarvestedBlocks(data.data);
+					var all;
+					if (!reload && currBlocks && currBlocks.concat) {
+						all = currBlocks.concat(updatedBlocks);
+					} else if (update) {
+						all = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
+					} else {
+						all = updatedBlocks;
+					}
+
+					ncc.set('harvestedBlocks.list', all);
+                	if (!update) {
+                		ncc.set('harvestedBlocks.gotAll', updatedBlocks.length < ncc.consts.blocksPerPage);
+                	}
+				}, null, update);
 			};
         },
     	setupEverytime: function() {
@@ -81,21 +52,22 @@
 
 	    			ncc.set('harvestedBlocks.feeEarned', sum);
     			},
-    			'activeAccount.address': function(account) {
-    				ncc.refreshHarvestedBlocks(account);
+    			'activeAccount.address': function() {
+    				ncc.loadHarvestedBlocks(true);
     			}
     		}));
+
+    		local.intervalJobs.push(setInterval(function() {
+				ncc.loadHarvestedBlocks(false, true);
+			}, local.autoRefreshInterval));
 
     		var $win = $(window);
 			var $doc = $(document);
 			$win.on('scroll.harvestedBlocksInfiniteScrolling', function(event) {
 				if (!ncc.get('status.loadingOlderBlocks') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
-					ncc.loadOlderHarvestedBlocks();
+					ncc.loadHarvestedBlocks(false);
 				}
 			});
-
-			ncc.refreshHarvestedBlocks();
-			local.intervalJobs.push(setInterval(ncc.refreshHarvestedBlocks, local.autoRefreshInterval));
     	},
     	leave: [function() {
     		$(window).off('scroll.harvestedBlocksInfiniteScrolling');
