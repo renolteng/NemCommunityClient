@@ -75,7 +75,7 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 		NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
 				new Option(NccConfiguration.WEBSTART, true, NccConfiguration.WEBSTART_DESCRIPTION),
 				new Option(NccConfiguration.NIS_JNLP_URL, true, NccConfiguration.NIS_JNLP_URL_DESCRIPTION)));
-		if (commandLine.parse(args)){
+		if (commandLine.parse(args)) {
 			return new NccConfiguration(
 					"1".equals(commandLine.getParameter(NccConfiguration.WEBSTART)),
 					commandLine.getParameter(NccConfiguration.NIS_JNLP_URL));

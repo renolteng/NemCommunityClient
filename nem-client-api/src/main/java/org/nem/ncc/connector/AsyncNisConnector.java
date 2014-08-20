@@ -1,6 +1,6 @@
 package org.nem.ncc.connector;
 
-import org.nem.core.connect.*;
+import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.model.NisApiId;

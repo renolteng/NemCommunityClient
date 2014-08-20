@@ -3,7 +3,6 @@ package org.nem.deploy.appconfig;
 import org.nem.core.connect.*;
 import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;

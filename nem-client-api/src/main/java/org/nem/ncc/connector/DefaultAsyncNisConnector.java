@@ -48,19 +48,19 @@ public class DefaultAsyncNisConnector implements AsyncNisConnector {
 
 	@Override
 	public CompletableFuture<Deserializer> getAsync(final NodeEndpoint endpoint, final NisApiId apiId, final String query) {
-			final String path = apiId + (null == query ? "" : "?" + query);
-			return ExceptionUtils.propagate(() ->
-					this.httpClient.get(
-							this.createNisUrl(endpoint, path),
-							this.httpDeserializerResponseStrategy)
-							.getFuture()
-							.thenApply(response -> {
-								if (response.hasError()) {
-									throw new NisException(response.getError());
-								}
+		final String path = apiId + (null == query ? "" : "?" + query);
+		return ExceptionUtils.propagate(() ->
+				this.httpClient.get(
+						this.createNisUrl(endpoint, path),
+						this.httpDeserializerResponseStrategy)
+						.getFuture()
+						.thenApply(response -> {
+							if (response.hasError()) {
+								throw new NisException(response.getError());
+							}
 
-								return response.getDeserializer();
-							}));
+							return response.getDeserializer();
+						}));
 	}
 
 	@Override
@@ -74,19 +74,19 @@ public class DefaultAsyncNisConnector implements AsyncNisConnector {
 	}
 
 	private CompletableFuture<ErrorResponseDeserializerUnion> postAsyncImpl(final NodeEndpoint endpoint, final NisApiId apiId, final HttpPostRequest postRequest) {
-			return ExceptionUtils.propagate(() ->
-					this.httpClient.post(
-							this.createNisUrl(endpoint, apiId.toString()),
-							postRequest,
-							this.httpDeserializerResponseStrategy)
-							.getFuture()
-							.thenApply(response -> {
-								if (response.hasError()) {
-									throw new NisException(response.getError());
-								}
+		return ExceptionUtils.propagate(() ->
+				this.httpClient.post(
+						this.createNisUrl(endpoint, apiId.toString()),
+						postRequest,
+						this.httpDeserializerResponseStrategy)
+						.getFuture()
+						.thenApply(response -> {
+							if (response.hasError()) {
+								throw new NisException(response.getError());
+							}
 
-								return response;
-							}));
+							return response;
+						}));
 	}
 
 	private URL createNisUrl(final NodeEndpoint endpoint, final String nisPath) throws MalformedURLException {

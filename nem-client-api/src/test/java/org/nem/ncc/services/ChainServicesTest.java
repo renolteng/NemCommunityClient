@@ -7,7 +7,7 @@ import org.nem.core.connect.FatalPeerException;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.node.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.*;
+import org.nem.ncc.connector.AsyncNisConnector;
 import org.nem.ncc.model.*;
 import org.nem.ncc.test.*;
 

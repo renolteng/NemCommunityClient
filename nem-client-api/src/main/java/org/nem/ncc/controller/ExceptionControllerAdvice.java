@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.ConnectException;
 import java.util.MissingResourceException;
-import java.util.concurrent.CompletionException;
 
 /**
  * ControllerAdvice-annotated class that maps thrown exceptions to JSON errors.

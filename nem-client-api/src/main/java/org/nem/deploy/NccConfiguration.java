@@ -1,6 +1,7 @@
 package org.nem.deploy;
 
 import org.nem.core.deploy.CommonConfiguration;
+
 import java.util.Properties;
 
 /**
@@ -46,6 +47,7 @@ public class NccConfiguration extends CommonConfiguration {
 		this.isWebStart = getOptionalBoolean(properties, "ncc.isWebStart", false);
 		this.nisJnlpUrl = getOptionalString(properties, "ncc.nisJnlpUrl", "http://bob.nem.ninja/webstart/nem-server.jnlp");
 	}
+
 	/**
 	 * Get a value indicating whether or not web start is used.
 	 *

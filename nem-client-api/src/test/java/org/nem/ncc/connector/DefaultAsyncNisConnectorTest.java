@@ -11,12 +11,12 @@ import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.core.utils.ExceptionUtils;
-import org.nem.ncc.exceptions.*;
+import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
 import java.io.ByteArrayInputStream;
-import java.net.*;
+import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
 public class DefaultAsyncNisConnectorTest {

@@ -1,7 +1,7 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.metadata.ApplicationMetaData;
-import org.nem.core.node.*;
+import org.nem.core.node.NisNodeInfo;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;

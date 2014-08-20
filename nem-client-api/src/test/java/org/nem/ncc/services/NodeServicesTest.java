@@ -7,7 +7,7 @@ import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.node.*;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.time.*;
-import org.nem.ncc.connector.*;
+import org.nem.ncc.connector.AsyncNisConnector;
 import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
