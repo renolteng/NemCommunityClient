@@ -60,7 +60,7 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 	@Override
 	public void handleWebStart(final String[] args) {
 		// TODO-CR: 20140818 can you add one test when config.webStart is false?
-		NccConfiguration config = loadConfig(args);
+		final NccConfiguration config = this.loadConfig(args);
 		if (config.isWebStart()) {
 			this.controller.startNisViaWebStart(config.getNisJnlpUrl());
 		}
@@ -72,7 +72,7 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 
 		// TODO-CR: 20140818 can you maybe refactor this to a static function on NccConfiguration
 		// (then the NccConfiguration constants can be private)?
-		NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
+		final NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
 				new Option(NccConfiguration.WEBSTART, true, NccConfiguration.WEBSTART_DESCRIPTION),
 				new Option(NccConfiguration.NIS_JNLP_URL, true, NccConfiguration.NIS_JNLP_URL_DESCRIPTION)));
 		if (commandLine.parse(args)) {

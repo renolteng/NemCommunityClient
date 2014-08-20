@@ -27,7 +27,7 @@ public class TransactionControllerTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Transaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
-		final Deserializer deserializer = getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
+		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
 		Mockito.when(context.transactionMapper.toModel(context.request)).thenReturn(model);
 		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
@@ -43,7 +43,7 @@ public class TransactionControllerTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final MockTransaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
-		final Deserializer deserializer = getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
+		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
 		Mockito.when(context.transactionMapper.toModel(context.request)).thenReturn(model);
 		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
@@ -67,7 +67,7 @@ public class TransactionControllerTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Transaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
-		final Deserializer deserializer = getNisRequestResultDeserializer(ValidationResult.FAILURE_TIMESTAMP_TOO_FAR_IN_PAST.getValue());
+		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.FAILURE_TIMESTAMP_TOO_FAR_IN_PAST.getValue());
 		Mockito.when(context.transactionMapper.toModel(context.request)).thenReturn(model);
 		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
@@ -97,7 +97,7 @@ public class TransactionControllerTest {
 
 	//endregion
 
-	private Deserializer getNisRequestResultDeserializer(int code) {
+	private Deserializer getNisRequestResultDeserializer(final int code) {
 		final MockAccountLookup accountLookup = new MockAccountLookup();
 		final NisRequestResult result = new NisRequestResult(
 				NisRequestResult.TYPE_VALIDATION_RESULT,
