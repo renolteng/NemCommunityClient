@@ -223,10 +223,10 @@
 	</div>
 	<div class="row">
 		<div class="form-control fee">
-			<label>{{texts.modals.sendNem.fee}}</label><input value="{{fee}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
+			<label>{{texts.modals.sendNem.fee}}</label><span class="unit">NEM</span><input value="{{fee}}" on-keypress="sendFormKeypress" />
 		</div>
 		<div class="form-control due-by">
-			<label>{{texts.modals.sendNem.dueBy}}</label><input value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" /><span class="unit">{{texts.modals.sendNem.hours}}</span>
+			<label>{{texts.modals.sendNem.dueBy}}</label><span class="unit">{{texts.modals.sendNem.hours}}</span><input value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
 		</div>
 	</div>
 	<a href="javascript:;" class="set-fee" on-click="resetFee">{{texts.modals.sendNem.resetFee}}</a>

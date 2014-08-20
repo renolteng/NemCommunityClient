@@ -709,8 +709,8 @@ $drop-arrow-width: 33px;
 
 	.unit {
 		display: inline-block;
-		width: $unit-width;
 		text-align: center;
+		padding-right: 8px;
 	}
 
 	textarea {
@@ -720,7 +720,7 @@ $drop-arrow-width: 33px;
 	.amount {
 		padding: 0;
 		input {
-			padding: 8px;
+			padding: 6px 8px;
 			width: calc(100% - #{$unit-width});
 		}
 	}
@@ -744,28 +744,42 @@ $drop-arrow-width: 33px;
 	}
 
 	.fee, .due-by {
-		$label-width: 70px;
 		padding: 0 0 0 8px;
+		@extend %clearfix;
 
 		label {
 			display: inline-block;
-			width: $label-width;
+			float: left;
+			padding-top: 6px;
 		}
 		
 		input {
-			padding: 8px;
+			padding: 6px 8px;
 			text-align: right;
-			width: calc(100% - #{$label-width} - #{$unit-width});
+			float: right;
+		}
+
+		.unit {
+			float: right;
+			padding-top: 6px;
 		}
 	}
 
 	.fee {
 		float: left;
 		margin-right: $middleGap-half;
+
+		input {
+			width: 70px;
+		}
 	}
 
 	.due-by {
 		float: right;
+
+		input {
+			width: 50px;
+		}
 	}
 
 	.encrypt {
