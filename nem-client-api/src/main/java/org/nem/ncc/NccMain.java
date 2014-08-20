@@ -85,15 +85,6 @@ public class NccMain {
 	}
 
 	/**
-	 * Gets a value indicating whether or not NIS should be started via web start.
-	 *
-	 * @return true if NIS should be started, false otherwise
-	 */
-	public static boolean isNisWebStart() {
-		return commonConfiguration.isWebStart();
-	}
-
-	/**
 	 * Gets the folder where all nem files are stored.
 	 *
 	 * @return The nem folder.
