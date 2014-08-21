@@ -1,6 +1,6 @@
 package org.nem.ncc.cache;
 
-import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.model.ncc.AccountInfo;
@@ -29,7 +29,14 @@ public class AccountsFileRepositoryTest {
 		// Assert:
 		Assert.assertThat(
 				outputStream.toByteArray(),
-				IsEqual.equalTo(JsonSerializer.serializeToBytes(new SerializableList<>(accounts))));
+				IsEqual.equalTo(getBinaryPayload(1, accounts)));
+	}
+
+	private static byte[] getBinaryPayload(final int version, final Collection<AccountInfo> accountInfos) {
+		return JsonSerializer.serializeToBytes(serializer -> {
+			serializer.writeInt("version", version);
+			serializer.writeObjectArray("accounts", accountInfos);
+		});
 	}
 
 	@Test
@@ -54,8 +61,7 @@ public class AccountsFileRepositoryTest {
 		// Arrange:
 		final List<AccountInfo> originalAccounts = Utils.generateRandomAccountInfos(3);
 		final AccountsFileDescriptor descriptor = Mockito.mock(AccountsFileDescriptor.class);
-		final ByteArrayInputStream inputStream = new ByteArrayInputStream(
-				JsonSerializer.serializeToBytes(new SerializableList<>(originalAccounts)));
+		final ByteArrayInputStream inputStream = new ByteArrayInputStream(getBinaryPayload(1, originalAccounts));
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
 
 		// Act:
@@ -63,6 +69,21 @@ public class AccountsFileRepositoryTest {
 
 		// Assert:
 		Assert.assertThat(accounts, IsEquivalent.equivalentTo(originalAccounts));
+	}
+
+	@Test
+	public void cannotLoadAccountsFromReadStreamWithIncompatibleVersion() {
+		// Arrange:
+		final List<AccountInfo> originalAccounts = Utils.generateRandomAccountInfos(3);
+		final AccountsFileDescriptor descriptor = Mockito.mock(AccountsFileDescriptor.class);
+		final ByteArrayInputStream inputStream = new ByteArrayInputStream(getBinaryPayload(2, originalAccounts));
+		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
+
+		// Act:
+		final Collection<AccountInfo> accounts = new AccountsFileRepository(descriptor).load();
+
+		// Assert:
+		Assert.assertThat(accounts.size(), IsEqual.equalTo(0));
 	}
 
 	@Test
@@ -80,15 +101,16 @@ public class AccountsFileRepositoryTest {
 	}
 
 	@Test
-	public void loadFailureIsMappedToAppropriateException() {
+	public void loadFailureIsSuppressed() {
 		// Arrange:
 		final AccountsFileDescriptor descriptor = Mockito.mock(AccountsFileDescriptor.class);
 		Mockito.when(descriptor.openRead()).thenReturn(CorruptStreams.createRead());
 
+		// Act:
+		final Collection<AccountInfo> accounts = new AccountsFileRepository(descriptor).load();
+
 		// Assert:
-		ExceptionAssert.assertThrowsNccException(
-				v -> new AccountsFileRepository(descriptor).load(),
-				NccException.Code.ACCOUNT_CACHE_ERROR);
+		Assert.assertThat(accounts.size(), IsEqual.equalTo(0));
 	}
 
 	//endregion
