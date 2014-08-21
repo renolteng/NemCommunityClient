@@ -1,10 +1,10 @@
 package org.nem.ncc.cache;
 
-import org.hamcrest.core.*;
+import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.model.ncc.AccountInfo;
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.test.*;
 
