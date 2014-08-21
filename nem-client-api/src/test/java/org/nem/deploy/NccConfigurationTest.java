@@ -69,7 +69,7 @@ public class NccConfigurationTest {
 	@Test
 	public void loadConfigWithNonParsableArgsReturnsDefaultConfig() {
 		// Act:
-		NccConfiguration config = NccConfiguration.loadConfig(new String[] { "-issWebStart", "1", "-nisJnlpUrl", "someUrl" });
+		final NccConfiguration config = NccConfiguration.loadConfig(new String[] { "-issWebStart", "1", "-nisJnlpUrl", "someUrl" });
 
 		// Assert:
 		Assert.assertThat(config.isWebStart(), IsEqual.equalTo(false));
@@ -79,7 +79,7 @@ public class NccConfigurationTest {
 	@Test
 	public void loadConfigWithParsableArgsReturnsParsedConfig() {
 		// Act:
-		NccConfiguration config = NccConfiguration.loadConfig(new String[] { "-isWebStart", "1", "-nisJnlpUrl", "someUrl" });
+		final NccConfiguration config = NccConfiguration.loadConfig(new String[] { "-isWebStart", "1", "-nisJnlpUrl", "someUrl" });
 
 		// Assert:
 		Assert.assertThat(config.isWebStart(), IsEqual.equalTo(true));

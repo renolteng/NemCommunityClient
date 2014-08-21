@@ -57,7 +57,7 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 
 	@Override
 	public void handleWebStart(final String[] args) {
-		NccConfiguration config = NccConfiguration.loadConfig(args);
+		final NccConfiguration config = NccConfiguration.loadConfig(args);
 		if (config.isWebStart()) {
 			this.controller.startNisViaWebStart(config.getNisJnlpUrl());
 		}
