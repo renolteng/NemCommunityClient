@@ -57,8 +57,6 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 
 	@Override
 	public void handleWebStart(final String[] args) {
-		// TODO-CR: 20140818 can you add one test when config.webStart is false?
-		// BR: Done.
 		NccConfiguration config = NccConfiguration.loadConfig(args);
 		if (config.isWebStart()) {
 			this.controller.startNisViaWebStart(config.getNisJnlpUrl());
@@ -67,12 +65,6 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 
 	@Override
 	public NccConfiguration loadConfig(final String[] args) {
-		// TODO-CR: 20140818 also, consider adding a test for this function
-
-		// TODO-CR: 20140818 can you maybe refactor this to a static function on NccConfiguration
-		// (then the NccConfiguration constants can be private)?
-		// BR: refactored to NccConfiguration, test is in NccConfigurationTest.
-		//     Or did you want me to remove loadConfig from the interface itself?
 		return NccConfiguration.loadConfig(args);
 	}
 }

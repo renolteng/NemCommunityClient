@@ -66,6 +66,12 @@ public class NccConfiguration extends CommonConfiguration {
 		return this.nisJnlpUrl;
 	}
 
+	/**
+	 * Loads an NccConfiguration from an array of commandline arguments.
+	 *
+	 * @param args The arguments.
+	 * @return The configuration.
+	 */
 	public static NccConfiguration loadConfig(final String[] args) {
 		NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
 				new Option(NccConfiguration.WEBSTART, true, NccConfiguration.WEBSTART_DESCRIPTION),
