@@ -17,6 +17,7 @@ public class NccConfigurationTest {
 		// Act:
 		final NccConfiguration config = new NccConfiguration(properties);
 
+		// Assert:
 		Assert.assertThat(config.isWebStart(), IsEqual.equalTo(true));
 	}
 
@@ -28,6 +29,7 @@ public class NccConfigurationTest {
 		// Act:
 		final NccConfiguration config = new NccConfiguration(properties);
 
+		// Assert:
 		Assert.assertThat(config.isWebStart(), IsEqual.equalTo(false));
 	}
 
@@ -44,6 +46,7 @@ public class NccConfigurationTest {
 		// Act:
 		final NccConfiguration config = new NccConfiguration(properties);
 
+		// Assert:
 		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("url"));
 	}
 
@@ -55,7 +58,32 @@ public class NccConfigurationTest {
 		// Act:
 		final NccConfiguration config = new NccConfiguration(properties);
 
+		// Assert:
 		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("http://bob.nem.ninja/webstart/nem-server.jnlp"));
+	}
+
+	//endregion
+
+	//region loadConfig
+
+	@Test
+	public void loadConfigWithNonParsableArgsReturnsDefaultConfig() {
+		// Act:
+		final NccConfiguration config = NccConfiguration.loadConfig(new String[] { "-issWebStart", "1", "-nisJnlpUrl", "someUrl" });
+
+		// Assert:
+		Assert.assertThat(config.isWebStart(), IsEqual.equalTo(false));
+		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("http://bob.nem.ninja/webstart/nem-server.jnlp"));
+	}
+
+	@Test
+	public void loadConfigWithParsableArgsReturnsParsedConfig() {
+		// Act:
+		final NccConfiguration config = NccConfiguration.loadConfig(new String[] { "-isWebStart", "1", "-nisJnlpUrl", "someUrl" });
+
+		// Assert:
+		Assert.assertThat(config.isWebStart(), IsEqual.equalTo(true));
+		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("someUrl"));
 	}
 
 	//endregion
