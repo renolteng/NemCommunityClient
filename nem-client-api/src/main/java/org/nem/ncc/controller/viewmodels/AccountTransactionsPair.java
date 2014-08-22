@@ -2,7 +2,7 @@ package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.serialization.*;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  * A pair containing both an account and account transactions.
