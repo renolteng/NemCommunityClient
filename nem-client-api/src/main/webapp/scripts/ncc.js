@@ -1,6 +1,11 @@
 "use strict";
 
-define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mustache) {
+define(function(require) {
+    var $ = require('jquery');
+    var Ractive = require('ractive');
+    var Mustache = require('mustache');
+    var tooltipster = require('tooltipster');
+
     var NccModal = Ractive.extend({
         template: '#modal-template',
         isolated: true,
@@ -562,87 +567,92 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
                 });
             });
         },
-        loadPage: function(page, level, childInit, isBack, params, isInit) {
+        loadPage: function(page, params, isBack, isInit) {
             var self = this;
-            var isInnermost = false;
-            if (!level && level !== 0) {
-                level = 0;
-                isInnermost = true;
-            }
 
-            require([page], function(layout) {
+            var loadLayout = function(layoutName) {
+                require([layoutName], function(layout) {
+                    require([layout.template], function() {
+                        if (layout.parent) {
+                            loadLayout(layout.parent);
+                        } else {
+                            replaceLayout(page);
+                        }
+                    });
+                });
+            };
+
+            var replaceLayout = function(layoutName, level) {
+                var isInnermost = false;
+                if (!level && level !== 0) {
+                    level = 0;
+                    isInnermost = true;
+                }
+
+                var layout = require(layoutName);
+
                 if (isInnermost && !isBack) {
                     var url = layout.url + (params? self.toQueryString(params) : location.search);
                     if (isInit) {
-                        history.replaceState(page, 'entry', url);
+                        history.replaceState(layoutName, 'entry', url);
                     } else {
-                        history.pushState(page, null, url);
+                        history.pushState(layoutName, null, url);
                     }
                 }
-
-                var init = function() {
-                    var keypath = 'layout.' + level;
-                    var currentLayout = self.get(keypath);
-                    if (isInnermost || (currentLayout && currentLayout.name) !== layout.name) {
-                        var requires = layout.dependencies ? [layout.template].concat(layout.dependencies) : [layout.template];
-                        require(requires, function(template) {
-                            if (currentLayout && currentLayout.leave) {
-                                $.each(currentLayout.leave, function() {
-                                    this.apply(currentLayout);
-                                });
-                            }
-
-                            // Init
-                            if (!layout.alreadyInit && layout.initOnce) {
-                                layout.initOnce();
-                                layout.alreadyInit = true;
-                            }
-                            if (layout.initEverytime) {
-                                layout.initEverytime();
-                            }
-
-                            self.set(keypath, null);
-                            self.partials[level] = template;
-                            self.set(keypath, layout);
-
-                            // Setup
-                            if (!layout.alreadySetup && layout.setupOnce) {
-                                layout.setupOnce();
-                                layout.alreadySetup = true;
-                            }
-                            if (layout.setupEverytime) {
-                                layout.setupEverytime();
-                            }
-
-                            if (childInit) childInit();
-
-                            if (isInnermost) {
-                                self.globalSetup();
-                            }
-                        });
-                    } else {
-                        if (childInit) childInit();
-                    }
-                };
 
                 if (layout.parent) {
-                    level = self.loadPage(layout.parent, level, init);
-                } else {
-                    init();
+                    level = replaceLayout(layout.parent, level);
                 }
 
-                if (isInnermost) {
-                    // Clear the old layout names
-                    var nccLayouts = self.get('layout');
-                    if (nccLayouts) {
-                        for (var i = level + 1; i < nccLayouts.length; i++) {
-                            self.set('layout.' + i, null);
+                var keypath = 'layout.' + level;
+                var currentLayout = self.get(keypath);
+                if (!currentLayout || (currentLayout.name !== layout.name)) {
+                    var template = require(layout.template);
+                    if (currentLayout && currentLayout.leave) {
+                        $.each(currentLayout.leave, function() {
+                            this.apply(currentLayout);
+                        });
+                    }
+
+                    // Init
+                    if (!layout.alreadyInit && layout.initOnce) {
+                        layout.initOnce();
+                        layout.alreadyInit = true;
+                    }
+                    if (layout.initEverytime) {
+                        layout.initEverytime();
+                    }
+
+                    self.set(keypath, null);
+                    self.partials[level] = template;
+                    self.set(keypath, layout);
+
+                    // Setup
+                    if (!layout.alreadySetup && layout.setupOnce) {
+                        layout.setupOnce();
+                        layout.alreadySetup = true;
+                    }
+                    if (layout.setupEverytime) {
+                        layout.setupEverytime();
+                    }
+
+                    if (isInnermost) {
+                        self.globalSetup();
+
+                        // Clear the old layout names
+                        var nccLayouts = self.get('layout');
+                        if (nccLayouts) {
+                            for (var i = level + 1; i < nccLayouts.length; i++) {
+                                self.set('layout.' + i, null);
+                            }
                         }
                     }
                 }
-            });
 
-            return level + 1;
+                return level + 1;
+            };
+
+            loadLayout(page);
         },
         fill: function(template) {
             return Mustache.render(template, arguments);
@@ -668,12 +678,7 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
 
             this.on({
                 redirect: function(e, page, params) {
-                    if (!this.get('status.redirecting')) {
-                        this.set('status.redirecting', true);
-                        this.loadPage(page, null, function() {
-                            self.set('status.redirecting', false);
-                        }, false, params);
-                    }
+                    this.loadPage(page, params);
                 },
                 toggleOn: function(e, id) {
                     this.toggleOn(id);
