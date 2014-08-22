@@ -43,11 +43,6 @@ public enum NisApiId {
 	NIS_REST_ACCOUNT_TRANSFERS_OUTGOING("/account/transfers/outgoing"),
 
 	/**
-	 * The /account/transfers API
-	 */
-	NIS_REST_ACCOUNT_TRANSFERS("/account/transfers"),
-
-	/**
 	 * The /account/unconfirmedTransactions API
 	 */
 	NIS_REST_ACCOUNT_UNCONFIRMED("/account/unconfirmedTransactions"),
