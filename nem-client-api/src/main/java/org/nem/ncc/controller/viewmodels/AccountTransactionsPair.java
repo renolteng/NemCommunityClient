@@ -2,14 +2,14 @@ package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.serialization.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * A pair containing both an account and account transactions.
  */
 public class AccountTransactionsPair implements SerializableEntity {
 	private final AccountViewModel account;
-	private final List<TransferViewModel> transactions;
+	private final Collection<TransferViewModel> transactions;
 
 	/**
 	 * Creates a new pair.
@@ -17,7 +17,7 @@ public class AccountTransactionsPair implements SerializableEntity {
 	 * @param account The account.
 	 * @param transactions The transactions.
 	 */
-	public AccountTransactionsPair(final AccountViewModel account, final List<TransferViewModel> transactions) {
+	public AccountTransactionsPair(final AccountViewModel account, final Collection<TransferViewModel> transactions) {
 		this.account = account;
 		this.transactions = transactions;
 	}
@@ -36,7 +36,7 @@ public class AccountTransactionsPair implements SerializableEntity {
 	 *
 	 * @return The transactions.
 	 */
-	public List<TransferViewModel> getTransactions() {
+	public Collection<TransferViewModel> getTransactions() {
 		return this.transactions;
 	}
 

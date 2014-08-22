@@ -52,6 +52,8 @@ public class AccountController {
 		this.nisConnector = nisConnector;
 	}
 
+	//region find
+
 	/**
 	 * Gets information about the specified account.
 	 * Looks-up an account which is known by its address id
@@ -65,84 +67,64 @@ public class AccountController {
 		return this.accountMapper.toViewModel(address);
 	}
 
-	/**
-	 * Gets information about the specified account including transactions.
-	 *
-	 * @param atsRequest The account identifier.
-	 * @return The account information.
-	 */
-	@RequestMapping(value = "/account/transactions", method = RequestMethod.POST)
-	@Deprecated
-	public AccountTransactionsPair getAccountTransactions(@RequestBody final AccountTimeStampRequest atsRequest) {
-		final Address address = atsRequest.getAccountId();
-		final AccountViewModel account = this.getAccountInfo(atsRequest);
+	//endregion
 
-		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getLastBlockHeightAsync);
-		final List<TransferViewModel> allTransfers = new ArrayList<>();
-		allTransfers.addAll(
-				this.accountServices.getUnconfirmedTransactions(address).stream()
-						.map(t -> new TransferViewModel(t, account.getAddress()))
-						.collect(Collectors.toList()));
-		allTransfers.addAll(
-				this.accountServices.getConfirmedTransactions(address, atsRequest.getTimeStamp()).stream()
-						.map(p -> new TransferViewModel(p, account.getAddress(), lastBlockHeight))
-						.collect(Collectors.toList()));
-
-		return new AccountTransactionsPair(account, allTransfers);
-	}
+	//region transactions/unconfirmed
 
 	/**
 	 * Gets information about the specified account and unconfirmed transactions.
-	 * TODO: this method doesn't handle any paging now, but it shouldn't be a problem for now.
 	 *
 	 * @param ahRequest The account identifier.
-	 * @return The account information.
+	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/unconfirmed", method = RequestMethod.POST)
 	public AccountTransactionsPair getAccountTransactionsUnconfirmed(@RequestBody final AccountHashRequest ahRequest) {
-		final Address address = ahRequest.getAccountId();
 		final AccountViewModel account = this.getAccountInfo(ahRequest);
-
-		final List<TransferViewModel> allTransfers = new ArrayList<>();
-		allTransfers.addAll(
-				this.accountServices.getUnconfirmedTransactions(address).stream()
-						.map(t -> new TransferViewModel(t, account.getAddress()))
-						.collect(Collectors.toList()));
-
-		return new AccountTransactionsPair(account, allTransfers);
+		return new AccountTransactionsPair(account, this.getUnconfirmedTransactions(ahRequest));
 	}
 
-	private AccountTransactionsPair getAccountTransactions(final TransactionDirection direction, final AccountHashRequest ahRequest) {
+	private Collection<TransferViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
 		final Address address = ahRequest.getAccountId();
+		return this.accountServices.getUnconfirmedTransactions(address).stream()
+				.map(t -> new TransferViewModel(t, address))
+				.collect(Collectors.toList());
+	}
+
+	//endregion
+
+	//region transactions/(all|confirmed|incoming|outgoing)
+
+	/**
+	 * Gets information about the specified account and incoming and outgoing confirmed and unconfirmed transactions.
+	 *
+	 * @param ahRequest The account identifier.
+	 * @return The account and transactions information.
+	 */
+	@RequestMapping(value = "/account/transactions/all", method = RequestMethod.POST)
+	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountHashRequest ahRequest) {
 		final AccountViewModel account = this.getAccountInfo(ahRequest);
-
-		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getLastBlockHeightAsync);
 		final List<TransferViewModel> allTransfers = new ArrayList<>();
-
-		allTransfers.addAll(
-				this.accountServices.getTransactions(direction, address, ahRequest.getHash()).stream()
-						.map(p -> new TransferViewModel(p, account.getAddress(), lastBlockHeight))
-						.collect(Collectors.toList()));
-
+		allTransfers.addAll(this.getUnconfirmedTransactions(ahRequest));
+		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, ahRequest));
 		return new AccountTransactionsPair(account, allTransfers);
 	}
 
 	/**
-	 * Gets information about the specified account and incoming and outgoing transactions.
+	 * Gets information about the specified account and incoming and outgoing confirmed transactions.
 	 *
 	 * @param ahRequest The account identifier.
-	 * @return The account information.
+	 * @return The account and transactions information.
 	 */
-	@RequestMapping(value = "/account/transactions/all", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountHashRequest ahRequest) {
+	@RequestMapping(value = "/account/transactions/confirmed", method = RequestMethod.POST)
+	public AccountTransactionsPair getAccountTransactionsConfirmed(@RequestBody final AccountHashRequest ahRequest) {
 		return this.getAccountTransactions(TransactionDirection.ALL, ahRequest);
 	}
 
 	/**
-	 * Gets information about the specified account and incoming transactions.
+	 * Gets information about the specified account and incoming confirmed transactions.
 	 *
 	 * @param ahRequest The account identifier.
-	 * @return The account information.
+	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/incoming", method = RequestMethod.POST)
 	public AccountTransactionsPair getAccountTransactionsIncoming(@RequestBody final AccountHashRequest ahRequest) {
@@ -150,15 +132,32 @@ public class AccountController {
 	}
 
 	/**
-	 * Gets information about the specified account and outgoing transactions.
+	 * Gets information about the specified account and outgoing confirmed transactions.
 	 *
 	 * @param ahRequest The account identifier.
-	 * @return The account information.
+	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/outgoing", method = RequestMethod.POST)
 	public AccountTransactionsPair getAccountTransactionsOutgoing(@RequestBody final AccountHashRequest ahRequest) {
 		return this.getAccountTransactions(TransactionDirection.OUTGOING, ahRequest);
 	}
+
+	private AccountTransactionsPair getAccountTransactions(final TransactionDirection direction, final AccountHashRequest ahRequest) {
+		final AccountViewModel account = this.getAccountInfo(ahRequest);
+		return new AccountTransactionsPair(account, this.getConfirmedTransactions(direction, ahRequest));
+	}
+
+	private Collection<TransferViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountHashRequest ahRequest) {
+		final Address address = ahRequest.getAccountId();
+		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getLastBlockHeightAsync);
+		return this.accountServices.getTransactions(direction, address, ahRequest.getHash()).stream()
+				.map(p -> new TransferViewModel(p, address, lastBlockHeight))
+				.collect(Collectors.toList());
+	}
+
+	//endregion
+
+	//region harvests
 
 	/**
 	 * Retrieves a list of infos on harvested blocks for an account.
@@ -186,6 +185,10 @@ public class AccountController {
 		return builder.toString();
 	}
 
+	//endregion
+
+	//region unlock|lock
+
 	/**
 	 * Unlock the account on the connected NIS server (start foraging)
 	 *
@@ -212,4 +215,6 @@ public class AccountController {
 		return this.walletServices.get(awRequest.getWalletName())
 				.getAccountPrivateKey(awRequest.getAccountId());
 	}
+
+	//endregion
 }
