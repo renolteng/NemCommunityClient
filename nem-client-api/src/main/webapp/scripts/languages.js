@@ -31,7 +31,9 @@ define([
                         if (typeof(obj[property]) == "object") {
                             iterx(obj[property]);
                         } else {
-                            obj[property] = window.atob(obj[property]);
+                            if (property !== "logo") {
+                                obj[property] = window.atob(obj[property]);
+                            }
                         }
                     }
                 }
