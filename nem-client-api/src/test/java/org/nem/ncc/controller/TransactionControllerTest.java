@@ -5,6 +5,7 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
+import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.NisRequestResult;
@@ -14,7 +15,6 @@ import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.FeeViewModel;
 import org.nem.ncc.exceptions.NisException;
-import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.TransactionMapper;
 import org.nem.ncc.test.*;
 

@@ -1,8 +1,7 @@
 package org.nem.ncc.services;
 
+import org.nem.core.connect.client.*;
 import org.nem.core.node.*;
-import org.nem.ncc.connector.AsyncNisConnector;
-import org.nem.ncc.model.NisApiId;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;

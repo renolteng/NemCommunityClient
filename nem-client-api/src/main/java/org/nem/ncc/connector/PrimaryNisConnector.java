@@ -1,9 +1,9 @@
 package org.nem.ncc.connector;
 
 import org.nem.core.connect.HttpPostRequest;
+import org.nem.core.connect.client.NisApiId;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.Deserializer;
-import org.nem.ncc.model.NisApiId;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
