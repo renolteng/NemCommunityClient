@@ -34,11 +34,11 @@ require.config({
 define(['ncc'], function(ncc) {
     ncc.getRequest('configuration/get', function(data) {
         ncc.set('settings', data);
-        ncc.loadPage(entryPage, null, null, false, null, true);
+        ncc.loadPage(entryPage, null, false, true);
     });
 
     window.onpopstate = function(event) {
-        ncc.loadPage(event.state, null, null, true);
+        ncc.loadPage(event.state.page, event.state.params, true, false);
     };
 
     var checkNisAvailability = function() {

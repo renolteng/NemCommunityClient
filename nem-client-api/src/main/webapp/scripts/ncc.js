@@ -1,6 +1,11 @@
 "use strict";
 
-define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mustache) {
+define(function(require) {
+    var $ = require('jquery');
+    var Ractive = require('ractive');
+    var Mustache = require('mustache');
+    var tooltipster = require('tooltipster');
+
     var NccModal = Ractive.extend({
         template: '#modal-template',
         isolated: true,
@@ -562,87 +567,91 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
                 });
             });
         },
-        loadPage: function(page, level, childInit, isBack, params, isInit) {
+        loadPage: function(page, params, isBack, isInit) {
             var self = this;
-            var isInnermost = false;
-            if (!level && level !== 0) {
-                level = 0;
-                isInnermost = true;
-            }
 
-            require([page], function(layout) {
-                if (isInnermost && !isBack) {
-                    var url = layout.url + (params? self.toQueryString(params) : location.search);
-                    if (isInit) {
-                        history.replaceState(page, 'entry', url);
-                    } else {
-                        history.pushState(page, null, url);
-                    }
-                }
+            // We use require(string) instead of require(array, function) to make page loading process synchronous
+            // require(string) needs dependencies to be loaded before being used
+            // So we have to load all layout files and templates first
+            var layouts = [];
+            var loadLayout = function(layoutName) {
+                require([layoutName], function(layout) {
+                    layouts.unshift(layout);
+                    require([layout.template], function() {
+                        if (layout.parent) {
+                            loadLayout(layout.parent);
+                        } else {
+                            replaceLayouts();
+                        }
+                    });
+                });
+            };
 
-                var init = function() {
-                    var keypath = 'layout.' + level;
+            var replaceLayouts = function() {
+                var oldParams = ncc.get('params');
+                var paramsChanged = JSON.stringify(oldParams) !== JSON.stringify(params);
+
+                for (var i = 0; i < layouts.length; i++) {
+                    var layout = layouts[i];
+                    var keypath = 'layout.' + i;
                     var currentLayout = self.get(keypath);
-                    if (isInnermost || (currentLayout && currentLayout.name) !== layout.name) {
-                        var requires = layout.dependencies ? [layout.template].concat(layout.dependencies) : [layout.template];
-                        require(requires, function(template) {
-                            if (currentLayout && currentLayout.leave) {
-                                $.each(currentLayout.leave, function() {
-                                    this.apply(currentLayout);
-                                });
-                            }
 
-                            // Init
-                            if (!layout.alreadyInit && layout.initOnce) {
-                                layout.initOnce();
-                                layout.alreadyInit = true;
-                            }
-                            if (layout.initEverytime) {
-                                layout.initEverytime();
-                            }
+                    if (paramsChanged || !currentLayout || (currentLayout.name !== layout.name)) {
+                        var template = require(layout.template);
+                        if (currentLayout && currentLayout.leave) {
+                            $.each(currentLayout.leave, function() {
+                                this.apply(currentLayout);
+                            });
+                        }
 
-                            self.set(keypath, null);
-                            self.partials[level] = template;
-                            self.set(keypath, layout);
+                        // Init
+                        if (!layout.alreadyInit && layout.initOnce) {
+                            layout.initOnce();
+                            layout.alreadyInit = true;
+                        }
+                        if (layout.initEverytime) {
+                            var abort = layout.initEverytime(params);
+                            if (abort) return;
+                        }
 
-                            // Setup
-                            if (!layout.alreadySetup && layout.setupOnce) {
-                                layout.setupOnce();
-                                layout.alreadySetup = true;
-                            }
-                            if (layout.setupEverytime) {
-                                layout.setupEverytime();
-                            }
+                        self.set(keypath, null);
+                        self.partials[i] = template;
+                        self.set(keypath, layout);
 
-                            if (childInit) childInit();
-
-                            if (isInnermost) {
-                                self.globalSetup();
-                            }
-                        });
-                    } else {
-                        if (childInit) childInit();
-                    }
-                };
-
-                if (layout.parent) {
-                    level = self.loadPage(layout.parent, level, init);
-                } else {
-                    init();
-                }
-
-                if (isInnermost) {
-                    // Clear the old layout names
-                    var nccLayouts = self.get('layout');
-                    if (nccLayouts) {
-                        for (var i = level + 1; i < nccLayouts.length; i++) {
-                            self.set('layout.' + i, null);
+                        // Setup
+                        if (!layout.alreadySetup && layout.setupOnce) {
+                            layout.setupOnce();
+                            layout.alreadySetup = true;
+                        }
+                        if (layout.setupEverytime) {
+                            var abort = layout.setupEverytime(params);
+                            if (abort) return;
                         }
                     }
                 }
-            });
 
-            return level + 1;
+                self.globalSetup();
+
+                // Clear the old layouts
+                var currLayouts = self.get('layout');
+                if (currLayouts && currLayouts.length) {
+                    for (i = i + 1; i < currLayouts.length; i++) {
+                        self.set('layout.' + i, null);
+                    }
+                }
+
+                if (!isBack) {
+                    var url = layouts[layouts.length - 1].url + (params? self.toQueryString(params) : location.search);
+                    if (isInit) {
+                        history.replaceState({ page: page, params: params }, 'entry', url);
+                    } else {
+                        history.pushState({ page: page, params: params }, null, url);
+                    }
+                }
+                ncc.set('params', params);
+            };
+
+            loadLayout(page);
         },
         fill: function(template) {
             return Mustache.render(template, arguments);
@@ -668,12 +677,7 @@ define(['jquery', 'ractive', 'mustache', 'tooltipster'], function($, Ractive, Mu
 
             this.on({
                 redirect: function(e, page, params) {
-                    if (!this.get('status.redirecting')) {
-                        this.set('status.redirecting', true);
-                        this.loadPage(page, null, function() {
-                            self.set('status.redirecting', false);
-                        }, false, params);
-                    }
+                    this.loadPage(page, params);
                 },
                 toggleOn: function(e, id) {
                     this.toggleOn(id);
