@@ -17,6 +17,7 @@ import java.util.*;
  */
 public class TrayIconBuilder {
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
+	private final WebStartLauncher webStartLauncher;
 	private final TrayIcon trayIcon;
 	private final PopupMenu popup;
 	private final Collection<NodeStatusVisitor> visitors = new ArrayList<>();
@@ -26,9 +27,14 @@ public class TrayIconBuilder {
 	 * Creates a new builder.
 	 *
 	 * @param client The http method client.
+	 * @param webStartLauncher The web start launcher.
 	 */
-	public TrayIconBuilder(final HttpMethodClient<ErrorResponseDeserializerUnion> client) {
+	public TrayIconBuilder(
+			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
+			final WebStartLauncher webStartLauncher) {
 		this.client = client;
+		this.webStartLauncher = webStartLauncher;
+
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
 		this.popup = new PopupMenu();
@@ -62,7 +68,7 @@ public class TrayIconBuilder {
 		// TODO-J: remove this hack!
 		final MenuItem startMenuItem = new MenuItem("HACK: Start " + jnlpUrl);
 		startMenuItem.addActionListener(e -> {
-			new WebstartLauncher().launch(nemFolder, jnlpUrl);
+			this.webStartLauncher.launch(nemFolder, jnlpUrl);
 		});
 
 		this.popup.add(startMenuItem);

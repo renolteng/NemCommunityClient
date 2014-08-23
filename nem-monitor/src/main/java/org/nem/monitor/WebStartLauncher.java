@@ -8,8 +8,8 @@ import java.util.logging.*;
  * Class to start NIS server via web start if web start is available.
  * TODO-J: fix this class add some tests
  */
-public class WebstartLauncher {
-	private static final Logger LOGGER = Logger.getLogger(WebstartLauncher.class.getName());
+public class WebStartLauncher {
+	private static final Logger LOGGER = Logger.getLogger(WebStartLauncher.class.getName());
 
 	/**
 	 * If configured as web start, start NIS server.
