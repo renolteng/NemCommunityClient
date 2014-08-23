@@ -199,6 +199,7 @@
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'Портфейлът беше успешно импортнат!',
 			nav: {
 				start: '<strong>Първи стъпки</strong>',
@@ -259,6 +260,7 @@
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: 'Около {{1}} дни назад',
 			lastAccessJustNow: 'Точно сега',
 			lastAccessTooltip: 'Последният достъп е бил {{1}}',

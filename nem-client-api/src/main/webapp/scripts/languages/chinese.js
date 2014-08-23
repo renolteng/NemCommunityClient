@@ -181,6 +181,7 @@
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: '钱包已成功导入!',
 			nav: {
 				start: '已经 <strong>开始</strong>',
@@ -241,6 +242,7 @@
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: '大约 {{1}} 天前',
 			lastAccessJustNow: '就现在',
 			lastAccessTooltip: '上次访问是 {{1}}',

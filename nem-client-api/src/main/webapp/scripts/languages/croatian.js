@@ -187,6 +187,7 @@ define({
 			}
 		},
 		landing: {
+			logo: 'images/nem_logo.png',
 			importSuccess: 'Novčanik je uspješno uvezen!',
 			nav: {
 				start: '<strong>Početak</strong>',
@@ -247,6 +248,7 @@ define({
 			}
 		},
 		wallet: {
+			logo: 'images/nem_logo.png',
 			lastAccess: 'Otprilike prije {{1}} dan(a)',
 			lastAccessJustNow: 'Upravo sad',
 			lastAccessTooltip: 'Zadnji pristup na {{1}}',
