@@ -49,6 +49,16 @@ public class TrayIconBuilder {
 		this.visitorNodePolicyPairs.add(new VisitorNodePolicyPair(visitor, nodePolicy));
 	}
 
+	public void addHackWebStartMenuItem(final String nemFolder, final String jnlpUrl) {
+		// TODO-J: remove this hack!
+		final MenuItem startMenuItem = new MenuItem("HACK: Start " + jnlpUrl);
+		startMenuItem.addActionListener(e -> {
+			new WebstartLauncher().launch(nemFolder, jnlpUrl);
+		});
+
+		this.popup.add(startMenuItem);
+	}
+
 	/**
 	 * Adds a menu item separator.
 	 */
