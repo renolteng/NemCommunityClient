@@ -38,7 +38,7 @@ define(['ncc'], function(ncc) {
     });
 
     window.onpopstate = function(event) {
-        ncc.loadPage(event.state, null, true, false);
+        ncc.loadPage(event.state.page, event.state.params, true, false);
     };
 
     var checkNisAvailability = function() {
