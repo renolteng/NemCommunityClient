@@ -1,6 +1,6 @@
-define({
-	id: ‘cn’,
-	name: ‘中文’,
+﻿define({
+	id: 'cn',
+	name: '中文',
 	texts: {
 		faults: {
             101: '未找到文件。',
@@ -50,7 +50,7 @@ define({
 				nullLabelDesc: "此帐户没有标记",
 				amount: '金额',
 				recipient: "收件人账号",
-				message: '信息'
+				message: '信息',
 				encrypt: '加密信息',
 				fee: '费',
 				dueBy: '限期（小时）',
@@ -67,8 +67,8 @@ define({
 				remoteServer: '远程服务器',
 				local: '本地',
 				nis: 'NEM 基础设施服务器 - NIS',
-				sync: '完成同步’,
-				notSync: ‘没完成同步',
+				sync: '完成同步',
+				notSync: '没完成同步',
 				notConnected: '没有连接 NEM Cloud',
 				loading: '加载中...'
 			},
@@ -142,7 +142,7 @@ define({
 				newName: '新钱包名',
 				password: "钱包密码",
 				successMessage: '钱包名称已变更成功从<em>{{1}}</em>到<em>{{2}}</em>',
-				change: ‘改’
+				change: '改'
 			},
 			changeWalletPassword: {
 				title: '改钱包密码',

@@ -20,7 +20,7 @@ define({
             500: 'Greška prilikom spremanja konfiguracijske datoteke.',
             600: 'Za slanje i primanje transakcija sa NEM oblaka, NCC zahtijeva da NIS poslužitelj bude pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.',
             601: 'NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.',
-            700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 NEM-ova.'
+            700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 NEM-ova.',
             701: 'Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.',
             702: 'Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.',
             703: 'Stanje na Vašem računu nije dovoljno za slanje određenog iznosa NEMa.',
