@@ -5,8 +5,10 @@ import org.nem.core.connect.*;
 import org.nem.monitor.*;
 import org.nem.monitor.node.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -30,7 +32,13 @@ public class TrayIconBuilder {
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
 		this.popup = new PopupMenu();
 
-		this.visitors.add(new IconNodeStatusVisitor(this.trayIcon));
+		this.visitors.add(new NodeStatusToIconDescriptorAdapter(this::setImage));
+	}
+
+	private void setImage(final IconDescriptor descriptor) {
+		final URL imageUrl = TrayIconBuilder.class.getClassLoader().getResource(descriptor.getImageFileName());
+		final Image image = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage();
+		this.trayIcon.setImage(image);
 	}
 
 	/**
