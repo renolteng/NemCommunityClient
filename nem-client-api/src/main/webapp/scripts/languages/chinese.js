@@ -226,7 +226,7 @@ define({
 						]
 					},
 					{
-						title: '什么是NIS?',
+						title: '什么是&#42;NIS?',
 						paragraphs: [
 							'负责保持<strong>NEM</strong>云活着.',
 							'越多<strong>NIS</strong>服务器安全性越好。',
