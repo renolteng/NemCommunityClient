@@ -1,6 +1,5 @@
 package org.nem.monitor;
 
-import org.nem.core.connect.*;
 import org.nem.core.connect.client.*;
 import org.nem.core.serialization.Deserializer;
 import org.nem.monitor.node.NemNodePolicy;
@@ -10,8 +9,6 @@ import java.util.concurrent.*;
 /**
  * This connector can interact with both NIS and NCC because the APIs it
  * uses are exposed by both.
- *
- * TODO-J: add some tests
  */
 public class NemConnector {
 	private final NemNodePolicy policy;
@@ -21,24 +18,24 @@ public class NemConnector {
 	 * Creates a new nem connector.
 	 *
 	 * @param policy The nem node policy.
-	 * @param httpClient The http client.
+	 * @param connector The connector.
 	 */
 	public NemConnector(
 			final NemNodePolicy policy,
-			final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient) {
+			final DefaultAsyncNemConnector<String> connector) {
 		this.policy = policy;
-		this.connector = new DefaultAsyncNemConnector<>(httpClient, r -> { throw new NemConnectionException(); });
-		this.connector.setAccountLookup(null);
+		this.connector = connector;
 	}
 
 	/**
 	 * Checks if the connected process is running.
 	 */
 	public CompletableFuture<Boolean> isRunning() {
-		return this.getAsync(NisApiId.NIS_REST_HEARTBEAT)
-				.handle((d, e) -> {
-					return null == e || (e instanceof CompletionException && e.getCause() instanceof NemConnectionException);
-				});
+		return this.getAsync(NisApiId.NIS_REST_HEARTBEAT).handle((d, e) -> isRunning(e));
+	}
+
+	private static boolean isRunning(final Throwable ex) {
+		return null == ex || (ex instanceof CompletionException && ex.getCause() instanceof NemNodeExpectedException);
 	}
 
 	/**
@@ -50,8 +47,5 @@ public class NemConnector {
 
 	private CompletableFuture<Deserializer> getAsync(final NisApiId apiId) {
 		return this.connector.getAsync(this.policy.getEndpoint(), this.policy.mapToUrlPath(apiId), null);
-	}
-
-	private static class NemConnectionException extends RuntimeException {
 	}
 }

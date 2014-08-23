@@ -2,6 +2,7 @@ package org.nem.monitor.ux;
 
 import org.nem.core.async.*;
 import org.nem.core.connect.*;
+import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.monitor.*;
 import org.nem.monitor.node.*;
 
@@ -98,7 +99,7 @@ public class TrayIconBuilder {
 
 		for (final VisitorNodePolicyPair pair : this.visitorNodePolicyPairs) {
 			final NemNodeType nodeType = pair.nodePolicy.getNodeType();
-			final NemConnector connector = new NemConnector(pair.nodePolicy, this.client);
+			final NemConnector connector = this.createConnector(pair.nodePolicy);
 			new AsyncTimer(
 					() -> connector.isRunning().thenAccept(b -> visitor.notifyStatus(nodeType, b ? NemNodeStatus.RUNNING : NemNodeStatus.STOPPED)),
 					250,
@@ -114,6 +115,14 @@ public class TrayIconBuilder {
 
 		this.trayIcon.setPopupMenu(this.popup);
 		return this.trayIcon;
+	}
+
+	private NemConnector createConnector(final NemNodePolicy nodePolicy) {
+		final DefaultAsyncNemConnector<String> connector = new DefaultAsyncNemConnector<>(
+				this.client,
+				r -> { throw new NemNodeExpectedException(); });
+		connector.setAccountLookup(null);
+		return new NemConnector(nodePolicy, connector);
 	}
 
 	private static class VisitorNodePolicyPair {
