@@ -2,6 +2,7 @@ package org.nem.monitor;
 
 import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
+import org.nem.monitor.config.MonitorCommandLine;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.*;
 
@@ -27,6 +28,10 @@ public class NemMonitor {
 	 * @param args The command line arguments.
 	 */
 	public static void main(final String[] args) {
+		final MonitorCommandLine commandLine = MonitorCommandLine.parse(args);
+		LOGGER.info(String.format("NCC JNLP configured as: %s", commandLine.getNccJnlpUrl()));
+		LOGGER.info(String.format("NIS JNLP configured as: %s", commandLine.getNisJnlpUrl()));
+
 		SwingUtilities.invokeLater(() -> {
 			LOGGER.info("setting up system tray");
 
