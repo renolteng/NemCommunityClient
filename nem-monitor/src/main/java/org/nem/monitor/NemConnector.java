@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public class NemConnector {
 	private final NodeEndpoint endpoint;
-	private final DefaultAsyncNisConnector connector;
+	private final DefaultAsyncNemConnector<NisApiId> connector;
 
 	/**
 	 * Creates a new nem connector.
@@ -23,7 +23,7 @@ public class NemConnector {
 			final NodeEndpoint endpoint,
 			final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient) {
 		this.endpoint = endpoint;
-		this.connector = new DefaultAsyncNisConnector(httpClient, r -> { throw new NemConnectionException(); });
+		this.connector = new DefaultAsyncNemConnector<>(httpClient, r -> { throw new NemConnectionException(); });
 		this.connector.setAccountLookup(null);
 	}
 

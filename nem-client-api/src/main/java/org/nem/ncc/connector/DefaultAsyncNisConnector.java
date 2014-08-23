@@ -1,12 +1,13 @@
 package org.nem.ncc.connector;
 
 import org.nem.core.connect.*;
+import org.nem.core.connect.client.*;
 import org.nem.ncc.exceptions.NisException;
 
 /**
  * A default AsyncNisConnector implementation
  */
-public class DefaultAsyncNisConnector extends org.nem.core.connect.client.DefaultAsyncNisConnector {
+public class DefaultAsyncNisConnector extends DefaultAsyncNemConnector<NisApiId> implements AsyncNisConnector {
 
 	/**
 	 * Creates a new default NIS connector.
