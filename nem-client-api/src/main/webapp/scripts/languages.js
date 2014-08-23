@@ -1,6 +1,7 @@
 define([
 	'languages/bulgarian',
 	'languages/chinese',
+	'languages/croatian',
 	'languages/english', 
 	'languages/french', 
 	'languages/german', 
@@ -12,6 +13,7 @@ define([
 	'languages/lithuanian'], function(
 		bulgarian,
 		chinese,
+		croatian,
 		english,
 		french,
 		german, 
@@ -24,6 +26,7 @@ define([
 	return [
 		bulgarian,
 		chinese,
+		croatian,
 		english,
 		french,
 		german, 

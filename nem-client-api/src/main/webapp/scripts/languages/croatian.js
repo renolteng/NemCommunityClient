@@ -179,7 +179,7 @@ define({
 			},
 			nisUnavailable: {
 				title: 'NIS nedostupan',
-				message: 'Odspojen od NIS-a, čekanje na vezu
+				message: 'Odspojen od NIS-a, čekanje na vezu'
 			},
 			shutdown: {
 				title: 'Zatvori program',
