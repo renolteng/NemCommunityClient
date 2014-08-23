@@ -2,7 +2,7 @@ package org.nem.monitor;
 
 import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
-import org.nem.monitor.config.MonitorCommandLine;
+import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.*;
 
