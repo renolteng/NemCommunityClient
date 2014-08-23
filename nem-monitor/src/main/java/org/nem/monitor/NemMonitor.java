@@ -1,6 +1,7 @@
 package org.nem.monitor;
 
 import org.nem.core.connect.*;
+import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.*;
 
@@ -15,10 +16,9 @@ public class NemMonitor {
 	private static final Logger LOGGER = Logger.getLogger(NemMonitor.class.getName());
 
 	static {
-		// TODO-J: fix logging
 		// initialize logging before anything is logged; otherwise not all
 		// settings will take effect
-		//LoggingBootstrapper.bootstrap(new CommonConfiguration().getNemFolder());
+		LoggingBootstrapper.bootstrap(new MonitorConfiguration().getNemFolder());
 	}
 
 	/**
