@@ -16,8 +16,9 @@
 									{{#i !== 0}}
 										<span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 									{{/}}
-									<input id="setting-language-{{.id}}" class="language hidden" type="radio" name="{{settings.language}}" value="{{.id}}">
-									<label for="setting-language-{{.id}}">{{.name}}</label>
+                                    {{# .id !== "rr"}}
+                                        <input id="setting-language-{{.id}}" class="language hidden" type="radio" name="{{settings.language}}" value="{{.id}}">
+                                        <label for="setting-language-{{.id}}">{{.name}}</label>                                    {{/}}
 								{{/}}
 							</div>
 						</div>
