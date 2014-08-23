@@ -49,10 +49,10 @@ public class AccountControllerTest {
 
 	//endregion
 
-	//region getAccountTransactions
+	//region getAccountTransactionsAll
 
 	@Test
-	public void getAccountTransactionsDelegatesToAccountMapperForAccountInformation() {
+	public void getAccountTransactionsAllDelegatesToAccountMapperForAccountInformation() {
 		// Arrange:
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
@@ -61,8 +61,8 @@ public class AccountControllerTest {
 				.thenReturn(originalAccountViewModel);
 
 		// Act:
-		final AccountTimeStampRequest request = new AccountTimeStampRequest(account.getAddress(), null);
-		final AccountTransactionsPair pair = context.controller.getAccountTransactions(request);
+		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final AccountViewModel accountViewModel = pair.getAccount();
 
 		// Assert:
@@ -71,7 +71,7 @@ public class AccountControllerTest {
 	}
 
 	@Test
-	public void getAccountTransactionsDelegatesToAccountServicesForUnconfirmedTransaction() {
+	public void getAccountTransactionsAllDelegatesToAccountServicesForUnconfirmedTransaction() {
 		// Arrange:
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
@@ -86,9 +86,9 @@ public class AccountControllerTest {
 				.thenReturn(transactions);
 
 		// Act:
-		final AccountTimeStampRequest request = new AccountTimeStampRequest(account.getAddress(), null);
-		final AccountTransactionsPair pair = context.controller.getAccountTransactions(request);
-		final List<TransferViewModel> transferViewModels = pair.getTransactions();
+		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
+		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1)).getUnconfirmedTransactions(account.getAddress());
@@ -98,10 +98,13 @@ public class AccountControllerTest {
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getDirection).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0, 2, 0)));
+		Assert.assertThat(
+				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
+				IsEqual.equalTo(Arrays.asList(0L, 0L, 0L)));
 	}
 
 	@Test
-	public void getAccountTransactionsDelegatesToAccountServicesForConfirmedTransaction() {
+	public void getAccountTransactionsAllDelegatesToAccountServicesForConfirmedTransaction() {
 		// Arrange:
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
@@ -109,21 +112,21 @@ public class AccountControllerTest {
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(27);
 
-		final AccountTimeStampRequest request = new AccountTimeStampRequest(account.getAddress(), null);
+		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19),
 				createTransferMetaDataPair(account, Amount.fromNem(572), 17),
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27));
-		Mockito.when(context.accountServices.getConfirmedTransactions(account.getAddress(), request.getTimeStamp()))
+		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getHash()))
 				.thenReturn(pairs);
 
 		// Act:
-		final AccountTransactionsPair pair = context.controller.getAccountTransactions(request);
-		final List<TransferViewModel> transferViewModels = pair.getTransactions();
+		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
+		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getConfirmedTransactions(account.getAddress(), request.getTimeStamp());
+				.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getHash());
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
@@ -136,7 +139,7 @@ public class AccountControllerTest {
 	}
 
 	@Test
-	public void getAccountTransactionsMergesUnconfirmedAndConfirmedTransactions() {
+	public void getAccountTransactionsAllMergesUnconfirmedAndConfirmedTransactions() {
 		// Arrange:
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
@@ -149,15 +152,15 @@ public class AccountControllerTest {
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
 				.thenReturn(transactions);
 
-		final AccountTimeStampRequest request = new AccountTimeStampRequest(account.getAddress(), null);
+		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 25));
-		Mockito.when(context.accountServices.getConfirmedTransactions(account.getAddress(), request.getTimeStamp()))
+		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getHash()))
 				.thenReturn(pairs);
 
 		// Act:
-		final AccountTransactionsPair pair = context.controller.getAccountTransactions(request);
-		final List<TransferViewModel> transferViewModels = pair.getTransactions();
+		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
+		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
 		Assert.assertThat(
@@ -189,6 +192,7 @@ public class AccountControllerTest {
 	//endregion
 
 	//region transactions/unconfirmed
+
 	@Test
 	public void getAccountTransactionsUnconfirmedDelegatesToAccountServicesForUnconfirmedTransaction() {
 		// Arrange:
@@ -208,7 +212,7 @@ public class AccountControllerTest {
 
 		// Act:
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsUnconfirmed(request);
-		final List<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
@@ -223,14 +227,16 @@ public class AccountControllerTest {
 				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0L, 0L, 0L)));
 	}
+
 	//endregion
 
 	//region new transaction Handlers
+
 	@Test
-	public void getAccountTransactionsAllDelegatesToAccountService() {
+	public void getAccountTransactionsConfirmedDelegatesToAccountService() {
 		this.assertGetTransactionsDelegateToAccountService(
 				TransactionDirection.ALL,
-				(TestContext ctx) -> ctx.controller::getAccountTransactionsAll);
+				(TestContext ctx) -> ctx.controller::getAccountTransactionsConfirmed);
 	}
 
 	@Test
@@ -266,7 +272,7 @@ public class AccountControllerTest {
 
 		// Act:
 		final AccountTransactionsPair pair = handlerFactory.apply(context).apply(request);
-		final List<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
@@ -281,6 +287,7 @@ public class AccountControllerTest {
 				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(16L, 18L, 8L)));
 	}
+
 	//endregion
 
 	//region getAccountHarvests

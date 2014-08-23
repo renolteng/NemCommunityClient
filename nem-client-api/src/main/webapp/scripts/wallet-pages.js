@@ -225,7 +225,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     var currentAccount = ncc.get('activeAccount.address');
                     if (currentAccount !== newAccount) {
                         var wallet = ncc.get('wallet.name');
-                        ncc.postRequest('account/transactions', { wallet: wallet, account: newAccount }, function(data) {
+                        ncc.postRequest('account/transactions/all', { wallet: wallet, account: newAccount }, function(data) {
                             ncc.set('activeAccount', ncc.processAccount(data));
                             ncc.set('transactions.gotAll', false);
                             require([history.state], function(layout) {
