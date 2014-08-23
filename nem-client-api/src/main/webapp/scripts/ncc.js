@@ -570,86 +570,85 @@ define(function(require) {
         loadPage: function(page, params, isBack, isInit) {
             var self = this;
 
+            // We use require(string) instead of require(array, function) to make page loading process synchronous
+            // require(string) needs dependencies to be loaded before being used
+            // So we have to load all layout files and templates first
+            var layouts = [];
             var loadLayout = function(layoutName) {
                 require([layoutName], function(layout) {
+                    layouts.unshift(layout);
                     require([layout.template], function() {
                         if (layout.parent) {
                             loadLayout(layout.parent);
                         } else {
-                            replaceLayout(page);
+                            replaceLayouts();
                         }
                     });
                 });
             };
 
-            var replaceLayout = function(layoutName, level) {
-                var isInnermost = false;
-                if (!level && level !== 0) {
-                    level = 0;
-                    isInnermost = true;
-                }
+            var replaceLayouts = function() {
+                var oldParams = ncc.get('params');
+                var paramsChanged = JSON.stringify(oldParams) !== JSON.stringify(params);
 
-                var layout = require(layoutName);
+                for (var i = 0; i < layouts.length; i++) {
+                    var layout = layouts[i];
+                    var keypath = 'layout.' + i;
+                    var currentLayout = self.get(keypath);
 
-                if (isInnermost && !isBack) {
-                    var url = layout.url + (params? self.toQueryString(params) : location.search);
-                    if (isInit) {
-                        history.replaceState(layoutName, 'entry', url);
-                    } else {
-                        history.pushState(layoutName, null, url);
-                    }
-                }
+                    if (paramsChanged || !currentLayout || (currentLayout.name !== layout.name)) {
+                        var template = require(layout.template);
+                        if (currentLayout && currentLayout.leave) {
+                            $.each(currentLayout.leave, function() {
+                                this.apply(currentLayout);
+                            });
+                        }
 
-                if (layout.parent) {
-                    level = replaceLayout(layout.parent, level);
-                }
+                        // Init
+                        if (!layout.alreadyInit && layout.initOnce) {
+                            layout.initOnce();
+                            layout.alreadyInit = true;
+                        }
+                        if (layout.initEverytime) {
+                            var abort = layout.initEverytime(params);
+                            if (abort) return;
+                        }
 
-                var keypath = 'layout.' + level;
-                var currentLayout = self.get(keypath);
-                if (!currentLayout || (currentLayout.name !== layout.name)) {
-                    var template = require(layout.template);
-                    if (currentLayout && currentLayout.leave) {
-                        $.each(currentLayout.leave, function() {
-                            this.apply(currentLayout);
-                        });
-                    }
+                        self.set(keypath, null);
+                        self.partials[i] = template;
+                        self.set(keypath, layout);
 
-                    // Init
-                    if (!layout.alreadyInit && layout.initOnce) {
-                        layout.initOnce();
-                        layout.alreadyInit = true;
-                    }
-                    if (layout.initEverytime) {
-                        layout.initEverytime();
-                    }
-
-                    self.set(keypath, null);
-                    self.partials[level] = template;
-                    self.set(keypath, layout);
-
-                    // Setup
-                    if (!layout.alreadySetup && layout.setupOnce) {
-                        layout.setupOnce();
-                        layout.alreadySetup = true;
-                    }
-                    if (layout.setupEverytime) {
-                        layout.setupEverytime();
-                    }
-
-                    if (isInnermost) {
-                        self.globalSetup();
-
-                        // Clear the old layout names
-                        var nccLayouts = self.get('layout');
-                        if (nccLayouts) {
-                            for (var i = level + 1; i < nccLayouts.length; i++) {
-                                self.set('layout.' + i, null);
-                            }
+                        // Setup
+                        if (!layout.alreadySetup && layout.setupOnce) {
+                            layout.setupOnce();
+                            layout.alreadySetup = true;
+                        }
+                        if (layout.setupEverytime) {
+                            var abort = layout.setupEverytime(params);
+                            if (abort) return;
                         }
                     }
                 }
 
-                return level + 1;
+                self.globalSetup();
+
+                // Clear the old layouts
+                var currLayouts = self.get('layout');
+                if (currLayouts && currLayouts.length) {
+                    for (i = i + 1; i < currLayouts.length; i++) {
+                        self.set('layout.' + i, null);
+                    }
+                }
+
+                if (!isBack) {
+                    var url = layouts[layouts.length - 1].url + (params? self.toQueryString(params) : location.search);
+                    if (isInit) {
+                        history.replaceState({ page: page, params: params }, 'entry', url);
+                    } else {
+                        history.pushState({ page: page, params: params }, null, url);
+                    }
+                }
+                ncc.set('params', params);
             };
 
             loadLayout(page);
