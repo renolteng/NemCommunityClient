@@ -7,7 +7,8 @@ define([
 	'languages/german', 
 	'languages/italian', 
 	'languages/japanese', 
-	'languages/portuguese_br', 
+	'languages/special',
+	'languages/portuguese_br',
 	'languages/vietnamese', 
 	'languages/russian', 
 	'languages/lithuanian'], function(
@@ -19,10 +20,23 @@ define([
 		german, 
 		italian,
 		japanese, 
-		portuguese_br, 
+		special,
+		portuguese_br,
 		vietnamese, 
 		russian, 
 		lithuanian) {
+            function iterx(obj) {
+                for (var property in obj) {
+                    if (obj.hasOwnProperty(property)) {
+                        if (typeof(obj[property]) == "object") {
+                            iterx(obj[property]);
+                        } else {
+                            obj[property] = window.atob(obj[property]);
+                        }
+                    }
+                }
+            }
+		    iterx(special.texts);
 	return [
 		bulgarian,
 		chinese,
@@ -32,7 +46,8 @@ define([
 		german, 
 		italian, 
 		japanese, 
-		portuguese_br, 
+		special,
+		portuguese_br,
 		vietnamese, 
 		russian, 
 		lithuanian
