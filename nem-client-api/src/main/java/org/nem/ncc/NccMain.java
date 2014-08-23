@@ -64,8 +64,7 @@ public class NccMain {
 		}
 
 		try {
-			// there are compatibility issues with the accounts_cache, so don't copy it when migrating
-			FileUtils.copyDirectory(oldDirectory, directory, pathname -> !pathname.getName().equals("accounts_cache.json"));
+			FileUtils.copyDirectory(oldDirectory, directory);
 			FileUtils.deleteDirectory(oldDirectory);
 		} catch (final IOException ex) {
 			final String message = String.format("Unable to migrate wallet files from <%s>.", oldDirectory.getAbsolutePath());
