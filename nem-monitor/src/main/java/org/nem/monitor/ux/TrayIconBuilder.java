@@ -107,7 +107,7 @@ public class TrayIconBuilder {
 			final NemNodeType nodeType = pair.nodePolicy.getNodeType();
 			final NemConnector connector = this.createConnector(pair.nodePolicy);
 			new AsyncTimer(
-					() -> connector.isRunning().thenAccept(b -> visitor.notifyStatus(nodeType, b ? NemNodeStatus.RUNNING : NemNodeStatus.STOPPED)),
+					() -> connector.getStatus().thenAccept(status -> visitor.notifyStatus(nodeType, status)),
 					250,
 					new UniformDelayStrategy(1000),
 					null);

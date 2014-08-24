@@ -19,10 +19,10 @@ public class NemConnectorTest {
 				.thenReturn(CompletableFuture.completedFuture(null));
 
 		// Act:
-		final boolean isRunning = context.connector.isRunning().join();
+		final NemNodeStatus status = context.connector.getStatus().join();
 
 		// Assert:
-		Assert.assertThat(isRunning, IsEqual.equalTo(true));
+		Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.RUNNING));
 		context.assertHeartbeatCalledOnce();
 	}
 
@@ -34,10 +34,10 @@ public class NemConnectorTest {
 				.thenReturn(CompletableFuture.supplyAsync(() -> { throw new NemNodeExpectedException(); }));
 
 		// Act:
-		final boolean isRunning = context.connector.isRunning().join();
+		final NemNodeStatus status = context.connector.getStatus().join();
 
 		// Assert:
-		Assert.assertThat(isRunning, IsEqual.equalTo(true));
+		Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.RUNNING));
 		context.assertHeartbeatCalledOnce();
 	}
 
@@ -49,10 +49,10 @@ public class NemConnectorTest {
 				.thenReturn(CompletableFuture.supplyAsync(() -> { throw new RuntimeException(); }));
 
 		// Act:
-		final boolean isRunning = context.connector.isRunning().join();
+		final NemNodeStatus status = context.connector.getStatus().join();
 
 		// Assert:
-		Assert.assertThat(isRunning, IsEqual.equalTo(false));
+		Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.STOPPED));
 		context.assertHeartbeatCalledOnce();
 	}
 
