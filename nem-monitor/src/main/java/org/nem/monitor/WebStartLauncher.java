@@ -1,36 +1,62 @@
 package org.nem.monitor;
 
+import org.nem.core.utils.ExceptionUtils;
+
 import java.io.*;
 import java.nio.file.*;
+import java.util.function.*;
 import java.util.logging.*;
 
 /**
- * Class to start NIS server via web start if web start is available.
- * TODO-J: fix this class add some tests
+ * Class that provides functionality for downloading and launching a web start process.
  */
 public class WebStartLauncher {
 	private static final Logger LOGGER = Logger.getLogger(WebStartLauncher.class.getName());
 
+	private final String nemFolder;
+	private final Function<String, WebStartProcessBuilder> processBuilderFactory;
+
 	/**
-	 * If configured as web start, start NIS server.
+	 * Creates a new launcher.
 	 *
-	 * @param nisJnlpUrl The url to the java network launching protocol.
+	 * @param nemFolder The base NEM folder.
+	 */
+	public WebStartLauncher(final String nemFolder) {
+		this(nemFolder, WebStartProcessBuilder::new);
+	}
+
+	/**
+	 * Creates a new launcher.
+	 *
+	 * @param nemFolder The base NEM folder.
+	 * @param processBuilderFactory The process builder factory.
+	 */
+	public WebStartLauncher(final String nemFolder, final Function<String, WebStartProcessBuilder> processBuilderFactory) {
+		this.nemFolder = nemFolder;
+		this.processBuilderFactory = processBuilderFactory;
+	}
+
+	/**
+	 * Launches the web start application located at the specified url.
+	 *
+	 * @param jnlpUrl The url to the java network launching protocol.
 	*/
-	public void launch(final String nemFolder, final String nisJnlpUrl) {
-		// Will only be called if configured to do so.
-		try {
-			final ProcessBuilder pb = new ProcessBuilder("javaws", nisJnlpUrl);
-			final Path file = Paths.get(nemFolder, "ncc-nis.log");
-			final File log = file.toFile().getCanonicalFile();
-			LOGGER.info(String.format("Starting NIS via javaws, process logs into <%s>.", log.getAbsolutePath()));
-			LOGGER.info(String.format("NIS JNLP URL is %s", nisJnlpUrl));
-			pb.redirectErrorStream(true);
-			pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
-			pb.directory(log.getParentFile());
+	public void launch(final String jnlpUrl) {
+		LOGGER.info(String.format("Launching JNLP from URL: %s", jnlpUrl));
+
+		ExceptionUtils.propagateVoid(() -> {
+			final WebStartProcessBuilder pb = this.processBuilderFactory.apply(jnlpUrl);
+			pb.setLogFile(this.getLogFile(jnlpUrl));
 			pb.start();
-		} catch (final IOException e) {
-			//
-			LOGGER.log(Level.SEVERE, String.format("Error in requesting the resources for NIS. (%s)", e));
-		}
+		});
+	}
+
+	private File getLogFile(final String jnlpUrl) throws IOException {
+		final String fileNameWithExtension = Paths.get(jnlpUrl).toFile().getName();
+		final String fileNameWithoutExtension = fileNameWithExtension.substring(0, fileNameWithExtension.indexOf('.'));
+		final Path file = Paths.get(this.nemFolder, fileNameWithoutExtension + ".log");
+		final File logFile = file.toFile().getCanonicalFile();
+		LOGGER.info(String.format("Launching %s with logs in <%s>.", jnlpUrl, logFile.getAbsolutePath()));
+		return logFile;
 	}
 }

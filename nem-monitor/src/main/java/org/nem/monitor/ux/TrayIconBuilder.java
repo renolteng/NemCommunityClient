@@ -68,7 +68,7 @@ public class TrayIconBuilder {
 		// TODO-J: remove this hack!
 		final MenuItem startMenuItem = new MenuItem("HACK: Start " + jnlpUrl);
 		startMenuItem.addActionListener(e -> {
-			this.webStartLauncher.launch(nemFolder, jnlpUrl);
+			this.webStartLauncher.launch(jnlpUrl);
 		});
 
 		this.popup.add(startMenuItem);
