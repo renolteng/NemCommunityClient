@@ -53,25 +53,20 @@ public class TrayIconBuilder {
 	 *
 	 * @param nodePolicy The node policy.
 	 */
-	public void addStatusMenuItems(final NemNodePolicy nodePolicy) {
+	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String jnlpUrl) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
-		final NodeMenuItemNodeStatusVisitor visitor = new NodeMenuItemNodeStatusVisitor(nodeType);
+		final NodeManager manager = new NodeManager(
+				nodeType,
+				this.createConnector(nodePolicy),
+				this.webStartLauncher,
+				jnlpUrl);
+		final NodeMenuItemNodeStatusVisitor visitor = new NodeMenuItemNodeStatusVisitor(nodeType, manager);
 
 		this.popup.add(visitor.getStatusMenuItem());
 		this.popup.add(visitor.getActionMenuItem());
 
 		this.visitors.add(visitor);
 		this.visitorNodePolicyPairs.add(new VisitorNodePolicyPair(visitor, nodePolicy));
-	}
-
-	public void addHackWebStartMenuItem(final String nemFolder, final String jnlpUrl) {
-		// TODO-J: remove this hack!
-		final MenuItem startMenuItem = new MenuItem("HACK: Start " + jnlpUrl);
-		startMenuItem.addActionListener(e -> {
-			this.webStartLauncher.launch(jnlpUrl);
-		});
-
-		this.popup.add(startMenuItem);
 	}
 
 	/**
@@ -111,12 +106,6 @@ public class TrayIconBuilder {
 					250,
 					new UniformDelayStrategy(1000),
 					null);
-
-			pair.visitor.getActionMenuItem().addActionListener(e -> {
-				// TODO-J: change the action based on the node state
-				connector.shutdown();
-				visitor.notifyStatus(nodeType, NemNodeStatus.STOPPED);
-			});
 		}
 
 		this.trayIcon.setPopupMenu(this.popup);

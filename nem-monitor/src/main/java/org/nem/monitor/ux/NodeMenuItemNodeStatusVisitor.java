@@ -6,22 +6,36 @@ import org.nem.monitor.node.*;
 import java.awt.*;
 
 /**
- * Visitor that updates menu item text on a status change
+ * Visitor that keeps node menu items in sync with status changes.
  */
 public class NodeMenuItemNodeStatusVisitor implements NodeStatusVisitor {
 	private final NemNodeType nodeType;
 	private final MenuItem statusMenuItem;
 	private final MenuItem actionMenuItem;
+	private NemNodeStatus status;
 
 	/**
 	 * Creates a new visitor.
 	 *
 	 * @param nodeType The node type being monitored.
+	 * @param manager The node manager.
 	 */
-	public NodeMenuItemNodeStatusVisitor(final NemNodeType nodeType) {
+	public NodeMenuItemNodeStatusVisitor(final NemNodeType nodeType, final NodeManager manager) {
 		this.nodeType = nodeType;
 		this.statusMenuItem = new MenuItem();
 		this.actionMenuItem = new MenuItem();
+
+		this.actionMenuItem.addActionListener(e -> {
+			switch (this.status) {
+				case RUNNING:
+					manager.shutdown();
+					break;
+
+				case STOPPED:
+					manager.launch();
+					break;
+			}
+		});
 
 		this.notifyStatus(nodeType, NemNodeStatus.UNKNOWN);
 	}
@@ -50,7 +64,8 @@ public class NodeMenuItemNodeStatusVisitor implements NodeStatusVisitor {
 			return;
 		}
 
-		switch (status) {
+		this.status = status;
+		switch (this.status) {
 			case RUNNING:
 				this.statusMenuItem.setLabel(String.format("%s is running", this.nodeType));
 				this.actionMenuItem.setLabel(String.format("Stop %s", this.nodeType));
