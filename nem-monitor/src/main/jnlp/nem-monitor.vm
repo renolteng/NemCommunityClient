@@ -22,5 +22,10 @@
     $dependencies
 <!-- Progress Bar add download="progress" -->
 </resources>
-<application-desc main-class="$mainClass" /> 
+<application-desc main-class="$mainClass">
+    <argument>-nccJnlpUrl</argument>
+    <argument>${nem-code-base}/nem-client.jnlp</argument>
+    <argument>-nisJnlpUrl</argument>
+    <argument>${nem-code-base}/nem-server.jnlp</argument>
+</application>
 </jnlp> 
