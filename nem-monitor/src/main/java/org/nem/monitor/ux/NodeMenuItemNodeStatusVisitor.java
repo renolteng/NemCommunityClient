@@ -12,31 +12,16 @@ public class NodeMenuItemNodeStatusVisitor implements NodeStatusVisitor {
 	private final NemNodeType nodeType;
 	private final MenuItem statusMenuItem;
 	private final MenuItem actionMenuItem;
-	private NemNodeStatus status;
 
 	/**
 	 * Creates a new visitor.
 	 *
 	 * @param nodeType The node type being monitored.
-	 * @param manager The node manager.
 	 */
-	public NodeMenuItemNodeStatusVisitor(final NemNodeType nodeType, final NodeManager manager) {
+	public NodeMenuItemNodeStatusVisitor(final NemNodeType nodeType) {
 		this.nodeType = nodeType;
 		this.statusMenuItem = new MenuItem();
 		this.actionMenuItem = new MenuItem();
-
-		this.actionMenuItem.addActionListener(e -> {
-			switch (this.status) {
-				case RUNNING:
-					manager.shutdown();
-					break;
-
-				case STOPPED:
-					manager.launch();
-					break;
-			}
-		});
-
 		this.notifyStatus(nodeType, NemNodeStatus.UNKNOWN);
 	}
 
@@ -64,8 +49,7 @@ public class NodeMenuItemNodeStatusVisitor implements NodeStatusVisitor {
 			return;
 		}
 
-		this.status = status;
-		switch (this.status) {
+		switch (status) {
 			case RUNNING:
 				this.statusMenuItem.setLabel(String.format("%s is running", this.nodeType));
 				this.actionMenuItem.setLabel(String.format("Stop %s", this.nodeType));

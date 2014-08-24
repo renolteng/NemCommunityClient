@@ -21,7 +21,7 @@ public class TrayIconBuilder {
 	private final TrayIcon trayIcon;
 	private final PopupMenu popup;
 	private final Collection<NodeStatusVisitor> visitors = new ArrayList<>();
-	private final Collection<VisitorNodePolicyPair> visitorNodePolicyPairs = new ArrayList<>();
+	private final Collection<NemNodePolicy> nodePolicies = new ArrayList<>();
 
 	/**
 	 * Creates a new builder.
@@ -60,13 +60,16 @@ public class TrayIconBuilder {
 				this.createConnector(nodePolicy),
 				this.webStartLauncher,
 				jnlpUrl);
-		final NodeMenuItemNodeStatusVisitor visitor = new NodeMenuItemNodeStatusVisitor(nodeType, manager);
+		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
+		final NodeMenuItemNodeStatusVisitor visitor = new NodeMenuItemNodeStatusVisitor(nodeType);
 
 		this.popup.add(visitor.getStatusMenuItem());
 		this.popup.add(visitor.getActionMenuItem());
+		visitor.getActionMenuItem().addActionListener(actionAdapter);
 
 		this.visitors.add(visitor);
-		this.visitorNodePolicyPairs.add(new VisitorNodePolicyPair(visitor, nodePolicy));
+		this.visitors.add(actionAdapter);
+		this.nodePolicies.add(nodePolicy);
 	}
 
 	/**
@@ -98,9 +101,9 @@ public class TrayIconBuilder {
 	public TrayIcon create() {
 		final AggregateNodeStatusVisitor visitor = new AggregateNodeStatusVisitor(this.visitors);
 
-		for (final VisitorNodePolicyPair pair : this.visitorNodePolicyPairs) {
-			final NemNodeType nodeType = pair.nodePolicy.getNodeType();
-			final NemConnector connector = this.createConnector(pair.nodePolicy);
+		for (final NemNodePolicy nodePolicy : this.nodePolicies) {
+			final NemNodeType nodeType = nodePolicy.getNodeType();
+			final NemConnector connector = this.createConnector(nodePolicy);
 			new AsyncTimer(
 					() -> connector.getStatus().thenAccept(status -> visitor.notifyStatus(nodeType, status)),
 					250,
@@ -118,17 +121,5 @@ public class TrayIconBuilder {
 				r -> { throw new NemNodeExpectedException(); });
 		connector.setAccountLookup(null);
 		return new NemConnector(nodePolicy, connector);
-	}
-
-	private static class VisitorNodePolicyPair {
-		private final NodeMenuItemNodeStatusVisitor visitor;
-		private final NemNodePolicy nodePolicy;
-
-		private VisitorNodePolicyPair(
-				final NodeMenuItemNodeStatusVisitor visitor,
-				final NemNodePolicy nodePolicy) {
-			this.visitor = visitor;
-			this.nodePolicy = nodePolicy;
-		}
 	}
 }
