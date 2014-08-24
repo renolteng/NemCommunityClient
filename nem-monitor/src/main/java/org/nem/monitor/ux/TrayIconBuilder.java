@@ -20,6 +20,7 @@ public class TrayIconBuilder {
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
 	private final WebStartLauncher webStartLauncher;
 	private final TrayIcon trayIcon;
+	private final Dimension dimension;
 	private final PopupMenu popup;
 	private final Collection<NodeStatusVisitor> visitors = new ArrayList<>();
 	private final Collection<NemNodePolicy> nodePolicies = new ArrayList<>();
@@ -38,6 +39,7 @@ public class TrayIconBuilder {
 
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
+		this.dimension = this.trayIcon.getSize();
 		this.popup = new PopupMenu();
 
 		this.visitors.add(new NodeStatusToIconDescriptorAdapter(this::setImage));
@@ -45,7 +47,8 @@ public class TrayIconBuilder {
 
 	private void setImage(final IconDescriptor descriptor) {
 		final URL imageUrl = TrayIconBuilder.class.getClassLoader().getResource(descriptor.getImageFileName());
-		final Image image = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage();
+		// we could use this.trayIcon.setAutoSIze, but it gives uglier result
+		final Image image = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage().getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
 		this.trayIcon.setImage(image);
 	}
 
