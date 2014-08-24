@@ -36,4 +36,13 @@ public class NccNodePolicyTest {
 		// Assert:
 		Assert.assertThat(heartbeatPath, IsEqual.equalTo("ncc/api/heartbeat"));
 	}
+
+	@Test
+	public void hasBrowserGuiReturnsTrue() {
+		// Arrange:
+		final NemNodePolicy policy = new NccNodePolicy();
+
+		// Assert:
+		Assert.assertThat(policy.hasBrowserGui(), IsEqual.equalTo(true));
+	}
 }

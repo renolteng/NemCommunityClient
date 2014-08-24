@@ -22,4 +22,9 @@ public class NccNodePolicy implements NemNodePolicy {
 	public String mapToUrlPath(final NisApiId apiId) {
 		return "ncc/api" + apiId;
 	}
+
+	@Override
+	public boolean hasBrowserGui() {
+		return true;
+	}
 }

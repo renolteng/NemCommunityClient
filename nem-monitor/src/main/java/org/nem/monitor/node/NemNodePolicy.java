@@ -29,4 +29,11 @@ public interface NemNodePolicy {
 	 * @return The url path.
 	 */
 	public String mapToUrlPath(final NisApiId apiId);
+
+	/**
+	 * Gets a value indicating whether or not this node exposes a browser GUI.
+	 *
+	 * @return true if a browser gui is exposed, false otherwise.
+	 */
+	public boolean hasBrowserGui();
 }

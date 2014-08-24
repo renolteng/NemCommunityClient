@@ -36,4 +36,13 @@ public class NisNodePolicyTest {
 		// Assert:
 		Assert.assertThat(heartbeatPath, IsEqual.equalTo("/heartbeat"));
 	}
+
+	@Test
+	public void hasBrowserGuiReturnsFalse() {
+		// Arrange:
+		final NemNodePolicy policy = new NisNodePolicy();
+
+		// Assert:
+		Assert.assertThat(policy.hasBrowserGui(), IsEqual.equalTo(false));
+	}
 }

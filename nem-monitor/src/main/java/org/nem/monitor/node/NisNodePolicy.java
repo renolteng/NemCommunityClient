@@ -22,4 +22,9 @@ public class NisNodePolicy implements NemNodePolicy {
 	public String mapToUrlPath(final NisApiId apiId) {
 		return apiId.toString();
 	}
+
+	@Override
+	public boolean hasBrowserGui() {
+		return false;
+	}
 }
