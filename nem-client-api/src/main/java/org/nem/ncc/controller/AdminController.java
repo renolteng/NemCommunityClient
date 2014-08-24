@@ -30,6 +30,13 @@ public class AdminController {
 	}
 
 	/**
+	 * Simple heartbeat api that can be pinged to test the online status of NCC.
+	 */
+	@RequestMapping(value = "/heartbeat", method = RequestMethod.GET)
+	public void heartbeat() {
+	}
+
+	/**
 	 * Stops the current NCC server. Afterwards it has to be started via WebStart again (or just running {@link org.nem.ncc.NccMain})
 	 */
 	@RequestMapping(value = "/shutdown", method = RequestMethod.GET)

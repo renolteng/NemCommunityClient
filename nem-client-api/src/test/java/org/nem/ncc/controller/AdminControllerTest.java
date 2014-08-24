@@ -8,6 +8,19 @@ import org.nem.ncc.cache.*;
 import java.util.ArrayList;
 
 public class AdminControllerTest {
+
+	@Test
+	public void heartbeatDoesNothing() {
+		// Arrange:
+		final AdminController controller = new AdminController(
+				Mockito.mock(AccountsFileRepository.class),
+				Mockito.mock(NccAccountCache.class),
+				Mockito.mock(CommonStarter.class));
+
+		// Act:
+		controller.heartbeat();
+	}
+
 	@Test
 	public void shutdownDelegatesToRepositoryAndNccMain() throws InterruptedException {
 		// Arrange:
