@@ -1,8 +1,11 @@
 package org.nem.ncc.controller;
 
-import org.junit.Test;
+import net.minidev.json.JSONObject;
+import org.hamcrest.core.IsEqual;
+import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.deploy.CommonStarter;
+import org.nem.core.serialization.*;
 import org.nem.ncc.cache.*;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 public class AdminControllerTest {
 
 	@Test
-	public void heartbeatDoesNothing() {
+	public void heartbeatReturnsSuccessfulResult() {
 		// Arrange:
 		final AdminController controller = new AdminController(
 				Mockito.mock(AccountsFileRepository.class),
@@ -18,7 +21,12 @@ public class AdminControllerTest {
 				Mockito.mock(CommonStarter.class));
 
 		// Act:
-		controller.heartbeat();
+		final SerializableEntity entity = controller.heartbeat();
+		final JSONObject jsonObject = JsonSerializer.serializeToJson(entity);
+
+		// Assert:
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(1));
+		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("ok"));
 	}
 
 	@Test

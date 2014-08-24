@@ -1,6 +1,7 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.deploy.CommonStarter;
+import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.cache.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,12 @@ public class AdminController {
 
 	/**
 	 * Simple heartbeat api that can be pinged to test the online status of NCC.
+	 *
+	 * @return An entity representing a successful result.
 	 */
 	@RequestMapping(value = "/heartbeat", method = RequestMethod.GET)
-	public void heartbeat() {
+	public SerializableEntity heartbeat() {
+		return serializer -> serializer.writeString("status", "ok");
 	}
 
 	/**
