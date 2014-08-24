@@ -1,6 +1,6 @@
 define({
-	id: 'pt-br',
-	name: 'Português Brasileiro',
+	id: 'pt',
+	name: 'Português',
 	texts: {
 		faults: { // mensagens de modais de erro 
             101: 'Arquivo não encontrado.',
@@ -11,15 +11,15 @@ define({
             107: 'A carteira não contém essa conta',
             108: 'A conta não pode ser removida. Provavelmente pelo motivo de que a conta tem saldo maior que 0 NEMs ou a conta que você está tentando deletar é sua conta primária.',
             109: 'Uma outra conta com o mesmo nome já existe. Por favor, escolha outro nome para sua carteira.',
-            110: 'Wallet already contains this account.',
+            110: 'A carteira já contem essa conta.',
             202: 'Sem chave pública de criptografia',
             305: 'NEM Infraestrutura de Servidores indisponível',
             306: 'Ocorreu um erro que o time de desenvolvedores não havia previsto. Pedimos desculpas por esse problema. Talvez uma nova tentativa possa resolver o problema. Caso contrário, abra uma reclamação de problemas NIS/NCC na comunidade NEM',
-            400: 'Está faltando algum parâmetro .',
+            400: 'Está faltando algum parâmetro.',
             404: 'Valor de estratégia de boot inválido.',
             500: 'Falha ao salvar o arquivo de configuração.',
             600: 'NCC requer que o servidor NIS local seja inicializado para envio e recebimento de transações na nuvem NEM. Por favor, utilize a entrada de menu no cliente NCC para inicializar o nó local.',
-			601: 'O seu nó NIS já foi iniciado. Não é possível tentar reinicia-lo uma segunda vez.',
+	     601: 'O seu nó NIS já foi iniciado. Não é possível tentar reinicia-lo uma segunda vez.',
             700: 'A conta fornecida não satisfaz o critério básico para colheira. Geralmente esse problema é relacionado com o tanto de NEMs na conta. Para a colheira iniciar, são necessários, pelo menos, 1000 NEMs.',
             701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
             702: 'O prazo final está muito no futuro. O prazo limite deve estar dentro do período de um dia.',
@@ -30,18 +30,18 @@ define({
             707: 'A data da Id de transação está muito no passado.',
             708: 'A data da Id de transação está muito no futuro.',
             709: 'A conta é desconhecida pela rede. Uma conta precisa estar envolvida em pelo menos uma transação, seja com remetente ou destinatário, para ser conhecida pela rede.',
-            901: 'There was an error setting up offline mode.'
+            901: 'Houve um erro na configuração de modo "off-line".'
         },
         common: {
         	success: 'Successo', //title of the Success message modals
         	nisStatus: {
         		unavailable: 'NIS não está disponível',
         		notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize o nó NIS local via diálogo pop-up.',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'NIS está sincronizando no bloco {{1}}. Estimativa de {{2}} atrás.',
                 daysBehind: {
-                    0: 'less than 1 day',
-                    1: '1 day',
-                    many: '{{1}} days'
+                    0: 'Menos que um dia',
+                    1: '1 dia',
+                    many: '{{1}} dias'
                 }
         	}
         },
@@ -72,8 +72,8 @@ define({
 				successMessage: 'A transação foi enviada com sucesso!'
 			},
 			clientInfo: {
-				title: 'Informação do cliente',
-				ncc: 'Client da comunidade NEM - NCC',
+				title: 'Informações do cliente',
+				ncc: 'NEM Cliente da comunidade - NCC',
 				signer: 'Signatário',
 				remoteServer: 'Servidor Remoto',
 				local: 'Local',
@@ -124,7 +124,7 @@ define({
 				label: 'Identificação pessoal',
 				wallet: 'Carteira',
 				password: "Senha da carteira",
-				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi criada!',
+				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Não se esqueça de realizar back-up da conta',
 				create: 'Criar'
 			},
 			addAccount: {
@@ -200,7 +200,7 @@ define({
 			main: {
 				leftTitle: 'Novo por aqui? Use <em>NEM</em>?',
 				leftButton: 'Criar nova carteira',
-				walletNamePlh: 'Nome da sua carteira',
+				walletNamePlh: 'Nome para sua carteira',
 				passwordPlh: 'Senha',
 				create: 'Criar',
 				rightTitle: 'Já é um membro <em>NEM</em>?',
@@ -213,11 +213,11 @@ define({
 				items: [
 					{
 						title: 'NCC encripta sua carteira',
-						description: '<em>Segurança</em> baseada em criptografia é muito importante para evitar roubos de moedas e &amp; ativos.'
+						description: '<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos.'
 					},										
 					{
 						title: 'NCC encripta sua carteira',
-						description: '<em>Segurança</em> baseada em criptografia é muito importante para evitar roubos de moedas e &amp; ativos.'
+						description: '<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos.'
 					}
 				]
 			},
@@ -247,7 +247,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Copyright 2014. NEM Cliente da Comunidade .'
+				copyright: '&copy; Copyright 2014. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -281,7 +281,7 @@ define({
 				'Mensagens',
 				'Contatos',
 				'Transações',
-				'Blocos coleitados',
+				'Blocos colheitados',
 				'Permuta de ativos',
 				'Novidades',
 				'Aplicações',
@@ -334,7 +334,7 @@ define({
 				noTransactions: 'Nenhuma transação foi realizada ainda.'
 			},
 			nemValue: {
-				title: 'Valores de estatísticas NEM'
+				title: 'Valores das estatísticas NEM'
 			},
 			messages: {
 				titleTooltip: 'Mensagens'
@@ -349,8 +349,8 @@ define({
 			sendNem: 'Enviar NEM',
 			balance: 'Saldo atual',
 			filters: {
-				confirmed: 'Confirmed',
-				unconfirmed: 'Unconfirmed',
+				confirmed: 'Confirmado',
+				unconfirmed: 'Não confirmado',
 				incoming: 'Chegando',
 				outgoing: 'Saindo',
 			},
