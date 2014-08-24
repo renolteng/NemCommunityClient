@@ -19,6 +19,7 @@ import java.util.*;
 public class TrayIconBuilder {
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
 	private final WebStartLauncher webStartLauncher;
+	private final WebBrowser webBrowser;
 	private final TrayIcon trayIcon;
 	private final Dimension dimension;
 	private final PopupMenu popup;
@@ -33,9 +34,11 @@ public class TrayIconBuilder {
 	 */
 	public TrayIconBuilder(
 			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
-			final WebStartLauncher webStartLauncher) {
+			final WebStartLauncher webStartLauncher,
+			final WebBrowser webBrowser) {
 		this.client = client;
 		this.webStartLauncher = webStartLauncher;
+		this.webBrowser = webBrowser;
 
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
@@ -47,9 +50,10 @@ public class TrayIconBuilder {
 
 	private void setImage(final IconDescriptor descriptor) {
 		final URL imageUrl = TrayIconBuilder.class.getClassLoader().getResource(descriptor.getImageFileName());
-		// we could use this.trayIcon.setAutoSIze, but it gives uglier result
-		final Image image = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage().getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
-		this.trayIcon.setImage(image);
+		// we could use this.trayIcon.setAutoSize, but it gives uglier result
+		final Image unscaledImage = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage();
+		final Image scaledImage = unscaledImage.getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
+		this.trayIcon.setImage(scaledImage);
 	}
 
 	/**
@@ -60,10 +64,11 @@ public class TrayIconBuilder {
 	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String jnlpUrl) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
 		final NodeManager manager = new NodeManager(
-				nodeType,
+				nodePolicy,
+				jnlpUrl,
 				this.createConnector(nodePolicy),
 				this.webStartLauncher,
-				jnlpUrl);
+				this.webBrowser);
 		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
 
 		final MenuItem statusMenuItem = new MenuItem();

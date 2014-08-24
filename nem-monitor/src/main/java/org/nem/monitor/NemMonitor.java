@@ -41,7 +41,10 @@ public class NemMonitor {
 			}
 
 			final SystemTray tray = SystemTray.getSystemTray();
-			final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient(), new WebStartLauncher(new MonitorConfiguration().getNemFolder()));
+			final TrayIconBuilder builder = new TrayIconBuilder(
+					createHttpMethodClient(),
+					new WebStartLauncher(new MonitorConfiguration().getNemFolder()),
+					new WebBrowser());
 			builder.addStatusMenuItems(new NisNodePolicy(), commandLine.getNisJnlpUrl());
 			builder.addSeparator();
 			builder.addStatusMenuItems(new NccNodePolicy(), commandLine.getNccJnlpUrl());

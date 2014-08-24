@@ -92,6 +92,11 @@ public class NemConnectorTest {
 				public String mapToUrlPath(final NisApiId apiId) {
 					return String.format("{%s}", apiId);
 				}
+
+				@Override
+				public boolean hasBrowserGui() {
+					return false;
+				}
 			};
 
 			this.asyncConnector = Mockito.mock(DefaultAsyncNemConnector.class);

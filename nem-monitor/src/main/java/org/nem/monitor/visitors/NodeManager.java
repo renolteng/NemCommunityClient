@@ -1,7 +1,7 @@
 package org.nem.monitor.visitors;
 
 import org.nem.monitor.*;
-import org.nem.monitor.node.NemNodeType;
+import org.nem.monitor.node.*;
 
 import java.util.logging.Logger;
 
@@ -11,35 +11,39 @@ import java.util.logging.Logger;
 public class NodeManager {
 	private static final Logger LOGGER = Logger.getLogger(WebStartLauncher.class.getName());
 
-	private final NemNodeType nodeType;
+	private final NemNodePolicy nodePolicy;
+	private final String jnlpUrl;
 	private final NemConnector connector;
 	private final WebStartLauncher launcher;
-	private final String jnlpUrl;
+	private final WebBrowser browser;
 
 	/**
 	 * Creates a new visitor.
 	 *
-	 * @param nodeType The node type being managed.
+	 * @param nodePolicy The policy of the node being managed.
+	 * @param jnlpUrl The url to the java network launching protocol.
 	 * @param connector The nem connector.
 	 * @param launcher The web start launcher.
-	 * @param jnlpUrl The url to the java network launching protocol.
+	 * @param browser The web browser.
 	 */
 	public NodeManager(
-			final NemNodeType nodeType,
+			final NemNodePolicy nodePolicy,
+			final String jnlpUrl,
 			final NemConnector connector,
 			final WebStartLauncher launcher,
-			final String jnlpUrl) {
-		this.nodeType = nodeType;
+			final WebBrowser browser) {
+		this.nodePolicy = nodePolicy;
+		this.jnlpUrl = jnlpUrl;
 		this.connector = connector;
 		this.launcher = launcher;
-		this.jnlpUrl = jnlpUrl;
+		this.browser = browser;
 	}
 
 	/**
 	 * Shuts down the node.
 	 */
 	public void shutdown() {
-		LOGGER.info(String.format("Shutting down node %s", this.nodeType));
+		LOGGER.info(String.format("Shutting down node %s", this.nodePolicy.getNodeType()));
 		this.connector.shutdown();
 	}
 
@@ -47,7 +51,11 @@ public class NodeManager {
 	 * Launches the node.
 	 */
 	public void launch() {
-		LOGGER.info(String.format("Launching node %s", this.nodeType));
+		LOGGER.info(String.format("Launching node %s", this.nodePolicy.getNodeType()));
 		this.launcher.launch(this.jnlpUrl);
+
+		if (this.nodePolicy.hasBrowserGui()) {
+			this.browser.navigate(this.nodePolicy.getEndpoint());
+		}
 	}
 }
