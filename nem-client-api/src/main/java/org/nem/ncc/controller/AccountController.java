@@ -1,6 +1,7 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.connect.HttpJsonPostRequest;
+import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.model.ncc.HarvestInfo;
@@ -10,7 +11,6 @@ import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -6,6 +6,9 @@ mvn -fpom-core.xml clean compile install -Duser.name=$3 -DskipTests=true
 cd ../ncc/nem-client-download
 mvn clean compile install -Duser.name=$3 -DskipTests=true  
 
+cd ../nem-monitor
+mvn clean compile install -DskipTests=true -Dnem-certificate-store=$1 -Dnem-certificate-password=$2
+
 cd ../nem-client-api
 rm target/nem-*
 rm site/jars/nem-*

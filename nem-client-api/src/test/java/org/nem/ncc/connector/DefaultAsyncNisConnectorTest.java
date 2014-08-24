@@ -7,12 +7,12 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.connect.*;
+import org.nem.core.connect.client.NisApiId;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.exceptions.NisException;
-import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
 import java.io.ByteArrayInputStream;

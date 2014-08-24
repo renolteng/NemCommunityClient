@@ -3,12 +3,11 @@ package org.nem.ncc.services;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.connect.FatalPeerException;
+import org.nem.core.connect.client.*;
 import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.node.*;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.time.*;
-import org.nem.ncc.connector.AsyncNisConnector;
-import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
 import java.util.*;
