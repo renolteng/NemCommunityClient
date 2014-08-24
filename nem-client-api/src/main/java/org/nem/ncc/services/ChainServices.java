@@ -3,7 +3,7 @@ package org.nem.ncc.services;
 import org.nem.core.connect.client.*;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.node.*;
-import org.nem.ncc.model.*;
+import org.nem.ncc.model.NisNodeMetaData;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;

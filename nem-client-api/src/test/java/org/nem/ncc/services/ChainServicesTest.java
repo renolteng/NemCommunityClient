@@ -8,7 +8,7 @@ import org.nem.core.connect.client.*;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.node.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.model.*;
+import org.nem.ncc.model.NisNodeMetaData;
 import org.nem.ncc.test.*;
 
 import java.util.*;

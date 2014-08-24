@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.monitor.*;
-import org.nem.monitor.node.*;
+import org.nem.monitor.node.NemNodePolicy;
 
 public class NodeManagerTest {
 

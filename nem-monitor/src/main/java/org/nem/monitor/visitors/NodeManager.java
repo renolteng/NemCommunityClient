@@ -1,7 +1,7 @@
 package org.nem.monitor.visitors;
 
 import org.nem.monitor.*;
-import org.nem.monitor.node.*;
+import org.nem.monitor.node.NemNodePolicy;
 
 import java.util.logging.Logger;
 
