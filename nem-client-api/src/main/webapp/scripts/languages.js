@@ -1,5 +1,5 @@
 define([
-	'languages/bulgarian',
+	'languages/bulgarian_b',
 	'languages/chinese',
 	'languages/croatian',
 	'languages/english', 
