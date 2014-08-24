@@ -4,8 +4,8 @@ import org.nem.core.utils.ExceptionUtils;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.function.*;
-import java.util.logging.*;
+import java.util.function.Function;
+import java.util.logging.Logger;
 
 /**
  * Class that provides functionality for downloading and launching a web start process.
@@ -40,7 +40,7 @@ public class WebStartLauncher {
 	 * Launches the web start application located at the specified url.
 	 *
 	 * @param jnlpUrl The url to the java network launching protocol.
-	*/
+	 */
 	public void launch(final String jnlpUrl) {
 		LOGGER.info(String.format("Launching JNLP from URL: %s", jnlpUrl));
 

@@ -1,4 +1,4 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
 import java.util.Objects;
 

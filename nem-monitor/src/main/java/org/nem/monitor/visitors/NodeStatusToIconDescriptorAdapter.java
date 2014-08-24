@@ -1,6 +1,5 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
-import org.nem.monitor.NodeStatusVisitor;
 import org.nem.monitor.node.*;
 
 import java.util.HashMap;
@@ -13,8 +12,11 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 
 	private static final HashMap<Integer, IconDescriptor> codeToStateInfoMap = new HashMap<Integer, IconDescriptor>() {
 		{ this.put(0, new IconDescriptor("all_bad.png", "Neither NCC nor NIS is running")); }
+
 		{ this.put(1, new IconDescriptor("ncc_only.png", "Only NCC is running")); }
+
 		{ this.put(2, new IconDescriptor("nis_online.png", "Only NIS is running")); }
+
 		{ this.put(3, new IconDescriptor("all_good.png", "Both NCC and NIS are running")); }
 	};
 

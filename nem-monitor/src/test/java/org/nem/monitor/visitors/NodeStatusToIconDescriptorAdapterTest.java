@@ -1,9 +1,8 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
-import org.nem.monitor.NodeStatusVisitor;
 import org.nem.monitor.node.*;
 
 import java.util.function.Consumer;

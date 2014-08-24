@@ -1,8 +1,6 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
-import junit.framework.TestCase;
-import org.hamcrest.core.IsEqual;
-import org.junit.*;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.nem.monitor.node.*;
 

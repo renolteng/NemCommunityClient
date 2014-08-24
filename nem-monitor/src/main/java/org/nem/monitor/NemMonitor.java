@@ -4,11 +4,11 @@ import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
-import org.nem.monitor.ux.*;
+import org.nem.monitor.ux.TrayIconBuilder;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 /**
  * The nem monitor program.
@@ -50,8 +50,7 @@ public class NemMonitor {
 
 			try {
 				tray.add(builder.create());
-			}
-			catch (final AWTException e) {
+			} catch (final AWTException e) {
 				throw new SystemTrayException("Unable to add icon to system tray", e);
 			}
 		});

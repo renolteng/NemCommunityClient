@@ -1,6 +1,5 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
-import org.nem.monitor.NodeStatusVisitor;
 import org.nem.monitor.node.*;
 
 import java.awt.event.*;

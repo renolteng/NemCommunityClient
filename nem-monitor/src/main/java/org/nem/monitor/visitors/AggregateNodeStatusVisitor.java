@@ -1,4 +1,4 @@
-package org.nem.monitor;
+package org.nem.monitor.visitors;
 
 import org.nem.monitor.node.*;
 
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * An aggregate NodeStatusVisitor that guarantees child visitors are only called on a status change.
  */
 public class AggregateNodeStatusVisitor implements NodeStatusVisitor {
-	private static final Logger LOGGER = Logger.getLogger(NemMonitor.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(AggregateNodeStatusVisitor.class.getName());
 
 	private final Collection<NodeStatusVisitor> visitors;
 	private final Map<NemNodeType, NemNodeStatus> lastKnownTypes;

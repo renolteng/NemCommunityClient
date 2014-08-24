@@ -5,6 +5,7 @@ import org.nem.core.connect.*;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.monitor.*;
 import org.nem.monitor.node.*;
+import org.nem.monitor.visitors.*;
 
 import javax.swing.*;
 import java.awt.*;

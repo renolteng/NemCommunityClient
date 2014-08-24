@@ -59,5 +59,4 @@ public class MonitorConfiguration {
 	public String getNemFolder() {
 		return this.nemFolder;
 	}
-
 }

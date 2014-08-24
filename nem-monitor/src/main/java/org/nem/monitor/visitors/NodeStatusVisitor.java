@@ -1,4 +1,4 @@
-package org.nem.monitor;
+package org.nem.monitor.visitors;
 
 import org.nem.monitor.node.*;
 

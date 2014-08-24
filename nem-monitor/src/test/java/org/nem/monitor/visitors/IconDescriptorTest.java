@@ -1,8 +1,7 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.core.model.Address;
 
 public class IconDescriptorTest {
 

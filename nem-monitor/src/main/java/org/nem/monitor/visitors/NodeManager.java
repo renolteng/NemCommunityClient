@@ -1,4 +1,4 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
 import org.nem.monitor.*;
 import org.nem.monitor.node.NemNodeType;

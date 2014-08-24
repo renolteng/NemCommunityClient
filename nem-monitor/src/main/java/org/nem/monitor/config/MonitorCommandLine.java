@@ -1,9 +1,9 @@
 package org.nem.monitor.config;
 
 import org.apache.commons.cli.Option;
-import org.nem.core.deploy.*;
+import org.nem.core.deploy.NemCommandLine;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class MonitorCommandLine {
 	private static final String NCC_JNLP_URL = "nccJnlpUrl";
@@ -11,7 +11,7 @@ public class MonitorCommandLine {
 	private static final String NIS_JNLP_URL = "nisJnlpUrl";
 	private static final String NIS_JNLP_URL_DESCRIPTION = "JNLP URL for starting NIS via WebStart.";
 
- 	private final String nccJnlpUrl;
+	private final String nccJnlpUrl;
 	private final String nisJnlpUrl;
 
 	private MonitorCommandLine(final String nccJnlpUrl, final String nisJnlpUrl) {

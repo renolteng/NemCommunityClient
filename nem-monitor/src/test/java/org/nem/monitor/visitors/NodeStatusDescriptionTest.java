@@ -1,4 +1,4 @@
-package org.nem.monitor.ux;
+package org.nem.monitor.visitors;
 
 import org.hamcrest.core.*;
 import org.junit.*;
