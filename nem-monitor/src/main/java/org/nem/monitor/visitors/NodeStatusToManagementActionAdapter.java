@@ -21,6 +21,7 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 	public NodeStatusToManagementActionAdapter(final NemNodeType nodeType, final NodeManager manager) {
 		this.nodeType = nodeType;
 		this.manager = manager;
+		this.status = NemNodeStatus.UNKNOWN;
 	}
 
 	@Override
