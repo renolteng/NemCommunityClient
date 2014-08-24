@@ -1,5 +1,6 @@
 package org.nem.monitor;
 
+import org.apache.commons.io.FilenameUtils;
 import org.nem.core.utils.ExceptionUtils;
 
 import java.io.*;
@@ -52,8 +53,7 @@ public class WebStartLauncher {
 	}
 
 	private File getLogFile(final String jnlpUrl) throws IOException {
-		final String fileNameWithExtension = Paths.get(jnlpUrl).toFile().getName();
-		final String fileNameWithoutExtension = fileNameWithExtension.substring(0, fileNameWithExtension.indexOf('.'));
+		final String fileNameWithoutExtension = FilenameUtils.getBaseName(jnlpUrl);
 		final Path file = Paths.get(this.nemFolder, fileNameWithoutExtension + ".log");
 		final File logFile = file.toFile().getCanonicalFile();
 		LOGGER.info(String.format("Launching %s with logs in <%s>.", jnlpUrl, logFile.getAbsolutePath()));
