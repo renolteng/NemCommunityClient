@@ -61,11 +61,17 @@ public class TrayIconBuilder {
 				this.webStartLauncher,
 				jnlpUrl);
 		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
-		final NodeMenuItemNodeStatusVisitor visitor = new NodeMenuItemNodeStatusVisitor(nodeType);
 
-		this.popup.add(visitor.getStatusMenuItem());
-		this.popup.add(visitor.getActionMenuItem());
-		visitor.getActionMenuItem().addActionListener(actionAdapter);
+		final MenuItem statusMenuItem = new MenuItem();
+		final MenuItem actionMenuItem = new MenuItem();
+		final NodeStatusToStatusDescriptionAdapter visitor = new NodeStatusToStatusDescriptionAdapter(nodeType, description -> {
+			statusMenuItem.setLabel(description.getStatusMessage());
+			statusMenuItem.setLabel(description.getActionMessage());
+		});
+
+		this.popup.add(statusMenuItem);
+		this.popup.add(actionMenuItem);
+		actionMenuItem.addActionListener(actionAdapter);
 
 		this.visitors.add(visitor);
 		this.visitors.add(actionAdapter);
