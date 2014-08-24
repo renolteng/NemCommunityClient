@@ -66,7 +66,7 @@ public class TrayIconBuilder {
 		final MenuItem actionMenuItem = new MenuItem();
 		final NodeStatusToStatusDescriptionAdapter visitor = new NodeStatusToStatusDescriptionAdapter(nodeType, description -> {
 			statusMenuItem.setLabel(description.getStatusMessage());
-			statusMenuItem.setLabel(description.getActionMessage());
+			actionMenuItem.setLabel(description.getActionMessage());
 		});
 
 		this.popup.add(statusMenuItem);
