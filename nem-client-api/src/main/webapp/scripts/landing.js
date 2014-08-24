@@ -22,7 +22,7 @@
             ncc.openWallet = function(walletData) {
             	ncc.set('wallet', ncc.processWallet(walletData));
             	ncc.set('activeAccount', ncc.processAccount(walletData.primaryAccount));
-                ncc.loadPage('dashboard', null, null, false, {
+                ncc.loadPage('dashboard', {
                 	wallet: walletData.name,
                 	account: walletData.primaryAccount.address
                 });
