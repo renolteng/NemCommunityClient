@@ -187,7 +187,7 @@ public class AccountController {
 	}
 
 	/**
-	 * Unlock the account on the connected NIS server (start foraging)
+	 * Unlock the account on the connected NIS server (start foraging).
 	 *
 	 * @param awRequest The account / wallet view model.
 	 */
@@ -198,7 +198,7 @@ public class AccountController {
 	}
 
 	/**
-	 * Lock the account on the connected NIS server (stop foraging)
+	 * Lock the account on the connected NIS server (stop foraging).
 	 *
 	 * @param awRequest The account / wallet view model.
 	 */
