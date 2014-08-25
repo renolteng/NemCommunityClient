@@ -30,14 +30,6 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 			return;
 		}
 
-		switch (status) {
-			case RUNNING:
-				this.manager.launchBrowser();
-				break;
-			case STOPPED:
-				break;
-		}
-
 		this.status = status;
 	}
 

@@ -53,9 +53,7 @@ public class NodeManager {
 	public void launch() {
 		LOGGER.info(String.format("Launching node %s", this.nodePolicy.getNodeType()));
 		this.launcher.launch(this.jnlpUrl);
-	}
 
-	public void launchBrowser() {
 		if (this.nodePolicy.hasBrowserGui()) {
 			this.browser.navigate(this.nodePolicy.getEndpoint());
 		}
