@@ -60,9 +60,9 @@ public class NemMonitor {
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {
-		final int CONNECTION_TIMEOUT = 1000;
-		final int SOCKET_TIMEOUT = 1000;
-		final int REQUEST_TIMEOUT = 2000;
+		final int CONNECTION_TIMEOUT = 2000;
+		final int SOCKET_TIMEOUT = 2000;
+		final int REQUEST_TIMEOUT = 4000;
 		return new HttpMethodClient<>(CONNECTION_TIMEOUT, SOCKET_TIMEOUT, REQUEST_TIMEOUT);
 	}
 }
