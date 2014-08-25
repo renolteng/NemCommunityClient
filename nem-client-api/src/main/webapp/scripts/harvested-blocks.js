@@ -9,7 +9,7 @@
         local: {
         	scrollBottomTolerance: 100
         },
-        setupOnce: function() {
+        initOnce: function() {
         	ncc.loadHarvestedBlocks = function(reload, update) {
         		var currAccount = ncc.get('activeAccount.address');
         		var requestData = { account: currAccount };

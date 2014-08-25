@@ -11,14 +11,7 @@
 			scrollHeader: 'active.scrollHeader',
 			nisCheckingInterval: 3000
 		},
-		initEverytime: function() {
-			ncc.set('active.gateClosed', false);
-			ncc.set('active.overlayIn', false);
-			ncc.set('active.hexagon', false);
-			ncc.set('active.landingRegion', '');
-			ncc.set(this.local.scrollHeader, false);
-		},
-		setupOnce: function() {
+		initOnce: function() {
             ncc.openWallet = function(walletData) {
             	ncc.set('wallet', ncc.processWallet(walletData));
             	ncc.set('activeAccount', ncc.processAccount(walletData.primaryAccount));
@@ -27,6 +20,13 @@
                 	account: walletData.primaryAccount.address
                 });
 	        };
+		},
+		initEverytime: function() {
+			ncc.set('active.gateClosed', false);
+			ncc.set('active.overlayIn', false);
+			ncc.set('active.hexagon', false);
+			ncc.set('active.landingRegion', '');
+			ncc.set(this.local.scrollHeader, false);
 		},
 		setupEverytime: function() {
 			var local = this.local;

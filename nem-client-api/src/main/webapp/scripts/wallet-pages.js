@@ -4,32 +4,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
         template: 'rv!layout/wallet-pages',
-        initEverytime: function(params) {
-            var wallet = params.wallet;
-            if (!wallet) {
-                ncc.loadPage('landing');
-                return true;
-            } else {
-                if (!ncc.get('wallet') || ncc.get('wallet.name') != wallet) {
-                    ncc.set('wallet.name', wallet);
-                    ncc.refreshWallet(wallet);
-                }
-            }
-
-            var account = params.account;
-            if (!account) {
-                ncc.loadPage('landing');
-                return true;
-            } else {
-                if (!ncc.get('activeAccount') || ncc.get('activeAccount.address') != account) {
-                    ncc.set('activeAccount.address', account);
-                    ncc.refreshAccount(wallet, account);
-                }
-            }
-        },
-        setupOnce: function() {
-            var local = this.local;
-
+        initOnce: function() {
             ncc.refreshWallet = function(wallet, silent) {
                 if (!wallet) wallet = ncc.get('wallet.name');
 
@@ -140,6 +115,29 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     ncc.get('texts.modals.bootLocalNode.booting')
                 );
             };
+        },
+        initEverytime: function(params) {
+            var wallet = (params && params.wallet) || ncc.getUrlParam('wallet');
+            if (!wallet) {
+                ncc.loadPage('landing');
+                return true;
+            } else {
+                if (!ncc.get('wallet') || ncc.get('wallet.name') != wallet) {
+                    ncc.set('wallet.name', wallet);
+                    ncc.refreshWallet(wallet);
+                }
+            }
+
+            var account = (params && params.account) || ncc.getUrlParam('account');
+            if (!account) {
+                ncc.loadPage('landing');
+                return true;
+            } else {
+                if (!ncc.get('activeAccount') || ncc.get('activeAccount.address') != account) {
+                    ncc.set('activeAccount.address', account);
+                    ncc.refreshAccount(wallet, account);
+                }
+            }
         },
         setupEverytime: function() {
             var local = this.local;

@@ -9,7 +9,7 @@
         local: {
         	scrollBottomTolerance: 100
         },
-        setupOnce: function() {
+        initOnce: function() {
 			ncc.loadTransactions = function(reload, update) {
 				var api = ncc.get('transactions.filter');
 				var currAccount = ncc.get('activeAccount.address');
