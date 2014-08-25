@@ -331,6 +331,148 @@ $drop-arrow-width: 33px;
 	max-height: 300px;
 }
 
+#wallet-page-main-content {
+	padding-top: $mainContent-topPadding;
+	padding-bottom: 9px;
+	background-color: #ebebeb;
+	min-height: 100%;
+
+	&.sidebar-scrollable {
+		position: absolute;
+		width: 100%;
+
+		#wallet-page-sidebar {
+			position: absolute;
+			height: calc(100% - #{$mainContent-topPadding});
+		}
+	}
+
+	.container {
+		padding-left: $sidebar-width + $mainContent-leftPadding;
+		width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
+	}
+
+	&, &.full-sidebar {
+		#wallet-page-sidebar {
+			width: $sidebar-width;
+		}
+
+		.mini {
+			display: none;
+		}
+
+		.active.account {
+			background-color: #2e3541;
+		}
+
+		.account-info {
+			padding: 10px 5px 6px 21px;
+			width: calc(100% - #{$drop-arrow-width});
+		}
+
+		.primary {
+			padding: 0 8px 2px;
+			margin-left: 5px;
+		}
+
+		nav {
+			padding-right: 18px;
+
+			li {
+				padding-left: 40px;
+				&:not(.disabled) {
+					$indicator-width: 6px;
+					$padding-left: 52px;
+					
+					&:hover {
+						padding-left: $padding-left;
+					}
+					&.active {
+						border-left: $indicator-width solid #ebebeb;
+						padding-left: $padding-left - $indicator-width;
+					}
+				}
+			}
+
+			.item-title {
+				&:before {
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+
+	@mixin mini-sidebar() {
+		#wallet-page-sidebar {
+			width: $mini-sidebar-width;
+		}
+
+		.mini {
+			display: initial;
+		}
+
+		.full {
+			display: none;
+		}
+
+		.active.account {
+			background-color: #252a34;
+		}
+
+		.account-info {
+			padding-left: 0;
+			padding-right: 0;
+			width: 100%;
+			text-align: center;
+		}
+
+		.primary {
+			margin: 22px 0 0;
+			font-weight: $fontWeight-medium;
+			padding: 3px 8px 4px;
+		}
+
+		nav {
+			padding-right: 0;
+
+			li {
+				text-align: center;
+
+				&, &:not(.disabled).active, &:not(.disabled):hover {
+					padding-left: 0;
+					padding-right: 0;
+					border-left: none;
+				}
+			}
+
+			.item-title {
+				&:before {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	@mixin shrunk-container() {
+		.container {
+			padding-left: $mini-sidebar-width + $mainContent-leftPadding;
+			width: $mini-sidebar-width + $mainContent-leftPadding + $mainContent-width;
+		}
+	}
+
+	@media (max-width: #{$boundary-width}) {
+		&:not(.full-sidebar) {
+			@include mini-sidebar();
+		}
+		@include shrunk-container();
+	}
+
+	&.mini-sidebar {
+		@include mini-sidebar();
+		@include shrunk-container();
+	}
+}
+
 #wallet-page-sidebar {
 	$sidebar-textColor: #ebebeb;
 	position: fixed;
@@ -516,138 +658,6 @@ $drop-arrow-width: 33px;
 				color: #252a34;
 			}
 		}
-	}
-}
-
-#wallet-page-main-content {
-	padding-top: $mainContent-topPadding;
-	padding-bottom: 9px;
-	background-color: #ebebeb;
-	min-height: 100%;
-
-	.container {
-		padding-left: $sidebar-width + $mainContent-leftPadding;
-		width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
-	}
-
-	&, &.full-sidebar {
-		#wallet-page-sidebar {
-			width: $sidebar-width;
-		}
-
-		.mini {
-			display: none;
-		}
-
-		.active.account {
-			background-color: #2e3541;
-		}
-
-		.account-info {
-			padding: 10px 5px 6px 21px;
-			width: calc(100% - #{$drop-arrow-width});
-		}
-
-		.primary {
-			padding: 0 8px 2px;
-			margin-left: 5px;
-		}
-
-		nav {
-			padding-right: 18px;
-
-			li {
-				padding-left: 40px;
-				&:not(.disabled) {
-					$indicator-width: 6px;
-					$padding-left: 52px;
-					
-					&:hover {
-						padding-left: $padding-left;
-					}
-					&.active {
-						border-left: $indicator-width solid #ebebeb;
-						padding-left: $padding-left - $indicator-width;
-					}
-				}
-			}
-
-			.item-title {
-				&:before {
-					margin-right: 10px;
-				}
-			}
-		}
-	}
-
-	@mixin mini-sidebar() {
-		#wallet-page-sidebar {
-			width: $mini-sidebar-width;
-		}
-
-		.mini {
-			display: initial;
-		}
-
-		.full {
-			display: none;
-		}
-
-		.active.account {
-			background-color: #252a34;
-		}
-
-		.account-info {
-			padding-left: 0;
-			padding-right: 0;
-			width: 100%;
-			text-align: center;
-		}
-
-		.primary {
-			margin: 22px 0 0;
-			font-weight: $fontWeight-medium;
-			padding: 3px 8px 4px;
-		}
-
-		nav {
-			padding-right: 0;
-
-			li {
-				text-align: center;
-
-				&, &:not(.disabled).active, &:not(.disabled):hover {
-					padding-left: 0;
-					padding-right: 0;
-					border-left: none;
-				}
-			}
-
-			.item-title {
-				&:before {
-					margin-right: 0;
-				}
-			}
-		}
-	}
-
-	@mixin shrunk-container() {
-		.container {
-			padding-left: $mini-sidebar-width + $mainContent-leftPadding;
-			width: $mini-sidebar-width + $mainContent-leftPadding + $mainContent-width;
-		}
-	}
-
-	@media (max-width: #{$boundary-width}) {
-		&:not(.full-sidebar) {
-			@include mini-sidebar();
-		}
-		@include shrunk-container();
-	}
-
-	&.mini-sidebar {
-		@include mini-sidebar();
-		@include shrunk-container();
 	}
 }
 
