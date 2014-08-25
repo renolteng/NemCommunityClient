@@ -70,6 +70,8 @@ public class NodeController {
 	 */
 	@RequestMapping(value = "/node/status", method = RequestMethod.GET)
 	public void checkNodeStatus() {
+		// TODO-CR T-> J, why is an exception not passed to the ExceptionControllerAdvice instance?
+		// For instance, NIS Exception NODE_NOT_BOOTED by-passes the exception handler and produces ugly stack traces.
 		this.nisConnector.get(NisApiId.NIS_REST_NODE_INFO, null);
 	}
 }
