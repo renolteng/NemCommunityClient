@@ -3,9 +3,12 @@ package org.nem.deploy;
 import org.nem.core.deploy.*;
 import org.nem.core.serialization.AccountLookup;
 import org.nem.ncc.controller.interceptors.*;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
@@ -25,7 +28,9 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 	private AccountLookup accountLookup;
 
 	@Autowired
-	org.nem.ncc.model.Configuration configuration;
+	private org.nem.ncc.model.Configuration configuration;
+
+	private ApplicationContext applicationContext;
 
 	private static void addConvertersForPolicy(
 			final List<HttpMessageConverter<?>> converters,
@@ -33,6 +38,12 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 		converters.add(new DeserializerHttpMessageConverter(policy));
 		converters.add(new SerializableEntityHttpMessageConverter(policy));
 		converters.add(new DeserializableEntityMessageConverter(policy));
+	}
+
+	@Override
+	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+		super.setApplicationContext(applicationContext);
 	}
 
 	@Override
@@ -52,7 +63,12 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 
 	@Override
 	protected void configureHandlerExceptionResolvers(final List<HandlerExceptionResolver> exceptionResolvers) {
-		exceptionResolvers.add(new CompletionExceptionResolver());
+		final CompletionExceptionResolver resolver = new CompletionExceptionResolver();
+		resolver.setApplicationContext(this.applicationContext);
+		resolver.setContentNegotiationManager(this.mvcContentNegotiationManager());
+		resolver.setMessageConverters(this.getMessageConverters());
+		resolver.afterPropertiesSet();
+		exceptionResolvers.add(resolver);
 	}
 
 	/**
@@ -64,6 +80,11 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 		@Override
 		public ModelAndView resolveException(final HttpServletRequest request, final HttpServletResponse response, final Object handler, final Exception ex) {
 			return super.resolveException(request, response, handler, unwrap(ex));
+		}
+
+		@Override
+		public ModelAndView doResolveHandlerMethodException(final HttpServletRequest request, final HttpServletResponse response, final HandlerMethod handlerMethod, final Exception ex) {
+			return super.doResolveHandlerMethodException(request, response, handlerMethod, unwrap(ex));
 		}
 
 		private static Exception unwrap(final Exception ex) {
