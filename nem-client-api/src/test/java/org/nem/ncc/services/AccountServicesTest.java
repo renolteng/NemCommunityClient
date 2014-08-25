@@ -3,6 +3,7 @@ package org.nem.ncc.services;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
+import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
@@ -10,7 +11,6 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
-import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
 import java.util.*;
@@ -38,52 +38,8 @@ public class AccountServicesTest {
 		Assert.assertThat(pair.getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
 	}
 
-	//region account/transactions API
-	@Test
-	public void getConfirmedTransactionsWithoutTimeStampDelegatesToConnector() {
-		// Assert:
-		assertGetConfirmedTransactionsWithTimeStampDelegatesToConnector(
-				null,
-				"address=FOO");
-	}
-
-	@Test
-	public void getConfirmedTransactionsWithTimeStampDelegatesToConnector() {
-		// Assert:
-		assertGetConfirmedTransactionsWithTimeStampDelegatesToConnector(
-				new TimeInstant(14162),
-				"address=FOO&timeStamp=14162");
-	}
-
-	private static void assertGetConfirmedTransactionsWithTimeStampDelegatesToConnector(
-			final TimeInstant timeStamp,
-			final String expectedQueryString) {
-		// Arrange:
-		final TestContext context = new TestContext();
-		final List<TransactionMetaDataPair> originalPairs = Arrays.asList(
-				createTransferMetaDataPair(Amount.fromNem(124), 5),
-				createTransferMetaDataPair(Amount.fromNem(572), 9),
-				createTransferMetaDataPair(Amount.fromNem(323), 4));
-
-		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_TRANSFERS, expectedQueryString))
-				.thenReturn(serialize(new SerializableList<>(originalPairs)));
-
-		// Act:
-		final List<TransactionMetaDataPair> pairs =
-				context.services.getConfirmedTransactions(Address.fromEncoded("FOO"), timeStamp);
-
-		// Assert:
-		Mockito.verify(context.connector, Mockito.times(1)).get(NisApiId.NIS_REST_ACCOUNT_TRANSFERS, expectedQueryString);
-		Assert.assertThat(
-				pairs.stream().map(p -> p.getTransaction().getFee()).collect(Collectors.toList()),
-				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
-		Assert.assertThat(
-				pairs.stream().map(p -> p.getMetaData().getHeight()).collect(Collectors.toList()),
-				IsEqual.equalTo(Arrays.asList(new BlockHeight(5), new BlockHeight(9), new BlockHeight(4))));
-	}
-	//endregion
-
 	//region NEW account/transactions API
+
 	private static void assertGetTransactionsWithHashDelegatesToConnector(
 			final NisApiId nisApiId,
 			final TransactionDirection direction,
@@ -171,6 +127,7 @@ public class AccountServicesTest {
 				"address=FOO&hash=1234"
 		);
 	}
+
 	//endregion
 
 	@Test

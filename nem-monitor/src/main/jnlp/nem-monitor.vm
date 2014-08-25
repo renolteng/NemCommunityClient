@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="7.0+" href="$outputFile" codebase="$nem-code-base" version="$project.version">
+  <information>
+    <title>NEM Monitor</title>
+    <vendor>NEM Community</vendor>
+    <homepage href="http://www.ournem.com"/>
+    <description>NEM Monitor. Monitor NCC and NIS status</description>
+    <description kind="short">NEM Monitor (NOM)</description>
+    <description kind="one-line">NCC and NIS status monitor</description>
+    <description kind="tooltip"></description>
+    <shortcut online="true" install="true">
+      <desktop/>
+      <menu submenu="NEM"/>
+    </shortcut>
+  </information>
+  <security>
+      <all-permissions/>
+  </security>
+  <update check="always" policy="always"></update>
+  <resources>
+    <java version="1.8+" java-vm-args="-esa -Xnoclassgc"/>
+    $dependencies
+<!-- Progress Bar add download="progress" -->
+</resources>
+<application-desc main-class="$mainClass">
+    <argument>-nccJnlpUrl</argument>
+    <argument>${nem-code-base}/nem-client.jnlp</argument>
+    <argument>-nisJnlpUrl</argument>
+    <argument>${nem-code-base}/nem-server.jnlp</argument>
+</application>
+</jnlp> 

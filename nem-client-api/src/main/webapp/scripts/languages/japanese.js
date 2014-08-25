@@ -37,7 +37,7 @@ define({
         	nisStatus: {
          		unavailable: 'NISは無効',
          		notBooted: 'NISは必要で、ウォレットを開いて、ローカルノードを起動してください。',
-         		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+         		synchronizing: 'NISはブロック{{1}}を同期中で、約{{2}}個ブロックを遅れています。',
                 daysBehind: {
                     0: 'less than 1 day',
                     1: '1 day',
@@ -226,7 +226,7 @@ define({
 			about: {
 				sections: [
 					{
-						title: 'どのようにNCCは動いているのか?',
+						title: 'どの様にNCCは動いている?',
 						paragraphs: [
 							'<strong>NCC</strong> では一般的なウォレットでのNEMやその他の財産へのアクセスができるようになります。',
 							'<strong>NCC</strong> サーバーは動作するために <strong>NIS</strong> サーバーへの接続を必要とします。標準ではローカルサーバーを起動します。 (ローカルサーバーは<strong>NCC</strong>と一緒にインストールされています。)',

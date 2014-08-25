@@ -1,6 +1,7 @@
 package org.nem.deploy.appconfig;
 
 import org.nem.core.connect.*;
+import org.nem.core.connect.client.AsyncNisConnector;
 import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.serialization.AccountLookup;
@@ -148,9 +149,7 @@ public class NccAppConfig {
 	public AccountsFileRepository accountsFileRepository() {
 		final File file = new File(this.getNemFolder(), "accounts_cache.json");
 		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(file);
-		final AccountsFileRepository repository = new AccountsFileRepository(descriptor);
-		repository.load();
-		return repository;
+		return new AccountsFileRepository(descriptor);
 	}
 
 	@Bean

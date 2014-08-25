@@ -4,10 +4,9 @@ import org.hamcrest.core.IsNull;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.connect.FatalPeerException;
+import org.nem.core.connect.client.*;
 import org.nem.core.node.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.AsyncNisConnector;
-import org.nem.ncc.model.NisApiId;
 import org.nem.ncc.test.*;
 
 import java.util.*;

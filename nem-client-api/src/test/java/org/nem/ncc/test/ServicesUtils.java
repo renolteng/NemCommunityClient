@@ -4,10 +4,10 @@ import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.mockito.Mockito;
 import org.nem.core.connect.FatalPeerException;
+import org.nem.core.connect.client.*;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-import org.nem.ncc.connector.*;
-import org.nem.ncc.model.NisApiId;
+import org.nem.ncc.connector.PrimaryNisConnector;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;

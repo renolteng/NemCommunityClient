@@ -11,6 +11,8 @@ nem-client-api/nem-ncc-*.log.*
 xyz-file
 ncc-nis.log
 *.iml
+*~
+*.bak
 nem-client-api/building/META-INF/MANIFEST.MF
 nem-client-api/building/buildPackage-ws-sign-ncc.sh
 nem-client-api/building/copy-ws.bat

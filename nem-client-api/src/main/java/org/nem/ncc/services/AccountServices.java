@@ -1,12 +1,11 @@
 package org.nem.ncc.services;
 
+import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.Deserializer;
-import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
-import org.nem.ncc.model.NisApiId;
 
 import java.util.List;
 
@@ -56,21 +55,8 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public List<TransactionMetaDataPair> getTransactions(final TransactionDirection direction, final Address address, final Hash endHash) {
-		final String queryString = formatQueryHashString(address, endHash);
+		final String queryString = formatQueryString(address, endHash);
 		final Deserializer deserializer = this.nisConnector.get(this.typeOfTransactionToQueryId(direction), queryString);
-		return deserializer.readObjectArray("data", TransactionMetaDataPair::new);
-	}
-
-	/**
-	 * Gets confirmed transactions for the specified account.
-	 *
-	 * @param address The account address.
-	 * @param startTime The start time.
-	 * @return The account information.
-	 */
-	public List<TransactionMetaDataPair> getConfirmedTransactions(final Address address, final TimeInstant startTime) {
-		final String queryString = formatQueryString(address, startTime);
-		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_TRANSFERS, queryString);
 		return deserializer.readObjectArray("data", TransactionMetaDataPair::new);
 	}
 
@@ -87,33 +73,13 @@ public class AccountServices {
 	}
 
 	/**
-	 * Formats a string containing address and time stamp information.
-	 *
-	 * @param address The address.
-	 * @param timeStamp The time stamp.
-	 * @return The formatted string.
-	 */
-	private static String formatQueryString(final Address address, final TimeInstant timeStamp) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("address=");
-		builder.append(address.getEncoded());
-
-		if (null != timeStamp) {
-			builder.append("&timeStamp=");
-			builder.append(timeStamp);
-		}
-
-		return builder.toString();
-	}
-
-	/**
 	 * Formats a string containing address and hash information.
 	 *
 	 * @param address The address.
 	 * @param hash The hash.
 	 * @return The formatted string.
 	 */
-	private static String formatQueryHashString(final Address address, final Hash hash) {
+	private static String formatQueryString(final Address address, final Hash hash) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append("address=");
 		builder.append(address.getEncoded());
