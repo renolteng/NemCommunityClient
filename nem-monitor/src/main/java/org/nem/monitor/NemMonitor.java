@@ -40,14 +40,15 @@ public class NemMonitor {
 				throw new SystemTrayException("SystemTray is not supported");
 			}
 
+			final String nemFolder = new MonitorConfiguration().getNemFolder();
 			final SystemTray tray = SystemTray.getSystemTray();
 			final TrayIconBuilder builder = new TrayIconBuilder(
 					createHttpMethodClient(),
-					new WebStartLauncher(new MonitorConfiguration().getNemFolder()),
+					new WebStartLauncher(nemFolder),
 					new WebBrowser());
-			builder.addStatusMenuItems(new NisNodePolicy(), commandLine.getNisJnlpUrl());
+			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
 			builder.addSeparator();
-			builder.addStatusMenuItems(new NccNodePolicy(), commandLine.getNccJnlpUrl());
+			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
 			builder.addSeparator();
 			builder.addExitMenuItem(tray);
 
@@ -60,9 +61,9 @@ public class NemMonitor {
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {
-		final int CONNECTION_TIMEOUT = 1000;
-		final int SOCKET_TIMEOUT = 1000;
-		final int REQUEST_TIMEOUT = 2000;
+		final int CONNECTION_TIMEOUT = 2000;
+		final int SOCKET_TIMEOUT = 2000;
+		final int REQUEST_TIMEOUT = 4000;
 		return new HttpMethodClient<>(CONNECTION_TIMEOUT, SOCKET_TIMEOUT, REQUEST_TIMEOUT);
 	}
 }

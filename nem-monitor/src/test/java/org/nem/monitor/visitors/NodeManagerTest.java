@@ -33,24 +33,24 @@ public class NodeManagerTest {
 	}
 
 	@Test
-	public void launchDelegatesToBrowserWhenNodeHasBrowserGui() {
+	public void launchBrowserDelegatesToBrowserWhenNodeHasBrowserGui() {
 		// Arrange:
 		final TestContext context = new TestContext(true);
 
 		// Act:
-		context.manager.launch();
+		context.manager.launchBrowser();
 
 		// Assert:
 		Mockito.verify(context.browser, Mockito.times(1)).navigate(NodeEndpoint.fromHost("10.0.0.12"));
 	}
 
 	@Test
-	public void launchDoesNotDelegateToBrowserWhenNodeDoesNotHaveBrowserGui() {
+	public void launchBrowserDoesNotDelegateToBrowserWhenNodeDoesNotHaveBrowserGui() {
 		// Arrange:
 		final TestContext context = new TestContext(false);
 
 		// Act:
-		context.manager.launch();
+		context.manager.launchBrowser();
 
 		// Assert:
 		Mockito.verify(context.browser, Mockito.times(0)).navigate(NodeEndpoint.fromHost(Mockito.any()));

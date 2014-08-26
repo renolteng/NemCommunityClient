@@ -44,6 +44,11 @@ public class NodeStatusToStatusDescriptionAdapter implements NodeStatusVisitor {
 				statusMessage = String.format("%s is not running", this.nodeType);
 				actionMessage = String.format("Start %s", this.nodeType);
 				break;
+
+			case BOOTING:
+				statusMessage = String.format("%s is booting", this.nodeType);
+				actionMessage = connectingMessage;
+				break;
 		}
 
 		this.statusDescriptionConsumer.accept(new NodeStatusDescription(statusMessage, actionMessage));

@@ -4,7 +4,6 @@ import org.nem.core.connect.*;
 import org.nem.core.connect.client.AsyncNisConnector;
 import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
-import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
 import org.nem.ncc.NccMain;
@@ -108,7 +107,7 @@ public class NccAppConfig {
 	public TransactionMapper transactionMapper() {
 		return new TransactionMapper(
 				this.walletServices(),
-				this.accountCache(),
+				this.accountLookup(),
 				this.timeProvider());
 	}
 
@@ -124,11 +123,11 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountMapper accountMapper() {
-		return new AccountMapper(this.configuration(), this.accountCache());
+		return new AccountMapper(this.configuration(), this.accountLookup());
 	}
 
 	@Bean
-	public AccountMetaDataPairLookup accountCache() {
+	public NccAccountCache accountCache() {
 		final int refreshInSeconds = 2;
 		final NccAccountCache accountCache = new NccAccountCache(this.accountServices(),
 				this.timeProvider(),
@@ -137,11 +136,9 @@ public class NccAppConfig {
 		return accountCache;
 	}
 
-	// since both this and bean above implement same interface,
-	// we need to state this one is primary in case of a conflict...
 	@Bean
 	@Primary
-	public AccountLookup accountLookup() {
+	public AccountMetaDataPairLookup accountLookup() {
 		return new WalletAwareAccountLookup(this.accountCache(), this.walletServices());
 	}
 

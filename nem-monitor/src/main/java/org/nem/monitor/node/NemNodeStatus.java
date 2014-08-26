@@ -11,6 +11,11 @@ public enum NemNodeStatus {
 	UNKNOWN,
 
 	/**
+	 * The node is booting.
+	 */
+	BOOTING,
+
+	/**
 	 * The node is running.
 	 */
 	RUNNING,

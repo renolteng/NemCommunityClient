@@ -2,6 +2,7 @@ package org.nem.monitor;
 
 import org.nem.core.connect.client.*;
 import org.nem.core.serialization.Deserializer;
+import org.nem.core.utils.LockFile;
 import org.nem.monitor.node.*;
 
 import java.util.concurrent.*;
@@ -29,9 +30,21 @@ public class NemConnector {
 
 	/**
 	 * Checks if the connected process is running.
+	 *
+	 * @return The node status.
 	 */
 	public CompletableFuture<NemNodeStatus> getStatus() {
-		return this.getAsync(NisApiId.NIS_REST_HEARTBEAT).handle((d, e) -> isRunning(e) ? NemNodeStatus.RUNNING : NemNodeStatus.STOPPED);
+		return this.getAsync(NisApiId.NIS_REST_HEARTBEAT).handle((d, e) -> {
+			if (isRunning(e)) {
+				return NemNodeStatus.RUNNING;
+			}
+
+			return this.isBooting() ? NemNodeStatus.BOOTING : NemNodeStatus.STOPPED;
+		});
+	}
+
+	private boolean isBooting() {
+		return LockFile.isLocked(this.policy.getLockFile());
 	}
 
 	private static boolean isRunning(final Throwable ex) {
@@ -40,6 +53,8 @@ public class NemConnector {
 
 	/**
 	 * Shuts down the connected process.
+	 *
+	 * @return The future.
 	 */
 	public CompletableFuture<Void> shutdown() {
 		return this.getAsync(NisApiId.NIS_REST_SHUTDOWN).thenApply(d -> null);

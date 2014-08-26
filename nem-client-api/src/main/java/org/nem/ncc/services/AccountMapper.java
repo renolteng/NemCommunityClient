@@ -32,7 +32,6 @@ public class AccountMapper {
 	 * @return The view model.
 	 */
 	public AccountViewModel toViewModel(final WalletAccount account) {
-		// TODO-CR T->J Either the cache should already include the newly created account or we skip the lookup since we already have all information on the account. Currently, a newly created wallet returns null for the public key. Which is IMO unwanted.
 		return this.toViewModel(account.getAddress());
 	}
 

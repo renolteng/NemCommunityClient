@@ -54,7 +54,6 @@ public class WalletAccountController {
 	}
 
 	private AccountViewModel addAccount(final WalletNamePasswordBag bag, final WalletAccount account) {
-		// TODO-CR T->J the newly created account should be placed into the AccountCache. Otherwise the public key of that account is not returned. Or we change the way how the account is serialized.
 		final Wallet wallet = this.walletServices.open(bag);
 		wallet.addOtherAccount(account);
 
