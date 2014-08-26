@@ -5,16 +5,19 @@ import org.junit.*;
 import org.mockito.*;
 import org.nem.monitor.node.*;
 
+import java.util.*;
 import java.util.function.Consumer;
 
 public class NodeStatusToIconDescriptorAdapterTest {
 	private static final IconDescriptor ALL_BAD_DESCRIPTOR = new IconDescriptor("all_bad.png", "Neither NCC nor NIS is running");
-	private static final IconDescriptor NCC_ONLY_DESCRIPTOR = new IconDescriptor("ncc_only.png", "Only NCC is running");
-	private static final IconDescriptor NIS_ONLY_DESCRIPTOR = new IconDescriptor("nis_online.png", "Only NIS is running");
+	private static final IconDescriptor NCC_RUNNING_DESCRIPTOR = new IconDescriptor("ncc_running.png", "Only NCC is running");
+	private static final IconDescriptor NIS_RUNNING_DESCRIPTOR = new IconDescriptor("nis_running.png", "Only NIS is running");
+	private static final IconDescriptor NCC_BOOTING_DESCRIPTOR = new IconDescriptor("ncc_booting.png", "NCC is booting");
+	private static final IconDescriptor NIS_BOOTING_DESCRIPTOR = new IconDescriptor("nis_booting.png", "NIS is booting");
 	private static final IconDescriptor ALL_GOOD_DESCRIPTOR = new IconDescriptor("all_good.png", "Both NCC and NIS are running");
 
 	@Test
-	public void constructorInitializesIconDescriptor() {
+	public void initiallyAllBadIconIsChosen() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
@@ -23,83 +26,96 @@ public class NodeStatusToIconDescriptorAdapterTest {
 	}
 
 	@Test
-	public void connectingToNccNodeUpdatesIconDescriptor() {
+	public void allGoodIconIsReturnedWhenNccAndNisAreBothRunning() {
 		// Arrange:
-		final TestContext context = new TestContext();
-
-		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
+		final List<StatusPair> pairs = Arrays.asList(new StatusPair(NemNodeStatus.RUNNING, NemNodeStatus.RUNNING));
 
 		// Assert:
-		Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(NCC_ONLY_DESCRIPTOR));
+		assertDescriptorForPairs(pairs, ALL_GOOD_DESCRIPTOR);
 	}
 
 	@Test
-	public void connectingToNisNodeUpdatesIconDescriptor() {
+	public void nccBootingIconHasHighestPrecedence() {
 		// Arrange:
-		final TestContext context = new TestContext();
-
-		// Act:
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.RUNNING);
+		final List<StatusPair> pairs = Arrays.asList(
+				new StatusPair(NemNodeStatus.BOOTING, NemNodeStatus.UNKNOWN),
+				new StatusPair(NemNodeStatus.BOOTING, NemNodeStatus.BOOTING),
+				new StatusPair(NemNodeStatus.BOOTING, NemNodeStatus.RUNNING),
+				new StatusPair(NemNodeStatus.BOOTING, NemNodeStatus.STOPPED));
 
 		// Assert:
-		Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(NIS_ONLY_DESCRIPTOR));
+		assertDescriptorForPairs(pairs, NCC_BOOTING_DESCRIPTOR);
 	}
 
 	@Test
-	public void connectingToNccAndNisNodesUpdatesIconDescriptor() {
+	public void nisBootingIconHasSecondHighestPrecedence() {
 		// Arrange:
-		final TestContext context = new TestContext();
-
-		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.RUNNING);
+		final List<StatusPair> pairs = Arrays.asList(
+				new StatusPair(NemNodeStatus.UNKNOWN, NemNodeStatus.BOOTING),
+				new StatusPair(NemNodeStatus.RUNNING, NemNodeStatus.BOOTING),
+				new StatusPair(NemNodeStatus.STOPPED, NemNodeStatus.BOOTING));
 
 		// Assert:
-		Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(ALL_GOOD_DESCRIPTOR));
+		assertDescriptorForPairs(pairs, NIS_BOOTING_DESCRIPTOR);
 	}
 
 	@Test
-	public void disconnectingFromNccNodeUpdatesIconDescriptor() {
+	public void nccRunningIconHasThirdHighestPrecedence() {
 		// Arrange:
-		final TestContext context = new TestContext();
-
-		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.STOPPED);
+		final List<StatusPair> pairs = Arrays.asList(
+				new StatusPair(NemNodeStatus.RUNNING, NemNodeStatus.UNKNOWN),
+				new StatusPair(NemNodeStatus.RUNNING, NemNodeStatus.STOPPED));
 
 		// Assert:
-		Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(NIS_ONLY_DESCRIPTOR));
+		assertDescriptorForPairs(pairs, NCC_RUNNING_DESCRIPTOR);
 	}
 
 	@Test
-	public void disconnectingFromNisNodeUpdatesIconDescriptor() {
+	public void nisRunningIconHasThirdHighestPrecedence() {
 		// Arrange:
-		final TestContext context = new TestContext();
-
-		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.STOPPED);
+		final List<StatusPair> pairs = Arrays.asList(
+				new StatusPair(NemNodeStatus.UNKNOWN, NemNodeStatus.RUNNING),
+				new StatusPair(NemNodeStatus.STOPPED, NemNodeStatus.RUNNING));
 
 		// Assert:
-		Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(NCC_ONLY_DESCRIPTOR));
+		assertDescriptorForPairs(pairs, NIS_RUNNING_DESCRIPTOR);
 	}
 
 	@Test
-	public void disconnectingFromNccAndNisNodesUpdatesIconDescriptor() {
+	public void allBadIconIsDefaultAction() {
+		// Arrange:
+		final List<StatusPair> pairs = Arrays.asList(
+				new StatusPair(NemNodeStatus.UNKNOWN, NemNodeStatus.UNKNOWN),
+				new StatusPair(NemNodeStatus.UNKNOWN, NemNodeStatus.STOPPED),
+				new StatusPair(NemNodeStatus.STOPPED, NemNodeStatus.UNKNOWN),
+				new StatusPair(NemNodeStatus.STOPPED, NemNodeStatus.STOPPED));
+
+		// Assert:
+		assertDescriptorForPairs(pairs, ALL_BAD_DESCRIPTOR);
+	}
+
+	private static void assertDescriptorForPairs(final List<StatusPair> pairs, final IconDescriptor expectedDescriptor) {
 		// Arrange:
 		final TestContext context = new TestContext();
 
-		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.STOPPED);
-		context.visitor.notifyStatus(NemNodeType.NIS, NemNodeStatus.STOPPED);
+		for (final StatusPair pair : pairs) {
+			// Act:
+			context.visitor.notifyStatus(NemNodeType.NCC, pair.nccStatus);
+			context.visitor.notifyStatus(NemNodeType.NIS, pair.nisStatus);
 
-		// Assert:
-		Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(ALL_BAD_DESCRIPTOR));
+			// Assert:
+			Assert.assertThat(context.getLastDescriptor(), IsEqual.equalTo(expectedDescriptor));
+		}
+	}
+
+	private static class StatusPair {
+		private final NemNodeStatus nccStatus;
+		private final NemNodeStatus nisStatus;
+
+		private StatusPair(final NemNodeStatus nccStatus, final NemNodeStatus nisStatus) {
+			this.nccStatus = nccStatus;
+			this.nisStatus = nisStatus;
+		}
 	}
 
 	private static class TestContext {
