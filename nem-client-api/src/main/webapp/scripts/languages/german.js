@@ -6,37 +6,37 @@ define({
             101: 'Die Datei wurde nicht gefunden.',
             102: 'Die Brieftasche wurde nicht erstellt.',
             103: 'Die Brieftaschendatei ist beschädigt. Bitte stelle die Brieftasche aus einem Backup wieder her.',
-            104: 'Das eingegebene Passwort ist nicht korrekt. Hoffentlich kannst Du Dich and das richtige Passwort erinnern. Ein verlorenes Passwort kann nicht wiederhergestellt werden!',
-            106: 'Bevor Du eine Brieftasche benutzen kannst, muss sie geöffnet werden. Um sicher zu gehen, dass Du berechtigt bist die Brieftasche zu verwenden, musst Du das Passwort für die Brieftasche eingeben.',
+            104: 'Das eingegebene Passwort ist nicht korrekt. Hoffentlich kannst Du Dich an das richtige Passwort erinnern. Ein verlorenes Passwort kann nicht wiederhergestellt werden!',
+            106: 'Bevor Du eine Brieftasche benutzen kannst, muss sie geöffnet werden. Um sicher zu gehen, dass Du berechtigt bist, die Brieftasche zu verwenden, musst Du das Passwort für die Brieftasche eingeben.',
             107: 'Die Brieftasche enthält dieses Konto nicht.',
             108: 'Das Konto kann nicht entfernt werden. Der Grund ist meistens, dass der Kontostand größer als 0 NEM ist oder dass Du versuchst ein Hauptkonto zu entfernen.',
             109: 'Es gibt bereits eine Brieftasche mit demselben Namen. Bitte wähle einen anderen Namen für die Brieftasche.',
             110: 'Die Brieftasche enthält dieses Konto schon.',
-            202: 'Die verschlüsselte Nachricht kann nicht gesendet werden da der Empfänger bisher noch keine Transaktion gemacht hat und deswegen der öffentliche Schlüssel des Empfängers unbekannt ist.',
+            202: 'Die verschlüsselte Nachricht kann nicht gesendet werden, da der Empfänger bisher noch keine Transaktion gemacht hat und deswegen der öffentliche Schlüssel des Empfängers unbekannt ist.',
             305: 'Der NEM Infrastructure Server ist nicht verfügbar.',
-            306: 'Es ist ein Fehler aufgetreten den das Entwicklerteam nicht vorhergesehen hat. Wir entschuldigen uns hierfür, vielleicht hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
+            306: 'Es ist ein Fehler aufgetreten, den das Entwicklerteam nicht vorhergesehen hat. Wir entschuldigen uns hierfür, vielleicht hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
             400: 'Einer der Parameter fehlt oder ist ungültig.',
             404: 'Die angeforderte Ressource wurde nicht gefunden.',
-            500: 'Es ist ein Fehler aufgetreten den das Entwicklerteam nicht vorhergesehen hat. Wir entschuldigen uns hierfür, vielleicht hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
-            600: 'Der NIS Server muss gebooted sein damit NCC Transaktionen senden und empfangen kann. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.',
-            601: 'Der NIS Knotenpunkt ist bereits gebooted. Es ist nicht nötig NIS ein weiteres Mal zu booten.',
-            700: 'Das angegebene Konto erfüllt nicht die Grundkriterien um Blöcke zu erzeugen. Um Blöcke erzeugen zu können braucht man mindestens 1.000 NEMs auf dem Konto.',
+            500: 'Es ist ein Fehler aufgetreten, den das Entwicklerteam nicht vorhergesehen hat. Wir entschuldigen uns hierfür, vielleicht hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
+            600: 'Der NIS Server muss gebooted sein, damit NCC Transaktionen senden und empfangen kann. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.',
+            601: 'Der NIS Knotenpunkt ist bereits gebooted. Es ist nicht nötig, NIS ein weiteres Mal zu booten.',
+            700: 'Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, braucht man mindestens 1.000 NEMs auf dem Konto.',
             701: 'Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
             702: 'Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
-            703: 'Dein Kontoguthaben reicht nicht aus um den angegebenen Betrag an NEMs zu senden.',
-            704: 'Der angegebene Nachrichtentext ist zu lang um ihn zu versenden. Bitte reduziere die Länge der Nachricht um sie versenden zu können.',
+            703: 'Dein Kontoguthaben reicht nicht aus, um den angegebenen Betrag an NEMs zu senden.',
+            704: 'Der angegebene Nachrichtentext ist zu lang, um ihn zu versenden. Bitte reduziere die Länge der Nachricht, um sie versenden zu können.',
             705: 'Der Transaktionshash existiert bereits in der Datenbank oder in der Liste der unbestätigten Transaktionen.',
             706: 'Die Signatur der Transaktion konnte nicht verifiziert werden.',
             707: 'Der Zeitstempel der Transaktion liegt zu weit in der Vergangenheit.',
             708: 'Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.',
-            709: 'Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Sender oder Empfänger in einer Transaktion auftreten um dem Netzwerk bekannt zu sein.',
+            709: 'Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Sender oder Empfänger in einer Transaktion auftreten, um dem Netzwerk bekannt zu sein.',
             901: 'Es ist ein Fehler beim Übergang zum Offlinemodus aufgetreten.'
         },
         common: {
                 success: 'Erfolg', //title of the Success message modals
 	        	nisStatus: {
 	        		unavailable: 'NIS is nicht verfügbar',
-	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popupdialoges.',
+	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
 	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
                     daysBehind: {
                         0: 'weniger als 1 Tag',
@@ -106,7 +106,7 @@ define({
                 },
                 bootLocalNode: {
                         title: 'Lokalen Knotenpunkt booten',
-                        account: 'Konto um den lokalen Knotenpunkt zu booten',
+                        account: 'Konto, um den lokalen Knotenpunkt zu booten',
                         noLabel: '<span class="null"><Kein label></span>',
                         wallet: 'Brieftasche',
                         node: 'Name des Knotenpunkts',
@@ -115,7 +115,7 @@ define({
                 },
                 notBootedWarning: {
                         title: 'Der Knotenpunkt wurde noch nicht gebooted!',
-                        message: 'Der lokale Knotenpunkt muss gebootet werden bevor Du NEM senden kannst!'
+                        message: 'Der lokale Knotenpunkt muss gebootet werden, bevor Du NEM senden kannst!'
                 },
                 closeWallet: {
                         title: 'Brieftasche schließen',
@@ -140,7 +140,7 @@ define({
                 },
                 setPrimary: {
                         title: 'Hauptkonto festlegen',
-                        account: 'Konto welches als Hauptkonto dient',
+                        account: 'Konto, welches als Hauptkonto dient',
                         noLabel: '<span class="null"><Kein Label></span>',
                         wallet: 'Brieftasche',
                         password: "Passwort der Brieftasche",
@@ -178,7 +178,7 @@ define({
                         title: 'Konto entfernen',
                         wallet: 'Name der Brieftasche',
                         password: "Passwort der Brieftasche",
-						warning: 'Stelle bitte sicher, dass auf Deinem Konto keine NEMs sind bevor Du das Konto entfernst da diese verloren gehen.',
+						warning: 'Stelle bitte sicher, dass auf Deinem Konto keine NEMs sind, bevor Du das Konto entfernst, da diese verloren gehen.',
                         successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde entfernt!',
                         remove: 'Entfernen'
                 },
@@ -215,11 +215,11 @@ define({
                         items: [
                                 {
                                         title: 'NCC verschlüsselt Deine Brieftasche',
-                                        description: '<em>Sicherheit</em> ist sehr wichtig um den Raub von Münzen &amp; Anlagen zu verhindern.'
+                                        description: '<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern.'
                                },
                                 {
                                         title: 'NCC verschlüsselt Deine Brieftasche',
-                                        description: '<em>Sicherheit</em> ist sehr wichtig um den Raub von Münzen &amp; Anlagen zu verhindern.'
+                                        description: '<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern.'
                                 }
                         ]
                 },
@@ -229,7 +229,7 @@ define({
                                         title: 'Wie funktioniert NCC?',
                                         paragraphs: [
                                                 '<strong>NCC</strong> ermöglicht Dir den Zugriff auf Anlagen und NEMs genauso wie eine herkömmliche Brieftasche. Du kannst',
-                                                '<strong>NCC</strong> braucht Zugang zu einem <strong>NIS</strong> Server um zu funktionieren. Normalerweise wird der Server lokal betrieben (wird zusammen mit dem <strong>NCC</strong> installiert)',
+                                                '<strong>NCC</strong> braucht Zugang zu einem <strong>NIS</strong> Server, um zu funktionieren. Normalerweise wird der Server lokal betrieben (wird zusammen mit dem <strong>NCC</strong> installiert)',
                                                 'Du kannst auch den Zugang zu einem remote <strong>NIS</strong> konfigurieren.'
                                         ],
                                         listItems: [
@@ -240,8 +240,8 @@ define({
                                 {
                                         title: 'Was ist &#42;NIS?',
                                         paragraphs: [
-                                                'Diese Komponente ist dafür zuständig die <strong>NEM</strong> Cloud am Leben zu halten.',
-                                                'Je mehr <strong>NIS</strong> server, desto besser die Sicherheit.',
+                                                'Diese Komponente ist dafür zuständig, die <strong>NEM</strong> Cloud am Leben zu halten.',
+                                                'Je mehr <strong>NIS</strong> Server, desto besser die Sicherheit.',
                                                 '<strong>NIS</strong> ist der Zugangspunkt zur <strong>NEM</strong> Cloud.'
                                         ],
                                         legend: '<strong>&#42;NIS</strong> steht für <strong>NEM Infrastructure Server</strong>'
@@ -260,7 +260,7 @@ define({
                 primary: 'Hauptkonto',
                 primaryShort: 'H',
                 noLabel: '<Kein Label>',
-                copyToClipboard: 'Mausklick um die Adresse in die Zwischenablage zu kopieren',
+                copyToClipboard: 'Mausklick, um die Adresse in die Zwischenablage zu kopieren',
                 copiedToClipboard: 'Die Adresse wurde in die Zwischenablage kopiert!',
                 actions: {
                         refreshInfo: 'Info aktualisieren',
@@ -291,7 +291,7 @@ define({
                         'Einstellungen',
                         'Programm beenden'
                 ],
-                bootNodeWarning: "Der lokaler Knotenpunkt muss gebootet werden bevor Du alle NCC Features verwenden kannst."
+                bootNodeWarning: "Der lokaler Knotenpunkt muss gebootet werden, bevor Du alle NCC Features verwenden kannst."
         },
         dashboard: {
                 assets: {
