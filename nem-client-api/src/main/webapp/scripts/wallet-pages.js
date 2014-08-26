@@ -160,6 +160,15 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 });
             });
 
+            require(['maskedinput'], function() {
+                var $recipient = $('.form-control.recipient');
+                // on-change doesn't work with maskedInput
+                $recipient.on('change', function() {
+                    modal.fire('queryRecipient');
+                });
+                $recipient.mask('******-******-******-******-******-******-****');
+            });
+
             local.listeners.push(ncc.on({
                 toggleSidebar: function() {
                     ncc.set('active.fullSidebar', !ncc.get('active.fullSidebar'));
@@ -720,14 +729,21 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }
             });
 
-            require(['maskedinput'], function() {
-                var $recipient = $('.form-control.recipient');
-                // on-change doesn't work with maskedInput
-                $recipient.on('change', function() {
-                    modal.fire('queryRecipient');
-                });
-                $recipient.mask('******-******-******-******-******-******-****');
-            });
+            (function() {
+                var $win = $(window);
+                var $sidebarNav = $('#wallet-page-sidebar nav');
+                var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
+                var decideSidebarScrollability = function() {
+                    if (navBottom > $win.height()) {
+                        ncc.set('status.sidebarScrollable', true);
+                    } else {
+                        ncc.set('status.sidebarScrollable', false);
+                    }
+                };
+
+                $win.on('resize.scrollableSidebar', decideSidebarScrollability);
+                decideSidebarScrollability();
+            })();
 
             /*require(['stepper'], function() {
                 $('.form-control.due-by input').stepper({
@@ -764,6 +780,9 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     }
                 }, true);
             }
-        }
+        },
+        leave: [function() {
+            $(window).off('resize.scrollableSidebar');
+        }]
     });
 });
