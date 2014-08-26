@@ -2,8 +2,8 @@ package org.nem.ncc.cache;
 
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.*;
-import org.nem.core.serialization.AccountLookup;
-import org.nem.ncc.services.WalletServices;
+import org.nem.core.model.ncc.*;
+import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.context.annotation.Primary;
 
@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Primary;
  * of open wallet accounts to accounts returned by this implementation.
  */
 @Primary
-public class WalletAwareAccountLookup implements AccountLookup {
-	private final AccountLookup accountLookup;
+public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
+	private final AccountMetaDataPairLookup accountLookup;
 	private final WalletServices walletServices;
 
 	/**
@@ -23,28 +23,46 @@ public class WalletAwareAccountLookup implements AccountLookup {
 	 * @param walletServices The wallet services.
 	 */
 	public WalletAwareAccountLookup(
-			final AccountLookup accountLookup,
+			final AccountMetaDataPairLookup accountLookup,
 			final WalletServices walletServices) {
 		this.accountLookup = accountLookup;
 		this.walletServices = walletServices;
 	}
 
 	@Override
-	public Account findByAddress(final Address address) {
+	public Account findByAddress(final Address id) {
 		// don't cache private keys so that private keys will never be provided for closed wallet accounts
-		final Account account = this.accountLookup.findByAddress(address);
+		final Account account = this.accountLookup.findByAddress(id);
 		if (null == account) {
 			return null;
 		}
 
-		final WalletAccount walletAccount = this.walletServices.tryFindOpenAccount(address);
+		final WalletAccount walletAccount = this.walletServices.tryFindOpenAccount(id);
 		return null == walletAccount
 				? account
 				: account.shallowCopyWithKeyPair(new KeyPair(walletAccount.getPrivateKey()));
 	}
 
 	@Override
-	public boolean isKnownAddress(final Address address) {
-		return this.accountLookup.isKnownAddress(address);
+	public boolean isKnownAddress(final Address id) {
+		return this.accountLookup.isKnownAddress(id);
+	}
+
+	@Override
+	public AccountMetaDataPair findPairByAddress(final Address id) {
+		final AccountMetaDataPair pair = this.accountLookup.findPairByAddress(id);
+		if (null == pair || null != pair.getAccount().getKeyPair()) {
+			return pair;
+		}
+
+		final WalletAccount walletAccount = this.walletServices.tryFindOpenAccount(id);
+		if (null == walletAccount) {
+			return pair;
+		}
+
+		final AccountInfo info = pair.getAccount();
+		return new AccountMetaDataPair(
+				new AccountInfo(walletAccount.getAddress(), info.getBalance(), info.getNumForagedBlocks(), info.getLabel(), info.getImportance()),
+				pair.getMetaData());
 	}
 }
