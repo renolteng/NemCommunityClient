@@ -20,6 +20,19 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 	}
 
 	@Test
+	public void stateChangeToBootingUpdatesDescription() {
+		// Arrange:
+		final TestContext context = new TestContext();
+
+		// Act:
+		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.BOOTING);
+
+		// Assert:
+		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("NCC is booting"));
+		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Connecting to NCC ..."));
+	}
+
+	@Test
 	public void stateChangeToRunningUpdatesDescription() {
 		// Arrange:
 		final TestContext context = new TestContext();
