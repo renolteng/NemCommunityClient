@@ -84,7 +84,7 @@ public class NemConnectorTest {
 	@Test
 	public void isRunningReturnsBootingWhenOtherExceptionIsThrownAndLockFileIsLocked() throws IOException {
 		// Arrange:
-		try (final FileLock ignored = LockFile.tryAcquireLock(TEST_LOCK_FILE)) {
+		try (final Closeable ignored = LockFile.tryAcquireLock(TEST_LOCK_FILE)) {
 			final TestContext context = new TestContext();
 			Mockito.when(context.asyncConnector.getAsync(Mockito.any(), Mockito.any(), Mockito.any()))
 					.thenReturn(CompletableFuture.supplyAsync(() -> { throw new RuntimeException(); }));
