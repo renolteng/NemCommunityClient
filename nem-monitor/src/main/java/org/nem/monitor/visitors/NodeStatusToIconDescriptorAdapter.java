@@ -26,7 +26,6 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 					? new IconDescriptor("nis_running.png", "Only NIS is running")
 					: null);
 
-
 	private final Consumer<IconDescriptor> iconDescriptorConsumer;
 	private NemNodeStatus nccStatus;
 	private NemNodeStatus nisStatus;

@@ -4,13 +4,12 @@ import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
-import org.nem.core.connect.client.*;
+import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.node.*;
 
 import java.io.*;
-import java.nio.channels.FileLock;
 import java.util.concurrent.CompletableFuture;
 
 public class NemConnectorTest {

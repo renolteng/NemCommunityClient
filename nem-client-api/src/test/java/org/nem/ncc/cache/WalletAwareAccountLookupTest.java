@@ -3,7 +3,7 @@ package org.nem.ncc.cache;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.*;
-import org.nem.core.crypto.*;
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
