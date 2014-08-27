@@ -33,9 +33,7 @@ For debugging purposes, it is recommended to turn off WebStart functionality by 
 NCC REST API
 ------------
 
-The original version of the NCC REST API can be found [here](https://docs.google.com/document/d/10ZVrzuS_krjRF5rMvt5oKl3IS3VOhF_qnn2faZb7KZQ/edit#heading=h.b7iqy3rq17iz).
- 
-Unfortunately, the API documentation is out of date. 
+The original version of the NCC REST API can be found [here](api.md).
 
 Generating JavaDoc Documentation
 --------------------------------
