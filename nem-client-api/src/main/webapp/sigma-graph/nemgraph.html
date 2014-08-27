@@ -30,6 +30,39 @@ a:hover {
 	<div id="homeNode"></div>
 	<div id="container"></div>
 	<script>
+	
+		function displayProcessingText(text) {
+			$('#homeNode').html(text);
+		}
+		
+		function clearProcessingText() {
+			$('#homeNode').html('');
+		}
+		
+		function prepareGraph(nccGraph) {
+			var meta = nccGraph.meta.meta;
+			var graphNode = nccGraph.graph;
+			var dictMeta = new Object();
+			for(var j = 0; j < meta.length; j++) {
+				dictMeta[meta[j].address] = meta[j];
+			}
+			
+			var nodes = graphNode.nodes;
+			for(var i = 0; i < nodes.length; i++) {
+				nodes[i].x = i;
+				nodes[i].y = i % 3;
+				nodes[i].size = 1;
+				nodes[i].ip = dictMeta[nodes[i].id].endpoint.host;
+				if(dictMeta[nodes[i].id].active == 1) {
+					nodes[i].color = '#41ce7c';
+				} else {
+					nodes[i].color = '#e1a92b';
+				}
+			}
+			
+			return graphNode;
+		}
+		
 		function appendGraphFor(graphData, graph) {
 			for (var i = 0, len = graphData.nodes.length; i < len; i++) {
 				if (graph.nodes(graphData.nodes[i].id) == null) {
@@ -44,15 +77,36 @@ a:hover {
 
 		}
 		function showNetworkOf(url) {
-			var jqNodeInfo = $.getJSON("http://127.0.0.1:8989/ncc/api/network",
-					url, function(graphData, response) {
+		    var method;
+		    var apiURL;
+		    var data;
+		    if(url == "") {
+				displayProcessingText('Retrieving peer list for local NIS.');
+				method = "GET";
+				apiURL = "http://127.0.0.1:8989/ncc/api/network/local";
+				data = "";
+		    } else {
+				displayProcessingText('Retrieving peer list for ' + url);
+				method = "POST";
+				apiURL = "http://127.0.0.1:8989/ncc/api/network";
+				data = '{"data": [{"protocol": "http", "host": "' + url + '", "port": 7890}]}';
+		    }
+			var jqNodeInfo = $.ajax({
+					type: method,
+					contentType : "application/json",
+					dataType: "json",
+					url: apiURL,
+					data: data,
+					success: function(nccGraphData, response) {
+						clearProcessingText();
+						var graphData = prepareGraph(nccGraphData);
 						sigmaGraph = new sigma({
 							container : 'container',
 							graph : graphData
 						});
 
 						sigmaGraph.bind('clickNode', function(e) {
-							appendNetworkOf('url=' + e.data.node.url);
+							appendNetworkOf(e.data.node.ip);
 							//console.log(e.type, e.data.node.label);
 						});
 
@@ -62,18 +116,25 @@ a:hover {
 								.nodes(graphData.home.id);
 						homeNode.color = "#191970";
 
-					});
+					}});
 		}
 
-		function appendNetworkOf(url) {
-			$('#homeNode').html('Retrieving peer list for ' + url);
-			var jqNodeInfo = $.getJSON("http://127.0.0.1:8989/ncc/api/network",
-					url, function(graphData, response) {
-						$('#homeNode').html('');
+		function appendNetworkOf(ip) {
+			displayProcessingText('Retrieving peer list for ' + ip);
+			var jsonNode = '{"data": [{"protocol": "http",	"host": "' + ip + '","port": 7890}]}';
+			var jqNodeInfo = $.ajax({
+					type: "POST",
+					contentType : "application/json",
+					dataType: "json",
+					url: "http://127.0.0.1:8989/ncc/api/network",
+					data: jsonNode, 
+					success: function(nccGraphData, response) {
+					    var graphData = prepareGraph(nccGraphData);
+						clearProcessingText();
 						if (graphData.fault == null) {
 							appendGraphFor(graphData, sigmaGraph.graph);
 						}
-					});
+					}});
 		}
 
 		showNetworkOf("");

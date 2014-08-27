@@ -43,4 +43,14 @@ public class NetworkController {
 		final SerializableList<NodeEndpoint> endpoints = new SerializableList<>(deserializer, NodeEndpoint::new);
 		return this.graphViewModelFactory.createViewModel(this.networkServices, this.nodeServices, endpoints.asCollection());
 	}
+
+	/**
+	 * Requests a view model for the peers to which the local NIS is connected.
+	 *
+	 * @return The network graph.
+	 */
+	@RequestMapping(value = "/network/local", method = RequestMethod.GET)
+	public GraphViewModel networkLocal() {
+		return this.graphViewModelFactory.createViewModel(this.networkServices, this.nodeServices);
+	}
 }
