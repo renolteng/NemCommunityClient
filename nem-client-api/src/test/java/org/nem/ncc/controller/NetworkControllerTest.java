@@ -41,6 +41,29 @@ public class NetworkControllerTest {
 				endpoints);
 	}
 
+	@Test
+	public void networkLocalDelegatesToGraphViewModelFactory() {
+		// Arrange:
+		final BasicTestContext context = new BasicTestContext();
+
+		final GraphViewModel original = new GraphViewModel(null, null);
+		Mockito.when(context.graphViewModelFactory.createViewModel(Mockito.any(), Mockito.any()))
+				.thenReturn(original);
+
+		// Act:
+		final NetworkController networkController = new NetworkController(
+				context.networkServices,
+				context.nodeServices,
+				context.graphViewModelFactory);
+		final GraphViewModel viewModel = networkController.networkLocal();
+
+		// Assert:
+		Assert.assertThat(viewModel, IsSame.sameInstance(original));
+		Mockito.verify(context.graphViewModelFactory, Mockito.times(1)).createViewModel(
+				context.networkServices,
+				context.nodeServices);
+	}
+
 	private static Deserializer endpointsToDeserializer(final Collection<NodeEndpoint> endpoints) {
 		return Utils.createDeserializer(JsonSerializer.serializeToJson(new SerializableList<>(endpoints)));
 	}
