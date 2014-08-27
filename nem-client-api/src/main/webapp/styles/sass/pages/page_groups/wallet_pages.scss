@@ -23,7 +23,7 @@ $boundary-width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 	position: fixed;
 	top: 0;
 	background-color: #fff;
-	z-index: 100;
+	z-index: 300;
 	border-bottom: 1px solid #ebebeb;
 
 	.container {
