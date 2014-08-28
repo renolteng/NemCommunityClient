@@ -51,6 +51,7 @@ public class NemMonitor {
 			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
 			builder.addSeparator();
 			builder.addExitMenuItem(tray);
+			builder.addExitAndShutdownMenuItem(tray);
 
 			try {
 				tray.add(builder.create());
