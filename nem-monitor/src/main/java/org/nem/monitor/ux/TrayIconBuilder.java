@@ -60,6 +60,7 @@ public class TrayIconBuilder {
 		final Image unscaledImage = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage();
 		final Image scaledImage = unscaledImage.getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
 		this.trayIcon.setImage(scaledImage);
+		this.trayIcon.setToolTip(descriptor.getDescription());
 	}
 
 	/**
