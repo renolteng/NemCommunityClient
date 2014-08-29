@@ -351,8 +351,8 @@
                                        sendNem: 'Послать NEM',
                                        balance: 'Текущий Баланс',
                                        filters: {
-													confirmed: 'Confirmed',
-													unconfirmed: 'Unconfirmed',
+							confirmed: 'Подтвержденные',
+							unconfirmed: 'Неподтверждённых',
                                                    	incoming: 'Входящие',
                                                    	outgoing: 'Исходящие',
                                        },
