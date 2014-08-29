@@ -1,64 +1,62 @@
-{{#texts.harvestedBlocks}}
-	<main class="harvested-blocks">
-		<div class="container">
-			<section id="harvested-blocks">
-				<div class="head">
-					<h1>{{.title}}</h1>
-					{{#status.lostConnection || activeAccount.status === 'UNKNOWN'}}
-						<button type="button" class="foraging-btn unknown icon-question-circle">
-							<span>{{.harvesting.unknown}}</span>
+<main class="harvested-blocks">
+	<div class="container">
+		<section id="harvested-blocks">
+			<div class="head">
+				<h1>{{texts.harvestedBlocks.title}}</h1>
+				{{#status.lostConnection || activeAccount.status === 'UNKNOWN'}}
+					<button type="button" class="foraging-btn unknown icon-question-circle">
+						<span>{{texts.harvestedBlocks.harvesting.unknown}}</span>
+					</button>
+				{{/}}
+				{{^status.lostConnection}}
+					{{#activeAccount.status === 'LOCKED'}}
+						<button type="button" class="foraging-btn not-foraging icon-play" on-click="startHarvesting">
+							<span>{{texts.harvestedBlocks.harvesting.start}}</span>
 						</button>
 					{{/}}
-					{{^status.lostConnection}}
-						{{#activeAccount.status === 'LOCKED'}}
-							<button type="button" class="foraging-btn not-foraging icon-play" on-click="startHarvesting">
-								<span>{{.harvesting.start}}</span>
-							</button>
-						{{/}}
-						{{#activeAccount.status === 'UNLOCKED'}}
-							<button type="button" class="foraging-btn foraging icon-pause" on-click="stopHarvesting">
-								<span class="status">{{.harvesting.harvesting}}</span><span class="hover">{{.harvesting.stop}}</span>
-							</button>
-						{{/}}
+					{{#activeAccount.status === 'UNLOCKED'}}
+						<button type="button" class="foraging-btn foraging icon-pause" on-click="stopHarvesting">
+							<span class="status">{{texts.harvestedBlocks.harvesting.harvesting}}</span><span class="hover">{{texts.harvestedBlocks.harvesting.stop}}</span>
+						</button>
 					{{/}}
-					<div class="overview">
-						<h1>{{.feeEarned}}</h1>
-						<p><span title="{{Math.floor(harvestedBlocks.feeEarned / 1000000)}} NEM {{harvestedBlocks.feeEarned % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(harvestedBlocks.feeEarned, false)}}} <span class="unit">NEM</span></span></p>
-					</div>
+				{{/}}
+				<div class="overview">
+					<h1>{{texts.harvestedBlocks.feeEarned}}</h1>
+					<p><span title="{{Math.floor(harvestedBlocks.feeEarned / 1000000)}} NEM {{harvestedBlocks.feeEarned % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(harvestedBlocks.feeEarned, false)}}} <span class="unit">NEM</span></span></p>
 				</div>
-				<div class="body">
-					<div class="list">
-						<table>
-							<thead>
+			</div>
+			<div class="body">
+				<div class="list">
+					<table>
+						<thead>
+							<tr>
+								<th class="height">{{texts.harvestedBlocks.table.columns.0}}</th>
+								<th class="time">{{texts.harvestedBlocks.table.columns.1}}</th>
+								<th class="hash">{{texts.harvestedBlocks.table.columns.2}}</th>
+								<th class="fee">{{texts.harvestedBlocks.table.columns.3}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#harvestedBlocks.list}}
 								<tr>
-									<th class="height">{{.table.columns.0}}</th>
-									<th class="time">{{.table.columns.1}}</th>
-									<th class="hash">{{.table.columns.2}}</th>
-									<th class="fee">{{.table.columns.3}}</th>
+                                    <td class="height">{{.message}}</td>
+									<td class="time">{{.formattedTime}}</td>
+									<td class="hash">{{.hash}}</td>
+                                    <td class="fee">{{{.formattedFee}}}</td>
 								</tr>
-							</thead>
-							<tbody>
-								{{#harvestedBlocks.list}}
-									<tr>
-                                        <td class="height">{{.message}}</td>
-										<td class="time">{{.formattedTime}}</td>
-										<td class="hash">{{.hash}}</td>
-	                                    <td class="fee">{{{formattedFee}}}</td>
-									</tr>
-								{{/}}
-							</tbody>
-						</table>
-						{{^harvestedBlocks.list}}
-							<p class="no-records">{{texts.harvestedBlocks.table.noBlocks}}</p>
-						{{/}}
-						<div class="pager">
-							{{#status.loadingOlderBlocks}}
-								<span type="buttton" class="loading">{{texts.harvestedBlocks.table.loading}}</span>
 							{{/}}
-						</div>
+						</tbody>
+					</table>
+					{{^harvestedBlocks.list}}
+						<p class="no-records">{{texts.harvestedBlocks.table.noBlocks}}</p>
+					{{/}}
+					<div class="pager">
+						{{#status.loadingOlderBlocks}}
+							<span type="buttton" class="loading">{{texts.harvestedBlocks.table.loading}}</span>
+						{{/}}
 					</div>
 				</div>
-			</section>
-		</div>
-	</main>
-{{/}}
+			</div>
+		</section>
+	</div>
+</main>
