@@ -12,11 +12,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * A builder that is used to construct the system tray icon.
  */
 public class TrayIconBuilder {
+	private static final Logger LOGGER = Logger.getLogger(TrayIconBuilder.class.getName());
+
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
 	private final WebStartLauncher webStartLauncher;
 	private final WebBrowser webBrowser;
@@ -54,6 +60,7 @@ public class TrayIconBuilder {
 		final Image unscaledImage = (new ImageIcon(imageUrl, descriptor.getDescription())).getImage();
 		final Image scaledImage = unscaledImage.getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
 		this.trayIcon.setImage(scaledImage);
+		this.trayIcon.setToolTip(descriptor.getDescription());
 	}
 
 	/**
@@ -80,6 +87,12 @@ public class TrayIconBuilder {
 
 		this.popup.add(statusMenuItem);
 		this.popup.add(actionMenuItem);
+		if (nodePolicy.hasBrowserGui()) {
+			final MenuItem launchMenuItem = new MenuItem(String.format("Open %s in browser", nodePolicy.getNodeType()));
+			launchMenuItem.addActionListener(e -> this.webStartLauncher.launch(jnlpUrl));
+			this.popup.add(launchMenuItem);
+		}
+
 		actionMenuItem.addActionListener(actionAdapter);
 
 		this.visitors.add(visitor);
@@ -104,8 +117,37 @@ public class TrayIconBuilder {
 		this.popup.add(exitItem);
 		exitItem.addActionListener(e -> {
 			tray.remove(this.trayIcon);
-			System.exit(0);
+			exit();
 		});
+	}
+
+	/**
+	 * Adds a shutdown and exit menu item.
+	 *
+	 * @param tray The system tray.
+	 */
+	public void addExitAndShutdownMenuItem(final SystemTray tray) {
+		final MenuItem exitItem = new MenuItem("Exit and Shutdown");
+		this.popup.add(exitItem);
+
+		tray.remove(this.trayIcon);
+		exitItem.addActionListener(e -> this.shutdownAll().thenAccept(v-> exit()));
+	}
+
+	private CompletableFuture<Void> shutdownAll()  {
+		final List<CompletableFuture> futures = this.nodePolicies.stream()
+				.map(np -> this.createConnector(np)
+						.shutdown()
+						.exceptionally(e -> {
+							LOGGER.warning(String.format("an error occured while attempting to shutdown %s: %s", np, e));
+							return null;
+						}))
+				.collect(Collectors.toList());
+		return CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
+	}
+
+	private static void exit() {
+		System.exit(0);
 	}
 
 	/**
