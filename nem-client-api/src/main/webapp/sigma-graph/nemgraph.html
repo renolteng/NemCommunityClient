@@ -30,7 +30,26 @@ a:hover {
 	<div id="homeNode"></div>
 	<div id="container"></div>
 	<script>
-	
+
+	    var config = {
+            linLogMode: false,
+            outboundAttractionDistribution: false,
+            adjustSizes: false,
+            edgeWeightInfluence: 0,
+            scalingRatio: 1,
+            strongGravityMode: false,
+            gravity: 0,
+            jitterTolerance: 1,
+            barnesHutOptimize: false,
+            barnesHutTheta: 1.2,
+            speed: 1,
+            outboundAttCompensation: 100,
+            totalSwinging: 0,
+            totalEffectiveTraction: 1000,
+            complexIntervals: 500,
+            simpleIntervals: 1000
+        };
+
 		function displayProcessingText(text) {
 			$('#homeNode').html(text);
 		}
@@ -110,7 +129,7 @@ a:hover {
 							//console.log(e.type, e.data.node.label);
 						});
 
-						sigmaGraph.startForceAtlas2();
+						sigmaGraph.startForceAtlas2(config);
 
 						var homeNode = sigmaGraph.graph
 								.nodes(graphData.home.id);
