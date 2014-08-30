@@ -83,12 +83,12 @@ a:hover {
 		    if(url == "") {
 				displayProcessingText('Retrieving peer list for local NIS.');
 				method = "GET";
-				apiURL = "http://127.0.0.1:8989/ncc/api/network/local";
+				apiURL = "/ncc/api/network/local";
 				data = "";
 		    } else {
 				displayProcessingText('Retrieving peer list for ' + url);
 				method = "POST";
-				apiURL = "http://127.0.0.1:8989/ncc/api/network";
+				apiURL = "/ncc/api/network";
 				data = '{"data": [{"protocol": "http", "host": "' + url + '", "port": 7890}]}';
 		    }
 			var jqNodeInfo = $.ajax({
@@ -126,7 +126,7 @@ a:hover {
 					type: "POST",
 					contentType : "application/json",
 					dataType: "json",
-					url: "http://127.0.0.1:8989/ncc/api/network",
+					url: "/ncc/api/network",
 					data: jsonNode, 
 					success: function(nccGraphData, response) {
 					    var graphData = prepareGraph(nccGraphData);
