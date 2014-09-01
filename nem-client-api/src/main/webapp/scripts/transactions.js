@@ -5,7 +5,7 @@
         name: 'transactions',
         url: 'transactions.html',
         template: 'rv!layout/transactions',
-        parent: 'wallet-pages',
+        parent: 'wallet',
         local: {
         	scrollBottomTolerance: 100
         },

@@ -5,7 +5,7 @@
         name: 'harvested-blocks',
         url: 'harvested-blocks.html',
         template: 'rv!layout/harvested-blocks',
-        parent: 'wallet-pages',
+        parent: 'wallet',
         local: {
         	scrollBottomTolerance: 100
         },

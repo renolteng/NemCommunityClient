@@ -1,6 +1,6 @@
 @import 'compass';
-@import '../../config';
-@import '../../mixins';
+@import '../config';
+@import '../mixins';
 
 $sidebar-width: 296px;
 $mini-sidebar-width: 44px;
@@ -508,7 +508,7 @@ $drop-arrow-width: 33px;
 		}
 		.selecter-selected {
 			text-align: center;
-			background: transparent url(../../images/arrow-down-thin.png) no-repeat right 6px;
+			background: transparent url(../images/arrow-down-thin.png) no-repeat right 6px;
 			padding: 0 10px 0 2px;
 			.status-label {
 				display: none;

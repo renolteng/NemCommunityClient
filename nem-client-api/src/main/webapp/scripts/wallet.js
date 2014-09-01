@@ -3,7 +3,7 @@
 define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
-        template: 'rv!layout/wallet-pages',
+        template: 'rv!layout/wallet',
         initOnce: function() {
             ncc.refreshWallet = function(wallet, silent) {
                 if (!wallet) wallet = ncc.get('wallet.name');

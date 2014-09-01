@@ -4,7 +4,7 @@
  	return {
 	    name: 'messages',
 	    template: 'rv!layout/messages',
-	    parent: 'wallet-pages',
+	    parent: 'wallet',
 	    local: {},
 	    setupOnce: function() {
 	 	}
