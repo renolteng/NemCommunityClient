@@ -1,21 +1,18 @@
 @import 'compass';
 @import '../config';
 @import '../mixins';
+@import 'wallet-pages';
 
 $sidebar-width: 296px;
-$mini-sidebar-width: 44px;
+$miniSidebar-width: 44px;
 $header-height: 100px;
-
-$tile-width: 294px;
-$tile-hGap: 20px;
-$tile-columns: 3;
 
 $mainContent-width: $tile-width * $tile-columns + $tile-hGap * ($tile-columns - 1);
 $mainContent-leftPadding: 22px;
 $mainContent-rightPadding: 0;
 $mainContent-topPadding: $header-height;
 
-$boundary-width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
+$small-screen: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 
 #wallet-page-header {
 	width: 100%;
@@ -404,7 +401,7 @@ $drop-arrow-width: 33px;
 
 	@mixin mini-sidebar() {
 		#wallet-page-sidebar {
-			width: $mini-sidebar-width;
+			width: $miniSidebar-width;
 		}
 
 		.mini {
@@ -455,12 +452,12 @@ $drop-arrow-width: 33px;
 
 	@mixin shrunk-container() {
 		.container {
-			padding-left: $mini-sidebar-width + $mainContent-leftPadding;
-			width: $mini-sidebar-width + $mainContent-leftPadding + $mainContent-width;
+			padding-left: $miniSidebar-width + $mainContent-leftPadding;
+			width: $miniSidebar-width + $mainContent-leftPadding + $mainContent-width;
 		}
 	}
 
-	@media (max-width: #{$boundary-width}) {
+	@media (max-width: #{$small-screen}) {
 		&:not(.full-sidebar) {
 			@include mini-sidebar();
 		}

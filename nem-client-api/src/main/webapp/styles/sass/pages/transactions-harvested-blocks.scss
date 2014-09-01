@@ -1,6 +1,7 @@
 @import 'compass';
 @import '../config';
 @import '../mixins';
+@import 'wallet-pages';
 
 #transactions-page, #harvested-blocks {
 	margin-top: 25px;

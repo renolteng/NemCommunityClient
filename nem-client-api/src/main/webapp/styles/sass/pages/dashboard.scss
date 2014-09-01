@@ -1,10 +1,7 @@
 @import 'compass';
 @import '../config';
 @import '../mixins';
-
-$tile-width: 294px;
-$tile-hGap: 20px;
-$tile-columns: 3;
+@import 'wallet-pages';
 
 #dashboard {
 	margin-left: -$tile-hGap / 2;
@@ -13,10 +10,6 @@ $tile-columns: 3;
 }
 
 .tile {
-	$tile-topPadding: 16px;
-	$tile-bottomPadding: 16px;
-	$tile-rightPadding: 20px;
-	$tile-leftPadding: 20px;
 	background-color: #fff;
 	color: #252a34;
 	padding: $tile-topPadding $tile-rightPadding $tile-bottomPadding $tile-leftPadding;
