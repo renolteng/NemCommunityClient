@@ -97,14 +97,15 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ncc.postRequest('node/boot', values, function(data) {
                                 closeModal();
                                 ncc.set('status.nodeBooted', true);
-                             },
-                             {
+                                ncc.refreshNisInfo();
+                            },
+                            {
                                 altFailCb: function(faultId) {
-                                     if (601 === faultId) {
-                                         ncc.set('status.nodeBooted', true);
-                                         closeModal();
-                                     }
-                             },
+                                    if (601 === faultId) {
+                                        ncc.set('status.nodeBooted', true);
+                                        closeModal();
+                                    }
+                            },
                             complete: function() {
                                 self.unlockAction();
                             }
