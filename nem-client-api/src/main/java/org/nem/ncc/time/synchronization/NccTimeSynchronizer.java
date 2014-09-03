@@ -5,7 +5,6 @@ import org.nem.core.time.TimeProvider;
 import org.nem.core.time.synchronization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.services.TimeSynchronizationServices;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * NCC time synchronization with its NIS.
@@ -23,7 +22,6 @@ public class NccTimeSynchronizer implements TimeSynchronizer {
 	 * @param timeProvider The time provider.
 	 * @param nisConnector The NIS connector.
 	 */
-	@Autowired(required = true)
 	public NccTimeSynchronizer(
 			final TimeSynchronizationServices timeSynchronizationServices,
 			TimeProvider timeProvider,
