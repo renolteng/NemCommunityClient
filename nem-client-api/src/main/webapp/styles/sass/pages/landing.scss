@@ -32,6 +32,22 @@ $visible-percent: 100% / $images-count;
 $fadeIn-percent: $visible-percent * $fadeIn-time / $visible-time ;
 $fadeOut-percent: $visible-percent + $fadeIn-percent;
 
+.landingSubmitBtn {
+	$bgColor: #e6801d;
+	background-color: $bgColor;
+	color: #fff;
+	@include border-radius(4px);
+	text-align: center;
+	font-size: 12px;
+	font-weight: $fontWeight-medium;
+	padding-top: 5px;
+	padding-bottom: 6px;
+
+	&:hover {
+		background-color: lighten($bgColor, 7%);
+	}
+}
+
 @mixin keyframe-content($vendor) {
 	0% {
 		opacity: 0;
@@ -393,7 +409,8 @@ $formContent-sidePadding: 19px;
     }
 
     &.locked {
-    	.left.region .submit input, .right.region .password-prompt .red-button {
+    	.left.region .submit input, 
+    	.right.region .password-prompt .landingSubmitBtn {
     		background-color: #888888;
     		pointer-events: none;
 		}
@@ -576,7 +593,7 @@ $action-area-height: 130px;
 				}
 			}
 
-			.red-button {
+			.landingSubmitBtn {
 				text-transform: uppercase;
 				width: $button-width;
 				padding: 3px 0;

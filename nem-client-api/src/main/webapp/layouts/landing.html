@@ -89,20 +89,20 @@
 											<input id="wallet-{{i}}" name="wallet-choice" type="radio" />
 											<label for="wallet-{{i}}" class="wallet" on-click="walletSelected">{{wallet}}</label>
 											<div class="password-prompt">
-												<input type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{inputPassword[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}" /><input type="button" class="red-button" on-click="openWallet:{{.wallet}}" value="{{texts.landing.main.openButton}}" />
+												<input type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{inputPassword[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}" /><input type="button" class="landingSubmitBtn" on-click="openWallet:{{.wallet}}" value="{{texts.landing.main.openButton}}" />
 											</div>
 										</li>
 									{{/wallets}}
 								</ul>
-								<!--/*<p class="horizontal-separator"><span class="content">or</span></p>
-								<button type="button" class="red-button import-btn" on-click="selectFile:fileToImport">Import your wallet</button>
+								<!--/*<p class="horizontalSeparator"><span class="horizontalSeparator-content">or</span></p>
+								<button type="button" class="landingSubmitBtn import-btn" on-click="selectFile:fileToImport">Import your wallet</button>
 								<div class="hider">
 									<input type="file" id="fileToImport" on-change="fileToImportSelected" />
 								</div>
 								{{#fileToImport}}
 									<p class="imported-file">{{.import_path}}</p>
 									<div class="password-prompt">
-										<input type="password" placeholder="Password" value="{{.password}}" on-keypress="importKeypress" /><input type="button" class="red-button" on-click="importWallet" value="Import" />
+										<input type="password" placeholder="Password" value="{{.password}}" on-keypress="importKeypress" /><input type="button" class="landingSubmitBtn" on-click="importWallet" value="Import" />
 									</div>
 								{{/}}*/-->
 							</div>
