@@ -11,6 +11,7 @@ import org.nem.ncc.cache.*;
 import org.nem.ncc.connector.*;
 import org.nem.ncc.model.graph.GraphViewModelFactory;
 import org.nem.ncc.services.*;
+import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 import org.springframework.context.annotation.*;
@@ -55,7 +56,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
-		return new NccMain();
+		return new NccMain(new NccTimeSynchronizer(timeSynchronizationServices(), timeProvider(), primaryNisConnector()));
 	}
 
 	@Bean
@@ -81,6 +82,11 @@ public class NccAppConfig {
 	@Bean
 	public NodeServices nodeServices() {
 		return new NodeServices(this.cloudConnector());
+	}
+
+	@Bean
+	public TimeSynchronizationServices timeSynchronizationServices() {
+		return new TimeSynchronizationServices(this.cloudConnector());
 	}
 
 	@Bean

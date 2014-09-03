@@ -1,10 +1,11 @@
 package org.nem.ncc;
 
 import org.apache.commons.io.*;
-import org.nem.core.deploy.CommonConfiguration;
+import org.nem.core.deploy.*;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.model.*;
+import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -27,8 +28,9 @@ public class NccMain {
 	private static final String CONFIG_FILE_NAME = "ncc.cfg";
 	private static final CommonConfiguration commonConfiguration = new CommonConfiguration();
 	private final org.nem.ncc.model.Configuration configuration;
+	private final NccScheduler scheduler;
 
-	public NccMain() {
+	public NccMain(final NccTimeSynchronizer nccTimeSynchronizer) {
 		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
 		migrateDirectory(new File(nccFolder));
 		verifyDirectory(new File(nccFolder));
@@ -42,6 +44,8 @@ public class NccMain {
 		} catch (final IOException ex) {
 			throw new ConfigurationException("unable to initialize NCC", ex);
 		}
+		this.scheduler = new NccScheduler(CommonStarter.TIME_PROVIDER);
+		scheduler.addTimeSynchronizationTask(nccTimeSynchronizer);
 	}
 
 	private static byte[] loadConfigurationStream(final String storagePath) {
