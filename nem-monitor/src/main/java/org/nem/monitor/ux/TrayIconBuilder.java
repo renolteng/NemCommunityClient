@@ -61,6 +61,7 @@ public class TrayIconBuilder {
 		final Image scaledImage = unscaledImage.getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
 		this.trayIcon.setImage(scaledImage);
 		this.trayIcon.setToolTip(descriptor.getDescription());
+		this.trayIcon.displayMessage("Info", descriptor.getDescription(), TrayIcon.MessageType.NONE);
 	}
 
 	/**
@@ -139,7 +140,7 @@ public class TrayIconBuilder {
 				.map(np -> this.createConnector(np)
 						.shutdown()
 						.exceptionally(e -> {
-							LOGGER.warning(String.format("an error occured while attempting to shutdown %s: %s", np, e));
+							LOGGER.warning(String.format("an error occurred while attempting to shutdown %s: %s", np, e));
 							return null;
 						}))
 				.collect(Collectors.toList());

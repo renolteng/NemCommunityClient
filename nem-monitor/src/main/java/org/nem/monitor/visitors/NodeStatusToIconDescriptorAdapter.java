@@ -10,20 +10,29 @@ import java.util.function.*;
  */
 public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	private static final List<BiFunction<NemNodeStatus, NemNodeStatus, IconDescriptor>> iconDescriptorPredicates = Arrays.asList(
-			(nccStatus, nisStatus) -> (NemNodeStatus.RUNNING == nccStatus && NemNodeStatus.RUNNING == nisStatus)
+			(nccStatus, nisStatus) -> (NemNodeStatus.STOPPED == nisStatus && NemNodeStatus.BOOTING == nccStatus)
+					? new IconDescriptor("ncc_booting.png", "NIS is stopped, NCC is booting")
+					: null,
+			(nccStatus, nisStatus) -> (NemNodeStatus.BOOTING == nisStatus && NemNodeStatus.STOPPED == nccStatus)
+					? new IconDescriptor("nis_booting.png", "NIS is booting, NCC is stopped")
+					: null,
+			(nccStatus, nisStatus) -> (NemNodeStatus.BOOTING == nisStatus && NemNodeStatus.BOOTING == nccStatus)
+					? new IconDescriptor("nis_booting_ncc_booting.png", "NIS is booting, NCC is booting")
+					: null,
+			(nccStatus, nisStatus) -> (NemNodeStatus.STOPPED == nisStatus && NemNodeStatus.RUNNING == nccStatus)
+					? new IconDescriptor("ncc_running.png", "NIS is stopped, NCC is running")
+					: null,
+			(nccStatus, nisStatus) -> (NemNodeStatus.RUNNING == nisStatus && NemNodeStatus.STOPPED == nccStatus)
+					? new IconDescriptor("nis_running.png", "NIS is running, NCC is stopped")
+					: null,
+			(nccStatus, nisStatus) -> (NemNodeStatus.RUNNING == nisStatus && NemNodeStatus.RUNNING == nccStatus)
 					? new IconDescriptor("all_good.png", "Both NCC and NIS are running")
 					: null,
-			(nccStatus, nisStatus) -> NemNodeStatus.BOOTING == nccStatus
-					? new IconDescriptor("ncc_booting.png", "NCC is booting")
+			(nccStatus, nisStatus) -> (NemNodeStatus.BOOTING == nisStatus && NemNodeStatus.RUNNING == nccStatus)
+					? new IconDescriptor("nis_booting_ncc_running.png", "NIS is booting, NCC is running")
 					: null,
-			(nccStatus, nisStatus) -> NemNodeStatus.BOOTING == nisStatus
-					? new IconDescriptor("nis_booting.png", "NIS is booting")
-					: null,
-			(nccStatus, nisStatus) -> NemNodeStatus.RUNNING == nccStatus
-					? new IconDescriptor("ncc_running.png", "Only NCC is running")
-					: null,
-			(nccStatus, nisStatus) -> NemNodeStatus.RUNNING == nisStatus
-					? new IconDescriptor("nis_running.png", "Only NIS is running")
+			(nccStatus, nisStatus) -> (NemNodeStatus.RUNNING == nisStatus && NemNodeStatus.BOOTING == nccStatus)
+					? new IconDescriptor("nis_running_ncc_booting.png", "NIS is running, NCC is booting")
 					: null);
 
 	private final Consumer<IconDescriptor> iconDescriptorConsumer;
