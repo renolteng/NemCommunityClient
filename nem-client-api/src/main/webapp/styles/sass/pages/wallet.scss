@@ -335,12 +335,10 @@ $drop-arrow-width: 33px;
 	min-height: 100%;
 
 	&.sidebar-scrollable {
-		position: absolute;
-		width: 100%;
+		@include fill-restOfHeight-container();
 
 		#wallet-page-sidebar {
-			position: absolute;
-			height: calc(100% - #{$mainContent-topPadding});
+			@include fill-restOfHeight();
 		}
 	}
 

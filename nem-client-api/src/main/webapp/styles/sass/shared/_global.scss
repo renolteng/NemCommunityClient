@@ -3,13 +3,27 @@
 @import '../mixins';
 
 // ================================================================================
-// PRESET
+// RESET
 // ================================================================================
 
 *, 
 *:before, 
 *:after {
 	@include box-sizing(border-box);
+}
+
+html {
+	font-family: "Roboto", sans-serif;
+	color: #444444;
+}
+
+html, 
+body {
+	height: 100%;
+}
+
+body {
+	overflow: auto !important;
 }
 
 ul, 
@@ -33,9 +47,11 @@ a {
 	@include transition(color .3s);
 }
 
-h1, 
-p {
-	margin: 0;
+button, 
+input[type='submit'], 
+input[type='button'] {
+	@include transition-property(background-color, color);
+	@include transition-duration(.3s);
 }
 
 button, 
@@ -47,29 +63,9 @@ textarea {
 	outline: none;
 }
 
-html {
-	font-family: "Roboto", sans-serif;
-	color: #444444;
-}
-
-html, 
-body {
-	height: 100%;
-}
-
-body {
-	overflow: auto !important;
-}
-
-a {
-	@include transition(color .3s);
-}
-
-button, 
-input[type='submit'], 
-input[type='button'] {
-	@include transition-property(background-color, color);
-	@include transition-duration(.3s);
+h1, 
+p {
+	margin: 0;
 }
 
 strong {
