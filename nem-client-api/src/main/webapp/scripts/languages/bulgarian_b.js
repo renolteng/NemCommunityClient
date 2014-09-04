@@ -236,7 +236,7 @@
 						title: 'Как работи NCC?',
 						paragraphs: [
 							'<strong>NCC</strong> предоставя достъп до вашите активи и NEM монети като обикновен портфейл.Вие можете',
-							'<strong>NCC</strong> изисква достъп до requires access to an <strong>NIS</strong> сървър за да може да работи.Локалния сървър трябва да е активен(той се инсталира заедно <strong>NCC</strong>)',
+							'<strong>NCC</strong> изисква достъп до <strong>NIS</strong> сървър за да може да работи.Локалния сървър трябва да е активен(той се инсталира заедно <strong>NCC</strong>)',
 							'Вие също може да конфигурирате достъп до отдалечен <strong>NIS</strong>.'
 						],
 						listItems: [
