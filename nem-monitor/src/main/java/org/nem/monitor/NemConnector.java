@@ -1,6 +1,8 @@
 package org.nem.monitor;
 
 import org.nem.core.connect.client.*;
+import org.nem.core.model.NemStatus;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.node.*;
@@ -33,13 +35,16 @@ public class NemConnector {
 	 *
 	 * @return The node status.
 	 */
-	public CompletableFuture<NemNodeStatus> getStatus() {
-		return this.getAsync(NisApiId.NIS_REST_HEARTBEAT).handle((d, e) -> {
-			if (isRunning(e)) {
-				return NemNodeStatus.RUNNING;
+	public CompletableFuture<NemStatus> getStatus() {
+		return this.getAsync(NisApiId.NIS_REST_STATUS).handle((d, e) -> {
+			if (isRunning(e) || (null == d && null == e)) {
+				return NemStatus.RUNNING;
+			}
+			if (null != e) {
+				return this.isBooting() ? NemStatus.STARTING : NemStatus.STOPPED;
 			}
 
-			return this.isBooting() ? NemNodeStatus.BOOTING : NemNodeStatus.STOPPED;
+			return nemStatusFromNemRequestResult(d);
 		});
 	}
 
@@ -48,7 +53,12 @@ public class NemConnector {
 	}
 
 	private static boolean isRunning(final Throwable ex) {
-		return null == ex || (ex instanceof CompletionException && ex.getCause() instanceof NemNodeExpectedException);
+		return (ex instanceof CompletionException && ex.getCause() instanceof NemNodeExpectedException);
+	}
+
+	private NemStatus nemStatusFromNemRequestResult(final Deserializer deserializer) {
+		NemRequestResult result = new NemRequestResult(deserializer);
+		return NemStatus.fromValue(result.getCode());
 	}
 
 	/**

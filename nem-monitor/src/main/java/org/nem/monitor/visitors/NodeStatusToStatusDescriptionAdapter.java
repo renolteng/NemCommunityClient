@@ -1,6 +1,7 @@
 package org.nem.monitor.visitors;
 
-import org.nem.monitor.node.*;
+import org.nem.core.model.NemStatus;
+import org.nem.monitor.node.NemNodeType;
 
 import java.util.function.Consumer;
 
@@ -22,11 +23,11 @@ public class NodeStatusToStatusDescriptionAdapter implements NodeStatusVisitor {
 			final Consumer<NodeStatusDescription> statusDescriptionConsumer) {
 		this.nodeType = nodeType;
 		this.statusDescriptionConsumer = statusDescriptionConsumer;
-		this.notifyStatus(nodeType, NemNodeStatus.UNKNOWN);
+		this.notifyStatus(nodeType, NemStatus.UNKNOWN);
 	}
 
 	@Override
-	public void notifyStatus(final NemNodeType type, final NemNodeStatus status) {
+	public void notifyStatus(final NemNodeType type, final NemStatus status) {
 		if (this.nodeType != type) {
 			return;
 		}
@@ -35,6 +36,16 @@ public class NodeStatusToStatusDescriptionAdapter implements NodeStatusVisitor {
 		String statusMessage = connectingMessage;
 		String actionMessage = connectingMessage;
 		switch (status) {
+			case SYNCHRONIZED:
+				statusMessage = String.format("%s is running and is synchronized", this.nodeType);
+				actionMessage = String.format("Stop %s", this.nodeType);
+				break;
+
+			case BOOTED:
+				statusMessage = String.format("%s is running and is booted", this.nodeType);
+				actionMessage = String.format("Stop %s", this.nodeType);
+				break;
+
 			case RUNNING:
 				statusMessage = String.format("%s is running", this.nodeType);
 				actionMessage = String.format("Stop %s", this.nodeType);
@@ -45,8 +56,8 @@ public class NodeStatusToStatusDescriptionAdapter implements NodeStatusVisitor {
 				actionMessage = String.format("Start %s", this.nodeType);
 				break;
 
-			case BOOTING:
-				statusMessage = String.format("%s is booting", this.nodeType);
+			case STARTING:
+				statusMessage = String.format("%s is starting", this.nodeType);
 				actionMessage = connectingMessage;
 				break;
 		}

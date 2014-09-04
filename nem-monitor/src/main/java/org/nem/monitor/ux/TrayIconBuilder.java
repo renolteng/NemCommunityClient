@@ -157,7 +157,7 @@ public class TrayIconBuilder {
 	 * @return The tray icon.
 	 */
 	public TrayIcon create() {
-		final AggregateNodeStatusVisitor visitor = new AggregateNodeStatusVisitor(this.visitors);
+		final AggregateNemStatusVisitor visitor = new AggregateNemStatusVisitor(this.visitors);
 
 		for (final NemNodePolicy nodePolicy : this.nodePolicies) {
 			final NemNodeType nodeType = nodePolicy.getNodeType();

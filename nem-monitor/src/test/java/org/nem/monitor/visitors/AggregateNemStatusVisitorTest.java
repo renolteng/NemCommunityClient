@@ -2,11 +2,12 @@ package org.nem.monitor.visitors;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.nem.monitor.node.*;
+import org.nem.core.model.NemStatus;
+import org.nem.monitor.node.NemNodeType;
 
 import java.util.Arrays;
 
-public class AggregateNodeStatusVisitorTest {
+public class AggregateNemStatusVisitorTest {
 
 	@Test
 	public void notifyStatusPropagatesInitialNotificationToAllChildren() {
@@ -14,11 +15,11 @@ public class AggregateNodeStatusVisitorTest {
 		final TestContext context = new TestContext();
 
 		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
 
 		// Assert:
-		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
+		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
+		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
 	}
 
 	@Test
@@ -27,12 +28,12 @@ public class AggregateNodeStatusVisitorTest {
 		final TestContext context = new TestContext();
 
 		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.STOPPED);
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.STOPPED);
 
 		// Assert:
-		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemNodeStatus.STOPPED);
-		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemNodeStatus.STOPPED);
+		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemStatus.STOPPED);
+		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemStatus.STOPPED);
 		Mockito.verify(context.childVisitor1, Mockito.times(2)).notifyStatus(Mockito.any(), Mockito.any());
 		Mockito.verify(context.childVisitor2, Mockito.times(2)).notifyStatus(Mockito.any(), Mockito.any());
 	}
@@ -43,12 +44,12 @@ public class AggregateNodeStatusVisitorTest {
 		final TestContext context = new TestContext();
 
 		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		context.visitor.notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
 
 		// Assert:
-		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
-		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemNodeStatus.RUNNING);
+		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
+		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
 		Mockito.verify(context.childVisitor1, Mockito.times(1)).notifyStatus(Mockito.any(), Mockito.any());
 		Mockito.verify(context.childVisitor2, Mockito.times(1)).notifyStatus(Mockito.any(), Mockito.any());
 	}
@@ -56,6 +57,6 @@ public class AggregateNodeStatusVisitorTest {
 	private static class TestContext {
 		private final NodeStatusVisitor childVisitor1 = Mockito.mock(NodeStatusVisitor.class);
 		private final NodeStatusVisitor childVisitor2 = Mockito.mock(NodeStatusVisitor.class);
-		private final NodeStatusVisitor visitor = new AggregateNodeStatusVisitor(Arrays.asList(this.childVisitor1, this.childVisitor2));
+		private final NodeStatusVisitor visitor = new AggregateNemStatusVisitor(Arrays.asList(this.childVisitor1, this.childVisitor2));
 	}
 }
