@@ -12,15 +12,15 @@ import java.util.function.Consumer;
 public class NodeStatusToIconDescriptorAdapterTest {
 	private static final IconDescriptor ALL_BAD_DESCRIPTOR = new IconDescriptor("all_bad.png", "Neither NCC nor NIS is running");
 	private static final IconDescriptor NIS_STARTING_NCC_STOPPED_DESCRIPTOR =
-			new IconDescriptor("nis_starting.png", "NIS is booting, NCC is stopped");
+			new IconDescriptor("nis_starting_ncc_stopped.png", "NIS is booting, NCC is stopped");
 	private static final IconDescriptor NIS_RUNNING_NCC_STOPPED_DESCRIPTOR =
-			new IconDescriptor("nis_running.png", "NIS is running (local node not booted), NCC is stopped");
+			new IconDescriptor("nis_running_ncc_stopped.png", "NIS is running (local node not booted), NCC is stopped");
 	private static final IconDescriptor NIS_BOOTED_NCC_STOPPED_DESCRIPTOR =
 			new IconDescriptor("nis_running_node_booted_ncc_stopped.png", "NIS is running (local node booted), NCC is stopped");
 	private static final IconDescriptor NIS_SYNCHRONIZED_NCC_STOPPED_DESCRIPTOR =
 			new IconDescriptor("nis_running_node_synchronized_ncc_stopped.png", "NIS is running and is synchronized, NCC is stopped");
 	private static final IconDescriptor NIS_STOPPED_NCC_STARTING_DESCRIPTOR =
-			new IconDescriptor("ncc_starting.png", "NIS is stopped, NCC is starting");
+			new IconDescriptor("nis_stopped_ncc_starting.png", "NIS is stopped, NCC is starting");
 	private static final IconDescriptor NIS_STARTING_NCC_STARTING_DESCRIPTOR =
 			new IconDescriptor("nis_starting_ncc_starting.png", "NIS is starting, NCC is starting");
 	private static final IconDescriptor NIS_RUNNING_NCC_STARTING_DESCRIPTOR =
@@ -30,7 +30,7 @@ public class NodeStatusToIconDescriptorAdapterTest {
 	private static final IconDescriptor NIS_SYNCHRONIZED_NCC_STARTING_DESCRIPTOR =
 			new IconDescriptor("nis_running_node_synchronized_ncc_starting.png", "NIS is running and is synchronized, NCC is starting");
 	private static final IconDescriptor NIS_STOPPED_NCC_RUNNING_DESCRIPTOR =
-			new IconDescriptor("ncc_running.png", "NIS is stopped, NCC is running");
+			new IconDescriptor("nis_stopped_ncc_running.png", "NIS is stopped, NCC is running");
 	private static final IconDescriptor NIS_STARTING_NCC_RUNNING_DESCRIPTOR =
 			new IconDescriptor("nis_starting_ncc_running.png", "NIS is starting, NCC is running");
 	private static final IconDescriptor NIS_RUNNING_NCC_RUNNING_DESCRIPTOR =
