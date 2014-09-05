@@ -13,7 +13,7 @@ require.config({
         'selecter': 'plugins/jquery.fs.selecter.min',
         'stepper': 'plugins/jquery.fs.stepper.min',
         'gridster': 'plugins/jquery.gridster.min',
-        'maskedinput': 'plugins/jquery.maskedinput.min',
+        'maskedinput': 'plugins/jquery.mask.min',
         'dropit': 'plugins/dropit.min',
         'zeroClipboard': 'plugins/ZeroClipboard.min',
         'tooltipster': 'plugins/jquery.tooltipster.min',
