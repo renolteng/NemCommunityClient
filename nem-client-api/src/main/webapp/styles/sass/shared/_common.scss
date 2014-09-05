@@ -106,7 +106,6 @@ $modal-transitionDuration: .3s;
 	@include transition-duration(0s, $modal-transitionDuration);
 	@include transition-timing-function(linear, ease);
 	@include transition-delay($modal-transitionDuration, 0s);
-	z-index: 1000;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -115,6 +114,7 @@ $modal-transitionDuration: .3s;
 	overflow: auto;
 	overflow-y: auto;
 	background-color: rgba(#252a34, .5);
+	z-index: $zIndex-modal;
 
 	&.active {
 		visibility: visible;
@@ -135,6 +135,7 @@ $modal-transitionDuration: .3s;
 	position: relative;
 	width: 428px;
 	font-size: 14px;
+	z-index: 0;
 
 	&:before {
 		content: '';

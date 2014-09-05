@@ -97,11 +97,11 @@ $statusIndicator-height: 40px;
 	font-weight: $fontWeight-bold;
 	text-align: center;
 	line-height: $statusIndicator-height;
-	z-index: 600;
 	opacity: 1;
 	visibility: visible;
 	@include transition-property(opacity);
 	@include transition-duration(.2s);
+	z-index: $zIndex-statusIndicator;
 
 	&.hide {
 		opacity: 0;

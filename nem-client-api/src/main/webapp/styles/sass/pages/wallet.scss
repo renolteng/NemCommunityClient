@@ -20,7 +20,6 @@ $small-screen: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 	position: fixed;
 	top: 0;
 	background-color: #fff;
-	z-index: 300;
 	border-bottom: 1px solid #ebebeb;
 
 	.container {
@@ -474,7 +473,6 @@ $drop-arrow-width: 33px;
 	height: 100%;
 	background-color: #252a34;
 	color: $sidebar-textColor;
-	z-index: 200;
 
 	/*.account-info {
 		$avatar-size: $avatar-small;
