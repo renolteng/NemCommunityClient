@@ -11,7 +11,7 @@ define({
             107: 'Il portafoglio non contiene questo indirizzo',
             108: "L'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l'indirizzo principale.",
             109: 'Esiste già un portafoglio con questo nome. Scegli un nome differente.',
-            110: 'Wallet already contains this account.',
+            110: 'Esiste già un portafoglio contenete questo indirizzo.',
             202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
             305: 'Il server NIS non è in esecuzione',
             306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
@@ -30,18 +30,18 @@ define({
             707: 'La marca temporale della transazione è troppo lontana nel passato.',
             708: 'La marca temporale della transazione è troppo lontana nel futuro.',
             709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
-            901: 'There was an error setting up offline mode.'
+            901: 'Errore nella modalità fuori rete.'
         },
         common: {
         	success: 'Operazione completata', //title of the Success message modals
         	nisStatus: {
         		unavailable: 'NIS non disponibile',
         		notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
                 daysBehind: {
-                    0: 'less than 1 day',
-                    1: '1 day',
-                    many: '{{1}} days'
+                    0: 'meno di un giorno',
+                    1: 'un giorno',
+                    many: '{{1}} giorni'
                 }
         	}
         },
@@ -69,10 +69,10 @@ define({
 				password: 'Password',
 				send: 'Invia',
 				sending: 'Invio in corso...',
-				successMessage: 'Transazione effettuata con successo!'
+				successMessage: 'Transazione inserita con successo!'
 			},
 			clientInfo: {
-				title: 'Informazioni sul client',
+				title: 'Informazioni sul programma',
 				ncc: 'NEM Community Client - NCC',
 				signer: 'Firmatario',
 				remoteServer: 'Server remoto',
@@ -152,7 +152,7 @@ define({
 				wallet: 'Nome attuale del portafoglio',
 				newName: 'Nuovo nome del portafoglio',
 				password: "Password del portafoglio",
-				successMessage: 'Il portafolgio è stato rinominato da <em>{{1}}</em> in <em>{{2}}</em>',
+				successMessage: 'Il portafoglio è stato rinominato da <em>{{1}}</em> in <em>{{2}}</em>',
 				change: 'Modifica'
 			},
 			changeWalletPassword: {
@@ -214,12 +214,12 @@ define({
 			carousel: {
 				items: [
 					{
-						title: 'NCC cifra il tuo portafoglio',
-						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete ed azioni.'
+						title: 'NCC protegge il tuo portafoglio',
+						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
 					},
 					{
-						title: 'NCC cifra il tuo portafoglio',
-						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete ed azioni.'
+						title: 'NCC protegge il tuo portafoglio',
+						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
 					}
 				]
 			},
@@ -228,7 +228,7 @@ define({
 					{
 						title: 'Come funziona NCC?',
 						paragraphs: [
-							"<strong>NCC</strong> gestisce l'accesso alle tue azioni e monete come un portafoglio tradizionale. Puoi:",
+							"<strong>NCC</strong> gestisce l'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:",
 							"<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)",
 							"Puoi anche configurare l'accesso ad un server <strong>NIS</strong> remoto."
 						],
@@ -279,12 +279,12 @@ define({
 				closeProgram: 'Arresta NCC'
 			},
 			nav: [
-				'Cruscotto',
+				"Vista d'insieme",
 				'Messaggi',
 				'Contatti',
 				'Transazioni',
 				'Blocchi generati',
-				'Mercato azionario',
+				'Borsa',
 				'Notizie',
 				'Applicazioni',
 				'Indirizzi',
@@ -295,7 +295,7 @@ define({
 		},
 		dashboard: {
 			assets: {
-				title: 'Le tue azioni'
+				title: 'I tuoi titoli'
 			},
 			importance: {
 				title: 'Livello di importanza',
@@ -351,8 +351,8 @@ define({
 			sendNem: 'Invia NEM',
 			balance: 'Bilancio attuale',
 			filters: {
-				confirmed: 'Confirmed',
-				unconfirmed: 'Unconfirmed',
+				confirmed: 'Confermate',
+				unconfirmed: 'Non confermate',
 				incoming: 'In ingresso',
 				outgoing: 'In uscita',
 			},
