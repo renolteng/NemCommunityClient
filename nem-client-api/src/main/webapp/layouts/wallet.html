@@ -211,7 +211,7 @@
 	<div class="form-control amount">
 		<input type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{amount}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
 	</div>
-	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" />
+	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" data-mask="AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA" />
 	<p class="recipient-label">
 		{{#recipientLabel}}
 			{{{fill(texts.modals.sendNem.labelDesc, recipientLabel)}}}

@@ -153,15 +153,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 });
             });
 
-            require(['maskedinput'], function() {
-                var $recipient = $('.form-control.recipient');
-                // on-change doesn't work with maskedInput
-                $recipient.on('change', function() {
-                    modal.fire('queryRecipient');
-                });
-                $recipient.mask('******-******-******-******-******-******-****');
-            });
-
             local.listeners.push(ncc.on({
                 toggleSidebar: function() {
                     ncc.set('active.fullSidebar', !ncc.get('active.fullSidebar'));
@@ -773,6 +764,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     }
                 }, true);
             }
+
+            require(['maskedinput']);
         },
         leave: [function() {
             $(window).off('resize.scrollableSidebar');
