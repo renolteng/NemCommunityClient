@@ -288,7 +288,7 @@ $account-actions-width: 33px;
 		font-size: 14px;
 		background-color: #2e3541;
 
-		&:hover {
+		&:hover, &.active {
 			background-color: #272e38;
 		}
 

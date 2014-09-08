@@ -118,7 +118,7 @@
 						<p class="label {{^.label}}blank{{/}} full">{{.label ? .label : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
-				<button class="account-actions full" on-click="toggleOn:accountActions">
+				<button class="account-actions full {{#active.accountActions}}active{{/}}" on-click="toggleOn:accountActions">
 					<span class="gear icon-gear"></span>
 					<span class="arrow icon-arrow-down-medium"></span>
 				</button>
