@@ -260,7 +260,6 @@ define({
 			primary: 'principale',
 			primaryShort: 'P',
 			noLabel: '<Senza nome>',
-			copyToClipboard: "Clicca per copiare l'indirizzo negli appunti",
 			copiedToClipboard: 'Indirizzo copiato negli appunti!',
 			actions: {
 				refreshInfo: 'Aggiorna informazioni',
@@ -276,7 +275,8 @@ define({
 				removeAccount: 'Elimina indirizzo',
 				clientInfo: 'Informazioni sul programma',
 				closeWallet: 'Chiudi portafoglio',
-				closeProgram: 'Arresta NCC'
+				closeProgram: 'Arresta NCC',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Cruscotto',

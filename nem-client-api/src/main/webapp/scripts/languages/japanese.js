@@ -260,7 +260,6 @@ define({
 			primary: '主なウォレット',
 			primaryShort: '主',
 			noLabel: '<ラベルなし>',
-			copyToClipboard: 'クリックでアドレスをクリップボードにコピーします。',
 			copiedToClipboard: 'アドレスがクリップボードにコピーされました。',
 			actions: {
 				refreshInfo: '更新する',
@@ -276,7 +275,8 @@ define({
 				removeAccount: 'アカウントを削除する',
 				clientInfo: 'クライアント情報',
 				closeWallet: 'ウォレットを閉じる',
-				closeProgram: '終了する'
+				closeProgram: '終了する',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'ダッシュボード',

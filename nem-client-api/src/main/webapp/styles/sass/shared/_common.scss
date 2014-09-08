@@ -93,6 +93,32 @@
 	height: 0;
 }
 
+.dropdownMenu {
+	background-color: #ebebeb;
+	color: #444444;
+	border-bottom: 2px solid #d4d4d4;
+}
+
+.dropdownMenu-item {
+	padding: 6px 15px;
+	white-space: nowrap;
+	font-weight: $fontWeight-medium;
+	cursor: pointer;
+
+	&:hover, &.zeroclipboard-is-hover {
+		background-color: #d4d4d4;
+	}
+
+	&.separator {
+		border-bottom: 1px solid #d4d4d4;
+	}
+
+	&.disabled {
+		color: #888888;
+		pointer-events: none;
+	}
+}
+
 // ================================================================================
 // MODAL
 // ================================================================================

@@ -249,7 +249,6 @@
 			primary: '主账户',
 			primaryShort: 'P',
 			noLabel: '<No label>',
-			copyToClipboard: '点击复制地址到剪贴板',
 			copiedToClipboard: '地址已复制到剪贴板!',
 			actions: {
 				refreshInfo: '刷新信息',
@@ -265,7 +264,8 @@
 				removeAccount: '删除帐户',
 				clientInfo: '客户信息',
 				closeWallet: '关闭钱包',
-				closeProgram: '关闭程序'
+				closeProgram: '关闭程序',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'仪表板',

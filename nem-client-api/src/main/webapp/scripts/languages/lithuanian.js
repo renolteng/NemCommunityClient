@@ -260,7 +260,6 @@ define({
 			primary: 'Pagrindine',
 			primaryShort: 'P',
 			noLabel: '<Nera pavadinimo>',
-			copyToClipboard: 'Paspauskite, noredami nukopijuoti adresa i atminti',
 			copiedToClipboard: 'Adresas nukopijuotas i atminti!',
 			actions: {
 				refreshInfo: 'Atnaujinti informacija',
@@ -276,7 +275,8 @@ define({
 				removeAccount: 'Pa�alinti saskaita',
 				clientInfo: 'Programos informacija',
 				closeWallet: 'U�daryti pinigine',
-				closeProgram: 'U�daryti programa'
+				closeProgram: 'U�daryti programa',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Skydelis',

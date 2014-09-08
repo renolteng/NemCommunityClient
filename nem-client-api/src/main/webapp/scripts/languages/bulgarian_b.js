@@ -267,7 +267,6 @@
 			primary: 'Главен',
 			primaryShort: 'Г',
 			noLabel: '<Без маркировка>',
-			copyToClipboard: 'Кликнете за да копирате адреса в клипборда',
 			copiedToClipboard: 'Адресът беше копиран в клипборда!',
 			actions: {
 				refreshInfo: 'Обновяване на информацията',
@@ -283,7 +282,8 @@
 				removeAccount: 'Премахни акаунта',
 				clientInfo: 'Информация за клиента',
 				closeWallet: 'Затвори портфейла',
-				closeProgram: 'Затвори програмата'
+				closeProgram: 'Затвори програмата',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Панел за управление',

@@ -260,7 +260,6 @@ define({
 			primary: 'primary',
 			primaryShort: 'P',
 			noLabel: '<No label>',
-			copyToClipboard: 'Click to copy address to clipboard',
 			copiedToClipboard: 'Address has been copied to clipboard!',
 			actions: {
 				refreshInfo: 'Refresh Info',
@@ -276,7 +275,8 @@ define({
 				removeAccount: 'Remove Account',
 				clientInfo: 'Client Info',
 				closeWallet: 'Close Wallet',
-				closeProgram: 'Close Program'
+				closeProgram: 'Close Program',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Dashboard',

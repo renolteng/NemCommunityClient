@@ -144,19 +144,11 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             var local = this.local;
 
             require(['zeroClipboard'], function(ZeroClipboard) {
-                local.client = new ZeroClipboard($('.copyClipboard'));
+                local.client = new ZeroClipboard($('#addressClipboard'));
 
                 local.client.on('ready', function() {
                     local.client.on('aftercopy', function() {
                         ncc.showTempMessage(ncc.get('texts.wallet.copiedToClipboard'));
-                    });
-                });
-
-                require(['tooltipster'], function() {
-                    $('#global-zeroclipboard-flash-bridge').tooltipster({
-                        content: ncc.get('texts.wallet.copyToClipboard'),
-                        position: 'bottom',
-                        delay: 50
                     });
                 });
             });

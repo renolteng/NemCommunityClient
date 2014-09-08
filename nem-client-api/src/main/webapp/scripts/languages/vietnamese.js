@@ -260,7 +260,6 @@ define({
 			primary: 'chính',
 			primaryShort: 'C',
 			noLabel: '<Không nhãn>',
-			copyToClipboard: 'Click để copy địa chỉ vào clipboard',
 			copiedToClipboard: 'Địa chỉ đã được copy vào clipboard!',
 			actions: {
 				refreshInfo: 'Cập nhật dữ liệu',
@@ -276,7 +275,8 @@ define({
 				removeAccount: 'Xoá tài khoản',
 				clientInfo: 'Thông tin client',
 				closeWallet: 'Đóng ví',
-				closeProgram: 'Đóng chương trình'
+				closeProgram: 'Đóng chương trình',
+				copyClipboard: 'Copy địa chỉ vào clipboard'
 			},
 			nav: [
 				'Bảng tin',
