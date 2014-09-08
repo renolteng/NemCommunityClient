@@ -4,6 +4,7 @@ import org.nem.core.async.*;
 import org.nem.core.connect.*;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.monitor.*;
+import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
@@ -61,7 +62,7 @@ public class TrayIconBuilder {
 		final Image scaledImage = unscaledImage.getScaledInstance(this.dimension.width, this.dimension.height, Image.SCALE_SMOOTH);
 		this.trayIcon.setImage(scaledImage);
 		this.trayIcon.setToolTip(descriptor.getDescription());
-		this.trayIcon.displayMessage("Info", descriptor.getDescription(), TrayIcon.MessageType.NONE);
+		this.trayIcon.displayMessage(LanguageSupport.message("tooltip.info"), descriptor.getDescription(), TrayIcon.MessageType.NONE);
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class TrayIconBuilder {
 		this.popup.add(statusMenuItem);
 		this.popup.add(actionMenuItem);
 		if (nodePolicy.hasBrowserGui()) {
-			final MenuItem launchMenuItem = new MenuItem(String.format("Open %s in browser", nodePolicy.getNodeType()));
+			final MenuItem launchMenuItem = new MenuItem(String.format(LanguageSupport.message("menu.open.in.browser"), nodePolicy.getNodeType()));
 			launchMenuItem.addActionListener(e -> this.webStartLauncher.launch(jnlpUrl));
 			this.popup.add(launchMenuItem);
 		}
@@ -114,7 +115,7 @@ public class TrayIconBuilder {
 	 * @param tray The system tray.
 	 */
 	public void addExitMenuItem(final SystemTray tray) {
-		final MenuItem exitItem = new MenuItem("Exit");
+		final MenuItem exitItem = new MenuItem(LanguageSupport.message("menu.exit"));
 		this.popup.add(exitItem);
 		exitItem.addActionListener(e -> {
 			tray.remove(this.trayIcon);
@@ -128,7 +129,7 @@ public class TrayIconBuilder {
 	 * @param tray The system tray.
 	 */
 	public void addExitAndShutdownMenuItem(final SystemTray tray) {
-		final MenuItem exitItem = new MenuItem("Exit and Shutdown");
+		final MenuItem exitItem = new MenuItem(LanguageSupport.message("menu.exit.and.shutdown"));
 		this.popup.add(exitItem);
 
 		tray.remove(this.trayIcon);

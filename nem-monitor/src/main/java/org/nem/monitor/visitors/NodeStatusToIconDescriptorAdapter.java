@@ -1,6 +1,7 @@
 package org.nem.monitor.visitors;
 
 import org.nem.core.model.NemStatus;
+import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.NemNodeType;
 
 import java.util.*;
@@ -12,46 +13,46 @@ import java.util.function.*;
 public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	private static final List<BiFunction<NemStatus, NemStatus, IconDescriptor>> iconDescriptorPredicates = Arrays.asList(
 			(nccStatus, nisStatus) -> (NemStatus.STARTING == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is booting, NCC is stopped")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.starting", "status.ncc.is.stopped"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.RUNNING == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running (local node not booted), NCC is stopped")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.running", "status.ncc.is.stopped"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.BOOTED == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running (local node booted), NCC is stopped")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.booted", "status.ncc.is.stopped"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.SYNCHRONIZED == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running and is synchronized, NCC is stopped")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.synchronized", "status.ncc.is.stopped"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.STOPPED == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is stopped, NCC is starting")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.stopped", "status.ncc.is.starting"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.STARTING == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is starting, NCC is starting")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.starting", "status.ncc.is.starting"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.RUNNING == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running (local node not booted), NCC is booting")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.running", "status.ncc.is.starting"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.BOOTED == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running (local node booted), NCC is starting")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.booted", "status.ncc.is.starting"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.SYNCHRONIZED == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running and is synchronized, NCC is starting")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.synchronized", "status.ncc.is.starting"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.STOPPED == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is stopped, NCC is running")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.stopped", "status.ncc.is.running"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.STARTING == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is starting, NCC is running")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.starting", "status.ncc.is.running"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.RUNNING == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running (local node not booted), NCC is running")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.running", "status.ncc.is.running"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.BOOTED == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running (local node booted), NCC is running")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.booted", "status.ncc.is.running"))
 					: null,
 			(nccStatus, nisStatus) -> (NemStatus.SYNCHRONIZED == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), "NIS is running and is synchronized, NCC is running")
+					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.synchronized", "status.ncc.is.running"))
 					: null);
 
 	private final Consumer<IconDescriptor> iconDescriptorConsumer;
@@ -92,10 +93,14 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 			}
 		}
 
-		return new IconDescriptor("icon_00.png", "Neither NCC nor NIS is running");
+		return new IconDescriptor("icon_00.png", getDescription("status.nis.is.stopped", "status.ncc.is.stopped"));
 	}
 
 	private static String getImageName(final NemStatus nccStatus, final NemStatus nisStatus) {
 		return String.format("icon_%d%d.png", nccStatus.getValue(), nisStatus.getValue());
+	}
+
+	private static String getDescription(final String msg1, final String msg2) {
+		return String.format("%s, %s", LanguageSupport.message(msg1), LanguageSupport.message(msg2));
 	}
 }

@@ -4,6 +4,7 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.model.NemStatus;
+import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.NemNodeType;
 
 import java.util.function.Consumer;
@@ -16,8 +17,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		final TestContext context = new TestContext();
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("Connecting to NIS ..."));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Connecting to NIS ..."));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
 	}
 
 	@Test
@@ -29,8 +32,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.STARTING);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("NIS is starting"));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Connecting to NIS ..."));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.is.starting"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
 	}
 
 	@Test
@@ -42,8 +47,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.RUNNING);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("NIS is running"));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Stop NIS"));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.is.running"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("action.stop"), "NIS")));
 	}
 
 	@Test
@@ -55,8 +62,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.BOOTED);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("NIS is running and is booted"));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Stop NIS"));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.is.running.and.is.booted"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("action.stop"), "NIS")));
 	}
 
 	@Test
@@ -68,8 +77,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.SYNCHRONIZED);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("NIS is running and is synchronized"));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Stop NIS"));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.is.running.and.is.synchronized"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("action.stop"), "NIS")));
 	}
 
 	@Test
@@ -81,8 +92,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.STOPPED);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("NIS is not running"));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Start NIS"));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.is.not.running"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("action.start"), "NIS")));
 	}
 
 	@Test
@@ -95,8 +108,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.UNKNOWN);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("Connecting to NIS ..."));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Connecting to NIS ..."));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
 	}
 
 	@Test
@@ -108,8 +123,10 @@ public class NodeStatusToStatusDescriptionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.STOPPED);
 
 		// Assert:
-		Assert.assertThat(context.getLastDescription().getStatusMessage(), IsEqual.equalTo("Connecting to NIS ..."));
-		Assert.assertThat(context.getLastDescription().getActionMessage(), IsEqual.equalTo("Connecting to NIS ..."));
+		Assert.assertThat(context.getLastDescription().getStatusMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
+		Assert.assertThat(context.getLastDescription().getActionMessage(),
+				IsEqual.equalTo(String.format(LanguageSupport.message("status.connecting.to"), "NIS")));
 	}
 
 	private static class TestContext {

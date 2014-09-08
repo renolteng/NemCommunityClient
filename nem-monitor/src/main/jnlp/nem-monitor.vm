@@ -8,6 +8,9 @@
     <description kind="short">NEM Monitor (NOM)</description>
     <description kind="one-line">NCC and NIS status monitor</description>
     <description kind="tooltip"></description>
+    <icon href="images/desktop_64x64.png"/>
+    <icon kind="shortcut" href=images/desktop_32x32.png"/>
+    <icon kind="splash" href="images/splash_screen.png"/>
     <shortcut online="true" install="true">
       <desktop/>
       <menu submenu="NEM"/>
