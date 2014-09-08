@@ -135,7 +135,7 @@
 					<li class="dropdownMenu-item" on-click="changeAccountLabel">
 						{{texts.wallet.actions.changeAccountLabel}}
 					</li>
-					<li class="dropdownMenu-item" on-click="setCurrentAccountAsPrimary">
+					<li class="dropdownMenu-item {{#activeAccount.address === wallet.primaryAccount.address}}disabled{{/}}" on-click="setCurrentAccountAsPrimary">
 						{{texts.wallet.actions.setPrimary}}
 					</li>
 					<li class="dropdownMenu-item" on-click="removeAccount">
