@@ -268,15 +268,6 @@ $account-actions-width: 33px;
 		}
 	}
 
-	.primary {
-		display: inline-block;
-		font-size: 11px;
-		background-color: #3498db;
-		//padding: 0 8px 2px;
-		//margin-left: 5px;
-		color: #fff;
-	}
-
 	.account-actions {
 		position: absolute;
 		top: 0;
@@ -287,14 +278,15 @@ $account-actions-width: 33px;
 		text-align: center;
 		font-size: 14px;
 		background-color: #2e3541;
+	}
 
-		&:hover, &.active {
-			background-color: #272e38;
-		}
-
-		.arrow {
-			display: none;
-		}
+	.primary {
+		display: inline-block;
+		font-size: 11px;
+		background-color: #3498db;
+		//padding: 0 8px 2px;
+		//margin-left: 5px;
+		color: #fff;
 	}
 
 	.account-select & {
@@ -349,18 +341,36 @@ $account-actions-width: 33px;
 				background-color: #2e3541;
 			}
 
-			.account-info:hover, &.selecting .account-info {
+			.account-info:hover, 
+			&.selecting .account-info {
+				background-color: #272e38;
+			}
+
+			.account-info:hover + .account-actions,
+			&.selecting .account-actions {
 				background-color: #272e38;
 
-				& + .account-actions {
-					background-color: #272e38;
+				.gear {
+					display: none;
+				}
 
+				.arrow {
+					display: initial;
+				}
+			}
+
+			.account-actions {
+				&:hover, &.active {
+					background-color: #272e38;
+				}
+
+				&, &:hover, &.active {
 					.gear {
-						display: none;
+						display: initial;
 					}
 
 					.arrow {
-						display: initial;
+						display: none;
 					}
 				}
 			}
