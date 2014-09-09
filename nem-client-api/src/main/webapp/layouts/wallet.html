@@ -209,9 +209,9 @@
 </div>
 <sendNemModal modalClass="sendNem" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}">
 	<div class="form-control amount">
-		<input type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{amount}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
+		<input type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{formattedAmount}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
 	</div>
-	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" data-mask="AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA" />
+	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" data-mask="AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA" value="{{formattedRecipient}}" />
 	<p class="recipient-label">
 		{{#recipientLabel}}
 			{{{fill(texts.modals.sendNem.labelDesc, recipientLabel)}}}
@@ -220,14 +220,14 @@
 			{{texts.modals.sendNem.nullLabelDesc}}
 		{{/}}
 	</p>
-	<textarea placeholder="{{texts.modals.sendNem.message}}" class="form-control" value="{{message}}"></textarea>
+	<textarea placeholder="{{texts.modals.sendNem.message}}" class="form-control" value="{{rawMessage}}"></textarea>
 	<div class="encrypt">
 		<input type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" />
 		<label for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
 	</div>
 	<div class="row">
 		<div class="form-control fee">
-			<label>{{texts.modals.sendNem.fee}}</label><span class="unit">NEM</span><input value="{{fee}}" on-keypress="sendFormKeypress" />
+			<label>{{texts.modals.sendNem.fee}}</label><span class="unit">NEM</span><input value="{{formattedFee}}" on-keypress="sendFormKeypress" />
 		</div>
 		<div class="form-control due-by">
 			<label>{{texts.modals.sendNem.dueBy}}</label><span class="unit">{{texts.modals.sendNem.hours}}</span><input value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
