@@ -468,7 +468,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         },
                         function(values, closeModal) {
                             if (values['new_password'] === values.confirmPassword) {
-                                delete values.confirmPassword;
+                                values.confirmPassword = undefined;
                                 ncc.postRequest('wallet/password/change', values, function(data) {
                                     ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
                                     closeModal();
