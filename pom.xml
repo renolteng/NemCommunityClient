@@ -29,6 +29,7 @@
 
 		<!-- <module>nem-client-web</module> -->
     <module>nem-client-download</module>
+    <module>nem-monitor</module>
   </modules>
 	<dependencies>
 	</dependencies>

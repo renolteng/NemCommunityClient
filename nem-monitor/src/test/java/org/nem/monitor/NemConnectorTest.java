@@ -5,9 +5,10 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
+import org.nem.core.model.NemStatus;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.utils.LockFile;
-import org.nem.monitor.node.*;
+import org.nem.monitor.node.NemNodePolicy;
 
 import java.io.*;
 import java.util.concurrent.CompletableFuture;
@@ -43,11 +44,11 @@ public class NemConnectorTest {
 				.thenReturn(CompletableFuture.completedFuture(null));
 
 		// Act:
-		final NemNodeStatus status = context.connector.getStatus().join();
+		final NemStatus status = context.connector.getStatus().join();
 
 		// Assert:
-		Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.RUNNING));
-		context.assertHeartbeatCalledOnce();
+		Assert.assertThat(status, IsEqual.equalTo(NemStatus.RUNNING));
+		context.assertStatusCalledOnce();
 	}
 
 	@Test
@@ -58,11 +59,11 @@ public class NemConnectorTest {
 				.thenReturn(CompletableFuture.supplyAsync(() -> { throw new NemNodeExpectedException(); }));
 
 		// Act:
-		final NemNodeStatus status = context.connector.getStatus().join();
+		final NemStatus status = context.connector.getStatus().join();
 
 		// Assert:
-		Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.RUNNING));
-		context.assertHeartbeatCalledOnce();
+		Assert.assertThat(status, IsEqual.equalTo(NemStatus.RUNNING));
+		context.assertStatusCalledOnce();
 	}
 
 	@Test
@@ -73,11 +74,11 @@ public class NemConnectorTest {
 				.thenReturn(CompletableFuture.supplyAsync(() -> { throw new RuntimeException(); }));
 
 		// Act:
-		final NemNodeStatus status = context.connector.getStatus().join();
+		final NemStatus status = context.connector.getStatus().join();
 
 		// Assert:
-		Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.STOPPED));
-		context.assertHeartbeatCalledOnce();
+		Assert.assertThat(status, IsEqual.equalTo(NemStatus.STOPPED));
+		context.assertStatusCalledOnce();
 	}
 
 	@Test
@@ -89,11 +90,11 @@ public class NemConnectorTest {
 					.thenReturn(CompletableFuture.supplyAsync(() -> { throw new RuntimeException(); }));
 
 			// Act:
-			final NemNodeStatus status = context.connector.getStatus().join();
+			final NemStatus status = context.connector.getStatus().join();
 
 			// Assert:
-			Assert.assertThat(status, IsEqual.equalTo(NemNodeStatus.BOOTING));
-			context.assertHeartbeatCalledOnce();
+			Assert.assertThat(status, IsEqual.equalTo(NemStatus.STARTING));
+			context.assertStatusCalledOnce();
 		}
 	}
 
@@ -128,8 +129,8 @@ public class NemConnectorTest {
 			this.connector = new NemConnector(this.policy, this.asyncConnector);
 		}
 
-		private void assertHeartbeatCalledOnce() {
-			Mockito.verify(this.asyncConnector, Mockito.times(1)).getAsync(NodeEndpoint.fromHost("10.0.0.18"), "{/heartbeat}", null);
+		private void assertStatusCalledOnce() {
+			Mockito.verify(this.asyncConnector, Mockito.times(1)).getAsync(NodeEndpoint.fromHost("10.0.0.18"), "{/status}", null);
 		}
 
 		private void assertShutdownCalledOnce() {

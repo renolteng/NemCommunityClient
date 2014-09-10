@@ -1,6 +1,8 @@
 package org.nem.monitor.visitors;
 
-import org.nem.monitor.node.*;
+import org.nem.core.model.NemStatus;
+import org.nem.monitor.config.LanguageSupport;
+import org.nem.monitor.node.NemNodeType;
 
 import java.util.function.Consumer;
 
@@ -22,31 +24,41 @@ public class NodeStatusToStatusDescriptionAdapter implements NodeStatusVisitor {
 			final Consumer<NodeStatusDescription> statusDescriptionConsumer) {
 		this.nodeType = nodeType;
 		this.statusDescriptionConsumer = statusDescriptionConsumer;
-		this.notifyStatus(nodeType, NemNodeStatus.UNKNOWN);
+		this.notifyStatus(nodeType, NemStatus.UNKNOWN);
 	}
 
 	@Override
-	public void notifyStatus(final NemNodeType type, final NemNodeStatus status) {
+	public void notifyStatus(final NemNodeType type, final NemStatus status) {
 		if (this.nodeType != type) {
 			return;
 		}
 
-		final String connectingMessage = String.format("Connecting to %s ...", this.nodeType);
+		final String connectingMessage = String.format(LanguageSupport.message("status.connecting.to"), this.nodeType);
 		String statusMessage = connectingMessage;
 		String actionMessage = connectingMessage;
 		switch (status) {
+			case SYNCHRONIZED:
+				statusMessage = String.format(LanguageSupport.message("status.is.running.and.is.synchronized"), this.nodeType);
+				actionMessage = String.format(LanguageSupport.message("action.stop"), this.nodeType);
+				break;
+
+			case BOOTED:
+				statusMessage = String.format(LanguageSupport.message("status.is.running.and.is.booted"), this.nodeType);
+				actionMessage = String.format(LanguageSupport.message("action.stop"), this.nodeType);
+				break;
+
 			case RUNNING:
-				statusMessage = String.format("%s is running", this.nodeType);
-				actionMessage = String.format("Stop %s", this.nodeType);
+				statusMessage = String.format(LanguageSupport.message("status.is.running"), this.nodeType);
+				actionMessage = String.format(LanguageSupport.message("action.stop"), this.nodeType);
 				break;
 
 			case STOPPED:
-				statusMessage = String.format("%s is not running", this.nodeType);
-				actionMessage = String.format("Start %s", this.nodeType);
+				statusMessage = String.format(LanguageSupport.message("status.is.not.running"), this.nodeType);
+				actionMessage = String.format(LanguageSupport.message("action.start"), this.nodeType);
 				break;
 
-			case BOOTING:
-				statusMessage = String.format("%s is booting", this.nodeType);
+			case STARTING:
+				statusMessage = String.format(LanguageSupport.message("status.is.starting"), this.nodeType);
 				actionMessage = connectingMessage;
 				break;
 		}

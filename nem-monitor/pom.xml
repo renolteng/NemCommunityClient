@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.nem.monitor</groupId>
 	<artifactId>nem-monitor</artifactId>
-	<version>0.2.9-ALPHA</version>
+	<version>0.2.10-ALPHA</version>
 	<name>NEM Monitor</name>
 
 	<organization>

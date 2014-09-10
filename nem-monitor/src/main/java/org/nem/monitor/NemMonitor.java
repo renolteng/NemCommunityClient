@@ -7,6 +7,7 @@ import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
 
+import javax.jnlp.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -50,9 +51,10 @@ public class NemMonitor {
 			}
 
 			final SystemTray tray = SystemTray.getSystemTray();
+			final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
 			final TrayIconBuilder builder = new TrayIconBuilder(
 					createHttpMethodClient(),
-					new WebStartLauncher(nemFolder),
+					launcher,
 					new WebBrowser());
 			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
 			builder.addSeparator();
@@ -65,6 +67,11 @@ public class NemMonitor {
 				tray.add(builder.create());
 			} catch (final AWTException e) {
 				throw new SystemTrayException("Unable to add icon to system tray", e);
+			}
+
+			if (isStartedViaWebStart()) {
+				launcher.launch(commandLine.getNccJnlpUrl());
+				launcher.launch(commandLine.getNisJnlpUrl());
 			}
 		});
 	}
@@ -86,5 +93,15 @@ public class NemMonitor {
 		}
 
 		return true;
+	}
+
+	public static boolean isStartedViaWebStart() {
+		try {
+			ServiceManager.lookup("javax.jnlp.DownloadService2");
+			LOGGER.info("NEM monitor was started via web start.");
+			return true;
+		} catch (final UnavailableServiceException e) {
+			return false;
+		}
 	}
 }

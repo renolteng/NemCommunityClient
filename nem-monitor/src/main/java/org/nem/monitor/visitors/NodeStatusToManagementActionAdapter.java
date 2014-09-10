@@ -1,6 +1,7 @@
 package org.nem.monitor.visitors;
 
-import org.nem.monitor.node.*;
+import org.nem.core.model.NemStatus;
+import org.nem.monitor.node.NemNodeType;
 
 import java.awt.event.*;
 
@@ -10,7 +11,7 @@ import java.awt.event.*;
 public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, ActionListener {
 	private final NemNodeType nodeType;
 	private final NodeManager manager;
-	private NemNodeStatus status;
+	private NemStatus status;
 	private boolean isExplicitlyLaunched;
 
 	/**
@@ -22,17 +23,17 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 	public NodeStatusToManagementActionAdapter(final NemNodeType nodeType, final NodeManager manager) {
 		this.nodeType = nodeType;
 		this.manager = manager;
-		this.status = NemNodeStatus.UNKNOWN;
+		this.status = NemStatus.UNKNOWN;
 	}
 
 	@Override
-	public void notifyStatus(final NemNodeType type, final NemNodeStatus status) {
+	public void notifyStatus(final NemNodeType type, final NemStatus status) {
 		if (this.nodeType != type) {
 			return;
 		}
 
 		this.status = status;
-		if (NemNodeStatus.RUNNING == this.status && this.isExplicitlyLaunched) {
+		if (NemStatus.RUNNING == this.status && this.isExplicitlyLaunched) {
 			this.isExplicitlyLaunched = false;
 			this.manager.launchBrowser();
 		}

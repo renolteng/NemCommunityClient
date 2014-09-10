@@ -5,6 +5,8 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.deploy.CommonStarter;
+import org.nem.core.model.NemStatus;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.*;
 import org.nem.ncc.cache.*;
 
@@ -45,5 +47,24 @@ public class AdminControllerTest {
 		// Assert:
 		Mockito.verify(commonStarter, Mockito.times(1)).stopServer();
 		Mockito.verify(repository, Mockito.times(1)).save(cache.getAccounts());
+	}
+
+	@Test
+	public void statusReturnsSuccessfulResult() {
+		// Arrange:
+		final AdminController controller = new AdminController(
+				Mockito.mock(AccountsFileRepository.class),
+				Mockito.mock(NccAccountCache.class),
+				Mockito.mock(CommonStarter.class));
+
+		// Act:
+		final SerializableEntity entity = controller.status();
+		final JSONObject jsonObject = JsonSerializer.serializeToJson(entity);
+
+		// Assert:
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(3));
+		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(NemRequestResult.TYPE_STATUS));
+		Assert.assertThat(jsonObject.get("code"), IsEqual.equalTo(NemStatus.RUNNING.getValue()));
+		Assert.assertThat(jsonObject.get("message"), IsEqual.equalTo("status"));
 	}
 }
