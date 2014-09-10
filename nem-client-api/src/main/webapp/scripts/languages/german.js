@@ -260,7 +260,6 @@ define({
                 primary: 'Hauptkonto',
                 primaryShort: 'H',
                 noLabel: '<Kein Label>',
-                copyToClipboard: 'Mausklick, um die Adresse in die Zwischenablage zu kopieren',
                 copiedToClipboard: 'Die Adresse wurde in die Zwischenablage kopiert!',
                 actions: {
                         refreshInfo: 'Info aktualisieren',
@@ -276,7 +275,8 @@ define({
                         removeAccount: 'Konto entfernen',
                         clientInfo: 'Client Info',
                         closeWallet: 'Brieftasche schließen',
-                        closeProgram: 'Programm beenden'
+                        closeProgram: 'Programm beenden',
+                        copyClipboard: 'Copy address to clipboard'
                 },
                 nav: [
                         'Dashboard',

@@ -3,7 +3,7 @@
 define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
-        template: 'rv!layout/wallet-pages',
+        template: 'rv!layout/wallet',
         initOnce: function() {
             ncc.refreshWallet = function(wallet, silent) {
                 if (!wallet) wallet = ncc.get('wallet.name');
@@ -144,30 +144,13 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             var local = this.local;
 
             require(['zeroClipboard'], function(ZeroClipboard) {
-                local.client = new ZeroClipboard($('.copyClipboard'));
+                local.client = new ZeroClipboard($('#addressClipboard'));
 
                 local.client.on('ready', function() {
                     local.client.on('aftercopy', function() {
                         ncc.showTempMessage(ncc.get('texts.wallet.copiedToClipboard'));
                     });
                 });
-
-                require(['tooltipster'], function() {
-                    $('#global-zeroclipboard-flash-bridge').tooltipster({
-                        content: ncc.get('texts.wallet.copyToClipboard'),
-                        position: 'bottom',
-                        delay: 50
-                    });
-                });
-            });
-
-            require(['maskedinput'], function() {
-                var $recipient = $('.form-control.recipient');
-                // on-change doesn't work with maskedInput
-                $recipient.on('change', function() {
-                    modal.fire('queryRecipient');
-                });
-                $recipient.mask('******-******-******-******-******-******-****');
             });
 
             local.listeners.push(ncc.on({
@@ -781,6 +764,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     }
                 }, true);
             }
+
+            require(['maskedinput']);
         },
         leave: [function() {
             $(window).off('resize.scrollableSidebar');

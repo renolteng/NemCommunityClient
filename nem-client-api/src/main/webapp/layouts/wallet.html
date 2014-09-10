@@ -64,53 +64,36 @@
 					</div>
 					<a href="javascript:;"><img class="wallet-ava" src="images/default-avatar.png" alt="{{wallet.name}}" /></a>
 					<div class="setting">
-						<a href="javascript:;" class="button icon-arrow-down-medium" on-click="toggleOn:'walletActions'"></a>
-						<div class="options {{^active.walletActions}}hidden{{/}}" id="walletActions">
-							<ul class="content">
-								<li on-click="refreshInfo">
-									{{texts.wallet.actions.refreshInfo}}
-								</li>
-								<li class="separator {{#status.nisUnavailable}}disabled{{/}}" on-click="bootLocalNode">
-									{{texts.wallet.actions.bootLocalNode}}
-								</li>
-								<li on-click="changeWalletName">
-									{{texts.wallet.actions.changeWalletName}}
-								</li>
-								<li on-click="changeWalletPassword">
-									{{texts.wallet.actions.changeWalletPassword}}
-								</li>
-								<li class="disabled">
-									{{texts.wallet.actions.mergeWallets}}
-								</li>
-								<li class="disabled separator">
-									{{texts.wallet.actions.exportWallet}}
-								</li>
-								<li on-click="createNewAccount">
-									{{texts.wallet.actions.createAccount}}
-								</li>
-								<li on-click="addAccount">
-									{{texts.wallet.actions.addAccount}}
-								</li>
-								<li on-click="changeAccountLabel">
-									{{texts.wallet.actions.changeAccountLabel}}
-								</li>
-								<li on-click="setCurrentAccountAsPrimary">
-									{{texts.wallet.actions.setPrimary}}
-								</li>
-								<li class="separator" on-click="removeAccount">
-									{{texts.wallet.actions.removeAccount}}
-								</li>
-								<li on-click="showClientInfo">
-									{{texts.wallet.actions.clientInfo}}
-								</li>
-								<li on-click="closeWallet">
-									{{texts.wallet.actions.closeWallet}}
-								</li>
-								<li on-click="shutdown">
-									{{texts.wallet.actions.closeProgram}}
-								</li>
-							</ul>
-						</div>
+						<a href="javascript:;" class="button icon-arrow-down-medium" on-click="toggleOn:walletActions"></a>
+						<ul class="dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
+							<li class="dropdownMenu-item" on-click="changeWalletName">
+								{{texts.wallet.actions.changeWalletName}}
+							</li>
+							<li class="dropdownMenu-item" on-click="changeWalletPassword">
+								{{texts.wallet.actions.changeWalletPassword}}
+							</li>
+							<li class="dropdownMenu-item disabled">
+								{{texts.wallet.actions.mergeWallets}}
+							</li>
+							<li class="dropdownMenu-item disabled separator">
+								{{texts.wallet.actions.exportWallet}}
+							</li>
+							<li class="dropdownMenu-item" on-click="refreshInfo">
+								{{texts.wallet.actions.refreshInfo}}
+							</li>
+							<li class="dropdownMenu-item {{#status.nisUnavailable}}disabled{{/}}" on-click="bootLocalNode">
+								{{texts.wallet.actions.bootLocalNode}}
+							</li>
+							<li class="dropdownMenu-item" on-click="showClientInfo">
+								{{texts.wallet.actions.clientInfo}}
+							</li>
+							<li class="dropdownMenu-item" on-click="closeWallet">
+								{{texts.wallet.actions.closeWallet}}
+							</li>
+							<li class="dropdownMenu-item" on-click="shutdown">
+								{{texts.wallet.actions.closeProgram}}
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -121,10 +104,10 @@
 	<div id="wallet-page-sidebar">
 		<div>
 			<div class="active account {{#active.accountSelect}}selecting{{/}}">
-				<div class="account-info">
+				<div class="account-info" on-click="toggleOn:accountSelect">
 					{{#activeAccount}}
 						<p>
-							<a href="javascript:;" class="account-id copyClipboard full" data-clipboard-text="{{.formattedAddress}}" on-mouseover="registerToolTip">{{.formattedAddress}}</a>
+							<span class="account-id full" id="activeAccountAddress">{{.formattedAddress}}</span>
 							{{#.address === wallet.primaryAccount.address}}
 								<span class="primary">
 									<span class="full">{{texts.wallet.primary}}</span>
@@ -135,9 +118,30 @@
 						<p class="label {{^.label}}blank{{/}} full">{{.label ? .label : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
-				{{#allAccounts.length > 1}}
-					<a href="javascript:;" class="drop-arrow icon-arrow-down-medium full" on-click="toggleOn:'accountSelect'"></a>
-				{{/}}
+				<button class="account-actions full {{#active.accountActions}}active{{/}}" on-click="toggleOn:accountActions">
+					<span class="gear icon-gear"></span>
+					<span class="arrow icon-arrow-down-medium"></span>
+				</button>
+				<ul class="dropdownMenu {{^active.accountActions}}hidden{{/}}">
+					<li class="dropdownMenu-item" id="addressClipboard" data-clipboard-target="activeAccountAddress">
+						{{texts.wallet.actions.copyClipboard}}
+					</li>
+					<li class="dropdownMenu-item" on-click="createNewAccount">
+						{{texts.wallet.actions.createAccount}}
+					</li>
+					<li class="dropdownMenu-item" on-click="addAccount">
+						{{texts.wallet.actions.addAccount}}
+					</li>
+					<li class="dropdownMenu-item" on-click="changeAccountLabel">
+						{{texts.wallet.actions.changeAccountLabel}}
+					</li>
+					<li class="dropdownMenu-item {{#activeAccount.address === wallet.primaryAccount.address}}disabled{{/}}" on-click="setCurrentAccountAsPrimary">
+						{{texts.wallet.actions.setPrimary}}
+					</li>
+					<li class="dropdownMenu-item" on-click="removeAccount">
+						{{texts.wallet.actions.removeAccount}}
+					</li>
+				</ul>
 			</div>
 			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}} full" id="accountSelect">
 				<ul>
@@ -193,7 +197,7 @@
 					<span class="item-title icon-user"><span class="full">{{texts.wallet.nav.8}}</span></span>
 				</a></li>
 				<li class="{{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="redirect:'settings', {{params}}">
-					<span class="item-title icon-settings"><span class="full">{{texts.wallet.nav.9}}</span></span>
+					<span class="item-title icon-gear"><span class="full">{{texts.wallet.nav.9}}</span></span>
 				</a></li>
 				<li><a href="javascript:;" on-click="shutdown">
 					<span class="item-title icon-close"><span class="full">{{texts.wallet.nav.10}}</span></span>
@@ -207,7 +211,7 @@
 	<div class="form-control amount">
 		<input type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{amount}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
 	</div>
-	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" />
+	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" data-mask="AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA" />
 	<p class="recipient-label">
 		{{#recipientLabel}}
 			{{{fill(texts.modals.sendNem.labelDesc, recipientLabel)}}}

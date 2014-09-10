@@ -260,7 +260,6 @@ define({
 			primary: 'primaire',
 			primaryShort: 'P',
 			noLabel: "<Pas d'étiquette>",
-			copyToClipboard: "Cliquez ici pour copier l'adresse dans le presse papier",
 			copiedToClipboard: "L'adresse a été copié dans le presse papier!",
 			actions: {
 				refreshInfo: 'Actualiser les informations',
@@ -276,7 +275,8 @@ define({
 				removeAccount: 'Retirer le compte',
 				clientInfo: 'Information sur le Client',
 				closeWallet: 'Fermer le portefeuille',
-				closeProgram: "Fermer l'application"
+				closeProgram: "Fermer l'application",
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				"Tableau de bord",

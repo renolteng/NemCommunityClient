@@ -255,7 +255,6 @@ define({
 			primary: 'primarni',
 			primaryShort: 'P',
 			noLabel: '<Nema oznake>',
-			copyToClipboard: 'Klikni za kopiranje adrese u međuspremnik',
 			copiedToClipboard: 'Adresa je kopirana u međuspremnik!',
 			actions: {
 				refreshInfo: 'Osvježi informacije',
@@ -271,7 +270,8 @@ define({
 				removeAccount: 'Ukloni račun',
 				clientInfo: 'Informacije klijenta',
 				closeWallet: 'Zatvori novčanik',
-				closeProgram: 'Zatvori  program'
+				closeProgram: 'Zatvori  program',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Kontrolna ploča',

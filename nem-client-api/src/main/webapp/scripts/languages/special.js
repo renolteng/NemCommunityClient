@@ -260,7 +260,6 @@ define({
 			primary: "cHJpbWFyeQ==",
 			primaryShort: "UA==",
 			noLabel: "PE5vIGxhYmVsPg==",
-			copyToClipboard: "Q2xpY2sgdG8gY29weSBtZSBoZWFydGllcyB0byBjbGlwYm9hcmQ=",
 			copiedToClipboard: "TWUgaGVhcnRpZXMgYmVlbiBjb3BpZWQgdG8gY2xpcGJvYXJkIQ==",
 			actions: {
 				refreshInfo: "UmVmcmVzaCBJbmZv",
@@ -276,7 +275,8 @@ define({
 				removeAccount: "RHJvcCB0aGUgbG9n",
 				clientInfo: "U2hpcCdzIFBhcnRpY3VsYXJz",
 				closeWallet: "Q2xvc2UgdGhlIENvZmZlcg==",
-				closeProgram: "QWJhbmRvbiBTaGlw"
+				closeProgram: "QWJhbmRvbiBTaGlw",
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				"UG9ydA==",
