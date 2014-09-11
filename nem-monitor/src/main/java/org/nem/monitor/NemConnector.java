@@ -45,7 +45,7 @@ public class NemConnector {
 				return this.isBooting() ? NemStatus.STARTING : NemStatus.STOPPED;
 			}
 
-			return nemStatusFromNemRequestResult(d);
+			return this.nemStatusFromNemRequestResult(d);
 		});
 	}
 
@@ -62,7 +62,7 @@ public class NemConnector {
 			return NemStatus.RUNNING;
 		}
 
-		NemRequestResult result = new NemRequestResult(deserializer);
+		final NemRequestResult result = new NemRequestResult(deserializer);
 		return NemStatus.fromValue(result.getCode());
 	}
 

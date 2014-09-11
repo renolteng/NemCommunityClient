@@ -71,10 +71,10 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	}
 
 	private IconDescriptor getDescriptor() {
-		final String imageName = getImageName(nccStatus, nisStatus);
+		final String imageName = getImageName(this.nccStatus, this.nisStatus);
 		final String description = getDescription(
-				String.format("status.nis.is.%s", nemStatusToStateNameMap.get(nisStatus)),
-				String.format("status.ncc.is.%s", nemStatusToStateNameMap.get(nccStatus)));
+				String.format("status.nis.is.%s", nemStatusToStateNameMap.get(this.nisStatus)),
+				String.format("status.ncc.is.%s", nemStatusToStateNameMap.get(this.nccStatus)));
 
 		return new IconDescriptor(imageName, description);
 	}
