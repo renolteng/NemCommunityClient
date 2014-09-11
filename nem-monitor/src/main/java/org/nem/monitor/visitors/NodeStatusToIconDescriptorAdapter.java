@@ -5,7 +5,7 @@ import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.NemNodeType;
 
 import java.util.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 /**
  * NodeStatusVisitor that maps status changes to appropriate icons.
@@ -13,10 +13,15 @@ import java.util.function.*;
 public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	private static final Map<NemStatus, String> nemStatusToStateNameMap = new HashMap<NemStatus, String>() {
 		{ this.put(NemStatus.UNKNOWN, "stopped"); }
+
 		{ this.put(NemStatus.STOPPED, "stopped"); }
+
 		{ this.put(NemStatus.STARTING, "starting"); }
+
 		{ this.put(NemStatus.RUNNING, "running"); }
+
 		{ this.put(NemStatus.BOOTED, "booted"); }
+
 		{ this.put(NemStatus.SYNCHRONIZED, "synchronized"); }
 	};
 

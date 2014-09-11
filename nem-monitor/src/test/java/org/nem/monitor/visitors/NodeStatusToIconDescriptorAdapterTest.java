@@ -20,7 +20,7 @@ public class NodeStatusToIconDescriptorAdapterTest {
 	private static final IconDescriptor ICON_14_DESCRIPTOR =
 			createDescriptor("icon_14.png", "status.nis.is.booted", "status.ncc.is.stopped");
 	private static final IconDescriptor ICON_15_DESCRIPTOR =
-			createDescriptor("icon_15.png","status.nis.is.synchronized", "status.ncc.is.stopped");
+			createDescriptor("icon_15.png", "status.nis.is.synchronized", "status.ncc.is.stopped");
 	private static final IconDescriptor ICON_21_DESCRIPTOR =
 			createDescriptor("icon_21.png", "status.nis.is.stopped", "status.ncc.is.starting");
 	private static final IconDescriptor ICON_22_DESCRIPTOR =

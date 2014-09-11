@@ -133,10 +133,10 @@ public class TrayIconBuilder {
 		this.popup.add(exitItem);
 
 		tray.remove(this.trayIcon);
-		exitItem.addActionListener(e -> this.shutdownAll().thenAccept(v-> exit()));
+		exitItem.addActionListener(e -> this.shutdownAll().thenAccept(v -> exit()));
 	}
 
-	private CompletableFuture<Void> shutdownAll()  {
+	private CompletableFuture<Void> shutdownAll() {
 		final List<CompletableFuture> futures = this.nodePolicies.stream()
 				.map(np -> this.createConnector(np)
 						.shutdown()

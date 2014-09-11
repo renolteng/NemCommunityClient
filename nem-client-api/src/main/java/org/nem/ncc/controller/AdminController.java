@@ -2,7 +2,7 @@ package org.nem.ncc.controller;
 
 import org.nem.core.deploy.CommonStarter;
 import org.nem.core.model.NemStatus;
-import org.nem.core.model.ncc.*;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.SerializableEntity;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.cache.*;

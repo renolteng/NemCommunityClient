@@ -1,6 +1,7 @@
 package org.nem.monitor.config;
 
 import org.junit.Test;
+
 public class LanguageSupportTest {
 
 	@Test

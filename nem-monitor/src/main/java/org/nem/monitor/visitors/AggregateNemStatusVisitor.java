@@ -1,7 +1,7 @@
 package org.nem.monitor.visitors;
 
 import org.nem.core.model.NemStatus;
-import org.nem.monitor.node.*;
+import org.nem.monitor.node.NemNodeType;
 
 import java.util.*;
 import java.util.logging.Logger;
