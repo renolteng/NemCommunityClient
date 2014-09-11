@@ -107,7 +107,7 @@ define({
 			bootLocalNode: {
 				title: 'ローカルノードを起動する',
 				account: 'ローカルノードを起動するためのアカウント',
-				noLabel: '<span class="null">&lt;ラベルなし&gt;</span>',
+				noLabel: '&lt;ラベルなし&gt;',
 				wallet: 'ウォレット',
 				node: 'ノード名前',
 				boot: '起動',
@@ -141,7 +141,7 @@ define({
 			setPrimary: {
 				title: 'プライマリーアカウントを設定',
 				account: 'プライマリーとして設定するアカウント',
-				noLabel: '<span class="null">&lt;ラベルなし&gt;</span>',
+				noLabel: '&lt;ラベルなし&gt;',
 				wallet: 'ウォレット',
 				password: "ウォレットのパスワード",
 				successMessage: 'アカウント: {{1}} {{#2}}({{2}}){{/2}} はプライマリーに設定されました!',

@@ -25,26 +25,20 @@
 				{{/}}
 				<div class="modal-form">
 					{{#fields}}
-						<div class="field">
-							<p><label>
-								{{#.label.isHtml}}
-									{{{.label.content}}}
-								{{/}}
-								{{^.label.isHtml}}
+						<div class="modal-form-field">
+							<p class="modal-form-line">
+								<label class="modal-form-label">
 									{{.label.content}}
-								{{/}}
-							</label></p>
+								</label>
+							</p>
 							{{#.type === 'text' || .type === 'password'}}
-								<p><input type="{{.type}}" disabled="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" /></p>
+								<p class="modal-form-line">
+									<input type="{{.type}}" class="modal-form-input" disabled="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
+								</p>
 							{{/}}
 							{{#.sublabel}}
-								<p class="sublabel">
-									{{#.isHtml}}
-										{{{.content}}}
-									{{/}}
-									{{^.isHtml}}
-										{{.content}}
-									{{/}}
+								<p class="modal-form-sublabel modal-form-line {{#nullContent}}nullContent{{/}}">
+									{{.content}}
 								</p>
 							{{/}}
 						</div>
@@ -79,9 +73,9 @@
 				<div>
 					<img src="images/sad-face.png" alt="Sadly"/>
 				</div>
-				<h1>{{texts.modals.error.title}}</h1>
-				<p><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
-				<p>{{message}}</p>
+				<h1 class="modal-error-title">{{texts.modals.error.title}}</h1>
+				<p class="modal-error-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
+				<p class="modal-error-message">{{message}}</p>
 			</errorModal>
 			<unclosableMessageModal modalClass="unclosable message" noCloseButton="true" disableEasyClose="true">
 				<p><em>{{{message}}}{{runningEllipsis}}</em></p>

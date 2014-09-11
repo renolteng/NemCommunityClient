@@ -102,7 +102,7 @@ define({
 			bootLocalNode: {
 				title: 'Pokreni lokalni čvor',
 				account: 'Račun za pokretanje lokalnog čvora',
-				noLabel: '<span class="null">&lt;Nema oznake&gt;</span>',
+				noLabel: '&lt;Nema oznake&gt;',
 				wallet: 'Novčanik',
 				node: 'Naziv čvora',
 				boot: 'Pokreni',
@@ -136,7 +136,7 @@ define({
 			setPrimary: {
 				title: 'Postavi primarni račun',
 				account: 'Račun koji će biti postavljen kao primarni',
-				noLabel: '<span class="null">&lt;Nema oznake&gt;</span>',
+				noLabel: '&lt;Nema oznake&gt;',
 				wallet: 'Novčanik',
 				password: "Lozinka novčanika",
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je postavljen kao primarni!',

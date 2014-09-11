@@ -107,7 +107,7 @@ define({
 			bootLocalNode: {
 				title: 'Boot local node',
 				account: 'Account to boot local node',
-				noLabel: '<span class="null">&lt;No label&gt;</span>',
+				noLabel: '&lt;No label&gt;',
 				wallet: 'Wallet',
 				node: 'Node name',
 				boot: 'Boot',
@@ -141,7 +141,7 @@ define({
 			setPrimary: {
 				title: 'Set primary account',
 				account: 'Account to be set as Primary',
-				noLabel: '<span class="null">&lt;No label&gt;</span>',
+				noLabel: '&lt;No label&gt;',
 				wallet: 'Wallet',
 				password: "Wallet's password",
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been set as primary!',

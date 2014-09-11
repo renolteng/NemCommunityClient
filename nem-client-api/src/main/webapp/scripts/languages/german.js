@@ -107,7 +107,7 @@ define({
                 bootLocalNode: {
                         title: 'Lokalen Knotenpunkt booten',
                         account: 'Konto, um den lokalen Knotenpunkt zu booten',
-                        noLabel: '<span class="null"><Kein label></span>',
+                        noLabel: '<Kein label>',
                         wallet: 'Brieftasche',
                         node: 'Name des Knotenpunkts',
                         boot: 'Boot',
@@ -141,7 +141,7 @@ define({
                 setPrimary: {
                         title: 'Hauptkonto festlegen',
                         account: 'Konto, welches als Hauptkonto dient',
-                        noLabel: '<span class="null"><Kein Label></span>',
+                        noLabel: '<Kein Label>',
                         wallet: 'Brieftasche',
                         password: "Passwort der Brieftasche",
                         successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde als Hauptkonto festgelegt!',

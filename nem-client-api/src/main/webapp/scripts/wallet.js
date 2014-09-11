@@ -66,8 +66,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                     content: accountLabel
                                 } :
                                 {
-                                    isHtml: true,
-                                    content: ncc.get('texts.modals.bootLocalNode.noLabel')
+                                    content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                    nullContent: true
                                 }
                         }, 
                         {
@@ -340,8 +340,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         content: accountLabel
                                     } :
                                     {
-                                        isHtml: true,
-                                        content: ncc.get('texts.modals.setPrimary.noLabel')
+                                        content: ncc.get('texts.modals.setPrimary.noLabel'),
+                                        nullContent: true
                                     }
                             }, 
                             {

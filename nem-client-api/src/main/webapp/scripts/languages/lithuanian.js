@@ -107,7 +107,7 @@
 			bootLocalNode: {
 				title: 'U�krauti vietini prieigos ta�ka',
 				account: 'Vietinio prieigos ta�ko scskaita',
-				noLabel: '<span class="null">&lt;Nera pavadinimo&gt;</span>',
+				noLabel: '&lt;Nera pavadinimo&gt;',
 				wallet: 'Pinigine',
 				node: 'Prieigos ta�ko pavadinimas',
 				boot: 'U�krauti',
@@ -141,7 +141,7 @@
 			setPrimary: {
 				title: 'Nustatyti pagrindine saskaita',
 				account: 'Saskaita, kuri turi buti nustatyta kaip pagrindine',
-				noLabel: '<span class="null">&lt;Nera pavadinimo&gt;</span>',
+				noLabel: '&lt;Nera pavadinimo&gt;',
 				wallet: 'Pinigine',
 				password: "Pinigines slapta�odis",
 				successMessage: 'Saskaita {{1}} {{#2}}({{2}}){{/2}} nustatyta kaip pagrindine!',
