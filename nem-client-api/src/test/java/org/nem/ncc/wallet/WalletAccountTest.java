@@ -2,6 +2,9 @@ package org.nem.ncc.wallet;
 
 import org.hamcrest.core.*;
 import org.junit.*;
+
+import java.math.BigInteger;
+
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
 import org.nem.ncc.test.*;
@@ -52,10 +55,49 @@ public class WalletAccountTest {
 
 	//endregion
 
-	//region serialization
+	//region remote harvesting
 
 	@Test
-	public void accountCanBeRoundTripped() {
+	public void accountCreatesRemoteHarvestPrivateKeyOnDemand() {
+		// Act:
+		final WalletAccount account1 = new WalletAccount();
+
+		// Assert:
+		Assert.assertThat(account1.getRemoteHarvestingPrivateKey(), IsNot.not(IsNull.nullValue()));
+	}
+
+	@Test
+	public void accountGeneratesDifferentRemoteHarvestPrivateKeys() {
+		// Act:
+		final WalletAccount account1 = new WalletAccount();
+		final WalletAccount account2 = new WalletAccount();
+
+		// Assert:
+		Assert.assertThat(account2.getRemoteHarvestingPrivateKey(), IsNot.not(IsEqual.equalTo(account1.getRemoteHarvestingPrivateKey())));
+	}
+
+	@Test
+	public void accountCanBeCreatedAroundPrivateKeyAndRemoteHarvestRawPrivateKey() {
+		// Arrange:
+		final PrivateKey privateKey = new KeyPair().getPrivateKey();
+		final PrivateKey remoteHarvestPrivateKey = new KeyPair().getPrivateKey();
+
+		// Act:
+		final WalletAccount account = new WalletAccount(privateKey, remoteHarvestPrivateKey.getRaw());
+
+		// Assert:
+		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
+		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(remoteHarvestPrivateKey));
+	}
+
+	//endregion
+
+	//region serialization
+
+	// TODO-CR: T -> J: Test fails because of optional value handling by enforced read/write serializer.
+	@Test
+	public void accountCanBeRoundTrippedWithoutRemoteHarvestKey() {
 		// Arrange:
 		final PrivateKey privateKey = new KeyPair().getPrivateKey();
 
@@ -66,6 +108,22 @@ public class WalletAccountTest {
 		// Assert:
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
 		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
+	}
+
+	@Test
+	public void accountCanBeRoundTrippedWithRemoteHarvestKey() {
+		// Arrange:
+		final PrivateKey privateKey = new KeyPair().getPrivateKey();
+		final BigInteger remoteHarvestRawPrivateKey = new KeyPair().getPrivateKey().getRaw();
+
+		// Act:
+		final WalletAccount account = new WalletAccount(
+				Utils.roundtripSerializableEntity(new WalletAccount(privateKey, remoteHarvestRawPrivateKey), null));
+
+		// Assert:
+		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
+		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(new PrivateKey(remoteHarvestRawPrivateKey)));
 	}
 
 	//endregion

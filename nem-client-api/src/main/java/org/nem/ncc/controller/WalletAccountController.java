@@ -104,4 +104,17 @@ public class WalletAccountController {
 		this.accountLabels.setLabel(address, null, label);
 		return this.accountMapper.toViewModel(address);
 	}
+
+	/**
+	 * Starts remote harvesting on the provided NIS server.
+	 *
+	 * @param bag The request parameters.
+	 */
+	@RequestMapping(value = "/wallet/account/harvest/remote/start", method = RequestMethod.POST)
+	public void startRemoteHarvesting(@RequestBody final WalletNamePasswordBag bag) {
+		final Address address = bag.getAccountAddress();
+		final String label = bag.getAccountLabelOrDefault();
+		// this.accountLabels.setLabel(address, null, label);
+		// return this.accountMapper.toViewModel(address);
+	}
 }
