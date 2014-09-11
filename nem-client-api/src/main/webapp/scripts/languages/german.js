@@ -276,7 +276,7 @@ define({
                         clientInfo: 'Client Info',
                         closeWallet: 'Brieftasche schließen',
                         closeProgram: 'Programm beenden',
-                        copyClipboard: 'Copy address to clipboard'
+                        copyClipboard: 'Addresse in die Zwischenablage kopieren'
                 },
                 nav: [
                         'Dashboard',

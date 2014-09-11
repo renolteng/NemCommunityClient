@@ -30,7 +30,7 @@ define({
             707: 'Mốc thời gian của giao dịch quá xa trong quá khứ.',
             708: 'Mốc thời gian của giao dịch quá xa về tương lai.',
             709: 'Tài khoản không được biết đến. Một tài khoản cần phải tham gia vào ít nhất một giao dịch (là người gửi hoặc người nhận) để được mạng lưới biết đến.',
-            901: 'There was an error setting up offline mode.'
+            901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.'
         },
         common: {
         	success: 'Thành công', //title of the Success message modals
