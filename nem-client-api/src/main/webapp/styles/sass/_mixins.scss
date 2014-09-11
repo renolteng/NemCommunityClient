@@ -16,12 +16,12 @@
 
 @mixin ellipsis-overflow($width: none) {
 	@include inline-block();
+    @if $width != none {
+        width: $width;
+    }
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	@if $width != none {
-		width: $width;
-	}
 }
 
 @mixin noti-box($notiBox-size) {
@@ -102,11 +102,11 @@
 	}
 
     #{$selector} {
-        border: solid transparent;
-        content: " ";
+        content: ' ';
+        position: absolute;
         height: 0;
         width: 0;
-        position: absolute;
+        border: solid transparent;
         pointer-events: none;
 
     	#{$side1}: 100%;
@@ -114,16 +114,16 @@
     }
 
     &:after {
+        margin-#{$side2}: -$wh1 / 2;
     	border-width: $wh1 / 2;
         border-#{$side1}: $wh2 solid map-get($arrow, 'color');
-        margin-#{$side2}: -$wh1 / 2;
     }
 
     @if map-get($border, 'enable') == true {
     	&:before {
+            margin-#{$side2}: -$wh1 / 2 - map-get($border, 'width');
     		border-width: $wh1 / 2 + map-get($border, 'width');
 	        border-#{$side1}: ($wh2 + map-get($border, 'width')) solid map-get($border, 'color');
-	        margin-#{$side2}: -$wh1 / 2 - map-get($border, 'width');
     	}
     }
 }
