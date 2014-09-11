@@ -6,7 +6,9 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.core.model.NemStatus;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.node.NodeEndpoint;
+import org.nem.core.serialization.*;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.node.NemNodePolicy;
 
@@ -37,7 +39,7 @@ public class NemConnectorTest {
 	//endregion
 
 	@Test
-	public void isRunningReturnsRunningWhenNoExceptionIsThrown() {
+	public void getStatusReturnsRunningWhenNoExceptionIsThrownAndDeserializerIsNull() {
 		// Arrange:
 		final TestContext context = new TestContext();
 		Mockito.when(context.asyncConnector.getAsync(Mockito.any(), Mockito.any(), Mockito.any()))
@@ -52,7 +54,23 @@ public class NemConnectorTest {
 	}
 
 	@Test
-	public void isRunningReturnsRunningWhenNemNodeExpectedExceptionIsThrown() {
+	public void getStatusReturnsDeserializedStatusWhenNoExceptionIsThrown() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Deserializer deserializer = new BinaryDeserializer(BinarySerializer.serializeToBytes(new NemRequestResult(-1, 4, "?")), null);
+		Mockito.when(context.asyncConnector.getAsync(Mockito.any(), Mockito.any(), Mockito.any()))
+				.thenReturn(CompletableFuture.completedFuture(deserializer));
+
+		// Act:
+		final NemStatus status = context.connector.getStatus().join();
+
+		// Assert:
+		Assert.assertThat(status, IsEqual.equalTo(NemStatus.BOOTED));
+		context.assertStatusCalledOnce();
+	}
+
+	@Test
+	public void getStatusReturnsRunningWhenNemNodeExpectedExceptionIsThrown() {
 		// Arrange:
 		final TestContext context = new TestContext();
 		Mockito.when(context.asyncConnector.getAsync(Mockito.any(), Mockito.any(), Mockito.any()))
@@ -67,7 +85,7 @@ public class NemConnectorTest {
 	}
 
 	@Test
-	public void isRunningReturnsStoppedWhenOtherExceptionIsThrownAndLockFileIsNotLocked() {
+	public void getStatusReturnsStoppedWhenOtherExceptionIsThrownAndLockFileIsNotLocked() {
 		// Arrange:
 		final TestContext context = new TestContext();
 		Mockito.when(context.asyncConnector.getAsync(Mockito.any(), Mockito.any(), Mockito.any()))
@@ -82,7 +100,7 @@ public class NemConnectorTest {
 	}
 
 	@Test
-	public void isRunningReturnsBootingWhenOtherExceptionIsThrownAndLockFileIsLocked() throws IOException {
+	public void getStatusReturnsStartingWhenOtherExceptionIsThrownAndLockFileIsLocked() throws IOException {
 		// Arrange:
 		try (final Closeable ignored = LockFile.tryAcquireLock(TEST_LOCK_FILE)) {
 			final TestContext context = new TestContext();

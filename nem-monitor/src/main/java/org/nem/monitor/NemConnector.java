@@ -37,9 +37,10 @@ public class NemConnector {
 	 */
 	public CompletableFuture<NemStatus> getStatus() {
 		return this.getAsync(NisApiId.NIS_REST_STATUS).handle((d, e) -> {
-			if (isRunning(e) || (null == d && null == e)) {
+			if (isRunning(e)) {
 				return NemStatus.RUNNING;
 			}
+
 			if (null != e) {
 				return this.isBooting() ? NemStatus.STARTING : NemStatus.STOPPED;
 			}
@@ -57,6 +58,10 @@ public class NemConnector {
 	}
 
 	private NemStatus nemStatusFromNemRequestResult(final Deserializer deserializer) {
+		if (null == deserializer) {
+			return NemStatus.RUNNING;
+		}
+
 		NemRequestResult result = new NemRequestResult(deserializer);
 		return NemStatus.fromValue(result.getCode());
 	}
