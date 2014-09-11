@@ -93,7 +93,6 @@ $statusIndicator-height: 40px;
 	left: 0;
 	right: 0;
 	height: $statusIndicator-height;
-	background-color: rgba(#41ce7d, .72);
 	color: #fff;
 	font-size: 13px;
 	font-weight: $fontWeight-bold;
@@ -107,6 +106,18 @@ $statusIndicator-height: 40px;
 		visibility: hidden;
 		opacity: 0;
 	}
+}
+
+.statusIndicator--critical {
+	background-color: rgba(#e74c3c, .80);
+}
+
+.statusIndicator--warning {
+	background-color: rgba(#e1a92b, .80);
+}
+
+.statusIndicator--message {
+	background-color: rgba(#41ce7d, .80);
 }
 
 /** Loading Square **/

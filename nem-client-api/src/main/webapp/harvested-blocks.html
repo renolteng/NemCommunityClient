@@ -11,8 +11,8 @@
 	</head>
 	<body>
 		<script type="text/ractive" id="template">
-			<div id="status-indicator" class="{{^nisStatus}}hide{{/}}">
-				<span>{{nisStatus}}</span>
+			<div class="status-indicator {{^nisStatus}}hide{{/}} {{#nisStatus.type === 'critical'}}statusIndicator--critical{{/}} {{#nisStatus.type === 'warning'}}statusIndicator--warning{{/}} {{#nisStatus.type === 'message'}}statusIndicator--message{{/}}">
+				<span>{{nisStatus.message}}</span>
 			</div>
 			{{#layout.0.name}}
 				{{>0}}
