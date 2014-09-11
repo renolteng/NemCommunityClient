@@ -11,53 +11,18 @@ import java.util.function.*;
  * NodeStatusVisitor that maps status changes to appropriate icons.
  */
 public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
-	private static final List<BiFunction<NemStatus, NemStatus, IconDescriptor>> iconDescriptorPredicates = Arrays.asList(
-			(nccStatus, nisStatus) -> (NemStatus.STARTING == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.starting", "status.ncc.is.stopped"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.RUNNING == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.running", "status.ncc.is.stopped"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.BOOTED == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.booted", "status.ncc.is.stopped"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.SYNCHRONIZED == nisStatus && NemStatus.STOPPED == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.synchronized", "status.ncc.is.stopped"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.STOPPED == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.stopped", "status.ncc.is.starting"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.STARTING == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.starting", "status.ncc.is.starting"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.RUNNING == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.running", "status.ncc.is.starting"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.BOOTED == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.booted", "status.ncc.is.starting"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.SYNCHRONIZED == nisStatus && NemStatus.STARTING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.synchronized", "status.ncc.is.starting"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.STOPPED == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.stopped", "status.ncc.is.running"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.STARTING == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.starting", "status.ncc.is.running"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.RUNNING == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.running", "status.ncc.is.running"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.BOOTED == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.booted", "status.ncc.is.running"))
-					: null,
-			(nccStatus, nisStatus) -> (NemStatus.SYNCHRONIZED == nisStatus && NemStatus.RUNNING == nccStatus)
-					? new IconDescriptor(getImageName(nccStatus, nisStatus), getDescription("status.nis.is.synchronized", "status.ncc.is.running"))
-					: null);
+	private static final Map<NemStatus, String> nemStatusToStateNameMap = new HashMap<NemStatus, String>() {
+		{ this.put(NemStatus.UNKNOWN, "stopped"); }
+		{ this.put(NemStatus.STOPPED, "stopped"); }
+		{ this.put(NemStatus.STARTING, "starting"); }
+		{ this.put(NemStatus.RUNNING, "running"); }
+		{ this.put(NemStatus.BOOTED, "booted"); }
+		{ this.put(NemStatus.SYNCHRONIZED, "synchronized"); }
+	};
 
 	private final Consumer<IconDescriptor> iconDescriptorConsumer;
-	private NemStatus nccStatus;
-	private NemStatus nisStatus;
+	private NemStatus nccStatus = clampNemStatus(NemStatus.UNKNOWN);
+	private NemStatus nisStatus = clampNemStatus(NemStatus.UNKNOWN);
 
 	/**
 	 * Creates a new visitor.
@@ -74,26 +39,39 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	public void notifyStatus(final NemNodeType type, final NemStatus status) {
 		switch (type) {
 			case NCC:
-				this.nccStatus = status;
+				this.nccStatus = clampNemStatus(clampNccStatus(status));
 				break;
 
 			case NIS:
-				this.nisStatus = status;
+				this.nisStatus = clampNemStatus(status);
 				break;
 		}
 
 		this.iconDescriptorConsumer.accept(this.getDescriptor());
 	}
 
-	private IconDescriptor getDescriptor() {
-		for (final BiFunction<NemStatus, NemStatus, IconDescriptor> func : iconDescriptorPredicates) {
-			final IconDescriptor descriptor = func.apply(this.nccStatus, this.nisStatus);
-			if (null != descriptor) {
-				return descriptor;
-			}
-		}
+	private static NemStatus clampNemStatus(final NemStatus status) {
+		return NemStatus.UNKNOWN == status ? NemStatus.STOPPED : status;
+	}
 
-		return new IconDescriptor("icon_00.png", getDescription("status.nis.is.stopped", "status.ncc.is.stopped"));
+	private static NemStatus clampNccStatus(final NemStatus status) {
+		switch (status) {
+			case BOOTED:
+			case SYNCHRONIZED:
+				return NemStatus.RUNNING;
+
+			default:
+				return status;
+		}
+	}
+
+	private IconDescriptor getDescriptor() {
+		final String imageName = getImageName(nccStatus, nisStatus);
+		final String description = getDescription(
+				String.format("status.nis.is.%s", nemStatusToStateNameMap.get(nisStatus)),
+				String.format("status.ncc.is.%s", nemStatusToStateNameMap.get(nccStatus)));
+
+		return new IconDescriptor(imageName, description);
 	}
 
 	private static String getImageName(final NemStatus nccStatus, final NemStatus nisStatus) {
