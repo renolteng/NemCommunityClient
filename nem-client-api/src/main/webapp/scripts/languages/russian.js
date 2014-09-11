@@ -260,7 +260,6 @@
                                        primary: 'Главный',
                                        primaryShort: 'Г',
                                        noLabel: '<Без маркировки>',
-                                       copyToClipboard: 'Кликните для копирования адреса в буфер обмена',
                                        copiedToClipboard: 'Адрес был скопирован в буфер обмена!',
                                        actions: {
                                                    refreshInfo: 'Обновить информацию',
@@ -276,7 +275,8 @@
                                                    removeAccount: 'Удалить Аккаунт',
                                                    clientInfo: 'Информация о Клиенте',
                                                    closeWallet: 'Закрыть Кошелёк',
-                                                   closeProgram: 'Закрыть Программу'
+                                                   closeProgram: 'Закрыть Программу',
+                                                   copyClipboard: 'Copy address to clipboard'
                                        },
                                        nav: [
                                                    'Панель Управления',

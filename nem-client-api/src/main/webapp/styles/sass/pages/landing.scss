@@ -3,36 +3,53 @@
 @import '../mixins';
 
 $page-minWidth: 1130px;
-$left-space: 155px;
-$right-space: 150px;
-$spreading-rate: 20%;
+$leftSpace: 155px;
+$rightSpace: 150px;
+$spreadingRate: 20%;
 
 $header-height: 50px;
 $carousel-height: 220px;
 $footer-height: 50px;
-$realContent-width: 690px;
 
-$side-padding: ($container-width - $realContent-width) / 2;
-
-$zIndex-bars: 100;
-$zIndex-background: 0;
-$zIndex-gates: 200;
-$zIndex-overlayContent: 300;
-$zIndex-scrollHeader: 400;
-
-$main-orgWidth: 1600px;
-$main-orgHeight: 706px;
-
-$images-count: 2;
+/*$images-count: 2;
 $visible-time: 6s;
 $fadeIn-time: $visible-time / 3;
 $visible-scaledUp: .1;
 
 $visible-percent: 100% / $images-count;
 $fadeIn-percent: $visible-percent * $fadeIn-time / $visible-time ;
-$fadeOut-percent: $visible-percent + $fadeIn-percent;
+$fadeOut-percent: $visible-percent + $fadeIn-percent;*/
 
-@mixin keyframe-content($vendor) {
+// ================================================================================
+// Z-INDEX STACKING CONTEXT TREE
+// ================================================================================
+
+$zIndex-main:			10;
+	$zIndex-bg:				10;
+	$zIndex-gates:			20;
+	$zIndex-overlayContent:	30;
+$zIndex-scrollHeader:	20;
+
+$main-orgWidth: 1600px;
+$main-orgHeight: 706px;
+
+.landingSubmitBtn {
+	$bgColor: #e6801d;
+	background-color: $bgColor;
+	color: #fff;
+	@include border-radius(4px);
+	text-align: center;
+	font-size: 12px;
+	font-weight: $fontWeight-medium;
+	padding-top: 5px;
+	padding-bottom: 6px;
+
+	&:hover {
+		background-color: lighten($bgColor, 7%);
+	}
+}
+
+/*@mixin keyframe-content($vendor) {
 	0% {
 		opacity: 0;
 		#{$vendor}animation-timing-function: ease-in;
@@ -69,22 +86,17 @@ $fadeOut-percent: $visible-percent + $fadeIn-percent;
 }
 @keyframes background-animation { 
 	@include keyframe-content('');
-}
+}*/
 
 html.landing {
 	min-width: $container-width;
 	background-color: #ebebeb;
-}
 
-/*header {
-	z-index: $zIndex-bars;
-	width: 100%;
-	height: $header-height;
-	line-height: $header-height;
-	background-color: #444444;
-	color: #fff;
-	padding-left: 100% * $left-space / $page-minWidth;
-}*/
+	main {
+		position: relative;
+		z-index: $zIndex-main;
+	}
+}
 
 #scroll-header {
 	background-color: #fff;
@@ -94,8 +106,8 @@ html.landing {
 	position: fixed;
 	top: 0;
 	@include translate3d(0,-$header-height,0);
-	z-index: $zIndex-scrollHeader;
 	@include transition(transform .3s);
+	z-index: $zIndex-scrollHeader;
 
 	&.in {
 		@include translate3d(0,0,0);
@@ -103,7 +115,7 @@ html.landing {
 
 	.logo {
 		float: left;
-		margin-left: 100% * $left-space / $page-minWidth;
+		margin-left: 100% * $leftSpace / $page-minWidth;
 		img {
 			width: 95px;
 			height: 34px;
@@ -112,7 +124,7 @@ html.landing {
 
 	nav {
 		float: right;
-		margin-right: 100% * $right-space / $page-minWidth;
+		margin-right: 100% * $rightSpace / $page-minWidth;
 		li {
 			float: left;
 			margin-left: 42px;
@@ -155,13 +167,12 @@ html.landing {
 }
 
 #bg-slideshow {
-    z-index: $zIndex-background;
     overflow: hidden;
-
     background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-image: url(../../images/landing-bg.jpg);
+	z-index: $zIndex-bg;
 
     &:before {
     	content: '';
@@ -170,8 +181,8 @@ html.landing {
     	height: 0;
     	position: absolute;
     	top: 0;
-    	z-index: $images-count + 1;
     	@include box-shadow(0 0 300px 100px #000);
+    	/*z-index: $images-count + 1;*/
     }
 
     &:after {
@@ -179,7 +190,7 @@ html.landing {
     	background-image: url(../../images/pattern.png);
     	@include opacity(.03);
     	background-repeat: repeat;
-    	z-index: $images-count;
+    	/*z-index: $images-count;*/
     }
 
 	/*li {
@@ -202,8 +213,8 @@ html.landing {
 }
 
 #sliding-gate {
-	z-index: $zIndex-gates;
 	overflow: hidden;
+	z-index: $zIndex-gates;
 }
 
 #left-half, #right-half {
@@ -260,13 +271,13 @@ html.landing {
 $formContent-maxHeight: 250px;
 $formContent-sidePadding: 19px;
 #overlay-content {
-	z-index: $zIndex-overlayContent;
 	color: #fff;
+	z-index: $zIndex-overlayContent;
 
 	.logo {
 		float: left;
 		margin-top: 28px;
-		margin-left: 100% * $left-space / $page-minWidth;
+		margin-left: 100% * $leftSpace / $page-minWidth;
 		img {
 			width: 155px;
 			height: 55px;
@@ -276,7 +287,7 @@ $formContent-sidePadding: 19px;
 	nav {
 		float: right;
 		margin-top: 42px;
-		margin-right: 100% * $right-space / $page-minWidth;
+		margin-right: 100% * $rightSpace / $page-minWidth;
 		
 		li {
 			float: left;
@@ -314,7 +325,7 @@ $formContent-sidePadding: 19px;
 	.cta-area {
 		position: relative;
 		height: 100%;
-		width: calc(#{$container-width - $page-minWidth * $spreading-rate / 100%} + #{$spreading-rate});
+		width: calc(#{$container-width - $page-minWidth * $spreadingRate / 100%} + #{$spreadingRate});
 		margin-left: auto;
 		margin-right: auto;
 		opacity: 0;
@@ -345,13 +356,14 @@ $formContent-sidePadding: 19px;
 		text-align: center;
 		position: relative;
 		overflow: hidden;
+		z-index: 0;
+		$zIndex-bg: -1;
 
 		&:after {
 			content: '';
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			z-index: -1;
 			width: 100%;
 			height: 0;
 			background-color: #fff;
@@ -360,6 +372,7 @@ $formContent-sidePadding: 19px;
 			@include transform(translateX(-50%) translateY(-50%) translateZ(0) rotate(45deg));
 			@include transition-property(opacity, height);
 			@include transition-duration(.4s);
+			z-index: $zIndex-bg;
 		}
 	}
 
@@ -393,7 +406,8 @@ $formContent-sidePadding: 19px;
     }
 
     &.locked {
-    	.left.region .submit input, .right.region .password-prompt .red-button {
+    	.left.region .submit input, 
+    	.right.region .password-prompt .landingSubmitBtn {
     		background-color: #888888;
     		pointer-events: none;
 		}
@@ -407,7 +421,7 @@ $action-area-height: 130px;
 	top: calc(36% - #{$action-area-height / 2});
 
 	&.left {
-		left: $left-space;
+		left: $leftSpace;
 
 		.form {
 			.content {
@@ -483,7 +497,7 @@ $action-area-height: 130px;
 	&.right {
 		$headline-height: 44px;
 		bottom: calc(26% + #{$action-area-height / 2});
-		right: $right-space;
+		right: $rightSpace;
 		text-align: right;
 		@include transition(transform .8s);
 		@include translate3d(0, 100%, 0);
@@ -576,7 +590,7 @@ $action-area-height: 130px;
 				}
 			}
 
-			.red-button {
+			.landingSubmitBtn {
 				text-transform: uppercase;
 				width: $button-width;
 				padding: 3px 0;
@@ -628,7 +642,6 @@ main.right .left.region h1 {
 #tips-carousel {
 	$viewport-width: 900px;
 	$line-height: 68px;
-	z-index: $zIndex-bars + 1;
 	height: $carousel-height;
 	background: #444444 url(../../images/dot-Pattern.jpg) repeat 0 0;
 	color: #ebebeb;
@@ -661,15 +674,19 @@ main.right .left.region h1 {
 		background-color: #444444;
 		overflow: hidden;
 		@include border-radius(4px);
+		z-index: 0;
+		$zIndex-bg: -1;
 
 		span {
 			background-color: transparent;
 		}
 		&.prev {
 			left: 30px;
+
 			&:after {
 				right: 100%;
 			}
+
 			&:hover {
 				&:after {
 					right: 0;
@@ -678,9 +695,11 @@ main.right .left.region h1 {
 		}
 		&.next {
 			right: 30px;
+
 			&:after {
 				left: 100%;
 			}
+
 			&:hover {
 				&:after {
 					left: 0;
@@ -690,7 +709,6 @@ main.right .left.region h1 {
 		&:before {
 			position: relative;
 			vertical-align: -6px;
-			z-index: 2;
 		}
 
 		&:after {
@@ -701,13 +719,14 @@ main.right .left.region h1 {
 			width: 100%;
 			height: 100%;
 			background-color: #ebebeb;
-			z-index: 1;
 			@include border-radius(4px);
 			@include transition-property(left, right);
 			@include transition-duration(.3s);
+			z-index: $zIndex-bg;
 		}
 		&:hover {
 			color: #444444;
+
 			&:after {
 				right: 0;
 			}
@@ -812,7 +831,6 @@ main.right .left.region h1 {
 
 footer {
 	position: relative;
-	z-index: $zIndex-bars;
 	height: $footer-height;
 	line-height: $footer-height;
 	background-color: #fff;

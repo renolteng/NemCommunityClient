@@ -1,7 +1,7 @@
 package org.nem.ncc.exceptions;
 
 import org.nem.core.connect.ErrorResponse;
-import org.nem.core.model.ncc.NisRequestResult;
+import org.nem.core.model.ncc.NemRequestResult;
 
 import java.util.*;
 
@@ -137,7 +137,7 @@ public class NisException extends NccException {
 	 *
 	 * @param result The result of a request to the NIS server.
 	 */
-	public NisException(final NisRequestResult result) {
+	public NisException(final NemRequestResult result) {
 		super(Code.fromMessage(result.getMessage()));
 	}
 }

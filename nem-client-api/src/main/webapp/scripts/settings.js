@@ -5,7 +5,7 @@
         name: 'settings',
         url: 'settings.html',
         template: 'rv!layout/settings',
-        parent: 'wallet-pages',
+        parent: 'wallet',
     	setupEverytime: function() {
     		var local = this.local;
     		

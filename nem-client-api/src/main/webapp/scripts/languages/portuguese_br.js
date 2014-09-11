@@ -258,7 +258,6 @@ define({
 			primary: 'primário',
 			primaryShort: 'P',
 			noLabel: '<Sem identificação>',
-			copyToClipboard: 'Clique para copiar o endereço para a memória',
 			copiedToClipboard: 'O endereço foi copiado para a memória!',
 			actions: {
 				refreshInfo: 'Atualizar informações',
@@ -274,7 +273,8 @@ define({
 				removeAccount: 'Remover a Conta',
 				clientInfo: 'Informação do cliente',
 				closeWallet: 'Fechar a carteira',
-				closeProgram: 'Fechar o programa'
+				closeProgram: 'Fechar o programa',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Painel', //Dashboard

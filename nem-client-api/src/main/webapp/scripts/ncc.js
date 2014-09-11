@@ -70,6 +70,148 @@ define(function(require) {
         }
     });
 
+    var SendNemModal = NccModal.extend({
+        data: {
+            isFeeAutofilled: true,
+            dueBy: 12
+        },
+        computed: {
+            amount: function() {
+                return ncc.toMNem(this.get('formattedAmount').replace(/\u2009/g, ''));
+            },
+            recipient: function() {
+                return ncc.restoreAddress(this.get('formattedRecipient')) || ncc.get('activeAccount.address');
+            },
+            message: function() {
+                return this.get('rawMessage') && this.get('rawMessage').toString();
+            },
+            encrypt: function() {
+                return this.get('encrypted') ? 1 : 0;
+            },
+            hours_due: function() {
+                return this.get('dueBy') | 0;
+            },
+            fee: {
+                get: function() {
+                    return ncc.toMNem(this.get('formattedFee').replace(/\u2009/g, ''))
+                },
+                set: function(fee) {
+                    this.set('formattedFee', ncc.formatCurrency(fee));
+                }
+            }
+        },
+        resetFee: function(forceReset, silent) {
+            var requestData = {
+                wallet: ncc.get('wallet.name'),
+                account: ncc.get('activeAccount.address'),
+                amount: this.get('amount'),
+                message: this.get('message'),
+                encrypt: this.get('encrypt'),
+                recipient: this.get('recipient'),
+                hours_due: this.get('hours_due')
+            };
+            var self = this;
+            
+            ncc.postRequest('wallet/account/transaction/fee', requestData, 
+                function(data) {
+                    var currentFee = self.get('fee');
+                    var newFee = data.fee;
+                    if (newFee || newFee === 0) {
+                        if (forceReset || !currentFee || currentFee < newFee) {
+                            self.set('fee', newFee);
+                            self.set('isFeeAutofilled', true);
+                        }
+                    }
+                }, 
+                null, silent
+            );
+        },
+        init: function() {
+            (new NccModal()).init.call(this);
+
+            var self = this;
+
+            this.observe('fee', function(newValue, oldValue, keypath) {
+                this.set('isFeeAutofilled', false);
+            });
+
+            this.observe('amount message encrypt', (function() {
+                var t;
+                return function() {
+                    if (t) clearTimeout(t);
+                    t = setTimeout(function() {
+                        self.resetFee(self.get('isFeeAutofilled'), true);
+                    }, 500);
+                }
+            })(), {
+                init: false
+            });
+
+            this.on({
+                resetFee: function() {
+                    this.resetFee(true, false );
+                },
+                sendTransaction: function() {
+                    var activeAccount = ncc.get('activeAccount.address');
+                    var requestData = {
+                        wallet: ncc.get('wallet.name'),
+                        account: activeAccount,
+                        password: this.get('password'),
+                        amount: this.get('amount'),
+                        recipient: this.get('recipient'),
+                        message: this.get('message'),
+                        fee: this.get('fee'),
+                        encrypt: this.get('encrypt'),
+                        hours_due: this.get('hours_due')
+                    };
+                    this.lockAction();
+
+                    ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
+                        ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'), function() {
+                            ncc.refreshInfo();
+                        });
+
+                        self.close();
+
+                        ncc.refreshAccount();
+                    },
+                    {
+                        complete: function() {
+                            self.set('password', '');
+                            self.unlockAction();
+                        }
+                    });
+                },
+                sendFormKeypress: function(e) {
+                    if (e.original.keyCode === 13) {
+                        this.fire('sendTransaction');
+                    }
+                },
+                queryRecipient: function() {
+                    var recipient = this.get('recipient');
+                    ncc.postRequest('account/find', { account: recipient }, 
+                        function(data) {
+                            if (data.address) {
+                                self.set('recipientLabel', data.label || '');
+                            } else {
+                                self.set('recipientLabel', null);
+                            }
+                        }, 
+                        {
+                            error: function() {
+                                self.set('recipientLabel', null);
+                            },
+                            altFailCb: function() {
+                                self.set('recipientLabel', null);
+                            }
+                        },
+                        true
+                    );
+                }
+            });
+        }
+    });
+
     var NccRactive = Ractive.extend({
         el: document.body,
         template: '#template',
@@ -113,7 +255,7 @@ define(function(require) {
             messageModal: NccModal,
             confirmModal: NccModal,
             inputModal: NccModal,
-            sendNemModal: NccModal,
+            sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
             unclosableMessageModal: NccModal
@@ -246,7 +388,7 @@ define(function(require) {
             return address.replace(/\-/g, '');
         },
         addThousandSeparators: function(num) {
-            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, '&thinsp;');
+            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, '\u2009');
         },
         minDigits: function(num, digits) {
             num = num.toString(10);

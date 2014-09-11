@@ -19,11 +19,11 @@
 			{{/}}
 			<inputModal modalClass="input" disableEasyClose="true">
 				{{#message}}
-					<p class="message">
+					<p class="modal-message">
 						{{message}}
 					</p>
 				{{/}}
-				<div class="form">
+				<div class="modal-form">
 					{{#fields}}
 						<div class="field">
 							<p><label>
@@ -51,7 +51,7 @@
 					{{/}}
 				</div>
 				<div>
-					<button type="button" class="submit-button modal-button primary {{#processing}}disabled{{/}}" on-click="submit">
+					<button type="button" class="modal-submitBtn modal-button primary {{#processing}}disabled{{/}}" on-click="submit">
 						{{^processing}}
 							{{submitLabel}}
 						{{/}}
@@ -63,7 +63,7 @@
 			</inputModal>
 			<confirmModal modalClass="confirm" disableEasyClose="true">
 				<p><em>{{message}}</em></p>
-				<div class="actions">
+				<div class="modal-actions">
 					{{#actions}}
 						<button type="button" class="modal-button {{.cssClass}}" on-click="confirm:{{.action}}">{{.label}}</button>
 					{{/}}
@@ -71,7 +71,7 @@
 			</confirmModal>
 			<messageModal modalClass="message" closeOnEnter="true">
 				<p><em>{{{message}}}</em></p>
-				<div class="actions">
+				<div class="modal-actions">
 					<button type="button" class="modal-button neutral" on-click="closeModal">OK</button>
 				</div>
 			</messageModal>
@@ -91,13 +91,13 @@
 			<div tabindex="-1" class="modal-container {{#isActive}}active{{/}}" on-click="{{^disableEasyClose}}modalContainerClick{{/}}" on-keyup="{{^disableEasyClose}}modalContainerKeyup{{/}}">
 				<article class="modal {{modalClass}}">
 					<div class="modal-head">
-						<h1>{{modalTitle}}</h1>
+						<h1 class="modal-title">{{modalTitle}}</h1>
 					</div>
 					<div class="modal-body">
 						{{>content}}
 					</div>
 					{{^noCloseButton}}
-						<button type="button" class="close-button icon-close-plain" on-click="closeModal"></button>
+						<button type="button" class="modal-closeBtn icon-close-plain" on-click="closeModal"></button>
 					{{/}}
 				</article>
 			</div>

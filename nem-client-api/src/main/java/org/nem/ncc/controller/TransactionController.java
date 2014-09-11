@@ -4,7 +4,7 @@ import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.Signer;
 import org.nem.core.model.*;
-import org.nem.core.model.ncc.NisRequestResult;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
@@ -53,7 +53,7 @@ public class TransactionController {
 		final RequestAnnounce announce = new RequestAnnounce(
 				preparedTransaction.getData(),
 				signer.sign(preparedTransaction.getData()).getBytes());
-		final NisRequestResult result = new NisRequestResult(this.nisConnector.post(
+		final NemRequestResult result = new NemRequestResult(this.nisConnector.post(
 				NisApiId.NIS_REST_TRANSACTION_ANNOUNCE,
 				new HttpJsonPostRequest(announce)));
 		if (result.isError()) {

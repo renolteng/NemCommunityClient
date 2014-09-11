@@ -1,21 +1,18 @@
 @import 'compass';
-@import '../../config';
-@import '../../mixins';
+@import '../config';
+@import '../mixins';
+@import 'wallet-pages';
 
 $sidebar-width: 296px;
-$mini-sidebar-width: 44px;
+$miniSidebar-width: 44px;
 $header-height: 100px;
-
-$tile-width: 294px;
-$tile-hGap: 20px;
-$tile-columns: 3;
 
 $mainContent-width: $tile-width * $tile-columns + $tile-hGap * ($tile-columns - 1);
 $mainContent-leftPadding: 22px;
 $mainContent-rightPadding: 0;
 $mainContent-topPadding: $header-height;
 
-$boundary-width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
+$small-screen: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 
 #wallet-page-header {
 	width: 100%;
@@ -23,7 +20,6 @@ $boundary-width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 	position: fixed;
 	top: 0;
 	background-color: #fff;
-	z-index: 300;
 	border-bottom: 1px solid #ebebeb;
 
 	.container {
@@ -165,29 +161,10 @@ $boundary-width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 			vertical-align: middle;
 		}
 
-		.options {
+		.dropdownMenu {
 			position: absolute;
 			right: 0;
 			top: calc(100% + 20px);
-			background-color: #ebebeb;
-			border-bottom: 2px solid #d4d4d4;
-
-			li {
-				padding: 6px 15px;
-				white-space: nowrap;
-				font-weight: $fontWeight-medium;
-				cursor: pointer;
-				&:hover {
-					background-color: #d4d4d4;
-				}
-				&.separator {
-					border-bottom: 1px solid #d4d4d4;
-				}
-				&.disabled {
-					color: #888888;
-					pointer-events: none;
-				}
-			}
 		}
 	}
 }
@@ -256,13 +233,13 @@ $boundary-width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 	width: calc(100% - #{$sidebar-width});
 }
 
-$drop-arrow-width: 33px;
+$account-actions-width: 33px;
 .account {
 	$height: 80px;
 	font-size: 14px;
 	color: #fff;
-	
-	@extend %clearfix;
+	position: relative;
+	cursor: pointer;
 
 	.account-id {
 		margin-bottom: 3px;
@@ -283,13 +260,24 @@ $drop-arrow-width: 33px;
 	}
 
 	.account-info {
-		float: left;
-		//width: calc(100% - #{$drop-arrow-width});
 		min-height: $height;
-		//padding: 10px 5px 6px 21px;
+		@include transition(background-color .3s);
+
 		p {
 			margin-bottom: 3px;
 		}
+	}
+
+	.account-actions {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: $account-actions-width;
+		height: $height;
+		line-height: $height;
+		text-align: center;
+		font-size: 14px;
+		background-color: #2e3541;
 	}
 
 	.primary {
@@ -301,28 +289,17 @@ $drop-arrow-width: 33px;
 		color: #fff;
 	}
 
-	.drop-arrow {
-		float: right;
-		width: $drop-arrow-width;
-		height: $height;
-		line-height: $height;
-		text-align: center;
-		font-size: 12px;
-	}
-
-	&.active {
-		//background-color: #2e3541;
-		&.selecting {
-			background-color: #161a20;
-		}
-	}
-
 	.account-select & {
-		cursor: pointer;
 		background-color: #1b1f27;
 		&:hover {
 			background-color: #161a20;
 		}
+	}
+
+	.dropdownMenu {
+		position: absolute;
+		top: 100%;
+		right: 0;
 	}
 }
 
@@ -338,12 +315,10 @@ $drop-arrow-width: 33px;
 	min-height: 100%;
 
 	&.sidebar-scrollable {
-		position: absolute;
-		width: 100%;
+		@include fill-restOfHeight-container();
 
 		#wallet-page-sidebar {
-			position: absolute;
-			height: calc(100% - #{$mainContent-topPadding});
+			@include fill-restOfHeight();
 		}
 	}
 
@@ -362,12 +337,48 @@ $drop-arrow-width: 33px;
 		}
 
 		.active.account {
-			background-color: #2e3541;
+			.account-info {
+				background-color: #2e3541;
+			}
+
+			.account-info:hover, 
+			&.selecting .account-info {
+				background-color: #272e38;
+			}
+
+			.account-info:hover + .account-actions,
+			&.selecting .account-actions {
+				background-color: #272e38;
+
+				.gear {
+					display: none;
+				}
+
+				.arrow {
+					display: initial;
+				}
+			}
+
+			.account-actions {
+				&:hover, &.active {
+					background-color: #272e38;
+				}
+
+				&, &:hover, &.active {
+					.gear {
+						display: initial;
+					}
+
+					.arrow {
+						display: none;
+					}
+				}
+			}
 		}
 
 		.account-info {
 			padding: 10px 5px 6px 21px;
-			width: calc(100% - #{$drop-arrow-width});
+			width: calc(100% - #{$account-actions-width});
 		}
 
 		.primary {
@@ -404,7 +415,7 @@ $drop-arrow-width: 33px;
 
 	@mixin mini-sidebar() {
 		#wallet-page-sidebar {
-			width: $mini-sidebar-width;
+			width: $miniSidebar-width;
 		}
 
 		.mini {
@@ -455,12 +466,12 @@ $drop-arrow-width: 33px;
 
 	@mixin shrunk-container() {
 		.container {
-			padding-left: $mini-sidebar-width + $mainContent-leftPadding;
-			width: $mini-sidebar-width + $mainContent-leftPadding + $mainContent-width;
+			padding-left: $miniSidebar-width + $mainContent-leftPadding;
+			width: $miniSidebar-width + $mainContent-leftPadding + $mainContent-width;
 		}
 	}
 
-	@media (max-width: #{$boundary-width}) {
+	@media (max-width: #{$small-screen}) {
 		&:not(.full-sidebar) {
 			@include mini-sidebar();
 		}
@@ -479,7 +490,6 @@ $drop-arrow-width: 33px;
 	height: 100%;
 	background-color: #252a34;
 	color: $sidebar-textColor;
-	z-index: 200;
 
 	/*.account-info {
 		$avatar-size: $avatar-small;
@@ -508,7 +518,7 @@ $drop-arrow-width: 33px;
 		}
 		.selecter-selected {
 			text-align: center;
-			background: transparent url(../../images/arrow-down-thin.png) no-repeat right 6px;
+			background: transparent url(../images/arrow-down-thin.png) no-repeat right 6px;
 			padding: 0 10px 0 2px;
 			.status-label {
 				display: none;

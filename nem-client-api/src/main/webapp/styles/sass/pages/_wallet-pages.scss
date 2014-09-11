@@ -1,0 +1,11 @@
+@import 'compass';
+@import '../config';
+@import '../mixins';
+
+$tile-columns: 3;
+$tile-width: 294px;
+$tile-hGap: 20px;
+$tile-topPadding: 16px;
+$tile-bottomPadding: 16px;
+$tile-rightPadding: 20px;
+$tile-leftPadding: 20px;

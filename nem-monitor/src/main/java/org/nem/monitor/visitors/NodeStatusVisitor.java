@@ -1,6 +1,7 @@
 package org.nem.monitor.visitors;
 
-import org.nem.monitor.node.*;
+import org.nem.core.model.NemStatus;
+import org.nem.monitor.node.NemNodeType;
 
 /**
  * A visitor that is notified when node statuses change.
@@ -13,5 +14,5 @@ public interface NodeStatusVisitor {
 	 * @param type The node type.
 	 * @param status The node status.
 	 */
-	public void notifyStatus(final NemNodeType type, NemNodeStatus status);
+	public void notifyStatus(final NemNodeType type, NemStatus status);
 }

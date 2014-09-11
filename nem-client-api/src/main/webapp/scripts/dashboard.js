@@ -5,7 +5,7 @@
         name: 'dashboard',
         url: 'dashboard.html',
         template: 'rv!layout/dashboard',
-        parent: 'wallet-pages',
+        parent: 'wallet',
         setupOnce: function() {
 
             // Charts

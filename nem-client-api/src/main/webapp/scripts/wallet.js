@@ -3,7 +3,7 @@
 define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
-        template: 'rv!layout/wallet-pages',
+        template: 'rv!layout/wallet',
         initOnce: function() {
             ncc.refreshWallet = function(wallet, silent) {
                 if (!wallet) wallet = ncc.get('wallet.name');
@@ -92,19 +92,21 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     },
                     function(values, closeModal) {
                         values.account = account;
+                        this.lockAction();
+                        
                         var self = this;
-                        self.lockAction();
                         ncc.postRequest('node/boot', values, function(data) {
                                 closeModal();
                                 ncc.set('status.nodeBooted', true);
-                             },
-                             {
+                                ncc.refreshNisInfo();
+                            },
+                            {
                                 altFailCb: function(faultId) {
-                                     if (601 === faultId) {
-                                         ncc.set('status.nodeBooted', true);
-                                         closeModal();
-                                     }
-                             },
+                                    if (601 === faultId) {
+                                        ncc.set('status.nodeBooted', true);
+                                        closeModal();
+                                    }
+                            },
                             complete: function() {
                                 self.unlockAction();
                             }
@@ -143,30 +145,13 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             var local = this.local;
 
             require(['zeroClipboard'], function(ZeroClipboard) {
-                local.client = new ZeroClipboard($('.copyClipboard'));
+                local.client = new ZeroClipboard($('#addressClipboard'));
 
                 local.client.on('ready', function() {
                     local.client.on('aftercopy', function() {
                         ncc.showTempMessage(ncc.get('texts.wallet.copiedToClipboard'));
                     });
                 });
-
-                require(['tooltipster'], function() {
-                    $('#global-zeroclipboard-flash-bridge').tooltipster({
-                        content: ncc.get('texts.wallet.copyToClipboard'),
-                        position: 'bottom',
-                        delay: 50
-                    });
-                });
-            });
-
-            require(['maskedinput'], function() {
-                var $recipient = $('.form-control.recipient');
-                // on-change doesn't work with maskedInput
-                $recipient.on('change', function() {
-                    modal.fire('queryRecipient');
-                });
-                $recipient.mask('******-******-******-******-******-******-****');
             });
 
             local.listeners.push(ncc.on({
@@ -483,7 +468,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         },
                         function(values, closeModal) {
                             if (values['new_password'] === values.confirmPassword) {
-                                delete values.confirmPassword;
+                                values.confirmPassword = undefined;
                                 ncc.postRequest('wallet/password/change', values, function(data) {
                                     ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
                                     closeModal();
@@ -625,110 +610,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }
             }));
 
-            var modal = ncc.getModal('sendNem');
-
-            var resetFee = (function() {
-                var requestData = {
-                    wallet: ncc.get('wallet.name'),
-                    account: ncc.get('activeAccount.address')
-                };
-                return function(forceReset, silent) {
-                    requestData.amount = ncc.toMNem(modal.get('amount'));
-                    requestData.message = modal.get('message') && modal.get('message').toString();
-                    requestData.encrypt = modal.get('encrypted') ? 1 : 0;
-                    requestData.recipient = ncc.restoreAddress($('.recipient.form-control').val()) || ncc.get('activeAccount.address');
-                    requestData.hours_due = modal.get('dueBy') | 0,
-                    
-                    ncc.postRequest('wallet/account/transaction/fee', requestData, function(data) {
-                            var currentFee = modal.get('fee');
-                            var newFee = data.fee / 1000000;
-                            if (newFee || newFee === 0) {
-                                if (forceReset || !currentFee || currentFee < newFee) {
-                                    modal.set('fee', newFee);
-                                    modal.set('isFeeAutofilled', true);
-                                }
-                            }
-                        }, null, silent
-                    );
-                };
-            })();
-
-            modal.observe('fee', function(newValue, oldValue, keypath) {
-                modal.set('isFeeAutofilled', false);
-            });
-
-            modal.observe('amount message encrypted', (function() {
-                var t;
-                return function() {
-                    if (t) clearTimeout(t);
-                    t = setTimeout(function() {
-                        resetFee(modal.get('isFeeAutofilled'), true);
-                    }, 500);
-                }
-            })(), {
-                init: false
-            });
-
-            modal.on({
-                resetFee: function() {
-                    resetFee(true, false );
-                },
-                sendTransaction: function() {
-                    var activeAccount = ncc.get('activeAccount.address');
-                    var requestData = {
-                        wallet: ncc.get('wallet.name'),
-                        password: modal.get('password'),
-                        account: activeAccount,
-                        recipient: ncc.restoreAddress($('.recipient.form-control').val()),
-                        amount: ncc.toMNem(modal.get('amount')),
-                        message: modal.get('message') && modal.get('message').toString(),
-                        fee: ncc.toMNem(modal.get('fee')),
-                        hours_due: modal.get('dueBy') | 0,
-                        encrypt: modal.get('encrypted')? 1 : 0
-                    };
-                    modal.lockAction();
-                    ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                        ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'), function() {
-                            ncc.refreshInfo();
-                        });
-
-                        modal.close();
-
-                        ncc.refreshAccount();
-                    },
-                    {
-                        complete: function() {
-                            modal.set('password', '');
-                            modal.unlockAction();
-                        }
-                    });
-                },
-                sendFormKeypress: function(e) {
-                    if (e.original.keyCode === 13) {
-                        this.fire('sendTransaction');
-                    }
-                },
-                queryRecipient: function() {
-                    var address = ncc.restoreAddress($('.recipient.form-control').val());
-                    ncc.postRequest('account/find', { account: address }, function(data) {
-                            if (data.address) {
-                                modal.set('recipientLabel', data.label || '');
-                            } else {
-                                modal.set('recipientLabel', null);
-                            }
-                        }, 
-                        {
-                            error: function() {
-                                modal.set('recipientLabel', null);
-                            },
-                            altFailCb: function() {
-                                modal.set('recipientLabel', null);
-                            }
-                        },
-                    true);
-                }
-            });
-
             (function() {
                 var $win = $(window);
                 var $sidebarNav = $('#wallet-page-sidebar nav');
@@ -744,20 +625,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 $win.on('resize.scrollableSidebar', decideSidebarScrollability);
                 decideSidebarScrollability();
             })();
-
-            /*require(['stepper'], function() {
-                $('.form-control.due-by input').stepper({
-                    labels: {
-                        up: '',
-                        down: ''
-                    }
-                });
-            });*/
-
-            modal.set({
-                isFeeAutofilled: true,
-                dueBy: 12
-            });
 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
@@ -780,6 +647,35 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     }
                 }, true);
             }
+
+            require(['maskedinput'], function() {
+                var pattern1 = '#\u2009##0d';
+                var pattern2 = '#\u2009##0.999999';
+                var options = {
+                    translation: {
+                        'd': {
+                            pattern: /\./,
+                            optional: true
+                        }
+                    },
+                    onKeyPress: function(amount, e, currentField, options) {
+                        if (amount.indexOf('.') === -1) {
+                            $amount.mask(pattern1, this);
+                        } else {
+                            $amount.mask(pattern2, this);
+                        }
+                    },
+                    maxlength: false,
+                    reverse: true
+                };
+
+                var $amount = $('.form-control.amount input');
+                var $fee = $('.form-control.fee input');
+
+                $amount.mask(pattern1, options);
+                $fee.mask(pattern1, options);
+
+            });
         },
         leave: [function() {
             $(window).off('resize.scrollableSidebar');

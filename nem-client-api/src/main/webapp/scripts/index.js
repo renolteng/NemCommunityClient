@@ -13,7 +13,7 @@ require.config({
         'selecter': 'plugins/jquery.fs.selecter.min',
         'stepper': 'plugins/jquery.fs.stepper.min',
         'gridster': 'plugins/jquery.gridster.min',
-        'maskedinput': 'plugins/jquery.maskedinput.min',
+        'maskedinput': 'plugins/jquery.mask.min',
         'dropit': 'plugins/dropit.min',
         'zeroClipboard': 'plugins/ZeroClipboard.min',
         'tooltipster': 'plugins/jquery.tooltipster.min',
@@ -77,24 +77,31 @@ define(['ncc'], function(ncc) {
     checkNodeStatus();
     setInterval(checkNodeStatus, 30000);
 
-    (function refreshNisInfo() {
+    (function() {
         var waitTime = 30000;
-        ncc.getRequest('info/nis',
-            function(data) {
-                ncc.set('nis', data);
-                ncc.set('nis.nodeMetaData.lastBlockBehind', (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60);
-                if (data.nodeMetaData.maxBlockChainHeight === data.nodeMetaData.nodeBlockChainHeight) {
-                    waitTime = 60000;
-                } else {
-                    waitTime = 30000;
-                }
-            },
-            {
-                complete: function() {
-                    setTimeout(refreshNisInfo, waitTime);
-                }
-            },
-            true
-        );
+        var t = 0;
+
+        ncc.refreshNisInfo = function() {
+            clearTimeout(t);
+            ncc.getRequest('info/nis',
+                function(data) {
+                    ncc.set('nis', data);
+                    ncc.set('nis.nodeMetaData.lastBlockBehind', (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60);
+                    if (data.nodeMetaData.maxBlockChainHeight === data.nodeMetaData.nodeBlockChainHeight) {
+                        waitTime = 60000;
+                    } else {
+                        waitTime = 30000;
+                    }
+                },
+                {
+                    complete: function() {
+                        t = setTimeout(ncc.refreshNisInfo, waitTime);
+                    }
+                },
+                true
+            );
+        };
+
+        ncc.refreshNisInfo();
     })();
 });

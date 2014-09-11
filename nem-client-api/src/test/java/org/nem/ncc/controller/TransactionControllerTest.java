@@ -8,7 +8,7 @@ import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
-import org.nem.core.model.ncc.NisRequestResult;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
@@ -99,8 +99,8 @@ public class TransactionControllerTest {
 
 	private Deserializer getNisRequestResultDeserializer(final int code) {
 		final MockAccountLookup accountLookup = new MockAccountLookup();
-		final NisRequestResult result = new NisRequestResult(
-				NisRequestResult.TYPE_VALIDATION_RESULT,
+		final NemRequestResult result = new NemRequestResult(
+				NemRequestResult.TYPE_VALIDATION_RESULT,
 				code,
 				"RESULT_STRING");
 		final JsonSerializer serializer = new JsonSerializer();
