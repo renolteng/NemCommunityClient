@@ -62,7 +62,7 @@ public class TransactionMapper {
 	 * @param request The request.
 	 * @return The model.
 	 */
-	public Transaction toModel(final RemoteHarvestRequest request, final int mode) {
+	public Transaction toModel(final TransferImportanceRequest request, final int mode) {
 		return toModel(request, request.getPassword(), mode);
 	}
 

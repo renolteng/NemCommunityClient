@@ -2,6 +2,7 @@ package org.nem.ncc.wallet;
 
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 
 import java.math.BigInteger;
@@ -13,7 +14,8 @@ public class WalletAccount implements SerializableEntity {
 	private final Address address;
 	private final PrivateKey privateKey;
 	//Will only be filled if the account is used for remote harvesting.
-	private PrivateKey remoteHarvestingPrivateKey; 
+	private PrivateKey remoteHarvestingPrivateKey;
+	private NodeEndpoint remoteHarvestingEndpoint;
 
 	/**
 	 * Creates a new wallet account around a new account.
@@ -23,6 +25,7 @@ public class WalletAccount implements SerializableEntity {
 		this.address = Address.fromPublicKey(keyPair.getPublicKey());
 		this.privateKey = keyPair.getPrivateKey();
 		this.remoteHarvestingPrivateKey = null;
+		this.remoteHarvestingEndpoint = null;
 	}
 
 	/**
@@ -31,13 +34,7 @@ public class WalletAccount implements SerializableEntity {
 	 * @param privateKey The private key.
 	 */
 	public WalletAccount(final PrivateKey privateKey) {
-		if (null == privateKey) {
-			throw new IllegalArgumentException("wallet account requires private key");
-		}
-
-		this.address = Address.fromPublicKey(new KeyPair(privateKey).getPublicKey());
-		this.privateKey = privateKey;
-		this.remoteHarvestingPrivateKey = null;
+		this(privateKey, null);
 	}
 
 	/**
@@ -54,6 +51,8 @@ public class WalletAccount implements SerializableEntity {
 
 		this.address = Address.fromPublicKey(new KeyPair(privateKey).getPublicKey());
 		this.privateKey = privateKey;
+		this.remoteHarvestingPrivateKey = null;
+		this.remoteHarvestingEndpoint = null;
 		//Be fault tolerant
 		if(remoteHarvestingPK != null) {
 			this.remoteHarvestingPrivateKey = new PrivateKey(remoteHarvestingPK);
@@ -66,7 +65,9 @@ public class WalletAccount implements SerializableEntity {
 	 * @param deserializer The deserializer.
 	 */
 	public WalletAccount(final Deserializer deserializer) {
-		this(new PrivateKey(deserializer.readBigInteger("privateKey")), deserializer.readOptionalBigInteger("remoteHarvestPrivateKey"));
+		this(new PrivateKey(deserializer.readBigInteger("privateKey")), deserializer.readOptionalBigInteger("remoteHarvestingPrivateKey"));
+		NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);
+		this.remoteHarvestingEndpoint = endpoint;
 	}
 
 	/**
@@ -100,11 +101,32 @@ public class WalletAccount implements SerializableEntity {
 		return remoteHarvestingPrivateKey;
 	}
 
+	/**
+	 * Gets the node endpoint of the remote harvesting nis node.
+	 *
+	 * @return The endpoint.
+	 */
+	public NodeEndpoint getRemoteHarvestingEndpoint() {
+		return remoteHarvestingEndpoint;
+	}
+
+	/**
+	 * Sets the node endpoint of the remote harvesting nis node.
+	 *
+	 * @param NodeEndpoint The endpoint.
+	 */
+	public void setRemoteHarvestingEndpoint(NodeEndpoint remoteHarvestingEndpoint) {
+		this.remoteHarvestingEndpoint = remoteHarvestingEndpoint;
+	}
+
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeBigInteger("privateKey", this.privateKey.getRaw());
 		if(remoteHarvestingPrivateKey != null) {
-			serializer.writeBigInteger("remoteHarvestPrivateKey", this.remoteHarvestingPrivateKey.getRaw());
+			serializer.writeBigInteger("remoteHarvestingPrivateKey", this.remoteHarvestingPrivateKey.getRaw());
+		}
+		if(remoteHarvestingEndpoint != null) {
+			serializer.writeObject("remoteHarvestingEndpoint", this.remoteHarvestingEndpoint);
 		}
 	}
 

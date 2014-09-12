@@ -1,17 +1,19 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.connect.HttpJsonPostRequest;
-import org.nem.core.connect.client.NisApiId;
+import org.nem.core.connect.client.*;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.model.ncc.HarvestInfo;
 import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.serialization.SerializableList;
-import org.nem.ncc.connector.PrimaryNisConnector;
+import org.nem.core.node.NodeEndpoint;
+import org.nem.core.serialization.*;
+import org.nem.ncc.connector.*;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
+import org.nem.ncc.wallet.WalletAccount;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,7 @@ public class AccountController {
 	private final WalletServices walletServices;
 	private final ChainServices chainServices;
 	private final PrimaryNisConnector nisConnector;
+	private final AsyncNisConnector cloudConnector;
 
 	/**
 	 * Creates a new account controller.
@@ -38,6 +41,7 @@ public class AccountController {
 	 * @param walletServices The wallet services.
 	 * @param chainServices The chain services.
 	 * @param nisConnector The NIS connector.
+	 * @param cloudConnector The cloud connector.
 	 */
 	@Autowired(required = true)
 	public AccountController(
@@ -45,12 +49,14 @@ public class AccountController {
 			final AccountMapper accountMapper,
 			final WalletServices walletServices,
 			final ChainServices chainServices,
-			final PrimaryNisConnector nisConnector) {
+			final PrimaryNisConnector nisConnector,
+			final AsyncNisConnector cloudConnector) {
 		this.accountServices = accountServices;
 		this.accountMapper = accountMapper;
 		this.walletServices = walletServices;
 		this.chainServices = chainServices;
 		this.nisConnector = nisConnector;
+		this.cloudConnector = cloudConnector;
 	}
 
 	//region find
@@ -218,9 +224,13 @@ public class AccountController {
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
 	@RequiresTrustedNis
 	public void remoteUnlock(@RequestBody final RemoteHarvestRequest awRequest) {
-		//TODO: new nisConnector to that provided IP
-		//TODO: provided IP has to be saved
-		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		NodeEndpoint endpoint = awRequest.getEndpoint();
+		PrimaryNisConnector remoteConnector = new DefaultNisConnector(
+				() -> endpoint,
+				this.cloudConnector);
+		WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		account.setRemoteHarvestingEndpoint(endpoint);
+		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
 
 	/**
@@ -231,7 +241,13 @@ public class AccountController {
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
 	@RequiresTrustedNis
 	public void remoteLock(@RequestBody final RemoteHarvestRequest awRequest) {
-		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		NodeEndpoint endpoint = awRequest.getEndpoint();
+		PrimaryNisConnector remoteConnector = new DefaultNisConnector(
+				() -> endpoint,
+				this.cloudConnector);
+		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		account.setRemoteHarvestingEndpoint(null);
 	}
 
 	//endregion

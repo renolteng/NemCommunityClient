@@ -67,7 +67,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.open(new WalletNamePasswordPair("w", "p"))).thenReturn(context.wallet);
 
 		// Act:
-		final RemoteHarvestRequest request = createRemoteHarvestRequest(context, "p");
+		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p");
 		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferTransactionMode.Activate);
 
 		// Assert:
@@ -225,8 +225,8 @@ public class TransactionMapperTest {
 				Amount.fromNem(2));
 	}
 
-	private static RemoteHarvestRequest createRemoteHarvestRequest(final TestContext context, final String password) {
-		return new RemoteHarvestRequest(
+	private static TransferImportanceRequest createRemoteHarvestRequest(final TestContext context, final String password) {
+		return new TransferImportanceRequest(
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				new WalletName("w"),
 				null == password ? null : new WalletPassword(password));

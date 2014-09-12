@@ -196,7 +196,7 @@ public class TransactionControllerTest {
 		private final TransactionMapper transactionMapper = Mockito.mock(TransactionMapper.class);
 		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 		private final TransferSendRequest request = Mockito.mock(TransferSendRequest.class);
-		private final RemoteHarvestRequest harvestRequest = Mockito.mock(RemoteHarvestRequest.class);
+		private final TransferImportanceRequest harvestRequest = Mockito.mock(TransferImportanceRequest.class);
 		private final TransactionController controller = new TransactionController(this.transactionMapper, this.connector);
 	}
 }
