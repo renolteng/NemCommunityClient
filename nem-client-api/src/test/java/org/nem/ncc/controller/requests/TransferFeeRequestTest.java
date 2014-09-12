@@ -1,8 +1,11 @@
 package org.nem.ncc.controller.requests;
 
 import net.minidev.json.JSONObject;
+
 import org.hamcrest.core.*;
 import org.junit.*;
+
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.SerializationException;
@@ -17,23 +20,33 @@ public class TransferFeeRequestTest {
 	@Test
 	public void requestCanBeCreated() {
 		// Act:
-		final TransferValidateRequest request = new TransferValidateRequest(
-				new WalletName("w"),
-				Address.fromEncoded("a"),
-				Address.fromEncoded("r"),
-				Amount.fromMicroNem(7),
-				"m",
-				true,
-				5);
+		final Address address = Address.fromPublicKey(new KeyPair().getPublicKey());
+		final TransferFeeRequest request = new TransferFeeRequest(new WalletName("w"), address, Address.fromEncoded("r"),
+				Amount.fromMicroNem(7), "m", true, 5);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(Address.fromEncoded("a")));
+		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getRecipientAddress(), IsEqual.equalTo(Address.fromEncoded("r")));
 		Assert.assertThat(request.getAmount(), IsEqual.equalTo(Amount.fromMicroNem(7L)));
 		Assert.assertThat(request.getMessage(), IsEqual.equalTo("m"));
 		Assert.assertThat(request.shouldEncrypt(), IsEqual.equalTo(true));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(5));
+	}
+
+	@Test
+	public void requestCanBeConverted() {
+		// Arrange:
+		final Address address = Address.fromPublicKey(new KeyPair().getPublicKey());
+		final TransferFeeRequest request = new TransferFeeRequest(new WalletName("w"), address, Address.fromEncoded("r"),
+				Amount.fromMicroNem(7), "m", true, 5);
+
+		// Act:
+		final AccountWalletRequest convertedRequest = request.toAccountWalletRequest();
+
+		// Assert:
+		Assert.assertThat(convertedRequest.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(convertedRequest.getAccountId(), IsEqual.equalTo(address));
 	}
 
 	@Test
@@ -65,12 +78,9 @@ public class TransferFeeRequestTest {
 	public void requestCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 8, 5),
-				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 8, 5),
-				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 8, 5),
-				v -> this.createRequestFromJson("w", "a", "r", null, "m", 8, 5),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 5),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 8, null));
+				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 8, 5), v -> this.createRequestFromJson("w", null, "r", 7L, "m", 8, 5),
+				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 8, 5), v -> this.createRequestFromJson("w", "a", "r", null, "m", 8, 5),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 5), v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 8, null));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {

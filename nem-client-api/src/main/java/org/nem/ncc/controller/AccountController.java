@@ -12,6 +12,7 @@ import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -208,5 +209,31 @@ public class AccountController {
 				.getAccountPrivateKey(awRequest.getAccountId());
 	}
 
+	/**
+	 * Unlock the account on a remote NIS server (start foraging).
+	 * Remote address being used has to be announced previously.
+	 *
+	 * @param awRequest The account / wallet view model.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
+	@RequiresTrustedNis
+	public void remoteUnlock(@RequestBody final RemoteHarvestRequest awRequest) {
+		//TODO: new nisConnector to that provided IP
+		//TODO: provided IP has to be saved
+		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+	}
+
+	/**
+	 * Lock the account on a remote NIS server (stop foraging).
+	 *
+	 * @param awRequest The account / wallet view model.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
+	@RequiresTrustedNis
+	public void remoteLock(@RequestBody final RemoteHarvestRequest awRequest) {
+		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+	}
+
 	//endregion
+
 }

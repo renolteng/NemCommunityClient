@@ -114,4 +114,13 @@ public class TransferValidateRequest {
 	public int getHoursDue() {
 		return this.hoursDue;
 	}
+	
+	/**
+	 * Extracts an AccountWalletRequest
+	 *
+	 * @return An AccountWalletRequest
+	 */
+	public AccountWalletRequest toAccountWalletRequest() {
+		return new AccountWalletRequest(getSenderAddress(), getWalletName());
+	}
 }
