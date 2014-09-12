@@ -43,6 +43,8 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 	public void actionPerformed(final ActionEvent e) {
 		switch (this.status) {
 			case RUNNING:
+			case BOOTED:
+			case SYNCHRONIZED:
 				this.manager.shutdown();
 				break;
 

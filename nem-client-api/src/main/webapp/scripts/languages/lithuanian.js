@@ -1,47 +1,47 @@
 ﻿define({
 	id: 'lt',
-	name: 'Lietuvi�kai',
+	name: 'Lietuviškai',
 	texts: {
 		faults: {
             101: 'Byla nerasta.',
             102: 'Pinigine nesukurta.',
-            103: 'Pinigines byla yra sugadinta. Pra�ome atstatyti Jusu pinigine i� atsargines kopijos, kuria Jus turejote susikurti, kai kurete nauja pinigine arba pridejote nauja saskaita i ja.',
-            104: 'Pateiktas slapta�odis netinka. Tikekimes Jus galite atsiminti teisinga slapta�odi. Jei ji praradote, jis negali buti atkurtas!',
-            106: 'Prie� pradedant darba su pinigine, ji turi buti atidaryta. Norint atidaryti pinigine, Jus turite ivesti pinigines slapta�odi.',
-            107: 'Pinigineje nera �ios saskaitos',
-            108: 'Saskaita negali buti pa�alinta. Pana�u, kad saskaitoje yra daugiau kaip 0 NEM arba �i saskaita yra Jusu pagrindine saskaita.',
-            109: 'Jau egzistuoja pinigine su tokiu pavadinimu. Pra�ome pasirinkti kita pinigines pavadinima.',
-            110: 'Wallet already contains this account.',
-            202: 'Nera vie�ojo rakto',
-            305: 'NEM Infrastrukturos serveris negalima',
-            306: 'Ivyko klaida, kurios kurejai nenumate. Atsipra�ome, gal paleidimas i� naujo pades. Kitu atveju, prane�kite apie tai NEM NIS/NCC bendruomenei',
+            103: 'Pinigines byla yra sugadinta. Prašome atstatyti Jusu pinigine iš atsargines kopijos, kuria Jus turejote susikurti, kai kurete nauja pinigine arba pridejote nauja saskaita i ja.',
+            104: 'Pateiktas slaptažodis netinka. Tikekimes Jus galite atsiminti teisinga slaptažodi. Jei ji praradote, jis negali buti atkurtas!',
+            106: 'Prieš pradedant darba su pinigine, ji turi buti atidaryta. Norint atidaryti pinigine, Jus turite ivesti pinigines slaptažodi.',
+            107: 'Pinigineje nera šios saskaitos',
+            108: 'Saskaita negali buti pašalinta. Panašu, kad saskaitoje yra daugiau kaip 0 NEM arba ši saskaita yra Jusu pagrindine saskaita.',
+            109: 'Jau egzistuoja pinigine su tokiu pavadinimu. Prašome pasirinkti kita pinigines pavadinima.',
+            110: 'Pinigineje jau yra ši saskaita.',
+            202: 'Nera viešojo rakto',
+            305: 'NEM Infrastrukturos serveris negalimas',
+            306: 'Ivyko klaida, kurios kurejai nenumate. Atsiprašome, bet gal paleidimas iš naujo pades. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei',
             400: 'Truksta kai kuriu parametru',
-            404: 'Netinkama Boot strategy reik�me',
-            500: 'Nepavyko u�saugoti konfiguracijos bylos',
-            600: 'NCC reikia, kad NIS serveris butu paleistas, norint atlikti siuntimo ir gavimo transakcijas. Pra�ome naudoti NCC meniu ir paleisti vietini prieigos ta�ka.',
-            601: 'NIS prieigos ta�kas jau paleistas. Antra karta ji paleisti neimanoma.',
-            700: 'Pateikta saskaita neatitinka pagrindiniu kriteriju, norint "kasti". Pagrinde, tai susije su NEM kiekiu Jusu saskaitoje. "Kasimas" prasideda tik turint ne ma�iau 1,000 NEM.',
+            404: 'Netinkama Boot strategy reikšme',
+            500: 'Nepavyko užsaugoti konfiguracijos bylos',
+            600: 'NCC reikia, kad NIS serveris butu paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietini prieigos taška.',
+            601: 'NIS prieigos taškas jau paleistas. Antra karta ji paleisti neimanoma.',
+            700: 'Pateikta saskaita neatitinka pagrindiniu kriteriju, norint "kasti". Pagrinde, tai susije su NEM kiekiu Jusu saskaitoje. "Kasimas" prasideda tik turint ne mažiau 1,000 NEM.',
             701: 'Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi buti 1 dienos begyje.',
             702: 'Pateiktas galutinis terminas yra per toli ateityje. Galutinis terminas turi buti ne daugiau kaip viena diena.',
-            703: 'Jusu saskaitoje neu�tenka le�u, kad i�siusti nurodyta NEM suma.',
-            704: 'Pateikta �inute yra per didele, kad ja i�siusti. Pra�ome sutrumpinti �inutu, kuria Jus norite i�siusti.',
-            705: 'Transakcijos "hash" jau yra duomenu bazeje arba nepatvirtintu transakciju sara�es.',
-            706: 'Transakcijos para�as negali buti patikrintas.',
-            707: 'Transakcijos laiko �yme yra per toli praeityje.',
-            708: 'Transakcijos laiko �yme yra per toli ateityje.',
-            709: 'Saskaita ne�inoma. Saskaita turi buti dalis bent vienos transakcijos (siuntimo ar gavimo), kad butu �inoma tinkle.',
-            901: 'There was an error setting up offline mode.'
+            703: 'Jusu saskaitoje neužtenka lešu, kad išsiusti nurodyta NEM suma.',
+            704: 'Pateikta žinute yra per didele, kad ja išsiusti. Prašome sutrumpinti žinute, kuria Jus norite išsiusti.',
+            705: 'Transakcijos "hash" jau yra duomenu bazeje arba nepatvirtintu transakciju saaraše.',
+            706: 'Transakcijos parašas negali buti patikrintas.',
+            707: 'Transakcijos laiko žyme yra per toli praeityje.',
+            708: 'Transakcijos laiko žyme yra per toli ateityje.',
+            709: 'Saskaita nežinoma. Saskaita turi tureti bent viena transakcija (siuntimo ar gavimo), kad butu žinoma tinkle.',
+            901: 'Ivyko klaida nustatant offline režima.'
         },
         common: {
         	success: 'Pavyko', //title of the Success message modals
         	nisStatus: {
         		unavailable: 'NIS nera paleistas',
-        		notBooted: 'Reikia, kad NIS butu paleistas. Pra�ome atidaryti pinigine ir paleisti vietini prieigos ta�ka, pasinaudodami atsidariusiu dialogo langu.',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
+        		synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
                 daysBehind: {
-                    0: 'less than 1 day',
-                    1: '1 day',
-                    many: '{{1}} days'
+                    0: 'mažiau kaip 1 diena',
+                    1: '1 diena',
+                    many: '{{1}} dienos'
                 }
         	}
         },
@@ -56,25 +56,25 @@
 			},
 			sendNem: {
 				title: 'Siusti NEM',
-				labelDesc: '�i saskaita pavadinta kaip <strong>{{1}}</strong>',
-				nullLabelDesc: "�i saskaita neturi pavadinimo",
+				labelDesc: 'Ši saskaita pavadinta kaip <strong>{{1}}</strong>',
+				nullLabelDesc: "Ši saskaita neturi pavadinimo",
 				amount: 'Suma',
 				recipient: "Gavejo saskaita",
-				message: '�inute',
-				encrypt: 'U��ifruoti �inute',
+				message: 'Žinute',
+				encrypt: 'Užšifruoti žinute',
 				fee: 'Mokestis',
 				dueBy: 'Galiojimo trukme',
 				resetFee: 'Nustatyti iki minimalaus mokescio',
 				hours: 'valandos',
-				password: 'Slapta�odis',
+				password: 'Slaptažodis',
 				send: 'Siusti',
 				sending: 'Siunciama...',
-				successMessage: 'Transakcija i�siusta sekmingai!'
+				successMessage: 'Transakcija išsiusta sekmingai!'
 			},
 			clientInfo: {
 				title: 'Kliento informacija',
 				ncc: 'NEM Community Client - NCC',
-				signer: 'Para�o turetojas',
+				signer: 'Parašo turetojas',
 				remoteServer: 'Nuotolinis serveris',
 				local: 'Vietinis',
 				nis: 'NEM Infrastructure Server - NIS',
@@ -91,41 +91,41 @@
 				hash: 'Hash',
 				type: 'Transakcijos tipas',
 				pending: 'Kol kas vyksta',
-				outgoing: 'I�einanti',
+				outgoing: 'Išeinanti',
 				incoming: 'Ieinanti',
 				self: 'Sau',
 				sender: 'Siuntejas',
 				recipient: 'Gavejas',
-				message: '�inute',
-				noMessage: 'Nera �inutes',
-				encrypted: '�inute yra u��ifruota',
-				time: 'Laiko �yme',
+				message: 'Žinute',
+				noMessage: 'Nera žinutes',
+				encrypted: 'Žinute yra užšifruota',
+				time: 'Laiko žyme',
 				confirmations: 'Patvirtinimai',
 				amount: 'Suma',
 				fee: 'Mokestis'
 			},
 			bootLocalNode: {
-				title: 'U�krauti vietini prieigos ta�ka',
-				account: 'Vietinio prieigos ta�ko scskaita',
+				title: 'Užkrauti vietini prieigos taška',
+				account: 'Vietinio prieigos taško saskaita',
 				noLabel: '<span class="null">&lt;Nera pavadinimo&gt;</span>',
 				wallet: 'Pinigine',
-				node: 'Prieigos ta�ko pavadinimas',
-				boot: 'U�krauti',
+				node: 'Prieigos taško pavadinimas',
+				boot: 'Užkrauti',
 				booting: 'Kraunasi...'
 			},
 			notBootedWarning: {
-				title: 'Prieigos ta�kas nepaleistas!',
-				message: 'Norint siusti NEM, vietinis prieigos ta�kas turi buti paleistas!'
+				title: 'Prieigos taškas nepaleistas!',
+				message: 'Norint siusti NEM, vietinis prieigos taškas turi buti paleistas!'
 			},
 			closeWallet: {
-				title: 'U�daryti pinigine',
-				message: 'Ar tikrai norite u�daryti pinigine ir gri�ti i pagrindini puslapi?'
+				title: 'Uždaryti pinigine',
+				message: 'Ar tikrai norite uždaryti pinigine ir grižti i pagrindini puslapi?'
 			},
 			createAccount: {
 				title: 'Sukurti nauja saskaita',
 				label: 'Nuosavas pavadinimas',
 				wallet: 'Pinigine',
-				password: "Pinigines slapta�odis",
+				password: "Pinigines slaptažodis",
 				successMessage: 'Saskaita {{1}} {{#2}}({{2}}){{/2}} sukurta!',
 				create: 'Sukurti'
 			},
@@ -133,7 +133,7 @@
 				title: 'Prideti egzistuojancia saskaita',
 				privateKey: "Saskaitos privatus raktas",
 				wallet: 'Pinigine',
-				password: "Pinigines slapta�odis",
+				password: "Pinigines slaptažodis",
 				successMessage: 'Saskaita {{1}} {{#2}}({{2}}){{/2}} itraukta i pinigine!',
 				add: 'Prideti',
 				label: 'Pavadinimas'
@@ -143,7 +143,7 @@
 				account: 'Saskaita, kuri turi buti nustatyta kaip pagrindine',
 				noLabel: '<span class="null">&lt;Nera pavadinimo&gt;</span>',
 				wallet: 'Pinigine',
-				password: "Pinigines slapta�odis",
+				password: "Pinigines slaptažodis",
 				successMessage: 'Saskaita {{1}} {{#2}}({{2}}){{/2}} nustatyta kaip pagrindine!',
 				set: 'Nustatyta kaip pagrindine',
 			},
@@ -151,59 +151,59 @@
 				title: 'Pakeisti pinigines pavadinima',
 				wallet: 'Dabartinis pinigines pavadinimas',
 				newName: 'Naujas pinigines pavadinimas',
-				password: "Pinigines slapta�odis",
-				successMessage: 'Pinigines pavadinimas pakeistas sekmingai i� <em>{{1}}</em> i <em>{{2}}</em>',
+				password: "Pinigines slaptažodis",
+				successMessage: 'Pinigines pavadinimas pakeistas sekmingai iš <em>{{1}}</em> i <em>{{2}}</em>',
 				change: 'Pakeisti'
 			},
 			changeWalletPassword: {
-				title: 'Pakeisti pinigines slapta�odi',
+				title: 'Pakeisti pinigines slaptažodi',
 				wallet: 'Pinigine',
-				password: 'Dabartinis slapta�odis',
-				newPassword: 'Naujas slapta�odis',
-				confirmPassword: 'Patvirtinti nauja slapta�odi',
-				successMessage: 'Pinigines slapta�odis pakeistas sekmingai',
+				password: 'Dabartinis slaptažodis',
+				newPassword: 'Naujas slaptažodis',
+				confirmPassword: 'Patvirtinti nauja slaptažodi',
+				successMessage: 'Pinigines slaptažodis pakeistas sekmingai',
 				change: 'Pakeisti',
 				passwordNotMatchTitle: 'Oops!',
-				passwordNotMatchMessage: 'Jusu ivestas naujas slapta�odis ir jo patvirtinimas neatitinka. Pra�ome isitikinti, kad nauja slapta�odi ivedete teisingai.'
+				passwordNotMatchMessage: 'Jusu ivestas naujas slaptažodis ir jo patvirtinimas neatitinka. Prašome isitikinti, kad nauja slaptažodi ivedete teisingai.'
 			},
 			changeAccountLabel: {
 				title: 'Pakeisti saskaitos pavadinima',
 				label: 'Saskaitos pavadinimas',
 				wallet: 'Pinigine',
-				password: "Pinigines slapta�odis",
+				password: "Pinigines slaptažodis",
 				successMessage: 'Saskaita {{1}} dabar pavadinta kaip {{2}}',
 				change: 'Pakeisti'
 			},
 			removeAccount: {
 				title: 'Panaikinti saskaita',
 				wallet: 'Pinigine',
-				password: "Pinigines slapta�odis",
-				warning: 'Pra�ome isitikinti, kad Jusu saskaitoje nera NEM prie� ja panaikinant. Panaikinus saskaita, Jus prarasite joje turetus NEM visam laikui.',
+				password: "Pinigines slaptažodis",
+				warning: 'Prašome isitikinti, kad Jusu saskaitoje nera NEM prieš ja panaikinant. Panaikinus saskaita, Jus prarasite joje turetus NEM visam laikui.',
 				successMessage: 'Saskaita {{1}} {{#2}}({{2}}){{/2}} panaikinta!',
 				remove: 'Panaikinti'
 			},
 			nisUnavailable: {
-				title: 'NIS nepaleistase',
+				title: 'NIS nepaleistas',
 				message: 'Atsijungta nuo NIS, laukiama prisijungimo'
 			},
 			shutdown: {
-				title: 'U�daryti programa',
-				message: 'Ar tikrai norite u�daryti NEM Community Client?'
+				title: 'Uždaryti programa',
+				message: 'Ar tikrai norite uždaryti NEM Community Client?'
 			}
 		},
 		landing: {
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Pinigine importuota sekmingai!',
 			nav: {
-				start: '<strong>Prad�iamokslis</strong>',
+				start: '<strong>Pradžiamokslis</strong>',
 				about: 'Apie <strong>NEM</strong>',
 				help: '<strong>Pagalba</strong>'
 			},
 			main: {
-				leftTitle: 'Pirma karta <em>NEM</em>?',
+				leftTitle: 'Esate pirma karta <em>NEM</em>?',
 				leftButton: 'Sukurti nauja pinigine',
 				walletNamePlh: 'Sukurkite pinigines pavadinima',
-				passwordPlh: 'Slapta�odis',
+				passwordPlh: 'Slaptažodis',
 				create: 'Sukurti',
 				rightTitle: 'Esate <em>NEM</em>eris?',
 				rightButton: 'Atidaryti savo pinigine',
@@ -214,12 +214,12 @@
 			carousel: {
 				items: [
 					{
-						title: 'NCC �ifruoja Jusu pinigine',
-						description: '<em>Saugumas</em> yra labai svarbus, tam kad i�vengti NEM vagysciu &amp; assets.'
+						title: 'NCC šifruoja Jusu pinigine',
+						description: '<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysciu &amp; assets.'
 					},
 					{
-						title: 'NCC �ifruoja Jusu pinigine',
-						description: '<em>Saugumas</em> yra labai svarbus, tam kad i�vengti NEM vagysciu &amp; assets.'
+						title: 'NCC šifruoja Jusu pinigine',
+						description: '<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysciu &amp; assets.'
 					}
 				]
 			},
@@ -228,7 +228,7 @@
 					{
 						title: 'Kaip veikia NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> leid�ia Jums prieiti prie savo NEM ir aktyvu. Jus galite',
+							'<strong>NCC</strong> leidžia Jums prieiti prie savo NEM ir aktyvu. Jus galite',
 							'<strong>NCC</strong> reikia prieigos prie <strong>NIS</strong> serverio, kad veiktu. Paprastai reikia, kad vietinis serveris butu aktyvus (jis instaliuojamas kartu su <strong>NCC</strong>)',
 							'Jus taip pat galite susikonfiguruoti prieiga prie nuotolinio <strong>NIS</strong> serverio.'
 						],
@@ -240,11 +240,11 @@
 					{
 						title: 'Kas yra &#42;NIS?',
 						paragraphs: [
-							'�is komponentas reikalingas, kad veiktu <strong>NEM</strong> "debesis".',
+							'Šis komponentas reikalingas, kad veiktu <strong>NEM</strong> "debesis".',
 							'Kuo daugiau yra veikianciu <strong>NIS</strong>, tuo geresnis saugumas.',
-							'<strong>NIS</strong> yra prieigos ta�kas i <strong>NEM</strong> "debesi".'
+							'<strong>NIS</strong> yra prieigos taškas i <strong>NEM</strong> "debesi".'
 						],
-						legend: '<strong>&#42;NIS</strong> i��ifruojamas kaip <strong>NEM Infrastrukturos Serveris</strong>'
+						legend: '<strong>&#42;NIS</strong> iššifruojamas kaip <strong>NEM Infrastrukturos Serveris</strong>'
 					}
 				]
 			},
@@ -254,52 +254,52 @@
 		},
 		wallet: {
 			logo: 'images/nem_logo.png',
-			lastAccess: '{{1}} dienos prie� tai',
+			lastAccess: '{{1}} dienos prieš tai',
 			lastAccessJustNow: 'Dabar',
 			lastAccessTooltip: 'Paskutini karta buvo prisijungta {{1}}',
 			primary: 'Pagrindine',
 			primaryShort: 'P',
 			noLabel: '<Nera pavadinimo>',
-			copiedToClipboard: 'Adresas nukopijuotas i atminti!',
+			copyToClipboard: 'Paspauskite, noredami nukopijuoti adresa i atminti',
 			actions: {
 				refreshInfo: 'Atnaujinti informacija',
-				bootLocalNode: 'Paleisti vietini prieigos ta�ka',
+				bootLocalNode: 'Paleisti vietini prieigos taška',
 				changeWalletName: 'Pakeisti pinigines pavadinima',
-				changeWalletPassword: 'Pakeisti pinigines slapta�odi',
+				changeWalletPassword: 'Pakeisti pinigines slaptažodi',
 				mergeWallets: 'Apjungti pinigines',
 				exportWallet: 'Eksportuoti pinigine',
 				createAccount: 'Sukurti nauja saskaita',
 				addAccount: 'Prideti egzistuojancia saskaita',
 				changeAccountLabel: 'Pakeisti saskaitos pavadinima',
 				setPrimary: 'Nustatyti kaip pagrindine saskaita',
-				removeAccount: 'Pa�alinti saskaita',
+				removeAccount: 'Pašalinti saskaita',
 				clientInfo: 'Programos informacija',
-				closeWallet: 'U�daryti pinigine',
-				closeProgram: 'U�daryti programa',
-				copyClipboard: 'Copy address to clipboard'
+				closeWallet: 'Uždaryti pinigine',
+				closeProgram: 'Uždaryti programa'
+				copyClipboard: 'Kopijuoti adresa i laikinaja atminti'
 			},
 			nav: [
 				'Skydelis',
-				'�inutes',
+				'Žinutes',
 				'Kontaktai',
 				'Transakcijos',
-				'"I�kasti" blokai',
-				'Aktyvu bir�a',
+				'"Iškasti" blokai',
+				'Aktyvu birža',
 				'Naujienos',
 				'Aplikacijos',
 				'Saskaitos',
 				'Nustatymai',
-				'U�daryti programa'
+				'Uždaryti programa'
 			],
-			bootNodeWarning: "Norint naudotis NCC pilnai, vietinis prieigos ta�kas turi buti paleistas."
+			bootNodeWarning: "Norint naudotis NCC pilnai, vietinis prieigos taškas turi buti paleistas."
 		},
 		dashboard: {
 			assets: {
 				title: 'Jusu aktyvai'
 			},
 			importance: {
-				title: 'Svarbumo balas',
-				unknown: 'Statusas ne�inomas',
+				title: 'Svarbumo tinkle procentas',
+				unknown: 'Statusas nežinomas',
 				start: 'Pradeti "kasti"',
 				harvesting: '"Kasimas" vyksta',
 				stop: 'Nutraukti "kasima"',
@@ -309,13 +309,13 @@
 				title: 'Paskutines transakcijos',
 				sendNem: 'Siusti NEM',
 				balance: 'Turimas balansas',
-				syncStatus: '(bloke {{1}}{{#2}} : po {{3}} dienu{{/2}})',
-				unknown: 'ne�inomas',
+				syncStatus: '(blokas {{1}}{{#2}} : po {{3}} dienu{{/2}})',
+				unknown: 'nežinomas',
 				columns: [
 					'',
 					'Laikas',
 					'Siuntejas/Gavejas',
-					'�inute',
+					'Žinute',
 					'',
 					'Informacija',
 					'Patvirtinimai',
@@ -324,44 +324,44 @@
 				],
 				types: {
 					pending: 'Atliekama transakcija',
-					outgoing: 'I�einanti transakcija',
+					outgoing: 'Išeinanti transakcija',
 					incoming: 'Ieinanti transakcija',
 					self: 'Transakcija sau',
 				},
-				noMessage: '�inutes nera',
-				encrypted: '�inute �ifruota',
-				view: 'Per�iureti',
+				noMessage: 'Žinutes nera',
+				encrypted: 'Žinute šifruota',
+				view: 'Peržiureti',
 				pending: 'Atliekama',
-				seeAll: 'Per�iureti visas transakcijas',
+				seeAll: 'Peržiureti visas transakcijas',
 				noTransactions: 'Nera dar atlikta jokiu transakciju'
 			},
 			nemValue: {
 				title: 'NEM vertes statistika'
 			},
 			messages: {
-				titleTooltip: '�inutes'
+				titleTooltip: 'Žinutes'
 			},
 			news: {
 				titleTooltip: 'Naujienos'
 			},
-			notAvailable: 'Dar nera �ioje alpha versijoje'
+			notAvailable: 'Dar nera šioje alpha versijoje'
 		},
 		transactions: {
 			title: 'Transakcijos',
 			sendNem: 'Siusti NEM',
 			balance: 'Turimas balansas',
 			filters: {
-				confirmed: 'Confirmed',
-				unconfirmed: 'Unconfirmed',
+				confirmed: 'Patvirtintos',
+				unconfirmed: 'Nepatvirtintos',
 				incoming: 'Ieinancios',
-				outgoing: 'I�einancios',
+				outgoing: 'Išeinancios',
 			},
 			table: {
 				columns: [
 					'',
 					'Laikas',
 					'Siuntejas/Gavejas',
-					'�inute',
+					'Žinute',
 					'',
 					'Informacija',
 					'Patvirtinimai',
@@ -370,21 +370,21 @@
 				],
 				types: {
 					pending: 'Vykdoma transakcija',
-					outgoing: 'I�einanti transakcija',
+					outgoing: 'Išeinanti transakcija',
 					incoming: 'Ieinanti transakcija',
 					self: 'Transakcija sau',
 				},
-				noMessage: 'Nera �inutes',
-				encrypted: '�inute �ifruota',
-				view: 'Per�iureti',
+				noMessage: 'Nera žinutes',
+				encrypted: 'Žinute šifruota',
+				view: 'Peržiureti',
 				pending: 'Vykdoma',
 				noTransactions: 'Nera atliktu transakciju',
 				loading: 'Krauna daugiau transakciju...'
 			}
 		},
 		harvestedBlocks: {
-			title: '"I�kasti" blokai',
-			feeEarned: 'I� paskutiniu 25 "i�kastu" bloku gauti mokesciai',
+			title: 'Iškasti blokai',
+			feeEarned: 'Iš paskutiniu 25 "iškastu" bloku gauti mokesciai',
 			table: {
 				columns: [
 					'Bloko numeris',
@@ -392,11 +392,11 @@
 					'Bloko "hash"',
 					'Mokestis'
 				],
-				noBlocks: 'Nera "i�kastu" bloku ',
-				loadMore: 'Per�iureti senesnius "i�kastus" blokus'
+				noBlocks: 'Nera "iškastu" bloku ',
+				loadMore: 'Peržiureti senesnius "iškastus" blokus'
 			},
 			harvesting: {
-				unknown: 'Statusas ne�inomas',
+				unknown: 'Statusas nežinomas',
 				start: 'Pradeti "kasti"',
 				harvesting: '"Kasimas" vyksta',
 				stop: 'Stabdyti "kasima"'
@@ -409,8 +409,8 @@
 					name: 'Kalba'
 				}
 			],
-			save: 'I�saugoti pakeitimus',
-			saveSuccess: 'Nustatymai i�saugoti sekmingai'
+			save: 'Išsaugoti pakeitimus',
+			saveSuccess: 'Nustatymai išsaugoti sekmingai'
 		}
 	}
 });
