@@ -172,11 +172,11 @@ public class AccountServicesTest {
 	public void getAccountHarvestsWithTimeStampFilterDelegatesToNisConnector() {
 		// Assert:
 		final Address address = Address.fromEncoded("TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5");
-		final Hash hash = Utils.generateRandomHash();
+		final Hash hash = Hash.fromHexString("ffeeddccbbaa99887766554433221100");
 		assertHarvestConnectorRequest(
 				address,
 				hash,
-				String.format("address=TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5&hash=%s", hash));
+				"address=TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5&hash=ffeeddccbbaa99887766554433221100");
 	}
 
 	private static void assertHarvestConnectorRequest(
