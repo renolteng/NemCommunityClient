@@ -193,9 +193,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'A carteira foi importada com sucesso!',
 			nav: {
-				start: 'Inicie <strong>Aqui</strong>',
-				about: 'Sobre <strong>NEM</strong>',
-				help: '<strong>Ajuda</strong>'
+				start: 'Inicie Aqui',
+				about: 'Sobre NEM',
+				help: 'Ajuda'
 			},
 			main: {
 				leftTitle: 'Novo por aqui? Use <em>NEM</em>?',

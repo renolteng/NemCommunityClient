@@ -195,9 +195,9 @@
                                        logo: 'images/nem_logo.png',
                                        importSuccess: 'Кошелёк успешно импортирован!',
                                        nav: {
-                                                   start: '<strong>Введение</strong>',
-                                                   about: 'О <strong>NEM</strong>',
-                                                   help: '<strong>Помощь</strong>'
+                                                   start: 'Введение',
+                                                   about: 'О NEM',
+                                                   help: 'Помощь'
                                        },
                                        main: {
                                                    leftTitle: 'Новичок в <em>NEM</em>?',

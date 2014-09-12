@@ -195,9 +195,9 @@ define({
                 logo: 'images/nem_logo.png',
                 importSuccess: 'Die Brieftasche wurde erfolgreich importiert!',
                 nav: {
-                        start: 'Erste <strong>Schritte</strong>',
-                        about: 'Info über <strong>NEM</strong>',
-                        help: '<strong>Hilfe</strong>'
+                        start: 'Erste Schritte',
+                        about: 'Info über NEM',
+                        help: 'Hilfe'
                 },
                 main: {
                         leftTitle: 'Neu bei <em>NEM</em>?',

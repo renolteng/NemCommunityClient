@@ -195,9 +195,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Il portafoglio è stato importato!',
 			nav: {
-				start: '<strong>Vai</strong>',
-				about: 'Informazioni su <strong>NEM</strong>',
-				help: '<strong>Aiuto</strong>'
+				start: 'Vai',
+				about: 'Informazioni su NEM',
+				help: 'Aiuto'
 			},
 			main: {
 				leftTitle: 'Nuovo utente <em>NEM</em>?',

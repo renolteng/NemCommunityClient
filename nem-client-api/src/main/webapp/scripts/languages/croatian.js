@@ -190,9 +190,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Novčanik je uspješno uvezen!',
 			nav: {
-				start: '<strong>Početak</strong>',
-				about: 'O <strong>NEM</strong>',
-				help: '<strong>Pomoć</strong>'
+				start: 'Početak',
+				about: 'O NEM',
+				help: 'Pomoć'
 			},
 			main: {
 				leftTitle: 'Novi  <em>NEM</em> korisnik?',

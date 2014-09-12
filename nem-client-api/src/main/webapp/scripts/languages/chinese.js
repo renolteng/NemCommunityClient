@@ -184,9 +184,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: '钱包已成功导入!',
 			nav: {
-				start: '已经 <strong>开始</strong>',
-				about: '关于 <strong>NEM</strong>',
-				help: '<strong>帮助</strong>'
+				start: '已经 开始',
+				about: '关于 NEM',
+				help: '帮助'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>新手?',

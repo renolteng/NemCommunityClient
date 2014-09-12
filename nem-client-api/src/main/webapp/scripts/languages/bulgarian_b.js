@@ -195,9 +195,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Портфейлът беше успешно импортнат!',
 			nav: {
-				start: '<strong>Първи стъпки</strong>',
-				about: 'Относно <strong>NEM</strong>',
-				help: '<strong>Помощ</strong>'
+				start: 'Първи стъпки',
+				about: 'Относно NEM',
+				help: 'Помощ'
 			},
 			main: {
 				leftTitle: 'Нов за <em>NEM</em>?',

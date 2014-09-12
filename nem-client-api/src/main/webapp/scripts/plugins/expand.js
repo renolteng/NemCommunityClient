@@ -7,7 +7,7 @@ define(['jquery'], function($) {
 
             var DEFAULT_OPTIONS = {
                 horizontally: false,
-                contentSelector: '.content'
+                contentSelector: '.js-expand-content'
             };
 
             var mergeOptions = function (option) {
@@ -48,7 +48,7 @@ define(['jquery'], function($) {
 
             var DEFAULT_OPTIONS = {
                 horizontally: false,
-                contentSelector: '.content'
+                contentSelector: '.js-expand-content'
             };
 
             var mergeOptions = function (option) {

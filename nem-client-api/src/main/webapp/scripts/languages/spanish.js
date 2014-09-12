@@ -330,12 +330,12 @@ define({
                    //importSuccess: 'Wallet has been sucessfully imported!',
                    importSuccess: 'El monedero ha sido importado exitosamente!',
                    nav: {
-                       //start: 'Getting <strong>Started</strong>',
-                       start: 'Comienze <strong>aqu&iacute;</strong>',
-                       //about: 'About <strong>NEM</strong>',
-                       about: 'Acerca de <strong>NEM</strong>',
-                       //help: '<strong>Help</strong>'
-                       help: '<strong>Ayuda</strong>'
+                       //start: 'Getting Started',
+                       start: 'Comienze aqu&iacute;',
+                       //about: 'About NEM',
+                       about: 'Acerca de NEM',
+                       //help: 'Help'
+                       help: 'Ayuda'
                    },
                    main: {
                        //leftTitle: 'New to <em>NEM</em>?',

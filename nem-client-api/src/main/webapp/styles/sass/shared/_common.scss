@@ -120,6 +120,24 @@
 	}
 }
 
+.underlinedTextbox {
+	position: relative;	
+}
+
+.underlinedTextbox-underline {
+	position: absolute;
+	border-bottom: 1px solid #5dcd86;
+	bottom: 1px;
+	bottom: 0;
+	left: 0;
+	right: 100%;
+	@include transition(right .3s);
+
+	.underlinedTextbox-textbox:focus + & {
+		right: 0;
+	}
+}
+
 // ================================================================================
 // MODAL
 // ================================================================================

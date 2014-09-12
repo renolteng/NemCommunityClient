@@ -881,7 +881,13 @@ define(function(require) {
             this.set('toDate', this.toDate);
             this.set('daysPassed', this.daysPassed);
             this.set('toNem', this.toNem);
-            var self = this;
+
+            this.global = {
+                $window: $(window),
+                $document: $(document),
+                $html: $('html'),
+                $body: $('body')
+            };
         }
     });
 

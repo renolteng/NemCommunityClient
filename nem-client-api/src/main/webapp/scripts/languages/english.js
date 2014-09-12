@@ -195,9 +195,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Wallet has been sucessfully imported!',
 			nav: {
-				start: 'Getting <strong>Started</strong>',
-				about: 'About <strong>NEM</strong>',
-				help: '<strong>Help</strong>'
+				start: 'Getting Started',
+				about: 'About NEM',
+				help: 'Help'
 			},
 			main: {
 				leftTitle: 'New to <em>NEM</em>?',
