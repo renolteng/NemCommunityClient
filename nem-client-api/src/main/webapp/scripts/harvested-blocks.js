@@ -16,8 +16,7 @@
         		var currBlocks;
         		if (!reload && !update) {
 					currBlocks = ncc.get('harvestedBlocks.list');
-					var lastTimeStamp = (currBlocks && currBlocks.length)? currBlocks[currBlocks.length - 1].timeStamp : null;
-					if (lastTimeStamp) requestData.hash = lastTimeStamp;
+					requestData.hash = (currBlocks && currBlocks.length) ? currBlocks[currBlocks.length - 1].hash : undefined;
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
