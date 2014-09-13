@@ -276,7 +276,7 @@ define({
 				clientInfo: 'Information sur le Client',
 				closeWallet: 'Fermer le portefeuille',
 				closeProgram: "Fermer l'application",
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: "Copier l'adresse dans le presse-papier"
 			},
 			nav: [
 				"Tableau de bord",

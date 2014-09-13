@@ -275,8 +275,8 @@ define({
 				removeAccount: 'Elimina indirizzo',
 				clientInfo: 'Informazioni sul programma',
 				closeWallet: 'Chiudi portafoglio',
-				closeProgram: 'Arresta NCC',
-				copyClipboard: 'Copy address to clipboard'
+				closeProgram: 'Arresta NCC'
+				copyClipboard: 'copia indirizzo negli appunti'
 			},
 			nav: [
 				"Vista d'insieme",

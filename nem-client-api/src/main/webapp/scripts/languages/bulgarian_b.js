@@ -276,7 +276,7 @@
 				clientInfo: 'Информация за клиента',
 				closeWallet: 'Затвори портфейла',
 				closeProgram: 'Затвори програмата',
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Копирай адреса в клипборда'
 			},
 			nav: [
 				'Панел за управление',
