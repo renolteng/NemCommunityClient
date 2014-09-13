@@ -37,7 +37,7 @@ define({
         	nisStatus: {
         		unavailable: 'NIS je nedostupan',
         		notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
-        		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.'
+        		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
         		daysBehind: {
         			0: 'manje od 1 dan',
         			1: '1 dan',

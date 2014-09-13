@@ -275,7 +275,7 @@ define({
 				removeAccount: 'Elimina indirizzo',
 				clientInfo: 'Informazioni sul programma',
 				closeWallet: 'Chiudi portafoglio',
-				closeProgram: 'Arresta NCC'
+				closeProgram: 'Arresta NCC',
 				copyClipboard: 'copia indirizzo negli appunti'
 			},
 			nav: [

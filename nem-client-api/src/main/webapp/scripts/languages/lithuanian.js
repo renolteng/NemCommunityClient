@@ -275,7 +275,7 @@
 				removeAccount: 'Pašalinti saskaita',
 				clientInfo: 'Programos informacija',
 				closeWallet: 'Uždaryti pinigine',
-				closeProgram: 'Uždaryti programa'
+				closeProgram: 'Uždaryti programa',
 				copyClipboard: 'Kopijuoti adresa i laikinaja atminti'
 			},
 			nav: [
