@@ -7,9 +7,9 @@
 // ================================================================================
 
 .container {
-	width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
+	width: $container-width;
 }
 
 .hidden {
@@ -81,31 +81,32 @@
 	position: relative;
 	margin-left: 8px;
 	margin-right: 8px;
-	color: #aeadad;
 	background-color: #fff;
+	color: #aeadad;
 	font-size: 13px;
 	vertical-align: 2px;
 }
 
 .hider {
-	overflow: hidden;
 	width: 0;
 	height: 0;
+	overflow: hidden;
 }
 
 .dropdownMenu {
+	border-bottom: 2px solid #d4d4d4;
 	background-color: #ebebeb;
 	color: #444444;
-	border-bottom: 2px solid #d4d4d4;
 }
 
 .dropdownMenu-item {
 	padding: 6px 15px;
-	white-space: nowrap;
 	font-weight: $fontWeight-medium;
+	white-space: nowrap;
 	cursor: pointer;
 
-	&:hover, &.zeroclipboard-is-hover {
+	&:hover, 
+	&.zeroclipboard-is-hover {
 		background-color: #d4d4d4;
 	}
 
@@ -128,18 +129,18 @@ $modal-transitionDuration: .3s;
 .modal-container {
 	visibility: hidden;
 	opacity: 0;
-	@include transition-property(visibility, opacity);
-	@include transition-duration(0s, $modal-transitionDuration);
-	@include transition-timing-function(linear, ease);
-	@include transition-delay($modal-transitionDuration, 0s);
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
+	background-color: rgba(#252a34, .5);
 	overflow: auto;
 	overflow-y: auto;
-	background-color: rgba(#252a34, .5);
+	@include transition-property(visibility, opacity);
+	@include transition-duration(0s, $modal-transitionDuration);
+	@include transition-timing-function(linear, ease);
+	@include transition-delay($modal-transitionDuration, 0s);
 	z-index: $zIndex-modal;
 
 	&.active {
@@ -151,16 +152,16 @@ $modal-transitionDuration: .3s;
 
 .modal {
 	$border-width: 5px;
-	@include transform(scale(0.8));
-	@include transition-property(transform);
-	@include transition-duration($modal-transitionDuration);
-	background-color: #fff;
+	position: relative;
 	margin-top: 126px;
 	margin-left: auto;
 	margin-right: auto;
-	position: relative;
 	width: 428px;
+	@include transform(scale(0.8));
+	background-color: #fff;
 	font-size: 14px;
+	@include transition-property(transform);
+	@include transition-duration($modal-transitionDuration);
 	z-index: 0;
 
 	&:before {
@@ -183,28 +184,16 @@ $modal-transitionDuration: .3s;
 	}
 
 	&.error {
-		font-size: 13px;
 		width: 340px;
+		font-size: 13px;
 
 		.modal-head {
 			border-bottom: none;
 		}
 
 		.modal-body {
-			color: #888888;
 			padding-top: 0;
-		}
-
-		h1 {
-			font-size: 35px;
-			font-weight: $fontWeight-medium;
-			color: #d14233;
-			margin-top: 12px;
-			margin-bottom: 20px;
-		}
-
-		p {
-			margin-top: .2em;
+			color: #888888;
 		}
 	}
 
@@ -224,49 +213,9 @@ $modal-transitionDuration: .3s;
 		}
 
 		.modal-message {
+			padding: 10px 20px 36px;
 			font-size: 14px;
 			font-weight: $fontWeight-medium;
-			padding: 10px 20px 36px;
-		}
-
-		.modal-form {
-			text-align: left;
-			color: #444444;
-
-			input {
-				width: 100%;
-				@include border-radius(4px);
-				border: 1px solid #e5e5e5;
-				padding: 5px;
-				font-size: 14px;
-
-				&:disabled {
-					color: #d1d1d1;
-					-webkit-text-fill-color: #d1d1d1;
-				}
-			}
-
-			label {
-				font-weight: $fontWeight-medium;
-			}
-
-			p {
-				margin-bottom: 6px;
-			}
-
-			.field {
-				margin-bottom: 12px;
-			}
-
-			.sublabel {
-				font-size: 11px;
-				color: #1b5278;
-
-				.null {
-					font-style: italic;
-					color: #d1d1d1;
-				}
-			}
 		}
 	}
 }
@@ -302,12 +251,12 @@ $modal-transitionDuration: .3s;
 }
 
 .modal-button {
-	@include border-radius(4px);
-	font-size: 13px;
 	min-width: 80px;
+	@include border-radius(4px);
 	padding: 6px 16px;
-	color: #fff;
+	font-size: 13px;
 	font-weight: $fontWeight-bold;
+	color: #fff;
 
 	&:not(:first-child) {
 		margin-left: 6px;
@@ -346,7 +295,64 @@ $modal-transitionDuration: .3s;
 	}
 }
 
+/** Error Modal **/
+
+.modal-error-title {
+	margin-top: 12px;
+	margin-bottom: 20px;
+	font-size: 35px;
+	font-weight: $fontWeight-medium;
+	color: #d14233;
+}
+
+.modal-error-caption,
+.modal-error-message {
+	margin-top: .2em;
+}
+
+/** Input Modal **/
+
+.modal-form {
+	text-align: left;
+	color: #444444;
+}
+
+.modal-form-field {
+	margin-bottom: 12px;
+}
+
+.modal-form-line {
+	margin-bottom: 6px;
+}
+
+.modal-form-input {
+	width: 100%;
+	@include border-radius(4px);
+	border: 1px solid #e5e5e5;
+	padding: 5px;
+	font-size: 14px;
+
+	&:disabled {
+		color: #d1d1d1;
+		-webkit-text-fill-color: #d1d1d1;
+	}
+}
+
+.modal-form-label {
+	font-weight: $fontWeight-medium;
+}
+
+.modal-form-sublabel {
+	font-size: 11px;
+	color: #1b5278;
+
+	&.nullContent {
+		font-style: italic;
+		color: #d1d1d1;
+	}
+}
+
 .modal-submitBtn {
-	text-transform: uppercase;
 	margin-top: 10px;
+	text-transform: uppercase;
 }

@@ -264,15 +264,21 @@ define(function(require) {
             allAccounts: 'this.prepend([${wallet.primaryAccount}], ${wallet.otherAccounts})',
             nisStatus: function() {
                 if (this.get('status.nisUnavailable')) {
-                    return this.get('texts.common.nisStatus.unavailable');
+                    return {
+                        type: 'critical',
+                        message: this.get('texts.common.nisStatus.unavailable')
+                    };
                 }
 
                 if (!this.get('status.nodeBooted')) {
-                    return this.get('texts.common.nisStatus.notBooted');
+                    return {
+                        type: 'warning',
+                        message: this.get('texts.common.nisStatus.notBooted')
+                    };
                 }
 
                 if (!this.get('nis.nodeMetaData.lastBlockBehind')) {
-                    return '';
+                    return null;
                 }
 
                 var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
@@ -291,7 +297,10 @@ define(function(require) {
                         break;
                 }
 
-                return this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText);
+                return {
+                    type: 'message',
+                    message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
+                };
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
