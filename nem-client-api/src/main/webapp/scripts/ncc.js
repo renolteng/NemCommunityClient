@@ -581,12 +581,12 @@ define(function(require) {
                     {
                         action: 'no',
                         label: ncc.get('texts.modals.confirmDefault.no'),
-                        cssClass: 'secondary'
+                        actionType: 'secondary'
                     },
                     {
                         action: 'yes',
                         label: ncc.get('texts.modals.confirmDefault.yes'),
-                        cssClass: 'primary'
+                        actionType: 'primary'
                     }
                 ]
             });

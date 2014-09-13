@@ -41,16 +41,16 @@
 .variation {
 	@include inline-block();
 	text-align: center;
+}
 
-	.variation-arrow {
-		font-size: 2.2em;
-	}
+.variation-arrow {
+	font-size: 2.2em;
+}
 
-	.variation-arrow:before, 
-	.variation-amount {
-		display: block;
-		line-height: .7em;
-	}
+.variation-arrow:before, 
+.variation-amount {
+	display: block;
+	line-height: .7em;
 }
 
 .expandable {
@@ -110,14 +110,14 @@
 		background-color: #d4d4d4;
 	}
 
-	&.separator {
-		border-bottom: 1px solid #d4d4d4;
-	}
-
 	&.disabled {
 		color: #888888;
 		pointer-events: none;
 	}
+}
+
+.dropdownMenu-item--separator {
+	border-bottom: 1px solid #d4d4d4;
 }
 
 .underlinedTextbox {
@@ -161,7 +161,7 @@ $modal-transitionDuration: .3s;
 	@include transition-delay($modal-transitionDuration, 0s);
 	z-index: $zIndex-modal;
 
-	&.active {
+	&.modal--active {
 		visibility: visible;
 		opacity: 1;
 		@include transition-delay(0s);
@@ -193,49 +193,13 @@ $modal-transitionDuration: .3s;
 		z-index: -1;
 	}
 
-	&.wide {
-		width: 650px;
-	}
-
-	.modal-container.active & {
+	.modal--active & {
 		@include transform(scale(1));
 	}
+}
 
-	&.error {
-		width: 340px;
-		font-size: 13px;
-
-		.modal-head {
-			border-bottom: none;
-		}
-
-		.modal-body {
-			padding-top: 0;
-			color: #888888;
-		}
-	}
-
-	&.message {
-		&.unclosable  {
-			.modal-body {
-				text-align: left;
-			}
-		}
-	}
-
-	&.input {
-		font-size: 13px;
-
-		.modal-body {
-			padding: 12px 22px 22px;
-		}
-
-		.modal-message {
-			padding: 10px 20px 36px;
-			font-size: 14px;
-			font-weight: $fontWeight-medium;
-		}
-	}
+.modal--wide {
+	width: 650px;
 }
 
 .modal-head {
@@ -280,42 +244,76 @@ $modal-transitionDuration: .3s;
 		margin-left: 6px;
 	}
 
-	&.neutral {
-		$bgColor: #1b5278;
-		background-color: $bgColor;
-
-		&:hover {
-			background-color: lighten($bgColor, 20%);
-		}
-	}
-
-	&.secondary {
-		$bgColor: #8e8e8e;
-		background-color: $bgColor;
-
-		&:hover {
-			background-color: lighten($bgColor, 15%);
-		}
-	}
-
-	&.primary {
-		$bgColor: #41ce7d;
-		background-color: $bgColor;
-
-		&:hover {
-			background-color: lighten($bgColor, 15%);
-		}
-	}
-
 	&.disabled {
 		background-color: #d1d1d1;
 		pointer-events: none;
 	}
 }
 
+.modal-button--neutral {
+	$bgColor: #1b5278;
+	background-color: $bgColor;
+
+	&:hover {
+		background-color: lighten($bgColor, 20%);
+	}
+}
+
+.modal-button--secondary {
+	$bgColor: #8e8e8e;
+	background-color: $bgColor;
+
+	&:hover {
+		background-color: lighten($bgColor, 15%);
+	}
+}
+
+.modal-button--primary {
+	$bgColor: #41ce7d;
+	background-color: $bgColor;
+
+	&:hover {
+		background-color: lighten($bgColor, 15%);
+	}
+}
+
+.errorModal {
+	width: 340px;
+	font-size: 13px;
+
+	.modal-head {
+		border-bottom: none;
+	}
+
+	.modal-body {
+		padding-top: 0;
+		color: #888888;
+	}
+}
+
+.unclosableMessageModal {
+	.modal-body {
+		text-align: left;
+	}
+}
+
+.inputModal {
+	font-size: 13px;
+
+	.modal-body {
+		padding: 12px 22px 22px;
+	}
+
+	.modal-message {
+		padding: 10px 20px 36px;
+		font-size: 14px;
+		font-weight: $fontWeight-medium;
+	}
+}
+
 /** Error Modal **/
 
-.modal-error-title {
+.errorModal-title {
 	margin-top: 12px;
 	margin-bottom: 20px;
 	font-size: 35px;
@@ -323,8 +321,8 @@ $modal-transitionDuration: .3s;
 	color: #d14233;
 }
 
-.modal-error-caption,
-.modal-error-message {
+.errorModal-caption,
+.errorModal-message {
 	margin-top: .2em;
 }
 
@@ -364,7 +362,7 @@ $modal-transitionDuration: .3s;
 	font-size: 11px;
 	color: #1b5278;
 
-	&.nullContent {
+	&.modal-form-nullContent {
 		font-style: italic;
 		color: #d1d1d1;
 	}

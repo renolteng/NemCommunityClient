@@ -17,7 +17,7 @@
 			{{#layout.0.name}}
 				{{>0}}
 			{{/}}
-			<inputModal modalClass="input" disableEasyClose="true">
+			<inputModal modalClass="inputModal" disableEasyClose="true">
 				{{#message}}
 					<p class="modal-message">
 						{{message}}
@@ -37,7 +37,7 @@
 								</p>
 							{{/}}
 							{{#.sublabel}}
-								<p class="modal-form-sublabel modal-form-line {{#nullContent}}nullContent{{/}}">
+								<p class="modal-form-sublabel modal-form-line {{#nullContent}}modal-form-nullContent{{/}}">
 									{{.content}}
 								</p>
 							{{/}}
@@ -45,7 +45,7 @@
 					{{/}}
 				</div>
 				<div>
-					<button type="button" class="modal-submitBtn modal-button primary {{#processing}}disabled{{/}}" on-click="submit">
+					<button type="button" class="modal-submitBtn modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="submit">
 						{{^processing}}
 							{{submitLabel}}
 						{{/}}
@@ -55,34 +55,34 @@
 					</button>
 				</div>
 			</inputModal>
-			<confirmModal modalClass="confirm" disableEasyClose="true">
+			<confirmModal modalClass="confirmModal" disableEasyClose="true">
 				<p><em>{{message}}</em></p>
 				<div class="modal-actions">
 					{{#actions}}
-						<button type="button" class="modal-button {{.cssClass}}" on-click="confirm:{{.action}}">{{.label}}</button>
+						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm:{{.action}}">{{.label}}</button>
 					{{/}}
 				</div>
 			</confirmModal>
-			<messageModal modalClass="message" closeOnEnter="true">
+			<messageModal modalClass="messageModal" closeOnEnter="true">
 				<p><em>{{{message}}}</em></p>
 				<div class="modal-actions">
-					<button type="button" class="modal-button neutral" on-click="closeModal">OK</button>
+					<button type="button" class="modal-button modal-button--neutral" on-click="closeModal">OK</button>
 				</div>
 			</messageModal>
-			<errorModal modalClass="error" texts="{{texts}}">
+			<errorModal modalClass="errorModal" texts="{{texts}}">
 				<div>
 					<img src="images/sad-face.png" alt="Sadly"/>
 				</div>
-				<h1 class="modal-error-title">{{texts.modals.error.title}}</h1>
-				<p class="modal-error-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
-				<p class="modal-error-message">{{message}}</p>
+				<h1 class="errorModal-title">{{texts.modals.error.title}}</h1>
+				<p class="errorModal-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
+				<p class="errorModal-message">{{message}}</p>
 			</errorModal>
-			<unclosableMessageModal modalClass="unclosable message" noCloseButton="true" disableEasyClose="true">
+			<unclosableMessageModal modalClass="unclosableMessageModal" noCloseButton="true" disableEasyClose="true">
 				<p><em>{{{message}}}{{runningEllipsis}}</em></p>
 			</unclosableMessageModal>
 		</script>
 		<script type="text/ractive" id="modal-template">
-			<div tabindex="-1" class="modal-container {{#isActive}}active{{/}}" on-click="{{^disableEasyClose}}modalContainerClick{{/}}" on-keyup="{{^disableEasyClose}}modalContainerKeyup{{/}}">
+			<div tabindex="-1" class="modal-container {{#isActive}}modal--active{{/}}" on-click="{{^disableEasyClose}}modalContainerClick{{/}}" on-keyup="{{^disableEasyClose}}modalContainerKeyup{{/}}">
 				<article class="modal {{modalClass}}">
 					<div class="modal-head">
 						<h1 class="modal-title">{{modalTitle}}</h1>
