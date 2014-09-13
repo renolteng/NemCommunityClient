@@ -4,7 +4,7 @@ import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
-import org.nem.core.serialization.Deserializer;
+import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 
 import java.util.List;
@@ -70,6 +70,19 @@ public class AccountServices {
 		final String queryString = formatQueryString(address, null);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, queryString);
 		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE);
+	}
+
+	/**
+	 * Gets account harvests for the specified account.
+	 *
+	 * @param address The account address.
+	 * @param endHash The hash of top-most harvest.
+	 * @return The account information.
+	 */
+	public List<HarvestInfo> getAccountHarvests(final Address address, final Hash endHash) {
+		final String queryString = formatQueryString(address, endHash);
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
+		return deserializer.readObjectArray("data", HarvestInfo::new);
 	}
 
 	/**
