@@ -1,6 +1,6 @@
 NEM Community Client (NCC)
 ====================
-[![Build Status](https://travis-ci.org/NewEconomyMovement/NemCommunityClient.svg?branch=master)]
+![Build Status](https://travis-ci.org/NewEconomyMovement/NemCommunityClient.svg?branch=master)
 
 NCC is the initial client provided with NEM. It provides a web interface for managing wallets and interacting with the NEM Infrastructure Server (NIS).
 
