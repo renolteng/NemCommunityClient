@@ -13,7 +13,7 @@ import java.math.BigInteger;
 public class WalletAccount implements SerializableEntity {
 	private final Address address;
 	private final PrivateKey privateKey;
-	//Will only be filled if the account is used for remote harvesting.
+	// Will only be filled if the account is used for remote harvesting.
 	private PrivateKey remoteHarvestingPrivateKey;
 	private NodeEndpoint remoteHarvestingEndpoint;
 
@@ -38,8 +38,7 @@ public class WalletAccount implements SerializableEntity {
 	}
 
 	/**
-	 * Creates a new wallet account based on the provided key-pair for the account itself 
-	 * and also for remote harvesting if key is not null.
+	 * Creates a new wallet account based on the provided key-pair for the account itself and also for remote harvesting if key is not null.
 	 *
 	 * @param privateKey The private key.
 	 * @param remoteHarvestingPK The raw private key.
@@ -53,8 +52,8 @@ public class WalletAccount implements SerializableEntity {
 		this.privateKey = privateKey;
 		this.remoteHarvestingPrivateKey = null;
 		this.remoteHarvestingEndpoint = null;
-		//Be fault tolerant
-		if(remoteHarvestingPK != null) {
+		// Be fault tolerant
+		if (remoteHarvestingPK != null) {
 			this.remoteHarvestingPrivateKey = new PrivateKey(remoteHarvestingPK);
 		}
 	}
@@ -87,17 +86,17 @@ public class WalletAccount implements SerializableEntity {
 	public PrivateKey getPrivateKey() {
 		return this.privateKey;
 	}
-	
+
 	/**
 	 * Gets the private key for remote harvesting.
 	 *
 	 * @return The private key.
 	 */
 	public PrivateKey getRemoteHarvestingPrivateKey() {
-		if(remoteHarvestingPrivateKey == null) {
+		if (remoteHarvestingPrivateKey == null) {
 			remoteHarvestingPrivateKey = new KeyPair().getPrivateKey();
 		}
-		
+
 		return remoteHarvestingPrivateKey;
 	}
 
@@ -122,12 +121,9 @@ public class WalletAccount implements SerializableEntity {
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeBigInteger("privateKey", this.privateKey.getRaw());
-		if(remoteHarvestingPrivateKey != null) {
-			serializer.writeBigInteger("remoteHarvestingPrivateKey", this.remoteHarvestingPrivateKey.getRaw());
-		}
-		if(remoteHarvestingEndpoint != null) {
-			serializer.writeObject("remoteHarvestingEndpoint", this.remoteHarvestingEndpoint);
-		}
+		BigInteger pk = this.remoteHarvestingPrivateKey == null ? null : this.remoteHarvestingPrivateKey.getRaw();
+		serializer.writeBigInteger("remoteHarvestingPrivateKey", pk);
+		serializer.writeObject("remoteHarvestingEndpoint", this.remoteHarvestingEndpoint);
 	}
 
 	@Override
@@ -141,7 +137,7 @@ public class WalletAccount implements SerializableEntity {
 			return false;
 		}
 
-		final WalletAccount rhs = (WalletAccount)obj;
+		final WalletAccount rhs = (WalletAccount) obj;
 		return this.address.equals(rhs.address);
 	}
 

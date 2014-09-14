@@ -95,7 +95,6 @@ public class WalletAccountTest {
 
 	//region serialization
 
-	// TODO-CR: T -> J: Test fails because of optional value handling by enforced read/write serializer.
 	@Test
 	public void accountCanBeRoundTrippedWithoutRemoteHarvestKey() {
 		// Arrange:
