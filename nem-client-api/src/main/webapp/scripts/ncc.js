@@ -263,6 +263,13 @@ define(function(require) {
         computed: {
             allAccounts: 'this.prepend([${wallet.primaryAccount}], ${wallet.otherAccounts})',
             nisStatus: function() {
+                if (this.get('status.nccUnavailable')) {
+                    return {
+                        type: 'critical',
+                        message: this.get('texts.common.nisStatus.nccUnavailable')
+                    };
+                }
+
                 if (this.get('status.nisUnavailable')) {
                     return {
                         type: 'critical',

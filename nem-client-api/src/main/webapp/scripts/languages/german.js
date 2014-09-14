@@ -35,6 +35,7 @@ define({
         common: {
                 success: 'Erfolg', //title of the Success message modals
 	        	nisStatus: {
+                    nccUnavailable: 'NCC is not available',
 	        		unavailable: 'NIS is nicht verfügbar',
 	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
 	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',

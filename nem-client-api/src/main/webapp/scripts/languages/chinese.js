@@ -33,7 +33,18 @@
             901: 'There was an error setting up offline mode.'
         },
         common: {
-        	success: '成功' //title of the Success message modals
+        	success: '成功', //title of the Success message modals
+        	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
+        		unavailable: 'NIS is not available',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
+        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		daysBehind: {
+        			0: 'less than 1 day',
+        			1: '1 day',
+        			many: '{{1}} days'
+        		}
+        	}
         },
 		modals: {
 			error: {
