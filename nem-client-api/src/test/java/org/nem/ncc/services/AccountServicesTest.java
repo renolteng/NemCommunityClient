@@ -135,12 +135,36 @@ public class AccountServicesTest {
 	@Test
 	public void getUnconfirmedTransactionsDelegatesToConnector() {
 		// Arrange:
-		final TestContext context = new TestContext();
 		final List<Transaction> originalTransactions = Arrays.asList(
 				createTransfer(Amount.fromNem(124)),
 				createTransfer(Amount.fromNem(572)),
 				createTransfer(Amount.fromNem(323)));
 
+		// Assert:
+		final List<Amount> amounts = assertGetUnconfirmedTransactionsDelegation(originalTransactions);
+		Assert.assertThat(
+				amounts,
+				IsEquivalent.equivalentTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
+	}
+
+	@Test
+	public void getUnconfirmedTransactionsReturnsTransactionsSortedNewestFirst() {
+		// Arrange:
+		final List<Transaction> originalTransactions = Arrays.asList(
+				createTransfer(Amount.fromNem(124), new TimeInstant(200)),
+				createTransfer(Amount.fromNem(572), new TimeInstant(100)),
+				createTransfer(Amount.fromNem(323), new TimeInstant(300)));
+
+		// Assert:
+		final List<Amount> amounts = assertGetUnconfirmedTransactionsDelegation(originalTransactions);
+		Assert.assertThat(
+				amounts,
+				IsEqual.equalTo(Arrays.asList(Amount.fromNem(323), Amount.fromNem(124), Amount.fromNem(572))));
+	}
+
+	private static List<Amount> assertGetUnconfirmedTransactionsDelegation(final List<Transaction> originalTransactions) {
+		// Arrange:
+		final TestContext context = new TestContext();
 		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, "address=FOO"))
 				.thenReturn(serialize(new SerializableList<>(originalTransactions)));
 
@@ -149,9 +173,7 @@ public class AccountServicesTest {
 
 		// Assert:
 		Mockito.verify(context.connector, Mockito.times(1)).get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, "address=FOO");
-		Assert.assertThat(
-				transactions.stream().map(Transaction::getFee).collect(Collectors.toList()),
-				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
+		return transactions.stream().map(Transaction::getFee).collect(Collectors.toList());
 	}
 
 	//endregion
@@ -217,8 +239,12 @@ public class AccountServicesTest {
 	}
 
 	private static Transaction createTransfer(final Amount fee) {
+		return createTransfer(fee, new TimeInstant(125));
+	}
+
+	private static Transaction createTransfer(final Amount fee, final TimeInstant timeInstant) {
 		final Transaction transaction = new TransferTransaction(
-				new TimeInstant(125),
+				timeInstant,
 				Utils.generateRandomAccount(),
 				Utils.generateRandomAccount(),
 				Amount.fromNem(75),

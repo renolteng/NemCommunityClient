@@ -8,6 +8,7 @@ import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class provides higher-level functions around accessing accounts.
@@ -69,7 +70,9 @@ public class AccountServices {
 	public List<Transaction> getUnconfirmedTransactions(final Address address) {
 		final String queryString = formatQueryString(address, null);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, queryString);
-		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE);
+		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE).stream()
+				.sorted((lhs, rhs) -> -1 * lhs.getTimeStamp().compareTo(rhs.getTimeStamp()))
+				.collect(Collectors.toList());
 	}
 
 	/**
