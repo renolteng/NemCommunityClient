@@ -200,7 +200,6 @@ public class AccountControllerTest {
 		final TestContext context = new TestContext();
 		Mockito.when(context.accountMapper.toViewModel(account.getAddress()))
 				.thenReturn(createViewModel(account));
-		context.setLastBlockHeight(34);
 
 		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), null);
 		final List<Transaction> pairs = Arrays.asList(
@@ -215,8 +214,7 @@ public class AccountControllerTest {
 		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
-		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getUnconfirmedTransactions(account.getAddress());
+		Mockito.verify(context.accountServices, Mockito.times(1)).getUnconfirmedTransactions(account.getAddress());
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
@@ -226,6 +224,24 @@ public class AccountControllerTest {
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0L, 0L, 0L)));
+	}
+
+	@Test
+	public void getAccountTransactionsUnconfirmedReturnsEmptyListWhenHashIsProvided() {
+		// Arrange:
+		final Account account = Utils.generateRandomAccount();
+		final TestContext context = new TestContext();
+
+		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
+				.thenReturn(Arrays.asList(createTransfer(account, Amount.fromNem(572))));
+
+		// Act:
+		final AccountTransactionsPair pair = context.controller.getAccountTransactionsUnconfirmed(request);
+
+		// Assert:
+		Mockito.verify(context.accountServices, Mockito.times(0)).getUnconfirmedTransactions(Mockito.any());
+		Assert.assertThat(pair.getTransactions().size(), IsEqual.equalTo(0));
 	}
 
 	//endregion

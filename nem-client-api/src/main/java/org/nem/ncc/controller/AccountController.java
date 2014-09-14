@@ -84,6 +84,12 @@ public class AccountController {
 	}
 
 	private Collection<TransferViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
+		// the unconfirmed transactions api does not support paging
+		// in order to simplify the UX code, pretend all subsequent pages are empty
+		if (null != ahRequest.getHash()) {
+			return new ArrayList<>();
+		}
+
 		final Address address = ahRequest.getAccountId();
 		return this.accountServices.getUnconfirmedTransactions(address).stream()
 				.map(t -> new TransferViewModel(t, address))
@@ -104,7 +110,7 @@ public class AccountController {
 	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountHashRequest ahRequest) {
 		final AccountViewModel account = this.getAccountInfo(ahRequest);
 		final List<TransferViewModel> allTransfers = new ArrayList<>();
-		allTransfers.addAll(this.getUnconfirmedTransactions(ahRequest));
+		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(ahRequest.getAccountId(), null)));
 		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, ahRequest));
 		return new AccountTransactionsPair(account, allTransfers);
 	}
