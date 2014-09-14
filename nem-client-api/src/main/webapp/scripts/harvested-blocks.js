@@ -13,16 +13,16 @@
         	ncc.loadHarvestedBlocks = function(reload, update) {
         		var currAccount = ncc.get('activeAccount.address');
         		var requestData = { account: currAccount };
-        		var currBlocks;
-        		if (!reload && !update) {
-					currBlocks = ncc.get('harvestedBlocks.list');
+        		var currBlocks = ncc.get('harvestedBlocks.list');
+        		var shouldAppend = !reload && !update;
+        		if (shouldAppend) {
 					requestData.hash = (currBlocks && currBlocks.length) ? currBlocks[currBlocks.length - 1].hash : undefined;
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
 					var updatedBlocks = ncc.processHarvestedBlocks(data.data);
 					var all;
-					if (!reload && currBlocks && currBlocks.concat) {
+					if (shouldAppend && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
 					} else if (update) {
 						all = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
