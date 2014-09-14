@@ -34,7 +34,11 @@
 
                     ncc.set('transactions.filtered', all);
                     if (!update) {
-                		ncc.set('transactions.gotAll', updatedTxes.length < ncc.consts.txesPerPage);
+                    	var gotAll = updatedTxes.length < ncc.consts.txesPerPage;
+                		ncc.set('transactions.gotAll', gotAll);
+                		if (gotAll) {
+                			ncc.global.$window.off('scroll.txesInfiniteScrolling');
+                		}
                 	}
                 }, null, update);
 			};
@@ -50,8 +54,8 @@
 				ncc.loadTransactions(false, true);
 			}, local.autoRefreshInterval));
 
-			var $win = $(window);
-			var $doc = $(document);
+			var $win = ncc.global.$window;
+			var $doc = ncc.global.$document;
 			$win.on('scroll.txesInfiniteScrolling', function(event) {
 				if (!ncc.get('status.loadingOlderTransactions') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
 					ncc.loadTransactions(false);
@@ -59,7 +63,7 @@
 			});
     	},
     	leave: [function() {
-    		$(window).off('scroll.txesInfiniteScrolling');
+    		ncc.global.$window.off('scroll.txesInfiniteScrolling');
     	}]
     });
 });

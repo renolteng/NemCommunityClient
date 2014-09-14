@@ -32,7 +32,11 @@
 
 					ncc.set('harvestedBlocks.list', all);
                 	if (!update) {
-                		ncc.set('harvestedBlocks.gotAll', updatedBlocks.length < ncc.consts.blocksPerPage);
+                        var gotAll = updatedBlocks.length < ncc.consts.blocksPerPage;
+                		ncc.set('harvestedBlocks.gotAll', gotAll);
+                        if (gotAll) {
+                            ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
+                        }
                 	}
 				}, null, update);
 			};
@@ -60,8 +64,8 @@
 				ncc.loadHarvestedBlocks(false, true);
 			}, local.autoRefreshInterval));
 
-    		var $win = $(window);
-			var $doc = $(document);
+    		var $win = ncc.global.$window;
+			var $doc = ncc.global.$document;
 			$win.on('scroll.harvestedBlocksInfiniteScrolling', function(event) {
 				if (!ncc.get('status.loadingOlderBlocks') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
 					ncc.loadHarvestedBlocks(false);
@@ -69,7 +73,7 @@
 			});
     	},
     	leave: [function() {
-    		$(window).off('scroll.harvestedBlocksInfiniteScrolling');
+    		ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
     	}]
     });
 });
