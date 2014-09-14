@@ -107,7 +107,7 @@ define({
 			bootLocalNode: {
 				title: 'Khởi động local node',
 				account: 'Tài khoản để khởi động local node',
-				noLabel: '&lt;Không có nhãn&gt;',
+				noLabel: '<span class="null">&lt;Không có nhãn&gt;</span>',
 				wallet: 'Ví',
 				node: 'Tên node',
 				boot: 'Khởi động',
@@ -141,7 +141,7 @@ define({
 			setPrimary: {
 				title: 'Đặt tài khoản chính',
 				account: 'Tài khoản được đặt làm tài khoản chính',
-				noLabel: '&lt;Không có nhãn&gt;',
+				noLabel: '<span class="null">&lt;Không có nhãn&gt;</span>',
 				wallet: 'Ví',
 				password: "Mật khẩu ví",
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được đặt làm tài khoản chính!',

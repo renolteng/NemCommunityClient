@@ -107,7 +107,7 @@ define({
 			bootLocalNode: {
 				title: 'Avvia nodo locale',
 				account: 'Indirizzo con cui avviare il nodo',
-				noLabel: '&lt;Senza nome&gt;',
+				noLabel: '<span class="null">&lt;Senza nome&gt;</span>',
 				wallet: 'Portafoglio',
 				node: 'Nome del nodo',
 				boot: 'Avvia',
@@ -141,7 +141,7 @@ define({
 			setPrimary: {
 				title: 'Selezione indirizzo principale',
 				account: 'Indirizzo da rendere principale',
-				noLabel: '&lt;Senza nome&gt;',
+				noLabel: '<span class="null">&lt;Senza nome&gt;</span>',
 				wallet: 'Portafoglio',
 				password: "Password del portafoglio",
 				successMessage: "L'indirizzo {{1}} {{#2}}({{2}}){{/2}} è il principale",

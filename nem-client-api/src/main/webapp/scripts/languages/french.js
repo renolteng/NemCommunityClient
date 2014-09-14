@@ -107,7 +107,7 @@ define({
 			bootLocalNode: {
 				title: 'Démarrage du noeud local',
 				account: 'Compte pour démarrarer le noeud local',
-				noLabel: '&lt;Aucune étiquette&gt;',
+				noLabel: '<span class="null">&lt;Aucune étiquette&gt;</span>',
 				wallet: 'Portefeuille',
 				node: 'Nom du noeud',
 				boot: 'Démarrez',
@@ -141,7 +141,7 @@ define({
 			setPrimary: {
 				title: 'Définir votre compte principal',
 				account: 'Le compte a été défini comme votre compte principal',
-				noLabel: '&lt;Aucune étiquette&gt;',
+				noLabel: '<span class="null">&lt;Aucune étiquette&gt;</span>',
 				wallet: 'Portefeuille',
 				password: "Mot de passe du portefeuille",
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} a été défini comme votre compte principal!',

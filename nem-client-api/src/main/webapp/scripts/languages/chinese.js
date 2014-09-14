@@ -96,7 +96,7 @@
 			bootLocalNode: {
 				title: '启动本地节点',
 				account: '启动本地节点的帐号',
-				noLabel: '&lt;没有标识&gt;',
+				noLabel: '<span class="null">&lt;没有标识&gt;</span>',
 				wallet: '钱包',
 				node: '节点名称',
 				boot: '启动',
@@ -130,7 +130,7 @@
 			setPrimary: {
 				title: '设置主账户',
 				account: '帐户被设置为主账户',
-				noLabel: '&lt;无标识&gt;',
+				noLabel: '<span class="null">&lt;无标识&gt;</span>',
 				wallet: '钱包',
 				password: "钱包的密码",
 				successMessage: '帐户 {{1}} {{#2}}({{2}}){{/2}} 被设置为主账户!',

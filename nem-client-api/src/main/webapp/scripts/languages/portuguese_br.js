@@ -105,7 +105,7 @@ define({
 			bootLocalNode: {
 				title: 'Inicializar o nó local',
 				account: 'Conta para inicializar o nó local',
-				noLabel: '&lt;Sem identificação&gt;',
+				noLabel: '<span class="null">&lt;Sem identificação&gt;</span>',
 				wallet: 'Carteira',
 				node: 'Nome do nó',
 				boot: 'Inicializar',
@@ -139,7 +139,7 @@ define({
 			setPrimary: {
 				title: 'Definir conta primária',
 				account: 'Conta para ser definida como primária',
-				noLabel: '&lt;Sem identificação&gt;',
+				noLabel: '<span class="null">&lt;Sem identificação&gt;</span>',
 				wallet: 'Carteira',
 				password: "Senha da carteira",
 				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!',
