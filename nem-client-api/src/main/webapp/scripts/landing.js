@@ -6,9 +6,9 @@
  		url: 'index.html',
 		template: 'rv!layout/landing',
 		local: {
-			initialWaitTime: 600,
+			initialWaitTime: 200,
 			closingGateTime: 1000,
-			scrollHeader: 'active.scrollHeader',
+			scrollHeader: 'landingPage.scrollHeader',
 			nisCheckingInterval: 3000
 		},
 		initOnce: function() {
@@ -22,91 +22,94 @@
 	        };
 		},
 		initEverytime: function() {
-			ncc.set('active.gateClosed', false);
-			ncc.set('active.overlayIn', false);
-			ncc.set('active.hexagon', false);
-			ncc.set('active.landingRegion', '');
+			ncc.set('landingPage.gateClosed', false);
+			ncc.set('landingPage.overlayIn', false);
+			ncc.set('landingPage.hexagonIn', false);
+			ncc.set('landingPage.activeSection', '');
 			ncc.set(this.local.scrollHeader, false);
 		},
 		setupEverytime: function() {
 			var local = this.local;
-			local.$html = $('html');
-			local.$body = $('body');
-			local.$doc = $(document);
-	 		local.$leftForm = $('.left.region .form');
-			local.$rightForm = $('.right.region .form');
-			local.$staticHeader = $('#static-header');
-			local.$createWalletNameInput = $('.left.region .custom-input').first().find('input');
-			local.headerBottom = local.$staticHeader.offset().top + local.$staticHeader.outerHeight();
-			local.$bgSlideshow = $('#bg-slideshow');
-			local.bgSlideshowTop = local.$bgSlideshow.offset().top;
+			var global = ncc.global;
 
-			local.$html.addClass('landing');
+			global.$window.on('scroll.landing', (function() {
+				var $staticHeader = $('.staticHeader');
+				var headerBottom = $staticHeader.offset().top + $staticHeader.outerHeight();
+
+				var $landingBackground = $('.landing-background');
+				var landingBgTop = $landingBackground.offset().top;
+
+				return function(event) {
+					var scrollTop = global.$document.scrollTop();
+
+					// Scroll header
+					if (!ncc.get(local.scrollHeader) && scrollTop >= headerBottom) {
+						ncc.set(local.scrollHeader, true);
+					} else if (ncc.get(local.scrollHeader) && scrollTop < headerBottom) {
+						ncc.set(local.scrollHeader, false);
+					}
+
+					// Floating background
+					var shifted = (scrollTop - landingBgTop) * .8;
+					$landingBackground.css('background-position', '50% calc(50% + ' + shifted + 'px)');
+				}
+			})());
 
 			// Intro
 			$(function() {
 				setTimeout(function() {
-					ncc.set('active.gateClosed', true);
+					ncc.set('landingPage.gateClosed', true);
+
 					setTimeout(function() {
-						ncc.set('active.overlayIn', true);
-						ncc.set('active.hexagon', true);
+						ncc.set('landingPage.overlayIn', true);
+						ncc.set('landingPage.hexagonIn', true);
 					}, local.closingGateTime);
 				}, local.initialWaitTime);
 			});
 
-			ncc.set('status.listingWallets', true);
+			// Retrieve wallet list
+			ncc.set('landingPage.listingWallets', true);
 			ncc.getRequest('wallet/list', 
 				function(data) {
 					ncc.set('wallets', data.wallets);
 				},
 				{
 					complete: function() {
-						ncc.set('status.listingWallets', false);
+						ncc.set('landingPage.listingWallets', false);
 					}
 				}
 			);
 
 			require(['tinycarousel'], function() {
-				$('#tips-carousel .container').tinycarousel({
+				$('.tipsCarousel-container').tinycarousel({
 			        interval: true,
 			        intervalTime: 5000,
 			        animationTime: 1000
 			    });
 			});
 
-			$(window).on('scroll.landing', function(event) {
-				var scrollTop = local.$doc.scrollTop();
-
-				// scroll header
-				if (!ncc.get(local.scrollHeader) && scrollTop >= local.headerBottom) {
-					ncc.set(local.scrollHeader, true);
-				} else if (ncc.get(local.scrollHeader) && scrollTop < local.headerBottom) {
-					ncc.set(local.scrollHeader, false);
-				}
-
-				// floating background
-				var shifted = (scrollTop - local.bgSlideshowTop) * .8;
-				local.$bgSlideshow.css('background-position', '50% calc(50% + ' + shifted + 'px)');
-			});
-
 			require(['expand'], function() {
+				var $leftForm = $('.createWalletForm');
+				var $rightForm = $('.openWalletForm');
+				var $createWalletNameInput = $('.js-textbox-createWallet-name');
+
 				local.listeners.push(ncc.on({
 					'switchLeft': function() {
-						if (ncc.get('active.landingRegion') === 'right') {
-							local.$rightForm.collapse();
+						if (ncc.get('landingPage.activeSection') === 'right') {
+							$rightForm.collapse();
 						}
-						ncc.set('active.landingRegion', 'left');
-						ncc.set('active.hexagon', false);
-						local.$leftForm.expand();
-						local.$createWalletNameInput.focus();
+						ncc.set('landingPage.activeSection', 'left');
+						ncc.set('landingPage.hexagonIn', false);
+						$leftForm.expand();
+						$createWalletNameInput.focus();
 					},
 					'switchRight': function() {
-						if (ncc.get('active.landingRegion') === 'left') {
-							local.$leftForm.collapse();
+						if (ncc.get('landingPage.activeSection') === 'left') {
+							$leftForm.collapse();
 						}
-						ncc.set('active.landingRegion', 'right');
-						ncc.set('active.hexagon', false);
-						local.$rightForm.expand();
+						ncc.set('landingPage.activeSection', 'right');
+						ncc.set('landingPage.hexagonIn', false);
+						$rightForm.expand();
 					}
 				}));
 			});
@@ -115,37 +118,33 @@
 				openWallet: function(e, wallet) {
 			    	var requestData = {
 						wallet: wallet,
-						password: ncc.get('inputPassword')[wallet]
+						password: ncc.get('landingPage.openWalletPasswords')[wallet]
 					};
-					ncc.set('status.openingWallet', true);
+					ncc.set('landingPage.openingWallet', true);
 			    	ncc.postRequest('wallet/open', requestData,
 			    		function(data) {
-			    			// clear typed passwords before redirecting
-							ncc.set('inputPassword', undefined);
 			        		ncc.openWallet(data);
 			        	},
 						{
 							complete: function() {
-								ncc.set('status.openingWallet', false);
+								ncc.set('landingPage.openingWallet', false);
 							}
 						}
 			    	);
 			    },
 				createWallet: function() {
-					ncc.set('status.creatingWallet', true);
-					var requestData = ncc.get('createdWallet');
+					ncc.set('landingPage.creatingWallet', true);
+					var requestData = ncc.get('landingPage.createWalletForm');
 			    	ncc.postRequest('wallet/create', requestData, function(data) {
 		    			ncc.postRequest('wallet/open', requestData,
 				    		function(data) {
-				    			// clear form before redirecting
-				    			ncc.set('createdWallet', {});
 				        		ncc.openWallet(data);
 				        	}
 				    	);
 		    		},
 		    		{
 		    			complete: function() {
-		    				ncc.set('status.creatingWallet', false);
+		    				ncc.set('landingPage.creatingWallet', false);
 		    			}
 		    		});
 			    },
@@ -153,7 +152,7 @@
 			    	var $el = $(selector);
 			    	if ($el[0]) {
 			    		var offsetTop = $el.offset().top;
-				        local.$html.add(local.$body).stop().animate({ // Chrome scrolls body, Firefox and IE scrolls html
+				        global.$html.add(global.$body).stop().animate({ // Chrome scrolls body, Firefox and IE scrolls html
 				            scrollTop: offsetTop
 				        }, 400);
 			    	}
@@ -184,16 +183,16 @@
 			    	}
 			    },
 			    walletSelected: function(e) {
-			    	$(e.node).siblings('.password-prompt').find('input[type="password"]').focus();
+			    	$(e.node).siblings('.openWalletList-passwordPrompt').find('.openWalletList-password').focus();
 			    }
 			}));
 
-			//local.nisChecking = 
+			global.$html.addClass('landing');
 		},
 		leave: [function() {
-			//clearInterval(this.local.nisChecking);
-			$(window).off('scroll.landing');
-			this.local.$html.removeClass('landing');
+			ncc.global.$window.off('scroll.landing');
+			ncc.set('landingPage', null);
+			ncc.global.$html.removeClass('landing');
 		}]
  	});
 });

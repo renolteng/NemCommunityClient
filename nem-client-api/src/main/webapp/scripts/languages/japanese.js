@@ -195,9 +195,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'ウォレットのインポートに成功しました。',
 			nav: {
-				start: '<strong>始め方</strong>',
-				about: '<strong>NEM</strong>について',
-				help: '<strong>ヘルプ</strong>'
+				start: '始め方',
+				about: 'NEMについて',
+				help: 'ヘルプ'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>は初めてですか?',

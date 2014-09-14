@@ -195,9 +195,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Pinigine importuota sekmingai!',
 			nav: {
-				start: '<strong>Pradžiamokslis</strong>',
-				about: 'Apie <strong>NEM</strong>',
-				help: '<strong>Pagalba</strong>'
+				start: 'Pradžiamokslis',
+				about: 'Apie NEM',
+				help: 'Pagalba'
 			},
 			main: {
 				leftTitle: 'Esate pirma karta <em>NEM</em>?',

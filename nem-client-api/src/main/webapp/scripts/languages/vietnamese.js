@@ -195,9 +195,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Ví đã được nhập thành công!',
 			nav: {
-				start: '<strong>Khởi đầu</strong>',
-				about: 'Về <strong>NEM</strong>',
-				help: '<strong>Trợ giúp</strong>'
+				start: 'Khởi đầu',
+				about: 'Về NEM',
+				help: 'Trợ giúp'
 			},
 			main: {
 				leftTitle: 'Mới đến với <em>NEM</em>?',

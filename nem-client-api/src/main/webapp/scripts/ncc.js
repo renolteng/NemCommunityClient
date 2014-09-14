@@ -581,12 +581,12 @@ define(function(require) {
                     {
                         action: 'no',
                         label: ncc.get('texts.modals.confirmDefault.no'),
-                        cssClass: 'secondary'
+                        actionType: 'secondary'
                     },
                     {
                         action: 'yes',
                         label: ncc.get('texts.modals.confirmDefault.yes'),
-                        cssClass: 'primary'
+                        actionType: 'primary'
                     }
                 ]
             });
@@ -792,7 +792,14 @@ define(function(require) {
                 }
 
                 if (!isBack) {
-                    var url = layouts[layouts.length - 1].url + (params? self.toQueryString(params) : location.search);
+                    var queryString = '';
+                    if (params) {
+                        queryString = self.toQueryString(params);
+                    } else if (isInit) {
+                        queryString = location.search;
+                    }
+                    var url = layouts[layouts.length - 1].url + queryString;
+                    
                     if (isInit) {
                         history.replaceState({ page: page, params: params }, 'entry', url);
                     } else {
@@ -881,7 +888,13 @@ define(function(require) {
             this.set('toDate', this.toDate);
             this.set('daysPassed', this.daysPassed);
             this.set('toNem', this.toNem);
-            var self = this;
+
+            this.global = {
+                $window: $(window),
+                $document: $(document),
+                $html: $('html'),
+                $body: $('body')
+            };
         }
     });
 

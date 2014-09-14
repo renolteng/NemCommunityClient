@@ -75,7 +75,7 @@
 							<li class="dropdownMenu-item disabled">
 								{{texts.wallet.actions.mergeWallets}}
 							</li>
-							<li class="dropdownMenu-item disabled separator">
+							<li class="dropdownMenu-item disabled dropdownMenu-item--separator">
 								{{texts.wallet.actions.exportWallet}}
 							</li>
 							<li class="dropdownMenu-item" on-click="refreshInfo">
@@ -207,7 +207,7 @@
 	</div>
 	{{#layout.1.name}}{{>1}}{{/}}
 </div>
-<sendNemModal modalClass="sendNem" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}">
+<sendNemModal modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}">
 	<div class="form-control amount">
 		<input type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{formattedAmount}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
 	</div>
@@ -246,7 +246,7 @@
 		</button>
 	</div>
 </sendNemModal>
-<clientInfoModal modalClass="clientInfo wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}">
+<clientInfoModal modalClass="clientInfoModal modal--wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}">
 	<div class="logo">
 		<img src="images/nem_logo.png" alt="NEM - New Economy Movement">
 	</div>
@@ -301,7 +301,7 @@
 		</div>
 	</div>
 </clientInfoModal>
-<transactionDetailsModal modalClass="transaction-details wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
+<transactionDetailsModal modalClass="transactionDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
 	{{#transaction}}
 		<table>
 			<tr>
