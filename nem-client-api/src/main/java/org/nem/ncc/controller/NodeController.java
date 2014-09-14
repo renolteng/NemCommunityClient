@@ -3,12 +3,14 @@ package org.nem.ncc.controller;
 import org.nem.core.connect.*;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.PrivateKey;
+import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.BootNodeRequest;
 import org.nem.ncc.services.WalletServices;
 import org.nem.ncc.wallet.Wallet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,7 +71,7 @@ public class NodeController {
 	 * Checks the status of the local node.
 	 */
 	@RequestMapping(value = "/node/status", method = RequestMethod.GET)
-	public void checkNodeStatus() {
-		this.nisConnector.get(NisApiId.NIS_REST_NODE_INFO, null);
+	public NemRequestResult checkNodeStatus() {
+		return new NemRequestResult(this.nisConnector.get(NisApiId.NIS_REST_STATUS, null));
 	}
 }

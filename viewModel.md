@@ -241,8 +241,13 @@ The view model used by the NCC server.
 
 ```
 {
-	"code": 3,
-	"type": 4,
+	"code": 3,            # 0 - UNKNOWN
+	                      # 1 - STOPPED
+	                      # 2 - STARTING
+	                      # 3 - RUNNING
+	                      # 4 - BOOTED
+	                      # 5 - SYNCHRONIZED
+	"type": 4,            # type 4 - TYPE_STATUS
 	"message": "status"
 }
 ```
