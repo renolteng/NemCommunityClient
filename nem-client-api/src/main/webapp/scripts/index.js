@@ -49,7 +49,11 @@ define(['ncc'], function(ncc) {
                 success = true;
             }
         }, {
-            complete: function() {
+            complete: function(jqXHR, textStatus) {
+                if (jqXHR.status === 0) {
+                    ncc.set('status.nccUnavailable', true);
+                }
+
                 if (!success) {
                     ncc.set('status.nisUnavailable', true);
                 }

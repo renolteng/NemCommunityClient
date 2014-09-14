@@ -35,7 +35,8 @@ define({
         common: {
         	success: 'Thành công', //title of the Success message modals
         	nisStatus: {
-        		unavailable: 'NIS không khả dụng',
+        		nccUnavailable: 'Mất kết nối với NCC',
+        		unavailable: 'Mất kết nối với NIS',
         		notBooted: 'NIS cần phải được khởi động. Hãy mở ví của bạn và khởi động local node bằng hộp thoại hiện ra.',
         		synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',
                 daysBehind: {

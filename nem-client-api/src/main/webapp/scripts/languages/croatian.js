@@ -35,6 +35,7 @@ define({
         common: {
         	success: 'Uspjeh', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS je nedostupan',
         		notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
         		synchronizing: 'NIS sinkronizacija. Blok {{1}}, otprilike {{2}} dan(a) u zaostatku.'
