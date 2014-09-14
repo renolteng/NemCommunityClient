@@ -17,7 +17,7 @@
         		if (!reload && !update) {
 					currBlocks = ncc.get('harvestedBlocks.list');
 					var lastTimeStamp = (currBlocks && currBlocks.length)? currBlocks[currBlocks.length - 1].timeStamp : null;
-					if (lastTimeStamp) requestData.hash = lastTimeStamp;
+					if (lastTimeStamp) requestData.timeStamp = lastTimeStamp;
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
@@ -26,14 +26,18 @@
 					if (!reload && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
 					} else if (update) {
-						all = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
+						all = ncc.updateNewer(updatedBlocks, currBlocks, 'timeStamp');
 					} else {
 						all = updatedBlocks;
 					}
 
 					ncc.set('harvestedBlocks.list', all);
                 	if (!update) {
-                		ncc.set('harvestedBlocks.gotAll', updatedBlocks.length < ncc.consts.blocksPerPage);
+                        var gotAll = updatedBlocks.length < ncc.consts.blocksPerPage;
+                		ncc.set('harvestedBlocks.gotAll', gotAll);
+                        if (gotAll) {
+                            ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
+                        }
                 	}
 				}, null, update);
 			};
@@ -61,8 +65,8 @@
 				ncc.loadHarvestedBlocks(false, true);
 			}, local.autoRefreshInterval));
 
-    		var $win = $(window);
-			var $doc = $(document);
+    		var $win = ncc.global.$window;
+			var $doc = ncc.global.$document;
 			$win.on('scroll.harvestedBlocksInfiniteScrolling', function(event) {
 				if (!ncc.get('status.loadingOlderBlocks') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
 					ncc.loadHarvestedBlocks(false);
@@ -70,7 +74,7 @@
 			});
     	},
     	leave: [function() {
-    		$(window).off('scroll.harvestedBlocksInfiniteScrolling');
+    		ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
     	}]
     });
 });
