@@ -35,6 +35,7 @@ define({
         common: {
         	success: 'Operazione completata', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS non disponibile',
         		notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
         		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',

@@ -35,6 +35,7 @@
             common: {
                     success: 'Успешно', //title of the Success message modals
                     nisStatus: {
+                                nccUnavailable: 'NCC is not available',
                                 unavailable: 'NIS не доступен',
                                 notBooted: 'NIS требует перезагрузки. Пожалуйста, откройте кошелёк и загрузитесь как локальный узел через всплывающий диалог.',
                                 synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',

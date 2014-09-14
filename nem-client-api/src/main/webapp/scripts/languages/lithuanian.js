@@ -35,6 +35,7 @@
         common: {
         	success: 'Pavyko', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS nera paleistas',
         		notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
         		synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
