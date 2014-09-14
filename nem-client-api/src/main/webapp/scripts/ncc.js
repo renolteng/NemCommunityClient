@@ -792,7 +792,14 @@ define(function(require) {
                 }
 
                 if (!isBack) {
-                    var url = layouts[layouts.length - 1].url + (params? self.toQueryString(params) : location.search);
+                    var queryString = '';
+                    if (params) {
+                        queryString = self.toQueryString(params);
+                    } else if (isInit) {
+                        queryString = location.search;
+                    }
+                    var url = layouts[layouts.length - 1].url + queryString;
+                    
                     if (isInit) {
                         history.replaceState({ page: page, params: params }, 'entry', url);
                     } else {
