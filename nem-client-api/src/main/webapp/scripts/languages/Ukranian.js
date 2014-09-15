@@ -2,6 +2,10 @@ define({
 	id: 'UA',
 	name: 'Ukrainian',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Файл не знайдено.',
             102: 'Гаманець не був створений.',

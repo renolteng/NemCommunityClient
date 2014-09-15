@@ -1,8 +1,12 @@
 define({
-        id: 'DE',
-        name: 'Deutsch',
-        texts: {
-                faults: {
+    id: 'DE',
+    name: 'Deutsch',
+    texts: {
+        preferences: {
+            thousandSeparator: '\u2009',
+            decimalSeparator: '.'
+        },
+        faults: {
             101: 'Die Datei wurde nicht gefunden.',
             102: 'Die Brieftasche wurde nicht erstellt.',
             103: 'Die Brieftaschendatei ist beschädigt. Bitte stelle die Brieftasche aus einem Backup wieder her.',
@@ -35,6 +39,7 @@ define({
         common: {
                 success: 'Erfolg', //title of the Success message modals
 	        	nisStatus: {
+                    nccUnavailable: 'NCC is not available',
 	        		unavailable: 'NIS is nicht verfügbar',
 	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
 	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
@@ -195,9 +200,9 @@ define({
                 logo: 'images/nem_logo.png',
                 importSuccess: 'Die Brieftasche wurde erfolgreich importiert!',
                 nav: {
-                        start: 'Erste <strong>Schritte</strong>',
-                        about: 'Info über <strong>NEM</strong>',
-                        help: '<strong>Hilfe</strong>'
+                        start: 'Erste Schritte',
+                        about: 'Info über NEM',
+                        help: 'Hilfe'
                 },
                 main: {
                         leftTitle: 'Neu bei <em>NEM</em>?',

@@ -671,7 +671,7 @@ $account-actions-width: 33px;
 	}
 }
 
-.modal.clientInfo {
+.clientInfoModal {
 	font-size: 13px;
 
 	.modal-body {
@@ -700,7 +700,7 @@ $account-actions-width: 33px;
 	}
 }
 
-.modal.sendNem {
+.sendNemModal {
 	$unit-width: 46px;
 	font-size: 12px;
 
@@ -902,7 +902,7 @@ $account-actions-width: 33px;
 	}
 }
 
-.modal.transaction-details {
+.transactionDetailsModal {
 	font-size: 13px;
 	color: #444444;
 

@@ -2,6 +2,10 @@ define({
            id: 'es',
            name: 'Spanish',
            texts: {
+            preferences: {
+              thousandSeparator: '\u2009',
+              decimalSeparator: '.'
+            },
                faults: {
                    //101: 'File not found.',
                    101: 'Archivo no encontrado.',
@@ -64,6 +68,7 @@ define({
                    //success: 'Success', //title of the Success message modals
                    success: '&Eacute;xito', //title of the Success message modals
                    nisStatus: {
+                       nccUnavailable: 'NCC is not available',
                        //unavailable: 'NIS is not available',
                        unavailable: 'NIS no esta disponible',
                        //notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
@@ -330,12 +335,12 @@ define({
                    //importSuccess: 'Wallet has been sucessfully imported!',
                    importSuccess: 'El monedero ha sido importado exitosamente!',
                    nav: {
-                       //start: 'Getting <strong>Started</strong>',
-                       start: 'Comienze <strong>aqu&iacute;</strong>',
-                       //about: 'About <strong>NEM</strong>',
-                       about: 'Acerca de <strong>NEM</strong>',
-                       //help: '<strong>Help</strong>'
-                       help: '<strong>Ayuda</strong>'
+                       //start: 'Getting Started',
+                       start: 'Comienze aqu&iacute;',
+                       //about: 'About NEM',
+                       about: 'Acerca de NEM',
+                       //help: 'Help'
+                       help: 'Ayuda'
                    },
                    main: {
                        //leftTitle: 'New to <em>NEM</em>?',

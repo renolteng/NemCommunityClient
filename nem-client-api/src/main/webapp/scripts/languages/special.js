@@ -2,6 +2,10 @@ define({
 	id: "rr",
 	name: "Arrr!",
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: "RmlsZSBub3QgZm91bmQu",
             102: "V2FsbGV0IGhhcyBub3QgYmVlbiBjcmVhdGVkLg==",

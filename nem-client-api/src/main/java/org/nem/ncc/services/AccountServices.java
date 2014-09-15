@@ -4,10 +4,11 @@ import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
-import org.nem.core.serialization.Deserializer;
+import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class provides higher-level functions around accessing accounts.
@@ -69,7 +70,22 @@ public class AccountServices {
 	public List<Transaction> getUnconfirmedTransactions(final Address address) {
 		final String queryString = formatQueryString(address, null);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, queryString);
-		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE);
+		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE).stream()
+				.sorted((lhs, rhs) -> -1 * lhs.getTimeStamp().compareTo(rhs.getTimeStamp()))
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Gets account harvests for the specified account.
+	 *
+	 * @param address The account address.
+	 * @param endHash The hash of top-most harvest.
+	 * @return The account information.
+	 */
+	public List<HarvestInfo> getAccountHarvests(final Address address, final Hash endHash) {
+		final String queryString = formatQueryString(address, endHash);
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
+		return deserializer.readObjectArray("data", HarvestInfo::new);
 	}
 
 	/**

@@ -2,6 +2,10 @@ define({
 	id: 'en',
 	name: 'English',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'File not found.',
             102: 'Wallet has not been created.',
@@ -35,6 +39,7 @@ define({
         common: {
         	success: 'Success', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS is not available',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
         		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
@@ -195,9 +200,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Wallet has been sucessfully imported!',
 			nav: {
-				start: 'Getting <strong>Started</strong>',
-				about: 'About <strong>NEM</strong>',
-				help: '<strong>Help</strong>'
+				start: 'Getting Started',
+				about: 'About NEM',
+				help: 'Help'
 			},
 			main: {
 				leftTitle: 'New to <em>NEM</em>?',

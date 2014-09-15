@@ -66,8 +66,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                     content: accountLabel
                                 } :
                                 {
-                                    isHtml: true,
-                                    content: ncc.get('texts.modals.bootLocalNode.noLabel')
+                                    content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                    nullContent: true
                                 }
                         }, 
                         {
@@ -340,8 +340,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         content: accountLabel
                                     } :
                                     {
-                                        isHtml: true,
-                                        content: ncc.get('texts.modals.setPrimary.noLabel')
+                                        content: ncc.get('texts.modals.setPrimary.noLabel'),
+                                        nullContent: true
                                     }
                             }, 
                             {
@@ -649,32 +649,57 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             }
 
             require(['maskedinput'], function() {
-                var pattern1 = '#\u2009##0d';
-                var pattern2 = '#\u2009##0.999999';
-                var options = {
-                    translation: {
+                var pattern1 = function() {
+                    return '#' + ncc.get('texts.preferences.thousandSeparator') + '##0d';
+                };
+                var pattern2 = function() {
+                    return '#' + ncc.get('texts.preferences.thousandSeparator') + '##0' +
+                        ncc.get('texts.preferences.decimalSeparator') + '999999';
+                };
+
+                var dPatternRecalc = function(options) {
+                    options.translation = {
                         'd': {
-                            pattern: /\./,
+                            pattern: new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator'))),
                             optional: true
                         }
-                    },
+                    };
+                };
+                var options = {
                     onKeyPress: function(amount, e, currentField, options) {
-                        if (amount.indexOf('.') === -1) {
-                            $amount.mask(pattern1, this);
+                        dPatternRecalc(options);
+                        if (!onPattern1) {
+                            if (amount.indexOf(ncc.get('texts.preferences.decimalSeparator')) === -1) {
+                                $amount.mask(pattern1(), options);
+                                $fee.mask(pattern1(), options);
+                                onPattern1 = true;
+                            }
                         } else {
-                            $amount.mask(pattern2, this);
+                            if (amount.indexOf(ncc.get('texts.preferences.decimalSeparator')) !== -1) {
+                                $amount.mask(pattern2(), options);
+                                $fee.mask(pattern2(), options);
+                                onPattern1 = false;
+                            }
                         }
                     },
                     maxlength: false,
                     reverse: true
                 };
 
+                var onPattern1 = true;
                 var $amount = $('.form-control.amount input');
                 var $fee = $('.form-control.fee input');
 
-                $amount.mask(pattern1, options);
-                $fee.mask(pattern1, options);
-
+                local.listeners.push(ncc.observe('texts.preferences', function(preferences) {
+                    dPatternRecalc(options);
+                    if (onPattern1) {
+                        $amount.mask(pattern1(), options);
+                        $fee.mask(pattern1(), options);
+                    } else {
+                        $amount.mask(pattern2(), options);
+                        $fee.mask(pattern2(), options);
+                    }
+                }));
             });
         },
         leave: [function() {
