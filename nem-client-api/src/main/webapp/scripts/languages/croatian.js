@@ -2,6 +2,10 @@ define({
 	id: 'hr',
 	name: 'hrvatski',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Datoteka nije pronađena.',
             102: 'Novčanik nije stvoren.',

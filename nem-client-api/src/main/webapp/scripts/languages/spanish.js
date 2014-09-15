@@ -2,6 +2,10 @@ define({
            id: 'es',
            name: 'Spanish',
            texts: {
+            preferences: {
+              thousandSeparator: '\u2009',
+              decimalSeparator: '.'
+            },
                faults: {
                    //101: 'File not found.',
                    101: 'Archivo no encontrado.',

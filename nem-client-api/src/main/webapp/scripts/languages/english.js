@@ -2,6 +2,10 @@ define({
 	id: 'en',
 	name: 'English',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'File not found.',
             102: 'Wallet has not been created.',

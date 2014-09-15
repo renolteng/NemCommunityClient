@@ -2,6 +2,10 @@
 	id: 'cn',
 	name: '中文',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: '未找到文件。',
             102: '尚未建立钱包。',

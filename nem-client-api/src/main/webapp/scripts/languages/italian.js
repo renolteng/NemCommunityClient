@@ -2,6 +2,10 @@ define({
 	id: 'it',
 	name: 'Italiano',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'File non trovato.',
             102: 'Il portafoglio non è stato creato.',

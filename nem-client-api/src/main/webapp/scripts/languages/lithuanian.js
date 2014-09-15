@@ -2,6 +2,10 @@
 	id: 'lt',
 	name: 'Lietuviškai',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Byla nerasta.',
             102: 'Pinigine nesukurta.',

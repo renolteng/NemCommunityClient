@@ -2,6 +2,10 @@ define({
 	id: 'pt',
 	name: 'Português',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: { // mensagens de modais de erro 
             101: 'Arquivo não encontrado.',
             102: 'A carteira não foi criada.',

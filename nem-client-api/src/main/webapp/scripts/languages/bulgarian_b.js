@@ -2,6 +2,10 @@
 	id: 'bg',
 	name: 'Български',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Файлът не е намерен',
             102: 'Портфейлът не е създаден.',

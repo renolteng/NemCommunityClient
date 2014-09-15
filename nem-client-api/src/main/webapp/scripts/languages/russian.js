@@ -2,6 +2,10 @@
                 id: 'ru',
                 name: 'Русский',
                 texts: {
+                  preferences: {
+                    thousandSeparator: '\u2009',
+                    decimalSeparator: '.'
+                  },
                             faults: {
                 101: 'Файл не найден.',
                 102: 'Кошелёк не создан.',

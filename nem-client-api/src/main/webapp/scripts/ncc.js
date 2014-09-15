@@ -77,7 +77,7 @@ define(function(require) {
         },
         computed: {
             amount: function() {
-                return ncc.toMNem(this.get('formattedAmount').replace(/\u2009/g, ''));
+                return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
             },
             recipient: function() {
                 return ncc.restoreAddress(this.get('formattedRecipient')) || ncc.get('activeAccount.address');
@@ -93,7 +93,7 @@ define(function(require) {
             },
             fee: {
                 get: function() {
-                    return ncc.toMNem(this.get('formattedFee').replace(/\u2009/g, ''))
+                    return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedFee')));
                 },
                 set: function(fee) {
                     this.set('formattedFee', ncc.formatCurrency(fee));
@@ -217,7 +217,6 @@ define(function(require) {
         template: '#template',
         consts: {
             fractionalDigits: 2,
-            decimalMark: '.',
             txesPerPage: 25,
             blocksPerPage: 25,
             defaultLanguage: 'en'
@@ -249,6 +248,22 @@ define(function(require) {
             } else {
                 return '?' + queryString.join('&');
             }
+        },
+        queryStringToJson: function (qStr) {
+            if (qStr === '')
+                return '';
+            var pairs = (qStr || location.search).slice(1).split('&');
+            var result = {};
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                if (pair[0]) {
+                    result[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || null);
+                }
+            }
+            return result;
+        },
+        escapeRegExp: function(str) {
+            return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
         },
         components: {
             errorModal: NccModal,
@@ -404,7 +419,7 @@ define(function(require) {
             return address.replace(/\-/g, '');
         },
         addThousandSeparators: function(num) {
-            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, '\u2009');
+            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
         },
         minDigits: function(num, digits) {
             num = num.toString(10);
@@ -434,14 +449,19 @@ define(function(require) {
                 var dimmedPart = mNem.substring(cutPos, mNem.length);
                 if (dimmedPart) {
                     if (clearPart) {
-                        return nem + this.consts.decimalMark + clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
+                        return nem + this.get('texts.preferences.decimalSeparator') + clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
                     } else {
-                        return nem + '<span class="dimmed">' + this.consts.decimalMark + dimmedPart + '</span>';
+                        return nem + '<span class="dimmed">' + this.get('texts.preferences.decimalSeparator') + dimmedPart + '</span>';
                     }
                 }
             }
 
-            return nem + this.consts.decimalMark + mNem;
+            return nem + this.get('texts.preferences.decimalSeparator') + mNem;
+        },
+        convertCurrencyToStandard: function(amount) {
+            var thousandSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.thousandSeparator')), 'g');
+            var decimalSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')), 'g');
+            return amount.replace(thousandSeparator, '').replace(decimalSeparator, '.');
         },
         toDate: function(ms) {
             return new Date(ms);
@@ -804,6 +824,7 @@ define(function(require) {
                         queryString = self.toQueryString(params);
                     } else if (isInit) {
                         queryString = location.search;
+                        params = ncc.queryStringToJson(location.search);
                     }
                     var url = layouts[layouts.length - 1].url + queryString;
                     
