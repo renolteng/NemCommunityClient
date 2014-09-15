@@ -2,6 +2,10 @@ define({
 	id: 'fr',
 	name: 'Français',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: "Fichier non trouvé.",
             102: "Le portefeuille a été créé.",

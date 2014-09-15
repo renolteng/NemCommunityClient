@@ -1,8 +1,12 @@
 define({
-        id: 'DE',
-        name: 'Deutsch',
-        texts: {
-                faults: {
+    id: 'DE',
+    name: 'Deutsch',
+    texts: {
+        preferences: {
+            thousandSeparator: '\u2009',
+            decimalSeparator: '.'
+        },
+        faults: {
             101: 'Die Datei wurde nicht gefunden.',
             102: 'Die Brieftasche wurde nicht erstellt.',
             103: 'Die Brieftaschendatei ist beschädigt. Bitte stelle die Brieftasche aus einem Backup wieder her.',

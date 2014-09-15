@@ -2,6 +2,10 @@ define({
 	id: 'vi',
 	name: 'Tiếng Việt',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: ','
+		},
 		faults: {
             101: 'Không tìm thấy file.',
             102: 'Ví của bạn chưa được tạo.',

@@ -2,6 +2,10 @@ define({
 	id: 'jp',
 	name: '日本語',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'ファイルが見つかりませんでした。',
             102: 'ウォレットが作成できませんでした。',

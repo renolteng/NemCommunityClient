@@ -31,9 +31,11 @@ define([
                 for (var property in obj) {
                     if (obj.hasOwnProperty(property)) {
                         if (typeof(obj[property]) == "object") {
-                            iterx(obj[property]);
+                        	if (property !== 'preferences') {
+                            	iterx(obj[property]);
+                            }
                         } else {
-                            if (property !== "logo") {
+                            if (property !== 'logo') {
                                 obj[property] = window.atob(obj[property]);
                             }
                         }
