@@ -84,6 +84,12 @@ public class AccountController {
 	}
 
 	private Collection<TransferViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
+		// the unconfirmed transactions api does not support paging
+		// in order to simplify the UX code, pretend all subsequent pages are empty
+		if (null != ahRequest.getHash()) {
+			return new ArrayList<>();
+		}
+
 		final Address address = ahRequest.getAccountId();
 		return this.accountServices.getUnconfirmedTransactions(address).stream()
 				.map(t -> new TransferViewModel(t, address))
@@ -104,7 +110,7 @@ public class AccountController {
 	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountHashRequest ahRequest) {
 		final AccountViewModel account = this.getAccountInfo(ahRequest);
 		final List<TransferViewModel> allTransfers = new ArrayList<>();
-		allTransfers.addAll(this.getUnconfirmedTransactions(ahRequest));
+		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(ahRequest.getAccountId(), null)));
 		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, ahRequest));
 		return new AccountTransactionsPair(account, allTransfers);
 	}
@@ -162,27 +168,13 @@ public class AccountController {
 	/**
 	 * Retrieves a list of infos on harvested blocks for an account.
 	 *
-	 * @param atsRequest The account / timestamp view model.
+	 * @param ahRequest The account identifier.
 	 * @return The list of harvest infos.
 	 */
 	@RequestMapping(value = "/account/harvests", method = RequestMethod.POST)
-	public SerializableList<HarvestInfoViewModel> getAccountHarvests(@RequestBody final AccountTimeStampRequest atsRequest) {
-		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, formatHarvestQuery(atsRequest));
-		final List<HarvestInfo> harvestInfos = deserializer.readObjectArray("data", HarvestInfo::new);
+	public SerializableList<HarvestInfoViewModel> getAccountHarvests(@RequestBody final AccountHashRequest ahRequest) {
+		final List<HarvestInfo> harvestInfos = this.accountServices.getAccountHarvests(ahRequest.getAccountId(), ahRequest.getHash());
 		return new SerializableList<>(harvestInfos.stream().map(HarvestInfoViewModel::new).collect(Collectors.toList()));
-	}
-
-	private static String formatHarvestQuery(final AccountTimeStampRequest atsRequest) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("address=");
-		builder.append(atsRequest.getAccountId());
-
-		if (null != atsRequest.getTimeStamp()) {
-			builder.append("&timeStamp=");
-			builder.append(atsRequest.getTimeStamp());
-		}
-
-		return builder.toString();
 	}
 
 	//endregion

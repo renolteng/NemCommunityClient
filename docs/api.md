@@ -264,3 +264,10 @@ Stops the NCC server. After that NCC GUI does not respond to any clicks.
 * Response: `-`
 * Dependent from NIS: _No_
 
+### /status
+Gets the current status of the NCC server. Currently it is only 'running' (3).
+
+* Request Method: _GET_
+* Request: `-`
+* Response: [NemRequestResult](viewModel.md#nemrequestresult)
+* Dependent from NIS: _No_

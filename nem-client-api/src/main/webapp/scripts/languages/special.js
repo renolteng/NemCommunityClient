@@ -276,7 +276,7 @@ define({
 				clientInfo: "U2hpcCdzIFBhcnRpY3VsYXJz",
 				closeWallet: "Q2xvc2UgdGhlIENvZmZlcg==",
 				closeProgram: "QWJhbmRvbiBTaGlw",
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Q29weSBhZGRyZXNzIHRvIGNsaXBib2FyZA=='
 			},
 			nav: [
 				"UG9ydA==",

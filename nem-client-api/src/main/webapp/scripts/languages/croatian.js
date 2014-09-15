@@ -38,7 +38,12 @@ define({
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS je nedostupan',
         		notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
-        		synchronizing: 'NIS sinkronizacija. Blok {{1}}, otprilike {{2}} dan(a) u zaostatku.'
+        		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
+        		daysBehind: {
+        			0: 'manje od 1 dan',
+        			1: '1 dan',
+        			many: '{{1}} dana'
+        		}        		
         	}
         },
 		modals: {
@@ -272,7 +277,7 @@ define({
 				clientInfo: 'Informacije klijenta',
 				closeWallet: 'Zatvori novčanik',
 				closeProgram: 'Zatvori  program',
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Kopiraj adresu u međuspremnik'
 			},
 			nav: [
 				'Kontrolna ploča',
@@ -347,8 +352,8 @@ define({
 			sendNem: 'Šalji NEM',
 			balance: 'Trenutno stanje',
 			filters: {
-				all: 'Sve transakcije',
-				pending: 'U tijeku',
+				confirmed: 'Potvrđene',
+				unconfirmed: 'Nepotvrđene',
 				incoming: 'Dolazne',
 				outgoing: 'Odlazne',
 			},

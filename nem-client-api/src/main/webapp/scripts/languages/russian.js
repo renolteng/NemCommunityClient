@@ -277,7 +277,7 @@
                                                    clientInfo: 'Информация о Клиенте',
                                                    closeWallet: 'Закрыть Кошелёк',
                                                    closeProgram: 'Закрыть Программу',
-                                                   copyClipboard: 'Copy address to clipboard'
+                                                   copyClipboard: 'Скопируйте адрес в буфер обмена'
                                        },
                                        nav: [
                                                    'Панель Управления',

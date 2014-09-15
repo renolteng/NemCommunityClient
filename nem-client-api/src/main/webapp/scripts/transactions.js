@@ -14,17 +14,16 @@
 				var api = ncc.get('transactions.filter');
 				var currAccount = ncc.get('activeAccount.address');
 				var requestData = { account: currAccount };
-				var currTxes;
-				if (!reload && !update) {
-					currTxes = ncc.get('transactions.filtered');
-					var lastHash = (currTxes && currTxes.length)? currTxes[currTxes.length - 1].hash : null;
-					if (lastHash) requestData.hash = lastHash;
+				var currTxes = ncc.get('transactions.filtered');
+				var shouldAppend = !reload && !update;
+				if (shouldAppend) {
+					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : undefined;
 				}
 
 				ncc.postRequest(api, requestData, function(data) {
 					var updatedTxes = ncc.processTransactions(data.transactions);
 					var all;
-					if (!reload && currTxes && currTxes.concat) {
+					if (shouldAppend && currTxes && currTxes.concat) {
 						all = currTxes.concat(updatedTxes);
 					} else if (update) {
 						all = ncc.updateNewer(updatedTxes, currTxes, 'hash');

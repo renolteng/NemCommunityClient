@@ -237,6 +237,17 @@ The view model used by the NCC server.
 }
 ```
 
+### NemRequestResult
+
+```
+{
+	"code": 3,
+	"type": 4,
+	"message": "status"
+}
+```
+
+
 ### TransferSendRequest
 
 ```
