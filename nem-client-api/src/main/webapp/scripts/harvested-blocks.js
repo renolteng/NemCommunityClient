@@ -10,35 +10,37 @@
         	scrollBottomTolerance: 100
         },
         initOnce: function() {
-        	ncc.loadHarvestedBlocks = function(reload, update) {
+            /**
+             * @param {string} type load type: 'reload' | 'update' | 'append'
+             */
+        	ncc.loadHarvestedBlocks = function(type) {
         		var currAccount = ncc.get('activeAccount.address');
         		var requestData = { account: currAccount };
         		var currBlocks = ncc.get('harvestedBlocks.list');
-        		var shouldAppend = !reload && !update;
-        		if (shouldAppend) {
+        		if (type === 'append') {
                     requestData.timeStamp = (currBlocks && currBlocks.length)? currBlocks[currBlocks.length - 1].timeStamp : null;
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
 					var updatedBlocks = ncc.processHarvestedBlocks(data.data);
 					var all;
-					if (shouldAppend && currBlocks && currBlocks.concat) {
+					if (type === 'append' && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
-					} else if (update) {
+					} else if (type === 'update') {
 						all = ncc.updateNewer(updatedBlocks, currBlocks, 'timeStamp');
 					} else {
 						all = updatedBlocks;
 					}
 
 					ncc.set('harvestedBlocks.list', all);
-                	if (!update) {
+                	if (type !== 'update') {
                         var gotAll = updatedBlocks.length < ncc.consts.blocksPerPage;
                 		ncc.set('harvestedBlocks.gotAll', gotAll);
                         if (gotAll) {
                             ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
                         }
                 	}
-				}, null, update);
+				}, null, type === 'update');
 			};
         },
     	setupEverytime: function() {
@@ -56,19 +58,19 @@
 	    			ncc.set('harvestedBlocks.feeEarned', sum);
     			},
     			'activeAccount.address': function() {
-    				ncc.loadHarvestedBlocks(true);
+    				ncc.loadHarvestedBlocks('reload');
     			}
     		}));
 
     		local.intervalJobs.push(setInterval(function() {
-				ncc.loadHarvestedBlocks(false, true);
+				ncc.loadHarvestedBlocks('update');
 			}, local.autoRefreshInterval));
 
     		var $win = ncc.global.$window;
 			var $doc = ncc.global.$document;
 			$win.on('scroll.harvestedBlocksInfiniteScrolling', function(event) {
 				if (!ncc.get('status.loadingOlderBlocks') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
-					ncc.loadHarvestedBlocks(false);
+					ncc.loadHarvestedBlocks('append');
 				}
 			});
     	},
