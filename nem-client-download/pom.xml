@@ -7,7 +7,7 @@
 	<artifactId>nem-client-download</artifactId>
 	<name>nem-client-download</name>
 	<url>http://www.ournem.com</url>
-	<version>0.2.13-ALPHA</version>
+	<version>0.2.14-ALPHA</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
