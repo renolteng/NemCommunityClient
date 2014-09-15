@@ -85,7 +85,9 @@ define({
 			},
 			transactionDetails: {
 				title: 'Detalhes da transação',
+				// This might be block or transaction ID
 				id: 'ID',
+				// This might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Tipo de transação',
 				pending: 'Pendente',
@@ -274,7 +276,7 @@ define({
 				clientInfo: 'Informação do cliente',
 				closeWallet: 'Fechar a carteira',
 				closeProgram: 'Fechar o programa',
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Copiar para memória temporária'
 			},
 			nav: [
 				'Painel', //Dashboard
