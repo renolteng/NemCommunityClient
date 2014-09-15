@@ -17,7 +17,7 @@
 				var currTxes = ncc.get('transactions.filtered');
 				var shouldAppend = !reload && !update;
 				if (shouldAppend) {
-					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : undefined;
+					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : null;
 				}
 
 				ncc.postRequest(api, requestData, function(data) {
