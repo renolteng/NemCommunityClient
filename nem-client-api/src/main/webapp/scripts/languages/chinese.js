@@ -2,6 +2,10 @@
 	id: 'cn',
 	name: '中文',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: '未找到文件。',
             102: '尚未建立钱包。',
@@ -33,7 +37,18 @@
             901: 'There was an error setting up offline mode.'
         },
         common: {
-        	success: '成功' //title of the Success message modals
+        	success: '成功', //title of the Success message modals
+        	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
+        		unavailable: 'NIS is not available',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
+        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		daysBehind: {
+        			0: 'less than 1 day',
+        			1: '1 day',
+        			many: '{{1}} days'
+        		}
+        	}
         },
 		modals: {
 			error: {
@@ -184,9 +199,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: '钱包已成功导入!',
 			nav: {
-				start: '已经 <strong>开始</strong>',
-				about: '关于 <strong>NEM</strong>',
-				help: '<strong>帮助</strong>'
+				start: '已经 开始',
+				about: '关于 NEM',
+				help: '帮助'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>新手?',

@@ -2,6 +2,10 @@ define({
 	id: 'fr',
 	name: 'Français',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: "Fichier non trouvé.",
             102: "Le portefeuille a été créé.",
@@ -35,6 +39,7 @@ define({
         common: {
         	success: 'Succès', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS est introuvable',
         		notBooted: "NIS à besoin d'être démarré. S'il vous plait, ouvrir votre portefeuille et démarrer le noeud local via la boîte de dialogue contextuelle.",
         		synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
@@ -195,9 +200,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Le portefeuille a été importé avec succès!',
 			nav: {
-				start: '<strong>Commencer</strong>',
-				about: 'À propos de <strong>NEM</strong>',
-				help: '<strong>Aide</strong>'
+				start: 'Commencer',
+				about: 'À propos de NEM',
+				help: 'Aide'
 			},
 			main: {
 				leftTitle: 'Nouveau dans <em>NEM</em>?',

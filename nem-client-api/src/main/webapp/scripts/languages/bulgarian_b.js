@@ -2,6 +2,10 @@
 	id: 'bg',
 	name: 'Български',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Файлът не е намерен',
             102: 'Портфейлът не е създаден.',
@@ -35,6 +39,7 @@
         common: {
         	success: 'Успешно', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS е недостъпен',
         		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
@@ -195,9 +200,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Портфейлът беше успешно импортнат!',
 			nav: {
-				start: '<strong>Първи стъпки</strong>',
-				about: 'Относно <strong>NEM</strong>',
-				help: '<strong>Помощ</strong>'
+				start: 'Първи стъпки',
+				about: 'Относно NEM',
+				help: 'Помощ'
 			},
 			main: {
 				leftTitle: 'Нов за <em>NEM</em>?',

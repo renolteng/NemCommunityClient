@@ -2,6 +2,10 @@ define({
 	id: 'it',
 	name: 'Italiano',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'File non trovato.',
             102: 'Il portafoglio non è stato creato.',
@@ -35,6 +39,7 @@ define({
         common: {
         	success: 'Operazione completata', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS non disponibile',
         		notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
         		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
@@ -195,9 +200,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Il portafoglio è stato importato!',
 			nav: {
-				start: '<strong>Vai</strong>',
-				about: 'Informazioni su <strong>NEM</strong>',
-				help: '<strong>Aiuto</strong>'
+				start: 'Vai',
+				about: 'Informazioni su NEM',
+				help: 'Aiuto'
 			},
 			main: {
 				leftTitle: 'Nuovo utente <em>NEM</em>?',
