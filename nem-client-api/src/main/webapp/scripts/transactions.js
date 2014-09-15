@@ -19,7 +19,7 @@
 				var requestData = { account: currAccount };
 				var currTxes = ncc.get('transactions.filtered');
 				if (type === 'append') {
-					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : null;
+					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : undefined;
 				}
 
 				ncc.postRequest(api, requestData, function(data) {

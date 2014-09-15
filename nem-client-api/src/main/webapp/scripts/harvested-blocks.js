@@ -18,7 +18,7 @@
         		var requestData = { account: currAccount };
         		var currBlocks = ncc.get('harvestedBlocks.list');
         		if (type === 'append') {
-                    requestData.timeStamp = (currBlocks && currBlocks.length)? currBlocks[currBlocks.length - 1].timeStamp : null;
+					requestData.hash = (currBlocks && currBlocks.length) ? currBlocks[currBlocks.length - 1].hash : undefined;
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
@@ -27,7 +27,7 @@
 					if (type === 'append' && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
 					} else if (type === 'update') {
-						all = ncc.updateNewer(updatedBlocks, currBlocks, 'timeStamp');
+						all = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
 					} else {
 						all = updatedBlocks;
 					}
