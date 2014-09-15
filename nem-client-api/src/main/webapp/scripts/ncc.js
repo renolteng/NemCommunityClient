@@ -250,6 +250,19 @@ define(function(require) {
                 return '?' + queryString.join('&');
             }
         },
+        queryStringToJson: function (qStr) {
+            if (qStr === '')
+                return '';
+            var pairs = (qStr || location.search).slice(1).split('&');
+            var result = {};
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                if (pair[0]) {
+                    result[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || null);
+                }
+            }
+            return result;
+        },
         components: {
             errorModal: NccModal,
             messageModal: NccModal,
@@ -804,6 +817,7 @@ define(function(require) {
                         queryString = self.toQueryString(params);
                     } else if (isInit) {
                         queryString = location.search;
+                        params = ncc.queryStringToJson(location.search);
                     }
                     var url = layouts[layouts.length - 1].url + queryString;
                     
