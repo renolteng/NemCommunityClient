@@ -12,7 +12,7 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 	private final NemNodeType nodeType;
 	private final NodeManager manager;
 	private NemStatus status;
-	private boolean isExplicitlyLaunched;
+	private boolean isExplicitlyLaunched = true;
 
 	/**
 	 * Creates a new adapter.
