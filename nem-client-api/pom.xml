@@ -555,8 +555,7 @@
 					<replacements>
 						<replacement>
 							<token>nem-client-download.jar" version="${project.version}"</token>
-							<value>nem-client-download.jar" version="${project.version}"
-								download="progress"</value>
+							<value>nem-client-download.jar" version="${project.version}" download="progress"</value>
 						</replacement>
 					</replacements>
 				</configuration>

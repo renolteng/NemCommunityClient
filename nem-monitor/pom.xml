@@ -37,6 +37,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.nem.ncc</groupId>
+			<artifactId>nem-client-download</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>javax.jnlp</groupId>
 			<artifactId>jnlp-api</artifactId>
 			<version>1.8</version>
@@ -238,6 +244,31 @@
 					<verbose>true</verbose>
 				</configuration>
 			</plugin>
+			<plugin>
+				<!-- ************************************************** -->
+				<!-- Adjust JNLP progress entry -->
+				<!-- ************************************************** -->
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<file>site/nem-monitor.jnlp</file>
+					<replacements>
+						<replacement>
+							<token>nem-client-download.jar" version="${project.version}"</token>
+							<value>nem-client-download.jar" version="${project.version}" download="progress"</value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 	<url>${nem-code-base}</url>

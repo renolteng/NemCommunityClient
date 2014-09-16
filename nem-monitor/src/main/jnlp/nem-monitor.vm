@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jnlp spec="7.0+" href="$outputFile" codebase="$nem-code-base" version="$project.version">
   <information>
-    <title>NEM Monitor</title>
+    <title>NEM Monitor (nemo)</title>
     <vendor>NEM Community</vendor>
     <homepage href="http://www.ournem.com"/>
     <description>NEM Monitor. Monitor NCC and NIS status</description>
@@ -9,7 +9,7 @@
     <description kind="one-line">NCC and NIS status monitor</description>
     <description kind="tooltip"></description>
     <icon href="images/desktop_64x64.png"/>
-    <icon kind="shortcut" href=images/desktop_32x32.png"/>
+    <icon kind="shortcut" href="images/desktop_32x32.png"/>
     <icon kind="splash" href="images/splash_screen.png"/>
     <shortcut online="true" install="true">
       <desktop/>
@@ -25,7 +25,7 @@
     $dependencies
 <!-- Progress Bar add download="progress" -->
 </resources>
-<application-desc main-class="$mainClass">
+<application-desc main-class="$mainClass" progress-class="org.nem.client.download.SplashProgressBar">
     <argument>-nccJnlpUrl</argument>
     <argument>${nem-code-base}/nem-client.jnlp</argument>
     <argument>-nisJnlpUrl</argument>
