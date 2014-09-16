@@ -91,7 +91,7 @@ public class TrayIconBuilder {
 		this.popup.add(actionMenuItem);
 		if (nodePolicy.hasBrowserGui()) {
 			final MenuItem launchMenuItem = new MenuItem(String.format(LanguageSupport.message("menu.open.in.browser"), nodePolicy.getNodeType()));
-			launchMenuItem.addActionListener(e -> this.webStartLauncher.launch(jnlpUrl));
+			launchMenuItem.addActionListener(e -> manager.launchBrowser());
 			this.popup.add(launchMenuItem);
 		}
 
