@@ -155,7 +155,7 @@ public class AccountController {
 
 	private Collection<TransferViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountHashRequest ahRequest) {
 		final Address address = ahRequest.getAccountId();
-		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getLastBlockHeightAsync);
+		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
 		return this.accountServices.getTransactions(direction, address, ahRequest.getHash()).stream()
 				.map(p -> new TransferViewModel(p, address, lastBlockHeight))
 				.collect(Collectors.toList());

@@ -399,7 +399,7 @@ public class AccountControllerTest {
 		}
 
 		private void setLastBlockHeight(final int height) {
-			Mockito.when(this.chainServices.getLastBlockHeightAsync(this.nisEndpoint))
+			Mockito.when(this.chainServices.getChainHeightAsync(this.nisEndpoint))
 					.thenReturn(CompletableFuture.completedFuture(new BlockHeight(height)));
 		}
 	}
