@@ -61,7 +61,7 @@ define({
 			},
 			sendNem: {
 				title: 'Slanje NEMa',
-				labelDesc: 'Ovaj račun je označen kao <strong>{{1}}</strong>',
+				labelDesc: 'Ovaj račun je označen kao {{1}}',
 				nullLabelDesc: "Ovaj račun nema oznake",
 				amount: 'Iznos',
 				recipient: "Račun primatelja",

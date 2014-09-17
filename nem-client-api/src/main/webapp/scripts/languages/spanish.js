@@ -93,8 +93,8 @@ define({
                    sendNem: {
                        //title: 'Send NEM'
                        title: 'Enviar NEM',
-                       //labelDesc: 'This account is labeled as <strong>{{1}}</strong>',
-                       labelDesc: 'Esta cuenta est&aacute; etiquetada como <strong>{{1}}</strong>',
+                       //labelDesc: 'This account is labeled as {{1}}',
+                       labelDesc: 'Esta cuenta est&aacute; etiquetada como {{1}}',
                        //nullLabelDesc: "This account doesn't have a label",
                        nullLabelDesc: "Esta cuenta no est&aacute; etiquetada.",
                        //amount: 'Amount',

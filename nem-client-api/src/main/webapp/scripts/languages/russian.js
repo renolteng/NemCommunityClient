@@ -61,7 +61,7 @@
                                        },
                                        sendNem: {
                                                    title: 'Послать NEM',
-                                                   labelDesc: 'Этот аккаунт маркирован как <strong>{{1}}</strong>',
+                                                   labelDesc: 'Этот аккаунт маркирован как {{1}}',
                                                    nullLabelDesc: "Этот аккаунт не имеет маркировки",
                                                    amount: 'Сумма',
                                                    recipient: "Аккаунт получателя",

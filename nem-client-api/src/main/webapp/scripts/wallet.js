@@ -156,7 +156,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
 
             local.listeners.push(ncc.on({
                 toggleSidebar: function() {
-                    ncc.set('active.fullSidebar', !ncc.get('active.fullSidebar'));
+                    ncc.set('walletPage.miniSidebar', !ncc.get('walletPage.miniSidebar'));
                 },
                 openSendNem: function() {
                     if (ncc.get('status.nodeBooted')) {
@@ -612,13 +612,13 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
 
             (function() {
                 var $win = $(window);
-                var $sidebarNav = $('#wallet-page-sidebar nav');
+                var $sidebarNav = $('.sidebar-nav');
                 var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
                 var decideSidebarScrollability = function() {
                     if (navBottom > $win.height()) {
-                        ncc.set('status.sidebarScrollable', true);
+                        ncc.set('walletPage.sidebarScrollable', true);
                     } else {
-                        ncc.set('status.sidebarScrollable', false);
+                        ncc.set('walletPage.sidebarScrollable', false);
                     }
                 };
 
@@ -685,11 +685,13 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     maxlength: false,
                     reverse: true
                 };
+                
+                var $recipient = $('.js-sendNem-recipient-textbox');
+                $recipient.mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
 
                 var onPattern1 = true;
-                var $amount = $('.form-control.amount input');
-                var $fee = $('.form-control.fee input');
-
+                var $amount = $('.js-sendNem-amount-textbox');
+                var $fee = $('.js-sendNem-fee-textbox');
                 local.listeners.push(ncc.observe('texts.preferences', function(preferences) {
                     dPatternRecalc(options);
                     if (onPattern1) {

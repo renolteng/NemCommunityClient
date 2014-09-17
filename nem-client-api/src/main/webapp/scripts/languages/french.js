@@ -61,7 +61,7 @@ define({
 			},
 			sendNem: {
 				title: 'Envoyez des NEMs',
-				labelDesc: 'Ce compte est étiqueté comme <strong>{{1}}</strong>',
+				labelDesc: 'Ce compte est étiqueté comme {{1}}',
 				nullLabelDesc: "Ce compte n'est pas étiqueté",
 				amount: 'Montant',
 				recipient: "Compte du destinataire",

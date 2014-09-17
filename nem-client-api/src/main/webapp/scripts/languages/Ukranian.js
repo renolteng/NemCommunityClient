@@ -60,7 +60,7 @@ define({
 			},
 			sendNem: {
 				title: 'Відправити NEM',
-				labelDesc: 'Цей акаунт позначений як <strong>{{1}}</strong>',
+				labelDesc: 'Цей акаунт позначений як {{1}}',
 				nullLabelDesc: "Цей акаунт не має позначки",
 				amount: 'Кiлькiсть',
 				recipient: "Акаунт одержувача",

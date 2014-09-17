@@ -79,8 +79,11 @@ define(function(require) {
             amount: function() {
                 return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
             },
+            inputtedRecipient: function() {
+                return ncc.restoreAddress(this.get('formattedRecipient'));
+            },
             recipient: function() {
-                return ncc.restoreAddress(this.get('formattedRecipient')) || ncc.get('activeAccount.address');
+                return this.get('inputtedRecipient') || ncc.get('activeAccount.address');
             },
             message: function() {
                 return this.get('rawMessage') && this.get('rawMessage').toString();
@@ -138,7 +141,7 @@ define(function(require) {
             this.observe('amount message encrypt', (function() {
                 var t;
                 return function() {
-                    if (t) clearTimeout(t);
+                    clearTimeout(t);
                     t = setTimeout(function() {
                         self.resetFee(self.get('isFeeAutofilled'), true);
                     }, 500);
@@ -146,6 +149,33 @@ define(function(require) {
             })(), {
                 init: false
             });
+
+            this.observe('inputtedRecipient', (function() {
+                var t;
+                return function(recipient) {
+                    clearTimeout(t);
+                    t = setTimeout(function() {
+                        ncc.postRequest('account/find', { account: recipient }, 
+                            function(data) {
+                                if (data.address) {
+                                    self.set('recipientLabel', data.label || '');
+                                } else {
+                                    self.set('recipientLabel', null);
+                                }
+                            }, 
+                            {
+                                error: function() {
+                                    self.set('recipientLabel', null);
+                                },
+                                altFailCb: function() {
+                                    self.set('recipientLabel', null);
+                                }
+                            },
+                            true
+                        );
+                    }, 500);
+                };
+            })());
 
             this.on({
                 resetFee: function() {
@@ -186,27 +216,6 @@ define(function(require) {
                     if (e.original.keyCode === 13) {
                         this.fire('sendTransaction');
                     }
-                },
-                queryRecipient: function() {
-                    var recipient = this.get('recipient');
-                    ncc.postRequest('account/find', { account: recipient }, 
-                        function(data) {
-                            if (data.address) {
-                                self.set('recipientLabel', data.label || '');
-                            } else {
-                                self.set('recipientLabel', null);
-                            }
-                        }, 
-                        {
-                            error: function() {
-                                self.set('recipientLabel', null);
-                            },
-                            altFailCb: function() {
-                                self.set('recipientLabel', null);
-                            }
-                        },
-                        true
-                    );
                 }
             });
         }
@@ -839,9 +848,30 @@ define(function(require) {
 
             loadLayout(page);
         },
-        fill: function(template) {
-            return Mustache.render(template, arguments);
-        },
+        fill: (function() {
+            var htmlDecode = function(str) {
+                var txt = document.createElement('textarea');
+                txt.innerHTML = str;
+                return txt.value;
+            };
+
+            return function(template) {
+                // The first argument could be whether it should return the HTML decoded version
+                if (typeof arguments[0] === 'boolean') {
+                    var decode = arguments[0];
+                    Array.prototype.splice.call(arguments, 0, 1);
+                    template = arguments[0];
+
+                    if (decode) {
+                        return htmlDecode(Mustache.render(template, arguments));
+                    } else {
+                        return Mustache.render(template, arguments);
+                    }
+                } else {
+                    return Mustache.render(template, arguments);
+                }
+            };
+        })(),
         init: function(options) {
             var self = this;
 

@@ -61,7 +61,7 @@ define({
 			},
 			sendNem: {
 				title: 'Gửi NEM',
-				labelDesc: 'Tài khoản này được dán nhãn là <strong>{{1}}</strong>',
+				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
 				nullLabelDesc: "Tài khoản này không được dán nhãn",
 				amount: 'Số lượng',
 				recipient: "Người nhận",

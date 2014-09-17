@@ -61,7 +61,7 @@
 			},
 			sendNem: {
 				title: '发送 NEM',
-				labelDesc: '此帐户被标记为 <strong>{{1}}</strong>',
+				labelDesc: '此帐户被标记为 {{1}}',
 				nullLabelDesc: "此帐户没有标记",
 				amount: '金额',
 				recipient: "收件人账号",

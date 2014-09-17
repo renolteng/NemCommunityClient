@@ -14,452 +14,444 @@ $mainContent-topPadding: $header-height;
 
 $small-screen: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 
-#wallet-page-header {
-	width: 100%;
-	height: $header-height + 1px;
+// ================================================================================
+// Z-INDEX STACKING CONTEXT TREE
+// ================================================================================
+
+$zIndex-header:		20;
+$zIndex-sidebar:	10;
+
+// ================================================================================
+// HEADER
+// ================================================================================
+
+.walletHeader {
 	position: fixed;
 	top: 0;
-	background-color: #fff;
+	width: 100%;
+	height: $header-height + 1px;
 	border-bottom: 1px solid #ebebeb;
+	background-color: #fff;
+	z-index: $zIndex-header;
 
 	.container {
-		padding-left: $mainContent-leftPadding;
-		padding-right: $mainContent-rightPadding;
 		max-width: $mainContent-width + $mainContent-leftPadding;
 		width: 100%;
 		height: 100%;
+		padding-left: $mainContent-leftPadding;
+		padding-right: $mainContent-rightPadding;
 		@extend %clearfix;
 	}
 
-	.search-area {
-		float: left;
-		font-size: 14px;
-		pointer-events: none;
-		color: #afafaf; //#252a34;
+	// $notiBox-size: 1.9em;
 
-		button {
-			padding: 0;
-			font-size: 21px;
-			vertical-align: text-bottom;
-			&:before {
-				display: block;
-			}
-		}
+	// .noti-box {
+	// 	@include noti-box($notiBox-size);
+	// 	color: #fff;
+	// 	background-color: #e6801d;
+	// 	margin-right: 6px;
+	// }
 
-		.search-wrapper {
-			border-bottom: 1px solid #afafaf;//#5f636a;
-		}
-	}
+	// .notifications {
+	// 	$notification-width: 204px;
+	// 	$hPadding: 4px;
+	// 	$image-size: 32px;
+	// 	$message-width: 110px;
+	// 	$hGap: 5px;
+	// 	$bgColor: #fff;
+	// 	$borderColor: #d5d5d5;
+	// 	$arrow-height: 6px;
 
-	.temp-message {
-		float: left;
-		visibility: none;
-		opacity: 0;
-		@include transition(opacity 1s);
-		margin-left: 150px;
-		font-size: 12px;
-		color: #3c783a;
+	// 	font-size: 9.75px;
+	// 	font-weight: $fontWeight-light;
+	// 	background-color: $bgColor;
+	// 	padding: 1px;
+	// 	border: 1px solid $borderColor;
+	// 	margin-top: 4px + $arrow-height;
+	// 	margin-left: $notiBox-size / 2;
+	// 	left: - $notification-width / 2;
+	// 	display: none;
+	// 	@include arrow-box(up, 
+	// 		('color': $bgColor, 'width': 10px, 'height': $arrow-height),
+	// 		('enable': true, 'width': 1px, 'color': $borderColor));
 
-		&.in {
-			visibility: visible;
-			opacity: 1;
-			@include transition(none);
-		}
+	// 	.image, .message {
+	// 		float: left;
+	// 	}
 
-		p {
-			background-color: #e0efd8;
-			@include border-radius(3px);
-			padding: 10px 15px;
-		}
-	}
+	// 	.image {
+	// 		img {
+	// 			width: $image-size;
+	// 			height: $image-size;
+	// 		}
+	// 	}
 
-	$notiBox-size: 1.9em;
+	// 	.message {
+	// 		margin-left: $hGap;
+	// 		margin-right: $hGap;
+	// 		width: $message-width;
+	// 	}
 
-	.noti-box {
-		@include noti-box($notiBox-size);
-		color: #fff;
-		background-color: #e6801d;
-		margin-right: 6px;
-	}
+	// 	.time {
+	// 		float: right;
+	// 	}
 
-	.notifications {
-		$notification-width: 204px;
-		$hPadding: 4px;
-		$image-size: 32px;
-		$message-width: 110px;
-		$hGap: 5px;
-		$bgColor: #fff;
-		$borderColor: #d5d5d5;
-		$arrow-height: 6px;
+	// 	li {
+	// 		padding: 2px 0;
+	// 		border-bottom: 1px solid #f6f6f6;
+	// 		&:first-child {
+	// 			padding-top: 0;
+	// 		}
+	// 		&:last-child {
+	// 			padding-bottom: 0;
+	// 			border-bottom: none;
+	// 		}
+	// 	}
 
-		font-size: 9.75px;
-		font-weight: $fontWeight-light;
-		background-color: $bgColor;
-		padding: 1px;
-		border: 1px solid $borderColor;
-		margin-top: 4px + $arrow-height;
-		margin-left: $notiBox-size / 2;
-		left: - $notification-width / 2;
-		display: none;
-		@include arrow-box(up, 
-			('color': $bgColor, 'width': 10px, 'height': $arrow-height),
-			('enable': true, 'width': 1px, 'color': $borderColor));
+	// 	.notification {
+	// 		@extend %clearfix;
+	// 		width: $notification-width;
+	// 		padding: 3px $hPadding;
 
-		.image, .message {
-			float: left;
-		}
-
-		.image {
-			img {
-				width: $image-size;
-				height: $image-size;
-			}
-		}
-
-		.message {
-			margin-left: $hGap;
-			margin-right: $hGap;
-			width: $message-width;
-		}
-
-		.time {
-			float: right;
-		}
-
-		li {
-			padding: 2px 0;
-			border-bottom: 1px solid #f6f6f6;
-			&:first-child {
-				padding-top: 0;
-			}
-			&:last-child {
-				padding-bottom: 0;
-				border-bottom: none;
-			}
-		}
-
-		.notification {
-			@extend %clearfix;
-			width: $notification-width;
-			padding: 3px $hPadding;
-
-			&.unread {
-				background-color: #ebebeb;
-				.content {
-					font-weight: $fontWeight-bold;
-				}
-			}
-		}
-	}
-
-	.setting {
-		display: inline-block;
-		position: relative;
-
-		.button {
-			font-size: 11px;
-			vertical-align: middle;
-		}
-
-		.dropdownMenu {
-			position: absolute;
-			right: 0;
-			top: calc(100% + 20px);
-		}
-	}
+	// 		&.unread {
+	// 			background-color: #ebebeb;
+	// 			.content {
+	// 				font-weight: $fontWeight-bold;
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
 
-.wallet-area {
-	float: right;
-	font-size: 14px;
-
-	.noti-area {
-		@include inline-block();
-	}
-
-	.wallet-ava {
-		img {
-			width: $avatar-medium;
-			height: $avatar-medium;
-		}
-	}
-
-	.noti-box, .wallet-info, .wallet-ava {
-		vertical-align: middle;
-	}
-
-	.wallet-info, .wallet-ava {
-		margin-right: 10px;
-	}
-
-	.wallet-info {
-		display: inline-block;
-		text-align: right;
-	}
-
-	.wallet-name {
-		font-weight: $fontWeight-bold;
-	}
-
-	.last-access {
-		color: #8e8e8e;
-		font-size: 12px;
-	}
-}
-
-.sidebar-head {
-	width: $sidebar-width;
-	height: $header-height;
-	background-color: #d0d0d0;
-	padding-left: 21px;
-	padding-right: 25px;
-	float: left;
-
-	.logo {
-		float: left;
-		cursor: pointer;
-	}
-
-	.nav-toggler {
-		float: right;
-		color: #2d2d2d;
-		font-size: 16px;
-	}
-}
-
-.header-main {
+.walletHeader-body {
 	float: left;
 	height: $header-height;
 	width: calc(100% - #{$sidebar-width});
 }
 
+.walletHeader-search-wrapper {
+	float: left;
+	font-size: 14px;
+	color: #afafaf; //#252a34;
+	pointer-events: none;
+}
+
+.walletHeader-searchButton {
+	padding: 0;
+	font-size: 21px;
+	vertical-align: text-bottom;
+
+	&:before {
+		display: block;
+	}
+}
+
+.walletHeader-search {
+	border-bottom: 1px solid #afafaf;//#5f636a;
+}
+
+// ================================================================================
+// SIDEBAR HEAD
+// ================================================================================
+
+.sidebar-head {
+	float: left;
+	width: $sidebar-width;
+	height: $header-height;
+	padding-left: 21px;
+	padding-right: 25px;
+	background-color: #d0d0d0;
+}
+
+.sidebar-logo {
+	float: left;
+	cursor: pointer;
+}
+
+.navToggler {
+	float: right;
+	color: #2d2d2d;
+	font-size: 16px;
+}
+
+// ================================================================================
+// TEMPORARY MESSAGE
+// ================================================================================
+
+.tempMessage {
+	visibility: none;
+	opacity: 0;
+	float: left;
+	margin-left: 150px;
+	font-size: 12px;
+	color: #3c783a;
+	@include transition(opacity 1s);
+}
+
+.tempMessage--shown {
+	visibility: visible;
+	opacity: 1;
+	@include transition(none);
+}
+
+.tempMessage-body {
+	@include border-radius(3px);
+	padding: 10px 15px;
+	background-color: #e0efd8;
+	font-weight: $fontWeight-medium;
+}
+
+// ================================================================================
+// WALLET BOX
+// ================================================================================
+
+.walletBox {
+	float: right;
+	font-size: 14px;
+
+	// .noti-area {
+	// 	@include inline-block();
+	// }
+}
+
+.walletBox-avatar {
+	width: $avatar-small;
+	height: $avatar-small;
+}
+
+// .noti-box, 
+.walletBox-walletInfo, 
+.walletBox-avatar {
+	vertical-align: middle;
+}
+
+.walletBox-walletInfo, 
+.walletBox-avatar {
+	margin-right: 10px;
+}
+
+.walletBox-walletInfo {
+	display: inline-block;
+	text-align: right;
+}
+
+.walletBox-walletName {
+	font-weight: $fontWeight-bold;
+}
+
+.walletBox-lastAccess {
+	color: #8e8e8e;
+	font-size: 12px;
+}
+
+.walletBox-menu {
+	display: inline-block;
+	position: relative;
+}
+
+.walletBox-menu-button {
+	font-size: 11px;
+	vertical-align: middle;
+}
+
+.walletBox-menu-dropdown {
+	position: absolute;
+	right: 0;
+	top: calc(100% + 20px);
+}
+
+// ================================================================================
+// ACCOUNT
+// ================================================================================
+
+$account-height: 80px;
 $account-actions-width: 33px;
+
 .account {
-	$height: 80px;
+	position: relative;
 	font-size: 14px;
 	color: #fff;
-	position: relative;
 	cursor: pointer;
+}
 
-	.account-id {
-		margin-bottom: 3px;
-		outline: none;
-		&.zeroclipboard-is-active {
-			opacity: .8;
+.account--active {
+	background-color: #2e3541;
+
+	.account-info:hover, 
+	&.account--selecting .account-info {
+		background-color: #272e38;
+	}
+}
+
+.account--others {
+	background-color: #1b1f27;
+	
+	&:hover {
+		background-color: #161a20;
+	}
+}
+
+.account-info {
+	min-height: $account-height;
+	width: calc(100% - #{$account-actions-width});
+	padding: 10px 5px 6px 21px;
+	@include transition(background-color .3s);
+}
+
+.account-info-line {
+	margin-bottom: 3px;
+}
+
+.account-id {
+	margin-bottom: 3px;
+	outline: none;
+}
+
+.account-label {
+	color: #a1bbee;
+	font-weight: $fontWeight-medium;
+	@include break-word();
+}
+
+.account-label--blank {
+	color: #5a6479;
+	font-style: italic;
+}
+
+.account-actionsButton {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: $account-actions-width;
+	height: $account-height;
+	line-height: $account-height;
+	text-align: center;
+	font-size: 14px;
+	background-color: #2e3541;
+
+	&:hover, 
+	&.active {
+		background-color: #272e38;
+	}
+
+	&, 
+	&:hover, 
+	&.active {
+		& > .account-actionsButton--gear {
+			display: initial;
+		}
+
+		& > .account-actionsButton--arrow {
+			display: none;
 		}
 	}
 
-	.label {
-		color: #a1bbee;
-		font-weight: $fontWeight-medium;
-		@include break-word();
-		&.blank {
-			color: #5a6479;
-			font-style: italic;
+	.account-info:hover + &,
+	.account--selecting &:not(:hover) {
+		background-color: #272e38;
+
+		& > .account-actionsButton--gear {
+			display: none;
+		}
+
+		& > .account-actionsButton--arrow {
+			display: initial;
 		}
 	}
+}
 
-	.account-info {
-		min-height: $height;
-		@include transition(background-color .3s);
+.account-primary {
+	display: inline-block;
+	margin-left: 5px;
+	padding: 0 8px 2px;
+	font-size: 11px;
+	background-color: #3498db;
+	color: #fff;
+}
 
-		p {
-			margin-bottom: 3px;
-		}
-	}
-
-	.account-actions {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: $account-actions-width;
-		height: $height;
-		line-height: $height;
-		text-align: center;
-		font-size: 14px;
-		background-color: #2e3541;
-	}
-
-	.primary {
-		display: inline-block;
-		font-size: 11px;
-		background-color: #3498db;
-		//padding: 0 8px 2px;
-		//margin-left: 5px;
-		color: #fff;
-	}
-
-	.account-select & {
-		background-color: #1b1f27;
-		&:hover {
-			background-color: #161a20;
-		}
-	}
-
-	.dropdownMenu {
-		position: absolute;
-		top: 100%;
-		right: 0;
-	}
+.account-actionsDropdown {
+	position: absolute;
+	top: 100%;
+	right: 0;
 }
 
 .account-select {
 	position: absolute;
 	max-height: 300px;
+	width: $sidebar-width;
 }
 
-#wallet-page-main-content {
+// ================================================================================
+// WALLET MAIN
+// ================================================================================
+
+.wallet-main {
+	min-height: 100%;
 	padding-top: $mainContent-topPadding;
 	padding-bottom: 9px;
 	background-color: #ebebeb;
-	min-height: 100%;
-
-	&.sidebar-scrollable {
-		@include fill-restOfHeight-container();
-
-		#wallet-page-sidebar {
-			@include fill-restOfHeight();
-		}
-	}
 
 	.container {
 		padding-left: $sidebar-width + $mainContent-leftPadding;
 		width: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 	}
 
-	&, &.full-sidebar {
-		#wallet-page-sidebar {
-			width: $sidebar-width;
-		}
-
-		.mini {
-			display: none;
-		}
-
-		.active.account {
-			.account-info {
-				background-color: #2e3541;
-			}
-
-			.account-info:hover, 
-			&.selecting .account-info {
-				background-color: #272e38;
-			}
-
-			.account-info:hover + .account-actions,
-			&.selecting .account-actions {
-				background-color: #272e38;
-
-				.gear {
-					display: none;
-				}
-
-				.arrow {
-					display: initial;
-				}
-			}
-
-			.account-actions {
-				&:hover, &.active {
-					background-color: #272e38;
-				}
-
-				&, &:hover, &.active {
-					.gear {
-						display: initial;
-					}
-
-					.arrow {
-						display: none;
-					}
-				}
-			}
-		}
-
-		.account-info {
-			padding: 10px 5px 6px 21px;
-			width: calc(100% - #{$account-actions-width});
-		}
-
-		.primary {
-			padding: 0 8px 2px;
-			margin-left: 5px;
-		}
-
-		nav {
-			padding-right: 18px;
-
-			li {
-				padding-left: 40px;
-				&:not(.disabled) {
-					$indicator-width: 6px;
-					$padding-left: 52px;
-					
-					&:hover {
-						padding-left: $padding-left;
-					}
-					&.active {
-						border-left: $indicator-width solid #ebebeb;
-						padding-left: $padding-left - $indicator-width;
-					}
-				}
-			}
-
-			.item-title {
-				&:before {
-					margin-right: 10px;
-				}
-			}
-		}
-	}
-
 	@mixin mini-sidebar() {
-		#wallet-page-sidebar {
+		.sidebar {
 			width: $miniSidebar-width;
 		}
 
-		.mini {
+		.miniSidebarOnly {
 			display: initial;
 		}
 
-		.full {
+		.fullSidebarOnly {
 			display: none;
 		}
 
-		.active.account {
+		.account--active {
 			background-color: #252a34;
-		}
 
-		.account-info {
-			padding-left: 0;
-			padding-right: 0;
-			width: 100%;
-			text-align: center;
-		}
-
-		.primary {
-			margin: 22px 0 0;
-			font-weight: $fontWeight-medium;
-			padding: 3px 8px 4px;
-		}
-
-		nav {
-			padding-right: 0;
-
-			li {
-				text-align: center;
-
-				&, &:not(.disabled).active, &:not(.disabled):hover {
-					padding-left: 0;
-					padding-right: 0;
-					border-left: none;
-				}
+			.account-primary {
+				margin-top: 22px;
+				margin-left: 0;
+				padding: 3px 8px 4px;
+				font-weight: $fontWeight-medium;
 			}
 
-			.item-title {
-				&:before {
-					margin-right: 0;
-				}
+			.account-info {
+				width: 100%;
+				padding-left: 0;
+				padding-right: 0;
+				text-align: center;
+			}
+		}
+
+		.account-select {
+			top: 0;
+			left: 100%;
+			text-align: left;
+		}
+
+		.sidebar-nav {
+			padding-right: 0;
+		}
+
+		.sidebar-nav-item {
+			text-align: center;
+
+			&, 
+			&:not(.disabled).active, 
+			&:not(.disabled):hover {
+				padding-left: 0;
+				padding-right: 0;
+				border-left: none;
+			}
+		}
+
+		.sidebar-nav-item-title {
+			&:before {
+				margin-right: 0;
 			}
 		}
 	}
@@ -472,204 +464,126 @@ $account-actions-width: 33px;
 	}
 
 	@media (max-width: #{$small-screen}) {
-		&:not(.full-sidebar) {
+		&:not(.fullSidebar) {
 			@include mini-sidebar();
 		}
+
 		@include shrunk-container();
 	}
 
-	&.mini-sidebar {
+	&.miniSidebar {
 		@include mini-sidebar();
 		@include shrunk-container();
 	}
-}
 
-#wallet-page-sidebar {
-	$sidebar-textColor: #ebebeb;
-	position: fixed;
-	height: 100%;
-	background-color: #252a34;
-	color: $sidebar-textColor;
+	&.sidebarScrollable {
+		position: absolute;
+		width: 100%;
+		@include fill-restOfHeight-container();
 
-	/*.account-info {
-		$avatar-size: $avatar-small;
-		$avatar-rightMargin: 9px;
-		@extend %clearfix;
-		margin-left: 18px;
-		margin-bottom: 35px;
-
-		.account-avatar {
-			float: left;
-			margin-right: $avatar-rightMargin;
-			img {
-				width: $avatar-size;
-				height: $avatar-size;
-			}
-		}
-
-		$statusDropdown-width: 32px;
-		.selecter {
-			@include inline-block();
-			vertical-align: -3px;
-		}
-		.selecter-element {
-			width: 0;
-			height: 0;
-		}
-		.selecter-selected {
-			text-align: center;
-			background: transparent url(../images/arrow-down-thin.png) no-repeat right 6px;
-			padding: 0 10px 0 2px;
-			.status-label {
-				display: none;
-			}
-		}
-		.selecter-options {
-			width: auto;
-		}
-		.scroller-content {
-			background-color: #44526d;
-			padding: 2px;
-		}
-		.selecter-item {
-			background-color: #44526d;
-			padding: 0;
-			border: none;
-			line-height: 0;
-			&:hover {
-				background-color: #252a34;
-			}
-			.account-status {
-			}
-			.status-label {
-				color: #ebebeb;
-				text-transform: capitalize;
-				font-size: 9px;
-				@include inline-block();
-				vertical-align: 5px;
-				padding-right: 5px;
-			}
-		}
-
-		.account-status {
-			font-size: 20px;
-			&.available {
-				color: #27d782;
-			}
-			&.busy {
-				color: #d72727;
-			}
-			&.invisible {
-				color: #d8d8d8;
-			}
-		}
-
-		.detailed-info {
-			float: left;
-			width: calc(100% - #{$avatar_size} - #{$avatar-rightMargin});
-
-			.title {
-				margin-top: -3px;
-				margin-bottom: -4px;
-				position: relative;
-				font-size: 0;
-			}
-
-			h1 {
-				font-size: 13.5px;
-				font-weight: $fontWeight-regular;
-				text-transform: uppercase;
-				@include inline-block();
-				//@include ellipsis-overflow(calc(100% - #{$statusDropdown-width}));
-				@include ellipsis-overflow(100%);
-			}
-
-			.surname {
-				color: #fff;
-			}
-
-			.account-id {
-				font-size: 9.75px;
-				color: #e6801d;
-				@include ellipsis-overflow(100%);
-			}
-
-			.last-online {
-				font-size: 11.25px;
-			}
-		}
-	}*/
-
-	nav {
-		$notiBox-size: 1.4em;
-		font-size: 13px;
-		//padding-right: 18px;
-		padding-top: 24px;
-
-		li {
-			padding-top: 2px;
-			padding-bottom: 2px;
-			//padding-left: 40px;
-			margin-top: 18px;
-			margin-bottom: 18px;
-			color: #5a6479;
-			font-weight: $fontWeight-medium;
-			@include transition-property(padding-left, border-left-width);
-			@include transition-duration(.3s);
-
-			&.disabled {
-				color: #2e3541;
-				pointer-events: none;
-				cursor: default;
-			}
-
-			&:not(.disabled) {
-				//$indicator-width: 6px;;
-				//$padding-left: 52px;
-				&.active, &:hover {
-					.item-title {
-						color: #ebebeb;
-					}
-				}
-				/*&:hover {
-					padding-left: $padding-left;
-				}
-				&.active {
-					border-left: $indicator-width solid #ebebeb;
-					padding-left: $padding-left - $indicator-width;
-				}*/
-			}
-		}
-
-		.item-title {
-			@include ellipsis-overflow(calc(100% - #{$notiBox-size}));
-			@include transition-property(color);
-			@include transition-duration(.3s);
-			&:before {
-				font-size: 1.2em;
-				//margin-right: 10px;
-				vertical-align: -2px;
-			}
-		}
-
-		.noti-box {
-			float: right;
-			@include noti-box($notiBox-size);
-			&.messages {
-				background-color: #e89442;
-				color: #ebebeb;
-			}
-			&.transactions {
-				background-color: #fff;
-				color: #252a34;
-			}
-			&.news {
-				background-color: #27d782;
-				color: #252a34;
-			}
+		.sidebar {
+			position: absolute;
+			height: calc(100% - #{$mainContent-topPadding});
+			@include fill-restOfHeight();
 		}
 	}
 }
+
+// ================================================================================
+// SIDEBAR
+// ================================================================================
+
+.miniSidebarOnly {
+	display: none;
+}
+
+.sidebar {
+	$sidebar-textColor: #ebebeb;
+	position: fixed;
+	height: 100%;
+	width: $sidebar-width;
+	background-color: #252a34;
+	color: $sidebar-textColor;
+	z-index: $zIndex-sidebar;
+}
+
+.sidebar-nav {
+	// $notiBox-size: 1.4em;
+	padding-top: 24px;
+	padding-right: 18px;
+	font-size: 13px;
+
+	// .noti-box {
+	// 	float: right;
+	// 	@include noti-box($notiBox-size);
+	// 	&.messages {
+	// 		background-color: #e89442;
+	// 		color: #ebebeb;
+	// 	}
+	// 	&.transactions {
+	// 		background-color: #fff;
+	// 		color: #252a34;
+	// 	}
+	// 	&.news {
+	// 		background-color: #27d782;
+	// 		color: #252a34;
+	// 	}
+	// }
+}
+
+.sidebar-nav-item {
+	margin-top: 18px;
+	margin-bottom: 18px;
+	padding-left: 40px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color: #5a6479;
+	font-weight: $fontWeight-medium;
+	@include transition-property(padding-left, border-left-width);
+	@include transition-duration(.3s);
+
+	&.disabled {
+		color: #2e3541;
+		pointer-events: none;
+		cursor: default;
+	}
+
+	&:not(.disabled) {
+		$indicator-width: 6px;
+		$padding-left: 52px;
+
+		&.active, 
+		&:hover {
+			.sidebar-nav-item-title {
+				color: #ebebeb;
+			}
+		}
+		
+		&:hover {
+			padding-left: $padding-left;
+		}
+		
+		&.active {
+			padding-left: $padding-left - $indicator-width;
+			border-left: $indicator-width solid #ebebeb;
+		}
+	}
+}
+
+.sidebar-nav-item-title {
+	@include transition-property(color);
+	@include transition-duration(.3s);
+
+	&:before {
+		margin-right: 10px;
+		font-size: 1.2em;
+		vertical-align: -2px;
+	}
+}
+
+// ================================================================================
+// CLIENT INFO MODAL
+// ================================================================================
 
 .clientInfoModal {
 	font-size: 13px;
@@ -677,264 +591,191 @@ $account-actions-width: 33px;
 	.modal-body {
 		padding: 18px 38px 22px;
 	}
-
-	.info {
-		@extend %clearfix;
-		text-align: left;
-		margin-top: 40px;
-		@include break-word();
-	}
-
-	.ncc-info {
-		float: left;
-		width: 45%;
-	}
-
-	.nis-info {
-		float: right;
-		width: 45%;
-	}
-
-	.block {
-		margin-bottom: 1em;
-	}
 }
 
+.clientInfo-content {
+	@extend %clearfix;
+	margin-top: 40px;
+	text-align: left;
+	@include break-word();
+}
+
+.clientInfo-ncc {
+	float: left;
+	width: 45%;
+}
+
+.clientInfo-nis {
+	float: right;
+	width: 45%;
+}
+
+.clientInfo-block {
+	margin-bottom: 1em;
+}
+
+// ================================================================================
+// SEND NEM MODAL
+// ================================================================================
+
+$sendNem-textbox-height: 27px;
+$sendNem-textbox-vPadding: 6px;
+$sendNem-textbox-hPadding: 8px;
+
 .sendNemModal {
-	$unit-width: 46px;
 	font-size: 12px;
 
 	.modal-body {
-		text-align: left;
 		padding: 3px 16px 18px;
-	}
-
-	input, button, select {
-		height: 27px;
-	}
-
-	input, textarea {
-		@include input-placeholder() {
-			color: #a2a2a2;
-		}
-	}
-
-	.form-control {
-		width: 100%;
-		background-color: #ebebeb;
-		color: #444444;
-		margin-top: 17px;
-		padding: 6px 8px;
-	}
-
-	.unit {
-		display: inline-block;
-		text-align: center;
-	}
-
-	textarea {
-		height: 100px;
-	}
-
-	.amount {
-		padding: 0;
-		input {
-			padding: 6px 8px;
-			width: calc(100% - #{$unit-width});
-		}
-
-		.unit {
-			width: $unit-width;
-		}
-	}
-
-	.recipient-label {
-		margin-top: 7px;
-		margin-left: 10px;
-		font-size: 11px;
-		color: #1b5278;
-		.label {
-			font-weight: $fontWeight-medium;
-		}
-	}
-
-	$middleGap-half: 8px;
-	.row {
-		@extend %clearfix;
-		.form-control {
-			width: calc(50% - #{$middleGap-half});
-		}
-	}
-
-	.fee, .due-by {
-		padding: 0 0 0 8px;
-		@extend %clearfix;
-
-		label {
-			display: inline-block;
-			float: left;
-			padding-top: 6px;
-		}
-		
-		input {
-			padding: 6px 8px;
-			text-align: right;
-			float: right;
-		}
-
-		.unit {
-			float: right;
-			padding-top: 6px;
-			padding-right: 8px;
-		}
-	}
-
-	.fee {
-		float: left;
-		margin-right: $middleGap-half;
-
-		input {
-			width: 70px;
-		}
-	}
-
-	.due-by {
-		float: right;
-
-		input {
-			width: 50px;
-		}
-	}
-
-	.encrypt {
-		margin-top: 7px;
-		margin-bottom: 3px;
-
-		input {
-			height: auto;
-			vertical-align: -2px;
-		}
-
-		label {
-			font-weight: $fontWeight-regular;
-		}
-	}
-
-	/*.due-by {
-		$numberInput-width: 60px;
-		float: right;
-		margin-left: $middleGap-half;
-		padding: 0 8px;
-		label {
-			display: inline-block;
-			width: calc(100% - #{$numberInput-width});
-		}
-		input {
-			width: $numberInput-width;
-			text-align: right;
-			padding-right: 20px;
-		}
-		.stepper {
-			@include inline-block();
-		}
-		.stepper-arrow {
-			color: #13abfa;
-			font-size: 16px;
-
-			&:before {
-				position: relative;
-			}
-
-			&.up:before {
-			}
-
-			&.down:before {
-				top: -3px;
-			}
-		}
-	}*/
-
-	.recipient {
-		text-transform: uppercase;
-		@include input-placeholder() {
-			text-transform: none;
-		}
-	}
-
-	.set-fee {
-		$color: #e89442;
-		color: $color;
-		width: calc(50% - #{$middleGap-half});
-		margin-top: 7px;
-		display: block;
-		font-size: 11px;
-		font-weight: $fontWeight-black;
-		&:hover {
-			color: lighten($color, 15%);
-		}
-	}
-
-	.submit {
-		text-align: right;
-		margin-top: 17px;
-
-		button {
-			$background: #1b5278;
-			background-color: $background;
-			color: #fff;
-			text-transform: uppercase;
-			height: auto;
-
-			&.disabled {
-				&, &:hover {
-					background-color: #d1d1d1;
-				}
-			}
-
-			&:hover {
-				background-color: lighten($background, 10%);
-			}
-		}
-	}
-
-	label {
-		font-weight: $fontWeight-black;
+		text-align: left;
 	}
 }
 
-.transactionDetailsModal {
+.sendNem-control {
+	width: 100%;
+	background-color: #ebebeb;
+	color: #444444;
+}
+
+.sendNem-control--half {
+	width: calc(50% - 8px);
+}
+
+.sendNem-control--fee {
+	float: left;
+}
+
+.sendNem-control--dueBy {
+	float: right;
+}
+
+.sendNem-textbox {
+	width: 100%;
+	height: $sendNem-textbox-height;
+	padding: $sendNem-textbox-vPadding $sendNem-textbox-hPadding;
+
+	@include input-placeholder() {
+		color: #a2a2a2;
+	}
+}
+
+.sendNem-textbox--message {
+	margin-bottom: 7px;
+	height: 100px;
+}
+
+.sendNem-textbox--recipient {
+	text-transform: uppercase;
+
+	@include input-placeholder() {
+		text-transform: none;
+	}
+}
+
+.sendNem-textbox--fee, 
+.sendNem-textbox--dueBy {		
+	text-align: right;
+}
+
+.sendNem-control-unit  {
+	float: right;
+	padding-right: $sendNem-textbox-hPadding;
+	line-height: $sendNem-textbox-height;
+}
+
+.sendNem-label {
+	float: left;
+	padding-left: $sendNem-textbox-hPadding;
+	height: $sendNem-textbox-height;
+	line-height: $sendNem-textbox-height;
+	font-weight: $fontWeight-black;
+}
+
+.sendNem-recipientLabel {
+	margin-top: 7px;
+	margin-left: 10px;
+	font-size: 11px;
+	color: #1b5278;
+}
+
+.sendNem-row {
+	@extend %clearfix;
+}
+
+.sendNem-block {
+	margin-top: 17px;
+}
+
+.sendNem-setFeeButton {
+	$color: #e89442;
+	display: block;
+	margin-top: 7px;
+	color: $color;	
+	font-size: 11px;
+	font-weight: $fontWeight-black;
+
+	&:hover {
+		color: lighten($color, 15%);
+	}
+}
+
+.sendNem-checkbox {
+	vertical-align: -2px;
+}
+
+.sendNem-submit {
+	text-align: right;
+}
+
+.sendNem-submit-button {
+	$background: #1b5278;
+	background-color: $background;
+	color: #fff;
+
+	&.disabled {
+		background-color: #d1d1d1;
+		pointer-events: none;
+	}
+
+	&:hover {
+		background-color: lighten($background, 10%);
+	}
+}
+
+// ================================================================================
+// TRANSACTION DETAILS MODAL
+// ================================================================================
+
+.txDetailsModal {
 	font-size: 13px;
 	color: #444444;
 
 	.modal-body {
 		padding: 20px;
 	}
+}
 
-	td {
-		$padding: 2px;
-		padding-top: $padding;
-		padding-bottom: $padding;
-	}
+.txDetails-cell--label,
+.txDetails-cell--content {
+	$padding: 2px;
+	padding-top: $padding;
+	padding-bottom: $padding;
+}
 
-	.title {
-		font-weight: $fontWeight-bold;
-		text-align: right;
-		white-space: nowrap;
-		vertical-align: top;
-	}
+.txDetails-cell--label {
+	font-weight: $fontWeight-bold;
+	text-align: right;
+	white-space: nowrap;
+	vertical-align: top;
+}
 
-	.encrypted {
-		color: #f1c40f;
-	}
+.txDetails-cell--content {
+	padding-left: 15px;
+	font-weight: $fontWeight-medium;
+	text-align: left;
+	vertical-align: top;
+}
 
-	.value {
-		font-weight: $fontWeight-medium;
-		text-align: left;
-		padding-left: 15px;
-		vertical-align: top;
-	}
-
-	.dimmed {
-		color: #d1d1d1;
-	}
+.txDetails-encryptedIcon {
+	color: #f1c40f;
 }

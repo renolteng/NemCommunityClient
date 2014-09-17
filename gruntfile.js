@@ -17,7 +17,8 @@ module.exports = function(grunt) {
 		    	stripBanners: true
 		    },
 		    css: {
-		    	src: ['nem-client-api/src/main/webapp/styles/css/shared.css', 'nem-client-api/src/main/webapp/styles/css/pages/page_groups/*.css', 'nem-client-api/src/main/webapp/styles/css/pages/*.css'],
+		    	src: ['nem-client-api/src/main/webapp/styles/css/shared.css', 
+		    	'nem-client-api/src/main/webapp/styles/css/pages/*.css'],
 		    	dest: 'nem-client-api/src/main/webapp/styles/css/all.css'
 		    }
 		},

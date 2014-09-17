@@ -61,7 +61,7 @@ define({
 			},
 			sendNem: {
 				title: 'NEMを送信する',
-				labelDesc: 'このアカウントのラベルは <strong>{{1}}</strong>',
+				labelDesc: 'このアカウントのラベルは {{1}}',
 				nullLabelDesc: "このアカウントにラベルはありません。",
 				amount: '金額',
 				recipient: "相手のアカウント",

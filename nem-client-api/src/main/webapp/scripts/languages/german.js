@@ -61,7 +61,7 @@ define({
                 },
                 sendNem: {
                         title: 'NEM senden',
-                        labelDesc: 'Das Label des Kontos ist <strong>{{1}}</strong>',
+                        labelDesc: 'Das Label des Kontos ist {{1}}',
                         nullLabelDesc: "Dieses Konto hat keinen Label",
 						amount: 'Betrag',
 						recipient: "Konto des Empfängers",

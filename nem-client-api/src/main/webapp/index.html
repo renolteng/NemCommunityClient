@@ -45,7 +45,7 @@
 					{{/}}
 				</div>
 				<div>
-					<button type="button" class="modal-submitBtn modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="submit">
+					<button type="button" class="modal-button modal-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="submit">
 						{{^processing}}
 							{{submitLabel}}
 						{{/}}

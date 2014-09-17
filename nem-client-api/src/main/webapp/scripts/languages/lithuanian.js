@@ -61,7 +61,7 @@
 			},
 			sendNem: {
 				title: 'Siusti NEM',
-				labelDesc: 'Ši saskaita pavadinta kaip <strong>{{1}}</strong>',
+				labelDesc: 'Ši saskaita pavadinta kaip {{1}}',
 				nullLabelDesc: "Ši saskaita neturi pavadinimo",
 				amount: 'Suma',
 				recipient: "Gavejo saskaita",

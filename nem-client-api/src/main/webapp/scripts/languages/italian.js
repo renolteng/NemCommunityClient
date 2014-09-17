@@ -61,7 +61,7 @@ define({
 			},
 			sendNem: {
 				title: 'Invia NEM',
-				labelDesc: 'Questo indirizzo è denominato <strong>{{1}}</strong>',
+				labelDesc: 'Questo indirizzo è denominato {{1}}',
 				nullLabelDesc: "Questo indirizzo non ha un nome associato",
 				amount: 'Importo',
 				recipient: "Indirizzo del destinatario",

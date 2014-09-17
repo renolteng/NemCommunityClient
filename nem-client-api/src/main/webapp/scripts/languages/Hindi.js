@@ -56,7 +56,7 @@ define({
 			},
 			sendNem: {
 				title: 'NEM भेजें',
-				labelDesc: 'इस अकाउंट का लेबल <strong>{{1}}</strong> हे',
+				labelDesc: 'इस अकाउंट का लेबल {{1}} हे',
 				nullLabelDesc: "इस अकाउंट का लेबल मौजूद नही हे",
 				amount: 'रकम',
 				recipient: "रेसिपईयेंट अकाउंट",
