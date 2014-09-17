@@ -39,7 +39,7 @@
         common: {
         	success: 'Успешно', //title of the Success message modals
         	nisStatus: {
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC е недостъпен',
         		unavailable: 'NIS е недостъпен',
         		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
