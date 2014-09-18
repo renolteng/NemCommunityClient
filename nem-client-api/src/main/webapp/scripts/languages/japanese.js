@@ -47,7 +47,8 @@ define({
                     0: 'less than 1 day',
                     1: '1 day',
                     many: '{{1}} days'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
          	}
         },
 		modals: {

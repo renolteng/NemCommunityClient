@@ -47,7 +47,8 @@ define({
                     0: 'ít hơn 1 ngày',
                     1: '1 ngày',
                     many: '{{1}} ngày'
-                }
+                },
+        		synchronized: 'NIS đã đồng bộ!'
         	}
         },
 		modals: {

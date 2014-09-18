@@ -75,7 +75,8 @@ define({
                        notBooted: 'NIS requiere ser iniciado. Por favor, abra el monedero e inicie un nodo local',
                        //synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} days behind.'
                        synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.'
-                   }
+                   },
+                   synchronized: 'NIS is synchronized!'
                },
                modals: {
                    error: {

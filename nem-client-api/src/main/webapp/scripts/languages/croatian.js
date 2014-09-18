@@ -47,7 +47,8 @@ define({
         			0: 'manje od 1 dan',
         			1: '1 dan',
         			many: '{{1}} dana'
-        		}        		
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {

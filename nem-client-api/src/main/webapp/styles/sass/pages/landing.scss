@@ -80,6 +80,7 @@ html.landing {
 
 .landing-main {
 	position: relative;
+	margin-top: $statusIndicator-height;
 	z-index: $zIndex-main;
 }
 
@@ -103,11 +104,11 @@ html.landing {
 // SCROLL HEADER
 // ================================================================================
 
-$header-height: 50px;
+$header-height: 40px;
 
 .scrollHeader {
 	position: fixed;
-	top: 0;
+	top: $statusIndicator-height;
 	width: 100%;
 	height: $header-height;
 	@include translate3d(0,-$header-height,0);

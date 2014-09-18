@@ -311,7 +311,10 @@ define(function(require) {
                 }
 
                 if (!this.get('nis.nodeMetaData.lastBlockBehind')) {
-                    return null;
+                    return {
+                        type: 'message',
+                        message: this.get('texts.common.nisStatus.synchronized')
+                    };
                 }
 
                 var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
@@ -331,7 +334,7 @@ define(function(require) {
                 }
 
                 return {
-                    type: 'message',
+                    type: 'warning',
                     message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
                 };
             }

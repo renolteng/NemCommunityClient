@@ -42,7 +42,8 @@ define({
         			0: 'कम से कम 1 दिन',
         			1: '1 दिन',
         			many: '{{1}} दिन'
-        		}
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {

@@ -47,7 +47,8 @@
         			0: 'по малко от 1 ден',
         			1: '1 ден',
         			many: '{{1}} дни'
-        		}	
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {

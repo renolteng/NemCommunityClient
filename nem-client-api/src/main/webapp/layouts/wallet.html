@@ -163,7 +163,7 @@
 				</ul>
 			</div>
 		</div>
-		<nav class="sidebar-nav">
+		<nav class="sidebar-nav" on-load="registerScrollableSidebar">
 			<ul>
 				<li class="sidebar-nav-item {{#layout.1.name === 'dashboard'}}active{{/}}"><a href="javascript:;" on-click="redirect:'dashboard', {{params}}">
 					<span class="sidebar-nav-item-title icon-home"><span class="fullSidebarOnly">{{texts.wallet.nav.0}}</span></span>

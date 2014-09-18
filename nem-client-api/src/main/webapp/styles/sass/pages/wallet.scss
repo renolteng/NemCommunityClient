@@ -5,12 +5,12 @@
 
 $sidebar-width: 296px;
 $miniSidebar-width: 44px;
-$header-height: 100px;
+$header-height: 80px;
 
 $mainContent-width: $tile-width * $tile-columns + $tile-hGap * ($tile-columns - 1);
 $mainContent-leftPadding: 22px;
 $mainContent-rightPadding: 0;
-$mainContent-topPadding: $header-height;
+$mainContent-topPadding: $statusIndicator-height + $header-height;
 
 $small-screen: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 
@@ -27,7 +27,7 @@ $zIndex-sidebar:	10;
 
 .walletHeader {
 	position: fixed;
-	top: 0;
+	top: $statusIndicator-height;
 	width: 100%;
 	height: $header-height + 1px;
 	border-bottom: 1px solid #ebebeb;

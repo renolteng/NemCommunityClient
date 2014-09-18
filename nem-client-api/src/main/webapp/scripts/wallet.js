@@ -117,6 +117,21 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     ncc.get('texts.modals.bootLocalNode.booting')
                 );
             };
+
+            ncc.on('registerScrollableSidebar', function(e) {
+                var $sidebarNav = $(e.node);
+                var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
+                var decideSidebarScrollability = function() {
+                    if (navBottom > global.$window.height()) {
+                        ncc.set('walletPage.sidebarScrollable', true);
+                    } else {
+                        ncc.set('walletPage.sidebarScrollable', false);
+                    }
+                };
+
+                global.$window.on('resize.scrollableSidebar', decideSidebarScrollability);
+                decideSidebarScrollability();
+            });
         },
         initEverytime: function(params) {
             var wallet = (params && params.wallet) || ncc.getUrlParam('wallet');
@@ -143,6 +158,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
         },
         setupEverytime: function() {
             var local = this.local;
+            var global = ncc.global;
 
             require(['zeroClipboard'], function(ZeroClipboard) {
                 local.client = new ZeroClipboard($('#addressClipboard'));
@@ -609,22 +625,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     });
                 }
             }));
-
-            (function() {
-                var $win = $(window);
-                var $sidebarNav = $('.sidebar-nav');
-                var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
-                var decideSidebarScrollability = function() {
-                    if (navBottom > $win.height()) {
-                        ncc.set('walletPage.sidebarScrollable', true);
-                    } else {
-                        ncc.set('walletPage.sidebarScrollable', false);
-                    }
-                };
-
-                $win.on('resize.scrollableSidebar', decideSidebarScrollability);
-                decideSidebarScrollability();
-            })();
 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 

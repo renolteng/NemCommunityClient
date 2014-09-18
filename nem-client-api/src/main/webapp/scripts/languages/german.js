@@ -47,7 +47,8 @@ define({
                         0: 'weniger als 1 Tag',
                         1: 'etwa 1 Tag',
                         many: 'etwa {{1}} Tage'
-                    }
+                    },
+                    synchronized: 'NIS is synchronized!'
 	        	}
         },
         modals: {

@@ -47,7 +47,8 @@
                     0: 'mažiau kaip 1 diena',
                     1: '1 diena',
                     many: '{{1}} dienos'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
