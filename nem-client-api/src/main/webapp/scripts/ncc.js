@@ -285,7 +285,9 @@ define(function(require) {
             unclosableMessageModal: NccModal
         },
         computed: {
-            allAccounts: 'this.prepend([${wallet.primaryAccount}], ${wallet.otherAccounts})',
+            allAccounts: function() {
+                return this.prepend([this.get('wallet.primaryAccount')], this.get('wallet.otherAccounts'));
+            },
             nisStatus: function() {
                 if (this.get('status.nccUnavailable')) {
                     return {
