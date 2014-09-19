@@ -3,8 +3,8 @@ package org.nem.monitor;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.utils.ExceptionUtils;
 
-import javax.jnlp.*;
-import java.net.URL;
+import java.awt.*;
+import java.net.*;
 import java.util.logging.Logger;
 
 /**
@@ -19,26 +19,24 @@ public class WebBrowser {
 	 * @param endpoint The NodeEndpoint endpoint.
 	 */
 	public void navigate(final NodeEndpoint endpoint) {
-		ExceptionUtils.propagateVoid(() -> {
-			final BasicService service = (BasicService)ServiceManager.lookup("javax.jnlp.BasicService");
-			this.navigate(service, endpoint);
-		});
+		final Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		this.navigate(desktop, endpoint);
 	}
 
 	/**
 	 * Navigates to the desired endpoint using the specified service.
 	 *
-	 * @param service The service.
+	 * @param desktop The service.
 	 * @param endpoint The NodeEndpoint endpoint.
 	 */
-	public void navigate(final BasicService service, final NodeEndpoint endpoint) {
+	public void navigate(final Desktop desktop, final NodeEndpoint endpoint) {
 		final URL url = endpoint.getBaseUrl();
-		if (!service.isWebBrowserSupported()) {
+		if (null == desktop || !desktop.isSupported(Desktop.Action.BROWSE)) {
 			LOGGER.warning("web browser is not supported");
 			return;
 		}
 
 		LOGGER.info(String.format("navigating to %s", url));
-		service.showDocument(url);
+		ExceptionUtils.propagateVoid(() -> desktop.browse(url.toURI()));
 	}
 }

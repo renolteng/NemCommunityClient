@@ -12,7 +12,7 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 	private final NemNodeType nodeType;
 	private final NodeManager manager;
 	private NemStatus status;
-	private boolean isExplicitlyLaunched = true;
+	private boolean isExplicitlyLaunched;
 
 	/**
 	 * Creates a new adapter.
@@ -48,6 +48,7 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 				this.manager.shutdown();
 				break;
 
+			case UNKNOWN:
 			case STOPPED:
 				this.isExplicitlyLaunched = true;
 				this.manager.launch();
