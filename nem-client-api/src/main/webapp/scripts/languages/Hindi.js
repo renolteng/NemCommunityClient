@@ -2,6 +2,10 @@ define({
 	id: 'Hn',
 	name: 'HINDI',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'फ़ाइल नहीं मिली.',
             102: 'वॉलेट बनाया नहीं गया हे.',
@@ -29,17 +33,18 @@ define({
             706: 'ट्रांजैक्शन हस्ताक्षर का जांच नही किया जा सका है.',
             707: 'ट्रांजैक्शन ID का समय बहुत दूर अतीत में हे.',
             708: 'ट्रांजैक्शन ID का समय बहुत दूर भविष्य में हे.',
-            709: 'यह अकाउंट अज्ञात है. नेटवर्क को अकाउंट को पहचानने के लिए अकाउंट में कम से कम एक ट्रांजैक्शन (प्रेषक या प्राप्तकर्ता) का शामिल होना ज़रूरी होता है.',
+            709: 'यह अकाउंट अज्ञात है. नेटवर्क को अकाउंट को पहचानने के लिए अकाउंट में कम से कम एक ट्रांजैक्शन (सेनडर/रेसिपईयेंट) का शामिल होना ज़रूरी होता है.',
             901: 'ऑफलाइन मोड की स्थापना करने में त्रुटि आई है.'
         },
         common: {
         	success: 'Success', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC उपलब्ध नहीं है',
         		unavailable: 'NIS उपलब्ध नहीं है',
         		notBooted: 'NIS को बूट करने की आवश्यकता है. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
         		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.'
 				daysBehind: {
-        			0: 'कम से कम 1 दिन',
+        			0: '1 दिन से कम',
         			1: '1 दिन',
         			many: '{{1}} दिन'
         		},
@@ -95,7 +100,7 @@ define({
 				outgoing: 'Outgoing',
 				incoming: 'Incoming',
 				self: 'Self',
-				sender: 'भेजनेवाला',
+				sender: 'सेनडर',
 				recipient: 'रेसिपईयेंट',
 				message: 'मेसेज',
 				noMessage: 'नो मेसेज',
@@ -196,19 +201,19 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'वॉलेट को सफलतापूर्वक इम्पोर्ट कर दिया गया है!',
 			nav: {
-				start: 'Getting <strong>Started</strong>',
-				about: 'About <strong>NEM</strong>',
-				help: '<strong>Help</strong>'
+				start: 'Getting Started',
+				about: 'About NEM',
+				help: 'Help'
 			},
 			main: {
 				leftTitle: 'क्या आप <em>NEM</em> में नएँ हैं?',
-				leftButton: 'नई वॉलेट बनाएँ',
+				leftButton: 'नया वॉलेट बनाएँ',
 				walletNamePlh: 'अपने वॉलेट का नाम',
 				passwordPlh: 'पासवर्ड',
 				create: 'बनाएँ',
 				rightTitle: 'क्या आप पहले से ही एक <em>NEM</em>ber हैं?',
 				rightButton: 'अपना वॉलेट खोलें',
-				openButton: 'Open',
+				openButton: 'खोलें',
 				walletsFound: 'Found <strong>{{1}}</strong> <em>wallets</em>',
 				copyright: 'फोटोग्राफ़ी <em>Cas Cornelissen</em>'
 			},
@@ -242,7 +247,7 @@ define({
 						title: '&#42;NIS क्या है?',
 						paragraphs: [
 							'यह कॉंपोनेंट <strong>NEM</strong> क्लाउड को जिंदा रखने के लिए जिम्मेदार है.',
-							'जितना अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',
+							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',',
 							'<strong>NEM</strong> क्लाउड की पहुँच बिंदु <strong>NIS</strong> है.'
 						],
 						legend: '<strong>&#42;NIS</strong> का मतलब <strong>NEM Infrastructure Server</strong> है'
@@ -260,7 +265,7 @@ define({
 			lastAccessTooltip: 'पिछला लॉगिन था {{1}}',
 			primary: 'प्राइमरी',
 			primaryShort: 'P',
-			noLabel: '<No label>',
+			noLabel: '<नो लेबल>',
 			copiedToClipboard: 'अड्रेस क्लिपबोर्ड में कॉपी कर दिया गया है!',
 			actions: {
 				refreshInfo: 'जानकारी ताज़ा करे',
@@ -299,7 +304,7 @@ define({
 				title: 'आपके असेट्स'
 			},
 			importance: {
-				title: 'महत्वता स्कोर',
+				title: 'इंपॉर्टेन्स स्कोर',
 				unknown: 'अज्ञात स्थिति',
 				start: 'स्टार्ट हार्वेस्टिंग',
 				harvesting: 'हार्वेस्टिंग',
@@ -352,8 +357,8 @@ define({
 			sendNem: 'NEM भेजें',
 			balance: 'Current Balance',
 			filters: {
-				all: 'सभी ट्रॅन्सॅक्षन्स',
-				pending: 'Pending',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: 'Incoming',
 				outgoing: 'Outgoing',
 			},
