@@ -89,8 +89,9 @@ define(['ncc'], function(ncc) {
             clearTimeout(t);
             ncc.getRequest('info/nis',
                 function(data) {
+                	var lastBlockBehind = (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60;
                     ncc.set('nis', data);
-                    ncc.set('nis.nodeMetaData.lastBlockBehind', (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60);
+                    ncc.set('nis.nodeMetaData.lastBlockBehind', lastBlockBehind < 0? 0 : lastBlockBehind);
                     if (data.nodeMetaData.maxBlockChainHeight === data.nodeMetaData.nodeBlockChainHeight) {
                         waitTime = 60000;
                     } else {
