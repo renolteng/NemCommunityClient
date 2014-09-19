@@ -47,7 +47,8 @@ define({
                     0: 'ít hơn 1 ngày',
                     1: '1 ngày',
                     many: '{{1}} ngày'
-                }
+                },
+        		synchronized: 'NIS đã đồng bộ!'
         	}
         },
 		modals: {
@@ -61,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'Gửi NEM',
-				labelDesc: 'Tài khoản này được dán nhãn là <strong>{{1}}</strong>',
+				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
 				nullLabelDesc: "Tài khoản này không được dán nhãn",
 				amount: 'Số lượng',
 				recipient: "Người nhận",

@@ -47,7 +47,8 @@ define({
                     0: 'Menos que um dia',
                     1: '1 dia',
                     many: '{{1}} dias'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -61,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'Enviar NEM',
-				labelDesc: 'Esta conta está identificada como <strong>{{1}}</strong>',
+				labelDesc: 'Esta conta está identificada como {{1}}',
 				nullLabelDesc: "Esta conta não tem uma identificação",
 				amount: 'Total',
 				recipient: "Destinatário",

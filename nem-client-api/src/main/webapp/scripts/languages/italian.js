@@ -47,7 +47,8 @@ define({
                     0: 'meno di un giorno',
                     1: 'un giorno',
                     many: '{{1}} giorni'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -61,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'Invia NEM',
-				labelDesc: 'Questo indirizzo è denominato <strong>{{1}}</strong>',
+				labelDesc: 'Questo indirizzo è denominato {{1}}',
 				nullLabelDesc: "Questo indirizzo non ha un nome associato",
 				amount: 'Importo',
 				recipient: "Indirizzo del destinatario",

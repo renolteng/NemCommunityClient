@@ -5,28 +5,11 @@
 $page-minWidth: 1130px;
 $leftSpace: 155px;
 $rightSpace: 150px;
-$spreadingRate: 20%;
-
-$header-height: 50px;
-$carousel-height: 220px;
-$footer-height: 50px;
-
-$main-orgWidth: 1600px;
-$main-orgHeight: 706px;
 
 $ctaButton-width: 240px;
 $actionArea-height: 130px;
 $formContent-maxHeight: 250px;
 $formContent-sidePadding: 19px;
-
-$openWalletForm-headline-height: 44px;
-$openWalletList-submitButton-width: 50px;
-$openWalletList-submitButton-rightMargin: 4px;
-
-$tipsCarousel-viewport-width: 900px;
-$tipsCarousel-lineHeight: 68px;
-
-$socialLinkIcon-size: 24px;
 
 // $images-count: 2;
 // $visible-time: 6s;
@@ -46,22 +29,6 @@ $zIndex-main:			10;
 	$zIndex-gates:			20;
 	$zIndex-overlayContent:	30;
 $zIndex-scrollHeader:	20;
-
-.landing-submitButton {
-	$bgColor: #e6801d;
-	@include border-radius(4px);
-	padding-top: 5px;
-	padding-bottom: 6px;
-	background-color: $bgColor;
-	color: #fff;
-	text-align: center;
-	font-size: 12px;
-	font-weight: $fontWeight-medium;
-
-	&:hover {
-		background-color: lighten($bgColor, 7%);
-	}
-}
 
 // @mixin keyframe-content($vendor) {
 // 	0% {
@@ -113,16 +80,35 @@ html.landing {
 
 .landing-main {
 	position: relative;
+	margin-top: $statusIndicator-height;
 	z-index: $zIndex-main;
+}
+
+.landing-submitButton {
+	$bgColor: #e6801d;
+	@include border-radius(4px);
+	padding-top: 5px;
+	padding-bottom: 6px;
+	background-color: $bgColor;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	font-weight: $fontWeight-medium;
+
+	&:hover {
+		background-color: lighten($bgColor, 7%);
+	}
 }
 
 // ================================================================================
 // SCROLL HEADER
 // ================================================================================
 
+$header-height: 40px;
+
 .scrollHeader {
 	position: fixed;
-	top: 0;
+	top: $statusIndicator-height;
 	width: 100%;
 	height: $header-height;
 	@include translate3d(0,-$header-height,0);
@@ -180,9 +166,12 @@ html.landing {
 // GETTING STARTED
 // ================================================================================
 
+$main-origWidth: 1600px;
+$main-origHeight: 706px;
+
 #getting-started {
 	position: relative;
-	padding-bottom: 100% * $main-orgHeight / $main-orgWidth;
+	padding-bottom: 100% * $main-origHeight / $main-origWidth;
 }
 
 .landing-background {
@@ -298,6 +287,10 @@ html.landing {
 	line-height: 80px;
 }
 
+// ================================================================================
+// STATIC HEADER
+// ================================================================================
+
 .staticHeader {
 	@extend %clearfix;
 	position: absolute;
@@ -352,6 +345,8 @@ html.landing {
 // OVERLAY CONTENT
 // ================================================================================
 
+$spreadingRate: 20%;
+
 .landing-overlayContent {
 	position: absolute;
 	width: 100%;
@@ -386,6 +381,10 @@ html.landing {
 		opacity: 1;
 	}
 }
+
+// ================================================================================
+// CTA BUTTON
+// ================================================================================
 
 .ctaButton {
 	position: relative;
@@ -446,6 +445,10 @@ html.landing {
 		color: #e6801d;
 	}
 }
+
+// ================================================================================
+// CTA SECTION
+// ================================================================================
 
 .ctaSection {
 	position: absolute;
@@ -531,6 +534,10 @@ html.landing {
 // ================================================================================
 // OPEN WALLET SECTION
 // ================================================================================
+
+$openWalletForm-headline-height: 44px;
+$openWalletList-submitButton-width: 50px;
+$openWalletList-submitButton-rightMargin: 4px;
 
 .openWalletSection {
 	@extend %clearfix;
@@ -659,6 +666,10 @@ html.landing {
 // ================================================================================
 // TIPS CAROUSEL
 // ================================================================================
+
+$carousel-height: 220px;
+$tipsCarousel-viewport-width: 900px;
+$tipsCarousel-lineHeight: 68px;
 
 #tipsCarousel {
 	height: $carousel-height;
@@ -818,6 +829,7 @@ html.landing {
 	list-style-image: url(../../images/lozenge-bullet.png);
 	list-style-position: inside;
 	text-indent: 18px;
+	color: #5dcd86;
 }
 
 .landingAbout-listItem-content {
@@ -827,6 +839,7 @@ html.landing {
 
 .landingAbout-legend {
 	font-style: italic;
+	color: #5dcd86;
 }
 
 .howNccWorks {
@@ -845,6 +858,9 @@ html.landing {
 // ================================================================================
 // FOOTER
 // ================================================================================
+
+$footer-height: 50px;
+$socialLinkIcon-size: 24px;
 
 .landing-footer {
 	position: relative;

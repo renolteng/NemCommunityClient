@@ -47,7 +47,8 @@ define({
                         0: 'weniger als 1 Tag',
                         1: 'etwa 1 Tag',
                         many: 'etwa {{1}} Tage'
-                    }
+                    },
+                    synchronized: 'NIS is synchronized!'
 	        	}
         },
         modals: {
@@ -61,7 +62,7 @@ define({
                 },
                 sendNem: {
                         title: 'NEM senden',
-                        labelDesc: 'Das Label des Kontos ist <strong>{{1}}</strong>',
+                        labelDesc: 'Das Label des Kontos ist {{1}}',
                         nullLabelDesc: "Dieses Konto hat keinen Label",
 						amount: 'Betrag',
 						recipient: "Konto des Empfängers",

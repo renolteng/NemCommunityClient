@@ -46,7 +46,8 @@ define({
         			0: 'less than 1 day',
         			1: '1 day',
         			many: '{{1}} days'
-        		}
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -60,7 +61,7 @@ define({
 			},
 			sendNem: {
 				title: 'Відправити NEM',
-				labelDesc: 'Цей акаунт позначений як <strong>{{1}}</strong>',
+				labelDesc: 'Цей акаунт позначений як {{1}}',
 				nullLabelDesc: "Цей акаунт не має позначки",
 				amount: 'Кiлькiсть',
 				recipient: "Акаунт одержувача",

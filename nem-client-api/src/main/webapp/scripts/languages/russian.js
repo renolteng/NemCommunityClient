@@ -47,7 +47,8 @@
                                     0: 'less than 1 day',
                                     1: '1 day',
                                     many: '{{1}} days'
-                                }
+                                },
+                                synchronized: 'NIS is synchronized!'
                     }
             },
                             modals: {
@@ -61,7 +62,7 @@
                                        },
                                        sendNem: {
                                                    title: 'Послать NEM',
-                                                   labelDesc: 'Этот аккаунт маркирован как <strong>{{1}}</strong>',
+                                                   labelDesc: 'Этот аккаунт маркирован как {{1}}',
                                                    nullLabelDesc: "Этот аккаунт не имеет маркировки",
                                                    amount: 'Сумма',
                                                    recipient: "Аккаунт получателя",

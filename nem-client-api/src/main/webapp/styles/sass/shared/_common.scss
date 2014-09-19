@@ -30,12 +30,21 @@
 	vertical-align: middle;
 }
 
+// its sibblings must float
+.restOfWidth {
+	overflow: hidden;
+}
+
 .unit {
 	font-weight: $fontWeight-black;
 }
 
 .surname {
 	font-weight: $fontWeight-bold;
+}
+
+.dimmed {
+	color: #d1d1d1;
 }
 
 .variation {
@@ -368,7 +377,7 @@ $modal-transitionDuration: .3s;
 	}
 }
 
-.modal-submitBtn {
+.modal-button--submit {
 	margin-top: 10px;
 	text-transform: uppercase;
 }

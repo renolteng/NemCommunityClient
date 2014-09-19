@@ -83,8 +83,6 @@ em {
 
 /** NIS Status Indicator **/
 
-$statusIndicator-height: 40px;
-
 .statusIndicator {
 	visibility: visible;
 	opacity: 1;
@@ -109,15 +107,15 @@ $statusIndicator-height: 40px;
 }
 
 .statusIndicator--critical {
-	background-color: rgba(#e74c3c, .80);
+	background-color: #e74c3c;
 }
 
 .statusIndicator--warning {
-	background-color: rgba(#e1a92b, .80);
+	background-color: #f1c40f;
 }
 
 .statusIndicator--message {
-	background-color: rgba(#41ce7d, .80);
+	background-color: #2ecc71;
 }
 
 /** Loading Square **/

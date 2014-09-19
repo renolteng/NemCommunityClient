@@ -47,7 +47,8 @@ define({
         			0: "moins d'une journée",
         			1: 'une journée',
         			many: '{{1}} jours'
-        		}
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -61,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'Envoyez des NEMs',
-				labelDesc: 'Ce compte est étiqueté comme <strong>{{1}}</strong>',
+				labelDesc: 'Ce compte est étiqueté comme {{1}}',
 				nullLabelDesc: "Ce compte n'est pas étiqueté",
 				amount: 'Montant',
 				recipient: "Compte du destinataire",

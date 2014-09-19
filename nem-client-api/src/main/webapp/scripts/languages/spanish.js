@@ -75,7 +75,8 @@ define({
                        notBooted: 'NIS requiere ser iniciado. Por favor, abra el monedero e inicie un nodo local',
                        //synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} days behind.'
                        synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.'
-                   }
+                   },
+                   synchronized: 'NIS is synchronized!'
                },
                modals: {
                    error: {
@@ -93,8 +94,8 @@ define({
                    sendNem: {
                        //title: 'Send NEM'
                        title: 'Enviar NEM',
-                       //labelDesc: 'This account is labeled as <strong>{{1}}</strong>',
-                       labelDesc: 'Esta cuenta est&aacute; etiquetada como <strong>{{1}}</strong>',
+                       //labelDesc: 'This account is labeled as {{1}}',
+                       labelDesc: 'Esta cuenta est&aacute; etiquetada como {{1}}',
                        //nullLabelDesc: "This account doesn't have a label",
                        nullLabelDesc: "Esta cuenta no est&aacute; etiquetada.",
                        //amount: 'Amount',
