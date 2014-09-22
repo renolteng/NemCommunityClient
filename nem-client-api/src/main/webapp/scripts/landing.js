@@ -6,7 +6,7 @@
  		url: 'index.html',
 		template: 'rv!layout/landing',
 		local: {
-			initialWaitTime: 200,
+			initialWaitTime: 0,
 			closingGateTime: 1000,
 			scrollHeader: 'landingPage.scrollHeader',
 			nisCheckingInterval: 3000

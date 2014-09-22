@@ -70,6 +70,8 @@ define(function(require) {
         }
     });
 
+
+
     var SendNemModal = NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -221,6 +223,38 @@ define(function(require) {
         }
     });
 
+
+
+    var SettingsModal = NccModal.extend({
+        computed: {
+            chkAutoBoot:{
+                get: function() {
+                    return !!this.get('form["nis_boot_info"].bootNis');
+                },
+                set: function(autoBoot) {
+                    this.set('form["nis_boot_info"].bootNis', autoBoot? 1 : 0);
+                }
+            }
+        },
+        init: function() {
+            (new NccModal()).init.call(this);
+
+            this.on({
+                saveSettings: function() {
+                    ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
+                        if (data.ok) {
+                            ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.settings.saveSuccess'));
+                        }
+                    });
+                }
+            });
+
+            this.set('active.settingsModalTab', 'autoBoot');
+        }
+    });
+
+
+
     var NccRactive = Ractive.extend({
         el: document.body,
         template: '#template',
@@ -279,6 +313,7 @@ define(function(require) {
             messageModal: NccModal,
             confirmModal: NccModal,
             inputModal: NccModal,
+            settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
@@ -663,7 +698,7 @@ define(function(require) {
                         return;
                     }
                     //if (self.nodes[id] !== ev.target && !$.contains(self.nodes[id], ev.target)) {
-                    self.toggleOff(id);
+                    self.fire('toggleOff', null, id);
                     //}
                 });
             }
@@ -941,6 +976,9 @@ define(function(require) {
                         });
                         $node.tooltipster('show');
                     }
+                },
+                set: function(e, keypath, val) {
+                    this.set(keypath, val);
                 }
             });
 

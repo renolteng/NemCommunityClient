@@ -17,6 +17,109 @@
 			{{#layout.0.name}}
 				{{>0}}
 			{{/}}
+
+			<settingsModal modalClass="settingsModal" modalTitle="{{texts.modals.settings.title}}"  texts="{{texts}}" languages="{{languages}}" settings="{{settings}}" active="{{active}}" on-toggleOn="toggleOn" on-set="set">
+				<div class="settingsModal-language">
+					<div class="settingsModal-row">
+						<label class="settingsModal-label">{{texts.modals.settings.language.label}}</label>
+						<div class="dropdownbox">
+							<div class="dropdownbox-selection settingsModal-input {{#active['settingsModal-languageDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-languageDropdown'">
+								{{#languages}}
+									{{# .id === settings.language}}
+										{{.name}}
+									{{/}}
+								{{/}}
+							</div>
+							<ul class="dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}" id="settingsModal-languageDropdown">
+								{{#languages}}
+									<li class="dropdownbox-item" on-click="set:'settings.language',{{.id}}">{{.name}}</li>
+								{{/}}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="settingsModal-main">
+					<div class="settingsModal-tabs bulletTabs">
+						<button class="bulletTab-control {{#active.settingsModalTab === 'remoteServer'}}active{{/}}" on-click="set:'active.settingsModalTab','remoteServer'">{{texts.modals.settings.remoteServer.tabTitle}}</button>
+						<button class="bulletTab-control {{#active.settingsModalTab === 'autoBoot'}}active{{/}}" on-click="set:'active.settingsModalTab','autoBoot'">{{texts.modals.settings.autoBoot.tabTitle}}</button>
+					</div>
+					<div class="settingsModal-panel settingsModal-panel--remoteServer {{^active.settingsModalTab === 'remoteServer'}}hidden{{/}}">
+						<div class="settingsModal-inputField">
+							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.protocol}}</p>
+							<div class="dropdownbox">
+								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-protocolDropdown'">
+									{{#texts.modals.settings.remoteServer.protocolOptions}}
+										{{# .value === settings.remoteServer.protocol}}
+											{{.display}}
+										{{/}}
+									{{/}}
+								</div>
+								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}" id="settingsModal-protocolDropdown">
+									{{#texts.modals.settings.remoteServer.protocolOptions}}
+										<li class="dropdownbox-item" on-click="set:'settings.remoteServer.protocol',{{.value}}">{{.display}}</li>
+									{{/}}
+								</ul>
+							</div>
+						</div>
+						<div class="settingsModal-inputField">
+							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.host}}</p>
+							<input type="text" class="settingsModal-input" value="{{settings.remoteServer.host}}" />
+						</div>
+						<div class="settingsModal-inputField">
+							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.port}}</p>
+							<input type="text" class="settingsModal-input" value="{{settings.remoteServer.port}}" />
+						</div>
+					</div>
+					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^active.settingsModalTab === 'autoBoot'}}hidden{{/}}">
+						<div class="settingsModal-inputField">
+							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.node}}</p>
+							<div class="dropdownbox">
+								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-nodeDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-nodeDropdown'">
+									{{#texts.modals.settings.autoBoot.nodeOptions}}
+										{{# .value === settings.nis_boot_info.remoteServer}}
+											{{.display}}
+										{{/}}
+									{{/}}
+								</div>
+								<ul class="dropdownbox-dropdown {{^active['settingsModal-nodeDropdown']}}hidden{{/}}" id="settingsModal-nodeDropdown">
+									{{#texts.modals.settings.autoBoot.nodeOptions}}
+										<li class="dropdownbox-item" on-click="set:'settings.nis_boot_info.remoteServer',{{.value}}">{{.display}}</li>
+									{{/}}
+								</ul>
+							</div>
+						</div>
+						<div class="settingsModal-inputField">
+							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.name}}</p>
+							<input type="text" class="settingsModal-input" value="{{settings.nis_boot_info.nodeName}}" />
+						</div>
+						<div class="settingsModal-inputField">
+							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.account}}</p>
+							<div class="dropdownbox">
+								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-bootAccountDropdown'">
+									{{#texts.modals.settings.autoBoot.accountOptions}}
+										{{# .value === settings.nis_boot_info.account}}
+											{{.display}}
+										{{/}}
+									{{/}}
+								</div>
+								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}" id="settingsModal-bootAccountDropdown">
+									{{#texts.modals.settings.autoBoot.accountOptions}}
+										<li class="dropdownbox-item" on-click="set:'settings.nis_boot_info.account',{{.value}}">{{.display}}</li>
+									{{/}}
+								</ul>
+							</div>
+						</div>
+						<div class="settingsModal-inputField">
+							<input type="checkbox" id="settingModal-chkAutoBoot" checked="{{chkAutoBoot}}" />
+							<label class="settingsModal-label" for="settingModal-chkAutoBoot">{{texts.modals.settings.autoBoot.auto}}</label>
+						</div>
+					</div>
+					<div class="settingsModal-submit">
+						<button type="button" class="modal-button moda-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="saveSettings">{{texts.modals.settings.save}}</button>
+					</div>
+				</div>
+			</settingsModal>
+
 			<inputModal modalClass="inputModal" disableEasyClose="true">
 				{{#message}}
 					<p class="modal-message">
@@ -55,6 +158,7 @@
 					</button>
 				</div>
 			</inputModal>
+
 			<confirmModal modalClass="confirmModal" disableEasyClose="true">
 				<p><em>{{message}}</em></p>
 				<div class="modal-actions">
@@ -63,12 +167,14 @@
 					{{/}}
 				</div>
 			</confirmModal>
+
 			<messageModal modalClass="messageModal" closeOnEnter="true">
 				<p><em>{{{message}}}</em></p>
 				<div class="modal-actions">
 					<button type="button" class="modal-button modal-button--neutral" on-click="closeModal">OK</button>
 				</div>
 			</messageModal>
+
 			<errorModal modalClass="errorModal" texts="{{texts}}">
 				<div>
 					<img src="images/sad-face.png" alt="Sadly"/>
@@ -77,10 +183,12 @@
 				<p class="errorModal-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
 				<p class="errorModal-message">{{message}}</p>
 			</errorModal>
+
 			<unclosableMessageModal modalClass="unclosableMessageModal" noCloseButton="true" disableEasyClose="true">
 				<p><em>{{{message}}}{{runningEllipsis}}</em></p>
 			</unclosableMessageModal>
 		</script>
+
 		<script type="text/ractive" id="modal-template">
 			<div tabindex="-1" class="modal-container {{#isActive}}modal--active{{/}}" on-click="{{^disableEasyClose}}modalContainerClick{{/}}" on-keyup="{{^disableEasyClose}}modalContainerKeyup{{/}}">
 				<article class="modal {{modalClass}}">
@@ -96,6 +204,7 @@
 				</article>
 			</div>
 		</script>
+
 		<script>window.entryPage='start'</script>
 		<script data-main="scripts/index" src="scripts/require.js"></script>
 	</body>

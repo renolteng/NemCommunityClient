@@ -630,23 +630,9 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             if (!ncc.get('status.nodeBooted')) {
-                var success = false;
-                ncc.getRequest('node/status', function(data) {
-                    if (data.ok) {
-                        ncc.set('status.nodeBooted', true);
-                        success = true;
-                    }
-                }, {
-                    complete: function() {
-                        if (!success) {
-                            ncc.set('status.nodeBooted', false);
-                        }
-
-                        if (!ncc.get('status.nodeBooted')) {
-                            ncc.bootLocalNode(ncc.get('texts.wallet.bootNodeWarning'));
-                        }
-                    }
-                }, true);
+                ncc.checkNodeStatus(null, function() {
+                    ncc.bootLocalNode(ncc.get('texts.wallet.bootNodeWarning'));
+                });
             }
 
             require(['maskedinput'], function() {
