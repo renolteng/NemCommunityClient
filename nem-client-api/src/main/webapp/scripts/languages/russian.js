@@ -42,6 +42,7 @@
                                 nccUnavailable: 'NCC is not available',
                                 unavailable: 'NIS не доступен',
                                 notBooted: 'NIS требует перезагрузки. Пожалуйста, откройте кошелёк и загрузитесь как локальный узел через всплывающий диалог.',
+                                retrievingStatus: 'Retrieving NIS status...',
                                 synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
                                 daysBehind: {
                                     0: 'less than 1 day',

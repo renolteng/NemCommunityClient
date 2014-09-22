@@ -73,6 +73,7 @@ define({
                        unavailable: 'NIS no esta disponible',
                        //notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
                        notBooted: 'NIS requiere ser iniciado. Por favor, abra el monedero e inicie un nodo local',
+                       retrievingStatus: 'Retrieving NIS status...',
                        //synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} days behind.'
                        synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.'
                    },

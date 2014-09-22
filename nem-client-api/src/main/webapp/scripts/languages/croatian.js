@@ -42,6 +42,7 @@ define({
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS je nedostupan',
         		notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
         		daysBehind: {
         			0: 'manje od 1 dan',
