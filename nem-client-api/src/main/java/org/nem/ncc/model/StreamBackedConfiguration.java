@@ -2,6 +2,7 @@ package org.nem.ncc.model;
 
 import net.minidev.json.*;
 import org.nem.core.model.Address;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
 
@@ -42,8 +43,8 @@ public class StreamBackedConfiguration extends Configuration {
 	}
 
 	@Override
-	public void update(final String language, final NisBootInfo nisBootInfo) {
-		super.update(language, nisBootInfo);
+	public void update(final String language, final NodeEndpoint remoteServer, final NisBootInfo nisBootInfo) {
+		super.update(language, remoteServer, nisBootInfo);
 		this.save();
 	}
 

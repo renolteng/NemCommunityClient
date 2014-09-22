@@ -3,6 +3,7 @@ package org.nem.ncc.model;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.core.model.Address;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.test.CorruptStreams;
 
@@ -15,12 +16,13 @@ public class StreamBackedConfigurationTest {
 	public void configCanBeDeserializedWithoutLabels() {
 		// Act:
 		final Configuration config = deserializeStreamBackedConfig(
-				new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp"),
+				new Configuration("de-DE", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(7, "1", "2"), "sp"),
 				"sp2",
 				null);
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("10.10.10.12"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -29,7 +31,7 @@ public class StreamBackedConfigurationTest {
 	@Test
 	public void configCanBeDeserializedWithLabels() {
 		// Arrange:
-		final Configuration originalConfig = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration originalConfig = new Configuration("de-DE", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(7, "1", "2"), "sp");
 		originalConfig.setLabel(Address.fromEncoded("sigma"), "s", "ps");
 		originalConfig.setLabel(Address.fromEncoded("alpha"), "a", "pa");
 
@@ -38,6 +40,7 @@ public class StreamBackedConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("10.10.10.12"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(2));
@@ -48,7 +51,7 @@ public class StreamBackedConfigurationTest {
 		// Arrange:
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		final Configuration config = deserializeStreamBackedConfig(
-				new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp"),
+				new Configuration("de-DE", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(7, "1", "2"), "sp"),
 				"sp2",
 				() -> outputStream);
 
@@ -68,12 +71,12 @@ public class StreamBackedConfigurationTest {
 		// Arrange:
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		final Configuration config = deserializeStreamBackedConfig(
-				new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp"),
+				new Configuration("de-DE", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(7, "1", "2"), "sp"),
 				"sp2",
 				() -> outputStream);
 
 		// Act:
-		config.update("en-CA", new NisBootInfo(11, "5", "2", "4"));
+		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.15"), new NisBootInfo(11, "5", "4"));
 		final Configuration reloadedConfig = new StreamBackedConfiguration(
 				"sp2",
 				new ByteArrayInputStream(outputStream.toByteArray()),
@@ -89,7 +92,7 @@ public class StreamBackedConfigurationTest {
 		final int[] numSupplierCalls = new int[] { 0 };
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		final Configuration config = deserializeStreamBackedConfig(
-				new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp"),
+				new Configuration("de-DE", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(7, "1", "2"), "sp"),
 				"sp2",
 				() -> {
 					++numSupplierCalls[0];
@@ -99,7 +102,7 @@ public class StreamBackedConfigurationTest {
 		// Act:
 		config.setLabel(Address.fromEncoded("sigma"), "s", "ps");
 		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-		config.update("en-CA", new NisBootInfo(11, "5", "2", "4"));
+		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(11, "5", "4"));
 
 		// Assert:
 		Assert.assertThat(numSupplierCalls[0], IsEqual.equalTo(3));
@@ -110,7 +113,7 @@ public class StreamBackedConfigurationTest {
 		// Arrange:
 		final OutputStream outputStream = CorruptStreams.createWrite();
 		final Configuration config = deserializeStreamBackedConfig(
-				new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp"),
+				new Configuration("de-DE", NodeEndpoint.fromHost("10.10.10.12"), new NisBootInfo(7, "1", "2"), "sp"),
 				"sp2",
 				() -> outputStream);
 

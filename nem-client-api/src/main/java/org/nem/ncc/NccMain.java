@@ -2,6 +2,7 @@ package org.nem.ncc;
 
 import org.apache.commons.io.*;
 import org.nem.core.deploy.CommonConfiguration;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.model.*;
@@ -50,7 +51,7 @@ public class NccMain {
 			return IOUtils.toByteArray(inputStream);
 		} catch (final IOException ex) {
 			LOGGER.warning(String.format("unable to load NCC configuration: %s", ex));
-			final Configuration defaultConfiguration = new Configuration("en", NisBootInfo.createLocal(), storagePath);
+			final Configuration defaultConfiguration = new Configuration("en", NodeEndpoint.fromHost("localhost"), NisBootInfo.createLocal(), storagePath);
 			return JsonSerializer.serializeToBytes(defaultConfiguration);
 		}
 	}

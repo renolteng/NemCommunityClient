@@ -1,5 +1,6 @@
 package org.nem.ncc.controller.viewmodels;
 
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.ncc.model.NisBootInfo;
 
@@ -8,6 +9,7 @@ import org.nem.ncc.model.NisBootInfo;
  */
 public class ConfigurationViewModel implements SerializableEntity {
 	private final String language;
+	private final NodeEndpoint remoteServer;
 	private final NisBootInfo nisBootInfo;
 
 	/**
@@ -18,8 +20,10 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 */
 	public ConfigurationViewModel(
 			final String language,
+			final NodeEndpoint remoteServer,
 			final NisBootInfo nisBootInfo) {
 		this.language = language;
+		this.remoteServer = remoteServer;
 		this.nisBootInfo = nisBootInfo;
 	}
 
@@ -30,7 +34,8 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 */
 	public ConfigurationViewModel(final Deserializer deserializer) {
 		this.language = deserializer.readString("language");
-		this.nisBootInfo = deserializer.readObject("nis_boot_info", NisBootInfo::new);
+		this.remoteServer = deserializer.readObject("remoteServer", NodeEndpoint::new);
+		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
 	}
 
 	/**
@@ -40,6 +45,15 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 */
 	public String getLanguage() {
 		return this.language;
+	}
+
+	/**
+	 * Gets the remote server's endpoint.
+	 *
+	 * @return The remote server's endpoint.
+	 */
+	public NodeEndpoint getRemoteServer() {
+		return this.remoteServer;
 	}
 
 	/**
@@ -54,6 +68,7 @@ public class ConfigurationViewModel implements SerializableEntity {
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeString("language", this.language);
-		serializer.writeObject("nis_boot_info", this.nisBootInfo);
+		serializer.writeObject("remoteServer", this.remoteServer);
+		serializer.writeObject("nisBootInfo", this.nisBootInfo);
 	}
 }
