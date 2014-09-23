@@ -60,6 +60,33 @@
 				yes: 'Taip',
 				no: 'Ne'
 			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
+			},
 			sendNem: {
 				title: 'Siusti NEM',
 				labelDesc: 'Ši saskaita pavadinta kaip {{1}}',
@@ -203,7 +230,7 @@
 			nav: {
 				start: 'Pradžiamokslis',
 				about: 'Apie NEM',
-				help: 'Pagalba'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Esate pirma karta <em>NEM</em>?',

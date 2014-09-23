@@ -59,6 +59,39 @@ define({
 				yes: 'Так',
 				no: 'Нi'
 			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					nodeOptions: [
+						{
+							value: 'Local NIS', // please dont't change
+							display: 'Local NIS'
+						}
+					],
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
+			},
 			sendNem: {
 				title: 'Відправити NEM',
 				labelDesc: 'Цей акаунт позначений як {{1}}',
@@ -200,9 +233,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Гаманець був успішно імпортований!',
 			nav: {
-				start: 'Приступаемо <strong>до роботи</strong>',
-				about: 'Про <strong>NEM</strong>',
-				help: '<strong>Допомога</strong>'
+				start: 'Приступаемо до роботи',
+				about: 'Про NEM',
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Новий у мережi <em>NEM</em>?',

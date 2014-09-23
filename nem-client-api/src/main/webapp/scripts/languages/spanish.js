@@ -91,6 +91,33 @@ define({
                        //no: 'No'
                        no: 'No'
                    },
+                   settings: {
+        title: 'Settings',
+        language: {
+          label: 'Language'
+        },
+        remoteServer: {
+          tabTitle: 'Remote Server',
+          protocol: 'Protocol',
+          protocolOptions: [
+            {
+              value: 'http', // please dont't change
+              display: 'HTTP'
+            }
+          ],
+          host: 'Host',
+          port: 'Port'
+        },
+        autoBoot: {
+          tabTitle: 'Auto-boot',
+          name: 'Node name',
+          account: 'Account',
+          primaryAccount: 'Primary Account',
+          auto: 'Auto boot when a wallet is opened'
+        },
+        save: 'Save',
+        saveSuccess: 'Settings have been saved successfully'
+      },
                    sendNem: {
                        //title: 'Send NEM'
                        title: 'Enviar NEM',
@@ -202,8 +229,7 @@ define({
                    notBootedWarning: {
                        //title: 'Node has not been booted!',
                        title: 'Nodo no ha sido iniciado!',
-                       //message: 'A local node needs to be booted before you can send NEM!'
-                       message: 'Un nodo local necesita ser iniciado antes de que pueda enviar NEMs!'
+                       settings: 'Settings'
                    },
                    closeWallet: {
                        //title: 'Close wallet',

@@ -60,6 +60,33 @@
 				yes: 'Да',
 				no: 'Не'
 			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
+			},
 			sendNem: {
 				title: 'Изпрати NEM',
 				labelDesc: 'Този акаунт е маркиран като {{1}}',
@@ -203,7 +230,7 @@
 			nav: {
 				start: 'Първи стъпки',
 				about: 'Относно NEM',
-				help: 'Помощ'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Нов за <em>NEM</em>?',

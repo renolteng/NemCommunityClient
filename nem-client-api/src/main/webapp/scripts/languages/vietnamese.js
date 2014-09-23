@@ -60,6 +60,33 @@ define({
 				yes: 'Có',
 				no: 'Không'
 			},
+			settings: {
+				title: 'Thiết lập',
+				language: {
+					label: 'Ngôn ngữ'
+				},
+				remoteServer: {
+					tabTitle: 'Server từ xa',
+					protocol: 'Giao thức',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Cổng'
+				},
+				autoBoot: {
+					tabTitle: 'Tự khởi động node',
+					name: 'Node name',
+					account: 'Tài khoản',
+					primaryAccount: 'Tài khoản chính',
+					auto: 'Tự động khởi động node khi ví được mở'
+				},
+				save: 'Lưu',
+				saveSuccess: 'Thiết lập đã được lưu thành công'
+			},
 			sendNem: {
 				title: 'Gửi NEM',
 				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
@@ -203,7 +230,7 @@ define({
 			nav: {
 				start: 'Khởi đầu',
 				about: 'Về NEM',
-				help: 'Trợ giúp'
+				settings: 'Thiết lập'
 			},
 			main: {
 				leftTitle: 'Mới đến với <em>NEM</em>?',

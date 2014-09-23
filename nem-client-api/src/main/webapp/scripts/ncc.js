@@ -284,7 +284,7 @@ define(function(require) {
                 saveSettings: function() {
                     ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
                         if (data.ok) {
-                            ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.settings.saveSuccess'));
+                            ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
                         }
                     });
                 },

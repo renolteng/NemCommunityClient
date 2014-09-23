@@ -60,6 +60,33 @@ define({
 				yes: 'Da',
 				no: 'Ne'
 			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
+			},
 			sendNem: {
 				title: 'Slanje NEMa',
 				labelDesc: 'Ovaj račun je označen kao {{1}}',
@@ -203,7 +230,7 @@ define({
 			nav: {
 				start: 'Početak',
 				about: 'O NEM',
-				help: 'Pomoć'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Novi  <em>NEM</em> korisnik?',

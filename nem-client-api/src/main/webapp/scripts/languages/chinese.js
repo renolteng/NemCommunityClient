@@ -60,6 +60,33 @@
 				yes: '是',
 				no: '不'
 			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
+			},
 			sendNem: {
 				title: '发送 NEM',
 				labelDesc: '此帐户被标记为 {{1}}',
@@ -202,7 +229,7 @@
 			nav: {
 				start: '已经 开始',
 				about: '关于 NEM',
-				help: '帮助'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>新手?',

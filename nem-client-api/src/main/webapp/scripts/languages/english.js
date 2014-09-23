@@ -79,13 +79,6 @@ define({
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
-					node: 'Node to boot',
-					nodeOptions: [
-						{
-							value: 'Local NIS', // please dont't change
-							display: 'Local NIS'
-						}
-					],
 					name: 'Node name',
 					account: 'Account',
 					primaryAccount: 'Primary Account',

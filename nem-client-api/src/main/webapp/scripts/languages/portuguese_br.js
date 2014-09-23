@@ -60,6 +60,33 @@ define({
 				yes: 'Sim',
 				no: 'Não'
 			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
+			},
 			sendNem: {
 				title: 'Enviar NEM',
 				labelDesc: 'Esta conta está identificada como {{1}}',
@@ -203,7 +230,7 @@ define({
 			nav: {
 				start: 'Inicie Aqui',
 				about: 'Sobre NEM',
-				help: 'Ajuda'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Novo por aqui? Use <em>NEM</em>?',
