@@ -153,6 +153,7 @@
 
 .dropdownbox-selection {
 	position: relative;
+	@include border-radius(4px);
 	cursor: pointer;
 
 	&:after {
@@ -170,6 +171,15 @@
 	}
 
 	&.dropdownbox-selection--selecting {
+		@include border-bottom-radius(0);
+	}
+}
+
+.dropdownbox-textbox {
+	@include border-radius(4px);
+	cursor: initial;
+
+	&.dropdownbox-textbox--selecting {
 		@include border-bottom-radius(0);
 	}
 }
@@ -477,7 +487,7 @@ $settingModal-borderColor: #e5e5e5;
 $settingModal-bgColor: #fff;
 
 .settingsModal {
-	width: 305px;
+	width: 432px;
 	font-size: 13px;
 
 	.modal-body {

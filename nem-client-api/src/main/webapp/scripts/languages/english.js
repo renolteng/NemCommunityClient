@@ -70,7 +70,7 @@ define({
 					protocol: 'Protocol',
 					protocolOptions: [
 						{
-							value: 'HTTP', // please dont't change
+							value: 'http', // please dont't change
 							display: 'HTTP'
 						}
 					],
@@ -88,12 +88,7 @@ define({
 					],
 					name: 'Node name',
 					account: 'Account',
-					accountOptions: [
-						{
-							value: 'Primary Account', // please dont't change
-							display: 'Primary Account'
-						}
-					],
+					primaryAccount: 'Primary Account',
 					auto: 'Auto boot when a wallet is opened'
 				},
 				save: 'Save',

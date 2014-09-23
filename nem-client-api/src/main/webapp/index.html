@@ -67,45 +67,20 @@
 						</div>
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.port}}</p>
-							<input type="text" class="settingsModal-input" value="{{settings.remoteServer.port}}" />
+							<input type="text" class="settingsModal-input" value="{{portStr}}" />
 						</div>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^active.settingsModalTab === 'autoBoot'}}hidden{{/}}">
 						<div class="settingsModal-inputField">
-							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.node}}</p>
-							<div class="dropdownbox">
-								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-nodeDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-nodeDropdown'">
-									{{#texts.modals.settings.autoBoot.nodeOptions}}
-										{{# .value === settings.nis_boot_info.remoteServer}}
-											{{.display}}
-										{{/}}
-									{{/}}
-								</div>
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-nodeDropdown']}}hidden{{/}}">
-									{{#texts.modals.settings.autoBoot.nodeOptions}}
-										<li class="dropdownbox-item" on-click="set:'settings.nis_boot_info.remoteServer',{{.value}}">{{.display}}</li>
-									{{/}}
-								</ul>
-							</div>
-						</div>
-						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.name}}</p>
-							<input type="text" class="settingsModal-input" value="{{settings.nis_boot_info.nodeName}}" />
+							<input type="text" class="settingsModal-input" value="{{settings.nisBootInfo.nodeName}}" />
 						</div>
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.account}}</p>
 							<div class="dropdownbox">
-								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-bootAccountDropdown'">
-									{{#texts.modals.settings.autoBoot.accountOptions}}
-										{{# .value === settings.nis_boot_info.account}}
-											{{.display}}
-										{{/}}
-									{{/}}
-								</div>
+								<input class="settingsModal-input dropdownbox-textbox {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="toggleOn:settingsModal-bootAccountDropdown" on-blur="toggleOff:settingsModal-bootAccountDropdown" value="{{displayedAccount}}" />
 								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}">
-									{{#texts.modals.settings.autoBoot.accountOptions}}
-										<li class="dropdownbox-item" on-click="set:'settings.nis_boot_info.account',{{.value}}">{{.display}}</li>
-									{{/}}
+									<li class="dropdownbox-item" on-click="setDisplayedAccount:''">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
 								</ul>
 							</div>
 						</div>

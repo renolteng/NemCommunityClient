@@ -6,6 +6,19 @@ define(function(require) {
     var Mustache = require('mustache');
     var tooltipster = require('tooltipster');
 
+    var Utils = {
+        restoreAddress: function(address) {
+            return address.replace(/\-/g, '');
+        },
+        formatAddress: function(address) {
+            if (address && typeof address === 'string') {
+                return address.match(/.{1,6}/g).join('-').toUpperCase();
+            } else {
+                return address;
+            }
+        }
+    }
+
     var NccModal = Ractive.extend({
         template: '#modal-template',
         isolated: true,
@@ -82,7 +95,7 @@ define(function(require) {
                 return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
             },
             inputtedRecipient: function() {
-                return ncc.restoreAddress(this.get('formattedRecipient'));
+                return Utils.restoreAddress(this.get('formattedRecipient'));
             },
             recipient: function() {
                 return this.get('inputtedRecipient') || ncc.get('activeAccount.address');
@@ -227,12 +240,40 @@ define(function(require) {
 
     var SettingsModal = NccModal.extend({
         computed: {
-            chkAutoBoot:{
+            chkAutoBoot: {
                 get: function() {
-                    return !!this.get('form["nis_boot_info"].bootNis');
+                    return !!this.get('settings.nisBootInfo.bootNis');
                 },
                 set: function(autoBoot) {
-                    this.set('form["nis_boot_info"].bootNis', autoBoot? 1 : 0);
+                    this.set('settings.nisBootInfo.bootNis', autoBoot? 1 : 0);
+                }
+            },
+            displayedAccount: {
+                get: function() {
+                    if (!this.get('settings.nisBootInfo.account')) {
+                        return this.get('texts.modals.settings.autoBoot.primaryAccount');
+                    } else {
+                        return Utils.formatAddress(this.get('settings.nisBootInfo.account'));
+                    }
+                },
+                set: function(address) {
+                    if (address === this.get('texts.modals.settings.autoBoot.primaryAccount')) {
+                        this.set('settings.nisBootInfo.account', '');
+                    } else {
+                        this.set('settings.nisBootInfo.account', Utils.restoreAddress(address));
+                    }
+                }
+            },
+            portStr: {
+                get: function() {
+                    return this.get('settings.remoteServer.port');
+                },
+                set: function(port) {
+                    if (port && typeof port === 'string') {
+                        this.set('settings.remoteServer.port', parseInt(port, 10));
+                    } else {
+                        this.set('settings.remoteServer.port', port);
+                    }
                 }
             }
         },
@@ -246,10 +287,17 @@ define(function(require) {
                             ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.settings.saveSuccess'));
                         }
                     });
+                },
+                setDisplayedAccount: function(e, val) {
+                    this.set('displayedAccount', val);
                 }
             });
 
-            this.set('active.settingsModalTab', 'autoBoot');
+            require(['maskedinput'], function() {
+                $('.js-settingsModal-account-textbox').mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
+            });
+
+            this.set('active.settingsModalTab', 'remoteServer');
         }
     });
 
@@ -463,9 +511,6 @@ define(function(require) {
             } else {
                 return address;
             }
-        },
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
         },
         addThousandSeparators: function(num) {
             return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
