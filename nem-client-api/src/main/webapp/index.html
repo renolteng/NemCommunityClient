@@ -67,7 +67,7 @@
 						</div>
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.port}}</p>
-							<input type="text" class="settingsModal-input" value="{{portStr}}" />
+							<input type="text" class="settingsModal-input js-settingsModal-port-textbox" value="{{portStr}}" />
 						</div>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^active.settingsModalTab === 'autoBoot'}}hidden{{/}}">

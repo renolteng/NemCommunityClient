@@ -295,6 +295,7 @@ define(function(require) {
 
             require(['maskedinput'], function() {
                 $('.js-settingsModal-account-textbox').mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
+                $('.js-settingsModal-port-textbox').mask('00000');
             });
 
             this.set('active.settingsModalTab', 'remoteServer');
