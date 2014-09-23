@@ -49,6 +49,9 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		this.nemFolder = nemFolder;
 		this.language = deserializer.readString("language");
 		this.remoteServer = deserializer.readOptionalObject("remoteServer", NodeEndpoint::new);
+		if (null == remoteServer) {
+			this.remoteServer = NodeEndpoint.fromHost("localhost");
+		}
 		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
 
 		this.accountLabels = new HashMap<>();
