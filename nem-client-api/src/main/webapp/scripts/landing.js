@@ -184,6 +184,10 @@
 			    },
 			    walletSelected: function(e) {
 			    	$(e.node).siblings('.openWalletList-passwordPrompt').find('.openWalletList-password').focus();
+			    },
+			    switchLanguage: function(e, id) {
+			    	ncc.set('settings.language', id);
+			    	ncc.postRequest('configuration/update', ncc.get('settings'), null, null, true);
 			    }
 			}));
 

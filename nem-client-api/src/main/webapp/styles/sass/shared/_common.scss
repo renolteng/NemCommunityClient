@@ -183,6 +183,7 @@
 }
 
 .dropdownbox-item {
+	padding: 4px 12px;
 	border-bottom: 1px solid #f0f0f0;
 	background-color: #fff;
 	cursor: pointer;
@@ -490,7 +491,6 @@ $settingModal-bgColor: #fff;
 	}
 
 	.dropdownbox-item {
-		padding: 4px 12px;
 		border-bottom: 1px solid $settingModal-borderColor;
 
 		&:last-child {

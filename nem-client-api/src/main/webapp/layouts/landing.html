@@ -11,6 +11,21 @@
 			<li class="scrollHeader-nav-item">
 				<a href="javascript:;" on-click="openModal:settings"><strong>{{texts.landing.nav.settings}}</strong></a>
 			</li>
+			<li class="scrollHeader-nav-item">
+				<a href="javascript:;" on-click="toggleOn:'landing-languageDropdown'">
+					{{#languages}}
+						{{# .id === settings.language}}
+							{{.name}}
+						{{/}}
+					{{/}}
+					<span class="icon-arrow-down-thin"></span>
+				</a>
+				<ul class="scrollHeader-languageDropdown {{# active['landing-languageDropdown'] && landingPage.scrollHeader}}active{{/}}">
+					{{#languages}}
+						<li class="scrollHeader-languageDropdown-item" on-click="switchLanguage:{{.id}}">{{.name}}</li>
+					{{/}}
+				</ul>
+			</li>
 		</ul>
 	</nav>
 </header>
@@ -122,6 +137,21 @@
 						</li>
 						<li class="staticHeader-nav-item">
 							<a href="javascript:;" on-click="openModal:settings">{{texts.landing.nav.settings}}</a>
+						</li>
+						<li class="staticHeader-nav-item">
+							<a href="javascript:;" on-click="toggleOn:'landing-languageDropdown'">
+								{{#languages}}
+									{{# .id === settings.language}}
+										{{.name}}
+									{{/}}
+								{{/}}
+								<span class="icon-arrow-down-thin"></span>
+							</a>
+							<ul class="staticHeader-languageDropdown {{# active['landing-languageDropdown'] && !landingPage.scrollHeader}}active{{/}}">
+								{{#languages}}
+									<li class="staticHeader-languageDropdown-item" on-click="switchLanguage:{{.id}}">{{.name}}</li>
+								{{/}}
+							</ul>
 						</li>
 					</ul>
 				</nav>
