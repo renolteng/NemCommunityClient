@@ -30,7 +30,7 @@
 									{{/}}
 								{{/}}
 							</div>
-							<ul class="dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}" id="settingsModal-languageDropdown">
+							<ul class="dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}">
 								{{#languages}}
 									<li class="dropdownbox-item" on-click="set:'settings.language',{{.id}}">{{.name}}</li>
 								{{/}}
@@ -54,7 +54,7 @@
 										{{/}}
 									{{/}}
 								</div>
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}" id="settingsModal-protocolDropdown">
+								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}">
 									{{#texts.modals.settings.remoteServer.protocolOptions}}
 										<li class="dropdownbox-item" on-click="set:'settings.remoteServer.protocol',{{.value}}">{{.display}}</li>
 									{{/}}
@@ -81,7 +81,7 @@
 										{{/}}
 									{{/}}
 								</div>
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-nodeDropdown']}}hidden{{/}}" id="settingsModal-nodeDropdown">
+								<ul class="dropdownbox-dropdown {{^active['settingsModal-nodeDropdown']}}hidden{{/}}">
 									{{#texts.modals.settings.autoBoot.nodeOptions}}
 										<li class="dropdownbox-item" on-click="set:'settings.nis_boot_info.remoteServer',{{.value}}">{{.display}}</li>
 									{{/}}
@@ -102,7 +102,7 @@
 										{{/}}
 									{{/}}
 								</div>
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}" id="settingsModal-bootAccountDropdown">
+								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}">
 									{{#texts.modals.settings.autoBoot.accountOptions}}
 										<li class="dropdownbox-item" on-click="set:'settings.nis_boot_info.account',{{.value}}">{{.display}}</li>
 									{{/}}

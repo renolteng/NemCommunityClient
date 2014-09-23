@@ -242,7 +242,6 @@ define({
 			nav: {
 				start: 'Getting Started',
 				about: 'About NEM',
-				help: 'Help',
 				settings: 'Settings'
 			},
 			main: {
