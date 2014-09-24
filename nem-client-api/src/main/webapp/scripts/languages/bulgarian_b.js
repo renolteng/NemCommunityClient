@@ -42,6 +42,7 @@
         		nccUnavailable: 'NCC е недостъпен',
         		unavailable: 'NIS е недостъпен',
         		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
         		daysBehind: {
         			0: 'по малко от 1 ден',

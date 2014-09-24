@@ -41,6 +41,7 @@ define({
         	nisStatus: {
         		unavailable: 'NIS не досяжний',
         		notBooted: 'NIS має бути запущений. Будь ласка, відкрийте гаманець і за допомогою спливаючого меню запустiть локальний вузол.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.'
 				daysBehind: {
         			0: 'less than 1 day',

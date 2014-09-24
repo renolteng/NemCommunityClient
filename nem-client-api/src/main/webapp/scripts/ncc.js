@@ -394,33 +394,41 @@ define(function(require) {
                     };
                 }
 
-                if (!this.get('nis.nodeMetaData.lastBlockBehind')) {
+                var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
+                if (lastBlockBehind !== 0) {
+                    if (!lastBlockBehind) {
+                        return {
+                            type: 'warning',
+                            message: this.get('texts.common.nisStatus.retrievingStatus')
+                        };
+                    } else {
+                        var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
+                        var daysBehindText;
+                        switch (daysBehind) {
+                            case 0:
+                                daysBehindText = this.get('texts.common.nisStatus.daysBehind.0');
+                                break;
+
+                            case 1:
+                                daysBehindText = this.get('texts.common.nisStatus.daysBehind.1');
+                                break;
+
+                            default:
+                                daysBehindText = this.fill(this.get('texts.common.nisStatus.daysBehind.many'), daysBehind);
+                                break;
+                        }
+
+                        return {
+                            type: 'warning',
+                            message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
+                        };
+                    }
+                } else {
                     return {
                         type: 'message',
                         message: this.get('texts.common.nisStatus.synchronized')
                     };
                 }
-
-                var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
-                var daysBehindText;
-                switch (daysBehind) {
-                    case 0:
-                        daysBehindText = this.get('texts.common.nisStatus.daysBehind.0');
-                        break;
-
-                    case 1:
-                        daysBehindText = this.get('texts.common.nisStatus.daysBehind.1');
-                        break;
-
-                    default:
-                        daysBehindText = this.fill(this.get('texts.common.nisStatus.daysBehind.many'), daysBehind);
-                        break;
-                }
-
-                return {
-                    type: 'warning',
-                    message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
-                };
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {

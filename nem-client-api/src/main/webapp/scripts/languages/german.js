@@ -42,6 +42,7 @@ define({
                     nccUnavailable: 'NCC is not available',
 	        		unavailable: 'NIS is nicht verfügbar',
 	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
+                    retrievingStatus: 'Retrieving NIS status...',
 	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
                     daysBehind: {
                         0: 'weniger als 1 Tag',

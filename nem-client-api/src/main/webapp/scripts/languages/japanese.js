@@ -42,6 +42,7 @@ define({
         		nccUnavailable: 'NCC is not available',
          		unavailable: 'NISは無効',
          		notBooted: 'NISは必要で、ウォレットを開いて、ローカルノードを起動してください。',
+         		retrievingStatus: 'Retrieving NIS status...',
          		synchronizing: 'NISはブロック{{1}}を同期中で、約{{2}}個ブロックを遅れています。',
                 daysBehind: {
                     0: 'less than 1 day',

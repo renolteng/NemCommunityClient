@@ -42,6 +42,7 @@ define({
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS non disponibile',
         		notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
                 daysBehind: {
                     0: 'meno di un giorno',
