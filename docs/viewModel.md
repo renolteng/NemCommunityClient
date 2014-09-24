@@ -102,10 +102,10 @@ The view model used by the NCC server.
 ```
 
 ### ConfigurationViewModel
-### The remoteServer specifies the NIS that NCC will try to connect to.
-### If nisBootInfo.bootNis is set to 1, then upon opening a wallet the GUI will try to boot NIS if not already done.
-### The primary account of the wallet will be used if the account field is an empty string.
-### Only a local NIS can be booted.
+The remoteServer specifies the NIS that NCC will try to connect to.
+If nisBootInfo.bootNis is set to 1, then upon opening a wallet the GUI will try to boot NIS if not already done.
+The primary account of the wallet will be used if the account field is an empty string.
+Only a local NIS can be booted.
 ```
 {
 	"remoteServer": {
