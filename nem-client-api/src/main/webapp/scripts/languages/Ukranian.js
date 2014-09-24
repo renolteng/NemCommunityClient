@@ -71,6 +71,10 @@ define({
 						{
 							value: 'http', // please dont't change
 							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
 						}
 					],
 					host: 'Host',
