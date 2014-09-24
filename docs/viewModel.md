@@ -102,20 +102,24 @@ The view model used by the NCC server.
 ```
 
 ### ConfigurationViewModel
-
+# The remoteServer specifies the NIS that NCC will try to connect to.
+# If nisBootInfo.bootNis is set to 1, then upon opening a wallet the GUI will try to boot NIS if not already done.
+# The primary account of the wallet will be used if the account field is an empty string.
+# Only a local NIS can be booted.
 ```
 {
 	"remoteServer": {
 		"protocol":"http",			# "http" or "https"
-		"host":"79.220.34.156",			# ip address or "localhost"
+		"host":"79.220.34.156",			# ip address or "localhost" to use a local NIS
 		"port":7890				# port to use
 	},
-	"nis_boot_info": {
+	"nisBootInfo": {
 		"nodeName": "Alice",			# (arbitrary) name of the node
 		"bootNis": 0,				# 1=auto-boot, 0=do not auto-boot
-		"account": "TALICEMYYJFPJ4FWCMMNFCCOTFV635SBL2QWP73K"	# account to tie the node to
+		"account": "TALICEMYYJFPJ4FWCMMNFCCOTFV635SBL2QWP73K"	# account to tie the node to 
+									# or "" to use the wallet's primary account
 	},
-	"language": "DE"				# 2 letter abbreviation of language to use
+	"language": "DE"				# 2 letter abbreviation of the language to use
 }
 ```
 
