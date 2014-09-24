@@ -105,13 +105,17 @@ The view model used by the NCC server.
 
 ```
 {
-	"nis_boot_info": {
-		"nodeName": null,
-		"remoteServer": null,
-		"bootNis": 0,
-		"account": null
+	"remoteServer": {
+		"protocol":"http",			# "http" or "https"
+		"host":"79.220.34.156",			# ip address or "localhost"
+		"port":7890				# port to use
 	},
-	"language": "DE"
+	"nis_boot_info": {
+		"nodeName": "Alice",			# (arbitrary) name of the node
+		"bootNis": 0,				# 1=auto-boot, 0=do not auto-boot
+		"account": "TALICEMYYJFPJ4FWCMMNFCCOTFV635SBL2QWP73K"	# account to tie the node to
+	},
+	"language": "DE"				# 2 letter abbreviation of language to use
 }
 ```
 
