@@ -39,7 +39,9 @@ define({
         common: {
         	success: 'Успiшно', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS не досяжний',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS має бути запущений. Будь ласка, відкрийте гаманець і за допомогою спливаючого меню запустiть локальний вузол.',
         		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.'

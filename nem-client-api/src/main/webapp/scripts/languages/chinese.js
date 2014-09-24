@@ -41,6 +41,7 @@
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS is not available',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
         		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',

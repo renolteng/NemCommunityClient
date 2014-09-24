@@ -75,14 +75,14 @@
 							<li class="dropdownMenu-item disabled">
 								{{texts.wallet.actions.mergeWallets}}
 							</li>
-							<li class="dropdownMenu-item disabled dropdownMenu-item--separator">
+							<li class="dropdownMenu-item disabled">
 								{{texts.wallet.actions.exportWallet}}
+							</li>
+							<li class="dropdownMenu-item {{# status.nisUnavailable || status.nodeBooted}}disabled{{/}} dropdownMenu-item--separator" on-click="bootLocalNode">
+								{{texts.wallet.actions.bootLocalNode}}
 							</li>
 							<li class="dropdownMenu-item" on-click="refreshInfo">
 								{{texts.wallet.actions.refreshInfo}}
-							</li>
-							<li class="dropdownMenu-item {{#status.nisUnavailable}}disabled{{/}}" on-click="bootLocalNode">
-								{{texts.wallet.actions.bootLocalNode}}
 							</li>
 							<li class="dropdownMenu-item" on-click="showClientInfo">
 								{{texts.wallet.actions.clientInfo}}

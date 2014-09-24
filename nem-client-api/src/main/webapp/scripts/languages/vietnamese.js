@@ -41,6 +41,7 @@ define({
         	nisStatus: {
         		nccUnavailable: 'Mất kết nối với NCC',
         		unavailable: 'Mất kết nối với NIS',
+        		booting: 'Đang khởi động NIS...',
         		notBooted: 'NIS cần phải được khởi động. Hãy mở ví của bạn và khởi động local node bằng hộp thoại hiện ra.',
         		retrievingStatus: 'Đang truy vấn trạng thái của NIS...',
         		synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',

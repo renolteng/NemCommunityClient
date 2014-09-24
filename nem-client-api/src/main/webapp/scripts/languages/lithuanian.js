@@ -41,6 +41,7 @@
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS nera paleistas',
+        		booting: 'Booting NIS...',
         		notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
         		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',

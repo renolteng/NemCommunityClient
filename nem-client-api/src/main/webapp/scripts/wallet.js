@@ -48,7 +48,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }, duration);
             };
 
-            ncc.bootLocalNode = function(message) {
+            ncc.showBootModal = function(message) {
                 var account = ncc.get('activeAccount.address');
                 var accountLabel = ncc.get('activeAccount.label');
                 var wallet = ncc.get('wallet.name');
@@ -91,11 +91,12 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         wallet: wallet
                     },
                     function(values, closeModal) {
-                        values.account = account;
-                        this.lockAction();
-                        
                         var self = this;
-                        ncc.postRequest('node/boot', values, function(data) {
+                        values.account = account;
+
+                        this.lockAction();
+                        ncc.postRequest('node/boot', values, 
+                            function(data) {
                                 closeModal();
                                 ncc.set('status.nodeBooted', true);
                                 ncc.refreshNisInfo();
@@ -106,11 +107,12 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         ncc.set('status.nodeBooted', true);
                                         closeModal();
                                     }
-                            },
-                            complete: function() {
-                                self.unlockAction();
+                                },
+                                complete: function() {
+                                    self.unlockAction();
+                                }
                             }
-                        });
+                        );
                         return false;
                     }, 
                     ncc.get('texts.modals.bootLocalNode.boot'), 
@@ -179,7 +181,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ncc.showModal('sendNem');
                     } else {
                         ncc.showMessage(ncc.get('texts.modals.notBootedWarning.title'), ncc.get('texts.modals.notBootedWarning.message'), function() {
-                            ncc.bootLocalNode();
+                            ncc.showBootModal();
                         });
                     }
                 },
@@ -394,7 +396,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     );
                 },
                 bootLocalNode: function(e, message) {
-                    ncc.bootLocalNode(message);
+                    ncc.showBootModal(message);
                 },
                 viewTransaction: (function() {
                     var modal = ncc.getModal('transactionDetails');
@@ -631,7 +633,39 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
 
             if (!ncc.get('status.nodeBooted')) {
                 ncc.checkNodeStatus(null, function() {
-                    ncc.bootLocalNode(ncc.get('texts.wallet.bootNodeWarning'));
+                    if (ncc.get('settings.nisBootInfo.bootNis')) {
+                        var bootData = {
+                            node_name: ncc.get('settings.nisBootInfo.nodeName'),
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address')
+                        };
+
+                        ncc.set('status.booting', true);
+                        ncc.postRequest('node/boot', bootData, 
+                            function(data) {
+                                ncc.set('status.nodeBooted', true);
+                                ncc.refreshNisInfo();
+                            },
+                            {
+                                altFailCb: function(faultId) {
+                                    if (601 === faultId) {
+                                        ncc.set('status.nodeBooted', true);
+                                    }
+                                },
+                                complete: function() {
+                                    ncc.set('status.booting', false);
+
+                                    // If booting fails
+                                    if (!ncc.get('status.nodeBooted')) {
+                                        ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
+                                    }
+                                }
+                            },
+                            true
+                        );
+                    } else {
+                        ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
+                    }
                 });
             }
 

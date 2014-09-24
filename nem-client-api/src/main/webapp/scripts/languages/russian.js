@@ -41,6 +41,7 @@
                     nisStatus: {
                                 nccUnavailable: 'NCC is not available',
                                 unavailable: 'NIS не доступен',
+                                booting: 'Booting NIS...',
                                 notBooted: 'NIS требует перезагрузки. Пожалуйста, откройте кошелёк и загрузитесь как локальный узел через всплывающий диалог.',
                                 retrievingStatus: 'Retrieving NIS status...',
                                 synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',

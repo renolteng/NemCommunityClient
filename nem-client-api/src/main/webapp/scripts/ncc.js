@@ -277,6 +277,14 @@ define(function(require) {
                 }
             }
         },
+        close: function() {
+            (new NccModal()).close.call(this);
+
+            // Refresh to the current settings
+            ncc.getRequest('configuration/get', function(data) {
+                ncc.set('settings', data);
+            });
+        },
         init: function() {
             (new NccModal()).init.call(this);
 
@@ -384,6 +392,13 @@ define(function(require) {
                     return {
                         type: 'critical',
                         message: this.get('texts.common.nisStatus.unavailable')
+                    };
+                }
+
+                if (this.get('status.booting')) {
+                    return {
+                        type: 'warning',
+                        message: this.get('texts.common.nisStatus.booting')
                     };
                 }
 

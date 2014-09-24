@@ -41,6 +41,7 @@ define({
         	nisStatus: {
         		nccUnavailable: 'NCC उपलब्ध नहीं है',
         		unavailable: 'NIS उपलब्ध नहीं है',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS को बूट करने की आवश्यकता है. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
         		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.'

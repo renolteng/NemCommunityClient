@@ -71,6 +71,7 @@ define({
                        nccUnavailable: 'NCC is not available',
                        //unavailable: 'NIS is not available',
                        unavailable: 'NIS no esta disponible',
+                       booting: 'Booting NIS...',
                        //notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
                        notBooted: 'NIS requiere ser iniciado. Por favor, abra el monedero e inicie un nodo local',
                        retrievingStatus: 'Retrieving NIS status...',
