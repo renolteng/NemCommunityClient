@@ -11,7 +11,7 @@ define({
             102: 'A carteira não foi criada.',
             103: 'O arquivo da carteira está corrompido. Por favor, recupere sua carteira de um back-up que você deveria ter feito quando a criou.',
             104: 'A senha está incorreta. Esperamos que você consiga se lembrar da senha correta. Ela não pode ser recuperada se for perdida!',
-            106: 'Antes de você começar a usar uma carteira, ela precisa ser aberta. Para garantir que você pode acessá-la, você precisará fornecer a senha para aquela carteira.',
+            106: 'Antes de você começar a usar uma carteira, ela precisa ser aberta. Para garantir que você pode acessá-la, você precisará fornecer a senha dessa carteira.',
             107: 'A carteira não contém essa conta',
             108: 'A conta não pode ser removida. Provavelmente pelo motivo de que a conta tem saldo maior que 0 NEMs ou a conta que você está tentando deletar é sua conta primária.',
             109: 'Uma outra conta com o mesmo nome já existe. Por favor, escolha outro nome para sua carteira.',
@@ -19,11 +19,11 @@ define({
             202: 'Sem chave pública de criptografia',
             305: 'NEM Infraestrutura de Servidores indisponível',
             306: 'Ocorreu um erro que o time de desenvolvedores não havia previsto. Pedimos desculpas por esse problema. Talvez uma nova tentativa possa resolver o problema. Caso contrário, abra uma reclamação de problemas NIS/NCC na comunidade NEM',
-            400: 'Está faltando algum parâmetro.',
+            400: 'Está faltando algum parâmetro. Preencha corretamente todos os campos.',
             404: 'Valor de estratégia de boot inválido.',
             500: 'Falha ao salvar o arquivo de configuração.',
             600: 'NCC requer que o servidor NIS local seja inicializado para envio e recebimento de transações na nuvem NEM. Por favor, utilize a entrada de menu no cliente NCC para inicializar o nó local.',
-	     601: 'O seu nó NIS já foi iniciado. Não é possível tentar reinicia-lo uma segunda vez.',
+	    601: 'O seu nó NIS já foi iniciado. Não é possível tentar reinicia-lo uma segunda vez.',
             700: 'A conta fornecida não satisfaz o critério básico para colheira. Geralmente esse problema é relacionado com o tanto de NEMs na conta. Para a colheira iniciar, são necessários, pelo menos, 1000 NEMs.',
             701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
             702: 'O prazo final está muito no futuro. O prazo limite deve estar dentro do período de um dia.',
@@ -33,13 +33,13 @@ define({
             706: 'A assinatura da transação não pode ser verificada.',
             707: 'A data da Id de transação está muito no passado.',
             708: 'A data da Id de transação está muito no futuro.',
-            709: 'A conta é desconhecida pela rede. Uma conta precisa estar envolvida em pelo menos uma transação, seja com remetente ou destinatário, para ser conhecida pela rede.',
+            709: 'A conta é desconhecida pela rede. Uma conta precisa estar envolvida em pelo menos uma transação, seja como remetente ou destinatário, para ser conhecida pela rede.',
             901: 'Houve um erro na configuração de modo "off-line".'
         },
         common: {
         	success: 'Successo', //title of the Success message modals
         	nisStatus: {
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC Não está disponível',
         		unavailable: 'NIS não está disponível',
         		notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize o nó NIS local via diálogo pop-up.',
         		synchronizing: 'NIS está sincronizando no bloco {{1}}. Estimativa de {{2}} atrás.',
@@ -48,7 +48,7 @@ define({
                     1: '1 dia',
                     many: '{{1}} dias'
                 },
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS está sincronizado!'
         	}
         },
 		modals: {
@@ -70,7 +70,7 @@ define({
 				encrypt: 'Encriptar mensagem',
 				fee: 'Taxa',
 				dueBy: 'Devido por', //precisara de correção dependendo do que faz
-				resetFee: 'Reestabelecer o valor mínimo de taxa',
+				resetFee: 'Restabelecer o valor mínimo de taxa',
 				hours: 'Horas',
 				password: 'Password',
 				send: 'Enviar',
@@ -79,7 +79,7 @@ define({
 			},
 			clientInfo: {
 				title: 'Informações do cliente',
-				ncc: 'NEM Cliente da comunidade - NCC',
+				ncc: 'NEM Cliente da Comunidade - NCC',
 				signer: 'Signatário',
 				remoteServer: 'Servidor Remoto',
 				local: 'Local',
@@ -91,9 +91,7 @@ define({
 			},
 			transactionDetails: {
 				title: 'Detalhes da transação',
-				// This might be block or transaction ID
 				id: 'ID',
-				// This might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Tipo de transação',
 				pending: 'Pendente',
@@ -113,7 +111,7 @@ define({
 			bootLocalNode: {
 				title: 'Inicializar o nó local',
 				account: 'Conta para inicializar o nó local',
-				noLabel: '<span class="null">&lt;Sem identificação&gt;</span>',
+				noLabel: '<span class="null">&lt;<Sem identificação>&gt;</span>',
 				wallet: 'Carteira',
 				node: 'Nome do nó',
 				boot: 'Inicializar',
@@ -132,7 +130,7 @@ define({
 				label: 'Identificação pessoal',
 				wallet: 'Carteira',
 				password: "Senha da carteira",
-				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Não se esqueça de realizar back-up da conta',
+				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Não se esqueça de realizar back-up dessa conta',
 				create: 'Criar'
 			},
 			addAccount: {
@@ -147,7 +145,7 @@ define({
 			setPrimary: {
 				title: 'Definir conta primária',
 				account: 'Conta para ser definida como primária',
-				noLabel: '<span class="null">&lt;Sem identificação&gt;</span>',
+				noLabel: '<span class="null">&lt;<Sem identificação>&gt;</span>',
 				wallet: 'Carteira',
 				password: "Senha da carteira",
 				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!',
@@ -167,7 +165,7 @@ define({
 				password: 'Senha atual',
 				newPassword: 'Nova senha',
 				confirmPassword: 'Confirmar nova senha',
-				successMessage: 'A senha da carteira foi trocada com sucesso',
+				successMessage: 'A senha da carteira foi trocada com sucesso!',
 				change: 'Trocar',
 				passwordNotMatchTitle: 'Oopa!',
 				passwordNotMatchMessage: 'Sua senha digitada não confere com a confirmação da senha. Por favor, tenha certeza que você digitou a sua nova senha corretamente.'
@@ -206,7 +204,7 @@ define({
 				help: 'Ajuda'
 			},
 			main: {
-				leftTitle: 'Novo por aqui? Use <em>NEM</em>?',
+				leftTitle: 'Novo por aqui? Use <em>NEM</em>!',
 				leftButton: 'Criar nova carteira',
 				walletNamePlh: 'Nome para sua carteira',
 				passwordPlh: 'Senha',
@@ -214,7 +212,7 @@ define({
 				rightTitle: 'Já é um membro <em>NEM</em>?',
 				rightButton: 'Abrir sua carteira',
 				openButton: 'Abrir',
-				walletsFound: 'Encotrei <strong>{{1}}</strong> <em>carteira(s)</em>', //needs to verify if the "(s)" casues any kind of problem to compilation
+				walletsFound: 'Encotrei <strong>{{1}}</strong> <em>carteira(s)</em>',
 				copyright: 'Fotografia por <em>Cas Cornelissen</em>'
 			},
 			carousel: {
@@ -222,11 +220,19 @@ define({
 					{
 						title: 'NCC encripta sua carteira',
 						description: '<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos.'
-					},										
+					},
+					{	// more itens on carousel
+						title: 'NIS',
+						description: '<em>Quanto</em> mais computadores ligados a rede Nem, mais confiável é a nuvem NEM!'
+					},			// the more computers using Nem's network, the more reliable the cloud is!!
 					{
-						title: 'NCC encripta sua carteira',
-						description: '<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos.'
-					}
+						title: 'O que é um nó de rede?', //what is network node?
+						description: 'Um <em>Nó</em> de rede é um computador conectado à uma rede. Juntos formamos a nuvem Nem.'
+					},			// A network node is a computer on a network. Together we are the Nem's cloud!
+					{
+						title: 'https://forum.nemcoin.com/index.php', //the forum
+						description: '<em>Não</em> deixe de visitar nossa comunidade on-line e ver o que tem de novo para você!!'
+					}			// dont forget to take a watch on our on-line community to see the news!
 				]
 			},
 			about: {
@@ -234,20 +240,20 @@ define({
 					{
 						title: 'Como o NCC funciona?',
 						paragraphs: [
-							'<strong>NCC</strong> providencia acesso aos seus ativos e moedas como uma carteira de moeda digital tradicional faz. Você pode',
-							'<strong>NCC</strong> requerer acesso a um servidor <strong>NIS</strong> para operar. O padrão é ter um servidor local ativo (está instalado junto com o <strong>NCC</strong>)',
+							'<strong>NCC</strong> providencia acesso aos seus ativos e moedas como uma carteira de moeda digital tradicional faz. Você pode:',
+							'<strong>NCC</strong> requer acesso a um servidor <strong>NIS</strong> para operar. O padrão é ter um servidor local ativo (está instalado junto com o <strong>NCC</strong>)',
 							'Você também pode configurar acesso a um servidor remoto <strong>NIS</strong>.'
 						],
 						listItems: [
-							'Tenha multiplas carteiras',
-							'Defina multiplas carteiras para serem incluidas em uma carteira'
+							'Ter multiplas carteiras',
+							'Definir multiplas carteiras para serem incluidas em uma carteira'
 						]
 					},
 					{
 						title: 'O que é &#42;NIS?',
 						paragraphs: [
 							'Este componente é responsável por manter a nuvem <strong>NEM</strong> viva.',
-							'Quanto mais <strong>NIS</strong> melhor será a segurança.',
+							'Quanto mais <strong>NIS</strong>, melhor será a segurança.',
 							'<strong>NIS</strong> é o ponto de acesso a nuvem <strong>NEM</strong> de servidores.'
 						],
 						legend: '<strong>&#42;NIS</strong> significa <strong>NEM Infraestrutura de Servidores</strong>'
