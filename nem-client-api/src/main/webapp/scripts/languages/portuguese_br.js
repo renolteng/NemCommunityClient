@@ -6,49 +6,49 @@ define({
 			thousandSeparator: '\u2009',
 			decimalSeparator: '.'
 		},
-		faults: { // mensagens de modais de erro 
+		faults: { // modelos de mensagens de erro 
             101: 'Arquivo não encontrado.',
             102: 'A carteira não foi criada.',
-            103: 'O arquivo da carteira está corrompido. Por favor, recupere sua carteira de um back-up que você deveria ter feito quando a criou.',
-            104: 'A senha está incorreta. Esperamos que você consiga se lembrar da senha correta. Ela não pode ser recuperada se for perdida!',
-            106: 'Antes de você começar a usar uma carteira, ela precisa ser aberta. Para garantir que você pode acessá-la, você precisará fornecer a senha para aquela carteira.',
+            103: 'O arquivo da carteira está corrompido. Por favor, restaure o back-up, certifique-se que você tenha o feito.',
+            104: 'Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-la!',
+            106: 'Antes de começar a usar a carteira, é preciso logar-se. Por favor, forneça a senha e certifique-se de nunca a perder.',
             107: 'A carteira não contém essa conta',
-            108: 'A conta não pode ser removida. Provavelmente pelo motivo de que a conta tem saldo maior que 0 NEMs ou a conta que você está tentando deletar é sua conta primária.',
-            109: 'Uma outra conta com o mesmo nome já existe. Por favor, escolha outro nome para sua carteira.',
+            108: 'A conta não pode ser removida. Provavelmente pelo motivo de que ela tem saldo maior que 0 NEMs ou é a conta primária.',
+            109: 'Já existe uma conta com o mesmo nome. Por favor, escolha outro.',
             110: 'A carteira já contem essa conta.',
-            202: 'Sem chave pública de criptografia',
-            305: 'NEM Infraestrutura de Servidores indisponível',
+            202: 'A chave pública não existe',
+            305: 'NIS indisponível',
             306: 'Ocorreu um erro que o time de desenvolvedores não havia previsto. Pedimos desculpas por esse problema. Talvez uma nova tentativa possa resolver o problema. Caso contrário, abra uma reclamação de problemas NIS/NCC na comunidade NEM',
             400: 'Está faltando algum parâmetro.',
             404: 'Valor de estratégia de boot inválido.',
             500: 'Falha ao salvar o arquivo de configuração.',
-            600: 'NCC requer que o servidor NIS local seja inicializado para envio e recebimento de transações na nuvem NEM. Por favor, utilize a entrada de menu no cliente NCC para inicializar o nó local.',
-	     601: 'O seu nó NIS já foi iniciado. Não é possível tentar reinicia-lo uma segunda vez.',
-            700: 'A conta fornecida não satisfaz o critério básico para colheira. Geralmente esse problema é relacionado com o tanto de NEMs na conta. Para a colheira iniciar, são necessários, pelo menos, 1000 NEMs.',
+            600: 'NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local.',
+	    601: 'O NIS já foi inicializado.',
+            700: 'Falha na colheita. Geralmente esse problema é relacionado com o tanto de NEMs na conta. Para colheitar são necessários, pelo menos, 1000 NEMs.',
             701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
             702: 'O prazo final está muito no futuro. O prazo limite deve estar dentro do período de um dia.',
-            703: 'Sua conta não tem o saldo suficiente para o envio da quantidade solicitada de NEMs.',
-            704: 'O texto fornecido é muito grande para ser enviado via NEM. Por favor, tente reduzir o tamanho da mensagem que você quer enviar.',
+            703: 'Saldo insuficiente.',
+            704: 'Texto muito longo. Por favor, tente reduzir o tamanho da mensagem.',
             705: 'O Hash de transação já existe no banco de dados, na lista de transações não confirmadas.',
-            706: 'A assinatura da transação não pode ser verificada.',
-            707: 'A data da Id de transação está muito no passado.',
-            708: 'A data da Id de transação está muito no futuro.',
-            709: 'A conta é desconhecida pela rede. Uma conta precisa estar envolvida em pelo menos uma transação, seja com remetente ou destinatário, para ser conhecida pela rede.',
-            901: 'Houve um erro na configuração de modo "off-line".'
+            706: 'A assinatura da transação não pôde ser verificada.',
+            707: 'A data da ID de transação está muito no passado.',
+            708: 'A data da ID de transação está muito no futuro.',
+            709: 'Conta desconhecida, Por favor, faça uma transação para conseguir uma chave pública.',
+            901: 'Erro na configuração de modo "off-line".'
         },
         common: {
-        	success: 'Successo', //title of the Success message modals
+        	success: 'Successo', //titulo de mensagens de sucesso
         	nisStatus: {
-        		nccUnavailable: 'NCC is not available',
-        		unavailable: 'NIS não está disponível',
-        		notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize o nó NIS local via diálogo pop-up.',
-        		synchronizing: 'NIS está sincronizando no bloco {{1}}. Estimativa de {{2}} atrás.',
+        		nccUnavailable: 'NCC não inicializado',
+        		unavailable: 'NIS não inicializado',
+        		notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize um nó local via diálogo pop-up.',
+        		synchronizing: 'NIS está sincronizando com o bloco {{1}}. Encontrado {{2}} atrás.',
                 daysBehind: {
-                    0: 'Menos que um dia',
+                    0: 'Menos de um dia',
                     1: '1 dia',
                     many: '{{1}} dias'
                 },
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS foi sincronizado!'
         	}
         },
 		modals: {
@@ -67,26 +67,26 @@ define({
 				amount: 'Total',
 				recipient: "Destinatário",
 				message: 'Mensagem',
-				encrypt: 'Encriptar mensagem',
+				encrypt: 'Criptografar mensagem',
 				fee: 'Taxa',
-				dueBy: 'Devido por', //precisara de correção dependendo do que faz
-				resetFee: 'Reestabelecer o valor mínimo de taxa',
+				dueBy: 'Devido por', //precisara de correção dependendo do contexto
+				resetFee: 'Valor mínimo',
 				hours: 'Horas',
-				password: 'Password',
+				password: 'Senha',
 				send: 'Enviar',
 				sending: 'Enviando...',
-				successMessage: 'A transação foi enviada com sucesso!'
+				successMessage: 'Transação enviada com sucesso!'
 			},
 			clientInfo: {
-				title: 'Informações do cliente',
-				ncc: 'NEM Cliente da comunidade - NCC',
+				title: 'Informações do programa',
+				ncc: 'NEM Community Client - NCC',
 				signer: 'Signatário',
 				remoteServer: 'Servidor Remoto',
 				local: 'Local',
-				nis: 'NEM Infraestrutura de Servidores  - NIS',
+				nis: 'NEM Infraestructure Servers - NIS',
 				sync: 'Sincronizado',
 				notSync: 'Não sincronizado',
-				notConnected: 'Não conectado com a nuvem NEM',
+				notConnected: 'Não conectado à nuvem de peers',
 				loading: 'Carregando...'
 			},
 			transactionDetails: {
@@ -97,69 +97,69 @@ define({
 				hash: 'Hash',
 				type: 'Tipo de transação',
 				pending: 'Pendente',
-				outgoing: 'Saindo',
-				incoming: 'Chegando',
+				outgoing: 'Enviado',
+				incoming: 'Recebido',
 				self: 'Pessoal',
 				sender: 'Remetente',
 				recipient: 'Destinatário',
 				message: 'Mensagem',
 				noMessage: 'Sem mensagem',
-				encrypted: 'A mensagem está encriptada',
+				encrypted: 'Mensagem Criptografada',
 				time: 'Data e hora',
 				confirmations: 'Confirmações',
 				amount: 'Quantidade',
 				fee: 'Taxa'
 			},
 			bootLocalNode: {
-				title: 'Inicializar o nó local',
-				account: 'Conta para inicializar o nó local',
+				title: 'Inicializar nó local',
+				account: 'Conta do nó',
 				noLabel: '<span class="null">&lt;Sem identificação&gt;</span>',
-				wallet: 'Carteira',
-				node: 'Nome do nó',
+				wallet: 'Nome da Carteira',
+				node: 'Nome para o nó',
 				boot: 'Inicializar',
 				booting: 'Inicializando...'
 			},
 			notBootedWarning: {
 				title: 'O nó não foi inicializado!',
-				message: 'O nó local precisa ser inicializado antes de você poder enviar moedas NEM!'
+				message: 'O nó local precisa ser inicializado para fazer transações!'
 			},
 			closeWallet: {
 				title: 'Fechar carteira',
-				message: 'Você tem certeza que quer fechar a sua carteira e retornar para a página inicial?'
+				message: 'Você tem certeza que quer fechar a carteira?'
 			},
 			createAccount: {
 				title: 'Criar nova conta',
-				label: 'Identificação pessoal',
+				label: 'Identificação',
 				wallet: 'Carteira',
-				password: "Senha da carteira",
-				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Não se esqueça de realizar back-up da conta',
+				password: "Senha",
+				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up da conta',
 				create: 'Criar'
 			},
 			addAccount: {
-				title: 'Adicionar uma conta existente',
-				privateKey: "Chave privada da conta",
+				title: 'Adicionar uma Carteira existente',
+				privateKey: "Chave privada",
 				wallet: 'Carteira',
-				password: "Senha da carteira",
-				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi criada!',
+				password: "Senha",
+				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada!',
 				add: 'Adicionar',
 				label: 'Identificação'
 			},
 			setPrimary: {
-				title: 'Definir conta primária',
-				account: 'Conta para ser definida como primária',
+				title: 'Definir como conta primária',
+				account: 'Conta que será definida como primária',
 				noLabel: '<span class="null">&lt;Sem identificação&gt;</span>',
 				wallet: 'Carteira',
-				password: "Senha da carteira",
+				password: "Senha",
 				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!',
-				set: 'Definir como primária',
+				set: 'Definir como conta primária',
 			},
 			changeWalletName: {
-				title: 'Mudar o nome da carteira',
-				wallet: 'Nome atual da carteira',
-				newName: 'Novo nome da carteira',
-				password: "Senha da carteira",
-				successMessage: 'O nome da carteira foi trocado com sucesso de <em>{{1}}</em> para <em>{{2}}</em>',
-				change: 'Trocar'
+				title: 'Trocar o nome da carteira',
+				wallet: 'Nome atual',
+				newName: 'Novo nome',
+				password: "Senha",
+				successMessage: 'O nome <em>{{1}}</em> foi alterado para <em>{{2}}</em> com sucesso.',
+				change: 'Mudar'
 			},
 			changeWalletPassword: {
 				title: 'Trocar a senha da carteira',
@@ -170,57 +170,57 @@ define({
 				successMessage: 'A senha da carteira foi trocada com sucesso',
 				change: 'Trocar',
 				passwordNotMatchTitle: 'Oopa!',
-				passwordNotMatchMessage: 'Sua senha digitada não confere com a confirmação da senha. Por favor, tenha certeza que você digitou a sua nova senha corretamente.'
+				passwordNotMatchMessage: 'As senhas não conferem. Por favor, tente novamente.'
 			},
 			changeAccountLabel: {
 				title: 'Trocar identificação da conta',
-				label: 'Identificação da conta',
+				label: 'Identificação',
 				wallet: 'Carteira',
-				password: "Senha da carteira",
-				successMessage: 'A Conta {{1}} agora está identificada como {{2}}',
+				password: "Senha",
+				successMessage: 'A Identificação {{1}} foi alterada para {{2}}',
 				change: 'Troca'
 			},
 			removeAccount: {
 				title: 'Remover conta',
 				wallet: 'Senha',
-				password: "Senha da carteira",
-				warning: 'Por favor, tenha certeza que sua conta não tem NEMs restantes antes de você removê-la, ou as moedas serão perdidas para sempre.',
+				password: "Senha",
+				warning: 'Por favor, tenha certeza que não há saldo em sua conta, ou as moedas serão perdidas para sempre.',
 				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi removida!',
 				remove: 'Remover'
 			},
 			nisUnavailable: {
-				title: 'NIS não está disponível',
-				message: 'Desconectado de NIS, aguardando conecção'
+				title: 'NIS não está inicializado',
+				message: 'NIS não está respondendo, aguardando conexão'
 			},
 			shutdown: {
 				title: 'Fechar programa',
-				message: 'Você tem certeza que você quer fechar o cliente da comunidade NEM?' //talvez precise correção aqui
+				message: 'Tem certeza que quer fechar o programa (NIS/NCC)?' //talvez precise correção aqui
 			}
 		},
 		landing: {
 			logo: 'images/nem_logo.png',
-			importSuccess: 'A carteira foi importada com sucesso!',
+			importSuccess: 'Carteira importada com sucesso!',
 			nav: {
-				start: 'Inicie Aqui',
+				start: 'Início', // ou primeiros passos, dependendo do contexto
 				about: 'Sobre NEM',
 				help: 'Ajuda'
 			},
 			main: {
-				leftTitle: 'Novo por aqui? Use <em>NEM</em>?',
+				leftTitle: 'Primeira vez? Crie uma carteira <em>NEM</em>!',
 				leftButton: 'Criar nova carteira',
-				walletNamePlh: 'Nome para sua carteira',
+				walletNamePlh: 'Nome para a carteira',
 				passwordPlh: 'Senha',
 				create: 'Criar',
-				rightTitle: 'Já é um membro <em>NEM</em>?',
-				rightButton: 'Abrir sua carteira',
+				rightTitle: 'Já é um <em>NEMbro</em>?', //NEMbro soa estranho? "bro" em pt_BR é sinônimo de Brother
+				rightButton: 'Abrir carteira existente',
 				openButton: 'Abrir',
-				walletsFound: 'Encotrei <strong>{{1}}</strong> <em>carteira(s)</em>', //needs to verify if the "(s)" casues any kind of problem to compilation
-				copyright: 'Fotografia por <em>Cas Cornelissen</em>'
+				walletsFound: 'Encontrada(s) <strong>{{1}}</strong> <em>carteira(s)</em>', //needs to verify if the "(s)" casues any kind of problem to compilation
+				copyright: 'Fotografado por <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [
 					{
-						title: 'NCC encripta sua carteira',
+						title: 'NCC encripta sua carteira', //Hereinafter I will leave it as is until define what will be written, retur at line 263
 						description: '<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos.'
 					},										
 					{
@@ -261,15 +261,15 @@ define({
 		wallet: {
 			logo: 'images/nem_logo.png',
 			lastAccess: 'Aproximadamente {{1}} dia(s) atrás',
-			lastAccessJustNow: 'Agora pouco',
-			lastAccessTooltip: 'Ultimo acesso foi em {{1}}',
+			lastAccessJustNow: 'Agora a pouco',
+			lastAccessTooltip: 'Ultimo acesso em {{1}}',
 			primary: 'primário',
-			primaryShort: 'P',
+			primaryShort: '1º',
 			noLabel: '<Sem identificação>',
-			copiedToClipboard: 'O endereço foi copiado para a memória!',
+			copiedToClipboard: 'Endereço copiado para a área de transfêrencia!',
 			actions: {
 				refreshInfo: 'Atualizar informações',
-				bootLocalNode: 'Inicializar o nó local',
+				bootLocalNode: 'Inicializar nó local',
 				changeWalletName: 'Trocar o nome da carteira',
 				changeWalletPassword: 'Trocar a senha da carteira',
 				mergeWallets: 'Mesclar carteiras',
@@ -278,26 +278,26 @@ define({
 				addAccount: 'Adicionar uma conta existente',
 				changeAccountLabel: 'Trocar a identificação da carteira',
 				setPrimary: 'Definir como conta primária',
-				removeAccount: 'Remover a Conta',
-				clientInfo: 'Informação do cliente',
-				closeWallet: 'Fechar a carteira',
-				closeProgram: 'Fechar o programa',
-				copyClipboard: 'Copiar para memória temporária'
+				removeAccount: 'Remover Conta',
+				clientInfo: 'Sobre o NEM/NCC',
+				closeWallet: 'Fechar carteira',
+				closeProgram: 'Fechar programa',
+				copyClipboard: 'Copiar para a área de transferência'
 			},
 			nav: [
-				'Painel', //Dashboard
+				'Painel Administrativo', //Dashboard
 				'Mensagens',
 				'Contatos',
 				'Transações',
-				'Blocos colheitados',
-				'Permuta de ativos',
+				'Blocos colhidos',
+				'Exchange de ativos',
 				'Novidades',
 				'Aplicações',
 				'Contas',
 				'Configurações',
 				'Fechar programa'
 			],
-			bootNodeWarning: "O nó local precisa ser inicializado antes que você possa utilizar todos os recurosos do NCC."
+			bootNodeWarning: "Um nó local precisa ser inicializado para poder utilizar o NCC."
 		},
 		dashboard: {
 			assets: {
@@ -309,18 +309,18 @@ define({
 				start: 'Começar a colheita',
 				harvesting: 'Colheitando',
 				stop: 'Parar colheita',
-				description: 'importância para a nuvem NEM'
+				description: 'importância para a nuvem de peers'
 			},
 			transactions: {
 				title: 'Transações recentes',
 				sendNem: 'Enviar NEM',
 				balance: 'Saldo atual',
-				syncStatus: '(no bloco {{1}}{{#2}} : previsão de {{3}} dias atrás{{/2}})',
+				syncStatus: '(até o bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})',
 				unknown: 'Desconhecido',
 				columns: [
 					'',
-					'Tempo',
-					'Remetente/Destinatário',
+					'Data',
+					'Destinatário',
 					'Mensagem',
 					'',
 					'Detalhes',
@@ -329,20 +329,20 @@ define({
 					'Quantidade'
 				],
 				types: {
-					pending: 'Transação pendente',
-					outgoing: 'Transação saindo',
-					incoming: 'Transação chegando',
-					self: 'Você enviou para você mesmo',
+					pending: 'Pendente',
+					outgoing: 'Enviada',
+					incoming: 'Recebida',
+					self: 'Enviada para si mesmo',
 				},
 				noMessage: 'Sem mensagem',
-				encrypted: 'Mensagem encriptada',
+				encrypted: 'Mensagem criptografada',
 				view: 'Ver',
 				pending: 'Pendente',
 				seeAll: 'Ver todas as transações',
-				noTransactions: 'Nenhuma transação foi realizada ainda.'
+				noTransactions: 'Nenhuma transação realizada ainda.'
 			},
 			nemValue: {
-				title: 'Valores das estatísticas NEM'
+				title: 'Estatísticas desta carteira'
 			},
 			messages: {
 				titleTooltip: 'Mensagens'
@@ -355,12 +355,12 @@ define({
 		transactions: {
 			title: 'Transações',
 			sendNem: 'Enviar NEM',
-			balance: 'Saldo atual',
+			balance: 'Saldo',
 			filters: {
-				confirmed: 'Confirmado',
-				unconfirmed: 'Não confirmado',
-				incoming: 'Chegando',
-				outgoing: 'Saindo',
+				confirmed: 'Confirmadas',
+				unconfirmed: 'Não confirmadas',
+				incoming: 'Recebidas',
+				outgoing: 'Enviadas',
 			},
 			table: {
 				columns: [
@@ -375,16 +375,16 @@ define({
 					'Quantidade'
 				],
 				types: {
-					pending: 'Transação pendente',
-					outgoing: 'Transações saindo',
-					incoming: 'Transações chegando',
-					self: 'Você enviou para você mesmo',
+					pending: 'Pendente',
+					outgoing: 'Enviada',
+					incoming: 'Recebida',
+					self: 'Enviada para si mesmo',
 				},
 				noMessage: 'Sem mensagem',
-				encrypted: 'A mensagem está encriptada',
+				encrypted: 'A mensagem está criptografada',
 				view: 'Ver', 
 				pending: 'Pendente',
-				noTransactions: 'Por enquanto nenhuma transação foi realizada',
+				noTransactions: 'Por enquanto nenhuma transação realizada ainda',
 				loading: 'Carregando mais transações...'
 			}
 		},
@@ -395,7 +395,7 @@ define({
 				columns: [ 
 					'Altura do bloco',
 					'Hora',
-					'Hash do bloco',
+					'Hash',
 					'Taxa'
 				],
 				noBlocks: 'Não há blocos colhidos',
@@ -405,7 +405,7 @@ define({
 				unknown: 'Status desconhecido',
 				start: 'Começar a colheita',
 				harvesting: 'Colheitando',
-				stop: 'Pare de colheitar'
+				stop: 'Parar de colheitar'
 			}
 		},
 		settings: {
