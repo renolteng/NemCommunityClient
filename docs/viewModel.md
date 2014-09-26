@@ -123,14 +123,6 @@ Only a local NIS can be booted.
 }
 ```
 
-### FeeViewModel
-
-```
-{
-	"fee": 1.0
-}
-```
-
 ### GraphViewModel
 
 ```
@@ -269,6 +261,19 @@ Only a local NIS can be booted.
 	"message": "My first message",
 	"encrypt": 1,
 	"hours_due": 18
+}
+```
+
+### ValidatedTransferViewModel
+
+```
+{
+	"fee": 1.0,              # reflects the minimum fee that is required 
+	                         # to send the transaction
+	"encryptionPossible" : 1 # indicates whether an encrypted message can be sent
+	                         # to the recipient (if provided)
+	                         # 0 - encryption not possible
+	                         # 1 - encryption is possible
 }
 ```
 
