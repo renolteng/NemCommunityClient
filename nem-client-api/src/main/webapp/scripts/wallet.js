@@ -95,6 +95,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         values.account = account;
 
                         this.lockAction();
+                        ncc.set('status.booting', true);
                         ncc.postRequest('node/boot', values, 
                             function(data) {
                                 closeModal();
@@ -110,6 +111,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                 },
                                 complete: function() {
                                     self.unlockAction();
+                                    ncc.set('status.booting', false);
                                 }
                             }
                         );
