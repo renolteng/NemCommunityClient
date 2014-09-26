@@ -154,7 +154,7 @@ define({
 				account: 'Акаунт, з якого буде завантажено локальний вузол',
 				noLabel: '<span class="null">&lt;Без позначки&gt;</span>',
 				wallet: 'Гаманець',
-				node: 'Iм'я локального вузла',
+				node: "Iм'я локального вузла",
 				boot: 'Завантажити',
 				booting: 'Завантаження...'
 			},
@@ -168,7 +168,7 @@ define({
 			},
 			createAccount: {
 				title: 'Створити новий акаунт',
-?				label: 'Приватна позначка',
+				label: 'Приватна позначка',
 				wallet: 'Гаманець',
 				password: "Пароль файлу гаманця",
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} був успiшно створений!',
@@ -247,7 +247,7 @@ define({
 			main: {
 				leftTitle: 'Новий у мережi <em>NEM</em>?',
 				leftButton: 'Створити новий гаманець',
-				walletNamePlh: 'Iм'я гаманця',
+				walletNamePlh: "Iм'я гаманця",
 				passwordPlh: 'Пароль',
 				create: 'Створити',
 				rightTitle: 'Вже зареестрованi у мережi <em>NEM</em>?',
@@ -309,9 +309,9 @@ define({
 			actions: {
 				refreshInfo: 'Оновити iнформацiю',
 				bootLocalNode: 'Завантажити локальний вузол',
-				changeWalletName: 'Змiнити iм'я гаманця',
+				changeWalletName: "Змiнити iм'я гаманця",
 				changeWalletPassword: 'Змiнити пароль гаманця',
-				mergeWallets: 'Об'єднати гаманцi',
+				mergeWallets: "Об'єднати гаманцi",
 				exportWallet: 'Експортувати гаманець',
 				createAccount: 'Створити новий акаунт',
 				addAccount: 'Додати існуючий акаунт',

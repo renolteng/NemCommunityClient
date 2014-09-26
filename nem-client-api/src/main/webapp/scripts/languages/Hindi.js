@@ -280,7 +280,7 @@ define({
 						title: '&#42;NIS क्या है?',
 						paragraphs: [
 							'यह कॉंपोनेंट <strong>NEM</strong> क्लाउड को जिंदा रखने के लिए जिम्मेदार है.',
-							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',',
+							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',
 							'<strong>NEM</strong> क्लाउड की पहुँच बिंदु <strong>NIS</strong> है.'
 						],
 						legend: '<strong>&#42;NIS</strong> का मतलब <strong>NEM Infrastructure Server</strong> है'
