@@ -314,8 +314,7 @@
 				clientInfo: '客户信息',
 				closeWallet: '关闭钱包',
 				closeProgram: '关闭程序',
-				copyClipboard: 'Copy address to clipboard',
-				settings: '设置',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'仪表板',
@@ -327,6 +326,7 @@
 				'新闻',
 				'应用',
 				'帐户',
+				'设置',
 				'关闭程序'
 			],
 			bootNodeWarning: '一个本地节点需要启动后才能充分利用NCC的功能。'

@@ -315,8 +315,7 @@ define({
 				clientInfo: 'Informacije klijenta',
 				closeWallet: 'Zatvori novčanik',
 				closeProgram: 'Zatvori  program',
-				copyClipboard: 'Kopiraj adresu u međuspremnik',
-				settings: 'Postavke',
+				copyClipboard: 'Kopiraj adresu u međuspremnik'
 			},
 			nav: [
 				'Kontrolna ploča',
@@ -328,6 +327,7 @@ define({
 				'Novosti',
 				'Aplikacije',
 				'Računi',
+				'Postavke',
 				'Zatvori program'
 			],
 			bootNodeWarning: "Lokalni čvor mora biti pokrenut prije nego što u potpunosti  možete iskoristiti sva NCC svojstva."

@@ -315,8 +315,7 @@
 				clientInfo: 'Programos informacija',
 				closeWallet: 'Uždaryti pinigine',
 				closeProgram: 'Uždaryti programa',
-				copyClipboard: 'Kopijuoti adresa i laikinaja atminti',
-				settings: 'Nustatymai',
+				copyClipboard: 'Kopijuoti adresa i laikinaja atminti'
 			},
 			nav: [
 				'Skydelis',
@@ -328,6 +327,7 @@
 				'Naujienos',
 				'Aplikacijos',
 				'Saskaitos',
+				'Nustatymai',
 				'Uždaryti programa'
 			],
 			bootNodeWarning: "Norint naudotis NCC pilnai, vietinis prieigos taškas turi buti paleistas."

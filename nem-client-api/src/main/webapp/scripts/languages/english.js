@@ -315,8 +315,7 @@ define({
 				clientInfo: 'Client Info',
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
-				copyClipboard: 'Copy address to clipboard',
-				settings: 'Settings',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'Dashboard',
@@ -328,6 +327,7 @@ define({
 				'News',
 				'Applications',
 				'Accounts',
+				'Settings',
 				'Close Program'
 			],
 			bootNodeWarning: "A local node needs to be booted before you can fully utilize NCC's features."
