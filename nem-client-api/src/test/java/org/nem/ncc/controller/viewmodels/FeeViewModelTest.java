@@ -11,7 +11,7 @@ public class FeeViewModelTest {
 	@Test
 	public void viewModelCanBeCreated() {
 		// Act:
-		final FeeViewModel viewModel = new FeeViewModel(Amount.fromMicroNem(1720));
+		final ValidatedTransferViewModel viewModel = new ValidatedTransferViewModel(Amount.fromMicroNem(1720));
 
 		// Assert:
 		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromMicroNem(1720)));
@@ -20,7 +20,7 @@ public class FeeViewModelTest {
 	@Test
 	public void viewModelCanBeSerialized() {
 		// Act:
-		final FeeViewModel viewModel = new FeeViewModel(Amount.fromMicroNem(1720));
+		final ValidatedTransferViewModel viewModel = new ValidatedTransferViewModel(Amount.fromMicroNem(1720));
 
 		// Act:
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);

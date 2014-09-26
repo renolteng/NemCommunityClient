@@ -45,7 +45,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithoutMessage();
+		final TransferValidateRequest request = createFeeRequestWithoutMessage();
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -98,7 +98,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithoutMessage();
+		final TransferValidateRequest request = createFeeRequestWithoutMessage();
 		context.mapper.toModel(request);
 
 		// Assert:
@@ -126,7 +126,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithMessage("nem rules!", false);
+		final TransferValidateRequest request = createFeeRequestWithMessage("nem rules!", false);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -145,7 +145,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithMessage("nem rules!", true);
+		final TransferValidateRequest request = createFeeRequestWithMessage("nem rules!", true);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -164,7 +164,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithMessage("nem rules!", true);
+		final TransferValidateRequest request = createFeeRequestWithMessage("nem rules!", true);
 		ExceptionAssert.assertThrowsNccException(
 				v -> context.mapper.toModel(request),
 				NccException.Code.NO_PUBLIC_KEY);
@@ -172,8 +172,8 @@ public class TransactionMapperTest {
 
 	//endregion
 
-	private static TransferFeeRequest createFeeRequestWithoutMessage() {
-		return new TransferFeeRequest(
+	private static TransferValidateRequest createFeeRequestWithoutMessage() {
+		return new TransferValidateRequest(
 				new WalletName("w"),
 				Address.fromEncoded("a"),
 				Address.fromEncoded("r"),
@@ -183,8 +183,8 @@ public class TransactionMapperTest {
 				5);
 	}
 
-	private static TransferFeeRequest createFeeRequestWithMessage(final String message, final boolean shouldEncrypt) {
-		return new TransferFeeRequest(
+	private static TransferValidateRequest createFeeRequestWithMessage(final String message, final boolean shouldEncrypt) {
+		return new TransferValidateRequest(
 				new WalletName("w"),
 				Address.fromEncoded("a"),
 				Address.fromEncoded("r"),

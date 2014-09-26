@@ -6,9 +6,9 @@ import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.WalletName;
 
 /**
- * A request containing all information necessary to determine a transfer fee.
+ * A request containing all information necessary to validate a transfer.
  */
-public class TransferFeeRequest {
+public class TransferValidateRequest {
 	private final WalletName walletName;
 	private final Address senderAddress;
 	private final Address recipientAddress;
@@ -20,7 +20,7 @@ public class TransferFeeRequest {
 	/**
 	 * Creates a new transfer fee view model.
 	 */
-	public TransferFeeRequest(
+	public TransferValidateRequest(
 			final WalletName walletName,
 			final Address senderAddress,
 			final Address recipientAddress,
@@ -42,7 +42,7 @@ public class TransferFeeRequest {
 	 *
 	 * @param deserializer The deserializer.
 	 */
-	public TransferFeeRequest(final Deserializer deserializer) {
+	public TransferValidateRequest(final Deserializer deserializer) {
 		this.walletName = WalletName.readFrom(deserializer, "wallet");
 		this.senderAddress = Address.readFrom(deserializer, "account");
 		this.recipientAddress = Address.readFrom(deserializer, "recipient");

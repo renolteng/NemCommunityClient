@@ -13,7 +13,7 @@ import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
-import org.nem.ncc.controller.viewmodels.FeeViewModel;
+import org.nem.ncc.controller.viewmodels.ValidatedTransferViewModel;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.TransactionMapper;
 import org.nem.ncc.test.*;
@@ -84,15 +84,15 @@ public class TransactionControllerTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Transaction model = Mockito.mock(Transaction.class);
-		Mockito.when(context.transactionMapper.toModel((TransferFeeRequest)context.request)).thenReturn(model);
+		Mockito.when(context.transactionMapper.toModel((TransferValidateRequest)context.request)).thenReturn(model);
 		Mockito.when(model.getFee()).thenReturn(Amount.fromNem(274));
 
 		// Act:
-		final FeeViewModel feeViewModel = context.controller.getMinimumFee(context.request);
+		final ValidatedTransferViewModel validatedTransferViewModel = context.controller.validateTransferData(context.request);
 
 		// Assert:
-		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel((TransferFeeRequest)context.request);
-		Assert.assertThat(feeViewModel.getFee(), IsEqual.equalTo(Amount.fromNem(274)));
+		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel((TransferValidateRequest)context.request);
+		Assert.assertThat(validatedTransferViewModel.getFee(), IsEqual.equalTo(Amount.fromNem(274)));
 	}
 
 	//endregion

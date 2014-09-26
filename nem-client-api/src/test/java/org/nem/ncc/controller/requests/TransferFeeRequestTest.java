@@ -17,7 +17,7 @@ public class TransferFeeRequestTest {
 	@Test
 	public void requestCanBeCreated() {
 		// Act:
-		final TransferFeeRequest request = new TransferFeeRequest(
+		final TransferValidateRequest request = new TransferValidateRequest(
 				new WalletName("w"),
 				Address.fromEncoded("a"),
 				Address.fromEncoded("r"),
@@ -39,7 +39,7 @@ public class TransferFeeRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Act:
-		final TransferFeeRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 8, 5);
+		final TransferValidateRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 8, 5);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -54,7 +54,7 @@ public class TransferFeeRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithoutMessage() {
 		// Act:
-		final TransferFeeRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 5);
+		final TransferValidateRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 5);
 
 		// Assert:
 		Assert.assertThat(request.getMessage(), IsNull.nullValue());
@@ -78,7 +78,7 @@ public class TransferFeeRequestTest {
 		}
 	}
 
-	private TransferFeeRequest createRequestFromJson(
+	private TransferValidateRequest createRequestFromJson(
 			final String walletName,
 			final String senderAddress,
 			final String recipientAddress,
@@ -94,6 +94,6 @@ public class TransferFeeRequestTest {
 		jsonObject.put("message", message);
 		jsonObject.put("encrypt", shouldEncrypt);
 		jsonObject.put("hours_due", hoursDue);
-		return new TransferFeeRequest(Utils.createDeserializer(jsonObject));
+		return new TransferValidateRequest(Utils.createDeserializer(jsonObject));
 	}
 }

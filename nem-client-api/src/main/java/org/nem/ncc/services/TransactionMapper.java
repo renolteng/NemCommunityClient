@@ -52,11 +52,11 @@ public class TransactionMapper {
 	 * @param request The request.
 	 * @return The model.
 	 */
-	public Transaction toModel(final TransferFeeRequest request) {
+	public Transaction toModel(final TransferValidateRequest request) {
 		return this.toModel(request, null);
 	}
 
-	private TransferTransaction toModel(final TransferFeeRequest request, final WalletPassword password) {
+	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
 		final Account sender = this.getSenderAccount(request, password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
 		final Message message = this.createMessage(request, sender, recipient);
@@ -73,7 +73,7 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-	private Account getSenderAccount(final TransferFeeRequest request, final WalletPassword password) {
+	private Account getSenderAccount(final TransferValidateRequest request, final WalletPassword password) {
 		final PrivateKey privateKey = this.getSenderWallet(request.getWalletName(), password)
 				.getAccountPrivateKey(request.getSenderAddress());
 		return new Account(new KeyPair(privateKey));
@@ -92,7 +92,7 @@ public class TransactionMapper {
 	}
 
 	private Message createMessage(
-			final TransferFeeRequest request,
+			final TransferValidateRequest request,
 			final Account sender,
 			final Account recipient) {
 		final String message = request.getMessage();
