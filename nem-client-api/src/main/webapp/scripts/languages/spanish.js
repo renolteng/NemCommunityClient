@@ -497,7 +497,8 @@ define({
                        //closeWallet: 'Close Wallet',
                        closeWallet: 'Cerrar monedero',
                        //closeProgram: 'Close Program'
-                       closeProgram: 'Cerrar programa'
+                       closeProgram: 'Cerrar programa',
+                       settings: 'Configuraci&oacute;n', //'Settings',
                    },
                    nav: [
                        'Panel de informaci&oacute;n', //'Dashboard',
@@ -509,7 +510,6 @@ define({
                        'Noticias', //'News',
                        'Aplicaciones', //'Applications',
                        'Cuentas', //'Accounts',
-                       'Configuraci&oacute;n', //'Settings',
                        'Cerrar programa' //'Close Program'
                    ],
                    //bootNodeWarning: "A local node needs to be booted before you can fully utilize NCC's features."

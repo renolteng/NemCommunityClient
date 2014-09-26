@@ -315,7 +315,8 @@ define({
                         clientInfo: 'Client Info',
                         closeWallet: 'Brieftasche schließen',
                         closeProgram: 'Programm beenden',
-                        copyClipboard: 'Addresse in die Zwischenablage kopieren'
+                        copyClipboard: 'Addresse in die Zwischenablage kopieren',
+                        settings: 'Einstellungen',
                 },
                 nav: [
                         'Dashboard',
@@ -327,7 +328,6 @@ define({
                         'Neuigkeiten',
                         'Anwendungen',
                         'Konten',
-                        'Einstellungen',
                         'Programm beenden'
                 ],
                 bootNodeWarning: "Der lokaler Knotenpunkt muss gebootet werden, bevor Du alle NCC Features verwenden kannst."

@@ -84,6 +84,9 @@
 							<li class="dropdownMenu-item" on-click="refreshInfo">
 								{{texts.wallet.actions.refreshInfo}}
 							</li>
+							<li class="dropdownMenu-item" on-click="openModal:settings">
+								{{texts.wallet.actions.settings}}
+							</li>
 							<li class="dropdownMenu-item" on-click="showClientInfo">
 								{{texts.wallet.actions.clientInfo}}
 							</li>
@@ -196,11 +199,8 @@
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
 					<span class="sidebar-nav-item-title icon-user"><span class="fullSidebarOnly">{{texts.wallet.nav.8}}</span></span>
 				</a></li>
-				<li class="sidebar-nav-item {{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="redirect:'settings', {{params}}">
-					<span class="sidebar-nav-item-title icon-gear"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
-				</a></li>
 				<li class="sidebar-nav-item"><a href="javascript:;" on-click="shutdown">
-					<span class="sidebar-nav-item-title icon-close"><span class="fullSidebarOnly">{{texts.wallet.nav.10}}</span></span>
+					<span class="sidebar-nav-item-title icon-close"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
 				</a></li>
 			</ul>
 		</nav>

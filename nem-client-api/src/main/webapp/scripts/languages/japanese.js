@@ -315,7 +315,8 @@ define({
 				clientInfo: 'クライアント情報',
 				closeWallet: 'ウォレットを閉じる',
 				closeProgram: '終了する',
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Copy address to clipboard',
+				settings: '設定',
 			},
 			nav: [
 				'ダッシュボード',
@@ -327,7 +328,6 @@ define({
 				'News',
 				'アプリケーション',
 				'アカウント',
-				'設定',
 				'終了する'
 			],
 			bootNodeWarning: "NCCの全ての機能を利用するためには、ローカルノードを起動する必要があります。"

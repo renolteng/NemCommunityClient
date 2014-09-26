@@ -315,7 +315,8 @@ define({
 				clientInfo: 'Informação do cliente',
 				closeWallet: 'Fechar a carteira',
 				closeProgram: 'Fechar o programa',
-				copyClipboard: 'Copiar para memória temporária'
+				copyClipboard: 'Copiar para memória temporária',
+				settings: 'Configurações',
 			},
 			nav: [
 				'Painel', //Dashboard
@@ -327,7 +328,6 @@ define({
 				'Novidades',
 				'Aplicações',
 				'Contas',
-				'Configurações',
 				'Fechar programa'
 			],
 			bootNodeWarning: "O nó local precisa ser inicializado antes que você possa utilizar todos os recurosos do NCC."

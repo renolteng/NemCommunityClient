@@ -315,7 +315,8 @@ define({
 				clientInfo: 'Thông tin client',
 				closeWallet: 'Đóng ví',
 				closeProgram: 'Đóng chương trình',
-				copyClipboard: 'Copy địa chỉ vào clipboard'
+				copyClipboard: 'Copy địa chỉ vào clipboard',
+				settings: 'Thiết lập',
 			},
 			nav: [
 				'Bảng tin',
@@ -327,7 +328,6 @@ define({
 				'Tin tức',
 				'Ứng dụng',
 				'Các tài khoản',
-				'Thiết lập',
 				'Đóng chương trình'
 			],
 			bootNodeWarning: "Local node cần phải được khởi động trước khi bạn có thể sử dụng đầy đủ các tính năng của NCC"

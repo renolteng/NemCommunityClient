@@ -315,7 +315,8 @@ define({
 				clientInfo: 'Informazioni sul programma',
 				closeWallet: 'Chiudi portafoglio',
 				closeProgram: 'Arresta NCC',
-				copyClipboard: 'copia indirizzo negli appunti'
+				copyClipboard: 'copia indirizzo negli appunti',
+				settings: 'Impostazioni',
 			},
 			nav: [
 				"Vista d'insieme",
@@ -327,7 +328,6 @@ define({
 				'Notizie',
 				'Applicazioni',
 				'Indirizzi',
-				'Impostazioni',
 				'Arresta NCC'
 			],
 			bootNodeWarning: "E' necessario avviare un nodo locale per poter utilizzare a pieno le funzionalità di NCC."

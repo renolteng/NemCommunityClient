@@ -315,7 +315,8 @@ define({
 				clientInfo: 'Information sur le Client',
 				closeWallet: 'Fermer le portefeuille',
 				closeProgram: "Fermer l'application",
-				copyClipboard: "Copier l'adresse dans le presse-papier"
+				copyClipboard: "Copier l'adresse dans le presse-papier",
+				settings: "Paramètres",
 			},
 			nav: [
 				"Tableau de bord",
@@ -327,7 +328,6 @@ define({
 				"Nouvelles",
 				"Applications",
 				"Comptes",
-				"Paramètres",
 				"Fermer l'application"
 			],
 			bootNodeWarning: "Un noeud local doit être démarré avant de pouvoir utiliser pleinement les fonctionnalités de NCC."
