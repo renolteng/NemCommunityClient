@@ -77,10 +77,13 @@ define(function(require) {
         },
         computed: {
             amount: function() {
-                return ncc.toMNem(this.get('formattedAmount').replace(/\u2009/g, ''));
+                return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
+            },
+            inputtedRecipient: function() {
+                return ncc.restoreAddress(this.get('formattedRecipient'));
             },
             recipient: function() {
-                return ncc.restoreAddress(this.get('formattedRecipient')) || ncc.get('activeAccount.address');
+                return this.get('inputtedRecipient') || ncc.get('activeAccount.address');
             },
             message: function() {
                 return this.get('rawMessage') && this.get('rawMessage').toString();
@@ -93,7 +96,7 @@ define(function(require) {
             },
             fee: {
                 get: function() {
-                    return ncc.toMNem(this.get('formattedFee').replace(/\u2009/g, ''))
+                    return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedFee')));
                 },
                 set: function(fee) {
                     this.set('formattedFee', ncc.formatCurrency(fee));
@@ -138,7 +141,7 @@ define(function(require) {
             this.observe('amount message encrypt', (function() {
                 var t;
                 return function() {
-                    if (t) clearTimeout(t);
+                    clearTimeout(t);
                     t = setTimeout(function() {
                         self.resetFee(self.get('isFeeAutofilled'), true);
                     }, 500);
@@ -146,6 +149,33 @@ define(function(require) {
             })(), {
                 init: false
             });
+
+            this.observe('inputtedRecipient', (function() {
+                var t;
+                return function(recipient) {
+                    clearTimeout(t);
+                    t = setTimeout(function() {
+                        ncc.postRequest('account/find', { account: recipient }, 
+                            function(data) {
+                                if (data.address) {
+                                    self.set('recipientLabel', data.label || '');
+                                } else {
+                                    self.set('recipientLabel', null);
+                                }
+                            }, 
+                            {
+                                error: function() {
+                                    self.set('recipientLabel', null);
+                                },
+                                altFailCb: function() {
+                                    self.set('recipientLabel', null);
+                                }
+                            },
+                            true
+                        );
+                    }, 500);
+                };
+            })());
 
             this.on({
                 resetFee: function() {
@@ -186,27 +216,6 @@ define(function(require) {
                     if (e.original.keyCode === 13) {
                         this.fire('sendTransaction');
                     }
-                },
-                queryRecipient: function() {
-                    var recipient = this.get('recipient');
-                    ncc.postRequest('account/find', { account: recipient }, 
-                        function(data) {
-                            if (data.address) {
-                                self.set('recipientLabel', data.label || '');
-                            } else {
-                                self.set('recipientLabel', null);
-                            }
-                        }, 
-                        {
-                            error: function() {
-                                self.set('recipientLabel', null);
-                            },
-                            altFailCb: function() {
-                                self.set('recipientLabel', null);
-                            }
-                        },
-                        true
-                    );
                 }
             });
         }
@@ -217,7 +226,6 @@ define(function(require) {
         template: '#template',
         consts: {
             fractionalDigits: 2,
-            decimalMark: '.',
             txesPerPage: 25,
             blocksPerPage: 25,
             defaultLanguage: 'en'
@@ -250,6 +258,22 @@ define(function(require) {
                 return '?' + queryString.join('&');
             }
         },
+        queryStringToJson: function (qStr) {
+            if (qStr === '')
+                return '';
+            var pairs = (qStr || location.search).slice(1).split('&');
+            var result = {};
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                if (pair[0]) {
+                    result[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || null);
+                }
+            }
+            return result;
+        },
+        escapeRegExp: function(str) {
+            return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+        },
         components: {
             errorModal: NccModal,
             messageModal: NccModal,
@@ -261,18 +285,36 @@ define(function(require) {
             unclosableMessageModal: NccModal
         },
         computed: {
-            allAccounts: 'this.prepend([${wallet.primaryAccount}], ${wallet.otherAccounts})',
+            allAccounts: function() {
+                return this.prepend([this.get('wallet.primaryAccount')], this.get('wallet.otherAccounts'));
+            },
             nisStatus: function() {
+                if (this.get('status.nccUnavailable')) {
+                    return {
+                        type: 'critical',
+                        message: this.get('texts.common.nisStatus.nccUnavailable')
+                    };
+                }
+
                 if (this.get('status.nisUnavailable')) {
-                    return this.get('texts.common.nisStatus.unavailable');
+                    return {
+                        type: 'critical',
+                        message: this.get('texts.common.nisStatus.unavailable')
+                    };
                 }
 
                 if (!this.get('status.nodeBooted')) {
-                    return this.get('texts.common.nisStatus.notBooted');
+                    return {
+                        type: 'warning',
+                        message: this.get('texts.common.nisStatus.notBooted')
+                    };
                 }
 
                 if (!this.get('nis.nodeMetaData.lastBlockBehind')) {
-                    return '';
+                    return {
+                        type: 'message',
+                        message: this.get('texts.common.nisStatus.synchronized')
+                    };
                 }
 
                 var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
@@ -291,7 +333,10 @@ define(function(require) {
                         break;
                 }
 
-                return this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText);
+                return {
+                    type: 'warning',
+                    message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
+                };
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
@@ -388,7 +433,7 @@ define(function(require) {
             return address.replace(/\-/g, '');
         },
         addThousandSeparators: function(num) {
-            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, '\u2009');
+            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
         },
         minDigits: function(num, digits) {
             num = num.toString(10);
@@ -418,14 +463,19 @@ define(function(require) {
                 var dimmedPart = mNem.substring(cutPos, mNem.length);
                 if (dimmedPart) {
                     if (clearPart) {
-                        return nem + this.consts.decimalMark + clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
+                        return nem + this.get('texts.preferences.decimalSeparator') + clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
                     } else {
-                        return nem + '<span class="dimmed">' + this.consts.decimalMark + dimmedPart + '</span>';
+                        return nem + '<span class="dimmed">' + this.get('texts.preferences.decimalSeparator') + dimmedPart + '</span>';
                     }
                 }
             }
 
-            return nem + this.consts.decimalMark + mNem;
+            return nem + this.get('texts.preferences.decimalSeparator') + mNem;
+        },
+        convertCurrencyToStandard: function(amount) {
+            var thousandSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.thousandSeparator')), 'g');
+            var decimalSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')), 'g');
+            return amount.replace(thousandSeparator, '').replace(decimalSeparator, '.');
         },
         toDate: function(ms) {
             return new Date(ms);
@@ -572,12 +622,12 @@ define(function(require) {
                     {
                         action: 'no',
                         label: ncc.get('texts.modals.confirmDefault.no'),
-                        cssClass: 'secondary'
+                        actionType: 'secondary'
                     },
                     {
                         action: 'yes',
                         label: ncc.get('texts.modals.confirmDefault.yes'),
-                        cssClass: 'primary'
+                        actionType: 'primary'
                     }
                 ]
             });
@@ -783,7 +833,15 @@ define(function(require) {
                 }
 
                 if (!isBack) {
-                    var url = layouts[layouts.length - 1].url + (params? self.toQueryString(params) : location.search);
+                    var queryString = '';
+                    if (params) {
+                        queryString = self.toQueryString(params);
+                    } else if (isInit) {
+                        queryString = location.search;
+                        params = ncc.queryStringToJson(location.search);
+                    }
+                    var url = layouts[layouts.length - 1].url + queryString;
+                    
                     if (isInit) {
                         history.replaceState({ page: page, params: params }, 'entry', url);
                     } else {
@@ -795,9 +853,30 @@ define(function(require) {
 
             loadLayout(page);
         },
-        fill: function(template) {
-            return Mustache.render(template, arguments);
-        },
+        fill: (function() {
+            var htmlDecode = function(str) {
+                var txt = document.createElement('textarea');
+                txt.innerHTML = str;
+                return txt.value;
+            };
+
+            return function(template) {
+                // The first argument could be whether it should return the HTML decoded version
+                if (typeof arguments[0] === 'boolean') {
+                    var decode = arguments[0];
+                    Array.prototype.splice.call(arguments, 0, 1);
+                    template = arguments[0];
+
+                    if (decode) {
+                        return htmlDecode(Mustache.render(template, arguments));
+                    } else {
+                        return Mustache.render(template, arguments);
+                    }
+                } else {
+                    return Mustache.render(template, arguments);
+                }
+            };
+        })(),
         init: function(options) {
             var self = this;
 
@@ -872,7 +951,13 @@ define(function(require) {
             this.set('toDate', this.toDate);
             this.set('daysPassed', this.daysPassed);
             this.set('toNem', this.toNem);
-            var self = this;
+
+            this.global = {
+                $window: $(window),
+                $document: $(document),
+                $html: $('html'),
+                $body: $('body')
+            };
         }
     });
 

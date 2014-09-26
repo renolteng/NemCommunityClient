@@ -1,30 +1,30 @@
-<header id="wallet-page-header">
+<header class="walletHeader">
 	<div class="sidebar-head">
-		<div class="logo vmiddle-container">
+		<div class="sidebar-logo vmiddle-container">
 			<h1 on-click="closeWallet" class="vmiddle"><img src="{{texts.wallet.logo}}" alt="NEM - New Economy Movement" /></h1>
 		</div>
-		<div class="nav-toggler vmiddle-container">
+		<div class="navToggler vmiddle-container">
 			<div class="vmiddle">
 				<button type="button" class="icon-menu" on-click="toggleSidebar"></button>
 			</div>
 		</div>
 	</div>
-	<div class="header-main">
+	<div class="walletHeader-body">
 		<div class="container">
-			<div class="search-area vmiddle-container">
+			<div class="walletHeader-search-wrapper vmiddle-container">
 				<div class="vmiddle">
-					<div class="search-wrapper">
-						<button type="submit" id="search-btn" class="icon-magnifying-glass"></button>
+					<div class="walletHeader-search">
+						<button type="submit" class="walletHeader-searchButton icon-magnifying-glass"></button>
 						<input type="text" />
 					</div>
 				</div>
 			</div>
-			<div class="temp-message vmiddle-container {{#tempMessage.visible}}in{{/}}">
+			<div class="tempMessage vmiddle-container {{#tempMessage.visible}}tempMessage--shown{{/}}">
 				<div class="vmiddle">
-					<p><em>{{tempMessage.message}}</em></p>
+					<p class="tempMessage-body">{{tempMessage.message}}</p>
 				</div>
 			</div>
-			<div class="wallet-area vmiddle-container">
+			<div class="walletBox vmiddle-container">
 				<div class="vmiddle">
 					<!--/*<div class="noti-area">
 						<a href="javascript:;" class="noti-box">4</a>
@@ -51,9 +51,9 @@
 							</div>
 						</div>
 					</div>*/-->
-					<div class="wallet-info">
-						<p><a href="javascript:;" class="wallet-name">{{wallet.name}}</a></p>
-						<p><span class="last-access" title="{{fill(texts.wallet.lastAccessTooltip, wallet.lastRefreshDate)}}" on-mouseover="registerToolTip">{{#wallet.daysPassed}}
+					<div class="walletBox-walletInfo">
+						<p><a href="javascript:;" class="walletBox-walletName">{{wallet.name}}</a></p>
+						<p><span class="walletBox-lastAccess" title="{{fill(texts.wallet.lastAccessTooltip, wallet.lastRefreshDate)}}" on-mouseover="registerToolTip">{{#wallet.daysPassed}}
 							{{#.roundedDays}}
 								{{fill(texts.wallet.lastAccess, .roundedDays)}}
 							{{/}}
@@ -62,10 +62,10 @@
 							{{/}}
 						{{/}}</span></p>
 					</div>
-					<a href="javascript:;"><img class="wallet-ava" src="images/default-avatar.png" alt="{{wallet.name}}" /></a>
-					<div class="setting">
-						<a href="javascript:;" class="button icon-arrow-down-medium" on-click="toggleOn:walletActions"></a>
-						<ul class="dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
+					<img class="walletBox-avatar" src="images/default-avatar.png" alt="{{wallet.name}}" />
+					<div class="walletBox-menu">
+						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn:walletActions"></a>
+						<ul class="walletBox-menu-dropdown dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
 							<li class="dropdownMenu-item" on-click="changeWalletName">
 								{{texts.wallet.actions.changeWalletName}}
 							</li>
@@ -75,7 +75,7 @@
 							<li class="dropdownMenu-item disabled">
 								{{texts.wallet.actions.mergeWallets}}
 							</li>
-							<li class="dropdownMenu-item disabled separator">
+							<li class="dropdownMenu-item disabled dropdownMenu-item--separator">
 								{{texts.wallet.actions.exportWallet}}
 							</li>
 							<li class="dropdownMenu-item" on-click="refreshInfo">
@@ -100,29 +100,29 @@
 		</div>
 	</div>
 </header>
-<div id="wallet-page-main-content" class="{{#active.fullSidebar === true}}full-sidebar{{/}} {{#active.fullSidebar === false}}mini-sidebar{{/}} {{#status.sidebarScrollable}}sidebar-scrollable{{/}}">
-	<div id="wallet-page-sidebar">
+<div class="wallet-main {{#walletPage.miniSidebar === false}}fullSidebar{{/}} {{#walletPage.miniSidebar === true}}miniSidebar{{/}} {{#walletPage.sidebarScrollable}}sidebarScrollable{{/}}">
+	<div class="sidebar">
 		<div>
-			<div class="active account {{#active.accountSelect}}selecting{{/}}">
+			<div class="account account--active {{#active.accountSelect}}account--selecting{{/}}">
 				<div class="account-info" on-click="toggleOn:accountSelect">
 					{{#activeAccount}}
-						<p>
-							<span class="account-id full" id="activeAccountAddress">{{.formattedAddress}}</span>
+						<p class="account-info-line">
+							<span class="account-id fullSidebarOnly" id="activeAccountAddress">{{.formattedAddress}}</span>
 							{{#.address === wallet.primaryAccount.address}}
-								<span class="primary">
-									<span class="full">{{texts.wallet.primary}}</span>
-									<span class="mini">{{texts.wallet.primaryShort}}</span>
+								<span class="account-primary">
+									<span class="fullSidebarOnly">{{texts.wallet.primary}}</span>
+									<span class="miniSidebarOnly">{{texts.wallet.primaryShort}}</span>
 								</span>
 							{{/}}
 						</p>
-						<p class="label {{^.label}}blank{{/}} full">{{.label ? .label : texts.wallet.noLabel}}</p>
+						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{.label ? .label : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
-				<button class="account-actions full {{#active.accountActions}}active{{/}}" on-click="toggleOn:accountActions">
-					<span class="gear icon-gear"></span>
-					<span class="arrow icon-arrow-down-medium"></span>
+				<button class="account-actionsButton fullSidebarOnly {{#active.accountActions}}active{{/}}" on-click="toggleOn:accountActions">
+					<span class="account-actionsButton--gear icon-gear"></span>
+					<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
 				</button>
-				<ul class="dropdownMenu {{^active.accountActions}}hidden{{/}}">
+				<ul class="account-actionsDropdown dropdownMenu {{^active.accountActions}}hidden{{/}}">
 					<li class="dropdownMenu-item" id="addressClipboard" data-clipboard-target="activeAccountAddress">
 						{{texts.wallet.actions.copyClipboard}}
 					</li>
@@ -143,18 +143,18 @@
 					</li>
 				</ul>
 			</div>
-			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}} full" id="accountSelect">
+			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}}" id="accountSelect">
 				<ul>
 					{{#allAccounts}}
-						<li class="account" on-click="switchAccount:{{.address}}">
+						<li class="account account--others" on-click="switchAccount:{{.address}}">
 							<div class="account-info">
-								<p class="account-id">
+								<p class="account-id account-info-line">
 									{{.formattedAddress}}
 								</p>
-								<p class="label {{^.label}}blank{{/}}">
+								<p class="account-info-line account-label {{^.label}}account-label--blank{{/}}">
 									{{.label ? .label : texts.wallet.noLabel}}
 									{{#.address === wallet.primaryAccount.address}}
-										<span class="primary">{{texts.wallet.primary}}</span>
+										<span class="account-primary">{{texts.wallet.primary}}</span>
 									{{/}}
 								</p>
 							</div>
@@ -163,80 +163,99 @@
 				</ul>
 			</div>
 		</div>
-		<nav>
+		<nav class="sidebar-nav" on-load="registerScrollableSidebar">
 			<ul>
-				<li class="{{#layout.1.name === 'dashboard'}}active{{/}}"><a href="javascript:;" on-click="redirect:'dashboard', {{params}}">
-					<span class="item-title icon-home"><span class="full">{{texts.wallet.nav.0}}</span></span>
+				<li class="sidebar-nav-item {{#layout.1.name === 'dashboard'}}active{{/}}"><a href="javascript:;" on-click="redirect:'dashboard', {{params}}">
+					<span class="sidebar-nav-item-title icon-home"><span class="fullSidebarOnly">{{texts.wallet.nav.0}}</span></span>
 				</a></li>
-				<li class="disabled {{#layout.1.name === 'messages'}}active{{/}}"><a href="javascript:;" on-click="redirect:'messages', {{params}}">
-					<span class="item-title icon-envelope"><span class="full">{{texts.wallet.nav.1}}</span></span>
+				<li class="sidebar-nav-item disabled {{#layout.1.name === 'messages'}}active{{/}}"><a href="javascript:;" on-click="redirect:'messages', {{params}}">
+					<span class="sidebar-nav-item-title icon-envelope"><span class="fullSidebarOnly">{{texts.wallet.nav.1}}</span></span>
 					<!--/*</span><span class="noti-box messages">4</span>*/-->
 				</a></li>
-				<li class="disabled {{#layout.1.name === 'contacts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'contacts', {{params}}">
-					<span class="item-title icon-users"><span class="full">{{texts.wallet.nav.2}}</span></span>
+				<li class="sidebar-nav-item disabled {{#layout.1.name === 'contacts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'contacts', {{params}}">
+					<span class="sidebar-nav-item-title icon-users"><span class="fullSidebarOnly">{{texts.wallet.nav.2}}</span></span>
 				</a></li>
-				<li class="{{#layout.1.name === 'transactions'}}active{{/}}"><a href="javascript:;" on-click="redirect:'transactions', {{params}}">
-					<span class="item-title icon-transaction"><span class="full">{{texts.wallet.nav.3}}</span></span>
+				<li class="sidebar-nav-item {{#layout.1.name === 'transactions'}}active{{/}}"><a href="javascript:;" on-click="redirect:'transactions', {{params}}">
+					<span class="sidebar-nav-item-title icon-transaction"><span class="fullSidebarOnly">{{texts.wallet.nav.3}}</span></span>
 					<!--/*</span><span class="noti-box transactions">2</span>*/-->
 				</a></li>
-				<li class="{{#layout.1.name === 'harvested-blocks'}}active{{/}}"><a href="javascript:;" on-click="redirect:'harvested-blocks', {{params}}">
-					<span class="item-title icon-harvest"><span class="full">{{texts.wallet.nav.4}}</span></span>
+				<li class="sidebar-nav-item {{#layout.1.name === 'harvested-blocks'}}active{{/}}"><a href="javascript:;" on-click="redirect:'harvested-blocks', {{params}}">
+					<span class="sidebar-nav-item-title icon-harvest"><span class="fullSidebarOnly">{{texts.wallet.nav.4}}</span></span>
 					<!--/*</span><span class="noti-box transactions">2</span>*/-->
 				</a></li>
-				<li class="disabled {{#layout.1.name === 'assetExchange'}}active{{/}}"><a href="javascript:;" on-click="redirect:'assetExchange', {{params}}">
-					<span class="item-title icon-portfolio"><span class="full">{{texts.wallet.nav.5}}</span></span>
+				<li class="sidebar-nav-item disabled {{#layout.1.name === 'assetExchange'}}active{{/}}"><a href="javascript:;" on-click="redirect:'assetExchange', {{params}}">
+					<span class="sidebar-nav-item-title icon-portfolio"><span class="fullSidebarOnly">{{texts.wallet.nav.5}}</span></span>
 				</a></li>
-				<li class="disabled {{#layout.1.name === 'news'}}active{{/}}"><a href="javascript:;" on-click="redirect:'news', {{params}}">
-					<span class="item-title icon-sound"><span class="full">{{texts.wallet.nav.6}}</span></span>
+				<li class="sidebar-nav-item disabled {{#layout.1.name === 'news'}}active{{/}}"><a href="javascript:;" on-click="redirect:'news', {{params}}">
+					<span class="sidebar-nav-item-title icon-sound"><span class="fullSidebarOnly">{{texts.wallet.nav.6}}</span></span>
 					<!--/*</span><span class="noti-box news">6</span>*/-->
 				</a></li>
-				<li class="disabled {{#layout.1.name === 'applications'}}active{{/}}"><a href="javascript:;" on-click="redirect:'applications', {{params}}">
-					<span class="item-title icon-grid-alt"><span class="full">{{texts.wallet.nav.7}}</span></span>
+				<li class="sidebar-nav-item disabled {{#layout.1.name === 'applications'}}active{{/}}"><a href="javascript:;" on-click="redirect:'applications', {{params}}">
+					<span class="sidebar-nav-item-title icon-grid-alt"><span class="fullSidebarOnly">{{texts.wallet.nav.7}}</span></span>
 				</a></li>
-				<li class="disabled {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
-					<span class="item-title icon-user"><span class="full">{{texts.wallet.nav.8}}</span></span>
+				<li class="sidebar-nav-item disabled {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
+					<span class="sidebar-nav-item-title icon-user"><span class="fullSidebarOnly">{{texts.wallet.nav.8}}</span></span>
 				</a></li>
-				<li class="{{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="redirect:'settings', {{params}}">
-					<span class="item-title icon-gear"><span class="full">{{texts.wallet.nav.9}}</span></span>
+				<li class="sidebar-nav-item {{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="redirect:'settings', {{params}}">
+					<span class="sidebar-nav-item-title icon-gear"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
 				</a></li>
-				<li><a href="javascript:;" on-click="shutdown">
-					<span class="item-title icon-close"><span class="full">{{texts.wallet.nav.10}}</span></span>
+				<li class="sidebar-nav-item"><a href="javascript:;" on-click="shutdown">
+					<span class="sidebar-nav-item-title icon-close"><span class="fullSidebarOnly">{{texts.wallet.nav.10}}</span></span>
 				</a></li>
 			</ul>
 		</nav>
 	</div>
 	{{#layout.1.name}}{{>1}}{{/}}
 </div>
-<sendNemModal modalClass="sendNem" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}">
-	<div class="form-control amount">
-		<input type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{formattedAmount}}" on-keypress="sendFormKeypress" /><span class="unit">NEM</span>
+<sendNemModal modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}">
+	<div class="sendNem-control sendNem-control--amount sendNem-row sendNem-block">
+		<span class="sendNem-control-unit unit">NEM</span>
+		<div class="restOfWidth">
+			<input class="sendNem-textbox js-sendNem-amount-textbox" type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+		</div>
 	</div>
-	<input type="text" placeholder="{{texts.modals.sendNem.recipient}}" class="recipient form-control" on-keypress="sendFormKeypress" data-mask="AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA" value="{{formattedRecipient}}" />
-	<p class="recipient-label">
-		{{#recipientLabel}}
-			{{{fill(texts.modals.sendNem.labelDesc, recipientLabel)}}}
-		{{/}}
-		{{#recipientLabel === ''}}
-			{{texts.modals.sendNem.nullLabelDesc}}
-		{{/}}
-	</p>
-	<textarea placeholder="{{texts.modals.sendNem.message}}" class="form-control" value="{{rawMessage}}"></textarea>
-	<div class="encrypt">
-		<input type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" />
+	<div class="sendNem-block">
+		<input class="sendNem-control sendNem-textbox sendNem-textbox--recipient js-sendNem-recipient-textbox" type="text" placeholder="{{texts.modals.sendNem.recipient}}" on-keypress="sendFormKeypress" value="{{formattedRecipient}}" />
+		<p class="sendNem-recipientLabel">
+			{{#recipientLabel}}
+				{{{fill(true, texts.modals.sendNem.labelDesc, '<strong>' + recipientLabel + '</strong>')}}}
+			{{/}}
+			{{#recipientLabel === ''}}
+				{{texts.modals.sendNem.nullLabelDesc}}
+			{{/}}
+		</p>
+	</div>
+	<div class="sendNem-block">
+		<textarea placeholder="{{texts.modals.sendNem.message}}" class="sendNem-control sendNem-textbox sendNem-textbox--message" value="{{rawMessage}}"></textarea>
+		<input class="sendNem-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" />
 		<label for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
 	</div>
-	<div class="row">
-		<div class="form-control fee">
-			<label>{{texts.modals.sendNem.fee}}</label><span class="unit">NEM</span><input value="{{formattedFee}}" on-keypress="sendFormKeypress" />
+	<div class="sendNem-block">
+		<div class="sendNem-row">
+			<div class="sendNem-control sendNem-control--fee sendNem-control--half">
+				<label class="sendNem-label">{{texts.modals.sendNem.fee}}</label>
+				<div class="restOfWidth">
+					<span class="sendNem-control-unit unit">NEM</span>
+					<div class="restOfWidth">
+						<input class="sendNem-textbox sendNem-textbox--fee js-sendNem-fee-textbox" value="{{formattedFee}}" on-keypress="sendFormKeypress" />
+					</div>
+				</div>
+			</div>
+			<div class="sendNem-control sendNem-control--dueBy sendNem-control--half">
+				<label class="sendNem-label">{{texts.modals.sendNem.dueBy}}</label>
+				<div class="restOfWidth">
+					<span class="sendNem-control-unit unit">{{texts.modals.sendNem.hours}}</span>
+					<div class="restOfWidth">
+						<input class="sendNem-textbox sendNem-textbox--dueBy" value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="form-control due-by">
-			<label>{{texts.modals.sendNem.dueBy}}</label><span class="unit">{{texts.modals.sendNem.hours}}</span><input value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
-		</div>
+		<a href="javascript:;" class="sendNem-setFeeButton" on-click="resetFee">{{texts.modals.sendNem.resetFee}}</a>
 	</div>
-	<a href="javascript:;" class="set-fee" on-click="resetFee">{{texts.modals.sendNem.resetFee}}</a>
-	<input type="password" placeholder="{{texts.modals.sendNem.password}}" class="form-control" value="{{password}}" on-keypress="sendFormKeypress" />
-	<div class="submit">
-		<button type="button" class="modal-button {{#processing}}disabled{{/}}" on-click="sendTransaction">
+	<input class="sendNem-control sendNem-textbox sendNem-block" type="password" placeholder="{{texts.modals.sendNem.password}}" value="{{password}}" on-keypress="sendFormKeypress" />
+	<div class="sendNem-submit sendNem-block">
+		<button type="button" class="sendNem-submit-button modal-button {{#processing}}disabled{{/}}" on-click="sendTransaction">
 			{{^processing}}
 				{{texts.modals.sendNem.send}}
 			{{/}}
@@ -246,13 +265,13 @@
 		</button>
 	</div>
 </sendNemModal>
-<clientInfoModal modalClass="clientInfo wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}">
+<clientInfoModal modalClass="clientInfoModal modal--wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}">
 	<div class="logo">
 		<img src="images/nem_logo.png" alt="NEM - New Economy Movement">
 	</div>
-	<div class="info">
-		<div class="ncc-info">
-			<div class="block">
+	<div class="clientInfo-content">
+		<div class="clientInfo-ncc">
+			<div class="clientInfo-block">
 				<p><strong>{{texts.modals.clientInfo.ncc}}</strong></p>
 				{{#loadingNcc}}
 					<p>{{texts.modals.clientInfo.loading}}</p>
@@ -260,16 +279,16 @@
 				<p>{{ncc.metaData.version}}</p>
 			</div>
 			{{^loadingNcc}}
-				<div class="block">
+				<div class="clientInfo-block">
 					<p><strong>{{texts.modals.clientInfo.signer}}</strong> {{ncc.metaData.signer || 'N/A'}}</p>
 				</div>
-				<div class="block">
+				<div class="clientInfo-block">
 					<p><strong>{{texts.modals.clientInfo.remoteServer}}</strong> {{ncc.remoteServer || texts.modals.clientInfo.local}}</p>
 				</div>
 			{{/}}
 		</div>
-		<div class="nis-info">
-			<div class="block">
+		<div class="clientInfo-nis">
+			<div class="clientInfo-block">
 				<p><strong>{{texts.modals.clientInfo.nis}}</strong></p>
 				{{#loadingNis}}
 					<p>{{texts.modals.clientInfo.loading}}</p>
@@ -277,10 +296,10 @@
 				<p>{{nis.nodeInfo.nisInfo.version}}</p>
 			</div>
 			{{^loadingNis}}
-				<div class="block">
+				<div class="clientInfo-block">
 					<p><strong>{{texts.modals.clientInfo.signer}}</strong> {{nis.nodeInfo.nisInfo.signer || 'N/A'}}</p>
 				</div>
-				<div class="block">
+				<div class="clientInfo-block">
 					<p>
 						<strong>
 							{{#nis.nodeMetaData.maxBlockChainHeight !== -1}}
@@ -301,53 +320,53 @@
 		</div>
 	</div>
 </clientInfoModal>
-<transactionDetailsModal modalClass="transaction-details wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
+<transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
 	{{#transaction}}
 		<table>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.id}}</td>
-				<td class="value">{{.id}}</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.id}}</td>
+				<td class="txDetails-cell--content">{{.id}}</td>
 			</tr>
             <tr>
-                <td class="title">{{texts.modals.transactionDetails.hash}}</td>
-                <td class="value">{{.hash}}</td>
+                <td class="txDetails-cell--label">{{texts.modals.transactionDetails.hash}}</td>
+                <td class="txDetails-cell--content">{{.hash}}</td>
             </tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.type}}</td>
-				<td class="value">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="txDetails-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.sender}}</td>
-				<td class="value">{{formattedSender}}</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.sender}}</td>
+				<td class="txDetails-cell--content">{{formattedSender}}</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.recipient}}</td>
-				<td class="value">{{formattedRecipient}}</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
+				<td class="txDetails-cell--content">{{formattedRecipient}}</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.message}}</td>
-				<td class="value">
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.message}}</td>
+				<td class="txDetails-cell--content">
 					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.type}}</span>{{/}}
 					{{#.encrypted}}
-						&nbsp;<span class="icon-lock encrypted" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+						&nbsp;<span class="icon-lock txDetails-encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
 					{{/}}
 				</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.time}}</td>
-				<td class="value">{{formattedDate}}</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.time}}</td>
+				<td class="txDetails-cell--content">{{formattedDate}}</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.confirmations}}</td>
-				<td class="value">{{.confirmations}}</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
+				<td class="txDetails-cell--content">{{.confirmations}}</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="value">{{{formatCurrency(.amount, false)}}} NEM</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
+				<td class="txDetails-cell--content">{{{formatCurrency(.amount, false)}}} NEM</td>
 			</tr>
 			<tr>
-				<td class="title">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="value">{{{formatCurrency(.fee, false)}}} NEM</td>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
+				<td class="txDetails-cell--content">{{{formatCurrency(.fee, false)}}} NEM</td>
 			</tr>
 		</table>
 	{{/}}

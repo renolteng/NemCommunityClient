@@ -2,6 +2,10 @@
                 id: 'ru',
                 name: 'Русский',
                 texts: {
+                  preferences: {
+                    thousandSeparator: '\u2009',
+                    decimalSeparator: '.'
+                  },
                             faults: {
                 101: 'Файл не найден.',
                 102: 'Кошелёк не создан.',
@@ -35,6 +39,7 @@
             common: {
                     success: 'Успешно', //title of the Success message modals
                     nisStatus: {
+                                nccUnavailable: 'NCC is not available',
                                 unavailable: 'NIS не доступен',
                                 notBooted: 'NIS требует перезагрузки. Пожалуйста, откройте кошелёк и загрузитесь как локальный узел через всплывающий диалог.',
                                 synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
@@ -42,7 +47,8 @@
                                     0: 'less than 1 day',
                                     1: '1 day',
                                     many: '{{1}} days'
-                                }
+                                },
+                                synchronized: 'NIS is synchronized!'
                     }
             },
                             modals: {
@@ -56,7 +62,7 @@
                                        },
                                        sendNem: {
                                                    title: 'Послать NEM',
-                                                   labelDesc: 'Этот аккаунт маркирован как <strong>{{1}}</strong>',
+                                                   labelDesc: 'Этот аккаунт маркирован как {{1}}',
                                                    nullLabelDesc: "Этот аккаунт не имеет маркировки",
                                                    amount: 'Сумма',
                                                    recipient: "Аккаунт получателя",
@@ -195,9 +201,9 @@
                                        logo: 'images/nem_logo.png',
                                        importSuccess: 'Кошелёк успешно импортирован!',
                                        nav: {
-                                                   start: '<strong>Введение</strong>',
-                                                   about: 'О <strong>NEM</strong>',
-                                                   help: '<strong>Помощь</strong>'
+                                                   start: 'Введение',
+                                                   about: 'О NEM',
+                                                   help: 'Помощь'
                                        },
                                        main: {
                                                    leftTitle: 'Новичок в <em>NEM</em>?',

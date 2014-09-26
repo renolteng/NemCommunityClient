@@ -2,6 +2,10 @@
 	id: 'lt',
 	name: 'Lietuviškai',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Byla nerasta.',
             102: 'Pinigine nesukurta.',
@@ -35,6 +39,7 @@
         common: {
         	success: 'Pavyko', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS nera paleistas',
         		notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
         		synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
@@ -42,7 +47,8 @@
                     0: 'mažiau kaip 1 diena',
                     1: '1 diena',
                     many: '{{1}} dienos'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -56,7 +62,7 @@
 			},
 			sendNem: {
 				title: 'Siusti NEM',
-				labelDesc: 'Ši saskaita pavadinta kaip <strong>{{1}}</strong>',
+				labelDesc: 'Ši saskaita pavadinta kaip {{1}}',
 				nullLabelDesc: "Ši saskaita neturi pavadinimo",
 				amount: 'Suma',
 				recipient: "Gavejo saskaita",
@@ -195,9 +201,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Pinigine importuota sekmingai!',
 			nav: {
-				start: '<strong>Pradžiamokslis</strong>',
-				about: 'Apie <strong>NEM</strong>',
-				help: '<strong>Pagalba</strong>'
+				start: 'Pradžiamokslis',
+				about: 'Apie NEM',
+				help: 'Pagalba'
 			},
 			main: {
 				leftTitle: 'Esate pirma karta <em>NEM</em>?',
@@ -275,7 +281,7 @@
 				removeAccount: 'Pašalinti saskaita',
 				clientInfo: 'Programos informacija',
 				closeWallet: 'Uždaryti pinigine',
-				closeProgram: 'Uždaryti programa'
+				closeProgram: 'Uždaryti programa',
 				copyClipboard: 'Kopijuoti adresa i laikinaja atminti'
 			},
 			nav: [

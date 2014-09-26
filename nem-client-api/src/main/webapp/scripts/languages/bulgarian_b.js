@@ -2,6 +2,10 @@
 	id: 'bg',
 	name: 'Български',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Файлът не е намерен',
             102: 'Портфейлът не е създаден.',
@@ -35,6 +39,7 @@
         common: {
         	success: 'Успешно', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC е недостъпен',
         		unavailable: 'NIS е недостъпен',
         		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
@@ -42,7 +47,8 @@
         			0: 'по малко от 1 ден',
         			1: '1 ден',
         			many: '{{1}} дни'
-        		}	
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -56,7 +62,7 @@
 			},
 			sendNem: {
 				title: 'Изпрати NEM',
-				labelDesc: 'Този акаунт е маркиран като <strong>{{1}}</strong>',
+				labelDesc: 'Този акаунт е маркиран като {{1}}',
 				nullLabelDesc:"Този акаунт не е маркиран",
 				amount: 'Сума',
 				recipient: "Акаунт на Получателя",
@@ -195,9 +201,9 @@
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Портфейлът беше успешно импортнат!',
 			nav: {
-				start: '<strong>Първи стъпки</strong>',
-				about: 'Относно <strong>NEM</strong>',
-				help: '<strong>Помощ</strong>'
+				start: 'Първи стъпки',
+				about: 'Относно NEM',
+				help: 'Помощ'
 			},
 			main: {
 				leftTitle: 'Нов за <em>NEM</em>?',
@@ -283,7 +289,7 @@
 				'Съобщения',
 				'Контакти',
 				'Транзакции',
-				'Събрани блокове',
+				'Генерирани блокове',
 			 	'Обмен на активи',
 				'Новини',
 				'Приложения',

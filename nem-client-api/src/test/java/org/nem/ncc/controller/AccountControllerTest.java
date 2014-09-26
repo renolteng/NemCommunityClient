@@ -39,7 +39,7 @@ public class AccountControllerTest {
 				.thenReturn(originalAccountViewModel);
 
 		// Act:
-		final AccountTimeStampRequest request = new AccountTimeStampRequest(account.getAddress(), null);
+		final AccountIdRequest request = new AccountIdRequest(account.getAddress());
 		final AccountViewModel accountViewModel = context.controller.getAccountInfo(request);
 
 		// Assert:
@@ -200,7 +200,6 @@ public class AccountControllerTest {
 		final TestContext context = new TestContext();
 		Mockito.when(context.accountMapper.toViewModel(account.getAddress()))
 				.thenReturn(createViewModel(account));
-		context.setLastBlockHeight(34);
 
 		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), null);
 		final List<Transaction> pairs = Arrays.asList(
@@ -215,8 +214,7 @@ public class AccountControllerTest {
 		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
 		// Assert:
-		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getUnconfirmedTransactions(account.getAddress());
+		Mockito.verify(context.accountServices, Mockito.times(1)).getUnconfirmedTransactions(account.getAddress());
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
@@ -226,6 +224,24 @@ public class AccountControllerTest {
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0L, 0L, 0L)));
+	}
+
+	@Test
+	public void getAccountTransactionsUnconfirmedReturnsEmptyListWhenHashIsProvided() {
+		// Arrange:
+		final Account account = Utils.generateRandomAccount();
+		final TestContext context = new TestContext();
+
+		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
+				.thenReturn(Arrays.asList(createTransfer(account, Amount.fromNem(572))));
+
+		// Act:
+		final AccountTransactionsPair pair = context.controller.getAccountTransactionsUnconfirmed(request);
+
+		// Assert:
+		Mockito.verify(context.accountServices, Mockito.times(0)).getUnconfirmedTransactions(Mockito.any());
+		Assert.assertThat(pair.getTransactions().size(), IsEqual.equalTo(0));
 	}
 
 	//endregion
@@ -293,42 +309,23 @@ public class AccountControllerTest {
 	//region getAccountHarvests
 
 	@Test
-	public void getAccountHarvestsWithoutTimeStampFilterDelegatesToNisConnector() {
-		// Assert:
-		final Address address = Address.fromEncoded("TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5");
-		assertHarvestConnectorRequest(
-				new AccountTimeStampRequest(address, null),
-				"address=TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5");
-	}
-
-	@Test
-	public void getAccountHarvestsWithTimeStampFilterDelegatesToNisConnector() {
-		// Assert:
-		final Address address = Address.fromEncoded("TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5");
-		assertHarvestConnectorRequest(
-				new AccountTimeStampRequest(address, SystemTimeProvider.getEpochTimeMillis() + 11 * 1000),
-				"address=TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5&timeStamp=11");
-	}
-
-	private static void assertHarvestConnectorRequest(
-			final AccountTimeStampRequest atsRequest,
-			final String queryString) {
+	public void getAccountHarvestsDelegatesToAccountServices() {
 		// Arrange:
+		final AccountHashRequest ahRequest = new AccountHashRequest(Utils.generateRandomAddress(), Utils.generateRandomHash());
 		final TestContext context = new TestContext();
-		final SerializableList<HarvestInfo> originalHarvestInfos = new SerializableList<>(Arrays.asList(
+		final List<HarvestInfo> originalHarvestInfos = Arrays.asList(
 				new HarvestInfo(Hash.ZERO, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO),
 				new HarvestInfo(Hash.ZERO, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(Hash.ZERO, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO)
-		));
+				new HarvestInfo(Hash.ZERO, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO));
 
-		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString))
-				.thenReturn(new JsonDeserializer(JsonSerializer.serializeToJson(originalHarvestInfos), null));
+		Mockito.when(context.accountServices.getAccountHarvests(ahRequest.getAccountId(), ahRequest.getHash()))
+				.thenReturn(originalHarvestInfos);
 
 		// Act:
-		final SerializableList<HarvestInfoViewModel> harvestInfos = context.controller.getAccountHarvests(atsRequest);
+		final SerializableList<HarvestInfoViewModel> harvestInfos = context.controller.getAccountHarvests(ahRequest);
 
 		// Assert:
-		Mockito.verify(context.connector, Mockito.times(1)).get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
+		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountHarvests(ahRequest.getAccountId(), ahRequest.getHash());
 		Assert.assertThat(
 				harvestInfos.asCollection().stream().map(HarvestInfoViewModel::getBlockHeight).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(new BlockHeight(7), new BlockHeight(5), new BlockHeight(9))));

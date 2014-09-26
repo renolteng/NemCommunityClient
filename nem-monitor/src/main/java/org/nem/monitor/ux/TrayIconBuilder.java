@@ -10,6 +10,7 @@ import org.nem.monitor.visitors.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
@@ -27,6 +28,7 @@ public class TrayIconBuilder {
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
 	private final WebStartLauncher webStartLauncher;
 	private final WebBrowser webBrowser;
+	private final boolean isStartedViaWebStart;
 	private final TrayIcon trayIcon;
 	private final Dimension dimension;
 	private final PopupMenu popup;
@@ -38,14 +40,18 @@ public class TrayIconBuilder {
 	 *
 	 * @param client The http method client.
 	 * @param webStartLauncher The web start launcher.
+	 * @param webBrowser The web browser.
+	 * @param isStartedViaWebStart true if the program was started via webstart.
 	 */
 	public TrayIconBuilder(
 			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
 			final WebStartLauncher webStartLauncher,
-			final WebBrowser webBrowser) {
+			final WebBrowser webBrowser,
+			final boolean isStartedViaWebStart) {
 		this.client = client;
 		this.webStartLauncher = webStartLauncher;
 		this.webBrowser = webBrowser;
+		this.isStartedViaWebStart = isStartedViaWebStart;
 
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
@@ -69,6 +75,7 @@ public class TrayIconBuilder {
 	 * Adds status menu items for the specified node policy.
 	 *
 	 * @param nodePolicy The node policy.
+	 * @param jnlpUrl The webstart url.
 	 */
 	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String jnlpUrl) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
@@ -91,11 +98,15 @@ public class TrayIconBuilder {
 		this.popup.add(actionMenuItem);
 		if (nodePolicy.hasBrowserGui()) {
 			final MenuItem launchMenuItem = new MenuItem(String.format(LanguageSupport.message("menu.open.in.browser"), nodePolicy.getNodeType()));
-			launchMenuItem.addActionListener(e -> this.webStartLauncher.launch(jnlpUrl));
+			launchMenuItem.addActionListener(e -> manager.launchBrowser());
 			this.popup.add(launchMenuItem);
 		}
 
 		actionMenuItem.addActionListener(actionAdapter);
+		if (this.isStartedViaWebStart) {
+			// simulate a click, which will trigger a webstart launch
+			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+		}
 
 		this.visitors.add(visitor);
 		this.visitors.add(actionAdapter);

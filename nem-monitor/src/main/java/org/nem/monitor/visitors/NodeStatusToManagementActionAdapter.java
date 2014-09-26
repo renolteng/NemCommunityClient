@@ -48,6 +48,7 @@ public class NodeStatusToManagementActionAdapter implements NodeStatusVisitor, A
 				this.manager.shutdown();
 				break;
 
+			case UNKNOWN:
 			case STOPPED:
 				this.isExplicitlyLaunched = true;
 				this.manager.launch();

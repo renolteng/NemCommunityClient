@@ -55,7 +55,8 @@ public class NemMonitor {
 			final TrayIconBuilder builder = new TrayIconBuilder(
 					createHttpMethodClient(),
 					launcher,
-					new WebBrowser());
+					new WebBrowser(),
+					isStartedViaWebStart());
 			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
 			builder.addSeparator();
 			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
@@ -67,11 +68,6 @@ public class NemMonitor {
 				tray.add(builder.create());
 			} catch (final AWTException e) {
 				throw new SystemTrayException("Unable to add icon to system tray", e);
-			}
-
-			if (isStartedViaWebStart()) {
-				launcher.launch(commandLine.getNccJnlpUrl());
-				launcher.launch(commandLine.getNisJnlpUrl());
 			}
 		});
 	}

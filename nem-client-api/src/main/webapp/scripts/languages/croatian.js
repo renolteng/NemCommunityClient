@@ -2,6 +2,10 @@ define({
 	id: 'hr',
 	name: 'hrvatski',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'Datoteka nije pronađena.',
             102: 'Novčanik nije stvoren.',
@@ -35,14 +39,16 @@ define({
         common: {
         	success: 'Uspjeh', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS je nedostupan',
         		notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
-        		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.'
+        		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
         		daysBehind: {
         			0: 'manje od 1 dan',
         			1: '1 dan',
         			many: '{{1}} dana'
-        		}        		
+        		},
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -56,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'Slanje NEMa',
-				labelDesc: 'Ovaj račun je označen kao <strong>{{1}}</strong>',
+				labelDesc: 'Ovaj račun je označen kao {{1}}',
 				nullLabelDesc: "Ovaj račun nema oznake",
 				amount: 'Iznos',
 				recipient: "Račun primatelja",
@@ -195,9 +201,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Novčanik je uspješno uvezen!',
 			nav: {
-				start: '<strong>Početak</strong>',
-				about: 'O <strong>NEM</strong>',
-				help: '<strong>Pomoć</strong>'
+				start: 'Početak',
+				about: 'O NEM',
+				help: 'Pomoć'
 			},
 			main: {
 				leftTitle: 'Novi  <em>NEM</em> korisnik?',

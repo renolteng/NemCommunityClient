@@ -66,8 +66,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                     content: accountLabel
                                 } :
                                 {
-                                    isHtml: true,
-                                    content: ncc.get('texts.modals.bootLocalNode.noLabel')
+                                    content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                    nullContent: true
                                 }
                         }, 
                         {
@@ -117,6 +117,21 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     ncc.get('texts.modals.bootLocalNode.booting')
                 );
             };
+
+            ncc.on('registerScrollableSidebar', function(e) {
+                var $sidebarNav = $(e.node);
+                var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
+                var decideSidebarScrollability = function() {
+                    if (navBottom > global.$window.height()) {
+                        ncc.set('walletPage.sidebarScrollable', true);
+                    } else {
+                        ncc.set('walletPage.sidebarScrollable', false);
+                    }
+                };
+
+                global.$window.on('resize.scrollableSidebar', decideSidebarScrollability);
+                decideSidebarScrollability();
+            });
         },
         initEverytime: function(params) {
             var wallet = (params && params.wallet) || ncc.getUrlParam('wallet');
@@ -143,6 +158,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
         },
         setupEverytime: function() {
             var local = this.local;
+            var global = ncc.global;
 
             require(['zeroClipboard'], function(ZeroClipboard) {
                 local.client = new ZeroClipboard($('#addressClipboard'));
@@ -156,7 +172,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
 
             local.listeners.push(ncc.on({
                 toggleSidebar: function() {
-                    ncc.set('active.fullSidebar', !ncc.get('active.fullSidebar'));
+                    ncc.set('walletPage.miniSidebar', !ncc.get('walletPage.miniSidebar'));
                 },
                 openSendNem: function() {
                     if (ncc.get('status.nodeBooted')) {
@@ -186,8 +202,9 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     modal.set('loadingNis', true);
                     ncc.getRequest('info/nis',
                         function(data) {
+                        	var lastBlockBehind = (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60;
                             ncc.set('nis', data);
-                            ncc.set('nis.nodeMetaData.lastBlockBehind', (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60);
+                            ncc.set('nis.nodeMetaData.lastBlockBehind', lastBlockBehind < 0? 0 : lastBlockBehind);
                         },
                         {
                             complete: function() {
@@ -340,8 +357,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         content: accountLabel
                                     } :
                                     {
-                                        isHtml: true,
-                                        content: ncc.get('texts.modals.setPrimary.noLabel')
+                                        content: ncc.get('texts.modals.setPrimary.noLabel'),
+                                        nullContent: true
                                     }
                             }, 
                             {
@@ -610,22 +627,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }
             }));
 
-            (function() {
-                var $win = $(window);
-                var $sidebarNav = $('#wallet-page-sidebar nav');
-                var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
-                var decideSidebarScrollability = function() {
-                    if (navBottom > $win.height()) {
-                        ncc.set('status.sidebarScrollable', true);
-                    } else {
-                        ncc.set('status.sidebarScrollable', false);
-                    }
-                };
-
-                $win.on('resize.scrollableSidebar', decideSidebarScrollability);
-                decideSidebarScrollability();
-            })();
-
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             if (!ncc.get('status.nodeBooted')) {
@@ -649,32 +650,59 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             }
 
             require(['maskedinput'], function() {
-                var pattern1 = '#\u2009##0d';
-                var pattern2 = '#\u2009##0.999999';
-                var options = {
-                    translation: {
+                var pattern1 = function() {
+                    return '#' + ncc.get('texts.preferences.thousandSeparator') + '##0d';
+                };
+                var pattern2 = function() {
+                    return '#' + ncc.get('texts.preferences.thousandSeparator') + '##0' +
+                        ncc.get('texts.preferences.decimalSeparator') + '999999';
+                };
+
+                var dPatternRecalc = function(options) {
+                    options.translation = {
                         'd': {
-                            pattern: /\./,
+                            pattern: new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator'))),
                             optional: true
                         }
-                    },
+                    };
+                };
+                var options = {
                     onKeyPress: function(amount, e, currentField, options) {
-                        if (amount.indexOf('.') === -1) {
-                            $amount.mask(pattern1, this);
+                        dPatternRecalc(options);
+                        if (!onPattern1) {
+                            if (amount.indexOf(ncc.get('texts.preferences.decimalSeparator')) === -1) {
+                                $amount.mask(pattern1(), options);
+                                $fee.mask(pattern1(), options);
+                                onPattern1 = true;
+                            }
                         } else {
-                            $amount.mask(pattern2, this);
+                            if (amount.indexOf(ncc.get('texts.preferences.decimalSeparator')) !== -1) {
+                                $amount.mask(pattern2(), options);
+                                $fee.mask(pattern2(), options);
+                                onPattern1 = false;
+                            }
                         }
                     },
                     maxlength: false,
                     reverse: true
                 };
+                
+                var $recipient = $('.js-sendNem-recipient-textbox');
+                $recipient.mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
 
-                var $amount = $('.form-control.amount input');
-                var $fee = $('.form-control.fee input');
-
-                $amount.mask(pattern1, options);
-                $fee.mask(pattern1, options);
-
+                var onPattern1 = true;
+                var $amount = $('.js-sendNem-amount-textbox');
+                var $fee = $('.js-sendNem-fee-textbox');
+                local.listeners.push(ncc.observe('texts.preferences', function(preferences) {
+                    dPatternRecalc(options);
+                    if (onPattern1) {
+                        $amount.mask(pattern1(), options);
+                        $fee.mask(pattern1(), options);
+                    } else {
+                        $amount.mask(pattern2(), options);
+                        $fee.mask(pattern2(), options);
+                    }
+                }));
             });
         },
         leave: [function() {

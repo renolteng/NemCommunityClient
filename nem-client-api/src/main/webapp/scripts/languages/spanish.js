@@ -2,6 +2,10 @@ define({
            id: 'es',
            name: 'Spanish',
            texts: {
+            preferences: {
+              thousandSeparator: '\u2009',
+              decimalSeparator: '.'
+            },
                faults: {
                    //101: 'File not found.',
                    101: 'Archivo no encontrado.',
@@ -64,13 +68,15 @@ define({
                    //success: 'Success', //title of the Success message modals
                    success: '&Eacute;xito', //title of the Success message modals
                    nisStatus: {
+                       nccUnavailable: 'NCC is not available',
                        //unavailable: 'NIS is not available',
                        unavailable: 'NIS no esta disponible',
                        //notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
                        notBooted: 'NIS requiere ser iniciado. Por favor, abra el monedero e inicie un nodo local',
                        //synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} days behind.'
                        synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.'
-                   }
+                   },
+                   synchronized: 'NIS is synchronized!'
                },
                modals: {
                    error: {
@@ -88,8 +94,8 @@ define({
                    sendNem: {
                        //title: 'Send NEM'
                        title: 'Enviar NEM',
-                       //labelDesc: 'This account is labeled as <strong>{{1}}</strong>',
-                       labelDesc: 'Esta cuenta est&aacute; etiquetada como <strong>{{1}}</strong>',
+                       //labelDesc: 'This account is labeled as {{1}}',
+                       labelDesc: 'Esta cuenta est&aacute; etiquetada como {{1}}',
                        //nullLabelDesc: "This account doesn't have a label",
                        nullLabelDesc: "Esta cuenta no est&aacute; etiquetada.",
                        //amount: 'Amount',
@@ -330,12 +336,12 @@ define({
                    //importSuccess: 'Wallet has been sucessfully imported!',
                    importSuccess: 'El monedero ha sido importado exitosamente!',
                    nav: {
-                       //start: 'Getting <strong>Started</strong>',
-                       start: 'Comienze <strong>aqu&iacute;</strong>',
-                       //about: 'About <strong>NEM</strong>',
-                       about: 'Acerca de <strong>NEM</strong>',
-                       //help: '<strong>Help</strong>'
-                       help: '<strong>Ayuda</strong>'
+                       //start: 'Getting Started',
+                       start: 'Comienze aqu&iacute;',
+                       //about: 'About NEM',
+                       about: 'Acerca de NEM',
+                       //help: 'Help'
+                       help: 'Ayuda'
                    },
                    main: {
                        //leftTitle: 'New to <em>NEM</em>?',

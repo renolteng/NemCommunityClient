@@ -83,30 +83,39 @@ em {
 
 /** NIS Status Indicator **/
 
-$statusIndicator-height: 40px;
-
-#status-indicator {
+.statusIndicator {
+	visibility: visible;
+	opacity: 1;
 	position: fixed;
 	top: 0;
-	height: $statusIndicator-height;
 	left: 0;
 	right: 0;
-	background-color: rgba(#41ce7d, .72);
+	height: $statusIndicator-height;
 	color: #fff;
 	font-size: 13px;
 	font-weight: $fontWeight-bold;
 	text-align: center;
 	line-height: $statusIndicator-height;
-	opacity: 1;
-	visibility: visible;
 	@include transition-property(opacity);
 	@include transition-duration(.2s);
 	z-index: $zIndex-statusIndicator;
 
 	&.hide {
-		opacity: 0;
 		visibility: hidden;
+		opacity: 0;
 	}
+}
+
+.statusIndicator--critical {
+	background-color: #e74c3c;
+}
+
+.statusIndicator--warning {
+	background-color: #f1c40f;
+}
+
+.statusIndicator--message {
+	background-color: #2ecc71;
 }
 
 /** Loading Square **/
@@ -130,8 +139,8 @@ $statusIndicator-height: 40px;
 }
 
 .loader-quarter {
-	position: absolute;
 	display: block;
+	position: absolute;
 	width:50%;
 	height:50%;
 	

@@ -2,6 +2,10 @@ define({
 	id: 'pt',
 	name: 'Português',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: { // mensagens de modais de erro 
             101: 'Arquivo não encontrado.',
             102: 'A carteira não foi criada.',
@@ -35,6 +39,7 @@ define({
         common: {
         	success: 'Successo', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS não está disponível',
         		notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize o nó NIS local via diálogo pop-up.',
         		synchronizing: 'NIS está sincronizando no bloco {{1}}. Estimativa de {{2}} atrás.',
@@ -42,7 +47,8 @@ define({
                     0: 'Menos que um dia',
                     1: '1 dia',
                     many: '{{1}} dias'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
         	}
         },
 		modals: {
@@ -56,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'Enviar NEM',
-				labelDesc: 'Esta conta está identificada como <strong>{{1}}</strong>',
+				labelDesc: 'Esta conta está identificada como {{1}}',
 				nullLabelDesc: "Esta conta não tem uma identificação",
 				amount: 'Total',
 				recipient: "Destinatário",
@@ -85,7 +91,9 @@ define({
 			},
 			transactionDetails: {
 				title: 'Detalhes da transação',
+				// This might be block or transaction ID
 				id: 'ID',
+				// This might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Tipo de transação',
 				pending: 'Pendente',
@@ -193,9 +201,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'A carteira foi importada com sucesso!',
 			nav: {
-				start: 'Inicie <strong>Aqui</strong>',
-				about: 'Sobre <strong>NEM</strong>',
-				help: '<strong>Ajuda</strong>'
+				start: 'Inicie Aqui',
+				about: 'Sobre NEM',
+				help: 'Ajuda'
 			},
 			main: {
 				leftTitle: 'Novo por aqui? Use <em>NEM</em>?',
@@ -274,7 +282,7 @@ define({
 				clientInfo: 'Informação do cliente',
 				closeWallet: 'Fechar a carteira',
 				closeProgram: 'Fechar o programa',
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Copiar para memória temporária'
 			},
 			nav: [
 				'Painel', //Dashboard

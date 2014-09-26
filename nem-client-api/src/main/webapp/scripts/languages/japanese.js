@@ -2,6 +2,10 @@ define({
 	id: 'jp',
 	name: '日本語',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: 'ファイルが見つかりませんでした。',
             102: 'ウォレットが作成できませんでした。',
@@ -35,6 +39,7 @@ define({
         common: {
         	success: '成功!', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
          		unavailable: 'NISは無効',
          		notBooted: 'NISは必要で、ウォレットを開いて、ローカルノードを起動してください。',
          		synchronizing: 'NISはブロック{{1}}を同期中で、約{{2}}個ブロックを遅れています。',
@@ -42,7 +47,8 @@ define({
                     0: 'less than 1 day',
                     1: '1 day',
                     many: '{{1}} days'
-                }
+                },
+        		synchronized: 'NIS is synchronized!'
          	}
         },
 		modals: {
@@ -56,7 +62,7 @@ define({
 			},
 			sendNem: {
 				title: 'NEMを送信する',
-				labelDesc: 'このアカウントのラベルは <strong>{{1}}</strong>',
+				labelDesc: 'このアカウントのラベルは {{1}}',
 				nullLabelDesc: "このアカウントにラベルはありません。",
 				amount: '金額',
 				recipient: "相手のアカウント",
@@ -195,9 +201,9 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'ウォレットのインポートに成功しました。',
 			nav: {
-				start: '<strong>始め方</strong>',
-				about: '<strong>NEM</strong>について',
-				help: '<strong>ヘルプ</strong>'
+				start: '始め方',
+				about: 'NEMについて',
+				help: 'ヘルプ'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>は初めてですか?',

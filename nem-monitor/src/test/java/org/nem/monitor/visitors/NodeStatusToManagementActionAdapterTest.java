@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 public class NodeStatusToManagementActionAdapterTest {
 
 	@Test
-	public void noActionsAreInitiallyRegistered() {
+	public void launchActionIsInitiallyRegistered() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
@@ -18,17 +18,13 @@ public class NodeStatusToManagementActionAdapterTest {
 		context.visitor.actionPerformed(Mockito.mock(ActionEvent.class));
 
 		// Assert:
-		context.assertNoActionPerformed();
+		context.assertLaunchActionPerformed();
 	}
 
-	@Test
-	public void noActionsAreRegisteredWithUnknownStatus() {
-		// Assert:
-		assertNoActionsAreRegisteredWithStatus(NemStatus.UNKNOWN);
-	}
+	//region no action states
 
 	@Test
-	public void noActionsAreRegisteredWithBootingStatus() {
+	public void noActionsAreRegisteredWithStartingStatus() {
 		// Assert:
 		assertNoActionsAreRegisteredWithStatus(NemStatus.STARTING);
 	}
@@ -36,56 +32,104 @@ public class NodeStatusToManagementActionAdapterTest {
 	private static void assertNoActionsAreRegisteredWithStatus(final NemStatus status) {
 		// Arrange:
 		final TestContext context = new TestContext();
+		context.visitor.notifyStatus(NemNodeType.NCC, status);
 
 		// Act:
-		context.visitor.notifyStatus(NemNodeType.NCC, status);
 		context.visitor.actionPerformed(Mockito.mock(ActionEvent.class));
 
 		// Assert:
 		context.assertNoActionPerformed();
 	}
 
+	//endregion
+
+	//region shutdown action states
+
 	@Test
-	public void assertShutdownActionIsRegisteredWithRunningStatus() {
+	public void shutdownActionIsRegisteredWithRunningStatus() {
+		// Assert:
+		assertShutdownActionIsRegisteredWithStatus(NemStatus.RUNNING);
+	}
+
+	@Test
+	public void shutdownActionIsRegisteredWithBootedStatus() {
+		// Assert:
+		assertShutdownActionIsRegisteredWithStatus(NemStatus.BOOTED);
+	}
+
+	@Test
+	public void shutdownActionIsRegisteredWithSynchronizedStatus() {
+		// Assert:
+		assertShutdownActionIsRegisteredWithStatus(NemStatus.SYNCHRONIZED);
+	}
+
+	private static void assertShutdownActionIsRegisteredWithStatus(final NemStatus status) {
 		// Arrange:
 		final TestContext context = new TestContext();
-		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
+		context.visitor.notifyStatus(NemNodeType.NCC, status);
 
 		// Act:
 		context.visitor.actionPerformed(Mockito.mock(ActionEvent.class));
 
 		// Assert:
-		Mockito.verify(context.manager, Mockito.times(0)).launch();
-		Mockito.verify(context.manager, Mockito.times(1)).shutdown();
-		Mockito.verify(context.manager, Mockito.times(0)).launchBrowser();
+		context.assertShutdownActionPerformed();
+	}
+
+	//endregion
+
+	//region launch action states
+
+	@Test
+	public void launchActionIsRegisteredWithStoppedStatus() {
+		// Assert:
+		assertLaunchActionIsRegisteredWithStatus(NemStatus.STOPPED);
 	}
 
 	@Test
-	public void assertLaunchActionIsRegisteredWithStoppedStatus() {
+	public void launchActionIsRegisteredWithUnknownStatus() {
+		// Assert:
+		assertLaunchActionIsRegisteredWithStatus(NemStatus.UNKNOWN);
+	}
+
+	private static void assertLaunchActionIsRegisteredWithStatus(final NemStatus status) {
 		// Arrange:
 		final TestContext context = new TestContext();
-		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.STOPPED);
+		context.visitor.notifyStatus(NemNodeType.NCC, status);
 
 		// Act:
 		context.visitor.actionPerformed(Mockito.mock(ActionEvent.class));
 
 		// Assert:
-		Mockito.verify(context.manager, Mockito.times(1)).launch();
-		Mockito.verify(context.manager, Mockito.times(0)).shutdown();
-		Mockito.verify(context.manager, Mockito.times(0)).launchBrowser();
+		context.assertLaunchActionPerformed();
 	}
+
+	//endregion
 
 	@Test
 	public void stateChangeForOtherNodeDoesNotUpdateAction() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.STOPPED);
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.STARTING);
+		context.visitor.notifyStatus(NemNodeType.NIS, NemStatus.RUNNING);
 
 		// Act:
 		context.visitor.actionPerformed(Mockito.mock(ActionEvent.class));
 
 		// Assert:
 		context.assertNoActionPerformed();
+	}
+
+	@Test
+	public void firstTransitionToRunningAfterImplicitLaunchLaunchesBrowser() {
+		// Arrange:
+		final TestContext context = new TestContext();
+
+		// Act:
+		context.visitor.actionPerformed(Mockito.mock(ActionEvent.class));
+		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
+
+		// Assert:
+		context.assertLaunchActionWithBrowserPerformed();
 	}
 
 	@Test
@@ -99,9 +143,7 @@ public class NodeStatusToManagementActionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
 
 		// Assert:
-		Mockito.verify(context.manager, Mockito.times(1)).launch();
-		Mockito.verify(context.manager, Mockito.times(0)).shutdown();
-		Mockito.verify(context.manager, Mockito.times(1)).launchBrowser();
+		context.assertLaunchActionWithBrowserPerformed();
 	}
 
 	@Test
@@ -117,9 +159,7 @@ public class NodeStatusToManagementActionAdapterTest {
 		context.visitor.notifyStatus(NemNodeType.NCC, NemStatus.RUNNING);
 
 		// Assert:
-		Mockito.verify(context.manager, Mockito.times(1)).launch();
-		Mockito.verify(context.manager, Mockito.times(0)).shutdown();
-		Mockito.verify(context.manager, Mockito.times(1)).launchBrowser();
+		context.assertLaunchActionWithBrowserPerformed();
 	}
 
 	private static class TestContext {
@@ -130,6 +170,24 @@ public class NodeStatusToManagementActionAdapterTest {
 			Mockito.verify(this.manager, Mockito.times(0)).launch();
 			Mockito.verify(this.manager, Mockito.times(0)).shutdown();
 			Mockito.verify(this.manager, Mockito.times(0)).launchBrowser();
+		}
+
+		private void assertLaunchActionPerformed() {
+			Mockito.verify(this.manager, Mockito.times(1)).launch();
+			Mockito.verify(this.manager, Mockito.times(0)).shutdown();
+			Mockito.verify(this.manager, Mockito.times(0)).launchBrowser();
+		}
+
+		private void assertShutdownActionPerformed() {
+			Mockito.verify(this.manager, Mockito.times(0)).launch();
+			Mockito.verify(this.manager, Mockito.times(1)).shutdown();
+			Mockito.verify(this.manager, Mockito.times(0)).launchBrowser();
+		}
+
+		private void assertLaunchActionWithBrowserPerformed() {
+			Mockito.verify(this.manager, Mockito.times(1)).launch();
+			Mockito.verify(this.manager, Mockito.times(0)).shutdown();
+			Mockito.verify(this.manager, Mockito.times(1)).launchBrowser();
 		}
 	}
 }
