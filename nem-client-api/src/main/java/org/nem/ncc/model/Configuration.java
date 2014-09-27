@@ -82,7 +82,7 @@ public class Configuration implements SerializableEntity, AccountLabels {
 
 	/**
 	 * Gets a value indicating whether or not NIS is local.
-
+	 *
 	 * @return true if NIS is local.
 	 */
 	public boolean isNisLocal() {

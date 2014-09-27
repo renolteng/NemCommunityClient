@@ -4,7 +4,7 @@ import org.nem.core.node.NodeEndpoint;
 import org.nem.core.utils.ExceptionUtils;
 
 import java.awt.*;
-import java.net.*;
+import java.net.URL;
 import java.util.logging.Logger;
 
 /**

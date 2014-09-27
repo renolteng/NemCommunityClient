@@ -5,7 +5,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
-import org.nem.ncc.model.*;
+import org.nem.ncc.model.Configuration;
 import org.nem.ncc.test.ExceptionAssert;
 import org.springframework.web.method.HandlerMethod;
 
