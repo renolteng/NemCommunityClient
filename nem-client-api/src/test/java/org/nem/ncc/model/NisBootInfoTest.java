@@ -12,12 +12,11 @@ public class NisBootInfoTest {
 	@Test
 	public void bootInfoCanBeCreated() {
 		// Act:
-		final NisBootInfo bootInfo = this.createBootInfoFromJson(7, "10.0.0.25", "aid", "nn");
+		final NisBootInfo bootInfo = this.createBootInfoFromJson(7, "aid", "nn");
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(7));
-		Assert.assertThat(bootInfo.getRemoteServer(), IsEqual.equalTo("10.0.0.25"));
-		Assert.assertThat(bootInfo.getRemoteEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("10.0.0.25")));
+		Assert.assertThat(bootInfo.getRemoteEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(bootInfo.getAccountId(), IsEqual.equalTo("aid"));
 		Assert.assertThat(bootInfo.getNodeName(), IsEqual.equalTo("nn"));
 	}
@@ -29,7 +28,6 @@ public class NisBootInfoTest {
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(NisBootInfo.BOOT_STRATEGY_BOOT));
-		Assert.assertThat(bootInfo.getRemoteServer(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getRemoteEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(bootInfo.getAccountId(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getNodeName(), IsNull.nullValue());
@@ -38,14 +36,13 @@ public class NisBootInfoTest {
 	@Test
 	public void bootInfoCanBeRoundTripped() {
 		// Arrange:
-		final NisBootInfo originalBootInfo = new NisBootInfo(7, "rs", "aid", "nn");
+		final NisBootInfo originalBootInfo = new NisBootInfo(7, "aid", "nn");
 
 		// Act:
 		final NisBootInfo bootInfo = new NisBootInfo(Utils.roundtripSerializableEntity(originalBootInfo, null));
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(7));
-		Assert.assertThat(bootInfo.getRemoteServer(), IsEqual.equalTo("rs"));
 		Assert.assertThat(bootInfo.getAccountId(), IsEqual.equalTo("aid"));
 		Assert.assertThat(bootInfo.getNodeName(), IsEqual.equalTo("nn"));
 	}
@@ -60,7 +57,6 @@ public class NisBootInfoTest {
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(NisBootInfo.BOOT_STRATEGY_BOOT));
-		Assert.assertThat(bootInfo.getRemoteServer(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getAccountId(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getNodeName(), IsNull.nullValue());
 	}
@@ -68,37 +64,20 @@ public class NisBootInfoTest {
 	@Test
 	public void bootInfoCanBeDeserializedFromEmptyJsonObject() {
 		// Act:
-		final NisBootInfo bootInfo = this.createBootInfoFromJson(null, null, null, null);
+		final NisBootInfo bootInfo = this.createBootInfoFromJson(null, null, null);
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(NisBootInfo.BOOT_STRATEGY_NO_BOOT));
-		Assert.assertThat(bootInfo.getRemoteServer(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getAccountId(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getNodeName(), IsNull.nullValue());
 	}
 
-	@Test
-	public void isNisLocalReturnsFalseWhenRemoteServerIsNotWhitespace() {
-		// Assert:
-		Assert.assertThat(new NisBootInfo(1, "rs", "aid", "nn").isNisLocal(), IsEqual.equalTo(false));
-	}
-
-	@Test
-	public void isNisLocalReturnsTrueWhenRemoteServerIsWhitespace() {
-		// Assert:
-		for (final String remoteServer : new String[] { null, "", "  \t\t " }) {
-			Assert.assertThat(new NisBootInfo(1, remoteServer, "aid", "nn").isNisLocal(), IsEqual.equalTo(true));
-		}
-	}
-
 	private NisBootInfo createBootInfoFromJson(
 			final Integer bootStrategy,
-			final String remoteServer,
 			final String accountId,
 			final String nodeName) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("bootNis", bootStrategy);
-		jsonObject.put("remoteServer", remoteServer);
 		jsonObject.put("account", accountId);
 		jsonObject.put("nodeName", nodeName);
 		return new NisBootInfo(new JsonDeserializer(jsonObject, null));

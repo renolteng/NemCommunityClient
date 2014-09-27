@@ -34,7 +34,7 @@ public class LocalNisInterceptor extends HandlerInterceptorAdapter {
 		final HandlerMethod handlerMethod = (HandlerMethod)handler;
 		final Method method = handlerMethod.getMethod();
 		final boolean isTrustedApi = method.isAnnotationPresent(RequiresTrustedNis.class);
-		if (!isTrustedApi || this.configuration.getNisBootInfo().isNisLocal()) {
+		if (!isTrustedApi || this.configuration.isNisLocal()) {
 			return true;
 		}
 

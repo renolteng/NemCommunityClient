@@ -41,7 +41,9 @@ define({
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
          		unavailable: 'NISは無効',
+         		booting: 'Booting NIS...',
          		notBooted: 'NISは必要で、ウォレットを開いて、ローカルノードを起動してください。',
+         		retrievingStatus: 'Retrieving NIS status...',
          		synchronizing: 'NISはブロック{{1}}を同期中で、約{{2}}個ブロックを遅れています。',
                 daysBehind: {
                     0: 'less than 1 day',
@@ -59,6 +61,37 @@ define({
 			confirmDefault: {
 				yes: 'はい',
 				no: 'いいえ'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'NEMを送信する',
@@ -203,7 +236,7 @@ define({
 			nav: {
 				start: '始め方',
 				about: 'NEMについて',
-				help: 'ヘルプ'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>は初めてですか?',

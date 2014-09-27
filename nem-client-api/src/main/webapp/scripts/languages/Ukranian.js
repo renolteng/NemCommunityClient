@@ -39,8 +39,11 @@ define({
         common: {
         	success: 'Успiшно', //title of the Success message modals
         	nisStatus: {
+        		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS не досяжний',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS має бути запущений. Будь ласка, відкрийте гаманець і за допомогою спливаючого меню запустiть локальний вузол.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.'
 				daysBehind: {
         			0: 'less than 1 day',
@@ -58,6 +61,43 @@ define({
 			confirmDefault: {
 				yes: 'Так',
 				no: 'Нi'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					nodeOptions: [
+						{
+							value: 'Local NIS', // please dont't change
+							display: 'Local NIS'
+						}
+					],
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'Відправити NEM',
@@ -114,7 +154,7 @@ define({
 				account: 'Акаунт, з якого буде завантажено локальний вузол',
 				noLabel: '<span class="null">&lt;Без позначки&gt;</span>',
 				wallet: 'Гаманець',
-				node: 'Iм'я локального вузла',
+				node: "Iм'я локального вузла",
 				boot: 'Завантажити',
 				booting: 'Завантаження...'
 			},
@@ -128,7 +168,7 @@ define({
 			},
 			createAccount: {
 				title: 'Створити новий акаунт',
-?				label: 'Приватна позначка',
+				label: 'Приватна позначка',
 				wallet: 'Гаманець',
 				password: "Пароль файлу гаманця",
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} був успiшно створений!',
@@ -200,14 +240,14 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Гаманець був успішно імпортований!',
 			nav: {
-				start: 'Приступаемо <strong>до роботи</strong>',
-				about: 'Про <strong>NEM</strong>',
-				help: '<strong>Допомога</strong>'
+				start: 'Приступаемо до роботи',
+				about: 'Про NEM',
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Новий у мережi <em>NEM</em>?',
 				leftButton: 'Створити новий гаманець',
-				walletNamePlh: 'Iм'я гаманця',
+				walletNamePlh: "Iм'я гаманця",
 				passwordPlh: 'Пароль',
 				create: 'Створити',
 				rightTitle: 'Вже зареестрованi у мережi <em>NEM</em>?',
@@ -269,9 +309,9 @@ define({
 			actions: {
 				refreshInfo: 'Оновити iнформацiю',
 				bootLocalNode: 'Завантажити локальний вузол',
-				changeWalletName: 'Змiнити iм'я гаманця',
+				changeWalletName: "Змiнити iм'я гаманця",
 				changeWalletPassword: 'Змiнити пароль гаманця',
-				mergeWallets: 'Об'єднати гаманцi',
+				mergeWallets: "Об'єднати гаманцi",
 				exportWallet: 'Експортувати гаманець',
 				createAccount: 'Створити новий акаунт',
 				addAccount: 'Додати існуючий акаунт',

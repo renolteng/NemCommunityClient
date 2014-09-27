@@ -41,7 +41,9 @@
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS nera paleistas',
+        		booting: 'Booting NIS...',
         		notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
                 daysBehind: {
                     0: 'mažiau kaip 1 diena',
@@ -59,6 +61,37 @@
 			confirmDefault: {
 				yes: 'Taip',
 				no: 'Ne'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'Siusti NEM',
@@ -203,7 +236,7 @@
 			nav: {
 				start: 'Pradžiamokslis',
 				about: 'Apie NEM',
-				help: 'Pagalba'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Esate pirma karta <em>NEM</em>?',

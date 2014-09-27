@@ -4,6 +4,7 @@ import net.minidev.json.*;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.model.Address;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.ncc.test.*;
 
@@ -12,13 +13,17 @@ import java.util.function.Consumer;
 
 public class ConfigurationTest {
 
+	private static final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.10.10.12");
+	private static final NisBootInfo bootInfo = new NisBootInfo(7, "1", "2");
+
 	@Test
 	public void configCanBeCreated() {
 		// Act:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("10.10.10.12"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -27,7 +32,7 @@ public class ConfigurationTest {
 	@Test
 	public void configCanBeRoundTrippedWithoutLabels() {
 		// Arrange:
-		final Configuration originalConfig = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration originalConfig = new Configuration("de-DE", endpoint, bootInfo, "sp");
 
 		// Act:
 		final Configuration config = new Configuration(
@@ -36,6 +41,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("10.10.10.12"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -44,7 +50,7 @@ public class ConfigurationTest {
 	@Test
 	public void configCanBeRoundTrippedWithLabels() {
 		// Arrange:
-		final Configuration originalConfig = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration originalConfig = new Configuration("de-DE", endpoint, bootInfo, "sp");
 		originalConfig.setLabel(Address.fromEncoded("sigma"), "s", "ps");
 		originalConfig.setLabel(Address.fromEncoded("alpha"), "a", "pa");
 
@@ -55,6 +61,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("10.10.10.12"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(2));
@@ -69,10 +76,24 @@ public class ConfigurationTest {
 	@Test
 	public void configCanBeDeserializedWithAllRequiredParameters() {
 		// Act:
-		final Configuration config = this.createConfigFromJson("de-DE", new NisBootInfo(7, "1", "2", "3"), true);
+		final Configuration config = this.createConfigFromJson("de-DE", endpoint, bootInfo, true);
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("10.10.10.12"));
+		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
+		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
+		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
+	}
+
+	@Test
+	public void configCanBeDeserializedWithoutRemoteServer() {
+		// Act:
+		final Configuration config = this.createConfigFromJson("de-DE", null, bootInfo, true);
+
+		// Assert:
+		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("localhost"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -82,9 +103,9 @@ public class ConfigurationTest {
 	public void configCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createConfigFromJson(null, new NisBootInfo(7, "1", "2", "3"), true),
-				v -> this.createConfigFromJson("de-DE", null, true),
-				v -> this.createConfigFromJson("de-DE", new NisBootInfo(7, "1", "2", "3"), false));
+				v -> this.createConfigFromJson(null, endpoint, bootInfo, true),
+				v -> this.createConfigFromJson("de-DE", endpoint, null, true),
+				v -> this.createConfigFromJson("de-DE", endpoint, bootInfo, false));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
@@ -96,7 +117,7 @@ public class ConfigurationTest {
 	public void configCannotBeDeserializedWithNullStoragePath() {
 		// Arrange:
 		final Deserializer deserializer = Utils.createDeserializer(JsonSerializer.serializeToJson(
-				new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), null)));
+				new Configuration("de-DE", NodeEndpoint.fromHost("localhost"), bootInfo, null)));
 
 		// Act:
 		new Configuration(deserializer, null);
@@ -104,12 +125,17 @@ public class ConfigurationTest {
 
 	private Configuration createConfigFromJson(
 			final String language,
+			final NodeEndpoint remoteServer,
 			final NisBootInfo bootInfo,
 			final boolean hasAccountLabels) {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
 		if (null != language) {
 			jsonObject.put("language", language);
+		}
+
+		if (null != remoteServer) {
+			jsonObject.put("remoteServer", JsonSerializer.serializeToJson(remoteServer));
 		}
 
 		if (null != bootInfo) {
@@ -128,7 +154,7 @@ public class ConfigurationTest {
 	@Test
 	public void accountLabelCanBeSet() {
 		// Arrange:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 
 		// Act:
 		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
@@ -142,7 +168,7 @@ public class ConfigurationTest {
 	@Test
 	public void accountLabelCanBeUpdated() {
 		// Arrange:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
 
 		// Act:
@@ -158,7 +184,7 @@ public class ConfigurationTest {
 	@Test
 	public void unsetAccountLabelCannotBeRetrieved() {
 		// Arrange:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 
 		// Act:
 		final AccountLabel label = config.getLabel(Address.fromEncoded("alpha"));
@@ -170,7 +196,7 @@ public class ConfigurationTest {
 	@Test
 	public void accountLabelCanBeRemoved() {
 		// Arrange:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
 
 		// Act:
@@ -183,7 +209,7 @@ public class ConfigurationTest {
 	@Test
 	public void unsetAccountLabelCannotBeRetrievedAfterRemoval() {
 		// Arrange:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 		config.removeLabel(Address.fromEncoded("alpha"));
 
 		// Act:
@@ -200,13 +226,14 @@ public class ConfigurationTest {
 	@Test
 	public void configurationCanBeUpdated() {
 		// Arrange:
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
+		final Configuration config = new Configuration("de-DE", endpoint, bootInfo, "sp");
 
 		// Act:
-		config.update("en-CA", new NisBootInfo(12, "A", "C", "3"));
+		config.update("en-CA", NodeEndpoint.fromHost("127.0.0.1"), new NisBootInfo(12, "A", "C"));
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("en-CA"));
+		Assert.assertThat(config.getRemoteServer().getBaseUrl().getHost(), IsEqual.equalTo("127.0.0.1"));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(12));
 	}
 

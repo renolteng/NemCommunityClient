@@ -71,8 +71,10 @@ define({
                        nccUnavailable: 'NCC is not available',
                        //unavailable: 'NIS is not available',
                        unavailable: 'NIS no esta disponible',
+                       booting: 'Booting NIS...',
                        //notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
                        notBooted: 'NIS requiere ser iniciado. Por favor, abra el monedero e inicie un nodo local',
+                       retrievingStatus: 'Retrieving NIS status...',
                        //synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} days behind.'
                        synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.'
                    },
@@ -91,6 +93,37 @@ define({
                        //no: 'No'
                        no: 'No'
                    },
+                   settings: {
+        title: 'Settings',
+        language: {
+          label: 'Language'
+        },
+        remoteServer: {
+          tabTitle: 'Remote Server',
+          protocol: 'Protocol',
+          protocolOptions: [
+            {
+              value: 'http', // please dont't change
+              display: 'HTTP'
+            },
+            {
+              value: 'https', // please dont't change
+              display: 'HTTPS'
+            }
+          ],
+          host: 'Host',
+          port: 'Port'
+        },
+        autoBoot: {
+          tabTitle: 'Auto-boot',
+          name: 'Node name',
+          account: 'Account',
+          primaryAccount: 'Primary Account',
+          auto: 'Auto boot when a wallet is opened'
+        },
+        save: 'Save',
+        saveSuccess: 'Settings have been saved successfully'
+      },
                    sendNem: {
                        //title: 'Send NEM'
                        title: 'Enviar NEM',
@@ -202,8 +235,7 @@ define({
                    notBootedWarning: {
                        //title: 'Node has not been booted!',
                        title: 'Nodo no ha sido iniciado!',
-                       //message: 'A local node needs to be booted before you can send NEM!'
-                       message: 'Un nodo local necesita ser iniciado antes de que pueda enviar NEMs!'
+                       settings: 'Settings'
                    },
                    closeWallet: {
                        //title: 'Close wallet',

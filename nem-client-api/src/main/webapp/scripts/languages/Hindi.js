@@ -41,7 +41,9 @@ define({
         	nisStatus: {
         		nccUnavailable: 'NCC उपलब्ध नहीं है',
         		unavailable: 'NIS उपलब्ध नहीं है',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS को बूट करने की आवश्यकता है. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.'
 				daysBehind: {
         			0: '1 दिन से कम',
@@ -59,6 +61,37 @@ define({
 			confirmDefault: {
 				yes: 'हाँ',
 				no: 'नहीं'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'NEM भेजें',
@@ -203,7 +236,7 @@ define({
 			nav: {
 				start: 'Getting Started',
 				about: 'About NEM',
-				help: 'Help'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'क्या आप <em>NEM</em> में नएँ हैं?',
@@ -247,7 +280,7 @@ define({
 						title: '&#42;NIS क्या है?',
 						paragraphs: [
 							'यह कॉंपोनेंट <strong>NEM</strong> क्लाउड को जिंदा रखने के लिए जिम्मेदार है.',
-							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',',
+							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',
 							'<strong>NEM</strong> क्लाउड की पहुँच बिंदु <strong>NIS</strong> है.'
 						],
 						legend: '<strong>&#42;NIS</strong> का मतलब <strong>NEM Infrastructure Server</strong> है'

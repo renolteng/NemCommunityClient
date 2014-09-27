@@ -41,7 +41,9 @@ define({
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS je nedostupan',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
         		daysBehind: {
         			0: 'manje od 1 dan',
@@ -59,6 +61,37 @@ define({
 			confirmDefault: {
 				yes: 'Da',
 				no: 'Ne'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'Slanje NEMa',
@@ -203,7 +236,7 @@ define({
 			nav: {
 				start: 'Početak',
 				about: 'O NEM',
-				help: 'Pomoć'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Novi  <em>NEM</em> korisnik?',

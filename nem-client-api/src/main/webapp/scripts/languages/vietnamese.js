@@ -41,7 +41,9 @@ define({
         	nisStatus: {
         		nccUnavailable: 'Mất kết nối với NCC',
         		unavailable: 'Mất kết nối với NIS',
+        		booting: 'Đang khởi động NIS...',
         		notBooted: 'NIS cần phải được khởi động. Hãy mở ví của bạn và khởi động local node bằng hộp thoại hiện ra.',
+        		retrievingStatus: 'Đang truy vấn trạng thái của NIS...',
         		synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',
                 daysBehind: {
                     0: 'ít hơn 1 ngày',
@@ -59,6 +61,37 @@ define({
 			confirmDefault: {
 				yes: 'Có',
 				no: 'Không'
+			},
+			settings: {
+				title: 'Thiết lập',
+				language: {
+					label: 'Ngôn ngữ'
+				},
+				remoteServer: {
+					tabTitle: 'Server từ xa',
+					protocol: 'Giao thức',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Cổng'
+				},
+				autoBoot: {
+					tabTitle: 'Tự khởi động node',
+					name: 'Node name',
+					account: 'Tài khoản',
+					primaryAccount: 'Tài khoản chính',
+					auto: 'Tự động khởi động node khi ví được mở'
+				},
+				save: 'Lưu',
+				saveSuccess: 'Thiết lập đã được lưu thành công'
 			},
 			sendNem: {
 				title: 'Gửi NEM',
@@ -203,7 +236,7 @@ define({
 			nav: {
 				start: 'Khởi đầu',
 				about: 'Về NEM',
-				help: 'Trợ giúp'
+				settings: 'Thiết lập'
 			},
 			main: {
 				leftTitle: 'Mới đến với <em>NEM</em>?',

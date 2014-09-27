@@ -41,7 +41,9 @@ define({
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS est introuvable',
+        		booting: 'Booting NIS...',
         		notBooted: "NIS à besoin d'être démarré. S'il vous plait, ouvrir votre portefeuille et démarrer le noeud local via la boîte de dialogue contextuelle.",
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
         		daysBehind: {
         			0: "moins d'une journée",
@@ -59,6 +61,37 @@ define({
 			confirmDefault: {
 				yes: 'Oui',
 				no: 'Non'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'Envoyez des NEMs',
@@ -203,7 +236,7 @@ define({
 			nav: {
 				start: 'Commencer',
 				about: 'À propos de NEM',
-				help: 'Aide'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Nouveau dans <em>NEM</em>?',

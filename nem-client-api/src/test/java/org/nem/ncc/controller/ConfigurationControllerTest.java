@@ -2,6 +2,7 @@ package org.nem.ncc.controller;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.ncc.controller.viewmodels.ConfigurationViewModel;
 import org.nem.ncc.model.*;
 
@@ -10,8 +11,9 @@ public class ConfigurationControllerTest {
 	@Test
 	public void getConfigurationDelegatesToConfiguration() {
 		// Arrange:
-		final NisBootInfo bootInfo = new NisBootInfo(7, "1", "2", "3");
-		final Configuration config = new Configuration("de-DE", bootInfo, "sp");
+		final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
+		final NisBootInfo bootInfo = new NisBootInfo(7, "1", "2");
+		final Configuration config = new Configuration("de-DE", remoteServer, bootInfo, "sp");
 		final ConfigurationController controller = new ConfigurationController(config);
 
 		// Act:
@@ -25,9 +27,11 @@ public class ConfigurationControllerTest {
 	@Test
 	public void updateConfigurationDelegatesToConfiguration() {
 		// Arrange:
-		final NisBootInfo changedBootInfo = new NisBootInfo(7, "1", "2", "3");
-		final Configuration config = new Configuration("de-DE", new NisBootInfo(7, "1", "2", "3"), "sp");
-		final ConfigurationViewModel configViewModel = new ConfigurationViewModel("en-CA", changedBootInfo);
+		final NisBootInfo changedBootInfo = new NisBootInfo(7, "1", "2");
+		final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
+		final NodeEndpoint changedRemoteServer = NodeEndpoint.fromHost("10.10.10.15");
+		final Configuration config = new Configuration("de-DE", remoteServer, new NisBootInfo(8, "1", "2"), "sp");
+		final ConfigurationViewModel configViewModel = new ConfigurationViewModel("en-CA", changedRemoteServer, changedBootInfo);
 		final ConfigurationController controller = new ConfigurationController(config);
 
 		// Act:
@@ -35,6 +39,7 @@ public class ConfigurationControllerTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("en-CA"));
+		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(changedRemoteServer));
 		Assert.assertThat(config.getNisBootInfo(), IsEqual.equalTo(changedBootInfo));
 	}
 }

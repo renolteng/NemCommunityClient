@@ -6,6 +6,19 @@ define(function(require) {
     var Mustache = require('mustache');
     var tooltipster = require('tooltipster');
 
+    var Utils = {
+        restoreAddress: function(address) {
+            return address.replace(/\-/g, '');
+        },
+        formatAddress: function(address) {
+            if (address && typeof address === 'string') {
+                return address.match(/.{1,6}/g).join('-').toUpperCase();
+            } else {
+                return address;
+            }
+        }
+    }
+
     var NccModal = Ractive.extend({
         template: '#modal-template',
         isolated: true,
@@ -70,6 +83,8 @@ define(function(require) {
         }
     });
 
+
+
     var SendNemModal = NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -80,7 +95,7 @@ define(function(require) {
                 return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
             },
             inputtedRecipient: function() {
-                return ncc.restoreAddress(this.get('formattedRecipient'));
+                return Utils.restoreAddress(this.get('formattedRecipient'));
             },
             recipient: function() {
                 return this.get('inputtedRecipient') || ncc.get('activeAccount.address');
@@ -221,6 +236,82 @@ define(function(require) {
         }
     });
 
+
+
+    var SettingsModal = NccModal.extend({
+        computed: {
+            chkAutoBoot: {
+                get: function() {
+                    return !!this.get('settings.nisBootInfo.bootNis');
+                },
+                set: function(autoBoot) {
+                    this.set('settings.nisBootInfo.bootNis', autoBoot? 1 : 0);
+                }
+            },
+            displayedAccount: {
+                get: function() {
+                    if (!this.get('settings.nisBootInfo.account')) {
+                        return this.get('texts.modals.settings.autoBoot.primaryAccount');
+                    } else {
+                        return Utils.formatAddress(this.get('settings.nisBootInfo.account'));
+                    }
+                },
+                set: function(address) {
+                    if (address === this.get('texts.modals.settings.autoBoot.primaryAccount')) {
+                        this.set('settings.nisBootInfo.account', '');
+                    } else {
+                        this.set('settings.nisBootInfo.account', Utils.restoreAddress(address));
+                    }
+                }
+            },
+            portStr: {
+                get: function() {
+                    return this.get('settings.remoteServer.port');
+                },
+                set: function(port) {
+                    if (port && typeof port === 'string') {
+                        this.set('settings.remoteServer.port', parseInt(port, 10));
+                    } else {
+                        this.set('settings.remoteServer.port', port);
+                    }
+                }
+            }
+        },
+        close: function() {
+            (new NccModal()).close.call(this);
+
+            // Refresh to the current settings
+            ncc.getRequest('configuration/get', function(data) {
+                ncc.set('settings', data);
+            });
+        },
+        init: function() {
+            (new NccModal()).init.call(this);
+
+            this.on({
+                saveSettings: function() {
+                    ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
+                        if (data.ok) {
+                            ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
+                        }
+                    });
+                },
+                setDisplayedAccount: function(e, val) {
+                    this.set('displayedAccount', val);
+                }
+            });
+
+            require(['maskedinput'], function() {
+                $('.js-settingsModal-account-textbox').mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
+                $('.js-settingsModal-port-textbox').mask('00000');
+            });
+
+            this.set('active.settingsModalTab', 'remoteServer');
+        }
+    });
+
+
+
     var NccRactive = Ractive.extend({
         el: document.body,
         template: '#template',
@@ -279,6 +370,7 @@ define(function(require) {
             messageModal: NccModal,
             confirmModal: NccModal,
             inputModal: NccModal,
+            settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
@@ -303,6 +395,13 @@ define(function(require) {
                     };
                 }
 
+                if (this.get('status.booting')) {
+                    return {
+                        type: 'warning',
+                        message: this.get('texts.common.nisStatus.booting')
+                    };
+                }
+
                 if (!this.get('status.nodeBooted')) {
                     return {
                         type: 'warning',
@@ -310,33 +409,41 @@ define(function(require) {
                     };
                 }
 
-                if (!this.get('nis.nodeMetaData.lastBlockBehind')) {
+                var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
+                if (lastBlockBehind !== 0) {
+                    if (!lastBlockBehind) {
+                        return {
+                            type: 'warning',
+                            message: this.get('texts.common.nisStatus.retrievingStatus')
+                        };
+                    } else {
+                        var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
+                        var daysBehindText;
+                        switch (daysBehind) {
+                            case 0:
+                                daysBehindText = this.get('texts.common.nisStatus.daysBehind.0');
+                                break;
+
+                            case 1:
+                                daysBehindText = this.get('texts.common.nisStatus.daysBehind.1');
+                                break;
+
+                            default:
+                                daysBehindText = this.fill(this.get('texts.common.nisStatus.daysBehind.many'), daysBehind);
+                                break;
+                        }
+
+                        return {
+                            type: 'warning',
+                            message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
+                        };
+                    }
+                } else {
                     return {
                         type: 'message',
                         message: this.get('texts.common.nisStatus.synchronized')
                     };
                 }
-
-                var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
-                var daysBehindText;
-                switch (daysBehind) {
-                    case 0:
-                        daysBehindText = this.get('texts.common.nisStatus.daysBehind.0');
-                        break;
-
-                    case 1:
-                        daysBehindText = this.get('texts.common.nisStatus.daysBehind.1');
-                        break;
-
-                    default:
-                        daysBehindText = this.fill(this.get('texts.common.nisStatus.daysBehind.many'), daysBehind);
-                        break;
-                }
-
-                return {
-                    type: 'warning',
-                    message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
-                };
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
@@ -428,9 +535,6 @@ define(function(require) {
             } else {
                 return address;
             }
-        },
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
         },
         addThousandSeparators: function(num) {
             return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
@@ -663,7 +767,7 @@ define(function(require) {
                         return;
                     }
                     //if (self.nodes[id] !== ev.target && !$.contains(self.nodes[id], ev.target)) {
-                    self.toggleOff(id);
+                    self.fire('toggleOff', null, id);
                     //}
                 });
             }
@@ -941,6 +1045,9 @@ define(function(require) {
                         });
                         $node.tooltipster('show');
                     }
+                },
+                set: function(e, keypath, val) {
+                    this.set(keypath, val);
                 }
             });
 

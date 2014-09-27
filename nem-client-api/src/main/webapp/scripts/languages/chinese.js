@@ -41,7 +41,9 @@
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS is not available',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
         		daysBehind: {
         			0: 'less than 1 day',
@@ -59,6 +61,37 @@
 			confirmDefault: {
 				yes: '是',
 				no: '不'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: '发送 NEM',
@@ -202,7 +235,7 @@
 			nav: {
 				start: '已经 开始',
 				about: '关于 NEM',
-				help: '帮助'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>新手?',

@@ -147,6 +147,100 @@
 	}
 }
 
+.dropdownbox {
+	position: relative;
+}
+
+.dropdownbox-selection {
+	position: relative;
+	@include border-radius(4px);
+	cursor: pointer;
+
+	&:after {
+		$width: 10px;
+		$height: 6px;
+		content: ' ';
+		position: absolute;
+		top: 50%;
+		right: 8px;
+		margin-top: -$height / 2;
+		height: 0;
+        width: 0;
+        border: $width / 2 solid transparent;
+        border-top: $height solid #8e8e8e;
+	}
+
+	&.dropdownbox-selection--selecting {
+		@include border-bottom-radius(0);
+	}
+}
+
+.dropdownbox-textbox {
+	@include border-radius(4px);
+	cursor: initial;
+
+	&.dropdownbox-textbox--selecting {
+		@include border-bottom-radius(0);
+	}
+}
+
+.dropdownbox-dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+.dropdownbox-item {
+	padding: 4px 12px;
+	border-bottom: 1px solid #f0f0f0;
+	background-color: #fff;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #f0f0f0;
+	}
+}
+
+$bulletTab-bgColor: #fff;
+$bulletTab-primaryColor: #8e8e8e;
+$bulletTab-hoverBgColor: #f0f0f0;
+
+.bulletTabs {
+	@extend %clearfix;
+}
+
+.bulletTab-control {
+	float: left;
+	padding: 6px 12px;
+	border: 1px solid $bulletTab-primaryColor;
+	background-color: $bulletTab-bgColor;
+	color: $bulletTab-primaryColor;
+	cursor: pointer;
+
+	&:first-child {
+		@include border-left-radius(4px);
+	}
+
+	&:last-child {
+		@include border-right-radius(4px);
+	}
+
+	&:not(:last-child) {
+		border-right: none;
+	}
+
+	&:hover {
+		background-color: $bulletTab-hoverBgColor;
+	}
+
+	&.active {
+		background-color: $bulletTab-primaryColor;
+		color: $bulletTab-bgColor;
+	}
+}
+
 // ================================================================================
 // MODAL
 // ================================================================================
@@ -286,6 +380,13 @@ $modal-transitionDuration: .3s;
 	}
 }
 
+.modal-button--submit {
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+
+/** Error Modal **/
+
 .errorModal {
 	width: 340px;
 	font-size: 13px;
@@ -299,28 +400,6 @@ $modal-transitionDuration: .3s;
 		color: #888888;
 	}
 }
-
-.unclosableMessageModal {
-	.modal-body {
-		text-align: left;
-	}
-}
-
-.inputModal {
-	font-size: 13px;
-
-	.modal-body {
-		padding: 12px 22px 22px;
-	}
-
-	.modal-message {
-		padding: 10px 20px 36px;
-		font-size: 14px;
-		font-weight: $fontWeight-medium;
-	}
-}
-
-/** Error Modal **/
 
 .errorModal-title {
 	margin-top: 12px;
@@ -336,6 +415,20 @@ $modal-transitionDuration: .3s;
 }
 
 /** Input Modal **/
+
+.inputModal {
+	font-size: 13px;
+
+	.modal-body {
+		padding: 12px 22px 22px;
+	}
+
+	.modal-message {
+		padding: 10px 20px 36px;
+		font-size: 14px;
+		font-weight: $fontWeight-medium;
+	}
+}
 
 .modal-form {
 	text-align: left;
@@ -377,7 +470,112 @@ $modal-transitionDuration: .3s;
 	}
 }
 
-.modal-button--submit {
-	margin-top: 10px;
-	text-transform: uppercase;
+/** Unclosable message Modal **/
+
+.unclosableMessageModal {
+	.modal-body {
+		text-align: left;
+	}
 }
+
+/** Settings Modal **/
+
+$settingModal-hPadding: 28px;
+$settingModal-vSpacing: 16px;
+$settingModal-input-height: 32px;
+$settingModal-borderColor: #e5e5e5;
+$settingModal-bgColor: #fff;
+
+.settingsModal {
+	width: 432px;
+	font-size: 13px;
+
+	.modal-body {
+		padding: 0;
+		text-align: left;
+	}
+
+	.dropdownbox-dropdown {
+		border: 1px solid $settingModal-borderColor;
+		border-top: none;
+	}
+
+	.dropdownbox-item {
+		border-bottom: 1px solid $settingModal-borderColor;
+
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+}
+
+.settingsModal-label {
+	margin-bottom: 6px;
+	font-weight: $fontWeight-bold;
+}
+
+.settingsModal-input {
+	display: block;
+	padding: 0 12px;
+	border: 1px solid $settingModal-borderColor;
+	width: 100%;
+	height: $settingModal-input-height;
+	@include border-radius(4px);
+
+	&.dropdownbox-selection {
+		line-height: $settingModal-input-height;
+	}
+}
+
+.settingsModal-inputField {
+	margin-top: 16px;
+}
+
+.settingsModal-main {
+	padding: 20px $settingModal-hPadding;
+	text-align: center;
+}
+
+.settingsModal-tabs {
+	display: inline-block;
+	margin-bottom: 6px;
+}
+
+.settingsModal-panel {
+	text-align: left;
+}
+
+.settingsModal-submit {
+	margin-top: 20px;
+}
+
+.settingsModal-language {
+	$label-width: 80px;
+	$border-color: #cbcbcb;
+	$background-color: #f0f0f0;
+
+	padding: $settingModal-vSpacing $settingModal-hPadding;
+	background-color: $background-color;
+	@extend %clearfix;
+
+	.settingsModal-input {
+		border-color: $border-color;
+	}
+
+	.dropdownbox-dropdown {
+		border-color: $border-color;
+	}
+
+	.settingsModal-label {
+		float: left;
+		margin-bottom: 0;
+		width: $label-width;
+		line-height: $settingModal-input-height;
+	}
+
+	.dropdownbox {
+		float: right;
+		width: calc(100% - #{$label-width});
+	}
+}
+

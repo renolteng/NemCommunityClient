@@ -41,7 +41,9 @@
         	nisStatus: {
         		nccUnavailable: 'NCC е недостъпен',
         		unavailable: 'NIS е недостъпен',
+        		booting: 'Booting NIS...',
         		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
+        		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
         		daysBehind: {
         			0: 'по малко от 1 ден',
@@ -59,6 +61,37 @@
 			confirmDefault: {
 				yes: 'Да',
 				no: 'Не'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: [
+						{
+							value: 'http', // please dont't change
+							display: 'HTTP'
+						},
+						{
+							value: 'https', // please dont't change
+							display: 'HTTPS'
+						}
+					],
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: 'Изпрати NEM',
@@ -203,7 +236,7 @@
 			nav: {
 				start: 'Първи стъпки',
 				about: 'Относно NEM',
-				help: 'Помощ'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: 'Нов за <em>NEM</em>?',

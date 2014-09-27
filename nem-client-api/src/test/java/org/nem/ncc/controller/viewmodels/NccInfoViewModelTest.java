@@ -5,6 +5,7 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.metadata.ApplicationMetaData;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.time.*;
 import org.nem.ncc.model.*;
@@ -14,8 +15,9 @@ public class NccInfoViewModelTest {
 	@Test
 	public void viewModelCanBeCreated() {
 		// Arrange:
-		final NisBootInfo bootInfo = new NisBootInfo(0, "rs", "aid", "nn");
-		final Configuration configuration = new Configuration("de-DE", bootInfo, "nem");
+		final NisBootInfo bootInfo = new NisBootInfo(0, "aid", "nn");
+		final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
+		final Configuration configuration = new Configuration("de-DE", remoteServer, bootInfo, "nem");
 		final ApplicationMetaData metaData = new ApplicationMetaData("app", "ver", null, Mockito.mock(TimeProvider.class));
 
 		// Act:
@@ -23,7 +25,7 @@ public class NccInfoViewModelTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getMetaData(), IsSame.sameInstance(metaData));
-		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo("rs"));
+		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo("http://10.10.10.12:7890/"));
 		Assert.assertThat(viewModel.getLanguage(), IsEqual.equalTo("de-DE"));
 	}
 
@@ -32,8 +34,9 @@ public class NccInfoViewModelTest {
 		// Arrange:
 		final TimeProvider timeProvider = Mockito.mock(TimeProvider.class);
 		Mockito.when(timeProvider.getCurrentTime()).thenReturn(new TimeInstant(88));
-		final NisBootInfo bootInfo = new NisBootInfo(0, "rs", "aid", "nn");
-		final Configuration configuration = new Configuration("de-DE", bootInfo, "nem");
+		final NisBootInfo bootInfo = new NisBootInfo(0, "aid", "nn");
+		final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
+		final Configuration configuration = new Configuration("de-DE", remoteServer, bootInfo, "nem");
 		final ApplicationMetaData metaData = new ApplicationMetaData("app", "ver", null, timeProvider);
 
 		// Act:
@@ -43,7 +46,7 @@ public class NccInfoViewModelTest {
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(3));
 		Assert.assertThat(((JSONObject)jsonObject.get("metaData")).get("version"), IsEqual.equalTo("ver"));
-		Assert.assertThat(jsonObject.get("remoteServer"), IsEqual.equalTo("rs"));
+		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo("http://10.10.10.12:7890/"));
 		Assert.assertThat(jsonObject.get("language"), IsEqual.equalTo("de-DE"));
 	}
 }

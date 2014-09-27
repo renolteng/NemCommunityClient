@@ -6,7 +6,7 @@
  		url: 'index.html',
 		template: 'rv!layout/landing',
 		local: {
-			initialWaitTime: 200,
+			initialWaitTime: 0,
 			closingGateTime: 1000,
 			scrollHeader: 'landingPage.scrollHeader',
 			nisCheckingInterval: 3000
@@ -184,6 +184,10 @@
 			    },
 			    walletSelected: function(e) {
 			    	$(e.node).siblings('.openWalletList-passwordPrompt').find('.openWalletList-password').focus();
+			    },
+			    switchLanguage: function(e, id) {
+			    	ncc.set('settings.language', id);
+			    	ncc.postRequest('configuration/update', ncc.get('settings'), null, null, true);
 			    }
 			}));
 

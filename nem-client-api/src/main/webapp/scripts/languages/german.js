@@ -41,7 +41,9 @@ define({
 	        	nisStatus: {
                     nccUnavailable: 'NCC is not available',
 	        		unavailable: 'NIS is nicht verfügbar',
+                    booting: 'Booting NIS...',
 	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
+                    retrievingStatus: 'Retrieving NIS status...',
 	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
                     daysBehind: {
                         0: 'weniger als 1 Tag',
@@ -60,6 +62,37 @@ define({
                         yes: 'Ja',
                         no: 'Nein'
                 },
+                settings: {
+                title: 'Settings',
+                language: {
+                    label: 'Language'
+                },
+                remoteServer: {
+                    tabTitle: 'Remote Server',
+                    protocol: 'Protocol',
+                    protocolOptions: [
+                        {
+                            value: 'http', // please dont't change
+                            display: 'HTTP'
+                        },
+                        {
+                            value: 'https', // please dont't change
+                            display: 'HTTPS'
+                        }
+                    ],
+                    host: 'Host',
+                    port: 'Port'
+                },
+                autoBoot: {
+                    tabTitle: 'Auto-boot',
+                    name: 'Node name',
+                    account: 'Account',
+                    primaryAccount: 'Primary Account',
+                    auto: 'Auto boot when a wallet is opened'
+                },
+                save: 'Save',
+                saveSuccess: 'Settings have been saved successfully'
+            },
                 sendNem: {
                         title: 'NEM senden',
                         labelDesc: 'Das Label des Kontos ist {{1}}',
@@ -203,7 +236,7 @@ define({
                 nav: {
                         start: 'Erste Schritte',
                         about: 'Info über NEM',
-                        help: 'Hilfe'
+                        settings: 'Settings'
                 },
                 main: {
                         leftTitle: 'Neu bei <em>NEM</em>?',

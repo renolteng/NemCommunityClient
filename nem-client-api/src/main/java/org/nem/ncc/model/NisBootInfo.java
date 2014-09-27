@@ -2,7 +2,6 @@ package org.nem.ncc.model;
 
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-import org.nem.core.utils.StringUtils;
 
 /**
  * Creates configuration for booting a NIS node.
@@ -20,7 +19,6 @@ public class NisBootInfo implements SerializableEntity {
 	public final static int BOOT_STRATEGY_BOOT = 1;
 
 	private final int bootStrategy;
-	private final String remoteServer;
 	private final String accountId;
 	private final String nodeName;
 
@@ -28,17 +26,14 @@ public class NisBootInfo implements SerializableEntity {
 	 * Creates a new NIS boot info.
 	 *
 	 * @param bootStrategy The boot strategy.
-	 * @param remoteServer The remote server or null if connected to a local server.
 	 * @param accountId The
 	 * @param nodeName The NIS node name.
 	 */
 	public NisBootInfo(
 			final int bootStrategy,
-			final String remoteServer,
 			final String accountId,
 			final String nodeName) {
 		this.bootStrategy = bootStrategy;
-		this.remoteServer = remoteServer;
 		this.accountId = accountId;
 		this.nodeName = nodeName;
 	}
@@ -49,7 +44,7 @@ public class NisBootInfo implements SerializableEntity {
 	 * @return The NIS boot info.
 	 */
 	public static NisBootInfo createLocal() {
-		return new NisBootInfo(BOOT_STRATEGY_BOOT, null, null, null);
+		return new NisBootInfo(BOOT_STRATEGY_BOOT, null, null);
 	}
 
 	/**
@@ -61,7 +56,6 @@ public class NisBootInfo implements SerializableEntity {
 		// To provide a smooth transition from old structure
 		final Integer bootStrategy = deserializer.readOptionalInt("bootNis");
 		this.bootStrategy = null == bootStrategy ? 0 : bootStrategy;
-		this.remoteServer = deserializer.readOptionalString("remoteServer");
 		this.accountId = deserializer.readOptionalString("account");
 		this.nodeName = deserializer.readOptionalString("nodeName");
 	}
@@ -76,21 +70,12 @@ public class NisBootInfo implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the remote NIS server.
-	 *
-	 * @return The remote NIS server.
-	 */
-	public String getRemoteServer() {
-		return this.remoteServer;
-	}
-
-	/**
 	 * Gets the remote NIS endpoint.
 	 *
 	 * @return The remote NIS endpoint.
 	 */
 	public NodeEndpoint getRemoteEndpoint() {
-		return NodeEndpoint.fromHost(this.isNisLocal() ? "localhost" : this.remoteServer);
+		return NodeEndpoint.fromHost("localhost");
 	}
 
 	/**
@@ -111,19 +96,9 @@ public class NisBootInfo implements SerializableEntity {
 		return this.nodeName;
 	}
 
-	/**
-	 * Gets a value indicating whether or not the referenced NIS node is local.
-	 *
-	 * @return true if the referenced NIS node is local.
-	 */
-	public boolean isNisLocal() {
-		return StringUtils.isNullOrWhitespace(this.remoteServer);
-	}
-
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeInt("bootNis", this.bootStrategy);
-		serializer.writeString("remoteServer", this.remoteServer);
 		serializer.writeString("account", this.accountId);
 		serializer.writeString("nodeName", this.nodeName);
 	}

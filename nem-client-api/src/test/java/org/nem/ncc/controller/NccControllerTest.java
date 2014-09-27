@@ -31,7 +31,7 @@ public class NccControllerTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getMetaData().getVersion(), IsEqual.equalTo("ver"));
-		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo("rs"));
+		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo("http://10.10.10.12:7890/"));
 		Assert.assertThat(viewModel.getLanguage(), IsEqual.equalTo("de-DE"));
 	}
 
@@ -151,8 +151,9 @@ public class NccControllerTest {
 		private TestContext() {
 			final TimeProvider timeProvider = Mockito.mock(TimeProvider.class);
 			Mockito.when(timeProvider.getCurrentTime()).thenReturn(new TimeInstant(88));
-			final NisBootInfo bootInfo = new NisBootInfo(0, "rs", "aid", "nn");
-			this.configuration = new Configuration("de-DE", bootInfo, "nem");
+			final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
+			final NisBootInfo bootInfo = new NisBootInfo(0, "aid", "nn");
+			this.configuration = new Configuration("de-DE", remoteServer, bootInfo, "nem");
 			this.metaData = new ApplicationMetaData("app", "ver", null, timeProvider);
 			this.controller = new NccController(
 					this.configuration,
