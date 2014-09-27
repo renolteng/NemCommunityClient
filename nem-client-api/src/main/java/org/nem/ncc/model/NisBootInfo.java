@@ -62,6 +62,7 @@ public class NisBootInfo implements SerializableEntity {
 
 	/**
 	 * Gets the NIS boot strategy.
+	 * TODO 20140927 J-B: do we still need this?
 	 *
 	 * @return The boot strategy.
 	 */

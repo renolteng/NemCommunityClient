@@ -43,6 +43,7 @@ public class NisBootInfoTest {
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(7));
+		Assert.assertThat(bootInfo.getRemoteEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(bootInfo.getAccountId(), IsEqual.equalTo("aid"));
 		Assert.assertThat(bootInfo.getNodeName(), IsEqual.equalTo("nn"));
 	}
@@ -57,6 +58,7 @@ public class NisBootInfoTest {
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(NisBootInfo.BOOT_STRATEGY_BOOT));
+		Assert.assertThat(bootInfo.getRemoteEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(bootInfo.getAccountId(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getNodeName(), IsNull.nullValue());
 	}
@@ -68,6 +70,7 @@ public class NisBootInfoTest {
 
 		// Assert:
 		Assert.assertThat(bootInfo.getBootStrategy(), IsEqual.equalTo(NisBootInfo.BOOT_STRATEGY_NO_BOOT));
+		Assert.assertThat(bootInfo.getRemoteEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(bootInfo.getAccountId(), IsNull.nullValue());
 		Assert.assertThat(bootInfo.getNodeName(), IsNull.nullValue());
 	}

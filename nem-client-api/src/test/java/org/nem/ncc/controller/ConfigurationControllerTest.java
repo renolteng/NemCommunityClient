@@ -21,6 +21,7 @@ public class ConfigurationControllerTest {
 
 		// Assert:
 		Assert.assertThat(configViewModel.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(remoteServer));
 		Assert.assertThat(configViewModel.getNisBootInfo(), IsEqual.equalTo(bootInfo));
 	}
 

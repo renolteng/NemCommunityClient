@@ -20,7 +20,7 @@ public class NccInfoViewModel implements SerializableEntity {
 	 */
 	public NccInfoViewModel(final ApplicationMetaData metaData, final Configuration configuration) {
 		this.applicationMetaData = metaData;
-		this.remoteServer = configuration.getRemoteServer().getBaseUrl().toString();
+		this.remoteServer = configuration.getRemoteServer().toString();
 		this.language = configuration.getLanguage();
 	}
 

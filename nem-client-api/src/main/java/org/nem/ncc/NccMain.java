@@ -51,7 +51,11 @@ public class NccMain {
 			return IOUtils.toByteArray(inputStream);
 		} catch (final IOException ex) {
 			LOGGER.warning(String.format("unable to load NCC configuration: %s", ex));
-			final Configuration defaultConfiguration = new Configuration("en", NodeEndpoint.fromHost("localhost"), NisBootInfo.createLocal(), storagePath);
+			final Configuration defaultConfiguration = new Configuration(
+					"en",
+					NodeEndpoint.fromHost("localhost"),
+					NisBootInfo.createLocal(),
+					storagePath);
 			return JsonSerializer.serializeToBytes(defaultConfiguration);
 		}
 	}

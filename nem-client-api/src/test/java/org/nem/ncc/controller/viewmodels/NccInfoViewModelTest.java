@@ -11,13 +11,13 @@ import org.nem.core.time.*;
 import org.nem.ncc.model.*;
 
 public class NccInfoViewModelTest {
+	final NodeEndpoint ENDPOINT = NodeEndpoint.fromHost("10.10.10.12");
+	final NisBootInfo BOOT_INFO = new NisBootInfo(0, "aid", "nn");
 
 	@Test
 	public void viewModelCanBeCreated() {
 		// Arrange:
-		final NisBootInfo bootInfo = new NisBootInfo(0, "aid", "nn");
-		final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
-		final Configuration configuration = new Configuration("de-DE", remoteServer, bootInfo, "nem");
+		final Configuration configuration = new Configuration("de-DE", ENDPOINT, BOOT_INFO, "nem");
 		final ApplicationMetaData metaData = new ApplicationMetaData("app", "ver", null, Mockito.mock(TimeProvider.class));
 
 		// Act:
@@ -34,9 +34,7 @@ public class NccInfoViewModelTest {
 		// Arrange:
 		final TimeProvider timeProvider = Mockito.mock(TimeProvider.class);
 		Mockito.when(timeProvider.getCurrentTime()).thenReturn(new TimeInstant(88));
-		final NisBootInfo bootInfo = new NisBootInfo(0, "aid", "nn");
-		final NodeEndpoint remoteServer = NodeEndpoint.fromHost("10.10.10.12");
-		final Configuration configuration = new Configuration("de-DE", remoteServer, bootInfo, "nem");
+		final Configuration configuration = new Configuration("de-DE", ENDPOINT, BOOT_INFO, "nem");
 		final ApplicationMetaData metaData = new ApplicationMetaData("app", "ver", null, timeProvider);
 
 		// Act:

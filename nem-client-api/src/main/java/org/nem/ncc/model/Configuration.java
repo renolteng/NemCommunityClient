@@ -52,6 +52,7 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		if (null == remoteServer) {
 			this.remoteServer = NodeEndpoint.fromHost("localhost");
 		}
+
 		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
 
 		this.accountLabels = new HashMap<>();
@@ -80,15 +81,12 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	}
 
 	/**
-	 * Gets the configured remote server's endpoint.
-	 *
-	 * @return The remote server's endpoint.
+	 * Gets a value indicating whether or not NIS is local.
+
+	 * @return true if NIS is local.
 	 */
 	public boolean isNisLocal() {
-		return null == this.remoteServer ||
-				this.remoteServer.getBaseUrl().getHost().isEmpty() ||
-				this.remoteServer.getBaseUrl().getHost().equals("localhost") ||
-				this.remoteServer.getBaseUrl().getHost().equals("127.0.0.1");
+		return null == this.remoteServer || NodeEndpoint.fromHost("localhost").equals(this.remoteServer);
 	}
 
 	/**

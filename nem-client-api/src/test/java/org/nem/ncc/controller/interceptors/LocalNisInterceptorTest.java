@@ -54,7 +54,6 @@ public class LocalNisInterceptorTest {
 	public static boolean preHandle(final String methodName, final boolean isNisLocal) {
 		// Arrange:
 		final Configuration configuration = Mockito.mock(Configuration.class);
-		final NisBootInfo bootInfo = Mockito.mock(NisBootInfo.class);
 		Mockito.when(configuration.isNisLocal()).thenReturn(isNisLocal);
 
 		final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
