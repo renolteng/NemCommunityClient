@@ -89,15 +89,6 @@ public class NccMain {
 	}
 
 	/**
-	 * Gets the folder where all nem files are stored.
-	 *
-	 * @return The nem folder.
-	 */
-	public static String getNemFolder() {
-		return commonConfiguration.getNemFolder();
-	}
-
-	/**
 	 * Gets the web context string.
 	 *
 	 * @return The web context string.

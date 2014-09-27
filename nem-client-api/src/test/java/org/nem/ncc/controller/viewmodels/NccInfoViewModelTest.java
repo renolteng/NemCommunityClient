@@ -11,8 +11,8 @@ import org.nem.core.time.*;
 import org.nem.ncc.model.*;
 
 public class NccInfoViewModelTest {
-	final NodeEndpoint ENDPOINT = NodeEndpoint.fromHost("10.10.10.12");
-	final NisBootInfo BOOT_INFO = new NisBootInfo(0, "aid", "nn");
+	private final static NodeEndpoint ENDPOINT = NodeEndpoint.fromHost("10.10.10.12");
+	private final static NisBootInfo BOOT_INFO = new NisBootInfo(0, "aid", "nn");
 
 	@Test
 	public void viewModelCanBeCreated() {
