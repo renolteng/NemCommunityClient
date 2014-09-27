@@ -70,15 +70,6 @@ public class NisBootInfo implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the remote NIS endpoint.
-	 *
-	 * @return The remote NIS endpoint.
-	 */
-	public NodeEndpoint getRemoteEndpoint() {
-		return NodeEndpoint.fromHost("localhost");
-	}
-
-	/**
 	 * Gets the account id used when booting NIS.
 	 *
 	 * @return The account id.
