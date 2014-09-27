@@ -50,7 +50,7 @@
         			1: '1 ден',
         			many: '{{1}} дни'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS е синхронизиран!'
         	}
         },
 		modals: {
