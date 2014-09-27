@@ -147,7 +147,7 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeString("language", this.language);
-		serializer.writeObject("nisEndpoint", this.nisEndpoint);
+		serializer.writeObject("remoteServer", this.nisEndpoint);
 		serializer.writeObject("nisBootInfo", this.nisBootInfo);
 		serializer.writeObjectArray("accountLabels", this.accountLabels.values());
 	}

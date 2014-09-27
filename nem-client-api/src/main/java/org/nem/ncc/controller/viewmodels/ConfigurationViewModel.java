@@ -35,7 +35,7 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 */
 	public ConfigurationViewModel(final Deserializer deserializer) {
 		this.language = deserializer.readString("language");
-		this.nisEndpoint = deserializer.readObject("nisEndpoint", NodeEndpoint::new);
+		this.nisEndpoint = deserializer.readObject("remoteServer", NodeEndpoint::new);
 		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
 	}
 
