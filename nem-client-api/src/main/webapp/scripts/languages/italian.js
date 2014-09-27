@@ -4,7 +4,7 @@ define({
 	texts: {
 		preferences: {
 			thousandSeparator: '\u2009',
-			decimalSeparator: '.'
+			decimalSeparator: ','
 		},
 		faults: {
             101: 'File non trovato.',
@@ -39,18 +39,18 @@ define({
         common: {
         	success: 'Operazione completata', //title of the Success message modals
         	nisStatus: {
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC non disponibile',
         		unavailable: 'NIS non disponibile',
-        		booting: 'Booting NIS...',
+        		booting: 'Avvio di NIS in corso...',
         		notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
-        		retrievingStatus: 'Retrieving NIS status...',
+        		retrievingStatus: 'Verifica dello stato di NIS...',
         		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
                 daysBehind: {
                     0: 'meno di un giorno',
                     1: 'un giorno',
                     many: '{{1}} giorni'
                 },
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS è sincronizzato!'
         	}
         },
 		modals: {
@@ -63,13 +63,13 @@ define({
 				no: 'No'
 			},
 			settings: {
-				title: 'Settings',
+				title: 'Impostazioni',
 				language: {
-					label: 'Language'
+					label: 'Lingua'
 				},
 				remoteServer: {
-					tabTitle: 'Remote Server',
-					protocol: 'Protocol',
+					tabTitle: 'Server remoto',
+					protocol: 'Protocollo',
 					protocolOptions: [
 						{
 							value: 'http', // please dont't change
@@ -80,18 +80,18 @@ define({
 							display: 'HTTPS'
 						}
 					],
-					host: 'Host',
-					port: 'Port'
+					host: 'Nome del server',
+					port: 'Porta'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'Auto-avvio',
+					name: 'Nome del nodo',
+					account: 'Indirizzo',
+					primaryAccount: 'Indirizzo principale',
+					auto: 'Auto avvia quando il portafoglio viene aperto'
 				},
-				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				save: 'Salva',
+				saveSuccess: 'Impostazioni salvate con successo'
 			},
 			sendNem: {
 				title: 'Invia NEM',
@@ -236,7 +236,7 @@ define({
 			nav: {
 				start: 'Vai',
 				about: 'Informazioni su NEM',
-				settings: 'Settings'
+				settings: 'Impostazioni'
 			},
 			main: {
 				leftTitle: 'Nuovo utente <em>NEM</em>?',
@@ -280,7 +280,7 @@ define({
 						title: "Cos'è &#42;NIS?",
 						paragraphs: [
 							'Fa funzionare la rete <strong>NEM</strong>.',
-							'Più server <strong>NIS</strong> esistono più la rete è sicura.',
+							'Più server <strong>NIS</strong> esistono più la rete è sicura',
 							'<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>.'
 						],
 						legend: "<strong>&#42;NIS</strong> è l'acronimo di <strong>NEM Infrastructure Server</strong>"
