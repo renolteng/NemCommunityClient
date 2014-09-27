@@ -9,21 +9,22 @@ import org.nem.ncc.model.NisBootInfo;
  */
 public class ConfigurationViewModel implements SerializableEntity {
 	private final String language;
-	private final NodeEndpoint remoteServer;
+	private final NodeEndpoint nisEndpoint;
 	private final NisBootInfo nisBootInfo;
 
 	/**
 	 * Creates a configuration view model.
 	 *
 	 * @param language The language.
+	 * @param nisEndpoint The NIS server's endpoint.
 	 * @param nisBootInfo The NIS boot info.
 	 */
 	public ConfigurationViewModel(
 			final String language,
-			final NodeEndpoint remoteServer,
+			final NodeEndpoint nisEndpoint,
 			final NisBootInfo nisBootInfo) {
 		this.language = language;
-		this.remoteServer = remoteServer;
+		this.nisEndpoint = nisEndpoint;
 		this.nisBootInfo = nisBootInfo;
 	}
 
@@ -34,7 +35,7 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 */
 	public ConfigurationViewModel(final Deserializer deserializer) {
 		this.language = deserializer.readString("language");
-		this.remoteServer = deserializer.readObject("remoteServer", NodeEndpoint::new);
+		this.nisEndpoint = deserializer.readObject("nisEndpoint", NodeEndpoint::new);
 		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
 	}
 
@@ -48,12 +49,12 @@ public class ConfigurationViewModel implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the remote server's endpoint.
+	 * Gets the NIS server's endpoint.
 	 *
-	 * @return The remote server's endpoint.
+	 * @return The NIS server's endpoint.
 	 */
-	public NodeEndpoint getRemoteServer() {
-		return this.remoteServer;
+	public NodeEndpoint getNisEndpoint() {
+		return this.nisEndpoint;
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class ConfigurationViewModel implements SerializableEntity {
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeString("language", this.language);
-		serializer.writeObject("remoteServer", this.remoteServer);
+		serializer.writeObject("remoteServer", this.nisEndpoint);
 		serializer.writeObject("nisBootInfo", this.nisBootInfo);
 	}
 }

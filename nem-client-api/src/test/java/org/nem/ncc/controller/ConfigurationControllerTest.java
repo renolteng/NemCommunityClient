@@ -21,7 +21,7 @@ public class ConfigurationControllerTest {
 
 		// Assert:
 		Assert.assertThat(configViewModel.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(remoteServer));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(remoteServer));
 		Assert.assertThat(configViewModel.getNisBootInfo(), IsEqual.equalTo(bootInfo));
 	}
 
@@ -40,7 +40,7 @@ public class ConfigurationControllerTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("en-CA"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(changedRemoteServer));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(changedRemoteServer));
 		Assert.assertThat(config.getNisBootInfo(), IsEqual.equalTo(changedBootInfo));
 	}
 }

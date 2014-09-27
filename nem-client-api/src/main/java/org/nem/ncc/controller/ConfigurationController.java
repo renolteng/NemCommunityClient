@@ -28,7 +28,7 @@ public class ConfigurationController {
 	public ConfigurationViewModel getConfiguration() {
 		return new ConfigurationViewModel(
 				this.configuration.getLanguage(),
-				this.configuration.getRemoteServer(),
+				this.configuration.getNisEndpoint(),
 				this.configuration.getNisBootInfo());
 	}
 
@@ -41,7 +41,7 @@ public class ConfigurationController {
 	public void updateConfiguration(@RequestBody final ConfigurationViewModel configurationViewModel) {
 		this.configuration.update(
 				configurationViewModel.getLanguage(),
-				configurationViewModel.getRemoteServer(),
+				configurationViewModel.getNisEndpoint(),
 				configurationViewModel.getNisBootInfo());
 	}
 }

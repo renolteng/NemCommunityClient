@@ -42,7 +42,7 @@ public class NccAppConfig {
 	@Bean
 	public PrimaryNisConnector primaryNisConnector() {
 		return new DefaultNisConnector(
-				() -> this.configuration().getRemoteServer(),
+				() -> this.configuration().getNisEndpoint(),
 				this.cloudConnector());
 	}
 

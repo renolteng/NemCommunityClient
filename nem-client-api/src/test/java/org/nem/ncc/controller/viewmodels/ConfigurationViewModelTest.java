@@ -20,7 +20,7 @@ public class ConfigurationViewModelTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(viewModel.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(viewModel.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 	}
 
@@ -34,7 +34,7 @@ public class ConfigurationViewModelTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(viewModel.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(viewModel.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(viewModel.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 	}
 

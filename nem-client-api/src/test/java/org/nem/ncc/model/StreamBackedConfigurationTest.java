@@ -24,7 +24,7 @@ public class StreamBackedConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -42,7 +42,7 @@ public class StreamBackedConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(2));

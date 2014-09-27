@@ -12,7 +12,7 @@ import java.util.*;
 public class Configuration implements SerializableEntity, AccountLabels {
 	private final HashMap<Address, AccountLabel> accountLabels;
 	private String language;
-	private NodeEndpoint remoteServer;
+	private NodeEndpoint nisEndpoint;
 	private NisBootInfo nisBootInfo;
 	private final String nemFolder;
 
@@ -25,11 +25,11 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	 */
 	public Configuration(
 			final String language,
-			final NodeEndpoint remoteServer,
+			final NodeEndpoint nisEndpoint,
 			final NisBootInfo nisBootInfo,
 			final String nemFolder) {
 		this.language = language;
-		this.remoteServer = remoteServer;
+		this.nisEndpoint = nisEndpoint;
 		this.nisBootInfo = nisBootInfo;
 		this.nemFolder = nemFolder;
 		this.accountLabels = new HashMap<>();
@@ -48,9 +48,9 @@ public class Configuration implements SerializableEntity, AccountLabels {
 
 		this.nemFolder = nemFolder;
 		this.language = deserializer.readString("language");
-		this.remoteServer = deserializer.readOptionalObject("remoteServer", NodeEndpoint::new);
-		if (null == remoteServer) {
-			this.remoteServer = NodeEndpoint.fromHost("localhost");
+		this.nisEndpoint = deserializer.readOptionalObject("remoteServer", NodeEndpoint::new);
+		if (null == this.nisEndpoint) {
+			this.nisEndpoint = NodeEndpoint.fromHost("localhost");
 		}
 
 		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
@@ -72,12 +72,12 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	}
 
 	/**
-	 * Gets the configured remote server's endpoint.
+	 * Gets the configured NIS server's endpoint.
 	 *
-	 * @return The remote server's endpoint.
+	 * @return The NIS server's endpoint.
 	 */
-	public NodeEndpoint getRemoteServer() {
-		return this.remoteServer;
+	public NodeEndpoint getNisEndpoint() {
+		return this.nisEndpoint;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	 * @return true if NIS is local.
 	 */
 	public boolean isNisLocal() {
-		return null == this.remoteServer || NodeEndpoint.fromHost("localhost").equals(this.remoteServer);
+		return null == this.nisEndpoint || NodeEndpoint.fromHost("localhost").equals(this.nisEndpoint);
 	}
 
 	/**
@@ -135,19 +135,19 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	 * Updates the persistent configuration based with the supplied parameters.
 	 *
 	 * @param language The language.
-	 * @param remoteServer The remote server's endpoint.
+	 * @param nisEndpoint The NIS server's endpoint.
 	 * @param nisBootInfo The NIS boot info.
 	 */
-	public void update(final String language, final NodeEndpoint remoteServer, final NisBootInfo nisBootInfo) {
+	public void update(final String language, final NodeEndpoint nisEndpoint, final NisBootInfo nisBootInfo) {
 		this.language = language;
-		this.remoteServer = remoteServer;
+		this.nisEndpoint = nisEndpoint;
 		this.nisBootInfo = nisBootInfo;
 	}
 
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeString("language", this.language);
-		serializer.writeObject("remoteServer", this.remoteServer);
+		serializer.writeObject("nisEndpoint", this.nisEndpoint);
 		serializer.writeObject("nisBootInfo", this.nisBootInfo);
 		serializer.writeObjectArray("accountLabels", this.accountLabels.values());
 	}

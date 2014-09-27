@@ -25,7 +25,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -43,7 +43,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -63,7 +63,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(2));
@@ -86,7 +86,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -99,7 +99,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
 		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
@@ -259,7 +259,7 @@ public class ConfigurationTest {
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("en-CA"));
-		Assert.assertThat(config.getRemoteServer(), IsEqual.equalTo(NodeEndpoint.fromHost("127.0.0.1")));
+		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("127.0.0.1")));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(12));
 	}
 
