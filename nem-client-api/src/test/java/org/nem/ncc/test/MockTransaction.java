@@ -2,13 +2,9 @@ package org.nem.ncc.test;
 
 import org.nem.core.model.*;
 import org.nem.core.model.observers.TransactionObserver;
-import org.nem.core.model.observers.TransferObserver;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
-
-import java.util.*;
-import java.util.function.*;
 
 /**
  * A mock Transaction implementation.

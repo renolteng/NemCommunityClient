@@ -6,7 +6,6 @@ import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.Supplier;
 
 /**
  * Scheduler that keeps track of all scheduled, recurring timers.

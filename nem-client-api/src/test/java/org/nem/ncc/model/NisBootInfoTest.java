@@ -3,7 +3,6 @@ package org.nem.ncc.model;
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonDeserializer;
 import org.nem.ncc.test.Utils;
 

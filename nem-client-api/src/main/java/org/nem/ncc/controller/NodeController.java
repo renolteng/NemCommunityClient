@@ -10,7 +10,6 @@ import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.BootNodeRequest;
 import org.nem.ncc.services.WalletServices;
 import org.nem.ncc.wallet.Wallet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

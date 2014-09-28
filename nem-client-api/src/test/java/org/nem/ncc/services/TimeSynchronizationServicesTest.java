@@ -5,7 +5,7 @@ import org.mockito.Mockito;
 import org.nem.core.connect.client.*;
 import org.nem.core.model.primitive.NetworkTimeStamp;
 import org.nem.core.time.synchronization.CommunicationTimeStamps;
-import org.nem.ncc.test.*;
+import org.nem.ncc.test.ServicesUtils;
 
 public class TimeSynchronizationServicesTest {
 

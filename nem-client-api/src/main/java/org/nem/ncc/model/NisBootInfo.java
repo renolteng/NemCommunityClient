@@ -1,6 +1,5 @@
 package org.nem.ncc.model;
 
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 
 /**

@@ -1,7 +1,7 @@
 package org.nem.ncc.services;
 
 import org.nem.core.connect.client.*;
-import org.nem.core.node.*;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.time.synchronization.CommunicationTimeStamps;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,5 +30,4 @@ public class TimeSynchronizationServices {
 	public CompletableFuture<CommunicationTimeStamps> getCommunicationTimeStampsAsync(final NodeEndpoint endpoint) {
 		return this.nisConnector.getAsync(endpoint, NisApiId.NIS_REST_TIME_SYNC_NETWORK_TIME, null).thenApply(CommunicationTimeStamps::new);
 	}
-
 }

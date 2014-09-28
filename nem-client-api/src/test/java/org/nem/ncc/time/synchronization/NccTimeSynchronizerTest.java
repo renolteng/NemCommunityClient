@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.nem.core.model.primitive.*;
 import org.nem.core.time.SystemTimeProvider;
-import org.nem.core.time.synchronization.*;
+import org.nem.core.time.synchronization.CommunicationTimeStamps;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.services.TimeSynchronizationServices;
 
@@ -60,7 +60,7 @@ public class NccTimeSynchronizerTest {
 
 	private class TimeSynchronizationContext {
 		private final SystemTimeProvider timeProvider = Mockito.mock(SystemTimeProvider.class);
-		private final TimeSynchronizationServices timeSynchronizationServices =  Mockito.mock(TimeSynchronizationServices.class);
+		private final TimeSynchronizationServices timeSynchronizationServices = Mockito.mock(TimeSynchronizationServices.class);
 		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 
 		private TimeSynchronizationContext() {
