@@ -5,9 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.nem.ncc</groupId>
 	<artifactId>nem-client-download</artifactId>
-	<name>nem-client-download</name>
 	<url>http://www.ournem.com</url>
 	<version>0.2.18-ALPHA</version>
+    <name>NEM Client Download</name>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
