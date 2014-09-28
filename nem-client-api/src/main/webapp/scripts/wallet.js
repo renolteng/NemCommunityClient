@@ -277,8 +277,17 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                 if (data.address) {
                                     var label = data.label;
                                     ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), ncc.formatAddress(data.address), label));
-                                    ncc.refreshAccount(null, data.address, true);
+
+                                    var layout = ncc.get('layout');
+                                    var wallet = ncc.get('wallet.name');
+                                    ncc.loadPage(layout[layout.length - 1].name, 
+                                        {
+                                            wallet: wallet,
+                                            account: data.address
+                                        }
+                                    );
                                     ncc.refreshWallet();
+
                                     closeModal();
                                 } else {
                                     ncc.showError();
@@ -331,8 +340,17 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                 if (data.address) {
                                     var label = data.label;
                                     ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), ncc.formatAddress(data.address), label));
-                                    ncc.refreshAccount(null, data.address, true);
+
+                                    var layout = ncc.get('layout');
+                                    var wallet = ncc.get('wallet.name');
+                                    ncc.loadPage(layout[layout.length - 1].name, 
+                                        {
+                                            wallet: wallet,
+                                            account: data.address
+                                        }
+                                    );
                                     ncc.refreshWallet();
+                                    
                                     closeModal();
                                 } else {
                                     ncc.showError();
