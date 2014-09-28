@@ -7,10 +7,13 @@ import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
-import org.nem.core.model.Account;
+import org.nem.core.model.*;
+import org.nem.core.model.ncc.NemRequestResult;
+import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.BootNodeRequest;
 import org.nem.ncc.services.WalletServices;
+import org.nem.ncc.test.Utils;
 import org.nem.ncc.wallet.*;
 
 public class NodeControllerTest {
@@ -80,12 +83,16 @@ public class NodeControllerTest {
 	public void checkNodeStatusDelegatesToNisConnector() {
 		// Arrange:
 		final TestContext context = new TestContext();
+		final JSONObject jsonObject = JsonSerializer.serializeToJson(new NemRequestResult(ValidationResult.FAILURE_HASH_EXISTS));
+		Mockito.when(context.connector.get(NisApiId.NIS_REST_STATUS, null))
+				.thenReturn(Utils.createDeserializer(jsonObject));
 
 		// Act:
-		context.controller.checkNodeStatus();
+		final NemRequestResult requestResult = context.controller.checkNodeStatus();
 
 		// Assert:
-		Mockito.verify(context.connector, Mockito.times(1)).get(NisApiId.NIS_REST_NODE_INFO, null);
+		Mockito.verify(context.connector, Mockito.only()).get(NisApiId.NIS_REST_STATUS, null);
+		Assert.assertThat(requestResult.getCode(), IsEqual.equalTo(ValidationResult.FAILURE_HASH_EXISTS.getValue()));
 	}
 
 	private static class TestContext {
