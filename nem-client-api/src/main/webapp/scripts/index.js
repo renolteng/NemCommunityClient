@@ -71,9 +71,11 @@ define(['ncc'], function(ncc) {
                 success = true;
             },
             {
-                complete: function() {
-                    if (!success) {
+                complete: function(jqXHR) {
+                    if (jqXHR.status === 0) {
                         ncc.set('nccStatus.code', ncc.consts.STATUS_STOPPED);
+                    } else if (!success) {
+                        ncc.set('nisStatus.code', ncc.consts.STATUS_STOPPED);
                     }
 
                     if (complete) complete();
