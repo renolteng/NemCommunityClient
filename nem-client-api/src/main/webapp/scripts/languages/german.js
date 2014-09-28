@@ -41,9 +41,9 @@ define({
 	        	nisStatus: {
                     nccUnavailable: 'NCC is not available',
 	        		unavailable: 'NIS is nicht verfügbar',
-                    booting: 'Booting NIS...',
-	        		notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
-                    retrievingStatus: 'Retrieving NIS status...',
+                    booting: 'NIS wird gebootet...',
+	        		notBooted: 'NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
+                    retrievingStatus: 'NIS status wird abgefragt...',
 	        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
                     daysBehind: {
                         0: 'weniger als 1 Tag',
@@ -229,7 +229,7 @@ define({
                 nav: {
                         start: 'Erste Schritte',
                         about: 'Info über NEM',
-                        settings: 'Settings'
+                        settings: 'Einstellungen'
                 },
                 main: {
                         leftTitle: 'Neu bei <em>NEM</em>?',
