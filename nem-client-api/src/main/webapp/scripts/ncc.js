@@ -485,6 +485,9 @@ define(function(require) {
             },
             nisUnavailable: function() {
                 return !!(this.get('nisStatus.code') === this.consts.STATUS_STOPPED);
+            },
+            nisSynchronized: function() {
+                return !!(this.get('nisStatus.code') === this.consts.STATUS_SYNCHRONIZED);
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {

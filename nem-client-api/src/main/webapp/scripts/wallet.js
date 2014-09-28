@@ -663,7 +663,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ncc.set('status.booting', true);
                         ncc.postRequest('node/boot', bootData, 
                             function(data) {
-                                ncc.refreshAppStatus();
                                 ncc.refreshNisInfo();
                             },
                             {
@@ -676,9 +675,11 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                     ncc.set('status.booting', false);
 
                                     // If booting fails
-                                    if (!ncc.get('nodeBooted')) {
-                                        ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
-                                    }
+                                    ncc.refreshAppStatus(function() {
+                                        if (!ncc.get('nodeBooted')) {
+                                            ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
+                                        }
+                                    });
                                 }
                             },
                             true
