@@ -13,104 +13,30 @@ import org.nem.ncc.test.*;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 public class ChainServicesTest {
 
 	//region getLastBlockHeightAsync
 
 	@Test
-	public void getLastBlockHeightAsyncReturnsNodeOnSuccess() {
+	public void getChainHeightAsyncReturnsHeightOnSuccess() {
 		// Assert:
 		final TestContext context = new TestContext();
 		ServicesUtils.assertSuccessfulDelegationToConnector(
-				endpoint -> context.services.getLastBlockHeightAsync(endpoint).join(),
+				endpoint -> context.services.getChainHeightAsync(endpoint).join(),
 				context.connector,
-				NisApiId.NIS_REST_CHAIN_LAST_BLOCK,
+				NisApiId.NIS_REST_CHAIN_HEIGHT,
 				new BlockHeight(17));
 	}
 
 	@Test
-	public void getLastBlockHeightAsyncThrowsExceptionOnError() {
+	public void getChainHeightAsyncThrowsExceptionOnError() {
 		// Assert:
 		final TestContext context = new TestContext();
 		ServicesUtils.assertFailureDelegationToConnector(
-				endpoint -> context.services.getLastBlockHeightAsync(endpoint).join(),
+				endpoint -> context.services.getChainHeightAsync(endpoint).join(),
 				context.connector,
-				NisApiId.NIS_REST_CHAIN_LAST_BLOCK);
-	}
-
-	//endregion
-
-	//region getMaxBlockHeightAsync
-
-	@Test
-	public void getMaxBlockHeightAsyncReturnsMaxHeightOnSuccess() {
-		// Arrange:
-		final TestContext context = new TestContext();
-
-		final List<Node> originalNodes = createThreeTestNodes();
-		context.setLastBlockForNode(originalNodes.get(0), createBlockHeightFuture(7));
-		context.setLastBlockForNode(originalNodes.get(1), createBlockHeightFuture(12));
-		context.setLastBlockForNode(originalNodes.get(2), createBlockHeightFuture(3));
-
-		// Act:
-		final BlockHeight maxBlockHeight =
-				context.services.getMaxBlockHeightAsync(nodesToEndpoints(originalNodes)).join();
-
-		// Assert:
-		Assert.assertThat(maxBlockHeight, IsEqual.equalTo(new BlockHeight(12)));
-
-		context.verifyNumLastBlockRequests(3);
-		for (final Node node : originalNodes) {
-			context.verifySingleLastBlockRequest(node.getEndpoint());
-		}
-	}
-
-	@Test
-	public void getMaxBlockHeightAsyncIgnoresFailedNodes() {
-		// Arrange:
-		final TestContext context = new TestContext();
-
-		final List<Node> originalNodes = createThreeTestNodes();
-		context.setLastBlockForNode(originalNodes.get(0), createExceptionalFuture());
-		context.setLastBlockForNode(originalNodes.get(1), createBlockHeightFuture(12));
-		context.setLastBlockForNode(originalNodes.get(2), createExceptionalFuture());
-
-		// Act:
-		final BlockHeight maxBlockHeight =
-				context.services.getMaxBlockHeightAsync(nodesToEndpoints(originalNodes)).join();
-
-		// Assert:
-		Assert.assertThat(maxBlockHeight, IsEqual.equalTo(new BlockHeight(12)));
-
-		context.verifyNumLastBlockRequests(3);
-		for (final Node node : originalNodes) {
-			context.verifySingleLastBlockRequest(node.getEndpoint());
-		}
-	}
-
-	@Test
-	public void getMaxBlockHeightAsyncReturnsBlockHeightOneIfAllNodesFail() {
-		// Arrange:
-		final TestContext context = new TestContext();
-
-		final List<Node> originalNodes = createThreeTestNodes();
-		context.setLastBlockForNode(originalNodes.get(0), createExceptionalFuture());
-		context.setLastBlockForNode(originalNodes.get(1), createExceptionalFuture());
-		context.setLastBlockForNode(originalNodes.get(2), createExceptionalFuture());
-
-		// Act:
-		final BlockHeight maxBlockHeight =
-				context.services.getMaxBlockHeightAsync(nodesToEndpoints(originalNodes)).join();
-
-		// Assert:
-		Assert.assertThat(maxBlockHeight, IsEqual.equalTo(BlockHeight.ONE));
-
-		context.verifyNumLastBlockRequests(3);
-		for (final Node node : originalNodes) {
-			context.verifySingleLastBlockRequest(node.getEndpoint());
-		}
+				NisApiId.NIS_REST_CHAIN_HEIGHT);
 	}
 
 	//endregion
@@ -122,15 +48,13 @@ public class ChainServicesTest {
 		// Arrange: set up the target node
 		final TestContext context = new TestContext();
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.0.0.4");
-		context.setLastBlockForNode(endpoint, createBlockHeightFuture(5));
+		context.setChainHeightForNode(endpoint, createBlockHeightFuture(5));
 
 		// Arrange: set up the peer nodes
 		final List<Node> originalNodes = createThreeTestNodes();
 		final NodeCollection collection = new NodeCollection();
 		originalNodes.forEach(n -> collection.update(n, NodeStatus.ACTIVE));
-		context.setLastBlockForNode(originalNodes.get(0), createBlockHeightFuture(7));
-		context.setLastBlockForNode(originalNodes.get(1), createBlockHeightFuture(12));
-		context.setLastBlockForNode(originalNodes.get(2), createBlockHeightFuture(3));
+		context.setMaxChainHeightForNode(endpoint, createBlockHeightFuture(12));
 		Mockito.when(context.networkServices.getNodePeerListAsync(endpoint))
 				.thenReturn(CompletableFuture.completedFuture(collection));
 
@@ -144,11 +68,11 @@ public class ChainServicesTest {
 	}
 
 	@Test
-	public void getNodeMetaDataAsyncFailsIfMaxBlockHeightCannotBeRetrieved() {
+	public void getNodeMetaDataAsyncFailsIfChainHeightCannotBeRetrieved() {
 		// Arrange: set up the target node
 		final TestContext context = new TestContext();
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.0.0.4");
-		context.setLastBlockForNode(endpoint, createExceptionalFuture());
+		context.setChainHeightForNode(endpoint, createExceptionalFuture());
 
 		// Arrange: set up the peer nodes
 		Mockito.when(context.networkServices.getNodePeerListAsync(endpoint))
@@ -161,11 +85,12 @@ public class ChainServicesTest {
 	}
 
 	@Test
-	public void getNodeMetaDataAsyncFailsIfNodeBlockHeightCannotBeRetrieved() {
+	public void getNodeMetaDataAsyncFailsIfMaxChainHeightCannotBeRetrieved() {
 		// Arrange: set up the target node
 		final TestContext context = new TestContext();
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.0.0.4");
-		context.setLastBlockForNode(endpoint, createBlockHeightFuture(5));
+		context.setChainHeightForNode(endpoint, createBlockHeightFuture(5));
+		context.setMaxChainHeightForNode(endpoint, createExceptionalFuture());
 
 		// Arrange: set up the peer nodes
 		Mockito.when(context.networkServices.getNodePeerListAsync(endpoint))
@@ -178,10 +103,6 @@ public class ChainServicesTest {
 	}
 
 	//endregion
-
-	private static Collection<NodeEndpoint> nodesToEndpoints(final Collection<Node> nodes) {
-		return nodes.stream().map(Node::getEndpoint).collect(Collectors.toList());
-	}
 
 	private static List<Node> createThreeTestNodes() {
 		return Arrays.asList(
@@ -206,27 +127,14 @@ public class ChainServicesTest {
 		private final NetworkServices networkServices = Mockito.mock(NetworkServices.class);
 		private final ChainServices services = new ChainServices(this.connector, this.networkServices);
 
-		private void setLastBlockForNode(final Node node, final CompletableFuture<Deserializer> future) {
-			this.setLastBlockForNode(node.getEndpoint(), future);
-		}
-
-		private void setLastBlockForNode(final NodeEndpoint endpoint, final CompletableFuture<Deserializer> future) {
-			Mockito.when(this.connector.getAsync(endpoint, NisApiId.NIS_REST_CHAIN_LAST_BLOCK, null))
+		private void setChainHeightForNode(final NodeEndpoint endpoint, final CompletableFuture<Deserializer> future) {
+			Mockito.when(this.connector.getAsync(endpoint, NisApiId.NIS_REST_CHAIN_HEIGHT, null))
 					.thenReturn(future);
 		}
 
-		private void verifyNumLastBlockRequests(final int numExpectedRequests) {
-			Mockito.verify(this.connector, Mockito.times(numExpectedRequests)).getAsync(
-					Mockito.any(),
-					Mockito.eq(NisApiId.NIS_REST_CHAIN_LAST_BLOCK),
-					Mockito.eq(null));
-		}
-
-		private void verifySingleLastBlockRequest(final NodeEndpoint expectedEndpoint) {
-			Mockito.verify(this.connector, Mockito.times(1)).getAsync(
-					expectedEndpoint,
-					NisApiId.NIS_REST_CHAIN_LAST_BLOCK,
-					null);
+		private void setMaxChainHeightForNode(final NodeEndpoint endpoint, final CompletableFuture<Deserializer> future) {
+			Mockito.when(this.connector.getAsync(endpoint, NisApiId.NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT, null))
+					.thenReturn(future);
 		}
 	}
 }
