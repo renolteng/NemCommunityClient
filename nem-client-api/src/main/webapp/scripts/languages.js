@@ -5,10 +5,11 @@ define([
 	'languages/english', 
 	'languages/french', 
 	'languages/german', 
+	'languages/hindi_b', 
 	'languages/italian', 
 	'languages/japanese', 
 	'languages/spanish',
-	'languages/special',
+	'languages/pirate',
 	'languages/portuguese_br',
 	'languages/vietnamese', 
 	'languages/russian', 
@@ -19,10 +20,11 @@ define([
 		english,
 		french,
 		german, 
+		hindi,
 		italian,
 		japanese, 
 		spanish,
-		special,
+		pirate,
 		portuguese_br,
 		vietnamese, 
 		russian, 
@@ -42,7 +44,7 @@ define([
                     }
                 }
             }
-		    iterx(special.texts);
+		    iterx(pirate.texts);
 	return [
 		bulgarian,
 		chinese,
@@ -50,10 +52,11 @@ define([
 		english,
 		french,
 		german, 
+		hindi,
 		italian, 
 		japanese,
 		spanish,
-		special,
+		pirate,
 		portuguese_br,
 		vietnamese, 
 		russian, 
