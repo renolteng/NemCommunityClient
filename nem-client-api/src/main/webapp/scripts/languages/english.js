@@ -45,7 +45,7 @@ define({
         		nisUnknown: 'NIS status is unknown',
         		nisUnavailable: 'NIS is not available',
         		nisStarting: 'NIS is starting',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
         		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',

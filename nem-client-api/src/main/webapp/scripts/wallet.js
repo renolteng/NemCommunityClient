@@ -652,7 +652,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             ncc.refreshAppStatus(function() {
-                if (ncc.get('nodeBooted')) {
+                if (!ncc.get('nodeBooted')) {
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
                         var bootData = {
                             node_name: ncc.get('settings.nisBootInfo.nodeName'),
