@@ -8,23 +8,27 @@ import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.test.ExceptionAssert;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class AccountsFileDescriptorTest {
 
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
-	private static final File TEST_ACCOUNTS_FILE = new File(TEST_FILE_DIRECTORY, "test.cache");
+	private static final File TEST_ACCOUNTS_READ_FILE = new File(TEST_FILE_DIRECTORY, "test.read.cache");
+	private static final File TEST_ACCOUNTS_WRITE_FILE = new File(TEST_FILE_DIRECTORY, "test.write.cache");
 	private static final byte[] TEST_ACCOUNTS_FILE_CONTENTS = new byte[] { 1, 2, 3 };
 
 	//region BeforeClass / AfterClass
 
 	@BeforeClass
 	public static void createTestFiles() throws IOException {
-		final boolean result = TEST_FILE_DIRECTORY.mkdir()
-				&& TEST_ACCOUNTS_FILE.createNewFile();
+		boolean result = TEST_FILE_DIRECTORY.mkdir();
 
-		try (final FileOutputStream os = new FileOutputStream(TEST_ACCOUNTS_FILE)) {
-			os.write(TEST_ACCOUNTS_FILE_CONTENTS);
+		for (final File file : Arrays.asList(TEST_ACCOUNTS_READ_FILE, TEST_ACCOUNTS_WRITE_FILE)) {
+			result = result && file.createNewFile();
+			try (final FileOutputStream os = new FileOutputStream(file)) {
+				os.write(TEST_ACCOUNTS_FILE_CONTENTS);
+			}
 		}
 
 		if (!result) {
@@ -44,7 +48,7 @@ public class AccountsFileDescriptorTest {
 	@Test
 	public void openReadCanOpenFileThatExists() throws IOException {
 		// Arrange:
-		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(TEST_ACCOUNTS_FILE);
+		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(TEST_ACCOUNTS_READ_FILE);
 
 		// Act:
 		try (final InputStream is = descriptor.openRead()) {
@@ -87,7 +91,7 @@ public class AccountsFileDescriptorTest {
 	@Test
 	public void openWriteCanOpenFileThatExists() throws IOException {
 		// Arrange:
-		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(TEST_ACCOUNTS_FILE);
+		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(TEST_ACCOUNTS_WRITE_FILE);
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
