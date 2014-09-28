@@ -43,23 +43,22 @@ public class NccScheduler implements AutoCloseable {
 
 	/**
 	 * Adds the NCC time synchronization task.
+	 *
+	 * @param nccTimeSynchronizer The time synchronizer.
 	 */
 	public void addTimeSynchronizationTask(final NccTimeSynchronizer nccTimeSynchronizer) {
 		final AsyncTimerVisitor timerVisitor = this.createNamedVisitor("TIME SYNCHRONIZATION");
 		this.timers.add(new AsyncTimer(
-				this.runnableToFutureSupplier(() -> nccTimeSynchronizer.synchronizeTime()),
+				() -> nccTimeSynchronizer.synchronizeTime(),
 				TIME_SYNC_INITIAL_DELAY,
 				new UniformDelayStrategy(TIME_SYNC_INTERVAL),
 				timerVisitor));
 	}
 
+	// TODO 20140928 J-B (minor) might want to add a test that close transitions all times to stopped
 	@Override
 	public void close() {
 		this.timers.forEach(AsyncTimer::close);
-	}
-
-	private Supplier<CompletableFuture<?>> runnableToFutureSupplier(final Runnable runnable) {
-		return () -> CompletableFuture.runAsync(runnable, this.executor);
 	}
 
 	private NemAsyncTimerVisitor createNamedVisitor(final String name) {

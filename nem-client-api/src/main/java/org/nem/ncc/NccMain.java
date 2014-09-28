@@ -31,6 +31,7 @@ public class NccMain {
 	private final org.nem.ncc.model.Configuration configuration;
 	private final NccScheduler scheduler;
 
+	// TODO 20140928 J-B: any reason we can't pass in the NccScheduler directly (instead of NccTimeSynchronizer)?
 	public NccMain(final NccTimeSynchronizer nccTimeSynchronizer) {
 		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
 		migrateDirectory(new File(nccFolder));
@@ -91,15 +92,6 @@ public class NccMain {
 		final String message = String.format("Cannot use <%s> as a directory to store wallets.", directory.getAbsolutePath());
 		LOGGER.severe(message);
 		throw new ConfigurationException(message);
-	}
-
-	/**
-	 * Gets the folder where all nem files are stored.
-	 *
-	 * @return The nem folder.
-	 */
-	public static String getNemFolder() {
-		return commonConfiguration.getNemFolder();
 	}
 
 	/**
