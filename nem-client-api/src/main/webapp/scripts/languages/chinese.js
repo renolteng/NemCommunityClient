@@ -70,16 +70,9 @@
 				remoteServer: {
 					tabTitle: 'Remote Server',
 					protocol: 'Protocol',
-					protocolOptions: [
-						{
-							value: 'http', // please dont't change
-							display: 'HTTP'
-						},
-						{
-							value: 'https', // please dont't change
-							display: 'HTTPS'
-						}
-					],
+					protocolOptions: {
+						http: 'HTTP'
+					},
 					host: 'Host',
 					port: 'Port'
 				},
