@@ -5,10 +5,11 @@ define([
 	'languages/english', 
 	'languages/french', 
 	'languages/german', 
+	'languages/hindi_b', 
 	'languages/italian', 
 	'languages/japanese', 
 	'languages/spanish',
-	'languages/special',
+	'languages/pirate',
 	'languages/portuguese_br',
 	'languages/vietnamese', 
 	'languages/russian', 
@@ -19,30 +20,15 @@ define([
 		english,
 		french,
 		german, 
+		hindi,
 		italian,
 		japanese, 
 		spanish,
-		special,
+		pirate,
 		portuguese_br,
 		vietnamese, 
 		russian, 
 		lithuanian) {
-            function iterx(obj) {
-                for (var property in obj) {
-                    if (obj.hasOwnProperty(property)) {
-                        if (typeof(obj[property]) == "object") {
-                        	if (property !== 'preferences') {
-                            	iterx(obj[property]);
-                            }
-                        } else {
-                            if (property !== 'logo') {
-                                obj[property] = window.atob(obj[property]);
-                            }
-                        }
-                    }
-                }
-            }
-		    iterx(special.texts);
 	return [
 		bulgarian,
 		chinese,
@@ -50,10 +36,11 @@ define([
 		english,
 		french,
 		german, 
+		hindi,
 		italian, 
 		japanese,
 		spanish,
-		special,
+		pirate,
 		portuguese_br,
 		vietnamese, 
 		russian, 

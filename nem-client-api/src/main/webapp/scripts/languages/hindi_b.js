@@ -44,7 +44,7 @@ define({
         		booting: 'Booting NIS...',
         		notBooted: 'NIS को बूट करने की आवश्यकता है. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
         		retrievingStatus: 'Retrieving NIS status...',
-        		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.'
+        		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.',
 				daysBehind: {
         			0: '1 दिन से कम',
         			1: '1 दिन',
