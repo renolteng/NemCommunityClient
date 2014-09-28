@@ -319,7 +319,13 @@ define(function(require) {
             fractionalDigits: 2,
             txesPerPage: 25,
             blocksPerPage: 25,
-            defaultLanguage: 'en'
+            defaultLanguage: 'en',
+            STATUS_UNKNOWN: 0,
+            STATUS_STOPPED: 1,
+            STATUS_STARTING: 2,
+            STATUS_RUNNING: 3,
+            STATUS_BOOTED: 4,
+            STATUS_SYNCHRONIZED: 5
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);
@@ -380,70 +386,105 @@ define(function(require) {
             allAccounts: function() {
                 return this.prepend([this.get('wallet.primaryAccount')], this.get('wallet.otherAccounts'));
             },
-            nisStatus: function() {
-                if (this.get('status.nccUnavailable')) {
-                    return {
-                        type: 'critical',
-                        message: this.get('texts.common.nisStatus.nccUnavailable')
-                    };
-                }
-
-                if (this.get('status.nisUnavailable')) {
-                    return {
-                        type: 'critical',
-                        message: this.get('texts.common.nisStatus.unavailable')
-                    };
-                }
-
-                if (this.get('status.booting')) {
-                    return {
-                        type: 'warning',
-                        message: this.get('texts.common.nisStatus.booting')
-                    };
-                }
-
-                if (!this.get('status.nodeBooted')) {
-                    return {
-                        type: 'warning',
-                        message: this.get('texts.common.nisStatus.notBooted')
-                    };
-                }
-
-                var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
-                if (lastBlockBehind !== 0) {
-                    if (!lastBlockBehind) {
+            appStatus: function() {
+                switch (this.get('nccStatus.code')) {
+                    case this.consts.STATUS_UNKNOWN:
+                        return {
+                            type: 'critical',
+                            message: this.get('texts.common.appStatus.nccUnknown')
+                        };
+                    case  this.consts.STATUS_STOPPED:
+                        return {
+                            type: 'critical',
+                            message: this.get('texts.common.appStatus.nccUnavailable')
+                        };
+                    case  this.consts.STATUS_STARTING:
                         return {
                             type: 'warning',
-                            message: this.get('texts.common.nisStatus.retrievingStatus')
+                            message: this.get('texts.common.appStatus.nccStarting')
                         };
-                    } else {
-                        var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
-                        var daysBehindText;
-                        switch (daysBehind) {
-                            case 0:
-                                daysBehindText = this.get('texts.common.nisStatus.daysBehind.0');
-                                break;
+                    default: // probably RUNNING
+                        switch (this.get('nisStatus.code')) {
+                            case this.consts.STATUS_UNKNOWN:
+                                return {
+                                    type: 'critical',
+                                    message: this.get('texts.common.appStatus.nisUnknown')
+                                };
+                            case this.consts.STATUS_STOPPED:
+                                return {
+                                    type: 'critical',
+                                    message: this.get('texts.common.appStatus.nisUnavailable')
+                                };
+                            case this.consts.STATUS_STARTING:
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.nisStarting')
+                                };
+                            case this.consts.STATUS_RUNNING:
+                                if (this.get('status.booting')) {
+                                    return {
+                                        type: 'warning',
+                                        message: this.get('texts.common.appStatus.booting')
+                                    };
+                                } else {
+                                    return {
+                                        type: 'warning',
+                                        message: this.get('texts.common.appStatus.notBooted')
+                                    };
+                                }
+                            case this.consts.STATUS_BOOTED:
+                                var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
+                                if (lastBlockBehind !== 0) {
+                                    if (!lastBlockBehind) {
+                                        return {
+                                            type: 'warning',
+                                            message: this.get('texts.common.appStatus.nisInfoNotAvailable')
+                                        };
+                                    } else {
+                                        var daysBehind = Math.floor(this.get('nis.nodeMetaData.lastBlockBehind') / (60 * 1440));
+                                        var daysBehindText;
+                                        switch (daysBehind) {
+                                            case 0:
+                                                daysBehindText = this.get('texts.common.appStatus.daysBehind.0');
+                                                break;
+                                            case 1:
+                                                daysBehindText = this.get('texts.common.appStatus.daysBehind.1');
+                                                break;
+                                            default:
+                                                daysBehindText = this.fill(this.get('texts.common.appStatus.daysBehind.many'), daysBehind);
+                                                break;
+                                        }
 
-                            case 1:
-                                daysBehindText = this.get('texts.common.nisStatus.daysBehind.1');
-                                break;
+                                        return {
+                                            type: 'warning',
+                                            message: this.fill(this.get('texts.common.appStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
+                                        };
+                                    }
+                                } else {
+                                    return {
+                                        type: 'message',
+                                        message: this.get('texts.common.appStatus.synchronized')
+                                    };
+                                }
 
-                            default:
-                                daysBehindText = this.fill(this.get('texts.common.nisStatus.daysBehind.many'), daysBehind);
-                                break;
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.synchronizing')
+                                };
+                            case this.consts.STATUS_SYNCHRONIZED:
+                                return {
+                                    type: 'message',
+                                    message: this.get('texts.common.appStatus.synchronized')
+                                };
                         }
-
-                        return {
-                            type: 'warning',
-                            message: this.fill(this.get('texts.common.nisStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
-                        };
-                    }
-                } else {
-                    return {
-                        type: 'message',
-                        message: this.get('texts.common.nisStatus.synchronized')
-                    };
                 }
+            },
+            nodeBooted: function() {
+                var nisStatus = this.get('nisStatus.code');
+                return !!(nisStatus === this.consts.STATUS_BOOTED || nisStatus === this.consts.STATUS_SYNCHRONIZED);
+            },
+            nisUnavailable: function() {
+                return !!(this.get('nisStatus.code') === this.consts.STATUS_STOPPED);
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
