@@ -48,7 +48,7 @@ public class NccMain {
 		}
 
 		this.scheduler = new NccScheduler(CommonStarter.TIME_PROVIDER);
-		scheduler.addTimeSynchronizationTask(nccTimeSynchronizer);
+		this.scheduler.addTimeSynchronizationTask(nccTimeSynchronizer);
 	}
 
 	private static byte[] loadConfigurationStream(final String storagePath) {

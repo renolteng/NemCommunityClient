@@ -56,7 +56,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
-		return new NccMain(new NccTimeSynchronizer(timeSynchronizationServices(), timeProvider(), primaryNisConnector()));
+		return new NccMain(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
 	}
 
 	@Bean

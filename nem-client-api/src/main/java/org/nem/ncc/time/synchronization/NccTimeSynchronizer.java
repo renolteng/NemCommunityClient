@@ -26,7 +26,7 @@ public class NccTimeSynchronizer implements TimeSynchronizer {
 	 */
 	public NccTimeSynchronizer(
 			final TimeSynchronizationServices timeSynchronizationServices,
-			TimeProvider timeProvider,
+			final TimeProvider timeProvider,
 			final PrimaryNisConnector nisConnector) {
 		this.timeSynchronizationServices = timeSynchronizationServices;
 		this.timeProvider = timeProvider;

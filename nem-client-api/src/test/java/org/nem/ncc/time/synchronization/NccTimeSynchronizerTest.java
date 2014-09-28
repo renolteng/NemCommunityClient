@@ -13,8 +13,8 @@ public class NccTimeSynchronizerTest {
 	@Test
 	public void synchronizeTimeDelegatesToTimeSynchronizationConnector() {
 		// Arrange:
-		TimeSynchronizationContext context = new TimeSynchronizationContext();
-		NccTimeSynchronizer synchronizer = new NccTimeSynchronizer(
+		final TimeSynchronizationContext context = new TimeSynchronizationContext();
+		final NccTimeSynchronizer synchronizer = new NccTimeSynchronizer(
 				context.timeSynchronizationServices,
 				context.timeProvider,
 				context.connector);
@@ -29,8 +29,8 @@ public class NccTimeSynchronizerTest {
 	@Test
 	public void synchronizeTimeDelegatesToTimeProvider() {
 		// Arrange:
-		TimeSynchronizationContext context = new TimeSynchronizationContext();
-		NccTimeSynchronizer synchronizer = new NccTimeSynchronizer(
+		final TimeSynchronizationContext context = new TimeSynchronizationContext();
+		final NccTimeSynchronizer synchronizer = new NccTimeSynchronizer(
 				context.timeSynchronizationServices,
 				context.timeProvider,
 				context.connector);
@@ -45,8 +45,8 @@ public class NccTimeSynchronizerTest {
 	@Test
 	public void synchronizeTimeUpdatesTimeProviderTimeOffset() {
 		// Arrange:
-		TimeSynchronizationContext context = new TimeSynchronizationContext();
-		NccTimeSynchronizer synchronizer = new NccTimeSynchronizer(
+		final TimeSynchronizationContext context = new TimeSynchronizationContext();
+		final NccTimeSynchronizer synchronizer = new NccTimeSynchronizer(
 				context.timeSynchronizationServices,
 				context.timeProvider,
 				context.connector);
