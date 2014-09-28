@@ -63,29 +63,29 @@ define({
                         no: 'Nein'
                 },
                 settings: {
-                title: 'Settings',
-                language: {
-                    label: 'Language'
-                },
-                remoteServer: {
-                    tabTitle: 'Remote Server',
-                    protocol: 'Protocol',
-                    protocolOptions: {
-                        http: 'HTTP'
-                    },
-                    host: 'Host',
-                    port: 'Port'
-                },
-                autoBoot: {
-                    tabTitle: 'Auto-boot',
-                    name: 'Node name',
-                    account: 'Account',
-                    primaryAccount: 'Primary Account',
-                    auto: 'Auto boot when a wallet is opened'
-                },
-                save: 'Save',
-                saveSuccess: 'Settings have been saved successfully'
-            },
+					title: 'Einstellungen',
+					language: {
+						label: 'Sprache'
+					},
+					remoteServer: {
+						tabTitle: 'Remote Server',
+						protocol: 'Protokoll',
+						protocolOptions: {
+							http: 'HTTP'
+						},
+						host: 'Host',
+						port: 'Port'
+					},
+					autoBoot: {
+						tabTitle: 'Auto-boot',
+						name: 'Name des Knotenpunkts',
+						account: 'Konto',
+						primaryAccount: 'Primäres Konto',
+						auto: 'Automatisch booten beim Öffnen der Brieftasche'
+					},
+					save: 'Speichern',
+					saveSuccess: 'Die Einstellungen wurden erfolgreich gespeichert'
+				},
                 sendNem: {
                         title: 'NEM senden',
                         labelDesc: 'Das Label des Kontos ist {{1}}',
