@@ -72,6 +72,7 @@ public class NodeController {
 	 */
 	@RequestMapping(value = "/node/status", method = RequestMethod.GET)
 	public NemRequestResult checkNodeStatus() {
+		// TODO 20140928 J-?: we should update the test
 		return new NemRequestResult(this.nisConnector.get(NisApiId.NIS_REST_STATUS, null));
 	}
 }
