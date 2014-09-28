@@ -41,6 +41,8 @@ public class ChainServices {
 	}
 
 	private CompletableFuture<BlockHeight> getMaxChainHeightAsync(final NodeEndpoint endpoint, final int[] numPeers) {
+		// TODO 20140927 J-B: i think it makes sense to query  getNodePeerListAsync and NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT
+		// > separately (i.e. different futures) because there is not a dependency anymore
 		return this.networkServices.getNodePeerListAsync(endpoint)
 				.thenCompose(nodes -> {
 					numPeers[0] = nodes.getActiveNodes().size();
