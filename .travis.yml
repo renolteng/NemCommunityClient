@@ -4,4 +4,4 @@ jdk:
 
 install:
  - wget http://bob.nem.ninja/nem-core__V0.2.18-ALPHA.jar
- - mvn install nem-core__V0.2.18-ALPHA.jar
+ - mvn install:install-file -Dfile=.\nem-core__V0.2.18-ALPHA.jar -DgroupId=org.nem? -DartifactId=core -Dversion=0.2.18-ALPHA -Dpackaging=jar
