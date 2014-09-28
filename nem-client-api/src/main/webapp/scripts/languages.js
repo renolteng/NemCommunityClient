@@ -29,22 +29,6 @@ define([
 		vietnamese, 
 		russian, 
 		lithuanian) {
-            function iterx(obj) {
-                for (var property in obj) {
-                    if (obj.hasOwnProperty(property)) {
-                        if (typeof(obj[property]) == "object") {
-                        	if (property !== 'preferences') {
-                            	iterx(obj[property]);
-                            }
-                        } else {
-                            if (property !== 'logo') {
-                                obj[property] = window.atob(obj[property]);
-                            }
-                        }
-                    }
-                }
-            }
-		    iterx(pirate.texts);
 	return [
 		bulgarian,
 		chinese,
