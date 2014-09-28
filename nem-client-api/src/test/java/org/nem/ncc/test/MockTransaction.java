@@ -1,6 +1,8 @@
 package org.nem.ncc.test;
 
 import org.nem.core.model.*;
+import org.nem.core.model.observers.TransactionObserver;
+import org.nem.core.model.observers.TransferObserver;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
@@ -189,10 +191,10 @@ public class MockTransaction extends Transaction {
 		this.validationResult = validationResult;
 	}
 
-	@Override
-	public ValidationResult checkDerivedValidity(final BiPredicate<Account, Amount> canDebitPredicate) {
-		return this.validationResult;
-	}
+//	@Override
+//	public ValidationResult checkDerivedValidity(final BiPredicate<Account, Amount> canDebitPredicate) {
+//		return this.validationResult;
+//	}
 
 	@Override
 	protected Amount getMinimumFee() {
@@ -206,20 +208,25 @@ public class MockTransaction extends Transaction {
 	}
 
 	@Override
-	protected void executeCommit() {
-		++this.numExecuteCommitCalls;
-		this.executeList.add(this.customField);
+	protected void transfer(TransactionObserver transactionObserver) {
+
 	}
 
-	@Override
-	protected void undoCommit() {
-		++this.numUndoCommitCalls;
-		this.undoList.add(this.customField);
-	}
-
-	@Override
-	protected void transfer(final TransferObserver observer) {
-		this.transferAction.accept(observer);
-		++this.numTransferCalls;
-	}
+//	@Override
+//	protected void executeCommit() {
+//		++this.numExecuteCommitCalls;
+//		this.executeList.add(this.customField);
+//	}
+//
+//	@Override
+//	protected void undoCommit() {
+//		++this.numUndoCommitCalls;
+//		this.undoList.add(this.customField);
+//	}
+//
+//	@Override
+//	protected void transfer(final TransferObserver observer) {
+//		this.transferAction.accept(observer);
+//		++this.numTransferCalls;
+//	}
 }

@@ -87,7 +87,6 @@ public class NccAccountCacheTest {
 		Assert.assertThat(account.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
 		Assert.assertThat(account.getForagedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(account.getLabel(), IsEqual.equalTo("label"));
-		Assert.assertThat(account.getMessages().size(), IsEqual.equalTo(0));
 	}
 
 	//endregion
@@ -327,7 +326,6 @@ public class NccAccountCacheTest {
 		Assert.assertThat(actualAccount.getBalance(), IsEqual.equalTo(expectedInfo.getBalance()));
 		Assert.assertThat(actualAccount.getForagedBlocks(), IsEqual.equalTo(expectedInfo.getNumForagedBlocks()));
 		Assert.assertThat(actualAccount.getLabel(), IsEqual.equalTo(expectedInfo.getLabel()));
-		Assert.assertThat(actualAccount.getMessages().size(), IsEqual.equalTo(0));
 	}
 
 	private static class TestContext {
