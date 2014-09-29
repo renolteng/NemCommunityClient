@@ -1,9 +1,10 @@
 package org.nem.client.download;
 
-import org.junit.Test;
+import org.junit.*;
 
 import java.net.*;
 
+@Ignore
 public class TestSplashScreen {
 
 	@Test

@@ -14,12 +14,12 @@
 			<li class="tile importance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
 				<article>
 					<h1 class="main-title">{{texts.dashboard.importance.title}}</h1>
-					{{#status.lostConnection || status.nisUnavailable || activeAccount.status === 'UNKNOWN'}}
+					{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
 						<button type="button" class="harvesting-btn unknown icon-question-circle">
 							<span>{{texts.dashboard.importance.unknown}}</span>
 						</button>
 					{{/}}
-					{{^status.lostConnection || status.nisUnavailable}}
+					{{^status.lostConnection || nisUnavailable}}
 						{{#activeAccount.status === 'LOCKED'}}
 							<button type="button" class="harvesting-btn not-harvesting icon-play" on-click="startHarvesting">
 								<span>{{texts.dashboard.importance.start}}</span>
@@ -41,7 +41,7 @@
 			<li class="tile transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
 				<article>
 					<h1 class="main-title">{{texts.dashboard.transactions.title}}</h1>
-					<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{status.nisUnavailable}}" on-click="openSendNem">{{texts.dashboard.transactions.sendNem}}</button>
+					<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.dashboard.transactions.sendNem}}</button>
 					<div class="overview">
 						<h1>{{texts.dashboard.transactions.balance}}</h1>
 						<p class="balance"><span class="number" title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">

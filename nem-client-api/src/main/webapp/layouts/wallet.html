@@ -78,7 +78,7 @@
 							<li class="dropdownMenu-item disabled">
 								{{texts.wallet.actions.exportWallet}}
 							</li>
-							<li class="dropdownMenu-item {{# status.nisUnavailable || status.nodeBooted}}disabled{{/}} dropdownMenu-item--separator" on-click="bootLocalNode">
+							<li class="dropdownMenu-item {{# nisUnavailable || nodeBooted}}disabled{{/}} dropdownMenu-item--separator" on-click="bootLocalNode">
 								{{texts.wallet.actions.bootLocalNode}}
 							</li>
 							<li class="dropdownMenu-item" on-click="refreshInfo">
@@ -302,16 +302,11 @@
 				<div class="clientInfo-block">
 					<p>
 						<strong>
-							{{#nis.nodeMetaData.maxBlockChainHeight !== -1}}
-								{{#nis.nodeMetaData.nodeBlockChainHeight === nis.nodeMetaData.maxBlockChainHeight}}
-									{{texts.modals.clientInfo.sync}}
-								{{/}}
-								{{#nis.nodeMetaData.nodeBlockChainHeight !== nis.nodeMetaData.maxBlockChainHeight}}
-									{{texts.modals.clientInfo.notSync}}
-								{{/}}
+							{{#nisSynchronized}}
+								{{texts.modals.clientInfo.sync}}
 							{{/}}
-							{{#nis.nodeMetaData.maxBlockChainHeight === -1}}
-								{{texts.modals.clientInfo.notConnected}}
+							{{^nisSynchronized}}
+								{{texts.modals.clientInfo.notSync}}
 							{{/}}
 						</strong>
 					</p>

@@ -3,7 +3,7 @@
 		<section id="transactions-page">
 			<div class="head">
 				<h1>{{texts.transactions.title}}</h1>
-				<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{status.nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
+				<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
 				<div class="overview">
 					<h1>{{texts.transactions.balance}}</h1>
 					<p><span title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></span></p>
