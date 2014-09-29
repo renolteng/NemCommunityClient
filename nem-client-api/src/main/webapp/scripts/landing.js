@@ -81,11 +81,19 @@
 			);
 
 			require(['tinycarousel'], function() {
-				$('.tipsCarousel-container').tinycarousel({
+				var $carousel = $('.tipsCarousel-container');
+				$carousel.tinycarousel({
 			        interval: true,
 			        intervalTime: 5000,
 			        animationTime: 1000
 			    });
+
+			    var carouselControl = $carousel.data("plugin_tinycarousel");
+			    local.listeners.push(ncc.observe('texts', function() {
+			    	setTimeout(function() {
+			    		carouselControl.update();
+			    	}, 10);
+			    }));
 			});
 
 			require(['expand'], function() {

@@ -161,14 +161,14 @@
 	</div>
 	<div id="tipsCarousel">
 		<div class="tipsCarousel-container container">
-			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--prev buttons icon-arrow-left"></a>
+			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--prev icon-arrow-left buttons prev"></a>
 			<div class="tipsCarousel-viewport viewport">
 				{{#texts.landing.carousel}}
 					<ul class="tipsCarousel-overview overview">
 						{{#.items}}
 							<li class="tipsCarousel-item">
 								<article>
-									<h1 class="tipsCarousel-title">{{.title}}</h1>
+									<h1 class="tipsCarousel-title">{{.title}}</h1><br />
 									<p class="tipsCarousel-description">{{{.description}}}</p>
 								</article>
 							</li>
@@ -176,7 +176,7 @@
 					</ul>
 				{{/}}
 			</div>
-			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--next buttons icon-arrow-right"></a>
+			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--next icon-arrow-right buttons next"></a>
 		</div>
 	</div>
 	<section id="landingAbout">
