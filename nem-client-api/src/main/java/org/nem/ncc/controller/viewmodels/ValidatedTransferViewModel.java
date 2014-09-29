@@ -39,7 +39,7 @@ public class ValidatedTransferViewModel implements SerializableEntity {
 
 	/**
 	 * Gets a value indicating whether or not encryption is supported.
-	 * 
+	 *
 	 * @return true if encryption is supported.
 	 */
 	public boolean isEncryptionPossible() {

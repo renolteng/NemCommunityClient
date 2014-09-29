@@ -1,14 +1,12 @@
 package org.nem.ncc.controller.viewmodels;
 
 import net.minidev.json.JSONObject;
-
+import org.hamcrest.core.IsEqual;
+import org.junit.*;
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.JsonSerializer;
-
-import org.hamcrest.core.IsEqual;
-import org.junit.*;
 
 public class ValidatedTransferViewModelTest {
 
@@ -16,7 +14,7 @@ public class ValidatedTransferViewModelTest {
 	public void viewModelCanBeCreatedAroundAccountWithPublicKey() {
 		// Arrange:
 		final Account account = new Account(new KeyPair());
-		
+
 		// Act:
 		final ValidatedTransferViewModel viewModel = new ValidatedTransferViewModel(Amount.fromMicroNem(1720), account);
 
