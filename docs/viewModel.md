@@ -249,8 +249,16 @@ Only a local NIS can be booted.
 
 ```
 {
-	"code": 3,
-	"type": 4,
+	"code": 3,            # 0 - UNKNOWN
+	                      # 1 - STOPPED
+	                      # 2 - STARTING
+	                      # 3 - RUNNING
+	                      # 4 - BOOTED
+	                      # 5 - SYNCHRONIZED
+	"type": 4,            # A NemRequestResult can have serveral meanings. 
+                          # The type indicates the meaning. 
+	                      # type 4 - TYPE_STATUS, the code and the message fields 
+	                      # have to be interpreted as status.
 	"message": "status"
 }
 ```

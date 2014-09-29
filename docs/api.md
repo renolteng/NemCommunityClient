@@ -245,7 +245,7 @@ Checks the status of the local node.
 
 * Request Method: _GET_
 * Request: `-`
-* Response: `-` (Reflected by the standard HTTP-Status: 200 ok, otherwise failure)
+* Response: [NemRequestResult](viewModel.md#nemrequestresult)
 * Dependent from NIS: _Yes_
 
 ### /network
