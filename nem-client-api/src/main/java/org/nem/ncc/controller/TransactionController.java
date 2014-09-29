@@ -8,7 +8,7 @@ import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
-import org.nem.ncc.controller.viewmodels.FeeViewModel;
+import org.nem.ncc.controller.viewmodels.ValidatedTransferViewModel;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.TransactionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,13 +62,16 @@ public class TransactionController {
 	}
 
 	/**
-	 * Request the calculation of the minimum fee for sending the transaction
+	 * Request the validation of the transaction. 
+	 * That includes the calculation of the minimum fee for sending the transaction.
+	 * And the verification whether message can be sent encrypted to the recipient.
 	 *
 	 * @param request The transaction information.
 	 * @return The minimum fee.
 	 */
-	@RequestMapping(value = "/wallet/account/transaction/fee", method = RequestMethod.POST)
-	public FeeViewModel getMinimumFee(@RequestBody final TransferFeeRequest request) {
-		return new FeeViewModel(this.transactionMapper.toModel(request).getFee());
+	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
+	public ValidatedTransferViewModel validateTransferData(@RequestBody final TransferValidateRequest request) {
+		final TransferTransaction transaction = (TransferTransaction)this.transactionMapper.toModel(request);
+		return new ValidatedTransferViewModel(transaction.getFee(), transaction.getRecipient());
 	}
 }
