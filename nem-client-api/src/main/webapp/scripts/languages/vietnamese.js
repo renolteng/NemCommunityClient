@@ -22,8 +22,8 @@ define({
             400: 'Một tham số nào đó bị thiếu hoặc không hợp lệ.',
             404: 'Không tìm thấy tài nguyên được yêu cầu.',
             500: 'Lưu file cấu hình thất bại.',
-            600: 'NCC yêu cầu máy chủ NIS phải được khởi động để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để khởi động local node.',
-            601: 'NIS node đã được khởi động rồi. Không thể khởi động NIS một lần nữa.',
+            600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
+            601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
             700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng NEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 NEM.',
             701: 'Deadline được cung cấp đã trôi qua.',
             702: 'Deadline được cung cấp quá xa trong tương lai.',
@@ -38,19 +38,23 @@ define({
         },
         common: {
         	success: 'Thành công', //title of the Success message modals
-        	nisStatus: {
+        	appStatus: {
+        		nccUnknown: 'Không rõ trạng thái của NCC',
         		nccUnavailable: 'Mất kết nối với NCC',
-        		unavailable: 'Mất kết nối với NIS',
-        		booting: 'Đang khởi động NIS...',
-        		notBooted: 'NIS cần phải được khởi động. Hãy mở ví của bạn và khởi động local node bằng hộp thoại hiện ra.',
-        		retrievingStatus: 'Đang truy vấn trạng thái của NIS...',
+        		nccStarting: 'NCC đang khởi động...',
+        		nisUnknown: 'Không rõ trạng thái của NIS',
+        		nisUnavailable: 'Mất kết nối với NIS',
+        		nisStarting: 'NIS đang khởi động...',
+        		notBooted: 'NIS cần phải được boot. Hãy mở ví của bạn và boot node cục bộ bằng hộp thoại hiện ra hoặc đặt cấu hình thiết lập tự động boot.',
+        		booting: 'Đang boot NIS...',
+        		nisInfoNotAvailable: 'Thông tin về NIS chưa sẵn sàng. Đang truy xuất thông tin về NIS...',
         		synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',
                 daysBehind: {
                     0: 'ít hơn 1 ngày',
                     1: '1 ngày',
                     many: '{{1}} ngày'
                 },
-        		synchronized: 'NIS đã đồng bộ!'
+        		synchronized: 'NIS đã được đồng bộ!'
         	}
         },
 		modals: {
@@ -77,11 +81,11 @@ define({
 					port: 'Cổng'
 				},
 				autoBoot: {
-					tabTitle: 'Tự khởi động node',
-					name: 'Node name',
+					tabTitle: 'Tự boot node',
+					name: 'Tên node',
 					account: 'Tài khoản',
 					primaryAccount: 'Tài khoản chính',
-					auto: 'Tự động khởi động node khi ví được mở'
+					auto: 'Tự động boot node khi ví được mở'
 				},
 				save: 'Lưu',
 				saveSuccess: 'Thiết lập đã được lưu thành công'
@@ -137,17 +141,17 @@ define({
 				fee: 'Chi phí'
 			},
 			bootLocalNode: {
-				title: 'Khởi động local node',
-				account: 'Tài khoản để khởi động local node',
+				title: 'Boot node cục bộ',
+				account: 'Tài khoản để boot node cục bộ',
 				noLabel: '<span class="null">&lt;Không có nhãn&gt;</span>',
 				wallet: 'Ví',
 				node: 'Tên node',
-				boot: 'Khởi động',
-				booting: 'Đang khởi động...'
+				boot: 'Boot',
+				booting: 'Đang boot...'
 			},
 			notBootedWarning: {
-				title: 'Node chưa được khởi động!',
-				message: 'Local node cần phải được khởi động trước khi bạn có thể gửi NEM đi!'
+				title: 'Node chưa được boot!',
+				message: 'Node cục bộ cần phải được boot trước khi bạn có thể gửi NEM đi!'
 			},
 			closeWallet: {
 				title: 'Đóng ví',
@@ -295,7 +299,7 @@ define({
 			copiedToClipboard: 'Địa chỉ đã được copy vào clipboard!',
 			actions: {
 				refreshInfo: 'Cập nhật dữ liệu',
-				bootLocalNode: 'Khởi động Local Node',
+				bootLocalNode: 'Boot node cục bộ',
 				changeWalletName: 'Đổi tên ví',
 				changeWalletPassword: 'Đổi mật khẩu ví',
 				mergeWallets: 'Hợp nhất nhiều ví',
@@ -323,7 +327,7 @@ define({
 				'Thiết lập',
 				'Đóng chương trình'
 			],
-			bootNodeWarning: "Local node cần phải được khởi động trước khi bạn có thể sử dụng đầy đủ các tính năng của NCC"
+			bootNodeWarning: "Node cần phải được boot trước khi bạn có thể sử dụng đầy đủ các tính năng của NCC"
 		},
 		dashboard: {
 			assets: {
