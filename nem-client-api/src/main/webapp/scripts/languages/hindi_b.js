@@ -40,34 +40,24 @@ define({
         	success: 'Success', //title of the Success message modals
         	appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC उपलब्ध नहीं है',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'NIS  उपलब्ध नहीं है',
         		nisStarting: 'NIS is starting...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.',
         		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
+        			0: '1 दिन से कम',
+        			1: '1 दिन',
+        			many: '{{1}} दिन'
         		},
         		synchronized: 'NIS is synchronized!'
         	}
     //     	nisStatus: {
-    //     		nccUnavailable: 'NCC उपलब्ध नहीं है',
-    //     		unavailable: 'NIS उपलब्ध नहीं है',
-    //     		booting: 'Booting NIS...',
     //     		notBooted: 'NIS को बूट करने की आवश्यकता है. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
-    //     		retrievingStatus: 'Retrieving NIS status...',
-    //     		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.',
-				// daysBehind: {
-    //     			0: '1 दिन से कम',
-    //     			1: '1 दिन',
-    //     			many: '{{1}} दिन'
-    //     		},
     //     		synchronized: 'NIS is synchronized!'
     //     	}
         },

@@ -38,12 +38,16 @@
         },
         common: {
         	success: 'Succes', //title of the Success message modals
-        	nisStatus: {
-        		nccUnavailable: 'NCC is not available',
-        		unavailable: 'NIS nu este disponibil',
+        	appStatus: {
+        		nccUnknown: 'NCC status is unknown',
+        		nccUnavailable: 'NCC nu este disponibil',
+        		nccStarting: 'NCC is starting...',
+        		nisUnknown: 'NIS status is unknown',
+        		nisUnavailable: 'NIS nu este disponibil',
+        		nisStarting: 'NIS is starting...',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
-        		notBooted: 'NIS are nevoie să fie repornit. Te rog deschide portofelul și pornește un nod local prin fereastra care apare.',
-        		retrievingStatus: 'Retrieving NIS status...',
+         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
         		synchronizing: 'NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.'
         		daysBehind: {
 					0: 'Mai puțin de 1 zi în urmă',
@@ -229,7 +233,7 @@
 			nav: {
 				start: 'Primii<strong>Pași</strong>',
 				about: 'Despre <strong>NEM</strong>',
-				help: '<strong>Ajutor</strong>'
+				settings: '<strong>Setări</strong>'
 			},
 			main: {
 				leftTitle: 'Nou în <em>NEM</em>?',

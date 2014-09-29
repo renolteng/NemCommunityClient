@@ -40,15 +40,15 @@ define({
         	success: 'Успiшно', //title of the Success message modals
         	appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC не досяжний',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'NIS не досяжний',
         		nisStarting: 'NIS is starting...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.'
         		daysBehind: {
         			0: 'less than 1 day',
         			1: '1 day',
@@ -57,17 +57,7 @@ define({
         		synchronized: 'NIS is synchronized!'
         	}
     //     	nisStatus: {
-    //     		nccUnavailable: 'NCC is not available',
-    //     		unavailable: 'NIS не досяжний',
-    //     		booting: 'Booting NIS...',
     //     		notBooted: 'NIS має бути запущений. Будь ласка, відкрийте гаманець і за допомогою спливаючого меню запустiть локальний вузол.',
-    //     		retrievingStatus: 'Retrieving NIS status...',
-    //     		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.'
-				// daysBehind: {
-    //     			0: 'less than 1 day',
-    //     			1: '1 day',
-    //     			many: '{{1}} days'
-    //     		},
     //     		synchronized: 'NIS is synchronized!'
     //     	}
         },
@@ -96,12 +86,6 @@ define({
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
-					nodeOptions: [
-						{
-							value: 'Local NIS', // please dont't change
-							display: 'Local NIS'
-						}
-					],
 					name: 'Node name',
 					account: 'Account',
 					primaryAccount: 'Primary Account',

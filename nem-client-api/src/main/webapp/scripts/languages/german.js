@@ -40,29 +40,25 @@ define({
                 success: 'Erfolg', //title of the Success message modals
                 appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC is nicht verfügbar',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'NIS is nicht verfügbar',
         		nisStarting: 'NIS is starting...',
         		notBooted: 'NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
         		booting: 'NIS wird gebootet...',
         		nisInfoNotAvailable: 'NIS status wird abgefragt...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
                     daysBehind: {
-                        0: 'less than 1 day',
-                        1: '1 day',
-                        many: '{{1}} days'
+                        0: 'weniger als 1 Tag',
+                        1: 'etwa 1 Tag',
+                        many: 'etwa {{1}} Tage'
                     },
                     synchronized: 'NIS is synchronized!'
                 }
 	        	// nisStatus: {
-          //           nccUnavailable: 'NCC is not available',
-	        	// 	unavailable: 'NIS is nicht verfügbar',
-          //           booting: 'Booting NIS...',
-	        	// 	notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
+        	// 	notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
           //           retrievingStatus: 'Retrieving NIS status...',
-	        	// 	synchronizing: 'NIS synchronisiert. Block {{1}}, {{2}} im Rückstand.',
           //           daysBehind: {
           //               0: 'weniger als 1 Tag',
           //               1: 'etwa 1 Tag',
@@ -253,8 +249,8 @@ define({
                         leftTitle: 'Neu bei <em>NEM</em>?',
                         leftButton: 'Brieftasche anlegen',
                         walletNamePlh: 'Name Deiner Brieftasche',
-						create: 'Anlegen',
                         passwordPlh: 'Passwort',
+                        create: 'Anlegen',
                         rightTitle: 'Bist Du schon ein <em>NEM</em>ber?',
                         rightButton: 'Öffne Deine Brieftasche',
                         openButton: 'Öffnen',

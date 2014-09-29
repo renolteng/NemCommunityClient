@@ -40,35 +40,25 @@
         	success: 'Успешно', //title of the Success message modals
         	appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC е недостъпен',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'NIS е недостъпен',
         		nisStarting: 'NIS is starting...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
         		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
+        			0: 'по малко от 1 ден',
+        			1: '1 ден',
+        			many: '{{1}} дни'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS е синхронизиран!'
         	}
         	// nisStatus: {
-        	// 	nccUnavailable: 'NCC е недостъпен',
-        	// 	unavailable: 'NIS е недостъпен',
-        	// 	booting: 'Booting NIS...',
         	// 	notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
         	// 	retrievingStatus: 'Retrieving NIS status...',
-        	// 	synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
-        	// 	daysBehind: {
-        	// 		0: 'по малко от 1 ден',
-        	// 		1: '1 ден',
-        	// 		many: '{{1}} дни'
-        	// 	},
-        	// 	synchronized: 'NIS е синхронизиран!'
         	// }
         },
 		modals: {

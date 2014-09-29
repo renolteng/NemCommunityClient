@@ -56,20 +56,6 @@
         		},
         		synchronized: 'NIS is synchronized!'
         	}
-        	// nisStatus: {
-        	// 	nccUnavailable: 'NCC is not available',
-        	// 	unavailable: 'NIS is not available',
-        	// 	booting: 'Booting NIS...',
-        	// 	notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
-        	// 	retrievingStatus: 'Retrieving NIS status...',
-        	// 	synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
-        	// 	daysBehind: {
-        	// 		0: 'less than 1 day',
-        	// 		1: '1 day',
-        	// 		many: '{{1}} days'
-        	// 	},
-        	// 	synchronized: 'NIS is synchronized!'
-        	// }
         },
 		modals: {
 			error: {
@@ -115,6 +101,7 @@
 				fee: '费',
 				dueBy: '限期（小时）',
 				resetFee: '重设最低收费',
+				hours: '小时',
 				password: '密码',
 				send: '发送',
 				sending: '发送...',

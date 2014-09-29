@@ -40,10 +40,10 @@
                     success: 'Успешно', //title of the Success message modals
           appStatus: {
             nccUnknown: 'NCC status is unknown',
-            nccUnavailable: 'NCC is not available',
+            nccUnavailable: 'NCC не доступен',
             nccStarting: 'NCC is starting...',
             nisUnknown: 'NIS status is unknown',
-            nisUnavailable: 'NIS is not available',
+            nisUnavailable: 'NIS не доступен',
             nisStarting: 'NIS is starting...',
             notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
             booting: 'Booting NIS...',
@@ -56,20 +56,6 @@
             },
             synchronized: 'NIS is synchronized!'
           }
-                    // nisStatus: {
-                    //             nccUnavailable: 'NCC is not available',
-                    //             unavailable: 'NIS не доступен',
-                    //             booting: 'Booting NIS...',
-                    //             notBooted: 'NIS требует перезагрузки. Пожалуйста, откройте кошелёк и загрузитесь как локальный узел через всплывающий диалог.',
-                    //             retrievingStatus: 'Retrieving NIS status...',
-                    //             synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
-                    //             daysBehind: {
-                    //                 0: 'less than 1 day',
-                    //                 1: '1 day',
-                    //                 many: '{{1}} days'
-                    //             },
-                    //             synchronized: 'NIS is synchronized!'
-                    // }
             },
                             modals: {
                                        error: {

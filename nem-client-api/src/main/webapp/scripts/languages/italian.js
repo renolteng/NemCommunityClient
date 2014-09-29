@@ -40,34 +40,24 @@ define({
         	success: 'Operazione completata', //title of the Success message modals
         	appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC non disponibile',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'NIS non disponibile',
         		nisStarting: 'NIS is starting...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		booting: 'Avvio di NIS in corso...',
+        		nisInfoNotAvailable: 'Verifica dello stato di NIS...',
+        		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
         		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
+        			0: 'meno di un giorno',
+        			1: 'un giorno',
+        			many: '{{1}} giorni'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS è sincronizzato!'
         	}
         	// nisStatus: {
-        	// 	nccUnavailable: 'NCC non disponibile',
-        	// 	unavailable: 'NIS non disponibile',
-        	// 	booting: 'Avvio di NIS in corso...',
         	// 	notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
-        	// 	retrievingStatus: 'Verifica dello stato di NIS...',
-        	// 	synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
-         //        daysBehind: {
-         //            0: 'meno di un giorno',
-         //            1: 'un giorno',
-         //            many: '{{1}} giorni'
-         //        },
         	// 	synchronized: 'NIS è sincronizzato!'
         	// }
         },

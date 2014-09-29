@@ -40,33 +40,24 @@ define({
         	success: 'Successo', //titulo de mensagens de sucesso
         	appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'NCC não inicializado',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'NIS não inicializado',
         		nisStarting: 'NIS is starting...',
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		synchronizing: 'NIS está sincronizando com o bloco {{1}}. Encontrado {{2}} atrás.',
         		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
+        			0: 'Menos de um dia',
+        			1: '1 dia',
+        			many: '{{1}} dias'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS foi sincronizado!'
         	}
         	// nisStatus: {
-        	// 	nccUnavailable: 'NCC não inicializado',
-        	// 	unavailable: 'NIS não inicializado',
         	// 	notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize um nó local via diálogo pop-up.',
-        	// 	synchronizing: 'NIS está sincronizando com o bloco {{1}}. Encontrado {{2}} atrás.',
-         //        daysBehind: {
-         //            0: 'Menos de um dia',
-         //            1: '1 dia',
-         //            many: '{{1}} dias'
-         //        },
-        	// 	synchronized: 'NIS foi sincronizado!'
         	// }
         },
 		modals: {
@@ -245,7 +236,7 @@ define({
 			nav: {
 				start: 'Início', // ou primeiros passos, dependendo do contexto
 				about: 'Sobre NEM',
-				help: 'Ajuda'
+				settings: 'Configurações'
 			},
 			main: {
 				leftTitle: 'Primeira vez? Crie uma carteira <em>NEM</em>!',

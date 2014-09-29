@@ -40,36 +40,22 @@ define({
         	success: "Aye!", //title of the Success message modals
         	appStatus: {
         		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
+        		nccUnavailable: 'Ship not in range',
         		nccStarting: 'NCC is starting...',
         		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
+        		nisUnavailable: 'Ship not in range',
         		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		notBooted: 'Ship still in port. Pick yer coffer and set the sails.',
+        		booting: 'Setting sails',
+        		nisInfoNotAvailable: 'Checking sails',
+        		synchronizing: 'Setting sails. At block {{1}}, est. {{2}} behind.',
         		daysBehind: {
         			0: 'less than 1 day',
         			1: '1 day',
         			many: '{{1}} days'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'Beauty in port!'
         	}
-        	// nisStatus: {
-        	// 	nccUnavailable: 'Ship not in range',
-        	// 	unavailable: "Ship not in range",
-        	// 	booting: 'Setting sails',
-        	// 	notBooted: "Ship still in port. Pick yer coffer and set the sails.",
-        	// 	retrievingStatus: 'Checking sails',
-        	// 	synchronizing: "Setting sails. At block {{1}}, est. {{2}} behind.",
-        	// 	daysBehind: {
-        	// 		0: 'less than 1 day',
-        	// 		1: '1 day',
-        	// 		many: '{{1}} days'
-        	// 	},
-        	// 	synchronized: 'Beauty in port!'
-        	// }
         },
 		modals: {
 			error: {
@@ -326,7 +312,7 @@ define({
 				clientInfo: "Ship's Particulars",
 				closeWallet: "Close the Coffer",
 				closeProgram: "Abandon Ship",
-				copyToClipboard: "Click to copy me hearties to clipboard"
+				copyClipboard: "Click to copy me hearties to clipboard"
 			},
 			nav: [
 				"Port",
