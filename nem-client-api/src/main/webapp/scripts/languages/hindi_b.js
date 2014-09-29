@@ -1,6 +1,6 @@
 define({
 	id: 'Hn',
-	name: 'HINDI',
+	name: 'हिन्दी (Hindi)',
 	texts: {
 		preferences: {
 			thousandSeparator: '\u2009',
