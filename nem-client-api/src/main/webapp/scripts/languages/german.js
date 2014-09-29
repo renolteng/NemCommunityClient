@@ -39,12 +39,12 @@ define({
         common: {
                 success: 'Erfolg', //title of the Success message modals
                 appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'NCC status ist unbekannt',
         		nccUnavailable: 'NCC is nicht verfügbar',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC started...',
+        		nisUnknown: 'NIS status ist unbekannt',
         		nisUnavailable: 'NIS is nicht verfügbar',
-        		nisStarting: 'NIS is starting...',
+        		nisStarting: 'NIS started...',
         		notBooted: 'NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
         		booting: 'NIS wird gebootet...',
         		nisInfoNotAvailable: 'NIS status wird abgefragt...',
@@ -54,18 +54,8 @@ define({
                         1: 'etwa 1 Tag',
                         many: 'etwa {{1}} Tage'
                     },
-                    synchronized: 'NIS is synchronized!'
+                    synchronized: 'NIS ist synchronisiert!'
                 }
-	        	// nisStatus: {
-        	// 	notBooted: 'NIS muss gebooted werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
-          //           retrievingStatus: 'Retrieving NIS status...',
-          //           daysBehind: {
-          //               0: 'weniger als 1 Tag',
-          //               1: 'etwa 1 Tag',
-          //               many: 'etwa {{1}} Tage'
-          //           },
-          //           synchronized: 'NIS is synchronized!'
-	        	// }
         },
         modals: {
                 error: {
