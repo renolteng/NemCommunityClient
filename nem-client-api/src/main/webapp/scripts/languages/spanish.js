@@ -77,7 +77,7 @@ define({
                       notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
                       booting: 'Booting NIS...',
                       nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-                      synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.'
+                      synchronizing: 'NIS est&aacute; sincronizando. En el bloque {{1}}: aproximadamente {{2}} d&iacute;a(s) atras.',
                       daysBehind: {
                         0: 'less than 1 day',
                         1: '1 day',

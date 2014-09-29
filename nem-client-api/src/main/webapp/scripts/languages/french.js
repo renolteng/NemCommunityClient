@@ -50,7 +50,7 @@ define({
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
         		synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
         		daysBehind: {
-        			0: 'moins d'une journée',
+        			0: "moins d'une journée",
         			1: 'une journée',
         			many: '{{1}} jours'
         		},
