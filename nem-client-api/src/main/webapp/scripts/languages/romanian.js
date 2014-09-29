@@ -39,15 +39,15 @@
         common: {
         	success: 'Succes', //title of the Success message modals
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'Statusul NCC este necunoscut',
         		nccUnavailable: 'NCC nu este disponibil',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC pornește...',
+        		nisUnknown: 'Statusul NIS este necunoscut',
         		nisUnavailable: 'NIS nu este disponibil',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		nisStarting: 'NIS pornește...',
+        		notBooted: 'NIS are necesită să fie pornit. Te rog deschide portofelul și pornește un nod local prin fereastra care apare sau configurează setarea de auto-pornire.',
+        		booting: 'NIS se pornește...',
+         		nisInfoNotAvailable: 'Informația NIS nu este disponibilă încă. Se încearcă a prelua informația NIS...',
         		synchronizing: 'NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.'
         		daysBehind: {
 					0: 'Mai puțin de 1 zi în urmă',
@@ -67,9 +67,9 @@
 				no: 'Nu'
 			},
 			settings: {
-				title: 'Settings',
+				title: 'Setări',
 				language: {
-					label: 'Language'
+					label: 'Limbă'
 				},
 				remoteServer: {
 					tabTitle: 'Remote Server',
@@ -77,18 +77,18 @@
 					protocolOptions: {
 						http: 'HTTP'
 					},
-					host: 'Host',
+					host: 'Gazdă',
 					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'Auto-pornire',
+					name: 'Numele nodului',
+					account: 'Cont',
+					primaryAccount: 'Primar Cont',
+					auto: 'Pornește automat când un portofel a fost deschis'
 				},
-				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				save: 'Salvează',
+				saveSuccess: 'Setările au fost salvate cu succes'
 			},
 			sendNem: {
 				title: 'Trimite NEM',
@@ -387,8 +387,8 @@
 			sendNem: 'Trimite NEM',
 			balance: 'Sold actual',
 			filters: {
-				confirmed: 'Confirmed',
-				unconfirmed: 'Unconfirmed',
+				confirmed: 'Confirmat',
+				unconfirmed: 'Neconfirmat',
 				incoming: 'De primit',
 				outgoing: 'De trimis',
 			},
