@@ -62,12 +62,12 @@ public class TransactionController {
 	}
 
 	/**
-	 * Request the validation of the transaction. 
-	 * That includes the calculation of the minimum fee for sending the transaction.
-	 * And the verification whether message can be sent encrypted to the recipient.
+	 * Requests inspecting the transaction for validation purposes. The returned result will include:
+	 * - The minimum fee for sending the transaction.
+	 * - A value indicating whether or not the recipient can receive encrypted messages.
 	 *
 	 * @param request The transaction information.
-	 * @return The minimum fee.
+	 * @return The validation information.
 	 */
 	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
 	public ValidatedTransferViewModel validateTransferData(@RequestBody final TransferValidateRequest request) {

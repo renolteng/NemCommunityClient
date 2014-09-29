@@ -19,7 +19,7 @@ public class ValidatedTransferViewModel implements SerializableEntity {
 	 */
 	public ValidatedTransferViewModel(final Amount fee, final Account recipient) {
 		this.fee = fee;
-		this.encryptionPossible = (recipient == null) ? true : (recipient.getKeyPair() != null ? (recipient.getKeyPair().hasPublicKey() ? true : false) : false);
+		this.encryptionPossible = null != recipient && null != recipient.getKeyPair() && recipient.getKeyPair().hasPublicKey();
 	}
 
 	@Override
@@ -38,11 +38,11 @@ public class ValidatedTransferViewModel implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the possibility of sending encrypted messages to the recipient.
+	 * Gets a value indicating whether or not encryption is supported.
 	 * 
-	 * @return The indicator for possibility of encryption
+	 * @return true if encryption is supported.
 	 */
 	public boolean isEncryptionPossible() {
-		return encryptionPossible;
+		return this.encryptionPossible;
 	}
 }
