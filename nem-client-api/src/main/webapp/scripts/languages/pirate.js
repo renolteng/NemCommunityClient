@@ -38,20 +38,38 @@ define({
         },
         common: {
         	success: "Aye!", //title of the Success message modals
-        	nisStatus: {
-        		nccUnavailable: 'Ship not in range',
-        		unavailable: "Ship not in range",
-        		booting: 'Setting sails',
-        		notBooted: "Ship still in port. Pick yer coffer and set the sails.",
-        		retrievingStatus: 'Checking sails',
-        		synchronizing: "Setting sails. At block {{1}}, est. {{2}} behind.",
+        	appStatus: {
+        		nccUnknown: 'NCC status is unknown',
+        		nccUnavailable: 'NCC is not available',
+        		nccStarting: 'NCC is starting...',
+        		nisUnknown: 'NIS status is unknown',
+        		nisUnavailable: 'NIS is not available',
+        		nisStarting: 'NIS is starting...',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+        		booting: 'Booting NIS...',
+        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
         		daysBehind: {
         			0: 'less than 1 day',
         			1: '1 day',
         			many: '{{1}} days'
         		},
-        		synchronized: 'Beauty in port!'
+        		synchronized: 'NIS is synchronized!'
         	}
+        	// nisStatus: {
+        	// 	nccUnavailable: 'Ship not in range',
+        	// 	unavailable: "Ship not in range",
+        	// 	booting: 'Setting sails',
+        	// 	notBooted: "Ship still in port. Pick yer coffer and set the sails.",
+        	// 	retrievingStatus: 'Checking sails',
+        	// 	synchronizing: "Setting sails. At block {{1}}, est. {{2}} behind.",
+        	// 	daysBehind: {
+        	// 		0: 'less than 1 day',
+        	// 		1: '1 day',
+        	// 		many: '{{1}} days'
+        	// 	},
+        	// 	synchronized: 'Beauty in port!'
+        	// }
         },
 		modals: {
 			error: {

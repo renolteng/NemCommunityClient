@@ -38,20 +38,38 @@ define({
         },
         common: {
         	success: 'Succès', //title of the Success message modals
-        	nisStatus: {
+        	appStatus: {
+        		nccUnknown: 'NCC status is unknown',
         		nccUnavailable: 'NCC is not available',
-        		unavailable: 'NIS est introuvable',
+        		nccStarting: 'NCC is starting...',
+        		nisUnknown: 'NIS status is unknown',
+        		nisUnavailable: 'NIS is not available',
+        		nisStarting: 'NIS is starting...',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
-        		notBooted: "NIS à besoin d'être démarré. S'il vous plait, ouvrir votre portefeuille et démarrer le noeud local via la boîte de dialogue contextuelle.",
-        		retrievingStatus: 'Retrieving NIS status...',
-        		synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
+        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
         		daysBehind: {
-        			0: "moins d'une journée",
-        			1: 'une journée',
-        			many: '{{1}} jours'
+        			0: 'less than 1 day',
+        			1: '1 day',
+        			many: '{{1}} days'
         		},
-        		synchronized: 'NIS est synchronisé!'
+        		synchronized: 'NIS is synchronized!'
         	}
+        	// nisStatus: {
+        	// 	nccUnavailable: 'NCC is not available',
+        	// 	unavailable: 'NIS est introuvable',
+        	// 	booting: 'Booting NIS...',
+        	// 	notBooted: "NIS à besoin d'être démarré. S'il vous plait, ouvrir votre portefeuille et démarrer le noeud local via la boîte de dialogue contextuelle.",
+        	// 	retrievingStatus: 'Retrieving NIS status...',
+        	// 	synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
+        	// 	daysBehind: {
+        	// 		0: "moins d'une journée",
+        	// 		1: 'une journée',
+        	// 		many: '{{1}} jours'
+        	// 	},
+        	// 	synchronized: 'NIS est synchronisé!'
+        	// }
         },
 		modals: {
 			error: {

@@ -38,20 +38,38 @@
         },
         common: {
         	success: 'Pavyko', //title of the Success message modals
-        	nisStatus: {
+        	appStatus: {
+        		nccUnknown: 'NCC status is unknown',
         		nccUnavailable: 'NCC is not available',
-        		unavailable: 'NIS nera paleistas',
+        		nccStarting: 'NCC is starting...',
+        		nisUnknown: 'NIS status is unknown',
+        		nisUnavailable: 'NIS is not available',
+        		nisStarting: 'NIS is starting...',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
-        		notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
-        		retrievingStatus: 'Retrieving NIS status...',
-        		synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
-                daysBehind: {
-                    0: 'mažiau kaip 1 diena',
-                    1: '1 diena',
-                    many: '{{1}} dienos'
-                },
+        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		daysBehind: {
+        			0: 'less than 1 day',
+        			1: '1 day',
+        			many: '{{1}} days'
+        		},
         		synchronized: 'NIS is synchronized!'
         	}
+        	// nisStatus: {
+        	// 	nccUnavailable: 'NCC is not available',
+        	// 	unavailable: 'NIS nera paleistas',
+        	// 	booting: 'Booting NIS...',
+        	// 	notBooted: 'Reikia, kad NIS butu paleistas. Prašome atidaryti pinigine ir paleisti vietini prieigos taška, pasinaudodami atsidariusiu dialogo langu.',
+        	// 	retrievingStatus: 'Retrieving NIS status...',
+        	// 	synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
+         //        daysBehind: {
+         //            0: 'mažiau kaip 1 diena',
+         //            1: '1 diena',
+         //            many: '{{1}} dienos'
+         //        },
+        	// 	synchronized: 'NIS is synchronized!'
+        	// }
         },
 		modals: {
 			error: {

@@ -99,13 +99,13 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ncc.postRequest('node/boot', values, 
                             function(data) {
                                 closeModal();
-                                ncc.set('status.nodeBooted', true);
+                                ncc.refreshAppStatus();
                                 ncc.refreshNisInfo();
                             },
                             {
                                 altFailCb: function(faultId) {
                                     if (601 === faultId) {
-                                        ncc.set('status.nodeBooted', true);
+                                        ncc.refreshAppStatus();
                                         closeModal();
                                     }
                                 },
@@ -179,7 +179,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     ncc.set('walletPage.miniSidebar', !ncc.get('walletPage.miniSidebar'));
                 },
                 openSendNem: function() {
-                    if (ncc.get('status.nodeBooted')) {
+                    if (ncc.get('nodeBooted')) {
                         ncc.showModal('sendNem');
                     } else {
                         ncc.showMessage(ncc.get('texts.modals.notBootedWarning.title'), ncc.get('texts.modals.notBootedWarning.message'), function() {
@@ -651,8 +651,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
-            if (!ncc.get('status.nodeBooted')) {
-                ncc.checkNodeStatus(null, function() {
+            ncc.refreshAppStatus(function() {
+                if (!ncc.get('nodeBooted')) {
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
                         var bootData = {
                             node_name: ncc.get('settings.nisBootInfo.nodeName'),
@@ -663,22 +663,23 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ncc.set('status.booting', true);
                         ncc.postRequest('node/boot', bootData, 
                             function(data) {
-                                ncc.set('status.nodeBooted', true);
                                 ncc.refreshNisInfo();
                             },
                             {
                                 altFailCb: function(faultId) {
                                     if (601 === faultId) {
-                                        ncc.set('status.nodeBooted', true);
+                                        ncc.refreshAppStatus();
                                     }
                                 },
                                 complete: function() {
                                     ncc.set('status.booting', false);
 
                                     // If booting fails
-                                    if (!ncc.get('status.nodeBooted')) {
-                                        ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
-                                    }
+                                    ncc.refreshAppStatus(function() {
+                                        if (!ncc.get('nodeBooted')) {
+                                            ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
+                                        }
+                                    });
                                 }
                             },
                             true
@@ -686,8 +687,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     } else {
                         ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
                     }
-                });
-            }
+                }
+            });
 
             require(['maskedinput'], function() {
                 var pattern1 = function() {
