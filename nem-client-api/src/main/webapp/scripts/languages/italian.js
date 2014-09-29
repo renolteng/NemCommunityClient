@@ -70,16 +70,9 @@ define({
 				remoteServer: {
 					tabTitle: 'Server remoto',
 					protocol: 'Protocollo',
-					protocolOptions: [
-						{
-							value: 'http', // please dont't change
-							display: 'HTTP'
-						},
-						{
-							value: 'https', // please dont't change
-							display: 'HTTPS'
-						}
-					],
+					protocolOptions: {
+						http: 'HTTP'
+					},
 					host: 'Nome del server',
 					port: 'Porta'
 				},

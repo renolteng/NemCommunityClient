@@ -525,6 +525,10 @@ $settingModal-bgColor: #fff;
 	&.dropdownbox-selection {
 		line-height: $settingModal-input-height;
 	}
+
+	&:disabled {
+		color: #e5e5e5;
+	}
 }
 
 .settingsModal-inputField {

@@ -70,16 +70,9 @@ define({
 				remoteServer: {
 					tabTitle: 'Server từ xa',
 					protocol: 'Giao thức',
-					protocolOptions: [
-						{
-							value: 'http', // please dont't change
-							display: 'HTTP'
-						},
-						{
-							value: 'https', // please dont't change
-							display: 'HTTPS'
-						}
-					],
+					protocolOptions: {
+						http: 'HTTP'
+					},
 					host: 'Host',
 					port: 'Cổng'
 				},

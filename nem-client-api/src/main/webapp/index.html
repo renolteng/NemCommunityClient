@@ -48,16 +48,12 @@
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.protocol}}</p>
 							<div class="dropdownbox">
 								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-protocolDropdown'">
-									{{#texts.modals.settings.remoteServer.protocolOptions}}
-										{{# .value === settings.remoteServer.protocol}}
-											{{.display}}
-										{{/}}
+									{{#settings.remoteServer.protocol === 'http'}}
+										{{texts.modals.settings.remoteServer.protocolOptions.http}}
 									{{/}}
 								</div>
 								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}">
-									{{#texts.modals.settings.remoteServer.protocolOptions}}
-										<li class="dropdownbox-item" on-click="set:'settings.remoteServer.protocol',{{.value}}">{{.display}}</li>
-									{{/}}
+									<li class="dropdownbox-item" on-click="set:'settings.remoteServer.protocol','http'">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
 								</ul>
 							</div>
 						</div>
@@ -67,7 +63,7 @@
 						</div>
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.port}}</p>
-							<input type="text" class="settingsModal-input js-settingsModal-port-textbox" value="{{portStr}}" />
+							<input type="text" class="settingsModal-input js-settingsModal-port-textbox" value="{{portStr}}" disabled />
 						</div>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^active.settingsModalTab === 'autoBoot'}}hidden{{/}}">
