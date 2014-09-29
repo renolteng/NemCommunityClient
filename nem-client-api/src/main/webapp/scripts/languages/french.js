@@ -41,7 +41,7 @@ define({
         	nisStatus: {
         		nccUnavailable: 'NCC is not available',
         		unavailable: 'NIS est introuvable',
-        		booting: 'Booting NIS...',
+        		booting: 'Démarrage de NIS...',
         		notBooted: "NIS à besoin d'être démarré. S'il vous plait, ouvrir votre portefeuille et démarrer le noeud local via la boîte de dialogue contextuelle.",
         		retrievingStatus: 'Retrieving NIS status...',
         		synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
@@ -68,23 +68,23 @@ define({
 					label: 'Language'
 				},
 				remoteServer: {
-					tabTitle: 'Remote Server',
-					protocol: 'Protocol',
+					tabTitle: 'Serveur Distant',
+					protocol: 'Protocole',
 					protocolOptions: {
 						http: 'HTTP'
 					},
-					host: 'Host',
+					host: 'Hôte',
 					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'Démarrage Automatique',
+					name: 'Nom du noeud',
+					account: 'Compte',
+					primaryAccount: 'Compte primaire',
+					auto: 'Démarrage automatiquement quand le portefeuille est ouvert'
 				},
-				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				save: 'Enregistrer',
+				saveSuccess: 'Les paramètres ont été enregistrés avec succès'
 			},
 			sendNem: {
 				title: 'Envoyez des NEMs',
@@ -142,7 +142,7 @@ define({
 				noLabel: '<span class="null">&lt;Aucune étiquette&gt;</span>',
 				wallet: 'Portefeuille',
 				node: 'Nom du noeud',
-				boot: 'Démarrez',
+				boot: 'Démarrer',
 				booting: 'Démarrage...'
 			},
 			notBootedWarning: {
@@ -229,7 +229,7 @@ define({
 			nav: {
 				start: 'Commencer',
 				about: 'À propos de NEM',
-				settings: 'Settings'
+				settings: 'Paramètres'
 			},
 			main: {
 				leftTitle: 'Nouveau dans <em>NEM</em>?',
