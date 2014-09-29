@@ -673,13 +673,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                 },
                                 complete: function() {
                                     ncc.set('status.booting', false);
-
-                                    // If booting fails
-                                    ncc.refreshAppStatus(function() {
-                                        if (!ncc.get('nodeBooted')) {
-                                            ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
-                                        }
-                                    });
                                 }
                             },
                             true
