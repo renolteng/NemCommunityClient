@@ -227,7 +227,7 @@
 	</div>
 	<div class="sendNem-block">
 		<textarea placeholder="{{texts.modals.sendNem.message}}" class="sendNem-control sendNem-textbox sendNem-textbox--message" value="{{rawMessage}}"></textarea>
-		<input class="sendNem-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" />
+		<input class="sendNem-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
 		<label for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
 	</div>
 	<div class="sendNem-block">
@@ -255,13 +255,8 @@
 	</div>
 	<input class="sendNem-control sendNem-textbox sendNem-block" type="password" placeholder="{{texts.modals.sendNem.password}}" value="{{password}}" on-keypress="sendFormKeypress" />
 	<div class="sendNem-submit sendNem-block">
-		<button type="button" class="sendNem-submit-button modal-button {{#processing}}disabled{{/}}" on-click="sendTransaction">
-			{{^processing}}
-				{{texts.modals.sendNem.send}}
-			{{/}}
-			{{#processing}}
-				{{texts.modals.sendNem.sending}}
-			{{/}}
+		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction">
+			{{texts.modals.sendNem.send}}
 		</button>
 	</div>
 </sendNemModal>
@@ -269,21 +264,33 @@
 	<div class="txConfirm-txInfo">
 		<p>{{texts.modals.sendNem.txConfirm.sendLabel}}</p>
 		<p class="txConfirm-amount">{{parentData.formattedAmount}} NEM</p>
-		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{parentData.recipientLabel}}</em>
+		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{parentData.recipientLabel}}</span></p>
 		<p>[{{parentData.formattedRecipient}}]</p>
 	</div>
 	<div class="txConfirm-message">
 		<p>
 			<span class="txConfirm-messageLabel">{{texts.modals.sendNem.txConfirm.message}}:</span>
-			"{{parentData.rawMessage}}"
+			{{#parentData.rawMessage}}
+				{{parentData.rawMessage}}
+			{{/}}
+			{{^parentData.rawMessage}}
+				<span class="dimmed">{{texts.modals.sendNem.txConfirm.noMessage}}</span>
+			{{/}}
 			{{#parentData.encrypted}}
-				&nbsp;<span class="icon-lock txConfirm-encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+				&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.sendNem.txConfirm.encrypted}}" on-mouseover="registerToolTip"></span>
 			{{/}}
 		</p>
 	</div>
 	<div class="txConfirm-actions">
-		<button type="button" class="modal-button modal-button--secondary">{{texts.modals.sendNem.txConfirm.cancel}}</button>
-		<button type="button" class="modal-button modal-button--primary">{{texts.modals.sendNem.txConfirm.Send}}</button>
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="confirm:confirm">
+			{{^processing}}
+				{{texts.modals.sendNem.txConfirm.send}}
+			{{/}}
+			{{#processing}}
+				{{texts.modals.sendNem.txConfirm.sending}}
+			{{/}}
+		</button>
 	</div>
 </transactionConfirmationModal>
 <transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
@@ -314,7 +321,7 @@
 				<td class="txDetails-cell--content">
 					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
 					{{#.encrypted}}
-						&nbsp;<span class="icon-lock txDetails-encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
 					{{/}}
 				</td>
 			</tr>
@@ -328,11 +335,11 @@
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="txDetails-cell--content">{{.formattedAmount}} NEM</td>
+				<td class="txDetails-cell--content">{{{.formattedAmount}}} NEM</td>
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="txDetails-cell--content">{{.formattedFee}} NEM</td>
+				<td class="txDetails-cell--content">{{{.formattedFee}}} NEM</td>
 			</tr>
 		</table>
 	{{/}}

@@ -44,7 +44,7 @@
 								<th class="date">{{texts.transactions.table.columns.1}}</th>
 								<th class="sender">{{texts.transactions.table.columns.2}}</th>
 								<th class="message">{{texts.transactions.table.columns.3}}</th>
-								<th class="encrypted">{{texts.transactions.table.columns.4}}</th>
+								<th class="encrypted encryptedIcon">{{texts.transactions.table.columns.4}}</th>
 								<th class="details">{{texts.transactions.table.columns.5}}</th>
 								<th class="confirmations">{{texts.transactions.table.columns.6}}</th>
 								<th class="fee">{{texts.transactions.table.columns.7}} <span class="dimmed">(NEM)</span></th>
@@ -79,7 +79,7 @@
 										{{#.message}}{{.message}}{{/}}
 										{{^.message}}<span class="dimmed">{{texts.transactions.table.noMessage}}</span>{{/}}
 									</td>
-									<td class="encrypted">
+									<td class="encrypted encryptedIcon">
 										{{#.encrypted}}
 											<span class="icon-lock" title="{{texts.transactions.table.encrypted}}" on-mouseover="registerToolTip"></span>
 										{{/}}

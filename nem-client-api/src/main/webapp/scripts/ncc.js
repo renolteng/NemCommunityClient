@@ -107,7 +107,7 @@ define(function(require) {
                 return this.get('rawMessage') && this.get('rawMessage').toString();
             },
             encrypt: function() {
-                return this.get('encrypted') ? 1 : 0;
+                return this.get('encryptionPossible') ? (this.get('encrypted') ? 1 : 0) : 0;
             },
             hours_due: function() {
                 return this.get('dueBy') | 0;
@@ -133,7 +133,7 @@ define(function(require) {
             };
             var self = this;
             
-            ncc.postRequest('wallet/account/transaction/fee', requestData, 
+            ncc.postRequest('wallet/account/transaction/validate', requestData, 
                 function(data) {
                     var currentFee = self.get('fee');
                     var newFee = data.fee;
@@ -143,6 +143,8 @@ define(function(require) {
                             self.set('isFeeAutofilled', true);
                         }
                     }
+
+                    self.set('encryptionPossible', data.encryptionPossible);
                 }, 
                 null, silent
             );
@@ -156,7 +158,7 @@ define(function(require) {
                 this.set('isFeeAutofilled', false);
             });
 
-            this.observe('amount message encrypt', (function() {
+            this.observe('amount recipient message encrypt', (function() {
                 var t;
                 return function() {
                     clearTimeout(t);
@@ -164,9 +166,7 @@ define(function(require) {
                         self.resetFee(self.get('isFeeAutofilled'), true);
                     }, 500);
                 }
-            })(), {
-                init: false
-            });
+            })());
 
             this.observe('inputtedRecipient', (function() {
                 var t;
@@ -218,9 +218,10 @@ define(function(require) {
                     txConfirm.set('parentData', this.get());
                     txConfirm.set('callbacks', {
                         confirm: function() {
-                            this.lockAction();
+                            var self = this;
+                            self.lockAction();
                             ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                                this.close();
+                                self.close();
                                 parent.close();
                                 ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
                                 ncc.refreshInfo();
@@ -228,7 +229,7 @@ define(function(require) {
                             {
                                 complete: function() {
                                     parent.set('password', '');
-                                    this.unlockAction();
+                                    self.unlockAction();
                                 }
                             });
                             return false;
