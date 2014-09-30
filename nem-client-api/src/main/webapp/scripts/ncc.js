@@ -31,6 +31,9 @@ define(function(require) {
         },
         close: function() {
             this.set('isActive', false);
+            if (typeof this.afterClose === 'function') {
+                this.afterClose();
+            }
         },
         lockAction: function() {
             this.set('processing', true);
@@ -57,7 +60,7 @@ define(function(require) {
                     var callbacks = this.get('callbacks');
                     var result;
                     if (callbacks && callbacks[action]) {
-                        result = callbacks[action]();
+                        result = callbacks[action].call(this);
                     }
                     if (result !== false) {
                         this.close();
@@ -209,23 +212,29 @@ define(function(require) {
                         encrypt: this.get('encrypt'),
                         hours_due: this.get('hours_due')
                     };
-                    this.lockAction();
 
-                    ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                        ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'), function() {
-                            ncc.refreshInfo();
-                        });
-
-                        self.close();
-
-                        ncc.refreshAccount();
-                    },
-                    {
-                        complete: function() {
-                            self.set('password', '');
-                            self.unlockAction();
+                    var txConfirm = ncc.getModal('transactionConfirmation');
+                    var parent = this;
+                    txConfirm.set('parentData', this.get());
+                    txConfirm.set('callbacks', {
+                        confirm: function() {
+                            this.lockAction();
+                            ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
+                                this.close();
+                                parent.close();
+                                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
+                                ncc.refreshInfo();
+                            },
+                            {
+                                complete: function() {
+                                    parent.set('password', '');
+                                    this.unlockAction();
+                                }
+                            });
+                            return false;
                         }
                     });
+                    txConfirm.open();
                 },
                 sendFormKeypress: function(e) {
                     if (e.original.keyCode === 13) {
@@ -235,6 +244,7 @@ define(function(require) {
             });
         }
     });
+
 
 
 
@@ -380,7 +390,8 @@ define(function(require) {
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
-            unclosableMessageModal: NccModal
+            unclosableMessageModal: NccModal,
+            transactionConfirmationModal: NccModal
         },
         computed: {
             allAccounts: function() {
@@ -600,9 +611,12 @@ define(function(require) {
         toMNem: function(nem) {
             return nem * 1000000;
         },
-        formatCurrency: function(amount, dimTrailings) {
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) {
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
-            var mNem = this.minDigits(amount % 1000000, 6).substring(0, this.consts.fractionalDigits);
+            var mNem = this.minDigits(amount % 1000000, 6);
+            if (!noLimitFractionalPart) {
+                mNem = mNem.substring(0, this.consts.fractionalDigits);
+            }
 
             if (dimTrailings) {
                 var cutPos = mNem.length - 1;

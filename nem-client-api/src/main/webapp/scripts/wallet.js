@@ -241,7 +241,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 },
                 refreshInfo: function() {
                     this.refreshInfo();
-                    ncc.refreshAppStatus();
+                    this.refreshAppStatus();
+                    this.refreshNisInfo();
                 },
                 createNewAccount: function() {
                     var wallet = ncc.get('wallet.name');
@@ -421,7 +422,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 },
                 viewTransaction: (function() {
                     var modal = ncc.getModal('transactionDetails');
-                    modal.set('formatCurrency', ncc.formatCurrency.bind(ncc));
                     return function(e, transaction) {
                         modal.set('transaction', transaction);
                         modal.open();

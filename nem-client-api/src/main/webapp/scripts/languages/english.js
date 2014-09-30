@@ -105,7 +105,10 @@ define({
 				password: 'Password',
 				send: 'Send',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!'
+				successMessage: 'Transaction has been sent successfully!',
+				txConfirm: {
+					title: 'Confirm Transaction'
+				}
 			},
 			clientInfo: {
 				title: 'Client info',
