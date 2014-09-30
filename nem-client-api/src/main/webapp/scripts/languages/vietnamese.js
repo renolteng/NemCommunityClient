@@ -339,7 +339,7 @@ define({
 				start: 'Bắt đầu thu hoạch',
 				harvesting: 'Đang thu hoạch',
 				stop: 'Ngừng thu hoạch',
-				description: 'tầm quan trọng của tài khoản đối với NEM cloud'
+				description: 'tầm quan trọng của tài khoản với NEM cloud'
 			},
 			transactions: {
 				title: 'Các giao dịch gần đây',

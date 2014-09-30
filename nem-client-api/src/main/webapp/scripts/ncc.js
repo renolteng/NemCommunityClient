@@ -388,6 +388,8 @@ define(function(require) {
             },
             appStatus: function() {
                 switch (this.get('nccStatus.code')) {
+                    case null:
+                    case undefined:
                     case this.consts.STATUS_UNKNOWN:
                         return {
                             type: 'critical',
@@ -405,6 +407,8 @@ define(function(require) {
                         };
                     default: // probably RUNNING
                         switch (this.get('nisStatus.code')) {
+                            case null:
+                            case undefined:
                             case this.consts.STATUS_UNKNOWN:
                                 return {
                                     type: 'critical',

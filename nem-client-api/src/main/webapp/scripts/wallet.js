@@ -241,6 +241,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 },
                 refreshInfo: function() {
                     this.refreshInfo();
+                    ncc.refreshAppStatus();
                 },
                 createNewAccount: function() {
                     var wallet = ncc.get('wallet.name');
