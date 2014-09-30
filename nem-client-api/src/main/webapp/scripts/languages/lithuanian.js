@@ -109,7 +109,18 @@
 				password: 'Slaptažodis',
 				send: 'Siusti',
 				sending: 'Siunciama...',
-				successMessage: 'Transakcija išsiusta sekmingai!'
+				successMessage: 'Transakcija išsiusta sekmingai!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: 'Kliento informacija',

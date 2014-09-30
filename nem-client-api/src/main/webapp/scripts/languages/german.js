@@ -105,7 +105,18 @@ define({
 						password: 'Passwort',
                         send: 'Senden',
                         sending: 'Sende...',
-                        successMessage: 'Die Transaktion wurde erfolgreich gesendet!'
+                        successMessage: 'Die Transaktion wurde erfolgreich gesendet!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
                 },
                 clientInfo: {
                         title: 'Client info',

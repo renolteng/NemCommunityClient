@@ -105,7 +105,18 @@ define({
 				password: "Coffer's pick",
 				send: "Deliver",
 				sending: "Delivering...",
-				successMessage: "Yer loot delivered!"
+				successMessage: "Yer loot delivered!",
+				txConfirm: {
+					title: 'Confirm booty',
+					sendLabel: "You're going to send booty",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Avast!',
+					send: 'Deliver',
+					sending: 'Delivering...'
+				}
 			},
 			clientInfo: {
 				title: "Ship's particulars",

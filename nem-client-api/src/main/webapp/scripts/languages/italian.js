@@ -109,7 +109,18 @@ define({
 				password: 'Password',
 				send: 'Invia',
 				sending: 'Invio in corso...',
-				successMessage: 'Transazione inserita con successo!'
+				successMessage: 'Transazione inserita con successo!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: 'Informazioni sul programma',

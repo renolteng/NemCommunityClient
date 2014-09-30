@@ -105,7 +105,18 @@
 				password: '密码',
 				send: '发送',
 				sending: '发送...',
-				successMessage: '交易发送成功!'
+				successMessage: '交易发送成功!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: '客户信息',

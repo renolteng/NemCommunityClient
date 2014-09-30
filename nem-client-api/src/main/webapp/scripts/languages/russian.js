@@ -105,7 +105,18 @@
                                                    password: 'Пароль',
                                                    send: 'Послать',
                                                    sending: 'Посылается...',
-                                                   successMessage: 'Транзакция была успешно послана!'
+                                                   successMessage: 'Транзакция была успешно послана!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
                                        },
                                        clientInfo: {
                                                    title: 'Client info',

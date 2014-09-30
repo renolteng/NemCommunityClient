@@ -109,7 +109,18 @@ define({
 				password: 'Парольна фраза',
 				send: 'Вiдправити',
 				sending: 'Вiдправлення...',
-				successMessage: 'Транзакцiя пройшла успішно!'
+				successMessage: 'Транзакцiя пройшла успішно!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: 'Iнформацiя',

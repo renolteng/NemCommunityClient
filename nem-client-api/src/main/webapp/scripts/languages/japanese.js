@@ -107,7 +107,18 @@ define({
 				password: 'パスワード',
 				send: '送る',
 				sending: '送信中…',
-				successMessage: '送信に成功しました!!'
+				successMessage: '送信に成功しました!!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: 'クライアント情報',

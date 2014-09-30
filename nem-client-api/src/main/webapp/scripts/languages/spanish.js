@@ -153,7 +153,18 @@ define({
                        //sending: 'Sending...',
                        sending: 'Enviando...',
                        //successMessage: 'Transaction has been sent successfully!'
-                       successMessage: '&iexcl;La transacci&oacute;n ha sido enviada exitosamente!'
+                       successMessage: '&iexcl;La transacci&oacute;n ha sido enviada exitosamente!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
                    },
                    clientInfo: {
                        //title: 'Client info',

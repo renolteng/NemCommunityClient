@@ -109,7 +109,18 @@ define({
 				password: 'पासवर्ड',
 				send: 'भेजें',
 				sending: 'भेजा जा रहा है...',
-				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है!'
+				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: 'Client info',
