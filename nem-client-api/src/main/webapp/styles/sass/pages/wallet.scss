@@ -743,6 +743,41 @@ $sendNem-textbox-hPadding: 8px;
 }
 
 // ================================================================================
+// TRANSACTION CONFIRMATION MODAL
+// ================================================================================
+
+.txConfirmModal {
+	.modal-body {
+		padding: 16px;
+	}
+}
+
+.txConfirm-txInfo {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: 1px dashed #d2d2d2;
+}
+
+.txConfirm-amount {
+	font-size: 43px;
+	font-weight: $fontWeight-light;
+}
+
+.txConfirm-accountLabel {
+	font-weight: $fontWeight-bold;
+}
+
+.txConfirm-message {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-weight: $fontWeight-medium;
+}
+
+.txConfirm-messageLabel {
+	font-weight: $fontWeight-bold;
+}
+
+// ================================================================================
 // TRANSACTION DETAILS MODAL
 // ================================================================================
 
@@ -774,8 +809,4 @@ $sendNem-textbox-hPadding: 8px;
 	font-weight: $fontWeight-medium;
 	text-align: left;
 	vertical-align: top;
-}
-
-.txDetails-encryptedIcon {
-	color: #f1c40f;
 }
