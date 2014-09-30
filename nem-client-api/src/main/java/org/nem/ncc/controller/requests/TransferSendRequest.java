@@ -8,7 +8,7 @@ import org.nem.ncc.wallet.*;
 /**
  * A request containing all information necessary to create a transfer.
  */
-public class TransferSendRequest extends TransferFeeRequest {
+public class TransferSendRequest extends TransferValidateRequest {
 	private final WalletPassword password;
 	private final Amount fee;
 

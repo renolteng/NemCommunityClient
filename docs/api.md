@@ -159,12 +159,12 @@ Sends a new transaction (i.e., sending NEM, messages, assets).
 * Response: `-`
 * Dependent from NIS: _Yes_
 
-### /wallet/account/transaction/fee
-Sends a new transaction (i.e., sending NEM, messages, assets).
+### /wallet/account/transaction/validate
+Validates a new transaction (i.e., sending NEM, messages, assets) and provides information on fee and encryption possibility.
 
 * Request Method: _POST_
-* Request: [TransferSendRequest](viewModel.md#transfersendrequest)
-* Response: [FeeViewModel](viewModel.md#feeviewmodel)
+* Request: [TransferValidateRequest](viewModel.md#transfervalidaterequest)
+* Response: [ValidatedTransferViewModel](viewModel.md#validatedtransferviewmodel)
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/unlock

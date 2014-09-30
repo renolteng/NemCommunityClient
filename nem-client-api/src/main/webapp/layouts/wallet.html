@@ -265,6 +265,78 @@
 		</button>
 	</div>
 </sendNemModal>
+<transactionConfirmationModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}">
+	<div class="txConfirm-txInfo">
+		<p>{{texts.modals.sendNem.txConfirm.sendLabel}}</p>
+		<p class="txConfirm-amount">{{parentData.formattedAmount}} NEM</p>
+		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{parentData.recipientLabel}}</em>
+		<p>[{{parentData.formattedRecipient}}]</p>
+	</div>
+	<div class="txConfirm-message">
+		<p>
+			<span class="txConfirm-messageLabel">{{texts.modals.sendNem.txConfirm.message}}:</span>
+			"{{parentData.rawMessage}}"
+			{{#parentData.encrypted}}
+				&nbsp;<span class="icon-lock txConfirm-encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+			{{/}}
+		</p>
+	</div>
+	<div class="txConfirm-actions">
+		<button type="button" class="modal-button modal-button--secondary">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--primary">{{texts.modals.sendNem.txConfirm.Send}}</button>
+	</div>
+</transactionConfirmationModal>
+<transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
+	{{#transaction}}
+		<table>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.id}}</td>
+				<td class="txDetails-cell--content">{{.id}}</td>
+			</tr>
+            <tr>
+                <td class="txDetails-cell--label">{{texts.modals.transactionDetails.hash}}</td>
+                <td class="txDetails-cell--content">{{.hash}}</td>
+            </tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="txDetails-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.sender}}</td>
+				<td class="txDetails-cell--content">{{formattedSender}}</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
+				<td class="txDetails-cell--content">{{formattedRecipient}}</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.message}}</td>
+				<td class="txDetails-cell--content">
+					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
+					{{#.encrypted}}
+						&nbsp;<span class="icon-lock txDetails-encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+					{{/}}
+				</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.time}}</td>
+				<td class="txDetails-cell--content">{{formattedDate}}</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
+				<td class="txDetails-cell--content">{{.confirmations}}</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
+				<td class="txDetails-cell--content">{{.formattedAmount}} NEM</td>
+			</tr>
+			<tr>
+				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
+				<td class="txDetails-cell--content">{{.formattedFee}} NEM</td>
+			</tr>
+		</table>
+	{{/}}
+</transactionDetailsModal>
 <clientInfoModal modalClass="clientInfoModal modal--wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}">
 	<div class="logo">
 		<img src="images/nem_logo.png" alt="NEM - New Economy Movement">
@@ -315,54 +387,3 @@
 		</div>
 	</div>
 </clientInfoModal>
-<transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
-	{{#transaction}}
-		<table>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.id}}</td>
-				<td class="txDetails-cell--content">{{.id}}</td>
-			</tr>
-            <tr>
-                <td class="txDetails-cell--label">{{texts.modals.transactionDetails.hash}}</td>
-                <td class="txDetails-cell--content">{{.hash}}</td>
-            </tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.type}}</td>
-				<td class="txDetails-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.sender}}</td>
-				<td class="txDetails-cell--content">{{formattedSender}}</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
-				<td class="txDetails-cell--content">{{formattedRecipient}}</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.message}}</td>
-				<td class="txDetails-cell--content">
-					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.type}}</span>{{/}}
-					{{#.encrypted}}
-						&nbsp;<span class="icon-lock txDetails-encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
-					{{/}}
-				</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.time}}</td>
-				<td class="txDetails-cell--content">{{formattedDate}}</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
-				<td class="txDetails-cell--content">{{.confirmations}}</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="txDetails-cell--content">{{{formatCurrency(.amount, false)}}} NEM</td>
-			</tr>
-			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="txDetails-cell--content">{{{formatCurrency(.fee, false)}}} NEM</td>
-			</tr>
-		</table>
-	{{/}}
-</transactionDetailsModal>

@@ -241,6 +241,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 },
                 refreshInfo: function() {
                     this.refreshInfo();
+                    this.refreshAppStatus();
+                    this.refreshNisInfo();
                 },
                 createNewAccount: function() {
                     var wallet = ncc.get('wallet.name');
@@ -420,7 +422,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 },
                 viewTransaction: (function() {
                     var modal = ncc.getModal('transactionDetails');
-                    modal.set('formatCurrency', ncc.formatCurrency.bind(ncc));
                     return function(e, transaction) {
                         modal.set('transaction', transaction);
                         modal.open();
@@ -673,13 +674,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                 },
                                 complete: function() {
                                     ncc.set('status.booting', false);
-
-                                    // If booting fails
-                                    ncc.refreshAppStatus(function() {
-                                        if (!ncc.get('nodeBooted')) {
-                                            ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
-                                        }
-                                    });
                                 }
                             },
                             true
