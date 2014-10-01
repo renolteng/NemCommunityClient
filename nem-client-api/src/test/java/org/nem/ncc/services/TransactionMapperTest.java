@@ -46,7 +46,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithoutMessage(context);
+		final TransferValidateRequest request = createFeeRequestWithoutMessage(context);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -68,12 +68,12 @@ public class TransactionMapperTest {
 
 		// Act:
 		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p");
-		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferTransactionMode.Activate);
+		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferTransaction.Mode.Activate);
 
 		// Assert:
 		Assert.assertThat(model.getRemote().getKeyPair().getPrivateKey(), IsEqual.equalTo(context.account.getRemoteHarvestingPrivateKey())); // the remote address for harvesting
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
-		Assert.assertThat(model.getDirection(), IsEqual.equalTo(ImportanceTransferTransactionMode.Activate));
+		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferTransaction.Mode.Activate));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
 	}
 
@@ -116,7 +116,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithoutMessage(context);
+		final TransferValidateRequest request = createFeeRequestWithoutMessage(context);
 		context.mapper.toModel(request);
 
 		// Assert:
@@ -144,7 +144,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithMessage(context, "nem rules!", false);
+		final TransferValidateRequest request = createFeeRequestWithMessage(context, "nem rules!", false);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -163,7 +163,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithMessage(context, "nem rules!", true);
+		final TransferValidateRequest request = createFeeRequestWithMessage(context, "nem rules!", true);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -182,7 +182,7 @@ public class TransactionMapperTest {
 		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferFeeRequest request = createFeeRequestWithMessage(context, "nem rules!", true);
+		final TransferValidateRequest request = createFeeRequestWithMessage(context, "nem rules!", true);
 		ExceptionAssert.assertThrowsNccException(
 				v -> context.mapper.toModel(request),
 				NccException.Code.NO_PUBLIC_KEY);
@@ -190,7 +190,7 @@ public class TransactionMapperTest {
 
 	//endregion
 
-	private static TransferFeeRequest createFeeRequestWithoutMessage(final TestContext context) {
+	private static TransferValidateRequest createFeeRequestWithoutMessage(final TestContext context) {
 		return new TransferValidateRequest(
 				new WalletName("w"),
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
@@ -201,7 +201,7 @@ public class TransactionMapperTest {
 				5);
 	}
 
-	private static TransferFeeRequest createFeeRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
+	private static TransferValidateRequest createFeeRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
 		return new TransferValidateRequest(
 				new WalletName("w"),
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),

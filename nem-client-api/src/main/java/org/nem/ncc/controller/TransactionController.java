@@ -83,7 +83,7 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/activate", method = RequestMethod.POST)
 	public void remoteUnlock(@RequestBody final TransferImportanceRequest request) {
-		remoteHarvest(request, ImportanceTransferTransactionMode.Activate);
+		remoteHarvest(request, ImportanceTransferTransaction.Mode.Activate);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/deactivate", method = RequestMethod.POST)
 	public void remoteLock(@RequestBody final TransferImportanceRequest request) {
-		remoteHarvest(request, ImportanceTransferTransactionMode.Deactivate);
+		remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
 	}
 
 	/**
@@ -104,10 +104,10 @@ public class TransactionController {
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
 	public void getRemoteLockStatus(@RequestBody final TransferImportanceRequest request) {
 		//TODO: Status is not yet available from NIS server
-		//remoteHarvest(request, ImportanceTransferTransactionMode.Deactivate);
+		//remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
 	}
 	
-	private void remoteHarvest(final TransferImportanceRequest request, final int mode) {
+	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		// prepare transaction
 		final Transaction transaction = this.transactionMapper.toModel(request, mode);
 		final byte[] transferBytes = BinarySerializer.serializeToBytes(transaction.asNonVerifiable());

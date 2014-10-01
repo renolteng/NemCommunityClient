@@ -120,14 +120,14 @@ public class TransactionControllerTest {
 		final TestContext context = new TestContext();
 		final Transaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
 		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
-		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransactionMode.Activate)).thenReturn(model);
+		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Activate)).thenReturn(model);
 		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
 		// Act:
 		context.controller.remoteUnlock(context.harvestRequest);
 
 		// Assert:
-		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel(context.harvestRequest, ImportanceTransferTransactionMode.Activate);
+		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Activate);
 	}
 
 	@Test
@@ -136,7 +136,7 @@ public class TransactionControllerTest {
 		final TestContext context = new TestContext();
 		final MockTransaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
 		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
-		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransactionMode.Activate)).thenReturn(model);
+		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Activate)).thenReturn(model);
 		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
 		// Act:
@@ -160,7 +160,7 @@ public class TransactionControllerTest {
 		final TestContext context = new TestContext();
 		final MockTransaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
 		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
-		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransactionMode.Deactivate)).thenReturn(model);
+		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Deactivate)).thenReturn(model);
 		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
 
 		// Act:

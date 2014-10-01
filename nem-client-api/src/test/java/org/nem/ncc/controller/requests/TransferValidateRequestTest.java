@@ -15,14 +15,19 @@ import org.nem.ncc.wallet.WalletName;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class TransferFeeRequestTest {
+public class TransferValidateRequestTest {
 
 	@Test
 	public void requestCanBeCreated() {
 		// Act:
 		final Address address = Address.fromPublicKey(new KeyPair().getPublicKey());
-		final TransferFeeRequest request = new TransferFeeRequest(new WalletName("w"), address, Address.fromEncoded("r"),
-				Amount.fromMicroNem(7), "m", true, 5);
+		final TransferValidateRequest request = new TransferValidateRequest(
+				new WalletName("w"),
+				address, Address.fromEncoded("r"),
+				Amount.fromMicroNem(7),
+				"m",
+				true,
+				5);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -38,7 +43,7 @@ public class TransferFeeRequestTest {
 	public void requestCanBeConverted() {
 		// Arrange:
 		final Address address = Address.fromPublicKey(new KeyPair().getPublicKey());
-		final TransferFeeRequest request = new TransferFeeRequest(new WalletName("w"), address, Address.fromEncoded("r"),
+		final TransferValidateRequest request = new TransferValidateRequest(new WalletName("w"), address, Address.fromEncoded("r"),
 				Amount.fromMicroNem(7), "m", true, 5);
 
 		// Act:

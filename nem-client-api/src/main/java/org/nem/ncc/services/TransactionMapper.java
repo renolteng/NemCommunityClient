@@ -62,7 +62,7 @@ public class TransactionMapper {
 	 * @param request The request.
 	 * @return The model.
 	 */
-	public Transaction toModel(final TransferImportanceRequest request, final int mode) {
+	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		return toModel(request, request.getPassword(), mode);
 	}
 
@@ -72,7 +72,7 @@ public class TransactionMapper {
 	 * @param request The request.
 	 * @return The model.
 	 */
-	public Transaction toModel(final AccountWalletRequest request, final WalletPassword password, final int mode) {
+	public Transaction toModel(final AccountWalletRequest request, final WalletPassword password, final ImportanceTransferTransaction.Mode mode) {
 		final Account sender = this.getSenderAccount(request, password);
 		final Account remoteAccount = this.getRemoteAccount(request, password);
 
@@ -86,7 +86,7 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-	private TransferTransaction toModel(final TransferFeeRequest request, final WalletPassword password) {
+	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
 		final Account sender = this.getSenderAccount(request.toAccountWalletRequest(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
 		final Message message = this.createMessage(request, sender, recipient);
