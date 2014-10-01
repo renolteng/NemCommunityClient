@@ -70,28 +70,28 @@ define({
 				no: 'Não'
 			},
 			settings: {
-				title: 'Settings',
+				title: 'Configurações',
 				language: {
-					label: 'Language'
+					label: 'Linguagem'
 				},
 				remoteServer: {
-					tabTitle: 'Remote Server',
-					protocol: 'Protocol',
+					tabTitle: 'Servidor remoto',
+					protocol: 'Protocolo',
 					protocolOptions: {
 						http: 'HTTP'
 					},
-					host: 'Host',
-					port: 'Port'
+					host: 'Endereço Host',
+					port: 'Porta'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'Inicialização automática',
+					name: 'Nome do nó',
+					account: 'conta',
+					primaryAccount: 'Conta primária',
+					auto: 'Inicialização automática quando abrir a carteira'
 				},
 				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				saveSuccess: 'Configurações salvas com sucesso!'
 			},
 			sendNem: {
 				title: 'Enviar NEM',
@@ -176,7 +176,7 @@ define({
 				label: 'Identificação',
 				wallet: 'Carteira',
 				password: "Senha",
-				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up da conta',
+				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up da carteira',
 				create: 'Criar'
 			},
 			addAccount: {
@@ -255,7 +255,7 @@ define({
 				walletNamePlh: 'Nome para a carteira',
 				passwordPlh: 'Senha',
 				create: 'Criar',
-				rightTitle: 'Já é um <em>NEMbro</em>?', //NEMbro soa estranho? "bro" em pt_BR é sinônimo de Brother
+				rightTitle: 'Já é um <em>NEM</em>bro?', //NEMbro soa estranho? "bro" em pt_BR é sinônimo de Brother
 				rightButton: 'Abrir carteira existente',
 				openButton: 'Abrir',
 				walletsFound: 'Encontrada(s) <strong>{{1}}</strong> <em>carteira(s)</em>', //needs to verify if the "(s)" casues any kind of problem to compilation
@@ -439,7 +439,7 @@ define({
 				columns: [ 
 					'Altura do bloco',
 					'Hora',
-					'Hash',
+					'Hash do bloco',
 					'Taxa'
 				],
 				noBlocks: 'Não há blocos colhidos',
@@ -447,7 +447,7 @@ define({
 			},
 			harvesting: {
 				unknown: 'Status desconhecido',
-				start: 'Começar a colheita',
+				start: 'Iniciar a colheita',
 				harvesting: 'Colheitando',
 				stop: 'Parar de colheitar'
 			}
