@@ -39,15 +39,15 @@ define({
         common: {
         	success: 'Succès', //title of the Success message modals
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'Le statut de NCC est incconnu',
         		nccUnavailable: 'NCC est introuvable',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC démarre...',
+        		nisUnknown: 'Le statut de NIS est incconnu,
         		nisUnavailable: 'NIS est introuvable',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		nisStarting: 'NIS démarre...',
+        		notBooted: "NIS à besoin d'être démarré. S'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.",
+        		booting: 'Démarrage de NIS...',
+        		nisInfoNotAvailable: "L'information sur NIS n'est pas encore disponible. Tentative de récupération de l'information sur NIS...",
         		synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
         		daysBehind: {
         			0: "moins d'une journée",
