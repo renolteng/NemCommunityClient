@@ -158,8 +158,7 @@ public class NccAppConfig {
 	@Bean
 	public WalletServices walletServices() {
 		final WalletRepository walletRepository = new AutoFallbackRepository(Arrays.asList(
-				new BinaryWalletRepository(),
-				new LegacyWalletRepository()));
+				new BinaryWalletRepository()));
 
 		return new DefaultWalletServices(
 				walletRepository,
