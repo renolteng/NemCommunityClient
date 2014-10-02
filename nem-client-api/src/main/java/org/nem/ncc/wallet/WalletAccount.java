@@ -58,7 +58,7 @@ public class WalletAccount implements SerializableEntity {
 	public WalletAccount(final Deserializer deserializer) {
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
-		NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);
+		final NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);
 		this.remoteHarvestingEndpoint = endpoint;
 	}
 
@@ -105,17 +105,16 @@ public class WalletAccount implements SerializableEntity {
 	/**
 	 * Sets the node endpoint of the remote harvesting nis node.
 	 *
-	 * @param NodeEndpoint The endpoint.
+	 * @param remoteHarvestingEndpoint The endpoint.
 	 */
-	public void setRemoteHarvestingEndpoint(NodeEndpoint remoteHarvestingEndpoint) {
+	public void setRemoteHarvestingEndpoint(final NodeEndpoint remoteHarvestingEndpoint) {
 		this.remoteHarvestingEndpoint = remoteHarvestingEndpoint;
 	}
 
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeBigInteger("privateKey", this.privateKey.getRaw());
-		BigInteger pk = this.remoteHarvestingPrivateKey == null ? null : this.remoteHarvestingPrivateKey.getRaw();
-		serializer.writeBigInteger("remoteHarvestingPrivateKey", pk);
+		serializer.writeBigInteger("remoteHarvestingPrivateKey", this.remoteHarvestingPrivateKey.getRaw());
 		serializer.writeObject("remoteHarvestingEndpoint", this.remoteHarvestingEndpoint);
 	}
 

@@ -224,11 +224,11 @@ public class AccountController {
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
 	@RequiresTrustedNis
 	public void remoteUnlock(@RequestBody final RemoteHarvestRequest awRequest) {
-		NodeEndpoint endpoint = awRequest.getEndpoint();
-		PrimaryNisConnector remoteConnector = new DefaultNisConnector(
+		final NodeEndpoint endpoint = awRequest.getEndpoint();
+		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
 				() -> endpoint,
 				this.cloudConnector);
-		WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		account.setRemoteHarvestingEndpoint(endpoint);
 		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
@@ -241,12 +241,12 @@ public class AccountController {
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
 	@RequiresTrustedNis
 	public void remoteLock(@RequestBody final RemoteHarvestRequest awRequest) {
-		NodeEndpoint endpoint = awRequest.getEndpoint();
-		PrimaryNisConnector remoteConnector = new DefaultNisConnector(
+		final NodeEndpoint endpoint = awRequest.getEndpoint();
+		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
 				() -> endpoint,
 				this.cloudConnector);
 		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
-		WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		account.setRemoteHarvestingEndpoint(null);
 	}
 

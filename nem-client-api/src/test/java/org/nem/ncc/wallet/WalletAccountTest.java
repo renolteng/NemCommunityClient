@@ -3,10 +3,9 @@ package org.nem.ncc.wallet;
 import org.hamcrest.core.*;
 import org.junit.*;
 
-import java.math.BigInteger;
-
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.ncc.test.*;
 
 public class WalletAccountTest {
@@ -117,6 +116,22 @@ public class WalletAccountTest {
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
 		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
 		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(remoteHarvesterPrivateKey));
+	}
+
+	@Test
+	public void accountCanBeRoundTrippedWithEndpoint() {
+		// Arrange:
+		final WalletAccount originalAccount = new WalletAccount();
+		originalAccount.setRemoteHarvestingEndpoint(new NodeEndpoint("ftp", "01234", 123));
+
+		// Act:
+		final WalletAccount account = new WalletAccount(Utils.roundtripSerializableEntity(originalAccount, null));
+
+		// Assert:
+		Assert.assertThat(account.getAddress(), IsEqual.equalTo(originalAccount.getAddress()));
+		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(originalAccount.getPrivateKey()));
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(originalAccount.getRemoteHarvestingPrivateKey()));
+		Assert.assertThat(account.getRemoteHarvestingEndpoint(), IsEqual.equalTo(originalAccount.getRemoteHarvestingEndpoint()));
 	}
 
 	//endregion
