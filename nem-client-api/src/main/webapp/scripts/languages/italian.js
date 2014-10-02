@@ -39,13 +39,13 @@ define({
         common: {
         	success: 'Operazione completata', //title of the Success message modals
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'Lo stato di NCC è ignoto',
         		nccUnavailable: 'NCC non disponibile',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC sta partendo...',
+        		nisUnknown: 'Lo stato di NIS è ignoto',
         		nisUnavailable: 'NIS non disponibile',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+        		nisStarting: 'NIS sta partendo...',
+        		notBooted: "NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l'auto-avvio.",
         		booting: 'Avvio di NIS in corso...',
         		nisInfoNotAvailable: 'Verifica dello stato di NIS...',
         		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
@@ -111,15 +111,15 @@ define({
 				sending: 'Invio in corso...',
 				successMessage: 'Transazione inserita con successo!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: 'Conferma transazione',
+					sendLabel: "Stai per inviare",
+					to: 'A',
+					message: 'Messaggio',
+					encrypted: 'Cifra messaggio',
+					noMessage: 'Nessun messaggio',
+					cancel: 'Annulla',
+					send: 'Invia',
+					sending: 'Invio in corso...'
 				}
 			},
 			clientInfo: {
