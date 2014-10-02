@@ -21,11 +21,7 @@ public class WalletAccount implements SerializableEntity {
 	 * Creates a new wallet account around a new account.
 	 */
 	public WalletAccount() {
-		final KeyPair keyPair = new KeyPair();
-		this.address = Address.fromPublicKey(keyPair.getPublicKey());
-		this.privateKey = keyPair.getPrivateKey();
-		this.remoteHarvestingPrivateKey = null;
-		this.remoteHarvestingEndpoint = null;
+		this(new KeyPair().getPrivateKey(), new KeyPair().getPrivateKey());
 	}
 
 	/**
@@ -34,28 +30,24 @@ public class WalletAccount implements SerializableEntity {
 	 * @param privateKey The private key.
 	 */
 	public WalletAccount(final PrivateKey privateKey) {
-		this(privateKey, null);
+		this(privateKey, new KeyPair().getPrivateKey());
 	}
 
 	/**
 	 * Creates a new wallet account based on the provided key-pair for the account itself and also for remote harvesting if key is not null.
 	 *
 	 * @param privateKey The private key.
-	 * @param remoteHarvestingPK The raw private key.
+	 * @param remoteHarvestingPrivateKey The raw private key.
 	 */
-	public WalletAccount(final PrivateKey privateKey, final BigInteger remoteHarvestingPK) {
-		if (null == privateKey) {
+	public WalletAccount(final PrivateKey privateKey, final PrivateKey remoteHarvestingPrivateKey) {
+		if (null == privateKey || null == remoteHarvestingPrivateKey) {
 			throw new IllegalArgumentException("wallet account requires private key");
 		}
 
 		this.address = Address.fromPublicKey(new KeyPair(privateKey).getPublicKey());
 		this.privateKey = privateKey;
-		this.remoteHarvestingPrivateKey = null;
+		this.remoteHarvestingPrivateKey = remoteHarvestingPrivateKey;
 		this.remoteHarvestingEndpoint = null;
-		// Be fault tolerant
-		if (remoteHarvestingPK != null) {
-			this.remoteHarvestingPrivateKey = new PrivateKey(remoteHarvestingPK);
-		}
 	}
 
 	/**
@@ -64,7 +56,8 @@ public class WalletAccount implements SerializableEntity {
 	 * @param deserializer The deserializer.
 	 */
 	public WalletAccount(final Deserializer deserializer) {
-		this(new PrivateKey(deserializer.readBigInteger("privateKey")), deserializer.readOptionalBigInteger("remoteHarvestingPrivateKey"));
+		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
+				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
 		NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);
 		this.remoteHarvestingEndpoint = endpoint;
 	}
@@ -132,6 +125,7 @@ public class WalletAccount implements SerializableEntity {
 	}
 
 	@Override
+	// TODO 20141002 G-?: should this also compare remote priv key? I guess not
 	public boolean equals(final Object obj) {
 		if (!(obj instanceof WalletAccount)) {
 			return false;

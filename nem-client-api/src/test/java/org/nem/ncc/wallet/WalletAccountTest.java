@@ -21,6 +21,7 @@ public class WalletAccountTest {
 		// Assert:
 		final Address expectedAddress = Address.fromPublicKey(new KeyPair(account.getPrivateKey()).getPublicKey());
 		Assert.assertThat(account.getPrivateKey(), IsNull.notNullValue());
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsNull.notNullValue());
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(expectedAddress));
 	}
 
@@ -45,6 +46,7 @@ public class WalletAccountTest {
 		// Assert:
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
 		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsNull.notNullValue());
 	}
 
 	@Test
@@ -58,16 +60,16 @@ public class WalletAccountTest {
 	//region remote harvesting
 
 	@Test
-	public void accountCreatesRemoteHarvestPrivateKeyOnDemand() {
+	public void accountCreatesRemoteHarvesterPrivateKeyOnDemand() {
 		// Act:
 		final WalletAccount account1 = new WalletAccount();
 
 		// Assert:
-		Assert.assertThat(account1.getRemoteHarvestingPrivateKey(), IsNot.not(IsNull.nullValue()));
+		Assert.assertThat(account1.getRemoteHarvestingPrivateKey(), IsNull.notNullValue());
 	}
 
 	@Test
-	public void accountGeneratesDifferentRemoteHarvestPrivateKeys() {
+	public void accountGeneratesDifferentRemoteHarvesterPrivateKeys() {
 		// Act:
 		final WalletAccount account1 = new WalletAccount();
 		final WalletAccount account2 = new WalletAccount();
@@ -77,18 +79,24 @@ public class WalletAccountTest {
 	}
 
 	@Test
-	public void accountCanBeCreatedAroundPrivateKeyAndRemoteHarvestRawPrivateKey() {
+	public void accountCanBeCreatedAroundPrivateKeyAndRemoteHarvesterPrivateKey() {
 		// Arrange:
 		final PrivateKey privateKey = new KeyPair().getPrivateKey();
-		final PrivateKey remoteHarvestPrivateKey = new KeyPair().getPrivateKey();
+		final PrivateKey remoteHarvesterPrivateKey = new KeyPair().getPrivateKey();
 
 		// Act:
-		final WalletAccount account = new WalletAccount(privateKey, remoteHarvestPrivateKey.getRaw());
+		final WalletAccount account = new WalletAccount(privateKey, remoteHarvesterPrivateKey);
 
 		// Assert:
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
 		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
-		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(remoteHarvestPrivateKey));
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(remoteHarvesterPrivateKey));
+	}
+
+	@Test
+	public void accountCannotBeCreatedWithMissingRemoteHarvesterPrivateKey() {
+		// Assert:
+		ExceptionAssert.assertThrows(v -> new WalletAccount((new KeyPair()).getPrivateKey(), null), IllegalArgumentException.class);
 	}
 
 	//endregion
@@ -96,33 +104,19 @@ public class WalletAccountTest {
 	//region serialization
 
 	@Test
-	public void accountCanBeRoundTrippedWithoutRemoteHarvestKey() {
+	public void accountCanBeRoundTrippedWithRemoteHarvesterKey() {
 		// Arrange:
 		final PrivateKey privateKey = new KeyPair().getPrivateKey();
+		final PrivateKey remoteHarvesterPrivateKey = new KeyPair().getPrivateKey();
 
 		// Act:
 		final WalletAccount account = new WalletAccount(
-				Utils.roundtripSerializableEntity(new WalletAccount(privateKey), null));
+				Utils.roundtripSerializableEntity(new WalletAccount(privateKey, remoteHarvesterPrivateKey), null));
 
 		// Assert:
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
 		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
-	}
-
-	@Test
-	public void accountCanBeRoundTrippedWithRemoteHarvestKey() {
-		// Arrange:
-		final PrivateKey privateKey = new KeyPair().getPrivateKey();
-		final BigInteger remoteHarvestRawPrivateKey = new KeyPair().getPrivateKey().getRaw();
-
-		// Act:
-		final WalletAccount account = new WalletAccount(
-				Utils.roundtripSerializableEntity(new WalletAccount(privateKey, remoteHarvestRawPrivateKey), null));
-
-		// Assert:
-		Assert.assertThat(account.getAddress(), IsEqual.equalTo(getAddressFromPrivateKey(privateKey)));
-		Assert.assertThat(account.getPrivateKey(), IsEqual.equalTo(privateKey));
-		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(new PrivateKey(remoteHarvestRawPrivateKey)));
+		Assert.assertThat(account.getRemoteHarvestingPrivateKey(), IsEqual.equalTo(remoteHarvesterPrivateKey));
 	}
 
 	//endregion
