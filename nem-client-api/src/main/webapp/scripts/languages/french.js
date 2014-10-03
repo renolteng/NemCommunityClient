@@ -42,7 +42,7 @@ define({
         		nccUnknown: 'Le statut de NCC est incconnu',
         		nccUnavailable: 'NCC est introuvable',
         		nccStarting: 'NCC démarre...',
-        		nisUnknown: 'Le statut de NIS est incconnu,
+        		nisUnknown: 'Le statut de NIS est incconnu',
         		nisUnavailable: 'NIS est introuvable',
         		nisStarting: 'NIS démarre...',
         		notBooted: "NIS à besoin d'être démarré. S'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.",
