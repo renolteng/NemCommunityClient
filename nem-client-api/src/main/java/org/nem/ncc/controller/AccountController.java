@@ -210,9 +210,14 @@ public class AccountController {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
 
-	private PrivateKey getPrivateKey(final AccountWalletRequest awRequest) {
-		return this.walletServices.get(awRequest.getWalletName())
-				.getAccountPrivateKey(awRequest.getAccountId());
+	private PrivateKey getPrivateKey(final AccountWalletPasswordRequest request) {
+		return this.walletServices.get(request.getWalletName())
+				.getAccountPrivateKey(request.getAccountId());
+	}
+
+	private PrivateKey getPrivateKey(final AccountWalletRequest request) {
+		return this.walletServices.get(request.getWalletName())
+				.getAccountPrivateKey(request.getAccountId());
 	}
 
 	/**

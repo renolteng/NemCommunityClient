@@ -4,8 +4,7 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.*;
 
-public class TransferImportanceRequest extends AccountWalletRequest {
-	private final WalletPassword password;
+public class TransferImportanceRequest extends AccountWalletPasswordRequest {
 	private final int hoursDue;
 
 	/**
@@ -19,8 +18,7 @@ public class TransferImportanceRequest extends AccountWalletRequest {
 			final WalletName walletName, 
 			final WalletPassword password,
 			final int hoursDue) {
-		super(address, walletName);
-		this.password = password;
+		super(address, walletName, password);
 		this.hoursDue = hoursDue;
 	}
 
@@ -31,7 +29,6 @@ public class TransferImportanceRequest extends AccountWalletRequest {
 	 */
 	public TransferImportanceRequest(final Deserializer deserializer) {
 		super(deserializer);
-		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.hoursDue = deserializer.readInt("hours_due");
 	}
 
@@ -41,7 +38,7 @@ public class TransferImportanceRequest extends AccountWalletRequest {
 	 * @return The wallet password.
 	 */
 	public WalletPassword getPassword() {
-		return this.password;
+		return this.getWalletPassword();
 	}
 
 	/**
