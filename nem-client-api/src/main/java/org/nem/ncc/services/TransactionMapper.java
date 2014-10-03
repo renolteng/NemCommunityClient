@@ -63,18 +63,9 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
-		return toModel(request, request.getPassword(), mode);
-	}
-
-	/**
-	 * Converts the specified request to a model.
-	 *
-	 * @param request The request.
-	 * @return The model.
-	 */
-	public Transaction toModel(final AccountWalletRequest request, final WalletPassword password, final ImportanceTransferTransaction.Mode mode) {
-		final Account sender = this.getSenderAccount(request, password);
-		final Account remoteAccount = this.getRemoteAccount(request, password);
+		final WalletPassword walletPassword = request.getPassword();
+		final Account sender = this.getSenderAccount(request, walletPassword);
+		final Account remoteAccount = this.getRemoteAccount(request, walletPassword);
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
@@ -83,8 +74,10 @@ public class TransactionMapper {
 				mode,
 				remoteAccount);
 
+		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 		return transaction;
 	}
+
 
 	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
 		final Account sender = this.getSenderAccount(request.toAccountWalletRequest(), password);

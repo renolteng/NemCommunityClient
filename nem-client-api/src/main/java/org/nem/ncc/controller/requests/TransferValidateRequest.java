@@ -121,6 +121,6 @@ public class TransferValidateRequest {
 	 * @return An AccountWalletRequest
 	 */
 	public AccountWalletRequest toAccountWalletRequest() {
-		return new AccountWalletRequest(getSenderAddress(), getWalletName());
+		return new AccountWalletRequest(this.getSenderAddress(), this.getWalletName());
 	}
 }

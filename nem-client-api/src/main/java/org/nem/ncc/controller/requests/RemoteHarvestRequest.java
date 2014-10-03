@@ -5,7 +5,8 @@ import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.*;
 
-public class RemoteHarvestRequest extends TransferImportanceRequest {
+public class RemoteHarvestRequest extends AccountWalletRequest {
+	private final WalletPassword password;
 	private NodeEndpoint endpoint;
 
 	/**
@@ -19,9 +20,10 @@ public class RemoteHarvestRequest extends TransferImportanceRequest {
 	public RemoteHarvestRequest(final Address address, 
 			final WalletName walletName, 
 			final WalletPassword password, 
-			final NodeEndpoint endPoint) {
-		super(address, walletName, password);
-		this.endpoint = endPoint;
+			final NodeEndpoint endpoint) {
+		super(address, walletName);
+		this.password = password;
+		this.endpoint = endpoint;
 	}
 	
 	/**
@@ -31,7 +33,17 @@ public class RemoteHarvestRequest extends TransferImportanceRequest {
 	 */
 	public RemoteHarvestRequest(final Deserializer deserializer) {
 		super(deserializer);
+		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.endpoint = NodeEndpoint.fromHost(deserializer.readString("host"));
+	}
+
+	/**
+	 * Gets the wallet password.
+	 *
+	 * @return The wallet password.
+	 */
+	public WalletPassword getPassword() {
+		return this.password;
 	}
 
 	/**

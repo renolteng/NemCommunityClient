@@ -75,6 +75,7 @@ public class TransactionMapperTest {
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
 		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferTransaction.Mode.Activate));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
+		Assert.assertThat(model.getDeadline(), IsEqual.equalTo(new TimeInstant(124 + 7 * 60 * 60)));
 	}
 
 	//endregion
@@ -229,7 +230,8 @@ public class TransactionMapperTest {
 		return new TransferImportanceRequest(
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				new WalletName("w"),
-				null == password ? null : new WalletPassword(password));
+				null == password ? null : new WalletPassword(password),
+				7);
 	}
 
 	private static class TestContext {
