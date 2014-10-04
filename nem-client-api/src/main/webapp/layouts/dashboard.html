@@ -14,6 +14,25 @@
 			<li class="tile importance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
 				<article>
 					<h1 class="main-title">{{texts.dashboard.importance.title}}</h1>
+					<button type="button" class="importance-activateButton hoverTarget" disabled="{{activeAccount.remoteStatus === 'ACTIVATED' || activeAccount.remoteStatus === 'DEACTIVATED' || activeAccount.remoteStatus === 'REMOTE'}}" on-click="toggleActivateRemoteHarvesting">
+						{{#activeAccount.remoteStatus === 'INACTIVE'}}
+							{{texts.dashboard.importance.remoteHarvest.activate}}
+						{{/}}
+						{{#activeAccount.remoteStatus === 'ACTIVATED'}}
+							{{texts.dashboard.importance.remoteHarvest.activating}}
+						{{/}}
+						{{#activeAccount.remoteStatus === 'ACTIVE'}}
+							<span class="hideOnHover">
+								{{texts.dashboard.importance.remoteHarvest.active}}
+							</span>
+							<span class="showOnHover">
+								{{texts.dashboard.importance.remoteHarvest.deactivate}}
+							</span>
+						{{/}}
+						{{#activeAccount.remoteStatus === 'DEACTIVATED'}}
+							{{texts.dashboard.importance.remoteHarvest.deactivating}}
+						{{/}}
+					</button>
 					{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
 						<button type="button" class="harvesting-btn unknown icon-question-circle">
 							<span>{{texts.dashboard.importance.unknown}}</span>
@@ -26,8 +45,8 @@
 							</button>
 						{{/}}
 						{{#activeAccount.status === 'UNLOCKED'}}
-							<button type="button" class="harvesting-btn harvesting icon-pause" on-click="stopHarvesting">
-								<span class="status">{{texts.dashboard.importance.harvesting}}</span><span class="hover">{{texts.dashboard.importance.stop}}</span>
+							<button type="button" class="harvesting-btn harvesting hoverTarget icon-pause" on-click="stopHarvesting">
+								<span class="hideOnHover">{{texts.dashboard.importance.harvesting}}</span><span class="showOnHover">{{texts.dashboard.importance.stop}}</span>
 							</button>
 						{{/}}
 					{{/}}

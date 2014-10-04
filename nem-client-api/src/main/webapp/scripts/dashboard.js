@@ -76,6 +76,113 @@
                 }).data('gridster').disable(); //disable tiles drag & drop
             });
 
+            local.listeners.push(ncc.on({
+                toggleActivateRemoteHarvesting: function() {
+                    switch (ncc.get('activeAccount.remoteStatus')) {
+                        case 'INACTIVE':
+                            ncc.showInputForm(ncc.get('texts.modals.activateRemote.title'), '',
+                                [   
+                                    {
+                                        name: 'wallet',
+                                        type: 'text',
+                                        readonly: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.activateRemote.wallet')
+                                        }
+                                    },
+                                    {
+                                        name: 'password', 
+                                        type: 'password',
+                                        label: {
+                                            content: ncc.get('texts.modals.activateRemote.password')
+                                        }
+                                    },
+                                    {
+                                        name: 'account',
+                                        type: 'text',
+                                        readonly: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.activateRemote.account')
+                                        }
+                                    },                                
+                                    {
+                                        name: 'hours_due',
+                                        type: 'text',
+                                        label: {
+                                            content: ncc.get('texts.modals.activateRemote.hoursDue')
+                                        }
+                                    }
+                                    
+                                ],
+                                {
+                                    wallet: ncc.get('wallet.name'),
+                                    account: ncc.get('activeAccount.address')
+                                },
+                                function(values, closeModal) {
+                                    values.hours_due = parseInt(values.hours_due, 10);
+                                    ncc.postRequest('wallet/account/remote/activate', values, function(data) {
+                                        closeModal();
+                                        ncc.refreshAccount();
+                                    });
+                                    return false;
+                                },
+                                ncc.get('texts.modals.activateRemote.activate')
+                            );
+                            break;
+                        case 'ACTIVE':
+                            ncc.showInputForm(ncc.get('texts.modals.deactivateRemote.title'), '',
+                                [   
+                                    {
+                                        name: 'wallet',
+                                        type: 'text',
+                                        readonly: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.deactivateRemote.wallet')
+                                        }
+                                    },
+                                    {
+                                        name: 'password', 
+                                        type: 'password',
+                                        label: {
+                                            content: ncc.get('texts.modals.deactivateRemote.password')
+                                        }
+                                    },
+                                    {
+                                        name: 'account',
+                                        type: 'text',
+                                        readonly: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.deactivateRemote.account')
+                                        }
+                                    },                                
+                                    {
+                                        name: 'hours_due',
+                                        type: 'text',
+                                        label: {
+                                            content: ncc.get('texts.modals.deactivateRemote.hoursDue')
+                                        }
+                                    }
+                                    
+                                ],
+                                {
+                                    wallet: ncc.get('wallet.name'),
+                                    account: ncc.get('activeAccount.address')
+                                },
+                                function(values, closeModal) {
+                                    values.hours_due = parseInt(values.hours_due, 10);
+                                    ncc.postRequest('wallet/account/remote/deactivate', values, function(data) {
+                                        closeModal();
+                                        ncc.refreshAccount();
+                                    });
+                                    return false;
+                                },
+                                ncc.get('texts.modals.deactivateRemote.deactivate')
+                            );
+                            break;
+                    }
+                }
+            }));
+
             ncc.refreshAccount();
 
             /*require(['scroller'], function() {

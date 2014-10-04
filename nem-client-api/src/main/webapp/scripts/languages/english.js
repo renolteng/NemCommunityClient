@@ -236,6 +236,22 @@ define({
 			shutdown: {
 				title: 'Close program',
 				message: 'Are you sure you want to close NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
 			}
 		},
 		landing: {
@@ -350,7 +366,14 @@ define({
 				start: 'Start harvesting',
 				harvesting: 'Harvesting',
 				stop: 'Stop harvesting',
-				description: 'importance of account to the NEM cloud'
+				description: 'importance of account to the NEM cloud',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating...'
+				}
 			},
 			transactions: {
 				title: 'Recent Transactions',
