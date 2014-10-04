@@ -9,22 +9,22 @@ define({
 		faults: { // modelos de mensagens de erro 
             101: 'Arquivo não encontrado.',
             102: 'A carteira não foi criada.',
-            103: 'O arquivo da carteira está corrompido. Por favor, restaure o back-up, certifique-se que você tenha o feito.',
+            103: 'O arquivo da carteira está corrompido. Por favor, restaure o back-up ou crie outro.',
             104: 'Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-la!',
-            106: 'Antes de começar a usar a carteira, é preciso logar-se. Por favor, forneça a senha e certifique-se de nunca a perder.',
+            106: 'Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha da carteira existente ou crie outra.',
             107: 'A carteira não contém essa conta',
             108: 'A conta não pode ser removida. Provavelmente pelo motivo de que ela tem saldo maior que 0 NEMs ou é a conta primária.',
             109: 'Já existe uma conta com o mesmo nome. Por favor, escolha outro.',
             110: 'A carteira já contem essa conta.',
             202: 'A chave pública não existe',
-            305: 'NIS indisponível',
+            305: 'NIS indisponível ou iniciando',
             306: 'Ocorreu um erro que o time de desenvolvedores não havia previsto. Pedimos desculpas por esse problema. Talvez uma nova tentativa possa resolver o problema. Caso contrário, abra uma reclamação de problemas NIS/NCC na comunidade NEM',
             400: 'Está faltando algum parâmetro.',
             404: 'Valor de estratégia de boot inválido.',
             500: 'Falha ao salvar o arquivo de configuração.',
             600: 'NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local.',
-	    601: 'O NIS já foi inicializado.',
-            700: 'Falha na colheita. Geralmente esse problema é relacionado com o tanto de NEMs na conta. Para colheitar são necessários, pelo menos, 1000 NEMs.',
+	    601: 'O NIS já foi inicialcizado.',
+            700: 'Falha na colheita. Geralmente esse problema está relacionado com o tanto de NEMs na conta. Para colheitar são necessários, pelo menos, 1000 NEMs.',
             701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
             702: 'O prazo final está muito no futuro. O prazo limite deve estar dentro do período de um dia.',
             703: 'Saldo insuficiente.',
@@ -39,15 +39,15 @@ define({
         common: {
         	success: 'Successo', //titulo de mensagens de sucesso
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'Status do NCC desconhecido',
         		nccUnavailable: 'NCC não inicializado',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC está inicializando...',
+        		nisUnknown: 'Status do NIS desconhecido',
         		nisUnavailable: 'NIS não inicializado',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		nisStarting: 'NIS está inicializando...',
+        		notBooted: 'NIS requere inicialização. Por favor, abra a carteira para ativar o auto-boot ou inicialize o nó manualmente.',
+        		booting: 'NIS Inicializando...',
+        		nisInfoNotAvailable: 'Infos de NIS não disponível, recuperando informações...',
         		synchronizing: 'NIS está sincronizando com o bloco {{1}}. Encontrado {{2}} atrás.',
         		daysBehind: {
         			0: 'Menos de um dia',
@@ -86,12 +86,12 @@ define({
 				autoBoot: {
 					tabTitle: 'Inicialização automática',
 					name: 'Nome do nó',
-					account: 'conta',
+					account: 'Carteira',
 					primaryAccount: 'Conta primária',
 					auto: 'Inicialização automática quando abrir a carteira'
 				},
-				save: 'Save',
-				saveSuccess: 'Configurações salvas com sucesso!'
+				save: 'Salvar',
+				saveSuccess: 'As configurações foram salvas!'
 			},
 			sendNem: {
 				title: 'Enviar NEM',
@@ -108,17 +108,17 @@ define({
 				password: 'Senha',
 				send: 'Enviar',
 				sending: 'Enviando...',
-				successMessage: 'Transação enviada com sucesso!',
+				successMessage: 'A transação foi enviada!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: 'Confirmar transação',
+					sendLabel: "Você enviará",
+					to: 'Para',
+					message: 'Menssagem',
+					encrypted: 'Menssagem criptografada',
+					noMessage: 'Sem mensagem',
+					cancel: 'Cancelar',
+					send: 'Enviar',
+					sending: 'Enviando...'
 				}
 			},
 			clientInfo: {
@@ -143,7 +143,7 @@ define({
 				pending: 'Pendente',
 				outgoing: 'Enviado',
 				incoming: 'Recebido',
-				self: 'Pessoal',
+				self: 'Enviado para si mesmo',
 				sender: 'Remetente',
 				recipient: 'Destinatário',
 				message: 'Mensagem',
@@ -169,14 +169,14 @@ define({
 			},
 			closeWallet: {
 				title: 'Fechar carteira',
-				message: 'Você tem certeza que quer fechar a carteira?'
+				message: 'Confirmar o fechamento da carteira?'
 			},
 			createAccount: {
 				title: 'Criar nova conta',
 				label: 'Identificação',
 				wallet: 'Carteira',
 				password: "Senha",
-				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up da carteira',
+				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up e guarde-o em local seguro.',
 				create: 'Criar'
 			},
 			addAccount: {
@@ -184,7 +184,7 @@ define({
 				privateKey: "Chave privada",
 				wallet: 'Carteira',
 				password: "Senha",
-				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada!',
+				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi adicionada!',
 				add: 'Adicionar',
 				label: 'Identificação'
 			},
@@ -202,7 +202,7 @@ define({
 				wallet: 'Nome atual',
 				newName: 'Novo nome',
 				password: "Senha",
-				successMessage: 'O nome <em>{{1}}</em> foi alterado para <em>{{2}}</em> com sucesso.',
+				successMessage: 'O nome <em>{{1}}</em> foi alterado para <em>{{2}}</em>.',
 				change: 'Mudar'
 			},
 			changeWalletPassword: {
@@ -211,22 +211,22 @@ define({
 				password: 'Senha atual',
 				newPassword: 'Nova senha',
 				confirmPassword: 'Confirmar nova senha',
-				successMessage: 'A senha da carteira foi trocada com sucesso',
+				successMessage: 'A senha da carteira foi trocada',
 				change: 'Trocar',
 				passwordNotMatchTitle: 'Oopa!',
 				passwordNotMatchMessage: 'As senhas não conferem. Por favor, tente novamente.'
 			},
 			changeAccountLabel: {
 				title: 'Trocar identificação da conta',
-				label: 'Identificação',
+				label: 'Nova identificação',
 				wallet: 'Carteira',
 				password: "Senha",
 				successMessage: 'A Identificação {{1}} foi alterada para {{2}}',
-				change: 'Troca'
+				change: 'Trocar'
 			},
 			removeAccount: {
 				title: 'Remover conta',
-				wallet: 'Senha',
+				wallet: 'Carteira',
 				password: "Senha",
 				warning: 'Por favor, tenha certeza que não há saldo em sua conta, ou as moedas serão perdidas para sempre.',
 				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi removida!',
@@ -238,24 +238,24 @@ define({
 			},
 			shutdown: {
 				title: 'Fechar programa',
-				message: 'Tem certeza que quer fechar o programa (NIS/NCC)?' //talvez precise correção aqui
+				message: 'Tem certeza que quer fechar o programa (NIS)?'
 			}
 		},
 		landing: {
 			logo: 'images/nem_logo.png',
-			importSuccess: 'Carteira importada com sucesso!',
+			importSuccess: 'A carteira foi importada!',
 			nav: {
-				start: 'Início', // ou primeiros passos, dependendo do contexto
+				start: 'Início',
 				about: 'Sobre NEM',
 				settings: 'Configurações'
 			},
 			main: {
-				leftTitle: 'Primeira vez? Crie uma carteira <em>NEM</em>!',
+				leftTitle: 'Primeira vez?<br>Crie uma carteira <em>NEM</em>!',
 				leftButton: 'Criar nova carteira',
 				walletNamePlh: 'Nome para a carteira',
 				passwordPlh: 'Senha',
 				create: 'Criar',
-				rightTitle: 'Já é um <em>NEM</em>bro?', //NEMbro soa estranho? "bro" em pt_BR é sinônimo de Brother
+				rightTitle: 'Já é um <em>NEM</em>bro?', //"bro" in pt_BR is synonymous of "Brother"
 				rightButton: 'Abrir carteira existente',
 				openButton: 'Abrir',
 				walletsFound: 'Encontrada(s) <strong>{{1}}</strong> <em>carteira(s)</em>', //needs to verify if the "(s)" casues any kind of problem to compilation
@@ -264,7 +264,7 @@ define({
 			carousel: {
 				items: [
 					{
-						title: 'NCC encripta sua carteira', //Hereinafter I will leave it as is until define what will be written, retur at line 263
+						title: 'NCC encripta sua carteira', //Hereinafter I will leave it as is until define what will be written, retur at line 307
 						description: '<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos.'
 					},										
 					{
@@ -323,7 +323,7 @@ define({
 				changeAccountLabel: 'Trocar a identificação da carteira',
 				setPrimary: 'Definir como conta primária',
 				removeAccount: 'Remover Conta',
-				clientInfo: 'Sobre o NEM/NCC',
+				clientInfo: 'Sobre o NCC/NIS',
 				closeWallet: 'Fechar carteira',
 				closeProgram: 'Fechar programa',
 				copyClipboard: 'Copiar para a área de transferência'
@@ -341,7 +341,7 @@ define({
 				'Configurações',
 				'Fechar programa'
 			],
-			bootNodeWarning: "Um nó local precisa ser inicializado para poder utilizar o NCC."
+			bootNodeWarning: "Um nó local precisa ser inicializado para poder utilizar o NIS."
 		},
 		dashboard: {
 			assets: {
@@ -353,13 +353,13 @@ define({
 				start: 'Começar a colheita',
 				harvesting: 'Colheitando',
 				stop: 'Parar colheita',
-				description: 'importância para a nuvem de peers'
+				description: 'Pontuação de Importância para a nuvem de peers'
 			},
 			transactions: {
 				title: 'Transações recentes',
 				sendNem: 'Enviar NEM',
 				balance: 'Saldo atual',
-				syncStatus: '(até o bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})',
+				syncStatus: '(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})',
 				unknown: 'Desconhecido',
 				columns: [
 					'',
@@ -425,10 +425,10 @@ define({
 					self: 'Enviada para si mesmo',
 				},
 				noMessage: 'Sem mensagem',
-				encrypted: 'A mensagem está criptografada',
+				encrypted: 'Mensagem criptografada',
 				view: 'Ver', 
 				pending: 'Pendente',
-				noTransactions: 'Por enquanto nenhuma transação realizada ainda',
+				noTransactions: 'Nenhuma transação realizada, por enquanto',
 				loading: 'Carregando mais transações...'
 			}
 		},
@@ -460,7 +460,7 @@ define({
 				}
 			],
 			save: 'Salvar modificações',
-			saveSuccess: 'As modificações foram salvas com sucesso'
+			saveSuccess: 'As modificações foram salvas'
 		}
 	}
 });
