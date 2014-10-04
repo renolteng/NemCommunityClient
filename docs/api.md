@@ -175,14 +175,6 @@ Unlock the account on the connected NIS server (start foraging).
 * Response: `-`
 * Dependent from NIS: _Yes_
 
-Gets information about the specified account.
-	 Looks-up an account which is known by its address id
-
-* Request Method: _POST_
-* Request: [AccountIdRequest](viewModel.md#accountidrequest)
-* Response: [FeeViewModel](viewModel.md#feeviewmodel)
-* Dependent from NIS: _Yes_
-
 ### /wallet/account/lock
 Lock the account on the connected NIS server (stop foraging).
 
@@ -192,6 +184,14 @@ Lock the account on the connected NIS server (stop foraging).
 * Dependent from NIS: _Yes_
 
 ### /account/find
+Gets information about the specified account.
+	 Looks-up an account which is known by its address id
+
+* Request Method: _POST_
+* Request: [AccountIdRequest](viewModel.md#accountidrequest)
+* Response: [FeeViewModel](viewModel.md#feeviewmodel)
+* Dependent from NIS: _Yes_
+
 ### /account/transactions/unconfirmed
 Gets information about the specified account and unconfirmed transactions.
 
