@@ -99,6 +99,17 @@ possible remoteStatus values:
 }
 ```
 
+### RemoteHarvestRequest
+
+```
+{
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
+	"wallet" : "Test-Wallet",
+	"password": "Very Secret Password To The Wallet",
+	"host": "http://hostname.foo.bar:7890"
+}
+```
+
 ### BootNodeRequest
 
 ```
@@ -269,7 +280,7 @@ Only a local NIS can be booted.
 ```
 {
 	"wallet": "PrivateWallet",
-	"password": "A longer password",
+	"password": "Very Secret Password To The Wallet",
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"recipient": "TBYDNCLNEGESF5EWRFWFJU7RNCPWOOQH5LMRSQ5A",
 	"amount":  10000.0,
@@ -306,8 +317,8 @@ Only a local NIS can be booted.
 ```
 {
 	"wallet": "PrivateWallet",
-	"password": "A longer password",
-	"new_password": "new something",   # optional, required for password change
+	"password": "Very Secret Password To The Wallet",
+	"new_password": "NEW very secret Password",   # optional, required for password change
 	"new_name": "P-Wallet"         ,   # optional, required for wallet name change
 	"label": "my private label"    ,   # optional, used during account creation and label change   
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2"
@@ -320,7 +331,7 @@ Only a local NIS can be booted.
 ```
 {
 	"wallet": "PrivateWallet",
-	"password": "The very long password with some ÄÖÜäöüß"
+	"password": "Very Secret Password To The Wallet, can contain ÄÖÜäöüß"
 }
 ```
 

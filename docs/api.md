@@ -183,6 +183,22 @@ Lock the account on the connected NIS server (stop foraging).
 * Response: `-`
 * Dependent from NIS: _Yes_
 
+### /wallet/account/remote/unlock
+Unlock the account on the remote NIS server (start secure foraging).
+
+* Request Method: _POST_
+* Request: [RemoteHarvestRequest](viewModel.md#remoteHarvestRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
+### /wallet/account/remote/lock
+Lock the account on the remote NIS server (stop secure foraging).
+
+* Request Method: _POST_
+* Request: [RemoteHarvestRequest](viewModel.md#remoteHarvestRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
 ### /account/find
 Gets information about the specified account.
 	 Looks-up an account which is known by its address id
