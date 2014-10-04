@@ -99,6 +99,16 @@ possible remoteStatus values:
 }
 ```
 
+### TransferImportanceRequest
+```
+{
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
+	"wallet" : "Test-Wallet",
+	"password": "Very Secret Password To The Wallet",
+	"hours_due": "6" // (max: 24)
+}
+```
+
 ### RemoteHarvestRequest
 
 ```

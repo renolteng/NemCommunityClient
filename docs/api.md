@@ -183,6 +183,22 @@ Lock the account on the connected NIS server (stop foraging).
 * Response: `-`
 * Dependent from NIS: _Yes_
 
+### /wallet/account/remote/activate
+Announces activation of remote harvesting account to the network (FEE: 1)
+
+* Request Method: _POST_
+* Request: [TransferImportanceRequest](viewModel.md#transferImportanceRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
+### /wallet/account/remote/deactivate
+Announces deactivation of remote harvesting account to the network (FEE: 1)
+
+* Request Method: _POST_
+* Request: [TransferImportanceRequest](viewModel.md#transferImportanceRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
 ### /wallet/account/remote/unlock
 Unlock the account on the remote NIS server (start secure foraging).
 
