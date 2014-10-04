@@ -42,7 +42,7 @@ define({
         		nccUnknown: 'Le statut de NCC est incconnu',
         		nccUnavailable: 'NCC est introuvable',
         		nccStarting: 'NCC démarre...',
-        		nisUnknown: 'Le statut de NIS est incconnu,
+        		nisUnknown: 'Le statut de NIS est incconnu',
         		nisUnavailable: 'NIS est introuvable',
         		nisStarting: 'NIS démarre...',
         		notBooted: "NIS à besoin d'être démarré. S'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.",
@@ -58,7 +58,7 @@ define({
         	}
         	// nisStatus: {
         	// 	notBooted: "NIS à besoin d'être démarré. S'il vous plait, ouvrir votre portefeuille et démarrer le noeud local via la boîte de dialogue contextuelle.",
-        	// 	retrievingStatus: 'Retrieving NIS status...',
+        	// 	retrievingStatus: 'Récupération du status NIS...',
         	// 	synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
         	// }
         },
@@ -112,15 +112,15 @@ define({
 				sending: 'Envoi...',
 				successMessage: 'La transaction a été envoyé avec succès!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
+					title: 'Confirmez la transaction',
+					sendLabel: "Vous allez envoyer",
+					to: 'À',
 					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					encrypted: 'Le message est chiffré',
+					noMessage: 'Pas de message',
+					cancel: 'Annuler',
+					send: 'Envoyer',
+					sending: 'Envoi...'
 				}
 			},
 			clientInfo: {

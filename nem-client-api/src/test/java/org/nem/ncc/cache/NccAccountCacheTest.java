@@ -71,6 +71,7 @@ public class NccAccountCacheTest {
 				address,
 				Amount.fromNem(271),
 				new BlockAmount(3),
+				AccountRemoteStatus.INACTIVE,
 				"label",
 				3.7);
 

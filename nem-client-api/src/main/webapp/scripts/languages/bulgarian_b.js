@@ -39,15 +39,15 @@
         common: {
         	success: 'Успешно', //title of the Success message modals
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'NCC статуса е неизвестен',
         		nccUnavailable: 'NCC е недостъпен',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC стартира...',
+        		nisUnknown: 'NIS статуса е неизвестен',
         		nisUnavailable: 'NIS е недостъпен',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		nisStarting: 'NIS стартира...',
+        		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец или конфигурирайте ауто зареждащите настройки',
+        		booting: 'Зарежда NIS...',
+        		nisInfoNotAvailable: 'NISинфо не е все още на разположение.Опитвам се да получа отново NIS инфо...',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
         		daysBehind: {
         			0: 'по малко от 1 ден',
@@ -58,7 +58,7 @@
         	}
         	// nisStatus: {
         	// 	notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец.',
-        	// 	retrievingStatus: 'Retrieving NIS status...',
+        	// 	retrievingStatus: 'Възстановяване NIS статуса...',
         	// }
         },
 		modals: {
@@ -71,28 +71,28 @@
 				no: 'Не'
 			},
 			settings: {
-				title: 'Settings',
+				title: 'Настройки',
 				language: {
-					label: 'Language'
+					label: 'Език'
 				},
 				remoteServer: {
-					tabTitle: 'Remote Server',
-					protocol: 'Protocol',
+					tabTitle: 'Отдалечен сървър',
+					protocol: 'Протокол',
 					protocolOptions: {
 						http: 'HTTP'
 					},
-					host: 'Host',
-					port: 'Port'
+					host: 'Хост',
+					port: 'Порт'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'Ауто зареждане',
+					name: 'Име на възела',
+					account: 'Акаунт',
+					primaryAccount: 'Главен Акаунт',
+					auto: 'Авто зареждане когато се отвори портфейла'
 				},
-				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				save: 'Запази',
+				saveSuccess: 'Настройките бяха успешно запазени'
 			},
 			sendNem: {
 				title: 'Изпрати NEM',
@@ -111,19 +111,19 @@
 				sending: 'Изпращам...',
 				successMessage: 'Транзакцията беше изпратена успешно!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: 'Потвърдете транзакцията',
+					sendLabel: "Вие ще изпратите",
+					to: 'До',
+					message: 'Съобщение',
+					encrypted: 'Съобщението е криптирано',
+					noMessage: 'Без съобщение',
+					cancel: 'Отмени',
+					send: 'Изпрати',
+					sending: 'Изпращам...'
 				}
 			},
 			clientInfo: {
-				title: 'Client info',
+				title: 'Клиент инфо',
 				ncc: 'NEM Community Client - NCC',
 				signer: 'Притежател на подписа',
 				remoteServer: 'Отдалечен сървър',
