@@ -61,8 +61,15 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 		}
 
 		final AccountInfo info = pair.getAccount();
+		// TODO 20141004 G-?: is there a reson we're creating AccountInfo here (instead of using "info"?)
 		return new AccountMetaDataPair(
-				new AccountInfo(walletAccount.getAddress(), info.getBalance(), info.getNumForagedBlocks(), info.getLabel(), info.getImportance()),
+				new AccountInfo(
+						walletAccount.getAddress(),
+						info.getBalance(),
+						info.getNumForagedBlocks(),
+						info.getRemoteStatus(),
+						info.getLabel(),
+						info.getImportance()),
 				pair.getMetaData());
 	}
 }

@@ -90,6 +90,7 @@ public class Utils {
 				Utils.generateRandomAddressWithPublicKey(),
 				Amount.ZERO,
 				BlockAmount.ZERO,
+				AccountRemoteStatus.INACTIVE,
 				null,
 				0.0);
 	}
@@ -116,7 +117,7 @@ public class Utils {
 	 * @return The account info.
 	 */
 	public static AccountInfo createAccountInfoFromAddress(final Address address) {
-		return new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, "", 0.0);
+		return new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, AccountRemoteStatus.INACTIVE, "", 0.0);
 	}
 
 	/**
