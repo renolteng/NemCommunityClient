@@ -227,7 +227,6 @@ public class AccountController {
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
-	@RequiresTrustedNis
 	public void remoteUnlock(@RequestBody final RemoteHarvestRequest awRequest) {
 		final NodeEndpoint endpoint = awRequest.getEndpoint();
 		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
@@ -244,7 +243,6 @@ public class AccountController {
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
-	@RequiresTrustedNis
 	public void remoteLock(@RequestBody final RemoteHarvestRequest awRequest) {
 		final NodeEndpoint endpoint = awRequest.getEndpoint();
 		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
