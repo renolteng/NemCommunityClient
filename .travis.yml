@@ -5,4 +5,4 @@ jdk:
 
 install:
  - wget http://bob.nem.ninja/nem-core__V0.3.3-ALPHA.jar
- - mvn install:install-file -Dfile=nem-core__V0.3.2-ALPHA.jar -DgroupId=org.nem.core -DartifactId=nem-core -Dversion=0.3.3-ALPHA -Dpackaging=jar
+ - mvn install:install-file -Dfile=nem-core__V0.3.3-ALPHA.jar -DgroupId=org.nem.core -DartifactId=nem-core -Dversion=0.3.3-ALPHA -Dpackaging=jar
