@@ -70,11 +70,25 @@ The view model used by the NCC server.
 ```
 
 possible remoteStatus values:
+
 * REMOTE - shouldn't normally occur, both buttons should be disabled
 * INACTIVE - "activate" button should be enabled, "start remote harvesting" - disabled
 * ACTIVATED - "activate" button should be disabled, "start remote harvesting" - enabled
 * ACTIVE - "DEactivate" button should be enabled, "start remote harvesting" - enabled
 * DEACTIVATED - "DEactivate" button should be disabled,  "start remote harvesting" - disabled
+
+### AccountStatusViewModel
+
+```
+{
+	"status" : "UNLOCKED"
+}
+```
+
+possible status values
+
+* LOCKED
+* UNLOCKED
 
 ### AccountViewModel
 

@@ -199,6 +199,14 @@ Announces deactivation of remote harvesting account to the network (FEE: 1)
 * Response: `-`
 * Dependent from NIS: _Yes_
 
+### /wallet/account/remote/status
+Checks if account is unlocked on remote server, will return an error if
+
+* Request Method: _POST_
+* Request: [AccountWalletPasswordRequest](viewModel.md#accountWalletPasswordRequest)
+* Response: [AccountStatusViewModel](viewModel.md#accountStatusViewModel)
+* Dependent from NIS: _Yes_
+
 ### /wallet/account/remote/unlock
 Unlock the account on the remote NIS server (start secure foraging).
 
@@ -221,7 +229,7 @@ Gets information about the specified account.
 
 * Request Method: _POST_
 * Request: [AccountIdRequest](viewModel.md#accountidrequest)
-* Response: [FeeViewModel](viewModel.md#feeviewmodel)
+* Response: [AccountViewModel](viewModel.md#accountViewModel)
 * Dependent from NIS: _Yes_
 
 ### /account/transactions/unconfirmed
