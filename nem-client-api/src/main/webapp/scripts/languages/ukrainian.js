@@ -1,6 +1,6 @@
 define({
 	id: 'UA',
-	name: 'Ukrainian',
+	name: 'Український',
 	texts: {
 		preferences: {
 			thousandSeparator: '\u2009',
@@ -14,7 +14,7 @@ define({
             106: 'Перш ніж ви зможете працювати з гаманцем, він повинен бути відкритий. Щоб переконатися, що ви авторизованi на доступ до файлу гаманця, ви повинні ввести пароль гаманця.',
             107: 'Гаманець не містить цей акаунт.',
             108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 NEM, або акаунт, який ви намагаєтеся видалити є основним.',
-            109: 'Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.',
+            109: "Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.",
             110: 'Гаманець вже містить цей акаунт.',
             202: 'Зашифроване повідомлення не може бути відправлено, так як одержувач ніколи не здійснював жодної транзакції.',
             305: 'NEM Infrastructure Server не досяжний.',
@@ -48,7 +48,7 @@ define({
         		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
         		booting: 'Booting NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.'
+        		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.',
         		daysBehind: {
         			0: 'less than 1 day',
         			1: '1 day',
@@ -199,11 +199,11 @@ define({
 				set: 'Встановити як основний',
 			},
 			changeWalletName: {
-				title: 'Змiнити iм'я гаманця',
-				wallet: 'Поточне iм'я гаманця',
-				newName: 'Нове iм'я гаманця',
+				title: "Змiнити iм'я гаманця",
+				wallet: "Поточне iм'я гаманця",
+				newName: "Нове iм'я гаманця",
 				password: "Пароль файлу гаманця",
-				successMessage: 'Iм'я гаманця було успiшно змiнено з <em>{{1}}</em> на <em>{{2}}</em>',
+				successMessage: "Iм'я гаманця було успiшно змiнено з <em>{{1}}</em> на <em>{{2}}</em>",
 				change: 'Змiнити'
 			},
 			changeWalletPassword: {
@@ -235,7 +235,7 @@ define({
 			},
 			nisUnavailable: {
 				title: 'NIS недосяжний',
-				message: 'Від'єднаний вiд NIS, очікування з'єднання'
+				message: "Від'єднаний вiд NIS, очікування з'єднання"
 			},
 			shutdown: {
 				title: 'Закрити програму',
@@ -326,7 +326,7 @@ define({
 				removeAccount: 'Видалити акаунт',
 				clientInfo: 'Iнформацiя',
 				closeWallet: 'Закрити гаманець',
-				closeProgram: 'Закрити програму'
+				closeProgram: 'Закрити програму',
 				copyClipboard: 'Cкопіювати адресу в буфер обміну'
 			},
 			nav: [

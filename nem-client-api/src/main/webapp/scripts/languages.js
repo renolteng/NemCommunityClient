@@ -13,6 +13,8 @@ define([
 	'languages/portuguese_br',
 	'languages/vietnamese', 
 	'languages/russian', 
+	'languages/ukrainian',
+	'languages/romanian',
 	'languages/lithuanian'], function(
 		bulgarian,
 		chinese,
@@ -28,6 +30,8 @@ define([
 		portuguese_br,
 		vietnamese, 
 		russian, 
+		ukrainian,
+		romanian,
 		lithuanian) {
 	return [
 		bulgarian,
@@ -44,6 +48,8 @@ define([
 		portuguese_br,
 		vietnamese, 
 		russian, 
+		ukrainian,
+		romanian,
 		lithuanian
 	];
 });

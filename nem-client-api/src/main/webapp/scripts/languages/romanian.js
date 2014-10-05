@@ -48,7 +48,7 @@
         		notBooted: 'NIS are necesită să fie pornit. Te rog deschide portofelul și pornește un nod local prin fereastra care apare sau configurează setarea de auto-pornire.',
         		booting: 'NIS se pornește...',
          		nisInfoNotAvailable: 'Informația NIS nu este disponibilă încă. Se încearcă a prelua informația NIS...',
-        		synchronizing: 'NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.'
+        		synchronizing: 'NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.',
         		daysBehind: {
 					0: 'Mai puțin de 1 zi în urmă',
 					1: '1 zi',
@@ -322,7 +322,7 @@
 				removeAccount: 'Înlătură cont',
 				clientInfo: 'Client Info',
 				closeWallet: 'Închide portofelul',
-				closeProgram: 'Închide programul'
+				closeProgram: 'Închide programul',
 				copyClipboard: 'Copiază adresa în clipboard'
 			},
 			nav: [
@@ -425,7 +425,7 @@
 				encrypted: 'Mesajul este encriptat',
 				view: 'Vizualizează',
 				pending: 'În așteptare',
-				noTransactions: 'Nu a fost efectuată nici o tranzacție până acum'
+				noTransactions: 'Nu a fost efectuată nici o tranzacție până acum',
 				loading: 'Se încarcă mai multe tranzacții...'
 			}
 		},
