@@ -2,7 +2,7 @@ package org.nem.ncc.controller;
 
 import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.*;
-import org.nem.core.crypto.PrivateKey;
+import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
 import org.nem.core.model.ncc.HarvestInfo;
 import org.nem.core.model.primitive.BlockHeight;
@@ -12,6 +12,7 @@ import org.nem.ncc.connector.*;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
+import org.nem.ncc.exceptions.*;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 
@@ -235,6 +236,26 @@ public class AccountController {
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		account.setRemoteHarvestingEndpoint(endpoint);
 		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+	}
+
+	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
+	public AccountViewModel remoteStatus(@RequestBody final AccountWalletPasswordRequest awRequest) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		final NodeEndpoint endpoint = account.getRemoteHarvestingEndpoint();
+		if (endpoint == null) {
+			throw new NccException(NccException.Code.ACCOUNT_CACHE_ERROR);
+		}
+
+		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
+				() -> endpoint,
+				this.cloudConnector);
+		account.setRemoteHarvestingEndpoint(endpoint);
+
+		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey())
+		final StringBuilder builder = new StringBuilder();
+		builder.append("address=");
+		builder.append(remoteAddress.getEncoded());
+		remoteConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, builder.toString());
 	}
 
 	/**
