@@ -107,15 +107,15 @@ define({
 				sending: 'Đang gửi...',
 				successMessage: 'Giao dịch đã được gửi đi thành công!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: 'Xác nhận giao dịch',
+					sendLabel: 'Bạn chuẩn bị gửi',
+					to: 'Tới',
+					message: 'Thông điệp',
+					encrypted: 'Thông điệp được mã hoá',
+					noMessage: 'Không có thông điệp',
+					cancel: 'Huỷ',
+					send: 'Gửi',
+					sending: 'Đang gửi...'
 				}
 			},
 			clientInfo: {
