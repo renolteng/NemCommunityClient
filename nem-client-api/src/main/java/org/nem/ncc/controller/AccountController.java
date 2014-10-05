@@ -239,7 +239,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
-	public AccountViewModel remoteStatus(@RequestBody final AccountWalletPasswordRequest awRequest) {
+	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletPasswordRequest awRequest) {
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		final NodeEndpoint endpoint = account.getRemoteHarvestingEndpoint();
 		if (endpoint == null) {
@@ -251,11 +251,12 @@ public class AccountController {
 				this.cloudConnector);
 		account.setRemoteHarvestingEndpoint(endpoint);
 
-		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey())
+		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey());
 		final StringBuilder builder = new StringBuilder();
 		builder.append("address=");
 		builder.append(remoteAddress.getEncoded());
-		remoteConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, builder.toString());
+		final Deserializer deserializer = remoteConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, builder.toString());
+		return new AccountStatusViewModel(deserializer);
 	}
 
 	/**

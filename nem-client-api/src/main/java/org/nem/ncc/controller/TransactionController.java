@@ -96,17 +96,6 @@ public class TransactionController {
 		remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
 	}
 
-	/**
-	 * Gets the status on remote harvesting on the provided NIS server.
-	 *
-	 * @param request The request parameters.
-	 */
-	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
-	public void getRemoteLockStatus(@RequestBody final TransferImportanceRequest request) {
-		//TODO: Status is not yet available from NIS server
-		//remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
-	}
-	
 	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		// prepare transaction
 		final Transaction transaction = this.transactionMapper.toModel(request, mode);
