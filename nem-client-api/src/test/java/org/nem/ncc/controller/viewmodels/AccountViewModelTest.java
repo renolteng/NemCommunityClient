@@ -16,7 +16,7 @@ public class AccountViewModelTest {
 	@Test
 	public void viewModelCanBeCreatedAroundAccountAndStatus() {
 		// Arrange:
-		final AccountInfo account = this.creatAccountInfo(null, Address.fromEncoded("xyz"));
+		final AccountInfo account = createAccountInfo(null, Address.fromEncoded("xyz"));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, null);
@@ -35,7 +35,7 @@ public class AccountViewModelTest {
 	@Test
 	public void viewModelCanBeCreatedWithLabel() {
 		// Arrange:
-		final AccountInfo account = this.creatAccountInfo("my acc", Address.fromEncoded("xyz"));
+		final AccountInfo account = createAccountInfo("my acc", Address.fromEncoded("xyz"));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(
@@ -51,7 +51,7 @@ public class AccountViewModelTest {
 	public void viewModelCanBeCreatedAroundAccountWithPublicKey() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
-		final AccountInfo account = this.creatAccountInfo(null, address);
+		final AccountInfo account = createAccountInfo(null, address);
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, null);
@@ -64,7 +64,7 @@ public class AccountViewModelTest {
 	@Test
 	public void viewModelCanBeCreatedAroundAccountMetaDataPair() {
 		// Arrange:
-		final AccountInfo account = creatAccountInfo(null, Address.fromEncoded("xyz"));
+		final AccountInfo account = createAccountInfo(null, Address.fromEncoded("xyz"));
 
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				account,
@@ -84,21 +84,11 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
 	}
 
-	private AccountInfo creatAccountInfo(final String label, final Address address) {
-		return new AccountInfo(
-				address,
-				Amount.fromNem(271),
-				new BlockAmount(3),
-				AccountRemoteStatus.INACTIVE,
-				label,
-				3.7);
-	}
-
 	@Test
 	public void viewModelCanBeSerialized() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
-		final AccountInfo account = this.creatAccountInfo(null, address);
+		final AccountInfo account = createAccountInfo(null, address);
 
 		final AccountViewModel viewModel = new AccountViewModel(
 				account,
@@ -136,5 +126,15 @@ public class AccountViewModelTest {
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
 		Assert.assertThat(jsonObject.get("label"), IsNull.nullValue());
+	}
+
+	private static AccountInfo createAccountInfo(final String label, final Address address) {
+		return new AccountInfo(
+				address,
+				Amount.fromNem(271),
+				new BlockAmount(3),
+				AccountRemoteStatus.INACTIVE,
+				label,
+				3.7);
 	}
 }
