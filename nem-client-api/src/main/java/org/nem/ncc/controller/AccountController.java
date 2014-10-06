@@ -221,10 +221,16 @@ public class AccountController {
 				.getAccountPrivateKey(request.getAccountId());
 	}
 
+	// TODO 20141005 J-G i guess we need tests for these
+	// > in all seriousness, it seems like remote[un]lock can just delegate to un[lock]
+	// > the only difference is that the remote* functions are assumed to be passed a remote account
+	// > if it's not remote we might want to fail
+
 	/**
 	 * Unlock the account on a remote NIS server (start foraging).
 	 * Remote address being used has to be announced previously.
 	 *
+	 * TODO 20141005 J-G please update comments after copy and pasting :D
 	 * @param awRequest The account / wallet view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
@@ -240,6 +246,8 @@ public class AccountController {
 
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
 	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletPasswordRequest awRequest) {
+		// TODO 20141005 J-G: it is unclear to me why we need AccountWalletPasswordRequest vs just AccountWalletRequest
+		// > since this appears to be just getting status
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		final NodeEndpoint endpoint = account.getRemoteHarvestingEndpoint();
 		if (endpoint == null) {
@@ -276,5 +284,4 @@ public class AccountController {
 	}
 
 	//endregion
-
 }

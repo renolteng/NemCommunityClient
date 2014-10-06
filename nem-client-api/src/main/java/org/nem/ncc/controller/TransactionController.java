@@ -11,7 +11,6 @@ import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.ValidatedTransferViewModel;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.TransactionMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,6 +71,7 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
 	public ValidatedTransferViewModel validateTransferData(@RequestBody final TransferValidateRequest request) {
+		// TODO 20141005 J-G: should we update this function / add a new function that is able to validate importance transfer transactions?
 		final TransferTransaction transaction = (TransferTransaction)this.transactionMapper.toModel(request);
 		return new ValidatedTransferViewModel(transaction.getFee(), transaction.getRecipient());
 	}
@@ -87,7 +87,7 @@ public class TransactionController {
 	}
 
 	/**
-	 * Announces de-activation of address for secure remote harvesting.
+	 * Announces deactivation of address for secure remote harvesting.
 	 *
 	 * @param request The request parameters.
 	 */
@@ -96,6 +96,8 @@ public class TransactionController {
 		remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
 	}
 
+	// TODO 20141005 J-G: maybe i am foolish, but isn't this the same block of code above (after creating the transaction)
+	// > can we refactor?
 	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		// prepare transaction
 		final Transaction transaction = this.transactionMapper.toModel(request, mode);

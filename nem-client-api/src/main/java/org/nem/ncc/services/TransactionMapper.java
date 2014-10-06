@@ -108,6 +108,7 @@ public class TransactionMapper {
 	}
 
 	// note: TransferValidateRequest passes null password here...
+	// TODO 20141005 J-G: that is why it's checking password for null :)
 	private Wallet getSenderWallet(final WalletName walletName, final WalletPassword password) {
 		final Wallet wallet = null != password
 				? this.walletServices.open(new WalletNamePasswordPair(walletName, password))

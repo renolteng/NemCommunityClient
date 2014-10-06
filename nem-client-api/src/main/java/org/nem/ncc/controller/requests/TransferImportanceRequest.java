@@ -8,13 +8,15 @@ public class TransferImportanceRequest extends AccountWalletPasswordRequest {
 	private final int hoursDue;
 
 	/**
+	 * TODO 20141005 J-G fix the comments please (and add a class comment)
 	 * Creates a password / account / wallet request.
 	 *
 	 * @param address The account address.
 	 * @param walletName The wallet name.
 	 * @param password The password.
 	 */
-	public TransferImportanceRequest(final Address address, 
+	public TransferImportanceRequest(
+			final Address address,
 			final WalletName walletName, 
 			final WalletPassword password,
 			final int hoursDue) {

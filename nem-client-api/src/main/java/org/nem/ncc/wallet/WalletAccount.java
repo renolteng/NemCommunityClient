@@ -13,6 +13,14 @@ import java.math.BigInteger;
 public class WalletAccount implements SerializableEntity {
 	private final Address address;
 	private final PrivateKey privateKey;
+
+	// TODO 20141005 J-G: i'm not sure i really like this change ... i view a wallet as a collection of accounts
+	// > the accounts may or may not be related, but i don't see why an account needs to know about its remote account
+	// > the link is in the block chain and can change over time
+	// > i'd really prefer to keep the wallet format as simple as possible
+	// > if we really want to treat accounts heterogenously, i would suggest adding a bit-flags field
+
+
 	// Will only be filled if the account is used for remote harvesting.
 	private PrivateKey remoteHarvestingPrivateKey;
 	private NodeEndpoint remoteHarvestingEndpoint;
@@ -56,6 +64,8 @@ public class WalletAccount implements SerializableEntity {
 	 * @param deserializer The deserializer.
 	 */
 	public WalletAccount(final Deserializer deserializer) {
+		// TODO 20141005 - so we're now requiring every account to have a remote harvesting private key?
+		// > and what is the point of storing the remote endpoint here?
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
 		final NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);

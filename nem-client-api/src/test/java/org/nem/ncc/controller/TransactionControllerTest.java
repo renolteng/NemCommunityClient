@@ -114,6 +114,10 @@ public class TransactionControllerTest {
 
 	//region remote harvest
 
+	// TODO 20141005: it probably makes sense to have pairs of tests (unlock/lock)
+	// > consider having a helper function that each part of the pair can delegate to
+	// > something like: assertDelegatesToTransactionMapper(BiFunction<controller, harvestRequest>, ImportanceTransferTransaction.Mode)
+
 	@Test
 	public void remoteUnlockDelegatesToTransactionMapper() {
 		// Arrange:
