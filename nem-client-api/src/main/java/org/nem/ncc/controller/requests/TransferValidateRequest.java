@@ -114,14 +114,4 @@ public class TransferValidateRequest {
 	public int getHoursDue() {
 		return this.hoursDue;
 	}
-
-	// TODO 20141005 J-G: this function was added, but it doesn't look like it's being used anywhere? do we need it?
-	/**
-	 * Extracts an AccountWalletRequest
-	 *
-	 * @return An AccountWalletRequest
-	 */
-	public AccountWalletRequest toAccountWalletRequest() {
-		return new AccountWalletRequest(this.getSenderAddress(), this.getWalletName());
-	}
 }

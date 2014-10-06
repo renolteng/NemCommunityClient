@@ -65,7 +65,17 @@ public class WalletAccount implements SerializableEntity {
 	 */
 	public WalletAccount(final Deserializer deserializer) {
 		// TODO 20141005 - so we're now requiring every account to have a remote harvesting private key?
-		// > and what is the point of storing the remote endpoint here?
+		// TODO 20141006 G-J: yeah it probably would be nicer to have accounts and link them somehow,
+		//   BUT think how this should be done from user perspective. How would you like to do "account linking"
+		//   inside UI (that given acc will be remote for other account)? Also I always like "your mom" argument,
+		//   so, how would you explain "your mom", she need to link two accounts? also, why would you want
+		//   users to create empty account, that they actually can't do anything with besides linking it to main account?
+		// TODO 20141005 and what is the point of storing the remote endpoint here?
+		// TODO 20141006 G-J: I'm not sure what I've told Thies, but the reason for storing it here is that:
+		// a) frontend must be able to do /status on proper endpoint
+		// b) /unlock must be made on proper endpoint
+		// I'm not sure it there's sense to have separate endpoint for harvesting, I haven't actually mentioned it
+		// anywhere on trello, but please also check my comment in RemoteHarvestRequest
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
 		final NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);

@@ -40,21 +40,6 @@ public class TransferValidateRequestTest {
 	}
 
 	@Test
-	public void requestCanBeConverted() {
-		// Arrange:
-		final Address address = Address.fromPublicKey(new KeyPair().getPublicKey());
-		final TransferValidateRequest request = new TransferValidateRequest(new WalletName("w"), address, Address.fromEncoded("r"),
-				Amount.fromMicroNem(7), "m", true, 5);
-
-		// Act:
-		final AccountWalletRequest convertedRequest = request.toAccountWalletRequest();
-
-		// Assert:
-		Assert.assertThat(convertedRequest.getWalletName(), IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(convertedRequest.getAccountId(), IsEqual.equalTo(address));
-	}
-
-	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Act:
 		final TransferValidateRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 8, 5);
