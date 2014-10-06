@@ -4,12 +4,14 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.*;
 
+/**
+ * A request containing all information necessary to create importance transfer.
+ */
 public class TransferImportanceRequest extends AccountWalletPasswordRequest {
 	private final int hoursDue;
 
 	/**
-	 * TODO 20141005 J-G fix the comments please (and add a class comment)
-	 * Creates a password / account / wallet request.
+	 * Creates a transfer importance request.
 	 *
 	 * @param address The account address.
 	 * @param walletName The wallet name.
@@ -25,7 +27,7 @@ public class TransferImportanceRequest extends AccountWalletPasswordRequest {
 	}
 
 	/**
-	 * Deserializes a password / account / wallet request.
+	 * Deserializes a transfer importance request.
 	 *
 	 * @param deserializer The deserializer.
 	 */

@@ -5,7 +5,7 @@ import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.*;
 
 /**
- * A view model representing an account and a wallet.
+ * A request representing an account and a wallet + password.
  */
 public class AccountWalletPasswordRequest extends AccountIdRequest {
 	private final WalletNamePasswordPair walletNamePasswordPair;

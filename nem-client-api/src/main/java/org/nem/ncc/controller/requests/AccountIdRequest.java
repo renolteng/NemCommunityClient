@@ -4,7 +4,7 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.Deserializer;
 
 /**
- * A view model representing an account identifier.
+ * A request representing an account identifier.
  */
 public class AccountIdRequest {
 	private final Address address;

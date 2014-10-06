@@ -9,13 +9,22 @@ import org.nem.ncc.wallet.*;
 // > remote NIS is already working and i can't imagine a scenario
 // > where someone would want to connect remotely to one nis and harvest remotely on another
 // > (well at least a good scenario)
+//
+// TODO 20141006 G-J: /me neither - can't think of such scenario :}
+// anyway later we might want to provide some "round-robin" for servers, that will be
+// used for accessing wallet via remote server, and the same probably shouldn't
+// happen in case of harvesting (I mean round-robin), as if user is harvesting on one machine,
+// he should probably stick to it (otherwise I think we could quickly have problems with
+// locking/unlocking)
 
+/**
+ * A view model
+ */
 public class RemoteHarvestRequest extends AccountWalletPasswordRequest {
 	private NodeEndpoint endpoint;
 
 	/**
-	 * TODO 20141005 J-G fix the comments please (and add a class comment)
-	 * Creates a password / account / wallet / endpoint URL request.
+	 * Creates remote harvest request.
 	 *
 	 * @param address The account address.
 	 * @param walletName The wallet name.
@@ -31,7 +40,7 @@ public class RemoteHarvestRequest extends AccountWalletPasswordRequest {
 	}
 	
 	/**
-	 * Deserializes a password / account / wallet / endpoint URL request.
+	 * Deserializes remote harvest request.
 	 *
 	 * @param deserializer The deserializer.
 	 */
