@@ -10,62 +10,62 @@ define({
             101: 'Bestand niet gevonden.',
             102: 'Wallet is niet aangemaakt.',
             103: 'Wallet bestand is corrupt. Herstel je wallet van een eerder gemaakte back-up. Tip: back-up je wallet gelijk nadat deze is gegenereerd, of wanneer een account is toegevoegd aan de wallet.',
-            104: 'The provided password is not correct. Hopefully you can remember the correct password. The password cannot be recovered if lost!',
-            106: 'Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.',
-            107: 'Wallet does not contain this account.',
-            108: 'The account cannot be removed. Most likely because the account still has a balance greater than 0 NEMs or the account you are trying to remove is the primary account.',
-            109: 'Another wallet with the same name exists already. Please choose an other wallet name.',
-            110: 'Wallet already contains this account.',
-            202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
-            305: 'NEM Infrastructure Server is not available.',
-            306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
-            400: 'Some parameter is missing or invalid.',
-            404: 'The requested resource could not be found.',
-            500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
-            600: 'NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.',
-            601: 'The nis node is already booted. A second attempt to boot nis is not possible.',
-            700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEMs within the account. Harvesting starts with at least 1000 NEM.',
+            104: 'Het ingevoerde wachtwoord is niet juist. Hopelijk kun je het nog herinneren, dit is de enige mogelijkheid om toegang te krijgen tot je wallet.',
+            106: 'Voordat je met je wallet kan beginnen, moet hij worden geopend. Om er zeker van te zijn dat jij de rechtmatige eigenaar bent, moet je het wachtwoord opgeven.',
+            107: 'Rekeningnummer komt niet voor in de wallet.',
+            108: 'De rekening kan niet worden verwijderd. Waarschijnlijk komt dit omdat er nog NEM in zit. Het kan ook zijn dat de rekening de primaire rekening is van de wallet.',
+            109: 'Een andere wallet met dezelfde naam bestaat al, kies een andere wallet-naam.',
+            110: 'Rekening komt al voor in de wallet.',
+            202: 'Een beveiligd bericht kan niet worden verstuurd naar de ontvanger omdat hij of zij nog nooit een transactie heeft gemaakt met dit rekeningnummer.',
+            305: 'NEM Infrastructure Server is niet beschikbaar.',
+            306: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
+            400: 'Een parameten is missend of niet goed.',
+            404: 'De opgevraagde bron kom niet worden gevonden..',
+            500: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
+            600: 'Voor de NCC (Nem Community Client) is het vereist om de NIS (Network Infrastructure Server) het starten voor het verzenden en ontvangen van transacties van de NEM cloud. Gebruik de NCC menu optie om lokaal te starten.',
+            601: 'De nis node is al gestart. Een tweede poging om te starten is niet mogelijk.',
+            700: 'De opgegeven rekening voldoet niet aan de basis criteria om te harvesten/oogsten. Waarschijnlijk heeft dat te maken met het aantal NEM wat zich in de rekening bevindt. Harvesten begint bij tenminste 1000 NEM.',
             701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
             702: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
-            703: 'Your account does not have the right balance to send the provided amount of NEMs.',
-            704: 'The provided message text is too large to be send via NEM. Please try to reduce the length of the message you want to send.',
-            705: 'The transaction hash already exists in the database or the list of unconfirmed transactions.',
-            706: 'The signature of the transaction could not be verified.',
-            707: 'The time stamp of the transaction id too far in the past.',
-            708: 'The time stamp of the transaction is too far in the future.',
-            709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
-            901: 'There was an error setting up offline mode.'
+            703: 'De rekening heeft niet genoeg saldo om het aangegeven aantal NEM te verzenden.',
+            704: 'De tekst is te groot om het te verzenden via NEM. Reduceer de tekst en probeer opnieuw te verzenden.',
+            705: 'De hash van de transactie bestaat al in de database van onbevestigde transacties.',
+            706: 'De handtekening van de transactie kon niet worden geverifieerd.',
+            707: 'De timestamp van de transactie ligt te ver in het verleden.',
+            708: 'De timestamp van de transactie ligt te ver in de toekomst.',
+            709: 'Het rekeningnummer is onbekend.  Een rekening wordt pas bekend op het netwerk als deze deel heeft uitgemaakt van een transactie als verzender of ontvanger.',
+            901: 'Er is een fout opgetreden bij het instellen van de offline modus.'
         },
         common: {
-        	success: 'Success', //title of the Success message modals
+        	success: 'Succes', //title of the Success message modals
         	nisStatus: {
-        		nccUnavailable: 'NCC is not available',
-        		unavailable: 'NIS is not available',
-        		booting: 'Booting NIS...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog.',
-        		retrievingStatus: 'Retrieving NIS status...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		nccUnavailable: 'NCC is niet beschikbaar',
+        		unavailable: 'NIS is niet beschikbaar',
+        		booting: 'Starten van de NIS...',
+        		notBooted: 'Het is vereist om NIS te (her)starten. Open een wallet en start een lokale bij het popup dialoog.',
+        		retrievingStatus: 'Opvragen van NIS status...',
+        		synchronizing: 'NIS is aan het synchronizeren. Bij block {{1}}, ong. {{2}} achter.',
         		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
+        			0: 'minder dan 1 dag',
+        			1: '1 dag',
+        			many: '{{1}} dagen'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS is gesynchroniseerd!'
         	}
         },
 		modals: {
 			error: {
-				title: 'Oops!',
+				title: 'Oeps!',
 				caption: 'ERROR {{1}}'
 			},
 			confirmDefault: {
-				yes: 'Yes',
-				no: 'No'
+				yes: 'Ja',
+				no: 'Nee'
 			},
 			settings: {
-				title: 'Settings',
+				title: 'Instellingen',
 				language: {
-					label: 'Language'
+					label: 'Taal'
 				},
 				remoteServer: {
 					tabTitle: 'Remote Server',
@@ -77,206 +77,206 @@ define({
 					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'Auto-start',
+					name: 'Node naam',
+					account: 'Rekening',
+					primaryAccount: 'Primaire rekening',
+					auto: 'Auto starten als een wallet is geopend'
 				},
-				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				save: 'Opslaan',
+				saveSuccess: 'Instelling zijn met succes opgeslagen'
 			},
 			sendNem: {
-				title: 'Send NEM',
-				labelDesc: 'This account is labeled as {{1}}',
-				nullLabelDesc: "This account doesn't have a label",
-				amount: 'Amount',
-				recipient: "Recipient's account",
-				message: 'Message',
-				encrypt: 'Encrypt message',
-				fee: 'Fee',
-				dueBy: 'Due by',
-				resetFee: 'Reset to minimum fee',
-				hours: 'hours',
-				password: 'Password',
-				send: 'Send',
-				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!'
+				title: 'NEM versturen',
+				labelDesc: 'Deze rekening is als {{1}} gelabeld',
+				nullLabelDesc: "Deze rekening heeft geen label",
+				amount: 'Bedrag',
+				recipient: "Rekening van ontvanger",
+				message: 'Bericht',
+				encrypt: 'Beveilig bericht',
+				fee: 'Toeslag',
+				dueBy: 'Overmaken voor',
+				resetFee: 'Resetten naar minimale toeslag',
+				hours: 'Uur',
+				password: 'Wachtwoord',
+				send: 'Verstuur',
+				sending: 'Versturen...',
+				successMessage: 'Transactie is verstuurd!!'
 			},
 			clientInfo: {
-				title: 'Client info',
+				title: 'Client informatie',
 				ncc: 'NEM Community Client - NCC',
 				signer: 'Signer',
 				remoteServer: 'Remote Server',
-				local: 'Local',
+				local: 'Lokale Server',
 				nis: 'NEM Infrastructure Server - NIS',
-				sync: 'Synchronized',
-				notSync: 'Not synchronized',
-				notConnected: 'Not connected to NEM Cloud',
-				loading: 'Loading...'
+				sync: 'Gesynchroniseerd',
+				notSync: 'Niet gesynchroniseerd',
+				notConnected: 'Kan geen verbinding maken met de NEM Cloud',
+				loading: 'Laden...'
 			},
 			transactionDetails: {
-				title: 'Transaction Details',
+				title: 'Transactie details',
 				// this might be block or transaction ID
 				id: 'ID',
 				// this might be block or transaction Hash
 				hash: 'Hash',
-				type: 'Transaction Type',
-				pending: 'Pending',
-				outgoing: 'Outgoing',
-				incoming: 'Incoming',
-				self: 'Self',
-				sender: 'Sender',
-				recipient: 'Recipient',
-				message: 'Message',
-				noMessage: 'No message',
-				encrypted: 'Message is encrypted',
+				type: 'Type transactie',
+				pending: 'Wachten',
+				outgoing: 'Uitgaand',
+				incoming: 'Inkomend',
+				self: 'Zelf',
+				sender: 'Afzender',
+				recipient: 'Ontvanger',
+				message: 'Bericht',
+				noMessage: 'Geen bericht',
+				encrypted: 'Bericht is beveiligd',
 				time: 'Timestamp',
-				confirmations: 'Confirmations',
-				amount: 'Amount',
-				fee: 'Fee'
+				confirmations: 'Confirmaties',
+				amount: 'Bedrag',
+				fee: 'Toeslag'
 			},
 			bootLocalNode: {
-				title: 'Boot local node',
-				account: 'Account to boot local node',
-				noLabel: '<span class="null">&lt;No label&gt;</span>',
+				title: 'Start lokale node',
+				account: 'Rekening voor het starten van de lokale node',
+				noLabel: '<span class="null">&lt;Geen label&gt;</span>',
 				wallet: 'Wallet',
-				node: 'Node name',
-				boot: 'Boot',
-				booting: 'Booting...'
+				node: 'Node naam',
+				boot: 'Start',
+				booting: 'Starten...'
 			},
 			notBootedWarning: {
-				title: 'Node has not been booted!',
-				message: 'A local node needs to be booted before you can send NEM!'
+				title: 'Node is niet gestart!',
+				message: 'Een loake node moet eerst gestart worden om NEM te versturen!'
 			},
 			closeWallet: {
-				title: 'Close wallet',
-				message: 'Are you sure you want to close your wallet and return to landing page?'
+				title: 'Wallet sluiten',
+				message: 'Weet je het zeker om terug te keren naar de openingspagina?'
 			},
 			createAccount: {
-				title: 'Create new account',
-				label: 'Private label',
+				title: 'Nieuwe rekening aanmaken',
+				label: 'Privé label',
 				wallet: 'Wallet',
-				password: "Wallet's password",
-				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been created!',
-				create: 'Create'
+				password: "Wallet wachtwoord",
+				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} is aangemaakt.!',
+				create: 'Aanmaken'
 			},
 			addAccount: {
-				title: 'Add an Existing Account',
-				privateKey: "Account's Private Key",
+				title: 'Voeg een bestaande rekening toe',
+				privateKey: "Privésleutel van rekening",
 				wallet: 'Wallet',
-				password: "Wallet's password",
-				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been added to wallet!',
-				add: 'Add',
+				password: "Wallet wachtwoord",
+				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} is toegevoegd aan wallet!',
+				add: 'Voeg toe',
 				label: 'Label'
 			},
 			setPrimary: {
-				title: 'Set primary account',
-				account: 'Account to be set as Primary',
-				noLabel: '<span class="null">&lt;No label&gt;</span>',
+				title: 'Primaire rekening instellen',
+				account: 'Rekening die primair wordt ingesteld.',
+				noLabel: '<span class="null">&lt;Geen label&gt;</span>',
 				wallet: 'Wallet',
-				password: "Wallet's password",
-				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been set as primary!',
-				set: 'Set as primary',
+				password: "Wallet wachtwoord",
+				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} als primair ingesteld!',
+				set: 'Stel primaire rekening in',
 			},
 			changeWalletName: {
-				title: 'Change wallet name',
-				wallet: 'Current wallet name',
-				newName: 'New wallet name',
-				password: "Wallet's password",
-				successMessage: 'Wallet name has been successfully changed from <em>{{1}}</em> to <em>{{2}}</em>',
+				title: 'Verander naam van wallet',
+				wallet: 'Huidige wallet naam',
+				newName: 'Nieuwe wallet naam',
+				password: "Wallet wachtwoord",
+				successMessage: 'Naam van wallet is gewijzigd van <em>{{1}}</em> naar <em>{{2}}</em>',
 				change: 'Change'
 			},
 			changeWalletPassword: {
-				title: 'Change wallet password',
+				title: 'Verander het Wallet wachtwoord ',
 				wallet: 'Wallet',
-				password: 'Current password',
-				newPassword: 'New password',
-				confirmPassword: 'Confirm new password',
-				successMessage: 'Wallet password has been successfully changed',
-				change: 'Change',
-				passwordNotMatchTitle: 'Oops!',
-				passwordNotMatchMessage: 'Your entered password and password confirmation do not match. Please be sure you type your new password correctly.'
+				password: 'Huidig wachtwoord',
+				newPassword: 'Nieuw wachtwoord',
+				confirmPassword: 'Bevestig nieuw wachtwoord',
+				successMessage: 'Wallet wachtwoord is aangepast.',
+				change: 'Aanpassen',
+				passwordNotMatchTitle: 'Oeps!',
+				passwordNotMatchMessage: 'Het wachtwoord komt niet overeen.'
 			},
 			changeAccountLabel: {
-				title: 'Change account label',
-				label: 'Account label',
+				title: 'Verander het label van de rekening',
+				label: 'Rekening label',
 				wallet: 'Wallet',
-				password: "Wallet's password",
-				successMessage: 'Account {{1}} is now labeled as {{2}}',
-				change: 'Change'
+				password: "Wallet wachtwoord",
+				successMessage: 'Rekening {{1}} is gelabeld als {{2}}',
+				change: 'Aanpassen'
 			},
 			removeAccount: {
-				title: 'Remove account',
+				title: 'Rekening verwijderen',
 				wallet: 'Wallet',
-				password: "Wallet's password",
-				warning: 'Please ensure that your account has no NEMs left before you remove it, or they would be lost forever.',
-				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been removed!',
-				remove: 'Remove'
+				password: "Wallet wachtwoord",
+				warning: 'Let op! Wees er zeker van dat er geen NEM saldo opstaat. Eventueel saldo wordt voor altijd verwijderd.',
+				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} is verwijderd!',
+				remove: 'Verwijderen'
 			},
 			nisUnavailable: {
-				title: 'NIS unavailable',
-				message: 'Disconnected from NIS, waiting for connection'
+				title: 'NIS niet beschikbaar',
+				message: 'NIS connectie onderbroken, wachten op verbinding'
 			},
 			shutdown: {
-				title: 'Close program',
-				message: 'Are you sure you want to close NEM Community Client?'
+				title: 'Afsluiten',
+				message: 'Weet je zeker dat je de NEM Community Client wil afsluiten?'
 			}
 		},
 		landing: {
 			logo: 'images/nem_logo.png',
-			importSuccess: 'Wallet has been sucessfully imported!',
+			importSuccess: 'Wallet is met succes geimporteerd!',
 			nav: {
-				start: 'Getting Started',
-				about: 'About NEM',
-				settings: 'Settings'
+				start: 'Aan de slag',
+				about: 'Over NEM',
+				settings: 'Instellingen'
 			},
 			main: {
-				leftTitle: 'New to <em>NEM</em>?',
-				leftButton: 'Create new wallet',
-				walletNamePlh: 'Name of your wallet',
-				passwordPlh: 'Password',
-				create: 'Create',
-				rightTitle: 'Already a <em>NEM</em>ber?',
-				rightButton: 'Open your wallet',
+				leftTitle: 'Nieuw bij <em>NEM</em>?',
+				leftButton: 'Maak een nieuwe wallet',
+				walletNamePlh: 'Naam van de wallet',
+				passwordPlh: 'Wachtwoord',
+				create: 'Aanmaken',
+				rightTitle: 'Al een <em>NEM</em>ber?',
+				rightButton: 'Open je wallet',
 				openButton: 'Open',
-				walletsFound: 'Found <strong>{{1}}</strong> <em>wallets</em>',
-				copyright: 'Photography by <em>Cas Cornelissen</em>'
+				walletsFound: '<strong>{{1}}</strong> <em>wallets gevonden</em>',
+				copyright: 'Fotografie door <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [
 					{
-						title: 'NCC encrypts your wallet',
-						description: '<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets.'
+						title: 'NCC beveiligt je wallet',
+						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstale van NEM coins&amp; assets te voorkomen.'
 					},
 					{
 						title: 'NCC encrypts your wallet',
-						description: '<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets.'
+						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstale van NEM coins&amp; assets te voorkomen.'
 					}
 				]
 			},
 			about: {
 				sections: [
 					{
-						title: 'How NCC works?',
+						title: 'Hoe werkt NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may',
-							'<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)',
-							'You may also configure an access to a remote <strong>NIS</strong>.'
+							'<strong>NCC</strong> zorgt voor toegang tot je Assets en NEMs zoals een traditionele Wallet, of portomonnee, dat doet.',
+							'<strong>NCC</strong> heeft toegang to de <strong>NIS</strong> server nodig om te kunnen werken. Standaard is een lokale service actief. Deze wordt geinstalleerd met de community client (NCC)',
+							'Je kan NCC ook configureren om toegang te krijgen tot een remote <strong>NIS</strong>.'
 						],
 						listItems: [
-							'Have multiple wallets',
-							'Define multiple accounts to be included in a wallet'
+							'Meerdere rekeningen',
+							'Definieer meerdere rekeningingen in een wallet'
 						]
 					},
 					{
-						title: 'What is &#42;NIS?',
+						title: 'Wat is &#42;NIS?',
 						paragraphs: [
-							'This component is responsible for keeping the <strong>NEM</strong> cloud alive.',
-							'The more <strong>NIS</strong> the better the security.',
-							'<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud.'
+							'Dit components is verantwoordelijk om de <strong>NEM</strong> cloud in de lucht te houden.',
+							'Hoe meer <strong>NIS</strong> servers er zijn, des te veiliger het netwerk is.',
+							'<strong>NIS</strong> is het toegangspunt voor de <strong>NEM</strong> cloud.'
 						],
-						legend: '<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>'
+						legend: '<strong>&#42;NIS</strong> staat voor <strong>NEM Infrastructure Server</strong>'
 					}
 				]
 			},
@@ -286,163 +286,163 @@ define({
 		},
 		wallet: {
 			logo: 'images/nem_logo.png',
-			lastAccess: 'About {{1}} days ago',
-			lastAccessJustNow: 'Just now',
-			lastAccessTooltip: 'Last access was {{1}}',
-			primary: 'primary',
+			lastAccess: 'Ongeveer {{1}} dagen geleen ago',
+			lastAccessJustNow: 'Zojuist',
+			lastAccessTooltip: 'Laatste toegang was {{1}}',
+			primary: 'Primaire',
 			primaryShort: 'P',
-			noLabel: '<No label>',
-			copiedToClipboard: 'Address has been copied to clipboard!',
+			noLabel: '<Geen label>',
+			copiedToClipboard: 'Rekening is gekopieerd naar het clipboard!',
 			actions: {
-				refreshInfo: 'Refresh Info',
-				bootLocalNode: 'Boot Local Node',
-				changeWalletName: 'Change Wallet Name',
-				changeWalletPassword: 'Change Wallet Password',
-				mergeWallets: 'Merge Wallets',
-				exportWallet: 'Export Wallet',
-				createAccount: 'Create new Account',
-				addAccount: 'Add an Existing Account',
-				changeAccountLabel: 'Change Account Label',
-				setPrimary: 'Set as Primary Account',
-				removeAccount: 'Remove Account',
-				clientInfo: 'Client Info',
-				closeWallet: 'Close Wallet',
-				closeProgram: 'Close Program',
-				copyClipboard: 'Copy address to clipboard'
+				refreshInfo: 'Ververs informatie',
+				bootLocalNode: 'Start Lokale Node',
+				changeWalletName: 'Verander naam  van Wallet',
+				changeWalletPassword: 'Verander Wallet Wachtwoord',
+				mergeWallets: 'Wallets samenvoegen',
+				exportWallet: 'Exporteer Wallet',
+				createAccount: 'Maak een nieuwe Rekening',
+				addAccount: 'Voor een Bestaande Rekening toe',
+				changeAccountLabel: 'Verander het label van de Rekening',
+				setPrimary: 'Stel in als Primaire Rekening',
+				removeAccount: 'Verwijder rekening',
+				clientInfo: 'Client Informatie',
+				closeWallet: 'Sluit Wallet',
+				closeProgram: 'Programma Afsluiten',
+				copyClipboard: 'Kopieer rekeningnummer naar het clipboard.'
 			},
 			nav: [
 				'Dashboard',
-				'Messages',
-				'Contacts',
-				'Transactions',
-				'Harvested blocks',
+				'Berichten',
+				'Contacten',
+				'Transacties',
+				'Geharveste Blocks',
 				'Asset Exchange',
-				'News',
-				'Applications',
-				'Accounts',
-				'Settings',
-				'Close Program'
+				'Nieuws',
+				'Applicaties',
+				'Rekeningen',
+				'Instellingen',
+				'Afsluiten'
 			],
-			bootNodeWarning: "A local node needs to be booted before you can fully utilize NCC's features."
+			bootNodeWarning: "A lokale node moet gestart zijn om alle functionaliteiten van NCC te gebruiken."
 		},
 		dashboard: {
 			assets: {
-				title: 'Your assets'
+				title: 'Je Assets'
 			},
 			importance: {
-				title: 'Importance score',
-				unknown: 'Unknown status',
-				start: 'Start harvesting',
-				harvesting: 'Harvesting',
-				stop: 'Stop harvesting',
-				description: 'importance of account to the NEM cloud'
+				title: 'Score',
+				unknown: 'Onbekende status',
+				start: 'Start harvesten',
+				harvesting: 'Harvesten',
+				stop: 'Stop harvesten',
+				description: 'Status-score van deze rekening op  to the NEM cloud'
 			},
 			transactions: {
-				title: 'Recent Transactions',
-				sendNem: 'Send NEM',
-				balance: 'Current balance',
-				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
-				unknown: 'unknown',
+				title: 'Recente Transacties',
+				sendNem: 'Verstuur NEM',
+				balance: 'Huidige balans',
+				syncStatus: '(bij block {{1}}{{#2}} : ong. {{3}} dagen achter{{/2}})',
+				unknown: 'onbekend',
 				columns: [
 					'',
-					'Time',
-					'Sender/Recipient',
-					'Message',
+					'Tijd',
+					'Afzender/Ontvanger',
+					'Bericht',
 					'',
 					'Details',
-					'Confirmations',
-					'Fee',
-					'Amount'
+					'Confirmaties',
+					'Toeslag',
+					'Bedrag'
 				],
 				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
+					pending: 'Wachtende transactie',
+					outgoing: 'Uitgaande transactie',
+					incoming: 'Inkomende transactie',
+					self: 'Eigen transactie',
 				},
-				noMessage: 'No message',
-				encrypted: 'Message is encrypted',
-				view: 'View',
-				pending: 'Pending',
-				seeAll: 'See all transactions',
-				noTransactions: 'No transactions have been performed yet'
+				noMessage: 'Geen bericht',
+				encrypted: 'Bericht is beveiligd',
+				view: 'Bekijk',
+				pending: 'Wachtend',
+				seeAll: 'Bekijk alle transacties',
+				noTransactions: 'Nog geen transacties zijn uitgevoerd'
 			},
 			nemValue: {
-				title: 'NEM value statistics'
+				title: 'NEM statistieken'
 			},
 			messages: {
-				titleTooltip: 'Messages'
+				titleTooltip: 'Berichten'
 			},
 			news: {
-				titleTooltip: 'News'
+				titleTooltip: 'Nieuws'
 			},
-			notAvailable: 'Not yet available in alpha release'
+			notAvailable: 'Nog niet beschikbaar in de alpha release'
 		},
 		transactions: {
-			title: 'Transactions',
-			sendNem: 'Send NEM',
-			balance: 'Current Balance',
+			title: 'Transacties',
+			sendNem: 'Verstuur NEM',
+			balance: 'Huidige Balans',
 			filters: {
-				confirmed: 'Confirmed',
-				unconfirmed: 'Unconfirmed',
-				incoming: 'Incoming',
-				outgoing: 'Outgoing',
+				confirmed: 'Bevestigd',
+				unconfirmed: 'Onbevestigd',
+				incoming: 'Inkomend',
+				outgoing: 'Uitgaand',
 			},
 			table: {
 				columns: [
 					'',
-					'Time',
-					'Sender/Recipient',
-					'Message',
+					'Tijd',
+					'Afzender/Ontvanger',
+					'Bericht',
 					'',
 					'Details',
-					'Confirmations',
-					'Fee',
-					'Amount'
+					'Confirmaties',
+					'Toeslag',
+					'Bedrag'
 				],
 				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
+					pending: 'Wachtende transactie',
+					outgoing: 'Uitgaande transactie',
+					incoming: 'Inkomende transactie',
+					self: 'Eigen transactie',
 				},
-				noMessage: 'No message',
-				encrypted: 'Message is encrypted',
-				view: 'View',
-				pending: 'Pending',
-				noTransactions: 'No transactions have been performed yet',
-				loading: 'Loading more transactions...'
+				noMessage: 'Geen bericht',
+				encrypted: 'Bericht is beveiligd',
+				view: 'Bekijk',
+				pending: 'Wachtend',
+				noTransactions: 'Nog geen transacties zijn uitgevoerd',
+				loading: 'Meer transacties laden...'
 			}
 		},
 		harvestedBlocks: {
-			title: 'Harvested Blocks',
-			feeEarned: 'Fees earned from the last 25 harvested blocks',
+			title: 'Geharveste Blocks',
+			feeEarned: 'Toeslagen verdiend van de laatste 25 geharveste blocks',
 			table: {
 				columns: [
-					'Height',
-					'Time',
+					'Blockhoogte',
+					'Tijd',
 					'Block hash',
-					'Fee'
+					'Toeslag'
 				],
-				noBlocks: 'No harvested blocks ',
-				loadMore: 'See older harvested blocks'
+				noBlocks: 'Geen geharveste blocks ',
+				loadMore: 'Bekijk oudere blocks die geharvest zijn'
 			},
 			harvesting: {
-				unknown: 'Unknown status',
-				start: 'Start harvesting',
-				harvesting: 'Harvesting',
-				stop: 'Stop harvesting'
+				unknown: 'Onbekende status',
+				start: 'Start harvesten',
+				harvesting: 'Harvesten',
+				stop: 'Stop harvesten'
 			}
 		},
 		settings: {
-			title: 'Settings',
+			title: 'Instellingen',
 			settings: [
 				{
-					name: 'Language'
+					name: 'Taal'
 				}
 			],
-			save: 'Save changes',
-			saveSuccess: 'Settings have been saved successfully'
+			save: 'Opslaan',
+			saveSuccess: 'Instellingen zijn opgeslagen'
 		}
 	}
 });
