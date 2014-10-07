@@ -16,6 +16,11 @@ import org.nem.ncc.wallet.*;
 // happen in case of harvesting (I mean round-robin), as if user is harvesting on one machine,
 // he should probably stick to it (otherwise I think we could quickly have problems with
 // locking/unlocking)
+//
+// TODO 20141007 J-G: i agree that this would make sense if we had round-robining
+// but since we don't we really don't have a need for it now
+// i usually prefer to not add code that we don't need
+// since this is already here (as long as its tested), it's probably not harmful to keep
 
 /**
  * A view model

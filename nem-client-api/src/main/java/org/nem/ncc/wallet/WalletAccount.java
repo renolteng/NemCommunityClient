@@ -70,12 +70,28 @@ public class WalletAccount implements SerializableEntity {
 		//   inside UI (that given acc will be remote for other account)? Also I always like "your mom" argument,
 		//   so, how would you explain "your mom", she need to link two accounts? also, why would you want
 		//   users to create empty account, that they actually can't do anything with besides linking it to main account?
+		// TODO 20141007 J-G: i agree with the "your mom" for the UX but, imo, that shouldn't influence the data layer
+		// > i want to be very cautious about what we put in the wallet file and we should be careful to only put completely
+		// > essential information in it, and we should especially not put any NCC-specific data in it
+		// > the reason for that is so that other clients can read / write the wallet file without needing overly complex logic
+		// > idk if the current format is "perfect" in that respect, but i would prefer not to stray too far from the ideal, if possible
+		//
+		// 1. i could be wrong, but isn't it possible to figure out the lessee / lessor relationships via the NIS api
+		// > (if not, we should add that capability)
+		// 2. the account / remote account is a fake relationship because it can change over time (activate ACC1 / deactivate ACC1 / activate ACC2)
+		//
+		// In summary, i think we should be able reconstruct the lessor / lessee relationships given NIS information all accounts (public-keys)
+		// I don't really see a need to "cache" the relationships in the wallet as well, especially because the can change over time
+
 		// TODO 20141005 and what is the point of storing the remote endpoint here?
 		// TODO 20141006 G-J: I'm not sure what I've told Thies, but the reason for storing it here is that:
 		// a) frontend must be able to do /status on proper endpoint
 		// b) /unlock must be made on proper endpoint
 		// I'm not sure it there's sense to have separate endpoint for harvesting, I haven't actually mentioned it
 		// anywhere on trello, but please also check my comment in RemoteHarvestRequest
+		// TODO 20141007 J-G: this doesn't feel like "wallet" information to me ... it feels more appropriate in configuration
+		// > i don't tend to view NCC users as "power users", so i think a single endpoint per wallet (or even NCC) would suffice
+
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
 		final NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);

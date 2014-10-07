@@ -82,9 +82,6 @@ public class TransactionController {
 		remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
 	}
 
-	// TODO 20141005 J-G: maybe i am foolish, but isn't this the same block of code above (after creating the transaction)
-	// > can we refactor?
-	// TODO 20141006 G-J, you're right I've missed that
 	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		final Transaction transaction = this.transactionMapper.toModel(request, mode);
 		announceTransaction(transaction);

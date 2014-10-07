@@ -229,8 +229,6 @@ public class AccountController {
 	 * Unlock the account on a remote NIS server (start foraging).
 	 * Remote address being used has to be announced previously.
 	 *
-	 * TODO 20141005 J-G please update comments after copy and pasting :D
-	 * TODO 20141006 G-J wasn't me :]
 	 * @param remoteHarvestRequest The remote harvester view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
@@ -250,12 +248,15 @@ public class AccountController {
 		// > since this appears to be just getting status
 		// TODO 20141007 G-J: I don't think we should access remote harvester priv key here,
 		// just to obtain address. How/where can I cache "remote harvester" public key?
+		// TODO 20141007 J-G: I think the JS should be sending over the remote harvester public key
+		// > it doesn't necessarily need to "show" it (see my other comment) but i think it should "know" about it
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		final NodeEndpoint endpoint = account.getRemoteHarvestingEndpoint();
 		if (endpoint == null) {
 			throw new NccException(NccException.Code.ACCOUNT_CACHE_ERROR);
 		}
 
+		// TODO 20141007 J-G: use AsyncNisConnector instead for non-default endpoints
 		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
 				() -> endpoint,
 				this.cloudConnector);
