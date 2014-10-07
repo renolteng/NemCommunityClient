@@ -203,7 +203,7 @@ Announces deactivation of remote harvesting account to the network (FEE: 1)
 Checks if account is unlocked on remote server, will return an error if
 
 * Request Method: _POST_
-* Request: [AccountWalletPasswordRequest](viewModel.md#accountWalletPasswordRequest)
+* Request: [AccountWalletRequest](viewModel.md#accountWalletRequest)
 * Response: [AccountStatusViewModel](viewModel.md#accountStatusViewModel)
 * Dependent from NIS: _Yes_
 

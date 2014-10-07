@@ -245,15 +245,11 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
-	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletPasswordRequest awRequest) {
+	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletRequest awRequest) {
 		// TODO 20141005 J-G: it is unclear to me why we need AccountWalletPasswordRequest vs just AccountWalletRequest
 		// > since this appears to be just getting status
-		// TODO 20141006 G-J: actually I do NOT understand, why we DON'T need a password:
-		// a) we're getting an account form wallet,
-		// b) we're getting associated "remote" account
-		// c) we're getting PRIV KEY of "remote" account,
-		// why isn't pass required to obtain priv key at C? or am I missing something :(
-		// the same actually goes for remote/[un]lock
+		// TODO 20141007 G-J: I don't think we should access remote harvester priv key here,
+		// just to obtain address. How/where can I cache "remote harvester" public key?
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
 		final NodeEndpoint endpoint = account.getRemoteHarvestingEndpoint();
 		if (endpoint == null) {
