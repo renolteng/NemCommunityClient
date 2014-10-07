@@ -332,7 +332,8 @@
 			margin-top: 10px;
 		}
 
-		.importance-activateButton {
+		.importance-activateButton,
+		.importance-remoteHarvestButton {
 			background-color: #4c4058;
 
 			&:not(:disabled):hover {
