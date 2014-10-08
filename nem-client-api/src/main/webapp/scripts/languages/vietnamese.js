@@ -236,6 +236,38 @@ define({
 			shutdown: {
 				title: 'Đóng chương trình',
 				message: 'Bạn có chắc rằng bạn muốn đóng NEM Community Client không?'
+			},
+			activateRemote: {
+				title: 'Kích hoạt thu hoạch từ xa',
+				wallet: 'Ví',
+				account: 'Tài khoản',
+				hoursDue: 'Hết hạn',
+				password: "Mật khẩu ví",
+				activate: 'Kích hoạt'
+			},
+			deactivateRemote: {
+				title: 'Vô hiệu hoá thu hoạch từ xa',
+				wallet: 'Ví',
+				account: 'Tài khoản',
+				hoursDue: 'Hết hạn',
+				password: "Mật khẩu ví",
+				deactivate: 'Vô hiệu hoá'
+			},
+			startRemote: {
+				title: 'Bắt đầu thu hoạch từ xa',
+				wallet: 'Ví',
+				account: 'Tài khoản',
+				host: 'Host',
+				password: "Mật khẩu ví",
+				start: 'Bắt đầu'
+			},
+			stopRemote: {
+				title: 'Ngừng thu hoạch từ xa',
+				wallet: 'Ví',
+				account: 'Tài khoản',
+				host: 'Host',
+				password: "Mật khẩu ví",
+				stop: 'Ngừng'
 			}
 		},
 		landing: {
@@ -350,7 +382,17 @@ define({
 				start: 'Bắt đầu thu hoạch',
 				harvesting: 'Đang thu hoạch',
 				stop: 'Ngừng thu hoạch',
-				description: 'tầm quan trọng của tài khoản với NEM cloud'
+				description: 'tầm quan trọng của tài khoản với NEM cloud',
+				remoteHarvest: {
+					activate: 'Kích hoạt thu hoạch từ xa',
+					activating: 'Đang kích hoạt...',
+					active: 'Thu hoạch từ xa đã sẵn sàng',
+					deactivate: 'Vô hiệu hoá thu hoạch từ xa',
+					deactivating: 'Đang vô hiệu hoá...',
+					startRemoteHarvesting: 'Bắt đầu thu hoạch từ xa',
+					remotelyHarvesting: 'Đang thu hoạch từ xa',
+					stopRemoteHarvesting: 'Ngừng thu hoạch từ xa'
+				}
 			},
 			transactions: {
 				title: 'Các giao dịch gần đây',
