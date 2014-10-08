@@ -112,6 +112,78 @@ public class TransactionControllerTest {
 
 	//endregion
 
+	//region remote harvest
+
+	// TODO 20141005: it probably makes sense to have pairs of tests (unlock/lock)
+	// > consider having a helper function that each part of the pair can delegate to
+	// > something like: assertDelegatesToTransactionMapper(BiFunction<controller, harvestRequest>, ImportanceTransferTransaction.Mode)
+
+	@Test
+	public void remoteUnlockDelegatesToTransactionMapper() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Transaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
+		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
+		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Activate)).thenReturn(model);
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
+
+		// Act:
+		context.controller.remoteUnlock(context.harvestRequest);
+
+		// Assert:
+		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Activate);
+	}
+
+	@Test
+	public void remoteUnlockDelegatesToNisTransactionAnnounce() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final MockTransaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
+		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
+		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Activate)).thenReturn(model);
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
+
+		// Act:
+		context.controller.remoteUnlock(context.harvestRequest);
+
+		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
+		Mockito.verify(context.connector, Mockito.times(1)).post(Mockito.eq(NisApiId.NIS_REST_TRANSACTION_ANNOUNCE), requestCaptor.capture());
+		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
+		final RequestAnnounce requestAnnounce = new RequestAnnounce(new JsonDeserializer(jsonRequest, null));
+
+		// Assert:
+		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
+		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
+		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
+	}
+
+	@Test
+	public void remoteLockDelegatesToNisTransactionAnnounce() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final MockTransaction model = new MockTransaction(Utils.generateRandomAccount(), 7);
+		final Deserializer deserializer = this.getNisRequestResultDeserializer(ValidationResult.SUCCESS.getValue());
+		Mockito.when(context.transactionMapper.toModel(context.harvestRequest, ImportanceTransferTransaction.Mode.Deactivate)).thenReturn(model);
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(deserializer);
+
+		// Act:
+		context.controller.remoteLock(context.harvestRequest);
+
+		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
+		Mockito.verify(context.connector, Mockito.times(1)).post(Mockito.eq(NisApiId.NIS_REST_TRANSACTION_ANNOUNCE), requestCaptor.capture());
+		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
+		final RequestAnnounce requestAnnounce = new RequestAnnounce(new JsonDeserializer(jsonRequest, null));
+
+		// Assert:
+		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
+		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
+		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
+	}
+
+	//endregion
+
 	private Deserializer getNisRequestResultDeserializer(final int code) {
 		final MockAccountLookup accountLookup = new MockAccountLookup();
 		final NemRequestResult result = new NemRequestResult(
@@ -128,6 +200,7 @@ public class TransactionControllerTest {
 		private final TransactionMapper transactionMapper = Mockito.mock(TransactionMapper.class);
 		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 		private final TransferSendRequest request = Mockito.mock(TransferSendRequest.class);
+		private final TransferImportanceRequest harvestRequest = Mockito.mock(TransferImportanceRequest.class);
 		private final TransactionController controller = new TransactionController(this.transactionMapper, this.connector);
 	}
 }

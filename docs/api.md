@@ -175,14 +175,6 @@ Unlock the account on the connected NIS server (start foraging).
 * Response: `-`
 * Dependent from NIS: _Yes_
 
-Gets information about the specified account.
-	 Looks-up an account which is known by its address id
-
-* Request Method: _POST_
-* Request: [AccountIdRequest](viewModel.md#accountidrequest)
-* Response: [FeeViewModel](viewModel.md#feeviewmodel)
-* Dependent from NIS: _Yes_
-
 ### /wallet/account/lock
 Lock the account on the connected NIS server (stop foraging).
 
@@ -191,7 +183,55 @@ Lock the account on the connected NIS server (stop foraging).
 * Response: `-`
 * Dependent from NIS: _Yes_
 
+### /wallet/account/remote/activate
+Announces activation of remote harvesting account to the network (FEE: 1)
+
+* Request Method: _POST_
+* Request: [TransferImportanceRequest](viewModel.md#transferImportanceRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
+### /wallet/account/remote/deactivate
+Announces deactivation of remote harvesting account to the network (FEE: 1)
+
+* Request Method: _POST_
+* Request: [TransferImportanceRequest](viewModel.md#transferImportanceRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
+### /wallet/account/remote/status
+Checks if account is unlocked on remote server, will return an error if
+
+* Request Method: _POST_
+* Request: [AccountWalletRequest](viewModel.md#accountWalletRequest)
+* Response: [AccountStatusViewModel](viewModel.md#accountStatusViewModel)
+* Dependent from NIS: _Yes_
+
+### /wallet/account/remote/unlock
+Unlock the account on the remote NIS server (start secure foraging).
+
+* Request Method: _POST_
+* Request: [RemoteHarvestRequest](viewModel.md#remoteHarvestRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
+### /wallet/account/remote/lock
+Lock the account on the remote NIS server (stop secure foraging).
+
+* Request Method: _POST_
+* Request: [RemoteHarvestRequest](viewModel.md#remoteHarvestRequest)
+* Response: `-`
+* Dependent from NIS: _Yes_
+
 ### /account/find
+Gets information about the specified account.
+	 Looks-up an account which is known by its address id
+
+* Request Method: _POST_
+* Request: [AccountIdRequest](viewModel.md#accountidrequest)
+* Response: [AccountViewModel](viewModel.md#accountViewModel)
+* Dependent from NIS: _Yes_
+
 ### /account/transactions/unconfirmed
 Gets information about the specified account and unconfirmed transactions.
 

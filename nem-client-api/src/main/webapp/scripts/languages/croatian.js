@@ -240,6 +240,38 @@ define({
 			shutdown: {
 				title: 'Zatvori program',
 				message: 'Jeste li sigurni za želite zatvoriti NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -354,7 +386,17 @@ define({
 				start: 'Pokreni ubiranje',
 				harvesting: 'Ubiranje',
 				stop: 'Prekini ubiranje',
-				description: 'Važnost računa u NEM oblaku'
+				description: 'Važnost računa u NEM oblaku',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: 'Nedavne transakcije',

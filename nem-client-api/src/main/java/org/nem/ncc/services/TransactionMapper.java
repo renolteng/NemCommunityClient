@@ -56,8 +56,30 @@ public class TransactionMapper {
 		return this.toModel(request, null);
 	}
 
+	/**
+	 * Converts the specified request to a model.
+	 *
+	 * @param request The request.
+	 * @return The model.
+	 */
+	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
+		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAccountId(), request.getPassword());
+		final Account remoteAccount = this.getRemoteAccount(request.getWalletName(), request.getAccountId(), request.getPassword());
+
+		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
+		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+				timeStamp,
+				sender,
+				mode,
+				remoteAccount);
+
+		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+		return transaction;
+	}
+
+
 	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
-		final Account sender = this.getSenderAccount(request, password);
+		final Account sender = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
 		final Message message = this.createMessage(request, sender, recipient);
 
@@ -73,12 +95,19 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-	private Account getSenderAccount(final TransferValidateRequest request, final WalletPassword password) {
-		final PrivateKey privateKey = this.getSenderWallet(request.getWalletName(), password)
-				.getAccountPrivateKey(request.getSenderAddress());
+	private Account getSenderAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {
+		final PrivateKey privateKey = this.getSenderWallet(walletName, password).getAccountPrivateKey(accountId);
 		return new Account(new KeyPair(privateKey));
 	}
 
+	private Account getRemoteAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {
+		final Wallet wallet = this.getSenderWallet(walletName, password);
+		final WalletAccount account = wallet.tryGetWalletAccount(accountId);
+		final PrivateKey privateKey = account.getRemoteHarvestingPrivateKey();
+		return new Account(new KeyPair(privateKey));
+	}
+
+	// note: TransferValidateRequest passes null password here...
 	private Wallet getSenderWallet(final WalletName walletName, final WalletPassword password) {
 		final Wallet wallet = null != password
 				? this.walletServices.open(new WalletNamePasswordPair(walletName, password))

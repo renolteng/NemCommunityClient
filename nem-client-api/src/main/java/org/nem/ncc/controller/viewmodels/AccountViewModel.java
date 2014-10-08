@@ -13,6 +13,7 @@ import org.nem.ncc.model.AccountLabel;
 public class AccountViewModel implements SerializableEntity {
 	private final Address address;
 	private final String label;
+	private final AccountRemoteStatus remoteStatus;
 	private final PublicKey publicKey;
 	private final Amount balance;
 	private final BlockAmount foragedBlocks;
@@ -44,6 +45,7 @@ public class AccountViewModel implements SerializableEntity {
 			final AccountLabel label) {
 		this.address = info.getAddress();
 		this.label = null == label ? null : label.getLabel();
+		this.remoteStatus = info.getRemoteStatus();
 
 		this.publicKey = null == info.getKeyPair()
 				? null
@@ -65,6 +67,15 @@ public class AccountViewModel implements SerializableEntity {
 	}
 
 	/**
+	 * Gets the account remote status.
+	 *
+	 * @return The remote status.
+	 */
+	public AccountRemoteStatus getRemoteStatus() {
+		return this.remoteStatus;
+	}
+
+	/**
 	 * Gets the account label.
 	 *
 	 * @return The label.
@@ -72,7 +83,6 @@ public class AccountViewModel implements SerializableEntity {
 	public String getLabel() {
 		return this.label;
 	}
-
 	/**
 	 * Gets the account public key.
 	 *
@@ -122,6 +132,7 @@ public class AccountViewModel implements SerializableEntity {
 	public void serialize(final Serializer serializer) {
 		Address.writeTo(serializer, "address", this.address);
 		serializer.writeString("label", this.label);
+		AccountRemoteStatus.writeTo(serializer, "remoteStatus", this.remoteStatus);
 		serializer.writeBytes("publicKey", null == this.publicKey ? null : this.publicKey.getRaw());
 		Amount.writeTo(serializer, "balance", this.balance);
 		serializer.writeDouble("importance", this.importance);

@@ -5,7 +5,7 @@ import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.WalletName;
 
 /**
- * A view model containing information necessary to boot a node.
+ * A request containing information necessary to boot a node.
  */
 public class BootNodeRequest extends AccountWalletRequest {
 	private final String nodeName;

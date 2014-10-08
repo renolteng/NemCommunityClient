@@ -16,12 +16,7 @@ public class AccountViewModelTest {
 	@Test
 	public void viewModelCanBeCreatedAroundAccountAndStatus() {
 		// Arrange:
-		final AccountInfo account = new AccountInfo(
-				Address.fromEncoded("xyz"),
-				Amount.fromNem(271),
-				new BlockAmount(3),
-				null,
-				3.7);
+		final AccountInfo account = this.creatAccountInfo(null, Address.fromEncoded("xyz"));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, null);
@@ -29,6 +24,7 @@ public class AccountViewModelTest {
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
 		Assert.assertThat(viewModel.getLabel(), IsNull.nullValue());
+		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
 		Assert.assertThat(viewModel.getForagedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
@@ -39,12 +35,7 @@ public class AccountViewModelTest {
 	@Test
 	public void viewModelCanBeCreatedWithLabel() {
 		// Arrange:
-		final AccountInfo account = new AccountInfo(
-				Address.fromEncoded("xyz"),
-				Amount.fromNem(271),
-				new BlockAmount(3),
-				"my acc", // this label is ignored
-				3.7);
+		final AccountInfo account = this.creatAccountInfo("my acc", Address.fromEncoded("xyz"));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(
@@ -60,12 +51,7 @@ public class AccountViewModelTest {
 	public void viewModelCanBeCreatedAroundAccountWithPublicKey() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
-		final AccountInfo account = new AccountInfo(
-				address,
-				Amount.fromNem(271),
-				new BlockAmount(3),
-				null,
-				3.7);
+		final AccountInfo account = this.creatAccountInfo(null, address);
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, null);
@@ -78,12 +64,7 @@ public class AccountViewModelTest {
 	@Test
 	public void viewModelCanBeCreatedAroundAccountMetaDataPair() {
 		// Arrange:
-		final AccountInfo account = new AccountInfo(
-				Address.fromEncoded("xyz"),
-				Amount.fromNem(271),
-				new BlockAmount(3),
-				null,
-				3.7);
+		final AccountInfo account = creatAccountInfo(null, Address.fromEncoded("xyz"));
 
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				account,
@@ -95,6 +76,7 @@ public class AccountViewModelTest {
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
 		Assert.assertThat(viewModel.getLabel(), IsNull.nullValue());
+		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
 		Assert.assertThat(viewModel.getForagedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
@@ -102,16 +84,22 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
 	}
 
+	private AccountInfo creatAccountInfo(final String label, final Address address) {
+		return new AccountInfo(
+				address,
+				Amount.fromNem(271),
+				new BlockAmount(3),
+				AccountRemoteStatus.INACTIVE,
+				label,
+				3.7);
+	}
+
 	@Test
 	public void viewModelCanBeSerialized() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
-		final AccountInfo account = new AccountInfo(
-				address,
-				Amount.fromNem(271),
-				new BlockAmount(3),
-				null,
-				0.47);
+		final AccountInfo account = this.creatAccountInfo(null, address);
+
 		final AccountViewModel viewModel = new AccountViewModel(
 				account,
 				AccountStatus.LOCKED,
@@ -121,12 +109,13 @@ public class AccountViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(7));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(jsonObject.get("label"), IsEqual.equalTo("my pri label"));
+		Assert.assertThat(jsonObject.get("remoteStatus"), IsEqual.equalTo("INACTIVE"));
 		Assert.assertThat(jsonObject.get("publicKey"), IsEqual.equalTo(address.getPublicKey().toString()));
 		Assert.assertThat(jsonObject.get("balance"), IsEqual.equalTo(271000000L));
-		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(0.47));
+		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
 		Assert.assertThat(jsonObject.get("foragedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
 	}
@@ -145,7 +134,7 @@ public class AccountViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(7));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
 		Assert.assertThat(jsonObject.get("label"), IsNull.nullValue());
 	}
 }
