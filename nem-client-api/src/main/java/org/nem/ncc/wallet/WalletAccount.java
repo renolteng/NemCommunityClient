@@ -78,10 +78,15 @@ public class WalletAccount implements SerializableEntity {
 		//
 		// 1. i could be wrong, but isn't it possible to figure out the lessee / lessor relationships via the NIS api
 		// > (if not, we should add that capability)
+		// TODO 20141008 G-J: that shouldn't be a problem, but we still need to save priv key somewhere to do lock/unlock...
 		// 2. the account / remote account is a fake relationship because it can change over time (activate ACC1 / deactivate ACC1 / activate ACC2)
+		// TODO 20141008 G-J: that is tue, but that's just another reason to keep it in the wallet as with "accounts approach",
+		// TODO 20141008 G-J: you'd have to remove/prune that "dead" accounts from the wallet.
 		//
 		// In summary, i think we should be able reconstruct the lessor / lessee relationships given NIS information all accounts (public-keys)
 		// I don't really see a need to "cache" the relationships in the wallet as well, especially because the can change over time
+		//
+		// TODO 20141008 G-J: maybe I have wrong view of how it should look like, can you describe on trello, how do you see it?
 
 		// TODO 20141005 and what is the point of storing the remote endpoint here?
 		// TODO 20141006 G-J: I'm not sure what I've told Thies, but the reason for storing it here is that:
@@ -91,6 +96,7 @@ public class WalletAccount implements SerializableEntity {
 		// anywhere on trello, but please also check my comment in RemoteHarvestRequest
 		// TODO 20141007 J-G: this doesn't feel like "wallet" information to me ... it feels more appropriate in configuration
 		// > i don't tend to view NCC users as "power users", so i think a single endpoint per wallet (or even NCC) would suffice
+		// TODO 20141008 G-J: glad you're saying this, as I also don't think having this (remoteHarvestingEndpoint) separate has any sense :)
 
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
