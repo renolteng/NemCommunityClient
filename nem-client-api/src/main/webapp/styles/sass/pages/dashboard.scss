@@ -3,7 +3,7 @@
 @import '../mixins';
 @import 'wallet-pages';
 
-#dashboard {
+.dashboard {
 	margin-left: -$tile-hGap / 2;
 	margin-right: -$tile-hGap / 2;
 	margin-top: 9px;
@@ -30,75 +30,30 @@
 		@include opacity(1);
 	}*/
 
-	.main-title {
-		font-size: 12px;
-		font-weight: $fontWeight-black;
-		text-transform: uppercase;
-		color: #444444;
-		margin-bottom: 5px;
-		cursor: pointer;
-		display: inline-block;
-	}
+	// input, button, select {
+	// 	height: 27px;
+	// }
 
-	.read-more {
-		$color: #fff;
-		color: $color;
-		font-weight: $fontWeight-medium;
-		&:hover {
-			color: darken($color, 15%);
-		}
-	}
-
-	.not-available {
-		color: rgba(#000, .4);
-		font-size: 11px;
-		font-weight: $fontWeight-bold;
-		&.whole {
-			position: absolute;
-			bottom: 15px;
-			right: 15px;
-		}
-	}
-
-	input, button, select {
-		height: 27px;
-	}
-
-	&.balance {
-		.last-month, .current {
-			text-align: right;
-			font-weight: $fontWeight-light;
-		}
-		.last-month {
-			margin-bottom: 15px;
-			.number {
-				font-size: 12px;
-			}
-		}
-		.current {
-			font-size: 32px;
-		}
-		.variation {
-			font-size: 9px;
-			color: #13abfa;
-			vertical-align: baseline;
-		}
-	}
-
-	&.assets {
-		background-color: #074661;
-		color: #fff;
-		h1 {
-			color: #fff;
-		}
-		.assets-count {
-			font-size: 19.5px;
-			text-align: right;
-			position: absolute;
-			right: $tile-rightPadding;
-			bottom: $tile-bottomPadding;
-		}
-	}
+	// &.balance {
+	// 	.last-month, .current {
+	// 		text-align: right;
+	// 		font-weight: $fontWeight-light;
+	// 	}
+	// 	.last-month {
+	// 		margin-bottom: 15px;
+	// 		.number {
+	// 			font-size: 12px;
+	// 		}
+	// 	}
+	// 	.current {
+	// 		font-size: 32px;
+	// 	}
+	// 	.variation {
+	// 		font-size: 9px;
+	// 		color: #13abfa;
+	// 		vertical-align: baseline;
+	// 	}
+	// }
 
 	&.apps {
 		$appIcon-size: 32px;
@@ -265,246 +220,283 @@
 			vertical-align: -5px;
 		}
 	}
-
-	&.importance {
-		background-color: #736086;
-		color: #fff;
-		h1 {
-			color: #fff;
-		}
-		.harvesting-btn {
-			position: absolute;
-			top: 50%;
-			left: 0;
-			@include transform(translateY(-50%));
-			background-color: #7c6890;
-			font-size: 16px;
-			padding: 0 16px;
-			height: 42px;
-			line-height: 42px;
-
-			&.not-harvesting {
-				background-color: #4c4058;
-			}
-
-			&.harvesting {
-				background-color: #a186b9;
-			}
-
-			&.not-harvesting, &.harvesting {
-				&:hover {
-					background-color: #7c6890;
-				}
-			}
-
-			&:before {
-				vertical-align: -3px;
-				margin-right: 8px;
-				font-size: 19px;
-			}
-
-			.hover {
-				display: none;
-			}
-
-			&:hover {
-				.status {
-					display: none;
-				}
-				.hover {
-					display: initial;
-				}
-			}
-		}
-		.content {
-			text-align: right;
-		}
-		.number {
-			font-size: 71px;
-			font-weight: $fontWeight-light;
-			line-height: 66px;
-			margin-top: 10px;
-		}
-		.text {
-			font-size: 26px;
-			font-weight: $fontWeight-black;
-			color: #453456;
-			margin-top: 10px;
-		}
-
-		.importance-activateButton,
-		.importance-remoteHarvestButton {
-			background-color: #4c4058;
-
-			&:not(:disabled):hover {
-				background-color: #7c6890;
-			}
-		}
-	}
-
-	&.transactions {
-		$text-color: #252a34;
-		color: $text-color;
-
-		.main-title {
-			margin-bottom: 12px;
-		}
-
-		.overview {
-			@extend %clearfix;
-			border-bottom: 1px solid #ebebeb;
-			margin-bottom: 12px;
-			padding-bottom: 15px;
-
-			h1 {
-				font-size: 23px;
-				font-weight: $fontWeight-black;
-				text-transform: none;
-				margin-bottom: 0;
-				color: #736086;
-			}
-		}
-
-		.balance {
-			font-size: 20px;
-			
-			.number {
-				font-size: 36px;
-				font-weight: $fontWeight-light;
-			}
-
-			& > span {
-				vertical-align: middle;
-			}
-		}
-
-		.send-nem-btn {
-			$bgColor: #41ce7d;
-			background-color: $bgColor;
-			color: #fff;
-			font-size: 13px;
-			font-weight: $fontWeight-medium;
-			margin-left: 10px;
-			
-			&:before {
-				font-size: 16px;
-				margin-right: 5px;
-				vertical-align: -2px;
-			}
-
-			&:hover {
-				background-color: lighten($bgColor, 10%);
-			}
-
-			&:disabled {
-				pointer-events: none;
-				background-color: #888888;
-			}
-		}
-
-		.balance {
-			display: inline-block;
-		}
-
-		table {
-			width: 100%;
-
-			th, td {
-				white-space: nowrap;
-			}
-
-			th {
-				font-size: 14px;
-				font-weight: $fontWeight-black;
-				padding: 7px 5px 12px;
-				text-align: left;
-			}
-
-			td {
-				font-size: 13px;
-				padding: 7px 5px;
-				text-align: left;
-				font-weight: $fontWeight-medium;
-			}
-
-			.type {
-				position: relative;
-				top: 2px;
-				font-size: 15px;
-				&.incoming {
-					color: #27ae60;
-				}
-				&.outgoing {
-					color: #c0392b;
-				}
-				&.pending {
-					color: #d1d1d1;
-					font-size: 13px;
-				}
-			}
-
-			.sender, .message {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				
-			}
-
-			.sender {
-				max-width: 150px;
-			}
-
-			.message {
-				max-width: 150px;
-			}
-
-			td.details {
-				font-weight: $fontWeight-bold;
-				color: #3498db;
-				cursor: pointer;
-
-				&:hover {
-					text-decoration: underline;
-				}
-			}
-
-			.confirmations {
-				text-align: center;
-			}
-			
-			.fee, .amount {
-				text-align: right;
-			}
-		}
-
-		.dimmed {
-			color: #d1d1d1;
-		}
-
-		.see-all {
-			$color: #252a34;
-			color: $color;
-			font-weight: $fontWeight-bold;
-			text-align: right;
-			margin-top: 8px;
-
-			.arrow {
-				font-size: 16px;
-				vertical-align: -3px;
-			}
-		}
-
-		.no-transactions {
-			color: rgba(#000, .4);
-			font-size: 12px;
-			font-style: italic;
-			margin-top: .5em;
-		}
-	}		
 }
 
-textarea {
-	resize: none;
+.tile-title {
+	font-size: 12px;
+	font-weight: $fontWeight-black;
+	text-transform: uppercase;
+	color: #444444;
+	margin-bottom: 5px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.notAvailableMessage {
+	color: rgba(#000, .4);
+	font-size: 11px;
+	font-weight: $fontWeight-bold;
+}
+
+.notAvailableMessage--whole {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+}
+
+// ================================================================================
+// ASSETS TILE
+// ================================================================================
+
+.tile--assets {
+	background-color: #074661;
+	color: #fff;
+
+	.tile-title {
+		color: #fff;
+	}
+}
+
+.assetsTile-assetsCount {
+	font-size: 19.5px;
+	text-align: right;
+	position: absolute;
+	right: $tile-rightPadding;
+	bottom: $tile-bottomPadding;
+}
+
+// ================================================================================
+// IMPORTANCE SCORE TILE
+// ================================================================================
+
+.tile--importance {
+	background-color: #736086;
+	color: #fff;
+
+	.tile-title {
+		color: #fff;
+	}
+}
+
+.importanceTile-harvestButton {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	@include transform(translateY(-50%));
+	background-color: #7c6890;
+	font-size: 16px;
+	padding: 0 16px;
+	height: 42px;
+	line-height: 42px;
+
+	&:before {
+		vertical-align: -3px;
+		margin-right: 8px;
+		font-size: 19px;
+	}
+}
+
+.importanceTile-harvestButton--notHarvesting {
+	background-color: #4c4058;
+}
+
+.importanceTile-harvestButton--harvesting {
+	background-color: #a186b9;
+}
+
+.importanceTile-harvestButton--notHarvesting, 
+.importanceTile-harvestButton--harvesting {
+	&:hover {
+		background-color: #7c6890;
+	}
+}
+
+.importanceTile-content {
+	text-align: right;
+}
+
+.importanceTile-importanceScore {
+	font-size: 71px;
+	font-weight: $fontWeight-light;
+	line-height: 66px;
+	margin-top: 10px;
+}
+
+.importanceTile-description {
+	font-size: 26px;
+	font-weight: $fontWeight-black;
+	color: #453456;
+	margin-top: 10px;
+}
+
+.importanceTile-activateButton,
+.importanceTile-remoteHarvestButton {
+	background-color: #4c4058;
+
+	&:not(:disabled):hover {
+		background-color: #7c6890;
+	}
+}
+
+// ================================================================================
+// TRANSACTIONS TILE
+// ================================================================================
+
+.tile--transactions {
+	$text-color: #252a34;
+	color: $text-color;
+
+	.tile-title {
+		margin-bottom: 12px;
+	}
+}
+
+.transactionsTile-overview {
+	@extend %clearfix;
+	border-bottom: 1px solid #ebebeb;
+	margin-bottom: 12px;
+	padding-bottom: 15px;
+}
+
+.transactionsTile-balanceLabel {
+	font-size: 23px;
+	font-weight: $fontWeight-black;
+	text-transform: none;
+	margin-bottom: 0;
+	color: #736086;
+}
+
+.transactionsTile-balance {
+	font-size: 36px;
+	font-weight: $fontWeight-light;
+}
+
+.transactionsTile-currentBlock {
+	font-size: 20px;
+	vertical-align: middle;
+}
+
+.transactionsTile-sendNemButton {
+	$bgColor: #41ce7d;
+	height: 27px;
+	background-color: $bgColor;
+	color: #fff;
+	font-size: 13px;
+	font-weight: $fontWeight-medium;
+	margin-left: 10px;
+	
+	&:before {
+		font-size: 16px;
+		margin-right: 5px;
+		vertical-align: -2px;
+	}
+
+	&:hover {
+		background-color: lighten($bgColor, 10%);
+	}
+
+	&:disabled {
+		pointer-events: none;
+		background-color: #888888;
+	}
+}
+
+// ================================================================================
+// TXLIST
+// ================================================================================
+
+.txList {
+	width: 100%;
+}
+
+.txList-header, 
+.txList-cell {
+	white-space: nowrap;
+}
+
+.txList-header {
+	font-size: 14px;
+	font-weight: $fontWeight-black;
+	padding: 7px 5px 12px;
+	text-align: left;
+}
+
+.txList-cell {
+	padding: 7px 5px;
+	text-align: left;
+	font-weight: $fontWeight-medium;
+}
+
+.txList-col--type {
+	position: relative;
+	top: 2px;
+	font-size: 15px;
+}
+
+.txList-col--type--incoming {
+	color: #27ae60;
+}
+
+.txList-col--type--outgoing {
+	color: #c0392b;
+}
+
+.txList-col--type--pending {
+	color: #d1d1d1;
+	font-size: 13px;
+}
+
+.txList-col--sender, 
+.txList-col--message {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.txList-col--sender {
+	max-width: 150px;
+}
+
+.txList-col--message {
+	max-width: 150px;
+}
+
+.txList-col--details {
+	font-weight: $fontWeight-bold;
+	color: #3498db;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.txList-col--confirmations {
+	text-align: center;
+}
+
+.txList-col--fee, 
+.txList-col--amount {
+	text-align: right;
+}
+
+.txList-seeAll {
+	$color: #252a34;
+	color: $color;
+	font-weight: $fontWeight-bold;
+	text-align: right;
+	margin-top: 8px;
+}
+
+.txList-seeAll-arrow {
+	font-size: 16px;
+	vertical-align: -3px;
+}
+
+.txList-noRecords {
+	color: rgba(#000, .4);
+	font-size: 12px;
+	font-style: italic;
+	margin-top: 2em;
 }
 
 #nem-value-chart {

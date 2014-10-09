@@ -3,6 +3,10 @@
 @import '../mixins';
 @import 'wallet-pages';
 
+/*
+ * Reuse styles of txList from dashboard.scss
+ */
+
 #transactions-page, #harvested-blocks {
 	margin-top: 25px;
 	margin-bottom: 36px;
@@ -39,92 +43,6 @@
 		padding-top: 10px;
 		padding-bottom: 30px;
 		font-size: 13px;
-	}
-
-	.list {
-		table {
-			width: 100%;
-		}
-
-		th, td {
-			white-space: nowrap;
-		}
-
-		th {
-			font-size: 14px;
-			font-weight: $fontWeight-black;
-			padding: 7px 5px 12px;
-			text-align: left;
-		}
-
-		td {
-			padding: 7px 5px;
-			text-align: left;
-			font-weight: $fontWeight-medium;
-		}
-
-		.type {
-			position: relative;
-			top: 2px;
-			font-size: 15px;
-
-			&.incoming {
-				color: #27ae60;
-			}
-
-			&.outgoing {
-				color: #c0392b;
-			}
-
-			&.pending {
-				color: #d1d1d1;
-				font-size: 13px;
-			}
-		}
-
-		.sender, .message {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			
-		}
-
-		.sender {
-			max-width: 150px;
-		}
-
-		.message {
-			max-width: 150px;
-		}
-
-		td.details {
-			font-weight: $fontWeight-bold;
-			color: #3498db;
-			cursor: pointer;
-
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-
-		.confirmations {
-			text-align: center;
-		}
-
-		.fee, .amount {
-			text-align: right;
-		}
-	}
-
-	.dimmed {
-		color: #d1d1d1;
-	}
-
-	.no-records {
-		color: rgba(#000, .4);
-		font-size: 12px;
-		font-style: italic;
-		margin-top: 2em;
 	}
 
 	.pager {
