@@ -257,7 +257,6 @@ define({
 				title: 'Bắt đầu thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				host: 'Host',
 				password: "Mật khẩu ví",
 				start: 'Bắt đầu'
 			},
@@ -265,7 +264,6 @@ define({
 				title: 'Ngừng thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				host: 'Host',
 				password: "Mật khẩu ví",
 				stop: 'Ngừng'
 			}

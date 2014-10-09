@@ -261,7 +261,6 @@
 				title: 'Start Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				host: 'Host',
 				password: "Wallet's password",
 				start: 'Start'
 			},
@@ -269,7 +268,6 @@
 				title: 'Stop Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				host: 'Host',
 				password: "Wallet's password",
 				stop: 'Stop'
 			}

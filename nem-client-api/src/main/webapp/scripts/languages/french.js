@@ -262,7 +262,6 @@ define({
 				title: 'Start Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				host: 'Host',
 				password: "Wallet's password",
 				start: 'Start'
 			},
@@ -270,7 +269,6 @@ define({
 				title: 'Stop Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				host: 'Host',
 				password: "Wallet's password",
 				stop: 'Stop'
 			}
