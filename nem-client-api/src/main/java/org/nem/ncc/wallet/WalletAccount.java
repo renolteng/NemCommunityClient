@@ -85,16 +85,6 @@ public class WalletAccount implements SerializableEntity {
 		//
 		// TODO 20141008 G-J: maybe I have wrong view of how it should look like, can you describe on trello, how do you see it?
 
-		// TODO 20141005 and what is the point of storing the remote endpoint here?
-		// TODO 20141006 G-J: I'm not sure what I've told Thies, but the reason for storing it here is that:
-		// a) frontend must be able to do /status on proper endpoint
-		// b) /unlock must be made on proper endpoint
-		// I'm not sure it there's sense to have separate endpoint for harvesting, I haven't actually mentioned it
-		// anywhere on trello, but please also check my comment in RemoteHarvestRequest
-		// TODO 20141007 J-G: this doesn't feel like "wallet" information to me ... it feels more appropriate in configuration
-		// > i don't tend to view NCC users as "power users", so i think a single endpoint per wallet (or even NCC) would suffice
-		// TODO 20141008 G-J: glad you're saying this, as I also don't think having this (remoteHarvestingEndpoint) separate has any sense :)
-
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
 	}
