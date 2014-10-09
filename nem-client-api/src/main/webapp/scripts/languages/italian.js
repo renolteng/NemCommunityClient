@@ -242,36 +242,36 @@ define({
 				message: 'Sei sicuro di voler arrestare NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				activate: 'Activate'
+				title: 'Abilita generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: "Password del portafoglio",
+				activate: 'Attiva'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				title: 'Disabilita generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: "Password del portafoglio",
+				deactivate: 'Disattiva'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				host: 'Host',
-				password: "Wallet's password",
-				start: 'Start'
+				title: 'Avvia generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				host: 'Nome del nodo',
+				password: "Password del portafoglio",
+				start: 'Avvia'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				host: 'Host',
-				password: "Wallet's password",
-				stop: 'Stop'
+				title: 'Ferma generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				host: 'Nome del nodo',
+				password: "Password del portafoglio",
+				stop: 'Ferma'
 			}
 		},
 		landing: {
@@ -388,14 +388,14 @@ define({
 				stop: 'Ferma generazione blocchi',
 				description: "importanza dell'indirizzo nella rete NEM",
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating...',
-					startRemoteHarvesting: 'Start remote harvesting',
-					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					activate: 'Abilita generazione blocchi tramite altro indirizzo',
+					activating: 'Attivazione in corso...',
+					active: 'Generazione blocchi tramite altro indirizzo attiva',
+					deactivate: 'Disabilita generazione blocchi tramite altro indirizzo',
+					deactivating: 'Disattivazione in corso...',
+					startRemoteHarvesting: 'Avvia generazione blocchi tramite altro indirizzo',
+					remotelyHarvesting: 'Generazione blocchi tramite altro indirizzo in corso',
+					stopRemoteHarvesting: 'Ferma generazione blocchi tramite altro indirizzo'
 				}
 			},
 			transactions: {
