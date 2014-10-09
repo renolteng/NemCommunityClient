@@ -32,7 +32,6 @@ public class AccountController {
 	private final WalletServices walletServices;
 	private final ChainServices chainServices;
 	private final PrimaryNisConnector nisConnector;
-	private final AsyncNisConnector cloudConnector;
 
 	/**
 	 * Creates a new account controller.
@@ -42,7 +41,6 @@ public class AccountController {
 	 * @param walletServices The wallet services.
 	 * @param chainServices The chain services.
 	 * @param nisConnector The NIS connector.
-	 * @param cloudConnector The cloud connector.
 	 */
 	@Autowired(required = true)
 	public AccountController(
@@ -50,14 +48,12 @@ public class AccountController {
 			final AccountMapper accountMapper,
 			final WalletServices walletServices,
 			final ChainServices chainServices,
-			final PrimaryNisConnector nisConnector,
-			final AsyncNisConnector cloudConnector) {
+			final PrimaryNisConnector nisConnector) {
 		this.accountServices = accountServices;
 		this.accountMapper = accountMapper;
 		this.walletServices = walletServices;
 		this.chainServices = chainServices;
 		this.nisConnector = nisConnector;
-		this.cloudConnector = cloudConnector;
 	}
 
 	//region find
@@ -232,14 +228,9 @@ public class AccountController {
 	 * @param remoteHarvestRequest The remote harvester view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
-	public void remoteUnlock(@RequestBody final RemoteHarvestRequest remoteHarvestRequest) {
-		final NodeEndpoint endpoint = remoteHarvestRequest.getEndpoint();
-		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
-				() -> endpoint,
-				this.cloudConnector);
+	public void remoteUnlock(@RequestBody final AccountWalletPasswordRequest remoteHarvestRequest) {
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(remoteHarvestRequest.getAccountId());
-		account.setRemoteHarvestingEndpoint(endpoint);
-		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
+		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
@@ -251,22 +242,12 @@ public class AccountController {
 		// TODO 20141007 J-G: I think the JS should be sending over the remote harvester public key
 		// > it doesn't necessarily need to "show" it (see my other comment) but i think it should "know" about it
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
-		final NodeEndpoint endpoint = account.getRemoteHarvestingEndpoint();
-		if (endpoint == null) {
-			throw new NccException(NccException.Code.ACCOUNT_CACHE_ERROR);
-		}
-
-		// TODO 20141007 J-G: use AsyncNisConnector instead for non-default endpoints
-		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
-				() -> endpoint,
-				this.cloudConnector);
-		account.setRemoteHarvestingEndpoint(endpoint);
 
 		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey());
 		final StringBuilder builder = new StringBuilder();
 		builder.append("address=");
 		builder.append(remoteAddress.getEncoded());
-		final Deserializer deserializer = remoteConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, builder.toString());
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, builder.toString());
 		return new AccountStatusViewModel(deserializer);
 	}
 
@@ -276,14 +257,9 @@ public class AccountController {
 	 * @param remoteHarvestRequest The remote harvester view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
-	public void remoteLock(@RequestBody final RemoteHarvestRequest remoteHarvestRequest) {
-		final NodeEndpoint endpoint = remoteHarvestRequest.getEndpoint();
-		final PrimaryNisConnector remoteConnector = new DefaultNisConnector(
-				() -> endpoint,
-				this.cloudConnector);
+	public void remoteLock(@RequestBody final AccountWalletPasswordRequest remoteHarvestRequest) {
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(remoteHarvestRequest.getAccountId());
-		remoteConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
-		account.setRemoteHarvestingEndpoint(null);
+		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
 	//endregion

@@ -20,10 +20,8 @@ public class WalletAccount implements SerializableEntity {
 	// > i'd really prefer to keep the wallet format as simple as possible
 	// > if we really want to treat accounts heterogenously, i would suggest adding a bit-flags field
 
-
 	// Will only be filled if the account is used for remote harvesting.
 	private PrivateKey remoteHarvestingPrivateKey;
-	private NodeEndpoint remoteHarvestingEndpoint;
 
 	/**
 	 * Creates a new wallet account around a new account.
@@ -55,7 +53,6 @@ public class WalletAccount implements SerializableEntity {
 		this.address = Address.fromPublicKey(new KeyPair(privateKey).getPublicKey());
 		this.privateKey = privateKey;
 		this.remoteHarvestingPrivateKey = remoteHarvestingPrivateKey;
-		this.remoteHarvestingEndpoint = null;
 	}
 
 	/**
@@ -100,8 +97,6 @@ public class WalletAccount implements SerializableEntity {
 
 		this(new PrivateKey(deserializer.readBigInteger("privateKey")),
 				new PrivateKey(deserializer.readBigInteger("remoteHarvestingPrivateKey")));
-		final NodeEndpoint endpoint = deserializer.readOptionalObject("remoteHarvestingEndpoint", NodeEndpoint::new);
-		this.remoteHarvestingEndpoint = endpoint;
 	}
 
 	/**
@@ -135,29 +130,10 @@ public class WalletAccount implements SerializableEntity {
 		return remoteHarvestingPrivateKey;
 	}
 
-	/**
-	 * Gets the node endpoint of the remote harvesting nis node.
-	 *
-	 * @return The endpoint.
-	 */
-	public NodeEndpoint getRemoteHarvestingEndpoint() {
-		return remoteHarvestingEndpoint;
-	}
-
-	/**
-	 * Sets the node endpoint of the remote harvesting nis node.
-	 *
-	 * @param remoteHarvestingEndpoint The endpoint.
-	 */
-	public void setRemoteHarvestingEndpoint(final NodeEndpoint remoteHarvestingEndpoint) {
-		this.remoteHarvestingEndpoint = remoteHarvestingEndpoint;
-	}
-
 	@Override
 	public void serialize(final Serializer serializer) {
 		serializer.writeBigInteger("privateKey", this.privateKey.getRaw());
 		serializer.writeBigInteger("remoteHarvestingPrivateKey", this.remoteHarvestingPrivateKey.getRaw());
-		serializer.writeObject("remoteHarvestingEndpoint", this.remoteHarvestingEndpoint);
 	}
 
 	@Override

@@ -387,15 +387,13 @@ public class AccountControllerTest {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
 		private final ChainServices chainServices = Mockito.mock(ChainServices.class);
 		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
-		private final AsyncNisConnector cloudConnector = Mockito.mock(AsyncNisConnector.class);
 
 		private final AccountController controller = new AccountController(
 				this.accountServices,
 				this.accountMapper,
 				this.walletServices,
 				this.chainServices,
-				this.connector,
-				this.cloudConnector);
+				this.connector);
 
 		private TestContext() {
 			this.setLastBlockHeight(1);
