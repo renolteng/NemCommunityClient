@@ -123,17 +123,6 @@ possible status values
 }
 ```
 
-### RemoteHarvestRequest
-
-```
-{
-	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
-	"wallet" : "Test-Wallet",
-	"password": "Very Secret Password To The Wallet",
-	"host": "http://hostname.foo.bar:7890"
-}
-```
-
 ### BootNodeRequest
 
 ```

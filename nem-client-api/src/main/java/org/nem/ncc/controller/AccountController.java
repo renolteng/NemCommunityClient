@@ -225,11 +225,11 @@ public class AccountController {
 	 * Unlock the account on a remote NIS server (start foraging).
 	 * Remote address being used has to be announced previously.
 	 *
-	 * @param remoteHarvestRequest The remote harvester view model.
+	 * @param awpRequest The remote harvester view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
-	public void remoteUnlock(@RequestBody final AccountWalletPasswordRequest remoteHarvestRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(remoteHarvestRequest.getAccountId());
+	public void remoteUnlock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
@@ -254,11 +254,11 @@ public class AccountController {
 	/**
 	 * Lock the account on a remote NIS server (stop foraging).
 	 *
-	 * @param remoteHarvestRequest The remote harvester view model.
+	 * @param awpRequest The remote harvester view model.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
-	public void remoteLock(@RequestBody final AccountWalletPasswordRequest remoteHarvestRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(remoteHarvestRequest.getAccountId());
+	public void remoteLock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
