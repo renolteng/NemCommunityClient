@@ -193,7 +193,9 @@ define(function(require) {
                         );
                     }, 500);
                 };
-            })());
+            })(), {
+                init: false
+            });
 
             this.on({
                 resetFee: function() {

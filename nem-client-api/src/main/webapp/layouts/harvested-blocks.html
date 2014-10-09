@@ -27,28 +27,28 @@
 			</div>
 			<div class="body">
 				<div class="list">
-					<table>
+					<table class="txList">
 						<thead>
 							<tr>
-								<th class="height">{{texts.harvestedBlocks.table.columns.0}}</th>
-								<th class="time">{{texts.harvestedBlocks.table.columns.1}}</th>
-								<th class="hash">{{texts.harvestedBlocks.table.columns.2}}</th>
-								<th class="fee">{{texts.harvestedBlocks.table.columns.3}}</th>
+								<th class="txList-header txList-col--height">{{texts.harvestedBlocks.table.columns.0}}</th>
+								<th class="txList-header txList-col--time">{{texts.harvestedBlocks.table.columns.1}}</th>
+								<th class="txList-header txList-col--hash">{{texts.harvestedBlocks.table.columns.2}}</th>
+								<th class="txList-header txList-col--fee">{{texts.harvestedBlocks.table.columns.3}}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{{#harvestedBlocks.list}}
 								<tr>
-                                    <td class="height">{{.message}}</td>
-									<td class="time">{{.formattedTime}}</td>
-									<td class="hash">{{.hash}}</td>
-                                    <td class="fee">{{{.formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--height">{{.message}}</td>
+									<td class="txList-cell txList-col--time">{{.formattedTime}}</td>
+									<td class="txList-cell txList-col--hash">{{.hash}}</td>
+                                    <td class="txList-cell txList-col--fee">{{{.formattedFee}}}</td>
 								</tr>
 							{{/}}
 						</tbody>
 					</table>
 					{{^harvestedBlocks.list}}
-						<p class="no-records">{{texts.harvestedBlocks.table.noBlocks}}</p>
+						<p class="txList-noRecords">{{texts.harvestedBlocks.table.noBlocks}}</p>
 					{{/}}
 					<div class="pager">
 						{{#status.loadingOlderBlocks}}

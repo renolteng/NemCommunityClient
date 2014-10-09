@@ -63,7 +63,7 @@
         },
         setupEverytime: function() {
             var local = this.local;
-            local.$dashboard = $('#dashboard');
+            local.$dashboard = $('.js-dashboard');
 
             require(['gridster'], function() {
                 local.$dashboard.gridster({

@@ -1,27 +1,27 @@
-<main class="dashboard-page">
+<main class="dashboard-main">
 	<div class="container gridster">
-		<ul id="dashboard">
-			<li class="tile assets" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+		<ul class="dashboard js-dashboard">
+			<li class="tile tile--assets" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="main-title">{{texts.dashboard.assets.title}}</h1>
+					<h1 class="tile-title">{{texts.dashboard.assets.title}}</h1>
 					<!--/*<div>
-						<p class="assets-count">0 <span class="unit">assets</span></p>
+						<p class="assetsTile-assetsCount">0 <span class="unit">assets</span></p>
 					</div>*/-->
-					<p class="not-available whole">{{texts.dashboard.notAvailable}}</p>
+					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
 				</article>
-				<div class="dragger"></div>
 			</li>
-			<li class="tile importance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
+
+			<li class="tile tile--importance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
 				<article>
-					<h1 class="main-title">{{texts.dashboard.importance.title}}</h1>
+					<h1 class="tile-title">{{texts.dashboard.importance.title}}</h1>
 					{{#activeAccount.remoteStatus === 'INACTIVE'}}
-						<button type="button" class="importance-activateButton" on-click="activateRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
+						<button type="button" class="importanceTile-activateButton" on-click="activateRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVATED'}}
-						<button type="button" disabled class="importance-activateButton">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
+						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVE'}}
-						<button class="importance-activateButton hoverTarget" on-click="deactivateRemoteHarvesting">
+						<button class="importanceTile-activateButton hoverTarget" on-click="deactivateRemoteHarvesting">
 							<span class="hideOnHover">
 								{{texts.dashboard.importance.remoteHarvest.active}}
 							</span>
@@ -31,106 +31,109 @@
 						</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'DEACTIVATED'}}
-						<button type="button" disabled class="importance-activateButton">{{texts.dashboard.importance.remoteHarvest.deactivating}}</button>
+						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.deactivating}}</button>
 					{{/}}
 
 					{{^walletPage.remoteUnlocked}}
-						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATED' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importance-remoteHarvestButton" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
+						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATED' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
 					{{/}}
 					{{#walletPage.remoteUnlocked}}
-						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATED' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importance-remoteHarvestButton hoverTarget" on-click="stopRemoteHarvesting">
+						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATED' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton hoverTarget" on-click="stopRemoteHarvesting">
 							<span class="hideOnHover">{{texts.dashboard.importance.remoteHarvest.remotelyHarvesting}}</span>
 							<span class="showOnHover">{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}</span>
 						</button>
 					{{/}}
 
 					{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-						<button type="button" class="harvesting-btn unknown icon-question-circle">
+						<button type="button" class="importanceTile-harvestButton unknown icon-question-circle">
 							<span>{{texts.dashboard.importance.unknown}}</span>
 						</button>
 					{{/}}
 					{{^status.lostConnection || nisUnavailable}}
 						{{#activeAccount.status === 'LOCKED'}}
-							<button type="button" class="harvesting-btn not-harvesting icon-play" on-click="startHarvesting">
+							<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
 								<span>{{texts.dashboard.importance.start}}</span>
 							</button>
 						{{/}}
 						{{#activeAccount.status === 'UNLOCKED'}}
-							<button type="button" class="harvesting-btn harvesting hoverTarget icon-pause" on-click="stopHarvesting">
+							<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting hoverTarget icon-pause" on-click="stopHarvesting">
 								<span class="hideOnHover">{{texts.dashboard.importance.harvesting}}</span><span class="showOnHover">{{texts.dashboard.importance.stop}}</span>
 							</button>
 						{{/}}
 					{{/}}
-					<div class="content">
-						<p class="number">{{Math.round(activeAccount.importance * 10000) / 100}}%</p>
-						<p class="text">{{texts.dashboard.importance.description}}</p>
+					<div class="importanceTile-content">
+						<p class="importanceTile-importanceScore">{{Math.round(activeAccount.importance * 10000) / 100}}%</p>
+						<p class="importanceTile-description">{{texts.dashboard.importance.description}}</p>
 					</div>
 				</article>
-				<div class="dragger"></div>
 			</li>
-			<li class="tile transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
+
+			<li class="tile tile--transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
 				<article>
-					<h1 class="main-title">{{texts.dashboard.transactions.title}}</h1>
-					<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.dashboard.transactions.sendNem}}</button>
-					<div class="overview">
-						<h1>{{texts.dashboard.transactions.balance}}</h1>
-						<p class="balance"><span class="number" title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">
-							{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></span> 
-							<span>{{fill(texts.dashboard.transactions.syncStatus, nis.nodeMetaData.nodeBlockChainHeight)}}</span>
+					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
+					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.dashboard.transactions.sendNem}}</button>
+					<div class="transactionsTile-overview">
+						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}</h1>
+						<p>
+							<span class="transactionsTile-balance" title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">
+								{{{formatCurrency(activeAccount.balance, false)}}} 
+								<span class="unit">NEM</span>
+							</span> 
+							<span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, nis.nodeMetaData.nodeBlockChainHeight)}}</span>
 						</p>
 					</div>
-					<table>
+					<table class="txList">
 						<tr>
-							<th class="type">{{texts.dashboard.transactions.columns.0}}</th>
-							<th class="date">{{texts.dashboard.transactions.columns.1}}</th>
-							<th class="sender">{{texts.dashboard.transactions.columns.2}}</th>
-							<th class="message">{{texts.dashboard.transactions.columns.3}}</th>
-							<th class="encrypted">{{texts.dashboard.transactions.columns.4}}</th>
-							<th class="details">{{texts.dashboard.transactions.columns.5}}</th>
-							<th class="confirmations">{{texts.dashboard.transactions.columns.6}}</th>
-							<th class="fee">{{texts.dashboard.transactions.columns.7}} <span class="dimmed">(NEM)</span></th>
-							<th class="amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(NEM)</span></th>
+							<th class="txList-header txList-col--type">{{texts.dashboard.transactions.columns.0}}</th>
+							<th class="txList-header txList-col--date">{{texts.dashboard.transactions.columns.1}}</th>
+							<th class="txList-header txList-col--sender">{{texts.dashboard.transactions.columns.2}}</th>
+							<th class="txList-header txList-col--message">{{texts.dashboard.transactions.columns.3}}</th>
+							<th class="txList-header txList-col--encrypted">{{texts.dashboard.transactions.columns.4}}</th>
+							<th class="txList-header">{{texts.dashboard.transactions.columns.5}}</th>
+							<th class="txList-header txList-col--confirmations">{{texts.dashboard.transactions.columns.6}}</th>
+							<th class="txList-header txList-col--fee">{{texts.dashboard.transactions.columns.7}} <span class="dimmed">(NEM)</span></th>
+							<th class="txList-header txList-col--amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(NEM)</span></th>
 						</tr>
 						{{#activeAccount.transactions:i}}
 							{{#i < 4}}
 								<tr>
                                     {{^.confirmed}}
-                                        <td class="type pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
+                                        <td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
                                     {{/}}
                                     {{#.confirmed}}
                                         {{#.isSelf}}
-                                            <td class="type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                         {{#.isOutgoing}}
-                                            <td class="type outgoing icon-minus" title="{{texts.dashboard.transactions.types.outgoing}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.dashboard.transactions.types.outgoing}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                         {{#.isIncoming}}
-                                            <td class="type incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                     {{/}}
-									<td class="date">{{.formattedDate}}</td>
+									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
-                                        <td class="sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
+                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
                                     {{/}}
                                     {{#.isIncoming}}
-                                        <td class="sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
+                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
                                     {{/}}
-									<td class="message">
+									<td class="txList-cell txList-col--message">
 										{{#.message}}{{.message}}{{/}}
 										{{^.message}}<span class="dimmed">{{texts.dashboard.transactions.noMessage}}</span>{{/}}
 									</td>
-									<td class="encrypted encryptedIcon">
+									<td class="txList-cell txList-col--encrypted encryptedIcon">
 										{{#.encrypted}}
 											<span class="icon-lock" title="{{texts.dashboard.transactions.encrypted}}" on-mouseover="registerToolTip"></span>
 										{{/}}
 									</td>
-									<td class="details" on-click="viewTransaction:{{.}}">{{texts.dashboard.transactions.view}}</td>
-									<td class="confirmations">
+									<td class="txList-cell txList-col--details" on-click="viewTransaction:{{.}}">{{texts.dashboard.transactions.view}}</td>
+									<td class="txList-col--confirmations">
 										{{^.confirmed}}{{texts.dashboard.transactions.pending}}{{/}}
 										{{#.confirmed}}{{.confirmations}}{{/}}
 									</td>
-                                    <td class="fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
-                                    <td class="amount">
+                                    <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--amount">
 	                                    {{#.isSelf}}&plusmn;{{/}}<!--
 	                                    -->{{#.isOutgoing}}-{{/}}<!--
 	                                    -->{{#.isIncoming}}+{{/}}<!--
@@ -141,17 +144,16 @@
 						{{/}}
 					</table>
 					{{#activeAccount.transactions.length > 4 }}
-						<p class="see-all"><a href="javascript:;" on-click="redirect:'transactions'">{{texts.dashboard.transactions.seeAll}} <span class="arrow icon-arrow-right"></span></a></p>
+						<p class="txList-seeAll"><a href="javascript:;" on-click="redirect:'transactions'">{{texts.dashboard.transactions.seeAll}} <span class="txList-seeAll-arrow icon-arrow-right"></span></a></p>
 					{{/}}
 					{{^activeAccount.transactions}}
-						<p class="no-transactions">{{texts.dashboard.transactions.noTransactions}}</p>
+						<p class="txList-noRecords">{{texts.dashboard.transactions.noTransactions}}</p>
 					{{/}}
 				</article>
-				<div class="dragger"></div>
 			</li>
-			<li class="tile nem-value" data-row="4" data-col="1" data-sizex="2" data-sizey="2">
+			<li class="tile tile-nemValue" data-row="4" data-col="1" data-sizex="2" data-sizey="2">
 				<article>
-					<h1 class="main-title">{{texts.dashboard.nemValue.title}}</h1>
+					<h1 class="tile-title">{{texts.dashboard.nemValue.title}}</h1>
 					<!--/*<p class="value">
 						4,158,666,000
 						<select id="nem-value-unit-chooser" class="unit">
@@ -165,9 +167,8 @@
 						</span>
 					</p>
 					<div id="nem-value-chart"></div>*/-->
-					<p class="not-available whole">{{texts.dashboard.notAvailable}}</p>
+					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
 				</article>
-				<div class="dragger"></div>
 			</li>
 			<!--/*<li class="tile balance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
 				<article>
@@ -175,7 +176,7 @@
 					<div>
 						<div class="last-month">
 							<p>Last month</p>
-							<p class="not-available">{{.notAvailable}}</p>
+							<p class="notAvailableMessage">{{.notAvailable}}</p>
 							/*<p class="number">50,000,000 <span class="unit">NEM</span></p>*/
 						</div>
 						<div class="current">
@@ -188,11 +189,10 @@
 						</div>
 					</div>
 				</article>
-				<div class="dragger"></div>
 			</li>*/-->
-			<li class="tile messages" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
+			<li class="tile tile-messages" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="icon-envelope main-title" title="{{texts.dashboard.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>
+					<h1 class="icon-envelope tile-title" title="{{texts.dashboard.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>
 					<!--/*<div class="message-preview">
 						<div class="viewport">
 							<ul class="overview">
@@ -244,13 +244,12 @@
 							<li><a href="javascript:;" class="bullet" data-slide="2"></a></li>
 						</ul>
 					</div>*/-->
-					<p class="not-available whole">{{texts.dashboard.notAvailable}}</p>
+					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
 				</article>
-				<div class="dragger"></div>
 			</li>
 			<!--/*<li class="tile apps" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="main-title">NEM applications</h1>
+					<h1 class="tile-title">NEM applications</h1>
 					<div class="scrollable">
 						<ul>
 							<li>
@@ -297,13 +296,12 @@
 							</li>
 						</ul>
 					</div>
-					<p class="not-available whole">{{.notAvailable}}</p>
+					<p class="notAvailableMessage notAvailableMessage--whole">{{.notAvailable}}</p>
 				</article>
-				<div class="dragger"></div>
 			</li>*/-->
-			<li class="tile news" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
+			<li class="tile tile-news" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="icon-sound main-title" title="{{texts.dashboard.news.titleTooltip}}" on-mouseover="registerToolTip"></h1>
+					<h1 class="icon-sound tile-title" title="{{texts.dashboard.news.titleTooltip}}" on-mouseover="registerToolTip"></h1>
 					<!--/*<div class="news-preview">
 						<div class="viewport">
 							<ul class="overview">
@@ -333,13 +331,12 @@
 							<li><a href="javascript:;" class="bullet" data-slide="2"></a></li>
 						</ul>
 					</div>*/-->
-					<p class="not-available whole">{{texts.dashboard.notAvailable}}</p>
+					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
 				</article>
-				<div class="dragger"></div>
 			</li>
 			<!--/*<li class="tile send" data-row="3" data-col="1" data-sizex="1" data-sizey="3">
 				<article>
-					<h1 class="main-title">Send NEM</h1>
+					<h1 class="tile-title">Send NEM</h1>
 					<div class="content">
 						<div class="form-control amount">
 							<input type="text" placeholder="Amount" value="{{sendTransactionForm.amount}}" on-change={{formInputChange}} /><span class="unit">NEM</span>
@@ -359,7 +356,6 @@
 						</div>
 					</div>
 				</article>
-				<div class="dragger"></div>
 			</li>*/-->
 		</ul>
 	</div>
