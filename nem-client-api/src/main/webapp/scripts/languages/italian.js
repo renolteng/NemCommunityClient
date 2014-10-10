@@ -240,6 +240,38 @@ define({
 			shutdown: {
 				title: 'Arresto NCC',
 				message: 'Sei sicuro di voler arrestare NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Abilita generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: "Password del portafoglio",
+				activate: 'Attiva'
+			},
+			deactivateRemote: {
+				title: 'Disabilita generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: "Password del portafoglio",
+				deactivate: 'Disattiva'
+			},
+			startRemote: {
+				title: 'Avvia generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				host: 'Nome del nodo',
+				password: "Password del portafoglio",
+				start: 'Avvia'
+			},
+			stopRemote: {
+				title: 'Ferma generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				host: 'Nome del nodo',
+				password: "Password del portafoglio",
+				stop: 'Ferma'
 			}
 		},
 		landing: {
@@ -354,7 +386,17 @@ define({
 				start: 'Avvia generazione blocchi',
 				harvesting: 'Generazione blocchi in corso',
 				stop: 'Ferma generazione blocchi',
-				description: "importanza dell'indirizzo nella rete NEM"
+				description: "importanza dell'indirizzo nella rete NEM",
+				remoteHarvest: {
+					activate: 'Abilita generazione blocchi tramite altro indirizzo',
+					activating: 'Attivazione in corso...',
+					active: 'Generazione blocchi tramite altro indirizzo attiva',
+					deactivate: 'Disabilita generazione blocchi tramite altro indirizzo',
+					deactivating: 'Disattivazione in corso...',
+					startRemoteHarvesting: 'Avvia generazione blocchi tramite altro indirizzo',
+					remotelyHarvesting: 'Generazione blocchi tramite altro indirizzo in corso',
+					stopRemoteHarvesting: 'Ferma generazione blocchi tramite altro indirizzo'
+				}
 			},
 			transactions: {
 				title: 'Transazioni recenti',
