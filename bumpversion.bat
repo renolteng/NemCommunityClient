@@ -23,7 +23,7 @@ pushd nem-client-api
   git add pom.xml
 popd
 
-awk "{ if (match($0, /(.*\.)([0-9]+)(-ALPHA.*)/, arr)) { printf \"%%s%%d%%s\n\", arr[1], arr[2]+1, arr[3] } else { print } }" < .travis.yml > .travis.out
+awk "{ a=gensub(/(.*\.)([0-9]+)(-ALPHA.*)/,\"\\2\", \"g\",$0); if(a~/[0-9]+/) { gsub(/[0-9]+-ALPHA/, a+1\"-ALPHA\", $0);} print $0; }" < .travis.yml > .travis.out
 tr --delete "\r" < .travis.out > .travis.yml
 rm .travis.out
 
