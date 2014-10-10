@@ -63,7 +63,7 @@
         },
         setupEverytime: function() {
             var local = this.local;
-            local.$dashboard = $('#dashboard');
+            local.$dashboard = $('.js-dashboard');
 
             require(['gridster'], function() {
                 local.$dashboard.gridster({
@@ -76,7 +76,217 @@
                 }).data('gridster').disable(); //disable tiles drag & drop
             });
 
+            local.listeners.push(ncc.on({
+                activateRemoteHarvesting: function() {
+                    ncc.showInputForm(ncc.get('texts.modals.activateRemote.title'), '',
+                        [   
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.activateRemote.wallet')
+                                }
+                            },
+                            {
+                                name: 'password', 
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.activateRemote.password')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.activateRemote.account')
+                                }
+                            },
+                            {
+                                name: 'hours_due',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.activateRemote.hoursDue')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('activeAccount.address')
+                        },
+                        function(values, closeModal) {
+                            values.hours_due = parseInt(values.hours_due, 10);
+                            ncc.postRequest('wallet/account/remote/activate', values, function(data) {
+                                closeModal();
+                                ncc.refreshAccount();
+                            });
+                            return false;
+                        },
+                        ncc.get('texts.modals.activateRemote.activate')
+                    );
+                },
+                deactivateRemoteHarvesting: function() {
+                    ncc.showInputForm(ncc.get('texts.modals.deactivateRemote.title'), '',
+                        [   
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.deactivateRemote.wallet')
+                                }
+                            },
+                            {
+                                name: 'password', 
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.deactivateRemote.password')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.deactivateRemote.account')
+                                }
+                            },
+                            {
+                                name: 'hours_due',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.deactivateRemote.hoursDue')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('activeAccount.address')
+                        },
+                        function(values, closeModal) {
+                            values.hours_due = parseInt(values.hours_due, 10);
+                            ncc.postRequest('wallet/account/remote/deactivate', values, function(data) {
+                                closeModal();
+                                ncc.refreshAccount();
+                            });
+                            return false;
+                        },
+                        ncc.get('texts.modals.deactivateRemote.deactivate')
+                    );
+                },
+                startRemoteHarvesting: function() {
+                    ncc.showInputForm(ncc.get('texts.modals.startRemote.title'), '',
+                        [   
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.wallet')
+                                }
+                            },
+                            {
+                                name: 'password', 
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.password')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.account')
+                                }
+                            },
+                            {
+                                name: 'host',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.host')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('activeAccount.address')
+                        },
+                        function(values, closeModal) {
+                            ncc.postRequest('wallet/account/remote/unlock', values, function(data) {
+                                closeModal();
+                                ncc.refreshAccount();
+                            }, {
+                                complete: function() {
+                                    ncc.refreshRemoteHarvestingStatus();
+                                }
+                            });
+                            return false;
+                        },
+                        ncc.get('texts.modals.startRemote.start')
+                    );
+                },
+                stopRemoteHarvesting: function() {
+                    ncc.showInputForm(ncc.get('texts.modals.stopRemote.title'), '',
+                        [   
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.wallet')
+                                }
+                            },
+                            {
+                                name: 'password', 
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.password')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.account')
+                                }
+                            },
+                            {
+                                name: 'host',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.host')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('activeAccount.address')
+                        },
+                        function(values, closeModal) {
+                            ncc.postRequest('wallet/account/remote/lock', values, function(data) {
+                                closeModal();
+                                ncc.refreshAccount();
+                            }, {
+                                complete: function() {
+                                    ncc.refreshRemoteHarvestingStatus();
+                                }
+                            });
+                            return false;
+                        },
+                        ncc.get('texts.modals.stopRemote.stop')
+                    );
+                }
+            }));
+
             ncc.refreshAccount();
+
+            local.intervalJobs.push(setInterval(function() {
+                ncc.refreshRemoteHarvestingStatus();
+            }, 30000));
+            ncc.refreshRemoteHarvestingStatus();
 
             /*require(['scroller'], function() {
                 $('.scrollable').scroller();

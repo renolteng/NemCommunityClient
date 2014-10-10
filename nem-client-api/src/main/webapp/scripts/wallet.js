@@ -36,6 +36,24 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 ncc.refreshAccount(wallet, account, silent);
             };
 
+            ncc.refreshRemoteHarvestingStatus = function() {
+                ncc.postRequest('wallet/account/remote/status', 
+                    { 
+                        wallet: ncc.get('wallet.name'),
+                        account: ncc.get('activeAccount.address')
+                    },
+                    function(data) {
+                        if (data.status === 'UNLOCKED') {
+                            ncc.set('walletPage.remoteUnlocked', true);
+                        } else {
+                            ncc.set('walletPage.remoteUnlocked', false);
+                        }
+                    },
+                    null,
+                    true
+                );
+            }
+
             ncc.showTempMessage = function(message, duration) {
                 if (!duration) {
                     duration = 2000;

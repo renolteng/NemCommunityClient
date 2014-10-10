@@ -236,6 +236,38 @@
 			shutdown: {
 				title: 'Închide programul',
 				message: 'Ești sigur că dorești să închizi NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -350,7 +382,17 @@
 				start: 'Începe recoltarea',
 				harvesting: 'Se recoltează',
 				stop: 'Oprește recoltarea',
-				description: 'Importanța contului pentru NEM cloud'
+				description: 'Importanța contului pentru NEM cloud',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: 'Tranzacții recente',

@@ -239,7 +239,39 @@
 			},
 			shutdown: {
 				title: 'Затворете програмата',
-				message: 'Сигурни ли сте че искате да затворите NEM Community Client?'
+				message: 'Сигурни ли сте че искате да затворити NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {

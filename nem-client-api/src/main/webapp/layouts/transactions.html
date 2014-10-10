@@ -37,60 +37,60 @@
 					</div>
 				</div>
 				<div class="list">
-					<table>
+					<table class="txList">
 						<thead>
 							<tr>
-								<th class="type">{{texts.transactions.table.columns.0}}</th>
-								<th class="date">{{texts.transactions.table.columns.1}}</th>
-								<th class="sender">{{texts.transactions.table.columns.2}}</th>
-								<th class="message">{{texts.transactions.table.columns.3}}</th>
-								<th class="encrypted encryptedIcon">{{texts.transactions.table.columns.4}}</th>
-								<th class="details">{{texts.transactions.table.columns.5}}</th>
-								<th class="confirmations">{{texts.transactions.table.columns.6}}</th>
-								<th class="fee">{{texts.transactions.table.columns.7}} <span class="dimmed">(NEM)</span></th>
-								<th class="amount">{{texts.transactions.table.columns.8}} <span class="dimmed">(NEM)</span></th>
+								<th class="txList-header txList-col--type">{{texts.transactions.table.columns.0}}</th>
+								<th class="txList-header txList-col--date">{{texts.transactions.table.columns.1}}</th>
+								<th class="txList-header txList-col--sender">{{texts.transactions.table.columns.2}}</th>
+								<th class="txList-header txList-col--message">{{texts.transactions.table.columns.3}}</th>
+								<th class="txList-header txList-col--encrypted encryptedIcon">{{texts.transactions.table.columns.4}}</th>
+								<th class="txList-header">{{texts.transactions.table.columns.5}}</th>
+								<th class="txList-header txList-col--confirmations">{{texts.transactions.table.columns.6}}</th>
+								<th class="txList-header txList-col--fee">{{texts.transactions.table.columns.7}} <span class="dimmed">(NEM)</span></th>
+								<th class="txList-header txList-col--amount">{{texts.transactions.table.columns.8}} <span class="dimmed">(NEM)</span></th>
 							</tr>
 						</thead>
 						<tbody>
 							{{#transactions.filtered}}
 								<tr>
                                     {{^.confirmed}}
-                                        <td class="type pending icon-clock" title="{{texts.transactions.table.types.pending}}" on-mouseover="registerToolTip"></td>
+                                        <td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactions.table.types.pending}}" on-mouseover="registerToolTip"></td>
                                     {{/}}
                                     {{#.confirmed}}
                                         {{#.isSelf}}
-                                            <td class="type icon-self" title="{{texts.transactions.table.types.self}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.transactions.table.types.self}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                         {{#.isOutgoing}}
-                                            <td class="type outgoing icon-minus" title="{{texts.transactions.table.types.outgoing}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.transactions.table.types.outgoing}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                         {{#.isIncoming}}
-                                            <td class="type incoming icon-plus" title="{{texts.transactions.table.types.incoming}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactions.table.types.incoming}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                     {{/}}
-									<td class="date">{{.formattedDate}}</td>
+									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
                                         <td class="sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
                                     {{/}}
                                     {{#.isIncoming}}
-                                        <td class="sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
+                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
                                     {{/}}
-									<td class="message">
+									<td class="txList-cell txList-col--message">
 										{{#.message}}{{.message}}{{/}}
 										{{^.message}}<span class="dimmed">{{texts.transactions.table.noMessage}}</span>{{/}}
 									</td>
-									<td class="encrypted encryptedIcon">
+									<td class="txList-cell txList-col--encrypted encryptedIcon">
 										{{#.encrypted}}
 											<span class="icon-lock" title="{{texts.transactions.table.encrypted}}" on-mouseover="registerToolTip"></span>
 										{{/}}
 									</td>
-									<td class="details" on-click="viewTransaction:{{.}}">{{texts.transactions.table.view}}</td>
-									<td class="confirmations">
+									<td class="txList-cell txList-col--details" on-click="viewTransaction:{{.}}">{{texts.transactions.table.view}}</td>
+									<td class="txList-cell txList-col--confirmations">
 										{{^.confirmed}}{{texts.transactions.table.pending}}{{/}}
 										{{#.confirmed}}{{.confirmations}}{{/}}
 									</td>
-                                    <td class="fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
-                                    <td class="amount">
+                                    <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--amount">
 	                                    {{#.isSelf}}&plusmn;{{/}}<!--
 	                                    -->{{#.isOutgoing}}-{{/}}<!--
 	                                    -->{{#.isIncoming}}+{{/}}<!--
@@ -101,7 +101,7 @@
 						</tbody>
 					</table>
 					{{^transactions.filtered}}
-						<p class="no-records">{{texts.transactions.table.noTransactions}}</p>
+						<p class="txList-noRecords">{{texts.transactions.table.noTransactions}}</p>
 					{{/}}
 					<div class="pager">
 						{{#status.loadingOlderTransactions}}

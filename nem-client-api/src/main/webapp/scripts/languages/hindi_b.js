@@ -240,6 +240,38 @@ define({
 			shutdown: {
 				title: 'Close program',
 				message: 'क्या आप NEM समुदाय क्लाइंट को बंद करना चाहते हैं?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				host: 'Host',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -354,7 +386,17 @@ define({
 				start: 'स्टार्ट हार्वेस्टिंग',
 				harvesting: 'हार्वेस्टिंग',
 				stop: 'स्टॉप हार्वेस्टिंग',
-				description: 'NEM क्लाउड के लिए अकाउंट का महत्व'
+				description: 'NEM क्लाउड के लिए अकाउंट का महत्व',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: 'हाल ही में किए गये ट्रॅन्सॅक्षन्स',
