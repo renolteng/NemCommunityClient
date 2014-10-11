@@ -110,11 +110,11 @@ public class WalletAccount implements SerializableEntity {
 	 * @return The private key.
 	 */
 	public PrivateKey getRemoteHarvestingPrivateKey() {
-		if (remoteHarvestingPrivateKey == null) {
-			remoteHarvestingPrivateKey = new KeyPair().getPrivateKey();
+		if (this.remoteHarvestingPrivateKey == null) {
+			this.remoteHarvestingPrivateKey = new KeyPair().getPrivateKey();
 		}
 
-		return remoteHarvestingPrivateKey;
+		return this.remoteHarvestingPrivateKey;
 	}
 
 	@Override

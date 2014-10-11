@@ -44,7 +44,7 @@ public class TransactionController {
 	@RequestMapping(value = "/wallet/account/transaction/send", method = RequestMethod.POST)
 	public void sendTransaction(@RequestBody final TransferSendRequest transferRequest) {
 		final Transaction transaction = this.transactionMapper.toModel(transferRequest);
-		announceTransaction(transaction);
+		this.announceTransaction(transaction);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/activate", method = RequestMethod.POST)
 	public void remoteUnlock(@RequestBody final TransferImportanceRequest request) {
-		remoteHarvest(request, ImportanceTransferTransaction.Mode.Activate);
+		this.remoteHarvest(request, ImportanceTransferTransaction.Mode.Activate);
 	}
 
 	/**
@@ -79,12 +79,12 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/deactivate", method = RequestMethod.POST)
 	public void remoteLock(@RequestBody final TransferImportanceRequest request) {
-		remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
+		this.remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
 	}
 
 	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		final Transaction transaction = this.transactionMapper.toModel(request, mode);
-		announceTransaction(transaction);
+		this.announceTransaction(transaction);
 	}
 
 	private void announceTransaction(final Transaction transaction) {

@@ -261,7 +261,7 @@ public class TransactionMapperTest {
 			Mockito.when(this.wallet.getAccountPrivateKey(this.signer.getAddress()))
 					.thenReturn(this.signer.getKeyPair().getPrivateKey());
 			Mockito.when(this.wallet.tryGetWalletAccount(this.signer.getAddress()))
-					.thenReturn(account);
+					.thenReturn(this.account);
 		}
 	}
 }
