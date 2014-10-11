@@ -233,6 +233,8 @@ public class GraphViewModelFactoryTest {
 
 	@Test
 	public void buildGraphReturnsCorrectGraphViewModelForNoUrlList() {
+		// TODO 20141011 J-B: i think this test is the same as buildGraphReturnsCorrectGraphViewModelForUrlListConsistingOfA01
+		// > except for the createViewModel call; can we refactor?
 		// Arrange
 		final List<NodeEndpoint> endpoints = Arrays.asList(NodeEndpoint.fromHost("127.0.0.1"));
 		final TestContext context = new TestContext(endpoints);

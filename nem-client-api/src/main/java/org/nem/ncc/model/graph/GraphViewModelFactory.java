@@ -40,6 +40,7 @@ public class GraphViewModelFactory {
 	public GraphViewModel createViewModel(
 			final NetworkServices networkServices,
 			final NodeServices nodeServices) {
+		// TODO 20141011 J-B: is the intent to really get the "local" network or the connected NIS network (when NIS is remote?)
 		final NodeEndpoint localEndPoint = new NodeEndpoint("http", "127.0.0.1", 7890);
 		final GraphBuilder builder = new GraphBuilder();
 		try {
@@ -48,10 +49,12 @@ public class GraphViewModelFactory {
 			// local end point should not be addressed through the external URL which is returned from getNode
 			localNode.setEndpoint(localEndPoint);
 			final Collection<Node> nodeSet = Collections.singleton(localNode);
+			// TODO 20141011 J-B: can you call into createViewModel at this point?
 			final Map<Node, NodeCollection> nodePeersMap = networkServices.getNodePeerListsAsync(
 					nodeSet).join();
 			nodePeersMap.entrySet().forEach(e -> builder.addToGraph(e.getKey(), e.getValue()));
 		} catch (ExecutionException | InterruptedException ex) {
+			// TODO 20141011 J-B: i would rather let an exception propagate out then bury it ... use ExceptionUtils.propagate
 			// we do nothing just an empty result;
 		}
 
