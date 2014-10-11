@@ -158,10 +158,10 @@ public class GraphTest {
 						"node: ALICE" + System.lineSeparator() +
 						"node: BOB" + System.lineSeparator() +
 						"node: TRUDY" + System.lineSeparator() +
-						"edge: ALICE -> TRUDY" + System.lineSeparator() +
-						"edge: BOB -> ALICE" + System.lineSeparator() +
-						"edge: TRUDY -> ALICE" + System.lineSeparator() +
-						"edge: TRUDY -> BOB";
+						"edge: ALICE-TRUDY" + System.lineSeparator() +
+						"edge: BOB-ALICE" + System.lineSeparator() +
+						"edge: TRUDY-ALICE" + System.lineSeparator() +
+						"edge: TRUDY-BOB";
 		Assert.assertThat(graph.toString(), IsEqual.equalTo(expectedResult));
 	}
 

@@ -296,6 +296,14 @@ Requests a view model for the peers to which the specified peers are connected.
 * Response: [GraphViewModel](viewModel.md#graphviewmodel)
 * Dependent from NIS: _Yes_
 
+### /network/local
+Requests a view model for the peers to which the local NIS is connected.
+
+* Request Method: _GET_
+* Request: `-`
+* Response: [GraphViewModel](viewModel.md#graphviewmodel)
+* Dependent from NIS: _Yes_
+
 ### /shutdown
 Stops the NCC server. After that NCC GUI does not respond to any clicks.
 
