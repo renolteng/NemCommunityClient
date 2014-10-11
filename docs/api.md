@@ -211,7 +211,7 @@ Checks if account is unlocked on remote server, will return an error if
 Unlock the account on the remote NIS server (start secure foraging).
 
 * Request Method: _POST_
-* Request: [RemoteHarvestRequest](viewModel.md#remoteHarvestRequest)
+* Request: [AccountWalletPasswordRequest](viewModel.md#accountWalletPasswordRequest)
 * Response: `-`
 * Dependent from NIS: _Yes_
 
@@ -219,7 +219,7 @@ Unlock the account on the remote NIS server (start secure foraging).
 Lock the account on the remote NIS server (stop secure foraging).
 
 * Request Method: _POST_
-* Request: [RemoteHarvestRequest](viewModel.md#remoteHarvestRequest)
+* Request: [AccountWalletPasswordRequest](viewModel.md#accountWalletPasswordRequest)
 * Response: `-`
 * Dependent from NIS: _Yes_
 

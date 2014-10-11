@@ -200,13 +200,6 @@
                                 label: {
                                     content: ncc.get('texts.modals.startRemote.account')
                                 }
-                            },
-                            {
-                                name: 'host',
-                                type: 'text',
-                                label: {
-                                    content: ncc.get('texts.modals.startRemote.host')
-                                }
                             }
                         ],
                         {
