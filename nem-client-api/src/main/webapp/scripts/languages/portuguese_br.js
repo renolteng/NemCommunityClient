@@ -6,11 +6,11 @@ define({
 			thousandSeparator: '\u2009',
 			decimalSeparator: '.'
 		},
-		faults: { // modelos de mensagens de erro 
+		faults: { // Mensagens de erro 
             101: 'Arquivo não encontrado.',
             102: 'A carteira não foi criada.',
             103: 'O arquivo da carteira está corrompido. Por favor, restaure o back-up ou crie outro.',
-            104: 'Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-la!',
+            104: 'Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-lo se perdido!',
             106: 'Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha da carteira existente ou crie outra.',
             107: 'A carteira não contém essa conta',
             108: 'A conta não pode ser removida. Provavelmente pelo motivo de que ela tem saldo maior que 0 NEMs ou é a conta primária.',
@@ -23,7 +23,7 @@ define({
             404: 'Valor de estratégia de boot inválido.',
             500: 'Falha ao salvar o arquivo de configuração.',
             600: 'NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local.',
-	        601: 'O NIS já foi inicialcizado.',
+            601: 'O NIS já foi inicializado.',
             700: 'Falha na colheita. Geralmente esse problema está relacionado com o tanto de NEMs na conta. Para colheitar são necessários, pelo menos, 1000 NEMs.',
             701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
             702: 'O prazo final está muito no futuro. O prazo limite deve estar dentro do período de um dia.',
@@ -37,7 +37,7 @@ define({
             901: 'Erro na configuração de modo "off-line".'
         },
         common: {
-        	success: 'Successo', //titulo de mensagens de sucesso
+        	success: 'Successo', //Mensagens de sucesso
         	appStatus: {
         		nccUnknown: 'Status do NCC desconhecido',
         		nccUnavailable: 'NCC não inicializado',
@@ -56,9 +56,6 @@ define({
         		},
         		synchronized: 'NIS foi sincronizado!'
         	}
-        	// nisStatus: {
-        	// 	notBooted: 'NIS necessita ser inicializado. Por favor, abra a carteira e inicialize um nó local via diálogo pop-up.',
-        	// }
         },
 		modals: {
 			error: {
@@ -135,9 +132,7 @@ define({
 			},
 			transactionDetails: {
 				title: 'Detalhes da transação',
-				// This might be block or transaction ID
 				id: 'ID',
-				// This might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Tipo de transação',
 				pending: 'Pendente',
@@ -285,10 +280,10 @@ define({
 				walletNamePlh: 'Nome para a carteira',
 				passwordPlh: 'Senha',
 				create: 'Criar',
-				rightTitle: 'Já é um <em>NEM</em>bro?', //"bro" in pt_BR is synonymous of "Brother"
+				rightTitle: 'Já é um <em>NEM</em>bro?',
 				rightButton: 'Abrir carteira existente',
 				openButton: 'Abrir',
-				walletsFound: 'Encontrada(s) <strong>{{1}}</strong> <em>carteira(s)</em>', //needs to verify if the "(s)" casues any kind of problem to compilation
+				walletsFound: 'Encontrada(s) <strong>{{1}}</strong> <em>carteira(s)</em>', 
 				copyright: 'Fotografado por <em>Cas Cornelissen</em>'
 			},
 			carousel: {
@@ -385,14 +380,14 @@ define({
 				stop: 'Parar colheita',
 				description: 'Pontuação de Importância para a nuvem de peers'
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating...',
-					startRemoteHarvesting: 'Start remote harvesting',
-					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					activate: 'Ativar colheita remota',
+					activating: 'Ativando...',
+					active: 'Colheita remota está ativa!',
+					deactivate: 'Desativar colheita remota',
+					deactivating: 'Desativando...',
+					startRemoteHarvesting: 'Inicializar colheita remota',
+					remotelyHarvesting: 'Colheitando remotamente!',
+					stopRemoteHarvesting: 'Parar a colheita remota'
 				}
 			},
 			transactions: {
