@@ -220,6 +220,8 @@ public class AccountController {
 	// 20141006, G-J, now looking at it, I'm starting to think /lock and /unlock are wrong :/
 	//   they were supposed to send "remote account", and from what I see they send account address
 	//   I've fixed that
+	//
+	// TODO 20141010 J-G really remoteUnlock/Lock are the same except for the id
 
 	/**
 	 * Unlock the account on a remote NIS server (start foraging).
@@ -235,19 +237,9 @@ public class AccountController {
 
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
 	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletRequest awRequest) {
-		// TODO 20141005 J-G: it is unclear to me why we need AccountWalletPasswordRequest vs just AccountWalletRequest
-		// > since this appears to be just getting status
-		// TODO 20141007 G-J: I don't think we should access remote harvester priv key here,
-		// just to obtain address. How/where can I cache "remote harvester" public key?
-		// TODO 20141007 J-G: I think the JS should be sending over the remote harvester public key
-		// > it doesn't necessarily need to "show" it (see my other comment) but i think it should "know" about it
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
-
 		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey());
-		final StringBuilder builder = new StringBuilder();
-		builder.append("address=");
-		builder.append(remoteAddress.getEncoded());
-		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, builder.toString());
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, "address=" + remoteAddress.getEncoded());
 		return new AccountStatusViewModel(deserializer);
 	}
 
