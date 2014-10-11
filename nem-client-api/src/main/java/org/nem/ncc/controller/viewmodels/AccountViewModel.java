@@ -83,6 +83,7 @@ public class AccountViewModel implements SerializableEntity {
 	public String getLabel() {
 		return this.label;
 	}
+
 	/**
 	 * Gets the account public key.
 	 *

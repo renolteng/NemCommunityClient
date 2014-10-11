@@ -43,8 +43,52 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/transaction/send", method = RequestMethod.POST)
 	public void sendTransaction(@RequestBody final TransferSendRequest transferRequest) {
-		// prepare transaction
 		final Transaction transaction = this.transactionMapper.toModel(transferRequest);
+		this.announceTransaction(transaction);
+	}
+
+	/**
+	 * Requests inspecting the transaction for validation purposes. The returned result will include:
+	 * - The minimum fee for sending the transaction.
+	 * - A value indicating whether or not the recipient can receive encrypted messages.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
+	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
+	public ValidatedTransferViewModel validateTransferData(@RequestBody final TransferValidateRequest request) {
+		// TODO 20141005 J-G: should we update this function / add a new function that is able to validate importance transfer transactions?
+		final TransferTransaction transaction = (TransferTransaction)this.transactionMapper.toModel(request);
+		return new ValidatedTransferViewModel(transaction.getFee(), transaction.getRecipient());
+	}
+
+	/**
+	 * Announces address for secure remote harvesting.
+	 *
+	 * @param request The request parameters.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/activate", method = RequestMethod.POST)
+	public void remoteUnlock(@RequestBody final TransferImportanceRequest request) {
+		this.remoteHarvest(request, ImportanceTransferTransaction.Mode.Activate);
+	}
+
+	/**
+	 * Announces deactivation of address for secure remote harvesting.
+	 *
+	 * @param request The request parameters.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/deactivate", method = RequestMethod.POST)
+	public void remoteLock(@RequestBody final TransferImportanceRequest request) {
+		this.remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
+	}
+
+	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
+		final Transaction transaction = this.transactionMapper.toModel(request, mode);
+		this.announceTransaction(transaction);
+	}
+
+	private void announceTransaction(final Transaction transaction) {
+		// prepare transaction
 		final byte[] transferBytes = BinarySerializer.serializeToBytes(transaction.asNonVerifiable());
 		final RequestPrepare preparedTransaction = new RequestPrepare(transferBytes);
 
@@ -59,19 +103,5 @@ public class TransactionController {
 		if (result.isError()) {
 			throw new NisException(result);
 		}
-	}
-
-	/**
-	 * Requests inspecting the transaction for validation purposes. The returned result will include:
-	 * - The minimum fee for sending the transaction.
-	 * - A value indicating whether or not the recipient can receive encrypted messages.
-	 *
-	 * @param request The transaction information.
-	 * @return The validation information.
-	 */
-	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
-	public ValidatedTransferViewModel validateTransferData(@RequestBody final TransferValidateRequest request) {
-		final TransferTransaction transaction = (TransferTransaction)this.transactionMapper.toModel(request);
-		return new ValidatedTransferViewModel(transaction.getFee(), transaction.getRecipient());
 	}
 }

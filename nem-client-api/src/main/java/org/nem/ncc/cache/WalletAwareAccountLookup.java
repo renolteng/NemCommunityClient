@@ -60,8 +60,11 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 			return pair;
 		}
 
+		// we need to create a new AccountInfo here instead of using the AccountInfo
+		// returned by the server (from accountLookup) so that the public key of
+		// a newly created wallet is always returned (in case a new account was created in ncc
+		// but has not yet been on the block chain)
 		final AccountInfo info = pair.getAccount();
-		// TODO 20141004 G-?: is there a reson we're creating AccountInfo here (instead of using "info"?)
 		return new AccountMetaDataPair(
 				new AccountInfo(
 						walletAccount.getAddress(),

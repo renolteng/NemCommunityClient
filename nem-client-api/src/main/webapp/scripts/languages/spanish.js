@@ -372,7 +372,37 @@ define({
                        title: 'Cerrar programa',
                        //message: 'Are you sure you want to close NEM Community Client?'
                        message: 'Est&aacute; seguro que desea cerrar el Cliente de Comunidad NEM?'
-                   }
+                   },
+      activateRemote: {
+        title: 'Activate Remote harvesting',
+        wallet: 'Wallet',
+        account: 'Account',
+        hoursDue: 'Hours due',
+        password: "Wallet's password",
+        activate: 'Activate'
+      },
+      deactivateRemote: {
+        title: 'Deactivate Remote harvesting',
+        wallet: 'Wallet',
+        account: 'Account',
+        hoursDue: 'Hours due',
+        password: "Wallet's password",
+        deactivate: 'Deactivate'
+      },
+      startRemote: {
+        title: 'Start Remote harvesting',
+        wallet: 'Wallet',
+        account: 'Account',
+        password: "Wallet's password",
+        start: 'Start'
+      },
+      stopRemote: {
+        title: 'Stop Remote harvesting',
+        wallet: 'Wallet',
+        account: 'Account',
+        password: "Wallet's password",
+        stop: 'Stop'
+      }
                },
                landing: {
                    //importSuccess: 'Wallet has been sucessfully imported!',
@@ -542,7 +572,17 @@ define({
                        //stop: 'Stop harvesting',
                        stop: 'Detener recolecta',
                        //description: 'importance of account to the NEM cloud'
-                       description: 'importancia de la cuenta para la nube NEM'
+                       description: 'importancia de la cuenta para la nube NEM',
+        remoteHarvest: {
+          activate: 'Activate remote harvesting',
+          activating: 'Activating...',
+          active: 'Remote harvesting is active',
+          deactivate: 'Deactivate remote harvesting',
+          deactivating: 'Deactivating...',
+          startRemoteHarvesting: 'Start remote harvesting',
+          remotelyHarvesting: 'Remotely harvesting',
+          stopRemoteHarvesting: 'Stop remote harvesting'
+        }
                    },
                    transactions: {
                        //title: 'Recent Transactions',

@@ -240,6 +240,38 @@ define({
 			shutdown: {
 				title: 'Arresto NCC',
 				message: 'Sei sicuro di voler arrestare NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Abilita generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: "Password del portafoglio",
+				activate: 'Attiva'
+			},
+			deactivateRemote: {
+				title: 'Disabilita generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: "Password del portafoglio",
+				deactivate: 'Disattiva'
+			},
+			startRemote: {
+				title: 'Avvia generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				host: 'Nome del nodo',
+				password: "Password del portafoglio",
+				start: 'Avvia'
+			},
+			stopRemote: {
+				title: 'Ferma generazione blocchi tramite altro indirizzo',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				host: 'Nome del nodo',
+				password: "Password del portafoglio",
+				stop: 'Ferma'
 			}
 		},
 		landing: {
@@ -354,7 +386,17 @@ define({
 				start: 'Avvia generazione blocchi',
 				harvesting: 'Generazione blocchi in corso',
 				stop: 'Ferma generazione blocchi',
-				description: "importanza dell'indirizzo nella rete NEM"
+				description: "importanza dell'indirizzo nella rete NEM",
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: 'Transazioni recenti',

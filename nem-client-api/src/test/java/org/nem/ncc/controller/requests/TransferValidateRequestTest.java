@@ -3,6 +3,7 @@ package org.nem.ncc.controller.requests;
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.SerializationException;
@@ -12,15 +13,15 @@ import org.nem.ncc.wallet.WalletName;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class TransferFeeRequestTest {
+public class TransferValidateRequestTest {
 
 	@Test
 	public void requestCanBeCreated() {
 		// Act:
+		final Address address = Address.fromPublicKey(new KeyPair().getPublicKey());
 		final TransferValidateRequest request = new TransferValidateRequest(
 				new WalletName("w"),
-				Address.fromEncoded("a"),
-				Address.fromEncoded("r"),
+				address, Address.fromEncoded("r"),
 				Amount.fromMicroNem(7),
 				"m",
 				true,
@@ -28,7 +29,7 @@ public class TransferFeeRequestTest {
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(Address.fromEncoded("a")));
+		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getRecipientAddress(), IsEqual.equalTo(Address.fromEncoded("r")));
 		Assert.assertThat(request.getAmount(), IsEqual.equalTo(Amount.fromMicroNem(7L)));
 		Assert.assertThat(request.getMessage(), IsEqual.equalTo("m"));
@@ -65,12 +66,9 @@ public class TransferFeeRequestTest {
 	public void requestCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 8, 5),
-				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 8, 5),
-				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 8, 5),
-				v -> this.createRequestFromJson("w", "a", "r", null, "m", 8, 5),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 5),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 8, null));
+				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 8, 5), v -> this.createRequestFromJson("w", null, "r", 7L, "m", 8, 5),
+				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 8, 5), v -> this.createRequestFromJson("w", "a", "r", null, "m", 8, 5),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 5), v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 8, null));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
