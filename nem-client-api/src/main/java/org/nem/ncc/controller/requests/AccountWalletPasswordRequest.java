@@ -32,7 +32,7 @@ public class AccountWalletPasswordRequest extends AccountIdRequest {
 	 */
 	public AccountWalletPasswordRequest(final Deserializer deserializer) {
 		super(deserializer);
-		this.walletNamePasswordPair =  new WalletNamePasswordPair(deserializer);
+		this.walletNamePasswordPair = new WalletNamePasswordPair(deserializer);
 	}
 
 	/**

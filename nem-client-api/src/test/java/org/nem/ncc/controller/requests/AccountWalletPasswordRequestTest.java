@@ -30,7 +30,9 @@ public class AccountWalletPasswordRequestTest {
 	@Test
 	public void requestCanBeDeserialized() {
 		// Act:
-		final AccountWalletPasswordRequest request = this.createRequestFromJson(this.TEST_ADDRESS.getEncoded(), this.TEST_WALLET_NAME.toString(), this.TEST_WALLET_PASS.toString());
+		final AccountWalletPasswordRequest request = this.createRequestFromJson(this.TEST_ADDRESS.getEncoded(),
+				this.TEST_WALLET_NAME.toString(),
+				this.TEST_WALLET_PASS.toString());
 
 		// Assert:
 		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
@@ -59,7 +61,6 @@ public class AccountWalletPasswordRequestTest {
 		// Act:
 		new AccountWalletPasswordRequest(Address.fromEncoded("FOO"), null, null);
 	}
-
 
 	private AccountWalletPasswordRequest createRequest() {
 		return new AccountWalletPasswordRequest(this.TEST_ADDRESS, this.TEST_WALLET_NAME, this.TEST_WALLET_PASS);

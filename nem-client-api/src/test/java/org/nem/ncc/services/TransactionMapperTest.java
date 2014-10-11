@@ -3,7 +3,6 @@ package org.nem.ncc.services;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
-
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.AccountLookup;
@@ -71,7 +70,9 @@ public class TransactionMapperTest {
 		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferTransaction.Mode.Activate);
 
 		// Assert:
-		Assert.assertThat(model.getRemote().getKeyPair().getPrivateKey(), IsEqual.equalTo(context.account.getRemoteHarvestingPrivateKey())); // the remote address for harvesting
+		Assert.assertThat(
+				model.getRemote().getKeyPair().getPrivateKey(),
+				IsEqual.equalTo(context.account.getRemoteHarvestingPrivateKey())); // the remote address for harvesting
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
 		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferTransaction.Mode.Activate));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));

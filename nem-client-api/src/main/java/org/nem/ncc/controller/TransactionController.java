@@ -61,7 +61,7 @@ public class TransactionController {
 		final TransferTransaction transaction = (TransferTransaction)this.transactionMapper.toModel(request);
 		return new ValidatedTransferViewModel(transaction.getFee(), transaction.getRecipient());
 	}
-	
+
 	/**
 	 * Announces address for secure remote harvesting.
 	 *

@@ -1,10 +1,8 @@
 package org.nem.ncc.controller.requests;
 
 import net.minidev.json.JSONObject;
-
 import org.hamcrest.core.*;
 import org.junit.*;
-
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;

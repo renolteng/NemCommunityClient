@@ -2,10 +2,8 @@ package org.nem.ncc.wallet;
 
 import org.hamcrest.core.*;
 import org.junit.*;
-
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
-import org.nem.core.node.NodeEndpoint;
 import org.nem.ncc.test.*;
 
 public class WalletAccountTest {

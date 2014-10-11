@@ -2,10 +2,7 @@ package org.nem.ncc.wallet;
 
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-
-import java.math.BigInteger;
 
 /**
  * Represents an account that is stored in a wallet.
@@ -138,7 +135,7 @@ public class WalletAccount implements SerializableEntity {
 			return false;
 		}
 
-		final WalletAccount rhs = (WalletAccount) obj;
+		final WalletAccount rhs = (WalletAccount)obj;
 		return this.address.equals(rhs.address);
 	}
 

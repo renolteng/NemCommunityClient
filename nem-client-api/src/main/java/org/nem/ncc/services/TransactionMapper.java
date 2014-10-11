@@ -77,7 +77,6 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-
 	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());

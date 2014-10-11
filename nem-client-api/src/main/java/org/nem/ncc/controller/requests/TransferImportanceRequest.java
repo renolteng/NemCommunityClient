@@ -19,7 +19,7 @@ public class TransferImportanceRequest extends AccountWalletPasswordRequest {
 	 */
 	public TransferImportanceRequest(
 			final Address address,
-			final WalletName walletName, 
+			final WalletName walletName,
 			final WalletPassword password,
 			final int hoursDue) {
 		super(address, walletName, password);

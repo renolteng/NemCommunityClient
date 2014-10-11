@@ -68,7 +68,6 @@ public class TransferImportanceRequestTest {
 		new AccountWalletPasswordRequest(Address.fromEncoded("FOO"), null, null);
 	}
 
-
 	private TransferImportanceRequest createRequest() {
 		return new TransferImportanceRequest(
 				this.TEST_ADDRESS,
