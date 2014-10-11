@@ -65,7 +65,7 @@ public class GraphViewModelFactoryTest {
 	 *                 /          \
 	 *                /            o
 	 * I14o----------A1o----------oA13
-	 * 
+	 *
 	 */
 
 	/**
@@ -239,9 +239,9 @@ public class GraphViewModelFactoryTest {
 		final List<NodeEndpoint> endpoints = Arrays.asList(NodeEndpoint.fromHost("127.0.0.1"));
 		final TestContext context = new TestContext(endpoints);
 		final GraphViewModelFactory factory = new GraphViewModelFactory();
-		
+
 		Mockito.when(context.nodeServices.getNodeAsync(Mockito.any()))
-					.thenReturn(CompletableFuture.completedFuture(createNode(HOSTS.get(0))));
+				.thenReturn(CompletableFuture.completedFuture(createNode(HOSTS.get(0))));
 
 		// Act
 		final GraphViewModel viewModel = factory.createViewModel(context.networkServices, context.nodeServices);
