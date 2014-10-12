@@ -19,7 +19,7 @@ public class ValidatedTransferViewModel implements SerializableEntity {
 	 */
 	public ValidatedTransferViewModel(final Amount fee, final Account recipient) {
 		this.fee = fee;
-		this.encryptionPossible = null != recipient && null != recipient.getKeyPair() && recipient.getKeyPair().hasPublicKey();
+		this.encryptionPossible = null != recipient && null != recipient.getKeyPair() && null != recipient.getKeyPair().getPublicKey();
 	}
 
 	@Override
