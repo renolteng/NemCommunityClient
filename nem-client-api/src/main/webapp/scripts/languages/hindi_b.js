@@ -39,22 +39,22 @@ define({
         common: {
         	success: 'Success', //title of the Success message modals
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'NCC की स्तिति अग्यात है',
         		nccUnavailable: 'NCC उपलब्ध नहीं है',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC स्टार्ट हो रहा है...',
+        		nisUnknown: 'NIS की स्तिति अग्यात है',
         		nisUnavailable: 'NIS  उपलब्ध नहीं है',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		nisStarting: 'NIS स्टार्ट हो रहा है...',
+        		notBooted: 'NIS को बूट करने की आवश्यकता हे. कृपया अपना वॉलेट खोलें और लोकल नोड बूट करें. आप ऑटो-बूट सेट्टिंग का भी प्रयोग कर सकतें हैं.',
+        		booting: 'NIS को बूट किया जा रहा है...',
+        		nisInfoNotAvailable: 'NIS की जानकारी अभी तक उपलब्ध नहीं है. जानकारी प्राप्त करने का प्रयास किया जा रहा है. ...',
         		synchronizing: 'NIS सिंक्रनाइज़ हो रहा हे. ब्लॉक {{1}}, स्था. {{2}} दिन पीछे.',
         		daysBehind: {
         			0: '1 दिन से कम',
         			1: '1 दिन',
         			many: '{{1}} दिन'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS सिंक्रनाइज़ हो चुकी है!'
         	}
     //     	nisStatus: {
     //     		notBooted: 'NIS को बूट करने की आवश्यकता है. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
@@ -73,7 +73,7 @@ define({
 			settings: {
 				title: 'Settings',
 				language: {
-					label: 'Language'
+					label: 'भाषा'
 				},
 				remoteServer: {
 					tabTitle: 'Remote Server',
@@ -85,11 +85,11 @@ define({
 					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: 'ऑटो-बूट',
+					name: 'नोड नेम',
+					account: 'अकाउंट',
+					primaryAccount: 'प्राइमरी अकाउंट',
+					auto: 'वॉलेट खोलने पर ऑटो-बूट करें.'
 				},
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
@@ -109,17 +109,17 @@ define({
 				password: 'पासवर्ड',
 				send: 'भेजें',
 				sending: 'भेजा जा रहा है...',
-				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है!',
+				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: 'ट्रांजेक्शन की पुष्टि करें',
+					sendLabel: "आप भेजने जा रहे हैं",
+					to: 'को',
+					message: 'मेसेज',
+					encrypted: 'मेसेज एन्क्रिप्टेड है',
+					noMessage: 'नो मेसेज',
+					cancel: 'रद्द करें',
+					send: 'भेजें',
+					sending: 'भेजा जा रहा है...'
 				}
 			},
 			clientInfo: {
@@ -240,6 +240,36 @@ define({
 			shutdown: {
 				title: 'Close program',
 				message: 'क्या आप NEM समुदाय क्लाइंट को बंद करना चाहते हैं?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -354,7 +384,17 @@ define({
 				start: 'स्टार्ट हार्वेस्टिंग',
 				harvesting: 'हार्वेस्टिंग',
 				stop: 'स्टॉप हार्वेस्टिंग',
-				description: 'NEM क्लाउड के लिए अकाउंट का महत्व'
+				description: 'NEM क्लाउड के लिए अकाउंट का महत्व',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: 'हाल ही में किए गये ट्रॅन्सॅक्षन्स',

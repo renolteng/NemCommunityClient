@@ -2,16 +2,17 @@ package org.nem.ncc.controller;
 
 import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
-import org.nem.core.crypto.PrivateKey;
+import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
 import org.nem.core.model.ncc.HarvestInfo;
 import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.serialization.SerializableList;
+import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
+import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -203,9 +204,51 @@ public class AccountController {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
 	}
 
-	private PrivateKey getPrivateKey(final AccountWalletRequest awRequest) {
-		return this.walletServices.get(awRequest.getWalletName())
-				.getAccountPrivateKey(awRequest.getAccountId());
+	private PrivateKey getPrivateKey(final AccountWalletRequest request) {
+		return this.walletServices.get(request.getWalletName())
+				.getAccountPrivateKey(request.getAccountId());
+	}
+
+	// TODO 20141005 J-G i guess we need tests for these
+	// > in all seriousness, it seems like remote[un]lock can just delegate to un[lock]
+	// > the only difference is that the remote* functions are assumed to be passed a remote account
+	// > if it's not remote we might want to fail
+	//
+	// 20141006, G-J, now looking at it, I'm starting to think /lock and /unlock are wrong :/
+	//   they were supposed to send "remote account", and from what I see they send account address
+	//   I've fixed that
+	//
+	// TODO 20141010 J-G really remoteUnlock/Lock are the same except for the id
+
+	/**
+	 * Unlock the account on a remote NIS server (start foraging).
+	 * Remote address being used has to be announced previously.
+	 *
+	 * @param awpRequest The remote harvester view model.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
+	public void remoteUnlock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
+		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
+	}
+
+	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
+	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletRequest awRequest) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey());
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, "address=" + remoteAddress.getEncoded());
+		return new AccountStatusViewModel(deserializer);
+	}
+
+	/**
+	 * Lock the account on a remote NIS server (stop foraging).
+	 *
+	 * @param awpRequest The remote harvester view model.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
+	public void remoteLock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
+		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
 	//endregion

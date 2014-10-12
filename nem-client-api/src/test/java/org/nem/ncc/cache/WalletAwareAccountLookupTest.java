@@ -177,7 +177,7 @@ public class WalletAwareAccountLookupTest {
 
 	private static AccountMetaDataPair createAccountMetaDataPair(final Address address) {
 		return new AccountMetaDataPair(
-				new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, AccountRemoteStatus.INACTIVE, null, 0.0),
+				Utils.createAccountInfoFromAddress(address),
 				new AccountMetaData(AccountStatus.LOCKED));
 	}
 

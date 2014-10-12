@@ -70,11 +70,25 @@ The view model used by the NCC server.
 ```
 
 possible remoteStatus values:
+
 * REMOTE - shouldn't normally occur, both buttons should be disabled
 * INACTIVE - "activate" button should be enabled, "start remote harvesting" - disabled
 * ACTIVATED - "activate" button should be disabled, "start remote harvesting" - enabled
 * ACTIVE - "DEactivate" button should be enabled, "start remote harvesting" - enabled
 * DEACTIVATED - "DEactivate" button should be disabled,  "start remote harvesting" - disabled
+
+### AccountStatusViewModel
+
+```
+{
+	"status" : "UNLOCKED"
+}
+```
+
+possible status values
+
+* LOCKED
+* UNLOCKED
 
 ### AccountViewModel
 
@@ -96,6 +110,16 @@ possible remoteStatus values:
 {
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"wallet" : "Test-Wallet"
+}
+```
+
+### TransferImportanceRequest
+```
+{
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
+	"wallet" : "Test-Wallet",
+	"password": "Very Secret Password To The Wallet",
+	"hours_due": "6" // (max: 24)
 }
 ```
 
@@ -269,7 +293,7 @@ Only a local NIS can be booted.
 ```
 {
 	"wallet": "PrivateWallet",
-	"password": "A longer password",
+	"password": "Very Secret Password To The Wallet",
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"recipient": "TBYDNCLNEGESF5EWRFWFJU7RNCPWOOQH5LMRSQ5A",
 	"amount":  10000.0,
@@ -306,8 +330,8 @@ Only a local NIS can be booted.
 ```
 {
 	"wallet": "PrivateWallet",
-	"password": "A longer password",
-	"new_password": "new something",   # optional, required for password change
+	"password": "Very Secret Password To The Wallet",
+	"new_password": "NEW very secret Password",   # optional, required for password change
 	"new_name": "P-Wallet"         ,   # optional, required for wallet name change
 	"label": "my private label"    ,   # optional, used during account creation and label change   
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2"
@@ -320,7 +344,7 @@ Only a local NIS can be booted.
 ```
 {
 	"wallet": "PrivateWallet",
-	"password": "The very long password with some ÄÖÜäöüß"
+	"password": "Very Secret Password To The Wallet, can contain ÄÖÜäöüß"
 }
 ```
 

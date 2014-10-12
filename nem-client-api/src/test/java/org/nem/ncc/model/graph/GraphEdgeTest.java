@@ -19,7 +19,7 @@ public class GraphEdgeTest {
 		final GraphEdge graphEdge = new GraphEdge(source, target);
 
 		// Assert:
-		Assert.assertThat(graphEdge.getId(), IsEqual.equalTo("ALICE -> BOB"));
+		Assert.assertThat(graphEdge.getId(), IsEqual.equalTo("ALICE-BOB"));
 		Assert.assertThat(graphEdge.getSource(), IsSame.sameInstance(source));
 		Assert.assertThat(graphEdge.getTarget(), IsSame.sameInstance(target));
 	}
@@ -94,7 +94,7 @@ public class GraphEdgeTest {
 		final GraphEdge graphEdge = new GraphEdge(source, target);
 
 		// Assert:
-		Assert.assertThat(graphEdge.toString(), IsEqual.equalTo("edge: ALICE -> BOB"));
+		Assert.assertThat(graphEdge.toString(), IsEqual.equalTo("edge: ALICE-BOB"));
 	}
 
 	//endregion

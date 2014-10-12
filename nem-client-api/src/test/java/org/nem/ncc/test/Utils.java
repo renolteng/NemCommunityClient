@@ -86,13 +86,7 @@ public class Utils {
 	 * @return A random account info.
 	 */
 	public static AccountInfo generateRandomAccountInfo() {
-		return new AccountInfo(
-				Utils.generateRandomAddressWithPublicKey(),
-				Amount.ZERO,
-				BlockAmount.ZERO,
-				AccountRemoteStatus.INACTIVE,
-				null,
-				0.0);
+		return createAccountInfoFromAddress(Utils.generateRandomAddressWithPublicKey());
 	}
 
 	/**

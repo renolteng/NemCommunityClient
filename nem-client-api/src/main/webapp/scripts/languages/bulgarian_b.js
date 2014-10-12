@@ -47,7 +47,7 @@
         		nisStarting: 'NIS стартира...',
         		notBooted: 'NIS трябва да бъде презареден. Моля отворете портфейла и презаредете локалния възел чрез изплуващия прозорец или конфигурирайте ауто зареждащите настройки',
         		booting: 'Зарежда NIS...',
-        		nisInfoNotAvailable: 'NISинфо не е все още на разположение.Опитвам се да получа отново NIS инфо...',
+        		nisInfoNotAvailable: 'NIS инфо не е все още на разположение.Опитвам се да получа отново NIS инфо...',
         		synchronizing: 'NIS се синхронизира. В блок {{1}}, около {{2}} назад.',
         		daysBehind: {
         			0: 'по малко от 1 ден',
@@ -240,6 +240,36 @@
 			shutdown: {
 				title: 'Затворете програмата',
 				message: 'Сигурни ли сте че искате да затворити NEM Community Client?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Hours due',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -248,7 +278,7 @@
 			nav: {
 				start: 'Първи стъпки',
 				about: 'Относно NEM',
-				settings: 'Settings'
+				settings: 'Настройки'
 			},
 			main: {
 				leftTitle: 'Нов за <em>NEM</em>?',

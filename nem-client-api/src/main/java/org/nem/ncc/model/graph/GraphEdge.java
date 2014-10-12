@@ -18,7 +18,7 @@ public class GraphEdge implements SerializableEntity {
 	 * @param target The target node.
 	 */
 	public GraphEdge(final GraphNode source, final GraphNode target) {
-		this.id = String.format("%s -> %s", source.getId(), target.getId());
+		this.id = String.format("%s-%s", source.getId(), target.getId());
 		this.source = source;
 		this.target = target;
 	}
