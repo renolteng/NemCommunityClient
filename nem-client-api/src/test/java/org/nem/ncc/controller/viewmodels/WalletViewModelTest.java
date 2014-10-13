@@ -3,7 +3,7 @@ package org.nem.ncc.controller.viewmodels;
 import net.minidev.json.*;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.core.model.AccountStatus;
+import org.nem.core.model.*;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.time.*;
 import org.nem.ncc.test.*;
@@ -66,7 +66,7 @@ public class WalletViewModelTest {
 	}
 
 	private static AccountViewModel createAccountViewModel() {
-		return new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, null);
+		return new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
 	}
 
 	private static String getAddress(final Object object) {

@@ -70,7 +70,6 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 						walletAccount.getAddress(),
 						info.getBalance(),
 						info.getNumForagedBlocks(),
-						info.getRemoteStatus(),
 						info.getLabel(),
 						info.getImportance()),
 				pair.getMetaData());

@@ -3,7 +3,7 @@ package org.nem.ncc.services;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
-import org.nem.core.model.AccountStatus;
+import org.nem.core.model.*;
 import org.nem.core.time.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.test.*;
@@ -50,6 +50,6 @@ public class WalletMapperTest {
 	}
 
 	private static AccountViewModel createViewModel(final WalletAccount account) {
-		return new AccountViewModel(Utils.createAccountInfoFromAddress(account.getAddress()), AccountStatus.LOCKED, null);
+		return new AccountViewModel(Utils.createAccountInfoFromAddress(account.getAddress()), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
 	}
 }

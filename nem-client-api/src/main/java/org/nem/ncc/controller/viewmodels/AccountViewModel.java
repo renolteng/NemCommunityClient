@@ -29,23 +29,28 @@ public class AccountViewModel implements SerializableEntity {
 	public AccountViewModel(
 			final AccountMetaDataPair accountMetaDataPair,
 			final AccountLabel label) {
-		this(accountMetaDataPair.getAccount(), accountMetaDataPair.getMetaData().getStatus(), label);
+		this(
+				accountMetaDataPair.getAccount(),
+				accountMetaDataPair.getMetaData().getStatus(),
+				accountMetaDataPair.getMetaData().getRemoteStatus(),
+				label);
 	}
 
 	/**
 	 * Creates a new account view model.
-	 *
-	 * @param info The account info.
+	 *  @param info The account info.
 	 * @param status The account status.
+	 * @param remoteStatus The remote account status.
 	 * @param label The account label.
 	 */
 	public AccountViewModel(
 			final AccountInfo info,
 			final AccountStatus status,
+			final AccountRemoteStatus remoteStatus,
 			final AccountLabel label) {
 		this.address = info.getAddress();
 		this.label = null == label ? null : label.getLabel();
-		this.remoteStatus = info.getRemoteStatus();
+		this.remoteStatus = remoteStatus;
 
 		this.publicKey = null == info.getKeyPair()
 				? null

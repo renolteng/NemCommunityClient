@@ -58,7 +58,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 
 	private FreshnessPair createFreshnessPairFromSeedAccount(final AccountInfo info) {
 		return new FreshnessPair(
-				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN)),
+				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE)),
 				null);
 	}
 

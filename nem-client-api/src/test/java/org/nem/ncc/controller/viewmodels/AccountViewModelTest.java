@@ -19,7 +19,7 @@ public class AccountViewModelTest {
 		final AccountInfo account = createAccountInfo(null, Address.fromEncoded("xyz"));
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, null);
+		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
 
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
@@ -41,6 +41,7 @@ public class AccountViewModelTest {
 		final AccountViewModel viewModel = new AccountViewModel(
 				account,
 				AccountStatus.LOCKED,
+				AccountRemoteStatus.INACTIVE,
 				new AccountLabel(account.getAddress(), "my pub label", "my pri label"));
 
 		// Assert:
@@ -54,7 +55,7 @@ public class AccountViewModelTest {
 		final AccountInfo account = createAccountInfo(null, address);
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, null);
+		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
 
 		// Assert:
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.notNullValue());
@@ -68,7 +69,7 @@ public class AccountViewModelTest {
 
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				account,
-				new AccountMetaData(AccountStatus.LOCKED));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(pair, null);
@@ -93,6 +94,7 @@ public class AccountViewModelTest {
 		final AccountViewModel viewModel = new AccountViewModel(
 				account,
 				AccountStatus.LOCKED,
+				AccountRemoteStatus.INACTIVE,
 				new AccountLabel(account.getAddress(), "my pub label", "my pri label"));
 
 		// Act:
@@ -118,6 +120,7 @@ public class AccountViewModelTest {
 		final AccountViewModel viewModel = new AccountViewModel(
 				Utils.createAccountInfoFromAddress(account.getAddress()),
 				AccountStatus.LOCKED,
+				AccountRemoteStatus.INACTIVE,
 				null);
 
 		// Act:
@@ -133,7 +136,6 @@ public class AccountViewModelTest {
 				address,
 				Amount.fromNem(271),
 				new BlockAmount(3),
-				AccountRemoteStatus.INACTIVE,
 				label,
 				3.7);
 	}

@@ -362,7 +362,8 @@ Only a local NIS can be booted.
 		"label": null,
 		"publicKey": "03c55bd250e56c292ed4c898b0883676313283251d21b6a9099bb989db99d736d2",
 		"foragedBlocks": 0,
-		"status": "LOCKED"
+		"status": "LOCKED",
+		"remoteStatus": "INACTIVE"
 	}
 }
 ```
