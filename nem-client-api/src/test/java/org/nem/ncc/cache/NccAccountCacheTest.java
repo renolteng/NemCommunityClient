@@ -13,6 +13,7 @@ import org.nem.ncc.services.AccountServices;
 import org.nem.ncc.test.*;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class NccAccountCacheTest {
 
@@ -234,6 +235,17 @@ public class NccAccountCacheTest {
 
 	@Test
 	public void allSeedAccountsHaveUnknownStatus() {
+		// Assert:
+		assertSeedAccountMetadata(metaData -> Assert.assertThat(metaData.getStatus(), IsEqual.equalTo(AccountStatus.UNKNOWN)));
+	}
+
+	@Test
+	public void allSeedAccountsHaveInactiveRemoteStatus() {
+		// Assert:
+		assertSeedAccountMetadata(metaData -> Assert.assertThat(metaData.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE)));
+	}
+
+	private static void assertSeedAccountMetadata(final Consumer<AccountMetaData> assertMetaData) {
 		// Arrange:
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(3);
 		final TestContext context = new TestContext();
@@ -246,7 +258,7 @@ public class NccAccountCacheTest {
 		// Assert:
 		for (final AccountInfo account : accounts) {
 			final AccountMetaDataPair pair = context.cache.findPairByAddress(account.getAddress());
-			Assert.assertThat(pair.getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNKNOWN));
+			assertMetaData.accept(pair.getMetaData());
 		}
 	}
 

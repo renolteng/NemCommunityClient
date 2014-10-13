@@ -14,7 +14,7 @@ public class AccountTransactionsPairTest {
 	@Test
 	public void canCreateMetaDataPair() {
 		// Arrange:
-		final AccountViewModel account = new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
+		final AccountViewModel account = createAccountViewModel();
 		final List<TransferViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
@@ -26,7 +26,7 @@ public class AccountTransactionsPairTest {
 	@Test
 	public void canSerializeMetaDataPair() {
 		// Arrange:
-		final AccountViewModel account = new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
+		final AccountViewModel account = createAccountViewModel();
 		final List<TransferViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
@@ -37,5 +37,9 @@ public class AccountTransactionsPairTest {
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(9));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(((JSONArray)jsonObject.get("transactions")).size(), IsEqual.equalTo(0));
+	}
+
+	private static AccountViewModel createAccountViewModel() {
+		return Utils.createAccountViewModelFromAddress(Utils.generateRandomAddress());
 	}
 }

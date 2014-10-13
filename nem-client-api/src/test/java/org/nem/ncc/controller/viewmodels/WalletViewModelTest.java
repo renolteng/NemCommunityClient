@@ -66,7 +66,7 @@ public class WalletViewModelTest {
 	}
 
 	private static AccountViewModel createAccountViewModel() {
-		return new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
+		return Utils.createAccountViewModelFromAddress(Utils.generateRandomAddress());
 	}
 
 	private static String getAddress(final Object object) {

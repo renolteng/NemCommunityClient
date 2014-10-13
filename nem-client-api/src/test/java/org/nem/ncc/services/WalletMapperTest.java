@@ -50,6 +50,6 @@ public class WalletMapperTest {
 	}
 
 	private static AccountViewModel createViewModel(final WalletAccount account) {
-		return new AccountViewModel(Utils.createAccountInfoFromAddress(account.getAddress()), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
+		return Utils.createAccountViewModelFromAddress(account.getAddress());
 	}
 }

@@ -7,6 +7,7 @@ import org.nem.core.model.ncc.AccountInfo;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
+import org.nem.ncc.controller.viewmodels.AccountViewModel;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -111,6 +112,20 @@ public class Utils {
 	 */
 	public static AccountInfo createAccountInfoFromAddress(final Address address) {
 		return new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, "", 0.0);
+	}
+
+	/**
+	 * Creates an account view model with the specified address.
+	 *
+	 * @param address The address.
+	 * @return The account view model.
+	 */
+	public static AccountViewModel createAccountViewModelFromAddress(final Address address) {
+		return new AccountViewModel(
+				createAccountInfoFromAddress(address),
+				AccountStatus.LOCKED,
+				AccountRemoteStatus.INACTIVE,
+				null);
 	}
 
 	/**
