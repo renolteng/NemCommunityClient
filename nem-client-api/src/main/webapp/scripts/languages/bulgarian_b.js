@@ -242,34 +242,34 @@
 				message: 'Сигурни ли сте че искате да затворити NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				activate: 'Activate'
+				title: 'Активирайте отдалеченото генериране',
+				wallet: 'Портфейл',
+				account: 'Акаунт',
+				hoursDue: 'Часове дължими',
+				password: "Парола на портфейла",
+				activate: 'Активирай'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				title: 'Деактивирайте отдалеченото генериране',
+				wallet: 'Портфейл',
+				account: 'Акаунт',
+				hoursDue: 'Часове дължими',
+				password: "Парола на портфейла",
+				deactivate: 'Деактивирай'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
-				start: 'Start'
+				title: 'Старт на отдалеченото генериране',
+				wallet: 'Портфейл',
+				account: 'Акаунт',
+				password: "Парола на портфейла",
+				start: 'Старт'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
-				stop: 'Stop'
+				title: 'Стоп на отдалеченото генериране',
+				wallet: 'Портфейл',
+				account: 'Акаунт',
+				password: "Парола на портфейла",
+				stop: 'Стоп'
 			}
 		},
 		landing: {
