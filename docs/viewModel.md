@@ -168,7 +168,7 @@ Only a local NIS can be booted.
 			},
 			"address": "TCJQPPB7ESZJWHILWBFG5TJRWXWJD6MZUGO6XA7S",
 			"active": 1,
-			"version": "0.2.4-ALPHA",
+			"version": "0.4.3-BETA",
 			"platform": "Oracle Corporation (1.8.0_11) on Windows 8.1"
 		},
 		{
@@ -179,7 +179,7 @@ Only a local NIS can be booted.
 			},
 			"address": "TCAGZZKJXE43NNWBMB23ODTANMALICE4XDOEAWXB",
 			"active": 1,
-			"version": "0.2.4-ALPHA",
+			"version": "0.4.3-BETA",
 			"platform": "?"
 		}]
 	},
