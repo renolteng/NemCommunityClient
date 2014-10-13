@@ -3,7 +3,6 @@ package org.nem.ncc.controller.viewmodels;
 import net.minidev.json.*;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.core.model.*;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.test.Utils;
 

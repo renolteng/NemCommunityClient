@@ -3,7 +3,6 @@ package org.nem.ncc.services;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
-import org.nem.core.model.*;
 import org.nem.core.time.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.test.*;
