@@ -7,206 +7,185 @@
  * Reuse styles of txList from dashboard.scss
  */
 
-#transactions-page, #harvested-blocks {
+.recordList {
 	margin-top: 25px;
 	margin-bottom: 36px;
-	background-color: #fff;
 	border-top: 8px solid #736086;
+	background-color: #fff;
 	color: #252a34;
+}
 
-	.head {
-		border-bottom: 1px solid #aeaeae;
-		padding: 34px 0 16px 44px;
+.recordList-head {
+	border-bottom: 1px solid #aeaeae;
+	padding: 34px 0 16px 44px;
+}
 
-		h1 {
-			font-size: 28px;
-			font-weight: $fontWeight-bold;
-			color: #736086;
-			text-transform: uppercase;
-			display: inline-block;
-			vertical-align: middle;
-		}
+.recordList-title {
+	display: inline-block;
+	font-size: 28px;
+	font-weight: $fontWeight-bold;
+	color: #736086;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+.recordList-overview {
+	margin-top: 20px;
+	font-size: 24px;
+}
+
+.recordList-overview-title {
+	font-size: 14px;
+	font-weight: $fontWeight-black;
+	text-transform: none;
+}
+
+.recordList-body {
+	padding-top: 10px;
+	padding-bottom: 30px;
+	font-size: 13px;
+}
+
+.recordList-pager {
+	@extend %clearfix;
+	margin-top: 30px;
+}
+
+.recordList-pager-loading {
+	float: right;
+	padding: 4px 10px 2px;
+	background-color: #2e3440;
+	color: #fff;
+	font-size: 12px;
+	font-weight: $fontWeight-bold;
+	text-transform: uppercase;
+}
+
+// ================================================================================
+// TRANSACTIONS PAGE ONLY
+// ================================================================================
+
+.recordList-filterBar {
+	@extend %clearfix;
+	padding: 10px 25px 10px 44px;
+	color: #000;
+}
+
+.recordList-filter {
+	float: left;
+}
+
+.recordList-filterOption {
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.recordList-filterLabel {
+	$height: 28px;
+	display: inline-block;
+	@include border-radius($height / 2);
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 28px;
+	line-height: 28px;
+	font-weight: $fontWeight-medium;
+	cursor: pointer;
+	@include transition-property(background-color, color);
+	@include transition-duration(.3s);
+}
+
+.recordList-filterLabel:hover, 
+input:checked + .recordList-filterLabel {
+	background-color: #797979;
+	color: #fff;
+}
+
+.recordList-searchArea {
+	float: right;
+}
+
+.recordList-search {
+	border-bottom: 1px solid #afafaf;//#5f636a;
+	color: #afafaf; //#252a34;
+	pointer-events: none;
+}
+
+.recordList-searchTextbox {
+	width: 235px;
+}
+
+.recordList-searchButton {
+	padding: 0;
+	font-size: 16px;
+}
+
+.transactionsPage-list {
+	padding-top: 20px;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+.transactionsPage-sendNemButton {
+	$bgColor: #41ce7d;
+	margin-left: 10px;
+	padding: 8px 14px 8px 11px;
+	background-color: $bgColor;
+	color: #fff;
+	font-size: 15px;
+	font-weight: $fontWeight-medium;
+
+	&:before {
+		margin-right: 5px;
+		font-size: 16px;
+		vertical-align: -2px;
 	}
 
-	.overview {
-		margin-top: 20px;
-		font-size: 24px;
-
-		h1 {
-			font-size: 14px;
-			font-weight: $fontWeight-black;
-			text-transform: none;
-		}
+	&:hover {
+		background-color: lighten($bgColor, 10%);
 	}
 
-	.body {
-		padding-top: 10px;
-		padding-bottom: 30px;
-		font-size: 13px;
-	}
-
-	.pager {
-		@extend %clearfix;
-		margin-top: 30px;
-
-		/*.newest, .newer {
-			float: left;
-			margin-right: 10px;
-		}
-
-		.older {
-			float: right;
-		}*/
-
-		.loading {
-			float: right;
-			background-color: #2e3440;
-			color: #fff;
-			font-size: 12px;
-			font-weight: $fontWeight-bold;
-			text-transform: uppercase;
-			padding: 4px 10px 2px;
-		}
-
-		.icon {
-			vertical-align: -3px;
-			font-size: 16px;
-		}
+	&:disabled {
+		background-color: #888888;
+		pointer-events: none;
 	}
 }
 
-#transactions-page {
-	.send-nem-btn {
-		$bgColor: #41ce7d;
-		background-color: $bgColor;
-		color: #fff;
-		font-size: 15px;
-		font-weight: $fontWeight-medium;
-		margin-left: 10px;
-		padding: 8px 14px 8px 11px;
+// ================================================================================
+// HARVESTED BLOCKS PAGE SPECIFIC
+// ================================================================================
 
-		&:before {
-			font-size: 16px;
-			margin-right: 5px;
-			vertical-align: -2px;
-		}
+.harvestedBlocksPage-list {
+	padding-top: 10px;
+	padding-left: 44px;
+	padding-right: 30px;
+}
 
-		&:hover {
-			background-color: lighten($bgColor, 10%);
-		}
+.harvestedBlocksPage-forageButton {
+	margin-left: 10px;
+	padding: 0 8px;
+	height: 36px;
+	background-color: #7c6890;
+	color: #fff;
+	line-height: 36px;
 
-		&:disabled {
-			pointer-events: none;
-			background-color: #888888;
-		}
-	}
-
-	.filter-bar {
-		padding: 10px 25px 10px 44px;
-		@extend %clearfix;
-		color: #000;
-
-		.filter {
-			float: left;
-
-			li {
-				display: inline-block;
-				margin-right: 5px;
-			}
-
-			label {
-				$height: 28px;
-				display: inline-block;
-				height: 28px;
-				line-height: 28px;
-				@include border-radius($height / 2);
-				padding-left: 12px;
-				padding-right: 12px;
-				cursor: pointer;
-				@include transition-property(background-color, color);
-				@include transition-duration(.3s);
-				font-weight: $fontWeight-medium;
-			}
-
-			label:hover, input[type='radio']:checked + label {
-				background-color: #797979;
-				color: #fff;
-			}
-		}
-
-		.search-area {
-			float: right;
-
-			.search {
-				pointer-events: none;
-				color: #afafaf; //#252a34;
-				border-bottom: 1px solid #afafaf;//#5f636a;
-
-				input {
-					width: 235px;
-				}
-
-				button {
-					padding: 0;
-					font-size: 16px;
-				}
-			}
-		}
-	}
-
-	.list {
-		padding-top: 20px;
-		padding-left: 12px;
-		padding-right: 12px;
+	&:before {
+		margin-right: 8px;
+		vertical-align: -3px;
+		font-size: 19px;
 	}
 }
 
-#harvested-blocks {
-	.list {
-		padding-top: 10px;
-		padding-left: 44px;
-		padding-right: 30px;
-	}
+.harvestedBlocksPage-forageButton--notForaging {
+	background-color: #4c4058;
+}
 
-	.foraging-btn {
+.harvestedBlocksPage-forageButton--foraging {
+	background-color: #a186b9;
+}
+
+.harvestedBlocksPage-forageButton--notForaging, 
+.harvestedBlocksPage-forageButton--foraging {
+	&:hover {
 		background-color: #7c6890;
-		color: #fff;
-		padding: 0 8px;
-		height: 36px;
-		line-height: 36px;
-		margin-left: 10px;
-
-		&.not-foraging {
-			background-color: #4c4058;
-		}
-
-		&.foraging {
-			background-color: #a186b9;
-		}
-
-		&.not-foraging, &.foraging {
-			&:hover {
-				background-color: #7c6890;
-			}
-		}
-
-		&:before {
-			vertical-align: -3px;
-			margin-right: 8px;
-			font-size: 19px;
-		}
-
-		.hover {
-			display: none;
-		}
-
-		&:hover {
-			.status {
-				display: none;
-			}
-			.hover {
-				display: initial;
-			}
-		}
 	}
 }
