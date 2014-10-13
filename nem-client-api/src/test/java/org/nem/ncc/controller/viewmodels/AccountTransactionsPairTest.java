@@ -3,7 +3,7 @@ package org.nem.ncc.controller.viewmodels;
 import net.minidev.json.*;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.core.model.AccountStatus;
+import org.nem.core.model.*;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.test.Utils;
 
@@ -14,7 +14,7 @@ public class AccountTransactionsPairTest {
 	@Test
 	public void canCreateMetaDataPair() {
 		// Arrange:
-		final AccountViewModel account = new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, null);
+		final AccountViewModel account = new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
 		final List<TransferViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
@@ -26,7 +26,7 @@ public class AccountTransactionsPairTest {
 	@Test
 	public void canSerializeMetaDataPair() {
 		// Arrange:
-		final AccountViewModel account = new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, null);
+		final AccountViewModel account = new AccountViewModel(Utils.generateRandomAccountInfo(), AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
 		final List<TransferViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 

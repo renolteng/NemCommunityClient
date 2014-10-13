@@ -151,8 +151,8 @@ public class WalletAwareAccountLookupTest {
 		final Address address = Address.fromPublicKey(keyPair.getPublicKey());
 		final Address addressWithoutPublicKey = Address.fromEncoded(address.getEncoded());
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
-				new AccountInfo(addressWithoutPublicKey, Amount.fromNem(17), new BlockAmount(12), AccountRemoteStatus.INACTIVE, "foo", 1.5),
-				new AccountMetaData(AccountStatus.UNLOCKED));
+				new AccountInfo(addressWithoutPublicKey, Amount.fromNem(17), new BlockAmount(12), "foo", 1.5),
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE));
 		Mockito.when(context.mockAccountLookup.findPairByAddress(address)).thenReturn(pair);
 		Mockito.when(context.walletServices.tryFindOpenAccount(addressWithoutPublicKey)).thenReturn(new WalletAccount(keyPair.getPrivateKey()));
 
@@ -165,10 +165,10 @@ public class WalletAwareAccountLookupTest {
 		Assert.assertThat(resultInfo.getKeyPair().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getBalance(), IsEqual.equalTo(Amount.fromNem(17)));
 		Assert.assertThat(resultInfo.getNumForagedBlocks(), IsEqual.equalTo(new BlockAmount(12)));
-		Assert.assertThat(resultInfo.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(resultInfo.getLabel(), IsEqual.equalTo("foo"));
 		Assert.assertThat(resultInfo.getImportance(), IsEqual.equalTo(1.5));
 		Assert.assertThat(result.getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
+		Assert.assertThat(result.getMetaData().getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Mockito.verify(context.mockAccountLookup, Mockito.times(1)).findPairByAddress(address);
 		Mockito.verify(context.walletServices, Mockito.times(1)).tryFindOpenAccount(address);
 	}
@@ -178,7 +178,7 @@ public class WalletAwareAccountLookupTest {
 	private static AccountMetaDataPair createAccountMetaDataPair(final Address address) {
 		return new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.LOCKED));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE));
 	}
 
 	private static class TestContext {

@@ -375,7 +375,11 @@ public class AccountControllerTest {
 	//endregion
 
 	private static AccountViewModel createViewModel(final Account account) {
-		return new AccountViewModel(Utils.createAccountInfoFromAddress(account.getAddress()), AccountStatus.LOCKED, null);
+		return new AccountViewModel(
+				Utils.createAccountInfoFromAddress(account.getAddress()),
+				AccountStatus.LOCKED,
+				AccountRemoteStatus.INACTIVE,
+				null);
 	}
 
 	private static class TestContext {
