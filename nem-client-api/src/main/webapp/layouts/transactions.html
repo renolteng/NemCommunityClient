@@ -1,42 +1,42 @@
-<main class="transactions-page">
+<main class="transactions-main">
 	<div class="container">
-		<section id="transactions-page">
-			<div class="head">
-				<h1>{{texts.transactions.title}}</h1>
-				<button type="button" class="send-nem-btn icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
-				<div class="overview">
-					<h1>{{texts.transactions.balance}}</h1>
+		<section class="recordList">
+			<div class="recordList-head">
+				<h1 class="recordList-title">{{texts.transactions.title}}</h1>
+				<button type="button" class="transactionsPage-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
+				<div class="recordList-overview">
+					<p class="recordList-overview-title">{{texts.transactions.balance}}</p>
 					<p><span title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></span></p>
 				</div>
 			</div>
-			<div class="body">
-				<div class="filter-bar">
-					<ul class="filter">
-						<li>
+			<div class="recordList-body">
+				<div class="recordList-filterBar">
+					<ul class="recordList-filter">
+						<li class="recordList-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-all" name="{{transactions.filter}}" value="account/transactions/confirmed" checked />
-                            <label for="rad-transaction-filter-all">{{texts.transactions.filters.confirmed}}</label>
+                            <label class="recordList-filterLabel" for="rad-transaction-filter-all">{{texts.transactions.filters.confirmed}}</label>
 						</li>
-						<li>
+						<li class="recordList-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-pending" name="{{transactions.filter}}" value="account/transactions/unconfirmed" />
-                            <label for="rad-transaction-filter-pending">{{texts.transactions.filters.unconfirmed}}</label>
+                            <label class="recordList-filterLabel" for="rad-transaction-filter-pending">{{texts.transactions.filters.unconfirmed}}</label>
 						</li>
-						<li>
+						<li class="recordList-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-incoming" name="{{transactions.filter}}" value="account/transactions/incoming" />
-                            <label for="rad-transaction-filter-incoming">{{texts.transactions.filters.incoming}}</label>
+                            <label class="recordList-filterLabel" for="rad-transaction-filter-incoming">{{texts.transactions.filters.incoming}}</label>
 						</li>
-						<li>
+						<li class="recordList-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-outgoing" name="{{transactions.filter}}" value="account/transactions/outgoing" />
-							<label for="rad-transaction-filter-outgoing">{{texts.transactions.filters.outgoing}}</label>
+							<label class="recordList-filterLabel" for="rad-transaction-filter-outgoing">{{texts.transactions.filters.outgoing}}</label>
 						</li>
 					</ul>
-					<div class="search-area">
-						<div class="search">
-							<input type="text" />
-							<button type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
+					<div class="recordList-searchArea">
+						<div class="recordList-search">
+							<input class="recordList-searchTextbox" type="text" />
+							<button class="recordList-searchButton" type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
 						</div>
 					</div>
 				</div>
-				<div class="list">
+				<div class="transactionsPage-list">
 					<table class="txList">
 						<thead>
 							<tr>
@@ -103,9 +103,9 @@
 					{{^transactions.filtered}}
 						<p class="txList-noRecords">{{texts.transactions.table.noTransactions}}</p>
 					{{/}}
-					<div class="pager">
+					<div class="recordList-pager">
 						{{#status.loadingOlderTransactions}}
-							<span type="buttton" class="loading">{{texts.transactions.table.loading}}</span>
+							<span type="buttton" class="recordList-pager-loading">{{texts.transactions.table.loading}}</span>
 						{{/}}
 					</div>
 				</div>

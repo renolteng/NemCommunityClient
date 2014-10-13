@@ -1,32 +1,32 @@
-<main class="harvested-blocks">
+<main class="harvestedBlocks-main">
 	<div class="container">
-		<section id="harvested-blocks">
-			<div class="head">
-				<h1>{{texts.harvestedBlocks.title}}</h1>
+		<section class="recordList">
+			<div class="recordList-head">
+				<h1 class="recordList-title">{{texts.harvestedBlocks.title}}</h1>
 				{{#status.lostConnection || activeAccount.status === 'UNKNOWN'}}
-					<button type="button" class="foraging-btn unknown icon-question-circle">
+					<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--unknown icon-question-circle">
 						<span>{{texts.harvestedBlocks.harvesting.unknown}}</span>
 					</button>
 				{{/}}
 				{{^status.lostConnection}}
 					{{#activeAccount.status === 'LOCKED'}}
-						<button type="button" class="foraging-btn not-foraging icon-play" on-click="startHarvesting">
+						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startHarvesting">
 							<span>{{texts.harvestedBlocks.harvesting.start}}</span>
 						</button>
 					{{/}}
 					{{#activeAccount.status === 'UNLOCKED'}}
-						<button type="button" class="foraging-btn foraging icon-pause" on-click="stopHarvesting">
-							<span class="status">{{texts.harvestedBlocks.harvesting.harvesting}}</span><span class="hover">{{texts.harvestedBlocks.harvesting.stop}}</span>
+						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--foraging hoverTarget icon-pause" on-click="stopHarvesting">
+							<span class="hideOnHover">{{texts.harvestedBlocks.harvesting.harvesting}}</span><span class="showOnHover">{{texts.harvestedBlocks.harvesting.stop}}</span>
 						</button>
 					{{/}}
 				{{/}}
-				<div class="overview">
-					<h1>{{texts.harvestedBlocks.feeEarned}}</h1>
+				<div class="recordList-overview">
+					<p class="recordList-overview-title">{{texts.harvestedBlocks.feeEarned}}</p>
 					<p><span title="{{Math.floor(harvestedBlocks.feeEarned / 1000000)}} NEM {{harvestedBlocks.feeEarned % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(harvestedBlocks.feeEarned, false)}}} <span class="unit">NEM</span></span></p>
 				</div>
 			</div>
 			<div class="body">
-				<div class="list">
+				<div class="harvestedBlocksPage-list">
 					<table class="txList">
 						<thead>
 							<tr>
@@ -50,9 +50,9 @@
 					{{^harvestedBlocks.list}}
 						<p class="txList-noRecords">{{texts.harvestedBlocks.table.noBlocks}}</p>
 					{{/}}
-					<div class="pager">
+					<div class="recordList-pager">
 						{{#status.loadingOlderBlocks}}
-							<span type="buttton" class="loading">{{texts.harvestedBlocks.table.loading}}</span>
+							<span type="buttton" class="recordList-pager-loading">{{texts.harvestedBlocks.table.loading}}</span>
 						{{/}}
 					</div>
 				</div>
