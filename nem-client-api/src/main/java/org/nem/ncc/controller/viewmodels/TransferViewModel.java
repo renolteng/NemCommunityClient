@@ -3,7 +3,6 @@ package org.nem.ncc.controller.viewmodels;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.observers.ImportanceTransferNotification;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.UnixTime;
@@ -54,8 +53,7 @@ public class TransferViewModel implements SerializableEntity {
 
 		// TODO 20141014 J-G: we should definitely add tests for this mapping
 		// > also from a design perspective, is it reasonable to show importance transfers like regular transfers?
-		switch (transaction.getType())
-		{
+		switch (transaction.getType()) {
 			case TransactionTypes.TRANSFER: {
 				final TransferTransaction transfer = (TransferTransaction)transaction;
 				this.recipient = transfer.getRecipient().getAddress();
