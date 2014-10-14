@@ -3,6 +3,7 @@ package org.nem.ncc.controller.viewmodels;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
+import org.nem.core.model.observers.ImportanceTransferNotification;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.UnixTime;
@@ -40,8 +41,8 @@ public class TransferViewModel implements SerializableEntity {
 	public TransferViewModel(
 			final Transaction transaction,
 			final Address relativeAccountAddress) {
-		if (TransactionTypes.TRANSFER != transaction.getType()) {
-			throw new IllegalArgumentException("TransferViewModel can only be created around TRANSFER");
+		if (TransactionTypes.TRANSFER != transaction.getType() && TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType()) {
+			throw new IllegalArgumentException("TransferViewModel can only be created around TRANSFER or IMPORTANCE_TRANSFER");
 		}
 
 		this.transactionHash = HashUtils.calculateHash(transaction);
@@ -51,13 +52,29 @@ public class TransferViewModel implements SerializableEntity {
 		this.timeStamp = UnixTime.fromTimeInstant(transaction.getTimeStamp()).getMillis();
 		this.fee = transaction.getFee();
 
-		final TransferTransaction transfer = (TransferTransaction)transaction;
-		this.recipient = transfer.getRecipient().getAddress();
-		this.amount = transfer.getAmount();
+		switch (transaction.getType())
+		{
+			case TransactionTypes.TRANSFER: {
+				final TransferTransaction transfer = (TransferTransaction)transaction;
+				this.recipient = transfer.getRecipient().getAddress();
+				this.amount = transfer.getAmount();
 
-		final Message message = transfer.getMessage();
-		this.message = getMessageText(message);
-		this.isEncrypted = isEncrypted(message);
+				final Message message = transfer.getMessage();
+				this.message = getMessageText(message);
+				this.isEncrypted = isEncrypted(message);
+			}
+			break;
+			case TransactionTypes.IMPORTANCE_TRANSFER: {
+				final ImportanceTransferTransaction importanceTransfer = (ImportanceTransferTransaction)transaction;
+				this.recipient = importanceTransfer.getRemote().getAddress();
+				this.amount = Amount.ZERO;
+				this.message = null;
+				this.isEncrypted = false;
+			}
+			break;
+			default:
+				throw new IllegalArgumentException("TransferViewModel ctor error");
+		}
 
 		this.confirmations = 0;
 		this.isConfirmed = false;
