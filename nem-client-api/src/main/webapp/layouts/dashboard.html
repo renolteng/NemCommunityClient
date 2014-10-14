@@ -17,7 +17,7 @@
 					{{#activeAccount.remoteStatus === 'INACTIVE'}}
 						<button type="button" class="importanceTile-activateButton" on-click="activateRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
 					{{/}}
-					{{#activeAccount.remoteStatus === 'ACTIVATED'}}
+					{{#activeAccount.remoteStatus === 'ACTIVATING'}}
 						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVE'}}
@@ -30,15 +30,15 @@
 							</span>
 						</button>
 					{{/}}
-					{{#activeAccount.remoteStatus === 'DEACTIVATED'}}
+					{{#activeAccount.remoteStatus === 'DEACTIVATING'}}
 						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.deactivating}}</button>
 					{{/}}
 
 					{{^walletPage.remoteUnlocked}}
-						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATED' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
+						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATING' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
 					{{/}}
 					{{#walletPage.remoteUnlocked}}
-						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATED' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton hoverTarget" on-click="stopRemoteHarvesting">
+						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATING' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton hoverTarget" on-click="stopRemoteHarvesting">
 							<span class="hideOnHover">{{texts.dashboard.importance.remoteHarvest.remotelyHarvesting}}</span>
 							<span class="showOnHover">{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}</span>
 						</button>
