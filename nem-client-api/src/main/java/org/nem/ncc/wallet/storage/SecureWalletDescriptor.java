@@ -92,7 +92,7 @@ public class SecureWalletDescriptor implements WalletDescriptor {
 	}
 
 	private PaddedBufferedBlockCipher getCipher(final boolean encrypt) {
-		final KeyParameter key = new KeyParameter(Hashes.sha3(StringEncoder.getBytes(this.password.toString())));
+		final KeyParameter key = new KeyParameter(Hashes.sha3_256(StringEncoder.getBytes(this.password.toString())));
 
 		// create and initialize the cipher
 		final PaddedBufferedBlockCipher resultCipher = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));
