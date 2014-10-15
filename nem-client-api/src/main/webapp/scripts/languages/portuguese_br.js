@@ -378,7 +378,7 @@ define({
 				start: 'Começar a colheita',
 				harvesting: 'Colheitando',
 				stop: 'Parar colheita',
-				description: 'Pontuação de Importância para a nuvem de peers'
+				description: 'Pontuação de Importância para a nuvem de peers',
 				remoteHarvest: {
 					activate: 'Ativar colheita remota',
 					activating: 'Ativando...',
