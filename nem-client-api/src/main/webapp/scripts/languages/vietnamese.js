@@ -377,16 +377,16 @@ define({
 			importance: {
 				title: 'Điểm tầm quan trọng',
 				unknown: 'Không rõ trạng thái',
-				start: 'Bắt đầu thu hoạch',
+				start: 'Bắt đầu thu hoạch cục bộ',
 				harvesting: 'Đang thu hoạch',
-				stop: 'Ngừng thu hoạch',
+				stop: 'Ngừng thu hoạch cục bộ',
 				description: 'tầm quan trọng của tài khoản với NEM cloud',
 				remoteHarvest: {
 					activate: 'Kích hoạt thu hoạch từ xa',
-					activating: 'Đang kích hoạt...',
+					activating: 'Đang kích hoạt thu hoạch từ xa...',
 					active: 'Thu hoạch từ xa đã sẵn sàng',
 					deactivate: 'Vô hiệu hoá thu hoạch từ xa',
-					deactivating: 'Đang vô hiệu hoá...',
+					deactivating: 'Đang vô hiệu hoá thu hoạch từ xa...',
 					startRemoteHarvesting: 'Bắt đầu thu hoạch từ xa',
 					remotelyHarvesting: 'Đang thu hoạch từ xa',
 					stopRemoteHarvesting: 'Ngừng thu hoạch từ xa'

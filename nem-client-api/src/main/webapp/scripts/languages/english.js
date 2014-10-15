@@ -377,16 +377,16 @@ define({
 			importance: {
 				title: 'Importance score',
 				unknown: 'Unknown status',
-				start: 'Start harvesting',
+				start: 'Start local harvesting',
 				harvesting: 'Harvesting',
-				stop: 'Stop harvesting',
+				stop: 'Stop local harvesting',
 				description: 'importance of account to the NEM cloud',
 				remoteHarvest: {
 					activate: 'Activate remote harvesting',
-					activating: 'Activating...',
+					activating: 'Activating remote harvesting...',
 					active: 'Remote harvesting is active',
 					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating...',
+					deactivating: 'Deactivating remote harvesting...',
 					startRemoteHarvesting: 'Start remote harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
 					stopRemoteHarvesting: 'Stop remote harvesting'
