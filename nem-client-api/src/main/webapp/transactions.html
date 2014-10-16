@@ -107,7 +107,12 @@
 							</p>
 							{{#.type === 'text' || .type === 'password'}}
 								<p class="modal-form-line">
-									<input type="{{.type}}" class="modal-form-input" disabled="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
+									<input type="{{.type}}" class="modal-form-input {{#.noDimming}}modal-form-input--noDimming{{/}}" disabled="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
+								</p>
+							{{/}}
+							{{#.type === 'textarea'}}
+								<p class="modal-form-line">
+									<textarea class="modal-form-input {{#.noDimming}}modal-form-input--noDimming{{/}}" disabled="{{.readonly}}" value="{{values[.name]}}"></textarea>
 								</p>
 							{{/}}
 							{{#.sublabel}}
