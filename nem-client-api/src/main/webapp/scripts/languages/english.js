@@ -178,7 +178,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Create real account data',
-				message: 'This data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -188,7 +188,7 @@ define({
 				},
 				recheck: {
 					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided below to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
 					correct: {
 						title: 'Nice!',
 						message: 'You seems to have your correct private key saved. Please remember to always keep it safe and secured!'
