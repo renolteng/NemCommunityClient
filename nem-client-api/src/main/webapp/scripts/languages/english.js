@@ -484,9 +484,9 @@ define({
 			},
 			harvesting: {
 				unknown: 'Unknown status',
-				start: 'Start harvesting',
+				start: 'Start local harvesting',
 				harvesting: 'Harvesting',
-				stop: 'Stop harvesting'
+				stop: 'Stop local harvesting'
 			}
 		},
 		settings: {

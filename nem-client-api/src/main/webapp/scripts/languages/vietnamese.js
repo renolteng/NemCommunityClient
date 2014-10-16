@@ -484,9 +484,9 @@ define({
 			},
 			harvesting: {
 				unknown: 'Không rõ trạng thái',
-				start: 'Bắt đầu thu hoạch',
+				start: 'Bắt đầu thu hoạch cục bộ',
 				harvesting: 'Đang thu hoạch',
-				stop: 'Ngừng thu hoạch',
+				stop: 'Ngừng thu hoạch cục bộ',
 			}
 		},
 		settings: {

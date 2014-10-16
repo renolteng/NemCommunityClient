@@ -119,7 +119,10 @@
                             values.hours_due = parseInt(values.hours_due, 10);
                             ncc.postRequest('wallet/account/remote/activate', values, function(data) {
                                 closeModal();
-                                ncc.refreshAccount();
+                            }, {
+                                complete: function() {
+                                    ncc.refreshAccount();
+                                }
                             });
                             return false;
                         },
@@ -168,7 +171,10 @@
                             values.hours_due = parseInt(values.hours_due, 10);
                             ncc.postRequest('wallet/account/remote/deactivate', values, function(data) {
                                 closeModal();
-                                ncc.refreshAccount();
+                            }, {
+                                complete: function() {
+                                    ncc.refreshAccount();
+                                }
                             });
                             return false;
                         },
@@ -209,10 +215,9 @@
                         function(values, closeModal) {
                             ncc.postRequest('wallet/account/remote/unlock', values, function(data) {
                                 closeModal();
-                                ncc.refreshAccount();
                             }, {
                                 complete: function() {
-                                    ncc.refreshRemoteHarvestingStatus();
+                                    ncc.refreshAccount();
                                 }
                             });
                             return false;
@@ -261,10 +266,9 @@
                         function(values, closeModal) {
                             ncc.postRequest('wallet/account/remote/lock', values, function(data) {
                                 closeModal();
-                                ncc.refreshAccount();
                             }, {
                                 complete: function() {
-                                    ncc.refreshRemoteHarvestingStatus();
+                                    ncc.refreshAccount();
                                 }
                             });
                             return false;
@@ -275,11 +279,6 @@
             }));
 
             ncc.refreshAccount();
-
-            local.intervalJobs.push(setInterval(function() {
-                ncc.refreshRemoteHarvestingStatus();
-            }, 30000));
-            ncc.refreshRemoteHarvestingStatus();
 
             /*require(['scroller'], function() {
                 $('.scrollable').scroller();

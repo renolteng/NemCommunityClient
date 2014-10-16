@@ -13,34 +13,14 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }, null, silent);
             };
 
-            ncc.refreshAccount = function(wallet, account, silent) {
+            ncc.refreshRemoteHarvestingStatus = function(wallet, account, silent) {
                 if (!wallet) wallet = ncc.get('wallet.name');
                 if (!account) account = ncc.get('activeAccount.address');
 
-                var success = false;
-                ncc.postRequest('account/transactions/all', { wallet: wallet, account: account }, function(data) {
-                    success = true;
-                    ncc.set('activeAccount', ncc.processAccount(data));
-                    ncc.set('status.lostConnection', false);
-                }, {
-                    complete: function() {
-                        if (!success) {
-                            ncc.set('status.lostConnection', true);
-                        }
-                    }
-                }, silent);
-            };
-
-            ncc.refreshInfo = function(wallet, account, silent) {
-                ncc.refreshWallet(wallet, silent);
-                ncc.refreshAccount(wallet, account, silent);
-            };
-
-            ncc.refreshRemoteHarvestingStatus = function() {
                 ncc.postRequest('wallet/account/remote/status', 
                     { 
-                        wallet: ncc.get('wallet.name'),
-                        account: ncc.get('activeAccount.address')
+                        wallet: wallet,
+                        account: account
                     },
                     function(data) {
                         if (data.status === 'UNLOCKED') {
@@ -50,9 +30,42 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         }
                     },
                     null,
-                    true
+                    silent
                 );
-            }
+            };
+
+            ncc.refreshAccount = function(wallet, account, silent) {
+                if (!wallet) wallet = ncc.get('wallet.name');
+                if (!account) account = ncc.get('activeAccount.address');
+
+                var success = false;
+                ncc.postRequest('account/transactions/all', 
+                    { 
+                        wallet: wallet, 
+                        account: account 
+                    }, 
+                    function(data) {
+                        success = true;
+                        ncc.set('activeAccount', ncc.processAccount(data));
+                        ncc.set('status.lostConnection', false);
+                    }, 
+                    {
+                        complete: function() {
+                            if (!success) {
+                                ncc.set('status.lostConnection', true);
+                            }
+                        }
+                    }, 
+                    silent
+                );
+
+                ncc.refreshRemoteHarvestingStatus(wallet, account, silent);
+            };
+
+            ncc.refreshInfo = function(wallet, account, silent) {
+                ncc.refreshWallet(wallet, silent);
+                ncc.refreshAccount(wallet, account, silent);
+            };
 
             ncc.showTempMessage = function(message, duration) {
                 if (!duration) {
