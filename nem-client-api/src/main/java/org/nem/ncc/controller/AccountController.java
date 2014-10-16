@@ -3,7 +3,7 @@ package org.nem.ncc.controller;
 import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
-import org.nem.core.model.Address;
+import org.nem.core.model.*;
 import org.nem.core.model.ncc.HarvestInfo;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
@@ -249,6 +249,25 @@ public class AccountController {
 	public void remoteLock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
 		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
+	}
+
+	//endregion
+
+	//TODO 20141016 BR: this is temporary for creating a real private key during beta. It will be deleted at launch.
+	//region create real private key
+
+	@RequestMapping(value = "/account/real-private-key", method = RequestMethod.GET)
+	public String createRealPrivateKey() {
+		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
+		final KeyPair keyPair = new KeyPair();
+		final StringBuilder builder = new StringBuilder();
+		builder.append("{ ");
+		builder.append(String.format("\"privateKey\" : \"%s\", ", keyPair.getPrivateKey().toString()));
+		builder.append(String.format("\"publicKey\" : \"%s\", ", keyPair.getPublicKey().toString()));
+		builder.append(String.format("\"address\" : \"%s%s\"",
+				networkInfo.getAddressStartChar(), Address.fromPublicKey(keyPair.getPublicKey()).getEncoded().substring(1)));
+		builder.append(" }");
+		return builder.toString();
 	}
 
 	//endregion
