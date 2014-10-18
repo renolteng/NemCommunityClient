@@ -176,6 +176,31 @@ define({
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được tạo!',
 				create: 'Tạo'
 			},
+			createRealAccountData: {
+				title: 'Tạo dữ liệu tài khoản thực',
+				message: 'Dữ liệu dưới đây là dành cho tài khoản thực của bạn sau khi NEM chính thức hoạt động. Hãy lưu lại địa chỉ, khoá công khai, và quan trọng nhất là khoá bí mật vào một nơi nào đó an toàn. Nếu bạn đánh mất khoá bí mật, tài khoản của bạn cùng tất cả số NEM thực trong đó sẽ bị mất VĨNH VIỄN!',
+				address: 'Địa chỉ',
+				publicKey: 'Khoá công khai',
+				privateKey: 'Khoá bí mật',
+				confirm: {
+					title: 'Lưu khoá bí mật',
+					message: 'Bạn có chắc rằng khoá bí mật của bạn đã được lưu giữ ở một nơi an toàn chưa?'
+				},
+				recheck: {
+					title: 'Kiếm tra lại khoá bí mật bạn đã lưu',
+					message: "Hãy nhập lại khoá bí mật mà bạn vừa được cung cấp để kiểm tra xem bạn có lưu chính xác hay không. Nếu khoá bí mật của bạn đã bị mất, bạn có lẽ sẽ muốn tạo lại một cái mới.",
+					correct: {
+						title: 'Tốt quá!',
+						message: 'Có vẻ là bạn đã lưu đúng khoá bí mật của mình. Hãy nhớ luôn luôn giữ nó an toàn và bí mật!'
+					},
+					incorrect: {
+						title: 'Hừmm...',
+						message: "Khoá bí mật mà bạn vừa nhập là không chính xác! Hãy kiểm tra kỹ lại và nhập lại một lần nữa."
+					},
+					recheck: 'Kiểm tra'
+				},
+				ok: 'OK'
+			},
 			addAccount: {
 				title: 'Thêm tài khoản đã tồn tại',
 				privateKey: "Khoá bí mật",
@@ -241,7 +266,7 @@ define({
 				title: 'Kích hoạt thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				hoursDue: 'Hết hạn',
+				hoursDue: 'Hết hạn sau (giờ)',
 				password: "Mật khẩu ví",
 				activate: 'Kích hoạt'
 			},
@@ -249,7 +274,7 @@ define({
 				title: 'Vô hiệu hoá thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				hoursDue: 'Hết hạn',
+				hoursDue: 'Hết hạn sau (giờ)',
 				password: "Mật khẩu ví",
 				deactivate: 'Vô hiệu hoá'
 			},
@@ -346,6 +371,7 @@ define({
 				mergeWallets: 'Hợp nhất nhiều ví',
 				exportWallet: 'Xuất ví',
 				createAccount: 'Tạo tài khoản mới',
+				createRealAccountData: 'Tạo dữ liệu tài khoản thực',
 				addAccount: 'Thêm tài khoản đã tồn tại',
 				changeAccountLabel: 'Đổi nhãn tài khoản',
 				setPrimary: 'Đặt làm tài khoản chính',
@@ -377,16 +403,16 @@ define({
 			importance: {
 				title: 'Điểm tầm quan trọng',
 				unknown: 'Không rõ trạng thái',
-				start: 'Bắt đầu thu hoạch',
+				start: 'Bắt đầu thu hoạch cục bộ',
 				harvesting: 'Đang thu hoạch',
-				stop: 'Ngừng thu hoạch',
+				stop: 'Ngừng thu hoạch cục bộ',
 				description: 'tầm quan trọng của tài khoản với NEM cloud',
 				remoteHarvest: {
 					activate: 'Kích hoạt thu hoạch từ xa',
-					activating: 'Đang kích hoạt...',
+					activating: 'Đang kích hoạt thu hoạch từ xa...',
 					active: 'Thu hoạch từ xa đã sẵn sàng',
 					deactivate: 'Vô hiệu hoá thu hoạch từ xa',
-					deactivating: 'Đang vô hiệu hoá...',
+					deactivating: 'Đang vô hiệu hoá thu hoạch từ xa...',
 					startRemoteHarvesting: 'Bắt đầu thu hoạch từ xa',
 					remotelyHarvesting: 'Đang thu hoạch từ xa',
 					stopRemoteHarvesting: 'Ngừng thu hoạch từ xa'
@@ -484,9 +510,9 @@ define({
 			},
 			harvesting: {
 				unknown: 'Không rõ trạng thái',
-				start: 'Bắt đầu thu hoạch',
+				start: 'Bắt đầu thu hoạch cục bộ',
 				harvesting: 'Đang thu hoạch',
-				stop: 'Ngừng thu hoạch',
+				stop: 'Ngừng thu hoạch cục bộ',
 			}
 		},
 		settings: {

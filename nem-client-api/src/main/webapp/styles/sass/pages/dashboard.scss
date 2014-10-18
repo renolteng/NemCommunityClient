@@ -176,14 +176,17 @@
 	}
 }
 
-.importanceTile-harvestButton {
+.importanceTile-harvest {
 	position: absolute;
 	top: 50%;
 	left: 0;
-	padding: 0 16px;
-	height: 42px;
 	@include transform(translateY(-50%));
-	line-height: 42px;
+}
+
+.importanceTile-harvestButton {
+	display: block;
+	margin-bottom: 3px;
+	padding: 10px 16px;
 	background-color: #7c6890;
 	font-size: 16px;
 
@@ -191,6 +194,10 @@
 		margin-right: 8px;
 		vertical-align: -3px;
 		font-size: 19px;
+	}
+
+	&:not(:disabled):hover {
+		background-color: #7c6890;
 	}
 }
 
@@ -200,13 +207,6 @@
 
 .importanceTile-harvestButton--harvesting {
 	background-color: #a186b9;
-}
-
-.importanceTile-harvestButton--notHarvesting, 
-.importanceTile-harvestButton--harvesting {
-	&:hover {
-		background-color: #7c6890;
-	}
 }
 
 .importanceTile-content {
@@ -221,15 +221,18 @@
 }
 
 .importanceTile-description {
-	margin-top: 10px;
+	margin-top: 15px;
 	font-size: 26px;
 	font-weight: $fontWeight-black;
 	color: #453456;
 }
 
-.importanceTile-activateButton,
-.importanceTile-remoteHarvestButton {
-	background-color: #4c4058;
+.importanceTile-activateButton {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 6px 12px;
+	background-color: #6b577c;
 
 	&:not(:disabled):hover {
 		background-color: #7c6890;
@@ -267,6 +270,7 @@
 .transactionsTile-balance {
 	font-size: 36px;
 	font-weight: $fontWeight-light;
+	vertical-align: middle;
 }
 
 .transactionsTile-currentBlock {

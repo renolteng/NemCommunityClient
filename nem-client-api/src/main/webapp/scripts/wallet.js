@@ -13,34 +13,14 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }, null, silent);
             };
 
-            ncc.refreshAccount = function(wallet, account, silent) {
+            ncc.refreshRemoteHarvestingStatus = function(wallet, account, silent) {
                 if (!wallet) wallet = ncc.get('wallet.name');
                 if (!account) account = ncc.get('activeAccount.address');
 
-                var success = false;
-                ncc.postRequest('account/transactions/all', { wallet: wallet, account: account }, function(data) {
-                    success = true;
-                    ncc.set('activeAccount', ncc.processAccount(data));
-                    ncc.set('status.lostConnection', false);
-                }, {
-                    complete: function() {
-                        if (!success) {
-                            ncc.set('status.lostConnection', true);
-                        }
-                    }
-                }, silent);
-            };
-
-            ncc.refreshInfo = function(wallet, account, silent) {
-                ncc.refreshWallet(wallet, silent);
-                ncc.refreshAccount(wallet, account, silent);
-            };
-
-            ncc.refreshRemoteHarvestingStatus = function() {
                 ncc.postRequest('wallet/account/remote/status', 
                     { 
-                        wallet: ncc.get('wallet.name'),
-                        account: ncc.get('activeAccount.address')
+                        wallet: wallet,
+                        account: account
                     },
                     function(data) {
                         if (data.status === 'UNLOCKED') {
@@ -50,9 +30,42 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         }
                     },
                     null,
-                    true
+                    silent
                 );
-            }
+            };
+
+            ncc.refreshAccount = function(wallet, account, silent) {
+                if (!wallet) wallet = ncc.get('wallet.name');
+                if (!account) account = ncc.get('activeAccount.address');
+
+                var success = false;
+                ncc.postRequest('account/transactions/all', 
+                    { 
+                        wallet: wallet, 
+                        account: account 
+                    }, 
+                    function(data) {
+                        success = true;
+                        ncc.set('activeAccount', ncc.processAccount(data));
+                        ncc.set('status.lostConnection', false);
+                    }, 
+                    {
+                        complete: function() {
+                            if (!success) {
+                                ncc.set('status.lostConnection', true);
+                            }
+                        }
+                    }, 
+                    silent
+                );
+
+                ncc.refreshRemoteHarvestingStatus(wallet, account, silent);
+            };
+
+            ncc.refreshInfo = function(wallet, account, silent) {
+                ncc.refreshWallet(wallet, silent);
+                ncc.refreshAccount(wallet, account, silent);
+            };
 
             ncc.showTempMessage = function(message, duration) {
                 if (!duration) {
@@ -316,6 +329,116 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             return false;
                         },
                         ncc.get('texts.modals.createAccount.create')
+                    );
+                },
+                createRealAccountData: function() {
+                    ncc.getRequest('/account/real-private-key',
+                        function(data) {
+                            var formattedAddress = ncc.formatAddress(data.address);
+
+                            // Open the 1st modal: generating account data
+                            ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.title'), 
+                                ncc.get('texts.modals.createRealAccountData.message'),
+                                [
+                                    {
+                                        name: 'address',
+                                        type: 'text',
+                                        readonly: true,
+                                        noDimming: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.createRealAccountData.address')
+                                        }
+                                    },
+                                    {
+                                        name: 'publicKey',
+                                        type: 'textarea',
+                                        readonly: true,
+                                        noDimming: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.createRealAccountData.publicKey')
+                                        }
+                                    },
+                                    {
+                                        name: 'privateKey',
+                                        type: 'textarea',
+                                        readonly: true,
+                                        noDimming: true,
+                                        label: {
+                                            content: ncc.get('texts.modals.createRealAccountData.privateKey')
+                                        }
+                                    }
+                                ],
+                                {
+                                    address: formattedAddress,
+                                    publicKey: data.publicKey,
+                                    privateKey: data.privateKey
+                                },
+                                function(values, closeModal) {
+                                    ncc.showConfirmation(
+                                        ncc.get('texts.modals.createRealAccountData.confirm.title'),
+                                        ncc.get('texts.modals.createRealAccountData.confirm.message'),
+                                        {
+                                            yes: function() {
+                                                // Close the 1st modal
+                                                closeModal();
+
+                                                // Open the 2nd modal: recheck private key
+                                                ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.recheck.title'), 
+                                                    ncc.get('texts.modals.createRealAccountData.recheck.message'),
+                                                    [
+                                                        {
+                                                            name: 'address',
+                                                            type: 'text',
+                                                            readonly: true,
+                                                            label: {
+                                                                content: ncc.get('texts.modals.createRealAccountData.address')
+                                                            }
+                                                        },
+                                                        {
+                                                            name: 'publicKey',
+                                                            type: 'textarea',
+                                                            readonly: true,
+                                                            label: {
+                                                                content: ncc.get('texts.modals.createRealAccountData.publicKey')
+                                                            }
+                                                        },
+                                                        {
+                                                            name: 'privateKey',
+                                                            type: 'textarea',
+                                                            label: {
+                                                                content: ncc.get('texts.modals.createRealAccountData.privateKey')
+                                                            }
+                                                        }
+                                                    ],
+                                                    {
+                                                        address: formattedAddress,
+                                                        publicKey: data.publicKey
+                                                    },
+                                                    function(values, closeModal) {
+                                                        if (values.privateKey === data.privateKey) {
+                                                            closeModal(); // close the 2nd modal
+                                                            ncc.showMessage(
+                                                                ncc.get('texts.modals.createRealAccountData.recheck.correct.title'),
+                                                                ncc.get('texts.modals.createRealAccountData.recheck.correct.message')
+                                                            );
+                                                        } else {
+                                                            ncc.showMessage(
+                                                                ncc.get('texts.modals.createRealAccountData.recheck.incorrect.title'),
+                                                                ncc.get('texts.modals.createRealAccountData.recheck.incorrect.message')
+                                                            );
+                                                        }
+                                                        return false;
+                                                    },
+                                                    ncc.get('texts.modals.createRealAccountData.recheck.recheck')
+                                                );
+                                            }
+                                        }
+                                    );
+                                    return false;
+                                },
+                                ncc.get('texts.modals.createRealAccountData.ok')
+                            );
+                        }
                     );
                 },
                 addAccount: function() {

@@ -34,33 +34,37 @@
 						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.deactivating}}</button>
 					{{/}}
 
-					{{^walletPage.remoteUnlocked}}
-						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATING' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
-					{{/}}
-					{{#walletPage.remoteUnlocked}}
-						<button type="button" disabled="{{activeAccount.remoteStatus !== 'ACTIVATING' && activeAccount.remoteStatus !== 'ACTIVE'}}" class="importanceTile-remoteHarvestButton hoverTarget" on-click="stopRemoteHarvesting">
-							<span class="hideOnHover">{{texts.dashboard.importance.remoteHarvest.remotelyHarvesting}}</span>
-							<span class="showOnHover">{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}</span>
-						</button>
-					{{/}}
+					<div class="importanceTile-harvest">
+						{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
+							<button type="button" class="importanceTile-harvestButton icon-question-circle" disabled>
+								<span>{{texts.dashboard.importance.unknown}}</span>
+							</button>
+						{{/}}
+						{{^status.lostConnection || nisUnavailable}}
+							{{#activeAccount.status === 'LOCKED'}}
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
+									<span>{{texts.dashboard.importance.start}}</span>
+								</button>
+							{{/}}
+							{{#activeAccount.status === 'UNLOCKED'}}
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting">
+									{{texts.dashboard.importance.stop}}
+								</button>
+							{{/}}
+						{{/}}
 
-					{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-						<button type="button" class="importanceTile-harvestButton unknown icon-question-circle">
-							<span>{{texts.dashboard.importance.unknown}}</span>
-						</button>
-					{{/}}
-					{{^status.lostConnection || nisUnavailable}}
-						{{#activeAccount.status === 'LOCKED'}}
-							<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
-								<span>{{texts.dashboard.importance.start}}</span>
-							</button>
+						{{#activeAccount.remoteStatus === 'ACTIVATING' || activeAccount.remoteStatus === 'ACTIVE'}}
+							{{^walletPage.remoteUnlocked}}
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
+							{{/}}
+							{{#walletPage.remoteUnlocked}}
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopRemoteHarvesting">
+									{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}
+								</button>
+							{{/}}
 						{{/}}
-						{{#activeAccount.status === 'UNLOCKED'}}
-							<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting hoverTarget icon-pause" on-click="stopHarvesting">
-								<span class="hideOnHover">{{texts.dashboard.importance.harvesting}}</span><span class="showOnHover">{{texts.dashboard.importance.stop}}</span>
-							</button>
-						{{/}}
-					{{/}}
+					</div>
+
 					<div class="importanceTile-content">
 						<p class="importanceTile-importanceScore">{{Math.round(activeAccount.importance * 10000) / 100}}%</p>
 						<p class="importanceTile-description">{{texts.dashboard.importance.description}}</p>
