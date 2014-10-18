@@ -386,7 +386,7 @@ public class AccountControllerTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());
-		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(viewModel.getNetworkVersion()));
+		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(NetworkInfo.getMainNetworkInfo().getVersion()));
 	}
 
 	//endregion

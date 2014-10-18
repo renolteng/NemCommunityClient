@@ -5,7 +5,7 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 
 /**
- * Simple view on a key pair.
+ * Simple key pair view model.
  */
 public class KeyPairViewModel implements SerializableEntity {
 	private final KeyPair keyPair;
