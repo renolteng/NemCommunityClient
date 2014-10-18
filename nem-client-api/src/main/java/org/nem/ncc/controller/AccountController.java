@@ -11,7 +11,6 @@ import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.model.KeyPairView;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -254,14 +253,19 @@ public class AccountController {
 
 	//endregion
 
-	// TODO 20141016 BR: this is temporary for creating a real private key during beta. It will be deleted at launch.
 	//region create real private key
 
+	/**
+	 * Temporary API for creating a real (main-net) private key during beta.
+	 * TODO 20141016 BR: delete at launch
+	 *
+	 * @return A key pair view model.
+	 */
 	@RequestMapping(value = "/account/real-private-key", method = RequestMethod.GET)
-	public KeyPairView createRealPrivateKey() {
+	public KeyPairViewModel createRealPrivateKey() {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
 		final KeyPair keyPair = new KeyPair();
-		return new KeyPairView(keyPair, networkInfo.getVersion());
+		return new KeyPairViewModel(keyPair, networkInfo.getVersion());
 	}
 
 	//endregion

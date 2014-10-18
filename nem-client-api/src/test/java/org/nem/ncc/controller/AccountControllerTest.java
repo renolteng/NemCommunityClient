@@ -1,7 +1,7 @@
 package org.nem.ncc.controller;
 
 import net.minidev.json.*;
-import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
@@ -370,6 +370,23 @@ public class AccountControllerTest {
 		Assert.assertThat(
 				jsonRequest.get("value"),
 				IsEqual.equalTo(keyPair.getPrivateKey().toString()));
+	}
+
+	//endregion
+
+	//region createRealPrivateKey
+
+	@Test
+	public void createRealPrivateKeyReturnsMainNetPrivateKey() {
+		// Arrange:
+		final TestContext context = new TestContext();
+
+		// Act:
+		final KeyPairViewModel viewModel = context.controller.createRealPrivateKey();
+
+		// Assert:
+		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());
+		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(viewModel.getNetworkVersion()));
 	}
 
 	//endregion
