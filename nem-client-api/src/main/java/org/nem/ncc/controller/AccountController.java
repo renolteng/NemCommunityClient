@@ -11,6 +11,7 @@ import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
+import org.nem.ncc.model.KeyPairView;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -254,24 +255,13 @@ public class AccountController {
 	//endregion
 
 	// TODO 20141016 BR: this is temporary for creating a real private key during beta. It will be deleted at launch.
-	// TODO 20141016 J: i would still create a simple view model for this instead of building the json manually
-	// TODO 20141016 J: i would add a simple test as well
-
 	//region create real private key
 
 	@RequestMapping(value = "/account/real-private-key", method = RequestMethod.GET)
-	public String createRealPrivateKey() {
+	public KeyPairView createRealPrivateKey() {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
 		final KeyPair keyPair = new KeyPair();
-		final StringBuilder builder = new StringBuilder();
-		builder.append("{ ");
-		builder.append(String.format("\"privateKey\" : \"%s\", ", keyPair.getPrivateKey().toString()));
-		builder.append(String.format("\"publicKey\" : \"%s\", ", keyPair.getPublicKey().toString()));
-		// TODO 20141016 J: i'm going to make the private Address constructor public so you don't have to do this :)
-		builder.append(String.format("\"address\" : \"%s%s\"",
-				networkInfo.getAddressStartChar(), Address.fromPublicKey(keyPair.getPublicKey()).getEncoded().substring(1)));
-		builder.append(" }");
-		return builder.toString();
+		return new KeyPairView(keyPair, networkInfo.getVersion());
 	}
 
 	//endregion
