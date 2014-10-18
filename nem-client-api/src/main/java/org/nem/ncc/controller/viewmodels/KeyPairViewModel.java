@@ -1,6 +1,6 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.crypto.*;
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 

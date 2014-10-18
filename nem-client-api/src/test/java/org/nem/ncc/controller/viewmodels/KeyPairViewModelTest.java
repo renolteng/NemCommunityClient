@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.core.crypto.KeyPair;
-import org.nem.core.model.*;
+import org.nem.core.model.Address;
 import org.nem.core.serialization.JsonSerializer;
 
 public class KeyPairViewModelTest {
