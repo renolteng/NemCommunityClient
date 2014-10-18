@@ -175,7 +175,7 @@
 					<span class="sidebar-nav-item-title icon-envelope"><span class="fullSidebarOnly">{{texts.wallet.nav.1}}</span></span>
 					<!--/*</span><span class="noti-box messages">4</span>*/-->
 				</a></li>
-				<li class="sidebar-nav-item disabled {{#layout.1.name === 'contacts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'contacts', {{params}}">
+				<li class="sidebar-nav-item {{#layout.1.name === 'address-book'}}active{{/}}"><a href="javascript:;" on-click="redirect:'address-book', {{params}}">
 					<span class="sidebar-nav-item-title icon-users"><span class="fullSidebarOnly">{{texts.wallet.nav.2}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item {{#layout.1.name === 'transactions'}}active{{/}}"><a href="javascript:;" on-click="redirect:'transactions', {{params}}">

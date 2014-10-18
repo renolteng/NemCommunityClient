@@ -384,7 +384,7 @@ define({
 			nav: [
 				'Dashboard',
 				'Messages',
-				'Contacts',
+				'Address book',
 				'Transactions',
 				'Harvested blocks',
 				'Asset Exchange',
@@ -513,6 +513,17 @@ define({
 				start: 'Start local harvesting',
 				harvesting: 'Harvesting',
 				stop: 'Stop local harvesting'
+			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Label'
+				],
+				noContacts: 'There is no contacts in your address book'
 			}
 		},
 		settings: {
