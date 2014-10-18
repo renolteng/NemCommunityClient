@@ -255,18 +255,13 @@ public class AccountController {
 	//endregion
 
 	// TODO 20141016 BR: this is temporary for creating a real private key during beta. It will be deleted at launch.
-	// TODO 20141016 J: i would still create a simple view model for this instead of building the json manually
-	// TODO 20141016 J: i would add a simple test as well
-	// TODO 20141017 BR -> J: not finished, had very little time today :/
-
 	//region create real private key
 
 	@RequestMapping(value = "/account/real-private-key", method = RequestMethod.GET)
 	public KeyPairView createRealPrivateKey() {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
 		final KeyPair keyPair = new KeyPair();
-		final KeyPairView keyPairView = new KeyPairView(keyPair, networkInfo.getVersion());
-		return keyPairView;
+		return new KeyPairView(keyPair, networkInfo.getVersion());
 	}
 
 	//endregion
