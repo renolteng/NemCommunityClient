@@ -19,6 +19,7 @@
         		var currBlocks = ncc.get('harvestedBlocks.list');
         		if (type === 'append') {
 					requestData.hash = (currBlocks && currBlocks.length) ? currBlocks[currBlocks.length - 1].hash : undefined;
+                    ncc.set('status.loadingOlderBlocks', true);
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
@@ -40,7 +41,11 @@
                             ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
                         }
                 	}
-				}, null, type === 'update');
+				}, {
+                    complete: function() {
+                        ncc.set('status.loadingOlderBlocks', false);
+                    }
+                }, type === 'update');
 			};
         },
     	setupEverytime: function() {

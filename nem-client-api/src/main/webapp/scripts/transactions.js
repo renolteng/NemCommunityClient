@@ -20,6 +20,7 @@
 				var currTxes = ncc.get('transactions.filtered');
 				if (type === 'append') {
 					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : undefined;
+					ncc.set('status.loadingOlderTransactions', true);
 				}
 
 				ncc.postRequest(api, requestData, function(data) {
@@ -41,7 +42,11 @@
                 			ncc.global.$window.off('scroll.txesInfiniteScrolling');
                 		}
                 	}
-                }, null, type === 'update');
+                }, {
+                	complete: function() {
+                		ncc.set('status.loadingOlderTransactions', false);
+                	}
+                }, type === 'update');
 			};
 		},
     	setupEverytime: function() {
