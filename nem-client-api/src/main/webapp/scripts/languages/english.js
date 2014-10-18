@@ -505,8 +505,8 @@ define({
 					'Block hash',
 					'Fee'
 				],
-				noBlocks: 'No harvested blocks ',
-				loadMore: 'See older harvested blocks'
+				noBlocks: 'No blocks have been harvested yet',
+				loading: 'Loading more harvested blocks'
 			},
 			harvesting: {
 				unknown: 'Unknown status',
