@@ -236,34 +236,34 @@ define({
 				message: 'Tem certeza que quer fechar o programa (NIS)?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
+				title: 'Atvar colheita Remota',
+				wallet: 'Carteira',
+				account: 'Conta',
+				hoursDue: 'devido por horas', // possívelmente necessitará correção
+				password: "Senha da carteira",
 				activate: 'Activate'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				wallet: 'Carteira',
+				account: 'Conta',
+				hoursDue: 'devido por horas',
+				password: "Senha da carteira",
+				deactivate: 'Desativar'
 			},
 			startRemote: {
 				title: 'Start Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
-				start: 'Start'
+				wallet: 'Carteira',
+				account: 'Conta',
+				password: "Senha da carteira",
+				start: 'Começar'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
-				stop: 'Stop'
+				title: 'Parar colheita remota',
+				wallet: 'Carteira',
+				account: 'Conta',
+				password: "Senha da carteira",
+				stop: 'Parar'
 			}
 		},
 		landing: {
@@ -354,7 +354,7 @@ define({
 				copyClipboard: 'Copiar para a área de transferência'
 			},
 			nav: [
-				'Painel Administrativo', //Dashboard
+				'Painel Administrativo',
 				'Mensagens',
 				'Contatos',
 				'Transações',
@@ -429,7 +429,7 @@ define({
 			news: {
 				titleTooltip: 'Novidades'
 			},
-			notAvailable: 'Não disponível na versão Alfa'
+			notAvailable: 'Não disponível na versão Alfa!'
 		},
 		transactions: {
 			title: 'Transações',

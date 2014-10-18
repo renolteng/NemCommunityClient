@@ -266,7 +266,7 @@ define({
 				title: 'Kích hoạt thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				hoursDue: 'Hết hạn',
+				hoursDue: 'Hết hạn sau (giờ)',
 				password: "Mật khẩu ví",
 				activate: 'Kích hoạt'
 			},
@@ -274,7 +274,7 @@ define({
 				title: 'Vô hiệu hoá thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				hoursDue: 'Hết hạn',
+				hoursDue: 'Hết hạn sau (giờ)',
 				password: "Mật khẩu ví",
 				deactivate: 'Vô hiệu hoá'
 			},

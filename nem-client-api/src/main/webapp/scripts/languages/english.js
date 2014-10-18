@@ -266,7 +266,7 @@ define({
 				title: 'Activate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Hours due',
+				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
 				activate: 'Activate'
 			},
@@ -274,7 +274,7 @@ define({
 				title: 'Deactivate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Hours due',
+				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
 				deactivate: 'Deactivate'
 			},
