@@ -191,7 +191,7 @@ define({
 					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
 					correct: {
 						title: 'Nice!',
-						message: 'You seems to have your correct private key saved. Please remember to always keep it safe and secured!'
+						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
 					},
 					incorrect: {
 						title: 'Hmm...',
