@@ -9,15 +9,15 @@ define({
         faults: {
             101: "Arquivo não encontrado.",
             102: "A carteira não foi criada.",
-            103: "O arquivo da carteira está corrompido. Por favor, restaure o back-up ou crie outra conta.",
-            104: "Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-lo se perdida!",
-            106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha da carteira existente ou crie outra.",
+            103: "O arquivo da carteira está corrompido. Por favor, restaure o backup ou crie outra conta.",
+            104: "Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-la depois de perdida!",
+            106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha de uma carteira ou crie outra.",
             107: "A carteira não contém essa conta.",
             108: "A conta não pode ser removida. Provavelmente pelo motivo de que ela tem saldo maior que 0 NEMs ou é a conta primária.",
             109: "Já existe uma conta com o mesmo nome. Por favor, escolha outro.",
-            110: "A carteira já contem essa conta.",
-            202: "Não se pode enviar uma mensagem criptografada para uma carteira que nunca realizou uma transação antes. Ela não possui chave pública.",
-            305: "NIS indisponível ou iniciando.",
+            110: "A carteira já contém essa conta.",
+            202: "Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.",
+            305: "NIS inicializando.",
             306: "Ocorreu um erro que o time de desenvolvedores não havia previsto. Pedimos desculpas por esse problema. Talvez uma nova tentativa possa resolver o problema. Caso contrário, abra uma reclamação de problemas NIS/NCC na comunidade NEM.",
             400: "Está faltando algum parâmetro ou os dados são inválidos (letras no lugar de números, por exemplo).",
             404: "O arquivo solicitado não pode ser encontrado..",
@@ -34,7 +34,7 @@ define({
             707: "A data da ID de transação está muito no passado.",
             708: "A data da ID de transação está muito no futuro.",
             709: "Conta desconhecida, Por favor, faça uma transação para conseguir uma chave pública.",
-            901: "Erro na configuração de modo off-line."
+            901: "Erro na configuração do modo off-line."
         },
         common: { 
             success: "Successo",
@@ -69,7 +69,7 @@ define({
             settings: {
                 title: "Configurações",
                 language: {
-                    label: "Linguagem"
+                    label: "Idioma"
                 },
                 remoteServer: {
                     tabTitle: "Servidor remoto",
@@ -100,7 +100,7 @@ define({
                 encrypt: "Criptografar mensagem",
                 fee: "Taxa",
                 dueBy: "Devido por",
-                resetFee: "Valor mínimo de taxa",
+                resetFee: "Valor mínimo da taxa",
                 hours: "horas",
                 password: "Senha",
                 send: "Enviar",
@@ -127,7 +127,7 @@ define({
                 nis: "NEM Infrastructure Server - NIS",
                 sync: "Sincronizado",
                 notSync: "Não sincronizado",
-                notConnected: "Não conectado à nuvem de peers",
+                notConnected: "Desconectado da nuvem de peers",
                 loading: "Carregando..."
             },
             transactionDetails: {
@@ -171,12 +171,12 @@ define({
                 label: "Identificação",
                 wallet: "Carteira",
                 password: "Senha",
-                successMessage: "A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up e guarde-o em local seguro.",
+                successMessage: "A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um backup e guarde-o em local seguro.",
                 create: "Criar"
             },
             createRealAccountData: {
                 title: "Criar dados para sua conta real.",
-                message: "Os dados abaixo são para sua conta Nem após o lançamento. Salve o endereço, a chave pública e a chave privada em um lugar SEGURO. Se você perder a sua chave privada, a sua carteira e todas as suas moedas estarão perdidas para SEMPRE!",
+                message: "Os dados abaixo são para sua conta NEM após o lançamento. Salve o endereço, a chave pública e a chave privada em um lugar SEGURO. Se você perder a sua chave privada, a sua carteira e todas as suas moedas estarão perdidas para SEMPRE!",
                 address: "Endereço",
                 publicKey: "Chave pública",
                 privateKey: "chave privada",
@@ -186,10 +186,10 @@ define({
                 },
                 recheck: {
                     title: "Re-checar sua chave privada",
-                    message: "Por favor, entre novamente com a sua chave privada que acabou de ser fornecida para você, para checarmos se vocÊ salvou o arquivop certo. Se você perdeu a sua chave privada, talvez você queira criar uma nova.",
+                    message: "Por favor, entre novamente com a sua chave privada que acabou de ser fornecida para checarmos se o arquivo foi salvo corretamente. Em caso negativo, por favor, crie uma nova.",
                     correct: {
                         title: "Beleza!",
-                        message: "Aparentemente você salvou a chave privada correta. Por favor, lembre-se de mantê-la em um local seguro e possivelmente com back-ups!"
+                        message: "Aparentemente você salvou a chave privada corretamente. Por favor, lembre-se de mantê-la em um local seguro e, se possível, com backups!"
                     },
                     incorrect: {
                         title: "Iche...",
@@ -204,7 +204,7 @@ define({
                 privateKey: "Chave privada",
                 wallet: "Carteira",
                 password: "Senha da carteira",
-                successMessage: "A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um back-up e guarde-o em local seguro!",
+                successMessage: "A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um backup e guarde-o em local seguro!",
                 add: "Criar",
                 label: "Identificação"
             },
@@ -293,19 +293,19 @@ define({
         },
         landing: {
             logo: "images/nem_logo.png",
-            importSuccess: "A carteira foi importada com sucesso",
+            importSuccess: "A carteira foi importada!",
             nav: {
                 start: "Início",
                 about: "Sobre NEM",
                 settings: "Configurações"
             },
             main: {
-                leftTitle: "Primeira vez? Criar carteira <em>NEM</em>?",
+                leftTitle: "Primeira vez?<br>Crie uma carteira <em>NEM</em>?",
                 leftButton: "Criar nova carteira",
                 walletNamePlh: "Nome para a carteira",
                 passwordPlh: "Senha",
                 create: "Criar",
-                rightTitle: "Já é um membro <em>NEM</em>?",
+                rightTitle: "Já possui uma carteira <em>NEM</em>?",
                 rightButton: "Abrir carteira existente",
                 openButton: "Abrir",
                 walletsFound: "Encontrada(s) <strong>{{1}}</strong> <em>carteira(s)</em>",
@@ -354,7 +354,7 @@ define({
         },
         wallet: {
             logo: "images/nem_logo.png",
-            lastAccess: "Aproximadamente {{1}} dia(s) atrá",
+            lastAccess: "Aproximadamente {{1}} dia(s) atrás",
             lastAccessJustNow: "Agora a pouco",
             lastAccessTooltip: "Ultimo acesso em {{1}}",
             primary: "primário",
@@ -402,13 +402,13 @@ define({
                 title: "Pontuação de importância",
                 unknown: "Status desconhecido",
                 start: "Começar colheita local",
-                harvesting: "colheita",
+                harvesting: "colheitando",
                 stop: "Parar colheita local",
                 description: "Pontuação de Importância para a nuvem de peers",
                 remoteHarvest: {
                     activate: "Ativar colheita remota",
                     activating: "Ativando...",
-                    active: "Colheita remota está ativa!",
+                    active: "A colheita remota está ativa!",
                     deactivate: "Desativar colheita remota",
                     deactivating: "Desativando colheita remota...",
                     startRemoteHarvesting: "Inicializar colheita remota",
@@ -517,7 +517,7 @@ define({
             title: "Opções",
             settings: [
                 {
-                    name: "Linguagem"
+                    name: "Idioma"
                 }
             ],
             save: "Salvar modificações",
