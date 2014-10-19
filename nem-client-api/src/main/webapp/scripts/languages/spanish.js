@@ -519,6 +519,7 @@ define({
                    }
                },
                wallet: {
+				   logo: 'images/nem_logo.png',
                    //lastAccess: 'About {{1}} days ago',
                    lastAccess: 'Hace {{1}} dia(s) aproximadamente',
                    //lastAccessJustNow: 'Just now',
@@ -563,7 +564,8 @@ define({
                        //closeWallet: 'Close Wallet',
                        closeWallet: 'Cerrar monedero',
                        //closeProgram: 'Close Program'
-                       closeProgram: 'Cerrar programa'
+                       closeProgram: 'Cerrar programa',
+					   copyClipboard: 'Copy address to clipboard'
                    },
                    nav: [
                        'Panel de informaci&oacute;n', //'Dashboard',

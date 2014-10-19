@@ -407,10 +407,10 @@ define({
                 description: "Wichtigkeit des Kontos für die NEM Cloud",
                 remoteHarvest: {
                     activate: "Sichere Ernte aktivieren",
-                    activating: "Aktiviere...",
+                    activating: "Aktiviere sichere Ernte...",
                     active: "Sichere Ernte ist aktiv",
                     deactivate: "Sichere Ernte deaktivieren",
-                    deactivating: "Deaktiviere...",
+                    deactivating: "Deaktiviere sichere Ernte...",
                     startRemoteHarvesting: "Sichere Ernte beginnen",
                     remotelyHarvesting: "Sichere Ernte",
                     stopRemoteHarvesting: "Sichere Ernte anhalten"

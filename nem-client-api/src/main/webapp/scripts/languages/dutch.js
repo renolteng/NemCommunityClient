@@ -39,11 +39,15 @@ define({
         common: {
         	success: 'Succes', //title of the Success message modals
         	nisStatus: {
+        		nccUnknown: 'NCC status is unknown',
         		nccUnavailable: 'NCC is niet beschikbaar',
-        		unavailable: 'NIS is niet beschikbaar',
-        		booting: 'Starten van de NIS...',
+        		nccStarting: 'NCC is starting...',
+        		nisUnknown: 'NIS status is unknown',
+        		nisUnavailable: 'NIS is niet beschikbaar',
+        		nisStarting: 'NIS is starting...',
         		notBooted: 'Het is vereist om NIS te (her)starten. Open een wallet en start een lokale bij het popup dialoog.',
-        		retrievingStatus: 'Opvragen van NIS status...',
+        		booting: 'Starten van de NIS...',
+        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
         		synchronizing: 'NIS is aan het synchronizeren. Bij block {{1}}, ong. {{2}} achter.',
         		daysBehind: {
         			0: 'minder dan 1 dag',
@@ -101,7 +105,18 @@ define({
 				password: 'Wachtwoord',
 				send: 'Verstuur',
 				sending: 'Versturen...',
-				successMessage: 'Transactie is verstuurd!!'
+				successMessage: 'Transactie is verstuurd!!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: 'Client informatie',
@@ -160,6 +175,31 @@ define({
 				password: "Wallet wachtwoord",
 				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} is aangemaakt.!',
 				create: 'Aanmaken'
+			},
+			createRealAccountData: {
+				title: 'Create real account data',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				confirm: {
+					title: 'Save the private key',
+					message: 'Are you sure your private key has been saved into a safe place?'
+				},
+				recheck: {
+					title: 'Re-check your saved private key',
+					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					correct: {
+						title: 'Nice!',
+						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+					},
+					incorrect: {
+						title: 'Hmm...',
+						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+					},
+					recheck: 'Check'
+				},
+				ok: 'OK'
 			},
 			addAccount: {
 				title: 'Voeg een bestaande rekening toe',
@@ -221,6 +261,36 @@ define({
 			shutdown: {
 				title: 'Afsluiten',
 				message: 'Weet je zeker dat je de NEM Community Client wil afsluiten?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Due by (hours)',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Due by (hours)',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -301,6 +371,7 @@ define({
 				mergeWallets: 'Wallets samenvoegen',
 				exportWallet: 'Exporteer Wallet',
 				createAccount: 'Maak een nieuwe Rekening',
+				createRealAccountData: 'Create real account data',
 				addAccount: 'Voor een Bestaande Rekening toe',
 				changeAccountLabel: 'Verander het label van de Rekening',
 				setPrimary: 'Stel in als Primaire Rekening',
@@ -335,7 +406,17 @@ define({
 				start: 'Start harvesten',
 				harvesting: 'Harvesten',
 				stop: 'Stop harvesten',
-				description: 'Status-score van deze rekening op  to the NEM cloud'
+				description: 'Status-score van deze rekening op  to the NEM cloud',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating remote harvesting...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating remote harvesting...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: 'Recente Transacties',
