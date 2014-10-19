@@ -176,6 +176,31 @@ define({
 				successMessage: "Log {{1}} {{#2}}({{2}}){{/2}} has been obtained!",
 				create: "Create"
 			},
+			createRealAccountData: {
+				title: 'Create real account data',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				confirm: {
+					title: 'Save the private key',
+					message: 'Are you sure your private key has been saved into a safe place?'
+				},
+				recheck: {
+					title: 'Re-check your saved private key',
+					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					correct: {
+						title: 'Nice!',
+						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+					},
+					incorrect: {
+						title: 'Hmm...',
+						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+					},
+					recheck: 'Check'
+				},
+				ok: 'OK'
+			},
 			addAccount: {
 				title: "Add an Existing Log",
 				privateKey: "Log's Private Key",
@@ -346,6 +371,7 @@ define({
 				mergeWallets: "Repack coffers",
 				exportWallet: "Hail yer Coffer",
 				createAccount: "Create new Logbook",
+				createRealAccountData: 'Create real account data',
 				addAccount: "Add an Existing Logbook",
 				changeAccountLabel: "Title'er Logbook",
 				setPrimary: "Set as Primary Logbook",

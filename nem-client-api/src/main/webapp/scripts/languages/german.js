@@ -107,15 +107,15 @@ define({
                 sending: "Sende...",
                 successMessage: "Die Transaktion wurde erfolgreich gesendet!",
                 txConfirm: {
-                    title: "Confirm Transaction",
-                    sendLabel: "You're going to send",
-                    to: "To",
-                    message: "Message",
-                    encrypted: "Message is encrypted",
-                    noMessage: "No message",
-                    cancel: "Cancel",
-                    send: "Send",
-                    sending: "Sending..."
+                    title: "Transaktion bestätigen",
+                    sendLabel: "Sie senden",
+                    to: "An",
+                    message: "Nachricht",
+                    encrypted: "Nachricht ist verschlüsselt",
+                    noMessage: "Keine Nachricht",
+                    cancel: "Abbrechen",
+                    send: "Senden",
+                    sending: "Sende..."
                 }
             },
             clientInfo: {
@@ -173,6 +173,31 @@ define({
                 password: "Passwort der Brieftasche",
                 successMessage: "Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde angelegt!",
                 create: "Anlegen"
+            },
+            createRealAccountData: {
+                title: "Daten für ein echtes Konto erzeugen",
+                message: "Die nachstehend angezeigten Daten sind für ein echtes Konto nach dem offiziellen Start von NEM. Bitte speichere den privaten Schlüssel, den öffentlichen Schlüssel und die Adresse an einem sicheren Ort. Wenn Du den privaten Schlüssel verlierst sind Deine Kontodaten und damit all Deine NEM für IMMER verloren.",
+                address: "Adresse",
+                publicKey: "Öffentlicher Schlüssel",
+                privateKey: "Privater Schlüssel",
+                confirm: {
+                    title: "Sicherung des privaten Schlüssels",
+                    message: "Bist Du sicher, dass Du den privaten Schlüssel an einem sicheren Ort gespeichert hast."
+                },
+                recheck: {
+                    title: "Überprüfung des privaten Schlüssels",
+                    message: "Bitte gebe den privaten Schlüssel erneut ein um zu überprüfen ob er korrekt ist. Wenn Du vergessen hast den Schlüsel zu speichern musst Du einen neuen erzeugen.",
+                    correct: {
+                        title: "Sehr gut!",
+                        message: "Du hast den richtigen Schlüssel gespeichert. Bewahre ihn an einem sicheren Ort auf!"
+                    },
+                    incorrect: {
+                        title: "Hmmm...",
+                        message: "Der private Schlüssel den Du eingegeben hast ist nicht korrekt. Bitte gebe ihn erneut ein."
+                    },
+                    recheck: "Überprüfung"
+                },
+                ok: "OK"
             },
             addAccount: {
                 title: "Ein vorhandenes Konto hinzufügen",
@@ -344,6 +369,7 @@ define({
                 mergeWallets: "Brieftaschen zusammenführen",
                 exportWallet: "Brieftasche exportieren",
                 createAccount: "Neues Konto anlegen",
+                createRealAccountData: "Daten für ein echtes Konto erzeugen",
                 addAccount: "Vorhandenes Konto hinzufügen",
                 changeAccountLabel: "Label des Kontos ändern",
                 setPrimary: "Hauptkonto festlegen",

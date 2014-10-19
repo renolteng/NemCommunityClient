@@ -369,7 +369,7 @@ define({
                 mergeWallets: "Fusionner des portefeuilles",
                 exportWallet: "Exporter un portefeuille",
                 createAccount: "Créer un nouveau compte",
-                createRealAccountData: "",
+                createRealAccountData: "Create real account data",
                 addAccount: "Ajouter un compte existant",
                 changeAccountLabel: "Modifier l'étiquette du compte",
                 setPrimary: "Définir comme compte primaire",

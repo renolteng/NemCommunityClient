@@ -369,7 +369,7 @@ define({
                 mergeWallets: "ウォレットを統合する",
                 exportWallet: "ウォレットをバックアップする",
                 createAccount: "新しいアカウントを作成する",
-                createRealAccountData: "",
+                createRealAccountData: "Create real account data",
                 addAccount: "既存のアカウントを追加する",
                 changeAccountLabel: "アカウントラベルを変更する",
                 setPrimary: "プライマリーアカウントに設定する",
