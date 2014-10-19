@@ -507,7 +507,9 @@ define(function(require) {
                 return !!(this.get('nisStatus.code') === this.consts.STATUS_STOPPED);
             },
             nisSynchronized: function() {
-                return !!(this.get('nisStatus.code') === this.consts.STATUS_SYNCHRONIZED);
+                // 5 status code is not implemented yet
+                // so we cannot completely rely on NIS status code
+                return this.get('nisStatus.code') === this.consts.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
