@@ -181,25 +181,25 @@ define({
 				create: 'बनाएँ'
 			},
 			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				title: 'असली NEM खाते के लिए डेटा बनाएं',
+				message: 'नीचे दिए गए डेटा NEM लॉंच के बाद आपके असली खाते के लिए है. Address, Public key और सबसे महत्वपूर्ण बात यह है कि अपना Private Key कहीं सुरक्षित सहेजें. अगर आप अपना Private Key खो देते हैं, तो आप अपने अकाउंट ओर सभी असली NEMS हमेशा के लिए खो देंगे.',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
 				confirm: {
 					title: 'Save the private key',
-					message: 'Are you sure your private key has been saved into a safe place?'
+					message: 'आप सुनिश्चित करें कि आपकी Private Key एक सुरक्षित जगह में सहेज लिया गया है!'
 				},
 				recheck: {
-					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					title: 'अपने saved Private Key को दोबारा चेक करें',
+					message: "कृपया अपने saved Private Key को प्रदान करें ताक़ि हम यह चेक कर सकें की आपने सही Private Key को save किया है. अगर आपने अपना Private Key खो दिया है, तो आप एक नया बना सकते हैं.",
 					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+						title: 'बढ़िया!',
+						message: 'ऐसा लगता है की आपने सही Private Key को save किया है. हमेशा अपने Private Key को सुरक्षित रखें!!'
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "आपने जो Private Key प्रदान किया है वो सही नही है!! कृपया दोबारा जाँचे और दर्ज करें."
 					},
 					recheck: 'Check'
 				},
@@ -375,7 +375,7 @@ define({
 				mergeWallets: 'मर्ज वॉलेट्स',
 				exportWallet: 'एक्सपोर्ट वॉलेट',
 				createAccount: 'नया अकाउंट बनाएँ',
-				createRealAccountData: 'Create real account data',
+				createRealAccountData: 'नया असली NEM अकाउंट बनाएँ.',
 				addAccount: 'किसी मौजूदा अकाउंट को जोड़ें',
 				changeAccountLabel: 'अकाउंट लेबल बदलें',
 				setPrimary: 'प्राइमरी अकाउंट के रूप में सेट करें',
