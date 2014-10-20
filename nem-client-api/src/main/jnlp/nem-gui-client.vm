@@ -9,7 +9,7 @@
     <description kind="one-line">Your NEM Wallet.</description>
     <description kind="tooltip">Start participating in NEM.</description>
     <icon href="images/ncc_64x64.ico"/>
-    <icon href="images/ncc_32x32.ico"/>
+    <icon href="images/ncc_32x32.png"/>
     <icon kind="splash" href="images/splash_screen.png"/>
   </information>
   <security>
