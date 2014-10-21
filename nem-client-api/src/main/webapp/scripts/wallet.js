@@ -88,7 +88,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         {
                             name: 'account',
                             type: 'text',
-                            readonly: true,
+                            disabled: true,
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.account')
                             },
@@ -104,7 +104,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         {
                             name: 'wallet',
                             type: 'text',
-                            readonly: true,
+                            disabled: true,
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.wallet')
                             }
@@ -289,7 +289,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.createAccount.wallet')
                                 }
@@ -331,116 +331,138 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ncc.get('texts.modals.createAccount.create')
                     );
                 },
-                createRealAccountData: function() {
-                    ncc.getRequest('/account/real-private-key',
-                        function(data) {
-                            var formattedAddress = ncc.formatAddress(data.address);
+                createRealAccountData: (function() {
+                    var showAccountData = function(accountData) {
+                        var formattedAddress = ncc.formatAddress(accountData.address);
 
-                            // Open the 1st modal: generating account data
-                            ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.title'), 
-                                ncc.get('texts.modals.createRealAccountData.message'),
-                                [
+                        // Open the 1st modal: generating account data
+                        ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.title'), 
+                            ncc.get('texts.modals.createRealAccountData.message'),
+                            [
+                                {
+                                    name: 'address',
+                                    type: 'text',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.createRealAccountData.address')
+                                    }
+                                },
+                                {
+                                    name: 'publicKey',
+                                    type: 'textarea',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.createRealAccountData.publicKey')
+                                    }
+                                },
+                                {
+                                    name: 'privateKey',
+                                    type: 'textarea',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.createRealAccountData.privateKey')
+                                    }
+                                }
+                            ],
+                            {
+                                address: formattedAddress,
+                                publicKey: accountData.publicKey,
+                                privateKey: accountData.privateKey
+                            },
+                            function(values, closeModal) {
+                                ncc.showConfirmation(
+                                    ncc.get('texts.modals.createRealAccountData.confirm.title'),
+                                    ncc.get('texts.modals.createRealAccountData.confirm.message'),
                                     {
-                                        name: 'address',
-                                        type: 'text',
-                                        readonly: true,
-                                        noDimming: true,
-                                        label: {
-                                            content: ncc.get('texts.modals.createRealAccountData.address')
-                                        }
-                                    },
-                                    {
-                                        name: 'publicKey',
-                                        type: 'textarea',
-                                        readonly: true,
-                                        noDimming: true,
-                                        label: {
-                                            content: ncc.get('texts.modals.createRealAccountData.publicKey')
-                                        }
-                                    },
-                                    {
-                                        name: 'privateKey',
-                                        type: 'textarea',
-                                        readonly: true,
-                                        noDimming: true,
-                                        label: {
-                                            content: ncc.get('texts.modals.createRealAccountData.privateKey')
+                                        yes: function() {
+                                            // Close the 1st modal
+                                            closeModal();
+
+                                            // Open the 2nd modal: recheck private key
+                                            ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.recheck.title'), 
+                                                ncc.get('texts.modals.createRealAccountData.recheck.message'),
+                                                [
+                                                    {
+                                                        name: 'address',
+                                                        type: 'text',
+                                                        readonly: true,
+                                                        label: {
+                                                            content: ncc.get('texts.modals.createRealAccountData.address')
+                                                        }
+                                                    },
+                                                    {
+                                                        name: 'publicKey',
+                                                        type: 'textarea',
+                                                        readonly: true,
+                                                        label: {
+                                                            content: ncc.get('texts.modals.createRealAccountData.publicKey')
+                                                        }
+                                                    },
+                                                    {
+                                                        name: 'privateKey',
+                                                        type: 'textarea',
+                                                        label: {
+                                                            content: ncc.get('texts.modals.createRealAccountData.privateKey')
+                                                        }
+                                                    }
+                                                ],
+                                                {
+                                                    address: formattedAddress,
+                                                    publicKey: accountData.publicKey
+                                                },
+                                                function(values, closeModal) {
+                                                    if (values.privateKey === accountData.privateKey) {
+                                                        closeModal(); // close the 2nd modal
+                                                        ncc.showMessage(
+                                                            ncc.get('texts.modals.createRealAccountData.recheck.correct.title'),
+                                                            ncc.get('texts.modals.createRealAccountData.recheck.correct.message')
+                                                        );
+                                                    } else {
+                                                        ncc.showConfirmation(
+                                                            ncc.get('texts.modals.createRealAccountData.recheck.incorrect.title'),
+                                                            ncc.get('texts.modals.createRealAccountData.recheck.incorrect.message'),
+                                                            {
+                                                                seeOriginal: function() {
+                                                                    closeModal();
+                                                                    showAccountData(accountData);
+                                                                    return true;
+                                                                }
+                                                            },
+                                                            [
+                                                                {
+                                                                    action: 'tryAgain',
+                                                                    label: ncc.get('texts.modals.createRealAccountData.recheck.incorrect.tryAgain'),
+                                                                    actionType: 'secondary'
+                                                                },
+                                                                {
+                                                                    action: 'seeOriginal',
+                                                                    label: ncc.get('texts.modals.createRealAccountData.recheck.incorrect.seeOriginal'),
+                                                                    actionType: 'primary'
+                                                                }
+                                                            ]
+                                                        );
+                                                    }
+                                                    return false;
+                                                },
+                                                ncc.get('texts.modals.createRealAccountData.recheck.recheck')
+                                            );
                                         }
                                     }
-                                ],
-                                {
-                                    address: formattedAddress,
-                                    publicKey: data.publicKey,
-                                    privateKey: data.privateKey
-                                },
-                                function(values, closeModal) {
-                                    ncc.showConfirmation(
-                                        ncc.get('texts.modals.createRealAccountData.confirm.title'),
-                                        ncc.get('texts.modals.createRealAccountData.confirm.message'),
-                                        {
-                                            yes: function() {
-                                                // Close the 1st modal
-                                                closeModal();
+                                );
+                                return false;
+                            },
+                            ncc.get('texts.modals.createRealAccountData.ok')
+                        );
+                    };
 
-                                                // Open the 2nd modal: recheck private key
-                                                ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.recheck.title'), 
-                                                    ncc.get('texts.modals.createRealAccountData.recheck.message'),
-                                                    [
-                                                        {
-                                                            name: 'address',
-                                                            type: 'text',
-                                                            readonly: true,
-                                                            label: {
-                                                                content: ncc.get('texts.modals.createRealAccountData.address')
-                                                            }
-                                                        },
-                                                        {
-                                                            name: 'publicKey',
-                                                            type: 'textarea',
-                                                            readonly: true,
-                                                            label: {
-                                                                content: ncc.get('texts.modals.createRealAccountData.publicKey')
-                                                            }
-                                                        },
-                                                        {
-                                                            name: 'privateKey',
-                                                            type: 'textarea',
-                                                            label: {
-                                                                content: ncc.get('texts.modals.createRealAccountData.privateKey')
-                                                            }
-                                                        }
-                                                    ],
-                                                    {
-                                                        address: formattedAddress,
-                                                        publicKey: data.publicKey
-                                                    },
-                                                    function(values, closeModal) {
-                                                        if (values.privateKey === data.privateKey) {
-                                                            closeModal(); // close the 2nd modal
-                                                            ncc.showMessage(
-                                                                ncc.get('texts.modals.createRealAccountData.recheck.correct.title'),
-                                                                ncc.get('texts.modals.createRealAccountData.recheck.correct.message')
-                                                            );
-                                                        } else {
-                                                            ncc.showMessage(
-                                                                ncc.get('texts.modals.createRealAccountData.recheck.incorrect.title'),
-                                                                ncc.get('texts.modals.createRealAccountData.recheck.incorrect.message')
-                                                            );
-                                                        }
-                                                        return false;
-                                                    },
-                                                    ncc.get('texts.modals.createRealAccountData.recheck.recheck')
-                                                );
-                                            }
-                                        }
-                                    );
-                                    return false;
-                                },
-                                ncc.get('texts.modals.createRealAccountData.ok')
-                            );
-                        }
-                    );
-                },
+                    return function() {
+                        ncc.getRequest('/account/real-private-key',
+                            function(data) {
+                                showAccountData(data);
+                            }
+                        );
+                    }
+                })(),
                 addAccount: function() {
                     var wallet = ncc.get('wallet.name');
                     ncc.showInputForm(ncc.get('texts.modals.addAccount.title'), '',
@@ -462,7 +484,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.addAccount.wallet')
                                 }
@@ -513,7 +535,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'account',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.setPrimary.account')
                                 },
@@ -529,7 +551,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.setPrimary.wallet')
                                 }
@@ -575,7 +597,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletName.wallet')
                                 }
@@ -617,7 +639,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletPassword.wallet')
                                 }
@@ -678,7 +700,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeAccountLabel.wallet')
                                 }
@@ -722,7 +744,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.removeAccount.wallet')
                                 }

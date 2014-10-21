@@ -195,7 +195,9 @@ define({
 					},
 					incorrect: {
 						title: 'Hừmm...',
-						message: "Khoá bí mật mà bạn vừa nhập là không chính xác! Hãy kiểm tra kỹ lại và nhập lại một lần nữa."
+						message: "Khoá bí mật mà bạn vừa nhập là không chính xác! Bạn có muốn thử điền lại khoá bí mật không hay quay lại xem thông tin gốc tài khoản của bạn một lần nữa?",
+						tryAgain: 'Thử điền lại',
+						seeOriginal: 'Xem lại thông tin tài khoản'
 					},
 					recheck: 'Kiểm tra'
 				},
