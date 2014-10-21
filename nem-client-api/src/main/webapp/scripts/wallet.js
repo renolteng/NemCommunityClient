@@ -693,7 +693,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         ],
                         {
                             wallet: wallet,
-                            account: account
+                            account: account,
+                            label: accountLabel
                         },
                         function(values, closeModal) {
                             ncc.postRequest('wallet/account/label', values, function(data) {
