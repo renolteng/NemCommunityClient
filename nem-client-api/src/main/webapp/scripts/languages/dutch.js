@@ -25,8 +25,8 @@ define({
             600: 'Voor de NCC (Nem Community Client) is het vereist om de NIS (Network Infrastructure Server) het starten voor het verzenden en ontvangen van transacties van de NEM cloud. Gebruik de NCC menu optie om lokaal te starten.',
             601: 'De nis node is al gestart. Een tweede poging om te starten is niet mogelijk.',
             700: 'De opgegeven rekening voldoet niet aan de basis criteria om te harvesten/oogsten. Waarschijnlijk heeft dat te maken met het aantal NEM wat zich in de rekening bevindt. Harvesten begint bij tenminste 1000 NEM.',
-            701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
-            702: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
+            701: 'De termijn ligt in het verleden en kan alleen geldig zijn binnen een periode van 1 dag.',
+            702: 'De termijn ligt te ver in de toekomst en kan alleen geldig zijn binnen een periode van 1 dag.',
             703: 'De rekening heeft niet genoeg saldo om het aangegeven aantal NEM te verzenden.',
             704: 'De tekst is te groot om het te verzenden via NEM. Reduceer de tekst en probeer opnieuw te verzenden.',
             705: 'De hash van de transactie bestaat al in de database van onbevestigde transacties.',
@@ -37,14 +37,14 @@ define({
             901: 'Er is een fout opgetreden bij het instellen van de offline modus.'
         },
         common: {
-        	success: 'Succes', //title of the Success message modals
+        	success: 'Gelukt!', //title of the Success message modals
         	nisStatus: {
-        		nccUnknown: 'NCC status is unknown',
+        		nccUnknown: 'NCC status is onbekend',
         		nccUnavailable: 'NCC is niet beschikbaar',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
+        		nccStarting: 'NCC is aan het starten...',
+        		nisUnknown: 'NIS status is onbekend',
         		nisUnavailable: 'NIS is niet beschikbaar',
-        		nisStarting: 'NIS is starting...',
+        		nisStarting: 'NIS is aan het starten...',
         		notBooted: 'Het is vereist om NIS te (her)starten. Open een wallet en start een lokale bij het popup dialoog.',
         		booting: 'Starten van de NIS...',
         		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
@@ -105,17 +105,17 @@ define({
 				password: 'Wachtwoord',
 				send: 'Verstuur',
 				sending: 'Versturen...',
-				successMessage: 'Transactie is verstuurd!!',
+				successMessage: 'Transactie is verzonden!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: 'Bevestig transactie',
+					sendLabel: "Je stuurt ",
+					to: 'Naar',
+					message: 'Bericht',
+					encrypted: 'Message is beveiligd',
+					noMessage: 'Geen bericht',
+					cancel: 'Annuleer',
+					send: 'Verstuur',
+					sending: 'Versturen...'
 				}
 			},
 			clientInfo: {
@@ -177,27 +177,27 @@ define({
 				create: 'Aanmaken'
 			},
 			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
+				title: 'Aanmaken ECHTE account',
+				message: 'De onderstaande gegevens is bedoeld voor je echte account, nadat NEM live-gang is geweest. Bewaard het adres, publieke sleutel en het belangrijkste: de privé sleutel op een veilige plaats. Als de privé sleutel verloren raakt is het niet meer mogelijk om toegang tot je NEM te krijgen!',
+				address: 'Adres',
+				publicKey: 'Publiek sleutel key',
+				privateKey: 'Privé sleutel',
 				confirm: {
-					title: 'Save the private key',
-					message: 'Are you sure your private key has been saved into a safe place?'
+					title: 'Bewaar de privé sleutel',
+					message: 'Weet je zeker dat de privé sleutel op een veilige plaats is opgeslagen?'
 				},
 				recheck: {
-					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					title: 'Controleer je opgeslagen privé sleutel',
+					message: "Voer de privé sleutel nogmaals voor controle. Als dit niet lukt is het misschien beter om een nieuwe te maken.",
 					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+						title: 'Gelukt!',
+						message: 'Je hebt de correcte privé sleutel met succes opgeslagen. Vergeet niet om de sleutel altijd veilig te bewaren!'
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "Helaas, de privé sleutel die je hebt ingevoerd is niet correct! Controleer dit goed en voer het nogmaals in."
 					},
-					recheck: 'Check'
+					recheck: 'Controle'
 				},
 				ok: 'OK'
 			},
@@ -263,26 +263,26 @@ define({
 				message: 'Weet je zeker dat je de NEM Community Client wil afsluiten?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
+				title: 'Activeer Remote harvesten',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
-				password: "Wallet's password",
-				activate: 'Activate'
+				hoursDue: 'Binnen (uren)',
+				password: "Wallet wachtwoord",
+				activate: 'Activeren'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
+				title: 'Deactiveer Remote harvesten',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
-				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				hoursDue: 'Binnen (uren)',
+				password: "Wallet wachtwoord",
+				deactivate: 'Deactiveer'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
+				title: 'Start Remote harvesten',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
+				password: "Wallet wachtwoord",
 				start: 'Start'
 			},
 			stopRemote: {
@@ -317,11 +317,11 @@ define({
 				items: [
 					{
 						title: 'NCC beveiligt je wallet',
-						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstale van NEM coins&amp; assets te voorkomen.'
+						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van NEM coins&amp; assets te voorkomen.'
 					},
 					{
-						title: 'NCC encrypts your wallet',
-						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstale van NEM coins&amp; assets te voorkomen.'
+						title: 'NCC beveiligt je wallet',
+						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van NEM coins&amp; assets te voorkomen.'
 					}
 				]
 			},
@@ -342,7 +342,7 @@ define({
 					{
 						title: 'Wat is &#42;NIS?',
 						paragraphs: [
-							'Dit components is verantwoordelijk om de <strong>NEM</strong> cloud in de lucht te houden.',
+							'Dit component is verantwoordelijk om de <strong>NEM</strong> cloud in de lucht te houden.',
 							'Hoe meer <strong>NIS</strong> servers er zijn, des te veiliger het netwerk is.',
 							'<strong>NIS</strong> is het toegangspunt voor de <strong>NEM</strong> cloud.'
 						],
@@ -356,7 +356,7 @@ define({
 		},
 		wallet: {
 			logo: 'images/nem_logo.png',
-			lastAccess: 'Ongeveer {{1}} dagen geleen ago',
+			lastAccess: 'Ongeveer {{1}} dagen geleden',
 			lastAccessJustNow: 'Zojuist',
 			lastAccessTooltip: 'Laatste toegang was {{1}}',
 			primary: 'Primaire',
@@ -371,7 +371,7 @@ define({
 				mergeWallets: 'Wallets samenvoegen',
 				exportWallet: 'Exporteer Wallet',
 				createAccount: 'Maak een nieuwe Rekening',
-				createRealAccountData: 'Create real account data',
+				createRealAccountData: 'Maak echte Rekening (wanneer NEM live is!)',
 				addAccount: 'Voor een Bestaande Rekening toe',
 				changeAccountLabel: 'Verander het label van de Rekening',
 				setPrimary: 'Stel in als Primaire Rekening',
@@ -394,7 +394,7 @@ define({
 				'Instellingen',
 				'Afsluiten'
 			],
-			bootNodeWarning: "A lokale node moet gestart zijn om alle functionaliteiten van NCC te gebruiken."
+			bootNodeWarning: "Een lokale node moet gestart zijn om alle functionaliteiten van NCC te gebruiken."
 		},
 		dashboard: {
 			assets: {
@@ -408,14 +408,14 @@ define({
 				stop: 'Stop harvesten',
 				description: 'Status-score van deze rekening op  to the NEM cloud',
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating remote harvesting...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating remote harvesting...',
-					startRemoteHarvesting: 'Start remote harvesting',
-					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					activate: 'Activeer remote harvesten',
+					activating: 'Activeren van remote harvesten...',
+					active: 'Remote harvesten is actief',
+					deactivate: 'Deactiveer remote harvesten',
+					deactivating: 'Deactiveren van remote harvesten...',
+					startRemoteHarvesting: 'Start remote harvesten',
+					remotelyHarvesting: 'Harvesten op afstand',
+					stopRemoteHarvesting: 'Stop met remote harvesten'
 				}
 			},
 			transactions: {
