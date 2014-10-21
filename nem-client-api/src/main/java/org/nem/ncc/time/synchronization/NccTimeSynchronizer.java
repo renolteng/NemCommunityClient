@@ -6,8 +6,6 @@ import org.nem.core.time.synchronization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.services.TimeSynchronizationServices;
 
-import java.util.concurrent.CompletableFuture;
-
 /**
  * NCC time synchronization with its NIS.
  */
@@ -38,13 +36,13 @@ public class NccTimeSynchronizer implements TimeSynchronizer {
 		final NetworkTimeStamp sendTimeStamp = this.timeProvider.getNetworkTime();
 		return this.nisConnector.forwardAsync(this.timeSynchronizationServices::getCommunicationTimeStampsAsync)
 				.thenAccept(remoteTimeStamps -> {
-							final NetworkTimeStamp receiveTimeStamp = this.timeProvider.getNetworkTime();
-							final TimeSynchronizationSample sample = new TimeSynchronizationSample(
-									null,
-									new CommunicationTimeStamps(sendTimeStamp, receiveTimeStamp),
-									remoteTimeStamps);
-							final TimeOffset timeOffset = new TimeOffset(sample.getTimeOffsetToRemote());
-							this.timeProvider.updateTimeOffset(timeOffset);
+					final NetworkTimeStamp receiveTimeStamp = this.timeProvider.getNetworkTime();
+					final TimeSynchronizationSample sample = new TimeSynchronizationSample(
+							null,
+							new CommunicationTimeStamps(sendTimeStamp, receiveTimeStamp),
+							remoteTimeStamps);
+					final TimeOffset timeOffset = new TimeOffset(sample.getTimeOffsetToRemote());
+					this.timeProvider.updateTimeOffset(timeOffset);
 				});
 	}
 }
