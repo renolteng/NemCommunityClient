@@ -195,7 +195,9 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "The private key you've just entered is not correct! Do you want to try to enter private key again or come back to see the original account data?",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Check'
 				},
