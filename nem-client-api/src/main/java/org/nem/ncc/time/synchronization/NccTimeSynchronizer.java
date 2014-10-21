@@ -36,14 +36,15 @@ public class NccTimeSynchronizer implements TimeSynchronizer {
 	@Override
 	public java.util.concurrent.CompletableFuture<java.lang.Void> synchronizeTime() {
 		final NetworkTimeStamp sendTimeStamp = this.timeProvider.getNetworkTime();
-		final CommunicationTimeStamps remoteTimeStamps = this.nisConnector.forward(this.timeSynchronizationServices::getCommunicationTimeStampsAsync);
-		final NetworkTimeStamp receiveTimeStamp = this.timeProvider.getNetworkTime();
-		final TimeSynchronizationSample sample = new TimeSynchronizationSample(
-				null,
-				new CommunicationTimeStamps(sendTimeStamp, receiveTimeStamp),
-				remoteTimeStamps);
-		final TimeOffset timeOffset = new TimeOffset(sample.getTimeOffsetToRemote());
-		this.timeProvider.updateTimeOffset(timeOffset);
-		return CompletableFuture.completedFuture(null);
+		return this.nisConnector.forwardAsync(this.timeSynchronizationServices::getCommunicationTimeStampsAsync)
+				.thenAccept(remoteTimeStamps -> {
+							final NetworkTimeStamp receiveTimeStamp = this.timeProvider.getNetworkTime();
+							final TimeSynchronizationSample sample = new TimeSynchronizationSample(
+									null,
+									new CommunicationTimeStamps(sendTimeStamp, receiveTimeStamp),
+									remoteTimeStamps);
+							final TimeOffset timeOffset = new TimeOffset(sample.getTimeOffsetToRemote());
+							this.timeProvider.updateTimeOffset(timeOffset);
+				});
 	}
 }
