@@ -88,7 +88,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         {
                             name: 'account',
                             type: 'text',
-                            readonly: true,
+                            disabled: true,
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.account')
                             },
@@ -104,7 +104,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         {
                             name: 'wallet',
                             type: 'text',
-                            readonly: true,
+                            disabled: true,
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.wallet')
                             }
@@ -289,7 +289,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.createAccount.wallet')
                                 }
@@ -344,7 +344,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         name: 'address',
                                         type: 'text',
                                         readonly: true,
-                                        noDimming: true,
                                         label: {
                                             content: ncc.get('texts.modals.createRealAccountData.address')
                                         }
@@ -353,7 +352,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         name: 'publicKey',
                                         type: 'textarea',
                                         readonly: true,
-                                        noDimming: true,
                                         label: {
                                             content: ncc.get('texts.modals.createRealAccountData.publicKey')
                                         }
@@ -362,7 +360,6 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                                         name: 'privateKey',
                                         type: 'textarea',
                                         readonly: true,
-                                        noDimming: true,
                                         label: {
                                             content: ncc.get('texts.modals.createRealAccountData.privateKey')
                                         }
@@ -462,7 +459,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.addAccount.wallet')
                                 }
@@ -513,7 +510,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'account',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.setPrimary.account')
                                 },
@@ -529,7 +526,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.setPrimary.wallet')
                                 }
@@ -575,7 +572,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletName.wallet')
                                 }
@@ -617,7 +614,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletPassword.wallet')
                                 }
@@ -678,7 +675,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeAccountLabel.wallet')
                                 }
@@ -721,7 +718,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                readonly: true,
+                                disabled: true,
                                 label: {
                                     content: ncc.get('texts.modals.removeAccount.wallet')
                                 }
