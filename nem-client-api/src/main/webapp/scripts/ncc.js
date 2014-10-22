@@ -616,12 +616,7 @@ define(function(require) {
             return mNem / 1000000;
         },
         toMNem: function(nem) {
-        	// clever workaround to deal with JavaScript loss of precision bugs
-        	// the largest integer that can be stored in a java numeric type (64-bit floating point)
-        	// is Math.pow(2, 53) > 8 * Math.pow(10, 15)
-        	// [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
-        	// NOTE: this only works because nem is assumed to be a string
-            return parseInt(nem.replace('.', ''));
+            return nem * 1000000;
         },
         formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) {
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
