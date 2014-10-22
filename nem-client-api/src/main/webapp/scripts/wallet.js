@@ -849,58 +849,126 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
             });
 
             require(['maskedinput'], function() {
-                var pattern1 = function() {
-                    return '#' + ncc.get('texts.preferences.thousandSeparator') + '##0d';
-                };
-                var pattern2 = function() {
-                    return '#' + ncc.get('texts.preferences.thousandSeparator') + '##0' +
-                        ncc.get('texts.preferences.decimalSeparator') + '999999';
-                };
+                // var pattern1, pattern2;
 
-                var dPatternRecalc = function(options) {
-                    options.translation = {
-                        'd': {
-                            pattern: new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator'))),
-                            optional: true
-                        }
-                    };
-                };
-                var options = {
-                    onKeyPress: function(amount, e, currentField, options) {
-                        dPatternRecalc(options);
-                        if (!onPattern1) {
-                            if (amount.indexOf(ncc.get('texts.preferences.decimalSeparator')) === -1) {
-                                $amount.mask(pattern1(), options);
-                                $fee.mask(pattern1(), options);
-                                onPattern1 = true;
-                            }
-                        } else {
-                            if (amount.indexOf(ncc.get('texts.preferences.decimalSeparator')) !== -1) {
-                                $amount.mask(pattern2(), options);
-                                $fee.mask(pattern2(), options);
-                                onPattern1 = false;
-                            }
-                        }
-                    },
-                    maxlength: false,
-                    reverse: true
-                };
+                // var dPatternRecalc = function(options) {
+                //     options.translation = {
+                //         'd': {
+                //             pattern: new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator'))),
+                //             optional: true
+                //         }
+                //     };
+
+                //     pattern1 ='#' + ncc.get('texts.preferences.thousandSeparator') + '##0d';
+                //     pattern2 = '#' + ncc.get('texts.preferences.thousandSeparator') + '##0' +
+                //             ncc.get('texts.preferences.decimalSeparator') + '999999';
+                // };
+
+                // var maskNemTextbox = function($textbox) {
+                //     if (!$textbox) return;
+
+                //     var maskRecalc = function($textbox, value, options) {
+                //         if (value.indexOf(ncc.get('texts.preferences.decimalSeparator')) === -1) {
+                //             $textbox.mask(pattern1, options);
+                //         } else {
+                //             $textbox.mask(pattern2, options);
+                //         }
+                //     }
+                    
+                //     var options = {
+                //         onKeyPress: function(value, e, currentField, options) {
+                //             maskRecalc($(currentField), value, options);
+                //         },
+                //         onInvalid: function() {
+                //             console.log('invalid');
+                //         },
+                //         onChange: function() {
+                //             console.log('invalid');
+                //         },
+                //         maxlength: false,
+                //         reverse: true
+                //     };
+
+                //     local.listeners.push(ncc.observe('texts.preferences', function(preferences) {
+                //         dPatternRecalc(options);
+                //         maskRecalc($textbox, $textbox.val(), options);
+                //     }));
+                // };
+                // maskNemTextbox($amount);
+                // maskNemTextbox($fee);
                 
                 var $recipient = $('.js-sendNem-recipient-textbox');
                 $recipient.mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
 
-                var onPattern1 = true;
+                var generateNemTextboxMask = function() {
+                    var oldVal;
+
+                    return function(e) {
+                        var target = e.target;
+                        var currentVal = target.value;
+                        // If the keypress doesn't change the textbox value then i don't give a sh!t.
+                        if (currentVal === oldVal) { 
+                            return;
+                        }
+
+                        var caretToEnd = currentVal.length - target.selectionEnd;
+                        var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+
+                        // Remove illegal characters
+                        var dsRegex = new RegExp('[^0-9' + ncc.escapeRegExp(decimalSeparator) + ']', 'g');
+                        currentVal = currentVal.replace(dsRegex, '');
+                        // Remove redundant decimalSeparators
+                        var matchedOnce = false;
+                        var i = 0;
+                        while (i < currentVal.length) {
+                            if (currentVal[i] === decimalSeparator) {
+                                if (!matchedOnce) {
+                                    matchedOnce = true;
+                                } else {
+                                    currentVal = currentVal.substring(0, i) + currentVal.substring(i + 1);
+                                    i--; // not going forward
+                                }
+                            }
+                            i++;
+                        }
+
+                        var dotPos = currentVal.indexOf(decimalSeparator);
+                        if (dotPos === -1) {
+                            dotPos = currentVal.length;
+                        }
+                        var intPart = currentVal.substring(0, dotPos);
+                        var decimalPart = currentVal.substring(dotPos, currentVal.length);
+
+                        intPart = ncc.addThousandSeparators(intPart);
+                        // Limit to maximum 6 decimal digits
+                        decimalPart = decimalPart.substring(0, decimalSeparator.length + 6); 
+                        var newVal = intPart + decimalPart;
+
+                        target.value = oldVal = newVal;
+                        var caret = newVal.length - caretToEnd;
+                        target.setSelectionRange(caret, caret);
+                    };
+                };
+                
                 var $amount = $('.js-sendNem-amount-textbox');
+                var amountTxb = $amount[0];
+                var amountMask = generateNemTextboxMask();
+                $amount.on('keyup', amountMask);
+
+
                 var $fee = $('.js-sendNem-fee-textbox');
-                local.listeners.push(ncc.observe('texts.preferences', function(preferences) {
-                    dPatternRecalc(options);
-                    if (onPattern1) {
-                        $amount.mask(pattern1(), options);
-                        $fee.mask(pattern1(), options);
-                    } else {
-                        $amount.mask(pattern2(), options);
-                        $fee.mask(pattern2(), options);
-                    }
+                var feeTxb = $fee[0];
+                var feeMask = generateNemTextboxMask();
+                $fee.on('keyup', feeMask);
+
+                local.listeners.push(ncc.observe('texts.preferences.thousandSeparator', function(newProp, oldProp) {
+                    amountTxb.value = ncc.convertCurrencyFormat(amountTxb.value, oldProp, newProp);
+                    feeTxb.value = ncc.convertCurrencyFormat(feeTxb.value, oldProp, newProp);
+                }));
+
+                local.listeners.push(ncc.observe('texts.preferences.decimalSeparator', function(newProp, oldProp) {
+                    amountTxb.value = ncc.convertCurrencyFormat(amountTxb.value, null, null, oldProp, newProp);
+                    feeTxb.value = ncc.convertCurrencyFormat(feeTxb.value, null, null, oldProp, newProp);
                 }));
             });
         },
