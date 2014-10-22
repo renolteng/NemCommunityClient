@@ -618,7 +618,7 @@ define(function(require) {
         toMNem: function(nem) {
             return nem * 1000000;
         },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) {
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) { // amount is in mNEM
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
             var mNem = this.minDigits(amount % 1000000, 6);
             if (!noLimitFractionalPart) {
@@ -645,10 +645,21 @@ define(function(require) {
 
             return nem + this.get('texts.preferences.decimalSeparator') + mNem;
         },
+        convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
+            if (oldThousandSeparator) {
+                var thousandSeparatorRegex = new RegExp(ncc.escapeRegExp(oldThousandSeparator), 'g');
+                amount = amount.replace(thousandSeparatorRegex, newThousandSeparator);
+            }
+
+            if (oldDecimalSeparator) {
+                var decimalSeparatorRegex = new RegExp(ncc.escapeRegExp(oldDecimalSeparator), 'g');
+                amount = amount.replace(decimalSeparatorRegex, newDecimalSeparator);
+            }
+
+            return amount;
+        },
         convertCurrencyToStandard: function(amount) {
-            var thousandSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.thousandSeparator')), 'g');
-            var decimalSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')), 'g');
-            return amount.replace(thousandSeparator, '').replace(decimalSeparator, '.');
+            return this.convertCurrencyFormat(amount, ncc.get('texts.preferences.thousandSeparator'), '', ncc.get('texts.preferences.decimalSeparator'), '.');
         },
         toDate: function(ms) {
             return new Date(ms);
