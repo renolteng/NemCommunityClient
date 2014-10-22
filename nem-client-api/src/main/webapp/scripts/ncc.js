@@ -616,12 +616,18 @@ define(function(require) {
             return mNem / 1000000;
         },
         toMNem: function(nem) {
-        	// clever workaround to deal with JavaScript loss of precision bugs
-        	// the largest integer that can be stored in a java numeric type (64-bit floating point)
-        	// is Math.pow(2, 53) > 8 * Math.pow(10, 15)
-        	// [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
-        	// NOTE: this only works because nem is assumed to be a string
-            return parseInt(nem.replace('.', ''));
+            // clever workaround to deal with JavaScript loss of precision bugs
+            // by using strings for multiplication
+            // the largest integer that can be stored in a java numeric type (64-bit floating point)
+            // is Math.pow(2, 53) > 8 * Math.pow(10, 15)
+            // [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
+            // NOTE: this only works because nem is assumed to be a string
+
+            // determine the number of trailing zeros to add based on the index of the decimal
+            var decimalIndex = nem.indexOf('.');
+            var power = 6 - (-1 === decimalIndex ? 0 : nem.length - decimalIndex - 1);
+            var trailingZeros = new Array(power + 1).join('0');
+            return parseInt(nem.replace('.', '') + trailingZeros);
         },
         formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) {
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
@@ -914,7 +920,7 @@ define(function(require) {
             var currentAccount = this.get('activeAccount.address');
 
             if (account.transactions) {
-            	account.transactions = this.processTransactions(account.transactions);
+                account.transactions = this.processTransactions(account.transactions);
             }
 
             return account;
@@ -1061,13 +1067,13 @@ define(function(require) {
             require(['languages'], function(languages) {
                 self.set('languages', languages);
                 self.observe('settings.language', function(newValue) {
-					newValue = newValue || self.consts.defaultLanguage;
+                    newValue = newValue || self.consts.defaultLanguage;
                     for (var i = 0; i < languages.length; i++) {
                         if (languages[i].id.toLowerCase() === newValue.toLowerCase()) {
                             self.set('texts', languages[i].texts);
                             if (undefined === self.get('nis.nodeMetaData.maxBlockChainHeight')) {
-		    					self.set('nis.nodeMetaData.nodeBlockChainHeight', self.get('texts.dashboard.transactions.unknown')) // after opening the wallet the node meta data is not available yet
-		    				}
+                                self.set('nis.nodeMetaData.nodeBlockChainHeight', self.get('texts.dashboard.transactions.unknown')) // after opening the wallet the node meta data is not available yet
+                            }
                             return;
                         }
                     }
