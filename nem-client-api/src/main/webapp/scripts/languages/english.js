@@ -471,7 +471,7 @@ define({
 			news: {
 				titleTooltip: 'News'
 			},
-			notAvailable: 'Not yet available in alpha release'
+			notAvailable: 'Not yet available in beta release'
 		},
 		transactions: {
 			title: 'Transactions',

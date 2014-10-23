@@ -459,7 +459,7 @@ define({
 			news: {
 				titleTooltip: 'Tin tức'
 			},
-			notAvailable: 'Chưa khả dụng trong phiên bản alpha'
+			notAvailable: 'Chưa khả dụng trong phiên bản beta'
 		},
 		transactions: {
 			title: 'Các giao dịch',
