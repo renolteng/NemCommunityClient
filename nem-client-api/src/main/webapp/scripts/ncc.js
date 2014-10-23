@@ -149,11 +149,20 @@ define(function(require) {
                 null, silent
             );
         },
+        resetDefaultData: function() {
+            this.set('formattedAmount', '0');
+            this.set('formattedRecipient', '');
+            this.set('rawMessage', '');
+            this.set('encrypted', false);
+            this.set('dueBy', '0');
+            this.set('password', '');
+        },
         init: function() {
             (new NccModal()).init.call(this);
-
             var self = this;
 
+            this.resetDefaultData();
+            
             this.observe('fee', function(newValue, oldValue, keypath) {
                 this.set('isFeeAutofilled', false);
             });
@@ -243,6 +252,9 @@ define(function(require) {
                     if (e.original.keyCode === 13) {
                         this.fire('sendTransaction');
                     }
+                },
+                closeModal: function() {
+                    this.resetDefaultData();
                 }
             });
         }
@@ -656,6 +668,7 @@ define(function(require) {
 
             return nem + this.get('texts.preferences.decimalSeparator') + mNem;
         },
+        // @param amount: string
         convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
             if (oldThousandSeparator) {
                 var thousandSeparatorRegex = new RegExp(ncc.escapeRegExp(oldThousandSeparator), 'g');
