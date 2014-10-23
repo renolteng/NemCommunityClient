@@ -55,7 +55,12 @@ public class DefaultNisConnector implements PrimaryNisConnector {
 
 	@Override
 	public <T> T forward(final Function<NodeEndpoint, CompletableFuture<T>> request) {
-		return ExceptionUtils.propagate(() -> request.apply(this.getDefaultEndpoint()).get());
+		return ExceptionUtils.propagate(() -> this.forwardAsync(request).get());
+	}
+
+	@Override
+	public <T> CompletableFuture<T> forwardAsync(final Function<NodeEndpoint, CompletableFuture<T>> request) {
+		return request.apply(this.getDefaultEndpoint());
 	}
 
 	@Override

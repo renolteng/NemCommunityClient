@@ -20,6 +20,20 @@
                 	account: walletData.primaryAccount.address
                 });
 	        };
+
+	        ncc.listWallets = function() {
+	        	ncc.set('landingPage.listingWallets', true);
+	        	ncc.getRequest('wallet/list', 
+					function(data) {
+						ncc.set('wallets', data.wallets);
+					},
+					{
+						complete: function() {
+							ncc.set('landingPage.listingWallets', false);
+						}
+					}
+				);
+	        };
 		},
 		initEverytime: function() {
 			ncc.set('landingPage.gateClosed', false);
@@ -67,18 +81,7 @@
 				}, local.initialWaitTime);
 			});
 
-			// Retrieve wallet list
-			ncc.set('landingPage.listingWallets', true);
-			ncc.getRequest('wallet/list', 
-				function(data) {
-					ncc.set('wallets', data.wallets);
-				},
-				{
-					complete: function() {
-						ncc.set('landingPage.listingWallets', false);
-					}
-				}
-			);
+			ncc.listWallets();
 
 			require(['tinycarousel'], function() {
 				var $carousel = $('.tipsCarousel-container');
@@ -153,6 +156,7 @@
 		    		{
 		    			complete: function() {
 		    				ncc.set('landingPage.creatingWallet', false);
+		    				ncc.listWallets();
 		    			}
 		    		});
 			    },

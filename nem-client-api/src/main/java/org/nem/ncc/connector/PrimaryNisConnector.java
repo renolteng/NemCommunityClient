@@ -38,6 +38,14 @@ public interface PrimaryNisConnector {
 	public <T> T forward(final Function<NodeEndpoint, CompletableFuture<T>> request);
 
 	/**
+	 * Forwards an asynchronous request to the primary NIS node.
+	 *
+	 * @param request The request to forward.
+	 * @return The result.
+	 */
+	public <T> CompletableFuture<T> forwardAsync(final Function<NodeEndpoint, CompletableFuture<T>> request);
+
+	/**
 	 * Posts a request to the specified NIS relative url path.
 	 *
 	 * @param apiId The api to call.

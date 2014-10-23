@@ -149,11 +149,20 @@ define(function(require) {
                 null, silent
             );
         },
+        resetDefaultData: function() {
+            this.set('formattedAmount', '0');
+            this.set('formattedRecipient', '');
+            this.set('rawMessage', '');
+            this.set('encrypted', false);
+            this.set('dueBy', '0');
+            this.set('password', '');
+        },
         init: function() {
             (new NccModal()).init.call(this);
-
             var self = this;
 
+            this.resetDefaultData();
+            
             this.observe('fee', function(newValue, oldValue, keypath) {
                 this.set('isFeeAutofilled', false);
             });
@@ -243,6 +252,9 @@ define(function(require) {
                     if (e.original.keyCode === 13) {
                         this.fire('sendTransaction');
                     }
+                },
+                closeModal: function() {
+                    this.resetDefaultData();
                 }
             });
         }
@@ -616,9 +628,20 @@ define(function(require) {
             return mNem / 1000000;
         },
         toMNem: function(nem) {
-            return nem * 1000000;
+            // clever workaround to deal with JavaScript loss of precision bugs
+            // by using strings for multiplication
+            // the largest integer that can be stored in a java numeric type (64-bit floating point)
+            // is Math.pow(2, 53) > 8 * Math.pow(10, 15)
+            // [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
+            // NOTE: this only works because nem is assumed to be a string
+
+            // determine the number of trailing zeros to add based on the index of the decimal
+            var decimalIndex = nem.indexOf('.');
+            var power = 6 - (-1 === decimalIndex ? 0 : nem.length - decimalIndex - 1);
+            var trailingZeros = new Array(power + 1).join('0');
+            return parseInt(nem.replace('.', '') + trailingZeros);
         },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) {
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) { // amount is in mNEM
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
             var mNem = this.minDigits(amount % 1000000, 6);
             if (!noLimitFractionalPart) {
@@ -645,10 +668,22 @@ define(function(require) {
 
             return nem + this.get('texts.preferences.decimalSeparator') + mNem;
         },
+        // @param amount: string
+        convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
+            if (oldThousandSeparator) {
+                var thousandSeparatorRegex = new RegExp(ncc.escapeRegExp(oldThousandSeparator), 'g');
+                amount = amount.replace(thousandSeparatorRegex, newThousandSeparator);
+            }
+
+            if (oldDecimalSeparator) {
+                var decimalSeparatorRegex = new RegExp(ncc.escapeRegExp(oldDecimalSeparator), 'g');
+                amount = amount.replace(decimalSeparatorRegex, newDecimalSeparator);
+            }
+
+            return amount;
+        },
         convertCurrencyToStandard: function(amount) {
-            var thousandSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.thousandSeparator')), 'g');
-            var decimalSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')), 'g');
-            return amount.replace(thousandSeparator, '').replace(decimalSeparator, '.');
+            return this.convertCurrencyFormat(amount, ncc.get('texts.preferences.thousandSeparator'), '', ncc.get('texts.preferences.decimalSeparator'), '.');
         },
         toDate: function(ms) {
             return new Date(ms);
