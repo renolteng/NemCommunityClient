@@ -132,7 +132,11 @@ define(function(require) {
                         }
                     }
 
-                    self.set('encryptionPossible', data.encryptionPossible);
+                    var encryptionPossible = !!self.get('inputtedRecipient') && data.encryptionPossible;
+                    self.set('encryptionPossible', encryptionPossible);
+                    if (!encryptionPossible) {
+                        self.set('encrypted', false);
+                    }
                 }, 
                 null, silent
             );
@@ -157,8 +161,7 @@ define(function(require) {
 
             this.observe('amount recipient message encrypt', (function() {
                 var t;
-                return function(val, old, field) {
-                    console.log(field + ' ' + val);
+                return function() {
                     clearTimeout(t);
                     t = setTimeout(function() {
                         self.resetFee(self.get('isFeeAutofilled'), true);
