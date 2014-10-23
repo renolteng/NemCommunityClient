@@ -633,10 +633,10 @@ define(function(require) {
             var trailingZeros = new Array(power + 1).join('0');
             return parseInt(nem.replace('.', '') + trailingZeros);
         },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDicimalPlaces) { // amount is in mNEM
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDecimalPlaces) { // amount is in mNEM
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
             var mNem = Math.floor(amount % 1000000);
-            if (!noFixedDicimalPlaces) {
+            if (!noFixedDecimalPlaces) {
                 mNem = this.minDigits(mNem, 6);
             }
             if (!noLimitFractionalPart) {
@@ -662,7 +662,7 @@ define(function(require) {
                 }
             }
 
-            return nem + ((noFixedDicimalPlaces && !mNem) ? '' : (this.get('texts.preferences.decimalSeparator') + mNem));
+            return nem + ((noFixedDecimalPlaces && !mNem) ? '' : (this.get('texts.preferences.decimalSeparator') + mNem));
         },
         // @param amount: string
         convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
