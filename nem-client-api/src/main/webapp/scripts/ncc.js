@@ -105,7 +105,7 @@ define(function(require) {
                     return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedFee')));
                 },
                 set: function(fee) {
-                    this.set('formattedFee', ncc.formatCurrency(fee));
+                    this.set('formattedFee', ncc.formatCurrency(fee, false, true, true));
                 }
             }
         },
@@ -630,14 +630,18 @@ define(function(require) {
             var trailingZeros = new Array(power + 1).join('0');
             return parseInt(nem.replace('.', '') + trailingZeros);
         },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) { // amount is in mNEM
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDicimalPlaces) { // amount is in mNEM
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
-            var mNem = this.minDigits(amount % 1000000, 6);
+            var mNem = Math.floor(amount % 1000000);
+            if (!noFixedDicimalPlaces) {
+                mNem = this.minDigits(mNem, 6);
+            }
             if (!noLimitFractionalPart) {
                 mNem = mNem.substring(0, this.consts.fractionalDigits);
             }
 
             if (dimTrailings) {
+                mNem = mNem.toString(10);
                 var cutPos = mNem.length - 1;
                 while (mNem.charAt(cutPos) === '0') {
                     cutPos--;
@@ -655,7 +659,7 @@ define(function(require) {
                 }
             }
 
-            return nem + this.get('texts.preferences.decimalSeparator') + mNem;
+            return nem + ((noFixedDicimalPlaces && !mNem) ? '' : (this.get('texts.preferences.decimalSeparator') + mNem));
         },
         // @param amount: string
         convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
