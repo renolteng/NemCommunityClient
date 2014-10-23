@@ -5,19 +5,7 @@ define(function(require) {
     var Ractive = require('ractive');
     var Mustache = require('mustache');
     var tooltipster = require('tooltipster');
-
-    var Utils = {
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
-        },
-        formatAddress: function(address) {
-            if (address && typeof address === 'string') {
-                return address.match(/.{1,6}/g).join('-').toUpperCase();
-            } else {
-                return address;
-            }
-        }
-    }
+    var Utils = require('Utils');
 
     var NccModal = Ractive.extend({
         template: '#modal-template',
@@ -117,7 +105,7 @@ define(function(require) {
                     return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedFee')));
                 },
                 set: function(fee) {
-                    this.set('formattedFee', ncc.formatCurrency(fee));
+                    this.set('formattedFee', ncc.formatCurrency(fee, false, true, true));
                 }
             }
         },
@@ -144,16 +132,29 @@ define(function(require) {
                         }
                     }
 
-                    self.set('encryptionPossible', data.encryptionPossible);
+                    var encryptionPossible = !!self.get('inputtedRecipient') && data.encryptionPossible;
+                    self.set('encryptionPossible', encryptionPossible);
+                    if (!encryptionPossible) {
+                        self.set('encrypted', false);
+                    }
                 }, 
                 null, silent
             );
         },
+        resetDefaultData: function() {
+            this.set('formattedAmount', '0');
+            this.set('formattedRecipient', '');
+            this.set('rawMessage', '');
+            this.set('encrypted', false);
+            this.set('dueBy', '12');
+            this.set('password', '');
+        },
         init: function() {
             (new NccModal()).init.call(this);
-
             var self = this;
 
+            this.resetDefaultData();
+            
             this.observe('fee', function(newValue, oldValue, keypath) {
                 this.set('isFeeAutofilled', false);
             });
@@ -243,6 +244,9 @@ define(function(require) {
                     if (e.original.keyCode === 13) {
                         this.fire('sendTransaction');
                     }
+                },
+                closeModal: function() {
+                    this.resetDefaultData();
                 }
             });
         }
@@ -629,14 +633,18 @@ define(function(require) {
             var trailingZeros = new Array(power + 1).join('0');
             return parseInt(nem.replace('.', '') + trailingZeros);
         },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) { // amount is in mNEM
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDicimalPlaces) { // amount is in mNEM
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
-            var mNem = this.minDigits(amount % 1000000, 6);
+            var mNem = Math.floor(amount % 1000000);
+            if (!noFixedDicimalPlaces) {
+                mNem = this.minDigits(mNem, 6);
+            }
             if (!noLimitFractionalPart) {
                 mNem = mNem.substring(0, this.consts.fractionalDigits);
             }
 
             if (dimTrailings) {
+                mNem = mNem.toString(10);
                 var cutPos = mNem.length - 1;
                 while (mNem.charAt(cutPos) === '0') {
                     cutPos--;
@@ -654,8 +662,9 @@ define(function(require) {
                 }
             }
 
-            return nem + this.get('texts.preferences.decimalSeparator') + mNem;
+            return nem + ((noFixedDicimalPlaces && !mNem) ? '' : (this.get('texts.preferences.decimalSeparator') + mNem));
         },
+        // @param amount: string
         convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
             if (oldThousandSeparator) {
                 var thousandSeparatorRegex = new RegExp(ncc.escapeRegExp(oldThousandSeparator), 'g');
@@ -898,6 +907,8 @@ define(function(require) {
             tx.formattedRecipient = this.formatAddress(tx.recipient);
             tx.formattedFee = this.formatCurrency(tx.fee, true);
             tx.formattedAmount = this.formatCurrency(tx.amount, true);
+            tx.formattedFullFee = this.formatCurrency(tx.fee, false, true, true);
+            tx.formattedFullAmount = this.formatCurrency(tx.amount, false, true, true);
             tx.formattedDate = this.formatDate(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
             return tx;
         },

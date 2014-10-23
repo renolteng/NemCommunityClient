@@ -24,6 +24,16 @@ public class NccException extends RuntimeException {
 		ACCOUNT_CACHE_ERROR(901),
 
 		/**
+		 * The public key derived from the private key does not match the given public key .
+		 */
+		PRIVATE_KEY_PUBLIC_KEY_MISMATCH(1000),
+
+		/**
+		 * The address derived from the public key does not match the given address.
+		 */
+		PUBLIC_KEY_ADDRESS_MISMATCH(1001),
+
+		/**
 		 * NCC is disconnected from the network.
 		 */
 		NIS_NOT_AVAILABLE(305);

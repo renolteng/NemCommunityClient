@@ -4,7 +4,7 @@ import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
-import org.nem.core.model.ncc.HarvestInfo;
+import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
@@ -253,19 +253,23 @@ public class AccountController {
 
 	//endregion
 
-	//region create real private key
+	//region create/verify real private key
 
 	/**
-	 * Temporary API for creating a real (main-net) private key during beta.
+	 * Temporary API for creating and verifying a real (main-net) private key during beta.
 	 * TODO 20141016 BR: delete at launch
 	 *
 	 * @return A key pair view model.
 	 */
-	@RequestMapping(value = "/account/real-private-key", method = RequestMethod.GET)
+	@RequestMapping(value = "/account/create-real-account-data", method = RequestMethod.GET)
 	public KeyPairViewModel createRealPrivateKey() {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
 		final KeyPair keyPair = new KeyPair();
 		return new KeyPairViewModel(keyPair, networkInfo.getVersion());
+	}
+
+	@RequestMapping(value = "/account/verify-real-account-data", method = RequestMethod.POST)
+	public void verifyRealAccountData(@RequestBody final KeyPairViewModel viewModel) {
 	}
 
 	//endregion
