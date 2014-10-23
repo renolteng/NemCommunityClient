@@ -897,6 +897,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             });
 
             // Mask NEM amount textboxes
+            var sendNemModal = ncc.getModal('sendNem');
             (function(){
                 var generateNemTextboxMask = function() {
                     var oldVal;
@@ -947,6 +948,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         var newVal = intPart + decimalPart;
 
                         target.value = oldVal = newVal;
+                        sendNemModal.updateModel();
                         var caret = newVal.length - caretToEnd;
                         target.setSelectionRange(caret, caret);
                     };
@@ -956,7 +958,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 var amountTxb = $amount[0];
                 var amountMask = generateNemTextboxMask();
                 $amount.on('keyup', amountMask);
-
 
                 var $fee = $('.js-sendNem-fee-textbox');
                 var feeTxb = $fee[0];

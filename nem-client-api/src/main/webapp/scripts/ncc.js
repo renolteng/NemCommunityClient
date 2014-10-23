@@ -157,7 +157,8 @@ define(function(require) {
 
             this.observe('amount recipient message encrypt', (function() {
                 var t;
-                return function() {
+                return function(val, old, field) {
+                    console.log(field + ' ' + val);
                     clearTimeout(t);
                     t = setTimeout(function() {
                         self.resetFee(self.get('isFeeAutofilled'), true);
