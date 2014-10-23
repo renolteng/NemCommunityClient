@@ -848,58 +848,15 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                 }
             });
 
-            require(['maskedinput'], function() {
-                // var pattern1, pattern2;
-
-                // var dPatternRecalc = function(options) {
-                //     options.translation = {
-                //         'd': {
-                //             pattern: new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator'))),
-                //             optional: true
-                //         }
-                //     };
-
-                //     pattern1 ='#' + ncc.get('texts.preferences.thousandSeparator') + '##0d';
-                //     pattern2 = '#' + ncc.get('texts.preferences.thousandSeparator') + '##0' +
-                //             ncc.get('texts.preferences.decimalSeparator') + '999999';
-                // };
-
-                // var maskNemTextbox = function($textbox) {
-                //     if (!$textbox) return;
-
-                //     var maskRecalc = function($textbox, value, options) {
-                //         if (value.indexOf(ncc.get('texts.preferences.decimalSeparator')) === -1) {
-                //             $textbox.mask(pattern1, options);
-                //         } else {
-                //             $textbox.mask(pattern2, options);
-                //         }
-                //     }
-                    
-                //     var options = {
-                //         onKeyPress: function(value, e, currentField, options) {
-                //             maskRecalc($(currentField), value, options);
-                //         },
-                //         onInvalid: function() {
-                //             console.log('invalid');
-                //         },
-                //         onChange: function() {
-                //             console.log('invalid');
-                //         },
-                //         maxlength: false,
-                //         reverse: true
-                //     };
-
-                //     local.listeners.push(ncc.observe('texts.preferences', function(preferences) {
-                //         dPatternRecalc(options);
-                //         maskRecalc($textbox, $textbox.val(), options);
-                //     }));
-                // };
-                // maskNemTextbox($amount);
-                // maskNemTextbox($fee);
-                
+            require(['maskedinput'], function() {                
                 var $recipient = $('.js-sendNem-recipient-textbox');
                 $recipient.mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
+                var $dueBy = $('.js-sendNem-dueBy-textbox');
+                $dueBy.mask('00');
+            });
 
+            // Mask NEM amount textboxes
+            (function(){
                 var generateNemTextboxMask = function() {
                     var oldVal;
 
@@ -917,7 +874,11 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         // Remove illegal characters
                         var dsRegex = new RegExp('[^0-9' + ncc.escapeRegExp(decimalSeparator) + ']', 'g');
                         currentVal = currentVal.replace(dsRegex, '');
-                        // Remove redundant decimalSeparators
+                        // Remove leading zeroes
+                        while (currentVal.length > 1 && currentVal[0] === '0' && currentVal[1] !== decimalSeparator) {
+                            currentVal = currentVal.substring(1, currentVal.length);
+                        }
+                        // Remove redundant decimal separators
                         var matchedOnce = false;
                         var i = 0;
                         while (i < currentVal.length) {
@@ -970,7 +931,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     amountTxb.value = ncc.convertCurrencyFormat(amountTxb.value, null, null, oldProp, newProp);
                     feeTxb.value = ncc.convertCurrencyFormat(feeTxb.value, null, null, oldProp, newProp);
                 }));
-            });
+            })();
         },
         leave: [function() {
             $(window).off('resize.scrollableSidebar');
