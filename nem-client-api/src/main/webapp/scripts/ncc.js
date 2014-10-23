@@ -5,19 +5,7 @@ define(function(require) {
     var Ractive = require('ractive');
     var Mustache = require('mustache');
     var tooltipster = require('tooltipster');
-
-    var Utils = {
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
-        },
-        formatAddress: function(address) {
-            if (address && typeof address === 'string') {
-                return address.match(/.{1,6}/g).join('-').toUpperCase();
-            } else {
-                return address;
-            }
-        }
-    }
+    var Utils = require('Utils');
 
     var NccModal = Ractive.extend({
         template: '#modal-template',

@@ -1,6 +1,6 @@
 "use strict";
 
-define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
+define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
         template: 'rv!layout/wallet',
@@ -309,7 +309,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             ncc.postRequest('wallet/account/new', values, function(data) {
                                 if (data.address) {
                                     var label = data.label;
-                                    ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), ncc.formatAddress(data.address), label));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), ncc.formatAddress(data.address), label));
 
                                     var layout = ncc.get('layout');
                                     var wallet = ncc.get('wallet.name');
@@ -336,7 +336,8 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         var formattedAddress = ncc.formatAddress(accountData.address);
 
                         // Open the 1st modal: generating account data
-                        ncc.showInputForm(ncc.get('texts.modals.createRealAccountData.title'), 
+                        ncc.showInputForm(
+                            ncc.get('texts.modals.createRealAccountData.title'), 
                             ncc.get('texts.modals.createRealAccountData.message'),
                             [
                                 {
@@ -456,13 +457,53 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                     };
 
                     return function() {
-                        ncc.getRequest('/account/real-private-key',
+                        ncc.getRequest('/account/create-real-account-data',
                             function(data) {
                                 showAccountData(data);
                             }
                         );
                     }
                 })(),
+                verifyRealAccountData: function() {
+                    ncc.showInputForm(
+                        ncc.get('texts.modals.verifyRealAccountData.title'), 
+                        ncc.get('texts.modals.verifyRealAccountData.message'), 
+                        [
+                            {
+                                name: 'address',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.verifyRealAccountData.address')
+                                }
+                            },
+                            {
+                                name: 'publicKey',
+                                type: 'textarea',
+                                label: {
+                                    content: ncc.get('texts.modals.verifyRealAccountData.publicKey')
+                                }
+                            },
+                            {
+                                name: 'privateKey',
+                                type: 'textarea',
+                                label: {
+                                    content: ncc.get('texts.modals.verifyRealAccountData.privateKey')
+                                }
+                            }
+                        ],
+                        {},
+                        function(values, closeModal) {
+                            values.address = Utils.restoreAddress(values.address);
+                            ncc.postRequest('account/verify-real-account-data', values, function(data) {
+                                ncc.showMessage(ncc.get('texts.common.success'),
+                                    ncc.get('texts.modals.verifyRealAccountData.dataMatched'));
+                                closeModal();
+                            });
+                            return false;
+                        },
+                        ncc.get('texts.modals.verifyRealAccountData.verify')
+                    );
+                },
                 addAccount: function() {
                     var wallet = ncc.get('wallet.name');
                     ncc.showInputForm(ncc.get('texts.modals.addAccount.title'), '',
@@ -504,7 +545,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             ncc.postRequest('wallet/account/add', values, function(data) {
                                 if (data.address) {
                                     var label = data.label;
-                                    ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), ncc.formatAddress(data.address), label));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), ncc.formatAddress(data.address), label));
 
                                     var layout = ncc.get('layout');
                                     var wallet = ncc.get('wallet.name');
@@ -571,7 +612,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         function(values, closeModal) {
                             values.account = account;
                             ncc.postRequest('wallet/account/primary', values, function(data) {
-                                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), ncc.formatAddress(account), accountLabel));
+                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), ncc.formatAddress(account), accountLabel));
                                 ncc.set('wallet', ncc.processWallet(data));
                                 closeModal();
                             });
@@ -623,7 +664,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         function(values, closeModal) {
                             ncc.postRequest('wallet/name/change', values, function(data) {
                                 var newWalletName = values['new_name'];
-                                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
+                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
                                 ncc.set('wallet', ncc.processWallet(data));
                                 closeModal();
                             });
@@ -673,7 +714,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             if (values['new_password'] === values.confirmPassword) {
                                 values.confirmPassword = undefined;
                                 ncc.postRequest('wallet/password/change', values, function(data) {
-                                    ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
                                     closeModal();
                                 });
                             } else {
@@ -722,7 +763,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                             ncc.postRequest('wallet/account/label', values, function(data) {
                                 var label = values.label;
                                 ncc.showMessage(
-                                    ncc.get('texts.modals.common.success'), 
+                                    ncc.get('texts.common.success'), 
                                     ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), ncc.formatAddress(account), label)
                                 );
                                 ncc.set('activeAccount', ncc.processAccount(data));
@@ -764,7 +805,7 @@ define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
                         function(values, closeModal) {
                             ncc.postRequest('wallet/account/remove', values, function(data) {
                                 ncc.showMessage(
-                                    ncc.get('texts.modals.common.success'), 
+                                    ncc.get('texts.common.success'), 
                                     ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), ncc.formatAddress(account), accountLabel)
                                 );
                                 ncc.set('wallet', ncc.processWallet(data));

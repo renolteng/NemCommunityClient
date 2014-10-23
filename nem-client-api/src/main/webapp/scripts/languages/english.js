@@ -34,7 +34,9 @@ define({
             707: 'The time stamp of the transaction id too far in the past.',
             708: 'The time stamp of the transaction is too far in the future.',
             709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
-            901: 'There was an error setting up offline mode.'
+            901: 'There was an error setting up offline mode.',
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.'
         },
         common: {
         	success: 'Success', //title of the Success message modals
@@ -202,6 +204,15 @@ define({
 					recheck: 'Check'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: 'Add an Existing Account',
@@ -374,6 +385,7 @@ define({
 				exportWallet: 'Export Wallet',
 				createAccount: 'Create new Account',
 				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: 'Add an Existing Account',
 				changeAccountLabel: 'Change Account Label',
 				setPrimary: 'Set as Primary Account',
