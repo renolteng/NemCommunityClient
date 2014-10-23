@@ -142,7 +142,7 @@ define(function(require) {
             this.set('formattedRecipient', '');
             this.set('rawMessage', '');
             this.set('encrypted', false);
-            this.set('dueBy', '0');
+            this.set('dueBy', '12');
             this.set('password', '');
         },
         init: function() {
