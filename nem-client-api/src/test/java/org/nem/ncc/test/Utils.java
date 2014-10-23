@@ -20,6 +20,16 @@ import java.util.concurrent.CompletableFuture;
 public class Utils {
 
 	/**
+	 * Generates a random private key.
+	 *
+	 * @return A random private key.
+	 */
+	public static PrivateKey generateRandomPrivateKey() {
+		final KeyPair pair = new KeyPair();
+		return pair.getPrivateKey();
+	}
+
+	/**
 	 * Generates a random public key.
 	 *
 	 * @return A random public key.
