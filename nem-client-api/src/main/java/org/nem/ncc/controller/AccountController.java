@@ -269,8 +269,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/account/verify-real-account-data", method = RequestMethod.POST)
-	public NemRequestResult verifyRealAccountData(@RequestBody final KeyPairViewModel viewModel) {
-		return new NemRequestResult(NemRequestResult.TYPE_VALIDATION_RESULT, NemRequestResult.CODE_SUCCESS, "success");
+	public void verifyRealAccountData(@RequestBody final KeyPairViewModel viewModel) {
 	}
 
 	//endregion
