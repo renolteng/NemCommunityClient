@@ -907,8 +907,8 @@ define(function(require) {
             tx.formattedRecipient = this.formatAddress(tx.recipient);
             tx.formattedFee = this.formatCurrency(tx.fee, true);
             tx.formattedAmount = this.formatCurrency(tx.amount, true);
-            tx.formattedFullFee = this.formatCurrency(tx.fee, false, true, true);
-            tx.formattedFullAmount = this.formatCurrency(tx.amount, false, true, true);
+            tx.formattedFullFee = this.formatCurrency(tx.fee, false, true, false);
+            tx.formattedFullAmount = this.formatCurrency(tx.amount, false, true, false);
             tx.formattedDate = this.formatDate(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
             return tx;
         },
