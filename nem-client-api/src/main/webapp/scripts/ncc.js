@@ -159,7 +159,7 @@ define(function(require) {
                 this.set('isFeeAutofilled', false);
             });
 
-            this.observe('amount recipient message encrypt', (function() {
+            this.observe('amount inputtedRecipient message encrypt', (function() {
                 var t;
                 return function() {
                     clearTimeout(t);
