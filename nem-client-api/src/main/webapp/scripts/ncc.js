@@ -115,7 +115,7 @@ define(function(require) {
                 account: ncc.get('activeAccount.address'),
                 amount: this.get('amount'),
                 message: this.get('message'),
-                encrypt: this.get('encrypt'),
+                encrypt: 0,
                 recipient: this.get('recipient'),
                 hours_due: this.get('hours_due')
             };
@@ -164,7 +164,7 @@ define(function(require) {
                 return function() {
                     clearTimeout(t);
                     t = setTimeout(function() {
-                        self.resetFee(self.get('isFeeAutofilled'), true);
+                        self.resetFee(self.get('isFeeAutofilled'));
                     }, 500);
                 }
             })());
