@@ -11,6 +11,7 @@ import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
+import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -270,6 +271,13 @@ public class AccountController {
 
 	@RequestMapping(value = "/account/verify-real-account-data", method = RequestMethod.POST)
 	public void verifyRealAccountData(@RequestBody final KeyPairViewModel viewModel) {
+		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
+		if (viewModel.getNetworkVersion() != networkInfo.getVersion()) {
+			// TODO 20141023 J-B: don't know if we want a new error code here to indicate a test key was entered?
+			throw new NccException(NccException.Code.PUBLIC_KEY_ADDRESS_MISMATCH);
+		}
+
+		// TODO 20141023 J-B: should this function make a request to the stake claiming portal?
 	}
 
 	//endregion

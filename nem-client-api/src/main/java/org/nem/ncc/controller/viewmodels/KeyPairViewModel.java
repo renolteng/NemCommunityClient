@@ -31,14 +31,16 @@ public class KeyPairViewModel implements SerializableEntity {
 	public KeyPairViewModel(final Deserializer deserializer) {
 		final PrivateKey privateKey = PrivateKey.fromHexString(deserializer.readString("privateKey"));
 		final PublicKey publicKey = PublicKey.fromHexString(deserializer.readOptionalString("publicKey"));
-		if (!publicKeyIsDerivedFromPrivateKey(privateKey, publicKey)) {
-			throw new NccException(NccException.Code.PRIVATE_KEY_PUBLIC_KEY_MISMATCH);
-		}
-		this.keyPair = new KeyPair(privateKey, publicKey);
 		final Address address = Address.fromEncoded(deserializer.readString("address"));
+
 		this.networkVersion = NetworkInfo.fromAddress(address).getVersion();
 		if (!addressIsDerivedFromPublicKey(publicKey, this.networkVersion, address)) {
 			throw new NccException(NccException.Code.PUBLIC_KEY_ADDRESS_MISMATCH);
+		}
+
+		this.keyPair = new KeyPair(privateKey);
+		if (!this.keyPair.getPublicKey().equals(publicKey)) {
+			throw new NccException(NccException.Code.PRIVATE_KEY_PUBLIC_KEY_MISMATCH);
 		}
 	}
 
@@ -60,12 +62,7 @@ public class KeyPairViewModel implements SerializableEntity {
 		return this.networkVersion;
 	}
 
-	private boolean publicKeyIsDerivedFromPrivateKey(final PrivateKey privateKey, final PublicKey publicKey) {
-		final KeyPair keyPair = new KeyPair(privateKey);
-		return keyPair.getPublicKey().equals(publicKey);
-	}
-
-	private boolean addressIsDerivedFromPublicKey(final PublicKey publicKey, final byte networkVersion, final Address address) {
+	private static boolean addressIsDerivedFromPublicKey(final PublicKey publicKey, final byte networkVersion, final Address address) {
 		final Address derivedAddress = Address.fromPublicKey(networkVersion, publicKey);
 		return derivedAddress.equals(address);
 	}
