@@ -164,7 +164,7 @@ define(function(require) {
                 return function() {
                     clearTimeout(t);
                     t = setTimeout(function() {
-                        self.resetFee(self.get('isFeeAutofilled'));
+                        self.resetFee(self.get('isFeeAutofilled'), true);
                     }, 500);
                 }
             })());
