@@ -34,7 +34,7 @@ public class KeyPairViewModel implements SerializableEntity {
 		if (!publicKeyIsDerivedFromPrivateKey(privateKey, publicKey)) {
 			throw new NccException(NccException.Code.PRIVATE_KEY_PUBLIC_KEY_MISMATCH);
 		}
-		this.keyPair = new KeyPair(privateKey, publicKey);
+		this.keyPair = new KeyPair(privateKey);
 		final Address address = Address.fromEncoded(deserializer.readString("address"));
 		this.networkVersion = NetworkInfo.fromAddress(address).getVersion();
 		if (!addressIsDerivedFromPublicKey(publicKey, this.networkVersion, address)) {

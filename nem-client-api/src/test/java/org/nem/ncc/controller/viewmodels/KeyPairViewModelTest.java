@@ -28,9 +28,9 @@ public class KeyPairViewModelTest {
 	public void ctorThrowsIfPublicKeyIsNotDerivedFromPrivateKey() {
 		// Arrange:
 		final PrivateKey privateKey = Utils.generateRandomPrivateKey();
-		final PublicKey publicKey = Utils.generateRandomPublicKey();
-		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(privateKey, publicKey), (byte)0x98);
+		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(privateKey), (byte)0x68);
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
+		jsonObject.replace("publicKey", Utils.generateRandomPublicKey().toString());
 
 		// Act:
 		new KeyPairViewModel(new JsonDeserializer(jsonObject, null));
@@ -39,7 +39,7 @@ public class KeyPairViewModelTest {
 	@Test (expected = NccException.class)
 	public void ctorThrowsIfAddressIsNotDerivedFromPublicKey() {
 		// Arrange:
-		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(), (byte)0x98);
+		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(), (byte)0x68);
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 		jsonObject.replace("address", Utils.generateRandomAddress().getEncoded());
 

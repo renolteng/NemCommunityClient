@@ -11,11 +11,12 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.node.NodeEndpoint;
-import org.nem.core.serialization.SerializableList;
+import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
+import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
@@ -377,16 +378,26 @@ public class AccountControllerTest {
 	//region createRealPrivateKey
 
 	@Test
-	public void createRealPrivateKeyReturnsMainNetPrivateKey() {
+	public void createRealAccountDataReturnsKeyPairViewModelWithMainNetworkVersion() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
 		// Act:
-		final KeyPairViewModel viewModel = context.controller.createRealPrivateKey();
+		final KeyPairViewModel viewModel = context.controller.createRealAccountData();
 
 		// Assert:
 		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());
 		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(NetworkInfo.getMainNetworkInfo().getVersion()));
+	}
+
+	@Test (expected = NccException.class)
+	public void verifyRealAccountDataThrowsIfNetworkVersionIsNotMainNetworkVersion() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(), (byte)0x17);
+
+		// Assert:
+		context.controller.verifyRealAccountData(viewModel);
 	}
 
 	//endregion
