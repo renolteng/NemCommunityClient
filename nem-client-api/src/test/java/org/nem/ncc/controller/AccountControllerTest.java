@@ -411,7 +411,7 @@ public class AccountControllerTest {
 		// Act:
 		ExceptionAssert.assertThrowsNccException(
 				v -> context.controller.verifyRealAccountData(viewModel),
-				NccException.Code.PUBLIC_KEY_ADDRESS_MISMATCH);
+				NccException.Code.NOT_MAIN_NETWORK_ADDRESS);
 	}
 
 	//endregion

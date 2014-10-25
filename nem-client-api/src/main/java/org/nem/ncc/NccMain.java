@@ -30,8 +30,6 @@ public class NccMain {
 	private final org.nem.ncc.model.Configuration configuration;
 	private final NccScheduler scheduler;
 
-	// TODO 20140928 J-B: any reason we can't pass in the NccScheduler directly (instead of NccTimeSynchronizer)?
-	// TODO 20141024 BR -> J: not really.
 	public NccMain(final NccScheduler scheduler) {
 		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
 		verifyDirectory(new File(nccFolder));
