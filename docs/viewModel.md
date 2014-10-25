@@ -277,8 +277,9 @@ Only a local NIS can be booted.
 	                      # 1 - STOPPED
 	                      # 2 - STARTING
 	                      # 3 - RUNNING
-	                      # 4 - BOOTED
-	                      # 5 - SYNCHRONIZED
+	                      # 4 - BOOTING
+	                      # 5 - BOOTED
+	                      # 6 - SYNCHRONIZED
 	"type": 4,            # A NemRequestResult can have serveral meanings. 
                           # The type indicates the meaning. 
 	                      # type 4 - TYPE_STATUS, the code and the message fields 
