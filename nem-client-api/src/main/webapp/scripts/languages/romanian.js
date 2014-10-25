@@ -34,7 +34,9 @@ define({
             707: "Data si ora tranzacției sunt prea îndepărtate în trecut.",
             708: "Data si ora tranzacției sunt prea îndepărtate în viitor.",
             709: "Contul este necunoscut. Un cont trebuie să facă parte din măcar o tranzacție (expeditor sau destinatar) pentru a fi cunoscut în rețea.",
-            901: "O eroare a apărut la setarea nodului offline."
+            901: "O eroare a apărut la setarea nodului offline.",
+            1000: "Cheia privată și cheia publică care au fost introduse nu se potrivesc.",
+            1001: "Cheia publică și adresa care au fost introduse nu se potrivesc."
         },
         common: {
             success: "Succes",
@@ -189,15 +191,26 @@ define({
                     message: "Te rog introdu cheia privată pe care ai primit-o pentru a verifica daca ai salvat-o pe cea bună. Daca cheia ta privată este deja pierdută, probabil ca ar fi bine sa creezi una nouă.",
                     correct: {
                         title: "Foarte bine!",
-                        message: "Se pare ca ai salvat cheia privată corectă. Te rog ai grije să o ți tot timpul în siguranță."
+                        message: "Se pare ca ai salvat cheia privată corectă. Te rog ai grije să o ți întotdeauna sigură și securizată."
                     },
                     incorrect: {
                         title: "Hmm...",
-                        message: "Cheia privată pe care ai introdus-o nu este corecta! Te rog verific-o si încearcă să o reintroduci din nou."
+                        message: "Cheia privată pe care ai introdus-o nu este corecta! Vrei să introduci din nou cheia privată sau să vizualizezi datele contului inițial?",
+                        tryAgain: "Încearcă să introduci din nou",
+                        seeOriginal: "Vizualizează datele contului inițial"
                     },
                     recheck: "Verificat"
                 },
                 ok: "OK"
+            },
+            verifyRealAccountData: {
+                title: "Verifică datele contului real",
+                message: "Reintrodu adresa salvată, cheia publică și cheia privată pentru a verifica daca se potrivesc",
+                address: "Adresa",
+                publicKey: "Cheia publică",
+                privateKey: "Cheia privată",
+                dataMatched: "Totul pare în ordine, adresa introdusă, cheia publică, și cheia privată se potrivesc.",
+                verify: "Verifică"
             },
             addAccount: {
                 title: "Adaugă un cont existent",
@@ -264,7 +277,7 @@ define({
                 title: "Activează recoltarea de la distanță",
                 wallet: "Portofel",
                 account: "Cont",
-                hoursDue: "Ore datorate",
+                hoursDue: "Scadență",
                 password: "Parola portofelului",
                 activate: "Activează"
             },
@@ -272,7 +285,7 @@ define({
                 title: "Dezactivează recoltarea de la distanță",
                 wallet: "Portofel",
                 account: "Cont",
-                hoursDue: "Ore datorate",
+                hoursDue: "Scadență",
                 password: "Parola portofelului",
                 deactivate: "Dezactivează"
             },
@@ -370,6 +383,7 @@ define({
                 exportWallet: "Exportă portofelul",
                 createAccount: "Crează cont nou",
                 createRealAccountData: "Crează date reale de cont",
+                verifyRealAccountData: "Verifică datele contului real",
                 addAccount: "Adaugă un nou cont existent",
                 changeAccountLabel: "Schimbă eticheta contului",
                 setPrimary: "Stabilște ca cont primar",
@@ -380,7 +394,7 @@ define({
                 copyClipboard: "Copiază adresa în clipboard"
             },
             nav: [
-                "Dashboard",
+                "Panou principal",
                 "Mesaje",
                 "Contacte",
                 "Tranzacții",
@@ -455,7 +469,7 @@ define({
             news: {
                 titleTooltip: "Știri"
             },
-            notAvailable: "Nu este disponibil în versiunea alpha"
+            notAvailable: "Nu este încă disponibil în versiunea beta"
         },
         transactions: {
             title: "Tranzacții",
@@ -503,8 +517,8 @@ define({
                     "Block hash",
                     "Taxă"
                 ],
-                noBlocks: "Niciun block recoltat",
-                loadMore: "Vizualizează block-uri recoltate în trecut"
+                noBlocks: "Niciun block nu a fost recoltat încă",
+                loading: "Se încarcă mai multe blocuri recoltate"
             },
             harvesting: {
                 unknown: "Status necunoscut",

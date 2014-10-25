@@ -34,7 +34,9 @@ define({
             707: "Transakcijos laiko žymė yra per toli praeityje.",
             708: "Transakcijos laiko žymė yra per toli ateityje.",
             709: "Sąskaita nežinoma. Sąskaita turi turėti bent vieną transakciją (siuntimo ar gavimo), kad būtų žinoma tinkle.",
-            901: "Įvyko klaida nustatant offline režimą."
+            901: "Įvyko klaida nustatant offline režimą.",
+            1000: "Jūsų pateikti privatus ir viešas raktai neatitinka.",
+            1001: "Jūsų pateiktas viešas raktas ir adresas neatitinka."
         },
         common: {
             success: "Pavyko",
@@ -69,7 +71,7 @@ define({
             settings: {
                 title: "Nustatymai",
                 language: {
-                    label: "Kalbae"
+                    label: "Kalba"
                 },
                 remoteServer: {
                     tabTitle: "Nuotolinis serveris",
@@ -193,11 +195,22 @@ define({
                     },
                     incorrect: {
                         title: "Hmm...",
-                        message: "Įvestas privatus raktas yra neteisingas! Pasitikrinkite dar kartą ir įveskite iš naujo."
+                        message: "Įvestas privatus raktas yra neteisingas! Pasitikrinkite dar kartą ir įveskite iš naujo.",
+                        tryAgain: "Pabandykita įvesti dar kartą",
+                        seeOriginal: "Peržiūrėti originalius duomenis"
                     },
                     recheck: "Tikrinti"
                 },
                 ok: "Gerai"
+            },
+            verifyRealAccountData: {
+                title: "Patikrinti realios sąskaitos duomenis",
+                message: "Įveskite dar kartą Jūsų išsaugotą adresą, viešąjį ir privatų raktus norėdami patikrinti ar jie teisingi.",
+                address: "Adresas",
+                publicKey: "Viešasis raktas",
+                privateKey: "Privatus raktas",
+                dataMatched: "Viskas atrodo gerai, Jūsų įvesti adresas, viešasis raktas ir privatus raktas teisingi.",
+                verify: "Tikrinti"
             },
             addAccount: {
                 title: "Pridėti egzistuojančią sąskaitą",
@@ -370,6 +383,7 @@ define({
                 exportWallet: "Eksportuoti piniginę",
                 createAccount: "Sukurti naują sąskaitą",
                 createRealAccountData: "Sukurti realios sąskaitos duomenis",
+                verifyRealAccountData: "Tikrinti realios sąskaitos duomenis",
                 addAccount: "Pridėti egzistuojančią sąskaitą",
                 changeAccountLabel: "Pakeisti sąskaitos pavadinimą",
                 setPrimary: "Nustatyti kaip pagrindinę sąskaitą",
@@ -504,7 +518,7 @@ define({
                     "Mokestis"
                 ],
                 noBlocks: "Nėra \"iškastų\" blokų ",
-                loadMore: "Peržiūrėti senesnius \"iškastus\" blokus"
+                loading: "Kraunama daugiau \"iškastų\" blokų"
             },
             harvesting: {
                 unknown: "Statusas nežinomas",
