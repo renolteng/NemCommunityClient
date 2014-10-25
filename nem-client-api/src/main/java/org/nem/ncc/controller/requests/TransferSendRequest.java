@@ -8,7 +8,14 @@ import org.nem.ncc.wallet.*;
 /**
  * A request containing all information necessary to create a transfer.
  */
-public class TransferSendRequest extends TransferValidateRequest {
+public class TransferSendRequest {
+	private final WalletName walletName;
+	private final Address senderAddress;
+	private final Address recipientAddress;
+	private final Amount amount;
+	private final String message;
+	private final boolean shouldEncrypt;
+	private final int hoursDue;
 	private final WalletPassword password;
 	private final Amount fee;
 
@@ -25,7 +32,13 @@ public class TransferSendRequest extends TransferValidateRequest {
 			final int hoursDue,
 			final WalletPassword password,
 			final Amount fee) {
-		super(walletName, senderAddress, recipientAddress, amount, message, shouldEncrypt, hoursDue);
+		this.walletName = walletName;
+		this.senderAddress = senderAddress;
+		this.recipientAddress = recipientAddress;
+		this.amount = amount;
+		this.message = message;
+		this.shouldEncrypt = shouldEncrypt;
+		this.hoursDue = hoursDue;
 		this.password = password;
 		this.fee = fee;
 	}
@@ -36,9 +49,78 @@ public class TransferSendRequest extends TransferValidateRequest {
 	 * @param deserializer The deserializer.
 	 */
 	public TransferSendRequest(final Deserializer deserializer) {
-		super(deserializer);
+		this.walletName = WalletName.readFrom(deserializer, "wallet");
+		this.senderAddress = Address.readFrom(deserializer, "account");
+		this.recipientAddress = Address.readFrom(deserializer, "recipient");
+		this.amount = Amount.readFrom(deserializer, "amount");
+		this.message = deserializer.readOptionalString("message");
+		this.shouldEncrypt = 0 != deserializer.readInt("encrypt");
+		this.hoursDue = deserializer.readInt("hours_due");
 		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.fee = Amount.readFrom(deserializer, "fee");
+	}
+
+	/**
+	 * Gets the wallet name.
+	 *
+	 * @return The wallet name.
+	 */
+	public WalletName getWalletName() {
+		return this.walletName;
+	}
+
+	/**
+	 * Gets the sender account id.
+	 *
+	 * @return The sender account id.
+	 */
+	public Address getSenderAddress() {
+		return this.senderAddress;
+	}
+
+	/**
+	 * Gets the recipient id.
+	 *
+	 * @return The recipient id.
+	 */
+	public Address getRecipientAddress() {
+		return this.recipientAddress;
+	}
+
+	/**
+	 * Gets the (optional) message.
+	 *
+	 * @return The message.
+	 */
+	public String getMessage() {
+		return this.message;
+	}
+
+	/**
+	 * Gets the amount.
+	 *
+	 * @return The amount.
+	 */
+	public Amount getAmount() {
+		return this.amount;
+	}
+
+	/**
+	 * Gets a value indicating whether or not the payload should be encrypted.
+	 *
+	 * @return true if the payload should be encrypted.
+	 */
+	public boolean shouldEncrypt() {
+		return this.shouldEncrypt;
+	}
+
+	/**
+	 * Gets the hours due.
+	 *
+	 * @return The hours due.
+	 */
+	public int getHoursDue() {
+		return this.hoursDue;
 	}
 
 	/**

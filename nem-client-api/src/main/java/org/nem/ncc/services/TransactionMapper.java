@@ -52,16 +52,6 @@ public class TransactionMapper {
 	 * @param request The request.
 	 * @return The model.
 	 */
-	public Transaction toModel(final TransferValidateRequest request) {
-		return this.toModel(request, null);
-	}
-
-	/**
-	 * Converts the specified request to a model.
-	 *
-	 * @param request The request.
-	 * @return The model.
-	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAccountId(), request.getPassword());
 		final Account remoteAccount = this.getRemoteAccount(request.getWalletName(), request.getAccountId(), request.getPassword());
@@ -77,7 +67,7 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
+	private TransferTransaction toModel(final TransferSendRequest request, final WalletPassword password) {
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
 		final Message message = this.createMessage(request, sender, recipient);
@@ -106,12 +96,8 @@ public class TransactionMapper {
 		return new Account(new KeyPair(privateKey));
 	}
 
-	// note: TransferValidateRequest passes null password here...
 	private Wallet getSenderWallet(final WalletName walletName, final WalletPassword password) {
-		final Wallet wallet = null != password
-				? this.walletServices.open(new WalletNamePasswordPair(walletName, password))
-				: this.walletServices.get(walletName);
-
+		final Wallet wallet = this.walletServices.open(new WalletNamePasswordPair(walletName, password));
 		if (null == wallet) {
 			throw new IllegalArgumentException("unable to open wallet");
 		}
@@ -120,7 +106,7 @@ public class TransactionMapper {
 	}
 
 	private Message createMessage(
-			final TransferValidateRequest request,
+			final TransferSendRequest request,
 			final Account sender,
 			final Account recipient) {
 		final String message = request.getMessage();

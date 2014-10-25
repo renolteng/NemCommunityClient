@@ -21,7 +21,6 @@ public class TransactionMapperTest {
 	public void canMapFromTransferSendRequestToModel() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.open(new WalletNamePasswordPair("w", "p"))).thenReturn(context.wallet);
 
 		// Act:
 		final TransferSendRequest request = createSendRequestWithoutMessage(context, "p");
@@ -39,31 +38,9 @@ public class TransactionMapperTest {
 	}
 
 	@Test
-	public void canMapFromTransferFeeRequestToModel() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
-
-		// Act:
-		final TransferValidateRequest request = createFeeRequestWithoutMessage(context);
-		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
-
-		// Assert:
-		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(1))); // the minimum fee
-		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
-		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
-		Assert.assertThat(model.getDeadline(), IsEqual.equalTo(new TimeInstant(124 + 5 * 60 * 60)));
-
-		Assert.assertThat(model.getRecipient(), IsEqual.equalTo(context.recipient));
-		Assert.assertThat(model.getMessage(), IsNull.nullValue());
-		Assert.assertThat(model.getAmount(), IsEqual.equalTo(Amount.fromNem(7)));
-	}
-
-	@Test
 	public void canMapFromRemoteHarvestRequestToModel() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.open(new WalletNamePasswordPair("w", "p"))).thenReturn(context.wallet);
 
 		// Act:
 		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p");
@@ -87,7 +64,6 @@ public class TransactionMapperTest {
 	public void walletIsOpenedWhenMappingFromTransferSendRequestWithPassword() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.open(new WalletNamePasswordPair("w", "p"))).thenReturn(context.wallet);
 
 		// Act:
 		final TransferSendRequest request = createSendRequestWithoutMessage(context, "p");
@@ -97,39 +73,20 @@ public class TransactionMapperTest {
 		Mockito.verify(context.walletServices, Mockito.times(1)).open(new WalletNamePasswordPair("w", "p"));
 	}
 
-	@Test
-	public void walletIsRetrievedWhenMappingFromTransferSendRequestWithoutPassword() {
+	@Test(expected = IllegalArgumentException.class)
+	public void mappingFromTransferSendRequestFailsWhenWalletPasswordIsNotProvided() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferSendRequest request = createSendRequestWithoutMessage(context, null);
-		context.mapper.toModel(request);
-
-		// Assert:
-		Mockito.verify(context.walletServices, Mockito.times(1)).get(new WalletName("w"));
-	}
-
-	@Test
-	public void walletIsRetrievedWhenMappingFromTransferFeeRequest() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
-
-		// Act:
-		final TransferValidateRequest request = createFeeRequestWithoutMessage(context);
-		context.mapper.toModel(request);
-
-		// Assert:
-		Mockito.verify(context.walletServices, Mockito.times(1)).get(new WalletName("w"));
+		context.mapper.toModel(createSendRequestWithoutMessage(context, null));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void mappingFromTransferSendRequestFailsWhenWalletCannotBeOpened() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.open(new WalletNamePasswordPair("w", "p"))).thenReturn(null);
+		Mockito.when(context.walletServices.open(Mockito.any())).thenReturn(null);
 
 		// Act:
 		context.mapper.toModel(createSendRequestWithoutMessage(context, "p"));
@@ -143,10 +100,9 @@ public class TransactionMapperTest {
 	public void canMapTransactionWithPlainMessage() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferValidateRequest request = createFeeRequestWithMessage(context, "nem rules!", false);
+		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", false);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -162,10 +118,9 @@ public class TransactionMapperTest {
 	public void canMapTransactionWithSecureMessage() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferValidateRequest request = createFeeRequestWithMessage(context, "nem rules!", true);
+		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", true);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -181,10 +136,9 @@ public class TransactionMapperTest {
 	public void cannotMapTransactionWithSecureMessageWhenRecipientPublicKeyIsUnknown() {
 		// Arrange:
 		final TestContext context = new TestContext(new Account(Address.fromEncoded("foo")));
-		Mockito.when(context.walletServices.get(new WalletName("w"))).thenReturn(context.wallet);
 
 		// Act:
-		final TransferValidateRequest request = createFeeRequestWithMessage(context, "nem rules!", true);
+		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", true);
 		ExceptionAssert.assertThrowsNccException(
 				v -> context.mapper.toModel(request),
 				NccException.Code.NO_PUBLIC_KEY);
@@ -192,26 +146,17 @@ public class TransactionMapperTest {
 
 	//endregion
 
-	private static TransferValidateRequest createFeeRequestWithoutMessage(final TestContext context) {
-		return new TransferValidateRequest(
-				new WalletName("w"),
-				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
-				context.recipient.getAddress(), // Address.fromEncoded("r"),
-				Amount.fromNem(7),
-				null,
-				false,
-				5);
-	}
-
-	private static TransferValidateRequest createFeeRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
-		return new TransferValidateRequest(
+	private static TransferSendRequest createSendRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
+		return new TransferSendRequest(
 				new WalletName("w"),
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
 				message,
 				shouldEncrypt,
-				5);
+				5,
+				new WalletPassword("p"),
+				Amount.fromNem(2));
 	}
 
 	private static TransferSendRequest createSendRequestWithoutMessage(final TestContext context, final String password) {
@@ -262,6 +207,9 @@ public class TransactionMapperTest {
 					.thenReturn(this.signer.getKeyPair().getPrivateKey());
 			Mockito.when(this.wallet.tryGetWalletAccount(this.signer.getAddress()))
 					.thenReturn(this.account);
+
+			final WalletNamePasswordPair pair = new WalletNamePasswordPair("w", "p");
+			Mockito.when(this.walletServices.open(pair)).thenReturn(this.wallet);
 		}
 	}
 }
