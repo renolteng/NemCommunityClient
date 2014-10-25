@@ -67,9 +67,11 @@
     			}
     		}));
 
-    		local.intervalJobs.push(setInterval(function() {
-				ncc.loadHarvestedBlocks('update');
-			}, local.autoRefreshInterval));
+            local.listeners.push(ncc.on({
+                refreshAccount: function() {
+                    ncc.loadHarvestedBlocks('update');
+                }
+            }));
 
     		var $win = ncc.global.$window;
 			var $doc = ncc.global.$document;

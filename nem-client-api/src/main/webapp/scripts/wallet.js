@@ -60,6 +60,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 );
 
                 ncc.refreshRemoteHarvestingStatus(wallet, account, silent);
+
+                ncc.fire('refreshAccount');
             };
 
             ncc.refreshInfo = function(wallet, account, silent) {

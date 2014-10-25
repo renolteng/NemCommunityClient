@@ -56,9 +56,11 @@
 				ncc.loadTransactions('reload');
 			}));
 
-			local.intervalJobs.push(setInterval(function() {
-				ncc.loadTransactions('update');
-			}, local.autoRefreshInterval));
+			local.listeners.push(ncc.on({
+				refreshAccount: function() {
+					ncc.loadTransactions('update');
+				}
+			}));
 
 			var $win = ncc.global.$window;
 			var $doc = ncc.global.$document;
