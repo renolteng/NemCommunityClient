@@ -18,10 +18,7 @@ define(function(require) {
             });
         },
         close: function() {
-            this.set('isActive', false);
-            if (typeof this.afterClose === 'function') {
-                this.afterClose();
-            }
+            this.fire('closeModal');
         },
         lockAction: function() {
             this.set('processing', true);
@@ -32,7 +29,10 @@ define(function(require) {
         init: function() {
             this.on({
                 closeModal: function() {
-                    this.close();
+                    this.set('isActive', false);
+                    if (typeof this.afterClose === 'function') {
+                        this.afterClose();
+                    }
                 },
                 modalContainerClick: function(e) {
                     if (e.node === e.original.target) { //clicked outside modal
