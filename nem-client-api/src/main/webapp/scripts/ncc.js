@@ -88,8 +88,12 @@ define(function(require) {
             inputtedRecipient: function() {
                 return Utils.restoreAddress(this.get('formattedRecipient'));
             },
-            recipient: function() {
-                return this.get('inputtedRecipient') || ncc.get('activeAccount.address');
+            recipientValid: function() {
+                var inputtedRecipient = this.get('inputtedRecipient');
+                return !!inputtedRecipient && inputtedRecipient.length === 40;
+            },
+            recipient: function() {  
+                return this.get('recipientValid') ? this.get('inputtedRecipient') : ncc.get('activeAccount.address');
             },
             message: function() {
                 return this.get('rawMessage') && this.get('rawMessage').toString();
@@ -115,7 +119,7 @@ define(function(require) {
                 account: ncc.get('activeAccount.address'),
                 amount: this.get('amount'),
                 message: this.get('message'),
-                encrypt: 0,
+                encrypt: this.get('encrypt'),
                 recipient: this.get('recipient'),
                 hours_due: this.get('hours_due')
             };
@@ -132,13 +136,20 @@ define(function(require) {
                         }
                     }
 
-                    var encryptionPossible = !!self.get('inputtedRecipient') && data.encryptionPossible;
+                    var encryptionPossible = self.get('recipientValid') && data.encryptionPossible;
                     self.set('encryptionPossible', encryptionPossible);
                     if (!encryptionPossible) {
                         self.set('encrypted', false);
                     }
                 }, 
-                null, silent
+                {
+                    altFailCb: function(faultId, error) {
+                        if (faultId === 202) { // request encrypting while recipient unable to encrypt
+                            self.set('encrypted', false); // this will automatically trigger resetFee
+                            return true;
+                        }
+                    }
+                }, silent
             );
         },
         resetDefaultData: function() {
@@ -209,7 +220,7 @@ define(function(require) {
                         account: activeAccount,
                         password: this.get('password'),
                         amount: this.get('amount'),
-                        recipient: this.get('recipient'),
+                        recipient: this.get('inputtedRecipient'),
                         message: this.get('message'),
                         fee: this.get('fee'),
                         encrypt: this.get('encrypt'),
@@ -525,11 +536,11 @@ define(function(require) {
         checkSuccess: function(data, silent, settings) {
             var self = this;
             function showError(faultId, error) {
-                if (!silent) {
-                    self.showError(faultId);
-                }
                 if (settings && settings.altFailCb) {
-                    settings.altFailCb(faultId, error);
+                    var noErrorModal = settings.altFailCb(faultId, error);
+                }
+                if (!silent && !noErrorModal) {
+                    self.showError(faultId);
                 }
                 return false;
             }
