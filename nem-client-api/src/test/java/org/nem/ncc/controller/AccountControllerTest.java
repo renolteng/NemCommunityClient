@@ -375,15 +375,15 @@ public class AccountControllerTest {
 
 	//endregion
 
-	//region createRealPrivateKey / verifyRealAccountData
+	//region createRealAccountData / verifyRealAccountData
 
 	@Test
-	public void createRealPrivateKeyReturnsMainNetPrivateKey() {
+	public void createRealAccountDataReturnsKeyPairViewModelWithMainNetworkVersion() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
 		// Act:
-		final KeyPairViewModel viewModel = context.controller.createRealPrivateKey();
+		final KeyPairViewModel viewModel = context.controller.createRealAccountData();
 
 		// Assert:
 		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());

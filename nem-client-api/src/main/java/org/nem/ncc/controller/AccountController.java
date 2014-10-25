@@ -263,7 +263,7 @@ public class AccountController {
 	 * @return A key pair view model.
 	 */
 	@RequestMapping(value = "/account/create-real-account-data", method = RequestMethod.GET)
-	public KeyPairViewModel createRealPrivateKey() {
+	public KeyPairViewModel createRealAccountData() {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
 		final KeyPair keyPair = new KeyPair();
 		return new KeyPairViewModel(keyPair, networkInfo.getVersion());
@@ -273,11 +273,8 @@ public class AccountController {
 	public void verifyRealAccountData(@RequestBody final KeyPairViewModel viewModel) {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();
 		if (viewModel.getNetworkVersion() != networkInfo.getVersion()) {
-			// TODO 20141023 J-B: don't know if we want a new error code here to indicate a test key was entered?
-			throw new NccException(NccException.Code.PUBLIC_KEY_ADDRESS_MISMATCH);
+			throw new NccException(NccException.Code.NOT_MAIN_NETWORK_ADDRESS);
 		}
-
-		// TODO 20141023 J-B: should this function make a request to the stake claiming portal?
 	}
 
 	//endregion
