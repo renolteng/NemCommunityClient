@@ -34,7 +34,6 @@ public class NccMain {
 	// TODO 20140928 J-B: any reason we can't pass in the NccScheduler directly (instead of NccTimeSynchronizer)?
 	public NccMain(final NccTimeSynchronizer nccTimeSynchronizer) {
 		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
-		migrateDirectory(new File(nccFolder));
 		verifyDirectory(new File(nccFolder));
 
 		final String qualifiedConfigFileName = Paths.get(nccFolder, CONFIG_FILE_NAME).toString();
@@ -63,23 +62,6 @@ public class NccMain {
 					NisBootInfo.createLocal(),
 					storagePath);
 			return JsonSerializer.serializeToBytes(defaultConfiguration);
-		}
-	}
-
-	private static void migrateDirectory(final File directory) {
-		// in previous versions of nem, the ncc was peer to nem instead of a child of nem
-		// so, we want to copy files from the old directory (e.g. ~/nem/ncc -> ~/ncc)
-		final File oldDirectory = new File(Paths.get(new File(directory.getParent()).getParent(), "ncc").toString());
-		if (!oldDirectory.exists()) {
-			return;
-		}
-
-		try {
-			FileUtils.copyDirectory(oldDirectory, directory);
-			FileUtils.deleteDirectory(oldDirectory);
-		} catch (final IOException ex) {
-			final String message = String.format("Unable to migrate wallet files from <%s>.", oldDirectory.getAbsolutePath());
-			LOGGER.severe(message);
 		}
 	}
 
