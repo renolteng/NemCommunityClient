@@ -29,7 +29,11 @@
 					if (type === 'append' && currTxes && currTxes.concat) {
 						all = currTxes.concat(updatedTxes);
 					} else if (type === 'update') {
-						all = ncc.updateNewer(updatedTxes, currTxes, 'hash');
+						var result = ncc.updateNewer(updatedTxes, currTxes, 'hash');
+						all = result.updatedArray;
+						if (result.noConnection) {
+							ncc.set('transactions.gotAll', false);
+						}
 					} else {
 						all = updatedTxes;
 					}

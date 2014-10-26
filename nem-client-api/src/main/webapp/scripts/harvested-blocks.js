@@ -28,7 +28,11 @@
 					if (type === 'append' && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
 					} else if (type === 'update') {
-						all = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
+                        var result = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
+                        all = result.updatedArray;
+                        if (result.noConnection) {
+                            ncc.set('harvestedBlocks.gotAll', false);
+                        }
 					} else {
 						all = updatedBlocks;
 					}

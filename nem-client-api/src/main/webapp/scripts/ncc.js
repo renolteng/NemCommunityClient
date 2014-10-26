@@ -898,9 +898,9 @@ define(function(require) {
             a.unshift.apply(a, args);
             return a;
         },
-        updateNewer: function(updatedArr, currentArr, comparedProp) {
-            if (currentArr && currentArr[0]) {
-                var comparedValue = updatedArr[updatedArr.length - 1][comparedProp];
+        updateNewer: function(newArr, currentArr, comparedProp) {
+            if (currentArr && currentArr[0] && newArr && newArr[0]) {
+                var comparedValue = newArr[newArr.length - 1][comparedProp];
                 
                 for (var i = currentArr.length - 1; i >= 0; i--) {
                     if (currentArr[i][comparedProp] === comparedValue) {
@@ -908,11 +908,24 @@ define(function(require) {
                     }
                 }
 
-                var nonDup = currentArr.slice(i + 1);
-                var result = updatedArr.concat(nonDup);
-                return result;
+                if (i === 0) {
+                    return {
+                        updatedArray: newArr,
+                        noConnection: true
+                    };
+                } else {
+                    var nonDup = currentArr.slice(i + 1);
+                    var updatedArray = newArr.concat(nonDup);
+                    return {
+                        updatedArray: updatedArray,
+                        noConnection: false
+                    };
+                }
             } else {
-                return updatedArr;
+                return {
+                    updatedArray: newArr,
+                    noConnection: true
+                };
             }
         },
         processTransaction: function(tx, activeAccount) {
