@@ -232,7 +232,7 @@
 		</p>
 	</div>
 	<div class="sendNem-block">
-		<textarea placeholder="{{texts.modals.sendNem.message}}" class="sendNem-control sendNem-textbox sendNem-textbox--message" value="{{rawMessage}}"></textarea>
+		<textarea placeholder="{{texts.modals.sendNem.message}}" class="sendNem-control sendNem-textbox sendNem-textbox--message" value="{{rawMessage}}" maxlength="256"></textarea>
 		<input class="sendNem-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
 		<label for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
 	</div>
