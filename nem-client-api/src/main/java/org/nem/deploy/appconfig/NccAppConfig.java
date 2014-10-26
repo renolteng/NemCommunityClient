@@ -56,7 +56,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
-		return new NccMain(nccScheduler());
+		return new NccMain(this.nccScheduler());
 	}
 
 	@Bean
