@@ -5,10 +5,11 @@ import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
-import org.nem.monitor.ux.TrayIconBuilder;
+import org.nem.monitor.ux.*;
 
 import javax.jnlp.*;
 import javax.swing.*;
+
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
@@ -43,32 +44,9 @@ public class NemMonitor {
 		}
 
 		SwingUtilities.invokeLater(() -> {
-			LOGGER.info("setting up system tray");
-
-			// fail if the system tray is not supported
-			if (!SystemTray.isSupported()) {
-				throw new SystemTrayException("SystemTray is not supported");
-			}
-
-			final SystemTray tray = SystemTray.getSystemTray();
-			final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
-			final TrayIconBuilder builder = new TrayIconBuilder(
-					createHttpMethodClient(),
-					launcher,
-					new WebBrowser(),
-					isStartedViaWebStart());
-			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
-			builder.addSeparator();
-			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
-			builder.addSeparator();
-			builder.addExitMenuItem(tray);
-			builder.addExitAndShutdownMenuItem(tray);
-
-			try {
-				tray.add(builder.create());
-			} catch (final AWTException e) {
-				throw new SystemTrayException("Unable to add icon to system tray", e);
-			}
+			NemClientWindow window = new NemClientWindow();
+			
+			window.setupWindow(nemFolder, createHttpMethodClient(), isStartedViaWebStart(), commandLine.getNisJnlpUrl(), commandLine.getNccJnlpUrl());
 		});
 	}
 

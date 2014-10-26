@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * Class that provides management functionality for a node.
  */
 public class NodeManager {
-	private static final Logger LOGGER = Logger.getLogger(WebStartLauncher.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(NodeManager.class.getName());
 
 	private final NemNodePolicy nodePolicy;
 	private final String jnlpUrl;

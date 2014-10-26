@@ -8,9 +8,7 @@ import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
@@ -18,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.ImageIcon;
 
 /**
  * A builder that is used to construct the system tray icon.
@@ -70,6 +69,15 @@ public class TrayIconBuilder {
 		this.trayIcon.setToolTip(descriptor.getDescription());
 		this.trayIcon.displayMessage(LanguageSupport.message("tooltip.info"), descriptor.getDescription(), TrayIcon.MessageType.NONE);
 	}
+	
+	/**
+	 * Adds a NodeStatusVisitor to the list of visitors
+	 * 
+	 * @param visitor
+	 */
+	public void addVisitor(NodeStatusVisitor visitor) {
+		this.visitors.add(visitor);
+	}
 
 	/**
 	 * Adds status menu items for the specified node policy.
@@ -105,7 +113,7 @@ public class TrayIconBuilder {
 		actionMenuItem.addActionListener(actionAdapter);
 		if (this.isStartedViaWebStart) {
 			// simulate a click, which will trigger a webstart launch
-			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+//			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
 		}
 
 		this.visitors.add(visitor);
