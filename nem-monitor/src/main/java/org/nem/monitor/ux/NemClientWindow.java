@@ -138,6 +138,7 @@ public class NemClientWindow {
 				frmNemClient.getContentPane().add(lblNemVanityGenerator, gbc_lblNemVanityGenerator);
 
 		JTextPane txtpnTheVanityGenerator = new JTextPane();
+		txtpnTheVanityGenerator.setContentType("text/plain; charset=UTF-8");
 		txtpnTheVanityGenerator.setBackground(UIManager.getColor("Label.background"));
 		txtpnTheVanityGenerator.setEditable(false);
 		txtpnTheVanityGenerator.setFont(new Font("Arial", Font.PLAIN, 12));
