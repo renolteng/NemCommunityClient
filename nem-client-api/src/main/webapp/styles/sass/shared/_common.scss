@@ -297,7 +297,7 @@ $modal-transitionDuration: .3s;
 	margin-top: 126px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 428px;
+	width: 445px;
 	@include transform(scale(0.8));
 	background-color: #fff;
 	font-size: 14px;
@@ -470,7 +470,7 @@ $modal-transitionDuration: .3s;
 	padding: 5px;
 	font-size: 14px;
 
-	&:disabled:not(.modal-form-input--noDimming) {
+	&:disabled {
 		color: #d1d1d1;
 		-webkit-text-fill-color: #d1d1d1;
 	}

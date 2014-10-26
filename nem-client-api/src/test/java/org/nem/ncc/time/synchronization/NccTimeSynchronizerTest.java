@@ -8,6 +8,8 @@ import org.nem.core.time.synchronization.CommunicationTimeStamps;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.services.TimeSynchronizationServices;
 
+import java.util.concurrent.CompletableFuture;
+
 public class NccTimeSynchronizerTest {
 
 	@Test
@@ -20,10 +22,10 @@ public class NccTimeSynchronizerTest {
 				context.connector);
 
 		// Act:
-		synchronizer.synchronizeTime();
+		synchronizer.synchronizeTime().join();
 
 		// Assert:
-		Mockito.verify(context.connector, Mockito.times(1)).forward(Mockito.any());
+		Mockito.verify(context.connector, Mockito.times(1)).forwardAsync(Mockito.any());
 	}
 
 	@Test
@@ -36,7 +38,7 @@ public class NccTimeSynchronizerTest {
 				context.connector);
 
 		// Act:
-		synchronizer.synchronizeTime();
+		synchronizer.synchronizeTime().join();
 
 		// Assert:
 		Mockito.verify(context.timeProvider, Mockito.times(2)).getNetworkTime();
@@ -52,7 +54,7 @@ public class NccTimeSynchronizerTest {
 				context.connector);
 
 		// Act:
-		synchronizer.synchronizeTime();
+		synchronizer.synchronizeTime().join();
 
 		// Assert:
 		Mockito.verify(context.timeProvider, Mockito.times(1)).updateTimeOffset(new TimeOffset(10));
@@ -67,8 +69,8 @@ public class NccTimeSynchronizerTest {
 			Mockito.when(this.timeProvider.getNetworkTime()).thenReturn(
 					new NetworkTimeStamp(0),
 					new NetworkTimeStamp(10));
-			Mockito.when(this.connector.forward(Mockito.any()))
-					.thenReturn(new CommunicationTimeStamps(new NetworkTimeStamp(15), new NetworkTimeStamp(15)));
+			Mockito.when(this.connector.forwardAsync(Mockito.any()))
+					.thenReturn(CompletableFuture.completedFuture(new CommunicationTimeStamps(new NetworkTimeStamp(15), new NetworkTimeStamp(15))));
 		}
 	}
 }

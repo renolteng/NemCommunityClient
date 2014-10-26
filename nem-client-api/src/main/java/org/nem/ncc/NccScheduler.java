@@ -5,7 +5,6 @@ import org.nem.core.time.TimeProvider;
 import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 
 import java.util.*;
-import java.util.concurrent.*;
 
 /**
  * Scheduler that keeps track of all scheduled, recurring timers.
@@ -20,7 +19,6 @@ public class NccScheduler implements AutoCloseable {
 	private final TimeProvider timeProvider;
 	private final List<NemAsyncTimerVisitor> timerVisitors = new ArrayList<>();
 	private final List<AsyncTimer> timers = new ArrayList<>();
-	private final Executor executor = Executors.newCachedThreadPool();
 
 	/**
 	 * Creates a new scheduler.

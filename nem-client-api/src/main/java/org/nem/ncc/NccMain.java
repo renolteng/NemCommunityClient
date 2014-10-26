@@ -1,12 +1,11 @@
 package org.nem.ncc;
 
-import org.apache.commons.io.*;
-import org.nem.core.deploy.*;
+import org.apache.commons.io.IOUtils;
+import org.nem.core.deploy.CommonConfiguration;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.model.*;
-import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -31,10 +30,8 @@ public class NccMain {
 	private final org.nem.ncc.model.Configuration configuration;
 	private final NccScheduler scheduler;
 
-	// TODO 20140928 J-B: any reason we can't pass in the NccScheduler directly (instead of NccTimeSynchronizer)?
-	public NccMain(final NccTimeSynchronizer nccTimeSynchronizer) {
+	public NccMain(final NccScheduler scheduler) {
 		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
-		migrateDirectory(new File(nccFolder));
 		verifyDirectory(new File(nccFolder));
 
 		final String qualifiedConfigFileName = Paths.get(nccFolder, CONFIG_FILE_NAME).toString();
@@ -47,8 +44,7 @@ public class NccMain {
 			throw new ConfigurationException("unable to initialize NCC", ex);
 		}
 
-		this.scheduler = new NccScheduler(CommonStarter.TIME_PROVIDER);
-		this.scheduler.addTimeSynchronizationTask(nccTimeSynchronizer);
+		this.scheduler = scheduler;
 	}
 
 	private static byte[] loadConfigurationStream(final String storagePath) {
@@ -63,23 +59,6 @@ public class NccMain {
 					NisBootInfo.createLocal(),
 					storagePath);
 			return JsonSerializer.serializeToBytes(defaultConfiguration);
-		}
-	}
-
-	private static void migrateDirectory(final File directory) {
-		// in previous versions of nem, the ncc was peer to nem instead of a child of nem
-		// so, we want to copy files from the old directory (e.g. ~/nem/ncc -> ~/ncc)
-		final File oldDirectory = new File(Paths.get(new File(directory.getParent()).getParent(), "ncc").toString());
-		if (!oldDirectory.exists()) {
-			return;
-		}
-
-		try {
-			FileUtils.copyDirectory(oldDirectory, directory);
-			FileUtils.deleteDirectory(oldDirectory);
-		} catch (final IOException ex) {
-			final String message = String.format("Unable to migrate wallet files from <%s>.", oldDirectory.getAbsolutePath());
-			LOGGER.severe(message);
 		}
 	}
 

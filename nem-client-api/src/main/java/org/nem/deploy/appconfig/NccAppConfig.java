@@ -6,7 +6,7 @@ import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
-import org.nem.ncc.NccMain;
+import org.nem.ncc.*;
 import org.nem.ncc.cache.*;
 import org.nem.ncc.connector.*;
 import org.nem.ncc.model.graph.GraphViewModelFactory;
@@ -56,7 +56,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
-		return new NccMain(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
+		return new NccMain(nccScheduler());
 	}
 
 	@Bean
@@ -85,6 +85,12 @@ public class NccAppConfig {
 	}
 
 	@Bean
+	public NccScheduler nccScheduler() {
+		final NccScheduler scheduler = new NccScheduler(this.timeProvider());
+		scheduler.addTimeSynchronizationTask(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
+		return scheduler;
+	}
+
 	public TimeSynchronizationServices timeSynchronizationServices() {
 		return new TimeSynchronizationServices(this.cloudConnector());
 	}

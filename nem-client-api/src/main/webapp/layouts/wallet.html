@@ -132,6 +132,9 @@
 					<li class="dropdownMenu-item" on-click="createRealAccountData">
 						{{texts.wallet.actions.createRealAccountData}}
 					</li>
+					<li class="dropdownMenu-item" on-click="verifyRealAccountData">
+						{{texts.wallet.actions.verifyRealAccountData}}
+					</li>
 					<li class="dropdownMenu-item" on-click="addAccount">
 						{{texts.wallet.actions.addAccount}}
 					</li>
@@ -249,7 +252,7 @@
 				<div class="restOfWidth">
 					<span class="sendNem-control-unit unit">{{texts.modals.sendNem.hours}}</span>
 					<div class="restOfWidth">
-						<input class="sendNem-textbox sendNem-textbox--dueBy" value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
+						<input class="sendNem-textbox sendNem-textbox--dueBy js-sendNem-dueBy-textbox" value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
 					</div>
 				</div>
 			</div>
@@ -334,11 +337,11 @@
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="txDetails-cell--content">{{{.formattedAmount}}} NEM</td>
+				<td class="txDetails-cell--content">{{{.formattedFullAmount}}} NEM</td>
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="txDetails-cell--content">{{{.formattedFee}}} NEM</td>
+				<td class="txDetails-cell--content">{{{.formattedFullFee}}} NEM</td>
 			</tr>
 		</table>
 	{{/}}

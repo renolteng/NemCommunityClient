@@ -5,19 +5,7 @@ define(function(require) {
     var Ractive = require('ractive');
     var Mustache = require('mustache');
     var tooltipster = require('tooltipster');
-
-    var Utils = {
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
-        },
-        formatAddress: function(address) {
-            if (address && typeof address === 'string') {
-                return address.match(/.{1,6}/g).join('-').toUpperCase();
-            } else {
-                return address;
-            }
-        }
-    }
+    var Utils = require('Utils');
 
     var NccModal = Ractive.extend({
         template: '#modal-template',
@@ -117,7 +105,7 @@ define(function(require) {
                     return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedFee')));
                 },
                 set: function(fee) {
-                    this.set('formattedFee', ncc.formatCurrency(fee));
+                    this.set('formattedFee', ncc.formatCurrency(fee, false, true, true));
                 }
             }
         },
@@ -127,7 +115,7 @@ define(function(require) {
                 account: ncc.get('activeAccount.address'),
                 amount: this.get('amount'),
                 message: this.get('message'),
-                encrypt: this.get('encrypt'),
+                encrypt: 0,
                 recipient: this.get('recipient'),
                 hours_due: this.get('hours_due')
             };
@@ -144,21 +132,34 @@ define(function(require) {
                         }
                     }
 
-                    self.set('encryptionPossible', data.encryptionPossible);
+                    var encryptionPossible = !!self.get('inputtedRecipient') && data.encryptionPossible;
+                    self.set('encryptionPossible', encryptionPossible);
+                    if (!encryptionPossible) {
+                        self.set('encrypted', false);
+                    }
                 }, 
                 null, silent
             );
         },
+        resetDefaultData: function() {
+            this.set('formattedAmount', '0');
+            this.set('formattedRecipient', '');
+            this.set('rawMessage', '');
+            this.set('encrypted', false);
+            this.set('dueBy', '12');
+            this.set('password', '');
+        },
         init: function() {
             (new NccModal()).init.call(this);
-
             var self = this;
 
+            this.resetDefaultData();
+            
             this.observe('fee', function(newValue, oldValue, keypath) {
                 this.set('isFeeAutofilled', false);
             });
 
-            this.observe('amount recipient message encrypt', (function() {
+            this.observe('amount inputtedRecipient message encrypt', (function() {
                 var t;
                 return function() {
                     clearTimeout(t);
@@ -243,6 +244,9 @@ define(function(require) {
                     if (e.original.keyCode === 13) {
                         this.fire('sendTransaction');
                     }
+                },
+                closeModal: function() {
+                    this.resetDefaultData();
                 }
             });
         }
@@ -616,16 +620,31 @@ define(function(require) {
             return mNem / 1000000;
         },
         toMNem: function(nem) {
-            return nem * 1000000;
+            // clever workaround to deal with JavaScript loss of precision bugs
+            // by using strings for multiplication
+            // the largest integer that can be stored in a java numeric type (64-bit floating point)
+            // is Math.pow(2, 53) > 8 * Math.pow(10, 15)
+            // [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
+            // NOTE: this only works because nem is assumed to be a string
+
+            // determine the number of trailing zeros to add based on the index of the decimal
+            var decimalIndex = nem.indexOf('.');
+            var power = 6 - (-1 === decimalIndex ? 0 : nem.length - decimalIndex - 1);
+            var trailingZeros = new Array(power + 1).join('0');
+            return parseInt(nem.replace('.', '') + trailingZeros);
         },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart) {
+        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDecimalPlaces) { // amount is in mNEM
             var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
-            var mNem = this.minDigits(amount % 1000000, 6);
+            var mNem = Math.floor(amount % 1000000);
+            if (!noFixedDecimalPlaces) {
+                mNem = this.minDigits(mNem, 6);
+            }
             if (!noLimitFractionalPart) {
                 mNem = mNem.substring(0, this.consts.fractionalDigits);
             }
 
             if (dimTrailings) {
+                mNem = mNem.toString(10);
                 var cutPos = mNem.length - 1;
                 while (mNem.charAt(cutPos) === '0') {
                     cutPos--;
@@ -643,12 +662,24 @@ define(function(require) {
                 }
             }
 
-            return nem + this.get('texts.preferences.decimalSeparator') + mNem;
+            return nem + ((noFixedDecimalPlaces && !mNem) ? '' : (this.get('texts.preferences.decimalSeparator') + mNem));
+        },
+        // @param amount: string
+        convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
+            if (oldThousandSeparator) {
+                var thousandSeparatorRegex = new RegExp(ncc.escapeRegExp(oldThousandSeparator), 'g');
+                amount = amount.replace(thousandSeparatorRegex, newThousandSeparator);
+            }
+
+            if (oldDecimalSeparator) {
+                var decimalSeparatorRegex = new RegExp(ncc.escapeRegExp(oldDecimalSeparator), 'g');
+                amount = amount.replace(decimalSeparatorRegex, newDecimalSeparator);
+            }
+
+            return amount;
         },
         convertCurrencyToStandard: function(amount) {
-            var thousandSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.thousandSeparator')), 'g');
-            var decimalSeparator = new RegExp(ncc.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')), 'g');
-            return amount.replace(thousandSeparator, '').replace(decimalSeparator, '.');
+            return this.convertCurrencyFormat(amount, ncc.get('texts.preferences.thousandSeparator'), '', ncc.get('texts.preferences.decimalSeparator'), '.');
         },
         toDate: function(ms) {
             return new Date(ms);
@@ -876,6 +907,8 @@ define(function(require) {
             tx.formattedRecipient = this.formatAddress(tx.recipient);
             tx.formattedFee = this.formatCurrency(tx.fee, true);
             tx.formattedAmount = this.formatCurrency(tx.amount, true);
+            tx.formattedFullFee = this.formatCurrency(tx.fee, false, true, false);
+            tx.formattedFullAmount = this.formatCurrency(tx.amount, false, true, false);
             tx.formattedDate = this.formatDate(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
             return tx;
         },

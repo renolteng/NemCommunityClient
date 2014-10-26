@@ -9,11 +9,12 @@ import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.time.TimeInstant;
+import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.exceptions.*;
 import org.nem.ncc.test.ExceptionAssert;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
+import java.util.function.*;
 
 public class DefaultNisConnectorTest {
 
@@ -108,10 +109,22 @@ public class DefaultNisConnectorTest {
 
 	//endregion
 
-	//region forward
+	//region forward / forwardAsync
 
 	@Test
 	public void forwardThrowsNisExceptionOnError() {
+		// Assert:
+		assertForwardThrowsNisExceptionOnError((connector, func) -> connector.forward(func));
+	}
+
+	@Test
+	public void forwardAsyncThrowsNisExceptionOnError() {
+		// Assert:
+		assertForwardThrowsNisExceptionOnError((connector, func) -> ExceptionUtils.propagate(() -> connector.forwardAsync(func).get()));
+	}
+
+	private static void assertForwardThrowsNisExceptionOnError(
+			final BiFunction<PrimaryNisConnector, Function<NodeEndpoint, CompletableFuture<BlockHeight>>, BlockHeight> forward) {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Function<NodeEndpoint, CompletableFuture<BlockHeight>> func = createMockFunction();
@@ -120,7 +133,7 @@ public class DefaultNisConnectorTest {
 
 		// Act:
 		ExceptionAssert.assertThrows(
-				v -> context.connector.forward(func),
+				v -> forward.apply(context.connector, func),
 				NisException.class);
 
 		// Assert:
@@ -129,6 +142,18 @@ public class DefaultNisConnectorTest {
 
 	@Test
 	public void forwardReturnsObjectOnSuccess() {
+		// Assert:
+		assertForwardReturnsObjectOnSuccess((connector, func) -> connector.forward(func));
+	}
+
+	@Test
+	public void forwardAsyncReturnsObjectOnSuccess() {
+		// Assert:
+		assertForwardReturnsObjectOnSuccess((connector, func) -> ExceptionUtils.propagate(() -> connector.forwardAsync(func).get()));
+	}
+
+	private static void assertForwardReturnsObjectOnSuccess(
+			final BiFunction<PrimaryNisConnector, Function<NodeEndpoint, CompletableFuture<BlockHeight>>, BlockHeight> forward) {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final BlockHeight expectedHeight = new BlockHeight(12);
@@ -137,7 +162,7 @@ public class DefaultNisConnectorTest {
 				.thenReturn(CompletableFuture.completedFuture(expectedHeight));
 
 		// Act:
-		final BlockHeight height = context.connector.forward(func);
+		final BlockHeight height = forward.apply(context.connector, func);
 
 		// Assert:
 		Assert.assertThat(height, IsEqual.equalTo(expectedHeight));

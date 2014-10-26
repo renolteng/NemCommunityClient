@@ -14,7 +14,9 @@ public class AuditInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger LOGGER = Logger.getLogger(AuditInterceptor.class.getName());
 	private static final List<String> IGNORED_API_PATHS = Arrays.asList(
 			"/ncc/api/heartbeat",
-			"/ncc/api/info/nis/check");
+			"/ncc/api/info/nis/check",
+			"/ncc/api/status",
+			"/ncc/api/node/status");
 
 	@Override
 	public boolean preHandle(
