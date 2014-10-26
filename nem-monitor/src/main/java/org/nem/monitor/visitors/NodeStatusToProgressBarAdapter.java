@@ -3,7 +3,7 @@ package org.nem.monitor.visitors;
 import org.nem.core.model.NemStatus;
 import org.nem.monitor.node.NemNodeType;
 
-import org.apache.commons.collections15.map.HashedMap;
+import org.apache.commons.collections4.map.HashedMap;
 
 import java.util.Map;
 import java.util.function.Consumer;

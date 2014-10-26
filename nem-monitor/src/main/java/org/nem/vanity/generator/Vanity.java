@@ -22,7 +22,8 @@ public class Vanity {
 		KeyPair keyPair = null;
 		Long count = 0L;
 		int found = 0;
-		while (found < 100) {
+		boolean calc = true;
+		while (calc && found < 100) {
 			keyPair = new KeyPair();
 			final String address = Address.fromPublicKey(keyPair.getPublicKey()).getEncoded();
 			count++;
@@ -34,11 +35,13 @@ public class Vanity {
 			}
 			
 			try {
-				TimeUnit.MILLISECONDS.sleep(100);
+				TimeUnit.MILLISECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				//leave the endless loop
 				break;
 			}
+			
+			calc = !Thread.currentThread().isInterrupted();
 		}
 		
 		return count;

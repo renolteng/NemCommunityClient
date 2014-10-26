@@ -4,16 +4,13 @@ import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
-import org.nem.monitor.node.*;
-import org.nem.monitor.ux.*;
+import org.nem.monitor.ux.NemClientWindow;
 
-import javax.jnlp.*;
-import javax.swing.*;
-
-import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+import javax.jnlp.*;
+import javax.swing.SwingUtilities;
 
 /**
  * The nem monitor program.

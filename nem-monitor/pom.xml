@@ -31,14 +31,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.nem.nis</groupId>
-            <artifactId>nem-infrastructure-server</artifactId>
+            <groupId>org.nem.core</groupId>
+            <artifactId>nem-core</artifactId>
             <version>${nemcore.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.nem.ncc</groupId>
-            <artifactId>nem-client-api</artifactId>
+            <artifactId>nem-client-download</artifactId>
             <version>${project.version}</version>
         </dependency>
 

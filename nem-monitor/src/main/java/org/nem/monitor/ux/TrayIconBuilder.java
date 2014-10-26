@@ -9,6 +9,7 @@ import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
@@ -113,7 +114,7 @@ public class TrayIconBuilder {
 		actionMenuItem.addActionListener(actionAdapter);
 		if (this.isStartedViaWebStart) {
 			// simulate a click, which will trigger a webstart launch
-//			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
 		}
 
 		this.visitors.add(visitor);

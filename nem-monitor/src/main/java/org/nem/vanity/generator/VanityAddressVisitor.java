@@ -1,6 +1,6 @@
 package org.nem.vanity.generator;
 
-import org.nem.core.crypto.KeyPair;
+import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
 
 import java.util.*;
@@ -33,6 +33,12 @@ public class VanityAddressVisitor implements ListModel<String>{
 		vanityAddresses.add(keyPair);
 		addressListConsumer.accept(vanityAddresses);
 		listeners.stream().forEach(l -> l.contentsChanged(null)); 
+	}
+	
+	public String getPrivateKeyAt(int index) {
+		PrivateKey pk = vanityAddresses.get(index).getPrivateKey();
+		String result = pk.toString();
+		return result;
 	}
 
 	@Override
