@@ -5,8 +5,8 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
-import org.nem.core.serialization.*;
-import org.nem.ncc.test.*;
+import org.nem.core.serialization.Deserializer;
+import org.nem.ncc.test.Utils;
 
 public class PartialTransferInformationRequestTest {
 

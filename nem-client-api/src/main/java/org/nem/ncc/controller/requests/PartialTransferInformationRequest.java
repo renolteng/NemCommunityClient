@@ -3,7 +3,6 @@ package org.nem.ncc.controller.requests;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
-import org.nem.ncc.wallet.WalletName;
 
 /**
  * A request to get information about a partially created transfer.

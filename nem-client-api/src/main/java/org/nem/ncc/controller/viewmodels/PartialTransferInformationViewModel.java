@@ -1,6 +1,5 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.model.Account;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 
