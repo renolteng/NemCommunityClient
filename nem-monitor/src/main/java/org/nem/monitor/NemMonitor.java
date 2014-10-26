@@ -42,7 +42,6 @@ public class NemMonitor {
 
 		SwingUtilities.invokeLater(() -> {
 			NemClientWindow window = new NemClientWindow();
-			
 			window.setupWindow(nemFolder, createHttpMethodClient(), isStartedViaWebStart(), commandLine.getNisJnlpUrl(), commandLine.getNccJnlpUrl());
 		});
 	}

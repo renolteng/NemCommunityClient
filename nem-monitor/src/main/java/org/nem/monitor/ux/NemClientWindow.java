@@ -66,6 +66,8 @@ public class NemClientWindow {
 		final SystemTray tray = SystemTray.getSystemTray();
 		final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
 		builder = new TrayIconBuilder(httpMethodClient, launcher, new WebBrowser(), isStartedViaWebStart);
+		builder.addVanityGeneratorMenuItem(frmNemClient);
+		builder.addSeparator();
 		builder.addStatusMenuItems(new NisNodePolicy(nemFolder), nisJnlpUrl);
 		builder.addSeparator();
 		builder.addStatusMenuItems(new NccNodePolicy(nemFolder), nccJnlpUrl);
@@ -102,7 +104,7 @@ public class NemClientWindow {
 		addresses.setModel(addressVisitor);
 
 //		builder.addVisitor(visitor);
-		frmNemClient.setVisible(true);
+//		frmNemClient.setVisible(true);
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class NemClientWindow {
 	 */
 	private void initialize() {
 		frmNemClient = new JFrame();
-		frmNemClient.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frmNemClient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmNemClient.setMinimumSize(new Dimension(0, 200));
 		frmNemClient.setTitle(LanguageSupport.message("nem.vanity.generator.title"));
 		frmNemClient.setBounds(100, 100, 571, 400);

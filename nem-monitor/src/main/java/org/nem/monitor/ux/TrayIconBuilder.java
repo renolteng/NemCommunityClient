@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 /**
  * A builder that is used to construct the system tray icon.
@@ -78,6 +78,18 @@ public class TrayIconBuilder {
 	 */
 	public void addVisitor(NodeStatusVisitor visitor) {
 		this.visitors.add(visitor);
+	}
+
+	/**
+	 * Adds Vanity Generator menu item
+	 *
+	 */
+	public void addVanityGeneratorMenuItem(final JFrame generatorWindow) {
+		final MenuItem openMenuItem = new MenuItem();
+		openMenuItem.setLabel(LanguageSupport.message("nem.vanity.generator.menu"));
+
+		this.popup.add(openMenuItem);
+		openMenuItem.addActionListener(e -> generatorWindow.setVisible(true));
 	}
 
 	/**
