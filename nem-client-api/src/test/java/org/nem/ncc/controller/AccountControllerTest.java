@@ -375,15 +375,15 @@ public class AccountControllerTest {
 
 	//endregion
 
-	//region createRealPrivateKey / verifyRealAccountData
+	//region createRealAccountData / verifyRealAccountData
 
 	@Test
-	public void createRealPrivateKeyReturnsMainNetPrivateKey() {
+	public void createRealAccountDataReturnsKeyPairViewModelWithMainNetworkVersion() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
 		// Act:
-		final KeyPairViewModel viewModel = context.controller.createRealPrivateKey();
+		final KeyPairViewModel viewModel = context.controller.createRealAccountData();
 
 		// Assert:
 		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());
@@ -411,7 +411,7 @@ public class AccountControllerTest {
 		// Act:
 		ExceptionAssert.assertThrowsNccException(
 				v -> context.controller.verifyRealAccountData(viewModel),
-				NccException.Code.PUBLIC_KEY_ADDRESS_MISMATCH);
+				NccException.Code.NOT_MAIN_NETWORK_ADDRESS);
 	}
 
 	//endregion

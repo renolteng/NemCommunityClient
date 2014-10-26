@@ -1,12 +1,11 @@
 package org.nem.ncc;
 
-import org.apache.commons.io.*;
-import org.nem.core.deploy.*;
+import org.apache.commons.io.IOUtils;
+import org.nem.core.deploy.CommonConfiguration;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.model.*;
-import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -31,8 +30,7 @@ public class NccMain {
 	private final org.nem.ncc.model.Configuration configuration;
 	private final NccScheduler scheduler;
 
-	// TODO 20140928 J-B: any reason we can't pass in the NccScheduler directly (instead of NccTimeSynchronizer)?
-	public NccMain(final NccTimeSynchronizer nccTimeSynchronizer) {
+	public NccMain(final NccScheduler scheduler) {
 		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
 		verifyDirectory(new File(nccFolder));
 
@@ -46,8 +44,7 @@ public class NccMain {
 			throw new ConfigurationException("unable to initialize NCC", ex);
 		}
 
-		this.scheduler = new NccScheduler(CommonStarter.TIME_PROVIDER);
-		this.scheduler.addTimeSynchronizationTask(nccTimeSynchronizer);
+		this.scheduler = scheduler;
 	}
 
 	private static byte[] loadConfigurationStream(final String storagePath) {

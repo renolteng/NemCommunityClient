@@ -34,6 +34,11 @@ public class NccException extends RuntimeException {
 		PUBLIC_KEY_ADDRESS_MISMATCH(1001),
 
 		/**
+		 * The address does not belong to the main network.
+		 */
+		NOT_MAIN_NETWORK_ADDRESS(1002),
+
+		/**
 		 * NCC is disconnected from the network.
 		 */
 		NIS_NOT_AVAILABLE(305);
