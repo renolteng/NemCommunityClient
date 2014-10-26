@@ -85,15 +85,15 @@ define(function(require) {
             amount: function() {
                 return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
             },
-            inputtedRecipient: function() {
+            recipient: function() {
                 return Utils.restoreAddress(this.get('formattedRecipient'));
             },
             recipientValid: function() {
-                var inputtedRecipient = this.get('inputtedRecipient');
-                return !!inputtedRecipient && inputtedRecipient.length === 40;
+                var recipient = this.get('recipient');
+                return !!recipient && recipient.length === 40;
             },
-            recipient: function() {  
-                return this.get('recipientValid') ? this.get('inputtedRecipient') : ncc.get('activeAccount.address');
+            safeRecipient: function() {  
+                return this.get('recipientValid') ? this.get('recipient') : ncc.get('activeAccount.address');
             },
             message: function() {
                 return this.get('rawMessage') && this.get('rawMessage').toString();
@@ -120,7 +120,7 @@ define(function(require) {
                 amount: this.get('amount'),
                 message: this.get('message'),
                 encrypt: this.get('encrypt'),
-                recipient: this.get('recipient'),
+                recipient: this.get('safeRecipient'),
                 hours_due: this.get('hours_due')
             };
             var self = this;
@@ -136,7 +136,7 @@ define(function(require) {
                         }
                     }
 
-                    var encryptionPossible = self.get('recipientValid') && data.encryptionPossible;
+                    var encryptionPossible = self.get('recipientValid') && data.encryptionSupported;
                     self.set('encryptionPossible', encryptionPossible);
                     if (!encryptionPossible) {
                         self.set('encrypted', false);
@@ -170,7 +170,7 @@ define(function(require) {
                 this.set('isFeeAutofilled', false);
             });
 
-            this.observe('amount inputtedRecipient message encrypt', (function() {
+            this.observe('amount recipient message encrypt', (function() {
                 var t;
                 return function() {
                     clearTimeout(t);
@@ -180,7 +180,7 @@ define(function(require) {
                 }
             })());
 
-            this.observe('inputtedRecipient', (function() {
+            this.observe('recipient', (function() {
                 var t;
                 return function(recipient) {
                     clearTimeout(t);
@@ -220,7 +220,7 @@ define(function(require) {
                         account: activeAccount,
                         password: this.get('password'),
                         amount: this.get('amount'),
-                        recipient: this.get('inputtedRecipient'),
+                        recipient: this.get('recipient'),
                         message: this.get('message'),
                         fee: this.get('fee'),
                         encrypt: this.get('encrypt'),
