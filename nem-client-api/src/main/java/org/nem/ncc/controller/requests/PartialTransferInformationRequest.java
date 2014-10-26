@@ -35,7 +35,7 @@ public class PartialTransferInformationRequest {
 	 */
 	public PartialTransferInformationRequest(final Deserializer deserializer) {
 		this.recipientAddress = Address.readFromOptional(deserializer, "recipient", AddressEncoding.COMPRESSED);
-		this.amount = Amount.readFrom(deserializer, "amount");
+		this.amount = Amount.readFromOptional(deserializer, "amount");
 		this.message = deserializer.readOptionalString("message");
 
 		final Integer shouldEncrypt = deserializer.readOptionalInt("encrypt");
