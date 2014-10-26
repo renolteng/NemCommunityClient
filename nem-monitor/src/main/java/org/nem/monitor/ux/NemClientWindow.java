@@ -1,6 +1,7 @@
 package org.nem.monitor.ux;
 
 import org.nem.core.connect.*;
+import org.nem.core.model.NetworkInfo;
 import org.nem.monitor.*;
 import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.*;
@@ -11,6 +12,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -26,6 +28,7 @@ public class NemClientWindow {
 	private JList<String> addresses;
 //	private CompletableFuture<Long> asyncGenerator;
 	private FutureTask<Long> asyncGenerator;
+	private JCheckBox chckbxTestNetAddress;
 
 	/**
 	 * Launch the application.
@@ -125,9 +128,9 @@ public class NemClientWindow {
 		frmNemClient.setBounds(100, 100, 571, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 50, 0 };
-		gridBagLayout.rowHeights = new int[] { 40, 86, 30, 0, 38, 0 };
+		gridBagLayout.rowHeights = new int[] { 40, 86, 30, 0, 0, 38, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0 };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 4.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 4.0, Double.MIN_VALUE };
 		frmNemClient.getContentPane().setLayout(gridBagLayout);
 		
 				JLabel lblNemVanityGenerator = new JLabel(LanguageSupport.message("nem.vanity.generator"));
@@ -212,10 +215,21 @@ public class NemClientWindow {
 			public void valueChanged(ListSelectionEvent e) {
 				VanityAddressVisitor visitor = (VanityAddressVisitor)addresses.getModel();
 				int index = e.getFirstIndex();
-				StringSelection selection = new StringSelection(visitor.getPrivateKeyAt(index));
+				StringSelection selection = new StringSelection(visitor.getAddressAndPrivateKeyAt(index));
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
 			}
 		});
+		
+		chckbxTestNetAddress = new JCheckBox("Test net address");
+		chckbxTestNetAddress.setSelected(true);
+		chckbxTestNetAddress.setHorizontalAlignment(SwingConstants.LEFT);
+		chckbxTestNetAddress.setFont(new Font("Arial", Font.PLAIN, 12));
+		GridBagConstraints gbc_chckbxTestNetAddress = new GridBagConstraints();
+		gbc_chckbxTestNetAddress.anchor = GridBagConstraints.LINE_START;
+		gbc_chckbxTestNetAddress.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxTestNetAddress.gridx = 1;
+		gbc_chckbxTestNetAddress.gridy = 3;
+		frmNemClient.getContentPane().add(chckbxTestNetAddress, gbc_chckbxTestNetAddress);
 		
 		addresses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		addresses.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -236,7 +250,7 @@ public class NemClientWindow {
 		gbc_scrollPane.gridheight = 2;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 3;
+		gbc_scrollPane.gridy = 4;
 		frmNemClient.getContentPane().add(scrollPane, gbc_scrollPane);
 
 		JButton btnEnough = new JButton("");
@@ -247,7 +261,7 @@ public class NemClientWindow {
 		GridBagConstraints gbc_btnEnough = new GridBagConstraints();
 		gbc_btnEnough.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEnough.gridx = 2;
-		gbc_btnEnough.gridy = 3;
+		gbc_btnEnough.gridy = 4;
 		frmNemClient.getContentPane().add(btnEnough, gbc_btnEnough);
 
 		generate.setEnabled(false);
@@ -294,8 +308,9 @@ public class NemClientWindow {
 					// Nothing to do.
 				}
 			}
+			byte version = chckbxTestNetAddress.isSelected() ? NetworkInfo.getTestNetworkInfo().getVersion() : NetworkInfo.getMainNetworkInfo().getVersion(); 
 			vanity = new Vanity(addresses.getModel());
-			asyncGenerator = new FutureTask<>(() -> vanity.generate(vanityText.getText()));
+			asyncGenerator = new FutureTask<>(() -> vanity.generate(vanityText.getText(), version));
 			CompletableFuture.runAsync(() -> asyncGenerator.run());
 
 			this.setEnabled(false);

@@ -17,7 +17,7 @@ public class Vanity {
 		}
 	}
 	
-	public Long generate(final String vanity) {
+	public Long generate(final String vanity, final byte version) {
 		final String wantedAddress = vanity.toUpperCase();
 		KeyPair keyPair = null;
 		Long count = 0L;
@@ -25,17 +25,17 @@ public class Vanity {
 		boolean calc = true;
 		while (calc && found < 100) {
 			keyPair = new KeyPair();
-			final String address = Address.fromPublicKey(keyPair.getPublicKey()).getEncoded();
+			final String address = Address.fromPublicKey(version, keyPair.getPublicKey()).getEncoded();
 			count++;
 
 			if (address.contains(wantedAddress)) {
 				found++;
-				addressVisitor.addressFound(keyPair);
+				addressVisitor.addressFound(address, keyPair.getPrivateKey());
 				System.out.println(count + " " + keyPair.getPrivateKey().toString() + " : " + keyPair.getPublicKey().toString() + " : " + address);
 			}
 			
 			try {
-				TimeUnit.MILLISECONDS.sleep(10);
+				TimeUnit.MILLISECONDS.sleep(2);
 			} catch (InterruptedException e) {
 				//leave the endless loop
 				break;

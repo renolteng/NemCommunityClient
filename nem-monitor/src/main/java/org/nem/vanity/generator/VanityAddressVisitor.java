@@ -13,8 +13,8 @@ import javax.swing.event.ListDataListener;
  * Visitor that keeps node menu item text in sync with status changes.
  */
 public class VanityAddressVisitor implements ListModel<String>{
-	final private List<KeyPair> vanityAddresses;
-	final private Consumer<List<KeyPair>> addressListConsumer;
+	final private List<VanityAddress> vanityAddresses;
+	final private Consumer<List<VanityAddress>> addressListConsumer;
 	final private List<ListDataListener> listeners;
 
 	/**
@@ -23,21 +23,26 @@ public class VanityAddressVisitor implements ListModel<String>{
 	 * @param nodeType The node type being monitored.
 	 * @param statusDescriptionConsumer The function to call when a description change is triggered.
 	 */
-	public VanityAddressVisitor(final Consumer<List<KeyPair>> addressListConsumer) {
-		this.vanityAddresses = new ArrayList<KeyPair>();
+	public VanityAddressVisitor(final Consumer<List<VanityAddress>> addressListConsumer) {
+		this.vanityAddresses = new ArrayList<VanityAddress>();
 		this.addressListConsumer = addressListConsumer;
 		this.listeners = new ArrayList<ListDataListener>();
 	}
 
-	public void addressFound(final KeyPair keyPair) {
-		vanityAddresses.add(keyPair);
+	public void addressFound(final String address, final PrivateKey privateKey) {
+		vanityAddresses.add(new VanityAddress(address, privateKey));
 		addressListConsumer.accept(vanityAddresses);
 		listeners.stream().forEach(l -> l.contentsChanged(null)); 
 	}
 	
 	public String getPrivateKeyAt(int index) {
-		PrivateKey pk = vanityAddresses.get(index).getPrivateKey();
-		String result = pk.toString();
+		String result = vanityAddresses.get(index).getPrivateKey();
+		return result;
+	}
+	
+	public String getAddressAndPrivateKeyAt(int index) {
+		VanityAddress vanityAddress = vanityAddresses.get(index);
+		String result = String.format("%s / %s", vanityAddress.getAddress(), vanityAddress.getPrivateKey());
 		return result;
 	}
 
@@ -50,7 +55,7 @@ public class VanityAddressVisitor implements ListModel<String>{
 	@Override
 	public String getElementAt(int index) {
 		// 
-		return Address.fromPublicKey(vanityAddresses.get(index).getPublicKey()).getEncoded();
+		return vanityAddresses.get(index).getAddress();
 	}
 
 	@Override
