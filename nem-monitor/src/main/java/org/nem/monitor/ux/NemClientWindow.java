@@ -11,7 +11,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.util.concurrent.*;
 import java.util.logging.*;
-
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -124,9 +123,9 @@ public class NemClientWindow {
 		frmNemClient.setBounds(100, 100, 571, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 50, 0 };
-		gridBagLayout.rowHeights = new int[] { 40, 0, 70, 30, 0, 38, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 40, 86, 30, 0, 38, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0 };
-		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 4.0, 4.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 4.0, Double.MIN_VALUE };
 		frmNemClient.getContentPane().setLayout(gridBagLayout);
 		
 				JLabel lblNemVanityGenerator = new JLabel(LanguageSupport.message("nem.vanity.generator"));
@@ -139,12 +138,12 @@ public class NemClientWindow {
 				frmNemClient.getContentPane().add(lblNemVanityGenerator, gbc_lblNemVanityGenerator);
 
 		JTextPane txtpnTheVanityGenerator = new JTextPane();
+		txtpnTheVanityGenerator.setBackground(UIManager.getColor("Label.background"));
 		txtpnTheVanityGenerator.setEditable(false);
 		txtpnTheVanityGenerator.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtpnTheVanityGenerator
 				.setText(LanguageSupport.message("nem.vanity.generator.explain"));
 		GridBagConstraints gbc_txtpnTheVanityGenerator = new GridBagConstraints();
-		gbc_txtpnTheVanityGenerator.gridheight = 2;
 		gbc_txtpnTheVanityGenerator.gridwidth = 4;
 		gbc_txtpnTheVanityGenerator.insets = new Insets(0, 0, 5, 0);
 		gbc_txtpnTheVanityGenerator.fill = GridBagConstraints.BOTH;
@@ -190,7 +189,7 @@ public class NemClientWindow {
 		gbc_vanityText.fill = GridBagConstraints.HORIZONTAL;
 		gbc_vanityText.insets = new Insets(0, 0, 5, 5);
 		gbc_vanityText.gridx = 1;
-		gbc_vanityText.gridy = 3;
+		gbc_vanityText.gridy = 2;
 		frmNemClient.getContentPane().add(vanityText, gbc_vanityText);
 		vanityText.setColumns(10);
 
@@ -202,7 +201,7 @@ public class NemClientWindow {
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_1.gridx = 2;
-		gbc_btnNewButton_1.gridy = 3;
+		gbc_btnNewButton_1.gridy = 2;
 		frmNemClient.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
 
 		addresses = new JList<String>();
@@ -214,16 +213,28 @@ public class NemClientWindow {
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
 			}
 		});
+		
 		addresses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		addresses.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		GridBagConstraints gbc_addresses = new GridBagConstraints();
-		gbc_addresses.gridheight = 4;
-		gbc_addresses.insets = new Insets(0, 0, 0, 5);
-		gbc_addresses.fill = GridBagConstraints.BOTH;
-		gbc_addresses.gridx = 1;
-		gbc_addresses.gridy = 4;
-		frmNemClient.getContentPane().add(addresses, gbc_addresses);
+//		GridBagConstraints gbc_addresses = new GridBagConstraints();
+//		gbc_addresses.gridheight = 4;
+//		gbc_addresses.insets = new Insets(0, 0, 0, 5);
+//		gbc_addresses.fill = GridBagConstraints.BOTH;
+//		gbc_addresses.gridx = 1;
+//		gbc_addresses.gridy = 4;
+//		scrollPane.add(addresses, gbc_addresses);
+
+//		frmNemClient.getContentPane().add(addresses, gbc_addresses);
+
+		JScrollPane scrollPane = new JScrollPane(addresses);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 3;
+		frmNemClient.getContentPane().add(scrollPane, gbc_scrollPane);
 
 		JButton btnEnough = new JButton("");
 		btnEnough.setSize(new Dimension(150, 0));
@@ -231,10 +242,9 @@ public class NemClientWindow {
 		btnEnough.setAction(stopGenerator);
 		btnEnough.setFont(new Font("Arial", Font.PLAIN, 12));
 		GridBagConstraints gbc_btnEnough = new GridBagConstraints();
-		gbc_btnEnough.fill = GridBagConstraints.VERTICAL;
 		gbc_btnEnough.insets = new Insets(0, 0, 5, 5);
 		gbc_btnEnough.gridx = 2;
-		gbc_btnEnough.gridy = 4;
+		gbc_btnEnough.gridy = 3;
 		frmNemClient.getContentPane().add(btnEnough, gbc_btnEnough);
 
 		generate.setEnabled(false);
