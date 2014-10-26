@@ -11,7 +11,7 @@
         },
         initOnce: function() {
             /**
-             * @param {string} type load type: 'reload' | 'update' | 'append'
+             * @param {string} type load type: 'reload' | 'update' | 'append', default is 'reload'
              */
         	ncc.loadHarvestedBlocks = function(type) {
         		var currAccount = ncc.get('activeAccount.address');
@@ -37,9 +37,6 @@
                 	if (type !== 'update') {
                         var gotAll = updatedBlocks.length < ncc.consts.blocksPerPage;
                 		ncc.set('harvestedBlocks.gotAll', gotAll);
-                        if (gotAll) {
-                            ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
-                        }
                 	}
 				}, {
                     complete: function() {
@@ -75,11 +72,17 @@
 
     		var $win = ncc.global.$window;
 			var $doc = ncc.global.$document;
-			$win.on('scroll.harvestedBlocksInfiniteScrolling', function(event) {
-				if (!ncc.get('status.loadingOlderBlocks') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
-					ncc.loadHarvestedBlocks('append');
-				}
-			});
+            local.listeners.push(ncc.observe('harvestedBlocks.gotAll', function(gotAll) {
+                if (gotAll) {
+                    ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');
+                } else {
+        			$win.on('scroll.harvestedBlocksInfiniteScrolling', function(event) {
+        				if (!ncc.get('status.loadingOlderBlocks') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
+        					ncc.loadHarvestedBlocks('append');
+        				}
+        			});
+                }
+            }));
     	},
     	leave: [function() {
     		ncc.global.$window.off('scroll.harvestedBlocksInfiniteScrolling');

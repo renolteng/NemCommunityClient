@@ -11,7 +11,7 @@
         },
         initOnce: function() {
         	/**
-        	 * @param {string} type load type: 'reload' | 'update' | 'append'
+        	 * @param {string} type load type: 'reload' | 'update' | 'append', default is 'reload'
         	 */
 			ncc.loadTransactions = function(type) {
 				var api = ncc.get('transactions.filter');
@@ -38,9 +38,6 @@
                     if (type !== 'update') {
                     	var gotAll = updatedTxes.length < ncc.consts.txesPerPage;
                 		ncc.set('transactions.gotAll', gotAll);
-                		if (gotAll) {
-                			ncc.global.$window.off('scroll.txesInfiniteScrolling');
-                		}
                 	}
                 }, {
                 	complete: function() {
@@ -64,11 +61,17 @@
 
 			var $win = ncc.global.$window;
 			var $doc = ncc.global.$document;
-			$win.on('scroll.txesInfiniteScrolling', function(event) {
-				if (!ncc.get('status.loadingOlderTransactions') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
-					ncc.loadTransactions('append');
+			local.listeners.push(ncc.observe('transactions.gotAll', function(gotAll) {
+				if (gotAll) {
+					ncc.global.$window.off('scroll.txesInfiniteScrolling');
+				} else {
+					$win.on('scroll.txesInfiniteScrolling', function(event) {
+						if (!ncc.get('status.loadingOlderTransactions') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
+							ncc.loadTransactions('append');
+						}
+					});
 				}
-			});
+			}));
     	},
     	leave: [function() {
     		ncc.global.$window.off('scroll.txesInfiniteScrolling');
