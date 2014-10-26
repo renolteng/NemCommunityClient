@@ -12,17 +12,13 @@ import java.util.function.Consumer;
  */
 public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	private static final Map<NemStatus, String> nemStatusToStateNameMap = new HashMap<NemStatus, String>() {
-		{ this.put(NemStatus.UNKNOWN, "stopped"); }
-
-		{ this.put(NemStatus.STOPPED, "stopped"); }
-
-		{ this.put(NemStatus.STARTING, "starting"); }
-
-		{ this.put(NemStatus.RUNNING, "running"); }
-
-		{ this.put(NemStatus.BOOTED, "booted"); }
-
-		{ this.put(NemStatus.SYNCHRONIZED, "synchronized"); }
+		{
+			this.put(NemStatus.STOPPED, "stopped");
+			this.put(NemStatus.STARTING, "starting");
+			this.put(NemStatus.RUNNING, "running");
+			this.put(NemStatus.BOOTED, "booted");
+			this.put(NemStatus.SYNCHRONIZED, "synchronized");
+		}
 	};
 
 	private final Consumer<IconDescriptor> iconDescriptorConsumer;
@@ -44,7 +40,7 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	public void notifyStatus(final NemNodeType type, final NemStatus status) {
 		switch (type) {
 			case NCC:
-				this.nccStatus = clampNemStatus(clampNccStatus(status));
+				this.nccStatus = clampNccStatus(clampNemStatus(status));
 				break;
 
 			case NIS:
@@ -56,7 +52,16 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	}
 
 	private static NemStatus clampNemStatus(final NemStatus status) {
-		return NemStatus.UNKNOWN == status ? NemStatus.STOPPED : status;
+		switch (status) {
+			case UNKNOWN:
+				return NemStatus.STOPPED;
+
+			case BOOTING:
+				return NemStatus.BOOTED;
+
+			default:
+				return status;
+		}
 	}
 
 	private static NemStatus clampNccStatus(final NemStatus status) {
@@ -80,7 +85,20 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 	}
 
 	private static String getImageName(final NemStatus nccStatus, final NemStatus nisStatus) {
-		return String.format("icon_%d%d.png", nccStatus.getValue(), nisStatus.getValue());
+		return String.format("icon_%d%d.png", getValue(nccStatus), getValue(nisStatus));
+	}
+
+	private static int getValue(final NemStatus status) {
+		// this is a workaround so that the original image names can still be used
+		// (before additional statuses were added)
+		switch (status) {
+			case BOOTED:
+			case SYNCHRONIZED:
+				return status.getValue() - 1;
+
+			default:
+				return status.getValue();
+		}
 	}
 
 	private static String getDescription(final String msg1, final String msg2) {

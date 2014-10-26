@@ -57,7 +57,7 @@ public class NemConnectorTest {
 	public void getStatusReturnsDeserializedStatusWhenNoExceptionIsThrown() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		final Deserializer deserializer = new BinaryDeserializer(BinarySerializer.serializeToBytes(new NemRequestResult(-1, 4, "?")), null);
+		final Deserializer deserializer = new BinaryDeserializer(BinarySerializer.serializeToBytes(new NemRequestResult(-1, 5, "?")), null);
 		Mockito.when(context.asyncConnector.getAsync(Mockito.any(), Mockito.any(), Mockito.any()))
 				.thenReturn(CompletableFuture.completedFuture(deserializer));
 
