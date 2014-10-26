@@ -93,48 +93,6 @@ define(['ncc'], function(ncc) {
         });
     };
 
-    // ncc.checkNisAvailability = function() {
-    //     var success = false;
-    //     ncc.getRequest('info/nis/check', function(data) {
-    //         if (data === 1) {
-    //             ncc.set('status.nisUnavailable', false);
-    //             success = true;
-    //         }
-    //     }, {
-    //         complete: function(jqXHR, textStatus) {
-    //             if (jqXHR.status === 0) {
-    //                 ncc.set('status.nccUnavailable', true);
-    //             }
-
-    //             if (!success) {
-    //                 ncc.set('status.nisUnavailable', true);
-    //             }
-    //         }
-    //     }, true);
-    // };
-    // ncc.checkNisAvailability();
-    // setInterval(ncc.checkNisAvailability, 3000);
-
-    // ncc.checkNodeStatus = function(bootedAction, notBootedAction) {
-    //     var booted = false;
-    //     ncc.getRequest('node/status', function(data) {
-    //         if (data.ok) {
-    //             ncc.set('status.nodeBooted', true);
-    //             booted = true;
-    //             if (bootedAction) bootedAction();
-    //         }
-    //     }, {
-    //         complete: function() {
-    //             if (!booted) {
-    //                 ncc.set('status.nodeBooted', false);
-    //                 if (notBootedAction) notBootedAction();
-    //             }
-    //         }
-    //     }, true);
-    // };
-    // ncc.checkNodeStatus();
-    // setInterval(ncc.checkNodeStatus, 30000);
-
     (function() {
         var waitTime = 30000;
         var t = 0;
@@ -162,13 +120,10 @@ define(['ncc'], function(ncc) {
         };
 
         ncc.observe('nodeBooted', function(booted) {
-            if (booted && !t) {
+            if (booted) {
                 ncc.refreshNisInfo();
-            }
-
-            if (!booted && t) {
+            } else {
                 clearTimeout(t);
-                t = 0;
             }
         });
     })();

@@ -132,8 +132,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         ncc.postRequest('node/boot', values, 
                             function(data) {
                                 closeModal();
+                                // NIS info will be automatically retrieved when NIS status becomes BOOTED
+                                // so no need to manually call refreshNisInfo()
                                 ncc.refreshAppStatus();
-                                ncc.refreshNisInfo();
                             },
                             {
                                 altFailCb: function(faultId) {
@@ -873,8 +874,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         ncc.set('status.booting', true);
                         ncc.postRequest('node/boot', bootData, 
                             function(data) {
+                                // NIS info will be automatically retrieved when NIS status becomes BOOTED
+                                // so no need to manually call refreshNisInfo()
                                 ncc.refreshAppStatus();
-                                ncc.refreshNisInfo();
                             },
                             {
                                 altFailCb: function(faultId) {

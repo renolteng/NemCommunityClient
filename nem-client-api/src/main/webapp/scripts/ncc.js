@@ -471,7 +471,7 @@ define(function(require) {
                             case this.consts.STATUS_BOOTING:
                                 return {
                                     type: 'warning',
-                                    message: this.get('texts.common.appStatus.booting') + ' API returned'
+                                    message: this.get('texts.common.appStatus.booting')
                                 };
                             case this.consts.STATUS_BOOTED:
                                 var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
@@ -522,10 +522,10 @@ define(function(require) {
             },
             nodeBooted: function() {
                 var nisStatus = this.get('nisStatus.code');
-                return !!(nisStatus === this.consts.STATUS_BOOTED || nisStatus === this.consts.STATUS_SYNCHRONIZED);
+                return nisStatus === this.consts.STATUS_BOOTED || nisStatus === this.consts.STATUS_SYNCHRONIZED;
             },
             nisUnavailable: function() {
-                return !!(this.get('nisStatus.code') === this.consts.STATUS_STOPPED);
+                return this.get('nisStatus.code') === this.consts.STATUS_STOPPED;
             },
             nisSynchronized: function() {
                 // 5 status code is not implemented yet
