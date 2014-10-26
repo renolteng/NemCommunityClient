@@ -863,12 +863,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             ncc.refreshAppStatus(function() {
                 if (!ncc.get('nodeBooted')) {
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
-                        // default the node name to walletName so that auto-boot works out-of-box
-                        var walletName = ncc.get('wallet.name');
+                        // default the node name to a substring of the account name so that auto-boot works out-of-box
+                        var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
                         var bootData = {
-                            node_name: ncc.get('settings.nisBootInfo.nodeName') || walletName,
-                            wallet: walletName,
-                            account: ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address')
+                            node_name: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
+                            wallet: ncc.get('wallet.name'),
+                            account: accountName
                         };
 
                         ncc.set('status.booting', true);
