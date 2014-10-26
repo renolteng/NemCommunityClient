@@ -354,8 +354,9 @@ define(function(require) {
             STATUS_STOPPED: 1,
             STATUS_STARTING: 2,
             STATUS_RUNNING: 3,
-            STATUS_BOOTED: 4,
-            STATUS_SYNCHRONIZED: 5
+            STATUS_BOOTING: 4,
+            STATUS_BOOTED: 5,
+            STATUS_SYNCHRONIZED: 6
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);
@@ -467,6 +468,11 @@ define(function(require) {
                                         message: this.get('texts.common.appStatus.notBooted')
                                     };
                                 }
+                            case this.consts.STATUS_BOOTING:
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.booting') + ' API returned'
+                                };
                             case this.consts.STATUS_BOOTED:
                                 var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
                                 if (lastBlockBehind !== 0) {

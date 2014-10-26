@@ -873,6 +873,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         ncc.set('status.booting', true);
                         ncc.postRequest('node/boot', bootData, 
                             function(data) {
+                                ncc.refreshAppStatus();
                                 ncc.refreshNisInfo();
                             },
                             {
