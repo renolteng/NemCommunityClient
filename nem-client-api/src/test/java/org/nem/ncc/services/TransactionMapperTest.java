@@ -216,16 +216,7 @@ public class TransactionMapperTest {
 			final Account recipient,
 			final Address recipientAddress,
 			final boolean isEncryptionSupported) {
-		// Arrange:
-		final TestContext context = new TestContext(recipient);
-		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), "hi nem", false);
-
-		// Act:
-		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
-
-		// Assert:
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
-		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
+		assertCanCalculateFeeWithMessage(recipient, recipientAddress, isEncryptionSupported, false);
 	}
 
 	//endregion
@@ -256,9 +247,21 @@ public class TransactionMapperTest {
 			final Account recipient,
 			final Address recipientAddress,
 			final boolean isEncryptionSupported) {
+		assertCanCalculateFeeWithMessage(recipient, recipientAddress, isEncryptionSupported, true);
+	}
+
+	private static void assertCanCalculateFeeWithMessage(
+			final Account recipient,
+			final Address recipientAddress,
+			final boolean isEncryptionSupported,
+			final boolean isSecure) {
 		// Arrange:
 		final TestContext context = new TestContext(recipient);
-		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), "hi nem", true);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(
+				recipientAddress,
+				Amount.fromNem(10),
+				"hi nem",
+				isSecure);
 
 		// Act:
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
