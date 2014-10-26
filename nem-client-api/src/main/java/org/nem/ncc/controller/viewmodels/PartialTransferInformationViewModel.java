@@ -7,25 +7,25 @@ import org.nem.core.serialization.*;
 /**
  * Simple view model for a validated transfer which contains a fee that wraps an Amount. and the verification result whether a message can be sent encrypted.
  */
-public class ValidatedTransferViewModel implements SerializableEntity {
+public class PartialTransferInformationViewModel implements SerializableEntity {
 	private final Amount fee;
-	private final boolean encryptionPossible;
+	private final boolean isEncryptionSupported;
 
 	/**
-	 * Creates a new validated transfer view model.
+	 * Creates a new partial transfer information view model.
 	 *
 	 * @param fee The fee.
-	 * @param recipient The recipient.
+	 * @param isEncryptionSupported true if encryption is supported.
 	 */
-	public ValidatedTransferViewModel(final Amount fee, final Account recipient) {
+	public PartialTransferInformationViewModel(final Amount fee, final boolean isEncryptionSupported) {
 		this.fee = fee;
-		this.encryptionPossible = null != recipient && null != recipient.getKeyPair() && null != recipient.getKeyPair().getPublicKey();
+		this.isEncryptionSupported = isEncryptionSupported;
 	}
 
 	@Override
 	public void serialize(final Serializer serializer) {
 		Amount.writeTo(serializer, "fee", this.fee);
-		serializer.writeInt("encryptionPossible", this.encryptionPossible ? 1 : 0);
+		serializer.writeInt("encryptionSupported", this.isEncryptionSupported ? 1 : 0);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class ValidatedTransferViewModel implements SerializableEntity {
 	 *
 	 * @return true if encryption is supported.
 	 */
-	public boolean isEncryptionPossible() {
-		return this.encryptionPossible;
+	public Boolean isEncryptionSupported() {
+		return this.isEncryptionSupported;
 	}
 }

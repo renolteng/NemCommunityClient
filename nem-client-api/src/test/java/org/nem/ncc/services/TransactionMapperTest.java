@@ -3,12 +3,14 @@ package org.nem.ncc.services;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
+import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
@@ -55,8 +57,6 @@ public class TransactionMapperTest {
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
 		Assert.assertThat(model.getDeadline(), IsEqual.equalTo(new TimeInstant(124 + 7 * 60 * 60)));
 	}
-
-	//endregion
 
 	//region wallet services delegation
 
@@ -143,6 +143,166 @@ public class TransactionMapperTest {
 				v -> context.mapper.toModel(request),
 				NccException.Code.NO_PUBLIC_KEY);
 	}
+
+	//endregion
+
+	//endregion
+
+	//region viewModel
+
+	//region can calculate fee without message
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNullWithoutMessage() {
+		// Assert:
+		assertCanCalculateFeeWithoutMessage(new Account(new KeyPair()), null, false);
+	}
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNotNullWithoutMessage() {
+		// Assert:
+		final Account recipient = new Account(new KeyPair());
+		assertCanCalculateFeeWithoutMessage(recipient, recipient.getAddress(), true);
+	}
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNotNullWithoutPublicKeyAndWithoutMessage() {
+		// Assert:
+		final Account recipient = new Account(Utils.generateRandomAddress());
+		assertCanCalculateFeeWithoutMessage(recipient, recipient.getAddress(), false);
+	}
+
+	private static void assertCanCalculateFeeWithoutMessage(
+			final Account recipient,
+			final Address recipientAddress,
+			final boolean isEncryptionSupported) {
+		// Arrange:
+		final TestContext context = new TestContext(recipient);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), null, false);
+
+		// Act:
+		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
+
+		// Assert:
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(1)));
+		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
+	}
+
+	//endregion
+
+	//region can calculate fee with plain message
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNullWithPlainMessage() {
+		// Assert:
+		assertCanCalculateFeeWithPlainMessage(new Account(new KeyPair()), null, false);
+	}
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNotNullWithPlainMessage() {
+		// Assert:
+		final Account recipient = new Account(new KeyPair());
+		assertCanCalculateFeeWithPlainMessage(recipient, recipient.getAddress(), true);
+	}
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNotNullWithoutPublicKeyAndWithPlainMessage() {
+		// Assert:
+		final Account recipient = new Account(Utils.generateRandomAddress());
+		assertCanCalculateFeeWithPlainMessage(recipient, recipient.getAddress(), false);
+	}
+
+	private static void assertCanCalculateFeeWithPlainMessage(
+			final Account recipient,
+			final Address recipientAddress,
+			final boolean isEncryptionSupported) {
+		// Arrange:
+		final TestContext context = new TestContext(recipient);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), "hi nem", false);
+
+		// Act:
+		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
+
+		// Assert:
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
+		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
+	}
+
+	//endregion
+
+	//region can calculate fee with secure message
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNullWithSecureMessage() {
+		// Assert:
+		assertCanCalculateFeeWithSecureMessage(new Account(new KeyPair()), null, false);
+	}
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNotNullWithSecureMessage() {
+		// Assert:
+		final Account recipient = new Account(new KeyPair());
+		assertCanCalculateFeeWithSecureMessage(recipient, recipient.getAddress(), true);
+	}
+
+	@Test
+	public void canCalculateFeeWhenRecipientIsNotNullWithoutPublicKeyAndWithSecureMessage() {
+		// Assert:
+		final Account recipient = new Account(Utils.generateRandomAddress());
+		assertCanCalculateFeeWithSecureMessage(recipient, recipient.getAddress(), false);
+	}
+
+	private static void assertCanCalculateFeeWithSecureMessage(
+			final Account recipient,
+			final Address recipientAddress,
+			final boolean isEncryptionSupported) {
+		// Arrange:
+		final TestContext context = new TestContext(recipient);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), "hi nem", true);
+
+		// Act:
+		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
+
+		// Assert:
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
+		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
+	}
+
+	//endregion
+
+	//region can calculate fee without amount
+
+	@Test
+	public void canCalculateFeeWhenAmountIsNotProvidedWithoutMessage() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Address address = context.recipient.getAddress();
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(address, null, null, false);
+
+		// Act:
+		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
+
+		// Assert:
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(1)));
+		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(true));
+	}
+
+	@Test
+	public void canCalculateFeeWhenAmountIsNotProvidedWithMessage() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Address address = context.recipient.getAddress();
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(address, null, "hi nem", false);
+
+		// Act:
+		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
+
+		// Assert:
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
+		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(true));
+	}
+
+	//endregion
 
 	//endregion
 
