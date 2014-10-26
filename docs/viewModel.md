@@ -305,16 +305,28 @@ Only a local NIS can be booted.
 }
 ```
 
-### ValidatedTransferViewModel
+
+### PartialTransferInformationRequest
 
 ```
 {
-	"fee": 1.0,              # reflects the minimum fee that is required 
-	                         # to send the transaction
-	"encryptionPossible" : 1 # indicates whether an encrypted message can be sent
-	                         # to the recipient (if provided)
-	                         # 0 - encryption not possible
-	                         # 1 - encryption is possible
+	"recipient": "TBYDNCLNEGESF5EWRFWFJU7RNCPWOOQH5LMRSQ5A",
+	"amount":  10000.0,
+	"message": "My first message",
+	"encrypt": 1,
+}
+```
+
+### PartialTransferInformationViewModel
+
+```
+{
+	"fee": 1.0,               # reflects the minimum fee that is required 
+	                          # to send the transaction
+	"encryptionSupported" : 1 # indicates whether an encrypted message can be sent
+	                          # to the recipient (if provided)
+	                          # 0 - encryption is not supported
+	                          # 1 - encryption is supported
 }
 ```
 

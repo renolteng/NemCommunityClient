@@ -1,7 +1,7 @@
 package org.nem.ncc.controller;
 
 import net.minidev.json.*;
-import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
@@ -13,7 +13,7 @@ import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
-import org.nem.ncc.controller.viewmodels.ValidatedTransferViewModel;
+import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.TransactionMapper;
 import org.nem.ncc.test.*;
@@ -80,34 +80,19 @@ public class TransactionControllerTest {
 	//region validateTransferData
 
 	@Test
-	public void validateTransferDataDelegatesToTransactionMapperWhenTransactionRecipientHasPublicKey() {
-		// Assert:
-		assertValidateTransferDataDelegatesToTransactionMapper(new Account(new KeyPair()), true);
-	}
-
-	@Test
-	public void validateTransferDataDelegatesToTransactionMapperWhenTransactionRecipientDoesNotHavePublicKey() {
-		// Assert:
-		assertValidateTransferDataDelegatesToTransactionMapper(new Account(Address.fromEncoded("abc")), false);
-	}
-
-	private static void assertValidateTransferDataDelegatesToTransactionMapper(
-			final Account recipient,
-			final boolean isEncryptionPossible) {
+	public void validateTransferDataDelegatesToTransactionMapper() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		final TransferTransaction model = Mockito.mock(TransferTransaction.class);
-		Mockito.when(context.transactionMapper.toModel((TransferValidateRequest)context.request)).thenReturn(model);
-		Mockito.when(model.getFee()).thenReturn(Amount.fromNem(274));
-		Mockito.when(model.getRecipient()).thenReturn(recipient);
+		final PartialTransferInformationRequest request = Mockito.mock(PartialTransferInformationRequest.class);
+		final PartialTransferInformationViewModel originalViewModel = Mockito.mock(PartialTransferInformationViewModel.class);
+		Mockito.when(context.transactionMapper.toViewModel(request)).thenReturn(originalViewModel);
 
 		// Act:
-		final ValidatedTransferViewModel validatedTransferViewModel = context.controller.validateTransferData(context.request);
+		final PartialTransferInformationViewModel viewModel = context.controller.validateTransferData(request);
 
 		// Assert:
-		Mockito.verify(context.transactionMapper, Mockito.times(1)).toModel((TransferValidateRequest)context.request);
-		Assert.assertThat(validatedTransferViewModel.getFee(), IsEqual.equalTo(Amount.fromNem(274)));
-		Assert.assertThat(validatedTransferViewModel.isEncryptionPossible(), IsEqual.equalTo(isEncryptionPossible));
+		Mockito.verify(context.transactionMapper, Mockito.only()).toViewModel(request);
+		Assert.assertThat(viewModel, IsSame.sameInstance(originalViewModel));
 	}
 
 	//endregion

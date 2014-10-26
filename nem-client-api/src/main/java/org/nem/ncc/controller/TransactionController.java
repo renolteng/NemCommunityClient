@@ -8,7 +8,7 @@ import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
-import org.nem.ncc.controller.viewmodels.ValidatedTransferViewModel;
+import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.TransactionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +56,9 @@ public class TransactionController {
 	 * @return The validation information.
 	 */
 	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
-	public ValidatedTransferViewModel validateTransferData(@RequestBody final TransferValidateRequest request) {
+	public PartialTransferInformationViewModel validateTransferData(@RequestBody final PartialTransferInformationRequest request) {
 		// TODO 20141005 J-G: should we update this function / add a new function that is able to validate importance transfer transactions?
-		final TransferTransaction transaction = (TransferTransaction)this.transactionMapper.toModel(request);
-		return new ValidatedTransferViewModel(transaction.getFee(), transaction.getRecipient());
+		return this.transactionMapper.toViewModel(request);
 	}
 
 	/**

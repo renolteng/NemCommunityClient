@@ -3,10 +3,12 @@ package org.nem.ncc.services;
 import org.nem.core.crypto.*;
 import org.nem.core.messages.*;
 import org.nem.core.model.*;
+import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
+import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
 
@@ -47,13 +49,29 @@ public class TransactionMapper {
 	}
 
 	/**
-	 * Converts the specified request to a model.
+	 * Converts the specified request to a view model.
+	 * TODO 20141025 J-J: not sure if this makes sense in this class
 	 *
 	 * @param request The request.
-	 * @return The model.
+	 * @return The view model.
 	 */
-	public Transaction toModel(final TransferValidateRequest request) {
-		return this.toModel(request, null);
+	public PartialTransferInformationViewModel toViewModel(final PartialTransferInformationRequest request) {
+		// use a fake accounts so that encryption and signing are always possible
+		final Account fakeAccount = new Account(new KeyPair());
+		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), fakeAccount, fakeAccount);
+
+		// if the amount isn't provided, assume a zero amount
+		final Amount amount = null == request.getAmount() ? Amount.ZERO : request.getAmount();
+		final TransferTransaction transaction = new TransferTransaction(
+				TimeInstant.ZERO,
+				fakeAccount,
+				fakeAccount,
+				amount,
+				message);
+
+		return new PartialTransferInformationViewModel(
+				transaction.getFee(),
+				null != request.getRecipientAddress() && null != this.accountLookup.findByAddress(request.getRecipientAddress()).getKeyPair());
 	}
 
 	/**
@@ -77,10 +95,10 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-	private TransferTransaction toModel(final TransferValidateRequest request, final WalletPassword password) {
+	private TransferTransaction toModel(final TransferSendRequest request, final WalletPassword password) {
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
-		final Message message = this.createMessage(request, sender, recipient);
+		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), sender, recipient);
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 		final TransferTransaction transaction = new TransferTransaction(
@@ -106,12 +124,8 @@ public class TransactionMapper {
 		return new Account(new KeyPair(privateKey));
 	}
 
-	// note: TransferValidateRequest passes null password here...
 	private Wallet getSenderWallet(final WalletName walletName, final WalletPassword password) {
-		final Wallet wallet = null != password
-				? this.walletServices.open(new WalletNamePasswordPair(walletName, password))
-				: this.walletServices.get(walletName);
-
+		final Wallet wallet = this.walletServices.open(new WalletNamePasswordPair(walletName, password));
 		if (null == wallet) {
 			throw new IllegalArgumentException("unable to open wallet");
 		}
@@ -120,16 +134,16 @@ public class TransactionMapper {
 	}
 
 	private Message createMessage(
-			final TransferValidateRequest request,
+			final String message,
+			final boolean shouldEncrypt,
 			final Account sender,
 			final Account recipient) {
-		final String message = request.getMessage();
 		if (null == message) {
 			return null;
 		}
 
-		final byte[] messageBytes = StringEncoder.getBytes(request.getMessage());
-		if (!request.shouldEncrypt()) {
+		final byte[] messageBytes = StringEncoder.getBytes(message);
+		if (!shouldEncrypt) {
 			return new PlainMessage(messageBytes);
 		}
 
