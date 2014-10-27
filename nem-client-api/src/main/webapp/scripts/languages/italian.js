@@ -34,7 +34,7 @@ define({
             707: 'La marca temporale della transazione è troppo lontana nel passato.',
             708: 'La marca temporale della transazione è troppo lontana nel futuro.',
             709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
-            901: 'Errore nella modalità fuori rete.'
+            901: 'Errore nella modalità fuori rete.',
             1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
             1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.'
         },
