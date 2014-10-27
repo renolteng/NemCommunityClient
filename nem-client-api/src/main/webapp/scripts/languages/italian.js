@@ -21,7 +21,7 @@ define({
             306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
             400: 'Manca qualche parametro obbligatorio',
             404: 'Strategia di avvio non valida',
-            500: 'Errore nella scrittura del file di configurazione',
+            500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
             600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce "Avvia il nodo locale" nel menu di NCC.',
             601: 'Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.',
             700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 NEM",
@@ -35,6 +35,8 @@ define({
             708: 'La marca temporale della transazione è troppo lontana nel futuro.',
             709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
             901: 'Errore nella modalità fuori rete.'
+            1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
+            1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.'
         },
         common: {
         	success: 'Operazione completata', //title of the Success message modals
@@ -181,29 +183,40 @@ define({
 				create: 'Crea'
 			},
 			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
+				title: 'Crea indirizzo reale',
+				message: "I dati riportati qui sotto sono relativi al tuo indirizzo NEM reale da utilizzare solo dopo il lancio di NEM. Salvati l'indirizzo, la chiave pubblica e soprattuto la chiave privata in un posto sicuro. Se perdi la chiave privata i tuoi NEM saranno PERSI IRRIMEDIABILMENTE!",
+				address: 'Indirizzo',
+				publicKey: 'Chiave pubblica',
+				privateKey: 'Chiave privata',
 				confirm: {
-					title: 'Save the private key',
-					message: 'Are you sure your private key has been saved into a safe place?'
+					title: 'Salvataggio chiave privata',
+					message: 'Sei certo di aver salvato la tua chiave privata in un posto sicuro?'
 				},
 				recheck: {
-					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					title: 'Verifica chiave privata',
+					message: "Riinserisci la chiave privata per verificare che sia corretta. Se l'hai già persa puoi crearne una nuova.",
 					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+						title: 'Ottimo!',
+						message: 'La chiave privata inserita è corretta. Ricordati di conservarla sempre in un posto sicuro!'
 					},
 					incorrect: {
-						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						title: 'Mmm...',
+						message: "La chiave privata inserita è errata! Vuoi provare a riinserirla oppure vuoi vedere nuovamente i dati originali?",
+						tryAgain: 'Riprova',
+						seeOriginal: 'Rivedi dati originali'
 					},
-					recheck: 'Check'
+					recheck: 'Verifica'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verifica dati indirizzo reale',
+				message: "Riinserisci l'indirizzo, la chiave pubblica e la chiave privata per verificarne la correttezza",
+				address: 'Indirizzo',
+				publicKey: 'Chiave pubblica',
+				privateKey: 'Chiave privata',
+				dataMatched: 'Ottimo! I dati corrispondono.',
+				verify: 'Verifica'
 			},
 			addAccount: {
 				title: 'Aggiunta indirizzo esistente',
@@ -267,7 +280,7 @@ define({
 				message: 'Sei sicuro di voler arrestare NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Abilita generazione blocchi tramite altro indirizzo',
+				title: 'Abilita generazione blocchi sicura',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				hoursDue: 'Tempo massimo (ore)',
@@ -275,7 +288,7 @@ define({
 				activate: 'Attiva'
 			},
 			deactivateRemote: {
-				title: 'Disabilita generazione blocchi tramite altro indirizzo',
+				 title: 'Disabilita generazione blocchi sicura',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				hoursDue: 'Tempo massimo (ore)',
@@ -283,18 +296,16 @@ define({
 				deactivate: 'Disattiva'
 			},
 			startRemote: {
-				title: 'Avvia generazione blocchi tramite altro indirizzo',
-				wallet: 'Portafoglio',
+				title: 'Avvia generazione blocchi sicura',
+ 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
-				host: 'Nome del nodo',
 				password: "Password del portafoglio",
 				start: 'Avvia'
 			},
 			stopRemote: {
-				title: 'Ferma generazione blocchi tramite altro indirizzo',
+				title: 'Ferma generazione blocchi sicura',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
-				host: 'Nome del nodo',
 				password: "Password del portafoglio",
 				stop: 'Ferma'
 			}
@@ -377,7 +388,8 @@ define({
 				mergeWallets: 'Unisci portafogli',
 				exportWallet: 'Esporta portafoglio',
 				createAccount: 'Crea nuovo indirizzo',
-				createRealAccountData: 'Create real account data',
+				createRealAccountData: 'Crea indirizzo reale',
+				verifyRealAccountData: 'Verifica indirizzo reale',
 				addAccount: 'Aggiungi indirizzo esistente',
 				changeAccountLabel: "Modifica nome dell'indirizzo",
 				setPrimary: 'Seleziona indirizzo principale',
@@ -385,7 +397,7 @@ define({
 				clientInfo: 'Informazioni sul programma',
 				closeWallet: 'Chiudi portafoglio',
 				closeProgram: 'Arresta NCC',
-				copyClipboard: 'copia indirizzo negli appunti'
+				copyClipboard: 'Copia indirizzo negli appunti'
 			},
 			nav: [
 				"Vista d'insieme",
@@ -414,14 +426,14 @@ define({
 				stop: 'Ferma generazione blocchi',
 				description: "importanza dell'indirizzo nella rete NEM",
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating...',
-					startRemoteHarvesting: 'Start remote harvesting',
-					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					activate: 'Abilita generazione blocchi sicura',
+					activating: 'Abilitazione in corso...',
+					active: 'Generazione blocchi sicura abilitata',
+					deactivate: 'Disabilita generazione blocchi sicura',
+					deactivating: 'Dibilitazione in corso...',
+					startRemoteHarvesting: 'Avvia generazione blocchi sicura',
+					remotelyHarvesting: 'Generazione blocchi sicura in corso',
+					stopRemoteHarvesting: 'Ferma generazione blocchi sicura'
 				}
 			},
 			transactions: {
@@ -463,7 +475,7 @@ define({
 			news: {
 				titleTooltip: 'Notizie'
 			},
-			notAvailable: 'Non disponibile nella versione alfa'
+			notAvailable: 'Non disponibile nella versione beta'
 		},
 		transactions: {
 			title: 'Transazioni',
@@ -512,7 +524,7 @@ define({
 					'Commissioni'
 				],
 				noBlocks: 'Nessun blocco generato ',
-				loadMore: 'Vedi blocchi precedenti'
+				loading: 'Caricamento blocchi precedenti...'
 			},
 			harvesting: {
 				unknown: 'Stato sconosciuto',
