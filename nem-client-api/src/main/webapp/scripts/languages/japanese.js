@@ -34,7 +34,9 @@ define({
             707: "トランザクション(取引)IDのタイムスタンプが古すすぎます。",
             708: "トランザクション(取引)のタイムスタンプが先すぎます",
             709: "不明なアカウントです。アカウントはNEMクラウド内で共有されている少なくとも1つのトランザクション(取引)に記載されている必要がある。(送信側、受信側どちらでも良い)",
-            901: "オフラインモードに変換する際にエラーが発生しました。"
+            901: "オフラインモードに変換する際にエラーが発生しました。",
+            1000: "入力したプライベートキーとパブリックキーは合っていません。",
+            1001: "入力したパブリックキーとNEMアドレスは合っていません。"
         },
         common: {
             success: "成功!",
@@ -110,12 +112,12 @@ define({
                     title: "取引確認",
                     sendLabel: "You're going to send",
                     to: "To",
-                    message: "Message",
-                    encrypted: "Message is encrypted",
-                    noMessage: "No message",
-                    cancel: "Cancel",
-                    send: "Send",
-                    sending: "Sending..."
+                    message: "メッセージ",
+                    encrypted: "メッセージは暗号化されています。",
+                    noMessage: "メッセージなし",
+                    cancel: "キャンセル",
+                    send: "送る",
+                    sending: "送信中・・・"
                 }
             },
             clientInfo: {
@@ -193,11 +195,22 @@ define({
                     },
                     incorrect: {
                         title: "おっとっと・・・",
-                        message: "入力されたプライベートキーが正しくありません。もう一度入力して下さい。"
+                        message: "入力されたプライベートキーが正しくありません。もう一度入力して下さい。",
+                        tryAgain: "もう一度入力して下さい。",
+                        seeOriginal: "元のデータを確認"
                     },
                     recheck: "確認"
                 },
                 ok: "OK"
+            },
+            verifyRealAccountData: {
+                title: "実際のアカウントデータの確認",
+                message: "保存したNEMアドレス、パブリックキー、プラベートキーを入力して正しいかどうかを確認して下さい。",
+                address: "アドレス",
+                publicKey: "パブリックキー",
+                privateKey: "プライベートキー",
+                dataMatched: "入力したNEMアドレス、パブリックキー、プライベートキーはすべて正常に確認されました。",
+                verify: "確認"
             },
             addAccount: {
                 title: "既存のアカウントを追加します。",
@@ -261,34 +274,34 @@ define({
                 message: "NEM Community Clientを閉じますか。"
             },
             activateRemote: {
-                title: "",
-                wallet: "",
-                account: "",
+                title: "リモートハーベストを開始する",
+                wallet: "ウォレット",
+                account: "アカウント",
                 hoursDue: "",
-                password: "",
+                password: "ウォレットのパスワード",
                 activate: ""
             },
             deactivateRemote: {
-                title: "",
-                wallet: "",
-                account: "",
+                title: "リモートハーベストを停止する",
+                wallet: "ウォレット",
+                account: "アカウント",
                 hoursDue: "",
-                password: "",
+                password: "ウォレットのパスワード",
                 deactivate: ""
             },
             startRemote: {
-                title: "",
-                wallet: "",
-                account: "",
-                password: "",
-                start: ""
+                title: "リモートハーベストを開始する",
+                wallet: "ウォレット",
+                account: "アカウント",
+                password: "ウォレットのパスワード",
+                start: "開始"
             },
             stopRemote: {
-                title: "",
-                wallet: "",
-                account: "",
-                password: "",
-                stop: ""
+                title: "リモートハーベストを停止する",
+                wallet: "ウォレット",
+                account: "アカウント",
+                password: "ウォレットのパスワード",
+                stop: "停止"
             }
         },
         landing: {
@@ -297,7 +310,7 @@ define({
             nav: {
                 start: "始め方",
                 about: "NEMについて",
-                settings: "Settings"
+                settings: "設定"
             },
             main: {
                 leftTitle: "<em>NEM</em>は初めてですか?",
@@ -318,7 +331,7 @@ define({
                         description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。 "
                     },
                     {
-                        title: "",
+                        title: "あなたのウォレットをNCC暗号化する。",
                         description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。"
                     }
                 ]
@@ -369,7 +382,8 @@ define({
                 mergeWallets: "ウォレットを統合する",
                 exportWallet: "ウォレットをバックアップする",
                 createAccount: "新しいアカウントを作成する",
-                createRealAccountData: "Create real account data",
+                createRealAccountData: "実際のアカウントデータを作成する",
+                verifyRealAccountData: "実際のアカウントデータを確認する",
                 addAccount: "既存のアカウントを追加する",
                 changeAccountLabel: "アカウントラベルを変更する",
                 setPrimary: "プライマリーアカウントに設定する",
@@ -377,7 +391,7 @@ define({
                 clientInfo: "クライアント情報",
                 closeWallet: "ウォレットを閉じる",
                 closeProgram: "終了する",
-                copyClipboard: "Copy address to clipboard"
+                copyClipboard: "アドレスをクリップボードにコピーする"
             },
             nav: [
                 "ダッシュボード",
@@ -386,7 +400,7 @@ define({
                 "トランザクション(取引)",
                 "ハーベストされたブロック",
                 "残高のやりとり",
-                "News",
+                "ニュース",
                 "アプリケーション",
                 "アカウント",
                 "設定",
@@ -406,8 +420,8 @@ define({
                 stop: "ハーベスティングを中断する",
                 description: "NEMクラウドのアカウントの重要性",
                 remoteHarvest: {
-                    activate: "",
-                    activating: "",
+                    activate: "リモートハーベストを開始する",
+                    activating: "リモートハーベスト開始中・・・",
                     active: "",
                     deactivate: "",
                     deactivating: "",
@@ -462,8 +476,8 @@ define({
             sendNem: "NEMを送金する",
             balance: "現在の残高",
             filters: {
-                confirmed: "Confirmed",
-                unconfirmed: "Unconfirmed",
+                confirmed: "検証済",
+                unconfirmed: "未検証",
                 incoming: "入金",
                 outgoing: "出金"
             },
@@ -504,7 +518,7 @@ define({
                     "手数料"
                 ],
                 noBlocks: "ハーベストされたブロックではありません。 ",
-                loadMore: "過去のハーベストされたブロックを見る"
+                loading: "ハーベストされたブロックをロード中・・・"
             },
             harvesting: {
                 unknown: "不明な状態",
