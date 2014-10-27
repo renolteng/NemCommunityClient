@@ -20,6 +20,7 @@ define({
             305: 'NEM Infrastructure Server is not available.',
             306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
             400: 'Some parameter is missing or invalid.',
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: 'The requested resource could not be found.',
             500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
             600: 'NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.',
