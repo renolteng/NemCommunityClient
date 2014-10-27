@@ -1,6 +1,6 @@
 ﻿define({
 	id: 'cn',
-	name: '中文',
+	name: '中文（簡体）',
 	texts: {
 		preferences: {
 			thousandSeparator: '\u2009',
