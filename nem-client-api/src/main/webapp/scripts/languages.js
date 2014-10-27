@@ -1,7 +1,7 @@
 define([
 	'languages/bulgarian_b',
-	'languages/chinese_trad',
 	'languages/chinese',
+	'languages/chinese_trad',
 	'languages/croatian',
 	'languages/dutch',
 	'languages/english',
@@ -20,8 +20,8 @@ define([
 	'languages/romanian',
 	'languages/lithuanian'], function(
 		bulgarian,
-		chinese_trad,
 		chinese,
+		chinese_trad,
 		croatian,
 		dutch,
 		english,
@@ -41,8 +41,8 @@ define([
 		lithuanian) {
 	return [
 		bulgarian,
-		chinese_trad,
 		chinese,
+		chinese_trad,
 		croatian,
 		dutch,
 		english,
