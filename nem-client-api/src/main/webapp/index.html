@@ -147,7 +147,7 @@
 			<messageModal modalClass="messageModal" closeOnEnter="true">
 				<p><em>{{{message}}}</em></p>
 				<div class="modal-actions">
-					<button type="button" class="modal-button modal-button--neutral" on-click="closeModal">OK</button>
+					<button type="button" class="modal-button modal-button--neutral" on-click="closeModal()">OK</button>
 				</div>
 			</messageModal>
 
@@ -171,7 +171,7 @@
 						{{>content}}
 					</div>
 					{{^noCloseButton}}
-						<button type="button" class="modal-closeBtn icon-close-plain" on-click="closeModal"></button>
+						<button type="button" class="modal-closeBtn icon-close-plain" on-click="closeModal()"></button>
 					{{/}}
 				</article>
 			</div>
