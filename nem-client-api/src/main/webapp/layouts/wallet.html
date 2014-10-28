@@ -64,7 +64,7 @@
 					</div>
 					<img class="walletBox-avatar" src="images/default-avatar.png" alt="{{wallet.name}}" />
 					<div class="walletBox-menu">
-						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn:walletActions"></a>
+						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn('walletActions')"></a>
 						<ul class="walletBox-menu-dropdown dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
 							<li class="dropdownMenu-item" on-click="changeWalletName">
 								{{texts.wallet.actions.changeWalletName}}
@@ -104,7 +104,7 @@
 	<div class="sidebar">
 		<div>
 			<div class="account account--active {{#active.accountSelect}}account--selecting{{/}}">
-				<div class="account-info" on-click="toggleOn:accountSelect">
+				<div class="account-info" on-click="toggleOn('accountSelect')">
 					{{#activeAccount}}
 						<p class="account-info-line">
 							<span class="account-id fullSidebarOnly" id="activeAccountAddress">{{.formattedAddress}}</span>
@@ -118,7 +118,7 @@
 						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{.label ? .label : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
-				<button class="account-actionsButton fullSidebarOnly {{#active.accountActions}}active{{/}}" on-click="toggleOn:accountActions">
+				<button class="account-actionsButton fullSidebarOnly {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
 					<span class="account-actionsButton--gear icon-gear"></span>
 					<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
 				</button>

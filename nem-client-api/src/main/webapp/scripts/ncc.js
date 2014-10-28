@@ -21,6 +21,12 @@ define(function(require) {
             this.set('isActive', false);
             this.fire('modalClosed');
         },
+        toggleOn: function(id) {
+            Utils.toggleOn(this, id);
+        },
+        toggleOff: function(id) {
+            Utils.toggleOff(this, id);
+        },
         oncomplete: function() {
             this.on({
                 modalContainerClick: function(e) {
@@ -857,25 +863,10 @@ define(function(require) {
             modal.open();
         },
         toggleOn: function(id) {
-            var keypath = 'active.' + id;
-            if (!this.get(keypath)) {
-                this.set(keypath, true);
-                var firstTime = true;
-                var self = this;
-                $(document).on('click.' + id, function(ev) {
-                    if (firstTime) {
-                        firstTime = false;
-                        return;
-                    }
-                    //if (self.nodes[id] !== ev.target && !$.contains(self.nodes[id], ev.target)) {
-                    self.fire('toggleOff', null, id);
-                    //}
-                });
-            }
+            Utils.toggleOn(this, id);
         },
         toggleOff: function(id) {
-            this.set('active.' + id, false);
-            $(document).off('click.' + id);
+            Utils.toggleOff(this, id);
         },
         prepend: function(args, array) {
             var a = array.slice(0);
