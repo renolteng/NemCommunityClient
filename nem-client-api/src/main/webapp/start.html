@@ -40,10 +40,10 @@
 				</div>
 				<div class="settingsModal-main">
 					<div class="settingsModal-tabs bulletTabs">
-						<button class="bulletTab-control {{#active.settingsModalTab === 'remoteServer'}}active{{/}}" on-click="set:'active.settingsModalTab','remoteServer'">{{texts.modals.settings.remoteServer.tabTitle}}</button>
-						<button class="bulletTab-control {{#active.settingsModalTab === 'autoBoot'}}active{{/}}" on-click="set:'active.settingsModalTab','autoBoot'">{{texts.modals.settings.autoBoot.tabTitle}}</button>
+						<button class="bulletTab-control {{#activeTab === 'remoteServer'}}active{{/}}" on-click="set('activeTab', 'remoteServer')">{{texts.modals.settings.remoteServer.tabTitle}}</button>
+						<button class="bulletTab-control {{#activeTab === 'autoBoot'}}active{{/}}" on-click="set('activeTab', 'autoBoot')">{{texts.modals.settings.autoBoot.tabTitle}}</button>
 					</div>
-					<div class="settingsModal-panel settingsModal-panel--remoteServer {{^active.settingsModalTab === 'remoteServer'}}hidden{{/}}">
+					<div class="settingsModal-panel settingsModal-panel--remoteServer {{^activeTab === 'remoteServer'}}hidden{{/}}">
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.protocol}}</p>
 							<div class="dropdownbox">
@@ -53,7 +53,7 @@
 									{{/}}
 								</div>
 								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}">
-									<li class="dropdownbox-item" on-click="set:'settings.remoteServer.protocol','http'">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
+									<li class="dropdownbox-item" on-click="set('settings.remoteServer.protocol', 'http')">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
 								</ul>
 							</div>
 						</div>
@@ -66,7 +66,7 @@
 							<input type="text" class="settingsModal-input js-settingsModal-port-textbox" value="{{portStr}}" disabled />
 						</div>
 					</div>
-					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^active.settingsModalTab === 'autoBoot'}}hidden{{/}}">
+					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^activeTab === 'autoBoot'}}hidden{{/}}">
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.name}}</p>
 							<input type="text" class="settingsModal-input" value="{{settings.nisBootInfo.nodeName}}" />
@@ -74,9 +74,9 @@
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.account}}</p>
 							<div class="dropdownbox">
-								<input class="settingsModal-input dropdownbox-textbox {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="toggleOn('settingsModal-bootAccountDropdown')" on-blur="toggleOff('settingsModal-bootAccountDropdown')" value="{{displayedAccount}}" />
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}">
-									<li class="dropdownbox-item" on-click="set('displayedAccount', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
+								<input class="settingsModal-input dropdownbox-textbox {{#bootAccountDropdownActive}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="set('bootAccountDropdownActive', true)" on-blur="set('bootAccountDropdownActive', false)" value="{{displayedAccount}}" />
+								<ul class="dropdownbox-dropdown {{^bootAccountDropdownActive}}hidden{{/}}">
+									<li class="dropdownbox-item" on-mousedown="set('settings.nisBootInfo.account', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
 								</ul>
 							</div>
 						</div>
@@ -151,7 +151,7 @@
 				</div>
 			</messageModal>
 
-			<errorModal modalClass="errorModal" texts="{{texts}}">
+			<errorModal modalClass="errorModal" texts="{{texts}}" fill="{{fill}}">
 				<div>
 					<img src="images/sad-face.png" alt="Sadly"/>
 				</div>
