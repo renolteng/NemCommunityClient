@@ -288,7 +288,7 @@
 		</p>
 	</div>
 	<div class="txConfirm-actions">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
 		<button type="button" class="modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="confirm:confirm">
 			{{^processing}}
 				{{texts.modals.sendNem.txConfirm.send}}

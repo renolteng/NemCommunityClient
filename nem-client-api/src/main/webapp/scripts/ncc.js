@@ -17,8 +17,9 @@ define(function(require) {
                 top: 'auto'
             });
         },
-        close: function() {
-            this.fire('closeModal');
+        closeModal: function() {
+            this.set('isActive', false);
+            this.fire('modalClosed');
         },
         lockAction: function() {
             this.set('processing', true);
@@ -28,20 +29,14 @@ define(function(require) {
         },
         init: function() {
             this.on({
-                closeModal: function() {
-                    this.set('isActive', false);
-                    if (typeof this.afterClose === 'function') {
-                        this.afterClose();
-                    }
-                },
                 modalContainerClick: function(e) {
                     if (e.node === e.original.target) { //clicked outside modal
-                        this.fire('closeModal');
+                        this.closeModal();
                     }
                 },
                 modalContainerKeyup: function(e) {
                     if (e.original.keyCode === 27 || (this.get('closeOnEnter') && e.original.keyCode === 13)) {
-                        this.fire('closeModal');
+                        this.closeModal();
                     }
                 },
                 confirm: function(e, action) {
@@ -51,7 +46,7 @@ define(function(require) {
                         result = callbacks[action].call(this);
                     }
                     if (result !== false) {
-                        this.close();
+                        this.closeModal();
                     }
                 },
                 submit: function() {
@@ -59,10 +54,10 @@ define(function(require) {
                     var values = this.get('values');
                     var result;
                     if (submit) {
-                        result = submit.call(this, values, this.close.bind(this));
+                        result = submit.call(this, values, this.closeModal.bind(this));
                     }
                     if (result !== false) {
-                        this.close();
+                        this.closeModal();
                     }
                 },
                 inputKeyup: function(e) {
@@ -235,8 +230,8 @@ define(function(require) {
                             var self = this;
                             self.lockAction();
                             ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                                self.close();
-                                parent.close();
+                                self.closeModal();
+                                parent.closeModal();
                                 ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
                                 ncc.refreshInfo();
                             },
@@ -322,7 +317,7 @@ define(function(require) {
                     ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
                         if (data.ok) {
                             ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
-                            self.close();
+                            self.closeModal();
                         }
                     });
                 },
@@ -1084,7 +1079,7 @@ define(function(require) {
                 }
             };
         })(),
-        init: function(options) {
+        oncomplete: function(options) {
             var self = this;
 
             require(['languages'], function(languages) {
