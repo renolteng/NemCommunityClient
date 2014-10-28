@@ -309,9 +309,7 @@ define(function(require) {
                     }
                 },
                 set: function(address) {
-                    if (address === this.get('texts.modals.settings.autoBoot.primaryAccount')) {
-                        this.set('settings.nisBootInfo.account', '');
-                    } else {
+                    if (address !== this.get('texts.modals.settings.autoBoot.primaryAccount')) {
                         this.set('settings.nisBootInfo.account', Utils.restoreAddress(address));
                     }
                 }
@@ -338,6 +336,9 @@ define(function(require) {
                 }
             });
         },
+        data: {
+            activeTab: 'remoteServer'
+        },
         oncomplete: function() {
             this._super();
 
@@ -354,8 +355,6 @@ define(function(require) {
                 $('.js-settingsModal-account-textbox').mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
                 $('.js-settingsModal-port-textbox').mask('00000');
             });
-
-            this.set('active.settingsModalTab', 'remoteServer');
         }
     });
 
@@ -1110,12 +1109,6 @@ define(function(require) {
             this.on({
                 redirect: function(e, page, params) {
                     this.loadPage(page, params);
-                },
-                toggleOn: function(e, id) {
-                    this.toggleOn(id);
-                },
-                toggleOff: function(e, id) {
-                    this.toggleOff(id);
                 },
                 openModal: function(e, id) {
                     this.showModal(id);
