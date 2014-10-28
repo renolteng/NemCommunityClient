@@ -411,7 +411,6 @@ define(function(require) {
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
-            unclosableMessageModal: NccModal,
             transactionConfirmationModal: NccModal
         },
         computed: {
@@ -804,34 +803,6 @@ define(function(require) {
                     }
                 });
             }
-        },
-        showUnclosableMessage: function(title, message, runningEllipsis) {
-            var modal = this.getModal('unclosableMessage');
-            modal.set({
-                modalTitle: title,
-                message: message
-            });
-            if (runningEllipsis) {
-                var ell = '';
-                modal.runningEllipsis = setInterval(function() {
-                    modal.set('runningEllipsis', ell);
-                    if (ell.length < 3) {
-                        ell += '.';
-                    } else {
-                        ell = '';
-                    }
-                }, 600);
-            }
-            modal.open();
-        },
-        closeUnclosableMessage: function() {
-            var modal = this.getModal('unclosableMessage');
-            if (modal.runningEllipsis) {
-                clearInterval(modal.runningEllipsis);
-                modal.runningEllipsis = null;
-            }
-            modal.close();
-
         },
         showConfirmation: function(title, message, callbacks, actions) {
             var modal = this.getModal('confirm');

@@ -159,10 +159,6 @@
 				<p class="errorModal-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
 				<p class="errorModal-message">{{message}}</p>
 			</errorModal>
-
-			<unclosableMessageModal modalClass="unclosableMessageModal" noCloseButton="true" disableEasyClose="true">
-				<p><em>{{{message}}}{{runningEllipsis}}</em></p>
-			</unclosableMessageModal>
 		</script>
 
 		<script type="text/ractive" id="modal-template">
