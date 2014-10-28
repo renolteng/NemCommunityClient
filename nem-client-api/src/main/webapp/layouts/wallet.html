@@ -257,11 +257,11 @@
 				</div>
 			</div>
 		</div>
-		<a href="javascript:;" class="sendNem-setFeeButton" on-click="resetFee">{{texts.modals.sendNem.resetFee}}</a>
+		<a href="javascript:;" class="sendNem-setFeeButton" on-click="resetFee({forceReset: true, silent: false})">{{texts.modals.sendNem.resetFee}}</a>
 	</div>
 	<input class="sendNem-control sendNem-textbox sendNem-block" type="password" placeholder="{{texts.modals.sendNem.password}}" value="{{password}}" on-keypress="sendFormKeypress" />
 	<div class="sendNem-submit sendNem-block">
-		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction">
+		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction()">
 			{{texts.modals.sendNem.send}}
 		</button>
 	</div>
