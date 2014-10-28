@@ -21,13 +21,7 @@ define(function(require) {
             this.set('isActive', false);
             this.fire('modalClosed');
         },
-        lockAction: function() {
-            this.set('processing', true);
-        },
-        unlockAction: function() {
-            this.set('processing', false);
-        },
-        init: function() {
+        oncomplete: function() {
             this.on({
                 modalContainerClick: function(e) {
                     if (e.node === e.original.target) { //clicked outside modal
@@ -38,34 +32,58 @@ define(function(require) {
                     if (e.original.keyCode === 27 || (this.get('closeOnEnter') && e.original.keyCode === 13)) {
                         this.closeModal();
                     }
-                },
-                confirm: function(e, action) {
-                    var callbacks = this.get('callbacks');
-                    var result;
-                    if (callbacks && callbacks[action]) {
-                        result = callbacks[action].call(this);
-                    }
-                    if (result !== false) {
-                        this.closeModal();
-                    }
-                },
-                submit: function() {
-                    var submit = this.get('submit');
-                    var values = this.get('values');
-                    var result;
-                    if (submit) {
-                        result = submit.call(this, values, this.closeModal.bind(this));
-                    }
-                    if (result !== false) {
-                        this.closeModal();
-                    }
-                },
+                }
+            });
+        }
+    });
+
+
+
+    var InputModal = NccModal.extend({
+        lockAction: function() {
+            this.set('processing', true);
+        },
+        unlockAction: function() {
+            this.set('processing', false);
+        },
+        submit: function() {
+            var submit = this.get('submitCb');
+            var values = this.get('values');
+
+            var closeNow = true;
+            if (typeof submit === 'function') {
+                closeNow = submit.call(this, values, this.closeModal.bind(this));
+            }
+            if (closeNow) {
+                this.closeModal();
+            }
+        },
+        oncomplete: function() {
+            this._super();
+
+            this.on({
                 inputKeyup: function(e) {
                     if (e.original.keyCode === 13) {
-                        this.fire('submit');
+                        this.submit();
                     }
                 }
             });
+        }
+    });
+
+
+
+    var ConfirmModal = NccModal.extend({
+        confirm: function(action) {
+            var callbacks = this.get('callbacks');
+
+            var dontClose = false;
+            if (callbacks && callbacks[action]) {
+                dontClose = callbacks[action].call(this);
+            }
+            if (!dontClose) {
+                this.closeModal();
+            }
         }
     });
 
@@ -108,7 +126,11 @@ define(function(require) {
                 }
             }
         },
-        resetFee: function(forceReset, silent) {
+        /**
+         * @param {boolean} args.forceReset
+         * @param {boolean} args.silent
+         */
+        resetFee: function(args) {
             var requestData = {
                 wallet: ncc.get('wallet.name'),
                 account: ncc.get('activeAccount.address'),
@@ -125,7 +147,7 @@ define(function(require) {
                     var currentFee = self.get('fee');
                     var newFee = data.fee;
                     if (newFee || newFee === 0) {
-                        if (forceReset || !currentFee || currentFee < newFee) {
+                        if (args.forceReset || !currentFee || currentFee < newFee) {
                             self.set('fee', newFee);
                             self.set('isFeeAutofilled', true);
                         }
@@ -144,7 +166,7 @@ define(function(require) {
                             return true;
                         }
                     }
-                }, silent
+                }, args.silent
             );
         },
         resetDefaultData: function() {
@@ -155,25 +177,67 @@ define(function(require) {
             this.set('dueBy', '12');
             this.set('password', '');
         },
-        init: function() {
-            (new NccModal()).init.call(this);
+        sendTransaction: function() {
+            var activeAccount = ncc.get('activeAccount.address');
+            var requestData = {
+                wallet: ncc.get('wallet.name'),
+                account: activeAccount,
+                password: this.get('password'),
+                amount: this.get('amount'),
+                recipient: this.get('recipient'),
+                message: this.get('message'),
+                fee: this.get('fee'),
+                encrypt: this.get('encrypt'),
+                hours_due: this.get('hours_due')
+            };
+
+            var txConfirm = ncc.getModal('transactionConfirmation');
+            var parent = this;
+            txConfirm.set('parentData', this.get());
+            txConfirm.set('callbacks', {
+                confirm: function() {
+                    var self = this;
+                    self.lockAction();
+                    ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
+                        self.closeModal();
+                        parent.closeModal();
+                        ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
+                        ncc.refreshInfo();
+                    },
+                    {
+                        complete: function() {
+                            parent.set('password', '');
+                            self.unlockAction();
+                        }
+                    });
+                    return false;
+                }
+            });
+            txConfirm.open();
+        },
+        oncomplete: function() {
+            this._super();
             var self = this;
 
             this.resetDefaultData();
             
-            this.observe('fee', function(newValue, oldValue, keypath) {
-                this.set('isFeeAutofilled', false);
+            this.observe({
+                fee: function(newValue, oldValue, keypath) {
+                    this.set('isFeeAutofilled', false);
+                },
+                'amount recipient message encrypt': (function() {
+                    var t;
+                    return function() {
+                        clearTimeout(t);
+                        t = setTimeout(function() {
+                            self.resetFee({
+                                forceReset: self.get('isFeeAutofilled'), 
+                                silent: true
+                            });
+                        }, 500);
+                    }
+                })()
             });
-
-            this.observe('amount recipient message encrypt', (function() {
-                var t;
-                return function() {
-                    clearTimeout(t);
-                    t = setTimeout(function() {
-                        self.resetFee(self.get('isFeeAutofilled'), true);
-                    }, 500);
-                }
-            })());
 
             this.observe('recipient', (function() {
                 var t;
@@ -205,53 +269,12 @@ define(function(require) {
             });
 
             this.on({
-                resetFee: function() {
-                    this.resetFee(true, false );
-                },
-                sendTransaction: function() {
-                    var activeAccount = ncc.get('activeAccount.address');
-                    var requestData = {
-                        wallet: ncc.get('wallet.name'),
-                        account: activeAccount,
-                        password: this.get('password'),
-                        amount: this.get('amount'),
-                        recipient: this.get('recipient'),
-                        message: this.get('message'),
-                        fee: this.get('fee'),
-                        encrypt: this.get('encrypt'),
-                        hours_due: this.get('hours_due')
-                    };
-
-                    var txConfirm = ncc.getModal('transactionConfirmation');
-                    var parent = this;
-                    txConfirm.set('parentData', this.get());
-                    txConfirm.set('callbacks', {
-                        confirm: function() {
-                            var self = this;
-                            self.lockAction();
-                            ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                                self.closeModal();
-                                parent.closeModal();
-                                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
-                                ncc.refreshInfo();
-                            },
-                            {
-                                complete: function() {
-                                    parent.set('password', '');
-                                    self.unlockAction();
-                                }
-                            });
-                            return false;
-                        }
-                    });
-                    txConfirm.open();
-                },
                 sendFormKeypress: function(e) {
                     if (e.original.keyCode === 13) {
-                        this.fire('sendTransaction');
+                        this.sendTransaction();
                     }
                 },
-                closeModal: function() {
+                modalClosed: function() {
                     this.resetDefaultData();
                 }
             });
@@ -300,29 +323,24 @@ define(function(require) {
                 }
             }
         },
-        close: function() {
-            (new NccModal()).close.call(this);
-
-            // Refresh to the current settings
-            ncc.getRequest('configuration/get', function(data) {
-                ncc.set('settings', data);
+        saveSettings: function() {
+            var self = this;
+            ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
+                if (data.ok) {
+                    ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
+                    self.closeModal();
+                }
             });
         },
-        init: function() {
-            (new NccModal()).init.call(this);
+        oncomplete: function() {
+            this._super();
 
             this.on({
-                saveSettings: function() {
-                    var self = this;
-                    ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
-                        if (data.ok) {
-                            ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
-                            self.closeModal();
-                        }
+                modalClosed: function() {
+                    // Refresh to the current settings
+                    ncc.getRequest('configuration/get', function(data) {
+                        ncc.set('settings', data);
                     });
-                },
-                setDisplayedAccount: function(e, val) {
-                    this.set('displayedAccount', val);
                 }
             });
 
@@ -400,8 +418,8 @@ define(function(require) {
         components: {
             errorModal: NccModal,
             messageModal: NccModal,
-            confirmModal: NccModal,
-            inputModal: NccModal,
+            confirmModal: ConfirmModal,
+            inputModal: InputModal,
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
@@ -820,7 +838,7 @@ define(function(require) {
             });
             modal.open();
         },
-        showInputForm: function(title, message, fields, initValues, submit, submitLabel, processingLabel) {
+        showInputForm: function(title, message, fields, initValues, submitCb, submitLabel, processingLabel) {
             var modal = this.getModal('input');
             modal.set({
                 fields: null,
@@ -832,7 +850,7 @@ define(function(require) {
                 message: message,
                 fields: fields,
                 values: initValues,
-                submit: submit,
+                submitCb: submitCb,
                 submitLabel: submitLabel,
                 processingLabel: processingLabel
             });

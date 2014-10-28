@@ -76,7 +76,7 @@
 							<div class="dropdownbox">
 								<input class="settingsModal-input dropdownbox-textbox {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="toggleOn:settingsModal-bootAccountDropdown" on-blur="toggleOff:settingsModal-bootAccountDropdown" value="{{displayedAccount}}" />
 								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}">
-									<li class="dropdownbox-item" on-click="setDisplayedAccount:''">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
+									<li class="dropdownbox-item" on-click="set('displayedAccount', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
 								</ul>
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					<div class="settingsModal-submit">
-						<button type="button" class="modal-button moda-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="saveSettings">{{texts.modals.settings.save}}</button>
+						<button type="button" class="modal-button moda-button--submit modal-button--primary" on-click="saveSettings()">{{texts.modals.settings.save}}</button>
 					</div>
 				</div>
 			</settingsModal>
@@ -124,7 +124,7 @@
 					{{/}}
 				</div>
 				<div>
-					<button type="button" class="modal-button modal-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="submit">
+					<button type="button" class="modal-button modal-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="submit()">
 						{{^processing}}
 							{{submitLabel}}
 						{{/}}
@@ -139,7 +139,7 @@
 				<p><em>{{message}}</em></p>
 				<div class="modal-actions">
 					{{#actions}}
-						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm:{{.action}}">{{.label}}</button>
+						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm(.action)">{{.label}}</button>
 					{{/}}
 				</div>
 			</confirmModal>

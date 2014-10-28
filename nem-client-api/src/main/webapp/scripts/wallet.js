@@ -149,7 +149,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             }
                         );
-                        return false;
                     }, 
                     ncc.get('texts.modals.bootLocalNode.boot'), 
                     ncc.get('texts.modals.bootLocalNode.booting')
@@ -329,7 +328,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                     ncc.showError();
                                 }
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.createAccount.create')
                     );
@@ -446,14 +444,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                                             ]
                                                         );
                                                     }
-                                                    return false;
                                                 },
                                                 ncc.get('texts.modals.createRealAccountData.recheck.recheck')
                                             );
                                         }
                                     }
                                 );
-                                return false;
                             },
                             ncc.get('texts.modals.createRealAccountData.ok')
                         );
@@ -502,7 +498,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                     ncc.get('texts.modals.verifyRealAccountData.dataMatched'));
                                 closeModal();
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.verifyRealAccountData.verify')
                     );
@@ -565,7 +560,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                     ncc.showError();
                                 }
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.addAccount.add')
                     );
@@ -619,7 +613,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 ncc.set('wallet', ncc.processWallet(data));
                                 closeModal();
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.setPrimary.set')
                     );
@@ -671,7 +664,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 ncc.set('wallet', ncc.processWallet(data));
                                 closeModal();
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.changeWalletName.change')
                     );
@@ -723,7 +715,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             } else {
                                 ncc.showMessage(ncc.get('texts.modals.changeWalletPassword.passwordNotMatchTitle'), ncc.get('texts.modals.changeWalletPassword.passwordNotMatchMessage'));
                             }
-                            return false;
                         },
                         ncc.get('texts.modals.changeWalletPassword.change')
                     );
@@ -769,11 +760,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                     ncc.get('texts.common.success'), 
                                     ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), ncc.formatAddress(account), label)
                                 );
-                                ncc.set('activeAccount', ncc.processAccount(data));
-                                ncc.refreshWallet();
+                                ncc.refreshInfo();
                                 closeModal();
                             });
-                            return false;
                         }, 
                         ncc.get('texts.modals.changeAccountLabel.change')
                     );
@@ -815,7 +804,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 ncc.fire('switchAccount', null, data.primaryAccount.address);
                                 closeModal();
                             });
-                            return false;
                         }, 
                         ncc.get('texts.modals.removeAccount.remove')
                     );

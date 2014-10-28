@@ -124,7 +124,6 @@
                                     ncc.refreshAccount();
                                 }
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.activateRemote.activate')
                     );
@@ -176,7 +175,6 @@
                                     ncc.refreshAccount();
                                 }
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.deactivateRemote.deactivate')
                     );
@@ -220,7 +218,6 @@
                                     ncc.refreshAccount();
                                 }
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.startRemote.start')
                     );
@@ -271,7 +268,6 @@
                                     ncc.refreshAccount();
                                 }
                             });
-                            return false;
                         },
                         ncc.get('texts.modals.stopRemote.stop')
                     );
