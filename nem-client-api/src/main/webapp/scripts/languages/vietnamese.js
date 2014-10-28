@@ -20,6 +20,7 @@ define({
             305: 'NEM Infrastructure Server không khả dụng.',
             306: 'Một lỗi nằm ngoài dự tính của nhóm phát triển đã xảy ra. Xin lỗi bạn vì điều này, có thể thử lại sẽ có tác dụng. Nếu không, hãy tạo một issue trong cộng đồng NIS/NCC của NEM.',
             400: 'Một tham số nào đó bị thiếu hoặc không hợp lệ.',
+            401: 'Tác vụ này không thể hoàn thành vì khoá bí mật có thể sẽ bị lộ khi được gửi tới một NIS từ xa.',
             404: 'Không tìm thấy tài nguyên được yêu cầu.',
             500: 'Lưu file cấu hình thất bại.',
             600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
@@ -34,7 +35,10 @@ define({
             707: 'Mốc thời gian của giao dịch quá xa trong quá khứ.',
             708: 'Mốc thời gian của giao dịch quá xa về tương lai.',
             709: 'Tài khoản không được biết đến. Một tài khoản cần phải tham gia vào ít nhất một giao dịch (là người gửi hoặc người nhận) để được mạng lưới biết đến.',
-            901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.'
+            901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.',
+            1000: "Khoá bí mật và khoá công khai mà bạn vừa cung cấp không khớp với nhau.",
+            1001: 'Khoá công khai và địa chỉ mà bạn vừa cung cấp không khớp với nhau.',
+            1002: 'Địa chỉ không thuộc về mạng lưới chính.'
         },
         common: {
         	success: 'Thành công', //title of the Success message modals
@@ -202,6 +206,15 @@ define({
 					recheck: 'Kiểm tra'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Xác thực dữ liệu tài khoản thực',
+				message: 'Hãy điền lại địa chỉ, khoá công khai và khoá bí mật mà bạn đã lưu xuống dưới đây để kiểm tra liệu chúng có khớp với nhau không',
+				address: 'Địa chỉ',
+				publicKey: 'Khoá công khai',
+				privateKey: 'Khoá bí mật',
+				dataMatched: 'Mọi thứ có vẻ tốt, địa chỉ, khoá công khai và khoá bí mật của bạn đều khớp với nhau.',
+				verify: 'Xác thực'
 			},
 			addAccount: {
 				title: 'Thêm tài khoản đã tồn tại',

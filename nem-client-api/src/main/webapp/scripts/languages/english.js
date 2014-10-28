@@ -37,7 +37,8 @@ define({
             709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
             901: 'There was an error setting up offline mode.',
             1000: "The private key and the public key you have provided mismatch.",
-            1001: 'The public key and the address you have provided mismatch.'
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
         	success: 'Success', //title of the Success message modals
