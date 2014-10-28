@@ -11,6 +11,25 @@ define(function() {
             } else {
                 return address;
             }
+        },
+        toggleOn: function(instance, id) {
+            var keypath = 'active.' + id;
+            if (!instance.get(keypath)) {
+                instance.set(keypath, true);
+                var firstTime = true;
+                var self = this;
+                $(document).on('click.' + id, function(ev) {
+                    if (firstTime) {
+                        firstTime = false;
+                        return;
+                    }
+                    self.toggleOff(instance, id);
+                });
+            }
+        },
+        toggleOff: function(instance, id) {
+            instance.set('active.' + id, false);
+            $(document).off('click.' + id);
         }
     };
 });

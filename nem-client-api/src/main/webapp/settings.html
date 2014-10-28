@@ -18,12 +18,12 @@
 				{{>0}}
 			{{/}}
 
-			<settingsModal modalClass="settingsModal" modalTitle="{{texts.modals.settings.title}}"  texts="{{texts}}" languages="{{languages}}" settings="{{settings}}" active="{{active}}" on-toggleOn="toggleOn" on-set="set">
+			<settingsModal modalClass="settingsModal" modalTitle="{{texts.modals.settings.title}}"  texts="{{texts}}" languages="{{languages}}" settings="{{settings}}">
 				<div class="settingsModal-language">
 					<div class="settingsModal-row">
 						<label class="settingsModal-label">{{texts.modals.settings.language.label}}</label>
 						<div class="dropdownbox">
-							<div class="dropdownbox-selection settingsModal-input {{#active['settingsModal-languageDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-languageDropdown'">
+							<div class="dropdownbox-selection settingsModal-input {{#active['settingsModal-languageDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-languageDropdown')">
 								{{#languages}}
 									{{# .id === settings.language}}
 										{{.name}}
@@ -32,7 +32,7 @@
 							</div>
 							<ul class="dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}">
 								{{#languages}}
-									<li class="dropdownbox-item" on-click="set:'settings.language',{{.id}}">{{.name}}</li>
+									<li class="dropdownbox-item" on-click="set('settings.language', .id)">{{.name}}</li>
 								{{/}}
 							</ul>
 						</div>
@@ -47,7 +47,7 @@
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.protocol}}</p>
 							<div class="dropdownbox">
-								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-protocolDropdown'">
+								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-protocolDropdown')">
 									{{#settings.remoteServer.protocol === 'http'}}
 										{{texts.modals.settings.remoteServer.protocolOptions.http}}
 									{{/}}
@@ -74,7 +74,7 @@
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.account}}</p>
 							<div class="dropdownbox">
-								<input class="settingsModal-input dropdownbox-textbox {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="toggleOn:settingsModal-bootAccountDropdown" on-blur="toggleOff:settingsModal-bootAccountDropdown" value="{{displayedAccount}}" />
+								<input class="settingsModal-input dropdownbox-textbox {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="toggleOn('settingsModal-bootAccountDropdown')" on-blur="toggleOff('settingsModal-bootAccountDropdown')" value="{{displayedAccount}}" />
 								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}">
 									<li class="dropdownbox-item" on-click="set('displayedAccount', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
 								</ul>
