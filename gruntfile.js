@@ -108,16 +108,6 @@ module.exports = function(grunt) {
 					'nem-client-api/src/main/webapp/transactions.html': ['nem-client-api/src/main/webapp/entry.tpl']
 				}
 			},
-			settings: {
-				options: {
-					data: {
-						entryPage: 'settings'
-					}
-				},
-				files: {
-					'nem-client-api/src/main/webapp/settings.html': ['nem-client-api/src/main/webapp/entry.tpl']
-				}
-			},
 			start: {
 				options: {
 					data: {
