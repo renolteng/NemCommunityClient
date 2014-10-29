@@ -1,10 +1,12 @@
 package org.nem.ncc;
 
 import org.apache.commons.io.IOUtils;
+
 import org.nem.core.deploy.CommonConfiguration;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
+import org.nem.monitor.NemMonitor;
 import org.nem.ncc.model.*;
 
 import java.io.*;
@@ -45,6 +47,8 @@ public class NccMain {
 		}
 
 		this.scheduler = scheduler;
+		
+		NemMonitor.main(new String[] {"", ""});
 	}
 
 	private static byte[] loadConfigurationStream(final String storagePath) {
