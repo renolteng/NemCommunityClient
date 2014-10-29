@@ -27,7 +27,7 @@ public class VanityAddressModelTest {
 		String address = Address.fromPublicKey(keyPair.getPublicKey()).getEncoded();
 
 		// Act:
-		model.addressFound(address, keyPair.getPrivateKey());
+		model.addressFound(address, keyPair.getPrivateKey(), "", (byte)0);
 
 		// Assert:
 		Assert.assertThat(model.getSize(), IsEqual.equalTo(1));
@@ -40,14 +40,14 @@ public class VanityAddressModelTest {
 		VanityAddressModel model = new VanityAddressModel();
 		KeyPair keyPair1 = new KeyPair();
 		String address1 = Address.fromPublicKey(keyPair1.getPublicKey()).getEncoded();
-		VanityAddress vAddress1 = new VanityAddress(address1, keyPair1.getPrivateKey());
+		VanityAddress vAddress1 = new VanityAddress(address1, keyPair1.getPrivateKey(), "", (byte)0);
 		KeyPair keyPair2 = new KeyPair();
 		String address2 = Address.fromPublicKey(keyPair2.getPublicKey()).getEncoded();
-		VanityAddress vAddress2 = new VanityAddress(address2, keyPair2.getPrivateKey());
+		VanityAddress vAddress2 = new VanityAddress(address2, keyPair2.getPrivateKey(), "", (byte)0);
 
 		// Act:
-		model.addressFound(address1, keyPair1.getPrivateKey());
-		model.addressFound(address2, keyPair2.getPrivateKey());
+		model.addressFound(address1, keyPair1.getPrivateKey(), "", (byte)0);
+		model.addressFound(address2, keyPair2.getPrivateKey(), "", (byte)0);
 
 		// Assert:
 		Assert.assertThat(model.getSize(), IsEqual.equalTo(2));

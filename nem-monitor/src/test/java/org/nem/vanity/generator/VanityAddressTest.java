@@ -14,7 +14,7 @@ public class VanityAddressTest {
 		KeyPair keyPair = new KeyPair();
 		Address address = Address.fromPublicKey(keyPair.getPublicKey());
 		// Act:
-		VanityAddress vAddress = new VanityAddress(address.getEncoded(), keyPair.getPrivateKey());
+		VanityAddress vAddress = new VanityAddress(address.getEncoded(), keyPair.getPrivateKey(), "", (byte)0x01);
 
 		// Assert:
 		Assert.assertThat(vAddress.getPrivateKey(), IsEqual.equalTo(keyPair.getPrivateKey().toString()));

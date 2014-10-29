@@ -217,6 +217,7 @@ public class NemClientWindow {
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
 			}
 		});
+		addresses.setCellRenderer(new VanityAddressRenderer());
 		
 		chckbxTestNetAddress = new JCheckBox("Test net address");
 		chckbxTestNetAddress.setSelected(true);
@@ -230,7 +231,7 @@ public class NemClientWindow {
 		frmNemClient.getContentPane().add(chckbxTestNetAddress, gbc_chckbxTestNetAddress);
 		
 		addresses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		addresses.setFont(new Font("Arial", Font.PLAIN, 12));
+		addresses.setFont(new Font("Monospaced", Font.PLAIN, 12));
 		
 		JScrollPane scrollPane = new JScrollPane(addresses);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -298,7 +299,9 @@ public class NemClientWindow {
 			}
 			byte version = chckbxTestNetAddress.isSelected() ? NetworkInfo.getTestNetworkInfo().getVersion() : NetworkInfo.getMainNetworkInfo().getVersion(); 
 			vanity = new Vanity(addresses.getModel());
-			asyncGenerator = new FutureTask<>(() -> vanity.generate(vanityText.getText(), version));
+			String normalizedText = Vanity.normalizeVanityText(vanityText.getText());
+			vanityText.setText(normalizedText);
+			asyncGenerator = new FutureTask<>(() -> vanity.generate(normalizedText, version));
 			CompletableFuture.runAsync(() -> asyncGenerator.run());
 
 			this.setEnabled(false);

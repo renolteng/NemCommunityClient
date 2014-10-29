@@ -25,8 +25,8 @@ public class VanityAddressModel extends AbstractListModel<VanityAddress> {
 	 * @param address
 	 * @param privateKey
 	 */
-	public void addressFound(final String address, final PrivateKey privateKey) {
-		vanityAddresses.add(new VanityAddress(address, privateKey));
+	public void addressFound(final String address, final PrivateKey privateKey,final String vanityText, final byte version) {
+		vanityAddresses.add(new VanityAddress(address, privateKey, vanityText, version));
 		int index = vanityAddresses.size() - 1;
 		fireIntervalAdded(this, index, index);
 	}

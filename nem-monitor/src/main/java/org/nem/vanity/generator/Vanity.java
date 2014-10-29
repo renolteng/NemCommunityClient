@@ -3,6 +3,8 @@ package org.nem.vanity.generator;
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
 
+import org.apache.commons.codec.binary.Base32;
+
 import java.util.concurrent.TimeUnit;
 import javax.swing.ListModel;
 
@@ -48,7 +50,7 @@ public class Vanity {
 
 			if (address.contains(wantedAddress)) {
 				found++;
-				addressModel.addressFound(address, keyPair.getPrivateKey());
+				addressModel.addressFound(address, keyPair.getPrivateKey(), vanity, version);
 			}
 			
 			try {
@@ -62,5 +64,18 @@ public class Vanity {
 		}
 		
 		return count;
+	}
+	
+	public static String normalizeVanityText(final String vanityText) {
+		StringBuilder strB = new StringBuilder();
+		char ch;
+		Base32 encoder = new Base32(true);
+		for(int i = 0; i < vanityText.length(); i++) {
+			ch = Character.toUpperCase(vanityText.charAt(i));
+			if(encoder.isInAlphabet((byte)ch)) {
+				strB.append(ch);
+			}
+		}
+		return strB.toString();
 	}
 }
