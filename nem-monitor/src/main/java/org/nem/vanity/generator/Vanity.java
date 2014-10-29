@@ -6,17 +6,35 @@ import org.nem.core.model.Address;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ListModel;
 
+/**
+ *
+ * Main class for generating a new NEM address which contains some provided text phrases
+ */
 public class Vanity {
-	final private VanityAddressVisitor addressVisitor;
+	final private VanityAddressModel addressModel;
 
-	public Vanity(final ListModel<String> addressVisitor) {
-		if (addressVisitor instanceof VanityAddressVisitor) {
-			this.addressVisitor = (VanityAddressVisitor) addressVisitor;
+	/**
+	 * Create a new instance of the vanity generator which will update the provided list model
+	 * 
+	 * @param addressModel
+	 */
+	public Vanity(final ListModel<VanityAddress> addressModel) {
+		if (addressModel instanceof VanityAddressModel) {
+			this.addressModel = (VanityAddressModel) addressModel;
 		} else {
-			throw new IllegalArgumentException(String.format("Model of type VanityAddressVisitor expected: <%s>", addressVisitor.getClass()));
+			throw new IllegalArgumentException(String.format("Model of type VanityAddressVisitor expected: <%s>", addressModel.getClass()));
 		}
 	}
 	
+	/**
+	 * starts the generation of new NEM accounts / addresses which included the provided text
+	 * It also differentiate between testnet and mainnet (via version).
+	 * Method can be canceled / interrupted and runs until 99 nem address were found. 
+	 * 
+	 * @param vanity
+	 * @param version
+	 * @return number of created nem addresses
+	 */
 	public Long generate(final String vanity, final byte version) {
 		final String wantedAddress = vanity.toUpperCase();
 		KeyPair keyPair = null;
@@ -30,8 +48,7 @@ public class Vanity {
 
 			if (address.contains(wantedAddress)) {
 				found++;
-				addressVisitor.addressFound(address, keyPair.getPrivateKey());
-				System.out.println(count + " " + keyPair.getPrivateKey().toString() + " : " + keyPair.getPublicKey().toString() + " : " + address);
+				addressModel.addressFound(address, keyPair.getPrivateKey());
 			}
 			
 			try {

@@ -25,7 +25,7 @@ public class NemClientWindow {
 //	private final Action openBrowser = new OpenBrowserAction();
 	private final GenerateAction generate = new GenerateAction();
 	private final Action stopGenerator = new StopGeneratorAction();
-	private JList<String> addresses;
+	private JList<VanityAddress> addresses;
 //	private CompletableFuture<Long> asyncGenerator;
 	private FutureTask<Long> asyncGenerator;
 	private JCheckBox chckbxTestNetAddress;
@@ -101,10 +101,8 @@ public class NemClientWindow {
 //			progressBar.setValue(percentage.getPercentage());
 //		});
 		
-		VanityAddressVisitor addressVisitor = new VanityAddressVisitor(list -> {
-//			addresses.getModel().
-		});
-		addresses.setModel(addressVisitor);
+		VanityAddressModel addressModell = new VanityAddressModel();
+		addresses.setModel(addressModell);
 
 //		builder.addVisitor(visitor);
 //		frmNemClient.setVisible(true);
@@ -210,12 +208,12 @@ public class NemClientWindow {
 		gbc_btnNewButton_1.gridy = 2;
 		frmNemClient.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
 
-		addresses = new JList<String>();
+		addresses = new JList<VanityAddress>();
 		addresses.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				VanityAddressVisitor visitor = (VanityAddressVisitor)addresses.getModel();
+				VanityAddressModel visitor = (VanityAddressModel)addresses.getModel();
 				int index = e.getFirstIndex();
-				StringSelection selection = new StringSelection(visitor.getAddressAndPrivateKeyAt(index));
+				StringSelection selection = new StringSelection(visitor.getClipboardFormatForElementAt(index));
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
 			}
 		});
@@ -234,16 +232,6 @@ public class NemClientWindow {
 		addresses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		addresses.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-//		GridBagConstraints gbc_addresses = new GridBagConstraints();
-//		gbc_addresses.gridheight = 4;
-//		gbc_addresses.insets = new Insets(0, 0, 0, 5);
-//		gbc_addresses.fill = GridBagConstraints.BOTH;
-//		gbc_addresses.gridx = 1;
-//		gbc_addresses.gridy = 4;
-//		scrollPane.add(addresses, gbc_addresses);
-
-//		frmNemClient.getContentPane().add(addresses, gbc_addresses);
-
 		JScrollPane scrollPane = new JScrollPane(addresses);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
@@ -266,7 +254,7 @@ public class NemClientWindow {
 
 		generate.setEnabled(false);
 		stopGenerator.setEnabled(false);
-		vanityText.grabFocus();
+		vanityText.requestFocusInWindow();
 	}
 
 //	private class OpenBrowserAction extends AbstractAction {
