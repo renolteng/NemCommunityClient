@@ -51,8 +51,10 @@ public class NodeManager {
 	 * Launches the node.
 	 */
 	public void launch() {
-		LOGGER.info(String.format("Launching node %s", this.nodePolicy.getNodeType()));
-		this.launcher.launch(this.jnlpUrl);
+		if (this.nodePolicy.launchViaJnlp()) {
+			LOGGER.info(String.format("Launching node %s", this.nodePolicy.getNodeType()));
+			this.launcher.launch(this.jnlpUrl);
+		}
 	}
 
 	/**

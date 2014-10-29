@@ -2,17 +2,18 @@ package org.nem.monitor;
 
 import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
 
-import javax.jnlp.*;
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+import javax.jnlp.*;
+import javax.swing.SwingUtilities;
 
 /**
  * The nem monitor program.
@@ -33,6 +34,18 @@ public class NemMonitor {
 	 * @param args The command line arguments.
 	 */
 	public static void main(final String[] args) {
+		startMonitor(true, true, null, args);
+	}
+
+	/**
+	 * Starts the monitor with some configurations related to what has to be monitored or started by it
+	 * 
+	 * @param launchNcc - whether NCC has to be launched via JNLP
+	 * @param localNis - whether NCC uses a local NIS
+	 * @param nisNode - in case it has a remote NIS, then this is the node
+	 * @param args - any parameters from the command line
+	 */
+	public static void startMonitor(final boolean launchNcc, final boolean localNis, final NodeEndpoint nisNode, final String[] args) {
 		final MonitorCommandLine commandLine = MonitorCommandLine.parse(args);
 		LOGGER.info(String.format("NCC JNLP configured as: %s", commandLine.getNccJnlpUrl()));
 		LOGGER.info(String.format("NIS JNLP configured as: %s", commandLine.getNisJnlpUrl()));
@@ -46,30 +59,26 @@ public class NemMonitor {
 			LOGGER.info("setting up system tray");
 
 			// fail if the system tray is not supported
-			if (!SystemTray.isSupported()) {
-				throw new SystemTrayException("SystemTray is not supported");
-			}
+				if (!SystemTray.isSupported()) {
+					throw new SystemTrayException("SystemTray is not supported");
+				}
 
-			final SystemTray tray = SystemTray.getSystemTray();
-			final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
-			final TrayIconBuilder builder = new TrayIconBuilder(
-					createHttpMethodClient(),
-					launcher,
-					new WebBrowser(),
-					isStartedViaWebStart());
-			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
-			builder.addSeparator();
-			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
-			builder.addSeparator();
-			builder.addExitMenuItem(tray);
-			builder.addExitAndShutdownMenuItem(tray);
+				final SystemTray tray = SystemTray.getSystemTray();
+				final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
+				final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient(), launcher, new WebBrowser(), isStartedViaWebStart());
+				builder.addStatusMenuItems(new NisNodePolicy(nemFolder, localNis), commandLine.getNisJnlpUrl());
+				builder.addSeparator();
+				builder.addStatusMenuItems(new NccNodePolicy(nemFolder, launchNcc), commandLine.getNccJnlpUrl());
+				builder.addSeparator();
+				builder.addExitMenuItem(tray);
+				builder.addExitAndShutdownMenuItem(tray);
 
-			try {
-				tray.add(builder.create());
-			} catch (final AWTException e) {
-				throw new SystemTrayException("Unable to add icon to system tray", e);
-			}
-		});
+				try {
+					tray.add(builder.create());
+				} catch (final AWTException e) {
+					throw new SystemTrayException("Unable to add icon to system tray", e);
+				}
+			});
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {

@@ -28,7 +28,7 @@
     <properties>
         <nem-certificate-store>identity.jks</nem-certificate-store>
         <nem-certificate-password>nem-start-201404</nem-certificate-password>
-        <nem-code-base>http://bob.nem.ninja/webstart</nem-code-base>
+        <nem-code-base>http://nem.pucchiwerk.eu/nem</nem-code-base>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- http://central.maven.org/maven2/org/eclipse/jetty/jetty-maven-plugin/ -->
         <jetty.version>9.1.3.v20140225</jetty.version>

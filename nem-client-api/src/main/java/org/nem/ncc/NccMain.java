@@ -48,7 +48,7 @@ public class NccMain {
 
 		this.scheduler = scheduler;
 		
-		NemMonitor.main(new String[] {"", ""});
+		NemMonitor.startMonitor(false, this.configuration.isNisLocal(), this.configuration.getNisEndpoint(), new String[] {});
 	}
 
 	private static byte[] loadConfigurationStream(final String storagePath) {

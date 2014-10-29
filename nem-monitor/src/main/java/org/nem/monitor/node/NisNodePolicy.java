@@ -11,14 +11,16 @@ import java.nio.file.Paths;
  */
 public class NisNodePolicy implements NemNodePolicy {
 	private final String nemFolder;
+	private final boolean localNis;
 
 	/**
 	 * Creates a new policy.
 	 *
 	 * @param nemFolder The nem folder.
 	 */
-	public NisNodePolicy(final String nemFolder) {
+	public NisNodePolicy(final String nemFolder, final boolean localNis) {
 		this.nemFolder = nemFolder;
+		this.localNis = localNis;
 	}
 
 	@Override
@@ -44,5 +46,15 @@ public class NisNodePolicy implements NemNodePolicy {
 	@Override
 	public boolean hasBrowserGui() {
 		return false;
+	}
+
+	@Override
+	public boolean launchViaJnlp() {
+		return localNis;
+	}
+
+	@Override
+	public String launcherClass() {
+		return null;
 	}
 }
