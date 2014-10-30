@@ -1,6 +1,6 @@
 "use strict";
 
- define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
+ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
     return $.extend(true, {}, NccLayout, {
         name: 'harvested-blocks',
         url: 'harvested-blocks.html',
@@ -23,12 +23,12 @@
 				}
 
 				ncc.postRequest('account/harvests', requestData, function(data) {
-					var updatedBlocks = ncc.processHarvestedBlocks(data.data);
+					var updatedBlocks = Utils.processHarvestedBlocks(data.data);
 					var all;
 					if (type === 'append' && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
 					} else if (type === 'update') {
-                        var result = ncc.updateNewer(updatedBlocks, currBlocks, 'hash');
+                        var result = Utils.updateNewer(updatedBlocks, currBlocks, 'hash');
                         all = result.updatedArray;
                         if (result.noConnection) {
                             ncc.set('harvestedBlocks.gotAll', false);
@@ -39,7 +39,7 @@
 
 					ncc.set('harvestedBlocks.list', all);
                 	if (type !== 'update') {
-                        var gotAll = updatedBlocks.length < ncc.consts.blocksPerPage;
+                        var gotAll = updatedBlocks.length < Utils.config.blocksPerPage;
                 		ncc.set('harvestedBlocks.gotAll', gotAll);
                 	}
 				}, {
@@ -56,7 +56,7 @@
     			'harvestedBlocks.list': function(harvestedBlocks) {
     				var sum = 0;
     				if (harvestedBlocks) {
-	    				for (var i = 0; i < Math.min(harvestedBlocks.length, ncc.consts.blocksPerPage); i++) {
+	    				for (var i = 0; i < Math.min(harvestedBlocks.length, Utils.config.blocksPerPage); i++) {
 	    					sum += harvestedBlocks[i].fee;
 	    				}
 	    			}

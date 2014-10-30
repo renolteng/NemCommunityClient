@@ -9,7 +9,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 if (!wallet) wallet = ncc.get('wallet.name');
 
                 ncc.postRequest('wallet/info', { wallet: wallet }, function(data) {
-                    ncc.set('wallet', ncc.processWallet(data));
+                    ncc.set('wallet', Utils.processWallet(data));
                 }, null, silent);
             };
 
@@ -46,7 +46,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     }, 
                     function(data) {
                         success = true;
-                        ncc.set('activeAccount', ncc.processAccount(data));
+                        ncc.set('activeAccount', Utils.processAccount(data));
                         ncc.set('status.lostConnection', false);
                     }, 
                     {
@@ -120,7 +120,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         }
                     ],
                     {
-                        account: ncc.formatAddress(account),
+                        account: Utils.formatAddress(account),
                         wallet: wallet
                     },
                     function(values, closeModal) {
@@ -171,7 +171,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             });
         },
         initEverytime: function(params) {
-            var wallet = (params && params.wallet) || ncc.getUrlParam('wallet');
+            var wallet = (params && params.wallet) || Utils.getUrlParam('wallet');
             if (!wallet) {
                 ncc.loadPage('landing');
                 return true;
@@ -182,7 +182,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 }
             }
 
-            var account = (params && params.account) || ncc.getUrlParam('account');
+            var account = (params && params.account) || Utils.getUrlParam('account');
             if (!account) {
                 ncc.loadPage('landing');
                 return true;
@@ -213,7 +213,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 },
                 openSendNem: function() {
                     if (ncc.get('nodeBooted')) {
-                        ncc.showModal('sendNem');
+                        ncc.getModal('sendNem').open();
                     } else {
                         ncc.showMessage(ncc.get('texts.modals.notBootedWarning.title'), ncc.get('texts.modals.notBootedWarning.message'), function() {
                             ncc.showBootModal();
@@ -311,7 +311,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/account/new', values, function(data) {
                                 if (data.address) {
                                     var label = data.label;
-                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), ncc.formatAddress(data.address), label));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), Utils.formatAddress(data.address), label));
 
                                     var layout = ncc.get('layout');
                                     var wallet = ncc.get('wallet.name');
@@ -334,7 +334,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 },
                 createRealAccountData: (function() {
                     var showAccountData = function(accountData) {
-                        var formattedAddress = ncc.formatAddress(accountData.address);
+                        var formattedAddress = Utils.formatAddress(accountData.address);
 
                         // Open the 1st modal: generating account data
                         ncc.showInputForm(
@@ -543,7 +543,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/account/add', values, function(data) {
                                 if (data.address) {
                                     var label = data.label;
-                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), ncc.formatAddress(data.address), label));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), Utils.formatAddress(data.address), label));
 
                                     var layout = ncc.get('layout');
                                     var wallet = ncc.get('wallet.name');
@@ -603,14 +603,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         ],
                         {
-                            account: ncc.formatAddress(account),
+                            account: Utils.formatAddress(account),
                             wallet: wallet
                         },
                         function(values, closeModal) {
                             values.account = account;
                             ncc.postRequest('wallet/account/primary', values, function(data) {
-                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), ncc.formatAddress(account), accountLabel));
-                                ncc.set('wallet', ncc.processWallet(data));
+                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), Utils.formatAddress(account), accountLabel));
+                                ncc.set('wallet', Utils.processWallet(data));
                                 closeModal();
                             });
                         },
@@ -661,7 +661,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/name/change', values, function(data) {
                                 var newWalletName = values['new_name'];
                                 ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
-                                ncc.set('wallet', ncc.processWallet(data));
+                                ncc.set('wallet', Utils.processWallet(data));
                                 closeModal();
                             });
                         },
@@ -758,7 +758,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 var label = values.label;
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
-                                    ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), ncc.formatAddress(account), label)
+                                    ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), Utils.formatAddress(account), label)
                                 );
                                 ncc.refreshInfo();
                                 closeModal();
@@ -798,9 +798,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/account/remove', values, function(data) {
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
-                                    ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), ncc.formatAddress(account), accountLabel)
+                                    ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), Utils.formatAddress(account), accountLabel)
                                 );
-                                ncc.set('wallet', ncc.processWallet(data));
+                                ncc.set('wallet', Utils.processWallet(data));
                                 ncc.fire('switchAccount', null, data.primaryAccount.address);
                                 closeModal();
                             });
@@ -883,92 +883,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     }
                 }
             });
-
-            require(['maskedinput'], function() {                
-                var $recipient = $('.js-sendNem-recipient-textbox');
-                $recipient.mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
-                var $dueBy = $('.js-sendNem-dueBy-textbox');
-                $dueBy.mask('00');
-            });
-
-            // Mask NEM amount textboxes
-            var sendNemModal = ncc.getModal('sendNem');
-            (function(){
-                var generateNemTextboxMask = function() {
-                    var oldVal;
-
-                    return function(e) {
-                        var target = e.target;
-                        var currentVal = target.value;
-                        // If the keypress doesn't change the textbox value then i don't give a sh!t.
-                        if (currentVal === oldVal) { 
-                            return;
-                        }
-
-                        var caretToEnd = currentVal.length - target.selectionEnd;
-                        var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
-
-                        // Remove illegal characters
-                        var dsRegex = new RegExp('[^0-9' + ncc.escapeRegExp(decimalSeparator) + ']', 'g');
-                        currentVal = currentVal.replace(dsRegex, '');
-                        // Remove leading zeroes
-                        while (currentVal.length > 1 && currentVal[0] === '0' && currentVal[1] !== decimalSeparator) {
-                            currentVal = currentVal.substring(1, currentVal.length);
-                        }
-                        // Remove redundant decimal separators
-                        var matchedOnce = false;
-                        var i = 0;
-                        while (i < currentVal.length) {
-                            if (currentVal[i] === decimalSeparator) {
-                                if (!matchedOnce) {
-                                    matchedOnce = true;
-                                } else {
-                                    currentVal = currentVal.substring(0, i) + currentVal.substring(i + 1);
-                                    i--; // not going forward
-                                }
-                            }
-                            i++;
-                        }
-
-                        var dotPos = currentVal.indexOf(decimalSeparator);
-                        if (dotPos === -1) {
-                            dotPos = currentVal.length;
-                        }
-                        var intPart = currentVal.substring(0, dotPos);
-                        var decimalPart = currentVal.substring(dotPos, currentVal.length);
-
-                        intPart = ncc.addThousandSeparators(intPart);
-                        // Limit to maximum 6 decimal digits
-                        decimalPart = decimalPart.substring(0, decimalSeparator.length + 6); 
-                        var newVal = intPart + decimalPart;
-
-                        target.value = oldVal = newVal;
-                        sendNemModal.updateModel();
-                        var caret = newVal.length - caretToEnd;
-                        target.setSelectionRange(caret, caret);
-                    };
-                };
-                
-                var $amount = $('.js-sendNem-amount-textbox');
-                var amountTxb = $amount[0];
-                var amountMask = generateNemTextboxMask();
-                $amount.on('keyup', amountMask);
-
-                var $fee = $('.js-sendNem-fee-textbox');
-                var feeTxb = $fee[0];
-                var feeMask = generateNemTextboxMask();
-                $fee.on('keyup', feeMask);
-
-                local.listeners.push(ncc.observe('texts.preferences.thousandSeparator', function(newProp, oldProp) {
-                    amountTxb.value = ncc.convertCurrencyFormat(amountTxb.value, oldProp, newProp);
-                    feeTxb.value = ncc.convertCurrencyFormat(feeTxb.value, oldProp, newProp);
-                }));
-
-                local.listeners.push(ncc.observe('texts.preferences.decimalSeparator', function(newProp, oldProp) {
-                    amountTxb.value = ncc.convertCurrencyFormat(amountTxb.value, null, null, oldProp, newProp);
-                    feeTxb.value = ncc.convertCurrencyFormat(feeTxb.value, null, null, oldProp, newProp);
-                }));
-            })();
         },
         leave: [function() {
             $(window).off('resize.scrollableSidebar');
