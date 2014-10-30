@@ -20,6 +20,7 @@
             305: 'NEM 基础设施服务器无法使用。',
             306: '对不起，发生一个开发团队没有预见到的错误。重试也许有帮助。否则，请在NEM NIS/NCC社区内提交您碰到的问题。',
             400: '缺失某些参数。',
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: '启动策略值无效。',
             500: '保存配置文件失败。',
             600: 'NCC需要启动NIS服务器去从 NEM Cloud 发送和接收交易数据。请使用NCC菜单项启动本地节点。',
@@ -34,8 +35,11 @@
             707: '此交易ID的时间戳在太远的过去。',
             708: '此交易ID的时间戳在太远的将来。',
             709: '该帐户未知。一个帐户需要至少经过一个交易（作为发件人或收件人）才能被网络公知。',
-            901: 'There was an error setting up offline mode.'
-        },
+            901: 'There was an error setting up offline mode.',
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
+       },
         common: {
         	success: '成功', //title of the Success message modals
         	appStatus: {
@@ -195,11 +199,22 @@
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Check'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: '添加一个现有帐户',
@@ -372,6 +387,7 @@
 				exportWallet: '输出钱包',
 				createAccount: '创建新帐号',
 				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: '添加一个现有帐户',
 				changeAccountLabel: '更改帐户标识',
 				setPrimary: '设为主帐户',

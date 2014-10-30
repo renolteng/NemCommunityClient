@@ -20,6 +20,7 @@ define({
             305: "NIS inicializando.",
             306: "Ocorreu um erro desconhecido. Pedimos desculpas por esse problema. Talvez uma nova nova tentativa dê certo; caso contrário, informe aos desenvolvedores da NEM no fórum oficial forum.nemcoin.com.",
             400: "Está faltando algum parâmetro ou os dados são inválidos (letras no lugar de números, por exemplo).",
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: "O arquivo solicitado não pode ser encontrado..",
             500: "ocorreu um erro desconhecido. Por vavor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.",
             600: "NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu.",
@@ -34,7 +35,10 @@ define({
             707: "A data da ID de transação está muito no passado.",
             708: "A data da ID de transação está muito no futuro.",
             709: "Conta desconhecida, Por favor, faça uma transação para conseguir uma chave pública.",
-            901: "Erro na configuração do modo off-line."
+            901: "Erro na configuração do modo off-line.",
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: { 
             success: "Successo",
@@ -193,12 +197,23 @@ define({
                     },
                     incorrect: {
                         title: "Iche...",
-                        message: "A chave privada que você forneceu não está correta! Por favor, cheque-a de novo e entre com os dados mais uma vez."
+                        message: "A chave privada que você forneceu não está correta! Por favor, cheque-a de novo e entre com os dados mais uma vez.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
                     },
                     recheck: "Checar"
                 },
                 ok: "OK"
             },
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
+			},
             addAccount: {
                 title: "Adicionar uma Carteira existente",
                 privateKey: "Chave privada",
@@ -370,6 +385,7 @@ define({
                 exportWallet: "Exportar carteira",
                 createAccount: "Criar uma nova Conta",
                 createRealAccountData: "Criar dados da conta real",
+ 				verifyRealAccountData: 'Verify real account data',
                 addAccount: "Adicionar uma conta existente",
                 changeAccountLabel: "Trocar a identificação da carteira",
                 setPrimary: "Definir como conta primária",

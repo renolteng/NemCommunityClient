@@ -20,6 +20,7 @@ define({
             305: 'NEM Infrastructure Server is niet beschikbaar.',
             306: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
             400: 'Een parameten is missend of niet goed.',
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: 'De opgevraagde bron kom niet worden gevonden..',
             500: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
             600: 'Voor de NCC (Nem Community Client) is het vereist om de NIS (Network Infrastructure Server) het starten voor het verzenden en ontvangen van transacties van de NEM cloud. Gebruik de NCC menu optie om lokaal te starten.',
@@ -34,7 +35,10 @@ define({
             707: 'De timestamp van de transactie ligt te ver in het verleden.',
             708: 'De timestamp van de transactie ligt te ver in de toekomst.',
             709: 'Het rekeningnummer is onbekend.  Een rekening wordt pas bekend op het netwerk als deze deel heeft uitgemaakt van een transactie als verzender of ontvanger.',
-            901: 'Er is een fout opgetreden bij het instellen van de offline modus.'
+            901: 'Er is een fout opgetreden bij het instellen van de offline modus.',
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
         	success: 'Gelukt!', //title of the Success message modals
@@ -195,11 +199,22 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "Helaas, de privé sleutel die je hebt ingevoerd is niet correct! Controleer dit goed en voer het nogmaals in."
+						message: "Helaas, de privé sleutel die je hebt ingevoerd is niet correct! Controleer dit goed en voer het nogmaals in.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Controle'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: 'Voeg een bestaande rekening toe',
@@ -372,6 +387,7 @@ define({
 				exportWallet: 'Exporteer Wallet',
 				createAccount: 'Maak een nieuwe Rekening',
 				createRealAccountData: 'Maak echte Rekening (wanneer NEM live is!)',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: 'Voor een Bestaande Rekening toe',
 				changeAccountLabel: 'Verander het label van de Rekening',
 				setPrimary: 'Stel in als Primaire Rekening',

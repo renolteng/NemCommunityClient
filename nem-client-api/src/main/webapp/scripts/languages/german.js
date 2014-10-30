@@ -20,6 +20,7 @@ define({
             305: "Der NEM Infrastructure Server ist nicht verfügbar.",
             306: "Es ist ein Fehler aufgetreten, den das Entwicklerteam nicht vorhergesehen hat. Wir entschuldigen uns hierfür, vielleicht hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.",
             400: "Einer der Parameter fehlt oder ist ungültig.",
+            401: "Dieser Vorgang kann nicht durchgeführt werden da der private Schlüssel gestohlen werden könnte wenn er an das remote NIS gesendet wird.",
             404: "Die angeforderte Ressource wurde nicht gefunden.",
             500: "Es ist ein Fehler aufgetreten, den das Entwicklerteam nicht vorhergesehen hat. Wir entschuldigen uns hierfür, vielleicht hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.",
             600: "Der NIS Server muss gebooted sein, damit NCC Transaktionen senden und empfangen kann. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.",
@@ -34,7 +35,10 @@ define({
             707: "Der Zeitstempel der Transaktion liegt zu weit in der Vergangenheit.",
             708: "Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.",
             709: "Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Sender oder Empfänger in einer Transaktion auftreten, um dem Netzwerk bekannt zu sein.",
-            901: "Es ist ein Fehler beim Übergang zum Offlinemodus aufgetreten."
+            901: "Es ist ein Fehler beim Übergang zum Offlinemodus aufgetreten.",
+            1000: "Der Private und öffentliche Schlüssel den Du eingegeben hast passen nicht zusammen.",
+            1001: "Der öffentliche Schlüssel und die Adresse die Du eingegeben hast passen nicht zusammen.",
+            1002: "Die Adresse gehört nicht zum Hauptnetzwerk."
         },
         common: {
             success: "Erfolg",
@@ -193,11 +197,22 @@ define({
                     },
                     incorrect: {
                         title: "Hmmm...",
-                        message: "Der private Schlüssel den Du eingegeben hast ist nicht korrekt. Bitte gebe ihn erneut ein."
+                        message: "Der private Schlüssel den Du eingegeben hast ist nicht korrekt. Bitte gebe ihn erneut ein.",
+                        tryAgain: "Bitte erneut eingeben.",
+                        seeOriginal: "Originaldaten anschauen."
                     },
                     recheck: "Überprüfung"
                 },
                 ok: "OK"
+            },
+            verifyRealAccountData: {
+                title: "Reale Kontodaten verifizieren.",
+                message: "Bitte gebe die gespeicherte Addresse, den öffentlichen und privaten Schlüssel ein um zu überprüfen ob sie zusammen passen.",
+                address: "Adresse",
+                publicKey: "Öffentlicher Schlüssel",
+                privateKey: "Privater Schlüssel",
+                dataMatched: "Es ist alles in Ordnung, die Addresse, der öffentliche und private Schlüssel passen zusammen.",
+                verify: "Überprüfen"
             },
             addAccount: {
                 title: "Ein vorhandenes Konto hinzufügen",
@@ -370,6 +385,7 @@ define({
                 exportWallet: "Brieftasche exportieren",
                 createAccount: "Neues Konto anlegen",
                 createRealAccountData: "Daten für ein echtes Konto erzeugen",
+                verifyRealAccountData: "",
                 addAccount: "Vorhandenes Konto hinzufügen",
                 changeAccountLabel: "Label des Kontos ändern",
                 setPrimary: "Hauptkonto festlegen",
@@ -490,7 +506,7 @@ define({
                 view: "Ansehen",
                 pending: "Unbestätigt",
                 noTransactions: "Es wurden noch keine Transaktionen ausgeführt",
-                loading: ""
+                loading: "Lade weitere Transaktionen..."
             }
         },
         harvestedBlocks: {
@@ -504,7 +520,7 @@ define({
                     "Gebühr"
                 ],
                 noBlocks: "Keine Blöcke geerntet",
-                loadMore: "Ältere geerntete Blöcke ansehen"
+                loading: "Lade weitere geerntete Blöcke..."
             },
             harvesting: {
                 unknown: "Unbekannter Status",

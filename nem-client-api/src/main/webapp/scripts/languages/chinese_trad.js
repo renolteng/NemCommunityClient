@@ -2,6 +2,10 @@ define({
 	id: 'cn',
 	name: '中文（繁體）',
 	texts: {
+		preferences: {
+			thousandSeparator: '\u2009',
+			decimalSeparator: '.'
+		},
 		faults: {
             101: '未找到文件。',
             102: '錢包尚未建立。',
@@ -16,6 +20,7 @@ define({
             305: 'NEM 預設伺服器无法使用。',
             306: '对不起，發生一个未知的錯誤，請重試。否則，請在NEM NIS/NCC社區內提交您的問題。',
             400: '遺失某些参數。',
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: '啟動策略值無效。',
             500: '保存配置文件失敗。',
             600: 'NCC需要啟動NIS伺服器以執行 NEM Cloud 發送和接收交易資料。請使用NCC選單來啟動本地節點。',
@@ -30,10 +35,31 @@ define({
             707: '此交易的ID已失效。',
             708: '此交易的ID時間戳超過有效期限。',
             709: '未知的賬戶。一个賬戶需要至少執行一个交易（作為發件人或收件人）才能在網路公開。',
-            901: 'There was an error setting up offline mode.'
+            901: 'There was an error setting up offline mode.',
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
-        	success: '成功' //title of the Success message modals
+        	success: '成功', //title of the Success message modals
+        	appStatus: {
+        		nccUnknown: 'NCC status is unknown',
+        		nccUnavailable: 'NCC is not available',
+        		nccStarting: 'NCC is starting...',
+        		nisUnknown: 'NIS status is unknown',
+        		nisUnavailable: 'NIS is not available',
+        		nisStarting: 'NIS is starting...',
+        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+        		booting: 'Booting NIS...',
+        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		daysBehind: {
+        			0: 'less than 1 day',
+        			1: '1 day',
+        			many: '{{1}} days'
+        		},
+        		synchronized: 'NIS is synchronized!'
+        	}
         },
 		modals: {
 			error: {
@@ -43,6 +69,30 @@ define({
 			confirmDefault: {
 				yes: '是',
 				no: '不'
+			},
+			settings: {
+				title: 'Settings',
+				language: {
+					label: 'Language'
+				},
+				remoteServer: {
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
+					protocolOptions: {
+						http: 'HTTP'
+					},
+					host: 'Host',
+					port: 'Port'
+				},
+				autoBoot: {
+					tabTitle: 'Auto-boot',
+					name: 'Node name',
+					account: 'Account',
+					primaryAccount: 'Primary Account',
+					auto: 'Auto boot when a wallet is opened'
+				},
+				save: 'Save',
+				saveSuccess: 'Settings have been saved successfully'
 			},
 			sendNem: {
 				title: '發送 NEM',
@@ -55,10 +105,22 @@ define({
 				fee: '費',
 				dueBy: '限期（小時）',
 				resetFee: '重設最低收費',
+				hours: 'hours',
 				password: '密碼',
 				send: '發送',
 				sending: '發送...',
-				successMessage: '交易成功!'
+				successMessage: '交易成功!',
+				txConfirm: {
+					title: 'Confirm Transaction',
+					sendLabel: "You're going to send",
+					to: 'To',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					send: 'Send',
+					sending: 'Sending...'
+				}
 			},
 			clientInfo: {
 				title: '客戶信息',
@@ -117,6 +179,42 @@ define({
 				password: '錢包的密碼',
 				successMessage: '賬號 {{1}} {{#2}}({{2}}){{/2}} 已創建!',
 				create: '創建'
+			},
+			createRealAccountData: {
+				title: 'Create real account data',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				confirm: {
+					title: 'Save the private key',
+					message: 'Are you sure your private key has been saved into a safe place?'
+				},
+				recheck: {
+					title: 'Re-check your saved private key',
+					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					correct: {
+						title: 'Nice!',
+						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+					},
+					incorrect: {
+						title: 'Hmm...',
+						message: "The private key you've just entered is not correct! Do you want to try to enter private key again or come back to see the original account data?",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
+					},
+					recheck: 'Check'
+				},
+				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: '添加一个現有賬號',
@@ -178,6 +276,36 @@ define({
 			shutdown: {
 				title: '關閉程序',
 				message: '您確定要關閉NEM社區客戶端?'
+			},
+			activateRemote: {
+				title: 'Activate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Due by (hours)',
+				password: "Wallet's password",
+				activate: 'Activate'
+			},
+			deactivateRemote: {
+				title: 'Deactivate Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				hoursDue: 'Due by (hours)',
+				password: "Wallet's password",
+				deactivate: 'Deactivate'
+			},
+			startRemote: {
+				title: 'Start Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				start: 'Start'
+			},
+			stopRemote: {
+				title: 'Stop Remote harvesting',
+				wallet: 'Wallet',
+				account: 'Account',
+				password: "Wallet's password",
+				stop: 'Stop'
 			}
 		},
 		landing: {
@@ -249,7 +377,6 @@ define({
 			primary: '主賬戶',
 			primaryShort: 'P',
 			noLabel: '<No label>',
-			copyToClipboard: '點擊複製',
 			copiedToClipboard: '地址已複製!',
 			actions: {
 				refreshInfo: '信息已重新整理',
@@ -259,13 +386,16 @@ define({
 				mergeWallets: '合并錢包',
 				exportWallet: '匯出錢包',
 				createAccount: '建立新賬號',
+				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: '匯入一个現有賬號',
 				changeAccountLabel: '更改賬戶標識',
 				setPrimary: '設為主賬戶',
 				removeAccount: '删除賬戶',
 				clientInfo: '客戶訊息',
 				closeWallet: '關閉錢包',
-				closeProgram: '關閉程序'
+				closeProgram: '關閉程序',
+				copyClipboard: 'Copy address to clipboard'
 			},
 			nav: [
 				'儀表板',
@@ -292,13 +422,24 @@ define({
 				start: '開始收割',
 				harvesting: '正在收割',
 				stop: '停止收割',
-				description: 'NEM雲賬戶的重要'
+				description: 'NEM雲賬戶的重要',
+				remoteHarvest: {
+					activate: 'Activate remote harvesting',
+					activating: 'Activating remote harvesting...',
+					active: 'Remote harvesting is active',
+					deactivate: 'Deactivate remote harvesting',
+					deactivating: 'Deactivating remote harvesting...',
+					startRemoteHarvesting: 'Start remote harvesting',
+					remotelyHarvesting: 'Remotely harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			},
 			transactions: {
 				title: '最近的交易',
 				sendNem: '發送NEM',
 				balance: '目前余額',
 				syncStatus: '(礦塊{{1}}{{#2}} : 估計{{3}}落後{{/2}}天)',
+				unknown: 'unknown',
 				columns: [
 					'',
 					'時間',

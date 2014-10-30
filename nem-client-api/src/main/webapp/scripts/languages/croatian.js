@@ -20,6 +20,7 @@ define({
             305: 'NEM infrastrukturni poslužitelj nije dostupan.',
             306: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Novi pokušaj bi mogao pomoći, u suprotnom molim Vas pošaljite upit NEM NIS/NCC zajednici.',
             400: 'Neki parametar nedostaje ili je nevažeći.',
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: 'Zatraženi resurs nije mogao biti pronađen.',
             500: 'Greška prilikom spremanja konfiguracijske datoteke.',
             600: 'Za slanje i primanje transakcija sa NEM oblaka, NCC zahtijeva da NIS poslužitelj bude pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.',
@@ -34,7 +35,10 @@ define({
             707: 'Vremenska oznaka transakcije je predaleko u prošlosti.',
             708: 'Vremenska oznaka transakcije je predaleko u budućnosti.',
             709: 'Račun je nepoznat. Račun se mora pojaviti barem u jednoj transakciji (pošiljatelja ili primatelja) da bi bio prepoznat u mreži.',
-            901: 'Došlo je do pogreške kod postavljanja u izvanmrežni način rada.'
+            901: 'Došlo je do pogreške kod postavljanja u izvanmrežni način rada.',
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
         	success: 'Uspjeh', //title of the Success message modals
@@ -56,10 +60,6 @@ define({
         		},
         		synchronized: 'NIS is synchronized!'
         	}
-        	// nisStatus: {
-        	// 	notBooted: 'NIS zahtijeva pokretanje. Molim Vas, otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora.',
-        	// 	synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
-        	// }
         },
 		modals: {
 			error: {
@@ -199,11 +199,22 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Check'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: 'Dodaj postojeći račun',
@@ -376,6 +387,7 @@ define({
 				exportWallet: 'Izvezi novčanike',
 				createAccount: 'Stvori novi račun',
 				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: 'Dodaj postojeći račun',
 				changeAccountLabel: 'Izmijeni oznaku računa',
 				setPrimary: 'Postavi kao primarni račun',

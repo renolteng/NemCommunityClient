@@ -20,6 +20,7 @@ define({
             305: "NEM Infrastructure Server nu este disponibil.",
             306: "A apărut o eroare care nu a fost anticipată de echipa de dezvoltare. Ne cerem scuze, o reîncercare ar putea ajuta. În caz contrar, te rog raportează problema în comunitatea NEM NIS/NCC.",
             400: "Un parametru lipsește sau este invalid.",
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: "Resursele căutate nu au fost găsite.",
             500: "Salvarea fișerului de configurație a eșuat.",
             600: "NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.",
@@ -36,7 +37,8 @@ define({
             709: "Contul este necunoscut. Un cont trebuie să facă parte din măcar o tranzacție (expeditor sau destinatar) pentru a fi cunoscut în rețea.",
             901: "O eroare a apărut la setarea nodului offline.",
             1000: "Cheia privată și cheia publică care au fost introduse nu se potrivesc.",
-            1001: "Cheia publică și adresa care au fost introduse nu se potrivesc."
+            1001: "Cheia publică și adresa care au fost introduse nu se potrivesc.",
+            1002: 'The address does not belong to the main network.'
         },
         common: {
             success: "Succes",

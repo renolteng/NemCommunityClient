@@ -20,6 +20,7 @@ define({
             305: "Le serveur d'infrastructure NEM n'est pas disponible.",
             306: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
             400: "Certains paramètres sont manquants ou invalides.",
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: "La ressource que vous avez demandé ne peut être trouvée.",
             500: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
             600: "NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S'il vous plait, utilisez le menu NCC pour démarrer le noeud local.",
@@ -34,7 +35,10 @@ define({
             707: "L'horodatage de la transaction trop loin dans le passé.",
             708: "TL'horodatage de la transaction trop loin dans le futur.",
             709: "Ce compte est inconnu. Un compte à besoin de faire partie d'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.",
-            901: "Il y a une erreur lors de la mise en place du mode déconnecté."
+            901: "Il y a une erreur lors de la mise en place du mode déconnecté.",
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
             success: "Succès",
@@ -193,12 +197,23 @@ define({
                     },
                     incorrect: {
                         title: "Hmm...",
-                        message: "La clé privée que vous venez d'entrer n'est pas correcte ! S'il vous plaît, entrez votre clé privée de nouveau."
+                        message: "La clé privée que vous venez d'entrer n'est pas correcte ! S'il vous plaît, entrez votre clé privée de nouveau.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
                     },
                     recheck: "Vérifier"
                 },
                 ok: "Ok"
             },
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
+			},
             addAccount: {
                 title: "Ajouter un compte existant",
                 privateKey: "Clé privé du compte",
@@ -370,6 +385,7 @@ define({
                 exportWallet: "Exporter un portefeuille",
                 createAccount: "Créer un nouveau compte",
                 createRealAccountData: "Create real account data",
+				verifyRealAccountData: 'Verify real account data',
                 addAccount: "Ajouter un compte existant",
                 changeAccountLabel: "Modifier l'étiquette du compte",
                 setPrimary: "Définir comme compte primaire",

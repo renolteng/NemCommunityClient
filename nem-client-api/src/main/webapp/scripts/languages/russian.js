@@ -20,6 +20,7 @@
                 305: 'NEM Infrastructure Server  не доступен',
                 306: 'Произошла непредвиденная ошибка . Приносим свои извинения, повторите попытку снова. В противном случае, обратитесь за поддержкой в NEM NIS/NCC Community.',
                 400: 'Некоторые параметры отсутствуют',
+                401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
                 404: 'Неправильное значение загрузки',
                 500: 'Невозможно сохранить файл конфигурации',
                 600: 'Для отсылки и приёма транзакций, NCC требует перезагрузку NIS сервера. Пожалуйста, используйте меню NCC для перезагрузки в локальный узел.',
@@ -34,7 +35,10 @@
                 707: 'Временная отметка транзакции слишком далеко в прошлом.',
                 708: 'Временная отметка транзакции слишком далеко в будущем.',
                 709: 'Неизвестный аккакунт. Аккаунт должен быть частью хотя бы одной транзакции (входящей или исходящей),  чтобы быть опознанным сетью.',
-                901: 'There was an error setting up offline mode.'
+                901: 'There was an error setting up offline mode.',
+				1000: "The private key and the public key you have provided mismatch.",
+				1001: 'The public key and the address you have provided mismatch.',
+				1002: 'The address does not belong to the main network.'
             },
             common: {
                     success: 'Успешно', //title of the Success message modals
@@ -195,11 +199,22 @@
 												},
 												incorrect: {
 													title: 'Hmm...',
-													message: "The private key you've just entered is not correct! Please double check and enter it once again."
+													message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+													tryAgain: 'Try to enter again',
+													seeOriginal: 'See the original data'
 												},
 												recheck: 'Check'
 											},
 											ok: 'OK'
+										},
+										verifyRealAccountData: {
+											title: 'Verify real account data',
+											message: 'Re-enter your saved address, public key and private key below to check if they match',
+											address: 'Address',
+											publicKey: 'Public key',
+											privateKey: 'Private key',
+											dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+											verify: 'Verify'
 										},
                                        addAccount: {
                                                    title: 'Добавить Существующий Аккаунт',
@@ -372,6 +387,7 @@
                                                    exportWallet: 'Экспорт Кошелька',
                                                    createAccount: 'Создать Новый Аккаунт',
 												   createRealAccountData: 'Create real account data',
+												   verifyRealAccountData: 'Verify real account data',
                                                    addAccount: 'Добавить Существующий Аккаунт',
                                                    changeAccountLabel: 'Изменить Маркировку Аккаунта',
                                                    setPrimary: 'Установить как Главный Аккаунт',

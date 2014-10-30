@@ -387,6 +387,7 @@ define({
 				exportWallet: 'Xuất ví',
 				createAccount: 'Tạo tài khoản mới',
 				createRealAccountData: 'Tạo dữ liệu tài khoản thực',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: 'Thêm tài khoản đã tồn tại',
 				changeAccountLabel: 'Đổi nhãn tài khoản',
 				setPrimary: 'Đặt làm tài khoản chính',

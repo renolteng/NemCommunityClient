@@ -20,6 +20,7 @@ define({
             305: 'Il server NIS non è in esecuzione',
             306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
             400: 'Manca qualche parametro obbligatorio',
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: 'Strategia di avvio non valida',
             500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
             600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce "Avvia il nodo locale" nel menu di NCC.',
@@ -36,7 +37,8 @@ define({
             709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
             901: 'Errore nella modalità fuori rete.',
             1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
-            1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.'
+            1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
         	success: 'Operazione completata', //title of the Success message modals
@@ -58,10 +60,6 @@ define({
         		},
         		synchronized: 'NIS è sincronizzato!'
         	}
-        	// nisStatus: {
-        	// 	notBooted: 'NIS richiede di essere avviato. Apri il tuo portafoglio ed avvia il nodo locale.',
-        	// 	synchronized: 'NIS è sincronizzato!'
-        	// }
         },
 		modals: {
 			error: {

@@ -33,6 +33,7 @@ define({
                    306: 'Un error imprevisto ha ocurrido. Pedimos disculpas por este problema. Tal vez re-intentar ayude a resolver el problema. De otra ma nera',
                    //400: 'Some parameter is missing or invalid.',
                    400: 'Alg&uacute;n parametro requerido no ha sido especificado o es inv&aacute;lido.',
+            	   401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
                    //404: 'The requested resource could not be found.',
                    404: 'El recurso solicitado no se ha encontrado.',
                    //500: 'Failed to save configuration file.',
@@ -62,8 +63,11 @@ define({
                    //709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
                    709: 'La cuenta es desconocida. Una cuenta necesita ser parte de al menos una transacci&oacute;n (ya sea emisor o destinatario) para ser conocida en la red.',
                    //901: 'There was an error setting up offline mode.'
-                   901: 'Hubo un error al intentar establecer el modo fuera de linea' // TODO Revisit: 'modo desconectado' sounds better?
-               },
+                   901: 'Hubo un error al intentar establecer el modo fuera de linea', // TODO Revisit: 'modo desconectado' sounds better?
+		  		   1000: "The private key and the public key you have provided mismatch.",
+				   1001: 'The public key and the address you have provided mismatch.',
+				   1002: 'The address does not belong to the main network.'
+              },
                common: {
                    //success: 'Success', //title of the Success message modals
                    success: '&Eacute;xito', //title of the Success message modals
@@ -286,11 +290,22 @@ define({
 							},
 							incorrect: {
 								title: 'Hmm...',
-								message: "The private key you've just entered is not correct! Please double check and enter it once again."
+								message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+							    tryAgain: 'Try to enter again',
+								seeOriginal: 'See the original data'
 							},
 							recheck: 'Check'
 						},
 						ok: 'OK'
+					},
+					verifyRealAccountData: {
+						title: 'Verify real account data',
+						message: 'Re-enter your saved address, public key and private key below to check if they match',
+						address: 'Address',
+						publicKey: 'Public key',
+						privateKey: 'Private key',
+						dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+						verify: 'Verify'
 					},
                    addAccount: {
                        //title: 'Add an Existing Account',
@@ -551,6 +566,7 @@ define({
                        //createAccount: 'Create new Account',
                        createAccount: 'Crear cuenta nueva',
 					   createRealAccountData: 'Create real account data',
+					   verifyRealAccountData: 'Verify real account data',
                        //addAccount: 'Add an Existing Account',
                        addAccount: 'A&ntilde;adir cuenta existente',
                        //changeAccountLabel: 'Change Account Label',

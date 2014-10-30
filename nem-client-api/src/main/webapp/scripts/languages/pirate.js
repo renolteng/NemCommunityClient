@@ -20,6 +20,7 @@ define({
             305: "NEM Infrastructure Server is not available.",
             306: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
             400: "Some parameter is missing or invalid.",
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: "The requested resource could not be found.",
             500: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
             600: "NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.",
@@ -34,7 +35,10 @@ define({
             707: "The time stamp of the transaction id too far in the past.",
             708: "The time stamp of the transaction is too far in the future.",
             709: "The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.",
-            901: "There was an error setting up offline mode."
+            901: "There was an error setting up offline mode.",
+            1000: "The private key and the public key you have provided mismatch.",
+            1001: 'The public key and the address you have provided mismatch.',
+            1002: 'The address does not belong to the main network.'
         },
         common: {
         	success: "Aye!", //title of the Success message modals
@@ -195,11 +199,22 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Check'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: "Add an Existing Log",
@@ -372,6 +387,7 @@ define({
 				exportWallet: "Hail yer Coffer",
 				createAccount: "Create new Logbook",
 				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: "Add an Existing Logbook",
 				changeAccountLabel: "Title'er Logbook",
 				setPrimary: "Set as Primary Logbook",

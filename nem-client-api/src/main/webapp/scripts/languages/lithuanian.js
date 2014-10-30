@@ -20,6 +20,7 @@ define({
             305: "NEM Infrastruktūros serveris negalimas",
             306: "Įvyko klaida, kurios kūrėjai nenumatė. Atsiprašome, bet gal paleidimas iš naujo padės. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei",
             400: "Trūksta kai kurių parametrų",
+            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: "Netinkama Boot strategy reikšmė",
             500: "Nepavyko užsaugoti konfigūracijos bylos",
             600: "NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.",
@@ -36,7 +37,8 @@ define({
             709: "Sąskaita nežinoma. Sąskaita turi turėti bent vieną transakciją (siuntimo ar gavimo), kad būtų žinoma tinkle.",
             901: "Įvyko klaida nustatant offline režimą.",
             1000: "Jūsų pateikti privatus ir viešas raktai neatitinka.",
-            1001: "Jūsų pateiktas viešas raktas ir adresas neatitinka."
+            1001: "Jūsų pateiktas viešas raktas ir adresas neatitinka.",
+            1002: 'The address does not belong to the main network.'
         },
         common: {
             success: "Pavyko",
