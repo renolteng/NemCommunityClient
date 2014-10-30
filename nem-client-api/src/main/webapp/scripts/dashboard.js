@@ -1,6 +1,6 @@
 "use strict";
 
- define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
+ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
     return $.extend(true, {}, NccLayout, {
         name: 'dashboard',
         url: 'dashboard.html',

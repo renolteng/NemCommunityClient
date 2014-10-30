@@ -1,6 +1,6 @@
 "use strict";
 
- define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
+ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
  	return $.extend(true, {}, NccLayout, {
  		name: 'landing',
  		url: 'index.html',
@@ -13,8 +13,8 @@
 		},
 		initOnce: function() {
             ncc.openWallet = function(walletData) {
-            	ncc.set('wallet', ncc.processWallet(walletData));
-            	ncc.set('activeAccount', ncc.processAccount(walletData.primaryAccount));
+            	ncc.set('wallet', Utils.processWallet(walletData));
+            	ncc.set('activeAccount', Utils.processAccount(walletData.primaryAccount));
                 ncc.loadPage('dashboard', {
                 	wallet: walletData.name,
                 	account: walletData.primaryAccount.address
