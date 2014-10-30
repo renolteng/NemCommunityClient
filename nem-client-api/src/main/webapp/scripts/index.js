@@ -31,7 +31,7 @@ require.config({
     }
 });
 
-define(['ncc'], function(ncc) {
+define(['ncc', 'Utils'], function(ncc, Utils) {
     ncc.getRequest('configuration/get', function(data) {
         ncc.set('settings', data);
         ncc.loadPage(entryPage, null, false, true);
