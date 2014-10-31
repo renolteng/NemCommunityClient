@@ -32,7 +32,7 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 	}
 
 	@Override
-	public CommonConfiguration loadConfig(final String[] args) {
-		return new CommonConfiguration();
+	public CommonConfiguration loadConfig(final NemCommandLine commandLine) {
+		return new CommonConfiguration(commandLine);
 	}
 }
