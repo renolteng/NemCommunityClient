@@ -1,4 +1,4 @@
-﻿define({
+define({
 	id: 'cn',
 	name: '中文（簡体）',
 	texts: {
@@ -15,12 +15,11 @@
             107: '钱包不含此账户。',
             108: '该帐户不能被删除。很有可能是因为该帐户仍然有大于0MEM的余额或您要删除的帐户是主帐户。',
             109: '具有相同名称的另一个钱包已经存在。请选择一个其它的钱包名。',
-            110: 'Wallet already contains this account.',
+            110: '钱包里已经包含了此帐户。',
             202: '没有公钥。',
             305: 'NEM 基础设施服务器无法使用。',
             306: '对不起，发生一个开发团队没有预见到的错误。重试也许有帮助。否则，请在NEM NIS/NCC社区内提交您碰到的问题。',
             400: '缺失某些参数。',
-            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
             404: '启动策略值无效。',
             500: '保存配置文件失败。',
             600: 'NCC需要启动NIS服务器去从 NEM Cloud 发送和接收交易数据。请使用NCC菜单项启动本地节点。',
@@ -35,30 +34,27 @@
             707: '此交易ID的时间戳在太远的过去。',
             708: '此交易ID的时间戳在太远的将来。',
             709: '该帐户未知。一个帐户需要至少经过一个交易（作为发件人或收件人）才能被网络公知。',
-            901: 'There was an error setting up offline mode.',
-            1000: "The private key and the public key you have provided mismatch.",
-            1001: 'The public key and the address you have provided mismatch.',
-            1002: 'The address does not belong to the main network.'
-       },
+            901: '设置离线模式发生错误。'
+        },
         common: {
         	success: '成功', //title of the Success message modals
         	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC is not available',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS is not available',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
+        		nccUnknown: 'NCC 状态未知',
+        		nccUnavailable: 'NCC 不可用',
+        		nccStarting: 'NCC 开始启动…',
+        		nisUnknown: 'NIS 状态未知',
+        		nisUnavailable: 'NIS 不可用',
+        		nisStarting: 'NIS 开始启动…',
+        		notBooted: 'NIS 需要启动。请打开你的钱包，通过弹出的对话框启动一个本地节点，或设置自动启动。',
+        		booting: '启动 NIS...',
+        		nisInfoNotAvailable: '收不到NIS信息。尝试接受NIS信息...',
+        		synchronizing: 'NIS 在和服务器更新. 在矿块 {{1}}, 大约落后 {{2}} 块。',
         		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
+        			0: '一天内',
+        			1: '一天',
+        			many: '{{1}} 天'
         		},
-        		synchronized: 'NIS is synchronized!'
+        		synchronized: 'NIS 在和服务器更新!'
         	}
         },
 		modals: {
@@ -71,13 +67,13 @@
 				no: '不'
 			},
 			settings: {
-				title: 'Settings',
+				title: '设置',
 				language: {
-					label: 'Language'
+					label: '语言'
 				},
 				remoteServer: {
-					tabTitle: 'Remote Server',
-					protocol: 'Protocol',
+					tabTitle: '远程服务器',
+					protocol: '协议',
 					protocolOptions: {
 						http: 'HTTP'
 					},
@@ -85,14 +81,14 @@
 					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: 'Auto-boot',
-					name: 'Node name',
-					account: 'Account',
-					primaryAccount: 'Primary Account',
-					auto: 'Auto boot when a wallet is opened'
+					tabTitle: '自动启动',
+					name: '节点名',
+					account: '帐户',
+					primaryAccount: '主要帐户',
+					auto: '钱包打开时自动启动'
 				},
-				save: 'Save',
-				saveSuccess: 'Settings have been saved successfully'
+				save: '保存',
+				saveSuccess: '设置保存成功'
 			},
 			sendNem: {
 				title: '发送 NEM',
@@ -111,15 +107,15 @@
 				sending: '发送...',
 				successMessage: '交易发送成功!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
-					to: 'To',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					send: 'Send',
-					sending: 'Sending...'
+					title: '确认交易',
+					sendLabel: '你就要发送',
+					to: '到',
+					message: '信息',
+					encrypted: '信息被加密',
+					noMessage: '无信息',
+					cancel: '取消',
+					send: '发送',
+					sending: '发送...'
 				}
 			},
 			clientInfo: {
@@ -181,40 +177,29 @@
 				create: '创建'
 			},
 			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
+				title: '创建真实账户资料',
+				message: '以下数据是NEM启动后你的真实账户。保存好账户号，公钥，以及最重要的私钥在一个安全的地方。如果丢失了私钥，您的帐户和所有真正的NEM币将永远消失!',
+				address: '地址',
+				publicKey: '公钥',
+				privateKey: '私钥',
 				confirm: {
-					title: 'Save the private key',
-					message: 'Are you sure your private key has been saved into a safe place?'
+					title: '保存私钥',
+					message: '你确定你的私钥被保存到一个安全的地方了吗?'
 				},
 				recheck: {
-					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					title: '重新检查您所保存的私钥',
+					message: "请重新输入您你刚被提供的私钥以确认您所保存的私钥是正确的。如果你的私钥已经丢失，你需要创建一个新的。",
 					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
+						title: '好!',
+						message: '你保存的私钥似乎正确。请记住要把它保存到一个安全的地方！'
 					},
 					incorrect: {
-						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
-						tryAgain: 'Try to enter again',
-						seeOriginal: 'See the original data'
+						title: '嗯...',
+						message: "你刚刚输入的私钥是不正确的！请仔细检查并再次输入。"
 					},
-					recheck: 'Check'
+					recheck: '检查'
 				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verify real account data',
-				message: 'Re-enter your saved address, public key and private key below to check if they match',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
-				verify: 'Verify'
+				ok: '好'
 			},
 			addAccount: {
 				title: '添加一个现有帐户',
@@ -278,34 +263,34 @@
 				message: '您确定要关闭NEM社区客户端?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				activate: 'Activate'
+				title: '激活远程收获',
+				wallet: '钱包',
+				account: '帐户',
+				hoursDue: '到期小时数',
+				password: "钱包密码",
+				activate: '激活'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				hoursDue: 'Hours due',
-				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				title: '停止激活远程收获',
+				wallet: '钱包',
+				account: '帐户',
+				hoursDue: '到期小时数',
+				password: "钱包密码",
+				deactivate: '停止激活'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
-				start: 'Start'
+				title: '开始远程收获',
+				wallet: '钱包',
+				account: '帐户',
+				password: "钱包密码",
+				start: '开始'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
-				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
-				stop: 'Stop'
+				title: '停止远程收获',
+				wallet: '钱包',
+				account: '帐户',
+				password: "钱包密码",
+				stop: '停止'
 			}
 		},
 		landing: {
@@ -314,7 +299,7 @@
 			nav: {
 				start: '已经 开始',
 				about: '关于 NEM',
-				settings: 'Settings'
+				settings: '设置'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>新手?',
@@ -387,7 +372,6 @@
 				exportWallet: '输出钱包',
 				createAccount: '创建新帐号',
 				createRealAccountData: 'Create real account data',
-				verifyRealAccountData: 'Verify real account data',
 				addAccount: '添加一个现有帐户',
 				changeAccountLabel: '更改帐户标识',
 				setPrimary: '设为主帐户',
@@ -424,14 +408,14 @@
 				stop: '停止收割',
 				description: 'NEM云帐户的重要',
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating...',
-					startRemoteHarvesting: 'Start remote harvesting',
-					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					activate: '激活远程收获',
+					activating: '激活...',
+					active: '远程收割进行中',
+					deactivate: '停止激活远程收获',
+					deactivating: '停止激活...',
+					startRemoteHarvesting: '开始远程收获',
+					remotelyHarvesting: '远程收获',
+					stopRemoteHarvesting: '停止远程收获'
 				}
 			},
 			transactions: {
