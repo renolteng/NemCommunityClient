@@ -1,10 +1,14 @@
 package org.nem.deploy;
 
-import org.hamcrest.core.*;
-import org.junit.*;
-import org.nem.core.deploy.CommonConfiguration;
+import org.nem.core.deploy.*;
 import org.nem.deploy.appconfig.NccAppConfig;
 import org.nem.ncc.web.servlet.*;
+
+import org.apache.commons.cli.Option;
+import org.hamcrest.core.*;
+import org.junit.*;
+
+import java.util.ArrayList;
 
 public class NccConfigurationPolicyTest {
 	//region get class
@@ -53,7 +57,7 @@ public class NccConfigurationPolicyTest {
 		final NccConfigurationPolicy policy = createPolicy();
 
 		// Act:
-		final CommonConfiguration configuration = policy.loadConfig(new String[] { });
+		final CommonConfiguration configuration = policy.loadConfig(new NemCommandLine(new ArrayList<Option>()));
 
 		// Assert:
 		Assert.assertThat(configuration, IsNull.notNullValue());
