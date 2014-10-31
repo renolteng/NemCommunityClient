@@ -24,7 +24,7 @@
     <properties>
         <nem-certificate-store>identity.jks</nem-certificate-store>
         <nem-certificate-password>nem-start-201404</nem-certificate-password>
-        <nem-code-base>http://nem.pucchiwerk.eu/nem</nem-code-base>
+        <nem-code-base>http://bob.nem.ninja/webstart</nem-code-base>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <nemcore.version>0.4.12-BETA</nemcore.version>
     </properties>
