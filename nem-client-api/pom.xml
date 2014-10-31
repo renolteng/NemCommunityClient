@@ -154,12 +154,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.nem.monitor</groupId>
-            <artifactId>nem-monitor</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>

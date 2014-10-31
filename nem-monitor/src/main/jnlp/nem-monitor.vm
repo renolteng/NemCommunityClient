@@ -4,9 +4,9 @@
     <title>NEM Monitor (NOM)</title>
     <vendor>NEM Community</vendor>
     <homepage href="http://www.ournem.com"/>
-    <description>NEM Monitor. Monitor NCC and NIS status</description>
-    <description kind="short">NEM Monitor (NOM)</description>
-    <description kind="one-line">NCC and NIS status monitor</description>
+    <description>NEM Client</description>
+    <description kind="short">NEM Client</description>
+    <description kind="one-line">NEM Client</description>
     <description kind="tooltip"></description>
     <icon kind="shortcut" href="images/nom_64x64.ico"/>
     <icon href="images/nom_32x32.png"/>
@@ -26,9 +26,9 @@
 <!-- Progress Bar add download="progress" -->
 </resources>
 <application-desc main-class="$mainClass" progress-class="org.nem.client.download.SplashProgressBar">
-    <argument>-nccJnlpUrl</argument>
-    <argument>${nem-code-base}/nem-client.jnlp</argument>
-    <argument>-nisJnlpUrl</argument>
-    <argument>${nem-code-base}/nem-server.jnlp</argument>
+    <argument>-nccConfig</argument>
+    <argument>nc-config.properties</argument>
+    <argument>-nisConfig</argument>
+    <argument>nis-config.properties</argument>
 </application>
 </jnlp> 

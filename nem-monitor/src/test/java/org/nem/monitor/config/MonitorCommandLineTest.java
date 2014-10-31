@@ -8,40 +8,40 @@ public class MonitorCommandLineTest {
 	@Test
 	public void parseWithNonParsableArgsReturnsDefaultConfig() {
 		// Act:
-		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-ncccJnlpUrl", "some_ncc_url", "-nisJnlpUrl", "some_nis_url" });
+		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-ncccConfig", "some_ncc_url", "nisConfig", "some_nis_url" });
 
 		// Assert:
-		Assert.assertThat(config.getNccJnlpUrl(), IsEqual.equalTo("http://bob.nem.ninja/webstart/nem-client.jnlp"));
-		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("http://bob.nem.ninja/webstart/nem-server.jnlp"));
+		Assert.assertThat(config.getNccConfig(), IsEqual.equalTo("ncc-config.properties"));
+		Assert.assertThat(config.getNisConfig(), IsEqual.equalTo("nis-config.properties"));
 	}
 
 	@Test
 	public void parseWithParsableArgsReturnsParsedConfig() {
 		// Act:
-		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-nccJnlpUrl", "some_ncc_url", "-nisJnlpUrl", "some_nis_url" });
+		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-nccConfig", "some_ncc_url", "-nisConfig", "some_nis_url" });
 
 		// Assert:
-		Assert.assertThat(config.getNccJnlpUrl(), IsEqual.equalTo("some_ncc_url"));
-		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("some_nis_url"));
+		Assert.assertThat(config.getNccConfig(), IsEqual.equalTo("some_ncc_url"));
+		Assert.assertThat(config.getNisConfig(), IsEqual.equalTo("some_nis_url"));
 	}
 
 	@Test
 	public void parseWithParsableArgsReturnsParsedConfigWhenOnlyNccJnlpUrlIsSpecified() {
 		// Act:
-		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-nccJnlpUrl", "some_ncc_url" });
+		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-nccConfig", "some_ncc_url" });
 
 		// Assert:
-		Assert.assertThat(config.getNccJnlpUrl(), IsEqual.equalTo("some_ncc_url"));
-		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("http://bob.nem.ninja/webstart/nem-server.jnlp"));
+		Assert.assertThat(config.getNccConfig(), IsEqual.equalTo("some_ncc_url"));
+		Assert.assertThat(config.getNisConfig(), IsEqual.equalTo("nis-config.properties"));
 	}
 
 	@Test
 	public void parseWithParsableArgsReturnsParsedConfigWhenOnlyNisJnlpUrlIsSpecified() {
 		// Act:
-		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-nisJnlpUrl", "some_nis_url" });
+		final MonitorCommandLine config = MonitorCommandLine.parse(new String[] { "-nisConfig", "some_nis_url" });
 
 		// Assert:
-		Assert.assertThat(config.getNccJnlpUrl(), IsEqual.equalTo("http://bob.nem.ninja/webstart/nem-client.jnlp"));
-		Assert.assertThat(config.getNisJnlpUrl(), IsEqual.equalTo("some_nis_url"));
+		Assert.assertThat(config.getNccConfig(), IsEqual.equalTo("ncc-config.properties"));
+		Assert.assertThat(config.getNisConfig(), IsEqual.equalTo("some_nis_url"));
 	}
 }

@@ -58,7 +58,7 @@ public class NodeManagerTest {
 
 	private static class TestContext {
 		private final NemConnector connector = Mockito.mock(NemConnector.class);
-		private final WebStartLauncher launcher = Mockito.mock(WebStartLauncher.class);
+		private final JavaLauncher launcher = Mockito.mock(JavaLauncher.class);
 		private final WebBrowser browser = Mockito.mock(WebBrowser.class);
 		private final NodeManager manager;
 

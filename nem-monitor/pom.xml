@@ -7,7 +7,7 @@
     <groupId>org.nem.monitor</groupId>
     <artifactId>nem-monitor</artifactId>
     <version>0.4.12-BETA</version>
-    <name>NEM Monitor</name>
+    <name>NEM Client</name>
 
     <organization>
         <name>NEM - New Economy Movement</name>
@@ -24,21 +24,27 @@
     <properties>
         <nem-certificate-store>identity.jks</nem-certificate-store>
         <nem-certificate-password>nem-start-201404</nem-certificate-password>
-        <nem-code-base>http://bob.nem.ninja/webstart</nem-code-base>
+        <nem-code-base>http://nem.pucchiwerk.eu/nem</nem-code-base>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <nemcore.version>0.4.12-BETA</nemcore.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.nem.core</groupId>
-            <artifactId>nem-core</artifactId>
+            <groupId>org.nem.ncc</groupId>
+            <artifactId>nem-client-api</artifactId>
             <version>${nemcore.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.nem.ncc</groupId>
             <artifactId>nem-client-download</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.nem.nis</groupId>
+            <artifactId>nem-infrastructure-server</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -6,35 +6,35 @@ import org.nem.core.deploy.NemCommandLine;
 import java.util.Arrays;
 
 public class MonitorCommandLine {
-	private static final String NCC_JNLP_URL = "nccJnlpUrl";
-	private static final String NCC_JNLP_URL_DESCRIPTION = "JNLP URL for starting NCC via WebStart.";
-	private static final String NIS_JNLP_URL = "nisJnlpUrl";
-	private static final String NIS_JNLP_URL_DESCRIPTION = "JNLP URL for starting NIS via WebStart.";
+	private static final String NCC_CONFIG = "nccConfig";
+	private static final String NCC_CONFIG_DESCRIPTION = "Config file name for starting NCC.";
+	private static final String NIS_CONFIG = "nisConfig";
+	private static final String NIS_CONFIG_DESCRIPTION = "Config file name for starting NIS.";
 
-	private final String nccJnlpUrl;
-	private final String nisJnlpUrl;
+	private final String nccConfig;
+	private final String nisConfig;
 
-	private MonitorCommandLine(final String nccJnlpUrl, final String nisJnlpUrl) {
-		this.nccJnlpUrl = nccJnlpUrl;
-		this.nisJnlpUrl = nisJnlpUrl;
+	private MonitorCommandLine(final String nccConfig, final String nisConfig) {
+		this.nccConfig = nccConfig;
+		this.nisConfig = nisConfig;
 	}
 
 	/**
-	 * Gets the NCC JNLP url as string.
+	 * Gets the NCC config file name as string.
 	 *
-	 * @return The NCC JNLP url as string.
+	 * @return The NCC config file name as string.
 	 */
-	public String getNccJnlpUrl() {
-		return this.nccJnlpUrl;
+	public String getNccConfig() {
+		return this.nccConfig;
 	}
 
 	/**
-	 * Gets the NIS JNLP url as string.
+	 * Gets the NIS config file name as string.
 	 *
-	 * @return The NIS JNLP url as string.
+	 * @return The NIS config file name as string.
 	 */
-	public String getNisJnlpUrl() {
-		return this.nisJnlpUrl;
+	public String getNisConfig() {
+		return this.nisConfig;
 	}
 
 	/**
@@ -45,17 +45,17 @@ public class MonitorCommandLine {
 	 */
 	public static MonitorCommandLine parse(final String[] args) {
 		final NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
-				new Option(NCC_JNLP_URL, true, NCC_JNLP_URL_DESCRIPTION),
-				new Option(NIS_JNLP_URL, true, NIS_JNLP_URL_DESCRIPTION)));
+				new Option(NCC_CONFIG, true, NCC_CONFIG_DESCRIPTION),
+				new Option(NIS_CONFIG, true, NIS_CONFIG_DESCRIPTION)));
 
-		String nccJnlpUrl = "http://bob.nem.ninja/webstart/nem-client.jnlp";
-		String nisJnlpUrl = "http://bob.nem.ninja/webstart/nem-server.jnlp";
+		String nccConfig = "ncc-config.properties";
+		String nisConfig = "nis-config.properties";
 		if (commandLine.parse(args)) {
-			nccJnlpUrl = getParameterOrDefault(commandLine, NCC_JNLP_URL, nccJnlpUrl);
-			nisJnlpUrl = getParameterOrDefault(commandLine, NIS_JNLP_URL, nisJnlpUrl);
+			nccConfig = getParameterOrDefault(commandLine, NCC_CONFIG, nccConfig);
+			nisConfig = getParameterOrDefault(commandLine, NIS_CONFIG, nisConfig);
 		}
 
-		return new MonitorCommandLine(nccJnlpUrl, nisJnlpUrl);
+		return new MonitorCommandLine(nccConfig, nisConfig);
 	}
 
 	private static String getParameterOrDefault(final NemCommandLine commandLine, final String key, final String defaultValue) {

@@ -45,18 +45,4 @@ public interface NemNodePolicy {
 	 * @return true if a browser gui is exposed, false otherwise.
 	 */
 	public boolean hasBrowserGui();
-
-	/**
-	 * Gets a value indicating whether or not this node should be started via JNLP (WebStart)
-	 *
-	 * @return true if a node has to be started via Jnlp, false otherwise.
-	 */
-	public boolean launchViaJnlp();
-
-	/**
-	 * Gets the class name to start the node.
-	 *
-	 * @return class name
-	 */
-	public String launcherClass();
 }

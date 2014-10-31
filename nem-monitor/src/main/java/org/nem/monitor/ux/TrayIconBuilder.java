@@ -8,7 +8,6 @@ import org.nem.monitor.config.LanguageSupport;
 import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.ImageIcon;
 
 /**
  * A builder that is used to construct the system tray icon.
@@ -26,7 +26,7 @@ public class TrayIconBuilder {
 	private static final Logger LOGGER = Logger.getLogger(TrayIconBuilder.class.getName());
 
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
-	private final WebStartLauncher webStartLauncher;
+	private final JavaLauncher javaLauncher;
 	private final WebBrowser webBrowser;
 	private final boolean isStartedViaWebStart;
 	private final TrayIcon trayIcon;
@@ -39,17 +39,17 @@ public class TrayIconBuilder {
 	 * Creates a new builder.
 	 *
 	 * @param client The http method client.
-	 * @param webStartLauncher The web start launcher.
+	 * @param javaLauncher The Java start launcher.
 	 * @param webBrowser The web browser.
 	 * @param isStartedViaWebStart true if the program was started via webstart.
 	 */
 	public TrayIconBuilder(
 			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
-			final WebStartLauncher webStartLauncher,
+			final JavaLauncher javaLauncher,
 			final WebBrowser webBrowser,
 			final boolean isStartedViaWebStart) {
 		this.client = client;
-		this.webStartLauncher = webStartLauncher;
+		this.javaLauncher = javaLauncher;
 		this.webBrowser = webBrowser;
 		this.isStartedViaWebStart = isStartedViaWebStart;
 
@@ -75,15 +75,15 @@ public class TrayIconBuilder {
 	 * Adds status menu items for the specified node policy.
 	 *
 	 * @param nodePolicy The node policy.
-	 * @param jnlpUrl The webstart url.
+	 * @param configFileName The config file name.
 	 */
-	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String jnlpUrl) {
+	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String configFileName) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
 		final NodeManager manager = new NodeManager(
 				nodePolicy,
-				jnlpUrl,
+				configFileName,
 				this.createConnector(nodePolicy),
-				this.webStartLauncher,
+				this.javaLauncher,
 				this.webBrowser);
 		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
 

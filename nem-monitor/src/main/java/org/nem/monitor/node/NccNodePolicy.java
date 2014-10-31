@@ -11,16 +11,14 @@ import java.nio.file.Paths;
  */
 public class NccNodePolicy implements NemNodePolicy {
 	private final String nemFolder;
-	private final boolean launchNcc;
 
 	/**
 	 * Creates a new policy.
 	 *
 	 * @param nemFolder The nem folder.
 	 */
-	public NccNodePolicy(final String nemFolder, final boolean launchNcc) {
+	public NccNodePolicy(final String nemFolder) {
 		this.nemFolder = nemFolder;
-		this.launchNcc = launchNcc;
 	}
 
 	@Override
@@ -46,15 +44,5 @@ public class NccNodePolicy implements NemNodePolicy {
 	@Override
 	public boolean hasBrowserGui() {
 		return true;
-	}
-
-	@Override
-	public boolean launchViaJnlp() {
-		return launchNcc;
-	}
-
-	@Override
-	public String launcherClass() {
-		return null;
 	}
 }
