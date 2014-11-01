@@ -451,7 +451,7 @@ define(function(require) {
                     this.loadPage(page, params);
                 },
                 openModal: function(e, id) {
-                    this.this.getModal(id).open();;
+                    this.getModal(id).open();
                 },
                 shutdown: function() {
                     var self = this;
