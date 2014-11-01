@@ -1,10 +1,11 @@
 package org.nem.monitor.visitors;
 
-import org.junit.Test;
-import org.mockito.Mockito;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.monitor.*;
-import org.nem.monitor.node.NemNodePolicy;
+import org.nem.monitor.node.*;
+
+import org.junit.Test;
+import org.mockito.Mockito;
 
 public class NodeManagerTest {
 
@@ -29,7 +30,7 @@ public class NodeManagerTest {
 		context.manager.launch();
 
 		// Assert:
-		Mockito.verify(context.launcher, Mockito.times(1)).launch("foo.jnlp");
+		Mockito.verify(context.launcher, Mockito.times(1)).launch(NemNodeType.NCC, "foo.jnlp");
 	}
 
 	@Test

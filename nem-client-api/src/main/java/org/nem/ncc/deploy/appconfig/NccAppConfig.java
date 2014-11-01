@@ -1,4 +1,4 @@
-package org.nem.deploy.appconfig;
+package org.nem.ncc.deploy.appconfig;
 
 import org.nem.core.connect.*;
 import org.nem.core.connect.client.AsyncNisConnector;

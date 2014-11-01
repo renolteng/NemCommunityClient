@@ -1,9 +1,10 @@
 package org.nem.monitor.node;
 
-import org.hamcrest.core.IsEqual;
-import org.junit.*;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.node.NodeEndpoint;
+
+import org.hamcrest.core.IsEqual;
+import org.junit.*;
 
 import java.nio.file.Paths;
 

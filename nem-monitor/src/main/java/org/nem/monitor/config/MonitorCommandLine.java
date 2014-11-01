@@ -1,7 +1,8 @@
 package org.nem.monitor.config;
 
-import org.apache.commons.cli.Option;
 import org.nem.core.deploy.NemCommandLine;
+
+import org.apache.commons.cli.Option;
 
 import java.util.Arrays;
 

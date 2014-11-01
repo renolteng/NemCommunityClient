@@ -1,9 +1,10 @@
 package org.nem.monitor.visitors;
 
-import org.junit.Test;
-import org.mockito.Mockito;
 import org.nem.core.model.NemStatus;
 import org.nem.monitor.node.NemNodeType;
+
+import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.awt.event.ActionEvent;
 

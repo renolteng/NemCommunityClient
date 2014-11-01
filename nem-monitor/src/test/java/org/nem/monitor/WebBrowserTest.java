@@ -1,10 +1,11 @@
 package org.nem.monitor;
 
-import org.junit.Test;
-import org.mockito.Mockito;
 import org.nem.core.node.NodeEndpoint;
 
-import java.awt.*;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
 

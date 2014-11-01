@@ -48,7 +48,7 @@ public class NodeManager {
 	 */
 	public void launch() {
 		LOGGER.info(String.format("Launching node %s", this.nodePolicy.getNodeType()));
-		this.launcher.launch(this.configFileName);
+		this.launcher.launch(this.nodePolicy.getNodeType(), this.configFileName);
 	}
 
 	/**

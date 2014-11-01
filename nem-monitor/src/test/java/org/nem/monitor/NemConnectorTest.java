@@ -1,9 +1,5 @@
 package org.nem.monitor;
 
-import org.apache.commons.io.FileUtils;
-import org.hamcrest.core.IsEqual;
-import org.junit.*;
-import org.mockito.Mockito;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.core.model.NemStatus;
 import org.nem.core.model.ncc.NemRequestResult;
@@ -11,6 +7,11 @@ import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.node.NemNodePolicy;
+
+import org.apache.commons.io.FileUtils;
+import org.hamcrest.core.IsEqual;
+import org.junit.*;
+import org.mockito.Mockito;
 
 import java.io.*;
 import java.util.concurrent.CompletableFuture;

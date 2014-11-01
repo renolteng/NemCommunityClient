@@ -13,7 +13,6 @@ import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
-
 import javax.jnlp.*;
 import javax.swing.SwingUtilities;
 
@@ -63,7 +62,7 @@ public class NemMonitor {
 				}
 
 				final SystemTray tray = SystemTray.getSystemTray();
-				final JavaLauncher launcher = new JavaLauncher(nemFolder);
+				final JavaLauncher launcher = new JavaLauncher(nemFolder, isStartedViaWebStart());
 				final WebBrowser webBrowser = new WebBrowser();
 				final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient = createHttpMethodClient();
 
@@ -81,7 +80,7 @@ public class NemMonitor {
 						text -> {nccManager.launchBrowser(); }, 
 						text -> {nisManager.launch(); });
 
-				final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient(), launcher, new WebBrowser(), isStartedViaWebStart());
+				final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient());
 				builder.addStatusMenuItems(nisManager, nisPolicy);
 				builder.addSeparator();
 				builder.addStatusMenuItems(nccManager, nccPolicy);

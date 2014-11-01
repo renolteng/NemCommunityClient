@@ -9,7 +9,6 @@ import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.*;
@@ -26,9 +25,6 @@ public class TrayIconBuilder {
 	private static final Logger LOGGER = Logger.getLogger(TrayIconBuilder.class.getName());
 
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
-	private final JavaLauncher javaLauncher;
-	private final WebBrowser webBrowser;
-	private final boolean isStartedViaWebStart;
 	private final TrayIcon trayIcon;
 	private final Dimension dimension;
 	private final PopupMenu popup;
@@ -43,15 +39,8 @@ public class TrayIconBuilder {
 	 * @param webBrowser The web browser.
 	 * @param isStartedViaWebStart true if the program was started via webstart.
 	 */
-	public TrayIconBuilder(
-			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
-			final JavaLauncher javaLauncher,
-			final WebBrowser webBrowser,
-			final boolean isStartedViaWebStart) {
+	public TrayIconBuilder(final HttpMethodClient<ErrorResponseDeserializerUnion> client) {
 		this.client = client;
-		this.javaLauncher = javaLauncher;
-		this.webBrowser = webBrowser;
-		this.isStartedViaWebStart = isStartedViaWebStart;
 
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
@@ -101,11 +90,11 @@ public class TrayIconBuilder {
 		}
 
 		actionMenuItem.addActionListener(actionAdapter);
-		//Handled via State Machine
-//		if (this.isStartedViaWebStart) {
-//			// simulate a click, which will trigger a webstart launch
-//			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
-//		}
+		// Handled via State Machine
+		// if (this.isStartedViaWebStart) {
+		// // simulate a click, which will trigger a webstart launch
+		// actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+		// }
 
 		this.visitors.add(visitor);
 		this.visitors.add(actionAdapter);
@@ -147,14 +136,10 @@ public class TrayIconBuilder {
 	}
 
 	private CompletableFuture<Void> shutdownAll() {
-		final List<CompletableFuture> futures = this.nodePolicies.stream()
-				.map(np -> this.createConnector(np)
-						.shutdown()
-						.exceptionally(e -> {
-							LOGGER.warning(String.format("an error occurred while attempting to shutdown %s: %s", np, e));
-							return null;
-						}))
-				.collect(Collectors.toList());
+		final List<CompletableFuture> futures = this.nodePolicies.stream().map(np -> this.createConnector(np).shutdown().exceptionally(e -> {
+			LOGGER.warning(String.format("an error occurred while attempting to shutdown %s: %s", np, e));
+			return null;
+		})).collect(Collectors.toList());
 		return CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
 	}
 
@@ -173,11 +158,7 @@ public class TrayIconBuilder {
 		for (final NemNodePolicy nodePolicy : this.nodePolicies) {
 			final NemNodeType nodeType = nodePolicy.getNodeType();
 			final NemConnector connector = this.createConnector(nodePolicy);
-			new AsyncTimer(
-					() -> connector.getStatus().thenAccept(status -> visitor.notifyStatus(nodeType, status)),
-					250,
-					new UniformDelayStrategy(1000),
-					null);
+			new AsyncTimer(() -> connector.getStatus().thenAccept(status -> visitor.notifyStatus(nodeType, status)), 250, new UniformDelayStrategy(1000), null);
 		}
 
 		this.trayIcon.setPopupMenu(this.popup);
@@ -185,9 +166,9 @@ public class TrayIconBuilder {
 	}
 
 	private NemConnector createConnector(final NemNodePolicy nodePolicy) {
-		final DefaultAsyncNemConnector<String> connector = new DefaultAsyncNemConnector<>(
-				this.client,
-				r -> { throw new NemNodeExpectedException(); });
+		final DefaultAsyncNemConnector<String> connector = new DefaultAsyncNemConnector<>(this.client, r -> {
+			throw new NemNodeExpectedException();
+		});
 		connector.setAccountLookup(null);
 		return new NemConnector(nodePolicy, connector);
 	}
