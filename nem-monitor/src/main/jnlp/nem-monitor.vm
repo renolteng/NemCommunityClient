@@ -27,7 +27,7 @@
 </resources>
 <application-desc main-class="$mainClass" progress-class="org.nem.client.download.SplashProgressBar">
     <argument>-nccConfig</argument>
-    <argument>nc-config.properties</argument>
+    <argument>ncc-config.properties</argument>
     <argument>-nisConfig</argument>
     <argument>nis-config.properties</argument>
 </application>
