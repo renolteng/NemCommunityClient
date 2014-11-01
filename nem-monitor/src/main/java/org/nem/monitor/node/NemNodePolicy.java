@@ -1,6 +1,5 @@
 package org.nem.monitor.node;
 
-import org.nem.core.connect.client.NisApiId;
 import org.nem.core.node.NodeEndpoint;
 
 import java.io.File;
@@ -32,12 +31,12 @@ public interface NemNodePolicy {
 	public File getLockFile();
 
 	/**
-	 * Maps the specified api id to the url path.
+	 * Maps the specified api url to the url path.
 	 *
-	 * @param apiId The api id.
+	 * @param apiUrl The api url.
 	 * @return The url path.
 	 */
-	public String mapToUrlPath(final NisApiId apiId);
+	public String mapToUrlPath(final String apiUrl);
 
 	/**
 	 * Gets a value indicating whether or not this node exposes a browser GUI.

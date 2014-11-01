@@ -42,7 +42,7 @@ public class NccNodePolicyTest {
 		final NemNodePolicy policy = createPolicy();
 
 		// Act:
-		final String heartbeatPath = policy.mapToUrlPath(NisApiId.NIS_REST_HEARTBEAT);
+		final String heartbeatPath = policy.mapToUrlPath(NisApiId.NIS_REST_HEARTBEAT.toString());
 
 		// Assert:
 		Assert.assertThat(heartbeatPath, IsEqual.equalTo("ncc/api/heartbeat"));

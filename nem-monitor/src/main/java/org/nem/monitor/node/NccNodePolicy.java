@@ -1,6 +1,5 @@
 package org.nem.monitor.node;
 
-import org.nem.core.connect.client.NisApiId;
 import org.nem.core.node.NodeEndpoint;
 
 import java.io.File;
@@ -37,8 +36,8 @@ public class NccNodePolicy implements NemNodePolicy {
 	}
 
 	@Override
-	public String mapToUrlPath(final NisApiId apiId) {
-		return "ncc/api" + apiId;
+	public String mapToUrlPath(final String apiUrl) {
+		return "ncc/api" + apiUrl;
 	}
 
 	@Override

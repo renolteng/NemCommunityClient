@@ -1,9 +1,11 @@
 package org.nem.monitor.visitors;
 
 import org.nem.core.model.NemStatus;
+import org.nem.core.node.NodeEndpoint;
 import org.nem.monitor.node.NemNodeType;
+import org.nem.ncc.controller.viewmodels.ConfigurationViewModel;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 import com.github.oxo42.stateless4j.*;
 
@@ -18,7 +20,7 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	final StateMachine<State, NemStatus> nisStateMachine;
 	final Consumer<String> startNcc;
 	final Consumer<String> startBrowser;
-	final Consumer<String> configNcc;
+	final Supplier<ConfigurationViewModel> configNcc;
 	final Consumer<String> startNis;
 	
 	/**
@@ -27,7 +29,7 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	 * @param nodeType The node type being monitored.
 	 * @param statusDescriptionConsumer The function to call when a description change is triggered.
 	 */
-	public NemClientStateMachineAdapter(final Consumer<String> startNcc, final Consumer<String> configNcc, final Consumer<String> startBrowser, final Consumer<String> startNis) {
+	public NemClientStateMachineAdapter(final Consumer<String> startNcc, final Supplier<ConfigurationViewModel> configNcc, final Consumer<String> startBrowser, final Consumer<String> startNis) {
 		this.nemClientNcc = new StateMachineConfig<>();
 		this.nemClientNis = new StateMachineConfig<>();
 		this.startNcc = startNcc;
@@ -57,17 +59,20 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 
 		nemClientNcc.configure(State.Ncc_Running_D).permit(NemStatus.STOPPED, State.Ncc_Manual_C);
 		nemClientNcc.configure(State.Ncc_Running_D).onEntryFrom(NemStatus.RUNNING, () -> {
-			boolean isLocal = true; //configNcc.accept(null);
-			if(isLocal && (nisStateMachine.getState() == State.Nis_Stopped_M)) {
+			ConfigurationViewModel configModel = configNcc.get();
+			if((configModel != null) && (configModel.getNisEndpoint().equals(NodeEndpoint.fromHost("localhost"))) && (nisStateMachine.getState() == State.Nis_Stopped_M)) {
 				this.startNis.accept(null);
 			} else {
 				this.startBrowser.accept(null);
 			}
 		});
 
-		nemClientNcc.configure(State.Ncc_Manual_C).permit(NemStatus.STARTING, State.Ncc_Manual_C);
-		nemClientNcc.configure(State.Ncc_Manual_C).permit(NemStatus.RUNNING, State.Ncc_Manual_C);
-		nemClientNcc.configure(State.Ncc_Manual_C).permit(NemStatus.STOPPED, State.Ncc_Manual_C);
+		nemClientNcc.configure(State.Ncc_Spawned_E).permit(NemStatus.RUNNING, State.Ncc_Running_D);
+		nemClientNcc.configure(State.Ncc_Spawned_E).permit(NemStatus.STOPPED, State.Ncc_Manual_C);
+
+		nemClientNcc.configure(State.Ncc_Manual_C).ignore(NemStatus.STARTING);
+		nemClientNcc.configure(State.Ncc_Manual_C).ignore(NemStatus.RUNNING);
+		nemClientNcc.configure(State.Ncc_Manual_C).ignore(NemStatus.STOPPED);
 
 		// Nis State Machine
 		nemClientNis.configure(State.Nis_Unknown).permit(NemStatus.STOPPED, State.Nis_Stopped_M);
@@ -90,17 +95,17 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 		nemClientNis.configure(State.Nis_Spawned_N).permit(NemStatus.SYNCHRONIZED, State.Nis_Running_O);
 
 		nemClientNis.configure(State.Nis_Running_O).permit(NemStatus.STOPPED, State.Nis_Manual_P);
-		nemClientNis.configure(State.Nis_Running_O).permit(NemStatus.RUNNING, State.Nis_Running_O);
-		nemClientNis.configure(State.Nis_Running_O).permit(NemStatus.BOOTING, State.Nis_Running_O);
-		nemClientNis.configure(State.Nis_Running_O).permit(NemStatus.BOOTED, State.Nis_Running_O);
-		nemClientNis.configure(State.Nis_Running_O).permit(NemStatus.SYNCHRONIZED, State.Nis_Running_O);
+		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.RUNNING);
+		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.BOOTING);
+		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.BOOTED);
+		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.SYNCHRONIZED);
 		nemClientNis.configure(State.Nis_Running_O).onEntryFrom(NemStatus.RUNNING, () -> {startBrowser.accept(null);});
 
-		nemClientNis.configure(State.Nis_Manual_P).permit(NemStatus.STOPPED, State.Nis_Manual_P);
-		nemClientNis.configure(State.Nis_Manual_P).permit(NemStatus.RUNNING, State.Nis_Manual_P);
-		nemClientNis.configure(State.Nis_Manual_P).permit(NemStatus.BOOTING, State.Nis_Manual_P);
-		nemClientNis.configure(State.Nis_Manual_P).permit(NemStatus.BOOTED, State.Nis_Manual_P);
-		nemClientNis.configure(State.Nis_Manual_P).permit(NemStatus.SYNCHRONIZED, State.Nis_Manual_P);
+		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.STOPPED);
+		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.RUNNING);
+		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.BOOTING);
+		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.BOOTED);
+		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.SYNCHRONIZED);
 	}
 
 	@Override

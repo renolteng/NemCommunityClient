@@ -6,14 +6,17 @@ import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.Deserializer;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.node.NemNodePolicy;
+import org.nem.ncc.controller.viewmodels.ConfigurationViewModel;
 
 import java.util.concurrent.*;
+import java.util.logging.*;
 
 /**
- * This connector can interact with both NIS and NCC because the APIs it
- * uses are exposed by both.
+ * This connector can interact with both NIS and NCC because the APIs it uses are exposed by both.
  */
 public class NemConnector {
+	private final static Logger LOGGER = Logger.getLogger(NemConnector.class.getName());
+
 	private final NemNodePolicy policy;
 	private final DefaultAsyncNemConnector<String> connector;
 
@@ -23,9 +26,7 @@ public class NemConnector {
 	 * @param policy The nem node policy.
 	 * @param connector The connector.
 	 */
-	public NemConnector(
-			final NemNodePolicy policy,
-			final DefaultAsyncNemConnector<String> connector) {
+	public NemConnector(final NemNodePolicy policy, final DefaultAsyncNemConnector<String> connector) {
 		this.policy = policy;
 		this.connector = connector;
 	}
@@ -36,7 +37,7 @@ public class NemConnector {
 	 * @return The node status.
 	 */
 	public CompletableFuture<NemStatus> getStatus() {
-		return this.getAsync(NisApiId.NIS_REST_STATUS).handle((d, e) -> {
+		return this.getAsync(NisApiId.NIS_REST_STATUS.toString()).handle((d, e) -> {
 			if (isRunning(e)) {
 				return NemStatus.RUNNING;
 			}
@@ -47,6 +48,25 @@ public class NemConnector {
 
 			return this.nemStatusFromNemRequestResult(d);
 		});
+	}
+
+	/**
+	 * Request configuration from node.
+	 *
+	 * @return The node status.
+	 */
+	public ConfigurationViewModel getConfiguration() {
+		ConfigurationViewModel result = null;
+		CompletableFuture<Deserializer> future = this.getAsync("/configuration/get");
+		try {
+			if (future != null) {
+				Deserializer deserializer = future.get();
+				result = new ConfigurationViewModel(deserializer);
+			}
+		} catch (InterruptedException | ExecutionException e) {
+			LOGGER.log(Level.WARNING, String.format("get configuration (policy: %s", this.policy.toString()), e);
+		}
+		return result;
 	}
 
 	private boolean isBooting() {
@@ -72,10 +92,10 @@ public class NemConnector {
 	 * @return The future.
 	 */
 	public CompletableFuture<Void> shutdown() {
-		return this.getAsync(NisApiId.NIS_REST_SHUTDOWN).thenApply(d -> null);
+		return this.getAsync(NisApiId.NIS_REST_SHUTDOWN.toString()).thenApply(d -> null);
 	}
 
-	private CompletableFuture<Deserializer> getAsync(final NisApiId apiId) {
-		return this.connector.getAsync(this.policy.getEndpoint(), this.policy.mapToUrlPath(apiId), null);
+	private CompletableFuture<Deserializer> getAsync(final String apiUrl) {
+		return this.connector.getAsync(this.policy.getEndpoint(), this.policy.mapToUrlPath(apiUrl), null);
 	}
 }

@@ -2,6 +2,7 @@ package org.nem.monitor.visitors;
 
 import org.nem.monitor.*;
 import org.nem.monitor.node.NemNodePolicy;
+import org.nem.ncc.controller.viewmodels.ConfigurationViewModel;
 
 import java.util.logging.Logger;
 
@@ -58,5 +59,9 @@ public class NodeManager {
 			LOGGER.info(String.format("Launching browser for node %s", this.nodePolicy.getNodeType()));
 			this.browser.navigate(this.nodePolicy.getEndpoint());
 		}
+	}
+	
+	public ConfigurationViewModel getConfig() {
+		return this.connector.getConfiguration();
 	}
 }

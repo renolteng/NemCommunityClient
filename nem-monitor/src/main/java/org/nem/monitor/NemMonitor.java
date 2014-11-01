@@ -71,13 +71,13 @@ public class NemMonitor {
 				final NemConnector nisConnector = createConnector(nisPolicy, httpClient);
 				final NodeManager nisManager = new NodeManager(nisPolicy, commandLine.getNisConfig(), nisConnector, launcher, webBrowser);
 
-				final NisNodePolicy nccPolicy = new NisNodePolicy(nemFolder);
+				final NccNodePolicy nccPolicy = new NccNodePolicy(nemFolder);
 				final NemConnector nccConnector = createConnector(nccPolicy, httpClient);
 				final NodeManager nccManager = new NodeManager(nccPolicy, commandLine.getNccConfig(), nccConnector, launcher, webBrowser);
 
 				final NemClientStateMachineAdapter statemachine = new NemClientStateMachineAdapter(
 						text -> {nccManager.launch(); }, 
-						text -> {nccManager.launch(); },
+						nccManager::getConfig,
 						text -> {nccManager.launchBrowser(); }, 
 						text -> {nisManager.launch(); });
 
