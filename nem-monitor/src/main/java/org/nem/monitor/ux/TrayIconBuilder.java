@@ -101,10 +101,11 @@ public class TrayIconBuilder {
 		}
 
 		actionMenuItem.addActionListener(actionAdapter);
-		if (this.isStartedViaWebStart) {
-			// simulate a click, which will trigger a webstart launch
-			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
-		}
+		//Handled via State Machine
+//		if (this.isStartedViaWebStart) {
+//			// simulate a click, which will trigger a webstart launch
+//			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+//		}
 
 		this.visitors.add(visitor);
 		this.visitors.add(actionAdapter);
