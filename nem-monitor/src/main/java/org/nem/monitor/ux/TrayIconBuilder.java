@@ -61,6 +61,10 @@ public class TrayIconBuilder {
 		this.visitors.add(new NodeStatusToIconDescriptorAdapter(this::setImage));
 	}
 
+	public Collection<NodeStatusVisitor> getVisitors() {
+		return visitors;
+	}
+
 	private void setImage(final IconDescriptor descriptor) {
 		final URL imageUrl = TrayIconBuilder.class.getClassLoader().getResource(descriptor.getImageFileName());
 		// we could use this.trayIcon.setAutoSize, but it gives uglier result
@@ -77,14 +81,8 @@ public class TrayIconBuilder {
 	 * @param nodePolicy The node policy.
 	 * @param configFileName The config file name.
 	 */
-	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String configFileName) {
+	public void addStatusMenuItems(final NodeManager manager, final NemNodePolicy nodePolicy) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
-		final NodeManager manager = new NodeManager(
-				nodePolicy,
-				configFileName,
-				this.createConnector(nodePolicy),
-				this.javaLauncher,
-				this.webBrowser);
 		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
 
 		final MenuItem statusMenuItem = new MenuItem();

@@ -1,16 +1,19 @@
 package org.nem.monitor;
 
 import org.nem.core.connect.*;
+import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
+import org.nem.monitor.visitors.*;
 
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+
 import javax.jnlp.*;
 import javax.swing.SwingUtilities;
 
@@ -61,13 +64,31 @@ public class NemMonitor {
 
 				final SystemTray tray = SystemTray.getSystemTray();
 				final JavaLauncher launcher = new JavaLauncher(nemFolder);
+				final WebBrowser webBrowser = new WebBrowser();
+				final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient = createHttpMethodClient();
+
+				final NisNodePolicy nisPolicy = new NisNodePolicy(nemFolder);
+				final NemConnector nisConnector = createConnector(nisPolicy, httpClient);
+				final NodeManager nisManager = new NodeManager(nisPolicy, commandLine.getNisConfig(), nisConnector, launcher, webBrowser);
+
+				final NisNodePolicy nccPolicy = new NisNodePolicy(nemFolder);
+				final NemConnector nccConnector = createConnector(nccPolicy, httpClient);
+				final NodeManager nccManager = new NodeManager(nccPolicy, commandLine.getNccConfig(), nccConnector, launcher, webBrowser);
+
+				final NemClientStateMachineAdapter statemachine = new NemClientStateMachineAdapter(
+						text -> {nccManager.launch(); }, 
+						text -> {nccManager.launch(); },
+						text -> {nccManager.launchBrowser(); }, 
+						text -> {nisManager.launch(); });
+
 				final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient(), launcher, new WebBrowser(), isStartedViaWebStart());
-				builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisConfig());
+				builder.addStatusMenuItems(nisManager, nisPolicy);
 				builder.addSeparator();
-				builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccConfig());
+				builder.addStatusMenuItems(nccManager, nccPolicy);
 				builder.addSeparator();
 				builder.addExitMenuItem(tray);
 				builder.addExitAndShutdownMenuItem(tray);
+				builder.getVisitors().add(statemachine);
 
 				try {
 					tray.add(builder.create());
@@ -104,5 +125,13 @@ public class NemMonitor {
 		} catch (final UnavailableServiceException e) {
 			return false;
 		}
+	}
+
+	private static NemConnector createConnector(final NemNodePolicy nodePolicy, final HttpMethodClient<ErrorResponseDeserializerUnion> client) {
+		final DefaultAsyncNemConnector<String> connector = new DefaultAsyncNemConnector<>(client, r -> {
+			throw new NemNodeExpectedException();
+		});
+		connector.setAccountLookup(null);
+		return new NemConnector(nodePolicy, connector);
 	}
 }
