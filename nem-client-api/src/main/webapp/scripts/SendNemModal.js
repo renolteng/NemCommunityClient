@@ -106,7 +106,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             txConfirm.set('callbacks', {
                 confirm: function() {
                     var self = this;
-                    self.lockAction();
+                    this.set('processing', true);
                     ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
                         self.closeModal();
                         parent.closeModal();
@@ -116,11 +116,21 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     {
                         complete: function() {
                             parent.set('password', '');
-                            self.unlockAction();
+                            self.set('processing', false);
                         }
                     });
                     return false;
                 }
+            });
+            txConfirm.on('confirm', function (event) {
+                  var callbacks = this.get('callbacks');
+                  var dontClose = false;
+                  if (callbacks && callbacks['confirm']) {
+                     dontClose = callbacks['confirm'].call(this);
+                  }
+                  if (!dontClose) {
+                     this.closeModal();
+                  }
             });
             txConfirm.open();
         },
