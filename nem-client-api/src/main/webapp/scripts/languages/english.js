@@ -325,7 +325,7 @@ define({
 				rightTitle: 'Already a <em>NEM</em>ber?',
 				rightButton: 'Open your wallet',
 				openButton: 'Open',
-				walletsFound: 'Found <strong>{{1}}</strong> <em>wallets</em>',
+				walletsFound: 'Found <strong>{{1}}</strong> <em>wallet(s)</em>',
 				copyright: 'Photography by <em>Cas Cornelissen</em>'
 			},
 			carousel: {
