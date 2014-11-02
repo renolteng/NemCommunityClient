@@ -526,7 +526,7 @@ define({
 					"Bounty"
 				],
 				noBlocks: "No bounties",
-				loadMore: "Read more bounties"
+				loading: "Read more bounties"
 			},
 			harvesting: {
 				unknown: "Marooned",

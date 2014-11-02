@@ -526,7 +526,7 @@ define({
                     "Taxa"
                 ],
                 noBlocks: "Não há blocos colhidos",
-                loadMore: "Ver blocos colhidos anteriormente"
+                loading: "Ver blocos colhidos anteriormente"
             },
             harvesting: {
                 unknown: "Status desconhecido",

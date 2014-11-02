@@ -125,6 +125,10 @@ define({
 					title: 'Локальний вузол не був запущений!',
 					message: 'Перед тим, як ви зможете вiдправляти NEM, треба завантажити локальний вузол!'
 				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
 			},
 			clientInfo: {
 				title: 'Iнформацiя',
@@ -167,10 +171,6 @@ define({
 				node: "Iм'я локального вузла",
 				boot: 'Завантажити',
 				booting: 'Завантаження...'
-			},
-			notBootedWarning: {
-				title: 'Локальний вузол не був запущений!',
-				message: 'Перед тим, як ви зможете вiдправляти NEM, треба завантажити локальний вузол!'
 			},
 			closeWallet: {
 				title: 'Закрити гаманець',
@@ -484,8 +484,8 @@ define({
 			sendNem: 'Відправити NEM',
 			balance: 'Поточний баланс',
 			filters: {
-				all: 'Всi транзакцiї',
-				pending: 'В очiкуваннi',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: 'Вхiднi',
 				outgoing: 'Вихiднi',
 			},
@@ -526,7 +526,7 @@ define({
 					'Комiсiя'
 				],
 				noBlocks: 'Немає сгенерованих блокiв ',
-				loadMore: 'Переглянути попереднi сгенерованi блоки'
+				loading: 'Переглянути попереднi сгенерованi блоки'
 			},
 			harvesting: {
 				unknown: 'Статус невiдомий',

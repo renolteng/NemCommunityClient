@@ -144,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "Детайли на транзакцията",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "Hash",
                 type: "Тип на транзакцията",
                 pending: "В очакване",

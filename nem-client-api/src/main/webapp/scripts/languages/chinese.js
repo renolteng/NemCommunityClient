@@ -484,8 +484,8 @@ define({
 			sendNem: '发送 NEM',
 			balance: '目前余额',
 			filters: {
-				all: '所有交易',
-				pending: '待定',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: '接受中',
 				outgoing: '发送中',
 			},
@@ -526,7 +526,7 @@ define({
 					'费'
 				],
 				noBlocks: '无收获矿块',
-				loadMore: '查看到旧的收获的矿块'
+				loading: '查看到旧的收获的矿块'
 			},
 			harvesting: {
 				unknown: '未知状态',
