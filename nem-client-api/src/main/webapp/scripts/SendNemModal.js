@@ -103,10 +103,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var txConfirm = ncc.getModal('transactionConfirmation');
             var parent = this;
             txConfirm.set('parentData', this.get());
+            txConfirm.set('processing', false);
             txConfirm.set('callbacks', {
                 confirm: function() {
                     var self = this;
-                    this.set('processing', true);
                     ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
                         self.closeModal();
                         parent.closeModal();
@@ -123,13 +123,16 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 }
             });
             txConfirm.on('confirm', function (event) {
-                  var callbacks = this.get('callbacks');
-                  var dontClose = false;
-                  if (callbacks && callbacks['confirm']) {
-                     dontClose = callbacks['confirm'].call(this);
-                  }
-                  if (!dontClose) {
-                     this.closeModal();
+            	  if (this.get('processing') === false) {
+                      this.set('processing', true);
+					  var callbacks = this.get('callbacks');
+					  var dontClose = false;
+					  if (callbacks && callbacks['confirm']) {
+						 dontClose = callbacks['confirm'].call(this);
+					  }
+					  if (!dontClose) {
+						 this.closeModal();
+					  }
                   }
             });
             txConfirm.open();
