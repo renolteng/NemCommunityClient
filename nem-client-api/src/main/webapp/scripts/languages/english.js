@@ -120,6 +120,14 @@ define({
 					cancel: 'Cancel',
 					send: 'Send',
 					sending: 'Sending...'
+				},
+				notBootedWarning: {
+					title: 'Node has not been booted!',
+					message: 'A local node needs to be booted before you can send NEM!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: 'Node name',
 				boot: 'Boot',
 				booting: 'Booting...'
-			},
-			notBootedWarning: {
-				title: 'Node has not been booted!',
-				message: 'A local node needs to be booted before you can send NEM!'
 			},
 			closeWallet: {
 				title: 'Close wallet',

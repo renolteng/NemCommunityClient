@@ -214,8 +214,10 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 openSendNem: function() {
                     if (ncc.get('nodeBooted')) {
                         ncc.getModal('sendNem').open();
+                    } else if (ncc.get('status.booting') || ncc.get('nisStatus.code') === Utils.config.STATUS_BOOTING) {
+                        ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
                     } else {
-                        ncc.showMessage(ncc.get('texts.modals.notBootedWarning.title'), ncc.get('texts.modals.notBootedWarning.message'), function() {
+                        ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
                             ncc.showBootModal();
                         });
                     }
