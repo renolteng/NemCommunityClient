@@ -6,7 +6,7 @@ import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
 import org.nem.monitor.node.*;
-import org.nem.monitor.ux.TrayIconBuilder;
+import org.nem.monitor.ux.*;
 import org.nem.monitor.visitors.*;
 
 import java.awt.*;
@@ -14,6 +14,7 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -54,6 +55,10 @@ public class NemMonitor {
 		}
 
 		SwingUtilities.invokeLater(() -> {
+			
+			//Pop-Up the keep patient window
+			KeepPatientWindow.openWindow();
+			
 			LOGGER.info("setting up system tray");
 
 			// fail if the system tray is not supported
@@ -74,14 +79,6 @@ public class NemMonitor {
 				final NemConnector nccConnector = createConnector(nccPolicy, httpClient);
 				final NodeManager nccManager = new NodeManager(nccPolicy, commandLine.getNccConfig(), nccConnector, launcher, webBrowser);
 
-				final NemClientStateMachineAdapter statemachine = new NemClientStateMachineAdapter(text -> {
-					nccManager.launch();
-				}, nccManager::getConfig, text -> {
-					nccManager.launchBrowser();
-				}, text -> {
-					nisManager.launch();
-				});
-
 				final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient());
 				builder.addStatusMenuItems(nisManager, nisPolicy);
 				builder.addSeparator();
@@ -89,7 +86,22 @@ public class NemMonitor {
 				builder.addSeparator();
 				builder.addExitMenuItem(tray);
 				builder.addExitAndShutdownMenuItem(tray);
+				
+				final NemClientStateMachineAdapter statemachine = new NemClientStateMachineAdapter();
+				statemachine.setStartNccEventConsumer(text -> nccManager.launch());
+				statemachine.setStartNisEventConsumer(text -> nisManager.launch());
+				statemachine.setStartNccConfigurationSupplier(nccManager::getConfig);
+				statemachine.setStartBrowserEventConsumer(text -> {
+					nccManager.launchBrowser();
+					KeepPatientWindow.window.dispose();
+				});
+				statemachine.setLocalNisConfiguredEventConsumer(localNis -> KeepPatientWindow.window.updateLocalNisInformation(localNis));
 				builder.getVisitors().add(statemachine);
+				
+				builder.getVisitors().add(KeepPatientWindow.window.addNccDesriptionUpdater());
+				builder.getVisitors().add(KeepPatientWindow.window.addNisDesriptionUpdater());
+				builder.getVisitors().add(KeepPatientWindow.window.addNccProgressUpdater());
+				builder.getVisitors().add(KeepPatientWindow.window.addNisProgressUpdater());
 
 				try {
 					tray.add(builder.create());
@@ -125,7 +137,8 @@ public class NemMonitor {
 			lookup.invoke(clazz, "javax.jnlp.DownloadService2");
 			LOGGER.info("NEM monitor was started via web start.");
 			return true;
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
 			return false;
 		}
 	}

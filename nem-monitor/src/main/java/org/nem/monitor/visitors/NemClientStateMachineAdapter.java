@@ -18,10 +18,11 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	
 	final StateMachine<State, NemStatus> nccStateMachine;
 	final StateMachine<State, NemStatus> nisStateMachine;
-	final Consumer<String> startNcc;
-	final Consumer<String> startBrowser;
-	final Supplier<ConfigurationViewModel> configNcc;
-	final Consumer<String> startNis;
+	Consumer<String> startNcc;
+	Consumer<String> startBrowser;
+	Supplier<ConfigurationViewModel> configNcc;
+	Consumer<String> startNis;
+	Consumer<Boolean> localNisInfoConsumer;
 	
 	/**
 	 * Creates a new visitor.
@@ -29,18 +30,30 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	 * @param nodeType The node type being monitored.
 	 * @param statusDescriptionConsumer The function to call when a description change is triggered.
 	 */
-	public NemClientStateMachineAdapter(final Consumer<String> startNcc, final Supplier<ConfigurationViewModel> configNcc, final Consumer<String> startBrowser, final Consumer<String> startNis) {
+	public NemClientStateMachineAdapter() {
 		this.nemClientNcc = new StateMachineConfig<>();
 		this.nemClientNis = new StateMachineConfig<>();
-		this.startNcc = startNcc;
-		this.startBrowser = startBrowser;
-		this.configNcc = configNcc;
-		this.startNis = startNis;
 		
 		initializeStateMachine();
 		
 		this.nccStateMachine = new StateMachine<NemClientStateMachineAdapter.State, NemStatus>(State.Ncc_Unknown, this.nemClientNcc);
 		this.nisStateMachine = new StateMachine<NemClientStateMachineAdapter.State, NemStatus>(State.Nis_Unknown, this.nemClientNis);
+	}
+	
+	public void setStartNccConfigurationSupplier(final Supplier<ConfigurationViewModel> configNcc) {
+		this.configNcc = configNcc;
+	}
+	public void setStartNisEventConsumer(final Consumer<String> startNis) {
+		this.startNis = startNis;
+	}
+	public void setStartNccEventConsumer(final Consumer<String> startNcc) {
+		this.startNcc = startNcc;
+	}
+	public void setStartBrowserEventConsumer(final Consumer<String> startBrowser) {
+		this.startBrowser = startBrowser;
+	}
+	public void setLocalNisConfiguredEventConsumer(final Consumer<Boolean> localNisInfoConsumer) {
+		this.localNisInfoConsumer = localNisInfoConsumer;
 	}
 
 	protected void initializeStateMachine() {
@@ -52,15 +65,17 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 
 		nemClientNcc.configure(State.Ncc_Stopped_A).permit(NemStatus.STARTING, State.Ncc_Spawned_E);
 		nemClientNcc.configure(State.Ncc_Stopped_A).permit(NemStatus.RUNNING, State.Ncc_Running_D);
-		nemClientNcc.configure(State.Ncc_Stopped_A).onEntryFrom(NemStatus.STOPPED, () -> {startNcc.accept(null);});
+		nemClientNcc.configure(State.Ncc_Stopped_A).onEntryFrom(NemStatus.STOPPED, () -> startNcc.accept(null));
 
 		nemClientNcc.configure(State.Ncc_Starting_B).permit(NemStatus.RUNNING, State.Ncc_Running_D);
 		nemClientNcc.configure(State.Ncc_Starting_B).permit(NemStatus.STOPPED, State.Ncc_Manual_C);
 
 		nemClientNcc.configure(State.Ncc_Running_D).permit(NemStatus.STOPPED, State.Ncc_Manual_C);
 		nemClientNcc.configure(State.Ncc_Running_D).onEntryFrom(NemStatus.RUNNING, () -> {
-			ConfigurationViewModel configModel = configNcc.get();
-			if((configModel != null) && (configModel.getNisEndpoint().equals(NodeEndpoint.fromHost("localhost"))) && (nisStateMachine.getState() == State.Nis_Stopped_M)) {
+			Boolean isNccUsingLocalNis = isNccUsingLocalNis();
+			this.localNisInfoConsumer.accept(isNccUsingLocalNis);
+
+			if(isNccUsingLocalNis) {
 				this.startNis.accept(null);
 			} else {
 				this.startBrowser.accept(null);
@@ -99,7 +114,7 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.BOOTING);
 		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.BOOTED);
 		nemClientNis.configure(State.Nis_Running_O).ignore(NemStatus.SYNCHRONIZED);
-		nemClientNis.configure(State.Nis_Running_O).onEntryFrom(NemStatus.RUNNING, () -> {startBrowser.accept(null);});
+		nemClientNis.configure(State.Nis_Running_O).onEntryFrom(NemStatus.RUNNING, () -> startBrowser.accept(null));
 
 		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.STOPPED);
 		nemClientNis.configure(State.Nis_Manual_P).ignore(NemStatus.RUNNING);
@@ -118,6 +133,11 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 				nisStateMachine.fire(status);
 				break;
 		}
+	}
+	
+	private boolean isNccUsingLocalNis() {
+		ConfigurationViewModel configModel = configNcc.get();
+		return (configModel != null) && (configModel.getNisEndpoint().equals(NodeEndpoint.fromHost("localhost"))) && (nisStateMachine.getState() == State.Nis_Stopped_M);
 	}
 
 	public enum State {
