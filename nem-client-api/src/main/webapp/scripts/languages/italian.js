@@ -120,6 +120,14 @@ define({
 					cancel: 'Annulla',
 					send: 'Invia',
 					sending: 'Invio in corso...'
+				},
+				notBootedWarning: {
+					title: 'Nodo non avviato!',
+					message: 'Il nodo locale va avviato prima di poter inviare NEM!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: 'Nome del nodo',
 				boot: 'Avvia',
 				booting: 'Avvio in corso...'
-			},
-			notBootedWarning: {
-				title: 'Nodo non avviato!',
-				message: 'Il nodo locale va avviato prima di poter inviare NEM!'
 			},
 			closeWallet: {
 				title: 'Chiudi portafoglio',

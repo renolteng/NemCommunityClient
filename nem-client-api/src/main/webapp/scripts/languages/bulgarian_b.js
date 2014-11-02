@@ -120,7 +120,15 @@ define({
                     cancel: "Отмени",
                     send: "Изпрати",
                     sending: "Изпращам..."
-                }
+                },
+                notBootedWarning: {
+                    title: "Локалният възел не можа да се стартира!",
+                    message: "Локалният възел трябва да бъде стартиран преди да можете да изпращате NEM!"
+                },
+		bootingWarning: {
+			title: 'Node is being booted',
+			message: 'Please wait until booting process is done to send your transaction.'
+		}
             },
             clientInfo: {
                 title: "Клиент инфо",
@@ -161,10 +169,6 @@ define({
                 node: "Име на локалния възел",
                 boot: "Старт",
                 booting: "Стартиране..."
-            },
-            notBootedWarning: {
-                title: "Локалният възел не можа да се стартира!",
-                message: "Локалният възел трябва да бъде стартиран преди да можете да изпращате NEM!"
             },
             closeWallet: {
                 title: "Затваряне на портфейла",

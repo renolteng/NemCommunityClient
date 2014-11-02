@@ -120,6 +120,14 @@ define({
 					cancel: 'Avast!',
 					send: 'Deliver',
 					sending: 'Delivering...'
+				},
+				notBootedWarning: {
+					title: "Ship still in port!",
+					message: "Hoist yer rigging to deliver ye Gold!"
+				},
+				bootingWarning: {
+					title: 'Setting sails',
+					message: "Hold! Ship ain't ready to  deliver the loot."
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: "Ship's name",
 				boot: "Row",
 				booting: "Settig sails..."
-			},
-			notBootedWarning: {
-				title: "Ship still in port!",
-				message: "Hoist yer rigging to deliver ye Gold!"
 			},
 			closeWallet: {
 				title: "Close the coffer",

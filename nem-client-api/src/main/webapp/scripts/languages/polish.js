@@ -120,6 +120,14 @@ define({
 					cancel: 'Anuluj',
 					send: 'Wyślij',
 					sending: 'Wysyłanie...'
+				},
+				notBootedWarning: {
+					title: 'Węzeł nie został uruchomiony!',
+					message: 'Lokalny węzeł musi być uruchomiony zanim będzie można wysyłać NEM!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: 'Nazwa węzła',
 				boot: 'Uruchom',
 				booting: 'Uruchamianie...'
-			},
-			notBootedWarning: {
-				title: 'Węzeł nie został uruchomiony!',
-				message: 'Lokalny węzeł musi być uruchomiony zanim będzie można wysyłać NEM!'
 			},
 			closeWallet: {
 				title: 'Zamknij portfel',

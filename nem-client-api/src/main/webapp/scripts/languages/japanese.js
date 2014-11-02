@@ -120,7 +120,15 @@ define({
                     cancel: "キャンセル",
                     send: "送る",
                     sending: "送信中・・・"
-                }
+                },
+				notBootedWarning: {
+					title: "ノードが起動していません!",
+	                message: "NEMを送信する前に、ローカルノードを起動する必要があります。"
+		        },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
             },
             clientInfo: {
                 title: "クライアント情報",
@@ -136,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "トランザクション(取引)の詳細",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "ハッシュ",
                 type: "トランザクションのタイプ",
                 pending: "処理中",
@@ -161,10 +171,6 @@ define({
                 node: "ノード名前",
                 boot: "起動",
                 booting: "起動中…"
-            },
-            notBootedWarning: {
-                title: "ノードが起動していません!",
-                message: "NEMを送信する前に、ローカルノードを起動する必要があります。"
             },
             closeWallet: {
                 title: "ウォレットを閉じます",

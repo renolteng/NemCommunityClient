@@ -120,7 +120,15 @@ define({
                     cancel: "Cancelar",
                     send: "Enviar",
                     sending: "Enviando..."
-                }
+                },
+				notBootedWarning: {
+					title: "O nó não foi inicializado!",
+	                message: "O nó local precisa ser inicializado para fazer transações!"
+		        },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
             },
             clientInfo: {
                 title: "Informações do programa",
@@ -136,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "Detalhes da transação",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "Hash",
                 type: "Tipo de transação",
                 pending: "Pendente",
@@ -161,10 +171,6 @@ define({
                 node: "Nome para o nó",
                 boot: "Inicializar",
                 booting: "Inicializando..."
-            },
-            notBootedWarning: {
-                title: "O nó não foi inicializado!",
-                message: "O nó local precisa ser inicializado para fazer transações!"
             },
             closeWallet: {
                 title: "Fechar carteira",

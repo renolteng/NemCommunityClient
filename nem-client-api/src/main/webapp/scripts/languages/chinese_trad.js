@@ -120,6 +120,14 @@ define({
 					cancel: 'Cancel',
 					send: 'Send',
 					sending: 'Sending...'
+				},
+				notBootedWarning: {
+					title: '節點尚未啟動!',
+					message: '請先啟動本地節點才能發送NEM!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: '節點名稱',
 				boot: '啟動',
 				booting: '啟動...'
-			},
-			notBootedWarning: {
-				title: '節點尚未啟動!',
-				message: '請先啟動本地節點才能發送NEM!'
 			},
 			closeWallet: {
 				title: '關閉錢包',
@@ -314,7 +318,7 @@ define({
 			nav: {
 				start: '已经 <strong>開始</strong>',
 				about: '關於 <strong>NEM</strong>',
-				help: '<strong>幫助</strong>'
+				settings: 'Settings'
 			},
 			main: {
 				leftTitle: '<em>NEM</em>新手?',
@@ -480,8 +484,8 @@ define({
 			sendNem: '發送 NEM',
 			balance: '目前余額',
 			filters: {
-				all: '所有交易',
-				pending: '待定',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: '接受中',
 				outgoing: '發送中',
 			},
@@ -522,7 +526,7 @@ define({
 					'費'
 				],
 				noBlocks: '無收獲礦塊',
-				loadMore: '查看到舊的收獲的礦塊'
+				loading: 'Loading more harvested blocks'
 			},
 			harvesting: {
 				unknown: '未知狀態',

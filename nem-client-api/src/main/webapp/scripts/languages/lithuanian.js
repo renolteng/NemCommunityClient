@@ -120,7 +120,15 @@ define({
                     cancel: "Nutraukti",
                     send: "Siųsti",
                     sending: "Siunčiama..."
-                }
+                },
+				notBootedWarning: {
+					title: "Prieigos taškas nepaleistas!",
+	                message: "Norint siųsti NEM, vietinis prieigos taškas turi būti paleistas!"
+		        },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
             },
             clientInfo: {
                 title: "Kliento informacija",
@@ -136,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "Transakcijos duomenys",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "Hash",
                 type: "Transakcijos tipas",
                 pending: "Kol kas vyksta",
@@ -161,10 +171,6 @@ define({
                 node: "Prieigos taško pavadinimas",
                 boot: "Užkrauti",
                 booting: "Kraunasi..."
-            },
-            notBootedWarning: {
-                title: "Prieigos taškas nepaleistas!",
-                message: "Norint siųsti NEM, vietinis prieigos taškas turi būti paleistas!"
             },
             closeWallet: {
                 title: "Uždaryti piniginę",

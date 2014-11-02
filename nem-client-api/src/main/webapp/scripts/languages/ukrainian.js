@@ -120,7 +120,11 @@ define({
 					cancel: 'Cancel',
 					send: 'Send',
 					sending: 'Sending...'
-				}
+				},
+				notBootedWarning: {
+					title: 'Локальний вузол не був запущений!',
+					message: 'Перед тим, як ви зможете вiдправляти NEM, треба завантажити локальний вузол!'
+				},
 			},
 			clientInfo: {
 				title: 'Iнформацiя',

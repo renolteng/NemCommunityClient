@@ -120,6 +120,14 @@ define({
 					cancel: 'Cancel',
 					send: 'Send',
 					sending: 'Sending...'
+				},
+				notBootedWarning: {
+					title: 'Čvor nije pokrenut!',
+					message: 'Lokalni čvor mora biti pokrenut da biste mogli slati NEM!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: 'Naziv čvora',
 				boot: 'Pokreni',
 				booting: 'Pokretanje...'
-			},
-			notBootedWarning: {
-				title: 'Čvor nije pokrenut!',
-				message: 'Lokalni čvor mora biti pokrenut da biste mogli slati NEM!'
 			},
 			closeWallet: {
 				title: 'Zatvori novčanik',
@@ -522,7 +526,7 @@ define({
 					'Naknada'
 				],
 				noBlocks: 'Nema ubranih blokova',
-				loadMore: 'Pregledaj starije ubrane blokove'
+				loading: 'Loading more harvested blocks'
 			},
 			harvesting: {
 				unknown: 'Nepoznat status',

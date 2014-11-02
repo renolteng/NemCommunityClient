@@ -120,6 +120,14 @@
 					cancel: 'Cancel',
 					send: 'Send',
 					sending: 'Sending...'
+				},
+                                       notBootedWarning: {
+                                                   title: 'Узел не был загружен!',
+                                                   message: 'Вы должны загрузить локальный узел перед тем, как Вы сможете посылать NEM!'
+                                       },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
                                        },
                                        clientInfo: {
@@ -163,10 +171,6 @@
                                                    node: 'Имя узла',
                                                    boot: 'Загрузить',
                                                    booting: 'Загрузка...'
-                                       },
-                                       notBootedWarning: {
-                                                   title: 'Узел не был загружен!',
-                                                   message: 'Вы должны загрузить локальный узел перед тем, как Вы сможете посылать NEM!'
                                        },
                                        closeWallet: {
                                                    title: 'Закрыть кошелёк',

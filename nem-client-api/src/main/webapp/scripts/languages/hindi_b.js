@@ -120,6 +120,14 @@
 					cancel: 'रद्द करें',
 					send: 'भेजें',
 					sending: 'भेजा जा रहा है...'
+				},
+				notBootedWarning: {
+					title: 'लोकल नोड बूट नही हो पाया है!',
+					message: 'NEM भेजने के लिए लोकल नोड को बूट करना ज़रूरी है!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@
 				node: 'नोड नाम',
 				boot: 'बूट',
 				booting: 'बूट हो रहा है...'
-			},
-			notBootedWarning: {
-				title: 'लोकल नोड बूट नही हो पाया है!',
-				message: 'NEM भेजने के लिए लोकल नोड को बूट करना ज़रूरी है!'
 			},
 			closeWallet: {
 				title: 'वॉलेट बंद करें',
@@ -522,7 +526,7 @@
 					'Fee'
 				],
 				noBlocks: 'नो हारवेस्टेड ब्लॉक्स ',
-				loadMore: 'पुराने हारवेस्टेड ब्लॉक्स'
+				loading: 'पुराने हारवेस्टेड ब्लॉक्स'
 			},
 			harvesting: {
 				unknown: 'अज्ञात स्थिति',

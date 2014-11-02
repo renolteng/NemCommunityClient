@@ -120,7 +120,15 @@ define({
                     cancel: "Abbrechen",
                     send: "Senden",
                     sending: "Sende..."
-                }
+                },
+				notBootedWarning: {
+					title: "Der Knotenpunkt wurde noch nicht gebooted!",
+	                message: "Der lokale Knotenpunkt muss gebootet werden, bevor Du NEM senden kannst!"
+		        },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
             },
             clientInfo: {
                 title: "Client info",
@@ -136,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "Transaktionsdetails",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "Hash",
                 type: "Transaktionstyp",
                 pending: "Unbestätigt",
@@ -161,10 +171,6 @@ define({
                 node: "Name des Knotenpunkts",
                 boot: "Boot",
                 booting: "Booting..."
-            },
-            notBootedWarning: {
-                title: "Der Knotenpunkt wurde noch nicht gebooted!",
-                message: "Der lokale Knotenpunkt muss gebootet werden, bevor Du NEM senden kannst!"
             },
             closeWallet: {
                 title: "Brieftasche schließen",

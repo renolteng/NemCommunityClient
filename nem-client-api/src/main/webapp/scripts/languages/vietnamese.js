@@ -120,6 +120,14 @@ define({
 					cancel: 'Huỷ',
 					send: 'Gửi',
 					sending: 'Đang gửi...'
+				},
+				notBootedWarning: {
+					title: 'Node chưa được boot!',
+					message: 'Node cục bộ cần phải được boot trước khi bạn có thể gửi NEM đi!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: 'Tên node',
 				boot: 'Boot',
 				booting: 'Đang boot...'
-			},
-			notBootedWarning: {
-				title: 'Node chưa được boot!',
-				message: 'Node cục bộ cần phải được boot trước khi bạn có thể gửi NEM đi!'
 			},
 			closeWallet: {
 				title: 'Đóng ví',
@@ -522,7 +526,7 @@ define({
 					'Chi phí'
 				],
 				noBlocks: 'Chưa có block nào được thu hoạch',
-				loadMore: 'Xem các block cũ'
+				loading: 'Xem các block cũ'
 			},
 			harvesting: {
 				unknown: 'Không rõ trạng thái',

@@ -120,8 +120,16 @@ define({
                     cancel: "Cancel",
                     send: "Send",
                     sending: "Sending..."
-                }
-            },
+                },
+				notBootedWarning: {
+					title: "Nodul nu a fost pornit!",
+	                message: "Un nod local trebuie să fie pornit pentru a putea trimite NEM!"
+		        },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
+	        },
             clientInfo: {
                 title: "Client info",
                 ncc: "NEM Community Client - NCC",
@@ -136,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "Detalii tranzacție",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "Hash",
                 type: "Tipul de tranzacție",
                 pending: "În așteptare",
@@ -161,10 +171,6 @@ define({
                 node: "Numele nodului",
                 boot: "Pornește",
                 booting: "Se pornește..."
-            },
-            notBootedWarning: {
-                title: "Nodul nu a fost pornit!",
-                message: "Un nod local trebuie să fie pornit pentru a putea trimite NEM!"
             },
             closeWallet: {
                 title: "Închide portofelul",

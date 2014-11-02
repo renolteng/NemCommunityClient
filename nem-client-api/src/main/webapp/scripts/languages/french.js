@@ -120,7 +120,15 @@ define({
                     cancel: "Annuler",
                     send: "Envoyer",
                     sending: "Envoi..."
-                }
+                },
+				notBootedWarning: {
+					title: "Le noeud n'a pas été démarré!",
+	                message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des NEMs!"
+		        },
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
             },
             clientInfo: {
                 title: "Information sur le Client",
@@ -136,7 +144,9 @@ define({
             },
             transactionDetails: {
                 title: "Détails de la transaction",
+				// this might be block or transaction ID
                 id: "ID",
+				// this might be block or transaction Hash
                 hash: "Hash",
                 type: "Type de transaction",
                 pending: "En attente",
@@ -161,10 +171,6 @@ define({
                 node: "Nom du noeud",
                 boot: "Démarrer",
                 booting: "Démarrage..."
-            },
-            notBootedWarning: {
-                title: "Le noeud n'a pas été démarré!",
-                message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des NEMs!"
             },
             closeWallet: {
                 title: "Fermeture de portefeuille",
@@ -520,7 +526,7 @@ define({
                     "Honoraires"
                 ],
                 noBlocks: "Aucun blocs récoltés ",
-                loadMore: "Voir les blocs récoltés plus âgées"
+                loading: "Voir les blocs récoltés plus âgées"
             },
             harvesting: {
                 unknown: "Statut inconnu",

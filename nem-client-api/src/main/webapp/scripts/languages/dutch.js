@@ -42,7 +42,7 @@ define({
         },
         common: {
         	success: 'Gelukt!', //title of the Success message modals
-        	nisStatus: {
+        	appStatus: {
         		nccUnknown: 'NCC status is onbekend',
         		nccUnavailable: 'NCC is niet beschikbaar',
         		nccStarting: 'NCC is aan het starten...',
@@ -120,6 +120,14 @@ define({
 					cancel: 'Annuleer',
 					send: 'Verstuur',
 					sending: 'Versturen...'
+				},
+				notBootedWarning: {
+					title: 'Node is niet gestart!',
+					message: 'Een loake node moet eerst gestart worden om NEM te versturen!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -163,10 +171,6 @@ define({
 				node: 'Node naam',
 				boot: 'Start',
 				booting: 'Starten...'
-			},
-			notBootedWarning: {
-				title: 'Node is niet gestart!',
-				message: 'Een loake node moet eerst gestart worden om NEM te versturen!'
 			},
 			closeWallet: {
 				title: 'Wallet sluiten',
@@ -522,7 +526,7 @@ define({
 					'Toeslag'
 				],
 				noBlocks: 'Geen geharveste blocks ',
-				loadMore: 'Bekijk oudere blocks die geharvest zijn'
+				loading: 'Bekijk oudere blocks die geharvest zijn'
 			},
 			harvesting: {
 				unknown: 'Onbekende status',
