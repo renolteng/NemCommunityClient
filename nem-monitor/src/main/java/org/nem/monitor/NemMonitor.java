@@ -14,7 +14,6 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
-
 import javax.swing.SwingUtilities;
 
 /**
@@ -129,7 +128,6 @@ public class NemMonitor {
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			return false;
 		}
-
 	}
 
 	private static NemConnector createConnector(final NemNodePolicy nodePolicy, final HttpMethodClient<ErrorResponseDeserializerUnion> client) {

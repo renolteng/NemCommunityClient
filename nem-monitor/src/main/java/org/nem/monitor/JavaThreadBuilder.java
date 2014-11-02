@@ -12,8 +12,9 @@ import java.util.logging.Logger;
  */
 public class JavaThreadBuilder implements JavaSpawnBuilder {
 	private static final Logger LOGGER = Logger.getLogger(JavaThreadBuilder.class.getName());
+	final public static ExecutorService service = Executors.newFixedThreadPool(2);
 
-	private FutureTask<String> commonStarter;
+	private String[] arguments;
 
 	/**
 	 * Creates a new Java process builder.
@@ -23,10 +24,7 @@ public class JavaThreadBuilder implements JavaSpawnBuilder {
 	public JavaThreadBuilder(final NemNodeType nodeType) {
 		final String configFilePath = nodeType == NemNodeType.NCC ? "ncc-config.properties" : "nis-config.properties";
 		final String nodeTypeText = nodeType == NemNodeType.NCC ? "-ncc" : "-nis";
-		commonStarter = new FutureTask<>(() -> {
-			CommonStarter.start(new String[] { "-config", configFilePath, nodeTypeText });
-			return "";
-		});
+		arguments = new String[] { "-config", configFilePath, nodeTypeText };
 	}
 
 	/**
@@ -44,7 +42,7 @@ public class JavaThreadBuilder implements JavaSpawnBuilder {
 	 * Starts the process.
 	 */
 	public void start() throws IOException {
-		LOGGER.info("Starting Java thread.");
-		CompletableFuture.runAsync(() -> commonStarter.run());
+		LOGGER.info(String.format("Starting Java thread: CommonStarter.start(%s).", arguments.toString()));
+		service.submit(() -> CommonStarter.start(arguments));
 	}
 }
