@@ -7,60 +7,60 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-            101: '未找到文件。',
-            102: '尚未建立钱包。',
-            103: '钱包文件已损坏。当您创建的钱包你如果有备份的话，请使用备份找回你的账户，或添加一个新账户。',
-            104: '提供的密码不正确。希望您能记住正确的密码。该密码如果丢了无法复原！',
-            106: '在使用一个钱包之前，它必须被打开。您必须提供正确密码才有资格打开钱包。',
-            107: '钱包不含此账户。',
-            108: '该帐户不能被删除。很有可能是因为该帐户仍然有大于0MEM的余额或您要删除的帐户是主帐户。',
-            109: '具有相同名称的另一个钱包已经存在。请选择一个其它的钱包名。',
-            110: '钱包里已经包含了此帐户。',
-            202: '没有公钥。',
-            305: 'NEM 基础设施服务器无法使用。',
-            306: '对不起，发生一个开发团队没有预见到的错误。重试也许有帮助。否则，请在NEM NIS/NCC社区内提交您碰到的问题。',
-            400: '缺失某些参数。',
-            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
-            404: '启动策略值无效。',
-            500: '保存配置文件失败。',
-            600: 'NCC需要启动NIS服务器去从 NEM Cloud 发送和接收交易数据。请使用NCC菜单项启动本地节点。',
-            601: 'NIS节点已启动。不可能启动第二个NIS节点。',
-            700: '所提供的帐户不满足收割的基本标准。主要是涉及到帐户中的NEM金额。必须至少有10.000 NEMs才能开始收割。',
-            701: '所提供的截止日期是在过去。截止日期必须在1天之内提供。',
-            702: '所提供的截止日期是在太远的未来。截止时间必须在一天之内的时间段。',
-            703: '您的帐户没有正确的金额支持您要发送的NEM额。',
-            704: '提供消息的文本是太大，无法通过NEM发送。请减少要发送消息的长度。',
-            705: '数据库，或未确认交易列表，已经存在此交易的散列值。',
-            706: '无法验证本次交易的签名。',
-            707: '此交易ID的时间戳在太远的过去。',
-            708: '此交易ID的时间戳在太远的将来。',
-            709: '该帐户未知。一个帐户需要至少经过一个交易（作为发件人或收件人）才能被网络公知。',
-            901: '设置离线模式发生错误。',
-            1000: "The private key and the public key you have provided mismatch.",
-            1001: 'The public key and the address you have provided mismatch.',
-            1002: 'The address does not belong to the main network.'
-        },
-        common: {
-        	success: '成功', //title of the Success message modals
-        	appStatus: {
-        		nccUnknown: 'NCC 状态未知',
-        		nccUnavailable: 'NCC 不可用',
-        		nccStarting: 'NCC 开始启动…',
-        		nisUnknown: 'NIS 状态未知',
-        		nisUnavailable: 'NIS 不可用',
-        		nisStarting: 'NIS 开始启动…',
-        		notBooted: 'NIS 需要启动。请打开你的钱包，通过弹出的对话框启动一个本地节点，或设置自动启动。',
-        		booting: '启动 NIS...',
-        		nisInfoNotAvailable: '收不到NIS信息。尝试接受NIS信息...',
-        		synchronizing: 'NIS 在和服务器更新. 在矿块 {{1}}, 大约落后 {{2}} 块。',
-        		daysBehind: {
-        			0: '一天内',
-        			1: '一天',
-        			many: '{{1}} 天'
-        		},
-        		synchronized: 'NIS 在和服务器更新!'
-        	}
-        },
+			101: '未找到文件。',
+			102: '尚未建立钱包。',
+			103: '钱包文件已损坏。当您创建的钱包你如果有备份的话，请使用备份找回你的账户，或添加一个新账户。',
+			104: '提供的密码不正确。希望您能记住正确的密码。该密码如果丢了无法复原！',
+			106: '在使用一个钱包之前，它必须被打开。您必须提供正确密码才有资格打开钱包。',
+			107: '钱包不含此账户。',
+			108: '该帐户不能被删除。很有可能是因为该帐户仍然有大于0MEM的余额或您要删除的帐户是主帐户。',
+			109: '具有相同名称的另一个钱包已经存在。请选择一个其它的钱包名。',
+			110: '钱包里已经包含了此帐户。',
+			202: '没有公钥。',
+			305: 'NEM 基础设施服务器无法使用。',
+			306: '对不起，发生一个开发团队没有预见到的错误。重试也许有帮助。否则，请在NEM NIS/NCC社区内提交您碰到的问题。',
+			400: '缺失某些参数。',
+			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
+			404: '启动策略值无效。',
+			500: '保存配置文件失败。',
+			600: 'NCC需要启动NIS服务器去从 NEM Cloud 发送和接收交易数据。请使用NCC菜单项启动本地节点。',
+			601: 'NIS节点已启动。不可能启动第二个NIS节点。',
+			700: '所提供的帐户不满足收割的基本标准。主要是涉及到帐户中的NEM金额。必须至少有10.000 NEMs才能开始收割。',
+			701: '所提供的截止日期是在过去。截止日期必须在1天之内提供。',
+			702: '所提供的截止日期是在太远的未来。截止时间必须在一天之内的时间段。',
+			703: '您的帐户没有正确的金额支持您要发送的NEM额。',
+			704: '提供消息的文本是太大，无法通过NEM发送。请减少要发送消息的长度。',
+			705: '数据库，或未确认交易列表，已经存在此交易的散列值。',
+			706: '无法验证本次交易的签名。',
+			707: '此交易ID的时间戳在太远的过去。',
+			708: '此交易ID的时间戳在太远的将来。',
+			709: '该帐户未知。一个帐户需要至少经过一个交易（作为发件人或收件人）才能被网络公知。',
+			901: '设置离线模式发生错误。',
+			1000: "The private key and the public key you have provided mismatch.",
+			1001: 'The public key and the address you have provided mismatch.',
+			1002: 'The address does not belong to the main network.'
+		},
+		common: {
+			success: '成功', //title of the Success message modals
+			appStatus: {
+				nccUnknown: 'NCC 状态未知',
+				nccUnavailable: 'NCC 不可用',
+				nccStarting: 'NCC 开始启动…',
+				nisUnknown: 'NIS 状态未知',
+				nisUnavailable: 'NIS 不可用',
+				nisStarting: 'NIS 开始启动…',
+				notBooted: 'NIS 需要启动。请打开你的钱包，通过弹出的对话框启动一个本地节点，或设置自动启动。',
+				booting: '启动 NIS...',
+				nisInfoNotAvailable: '收不到NIS信息。尝试接受NIS信息...',
+				synchronizing: 'NIS 在和服务器更新. 在矿块 {{1}}, 大约落后 {{2}} 块。',
+				daysBehind: {
+					0: '一天内',
+					1: '一天',
+					many: '{{1}} 天'
+				},
+				synchronized: 'NIS 在和服务器更新!'
+			}
+		},
 		modals: {
 			error: {
 				title: '哎呀!',
@@ -333,41 +333,35 @@ define({
 				copyright: '由<em>Cas Cornelissen</em>摄影'
 			},
 			carousel: {
-				items: [
-					{
-						title: 'NCC 加密你的钱包',
-						description: '<em>安全</em> 是非常重要的以避免NEM被盗 &amp;。'
-					},
-					{
-						title: 'NCC 加密你的钱包',
-						description: '<em>安全</em> 是非常重要的以避免NEM被盗 &amp;。'
-					}
-				]
+				items: [{
+					title: 'NCC 加密你的钱包',
+					description: '<em>安全</em> 是非常重要的以避免NEM被盗 &amp;。'
+				}, {
+					title: 'NCC 加密你的钱包',
+					description: '<em>安全</em> 是非常重要的以避免NEM被盗 &amp;。'
+				}]
 			},
 			about: {
-				sections: [
-					{
-						title: 'NCC是如何工作的?',
-						paragraphs: [
-							'<strong>NCC</strong> 让你使用NEMs就如使用一个传统的钱包一样。',
-							'<strong>NCC</strong> 你可已使用一个<strong>NIS</strong> 服务器操作。 常规是使用一个本地服务器 (和<strong>NCC</strong>一起安装)',
-							'您也可以访问一个远程<strong>NIS</strong>。'
-						],
-						listItems: [
-							'有多个钱包',
-							'在一个钱包里定义多个帐户'
-						]
-					},
-					{
-						title: '什么是&#42;NIS?',
-						paragraphs: [
-							'负责保持<strong>NEM</strong>云活着.',
-							'越多<strong>NIS</strong>服务器安全性越好。',
-							'<strong>NIS</strong> 是进入 <strong>NEM</strong> 云的接入点。'
-						],
-						legend: '<strong>&#42;NIS</strong> 是 <strong>NEM Infrastructure Server</strong>的缩写'
-					}
-				]
+				sections: [{
+					title: 'NCC是如何工作的?',
+					paragraphs: [
+						'<strong>NCC</strong> 让你使用NEMs就如使用一个传统的钱包一样。',
+						'<strong>NCC</strong> 你可已使用一个<strong>NIS</strong> 服务器操作。 常规是使用一个本地服务器 (和<strong>NCC</strong>一起安装)',
+						'您也可以访问一个远程<strong>NIS</strong>。'
+					],
+					listItems: [
+						'有多个钱包',
+						'在一个钱包里定义多个帐户'
+					]
+				}, {
+					title: '什么是&#42;NIS?',
+					paragraphs: [
+						'负责保持<strong>NEM</strong>云活着.',
+						'越多<strong>NIS</strong>服务器安全性越好。',
+						'<strong>NIS</strong> 是进入 <strong>NEM</strong> 云的接入点。'
+					],
+					legend: '<strong>&#42;NIS</strong> 是 <strong>NEM Infrastructure Server</strong>的缩写'
+				}]
 			},
 			footer: {
 				copyright: '&copy; 版权所有 2014. NEM 社区客户端。'
@@ -537,11 +531,9 @@ define({
 		},
 		settings: {
 			title: '设置',
-			settings: [
-				{
-					name: '语言'
-				}
-			],
+			settings: [{
+				name: '语言'
+			}],
 			save: '保存更改',
 			saveSuccess: '设置已保存成功'
 		}

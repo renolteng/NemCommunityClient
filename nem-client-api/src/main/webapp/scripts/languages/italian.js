@@ -7,60 +7,60 @@ define({
 			decimalSeparator: ','
 		},
 		faults: {
-            101: 'File non trovato.',
-            102: 'Il portafoglio non è stato creato.',
-            103: "Il file del portafoglio è corrotto. Ripristina il portafoglio dal backup che dovresti aver effettuato quando l'hai creato o vi hai aggiunto un indirizzo.",
-            104: "La password inserita non è corretta. Si spera tu riesca a ricordare la password corretta in quanto non c'è modo di recuperarla!",
-            106: "Per poter utilizzare un portafoglio è necessario aprirlo. Per accertarsi che l'utente sia autorizzato ad accedervi, è necessario fornire la password del portafoglio.",
-            107: 'Il portafoglio non contiene questo indirizzo',
-            108: "L'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l'indirizzo principale.",
-            109: 'Esiste già un portafoglio con questo nome. Scegli un nome differente.',
-            110: 'Esiste già un portafoglio contenete questo indirizzo.',
-            202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
-            305: 'Il server NIS non è in esecuzione',
-            306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
-            400: 'Manca qualche parametro obbligatorio',
-            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
-            404: 'Strategia di avvio non valida',
-            500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
-            600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce "Avvia il nodo locale" nel menu di NCC.',
-            601: 'Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.',
-            700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 NEM",
-            701: 'Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.',
-            702: 'Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.',
-            703: "L'indirizzo non dispone di abbastanza fondi per inviare la quantità di NEM indicata.",
-            704: 'Il messaggio inserito è troppo grande per essere spedito tramite la rete NEM. Riduci la dimensione del testo.',
-            705: 'La firma della transazione è già presente nel database delle transazioni non ancora confermate.',
-            706: 'Errore nella verifica della firma della transazione.',
-            707: 'La marca temporale della transazione è troppo lontana nel passato.',
-            708: 'La marca temporale della transazione è troppo lontana nel futuro.',
-            709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
-            901: 'Errore nella modalità fuori rete.',
-            1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
-            1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.',
-            1002: 'The address does not belong to the main network.'
-        },
-        common: {
-        	success: 'Operazione completata', //title of the Success message modals
-        	appStatus: {
-        		nccUnknown: 'Lo stato di NCC è ignoto',
-        		nccUnavailable: 'NCC non disponibile',
-        		nccStarting: 'NCC sta partendo...',
-        		nisUnknown: 'Lo stato di NIS è ignoto',
-        		nisUnavailable: 'NIS non disponibile',
-        		nisStarting: 'NIS sta partendo...',
-        		notBooted: "NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l'auto-avvio.",
-        		booting: 'Avvio di NIS in corso...',
-        		nisInfoNotAvailable: 'Verifica dello stato di NIS...',
-        		synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
-        		daysBehind: {
-        			0: 'meno di un giorno',
-        			1: 'un giorno',
-        			many: '{{1}} giorni'
-        		},
-        		synchronized: 'NIS è sincronizzato!'
-        	}
-        },
+			101: 'File non trovato.',
+			102: 'Il portafoglio non è stato creato.',
+			103: "Il file del portafoglio è corrotto. Ripristina il portafoglio dal backup che dovresti aver effettuato quando l'hai creato o vi hai aggiunto un indirizzo.",
+			104: "La password inserita non è corretta. Si spera tu riesca a ricordare la password corretta in quanto non c'è modo di recuperarla!",
+			106: "Per poter utilizzare un portafoglio è necessario aprirlo. Per accertarsi che l'utente sia autorizzato ad accedervi, è necessario fornire la password del portafoglio.",
+			107: 'Il portafoglio non contiene questo indirizzo',
+			108: "L'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l'indirizzo principale.",
+			109: 'Esiste già un portafoglio con questo nome. Scegli un nome differente.',
+			110: 'Esiste già un portafoglio contenete questo indirizzo.',
+			202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
+			305: 'Il server NIS non è in esecuzione',
+			306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
+			400: 'Manca qualche parametro obbligatorio',
+			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
+			404: 'Strategia di avvio non valida',
+			500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
+			600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce "Avvia il nodo locale" nel menu di NCC.',
+			601: 'Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.',
+			700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 NEM",
+			701: 'Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.',
+			702: 'Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.',
+			703: "L'indirizzo non dispone di abbastanza fondi per inviare la quantità di NEM indicata.",
+			704: 'Il messaggio inserito è troppo grande per essere spedito tramite la rete NEM. Riduci la dimensione del testo.',
+			705: 'La firma della transazione è già presente nel database delle transazioni non ancora confermate.',
+			706: 'Errore nella verifica della firma della transazione.',
+			707: 'La marca temporale della transazione è troppo lontana nel passato.',
+			708: 'La marca temporale della transazione è troppo lontana nel futuro.',
+			709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
+			901: 'Errore nella modalità fuori rete.',
+			1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
+			1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.',
+			1002: 'The address does not belong to the main network.'
+		},
+		common: {
+			success: 'Operazione completata', //title of the Success message modals
+			appStatus: {
+				nccUnknown: 'Lo stato di NCC è ignoto',
+				nccUnavailable: 'NCC non disponibile',
+				nccStarting: 'NCC sta partendo...',
+				nisUnknown: 'Lo stato di NIS è ignoto',
+				nisUnavailable: 'NIS non disponibile',
+				nisStarting: 'NIS sta partendo...',
+				notBooted: "NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l'auto-avvio.",
+				booting: 'Avvio di NIS in corso...',
+				nisInfoNotAvailable: 'Verifica dello stato di NIS...',
+				synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
+				daysBehind: {
+					0: 'meno di un giorno',
+					1: 'un giorno',
+					many: '{{1}} giorni'
+				},
+				synchronized: 'NIS è sincronizzato!'
+			}
+		},
 		modals: {
 			error: {
 				title: 'Errore!',
@@ -290,7 +290,7 @@ define({
 				activate: 'Attiva'
 			},
 			deactivateRemote: {
-				 title: 'Disabilita generazione blocchi sicura',
+				title: 'Disabilita generazione blocchi sicura',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				hoursDue: 'Tempo massimo (ore)',
@@ -299,7 +299,7 @@ define({
 			},
 			startRemote: {
 				title: 'Avvia generazione blocchi sicura',
- 				wallet: 'Portafoglio',
+				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				password: "Password del portafoglio",
 				start: 'Avvia'
@@ -333,41 +333,35 @@ define({
 				copyright: 'Grafica di <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [
-					{
-						title: 'NCC protegge il tuo portafoglio',
-						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
-					},
-					{
-						title: 'NCC protegge il tuo portafoglio',
-						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
-					}
-				]
+				items: [{
+					title: 'NCC protegge il tuo portafoglio',
+					description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
+				}, {
+					title: 'NCC protegge il tuo portafoglio',
+					description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
+				}]
 			},
 			about: {
-				sections: [
-					{
-						title: 'Come funziona NCC?',
-						paragraphs: [
-							"<strong>NCC</strong> gestisce l'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:",
-							"<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)",
-							"Puoi anche configurare l'accesso ad un server <strong>NIS</strong> remoto."
-						],
-						listItems: [
-							'Gestire diversi portafogli',
-							'Gestire diversi indirizzi per portafoglio'
-						]
-					},
-					{
-						title: "Cos'è &#42;NIS?",
-						paragraphs: [
-							'Fa funzionare la rete <strong>NEM</strong>.',
-							'Più server <strong>NIS</strong> esistono più la rete è sicura',
-							'<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>.'
-						],
-						legend: "<strong>&#42;NIS</strong> è l'acronimo di <strong>NEM Infrastructure Server</strong>"
-					}
-				]
+				sections: [{
+					title: 'Come funziona NCC?',
+					paragraphs: [
+						"<strong>NCC</strong> gestisce l'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:",
+						"<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)",
+						"Puoi anche configurare l'accesso ad un server <strong>NIS</strong> remoto."
+					],
+					listItems: [
+						'Gestire diversi portafogli',
+						'Gestire diversi indirizzi per portafoglio'
+					]
+				}, {
+					title: "Cos'è &#42;NIS?",
+					paragraphs: [
+						'Fa funzionare la rete <strong>NEM</strong>.',
+						'Più server <strong>NIS</strong> esistono più la rete è sicura',
+						'<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>.'
+					],
+					legend: "<strong>&#42;NIS</strong> è l'acronimo di <strong>NEM Infrastructure Server</strong>"
+				}]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2014. NEM Community Client.'
@@ -537,11 +531,9 @@ define({
 		},
 		settings: {
 			title: 'Impostazioni',
-			settings: [
-				{
-					name: 'Lingua'
-				}
-			],
+			settings: [{
+				name: 'Lingua'
+			}],
 			save: 'Salva modifiche',
 			saveSuccess: 'Le impostazioni sono state salvate'
 		}

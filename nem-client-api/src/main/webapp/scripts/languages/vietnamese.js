@@ -7,60 +7,60 @@ define({
 			decimalSeparator: ','
 		},
 		faults: {
-            101: 'Không tìm thấy file.',
-            102: 'Ví của bạn chưa được tạo.',
-            103: 'File ví của bạn đã bị hỏng. Xin hãy khôi phục ví của bạn từ một nguồn dự phòng mà bạn đã tạo khi bạn tạo ví hoặc khi thêm tài khoản vào đó.',
-            104: 'Mật khẩu bạn cung cấp không đúng. Hy vọng rằng bạn vẫn nhớ mật khẩu đúng. Mật khẩu không thể khôi phục được nếu đã bị mất!',
-            106: 'Trước khi bạn có thể làm việc với một chiếc ví, nó phải được mở. Để chắc chắn rằng bạn có quyền truy cập vào ví, bạn phải cung cấp mật khẩu cho ví đó.',
-            107: 'Ví không chứa tài khoản này',
-            108: 'Tài khoản không thể bị xoá. Có vẻ bởi vì tài khoản vẫn còn số dư lón hơn 0 NEM hoặc tài khoản bạn đang cố gắng xoá là tài khoản chính.',
-            109: 'Một ví khác có cùng tên đã tồn tại. Hãy chọn một cái tên khác.',
-            110: 'Tài khoản này đã có trong ví rồi.',
-            202: 'Không thể gửi thông điệp mã hoá bởi vì người nhận chưa từng thực hiện một giao dịch trước đây.',
-            305: 'NEM Infrastructure Server không khả dụng.',
-            306: 'Một lỗi nằm ngoài dự tính của nhóm phát triển đã xảy ra. Xin lỗi bạn vì điều này, có thể thử lại sẽ có tác dụng. Nếu không, hãy tạo một issue trong cộng đồng NIS/NCC của NEM.',
-            400: 'Một tham số nào đó bị thiếu hoặc không hợp lệ.',
-            401: 'Tác vụ này không thể hoàn thành vì khoá bí mật có thể sẽ bị lộ khi được gửi tới một NIS từ xa.',
-            404: 'Không tìm thấy tài nguyên được yêu cầu.',
-            500: 'Lưu file cấu hình thất bại.',
-            600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
-            601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
-            700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng NEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 NEM.',
-            701: 'Deadline được cung cấp đã trôi qua.',
-            702: 'Deadline được cung cấp quá xa trong tương lai.',
-            703: 'Tài khoản của bạn không có số dư đủ để gửi số lượng NEM này.',
-            704: 'Đoạn thông điệp được cung cấp quá lớn để gửi qua NEM. Hãy cố gắng giảm độ dài của thông điệp mà bạn gửi.',
-            705: 'Hash của giao dịch đã tồn tại trong cơ sở dữ liệu hoặc trong danh sách những giao dịch chưa được xác nhận.',
-            706: 'Không thể xác nhận chữ ký của giao dịch.',
-            707: 'Mốc thời gian của giao dịch quá xa trong quá khứ.',
-            708: 'Mốc thời gian của giao dịch quá xa về tương lai.',
-            709: 'Tài khoản không được biết đến. Một tài khoản cần phải tham gia vào ít nhất một giao dịch (là người gửi hoặc người nhận) để được mạng lưới biết đến.',
-            901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.',
-            1000: "Khoá bí mật và khoá công khai mà bạn vừa cung cấp không khớp với nhau.",
-            1001: 'Khoá công khai và địa chỉ mà bạn vừa cung cấp không khớp với nhau.',
-            1002: 'Địa chỉ không thuộc về mạng lưới chính.'
-        },
-        common: {
-        	success: 'Thành công', //title of the Success message modals
-        	appStatus: {
-        		nccUnknown: 'Không rõ trạng thái của NCC',
-        		nccUnavailable: 'Mất kết nối với NCC',
-        		nccStarting: 'NCC đang khởi động...',
-        		nisUnknown: 'Không rõ trạng thái của NIS',
-        		nisUnavailable: 'Mất kết nối với NIS',
-        		nisStarting: 'NIS đang khởi động...',
-        		notBooted: 'NIS cần phải được boot. Hãy mở ví của bạn và boot node cục bộ bằng hộp thoại hiện ra hoặc đặt cấu hình thiết lập tự động boot.',
-        		booting: 'Đang boot NIS...',
-        		nisInfoNotAvailable: 'Thông tin về NIS chưa sẵn sàng. Đang truy xuất thông tin về NIS...',
-        		synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',
-                daysBehind: {
-                    0: 'ít hơn 1 ngày',
-                    1: '1 ngày',
-                    many: '{{1}} ngày'
-                },
-        		synchronized: 'NIS đã được đồng bộ!'
-        	}
-        },
+			101: 'Không tìm thấy file.',
+			102: 'Ví của bạn chưa được tạo.',
+			103: 'File ví của bạn đã bị hỏng. Xin hãy khôi phục ví của bạn từ một nguồn dự phòng mà bạn đã tạo khi bạn tạo ví hoặc khi thêm tài khoản vào đó.',
+			104: 'Mật khẩu bạn cung cấp không đúng. Hy vọng rằng bạn vẫn nhớ mật khẩu đúng. Mật khẩu không thể khôi phục được nếu đã bị mất!',
+			106: 'Trước khi bạn có thể làm việc với một chiếc ví, nó phải được mở. Để chắc chắn rằng bạn có quyền truy cập vào ví, bạn phải cung cấp mật khẩu cho ví đó.',
+			107: 'Ví không chứa tài khoản này',
+			108: 'Tài khoản không thể bị xoá. Có vẻ bởi vì tài khoản vẫn còn số dư lón hơn 0 NEM hoặc tài khoản bạn đang cố gắng xoá là tài khoản chính.',
+			109: 'Một ví khác có cùng tên đã tồn tại. Hãy chọn một cái tên khác.',
+			110: 'Tài khoản này đã có trong ví rồi.',
+			202: 'Không thể gửi thông điệp mã hoá bởi vì người nhận chưa từng thực hiện một giao dịch trước đây.',
+			305: 'NEM Infrastructure Server không khả dụng.',
+			306: 'Một lỗi nằm ngoài dự tính của nhóm phát triển đã xảy ra. Xin lỗi bạn vì điều này, có thể thử lại sẽ có tác dụng. Nếu không, hãy tạo một issue trong cộng đồng NIS/NCC của NEM.',
+			400: 'Một tham số nào đó bị thiếu hoặc không hợp lệ.',
+			401: 'Tác vụ này không thể hoàn thành vì khoá bí mật có thể sẽ bị lộ khi được gửi tới một NIS từ xa.',
+			404: 'Không tìm thấy tài nguyên được yêu cầu.',
+			500: 'Lưu file cấu hình thất bại.',
+			600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
+			601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
+			700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng NEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 NEM.',
+			701: 'Deadline được cung cấp đã trôi qua.',
+			702: 'Deadline được cung cấp quá xa trong tương lai.',
+			703: 'Tài khoản của bạn không có số dư đủ để gửi số lượng NEM này.',
+			704: 'Đoạn thông điệp được cung cấp quá lớn để gửi qua NEM. Hãy cố gắng giảm độ dài của thông điệp mà bạn gửi.',
+			705: 'Hash của giao dịch đã tồn tại trong cơ sở dữ liệu hoặc trong danh sách những giao dịch chưa được xác nhận.',
+			706: 'Không thể xác nhận chữ ký của giao dịch.',
+			707: 'Mốc thời gian của giao dịch quá xa trong quá khứ.',
+			708: 'Mốc thời gian của giao dịch quá xa về tương lai.',
+			709: 'Tài khoản không được biết đến. Một tài khoản cần phải tham gia vào ít nhất một giao dịch (là người gửi hoặc người nhận) để được mạng lưới biết đến.',
+			901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.',
+			1000: "Khoá bí mật và khoá công khai mà bạn vừa cung cấp không khớp với nhau.",
+			1001: 'Khoá công khai và địa chỉ mà bạn vừa cung cấp không khớp với nhau.',
+			1002: 'Địa chỉ không thuộc về mạng lưới chính.'
+		},
+		common: {
+			success: 'Thành công', //title of the Success message modals
+			appStatus: {
+				nccUnknown: 'Không rõ trạng thái của NCC',
+				nccUnavailable: 'Mất kết nối với NCC',
+				nccStarting: 'NCC đang khởi động...',
+				nisUnknown: 'Không rõ trạng thái của NIS',
+				nisUnavailable: 'Mất kết nối với NIS',
+				nisStarting: 'NIS đang khởi động...',
+				notBooted: 'NIS cần phải được boot. Hãy mở ví của bạn và boot node cục bộ bằng hộp thoại hiện ra hoặc đặt cấu hình thiết lập tự động boot.',
+				booting: 'Đang boot NIS...',
+				nisInfoNotAvailable: 'Thông tin về NIS chưa sẵn sàng. Đang truy xuất thông tin về NIS...',
+				synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',
+				daysBehind: {
+					0: 'ít hơn 1 ngày',
+					1: '1 ngày',
+					many: '{{1}} ngày'
+				},
+				synchronized: 'NIS đã được đồng bộ!'
+			}
+		},
 		modals: {
 			error: {
 				title: 'Ui chà!',
@@ -333,41 +333,35 @@ define({
 				copyright: 'Ảnh chụp bởi <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [
-					{
-						title: 'NCC mã hoá ví của bạn',
-						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
-					},
-					{
-						title: 'NCC mã hoá ví của bạn',
-						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
-					}
-				]
+				items: [{
+					title: 'NCC mã hoá ví của bạn',
+					description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
+				}, {
+					title: 'NCC mã hoá ví của bạn',
+					description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
+				}]
 			},
 			about: {
-				sections: [
-					{
-						title: 'NCC hoạt động thế nào?',
-						paragraphs: [
-							'<strong>NCC</strong> cho phép bạn tiếp cận với tài sản và NEM của bạn như một chiếc ví thông thường vẫn làm. Bạn có thể',
-							'<strong>NCC</strong> yêu cầu truy cập tới một <strong>NIS</strong> server để có thể hoạt động. Thôgn thường là sẽ có một server chạy trên máy bạn (được cài đặt cùng với <strong>NCC</strong>)',
-							'Bạn cũng có thể cấu hình truy cập tới một máy chủ <strong>NIS</strong> từ xa.'
-						],
-						listItems: [
-							'Có nhiều ví cùng lúc',
-							'Lập ra nhiều tài khoản chứa trong một chiếc ví'
-						]
-					},
-					{
-						title: '&#42;NIS là gì?',
-						paragraphs: [
-							'Thành phần này chịu trách nhiệm giữ cho <strong>NEM</strong> cloud hoạt động.',
-							'Càng nhiều <strong>NIS</strong> chạy thì độ bảo mật càng cao.',
-							'<strong>NIS</strong> là điểm truy cập tới <strong>NEM</strong> cloud.'
-						],
-						legend: '<strong>&#42;NIS</strong> là viết tắt của <strong>NEM Infrastructure Server</strong>'
-					}
-				]
+				sections: [{
+					title: 'NCC hoạt động thế nào?',
+					paragraphs: [
+						'<strong>NCC</strong> cho phép bạn tiếp cận với tài sản và NEM của bạn như một chiếc ví thông thường vẫn làm. Bạn có thể',
+						'<strong>NCC</strong> yêu cầu truy cập tới một <strong>NIS</strong> server để có thể hoạt động. Thôgn thường là sẽ có một server chạy trên máy bạn (được cài đặt cùng với <strong>NCC</strong>)',
+						'Bạn cũng có thể cấu hình truy cập tới một máy chủ <strong>NIS</strong> từ xa.'
+					],
+					listItems: [
+						'Có nhiều ví cùng lúc',
+						'Lập ra nhiều tài khoản chứa trong một chiếc ví'
+					]
+				}, {
+					title: '&#42;NIS là gì?',
+					paragraphs: [
+						'Thành phần này chịu trách nhiệm giữ cho <strong>NEM</strong> cloud hoạt động.',
+						'Càng nhiều <strong>NIS</strong> chạy thì độ bảo mật càng cao.',
+						'<strong>NIS</strong> là điểm truy cập tới <strong>NEM</strong> cloud.'
+					],
+					legend: '<strong>&#42;NIS</strong> là viết tắt của <strong>NEM Infrastructure Server</strong>'
+				}]
 			},
 			footer: {
 				copyright: '&copy; Quyền tác giả 2014. NEM Community Client.'
@@ -537,11 +531,9 @@ define({
 		},
 		settings: {
 			title: 'Thiết lập',
-			settings: [
-				{
-					name: 'Ngôn ngữ'
-				}
-			],
+			settings: [{
+				name: 'Ngôn ngữ'
+			}],
 			save: 'Lưu thay đổi',
 			saveSuccess: 'Thiết lập đã được lưu thành công'
 		}

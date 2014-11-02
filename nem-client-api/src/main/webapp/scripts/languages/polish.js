@@ -7,60 +7,60 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-            101: 'Plik nie odnaleziony.',
-            102: 'Portfel nie został utworzony.',
-            103: 'Plik portfela jest uszkodzony. Odzyskaj portfel używając backupu, który powinieneś zrobić podczas tworzenia portfela.',
-            104: 'Podane hasło jest nieprawidłowe. Miejmy nadzieję, że przypomnisz sobie właściwe hasło. Raz zgubione, nie może zostać odtworzone!',
-            106: 'Zanim zaczniesz używać portfela, musisz go otworzyć. Aby go otworzyć, musisz podać hasło do tego portfela.',
-            107: 'Poftfel nie zawiera tego konta.',
-            108: 'Konto nie może zostać usunięte. Prawdopodobnie dlatego, że bilans konta jest większy niż 0 NEM lub jest to konto główne.',
-            109: 'Inny portfel z tą samą nazwą już istnieje. Proszę wybrać inną nazwę dla portfela.',
-            110: 'Portfel zawiera już to konto.',
-            202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
-            305: 'Serwer Infrastruktury NEM jest niedostępny.',
-            306: 'Wystąpił błąd, którego dewelopery nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
-            400: 'Brakujący lub niewłaściwy parametr.',
-            401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
-            404: 'Żądany zasób nie został odnaleziony.',
-            500: 'Wystąpił błąd, którego dewelopery nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
-            600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
-            601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
-            700: 'Konto nie spełnia kryteriów dla zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 NEM na koncie.',
-            701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
-            702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
-            703: 'Nie masz wystarczających środków na koncie aby dokonać transakcji.',
-            704: 'Wiadomość jest zbyt długa. Spróbuj ją skrócić.',
-            705: 'Hasz transakcji istnieje już w bazie danych lub na liście niepotwierdzonych transakcji.',
-            706: 'Sygnatura transakcji nie mogła zostać zweryfikowana.',
-            707: 'Sygnatura czasowa transakcji jest zbyt daleko w przeszłości.',
-            708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
-            709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
-            901: 'Wystąpił błąd podczas przechodzenia w tryb offline.',
-            1000: "The private key and the public key you have provided mismatch.",
-            1001: 'The public key and the address you have provided mismatch.',
-            1002: 'The address does not belong to the main network.'
-        },
-        common: {
-        	success: 'Sukces', //title of the Success message modals
-        	appStatus: {
-        		nccUnknown: 'Status NCC jest nieznany',
-        		nccUnavailable: 'NCC jest niedostępny',
-        		nccStarting: 'NCC uruchamia się...',
-        		nisUnknown: 'Status NIS jest nieznany',
-        		nisUnavailable: 'NIS jest niedostępny',
-        		nisStarting: 'NIS uruchamia się...',
-        		notBooted: 'NIS wymaga uruchomienia. Proszę otworzyć portfel i uruchomić lokalny węzeł poprzez okno dialogowe lub skonfigurować ustawienia automatycznego uruchamiania.',
-        		booting: 'Uruchamianie NIS...',
-        		nisInfoNotAvailable: 'Info o NIS jest jeszcze niedostępne. Próba uzyskania info o NIS...',
-        		synchronizing: 'NIS synchronizuje się. Blok {{1}}, ok. {{2}} opóźnienia.',
-        		daysBehind: {
-        			0: 'mniej niż 1 dzień',
-        			1: '1 dzień',
-        			many: '{{1}} dni'
-        		},
-        		synchronized: 'NIS jest zsynchronizowany!'
-        	}
-        },
+			101: 'Plik nie odnaleziony.',
+			102: 'Portfel nie został utworzony.',
+			103: 'Plik portfela jest uszkodzony. Odzyskaj portfel używając backupu, który powinieneś zrobić podczas tworzenia portfela.',
+			104: 'Podane hasło jest nieprawidłowe. Miejmy nadzieję, że przypomnisz sobie właściwe hasło. Raz zgubione, nie może zostać odtworzone!',
+			106: 'Zanim zaczniesz używać portfela, musisz go otworzyć. Aby go otworzyć, musisz podać hasło do tego portfela.',
+			107: 'Poftfel nie zawiera tego konta.',
+			108: 'Konto nie może zostać usunięte. Prawdopodobnie dlatego, że bilans konta jest większy niż 0 NEM lub jest to konto główne.',
+			109: 'Inny portfel z tą samą nazwą już istnieje. Proszę wybrać inną nazwę dla portfela.',
+			110: 'Portfel zawiera już to konto.',
+			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
+			305: 'Serwer Infrastruktury NEM jest niedostępny.',
+			306: 'Wystąpił błąd, którego dewelopery nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
+			400: 'Brakujący lub niewłaściwy parametr.',
+			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
+			404: 'Żądany zasób nie został odnaleziony.',
+			500: 'Wystąpił błąd, którego dewelopery nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
+			600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
+			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
+			700: 'Konto nie spełnia kryteriów dla zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 NEM na koncie.',
+			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
+			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
+			703: 'Nie masz wystarczających środków na koncie aby dokonać transakcji.',
+			704: 'Wiadomość jest zbyt długa. Spróbuj ją skrócić.',
+			705: 'Hasz transakcji istnieje już w bazie danych lub na liście niepotwierdzonych transakcji.',
+			706: 'Sygnatura transakcji nie mogła zostać zweryfikowana.',
+			707: 'Sygnatura czasowa transakcji jest zbyt daleko w przeszłości.',
+			708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
+			709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
+			901: 'Wystąpił błąd podczas przechodzenia w tryb offline.',
+			1000: "The private key and the public key you have provided mismatch.",
+			1001: 'The public key and the address you have provided mismatch.',
+			1002: 'The address does not belong to the main network.'
+		},
+		common: {
+			success: 'Sukces', //title of the Success message modals
+			appStatus: {
+				nccUnknown: 'Status NCC jest nieznany',
+				nccUnavailable: 'NCC jest niedostępny',
+				nccStarting: 'NCC uruchamia się...',
+				nisUnknown: 'Status NIS jest nieznany',
+				nisUnavailable: 'NIS jest niedostępny',
+				nisStarting: 'NIS uruchamia się...',
+				notBooted: 'NIS wymaga uruchomienia. Proszę otworzyć portfel i uruchomić lokalny węzeł poprzez okno dialogowe lub skonfigurować ustawienia automatycznego uruchamiania.',
+				booting: 'Uruchamianie NIS...',
+				nisInfoNotAvailable: 'Info o NIS jest jeszcze niedostępne. Próba uzyskania info o NIS...',
+				synchronizing: 'NIS synchronizuje się. Blok {{1}}, ok. {{2}} opóźnienia.',
+				daysBehind: {
+					0: 'mniej niż 1 dzień',
+					1: '1 dzień',
+					many: '{{1}} dni'
+				},
+				synchronized: 'NIS jest zsynchronizowany!'
+			}
+		},
 		modals: {
 			error: {
 				title: 'Oops!',
@@ -333,41 +333,35 @@ define({
 				copyright: 'Photography by <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [
-					{
-						title: 'NCC szyfruje Twój portfel',
-						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet NEM i aktywów.'
-					},
-					{
-						title: 'NCC szyfruje Twój portfel',
-						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet NEM i aktywów..'
-					}
-				]
+				items: [{
+					title: 'NCC szyfruje Twój portfel',
+					description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet NEM i aktywów.'
+				}, {
+					title: 'NCC szyfruje Twój portfel',
+					description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet NEM i aktywów..'
+				}]
 			},
 			about: {
-				sections: [
-					{
-						title: 'Jak działa NCC?',
-						paragraphs: [
-							'<strong>NCC</strong> zapewnia dostęp do Twoich aktywów i monet tak jak to robi tradycyjny portfel. Możesz',
-							'<strong>NCC</strong> wymaga dostępu do serwera <strong>NIS</strong> aby działać. Standardem jest aktywny lokalny serwer (jest zainstalowany razem z <strong>NCC</strong>)',
-							'Możesz też skonfigurować dostęp do zdalnego <strong>NIS</strong>.'
-						],
-						listItems: [
-							'Mieć wiele portfeli',
-							'Zdefiniować wiele kont wewnątrz swojego portfela'
-						]
-					},
-					{
-						title: 'Czym jest &#42;NIS?',
-						paragraphs: [
-							'Ten komponent jest odpowiedzialny za podtrzymywanie chmury <strong>NEM</strong> .',
-							'Im więcej uruchomionych <strong>NIS</strong> tym większe bezpieczeństwo.',
-							'<strong>NIS</strong> jest punktem dostępu do chmury <strong>NEM</strong> .'
-						],
-						legend: '<strong>&#42;NIS</strong> to skrót od <strong>NEM Infrastructure Server</strong>'
-					}
-				]
+				sections: [{
+					title: 'Jak działa NCC?',
+					paragraphs: [
+						'<strong>NCC</strong> zapewnia dostęp do Twoich aktywów i monet tak jak to robi tradycyjny portfel. Możesz',
+						'<strong>NCC</strong> wymaga dostępu do serwera <strong>NIS</strong> aby działać. Standardem jest aktywny lokalny serwer (jest zainstalowany razem z <strong>NCC</strong>)',
+						'Możesz też skonfigurować dostęp do zdalnego <strong>NIS</strong>.'
+					],
+					listItems: [
+						'Mieć wiele portfeli',
+						'Zdefiniować wiele kont wewnątrz swojego portfela'
+					]
+				}, {
+					title: 'Czym jest &#42;NIS?',
+					paragraphs: [
+						'Ten komponent jest odpowiedzialny za podtrzymywanie chmury <strong>NEM</strong> .',
+						'Im więcej uruchomionych <strong>NIS</strong> tym większe bezpieczeństwo.',
+						'<strong>NIS</strong> jest punktem dostępu do chmury <strong>NEM</strong> .'
+					],
+					legend: '<strong>&#42;NIS</strong> to skrót od <strong>NEM Infrastructure Server</strong>'
+				}]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2014. NEM Community Client.'
@@ -537,11 +531,9 @@ define({
 		},
 		settings: {
 			title: 'Ustawienia',
-			settings: [
-				{
-					name: 'Język'
-				}
-			],
+			settings: [{
+				name: 'Język'
+			}],
 			save: 'Zapisz zmiany',
 			saveSuccess: 'Ustawienia zostały zapisane'
 		}
