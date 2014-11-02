@@ -2,12 +2,6 @@
 
 define(['NccModal', 'Utils'], function(NccModal, Utils) {
 	return NccModal.extend({
-        lockAction: function() {
-            this.set('processing', true);
-        },
-        unlockAction: function() {
-            this.set('processing', false);
-        },
         submit: function() {
             var submit = this.get('submitCb');
             var values = this.get('values');

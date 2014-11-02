@@ -11,6 +11,7 @@ define(function(require) {
     var InputModal = require('InputModal');
     var SettingsModal = require('SettingsModal');
     var SendNemModal = require('SendNemModal');
+    var TransactionConfirmModal = require('TransactionConfirmModal');
 
     var NccRactive = Ractive.extend({
         el: document.body,
@@ -24,7 +25,7 @@ define(function(require) {
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
-            transactionConfirmationModal: NccModal
+            transactionConfirmModal: TransactionConfirmModal
         },
         computed: {
             allAccounts: function() {

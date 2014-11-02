@@ -266,30 +266,30 @@
 		</button>
 	</div>
 </sendNemModal>
-<transactionConfirmationModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}">
+<transactionConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}">
 	<div class="txConfirm-txInfo">
 		<p>{{texts.modals.sendNem.txConfirm.sendLabel}}</p>
-		<p class="txConfirm-amount">{{parentData.formattedAmount}} NEM</p>
-		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{parentData.recipientLabel}}</span></p>
-		<p>[{{parentData.formattedRecipient}}]</p>
+		<p class="txConfirm-amount">{{txData.formattedAmount}} NEM</p>
+		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{txData.recipientLabel}}</span></p>
+		<p>[{{txData.formattedRecipient}}]</p>
 	</div>
 	<div class="txConfirm-message">
 		<p>
 			<span class="txConfirm-messageLabel">{{texts.modals.sendNem.txConfirm.message}}:</span>
-			{{#parentData.rawMessage}}
-				{{parentData.rawMessage}}
+			{{#txData.rawMessage}}
+				{{txData.rawMessage}}
 			{{/}}
-			{{^parentData.rawMessage}}
+			{{^txData.rawMessage}}
 				<span class="dimmed">{{texts.modals.sendNem.txConfirm.noMessage}}</span>
 			{{/}}
-			{{#parentData.encrypted}}
+			{{#txData.encrypted}}
 				&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.sendNem.txConfirm.encrypted}}" on-mouseover="registerToolTip"></span>
 			{{/}}
 		</p>
 	</div>
 	<div class="txConfirm-actions">
 		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
-		<button type="button" class="modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="confirm:confirm">
+		<button type="button" class="modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="confirm()">
 			{{^processing}}
 				{{texts.modals.sendNem.txConfirm.send}}
 			{{/}}
@@ -298,7 +298,7 @@
 			{{/}}
 		</button>
 	</div>
-</transactionConfirmationModal>
+</transactionConfirmModal>
 <transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
 	{{#transaction}}
 		<table>
