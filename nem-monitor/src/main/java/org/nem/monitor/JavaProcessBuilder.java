@@ -32,7 +32,7 @@ public class JavaProcessBuilder implements JavaSpawnBuilder {
 	public void setLogFile(final File logFile) {
 		this.builder.redirectErrorStream(true);
 		this.builder.redirectOutput(ProcessBuilder.Redirect.appendTo(logFile));
-		this.builder.directory(logFile.getParentFile());
+//		this.builder.directory(logFile.getParentFile());
 	}
 
 	/* (non-Javadoc)

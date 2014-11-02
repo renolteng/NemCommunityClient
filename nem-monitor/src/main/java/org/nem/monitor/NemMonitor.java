@@ -11,9 +11,10 @@ import org.nem.monitor.visitors.*;
 
 import java.awt.*;
 import java.io.*;
+import java.lang.reflect.*;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
-import javax.jnlp.*;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -74,11 +75,13 @@ public class NemMonitor {
 				final NemConnector nccConnector = createConnector(nccPolicy, httpClient);
 				final NodeManager nccManager = new NodeManager(nccPolicy, commandLine.getNccConfig(), nccConnector, launcher, webBrowser);
 
-				final NemClientStateMachineAdapter statemachine = new NemClientStateMachineAdapter(
-						text -> {nccManager.launch(); }, 
-						nccManager::getConfig,
-						text -> {nccManager.launchBrowser(); }, 
-						text -> {nisManager.launch(); });
+				final NemClientStateMachineAdapter statemachine = new NemClientStateMachineAdapter(text -> {
+					nccManager.launch();
+				}, nccManager::getConfig, text -> {
+					nccManager.launchBrowser();
+				}, text -> {
+					nisManager.launch();
+				});
 
 				final TrayIconBuilder builder = new TrayIconBuilder(createHttpMethodClient());
 				builder.addStatusMenuItems(nisManager, nisPolicy);
@@ -118,12 +121,15 @@ public class NemMonitor {
 
 	public static boolean isStartedViaWebStart() {
 		try {
-			ServiceManager.lookup("javax.jnlp.DownloadService2");
+			Class clazz = Class.forName("javax.jnlp.ServiceManager");
+			Method lookup = clazz.getMethod("lookup", String.class);
+			lookup.invoke(clazz, "javax.jnlp.DownloadService2");
 			LOGGER.info("NEM monitor was started via web start.");
 			return true;
-		} catch (final UnavailableServiceException e) {
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			return false;
 		}
+
 	}
 
 	private static NemConnector createConnector(final NemNodePolicy nodePolicy, final HttpMethodClient<ErrorResponseDeserializerUnion> client) {
