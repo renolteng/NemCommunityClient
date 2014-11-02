@@ -61,7 +61,7 @@ public class NccAppConfig {
 
 	@Bean
 	public CommonStarter commonStarter() {
-		return CommonStarter.INSTANCE;
+		return CommonStarter.NCC_INSTANCE;
 	}
 
 	@Bean

@@ -24,7 +24,7 @@ public class JavaThreadBuilder implements JavaSpawnBuilder {
 		final String configFilePath = nodeType == NemNodeType.NCC ? "ncc-config.properties" : "nis-config.properties";
 		final String nodeTypeText = nodeType == NemNodeType.NCC ? "-ncc" : "-nis";
 		commonStarter = new FutureTask<>(() -> {
-			CommonStarter.main(new String[] { "-config", configFilePath, nodeTypeText });
+			CommonStarter.start(new String[] { "-config", configFilePath, nodeTypeText });
 			return "";
 		});
 	}

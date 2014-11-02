@@ -1,6 +1,6 @@
 package org.nem.ncc;
 
-import org.nem.core.deploy.CommonConfiguration;
+import org.nem.core.deploy.*;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
@@ -20,19 +20,15 @@ import java.util.logging.Logger;
  * file to the Jetty runner does not work.
  * Servlet API 3.x with programmatic configuration was chosen.
  * The client starter can be launched from within the scope of WebStart which is the usual way for regular users.
- * In case WebStart is not available, it is assumed that both WAR files are available in the current directory.
- * - first command line argument is the name of the WAR file of API component
- * - second command line argument is the name of the WAR file of the WEB component.
  */
 public class NccMain {
 	private static final Logger LOGGER = Logger.getLogger(NccMain.class.getName());
 	private static final String CONFIG_FILE_NAME = "ncc.cfg";
-	private static final CommonConfiguration commonConfiguration = new CommonConfiguration();
 	private final org.nem.ncc.model.Configuration configuration;
 	private final NccScheduler scheduler;
 
 	public NccMain(final NccScheduler scheduler) {
-		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
+		final String nccFolder = Paths.get(CommonStarter.NCC_INSTANCE.getConfiguration().getNemFolder(), "ncc").toString();
 		verifyDirectory(new File(nccFolder));
 
 		final String qualifiedConfigFileName = Paths.get(nccFolder, CONFIG_FILE_NAME).toString();
@@ -80,7 +76,7 @@ public class NccMain {
 	 * @return The web context string.
 	 */
 	public static String getWebContext() {
-		return commonConfiguration.getWebContext();
+		return CommonStarter.NCC_INSTANCE.getConfiguration().getWebContext();
 	}
 
 	/**
@@ -89,7 +85,7 @@ public class NccMain {
 	 * @return The home url as string.
 	 */
 	public static String getHomeUrl() {
-		return commonConfiguration.getHomeUrl();
+		return CommonStarter.NCC_INSTANCE.getConfiguration().getHomeUrl();
 	}
 
 	/**
