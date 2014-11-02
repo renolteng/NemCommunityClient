@@ -87,10 +87,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('password', '');
         },
         sendTransaction: function() {
-            var activeAccount = ncc.get('activeAccount.address');
             var requestData = {
                 wallet: ncc.get('wallet.name'),
-                account: activeAccount,
+                account: ncc.get('activeAccount.address'),
                 password: this.get('password'),
                 amount: this.get('amount'),
                 recipient: this.get('recipient'),
@@ -100,28 +99,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 hours_due: this.get('hours_due')
             };
 
-            var txConfirm = ncc.getModal('transactionConfirmation');
-            var parent = this;
-            txConfirm.set('parentData', this.get());
-            txConfirm.set('callbacks', {
-                confirm: function() {
-                    var self = this;
-                    self.lockAction();
-                    ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                        self.closeModal();
-                        parent.closeModal();
-                        ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
-                        ncc.refreshInfo();
-                    },
-                    {
-                        complete: function() {
-                            parent.set('password', '');
-                            self.unlockAction();
-                        }
-                    });
-                    return false;
-                }
-            });
+            var txConfirm = ncc.getModal('transactionConfirm');
+            txConfirm.set('txData', this.get());
+            txConfirm.set('requestData', requestData);
             txConfirm.open();
         },
         oncomplete: function() {

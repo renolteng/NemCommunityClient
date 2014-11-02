@@ -22,6 +22,12 @@ define(['jquery', 'ractive', 'Utils'], function($, Ractive, Utils) {
         toggleOff: function(id) {
             Utils.toggleOff(this, id);
         },
+        lockAction: function() {
+            this.set('processing', true);
+        },
+        unlockAction: function() {
+            this.set('processing', false);
+        },
         oncomplete: function() {
             this.on({
                 modalContainerClick: function(e) {
