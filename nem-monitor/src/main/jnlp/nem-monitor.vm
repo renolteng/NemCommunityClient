@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jnlp spec="7.0+" href="$outputFile" codebase="$nem-code-base" version="$project.version">
   <information>
-    <title>NEM Client Monitor</title>
+    <title>NEM Client</title>
     <vendor>NEM Community</vendor>
     <homepage href="http://www.ournem.com"/>
     <description>NEM Client</description>
