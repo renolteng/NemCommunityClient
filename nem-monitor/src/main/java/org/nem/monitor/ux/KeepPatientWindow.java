@@ -12,9 +12,6 @@ import javax.swing.border.EmptyBorder;
 public class KeepPatientWindow extends JFrame {
 	public static final KeepPatientWindow window = new KeepPatientWindow();
 	
-	private static final Color nemGreen = new Color(0x41ce7c);
-	private static final Color nemOrange = Color.ORANGE;
-	
 	private JPanel contentPane;
 	private JLabel lblNisServer;
 	private JProgressBar progressBar;
@@ -44,9 +41,13 @@ public class KeepPatientWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public KeepPatientWindow() {
+		final Color nemGreen = new Color(0x41ce7c);
+		final Color nemOrange = Color.ORANGE;
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage(KeepPatientWindow.class.getClassLoader().getResource("icon_23.png")));
 		setBackground(nemGreen);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 379, 170);
+		setBounds(100, 100, 379, 187);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(nemGreen);
@@ -59,6 +60,7 @@ public class KeepPatientWindow extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		JTextPane lblNewLabel = new JTextPane();
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setSelectionColor(nemOrange);
 		lblNewLabel.setMinimumSize(new Dimension(6, 20));
 		lblNewLabel.setEditable(false);
@@ -73,6 +75,7 @@ public class KeepPatientWindow extends JFrame {
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 
 		lblNccServer = new JLabel("NCC server");
+		lblNccServer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNccServer.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblNccServer = new GridBagConstraints();
 		gbc_lblNccServer.insets = new Insets(0, 0, 5, 0);
@@ -83,7 +86,7 @@ public class KeepPatientWindow extends JFrame {
 
 		progressBar = new JProgressBar();
 		progressBar.setBackground(nemOrange);
-		progressBar.setForeground(UIManager.getColor("ProgressBar.background"));
+		progressBar.setForeground(nemGreen);
 		GridBagConstraints gbc_progressBar = new GridBagConstraints();
 		gbc_progressBar.insets = new Insets(0, 0, 5, 0);
 		gbc_progressBar.fill = GridBagConstraints.HORIZONTAL;
@@ -92,6 +95,7 @@ public class KeepPatientWindow extends JFrame {
 		contentPane.add(progressBar, gbc_progressBar);
 
 		lblNisServer = new JLabel("NIS server");
+		lblNisServer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNisServer = new GridBagConstraints();
 		gbc_lblNisServer.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNisServer.anchor = GridBagConstraints.WEST;
@@ -101,7 +105,7 @@ public class KeepPatientWindow extends JFrame {
 
 		progressBar_1 = new JProgressBar();
 		progressBar_1.setBackground(nemOrange);
-		progressBar_1.setForeground(UIManager.getColor("ProgressBar.background"));
+		progressBar_1.setForeground(nemGreen);
 		GridBagConstraints gbc_progressBar_1 = new GridBagConstraints();
 		gbc_progressBar_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_progressBar_1.gridx = 0;

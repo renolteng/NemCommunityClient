@@ -15,7 +15,7 @@ import com.github.oxo42.stateless4j.*;
 public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	final StateMachineConfig<State, NemStatus> nemClientNcc;
 	final StateMachineConfig<State, NemStatus> nemClientNis;
-	
+
 	final StateMachine<State, NemStatus> nccStateMachine;
 	final StateMachine<State, NemStatus> nisStateMachine;
 	Consumer<String> startNcc;
@@ -23,7 +23,7 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	Supplier<ConfigurationViewModel> configNcc;
 	Consumer<String> startNis;
 	Consumer<Boolean> localNisInfoConsumer;
-	
+
 	/**
 	 * Creates a new visitor.
 	 *
@@ -33,25 +33,29 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 	public NemClientStateMachineAdapter() {
 		this.nemClientNcc = new StateMachineConfig<>();
 		this.nemClientNis = new StateMachineConfig<>();
-		
+
 		initializeStateMachine();
-		
+
 		this.nccStateMachine = new StateMachine<NemClientStateMachineAdapter.State, NemStatus>(State.Ncc_Unknown, this.nemClientNcc);
 		this.nisStateMachine = new StateMachine<NemClientStateMachineAdapter.State, NemStatus>(State.Nis_Unknown, this.nemClientNis);
 	}
-	
+
 	public void setStartNccConfigurationSupplier(final Supplier<ConfigurationViewModel> configNcc) {
 		this.configNcc = configNcc;
 	}
+
 	public void setStartNisEventConsumer(final Consumer<String> startNis) {
 		this.startNis = startNis;
 	}
+
 	public void setStartNccEventConsumer(final Consumer<String> startNcc) {
 		this.startNcc = startNcc;
 	}
+
 	public void setStartBrowserEventConsumer(final Consumer<String> startBrowser) {
 		this.startBrowser = startBrowser;
 	}
+
 	public void setLocalNisConfiguredEventConsumer(final Consumer<Boolean> localNisInfoConsumer) {
 		this.localNisInfoConsumer = localNisInfoConsumer;
 	}
@@ -75,8 +79,10 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 			Boolean isNccUsingLocalNis = isNccUsingLocalNis();
 			this.localNisInfoConsumer.accept(isNccUsingLocalNis);
 
-			if(isNccUsingLocalNis) {
-				this.startNis.accept(null);
+			if (isNccUsingLocalNis) {
+				if (nisStateMachine.getState() == State.Nis_Stopped_M) {
+					this.startNis.accept(null);
+				}
 			} else {
 				this.startBrowser.accept(null);
 			}
@@ -125,7 +131,7 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 
 	@Override
 	public void notifyStatus(final NemNodeType type, final NemStatus status) {
-		switch(type) {
+		switch (type) {
 			case NCC:
 				nccStateMachine.fire(status);
 				break;
@@ -134,10 +140,10 @@ public class NemClientStateMachineAdapter implements NodeStatusVisitor {
 				break;
 		}
 	}
-	
+
 	private boolean isNccUsingLocalNis() {
 		ConfigurationViewModel configModel = configNcc.get();
-		return (configModel != null) && (configModel.getNisEndpoint().equals(NodeEndpoint.fromHost("localhost"))) && (nisStateMachine.getState() == State.Nis_Stopped_M);
+		return (configModel != null) && (configModel.getNisEndpoint().equals(NodeEndpoint.fromHost("localhost")));
 	}
 
 	public enum State {
