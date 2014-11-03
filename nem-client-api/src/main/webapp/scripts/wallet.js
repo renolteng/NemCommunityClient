@@ -90,7 +90,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         {
                             name: 'account',
                             type: 'text',
-                            disabled: true,
+                            readonly: true,
+                            unimportant: true,
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.account')
                             },
@@ -106,7 +107,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         {
                             name: 'wallet',
                             type: 'text',
-                            disabled: true,
+                            readonly: true,
+                            unimportant: true,
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.wallet')
                             }
@@ -293,7 +295,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.createAccount.wallet')
                                 }
@@ -525,7 +528,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.addAccount.wallet')
                                 }
@@ -575,7 +579,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'account',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.setPrimary.account')
                                 },
@@ -591,7 +596,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.setPrimary.wallet')
                                 }
@@ -636,7 +642,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletName.wallet')
                                 }
@@ -677,7 +684,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletPassword.wallet')
                                 }
@@ -737,7 +745,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.changeAccountLabel.wallet')
                                 }
@@ -779,7 +788,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'wallet',
                                 type: 'text',
-                                disabled: true,
+                                readonly: true,
+                                unimportant: true,
                                 label: {
                                     content: ncc.get('texts.modals.removeAccount.wallet')
                                 }
