@@ -126,8 +126,8 @@ define({
 					message: 'Node cục bộ cần phải được boot trước khi bạn có thể gửi NEM đi!'
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: 'Node đang được boot',
+					message: 'Xin hãy đợi cho quá trình boot hoàn thành để gửi giao dịch của bạn.'
 				}
 			},
 			clientInfo: {
