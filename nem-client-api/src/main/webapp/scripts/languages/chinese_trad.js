@@ -1,5 +1,5 @@
 define({
-	id: 'cn',
+	id: 'cn_trad',
 	name: '中文（繁體）',
 	texts: {
 		preferences: {
