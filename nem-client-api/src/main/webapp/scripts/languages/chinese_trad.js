@@ -1,5 +1,5 @@
 define({
-	id: 'cn',
+	id: 'cn_trad',
 	name: '中文（繁體）',
 	texts: {
 		preferences: {
@@ -112,13 +112,17 @@ define({
 				successMessage: '交易成功!',
 				txConfirm: {
 					title: 'Confirm Transaction',
-					sendLabel: "You're going to send",
+					amount: 'Amount',
 					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
 					cancel: 'Cancel',
-					send: 'Send',
+					confirm: 'Confirm',
 					sending: 'Sending...'
 				},
 				notBootedWarning: {

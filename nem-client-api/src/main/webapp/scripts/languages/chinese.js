@@ -111,15 +111,19 @@ define({
 				sending: '发送...',
 				successMessage: '交易发送成功!',
 				txConfirm: {
-					title: '确认交易',
-					sendLabel: '你就要发送',
-					to: '到',
-					message: '信息',
-					encrypted: '信息被加密',
-					noMessage: '无信息',
-					cancel: '取消',
-					send: '发送',
-					sending: '发送...'
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: '节点还没有启动!',

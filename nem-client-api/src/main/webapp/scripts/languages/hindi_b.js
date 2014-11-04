@@ -111,15 +111,19 @@
 				sending: 'भेजा जा रहा है...',
 				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
 				txConfirm: {
-					title: 'ट्रांजेक्शन की पुष्टि करें',
-					sendLabel: "आप भेजने जा रहे हैं",
-					to: 'को',
-					message: 'मेसेज',
-					encrypted: 'मेसेज एन्क्रिप्टेड है',
-					noMessage: 'नो मेसेज',
-					cancel: 'रद्द करें',
-					send: 'भेजें',
-					sending: 'भेजा जा रहा है...'
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: 'लोकल नोड बूट नही हो पाया है!',

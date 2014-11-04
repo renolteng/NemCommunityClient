@@ -111,15 +111,19 @@ define({
 				sending: 'Wysyłanie...',
 				successMessage: 'Transakcja została zrealizowana!',
 				txConfirm: {
-					title: 'Potwierdź Transakcję',
-					sendLabel: "Zamierzasz wysłać",
-					to: 'Do',
-					message: 'Wiadomość',
-					encrypted: 'Wiadomość jest zaszyfrowana',
-					noMessage: 'Brak wiadomości',
-					cancel: 'Anuluj',
-					send: 'Wyślij',
-					sending: 'Wysyłanie...'
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: 'Węzeł nie został uruchomiony!',

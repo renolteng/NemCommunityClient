@@ -111,15 +111,19 @@ define({
 				sending: 'Versturen...',
 				successMessage: 'Transactie is verzonden!',
 				txConfirm: {
-					title: 'Bevestig transactie',
-					sendLabel: "Je stuurt ",
-					to: 'Naar',
-					message: 'Bericht',
-					encrypted: 'Message is beveiligd',
-					noMessage: 'Geen bericht',
-					cancel: 'Annuleer',
-					send: 'Verstuur',
-					sending: 'Versturen...'
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: 'Node is niet gestart!',

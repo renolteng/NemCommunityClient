@@ -112,13 +112,17 @@ define({
 				successMessage: "Die Transaktion wurde erfolgreich gesendet!",
 				txConfirm: {
 					title: "Transaktion bestätigen",
-					sendLabel: "Sie senden",
-					to: "An",
+					amount: 'Betrag',
+					to: 'An',
+					fee: 'Gebühr',
+					dueBy: 'Verfällt in',
+					hours: 'Stunde(n)',
+					total: 'Insgesamt',
 					message: "Nachricht",
 					encrypted: "Nachricht ist verschlüsselt",
 					noMessage: "Keine Nachricht",
 					cancel: "Abbrechen",
-					send: "Senden",
+					confirm: "Bestätigen",
 					sending: "Sende..."
 				},
 				notBootedWarning: {
@@ -126,8 +130,8 @@ define({
 					message: "Der lokale Knotenpunkt muss gebootet werden, bevor Du NEM senden kannst!"
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: 'Der Knotenpunkt wird gebootet',
+					message: 'Bitte warte bis der Bootprozess vollständig ist bevor Du Deine Transaktion sendest.'
 				}
 			},
 			clientInfo: {
@@ -137,8 +141,8 @@ define({
 				remoteServer: "Remote Server",
 				local: "Lokal",
 				nis: "NEM Infrastructure Server - NIS",
-				sync: "Synchronisiert",
-				notSync: "Nicht synchronisiert",
+				sync: "Synchron",
+				notSync: "Nicht synchron",
 				notConnected: "Nicht verbunden mit der NEM Cloud",
 				loading: "Lade..."
 			},
@@ -202,7 +206,7 @@ define({
 						message: "Du hast den richtigen Schlüssel gespeichert. Bewahre ihn an einem sicheren Ort auf!"
 					},
 					incorrect: {
-						title: "Hmmm...",
+						title: "Fehler",
 						message: "Der private Schlüssel den Du eingegeben hast ist nicht korrekt. Bitte gebe ihn erneut ein.",
 						tryAgain: "Bitte erneut eingeben.",
 						seeOriginal: "Originaldaten anschauen."
@@ -471,7 +475,7 @@ define({
 			news: {
 				titleTooltip: "Neuigkeiten"
 			},
-			notAvailable: "Noch nicht verfügbar im Alpha Release"
+			notAvailable: "Noch nicht verfügbar im Beta Release"
 		},
 		transactions: {
 			title: "Transaktionen",

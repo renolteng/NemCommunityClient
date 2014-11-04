@@ -111,15 +111,19 @@ define({
 				sending: "Enviando...",
 				successMessage: "A transação foi enviada!",
 				txConfirm: {
-					title: "Confirmar transação",
-					sendLabel: "Você enviará",
-					to: "Para",
-					message: "Mensagem",
-					encrypted: "Menssagem criptografada",
-					noMessage: "Sem mensagem",
-					cancel: "Cancelar",
-					send: "Enviar",
-					sending: "Enviando..."
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: "O nó não foi inicializado!",

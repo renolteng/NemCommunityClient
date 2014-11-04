@@ -111,15 +111,19 @@ define({
 				sending: "Изпращам...",
 				successMessage: "Транзакцията беше изпратена успешно!",
 				txConfirm: {
-					title: "Потвърдете транзакцията",
-					sendLabel: "Вие ще изпратите",
-					to: "До",
-					message: "Съобщение",
-					encrypted: "Съобщението е криптирано",
-					noMessage: "Без съобщение",
-					cancel: "Отмени",
-					send: "Изпрати",
-					sending: "Изпращам..."
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: "Локалният възел не можа да се стартира!",

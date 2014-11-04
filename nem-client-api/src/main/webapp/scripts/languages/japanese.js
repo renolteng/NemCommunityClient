@@ -111,15 +111,19 @@ define({
 				sending: "送信中…",
 				successMessage: "送信に成功しました!!",
 				txConfirm: {
-					title: "取引確認",
-					sendLabel: "You're going to send",
-					to: "To",
-					message: "メッセージ",
-					encrypted: "メッセージは暗号化されています。",
-					noMessage: "メッセージなし",
-					cancel: "キャンセル",
-					send: "送る",
-					sending: "送信中・・・"
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: "ノードが起動していません!",
