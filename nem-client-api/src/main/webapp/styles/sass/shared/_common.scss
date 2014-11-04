@@ -469,11 +469,11 @@ $modal-transitionDuration: .3s;
 	border: 1px solid #e5e5e5;
 	padding: 5px;
 	font-size: 14px;
+}
 
-	&:disabled {
-		color: #d1d1d1;
-		-webkit-text-fill-color: #d1d1d1;
-	}
+.modal-form-input--unimportant {
+	color: #d1d1d1;
+	-webkit-text-fill-color: #d1d1d1;
 }
 
 .modal-form-label {
@@ -487,14 +487,6 @@ $modal-transitionDuration: .3s;
 	&.modal-form-nullContent {
 		font-style: italic;
 		color: #d1d1d1;
-	}
-}
-
-/** Unclosable message Modal **/
-
-.unclosableMessageModal {
-	.modal-body {
-		text-align: left;
 	}
 }
 

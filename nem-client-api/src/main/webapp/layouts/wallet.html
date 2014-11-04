@@ -64,7 +64,7 @@
 					</div>
 					<img class="walletBox-avatar" src="images/default-avatar.png" alt="{{wallet.name}}" />
 					<div class="walletBox-menu">
-						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn:walletActions"></a>
+						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn('walletActions')"></a>
 						<ul class="walletBox-menu-dropdown dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
 							<li class="dropdownMenu-item" on-click="changeWalletName">
 								{{texts.wallet.actions.changeWalletName}}
@@ -104,7 +104,7 @@
 	<div class="sidebar">
 		<div>
 			<div class="account account--active {{#active.accountSelect}}account--selecting{{/}}">
-				<div class="account-info" on-click="toggleOn:accountSelect">
+				<div class="account-info" on-click="toggleOn('accountSelect')">
 					{{#activeAccount}}
 						<p class="account-info-line">
 							<span class="account-id fullSidebarOnly" id="activeAccountAddress">{{.formattedAddress}}</span>
@@ -118,7 +118,7 @@
 						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{.label ? .label : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
-				<button class="account-actionsButton fullSidebarOnly {{#active.accountActions}}active{{/}}" on-click="toggleOn:accountActions">
+				<button class="account-actionsButton fullSidebarOnly {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
 					<span class="account-actionsButton--gear icon-gear"></span>
 					<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
 				</button>
@@ -257,39 +257,39 @@
 				</div>
 			</div>
 		</div>
-		<a href="javascript:;" class="sendNem-setFeeButton" on-click="resetFee">{{texts.modals.sendNem.resetFee}}</a>
+		<a href="javascript:;" class="sendNem-setFeeButton" on-click="resetFee({forceReset: true, silent: false})">{{texts.modals.sendNem.resetFee}}</a>
 	</div>
 	<input class="sendNem-control sendNem-textbox sendNem-block" type="password" placeholder="{{texts.modals.sendNem.password}}" value="{{password}}" on-keypress="sendFormKeypress" />
 	<div class="sendNem-submit sendNem-block">
-		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction">
+		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction()">
 			{{texts.modals.sendNem.send}}
 		</button>
 	</div>
 </sendNemModal>
-<transactionConfirmationModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}">
+<transactionConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}">
 	<div class="txConfirm-txInfo">
 		<p>{{texts.modals.sendNem.txConfirm.sendLabel}}</p>
-		<p class="txConfirm-amount">{{parentData.formattedAmount}} NEM</p>
-		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{parentData.recipientLabel}}</span></p>
-		<p>[{{parentData.formattedRecipient}}]</p>
+		<p class="txConfirm-amount">{{txData.formattedAmount}} NEM</p>
+		<p>{{texts.modals.sendNem.txConfirm.to}}: <span class="txConfirm-accountLabel">{{txData.recipientLabel}}</span></p>
+		<p>[{{txData.formattedRecipient}}]</p>
 	</div>
 	<div class="txConfirm-message">
 		<p>
 			<span class="txConfirm-messageLabel">{{texts.modals.sendNem.txConfirm.message}}:</span>
-			{{#parentData.rawMessage}}
-				{{parentData.rawMessage}}
+			{{#txData.rawMessage}}
+				{{txData.rawMessage}}
 			{{/}}
-			{{^parentData.rawMessage}}
+			{{^txData.rawMessage}}
 				<span class="dimmed">{{texts.modals.sendNem.txConfirm.noMessage}}</span>
 			{{/}}
-			{{#parentData.encrypted}}
+			{{#txData.encrypted}}
 				&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.sendNem.txConfirm.encrypted}}" on-mouseover="registerToolTip"></span>
 			{{/}}
 		</p>
 	</div>
 	<div class="txConfirm-actions">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal">{{texts.modals.sendNem.txConfirm.cancel}}</button>
-		<button type="button" class="modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="confirm:confirm">
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--primary {{#processing}}disabled{{/}}" on-click="confirm()">
 			{{^processing}}
 				{{texts.modals.sendNem.txConfirm.send}}
 			{{/}}
@@ -298,7 +298,7 @@
 			{{/}}
 		</button>
 	</div>
-</transactionConfirmationModal>
+</transactionConfirmModal>
 <transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}">
 	{{#transaction}}
 		<table>

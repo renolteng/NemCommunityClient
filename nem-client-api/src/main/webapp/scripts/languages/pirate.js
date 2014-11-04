@@ -7,56 +7,60 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-            101: "File not found.",
-            102: "Wallet has not been created.",
-            103: "Wallet file is corrupted. Please recover your wallet from a back-up you should have taken when you created the wallet or added an account to it.",
-            104: "Coffer's pick ain't right. Ye surely have tatooed it somewhere. Unleash the Krakken otherwise!",
-            106: "Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.",
-            107: "Wallet does not contain this account.",
-            108: "The account cannot be removed. Most likely because the account still has a balance greater than 0 NEMs or the account you are trying to remove is the primary account.",
-            109: "Another wallet with the same name exists already. Please choose an other wallet name.",
-            110: "Wallet already contains this account.",
-            202: "An encrypted message cannot be sent because the recipient has never made a transaction before.",
-            305: "NEM Infrastructure Server is not available.",
-            306: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
-            400: "Some parameter is missing or invalid.",
-            404: "The requested resource could not be found.",
-            500: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
-            600: "NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.",
-            601: "The nis node is already booted. A second attempt to boot nis is not possible.",
-            700: "The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEMs within the account. Harvesting starts with at least 1000 NEM.",
-            701: "The provided deadline is in the past. The deadline must be provided within a 1 day period.",
-            702: "The provided deadline is too far in the future. The deadline must be within one day time period.",
-            703: "Your account does not have the right balance to send the provided amount of NEMs.",
-            704: "The provided message text is too large to be send via NEM. Please try to reduce the length of the message you want to send.",
-            705: "The transaction hash already exists in the database or the list of unconfirmed transactions.",
-            706: "The signature of the transaction could not be verified.",
-            707: "The time stamp of the transaction id too far in the past.",
-            708: "The time stamp of the transaction is too far in the future.",
-            709: "The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.",
-            901: "There was an error setting up offline mode."
-        },
-        common: {
-        	success: "Aye!", //title of the Success message modals
-        	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'Ship not in range',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'Ship not in range',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'Ship still in port. Pick yer coffer and set the sails.',
-        		booting: 'Setting sails',
-        		nisInfoNotAvailable: 'Checking sails',
-        		synchronizing: 'Setting sails. At block {{1}}, est. {{2}} behind.',
-        		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
-        		},
-        		synchronized: 'Beauty in port!'
-        	}
-        },
+			101: "File not found.",
+			102: "Wallet has not been created.",
+			103: "Wallet file is corrupted. Please recover your wallet from a back-up you should have taken when you created the wallet or added an account to it.",
+			104: "Coffer's pick ain't right. Ye surely have tatooed it somewhere. Unleash the Krakken otherwise!",
+			106: "Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.",
+			107: "Wallet does not contain this account.",
+			108: "The account cannot be removed. Most likely because the account still has a balance greater than 0 NEMs or the account you are trying to remove is the primary account.",
+			109: "Another wallet with the same name exists already. Please choose an other wallet name.",
+			110: "Wallet already contains this account.",
+			202: "An encrypted message cannot be sent because the recipient has never made a transaction before.",
+			305: "NEM Infrastructure Server is not available.",
+			306: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
+			400: "Some parameter is missing or invalid.",
+			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
+			404: "The requested resource could not be found.",
+			500: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
+			600: "NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.",
+			601: "The nis node is already booted. A second attempt to boot nis is not possible.",
+			700: "The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEMs within the account. Harvesting starts with at least 1000 NEM.",
+			701: "The provided deadline is in the past. The deadline must be provided within a 1 day period.",
+			702: "The provided deadline is too far in the future. The deadline must be within one day time period.",
+			703: "Your account does not have the right balance to send the provided amount of NEMs.",
+			704: "The provided message text is too large to be send via NEM. Please try to reduce the length of the message you want to send.",
+			705: "The transaction hash already exists in the database or the list of unconfirmed transactions.",
+			706: "The signature of the transaction could not be verified.",
+			707: "The time stamp of the transaction id too far in the past.",
+			708: "The time stamp of the transaction is too far in the future.",
+			709: "The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.",
+			901: "There was an error setting up offline mode.",
+			1000: "The private key and the public key you have provided mismatch.",
+			1001: 'The public key and the address you have provided mismatch.',
+			1002: 'The address does not belong to the main network.'
+		},
+		common: {
+			success: "Aye!", //title of the Success message modals
+			appStatus: {
+				nccUnknown: 'NCC status is unknown',
+				nccUnavailable: 'Ship not in range',
+				nccStarting: 'NCC is starting...',
+				nisUnknown: 'NIS status is unknown',
+				nisUnavailable: 'Ship not in range',
+				nisStarting: 'NIS is starting...',
+				notBooted: 'Ship still in port. Pick yer coffer and set the sails.',
+				booting: 'Setting sails',
+				nisInfoNotAvailable: 'Checking sails',
+				synchronizing: 'Setting sails. At block {{1}}, est. {{2}} behind.',
+				daysBehind: {
+					0: 'less than 1 day',
+					1: '1 day',
+					many: '{{1}} days'
+				},
+				synchronized: 'Beauty in port!'
+			}
+		},
 		modals: {
 			error: {
 				title: "Blimey!",
@@ -66,8 +70,8 @@ define({
 				yes: "Aye",
 				no: "Avast"
 			},
-		settings: {
-			title: 'Settings',
+			settings: {
+				title: 'Settings',
 				language: {
 					label: 'Language'
 				},
@@ -116,6 +120,14 @@ define({
 					cancel: 'Avast!',
 					send: 'Deliver',
 					sending: 'Delivering...'
+				},
+				notBootedWarning: {
+					title: "Ship still in port!",
+					message: "Hoist yer rigging to deliver ye Gold!"
+				},
+				bootingWarning: {
+					title: 'Setting sails',
+					message: "Hold! Ship ain't ready to  deliver the loot."
 				}
 			},
 			clientInfo: {
@@ -160,10 +172,6 @@ define({
 				boot: "Row",
 				booting: "Settig sails..."
 			},
-			notBootedWarning: {
-				title: "Ship still in port!",
-				message: "Hoist yer rigging to deliver ye Gold!"
-			},
 			closeWallet: {
 				title: "Close the coffer",
 				message: "Be ye sure ye want to close ye coffer 'n return to port"
@@ -195,11 +203,22 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Check'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: "Add an Existing Log",
@@ -295,7 +314,7 @@ define({
 		},
 		landing: {
 			logo: 'images/nem_logo_pirate.png',
-            		importSuccess: "Coffer collected!",
+			importSuccess: "Coffer collected!",
 			nav: {
 				start: "Getting <strong>Started</strong>",
 				about: "About <strong>NEM</strong>",
@@ -314,41 +333,35 @@ define({
 				copyright: "Photography by <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [
-					{
-						title: "NCC encrypts your wallet",
-						description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
-					},
-					{
-						title: "NCC encrypts your wallet",
-						description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
-					}
-				]
+				items: [{
+					title: "NCC encrypts your wallet",
+					description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
+				}, {
+					title: "NCC encrypts your wallet",
+					description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
+				}]
 			},
 			about: {
-				sections: [
-					{
-						title: "How NCC works?",
-						paragraphs: [
-							"<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may",
-							"<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)",
-							"You may also configure an access to a remote <strong>NIS</strong>."
-						],
-						listItems: [
-							"Have multiple wallets",
-							"Define multiple accounts to be included in a wallet"
-						]
-					},
-					{
-						title: "What is &#42;NIS?",
-						paragraphs: [
-							"This component is responsible for keeping the <strong>NEM</strong> cloud alive.",
-							"The more <strong>NIS</strong> the better the security.",
-							"<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud."
-						],
-						legend: "<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>"
-					}
-				]
+				sections: [{
+					title: "How NCC works?",
+					paragraphs: [
+						"<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may",
+						"<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)",
+						"You may also configure an access to a remote <strong>NIS</strong>."
+					],
+					listItems: [
+						"Have multiple wallets",
+						"Define multiple accounts to be included in a wallet"
+					]
+				}, {
+					title: "What is &#42;NIS?",
+					paragraphs: [
+						"This component is responsible for keeping the <strong>NEM</strong> cloud alive.",
+						"The more <strong>NIS</strong> the better the security.",
+						"<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud."
+					],
+					legend: "<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>"
+				}]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -356,7 +369,7 @@ define({
 		},
 		wallet: {
 			logo: 'images/nem_logo_pirate.png',
-            		lastAccess: "{{1}} days ago",
+			lastAccess: "{{1}} days ago",
 			lastAccessJustNow: "right now",
 			lastAccessTooltip: "Coffer opened {{1}}",
 			primary: "primary",
@@ -372,6 +385,7 @@ define({
 				exportWallet: "Hail yer Coffer",
 				createAccount: "Create new Logbook",
 				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: "Add an Existing Logbook",
 				changeAccountLabel: "Title'er Logbook",
 				setPrimary: "Set as Primary Logbook",
@@ -506,7 +520,7 @@ define({
 					"Bounty"
 				],
 				noBlocks: "No bounties",
-				loadMore: "Read more bounties"
+				loading: "Read more bounties"
 			},
 			harvesting: {
 				unknown: "Marooned",
@@ -517,11 +531,9 @@ define({
 		},
 		settings: {
 			title: "Fix riggin'",
-			settings: [
-				{
-					name: "Parlance"
-				}
-			],
+			settings: [{
+				name: "Parlance"
+			}],
 			save: "AYE!",
 			saveSuccess: "Riggin' has been fixed"
 		}

@@ -7,60 +7,60 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-            101: 'Файл не знайдено.',
-            102: 'Гаманець не був створений.',
-            103: 'Файл гаманця пошкоджений. Будь ласка відновіть файл вашого гаманця з резерву, який ви повинні були створити при створенні гаманця, або створiть новий акаунт .',
-            104: 'Введений пароль невірний. Сподіваємося, ви зможете згадати вірний пароль. Пароль не може бути відновлений, якщо він був втрачений',
-            106: 'Перш ніж ви зможете працювати з гаманцем, він повинен бути відкритий. Щоб переконатися, що ви авторизованi на доступ до файлу гаманця, ви повинні ввести пароль гаманця.',
-            107: 'Гаманець не містить цей акаунт.',
-            108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 NEM, або акаунт, який ви намагаєтеся видалити є основним.',
-            109: "Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.",
-            110: 'Гаманець вже містить цей акаунт.',
-            202: 'Зашифроване повідомлення не може бути відправлено, так як одержувач ніколи не здійснював жодної транзакції.',
-            305: 'NEM Infrastructure Server не досяжний.',
-            306: 'Сталася помилка, не передбачувана командою розробникiв. Вибачте за це, та повторiть спробу ще раз. В іншому випадку, будь ласка, відкрийте питання у співтовариствi NEM NIS/NCC.',
-            400: 'Деякі параметри відсутні, або недійснi.',
-            404: 'Запитаний ресурс не знайдено.',
-            500: 'Не вдалося зберегти файл налаштувань.',
-            600: 'NCC вимагає запущений сервер NIS для надсилання та отримання транзакцiй з NEM cloud. Будь ласка скористайтеся меню NCC для запуску локального вузла.',
-            601: 'Сервер NIS вже запущено. Завантажити NIS вдруге неможливо.',
-            700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 NEM.',
-            701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
-            702: 'Встановленний крайній термін занадто далеко в майбутньому. Термін повинен бути в рамках 1-денного періоду.',
-            703: 'Баланс вашого рахунку не дозволяє вiдправити вказану кiлькiсть NEM.',
-            704: 'Вказане текстове повiдомлення занадто велике, щоб бути вiдправленим через мережу NEM. Будь ласка, спробуйте зменшити довжину повідомлення, яке потрібно відправити.',
-            705: 'Хеш тразакції вже існує в базі даних або в списку непідтверджених операцій.',
-            706: 'Підпис тразакції не може бути перевірений.',
-            707: 'Мітка часу транзакції занадто далеко в минулому.',
-            708: 'Мітка часу транзакції занадто далеко в майбутньому.',
-            709: 'Рахунок невідомий мережi. Рахунок повинен бути частиною щонайменше однієї угоди (відправником або одержувачєм), щоб стати відомим в мережі.',
-            901: 'При переході в автономний режим сталася помилка.'
-        },
-        common: {
-        	success: 'Успiшно', //title of the Success message modals
-        	appStatus: {
-        		nccUnknown: 'NCC status is unknown',
-        		nccUnavailable: 'NCC не досяжний',
-        		nccStarting: 'NCC is starting...',
-        		nisUnknown: 'NIS status is unknown',
-        		nisUnavailable: 'NIS не досяжний',
-        		nisStarting: 'NIS is starting...',
-        		notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
-        		booting: 'Booting NIS...',
-        		nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
-        		synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.',
-        		daysBehind: {
-        			0: 'less than 1 day',
-        			1: '1 day',
-        			many: '{{1}} days'
-        		},
-        		synchronized: 'NIS is synchronized!'
-        	}
-    //     	nisStatus: {
-    //     		notBooted: 'NIS має бути запущений. Будь ласка, відкрийте гаманець і за допомогою спливаючого меню запустiть локальний вузол.',
-    //     		synchronized: 'NIS is synchronized!'
-    //     	}
-        },
+			101: 'Файл не знайдено.',
+			102: 'Гаманець не був створений.',
+			103: 'Файл гаманця пошкоджений. Будь ласка відновіть файл вашого гаманця з резерву, який ви повинні були створити при створенні гаманця, або створiть новий акаунт .',
+			104: 'Введений пароль невірний. Сподіваємося, ви зможете згадати вірний пароль. Пароль не може бути відновлений, якщо він був втрачений',
+			106: 'Перш ніж ви зможете працювати з гаманцем, він повинен бути відкритий. Щоб переконатися, що ви авторизованi на доступ до файлу гаманця, ви повинні ввести пароль гаманця.',
+			107: 'Гаманець не містить цей акаунт.',
+			108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 NEM, або акаунт, який ви намагаєтеся видалити є основним.',
+			109: "Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.",
+			110: 'Гаманець вже містить цей акаунт.',
+			202: 'Зашифроване повідомлення не може бути відправлено, так як одержувач ніколи не здійснював жодної транзакції.',
+			305: 'NEM Infrastructure Server не досяжний.',
+			306: 'Сталася помилка, не передбачувана командою розробникiв. Вибачте за це, та повторiть спробу ще раз. В іншому випадку, будь ласка, відкрийте питання у співтовариствi NEM NIS/NCC.',
+			400: 'Деякі параметри відсутні, або недійснi.',
+			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
+			404: 'Запитаний ресурс не знайдено.',
+			500: 'Не вдалося зберегти файл налаштувань.',
+			600: 'NCC вимагає запущений сервер NIS для надсилання та отримання транзакцiй з NEM cloud. Будь ласка скористайтеся меню NCC для запуску локального вузла.',
+			601: 'Сервер NIS вже запущено. Завантажити NIS вдруге неможливо.',
+			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 NEM.',
+			701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
+			702: 'Встановленний крайній термін занадто далеко в майбутньому. Термін повинен бути в рамках 1-денного періоду.',
+			703: 'Баланс вашого рахунку не дозволяє вiдправити вказану кiлькiсть NEM.',
+			704: 'Вказане текстове повiдомлення занадто велике, щоб бути вiдправленим через мережу NEM. Будь ласка, спробуйте зменшити довжину повідомлення, яке потрібно відправити.',
+			705: 'Хеш тразакції вже існує в базі даних або в списку непідтверджених операцій.',
+			706: 'Підпис тразакції не може бути перевірений.',
+			707: 'Мітка часу транзакції занадто далеко в минулому.',
+			708: 'Мітка часу транзакції занадто далеко в майбутньому.',
+			709: 'Рахунок невідомий мережi. Рахунок повинен бути частиною щонайменше однієї угоди (відправником або одержувачєм), щоб стати відомим в мережі.',
+			901: 'При переході в автономний режим сталася помилка.',
+			1000: "The private key and the public key you have provided mismatch.",
+			1001: 'The public key and the address you have provided mismatch.',
+			1002: 'The address does not belong to the main network.'
+		},
+		common: {
+			success: 'Успiшно', //title of the Success message modals
+			appStatus: {
+				nccUnknown: 'NCC status is unknown',
+				nccUnavailable: 'NCC не досяжний',
+				nccStarting: 'NCC is starting...',
+				nisUnknown: 'NIS status is unknown',
+				nisUnavailable: 'NIS не досяжний',
+				nisStarting: 'NIS is starting...',
+				notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+				booting: 'Booting NIS...',
+				nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
+				synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.',
+				daysBehind: {
+					0: 'less than 1 day',
+					1: '1 day',
+					many: '{{1}} days'
+				},
+				synchronized: 'NIS is synchronized!'
+			}
+		},
 		modals: {
 			error: {
 				title: 'От халепа!',
@@ -120,6 +120,14 @@ define({
 					cancel: 'Cancel',
 					send: 'Send',
 					sending: 'Sending...'
+				},
+				notBootedWarning: {
+					title: 'Локальний вузол не був запущений!',
+					message: 'Перед тим, як ви зможете вiдправляти NEM, треба завантажити локальний вузол!'
+				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
 			clientInfo: {
@@ -164,10 +172,6 @@ define({
 				boot: 'Завантажити',
 				booting: 'Завантаження...'
 			},
-			notBootedWarning: {
-				title: 'Локальний вузол не був запущений!',
-				message: 'Перед тим, як ви зможете вiдправляти NEM, треба завантажити локальний вузол!'
-			},
 			closeWallet: {
 				title: 'Закрити гаманець',
 				message: 'Ви впевнені, що хочете закрити свій гаманець і повернутися до початкової сторінки?'
@@ -199,11 +203,22 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again."
+						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						tryAgain: 'Try to enter again',
+						seeOriginal: 'See the original data'
 					},
 					recheck: 'Check'
 				},
 				ok: 'OK'
+			},
+			verifyRealAccountData: {
+				title: 'Verify real account data',
+				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				address: 'Address',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
+				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				verify: 'Verify'
 			},
 			addAccount: {
 				title: 'Додати існуючій акаунт',
@@ -318,41 +333,35 @@ define({
 				copyright: 'Фото <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [
-					{
-						title: 'NCC шифрує ваш гаманець',
-						description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
-					},
-					{
-						title: 'NCC шифрує ваш гаманець',
-						description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
-					}
-				]
+				items: [{
+					title: 'NCC шифрує ваш гаманець',
+					description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
+				}, {
+					title: 'NCC шифрує ваш гаманець',
+					description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
+				}]
 			},
 			about: {
-				sections: [
-					{
-						title: 'Як працює NCC?',
-						paragraphs: [
-							'<strong>NCC</strong> надає доступ до ваших активів і NEM монет як традиційний гаманець. ви можете:',
-							'Для корректної роботи <strong>NCC</strong> вимагає доступу до сервера <strong>NIS</strong>. зазвичай вiн запускається автоматично (встановлюється разом з <strong>NCC</strong>)',
-							'Ви також можете налаштувати віддалений доступ до сервера <strong>NIS</strong>.'
-						],
-						listItems: [
-							'Мати декiлька гаманцiв',
-							'Визначити кiлька акаунтiв, якi будуть включенi в гаманець'
-						]
-					},
-					{
-						title: 'Що таке &#42;NIS?',
-						paragraphs: [
-							'Цей компонент вiдповiдає за підтримання працездатностi <strong>NEM</strong> cloud.',
-							'Чим бiльша кiлькiсть <strong>NIS</strong>, тим краща безпека мережi.',
-							'<strong>NIS</strong> є точкою доступу до <strong>NEM</strong> cloud.'
-						],
-						legend: '<strong>&#42;NIS</strong> розшифровується як <strong>NEM Infrastructure Server</strong>'
-					}
-				]
+				sections: [{
+					title: 'Як працює NCC?',
+					paragraphs: [
+						'<strong>NCC</strong> надає доступ до ваших активів і NEM монет як традиційний гаманець. ви можете:',
+						'Для корректної роботи <strong>NCC</strong> вимагає доступу до сервера <strong>NIS</strong>. зазвичай вiн запускається автоматично (встановлюється разом з <strong>NCC</strong>)',
+						'Ви також можете налаштувати віддалений доступ до сервера <strong>NIS</strong>.'
+					],
+					listItems: [
+						'Мати декiлька гаманцiв',
+						'Визначити кiлька акаунтiв, якi будуть включенi в гаманець'
+					]
+				}, {
+					title: 'Що таке &#42;NIS?',
+					paragraphs: [
+						'Цей компонент вiдповiдає за підтримання працездатностi <strong>NEM</strong> cloud.',
+						'Чим бiльша кiлькiсть <strong>NIS</strong>, тим краща безпека мережi.',
+						'<strong>NIS</strong> є точкою доступу до <strong>NEM</strong> cloud.'
+					],
+					legend: '<strong>&#42;NIS</strong> розшифровується як <strong>NEM Infrastructure Server</strong>'
+				}]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2014. NEM Community Client.'
@@ -376,6 +385,7 @@ define({
 				exportWallet: 'Експортувати гаманець',
 				createAccount: 'Створити новий акаунт',
 				createRealAccountData: 'Create real account data',
+				verifyRealAccountData: 'Verify real account data',
 				addAccount: 'Додати існуючий акаунт',
 				changeAccountLabel: 'Змiнити позначку акаунта',
 				setPrimary: 'Встановити основний акаунт',
@@ -468,8 +478,8 @@ define({
 			sendNem: 'Відправити NEM',
 			balance: 'Поточний баланс',
 			filters: {
-				all: 'Всi транзакцiї',
-				pending: 'В очiкуваннi',
+				confirmed: 'Confirmed',
+				unconfirmed: 'Unconfirmed',
 				incoming: 'Вхiднi',
 				outgoing: 'Вихiднi',
 			},
@@ -510,7 +520,7 @@ define({
 					'Комiсiя'
 				],
 				noBlocks: 'Немає сгенерованих блокiв ',
-				loadMore: 'Переглянути попереднi сгенерованi блоки'
+				loading: 'Переглянути попереднi сгенерованi блоки'
 			},
 			harvesting: {
 				unknown: 'Статус невiдомий',
@@ -521,11 +531,9 @@ define({
 		},
 		settings: {
 			title: 'Налаштування',
-			settings: [
-				{
-					name: 'Мова'
-				}
-			],
+			settings: [{
+				name: 'Мова'
+			}],
 			save: 'Зберегти зміни',
 			saveSuccess: 'Налаштування були успiшно збереженi'
 		}

@@ -1,6 +1,6 @@
 "use strict";
 
- define(['jquery', 'ncc', 'NccLayout'], function($, ncc, NccLayout) {
+ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
     return $.extend(true, {}, NccLayout, {
         name: 'transactions',
         url: 'transactions.html',
@@ -24,12 +24,12 @@
 				}
 
 				ncc.postRequest(api, requestData, function(data) {
-					var updatedTxes = ncc.processTransactions(data.transactions);
+					var updatedTxes = Utils.processTransactions(data.transactions);
 					var all;
 					if (type === 'append' && currTxes && currTxes.concat) {
 						all = currTxes.concat(updatedTxes);
 					} else if (type === 'update') {
-						var result = ncc.updateNewer(updatedTxes, currTxes, 'hash');
+						var result = Utils.updateNewer(updatedTxes, currTxes, 'hash');
 						all = result.updatedArray;
 						if (result.noConnection) {
 							ncc.set('transactions.gotAll', false);
@@ -40,7 +40,7 @@
 
                     ncc.set('transactions.filtered', all);
                     if (type !== 'update') {
-                    	var gotAll = updatedTxes.length < ncc.consts.txesPerPage;
+                    	var gotAll = updatedTxes.length < Utils.config.txesPerPage;
                 		ncc.set('transactions.gotAll', gotAll);
                 	}
                 }, {

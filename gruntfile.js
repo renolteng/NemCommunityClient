@@ -9,6 +9,9 @@ module.exports = function(grunt) {
 			},
 			css: {
 				files: [ {expand: true, cwd: srcPath, src: 'styles/css/all.css', dest: destPath} ]
+			},
+			templates: {
+				files: [ {expand: true, cwd: srcPath, src: '*.html', dest: destPath} ]
 			}
 		},
 
@@ -37,11 +40,18 @@ module.exports = function(grunt) {
 				options: {
 			    	spawn: false
 		      	}
+			},
+			template: {
+				files: ['nem-client-api/src/main/webapp/entry.tpl'],
+				tasks: ['template', 'copy:templates'],
+				options: {
+			    	spawn: false
+		      	}
 			}
 		},
 
 		concurrent: {
-			all: ['watch:copySrc', 'watch:css'],
+			all: ['watch:copySrc', 'watch:css', 'watch:template'],
 			options: {
 				logConcurrentOutput: true
 			}
@@ -96,16 +106,6 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'nem-client-api/src/main/webapp/transactions.html': ['nem-client-api/src/main/webapp/entry.tpl']
-				}
-			},
-			settings: {
-				options: {
-					data: {
-						entryPage: 'settings'
-					}
-				},
-				files: {
-					'nem-client-api/src/main/webapp/settings.html': ['nem-client-api/src/main/webapp/entry.tpl']
 				}
 			},
 			start: {

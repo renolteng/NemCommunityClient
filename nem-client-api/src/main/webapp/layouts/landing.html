@@ -12,7 +12,7 @@
 				<a href="javascript:;" on-click="openModal:settings"><strong>{{texts.landing.nav.settings}}</strong></a>
 			</li>
 			<li class="scrollHeader-nav-item">
-				<a href="javascript:;" on-click="toggleOn:'landing-languageDropdown'">
+				<a href="javascript:;" on-click="toggleOn('landing-languageDropdown')">
 					{{#languages}}
 						{{# .id === settings.language}}
 							{{.name}}
@@ -139,7 +139,7 @@
 							<a href="javascript:;" on-click="openModal:settings">{{texts.landing.nav.settings}}</a>
 						</li>
 						<li class="staticHeader-nav-item">
-							<a href="javascript:;" on-click="toggleOn:'landing-languageDropdown'">
+							<a href="javascript:;" on-click="toggleOn('landing-languageDropdown')">
 								{{#languages}}
 									{{# .id === settings.language}}
 										{{.name}}

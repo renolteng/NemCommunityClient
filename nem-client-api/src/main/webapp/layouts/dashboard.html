@@ -35,25 +35,27 @@
 					{{/}}
 
 					<div class="importanceTile-harvest">
-						{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-							<button type="button" class="importanceTile-harvestButton icon-question-circle" disabled>
-								<span>{{texts.dashboard.importance.unknown}}</span>
-							</button>
-						{{/}}
-						{{^status.lostConnection || nisUnavailable}}
-							{{#activeAccount.status === 'LOCKED'}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
-									<span>{{texts.dashboard.importance.start}}</span>
+						{{#activeAccount.remoteStatus !== 'ACTIVE'}}
+							{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
+								<button type="button" class="importanceTile-harvestButton icon-question-circle" disabled>
+									<span>{{texts.dashboard.importance.unknown}}</span>
 								</button>
 							{{/}}
-							{{#activeAccount.status === 'UNLOCKED'}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting">
-									{{texts.dashboard.importance.stop}}
-								</button>
+							{{^status.lostConnection || nisUnavailable}}
+								{{#activeAccount.status === 'LOCKED'}}
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
+										<span>{{texts.dashboard.importance.start}}</span>
+									</button>
+								{{/}}
+								{{#activeAccount.status === 'UNLOCKED'}}
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting">
+										{{texts.dashboard.importance.stop}}
+									</button>
+								{{/}}
 							{{/}}
 						{{/}}
 
-						{{#activeAccount.remoteStatus === 'ACTIVATING' || activeAccount.remoteStatus === 'ACTIVE'}}
+						{{#activeAccount.remoteStatus === 'ACTIVE'}}
 							{{^walletPage.remoteUnlocked}}
 								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
 							{{/}}

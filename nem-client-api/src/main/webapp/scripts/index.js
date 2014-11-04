@@ -31,7 +31,7 @@ require.config({
     }
 });
 
-define(['ncc'], function(ncc) {
+define(['ncc', 'Utils'], function(ncc, Utils) {
     ncc.getRequest('configuration/get', function(data) {
         ncc.set('settings', data);
         ncc.loadPage(entryPage, null, false, true);
@@ -51,7 +51,7 @@ define(['ncc'], function(ncc) {
             {
                 complete: function() {
                     if (!success) {
-                        ncc.set('nccStatus.code', ncc.consts.STATUS_STOPPED);
+                        ncc.set('nccStatus.code', Utils.config.STATUS_STOPPED);
                     }
 
                     if (complete) complete();
@@ -73,9 +73,9 @@ define(['ncc'], function(ncc) {
             {
                 complete: function(jqXHR) {
                     if (jqXHR.status === 0) {
-                        ncc.set('nccStatus.code', ncc.consts.STATUS_STOPPED);
+                        ncc.set('nccStatus.code', Utils.config.STATUS_STOPPED);
                     } else if (!success) {
-                        ncc.set('nisStatus.code', ncc.consts.STATUS_STOPPED);
+                        ncc.set('nisStatus.code', Utils.config.STATUS_STOPPED);
                     }
 
                     if (complete) complete();

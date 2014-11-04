@@ -18,12 +18,12 @@
 				{{>0}}
 			{{/}}
 
-			<settingsModal modalClass="settingsModal" modalTitle="{{texts.modals.settings.title}}"  texts="{{texts}}" languages="{{languages}}" settings="{{settings}}" active="{{active}}" on-toggleOn="toggleOn" on-set="set">
+			<settingsModal modalClass="settingsModal" modalTitle="{{texts.modals.settings.title}}"  texts="{{texts}}" languages="{{languages}}" settings="{{settings}}">
 				<div class="settingsModal-language">
 					<div class="settingsModal-row">
 						<label class="settingsModal-label">{{texts.modals.settings.language.label}}</label>
 						<div class="dropdownbox">
-							<div class="dropdownbox-selection settingsModal-input {{#active['settingsModal-languageDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-languageDropdown'">
+							<div class="dropdownbox-selection settingsModal-input {{#active['settingsModal-languageDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-languageDropdown')">
 								{{#languages}}
 									{{# .id === settings.language}}
 										{{.name}}
@@ -32,7 +32,7 @@
 							</div>
 							<ul class="dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}">
 								{{#languages}}
-									<li class="dropdownbox-item" on-click="set:'settings.language',{{.id}}">{{.name}}</li>
+									<li class="dropdownbox-item" on-click="set('settings.language', .id)">{{.name}}</li>
 								{{/}}
 							</ul>
 						</div>
@@ -40,20 +40,20 @@
 				</div>
 				<div class="settingsModal-main">
 					<div class="settingsModal-tabs bulletTabs">
-						<button class="bulletTab-control {{#active.settingsModalTab === 'remoteServer'}}active{{/}}" on-click="set:'active.settingsModalTab','remoteServer'">{{texts.modals.settings.remoteServer.tabTitle}}</button>
-						<button class="bulletTab-control {{#active.settingsModalTab === 'autoBoot'}}active{{/}}" on-click="set:'active.settingsModalTab','autoBoot'">{{texts.modals.settings.autoBoot.tabTitle}}</button>
+						<button class="bulletTab-control {{#activeTab === 'remoteServer'}}active{{/}}" on-click="set('activeTab', 'remoteServer')">{{texts.modals.settings.remoteServer.tabTitle}}</button>
+						<button class="bulletTab-control {{#activeTab === 'autoBoot'}}active{{/}}" on-click="set('activeTab', 'autoBoot')">{{texts.modals.settings.autoBoot.tabTitle}}</button>
 					</div>
-					<div class="settingsModal-panel settingsModal-panel--remoteServer {{^active.settingsModalTab === 'remoteServer'}}hidden{{/}}">
+					<div class="settingsModal-panel settingsModal-panel--remoteServer {{^activeTab === 'remoteServer'}}hidden{{/}}">
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.protocol}}</p>
 							<div class="dropdownbox">
-								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn:'settingsModal-protocolDropdown'">
+								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-protocolDropdown')">
 									{{#settings.remoteServer.protocol === 'http'}}
 										{{texts.modals.settings.remoteServer.protocolOptions.http}}
 									{{/}}
 								</div>
 								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}">
-									<li class="dropdownbox-item" on-click="set:'settings.remoteServer.protocol','http'">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
+									<li class="dropdownbox-item" on-click="set('settings.remoteServer.protocol', 'http')">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
 								</ul>
 							</div>
 						</div>
@@ -66,7 +66,7 @@
 							<input type="text" class="settingsModal-input js-settingsModal-port-textbox" value="{{portStr}}" disabled />
 						</div>
 					</div>
-					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^active.settingsModalTab === 'autoBoot'}}hidden{{/}}">
+					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^activeTab === 'autoBoot'}}hidden{{/}}">
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.name}}</p>
 							<input type="text" class="settingsModal-input" value="{{settings.nisBootInfo.nodeName}}" />
@@ -74,9 +74,9 @@
 						<div class="settingsModal-inputField">
 							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.account}}</p>
 							<div class="dropdownbox">
-								<input class="settingsModal-input dropdownbox-textbox {{#active['settingsModal-bootAccountDropdown']}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="toggleOn:settingsModal-bootAccountDropdown" on-blur="toggleOff:settingsModal-bootAccountDropdown" value="{{displayedAccount}}" />
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-bootAccountDropdown']}}hidden{{/}}">
-									<li class="dropdownbox-item" on-click="setDisplayedAccount:''">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
+								<input class="settingsModal-input dropdownbox-textbox {{#bootAccountDropdownActive}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="set('bootAccountDropdownActive', true)" on-blur="set('bootAccountDropdownActive', false)" value="{{displayedAccount}}" />
+								<ul class="dropdownbox-dropdown {{^bootAccountDropdownActive}}hidden{{/}}">
+									<li class="dropdownbox-item" on-mousedown="set('settings.nisBootInfo.account', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
 								</ul>
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					<div class="settingsModal-submit">
-						<button type="button" class="modal-button moda-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="saveSettings">{{texts.modals.settings.save}}</button>
+						<button type="button" class="modal-button moda-button--submit modal-button--primary" on-click="saveSettings()">{{texts.modals.settings.save}}</button>
 					</div>
 				</div>
 			</settingsModal>
@@ -107,12 +107,12 @@
 							</p>
 							{{#.type === 'text' || .type === 'password'}}
 								<p class="modal-form-line">
-									<input type="{{.type}}" class="modal-form-input" disabled="{{.disabled}}" readonly="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
+									<input type="{{.type}}" class="modal-form-input {{#unimportant}}modal-form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
 								</p>
 							{{/}}
 							{{#.type === 'textarea'}}
 								<p class="modal-form-line">
-									<textarea class="modal-form-input" disabled="{{.disabled}}" readonly="{{.readonly}}" value="{{values[.name]}}"></textarea>
+									<textarea class="modal-form-input {{#unimportant}}modal-form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}"></textarea>
 								</p>
 							{{/}}
 							{{#.sublabel}}
@@ -124,7 +124,7 @@
 					{{/}}
 				</div>
 				<div>
-					<button type="button" class="modal-button modal-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="submit">
+					<button type="button" class="modal-button modal-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="submit()">
 						{{^processing}}
 							{{submitLabel}}
 						{{/}}
@@ -139,7 +139,7 @@
 				<p><em>{{message}}</em></p>
 				<div class="modal-actions">
 					{{#actions}}
-						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm:{{.action}}">{{.label}}</button>
+						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm(.action)">{{.label}}</button>
 					{{/}}
 				</div>
 			</confirmModal>
@@ -147,11 +147,11 @@
 			<messageModal modalClass="messageModal" closeOnEnter="true">
 				<p><em>{{{message}}}</em></p>
 				<div class="modal-actions">
-					<button type="button" class="modal-button modal-button--neutral" on-click="closeModal">OK</button>
+					<button type="button" class="modal-button modal-button--neutral" on-click="closeModal()">OK</button>
 				</div>
 			</messageModal>
 
-			<errorModal modalClass="errorModal" texts="{{texts}}">
+			<errorModal modalClass="errorModal" texts="{{texts}}" fill="{{fill}}">
 				<div>
 					<img src="images/sad-face.png" alt="Sadly"/>
 				</div>
@@ -159,10 +159,6 @@
 				<p class="errorModal-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
 				<p class="errorModal-message">{{message}}</p>
 			</errorModal>
-
-			<unclosableMessageModal modalClass="unclosableMessageModal" noCloseButton="true" disableEasyClose="true">
-				<p><em>{{{message}}}{{runningEllipsis}}</em></p>
-			</unclosableMessageModal>
 		</script>
 
 		<script type="text/ractive" id="modal-template">
@@ -175,7 +171,7 @@
 						{{>content}}
 					</div>
 					{{^noCloseButton}}
-						<button type="button" class="modal-closeBtn icon-close-plain" on-click="closeModal"></button>
+						<button type="button" class="modal-closeBtn icon-close-plain" on-click="closeModal()"></button>
 					{{/}}
 				</article>
 			</div>

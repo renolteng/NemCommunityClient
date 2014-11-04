@@ -6,433 +6,46 @@ define(function(require) {
     var Mustache = require('mustache');
     var tooltipster = require('tooltipster');
     var Utils = require('Utils');
-
-    var NccModal = Ractive.extend({
-        template: '#modal-template',
-        isolated: true,
-        open: function() {
-            this.set('isActive', true);
-            $('.active.modal-container').focus().find('.modal').css({
-                left: 'auto',
-                top: 'auto'
-            });
-        },
-        close: function() {
-            this.fire('closeModal');
-        },
-        lockAction: function() {
-            this.set('processing', true);
-        },
-        unlockAction: function() {
-            this.set('processing', false);
-        },
-        init: function() {
-            this.on({
-                closeModal: function() {
-                    this.set('isActive', false);
-                    if (typeof this.afterClose === 'function') {
-                        this.afterClose();
-                    }
-                },
-                modalContainerClick: function(e) {
-                    if (e.node === e.original.target) { //clicked outside modal
-                        this.fire('closeModal');
-                    }
-                },
-                modalContainerKeyup: function(e) {
-                    if (e.original.keyCode === 27 || (this.get('closeOnEnter') && e.original.keyCode === 13)) {
-                        this.fire('closeModal');
-                    }
-                },
-                confirm: function(e, action) {
-                    var callbacks = this.get('callbacks');
-                    var result;
-                    if (callbacks && callbacks[action]) {
-                        result = callbacks[action].call(this);
-                    }
-                    if (result !== false) {
-                        this.close();
-                    }
-                },
-                submit: function() {
-                    var submit = this.get('submit');
-                    var values = this.get('values');
-                    var result;
-                    if (submit) {
-                        result = submit.call(this, values, this.close.bind(this));
-                    }
-                    if (result !== false) {
-                        this.close();
-                    }
-                },
-                inputKeyup: function(e) {
-                    if (e.original.keyCode === 13) {
-                        this.fire('submit');
-                    }
-                }
-            });
-        }
-    });
-
-
-
-    var SendNemModal = NccModal.extend({
-        data: {
-            isFeeAutofilled: true,
-            dueBy: 12
-        },
-        computed: {
-            amount: function() {
-                return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedAmount')));
-            },
-            recipient: function() {
-                return Utils.restoreAddress(this.get('formattedRecipient'));
-            },
-            recipientValid: function() {
-                var recipient = this.get('recipient');
-                return !!recipient && recipient.length === 40;
-            },
-            safeRecipient: function() {  
-                return this.get('recipientValid') ? this.get('recipient') : ncc.get('activeAccount.address');
-            },
-            message: function() {
-                return this.get('rawMessage') && this.get('rawMessage').toString();
-            },
-            encrypt: function() {
-                return this.get('encryptionPossible') ? (this.get('encrypted') ? 1 : 0) : 0;
-            },
-            hours_due: function() {
-                return this.get('dueBy') | 0;
-            },
-            fee: {
-                get: function() {
-                    return ncc.toMNem(ncc.convertCurrencyToStandard(this.get('formattedFee')));
-                },
-                set: function(fee) {
-                    this.set('formattedFee', ncc.formatCurrency(fee, false, true, true));
-                }
-            }
-        },
-        resetFee: function(forceReset, silent) {
-            var requestData = {
-                wallet: ncc.get('wallet.name'),
-                account: ncc.get('activeAccount.address'),
-                amount: this.get('amount'),
-                message: this.get('message'),
-                encrypt: this.get('encrypt'),
-                recipient: this.get('safeRecipient'),
-                hours_due: this.get('hours_due')
-            };
-            var self = this;
-            
-            ncc.postRequest('wallet/account/transaction/validate', requestData, 
-                function(data) {
-                    var currentFee = self.get('fee');
-                    var newFee = data.fee;
-                    if (newFee || newFee === 0) {
-                        if (forceReset || !currentFee || currentFee < newFee) {
-                            self.set('fee', newFee);
-                            self.set('isFeeAutofilled', true);
-                        }
-                    }
-
-                    var encryptionPossible = self.get('recipientValid') && data.encryptionSupported;
-                    self.set('encryptionPossible', encryptionPossible);
-                    if (!encryptionPossible) {
-                        self.set('encrypted', false);
-                    }
-                }, 
-                {
-                    altFailCb: function(faultId, error) {
-                        if (faultId === 202) { // request encrypting while recipient unable to encrypt
-                            self.set('encrypted', false); // this will automatically trigger resetFee
-                            return true;
-                        }
-                    }
-                }, silent
-            );
-        },
-        resetDefaultData: function() {
-            this.set('formattedAmount', '0');
-            this.set('formattedRecipient', '');
-            this.set('rawMessage', '');
-            this.set('encrypted', false);
-            this.set('dueBy', '12');
-            this.set('password', '');
-        },
-        init: function() {
-            (new NccModal()).init.call(this);
-            var self = this;
-
-            this.resetDefaultData();
-            
-            this.observe('fee', function(newValue, oldValue, keypath) {
-                this.set('isFeeAutofilled', false);
-            });
-
-            this.observe('amount recipient message encrypt', (function() {
-                var t;
-                return function() {
-                    clearTimeout(t);
-                    t = setTimeout(function() {
-                        self.resetFee(self.get('isFeeAutofilled'), true);
-                    }, 500);
-                }
-            })());
-
-            this.observe('recipient', (function() {
-                var t;
-                return function(recipient) {
-                    clearTimeout(t);
-                    t = setTimeout(function() {
-                        ncc.postRequest('account/find', { account: recipient }, 
-                            function(data) {
-                                if (data.address) {
-                                    self.set('recipientLabel', data.label || '');
-                                } else {
-                                    self.set('recipientLabel', null);
-                                }
-                            }, 
-                            {
-                                error: function() {
-                                    self.set('recipientLabel', null);
-                                },
-                                altFailCb: function() {
-                                    self.set('recipientLabel', null);
-                                }
-                            },
-                            true
-                        );
-                    }, 500);
-                };
-            })(), {
-                init: false
-            });
-
-            this.on({
-                resetFee: function() {
-                    this.resetFee(true, false );
-                },
-                sendTransaction: function() {
-                    var activeAccount = ncc.get('activeAccount.address');
-                    var requestData = {
-                        wallet: ncc.get('wallet.name'),
-                        account: activeAccount,
-                        password: this.get('password'),
-                        amount: this.get('amount'),
-                        recipient: this.get('recipient'),
-                        message: this.get('message'),
-                        fee: this.get('fee'),
-                        encrypt: this.get('encrypt'),
-                        hours_due: this.get('hours_due')
-                    };
-
-                    var txConfirm = ncc.getModal('transactionConfirmation');
-                    var parent = this;
-                    txConfirm.set('parentData', this.get());
-                    txConfirm.set('callbacks', {
-                        confirm: function() {
-                            var self = this;
-                            self.lockAction();
-                            ncc.postRequest('wallet/account/transaction/send', requestData, function(data) {
-                                self.close();
-                                parent.close();
-                                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
-                                ncc.refreshInfo();
-                            },
-                            {
-                                complete: function() {
-                                    parent.set('password', '');
-                                    self.unlockAction();
-                                }
-                            });
-                            return false;
-                        }
-                    });
-                    txConfirm.open();
-                },
-                sendFormKeypress: function(e) {
-                    if (e.original.keyCode === 13) {
-                        this.fire('sendTransaction');
-                    }
-                },
-                closeModal: function() {
-                    this.resetDefaultData();
-                }
-            });
-        }
-    });
-
-
-
-
-    var SettingsModal = NccModal.extend({
-        computed: {
-            chkAutoBoot: {
-                get: function() {
-                    return !!this.get('settings.nisBootInfo.bootNis');
-                },
-                set: function(autoBoot) {
-                    this.set('settings.nisBootInfo.bootNis', autoBoot? 1 : 0);
-                }
-            },
-            displayedAccount: {
-                get: function() {
-                    if (!this.get('settings.nisBootInfo.account')) {
-                        return this.get('texts.modals.settings.autoBoot.primaryAccount');
-                    } else {
-                        return Utils.formatAddress(this.get('settings.nisBootInfo.account'));
-                    }
-                },
-                set: function(address) {
-                    if (address === this.get('texts.modals.settings.autoBoot.primaryAccount')) {
-                        this.set('settings.nisBootInfo.account', '');
-                    } else {
-                        this.set('settings.nisBootInfo.account', Utils.restoreAddress(address));
-                    }
-                }
-            },
-            portStr: {
-                get: function() {
-                    return this.get('settings.remoteServer.port');
-                },
-                set: function(port) {
-                    if (port && typeof port === 'string') {
-                        this.set('settings.remoteServer.port', parseInt(port, 10));
-                    } else {
-                        this.set('settings.remoteServer.port', port);
-                    }
-                }
-            }
-        },
-        close: function() {
-            (new NccModal()).close.call(this);
-
-            // Refresh to the current settings
-            ncc.getRequest('configuration/get', function(data) {
-                ncc.set('settings', data);
-            });
-        },
-        init: function() {
-            (new NccModal()).init.call(this);
-
-            this.on({
-                saveSettings: function() {
-                    var self = this;
-                    ncc.postRequest('configuration/update', ncc.get('settings'), function(data) {
-                        if (data.ok) {
-                            ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
-                            self.close();
-                        }
-                    });
-                },
-                setDisplayedAccount: function(e, val) {
-                    this.set('displayedAccount', val);
-                }
-            });
-
-            require(['maskedinput'], function() {
-                $('.js-settingsModal-account-textbox').mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
-                $('.js-settingsModal-port-textbox').mask('00000');
-            });
-
-            this.set('active.settingsModalTab', 'remoteServer');
-        }
-    });
-
-
+    var NccModal = require('NccModal');
+    var ConfirmModal = require('ConfirmModal');
+    var InputModal = require('InputModal');
+    var SettingsModal = require('SettingsModal');
+    var SendNemModal = require('SendNemModal');
+    var TransactionConfirmModal = require('TransactionConfirmModal');
 
     var NccRactive = Ractive.extend({
         el: document.body,
         template: '#template',
-        consts: {
-            fractionalDigits: 2,
-            txesPerPage: 25,
-            blocksPerPage: 25,
-            defaultLanguage: 'en',
-            STATUS_UNKNOWN: 0,
-            STATUS_STOPPED: 1,
-            STATUS_STARTING: 2,
-            STATUS_RUNNING: 3,
-            STATUS_BOOTING: 4,
-            STATUS_BOOTED: 5,
-            STATUS_SYNCHRONIZED: 6
-        },
-        getUrlParam: function(name) {
-            var qStr = location.search.substring(1, location.search.length);
-            var queries = qStr.split('&');
-            var temp, key, value;
-            for (var i = 0; i < queries.length; i++) {
-                temp = queries[i].split('=');
-                if (temp[0] && temp[1]) {
-                    key = decodeURIComponent(temp[0]);
-                    value = decodeURIComponent(temp[1]);
-                    if (key === name) {
-                        return value;
-                    }
-                }
-            }
-        },
-        toQueryString: function(params) {
-            var queryString = [];
-            for (var key in params) {
-                if (params.hasOwnProperty(key)) {
-                    queryString.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
-                }
-            }
-            if (queryString.length === 0) {
-                return '';
-            } else {
-                return '?' + queryString.join('&');
-            }
-        },
-        queryStringToJson: function (qStr) {
-            if (qStr === '')
-                return '';
-            var pairs = (qStr || location.search).slice(1).split('&');
-            var result = {};
-            for (var i = 0; i < pairs.length; i++) {
-                var pair = pairs[i].split('=');
-                if (pair[0]) {
-                    result[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || null);
-                }
-            }
-            return result;
-        },
-        escapeRegExp: function(str) {
-            return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-        },
         components: {
             errorModal: NccModal,
             messageModal: NccModal,
-            confirmModal: NccModal,
-            inputModal: NccModal,
+            confirmModal: ConfirmModal,
+            inputModal: InputModal,
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: NccModal,
-            unclosableMessageModal: NccModal,
-            transactionConfirmationModal: NccModal
+            transactionConfirmModal: TransactionConfirmModal
         },
         computed: {
             allAccounts: function() {
-                return this.prepend([this.get('wallet.primaryAccount')], this.get('wallet.otherAccounts'));
+                return [this.get('wallet.primaryAccount')].concat(this.get('wallet.otherAccounts'));
             },
             appStatus: function() {
                 switch (this.get('nccStatus.code')) {
                     case null:
                     case undefined:
-                    case this.consts.STATUS_UNKNOWN:
+                    case Utils.config.STATUS_UNKNOWN:
                         return {
                             type: 'critical',
                             message: this.get('texts.common.appStatus.nccUnknown')
                         };
-                    case  this.consts.STATUS_STOPPED:
+                    case  Utils.config.STATUS_STOPPED:
                         return {
                             type: 'critical',
                             message: this.get('texts.common.appStatus.nccUnavailable')
                         };
-                    case  this.consts.STATUS_STARTING:
+                    case  Utils.config.STATUS_STARTING:
                         return {
                             type: 'warning',
                             message: this.get('texts.common.appStatus.nccStarting')
@@ -441,22 +54,22 @@ define(function(require) {
                         switch (this.get('nisStatus.code')) {
                             case null:
                             case undefined:
-                            case this.consts.STATUS_UNKNOWN:
+                            case Utils.config.STATUS_UNKNOWN:
                                 return {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnknown')
                                 };
-                            case this.consts.STATUS_STOPPED:
+                            case Utils.config.STATUS_STOPPED:
                                 return {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnavailable')
                                 };
-                            case this.consts.STATUS_STARTING:
+                            case Utils.config.STATUS_STARTING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.nisStarting')
                                 };
-                            case this.consts.STATUS_RUNNING:
+                            case Utils.config.STATUS_RUNNING:
                                 if (this.get('status.booting')) {
                                     return {
                                         type: 'warning',
@@ -468,12 +81,12 @@ define(function(require) {
                                         message: this.get('texts.common.appStatus.notBooted')
                                     };
                                 }
-                            case this.consts.STATUS_BOOTING:
+                            case Utils.config.STATUS_BOOTING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.booting')
                                 };
-                            case this.consts.STATUS_BOOTED:
+                            case Utils.config.STATUS_BOOTED:
                                 var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
                                 if (lastBlockBehind !== 0) {
                                     if (!lastBlockBehind) {
@@ -512,7 +125,7 @@ define(function(require) {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.synchronizing')
                                 };
-                            case this.consts.STATUS_SYNCHRONIZED:
+                            case Utils.config.STATUS_SYNCHRONIZED:
                                 return {
                                     type: 'message',
                                     message: this.get('texts.common.appStatus.synchronized')
@@ -522,15 +135,15 @@ define(function(require) {
             },
             nodeBooted: function() {
                 var nisStatus = this.get('nisStatus.code');
-                return nisStatus === this.consts.STATUS_BOOTED || nisStatus === this.consts.STATUS_SYNCHRONIZED;
+                return nisStatus === Utils.config.STATUS_BOOTED || nisStatus === Utils.config.STATUS_SYNCHRONIZED;
             },
             nisUnavailable: function() {
-                return this.get('nisStatus.code') === this.consts.STATUS_STOPPED;
+                return this.get('nisStatus.code') === Utils.config.STATUS_STOPPED;
             },
             nisSynchronized: function() {
                 // 5 status code is not implemented yet
                 // so we cannot completely rely on NIS status code
-                return this.get('nisStatus.code') === this.consts.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
+                return this.get('nisStatus.code') === Utils.config.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
@@ -566,6 +179,19 @@ define(function(require) {
 
             return true;
         },
+        syncRequest: function(url) {
+            return $.ajax(url, {
+                async: false,
+                type: 'GET',
+                error: this.ajaxError
+            }).responseText;
+        },
+        /**
+         * @param {string} type
+         * @param {string} api
+         * @param {object} requestData
+         * @param {string} success
+         */
         _ajaxRequest: function(type, api, requestData, successCb, settings, silent) {
             var self = this;
             successCb = successCb || function() {};
@@ -579,7 +205,7 @@ define(function(require) {
                 data: requestData ? JSON.stringify(requestData) : undefined,
                 error: function (jqXHR, textStatus, errorThrown) {
                     // first check the success (in case this is a new API)
-                    var data = jqXHR.responseText ? $.parseJSON(jqXHR.responseText) : {};
+                    var data = jqXHR.responseText ? JSON.parse(jqXHR.responseText) : {};
                     if (!self.checkSuccess(data, silent, settings))
                         return;
 
@@ -609,174 +235,8 @@ define(function(require) {
         postRequest: function(api, requestData, successCb, settings, silent) {
             return this._ajaxRequest('post', api, requestData, successCb, settings, silent);
         },
-        syncRequest: function(url) {
-            return $.ajax(url, {
-                async: false,
-                type: 'GET',
-                error: this.ajaxError
-            }).responseText;
-        },
-        formatAddress: function(address) {
-            if (address && typeof address === 'string') {
-                return address.match(/.{1,6}/g).join('-').toUpperCase();
-            } else {
-                return address;
-            }
-        },
-        addThousandSeparators: function(num) {
-            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
-        },
-        minDigits: function(num, digits) {
-            num = num.toString(10);
-            while (num.length < digits) {
-                num = '0' + num;
-            }
-            return num;
-        },
-        toNem: function(mNem) {
-            return mNem / 1000000;
-        },
-        toMNem: function(nem) {
-            // clever workaround to deal with JavaScript loss of precision bugs
-            // by using strings for multiplication
-            // the largest integer that can be stored in a java numeric type (64-bit floating point)
-            // is Math.pow(2, 53) > 8 * Math.pow(10, 15)
-            // [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
-            // NOTE: this only works because nem is assumed to be a string
-
-            // determine the number of trailing zeros to add based on the index of the decimal
-            var decimalIndex = nem.indexOf('.');
-            var power = 6 - (-1 === decimalIndex ? 0 : nem.length - decimalIndex - 1);
-            var trailingZeros = new Array(power + 1).join('0');
-            return parseInt(nem.replace('.', '') + trailingZeros);
-        },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDecimalPlaces) { // amount is in mNEM
-            var nem = this.addThousandSeparators(Math.floor(this.toNem(amount)));
-            var mNem = Math.floor(amount % 1000000);
-            if (!noFixedDecimalPlaces) {
-                mNem = this.minDigits(mNem, 6);
-            }
-            if (!noLimitFractionalPart) {
-                mNem = mNem.substring(0, this.consts.fractionalDigits);
-            }
-
-            if (dimTrailings) {
-                mNem = mNem.toString(10);
-                var cutPos = mNem.length - 1;
-                while (mNem.charAt(cutPos) === '0') {
-                    cutPos--;
-                }
-                cutPos++;
-
-                var clearPart = mNem.substring(0, cutPos);
-                var dimmedPart = mNem.substring(cutPos, mNem.length);
-                if (dimmedPart) {
-                    if (clearPart) {
-                        return nem + this.get('texts.preferences.decimalSeparator') + clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
-                    } else {
-                        return nem + '<span class="dimmed">' + this.get('texts.preferences.decimalSeparator') + dimmedPart + '</span>';
-                    }
-                }
-            }
-
-            return nem + ((noFixedDecimalPlaces && !mNem) ? '' : (this.get('texts.preferences.decimalSeparator') + mNem));
-        },
-        // @param amount: string
-        convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
-            if (oldThousandSeparator) {
-                var thousandSeparatorRegex = new RegExp(ncc.escapeRegExp(oldThousandSeparator), 'g');
-                amount = amount.replace(thousandSeparatorRegex, newThousandSeparator);
-            }
-
-            if (oldDecimalSeparator) {
-                var decimalSeparatorRegex = new RegExp(ncc.escapeRegExp(oldDecimalSeparator), 'g');
-                amount = amount.replace(decimalSeparatorRegex, newDecimalSeparator);
-            }
-
-            return amount;
-        },
-        convertCurrencyToStandard: function(amount) {
-            return this.convertCurrencyFormat(amount, ncc.get('texts.preferences.thousandSeparator'), '', ncc.get('texts.preferences.decimalSeparator'), '.');
-        },
-        toDate: function(ms) {
-            return new Date(ms);
-        },
-        formatDate: (function() {
-            var shortMonths = {
-                1: 'Jan',
-                2: 'Feb',
-                3: 'Mar',
-                4: 'Apr',
-                5: 'May',
-                6: 'Jun',
-                7: 'Jul',
-                8: 'Aug',
-                9: 'Sep',
-                10: 'Oct',
-                11: 'Nov',
-                12: 'Dec',
-            };
-            return function(date, format) {
-                if (typeof date === 'number') {
-                    date = this.toDate(date);
-
-                    var month = date.getMonth() + 1;
-                    var day = date.getDate();
-                    var year = date.getFullYear();
-                    var hour = date.getHours();
-                    var min = date.getMinutes();
-                    var sec = date.getSeconds();
-
-                    switch (format) {
-                    case 'MM/dd/yy hh:mm:ss':
-                        month = this.minDigits(month, 2);
-                        day = this.minDigits(day, 2);
-                        year = year.toString(10);
-                        year = year.substring(year.length - 2, year.length);
-                        hour = this.minDigits(hour, 2);
-                        min = this.minDigits(min, 2);
-                        sec = this.minDigits(sec, 2);
-                        return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
-                    case 'M dd, yyyy':
-                        month = shortMonths[month];
-                        day = this.minDigits(day, 2);
-                        return month + ' ' + day + ', ' + year;
-                    case 'M dd, yyyy hh:mm:ss':
-                        month = shortMonths[month];
-                        day = this.minDigits(day, 2);
-                        hour = this.minDigits(hour, 2);
-                        min = this.minDigits(min, 2);
-                        sec = this.minDigits(sec, 2);
-                        return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
-                    }
-                } else {
-                    return date;
-                }
-            };
-        })(),
-        daysPassed: function(begin) {
-            var now = new Date().getTime();
-            var timespan = now - begin;
-            var day = 1000*60*60*24;
-            var days = timespan / day;
-            var roundedDays = Math.round(days);
-            return {
-                days: days,
-                roundedDays: roundedDays
-            };
-        },
-        sortByTimeNewest: function(a, b) {
-            if (a && b && a.timeStamp && b.timeStamp) {
-                return b.timeStamp - a.timeStamp;
-            } else {
-                return 0;
-            }
-        },
         getModal: function(modalName) {
             return this.findComponent(modalName + 'Modal');
-        },
-        showModal: function(modalName) {
-            this.getModal(modalName).open();
         },
         showError: function(errorId, message) {
             var modal = this.getModal('error');
@@ -805,34 +265,6 @@ define(function(require) {
                 });
             }
         },
-        showUnclosableMessage: function(title, message, runningEllipsis) {
-            var modal = this.getModal('unclosableMessage');
-            modal.set({
-                modalTitle: title,
-                message: message
-            });
-            if (runningEllipsis) {
-                var ell = '';
-                modal.runningEllipsis = setInterval(function() {
-                    modal.set('runningEllipsis', ell);
-                    if (ell.length < 3) {
-                        ell += '.';
-                    } else {
-                        ell = '';
-                    }
-                }, 600);
-            }
-            modal.open();
-        },
-        closeUnclosableMessage: function() {
-            var modal = this.getModal('unclosableMessage');
-            if (modal.runningEllipsis) {
-                clearInterval(modal.runningEllipsis);
-                modal.runningEllipsis = null;
-            }
-            modal.close();
-
-        },
         showConfirmation: function(title, message, callbacks, actions) {
             var modal = this.getModal('confirm');
             modal.set({
@@ -854,7 +286,7 @@ define(function(require) {
             });
             modal.open();
         },
-        showInputForm: function(title, message, fields, initValues, submit, submitLabel, processingLabel) {
+        showInputForm: function(title, message, fields, initValues, submitCb, submitLabel, processingLabel) {
             var modal = this.getModal('input');
             modal.set({
                 fields: null,
@@ -866,128 +298,35 @@ define(function(require) {
                 message: message,
                 fields: fields,
                 values: initValues,
-                submit: submit,
+                submitCb: submitCb,
                 submitLabel: submitLabel,
                 processingLabel: processingLabel
             });
             modal.open();
         },
         toggleOn: function(id) {
-            var keypath = 'active.' + id;
-            if (!this.get(keypath)) {
-                this.set(keypath, true);
-                var firstTime = true;
-                var self = this;
-                $(document).on('click.' + id, function(ev) {
-                    if (firstTime) {
-                        firstTime = false;
-                        return;
-                    }
-                    //if (self.nodes[id] !== ev.target && !$.contains(self.nodes[id], ev.target)) {
-                    self.fire('toggleOff', null, id);
-                    //}
-                });
-            }
+            Utils.toggleOn(this, id);
         },
         toggleOff: function(id) {
-            this.set('active.' + id, false);
-            $(document).off('click.' + id);
+            Utils.toggleOff(this, id);
         },
-        prepend: function(args, array) {
-            var a = array.slice(0);
-            a.unshift.apply(a, args);
-            return a;
-        },
-        updateNewer: function(newArr, currentArr, comparedProp) {
-            if (currentArr && currentArr[0] && newArr && newArr[0]) {
-                var comparedValue = newArr[newArr.length - 1][comparedProp];
-                
-                for (var i = currentArr.length - 1; i >= 0; i--) {
-                    if (currentArr[i][comparedProp] === comparedValue) {
-                        break;
-                    }
-                }
+        fill: function(template) {
+            // The first argument could be whether it should return the HTML decoded version
+            if (typeof arguments[0] === 'boolean') {
+                var decode = arguments[0];
+                Array.prototype.splice.call(arguments, 0, 1);
+                template = arguments[0];
 
-                if (i === 0) {
-                    return {
-                        updatedArray: newArr,
-                        noConnection: true
-                    };
+                if (decode) {
+                    return Utils.htmlDecode(Mustache.render(template, arguments));
                 } else {
-                    var nonDup = currentArr.slice(i + 1);
-                    var updatedArray = newArr.concat(nonDup);
-                    return {
-                        updatedArray: updatedArray,
-                        noConnection: false
-                    };
+                    return Mustache.render(template, arguments);
                 }
             } else {
-                return {
-                    updatedArray: newArr,
-                    noConnection: true
-                };
+                return Mustache.render(template, arguments);
             }
         },
-        processTransaction: function(tx, activeAccount) {
-            if (!activeAccount) activeAccount = this.get('activeAccount.address');
-            tx.isIncoming = tx.direction === 1 || tx.direction === 0;
-            tx.isOutgoing = tx.direction === 2;
-            tx.isSelf = tx.direction === 3;
-            tx.formattedSender = this.formatAddress(tx.sender);
-            tx.formattedRecipient = this.formatAddress(tx.recipient);
-            tx.formattedFee = this.formatCurrency(tx.fee, true);
-            tx.formattedAmount = this.formatCurrency(tx.amount, true);
-            tx.formattedFullFee = this.formatCurrency(tx.fee, false, true, false);
-            tx.formattedFullAmount = this.formatCurrency(tx.amount, false, true, false);
-            tx.formattedDate = this.formatDate(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
-            return tx;
-        },
-        processTransactions: function(transactions, activeAccount) {
-            if (transactions) {
-                if (!activeAccount) activeAccount = this.get('activeAccount.address');
-                for (var i = 0; i < transactions.length; i++) {
-                    this.processTransaction(transactions[i], activeAccount);
-                }
-            }
-            return transactions;
-        },
-        processHarvestedBlock: function(block) {
-            if (!block.message) block.message = 'Block #' + block.height;
-            if (!block.hash) block.hash = block.blockHash.data;
-            if (!block.timeStamp && block.fee !== 0) block.timeStamp = block.timeStamp;
-            if (!block.fee && block.fee !== 0) block.fee = block.totalFee;
-
-            block.formattedTime = this.formatDate(block.timeStamp, 'M dd, yyyy hh:mm:ss');
-            block.formattedFee = this.formatCurrency(block.fee, true);
-            return block;
-        },
-        processHarvestedBlocks: function(blocks) {
-            for (var i = 0; i < blocks.length; i++) {
-                this.processHarvestedBlock(blocks[i]);
-            }
-            return blocks;
-        },
-        processAccount: function(account) {
-            account.formattedAddress = this.formatAddress(account.address);
-            var currentAccount = this.get('activeAccount.address');
-
-            if (account.transactions) {
-            	account.transactions = this.processTransactions(account.transactions);
-            }
-
-            return account;
-        },
-        processWallet: function(wallet) {
-            wallet.lastRefreshDate = this.toDate(wallet.lastRefresh).toString();
-            wallet.daysPassed = this.daysPassed(wallet.lastRefresh);
-
-            this.processAccount(wallet.primaryAccount);
-            for (var i = 0; i < wallet.otherAccounts.length; i++) {
-                this.processAccount(wallet.otherAccounts[i]);
-            }
-
-            return wallet;
-        },
+        
         globalSetup: function() {
             require(['draggable'], function() {
                 $('.modal').draggable({
@@ -1071,10 +410,10 @@ define(function(require) {
                 if (!isBack) {
                     var queryString = '';
                     if (params) {
-                        queryString = self.toQueryString(params);
+                        queryString = Utils.toQueryString(params);
                     } else if (isInit) {
                         queryString = location.search;
-                        params = ncc.queryStringToJson(location.search);
+                        params = Utils.queryStringToJson(location.search);
                     }
                     var url = layouts[layouts.length - 1].url + queryString;
                     
@@ -1089,37 +428,13 @@ define(function(require) {
 
             loadLayout(page);
         },
-        fill: (function() {
-            var htmlDecode = function(str) {
-                var txt = document.createElement('textarea');
-                txt.innerHTML = str;
-                return txt.value;
-            };
-
-            return function(template) {
-                // The first argument could be whether it should return the HTML decoded version
-                if (typeof arguments[0] === 'boolean') {
-                    var decode = arguments[0];
-                    Array.prototype.splice.call(arguments, 0, 1);
-                    template = arguments[0];
-
-                    if (decode) {
-                        return htmlDecode(Mustache.render(template, arguments));
-                    } else {
-                        return Mustache.render(template, arguments);
-                    }
-                } else {
-                    return Mustache.render(template, arguments);
-                }
-            };
-        })(),
-        init: function(options) {
+        oncomplete: function(options) {
             var self = this;
 
             require(['languages'], function(languages) {
                 self.set('languages', languages);
                 self.observe('settings.language', function(newValue) {
-					newValue = newValue || self.consts.defaultLanguage;
+					newValue = newValue || Utils.config.defaultLanguage;
                     for (var i = 0; i < languages.length; i++) {
                         if (languages[i].id.toLowerCase() === newValue.toLowerCase()) {
                             self.set('texts', languages[i].texts);
@@ -1136,14 +451,8 @@ define(function(require) {
                 redirect: function(e, page, params) {
                     this.loadPage(page, params);
                 },
-                toggleOn: function(e, id) {
-                    this.toggleOn(id);
-                },
-                toggleOff: function(e, id) {
-                    this.toggleOff(id);
-                },
                 openModal: function(e, id) {
-                    this.showModal(id);
+                    this.getModal(id).open();
                 },
                 shutdown: function() {
                     var self = this;
@@ -1183,12 +492,7 @@ define(function(require) {
             });
 
             this.set('fill', this.fill);
-            this.set('formatAddress', this.formatAddress);
-            this.set('formatCurrency', this.formatCurrency);
-            this.set('formatDate', this.formatDate);
-            this.set('toDate', this.toDate);
-            this.set('daysPassed', this.daysPassed);
-            this.set('toNem', this.toNem);
+            this.set('formatCurrency', Utils.formatCurrency);
 
             this.global = {
                 $window: $(window),
