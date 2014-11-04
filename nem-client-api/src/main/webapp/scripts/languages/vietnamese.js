@@ -112,13 +112,17 @@ define({
 				successMessage: 'Giao dịch đã được gửi đi thành công!',
 				txConfirm: {
 					title: 'Xác nhận giao dịch',
-					sendLabel: 'Bạn chuẩn bị gửi',
+					amount: 'Số lượng',
 					to: 'Tới',
+					fee: 'Chi phí',
+					dueBy: 'Hết hạn',
+					hours: 'giờ',
+					total: 'Tổng cộng',
 					message: 'Thông điệp',
 					encrypted: 'Thông điệp được mã hoá',
 					noMessage: 'Không có thông điệp',
 					cancel: 'Huỷ',
-					send: 'Gửi',
+					confirm: 'Xác nhận',
 					sending: 'Đang gửi...'
 				},
 				notBootedWarning: {
