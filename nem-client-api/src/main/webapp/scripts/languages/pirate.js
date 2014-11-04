@@ -111,15 +111,19 @@ define({
 				sending: "Delivering...",
 				successMessage: "Yer loot delivered!",
 				txConfirm: {
-					title: 'Confirm booty',
-					sendLabel: "You're going to send booty",
+					title: 'Confirm Transaction',
+					amount: 'Amount',
 					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
-					cancel: 'Avast!',
-					send: 'Deliver',
-					sending: 'Delivering...'
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: "Ship still in port!",

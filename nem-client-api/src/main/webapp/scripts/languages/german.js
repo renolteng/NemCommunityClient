@@ -112,13 +112,17 @@ define({
 				successMessage: "Die Transaktion wurde erfolgreich gesendet!",
 				txConfirm: {
 					title: "Transaktion bestätigen",
-					sendLabel: "Sie senden",
-					to: "An",
+					amount: 'Betrag',
+					to: 'An',
+					fee: 'Gebühr',
+					dueBy: 'Verfällt in',
+					hours: 'Stunde(n)',
+					total: 'Insgesamt',
 					message: "Nachricht",
 					encrypted: "Nachricht ist verschlüsselt",
 					noMessage: "Keine Nachricht",
 					cancel: "Abbrechen",
-					send: "Senden",
+					confirm: "Bestätigen",
 					sending: "Sende..."
 				},
 				notBootedWarning: {

@@ -111,15 +111,19 @@ define({
 				sending: "Siunčiama...",
 				successMessage: "Transakcija išsiųsta sėkmingai!",
 				txConfirm: {
-					title: "Patvirtinti transakciją",
-					sendLabel: "Jūs norite išsiųsti",
-					to: "Į",
-					message: "Žinutė",
-					encrypted: "Žinutė šifruota",
-					noMessage: "Žinutės nėra",
-					cancel: "Nutraukti",
-					send: "Siųsti",
-					sending: "Siunčiama..."
+					title: 'Confirm Transaction',
+					amount: 'Amount',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+					cancel: 'Cancel',
+					confirm: 'Confirm',
+					sending: 'Sending...'
 				},
 				notBootedWarning: {
 					title: "Prieigos taškas nepaleistas!",
