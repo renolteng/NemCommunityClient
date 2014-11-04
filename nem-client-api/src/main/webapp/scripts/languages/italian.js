@@ -3,7 +3,7 @@ define({
     name: "Italiano",
     texts: {
         preferences: {
-            thousandSeparator: " ",
+            thousandSeparator: "\u2009",
             decimalSeparator: ","
         },
         faults: {
