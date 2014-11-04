@@ -126,8 +126,8 @@ define({
 					message: "Der lokale Knotenpunkt muss gebootet werden, bevor Du NEM senden kannst!"
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: 'Der Knotenpunkt wird gebootet',
+					message: 'Bitte warte bis der Bootprozess vollständig ist bevor Du Deine Transaktion sendest.'
 				}
 			},
 			clientInfo: {
