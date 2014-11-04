@@ -137,8 +137,8 @@ define({
 				remoteServer: "Remote Server",
 				local: "Lokal",
 				nis: "NEM Infrastructure Server - NIS",
-				sync: "Synchronisiert",
-				notSync: "Nicht synchronisiert",
+				sync: "Synchron",
+				notSync: "Nicht synchron",
 				notConnected: "Nicht verbunden mit der NEM Cloud",
 				loading: "Lade..."
 			},
@@ -202,7 +202,7 @@ define({
 						message: "Du hast den richtigen Schlüssel gespeichert. Bewahre ihn an einem sicheren Ort auf!"
 					},
 					incorrect: {
-						title: "Hmmm...",
+						title: "Fehler",
 						message: "Der private Schlüssel den Du eingegeben hast ist nicht korrekt. Bitte gebe ihn erneut ein.",
 						tryAgain: "Bitte erneut eingeben.",
 						seeOriginal: "Originaldaten anschauen."
