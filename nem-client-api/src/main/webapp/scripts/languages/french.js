@@ -112,15 +112,27 @@ define({
                 successMessage: "La transaction a été envoyé avec succès!",
                 txConfirm: {
                     title: "Confirmez la transaction",
-                    sendLabel: "Vous allez envoyer",
-                    to: "À",
+					amount: 'Amount',
+					to: 'À',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
                     message: "Message",
                     encrypted: "Le message est chiffré",
                     noMessage: "Pas de message",
                     cancel: "Annuler",
-                    send: "Envoyer",
+					confirm: 'Confirm',
                     sending: "Envoi..."
-                }
+				},
+				notBootedWarning: {
+					title: "Le noeud n'a pas été démarré!",
+					message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des NEMs!"
+ 				},
+				bootingWarning: {
+					title: 'Node is being booted',
+					message: 'Please wait until booting process is done to send your transaction.'
+				}
             },
             clientInfo: {
                 title: "Information sur le Client",
@@ -161,10 +173,6 @@ define({
                 node: "Nom du noeud",
                 boot: "Démarrer",
                 booting: "Démarrage..."
-            },
-            notBootedWarning: {
-                title: "Le noeud n'a pas été démarré!",
-                message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des NEMs!"
             },
             closeWallet: {
                 title: "Fermeture de portefeuille",
@@ -327,20 +335,16 @@ define({
                 copyright: "Photographie par <em>Cas Cornelissen</em>"
             },
             carousel: {
-                items: [
-                    {
+                items: [{
                         title: "NCC chiffre votre portefeuille",
                         description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
-                    },
-                    {
+                    }, {
                         title: "NCC chiffre votre portefeuille",
                         description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
-                    }
-                ]
+                    }]
             },
             about: {
-                sections: [
-                    {
+                sections: [{
                         title: "Comment NCC fonctionne?",
                         paragraphs: [
                             "<strong>NCC</strong>offre un accès à vos actifs et vos NEMs comme un portefeuille traditionnel le ferait.",
@@ -351,8 +355,7 @@ define({
                             "Multiples portefeuilles",
                             "Définir de multiple compte à être inclus dans votre portefeuille"
                         ]
-                    },
-                    {
+                    }, {
                         title: "Qu'est-ce que le &#42;NIS?",
                         paragraphs: [
                             "Cette composante est responsable de garder le nuage <strong>NEM</strong> vivant.",
@@ -360,8 +363,7 @@ define({
                             "<strong>NIS</strong> est le point d'accès au nuage <strong>NEM</strong>."
                         ],
                         legend: "<strong>&#42;NIS</strong> signifie <strong>Serveur d'infrastructure NEM (NEM Infrastructure Server)</strong>"
-                    }
-                ]
+                    }]
             },
             footer: {
                 copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -531,11 +533,9 @@ define({
         },
         settings: {
             title: "Paramètres",
-            settings: [
-                {
+            settings: [{
                     name: "Langue"
-                }
-            ],
+                }],
             save: "Enregistrer les modifications",
             saveSuccess: "`Les paramètres ont été enregistrés avec succès"
         }

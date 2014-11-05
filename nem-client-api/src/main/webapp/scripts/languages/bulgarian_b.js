@@ -335,20 +335,16 @@ define({
                 copyright: "Фотография от <em>Cas Cornelissen</em>"
             },
             carousel: {
-                items: [
-                    {
+                items: [{
                         title: "NCC криптира твоя портфейл",
                         description: "<em>Сигурността</em> е най важната задача за NEM състояща се в защита на вашите NEM монети и активи."
-                    },
-                    {
+                    }, {
                         title: "NCC криптира твоя портфейл",
                         description: "<em>Сигурността</em> е най важната задача за NEM състояща се в защита на вашите NEM монети и активи."
-                    }
-                ]
+                    }]
             },
             about: {
-                sections: [
-                    {
+                sections: [{
                         title: "Как работи NCC?",
                         paragraphs: [
                             "<strong>NCC</strong> предоставя достъп до вашите активи и NEM монети като обикновен портфейл.Вие можете",
@@ -359,8 +355,7 @@ define({
                             "Да имате няколко портфейла",
                             "Да дефинирате няколко акаунта да се съдържат в един портфейл."
                         ]
-                    },
-                    {
+                    }, {
                         title: "Какво е &#42;NIS?",
                         paragraphs: [
                             "Този компонент отговаря за функционирането на <strong>NEM</strong> облака.",
@@ -368,8 +363,7 @@ define({
                             "<strong>NIS</strong> това е точката за достъп за <strong>NEM</strong> облака."
                         ],
                         legend: "<strong>&#42;NIS</strong> се разшифрова <strong>NEM Infrastructure Server</strong>"
-                    }
-                ]
+                    }]
             },
             footer: {
                 copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -539,11 +533,9 @@ define({
         },
         settings: {
             title: "Настройки",
-            settings: [
-                {
-                    name: "Език"
-                }
-            ],
+            settings: [{
+                name: "Език"
+            }],
             save: "Запази промените",
             saveSuccess: "Настройките бяха успешно запазени"
         }
