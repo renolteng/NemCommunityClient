@@ -381,3 +381,11 @@ Only a local NIS can be booted.
 }
 ```
 
+### VanityAddressRequest
+
+```
+{
+	"pattern": "ABC",
+	"max_attempts": 1000
+}
+```
