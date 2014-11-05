@@ -118,7 +118,7 @@
 						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{.label ? .label : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
-				<button class="account-actionsButton fullSidebarOnly {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
+				<button class="account-actionsButton {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
 					<span class="account-actionsButton--gear icon-gear"></span>
 					<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
 				</button>
