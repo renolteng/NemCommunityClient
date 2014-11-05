@@ -12,6 +12,7 @@ import org.nem.ncc.controller.annotations.RequiresTrustedNis;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
+import org.nem.ncc.model.VanityAddressGenerator;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -256,9 +257,10 @@ public class AccountController {
 
 	//region create/verify real private key
 
+	/* TODO 20141016 BR: delete at launch */
+
 	/**
-	 * Temporary API for creating and verifying a real (main-net) private key during beta.
-	 * TODO 20141016 BR: delete at launch
+	 * Temporary API for creating a real (main-net) private key during beta.
 	 *
 	 * @return A key pair view model.
 	 */
@@ -269,6 +271,28 @@ public class AccountController {
 		return new KeyPairViewModel(keyPair, networkInfo.getVersion());
 	}
 
+	/**
+	 * Temporary API for creating a real (main-net) vanity private key during beta.
+	 *
+	 * @param request The vanity request.
+	 * @return A key pair view model.
+	 */
+	@RequestMapping(value = "/account/create-vanity-real-account-data", method = RequestMethod.POST)
+	public KeyPairViewModel createVanityRealAccountData(final VanityAddressRequest request) {
+		final byte version = NetworkInfo.getMainNetworkInfo().getVersion();
+		final VanityAddressGenerator generator = new VanityAddressGenerator(
+				KeyPair::new,
+				kp -> Address.fromPublicKey(version, kp.getPublicKey()));
+
+		final KeyPair keyPair = generator.generate(request.getPattern(), request.getMaxAttempts());
+		return new KeyPairViewModel(keyPair, version);
+	}
+
+	/**
+	 * Temporary API for verifying a real (main-net) private key during beta.
+	 *
+	 * @param viewModel A key pair view model.
+	 */
 	@RequestMapping(value = "/account/verify-real-account-data", method = RequestMethod.POST)
 	public void verifyRealAccountData(@RequestBody final KeyPairViewModel viewModel) {
 		final NetworkInfo networkInfo = NetworkInfo.getMainNetworkInfo();

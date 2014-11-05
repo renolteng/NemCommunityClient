@@ -11,7 +11,7 @@ public class BootNodeRequest extends AccountWalletRequest {
 	private final String nodeName;
 
 	/**
-	 * Creates a new boot node view model.
+	 * Creates a new boot node request.
 	 *
 	 * @param address The account address.
 	 * @param walletName The wallet name.
@@ -26,7 +26,7 @@ public class BootNodeRequest extends AccountWalletRequest {
 	}
 
 	/**
-	 * Deserializes a boot node view model.
+	 * Deserializes a boot node request.
 	 *
 	 * @param deserializer The deserializer.
 	 */
