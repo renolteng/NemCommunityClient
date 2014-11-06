@@ -41,7 +41,7 @@
 									<span>{{texts.dashboard.importance.unknown}}</span>
 								</button>
 							{{/}}
-							{{^status.lostConnection || nisUnavailable}}
+							{{^status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
 								{{#activeAccount.status === 'LOCKED'}}
 									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
 										<span>{{texts.dashboard.importance.start}}</span>
