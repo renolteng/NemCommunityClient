@@ -78,7 +78,7 @@
 							<li class="dropdownMenu-item disabled">
 								{{texts.wallet.actions.exportWallet}}
 							</li>
-							<li class="dropdownMenu-item {{# nisUnavailable || nodeBooted}}disabled{{/}} dropdownMenu-item--separator" on-click="bootLocalNode">
+							<li class="dropdownMenu-item {{^enableManualBoot}}disabled{{/}} dropdownMenu-item--separator" on-click="bootLocalNode">
 								{{texts.wallet.actions.bootLocalNode}}
 							</li>
 							<li class="dropdownMenu-item" on-click="refreshInfo">
