@@ -798,6 +798,10 @@ $txConfirm-label-width: 130px;
 	margin-top: 20px;
 }
 
+.txConfirm-recipient {
+	text-transform: uppercase;
+}
+
 .txConfirm-totalLabel,
 .txConfirm-total {
 	display: inline-block;
