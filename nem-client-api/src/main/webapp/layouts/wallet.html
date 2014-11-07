@@ -274,7 +274,8 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.to}}</span>
-			<span class="txConfirm-value">{{txData.formattedRecipient}}
+			<span class="txConfirm-value">
+				<span class="txConfirm-recipient">{{txData.formattedRecipient}}</span>
 				{{#txData.recipientLabel}}
 					(<span class="txConfirm-recipientLabel">{{txData.recipientLabel}}</span>)
 				{{/}}
