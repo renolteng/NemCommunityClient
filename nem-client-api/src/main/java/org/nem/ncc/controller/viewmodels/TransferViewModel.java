@@ -203,8 +203,14 @@ public class TransferViewModel implements SerializableEntity {
 		return this.confirmations;
 	}
 
+	/**
+	 * Gets the height of the block that includes the transaction
+	 * or zero if the transaction is unconfirmed.
+	 *
+	 * @return The height of the block that includes the transaction.
+	 */
 	public long getBlockHeight() {
-		return blockHeight;
+		return this.blockHeight;
 	}
 
 	/**
