@@ -328,11 +328,11 @@
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.sender}}</td>
-				<td class="txDetails-cell--content">{{formattedSender}}</td>
+				<td class="txDetails-cell--content">{{.formattedSender}}</td>
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
-				<td class="txDetails-cell--content">{{formattedRecipient}}</td>
+				<td class="txDetails-cell--content">{{.formattedRecipient}}</td>
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.message}}</td>
@@ -345,11 +345,17 @@
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.time}}</td>
-				<td class="txDetails-cell--content">{{formattedDate}}</td>
+				<td class="txDetails-cell--content">{{.formattedDate}}</td>
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
-				<td class="txDetails-cell--content">{{.confirmations}}</td>
+				<td class="txDetails-cell--content">
+					{{#if blockchainHeight}}
+						{{blockchainHeight - .blockHeight}}
+					{{else}}
+						{{texts.modals.transactionDetails.confirmationsUnknown}}
+					{{/if}}
+				</td>
 			</tr>
 			<tr>
 				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
