@@ -111,27 +111,27 @@
 				sending: 'भेजा जा रहा है...',
 				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					amount: 'Amount',
+					title: 'ट्रांजैक्शन की पुष्टि करें',
+					amount: 'अमाउंट',
 					to: 'To',
-					fee: 'Fee',
+					fee: 'फ़ीस',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
+					message: 'मेसेज',
+					encrypted: 'मेसेज एन्क्रिप्टेड है',
+					noMessage: 'नो मेसेज',
 					cancel: 'Cancel',
 					confirm: 'Confirm',
-					sending: 'Sending...'
+					sending: 'भेजा जा रहा है...'
 				},
 				notBootedWarning: {
 					title: 'लोकल नोड बूट नही हो पाया है!',
 					message: 'NEM भेजने के लिए लोकल नोड को बूट करना ज़रूरी है!'
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: 'नोड को बूट किया जा रहा है',
+					message: 'कृपया ट्रांजैक्शन करने से पहले नोड को बूट होने दें.'
 				}
 			},
 			clientInfo: {
@@ -148,9 +148,7 @@
 			},
 			transactionDetails: {
 				title: 'ट्रांजैक्शन विवरण',
-				// this might be block or transaction ID
 				id: 'ID',
-				// this might be block or transaction Hash
 				hash: 'Hash',
 				type: 'ट्रांजैक्शन प्रकार',
 				pending: 'Pending',
