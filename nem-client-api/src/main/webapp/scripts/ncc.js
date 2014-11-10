@@ -369,6 +369,11 @@ define(function(require) {
                     var keypath = 'layout.' + i;
                     var currentLayout = self.get(keypath);
 
+                    if (!layout.alreadyInit && layout.initOnce) {
+                        layout.initOnce();
+                        layout.alreadyInit = true;
+                    }
+                        
                     if (paramsChanged && layout.paramsChanged) {
                         var abort = layout.paramsChanged(params);
                         if (abort) return;
@@ -383,10 +388,6 @@ define(function(require) {
                         }
 
                         // Init
-                        if (!layout.alreadyInit && layout.initOnce) {
-                            layout.initOnce();
-                            layout.alreadyInit = true;
-                        }
                         if (layout.initEverytime) {
                             var abort = layout.initEverytime(params);
                             if (abort) return;
