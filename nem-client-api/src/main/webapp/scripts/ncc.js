@@ -369,7 +369,12 @@ define(function(require) {
                     var keypath = 'layout.' + i;
                     var currentLayout = self.get(keypath);
 
-                    if (paramsChanged || !currentLayout || (currentLayout.name !== layout.name)) {
+                    if (paramsChanged && layout.paramsChanged) {
+                        var abort = layout.paramsChanged(params);
+                        if (abort) return;
+                    }
+
+                    if (!currentLayout || (currentLayout.name !== layout.name)) {
                         var template = require(layout.template);
                         if (currentLayout && currentLayout.leave) {
                             $.each(currentLayout.leave, function() {
