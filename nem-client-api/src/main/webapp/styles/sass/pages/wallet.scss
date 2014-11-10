@@ -651,6 +651,11 @@ $sendNem-textbox-hPadding: 8px;
 	color: #444444;
 }
 
+.sendNem-control--disabled {
+	border-color: #f2f2f2;
+	color: rgba(#444444, .5);
+}
+
 .sendNem-control--half {
 	width: calc(50% - 8px);
 }
