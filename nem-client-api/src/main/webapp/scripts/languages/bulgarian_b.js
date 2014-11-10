@@ -104,7 +104,7 @@ define({
 				encrypt: "Криптирано съобщение",
 				fee: "Такса",
 				dueBy: "Време до края",
-				resetFee: "Фиксиране на минимална такса",
+				useMinimumFee: 'Use minimum fee',
 				hours: "Часове",
 				password: "Парола",
 				send: "Изпрати",

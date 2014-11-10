@@ -104,7 +104,7 @@ define({
 				encrypt: "Nachricht verschlüsseln",
 				fee: "Gebühr",
 				dueBy: "Verfällt in",
-				resetFee: "Auf Minimalgebühr zurücksetzen",
+				useMinimumFee: 'Benutze minimale Gebühr',
 				hours: "Stunden",
 				password: "Passwort",
 				send: "Senden",

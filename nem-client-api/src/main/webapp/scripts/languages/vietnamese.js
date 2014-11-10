@@ -104,7 +104,7 @@ define({
 				encrypt: 'Mã hoá thông điệp',
 				fee: 'Chi phí',
 				dueBy: 'Hết hạn',
-				resetFee: 'Đặt lại phí tối thiểu',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'giờ',
 				password: 'Mật khẩu',
 				send: 'Gửi',

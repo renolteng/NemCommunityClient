@@ -104,7 +104,7 @@ define({
 				encrypt: 'Encriptar mensaje',
 				fee: 'Tarifa',
 				dueBy: 'Debido por',
-				resetFee: 'Reestablecer a valor de tarifa m&iacute;nimo',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'horas',
 				password: 'Contrase&ntilde;a',
 				send: 'Enviar',

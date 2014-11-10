@@ -104,7 +104,7 @@ define({
 				encrypt: '加密信息',
 				fee: '費',
 				dueBy: '限期（小時）',
-				resetFee: '重設最低收費',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'hours',
 				password: '密碼',
 				send: '發送',

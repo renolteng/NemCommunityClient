@@ -104,7 +104,7 @@ define({
 				encrypt: "Užšifruoti žinutę",
 				fee: "Mokestis",
 				dueBy: "Galiojimo trukmė",
-				resetFee: "Nustatyti iki minimalaus mokesčio",
+				useMinimumFee: 'Use minimum fee',
 				hours: "valandos",
 				password: "Slaptažodis",
 				send: "Siųsti",

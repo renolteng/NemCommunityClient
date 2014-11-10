@@ -104,7 +104,7 @@ define({
 				encrypt: "メッセージを暗号化する。",
 				fee: "手数料",
 				dueBy: "期限",
-				resetFee: "最低取引手数料に戻す",
+				useMinimumFee: 'Use minimum fee',
 				hours: "時間単位",
 				password: "パスワード",
 				send: "送る",

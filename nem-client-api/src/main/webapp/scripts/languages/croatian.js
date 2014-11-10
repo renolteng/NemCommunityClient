@@ -104,7 +104,7 @@ define({
 				encrypt: "Šifriraj poruku",
 				fee: "Naknada",
 				dueBy: "zbog",
-				resetFee: "Postavi na najmanju naknadu",
+				useMinimumFee: 'Use minimum fee',
 				hours: "sati",
 				password: "Lozinka",
 				send: "Šalji",

@@ -104,7 +104,7 @@ define({
 				encrypt: "Message in a bottle",
 				fee: "Bounty",
 				dueBy: "Due by",
-				resetFee: "Reset to minimum fee",
+				useMinimumFee: 'Use minimum fee',
 				hours: "hours",
 				password: "Coffer's pick",
 				send: "Deliver",

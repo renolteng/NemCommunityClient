@@ -104,7 +104,7 @@ define({
 				encrypt: "Chiffrez le message",
 				fee: "Frais",
 				dueBy: "Expire dans",
-				resetFee: "Rétablir les frais minimum",
+				useMinimumFee: 'Use minimum fee',
 				hours: "heures",
 				password: "Mot de passe",
 				send: "Envoyez",

@@ -104,7 +104,7 @@
 				encrypt: 'Зашифрованное сообщение',
 				fee: 'Оплата',
 				dueBy: 'В течение',
-				resetFee: 'Сброс на минимальную оплату',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'часов',
 				password: 'Пароль',
 				send: 'Послать',

@@ -104,7 +104,7 @@ define({
 				encrypt: "Cifra il mesaggio",
 				fee: "Commissioni",
 				dueBy: "Termine massimo",
-				resetFee: "Commissioni minime",
+				useMinimumFee: 'Use minimum fee',
 				hours: "ore",
 				password: "Password",
 				send: "Invia",

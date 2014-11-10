@@ -104,7 +104,7 @@ define({
 				encrypt: 'Зашифрованне повiдомлення',
 				fee: 'Комісія',
 				dueBy: 'Протягом',
-				resetFee: 'Встановити мiнiмальну комiсiю',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'Годин',
 				password: 'Парольна фраза',
 				send: 'Вiдправити',

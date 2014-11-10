@@ -104,7 +104,7 @@ define({
 				encrypt: 'Beveilig bericht',
 				fee: 'Toeslag',
 				dueBy: 'Overmaken voor',
-				resetFee: 'Resetten naar minimale toeslag',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'Uur',
 				password: 'Wachtwoord',
 				send: 'Verstuur',

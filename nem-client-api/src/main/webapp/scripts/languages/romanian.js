@@ -104,7 +104,7 @@ define({
 				encrypt: "Mesaj encriptat",
 				fee: "Taxă",
 				dueBy: "Expiră in",
-				resetFee: "Resetează taxa la minim",
+				useMinimumFee: 'Use minimum fee',
 				hours: "ore",
 				password: "Parola",
 				send: "Trimite",

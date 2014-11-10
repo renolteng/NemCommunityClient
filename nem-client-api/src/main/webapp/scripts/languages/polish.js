@@ -104,7 +104,7 @@ define({
 				encrypt: 'Zaszyfruj wiadomość',
 				fee: 'Opłata',
 				dueBy: 'Ważne przez',
-				resetFee: 'Ustaw minimalną opłatę',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'godzin',
 				password: 'Hasło',
 				send: 'Wyślij',

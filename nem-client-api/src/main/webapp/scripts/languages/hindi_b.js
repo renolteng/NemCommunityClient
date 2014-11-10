@@ -104,7 +104,7 @@
 				encrypt: 'एन्क्रिप्टेड मेसेज',
 				fee: 'फ़ीस',
 				dueBy: 'चुकाने का समय',
-				resetFee: 'न्यूनतम फ़ीस पर रीसेट करें',
+				useMinimumFee: 'Use minimum fee',
 				hours: 'घंटे',
 				password: 'पासवर्ड',
 				send: 'भेजें',
