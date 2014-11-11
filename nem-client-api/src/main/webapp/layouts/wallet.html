@@ -214,60 +214,74 @@
 	{{#layout.1.name}}{{>1}}{{/}}
 </div>
 <sendNemModal modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}">
-	<div class="sendNem-control sendNem-control--amount sendNem-row sendNem-block">
-		<span class="sendNem-control-unit unit">NEM</span>
-		<div class="restOfWidth">
-			<input class="sendNem-textbox js-sendNem-amount-textbox" type="text" placeholder="{{texts.modals.sendNem.amount}}" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+	<div class="form">
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.recipient}}</p>
+			<input type="text" class="form-input form-input--textbox js-sendNem-recipient-textbox" on-keypress="sendFormKeypress" value="{{formattedRecipient}}" />
+			<p class="form-sublabel">
+				{{#recipientLabel}}
+					{{{fill(true, texts.modals.sendNem.labelDesc, '<strong>' + recipientLabel + '</strong>')}}}
+				{{/}}
+				{{#recipientLabel === ''}}
+					{{texts.modals.sendNem.nullLabelDesc}}
+				{{/}}
+			</p>
 		</div>
-	</div>
-	<div class="sendNem-block">
-		<input class="sendNem-control sendNem-textbox sendNem-textbox--recipient js-sendNem-recipient-textbox" type="text" placeholder="{{texts.modals.sendNem.recipient}}" on-keypress="sendFormKeypress" value="{{formattedRecipient}}" />
-		<p class="sendNem-recipientLabel">
-			{{#recipientLabel}}
-				{{{fill(true, texts.modals.sendNem.labelDesc, '<strong>' + recipientLabel + '</strong>')}}}
-			{{/}}
-			{{#recipientLabel === ''}}
-				{{texts.modals.sendNem.nullLabelDesc}}
-			{{/}}
-		</p>
-	</div>
-	<div class="sendNem-block">
-		<textarea placeholder="{{texts.modals.sendNem.message}}" class="sendNem-control sendNem-textbox sendNem-textbox--message" value="{{rawMessage}}" maxlength="256"></textarea>
-		<input class="sendNem-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
-		<label for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
-	</div>
-	<div class="sendNem-block">
-		<div class="sendNem-row sendNem-row--fee">
-			<div class="sendNem-control sendNem-control--fee {{#if useMinimumFee}}sendNem-control--disabled{{/if}} sendNem-control--half">
-				<label class="sendNem-label">{{texts.modals.sendNem.fee}}</label>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.amount}}</p>
+			<div type="text" class="form-input">
+				<span class="form-input-unit unit">NEM</span>
 				<div class="restOfWidth">
-					<span class="sendNem-control-unit unit">NEM</span>
-					<div class="restOfWidth">
-						<input class="sendNem-textbox sendNem-textbox--fee js-sendNem-fee-textbox" value="{{formattedFee}}" on-keypress="sendFormKeypress" disabled="{{useMinimumFee}}" />
-					</div>
-				</div>
-			</div>
-			<div class="sendNem-control sendNem-control--dueBy sendNem-control--half">
-				<label class="sendNem-label">{{texts.modals.sendNem.dueBy}}</label>
-				<div class="restOfWidth">
-					<span class="sendNem-control-unit unit">{{texts.modals.sendNem.hours}}</span>
-					<div class="restOfWidth">
-						<input class="sendNem-textbox sendNem-textbox--dueBy js-sendNem-dueBy-textbox" value="{{dueBy}}" min="0" on-keypress="sendFormKeypress" />
-					</div>
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
 				</div>
 			</div>
 		</div>
-		<input class="useMinimumFee-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
-		<label for="chk-useMinimumFee">
-			{{texts.modals.sendNem.useMinimumFee}}
-			{{#if !useMinimumFee}}
-				({{formattedMinimumFee}} NEM)
-			{{/if}}
-		</label>
+		<div class="form-field">
+			<div class="sendNem-row">
+				<div class="sendNem-half sendNem-half--left">
+					<p class="form-label">{{texts.modals.sendNem.fee}}</p>
+					<div type="text" class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}}">
+						<span class="form-input-unit unit">NEM</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-sendNem-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+						</div>
+					</div>
+				</div>
+				<div class="sendNem-half sendNem-half--right">
+					<p class="form-label">{{texts.modals.sendNem.dueBy}}</p>
+					<div type="text" class="form-input">
+						<span class="form-input-unit unit">{{texts.modals.sendNem.hours}}</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-subfield">
+				<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+				<label class="form-checkbox-label" for="chk-useMinimumFee">
+					{{texts.modals.sendNem.useMinimumFee}}
+					{{#if !useMinimumFee}}
+						({{formattedMinimumFee}} NEM)
+					{{/if}}
+				</label>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.message}}</p>
+			<textarea class="form-input form-input--textarea sendNem-message" value="{{rawMessage}}" maxlength="256"></textarea>
+			<div class="form-subfield">
+				<input class="form-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
+				<label class="form-checkbox-label" for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.password}}</p>
+			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+		</div>
 	</div>
-	<input class="sendNem-control sendNem-textbox sendNem-block" type="password" placeholder="{{texts.modals.sendNem.password}}" value="{{password}}" on-keypress="sendFormKeypress" />
 	<div class="sendNem-submit sendNem-block">
-		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction()">
+		<button type="button" class="sendNem-submit-button modal-button" on-click="sendTransaction()" disabled="{{formInvalid}}">
 			{{texts.modals.sendNem.send}}
 		</button>
 	</div>

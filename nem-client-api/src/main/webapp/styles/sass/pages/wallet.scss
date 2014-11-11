@@ -645,109 +645,30 @@ $sendNem-textbox-hPadding: 8px;
 	}
 }
 
-.sendNem-control {
-	width: 100%;
-	background-color: #ebebeb;
-	color: #444444;
-}
-
-.sendNem-control--disabled {
-	border-color: #f2f2f2;
-	color: rgba(#444444, .5);
-}
-
-.sendNem-control--half {
-	width: calc(50% - 8px);
-}
-
-.sendNem-control--fee {
-	float: left;
-}
-
-.sendNem-control--dueBy {
-	float: right;
-}
-
-.sendNem-textbox {
-	width: 100%;
-	height: $sendNem-textbox-height;
-	padding: $sendNem-textbox-vPadding $sendNem-textbox-hPadding;
-
-	@include input-placeholder() {
-		color: #a2a2a2;
-	}
-}
-
-.sendNem-textbox--message {
-	margin-bottom: 7px;
+.sendNem-message {
 	height: 100px;
-}
-
-.sendNem-textbox--recipient {
-	text-transform: uppercase;
-
-	@include input-placeholder() {
-		text-transform: none;
-	}
-}
-
-.sendNem-textbox--fee, 
-.sendNem-textbox--dueBy {		
-	text-align: right;
-}
-
-.sendNem-control-unit  {
-	float: right;
-	padding-right: $sendNem-textbox-hPadding;
-	line-height: $sendNem-textbox-height;
-}
-
-.sendNem-label {
-	float: left;
-	padding-left: $sendNem-textbox-hPadding;
-	height: $sendNem-textbox-height;
-	line-height: $sendNem-textbox-height;
-	font-weight: $fontWeight-black;
-}
-
-.sendNem-recipientLabel {
-	margin-top: 7px;
-	margin-left: 10px;
-	font-size: 11px;
-	color: #1b5278;
 }
 
 .sendNem-row {
 	@extend %clearfix;
 }
 
-.sendNem-row--fee {
-	margin-bottom: 7px;
-}
+.sendNem-half {
+	$middleGap: 16px;
+	float: left;
+	width: 50%;
 
-.sendNem-block {
-	margin-top: 17px;
-}
+	&.sendNem-half--left {
+		padding-right: $middleGap / 2;
+	}
 
-.sendNem-setFeeButton {
-	$color: #e89442;
-	display: block;
-	margin-top: 7px;
-	color: $color;	
-	font-size: 11px;
-	font-weight: $fontWeight-black;
-
-	&:hover {
-		color: lighten($color, 15%);
+	&.sendNem-half--right {
+		padding-left: $middleGap / 2;
 	}
 }
 
-.sendNem-checkbox,
-.useMinimumFee-checkbox {
-	vertical-align: -2px;
-}
-
 .sendNem-submit {
+	margin-top: 20px;
 	text-align: right;
 }
 
@@ -755,6 +676,7 @@ $sendNem-textbox-hPadding: 8px;
 	$background: #1b5278;
 	background-color: $background;
 	color: #fff;
+	text-transform: uppercase;
 
 	&.disabled {
 		background-color: #d1d1d1;

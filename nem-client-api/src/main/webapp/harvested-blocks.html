@@ -21,68 +21,68 @@
 			<settingsModal modalClass="settingsModal" modalTitle="{{texts.modals.settings.title}}"  texts="{{texts}}" languages="{{languages}}" settings="{{settings}}">
 				<div class="settingsModal-language">
 					<div class="settingsModal-row">
-						<label class="settingsModal-label">{{texts.modals.settings.language.label}}</label>
-						<div class="dropdownbox">
-							<div class="dropdownbox-selection settingsModal-input {{#active['settingsModal-languageDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-languageDropdown')">
+						<label class="form-label">{{texts.modals.settings.language.label}}</label>
+						<div class="form-dropdownbox">
+							<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-languageDropdown']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-languageDropdown')">
 								{{#languages}}
 									{{# .id === settings.language}}
 										{{.name}}
 									{{/}}
 								{{/}}
 							</div>
-							<ul class="dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}">
+							<ul class="form-dropdownbox-dropdown {{^active['settingsModal-languageDropdown']}}hidden{{/}}">
 								{{#languages}}
-									<li class="dropdownbox-item" on-click="set('settings.language', .id)">{{.name}}</li>
+									<li class="form-dropdownbox-item" on-click="set('settings.language', .id)">{{.name}}</li>
 								{{/}}
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="settingsModal-main">
+				<div class="settingsModal-main form">
 					<div class="settingsModal-tabs bulletTabs">
 						<button class="bulletTab-control {{#activeTab === 'remoteServer'}}active{{/}}" on-click="set('activeTab', 'remoteServer')">{{texts.modals.settings.remoteServer.tabTitle}}</button>
 						<button class="bulletTab-control {{#activeTab === 'autoBoot'}}active{{/}}" on-click="set('activeTab', 'autoBoot')">{{texts.modals.settings.autoBoot.tabTitle}}</button>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--remoteServer {{^activeTab === 'remoteServer'}}hidden{{/}}">
-						<div class="settingsModal-inputField">
-							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.protocol}}</p>
-							<div class="dropdownbox">
-								<div class="settingsModal-input dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-protocolDropdown')">
+						<div class="form-field">
+							<p class="form-label">{{texts.modals.settings.remoteServer.protocol}}</p>
+							<div class="form-dropdownbox">
+								<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-protocolDropdown']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-protocolDropdown')">
 									{{#settings.remoteServer.protocol === 'http'}}
 										{{texts.modals.settings.remoteServer.protocolOptions.http}}
 									{{/}}
 								</div>
-								<ul class="dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}">
-									<li class="dropdownbox-item" on-click="set('settings.remoteServer.protocol', 'http')">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
+								<ul class="form-dropdownbox-dropdown {{^active['settingsModal-protocolDropdown']}}hidden{{/}}">
+									<li class="form-dropdownbox-item" on-click="set('settings.remoteServer.protocol', 'http')">{{texts.modals.settings.remoteServer.protocolOptions.http}}</li>
 								</ul>
 							</div>
 						</div>
-						<div class="settingsModal-inputField">
-							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.host}}</p>
-							<input type="text" class="settingsModal-input" value="{{settings.remoteServer.host}}" />
+						<div class="form-field">
+							<p class="form-label">{{texts.modals.settings.remoteServer.host}}</p>
+							<input type="text" class="form-input form-input--textbox" value="{{settings.remoteServer.host}}" />
 						</div>
-						<div class="settingsModal-inputField">
-							<p class="settingsModal-label">{{texts.modals.settings.remoteServer.port}}</p>
-							<input type="text" class="settingsModal-input js-settingsModal-port-textbox" value="{{portStr}}" disabled />
+						<div class="form-field">
+							<p class="form-label">{{texts.modals.settings.remoteServer.port}}</p>
+							<input type="text" class="form-input form-input--textbox js-settingsModal-port-textbox" value="{{portStr}}" disabled />
 						</div>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^activeTab === 'autoBoot'}}hidden{{/}}">
-						<div class="settingsModal-inputField">
-							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.name}}</p>
-							<input type="text" class="settingsModal-input" value="{{settings.nisBootInfo.nodeName}}" />
+						<div class="form-field">
+							<p class="form-label">{{texts.modals.settings.autoBoot.name}}</p>
+							<input type="text" class="form-input form-input--textbox" value="{{settings.nisBootInfo.nodeName}}" />
 						</div>
-						<div class="settingsModal-inputField">
-							<p class="settingsModal-label">{{texts.modals.settings.autoBoot.account}}</p>
-							<div class="dropdownbox">
-								<input class="settingsModal-input dropdownbox-textbox {{#bootAccountDropdownActive}}dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="set('bootAccountDropdownActive', true)" on-blur="set('bootAccountDropdownActive', false)" value="{{displayedAccount}}" />
-								<ul class="dropdownbox-dropdown {{^bootAccountDropdownActive}}hidden{{/}}">
-									<li class="dropdownbox-item" on-mousedown="set('settings.nisBootInfo.account', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
+						<div class="form-field">
+							<p class="form-label">{{texts.modals.settings.autoBoot.account}}</p>
+							<div class="form-dropdownbox">
+								<input class="form-input form-input--textbox form-dropdownbox-textbox {{#bootAccountDropdownActive}}form-dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="set('bootAccountDropdownActive', true)" on-blur="set('bootAccountDropdownActive', false)" value="{{displayedAccount}}" />
+								<ul class="form-dropdownbox-dropdown {{^bootAccountDropdownActive}}hidden{{/}}">
+									<li class="form-dropdownbox-item" on-mousedown="set('settings.nisBootInfo.account', '')">{{texts.modals.settings.autoBoot.primaryAccount}}</li>
 								</ul>
 							</div>
 						</div>
-						<div class="settingsModal-inputField">
-							<input type="checkbox" id="settingModal-chkAutoBoot" checked="{{chkAutoBoot}}" />
-							<label class="settingsModal-label" for="settingModal-chkAutoBoot">{{texts.modals.settings.autoBoot.auto}}</label>
+						<div class="form-field">
+							<input type="checkbox" class="form-checkbox" id="settingModal-chkAutoBoot" checked="{{chkAutoBoot}}" />
+							<label class="form-label form-checkbox-label" for="settingModal-chkAutoBoot">{{texts.modals.settings.autoBoot.auto}}</label>
 						</div>
 					</div>
 					<div class="settingsModal-submit">
@@ -97,26 +97,18 @@
 						{{message}}
 					</p>
 				{{/}}
-				<div class="modal-form">
+				<div class="inputModal-form form">
 					{{#fields}}
-						<div class="modal-form-field">
-							<p class="modal-form-line">
-								<label class="modal-form-label">
-									{{.label.content}}
-								</label>
-							</p>
+						<div class="form-field">
+							<p class="form-label">{{.label.content}}</p>
 							{{#.type === 'text' || .type === 'password'}}
-								<p class="modal-form-line">
-									<input type="{{.type}}" class="modal-form-input {{#unimportant}}modal-form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
-								</p>
+								<input type="{{.type}}" class="form-input form-input--textbox {{#unimportant}}form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
 							{{/}}
 							{{#.type === 'textarea'}}
-								<p class="modal-form-line">
-									<textarea class="modal-form-input {{#unimportant}}modal-form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}"></textarea>
-								</p>
+								<textarea class="form-input {{#unimportant}}form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}"></textarea>
 							{{/}}
 							{{#.sublabel}}
-								<p class="modal-form-sublabel modal-form-line {{#nullContent}}modal-form-nullContent{{/}}">
+								<p class="form-sublabel {{#nullContent}}form-sublabel-nullContent{{/}}">
 									{{.content}}
 								</p>
 							{{/}}
