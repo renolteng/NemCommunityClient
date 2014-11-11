@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: "Transakcijos duomenys",
-				// this might be block or transaction ID
 				id: "ID",
-				// this might be block or transaction Hash
 				hash: "Hash",
 				type: "Transakcijos tipas",
 				pending: "Kol kas vyksta",
@@ -167,6 +165,7 @@ define({
 				encrypted: "Žinutė yra užšifruota",
 				time: "Laiko žymė",
 				confirmations: "Patvirtinimai",
+				confirmationsUnknown: 'Unknown',
 				amount: "Suma",
 				fee: "Mokestis"
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: "Žinutės nera",
 				encrypted: "Žinutė šifruota",
 				view: "Peržiūrėti",
+				confirmationsUnknown: 'Unknown',
 				pending: "Atliekama",
 				seeAll: "Peržiūreti visas transakcijas",
 				noTransactions: "Nėra dar atlikta jokių transakcijų"
@@ -511,6 +511,7 @@ define({
 				noMessage: "Nėra žinutės",
 				encrypted: "Žinutė šifruota",
 				view: "Peržiūrėti",
+				confirmationsUnknown: 'Unknown',
 				pending: "Vykdoma",
 				noTransactions: "Nėra atliktų transakcijų",
 				loading: "Krauna daugiau transakcijų..."

@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: "Loot Details",
-				// this might be block or transaction ID
 				id: "ID",
-				// this might be block or transaction Hash
 				hash: "Hash",
 				type: "Loot Type",
 				pending: "Queued",
@@ -167,6 +165,7 @@ define({
 				encrypted: "Message is in bottle",
 				time: "Watch glass",
 				confirmations: "Sanctions",
+				confirmationsUnknown: 'Unknown',
 				amount: "Loot",
 				fee: "Bounty"
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: "No parley",
 				encrypted: "Message is in a bottle",
 				view: "Spyglass",
+				confirmationsUnknown: 'Unknown',
 				pending: "Queued",
 				seeAll: "Loot book",
 				noTransactions: "No loot has been delivered or gathered"
@@ -511,6 +511,7 @@ define({
 				noMessage: "No parlay",
 				encrypted: "Message is in a bottle",
 				view: "Spyglass",
+				confirmationsUnknown: 'Unknown',
 				pending: "Queued",
 				noTransactions: "No loot has been delivered or gathered",
 				loading: "Reading loot book..."

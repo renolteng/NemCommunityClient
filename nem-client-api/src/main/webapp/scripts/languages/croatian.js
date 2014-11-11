@@ -165,6 +165,7 @@ define({
 				encrypted: "Poruka je šifrirana",
 				time: "Vremenski zapis",
 				confirmations: "Potvrde",
+				confirmationsUnknown: 'Unknown',
 				amount: "Iznos",
 				fee: "Naknada"
 			},
@@ -463,6 +464,7 @@ define({
 				noMessage: "Nema poruke",
 				encrypted: "Poruka je šifrirana",
 				view: "Pregled",
+				confirmationsUnknown: 'Unknown',
 				pending: "U tijeku",
 				seeAll: "Pogledaj sve transakcije",
 				noTransactions: "Niti jedna transakcija nije još izvršena"
@@ -509,6 +511,7 @@ define({
 				noMessage: "Nema poruke",
 				encrypted: "Poruka je šifrirana",
 				view: "Pregled",
+				confirmationsUnknown: 'Unknown',
 				pending: "U tijeku",
 				noTransactions: "Još nema izvršenih transakcija",
 				loading: "Učitavanje više transakcija..."

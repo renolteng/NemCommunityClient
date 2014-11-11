@@ -165,6 +165,7 @@
 				encrypted: 'मेसेज एन्क्रिप्टेड है',
 				time: 'Timestamp',
 				confirmations: 'कन्फर्मेशन्स',
+				confirmationsUnknown: 'Unknown',
 				amount: 'अमाउंट',
 				fee: 'फ़ीस'
 			},
@@ -463,6 +464,7 @@
 				noMessage: 'नो मेसेज',
 				encrypted: 'मेसेज एनक्रिपटेड है',
 				view: 'जाँचे',
+				confirmationsUnknown: 'Unknown',
 				pending: 'पेंडिंग',
 				seeAll: 'सभी ट्रॅन्सॅक्षन्स',
 				noTransactions: 'अभी तक कोई ट्रॅन्सॅक्षन्स नही किया गया है'
@@ -509,6 +511,7 @@
 				noMessage: 'नो मेसेज',
 				encrypted: 'मेसेज एनक्रिपटेड है',
 				view: 'जाँचे',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Pending',
 				noTransactions: 'अभी तक कोई ट्रॅन्सॅक्षन्स नही किया गया है',
 				loading: 'Loading...'

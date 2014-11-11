@@ -151,9 +151,7 @@
 			},
 			transactionDetails: {
 				title: 'Детали транзакции',
-				// this might be block or transaction ID
 				id: 'ID',
-				// this might be block or transaction Hash
 				hash: 'Хэш',
 				type: 'Тип транзакции',
 				pending: 'В ожидании',
@@ -167,6 +165,7 @@
 				encrypted: 'Сообщение зашифровано',
 				time: 'Время создания',
 				confirmations: 'Подтверждения',
+				confirmationsUnknown: 'Unknown',
 				amount: 'Сумма',
 				fee: 'Оплата'
 			},
@@ -465,6 +464,7 @@
 				noMessage: 'Нет Сообщений',
 				encrypted: 'Сообщение Зашифровано',
 				view: 'Обзор',
+				confirmationsUnknown: 'Unknown',
 				pending: 'В ожидании',
 				seeAll: 'Посмотреть все транзакции',
 				noTransactions: 'Не было сделано ни одной транзакции'
@@ -511,6 +511,7 @@
 				noMessage: 'Нет сообщения',
 				encrypted: 'Сообщение Зашифровано',
 				view: 'Обзор',
+				confirmationsUnknown: 'Unknown',
 				pending: 'В ожидании',
 				noTransactions: 'Не было сделано ни одной транзакции',
 				loading: 'Показать больше транзакций...'

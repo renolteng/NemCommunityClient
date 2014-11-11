@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: "トランザクション(取引)の詳細",
-				// this might be block or transaction ID
 				id: "ID",
-				// this might be block or transaction Hash
 				hash: "ハッシュ",
 				type: "トランザクションのタイプ",
 				pending: "処理中",
@@ -167,6 +165,7 @@ define({
 				encrypted: "暗号化されたメッセージ",
 				time: "タイムスタンプ",
 				confirmations: "承認数",
+				confirmationsUnknown: 'Unknown',
 				amount: "量",
 				fee: "手数料"
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: "メッセージはありません",
 				encrypted: "メッセージは暗号化されています。",
 				view: "表示",
+				confirmationsUnknown: 'Unknown',
 				pending: "未処理（未検証）",
 				seeAll: "すべてのトランザクション(取引)を見る",
 				noTransactions: "まだ取引は行われていません。"
@@ -511,6 +511,7 @@ define({
 				noMessage: "メッセージなし",
 				encrypted: "メッセージを暗号させた",
 				view: "提示",
+				confirmationsUnknown: 'Unknown',
 				pending: "未定",
 				noTransactions: "まだ取引は行われていません。",
 				loading: "過去のトランザクションを見る"

@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: 'Деталi транзакцiї',
-				// this might be block or transaction ID
 				id: 'Блок або ідентифікаційний код транзакцiї',
-				// this might be block or transaction Hash
 				hash: 'Хеш транзакцiї',
 				type: 'Тип транзакцiї',
 				pending: 'В очiкуваннi',
@@ -167,6 +165,7 @@ define({
 				encrypted: 'Повiдомлення зашифроване',
 				time: 'Час',
 				confirmations: 'Пiдтверджень',
+				confirmationsUnknown: 'Unknown',
 				amount: 'Кiлькiсть',
 				fee: 'Комісія'
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: 'Без повiдомлень',
 				encrypted: 'Зашифроване повiдомлення',
 				view: 'Переглянути',
+				confirmationsUnknown: 'Unknown',
 				pending: 'В очiкуваннi',
 				seeAll: 'Переглянути всi транзакцiї',
 				noTransactions: 'Не було здiйснено жодної транзакцiї'
@@ -511,6 +511,7 @@ define({
 				noMessage: 'Без повiдомлень',
 				encrypted: 'Зашифроване повiдомлення',
 				view: 'Переглянути',
+				confirmationsUnknown: 'Unknown',
 				pending: 'В очiкуваннi',
 				noTransactions: 'Не було здiйснено жодної транзакцiї',
 				loading: 'Завантаження транзакцiй...'

@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: '交易详情',
-				// this might be block or transaction ID
 				id: 'ID',
-				// this might be block or transaction Hash
 				hash: 'Hash',
 				type: '交易类型',
 				pending: '待定',
@@ -167,6 +165,7 @@ define({
 				encrypted: '已加密',
 				time: '时间戳',
 				confirmations: '确认',
+				confirmationsUnknown: 'Unknown',
 				amount: '金额',
 				fee: '费用'
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: '无信息',
 				encrypted: '消息被加密',
 				view: '查看',
+				confirmationsUnknown: 'Unknown',
 				pending: '待定',
 				seeAll: '查看所有交易',
 				noTransactions: '无交易'
@@ -511,6 +511,7 @@ define({
 				noMessage: '无留言',
 				encrypted: '消息被加密',
 				view: '查看',
+				confirmationsUnknown: 'Unknown',
 				pending: '待定中',
 				noTransactions: '无交易',
 				loading: '载入更多的交易...'

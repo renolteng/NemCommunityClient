@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: 'Transactie details',
-				// this might be block or transaction ID
 				id: 'ID',
-				// this might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Type transactie',
 				pending: 'Wachten',
@@ -167,6 +165,7 @@ define({
 				encrypted: 'Bericht is beveiligd',
 				time: 'Timestamp',
 				confirmations: 'Confirmaties',
+				confirmationsUnknown: 'Unknown',
 				amount: 'Bedrag',
 				fee: 'Toeslag'
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: 'Geen bericht',
 				encrypted: 'Bericht is beveiligd',
 				view: 'Bekijk',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Wachtend',
 				seeAll: 'Bekijk alle transacties',
 				noTransactions: 'Nog geen transacties zijn uitgevoerd'
@@ -511,6 +511,7 @@ define({
 				noMessage: 'Geen bericht',
 				encrypted: 'Bericht is beveiligd',
 				view: 'Bekijk',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Wachtend',
 				noTransactions: 'Nog geen transacties zijn uitgevoerd',
 				loading: 'Meer transacties laden...'

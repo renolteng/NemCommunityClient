@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: 'Chi tiết giao dịch',
-				// this might be block or transaction ID
 				id: 'ID',
-				// this might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Loại giao dịch',
 				pending: 'Đang chờ xác nhận',

@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: 'Detalles de Transacci&oacute;n',
-				// this might be block or transaction ID
 				id: 'ID',
-				// this might be block or transaction Hash
 				hash: 'Hash',
 				type: 'Tipo de Transacci&oacute;n',
 				pending: 'Pendiente',
@@ -167,6 +165,7 @@ define({
 				encrypted: 'Mensaje est&aacute; encriptado.',
 				time: 'Marca de tiempo',
 				confirmations: 'Confirmaciones',
+				confirmationsUnknown: 'Unknown',
 				amount: 'Cantidad',
 				fee: 'Tarifa'
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: 'Sin mensaje',
 				encrypted: 'Mensaje esta encriptado',
 				view: 'Ver',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Pendiente',
 				seeAll: 'Ver todas las transacciones',
 				noTransactions: 'Aun no se ha ejecutado ninguna transacci&oacute;n'
@@ -511,6 +511,7 @@ define({
 				noMessage: 'Sin mensaje',
 				encrypted: 'Mensaje esta encriptado',
 				view: 'Ver',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Pendiente',
 				noTransactions: 'Aun no se ha ejecutado ninguna transacci&oacute;n',
 				loading: 'Cargando mas transacciones...'

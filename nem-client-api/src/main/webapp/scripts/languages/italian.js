@@ -165,6 +165,7 @@ define({
 				encrypted: "Il messaggio è cifrato",
 				time: "Marca temporale",
 				confirmations: "Conferme",
+				confirmationsUnknown: 'Unknown',
 				amount: "Importo",
 				fee: "Commissioni"
 			},
@@ -463,6 +464,7 @@ define({
 				noMessage: "Nessun messaggio",
 				encrypted: "Messaggio cifrato",
 				view: "Visualizza",
+				confirmationsUnknown: 'Unknown',
 				pending: "In attesa",
 				seeAll: "Visualizza tutte le transazioni",
 				noTransactions: "Ancora nessuna transazione"
@@ -509,6 +511,7 @@ define({
 				noMessage: "Nessun messaggio",
 				encrypted: "Messaggio cifrato",
 				view: "Visualizza",
+				confirmationsUnknown: 'Unknown',
 				pending: "In attesa",
 				noTransactions: "Ancora nessuna transazione",
 				loading: "Caricamento ulteriori transazioni..."

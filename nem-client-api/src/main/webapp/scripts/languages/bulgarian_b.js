@@ -165,6 +165,7 @@ define({
 				encrypted: "Съобщението е криптирано",
 				time: "Време на създаване",
 				confirmations: "Потвърждения",
+				confirmationsUnknown: 'Unknown',
 				amount: "Сума",
 				fee: "Такса"
 			},
@@ -463,6 +464,7 @@ define({
 				noMessage: "Няма съобщение",
 				encrypted: "Съобщението е криптирано",
 				view: "Преглед",
+				confirmationsUnknown: 'Unknown',
 				pending: "В очакване",
 				seeAll: "Виж всички транзакции",
 				noTransactions: "Не е направена нито една транзакция все още"
@@ -509,6 +511,7 @@ define({
 				noMessage: "Няма съобщение",
 				encrypted: "Съобщението е криптирано",
 				view: "Преглед",
+				confirmationsUnknown: 'Unknown',
 				pending: "В очакване",
 				noTransactions: "Не е направена нито една транзакция все още",
 				loading: "Зареждане на още транзакции..."

@@ -165,6 +165,7 @@ define({
 				encrypted: "Le Message est chiffré",
 				time: "Horodatage",
 				confirmations: "Confirmations",
+				confirmationsUnknown: 'Unknown',
 				amount: "Montant",
 				fee: "Frais"
 			},
@@ -463,6 +464,7 @@ define({
 				noMessage: "Pas de message",
 				encrypted: "Le message est chiffé",
 				view: "Voir",
+				confirmationsUnknown: 'Unknown',
 				pending: "En attente",
 				seeAll: "Voir toutes les transactions",
 				noTransactions: "Aucune transaction n'a encore été effectuée"
@@ -509,6 +511,7 @@ define({
 				noMessage: "Pas de message",
 				encrypted: "Le message est chiffé",
 				view: "Voir",
+				confirmationsUnknown: 'Unknown',
 				pending: "En attente",
 				noTransactions: "Aucune transaction n'a encore été effectuée",
 				loading: "Chargement de transactions supplémentaire..."

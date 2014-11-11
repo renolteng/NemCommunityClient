@@ -165,6 +165,7 @@ define({
 				encrypted: 'Wiadomość jest zaszyfrowana',
 				time: 'Data',
 				confirmations: 'Potwierdzenia',
+				confirmationsUnknown: 'Unknown',
 				amount: 'Ilość',
 				fee: 'Opłata'
 			},
@@ -463,6 +464,7 @@ define({
 				noMessage: 'Brak wiadomości',
 				encrypted: 'Wiadomość jest zaszyfrowana',
 				view: 'Zobacz',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Oczekuje',
 				seeAll: 'Zobacz wszystkie transakcje',
 				noTransactions: 'Nie wykonano żadnych transakcji'
@@ -509,6 +511,7 @@ define({
 				noMessage: 'Brak wiadomości',
 				encrypted: 'Wiadomość jest zaszyfrowana',
 				view: 'Zobacz',
+				confirmationsUnknown: 'Unknown',
 				pending: 'Oczekuje',
 				noTransactions: 'Nie wykonano jeszcze żadnych transakcji',
 				loading: 'Ładowanie kolejnych transakcji...'

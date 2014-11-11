@@ -151,9 +151,7 @@ define({
 			},
 			transactionDetails: {
 				title: "Detalii tranzacție",
-				// this might be block or transaction ID
 				id: "ID",
-				// this might be block or transaction Hash
 				hash: "Hash",
 				type: "Tipul de tranzacție",
 				pending: "În așteptare",
@@ -167,6 +165,7 @@ define({
 				encrypted: "Mesajul este encriptat",
 				time: "Data și ora",
 				confirmations: "Confirmări",
+				confirmationsUnknown: 'Unknown',
 				amount: "Sumă",
 				fee: "Taxă"
 			},
@@ -465,6 +464,7 @@ define({
 				noMessage: "Fără mesaj",
 				encrypted: "Mesajul este encriptat",
 				view: "Vizualizează",
+				confirmationsUnknown: 'Unknown',
 				pending: "În așteptare",
 				seeAll: "Vizualizează toate tranzacțiile",
 				noTransactions: "Nu a fost efectuată nici o tranzacție până acum"
@@ -511,6 +511,7 @@ define({
 				noMessage: "Fără mesaj",
 				encrypted: "Mesajul este encriptat",
 				view: "Vizualizează",
+				confirmationsUnknown: 'Unknown',
 				pending: "În așteptare",
 				noTransactions: "Nu a fost efectuată nici o tranzacție până acum",
 				loading: "Se încarcă mai multe tranzacții..."
