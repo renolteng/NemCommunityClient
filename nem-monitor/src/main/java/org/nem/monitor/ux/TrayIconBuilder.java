@@ -16,7 +16,6 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -175,11 +174,8 @@ public class TrayIconBuilder {
 		for (final NemNodePolicy nodePolicy : this.nodePolicies) {
 			final NemNodeType nodeType = nodePolicy.getNodeType();
 			final NemConnector connector = this.createConnector(nodePolicy);
-			// TODO 20141110 G-J: have I changed it correctly?
 			final AsyncTimerOptions options = new AsyncTimerOptionsBuilder()
-					.setRecurringFutureSupplier(
-							() -> connector.getStatus().thenAccept(status -> visitor.notifyStatus(nodeType, status))
-					)
+					.setRecurringFutureSupplier(() -> connector.getStatus().thenAccept(status -> visitor.notifyStatus(nodeType, status)))
 					.setInitialDelay(250)
 					.setDelayStrategy(new UniformDelayStrategy(1000))
 					.setVisitor(null)

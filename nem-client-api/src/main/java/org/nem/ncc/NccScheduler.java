@@ -45,11 +45,8 @@ public class NccScheduler implements AutoCloseable {
 	 */
 	public void addTimeSynchronizationTask(final NccTimeSynchronizer nccTimeSynchronizer) {
 		final AsyncTimerVisitor timerVisitor = this.createNamedVisitor("TIME SYNCHRONIZATION");
-		// TODO 20141110 G-J: have I changed it correctly?
 		final AsyncTimerOptions options = new AsyncTimerOptionsBuilder()
-				.setRecurringFutureSupplier(
-						nccTimeSynchronizer::synchronizeTime
-				)
+				.setRecurringFutureSupplier(nccTimeSynchronizer::synchronizeTime)
 				.setInitialDelay(TIME_SYNC_INITIAL_DELAY)
 				.setDelayStrategy(new UniformDelayStrategy(TIME_SYNC_INTERVAL))
 				.setVisitor(timerVisitor)
