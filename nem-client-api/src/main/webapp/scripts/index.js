@@ -99,6 +99,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
 
         ncc.refreshNisInfo = function() {
             clearTimeout(t);
+            ncc.set('nis.nodeMetaData.lastBlockBehind', null);
             ncc.getRequest('info/nis',
                 function(data) {
                     var blockchainHeight = ncc.get('blockchainHeight') || data.nodeMetaData.nodeBlockChainHeight;
