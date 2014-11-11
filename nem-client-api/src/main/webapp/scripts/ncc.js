@@ -111,7 +111,7 @@ define(function(require) {
 
                                         return {
                                             type: 'warning',
-                                            message: this.fill(this.get('texts.common.appStatus.synchronizing'), this.get('nis.nodeMetaData.nodeBlockChainHeight'), daysBehindText)
+                                            message: this.fill(this.get('texts.common.appStatus.synchronizing'), this.get('blockchainHeight'), daysBehindText)
                                         };
                                     }
                                 } else {
@@ -450,9 +450,6 @@ define(function(require) {
                     for (var i = 0; i < languages.length; i++) {
                         if (languages[i].id.toLowerCase() === newValue.toLowerCase()) {
                             self.set('texts', languages[i].texts);
-                            if (undefined === self.get('nis.nodeMetaData.maxBlockChainHeight')) {
-		    					self.set('nis.nodeMetaData.nodeBlockChainHeight', self.get('texts.dashboard.transactions.unknown')) // after opening the wallet the node meta data is not available yet
-		    				}
                             return;
                         }
                     }

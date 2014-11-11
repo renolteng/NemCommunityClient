@@ -101,10 +101,11 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
             clearTimeout(t);
             ncc.getRequest('info/nis',
                 function(data) {
-                	var lastBlockBehind = (data.nodeMetaData.maxBlockChainHeight - data.nodeMetaData.nodeBlockChainHeight) * 60;
+                    var blockchainHeight = ncc.get('blockchainHeight') || data.nodeMetaData.nodeBlockChainHeight;
+                	var lastBlockBehind = (data.nodeMetaData.maxBlockChainHeight - blockchainHeight) * 60;
                     ncc.set('nis', data);
                     ncc.set('nis.nodeMetaData.lastBlockBehind', lastBlockBehind < 0? 0 : lastBlockBehind);
-                    if (data.nodeMetaData.maxBlockChainHeight === data.nodeMetaData.nodeBlockChainHeight) {
+                    if (data.nodeMetaData.maxBlockChainHeight === blockchainHeight) {
                         waitTime = 60000;
                     } else {
                         waitTime = 30000;
