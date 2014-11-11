@@ -85,7 +85,7 @@
 								{{{formatCurrency(activeAccount.balance, false)}}} 
 								<span class="unit">NEM</span>
 							</span> 
-							<span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, nis.nodeMetaData.nodeBlockChainHeight)}}</span>
+							<span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
 						</p>
 					</div>
 					<table class="txList">

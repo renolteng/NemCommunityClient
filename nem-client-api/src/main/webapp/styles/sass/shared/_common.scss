@@ -147,62 +147,6 @@
 	}
 }
 
-.dropdownbox {
-	position: relative;
-}
-
-.dropdownbox-selection {
-	position: relative;
-	@include border-radius(4px);
-	cursor: pointer;
-
-	&:after {
-		$width: 10px;
-		$height: 6px;
-		content: ' ';
-		position: absolute;
-		top: 50%;
-		right: 8px;
-		margin-top: -$height / 2;
-		height: 0;
-        width: 0;
-        border: $width / 2 solid transparent;
-        border-top: $height solid #8e8e8e;
-	}
-
-	&.dropdownbox-selection--selecting {
-		@include border-bottom-radius(0);
-	}
-}
-
-.dropdownbox-textbox {
-	@include border-radius(4px);
-	cursor: initial;
-
-	&.dropdownbox-textbox--selecting {
-		@include border-bottom-radius(0);
-	}
-}
-
-.dropdownbox-dropdown {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	width: 100%;
-	z-index: 10;
-}
-
-.dropdownbox-item {
-	padding: 4px 12px;
-	border-bottom: 1px solid #f0f0f0;
-	background-color: #fff;
-	cursor: pointer;
-
-	&:hover {
-		background-color: #f0f0f0;
-	}
-}
-
 $bulletTab-bgColor: #fff;
 $bulletTab-primaryColor: #8e8e8e;
 $bulletTab-hoverBgColor: #f0f0f0;
@@ -259,6 +203,151 @@ $bulletTab-hoverBgColor: #f0f0f0;
 			display: initial;
 		}
 	}
+}
+
+// ================================================================================
+// FORM STYLES
+// ================================================================================
+
+$form-textColor: #444444;
+$form-disabledColor: rgba($form-textColor, .5);
+$form-borderColor: #e5e5e5;
+$form-input-height: 32px;
+$form-input-hPadding: 12px;
+
+.form {
+	color: $form-textColor;
+}
+
+.form-field {
+	margin-top: 16px;
+}
+
+.form-label {
+	margin-bottom: 6px;
+	font-weight: $fontWeight-bold;
+}
+
+.form-input {
+	display: block;
+	padding: 0 $form-input-hPadding;
+	border: 1px solid $form-borderColor;
+	width: 100%;
+	@include border-radius(4px);
+
+	&.form-input--textbox {
+		height: $form-input-height;
+	}
+
+	&.form-input--textarea {
+		padding: 6px $form-input-hPadding;
+	}
+
+	&.form-input--unimportant {
+		color: $form-disabledColor;
+	}
+
+	&.form-input--error {
+		border-color: #c0392b;
+	}
+}
+
+.form-input-unit {
+	float: right;
+	line-height: $form-input-height;
+}
+
+.form-input-inner {
+	display: block;
+	width: 100%;
+	padding-right: $form-input-hPadding;
+	height: $form-input-height;
+}
+
+.form-sublabel {
+	$color: #1b5278;
+	margin-top: 6px;
+	margin-left: 10px;
+	font-size: 11px;
+	color: $color;
+
+	&.form-sublabel--nullContent {
+		font-style: italic;
+		color: rgba($color, .5);
+	}
+}
+
+.form-subfield {
+	margin-top: 6px;
+}
+
+.form-dropdownbox {
+	position: relative;
+}
+
+.form-dropdownbox-selection {
+	position: relative;
+	@include border-radius(4px);
+	height: $form-input-height;
+	line-height: $form-input-height;
+	cursor: pointer;
+
+	&:after {
+		$width: 10px;
+		$height: 6px;
+		content: ' ';
+		position: absolute;
+		top: 50%;
+		right: 8px;
+		margin-top: -$height / 2;
+		height: 0;
+        width: 0;
+        border: $width / 2 solid transparent;
+        border-top: $height solid #8e8e8e;
+	}
+
+	&.form-dropdownbox-selection--selecting {
+		@include border-bottom-radius(0);
+	}
+}
+
+.form-dropdownbox-textbox {
+	@include border-radius(4px);
+	cursor: initial;
+
+	&.form-dropdownbox-textbox--selecting {
+		@include border-bottom-radius(0);
+	}
+}
+
+.form-dropdownbox-dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	border: 1px solid $form-borderColor;
+	border-top: none;
+	z-index: 10;
+}
+
+.form-dropdownbox-item {
+	padding: 4px 12px;
+	border-bottom: 1px solid $form-borderColor;
+	background-color: #fff;
+	cursor: pointer;
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&:hover {
+		background-color: #f0f0f0;
+	}
+}
+
+.form-checkbox,
+.form-checkbox-label {
+	vertical-align: middle;
 }
 
 // ================================================================================
@@ -367,7 +456,7 @@ $modal-transitionDuration: .3s;
 		margin-left: 6px;
 	}
 
-	&.disabled {
+	&:disabled {
 		background-color: #d1d1d1;
 		pointer-events: none;
 	}
@@ -440,61 +529,25 @@ $modal-transitionDuration: .3s;
 	font-size: 13px;
 
 	.modal-body {
-		padding: 12px 22px 22px;
+		padding: 0 22px 22px;
 	}
 
 	.modal-message {
-		padding: 10px 20px 36px;
+		padding: 10px 20px 10px;
 		font-size: 14px;
 		font-weight: $fontWeight-medium;
 	}
 }
 
-.modal-form {
+.inputModal-form {
 	text-align: left;
-	color: #444444;
-}
-
-.modal-form-field {
-	margin-bottom: 12px;
-}
-
-.modal-form-line {
-	margin-bottom: 6px;
-}
-
-.modal-form-input {
-	width: 100%;
-	@include border-radius(4px);
-	border: 1px solid #e5e5e5;
-	padding: 5px;
-	font-size: 14px;
-}
-
-.modal-form-input--unimportant {
-	color: #d1d1d1;
-	-webkit-text-fill-color: #d1d1d1;
-}
-
-.modal-form-label {
-	font-weight: $fontWeight-medium;
-}
-
-.modal-form-sublabel {
-	font-size: 11px;
-	color: #1b5278;
-
-	&.modal-form-nullContent {
-		font-style: italic;
-		color: #d1d1d1;
-	}
+	padding-bottom: 10px;
 }
 
 /** Settings Modal **/
 
 $settingModal-hPadding: 28px;
 $settingModal-vSpacing: 16px;
-$settingModal-input-height: 32px;
 $settingModal-borderColor: #e5e5e5;
 $settingModal-bgColor: #fff;
 
@@ -506,45 +559,6 @@ $settingModal-bgColor: #fff;
 		padding: 0;
 		text-align: left;
 	}
-
-	.dropdownbox-dropdown {
-		border: 1px solid $settingModal-borderColor;
-		border-top: none;
-	}
-
-	.dropdownbox-item {
-		border-bottom: 1px solid $settingModal-borderColor;
-
-		&:last-child {
-			border-bottom: none;
-		}
-	}
-}
-
-.settingsModal-label {
-	margin-bottom: 6px;
-	font-weight: $fontWeight-bold;
-}
-
-.settingsModal-input {
-	display: block;
-	padding: 0 12px;
-	border: 1px solid $settingModal-borderColor;
-	width: 100%;
-	height: $settingModal-input-height;
-	@include border-radius(4px);
-
-	&.dropdownbox-selection {
-		line-height: $settingModal-input-height;
-	}
-
-	&:disabled {
-		color: #e5e5e5;
-	}
-}
-
-.settingsModal-inputField {
-	margin-top: 16px;
 }
 
 .settingsModal-main {
@@ -574,22 +588,22 @@ $settingModal-bgColor: #fff;
 	background-color: $background-color;
 	@extend %clearfix;
 
-	.settingsModal-input {
+	.form-input {
 		border-color: $border-color;
 	}
 
-	.dropdownbox-dropdown {
+	.form-dropdownbox-dropdown {
 		border-color: $border-color;
 	}
 
-	.settingsModal-label {
+	.form-label {
 		float: left;
 		margin-bottom: 0;
 		width: $label-width;
-		line-height: $settingModal-input-height;
+		line-height: $form-input-height;
 	}
 
-	.dropdownbox {
+	.form-dropdownbox {
 		float: right;
 		width: calc(100% - #{$label-width});
 	}
