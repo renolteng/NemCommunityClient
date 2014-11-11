@@ -531,7 +531,11 @@ define({
 				unknown: "Неизвестен статус",
 				start: "Старт на локалното генериране ",
 				harvesting: "Генериране",
-				stop: "Стоп на локалното генериране"
+				stop: "Стоп на локалното генериране",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

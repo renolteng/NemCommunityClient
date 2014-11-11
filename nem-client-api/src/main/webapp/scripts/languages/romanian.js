@@ -533,7 +533,11 @@ define({
 				unknown: "Status necunoscut",
 				start: "Începe recoltarea",
 				harvesting: "Se recoltează",
-				stop: "Oprește recoltarea"
+				stop: "Oprește recoltarea",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

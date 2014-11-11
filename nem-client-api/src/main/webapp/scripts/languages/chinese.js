@@ -533,7 +533,11 @@ define({
 				unknown: '未知状态',
 				start: '开始收获',
 				harvesting: '正在收获',
-				stop: '停止收获'
+				stop: '停止收获',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

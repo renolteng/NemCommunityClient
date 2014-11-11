@@ -533,7 +533,11 @@
 				unknown: 'अज्ञात स्थिति',
 				start: 'स्टार्ट लोकल हार्वेस्टिंग',
 				harvesting: 'हार्वेस्टिंग',
-				stop: 'स्टॉप लोकल हार्वेस्टिंग'
+				stop: 'स्टॉप लोकल हार्वेस्टिंग',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

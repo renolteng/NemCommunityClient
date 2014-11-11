@@ -533,7 +533,11 @@ define({
 				unknown: "Statusas nežinomas",
 				start: "Pradėti \"kasti\"",
 				harvesting: "\"Kasimas\" vyksta",
-				stop: "Stabdyti \"kasimą\""
+				stop: "Stabdyti \"kasimą\"",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

@@ -531,7 +531,11 @@ define({
 				unknown: 'Status nieznany',
 				start: 'Rozpocznij zbieranie bloków',
 				harvesting: 'Zbieranie',
-				stop: 'Zakończ zbieranie bloków'
+				stop: 'Zakończ zbieranie bloków',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

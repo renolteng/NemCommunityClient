@@ -531,7 +531,11 @@ define({
 				unknown: "Stato sconosciuto",
 				start: "Avvia generazione blocchi",
 				harvesting: "Generazione blocchi in corso",
-				stop: "Ferma generazione blocchi"
+				stop: "Ferma generazione blocchi",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

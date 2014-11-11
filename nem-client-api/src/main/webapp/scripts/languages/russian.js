@@ -533,7 +533,11 @@
 				unknown: 'Статус Неизвестен',
 				start: 'Начать Генерацию',
 				harvesting: 'Генерация',
-				stop: 'Остановить Генерацию'
+				stop: 'Остановить Генерацию',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {
