@@ -246,6 +246,10 @@ $form-input-hPadding: 12px;
 	&.form-input--unimportant {
 		color: $form-disabledColor;
 	}
+
+	&.form-input--error {
+		border-color: #c0392b;
+	}
 }
 
 .form-input-unit {
@@ -452,7 +456,7 @@ $modal-transitionDuration: .3s;
 		margin-left: 6px;
 	}
 
-	&.disabled {
+	&:disabled {
 		background-color: #d1d1d1;
 		pointer-events: none;
 	}

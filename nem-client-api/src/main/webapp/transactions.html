@@ -91,7 +91,7 @@
 				</div>
 			</settingsModal>
 
-			<inputModal modalClass="inputModal" disableEasyClose="true">
+			<inputModal modalClass="inputModal">
 				{{#message}}
 					<p class="modal-message">
 						{{message}}
@@ -116,7 +116,7 @@
 					{{/}}
 				</div>
 				<div>
-					<button type="button" class="modal-button modal-button--submit modal-button--primary {{#processing}}disabled{{/}}" on-click="submit()">
+					<button type="button" class="modal-button modal-button--submit modal-button--primary" on-click="submit()" disabled="{{processing}}">
 						{{^processing}}
 							{{submitLabel}}
 						{{/}}

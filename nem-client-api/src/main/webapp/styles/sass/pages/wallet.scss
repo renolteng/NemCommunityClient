@@ -672,20 +672,9 @@ $sendNem-textbox-hPadding: 8px;
 	text-align: right;
 }
 
-.sendNem-submit-button {
-	$background: #1b5278;
-	background-color: $background;
-	color: #fff;
-	text-transform: uppercase;
-
-	&.disabled {
-		background-color: #d1d1d1;
-		pointer-events: none;
-	}
-
-	&:hover {
-		background-color: lighten($background, 10%);
-	}
+.sendNem-errorIcon {
+	color: #c03b2d;
+	vertical-align: middle;
 }
 
 // ================================================================================

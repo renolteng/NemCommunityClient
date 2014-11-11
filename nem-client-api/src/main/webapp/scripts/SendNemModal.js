@@ -17,6 +17,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 var recipient = this.get('recipient');
                 return !!recipient && recipient.length === 40;
             },
+            recipientError: function() {
+                return !this.get('recipientValid') && this.get('recipientChanged');
+            },
             message: function() {
                 return this.get('rawMessage') && this.get('rawMessage').toString();
             },
@@ -32,10 +35,20 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 },
                 set: function(fee) {
                     this.set('formattedFee', Utils.formatCurrency(fee, false, true, true));
+                    this.update('fee'); // if not, stupid Ractive would not trigger fee observer
                 }
+            },
+            feeValid: function() {
+                return this.get('fee') >= this.get('minimumFee');
+            },
+            feeError: function() {
+                return !this.get('feeValid') && this.get('feeChanged');
             },
             formattedMinimumFee: function() {
                 return Utils.formatCurrency(this.get('minimumFee'), false, true, true);
+            },
+            formValid: function() {
+                return this.get('recipientValid') && this.get('feeValid');
             }
         },
         /**
@@ -77,9 +90,14 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('formattedRecipient', '');
             this.set('rawMessage', '');
             this.set('encrypted', false);
+            this.set('fee', 0);
+            this.set('minimumFee', 0);
             this.set('dueBy', '12');
             this.set('password', '');
             this.set('useMinimumFee', true);
+
+            this.set('recipientChanged', false);
+            this.set('feeChanged', false);
         },
         sendTransaction: function() {
             var requestData = {
@@ -132,32 +150,40 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 }
             });
 
-            this.observe('recipient', (function() {
-                var t;
-                return function(recipient) {
-                    clearTimeout(t);
-                    t = setTimeout(function() {
-                        ncc.postRequest('account/find', { account: recipient }, 
-                            function(data) {
-                                if (data.address) {
-                                    self.set('recipientLabel', data.label || '');
-                                } else {
-                                    self.set('recipientLabel', null);
-                                }
-                            }, 
-                            {
-                                error: function() {
-                                    self.set('recipientLabel', null);
+            this.observe({
+                recipient: (function() {
+                    var t;
+                    return function(recipient) {
+                        this.set('recipientChanged', true);
+
+                        clearTimeout(t);
+                        t = setTimeout(function() {
+                            ncc.postRequest('account/find', { account: recipient }, 
+                                function(data) {
+                                    if (data.address) {
+                                        self.set('recipientLabel', data.label || '');
+                                    } else {
+                                        self.set('recipientLabel', null);
+                                    }
+                                }, 
+                                {
+                                    error: function() {
+                                        self.set('recipientLabel', null);
+                                    },
+                                    altFailCb: function() {
+                                        self.set('recipientLabel', null);
+                                    }
                                 },
-                                altFailCb: function() {
-                                    self.set('recipientLabel', null);
-                                }
-                            },
-                            true
-                        );
-                    }, 500);
-                };
-            })(), {
+                                true
+                            );
+                        }, 500);
+                    };
+                })(),
+                fee: function() {
+                    this.set('feeChanged', true);
+                }
+            }, 
+            {
                 init: false
             });
 
@@ -172,19 +198,42 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 }
             });
 
-            require(['maskedinput'], function() {                
-                var $recipient = $('.js-sendNem-recipient-textbox');
-                $recipient.mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAA');
+
+            require(['maskedinput'], function() {
                 var $dueBy = $('.js-sendNem-dueBy-textbox');
                 $dueBy.mask('00');
             });
 
             // Mask NEM amount textboxes
-            var sendNemModal = ncc.getModal('sendNem');
+            var self = this;
             (function(){
+                var generateAccountAddressMask = function() {
+                    var oldVal;
+                    return function(e) {
+                        var target = e.target;
+                        var currentVal = target.value;
+                        // If the keypress doesn't change the textbox value then i don't give a sh!t.
+                        if (currentVal === oldVal) { 
+                            return;
+                        }
+
+                        var caretToEnd = currentVal.length - target.selectionEnd;
+                        // Remove all illegal characters
+                        var rawAddress = currentVal.replace(/[^0-9a-zA-Z]/g, '');
+                        var newVal = Utils.formatAddress(rawAddress)
+
+                        target.value = oldVal = newVal;
+                        self.updateModel();
+                        var caret = newVal.length - caretToEnd;
+                        target.setSelectionRange(caret, caret);
+                    };
+                };
+
+                var $recipient = $('.js-sendNem-recipient-textbox');
+                $recipient.on('keyup', generateAccountAddressMask());
+
                 var generateNemTextboxMask = function() {
                     var oldVal;
-
                     return function(e) {
                         var target = e.target;
                         var currentVal = target.value;
@@ -231,7 +280,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                         var newVal = intPart + decimalPart;
 
                         target.value = oldVal = newVal;
-                        sendNemModal.updateModel();
+                        self.updateModel();
                         var caret = newVal.length - caretToEnd;
                         target.setSelectionRange(caret, caret);
                     };
@@ -239,23 +288,21 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 
                 var $amount = $('.js-sendNem-amount-textbox');
                 var amountTxb = $amount[0];
-                var amountMask = generateNemTextboxMask();
-                $amount.on('keyup', amountMask);
+                $amount.on('keyup', generateNemTextboxMask());
 
                 var $fee = $('.js-sendNem-fee-textbox');
                 var feeTxb = $fee[0];
-                var feeMask = generateNemTextboxMask();
-                $fee.on('keyup', feeMask);
+                $fee.on('keyup', generateNemTextboxMask());
 
-                local.listeners.push(ncc.observe('texts.preferences.thousandSeparator', function(newProp, oldProp) {
+                ncc.observe('texts.preferences.thousandSeparator', function(newProp, oldProp) {
                     amountTxb.value = Utils.convertCurrencyFormat(amountTxb.value, oldProp, newProp);
                     feeTxb.value = Utils.convertCurrencyFormat(feeTxb.value, oldProp, newProp);
-                }));
+                });
 
-                local.listeners.push(ncc.observe('texts.preferences.decimalSeparator', function(newProp, oldProp) {
+                ncc.observe('texts.preferences.decimalSeparator', function(newProp, oldProp) {
                     amountTxb.value = Utils.convertCurrencyFormat(amountTxb.value, null, null, oldProp, newProp);
                     feeTxb.value = Utils.convertCurrencyFormat(feeTxb.value, null, null, oldProp, newProp);
-                }));
+                });
             })();
         }
     });

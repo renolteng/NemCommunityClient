@@ -3,6 +3,7 @@
 define(function() {
     var Utils = {
         config: {
+            addressCharacters: 40,
             fractionalDigits: 2,
             txesPerPage: 25,
             blocksPerPage: 25,
@@ -119,11 +120,7 @@ define(function() {
             return address.replace(/\-/g, '');
         },
         formatAddress: function(address) {
-            if (address && typeof address === 'string') {
-                return address.match(/.{1,6}/g).join('-').toUpperCase();
-            } else {
-                return address;
-            }
+            return address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g).join('-').toUpperCase();
         },
         addThousandSeparators: function(num) {
             return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
