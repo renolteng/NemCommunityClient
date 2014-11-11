@@ -533,7 +533,11 @@ define({
 				unknown: "Unbekannter Status",
 				start: "Ernte beginnen",
 				harvesting: "Ernte",
-				stop: "Ernte beenden"
+				stop: "Ernte beenden",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

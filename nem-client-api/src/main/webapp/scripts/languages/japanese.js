@@ -533,7 +533,11 @@ define({
 				unknown: "不明な状態",
 				start: "ハーベスティングを開始する",
 				harvesting: "ハーベスティング",
-				stop: "ハーベスティングを停止する"
+				stop: "ハーベスティングを停止する",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

@@ -533,7 +533,11 @@ define({
 				unknown: "Marooned",
 				start: "Begin plundering",
 				harvesting: "Plundering",
-				stop: "Cease plundering"
+				stop: "Cease plundering",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

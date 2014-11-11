@@ -533,7 +533,11 @@ define({
 				unknown: 'Estado desconocido',
 				start: 'Comenzar recolecta',
 				harvesting: 'Recolectando',
-				stop: 'Detener recolecta'
+				stop: 'Detener recolecta',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

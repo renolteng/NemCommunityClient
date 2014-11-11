@@ -533,7 +533,11 @@ define({
 				unknown: 'Статус невiдомий',
 				start: 'Почати харвестiнг (генерацiю блокiв)',
 				harvesting: 'Харвестiнг',
-				stop: 'Зупинити харвестiнг'
+				stop: 'Зупинити харвестiнг',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

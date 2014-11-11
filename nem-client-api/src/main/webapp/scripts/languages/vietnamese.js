@@ -100,24 +100,24 @@ define({
 				nullLabelDesc: "Tài khoản này không được dán nhãn",
 				amount: 'Số lượng',
 				recipient: "Người nhận",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: 'Địa chỉ tài khoản phải có đúng 40 ký tự trừ các dấu gạch ngang',
 				message: 'Thông điệp',
 				encrypt: 'Mã hoá thông điệp',
-				fee: 'Chi phí',
-				feeValidation: 'Fee must not be less than the minimum fee',
+				fee: 'Phí',
+				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
 				dueBy: 'Hết hạn',
-				resetFee: 'Đặt lại phí tối thiểu',
+				useMinimumFee: 'Sử dụng phí tối thiểu',
 				hours: 'giờ',
 				password: 'Mật khẩu',
 				send: 'Gửi',
-				cancel: 'Cancel',
+				cancel: 'Huỷ',
 				sending: 'Đang gửi...',
 				successMessage: 'Giao dịch đã được gửi đi thành công!',
 				txConfirm: {
 					title: 'Xác nhận giao dịch',
 					amount: 'Số lượng',
 					to: 'Tới',
-					fee: 'Chi phí',
+					fee: 'Phí',
 					dueBy: 'Hết hạn',
 					hours: 'giờ',
 					total: 'Tổng cộng',
@@ -169,7 +169,7 @@ define({
 				confirmations: 'Số xác nhận',
 				confirmationsUnknown: 'Không rõ',
 				amount: 'Số lượng',
-				fee: 'Chi phí'
+				fee: 'Phí'
 			},
 			bootLocalNode: {
 				title: 'Boot node cục bộ',
@@ -454,7 +454,7 @@ define({
 					'',
 					'Chi tiết',
 					'Số xác nhận',
-					'Chi phí',
+					'Phí',
 					'Số lượng'
 				],
 				types: {
@@ -501,7 +501,7 @@ define({
 					'',
 					'Chi tiết',
 					'Số xác nhận',
-					'Chi phí',
+					'Phí',
 					'Số lượng'
 				],
 				types: {
@@ -527,7 +527,7 @@ define({
 					'Chiều cao',
 					'Thời điểm',
 					'Block hash',
-					'Chi phí'
+					'Phí'
 				],
 				noBlocks: 'Chưa có block nào được thu hoạch',
 				loading: 'Xem các block cũ'
@@ -537,6 +537,10 @@ define({
 				start: 'Bắt đầu thu hoạch cục bộ',
 				harvesting: 'Đang thu hoạch',
 				stop: 'Ngừng thu hoạch cục bộ',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Bắt đầu thu hoạch từ xa',
+					stopRemoteHarvesting: 'Ngừng thu hoạch từ xa'
+				}
 			}
 		},
 		settings: {

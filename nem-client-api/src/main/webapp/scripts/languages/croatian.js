@@ -531,7 +531,11 @@ define({
 				unknown: "Nepoznat status",
 				start: "Pokreni ubiranje",
 				harvesting: "Ubiranje",
-				stop: "Prekini ubiranje"
+				stop: "Prekini ubiranje",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

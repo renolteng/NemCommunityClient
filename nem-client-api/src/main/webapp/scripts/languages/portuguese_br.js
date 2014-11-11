@@ -531,7 +531,11 @@ define({
 				unknown: "Status desconhecido",
 				start: "Iniciar a colheita",
 				harvesting: "Colheitando",
-				stop: "Parar de colheitar"
+				stop: "Parar de colheitar",
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

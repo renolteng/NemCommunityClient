@@ -533,7 +533,11 @@ define({
 				unknown: '未知狀態',
 				start: '開始收割',
 				harvesting: '正在收割',
-				stop: '停止收割'
+				stop: '停止收割',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {

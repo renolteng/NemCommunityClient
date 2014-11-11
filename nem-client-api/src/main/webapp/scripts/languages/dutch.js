@@ -533,7 +533,11 @@ define({
 				unknown: 'Onbekende status',
 				start: 'Start harvesten',
 				harvesting: 'Harvesten',
-				stop: 'Stop harvesten'
+				stop: 'Stop harvesten',
+				remoteHarvest: {
+					startRemoteHarvesting: 'Start remote harvesting',
+					stopRemoteHarvesting: 'Stop remote harvesting'
+				}
 			}
 		},
 		settings: {
