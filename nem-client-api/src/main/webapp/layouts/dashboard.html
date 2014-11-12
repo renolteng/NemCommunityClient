@@ -35,36 +35,32 @@
 					{{/}}
 
 					<div class="importanceTile-harvest">
-						{{#activeAccount.remoteStatus !== 'ACTIVE'}}
-							{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-								<button type="button" class="importanceTile-harvestButton icon-question-circle" disabled>
-									<span>{{texts.dashboard.importance.unknown}}</span>
-								</button>
-							{{/}}
-							{{^status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-								{{#activeAccount.status === 'LOCKED'}}
-									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
-										<span>{{texts.dashboard.importance.start}}</span>
-									</button>
-								{{/}}
-								{{#activeAccount.status === 'UNLOCKED'}}
-									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting">
-										{{texts.dashboard.importance.stop}}
-									</button>
-								{{/}}
-							{{/}}
-						{{/}}
-
-						{{#activeAccount.remoteStatus === 'ACTIVE'}}
-							{{^walletPage.remoteUnlocked}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
-							{{/}}
-							{{#walletPage.remoteUnlocked}}
+						{{#if activeAccount.remoteStatus === 'ACTIVE'}}
+							{{#if walletPage.remoteUnlocked}}
 								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopRemoteHarvesting">
 									{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}
 								</button>
-							{{/}}
-						{{/}}
+							{{else}}
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
+							{{/if}}
+						{{else}}
+							{{#if status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
+								<button type="button" class="importanceTile-harvestButton icon-question-circle" disabled>
+									<span>{{texts.dashboard.importance.unknown}}</span>
+								</button>
+							{{else}}
+								{{#if activeAccount.status === 'LOCKED'}}
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
+										<span>{{texts.dashboard.importance.start}}</span>
+									</button>
+								{{/if}}
+								{{#if activeAccount.status === 'UNLOCKED'}}
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting">
+										{{texts.dashboard.importance.stop}}
+									</button>
+								{{/if}}
+							{{/if}}
+						{{/if}}
 					</div>
 
 					<div class="importanceTile-content">
@@ -100,13 +96,10 @@
 							<th class="txList-header txList-col--fee">{{texts.dashboard.transactions.columns.7}} <span class="dimmed">(NEM)</span></th>
 							<th class="txList-header txList-col--amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(NEM)</span></th>
 						</tr>
-						{{#activeAccount.transactions:i}}
-							{{#i < 4}}
+						{{#each activeAccount.transactions:i}}
+							{{#if i < 4}}
 								<tr>
-                                    {{^.confirmed}}
-                                        <td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
-                                    {{/}}
-                                    {{#.confirmed}}
+                                    {{#if .confirmed}}
                                         {{#.isSelf}}
                                             <td class="txList-cell txList-col--type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
@@ -116,7 +109,9 @@
                                         {{#.isIncoming}}
                                             <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
-                                    {{/}}
+                                    {{else}}
+                                    	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
+                                    {{/if}}
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
@@ -125,8 +120,11 @@
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
                                     {{/}}
 									<td class="txList-cell txList-col--message">
-										{{#.message}}{{.message}}{{/}}
-										{{^.message}}<span class="dimmed">{{texts.dashboard.transactions.noMessage}}</span>{{/}}
+										{{#if .message}}
+											{{.message}}
+										{{else}}
+											<span class="dimmed">{{texts.dashboard.transactions.noMessage}}</span>
+										{{/if}}
 									</td>
 									<td class="txList-cell txList-col--encrypted encryptedIcon">
 										{{#.encrypted}}
@@ -135,14 +133,15 @@
 									</td>
 									<td class="txList-cell txList-col--details" on-click="viewTransaction:{{.}}">{{texts.dashboard.transactions.view}}</td>
 									<td class="txList-col--confirmations">
-										{{^.confirmed}}{{texts.dashboard.transactions.pending}}{{/}}
-										{{#.confirmed}}
+										{{#if .confirmed}}
 											{{#if blockchainHeight}}
 												{{blockchainHeight - .blockHeight}}
 											{{else}}
 												{{texts.dashboard.transactions.confirmationsUnknown}}
 											{{/if}}
-										{{/}}
+										{{else}}
+											{{texts.dashboard.transactions.pending}}
+										{{/if}}
 									</td>
                                     <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
                                     <td class="txList-cell txList-col--amount">
@@ -152,12 +151,12 @@
 	                                    -->{{{formattedAmount}}}
                                     </td>
 								</tr>
-							{{/}}
-						{{/}}
+							{{/if}}
+						{{/each}}
 					</table>
-					{{#activeAccount.transactions.length > 4 }}
+					{{#if activeAccount.transactions.length > 4 }}
 						<p class="txList-seeAll"><a href="javascript:;" on-click="redirect:'transactions'">{{texts.dashboard.transactions.seeAll}} <span class="txList-seeAll-arrow icon-arrow-right"></span></a></p>
-					{{/}}
+					{{/if}}
 					{{^activeAccount.transactions}}
 						<p class="txList-noRecords">{{texts.dashboard.transactions.noTransactions}}</p>
 					{{/}}

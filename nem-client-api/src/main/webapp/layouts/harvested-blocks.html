@@ -3,36 +3,32 @@
 		<section class="recordList">
 			<div class="recordList-head">
 				<h1 class="recordList-title">{{texts.harvestedBlocks.title}}</h1>
-				{{#activeAccount.remoteStatus !== 'ACTIVE'}}
-					{{#status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-						<button type="button" class="harvestedBlocksPage-forageButton icon-question-circle" disabled>
-							<span>{{texts.harvestedBlocks.harvesting.unknown}}</span>
-						</button>
-					{{/}}
-					{{^status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-						{{#activeAccount.status === 'LOCKED'}}
-							<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startHarvesting">
-								<span>{{texts.harvestedBlocks.harvesting.start}}</span>
-							</button>
-						{{/}}
-						{{#activeAccount.status === 'UNLOCKED'}}
-							<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--foraging icon-pause" on-click="stopHarvesting">
-								{{texts.harvestedBlocks.harvesting.stop}}
-							</button>
-						{{/}}
-					{{/}}
-				{{/}}
-
-				{{#activeAccount.remoteStatus === 'ACTIVE'}}
-					{{^walletPage.remoteUnlocked}}
-						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startRemoteHarvesting">{{texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting}}</button>
-					{{/}}
-					{{#walletPage.remoteUnlocked}}
+				{{#if activeAccount.remoteStatus === 'ACTIVE'}}
+					{{#if walletPage.remoteUnlocked}}
 						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--foraging icon-pause" on-click="stopRemoteHarvesting">
 							{{texts.harvestedBlocks.harvesting.remoteHarvest.stopRemoteHarvesting}}
 						</button>
-					{{/}}
-				{{/}}
+					{{else}}
+						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startRemoteHarvesting">{{texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting}}</button>
+					{{/if}}
+				{{else}}
+					{{#if status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
+						<button type="button" class="harvestedBlocksPage-forageButton icon-question-circle" disabled>
+							<span>{{texts.harvestedBlocks.harvesting.unknown}}</span>
+						</button>
+					{{else}}
+						{{#if activeAccount.status === 'LOCKED'}}
+							<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startHarvesting">
+								<span>{{texts.harvestedBlocks.harvesting.start}}</span>
+							</button>
+						{{/if}}
+						{{#if activeAccount.status === 'UNLOCKED'}}
+							<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--foraging icon-pause" on-click="stopHarvesting">
+								{{texts.harvestedBlocks.harvesting.stop}}
+							</button>
+						{{/if}}
+					{{/if}}
+				{{/if}}
 				<div class="recordList-overview">
 					<p class="recordList-overview-title">{{texts.harvestedBlocks.feeEarned}}</p>
 					<p><span title="{{Math.floor(harvestedBlocks.feeEarned / 1000000)}} NEM {{harvestedBlocks.feeEarned % 1000000}} mNEM" on-mouseover="registerToolTip">{{{formatCurrency(harvestedBlocks.feeEarned, false)}}} <span class="unit">NEM</span></span></p>
@@ -50,14 +46,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							{{#harvestedBlocks.list}}
+							{{#each harvestedBlocks.list}}
 								<tr>
                                     <td class="txList-cell txList-col--height">{{.message}}</td>
 									<td class="txList-cell txList-col--time">{{.formattedTime}}</td>
 									<td class="txList-cell txList-col--hash">{{.hash}}</td>
                                     <td class="txList-cell txList-col--fee">{{{.formattedFee}}}</td>
 								</tr>
-							{{/}}
+							{{/each}}
 						</tbody>
 					</table>
 					{{^harvestedBlocks.list}}

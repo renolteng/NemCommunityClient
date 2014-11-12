@@ -117,12 +117,11 @@
 				</div>
 				<div>
 					<button type="button" class="modal-button modal-button--submit modal-button--primary" on-click="submit()" disabled="{{processing}}">
-						{{^processing}}
-							{{submitLabel}}
-						{{/}}
-						{{#processing}}
+						{{#if processing}}
 							{{processingLabel || submitLabel}}
-						{{/}}
+						{{else}}
+							{{submitLabel}}
+						{{/if}}
 					</button>
 				</div>
 			</inputModal>

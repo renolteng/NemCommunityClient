@@ -52,12 +52,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							{{#transactions.filtered}}
+							{{#each transactions.filtered}}
 								<tr>
-                                    {{^.confirmed}}
-                                        <td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactions.table.types.pending}}" on-mouseover="registerToolTip"></td>
-                                    {{/}}
-                                    {{#.confirmed}}
+                                    {{#if .confirmed}}
                                         {{#.isSelf}}
                                             <td class="txList-cell txList-col--type icon-self" title="{{texts.transactions.table.types.self}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
@@ -67,7 +64,9 @@
                                         {{#.isIncoming}}
                                             <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactions.table.types.incoming}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
-                                    {{/}}
+                                    {{else}}
+                                    	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactions.table.types.pending}}" on-mouseover="registerToolTip"></td>
+                                    {{/if}}
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
@@ -76,8 +75,11 @@
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
                                     {{/}}
 									<td class="txList-cell txList-col--message">
-										{{#.message}}{{.message}}{{/}}
-										{{^.message}}<span class="dimmed">{{texts.transactions.table.noMessage}}</span>{{/}}
+										{{#if .message}}
+											{{.message}}
+										{{else}}
+											<span class="dimmed">{{texts.transactions.table.noMessage}}</span>
+										{{/if}}
 									</td>
 									<td class="txList-cell txList-col--encrypted encryptedIcon">
 										{{#.encrypted}}
@@ -86,14 +88,15 @@
 									</td>
 									<td class="txList-cell txList-col--details" on-click="viewTransaction:{{.}}">{{texts.transactions.table.view}}</td>
 									<td class="txList-cell txList-col--confirmations">
-										{{^.confirmed}}{{texts.transactions.table.pending}}{{/}}
-										{{#.confirmed}}											
+										{{#if .confirmed}}											
 											{{#if blockchainHeight}}
 												{{blockchainHeight - .blockHeight}}
 											{{else}}
 												{{texts.transactions.table.confirmationsUnknown}}
 											{{/if}}
-										{{/}}
+										{{else}}
+											{{texts.transactions.table.pending}}
+										{{/if}}
 									</td>
                                     <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
                                     <td class="txList-cell txList-col--amount">
@@ -103,7 +106,7 @@
 	                                    -->{{{formattedAmount}}}
                                     </td>
 								</tr>
-							{{/}}
+							{{/each}}
 						</tbody>
 					</table>
 					{{^transactions.filtered}}

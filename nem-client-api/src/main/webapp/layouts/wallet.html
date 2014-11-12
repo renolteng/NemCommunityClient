@@ -339,12 +339,11 @@
 	<div class="txConfirm-actions">
 		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
 		<button type="button" class="modal-button modal-button--primary" disabled="{{processing}}" on-click="confirm()">
-			{{^processing}}
-				{{texts.modals.sendNem.txConfirm.confirm}}
-			{{/}}
-			{{#processing}}
+			{{#if processing}}
 				{{texts.modals.sendNem.txConfirm.sending}}
-			{{/}}
+			{{else}}
+				{{texts.modals.sendNem.txConfirm.confirm}}
+			{{/if}}
 		</button>
 	</div>
 </transactionConfirmModal>
@@ -438,12 +437,11 @@
 				<div class="clientInfo-block">
 					<p>
 						<strong>
-							{{#nisSynchronized}}
+							{{#if nisSynchronized}}
 								{{texts.modals.clientInfo.sync}}
-							{{/}}
-							{{^nisSynchronized}}
+							{{else}}
 								{{texts.modals.clientInfo.notSync}}
-							{{/}}
+							{{/if}}
 						</strong>
 					</p>
 				</div>
