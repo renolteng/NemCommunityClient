@@ -414,7 +414,7 @@ define(function(require) {
                 // Clear the old layouts
                 var currLayouts = self.get('layout');
                 if (currLayouts && currLayouts.length) {
-                    for (i = i + 1; i < currLayouts.length; i++) {
+                    for (; i < currLayouts.length; i++) {
                         self.set('layout.' + i, null);
                     }
                 }
