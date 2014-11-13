@@ -119,7 +119,7 @@
                                     {{#.isIncoming}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
                                     {{/}}
-									<td class="txList-cell txList-col--message">
+									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
 										{{#if .message}}
 											{{.message}}
 										{{else}}

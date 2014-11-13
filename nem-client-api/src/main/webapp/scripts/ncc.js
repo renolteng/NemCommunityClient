@@ -478,8 +478,8 @@ define(function(require) {
                     input.dispatchEvent(evt);
                 },
                 registerToolTip: function(e) {
-                    if (!$(e.node).data('tooltipster-ns')) {
-                        var $node = $(e.node);
+                    var $node = $(e.node);
+                    if (!$node.data('tooltipster-ns') && $node.attr('title')) {
                         $node.tooltipster({
                             position: 'bottom',
                             delay: 50,
