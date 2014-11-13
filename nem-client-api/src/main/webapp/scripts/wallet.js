@@ -896,9 +896,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     }
                 }
             });
+
+            global.$window.on('beforeunload', function() {
+                return ncc.get('texts.modals.logoutWarning.leavePage');
+            });
         },
-        leave: [function() {
-            $(window).off('resize.scrollableSidebar');
+        leave: [function() {            
+            ncc.global.$window.off('resize.scrollableSidebar');
+            ncc.global.$window.off('beforeunload');
         }]
     });
 });
