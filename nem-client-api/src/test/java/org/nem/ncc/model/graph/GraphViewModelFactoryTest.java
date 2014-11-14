@@ -381,7 +381,7 @@ public class GraphViewModelFactoryTest {
 				final Collection<Node> inactiveNodes) {
 			final NodeCollection nodes = new NodeCollection();
 			activeNodes.forEach(n -> nodes.update(n, NodeStatus.ACTIVE));
-			inactiveNodes.forEach(n -> nodes.update(n, NodeStatus.INACTIVE));
+			inactiveNodes.forEach(n -> nodes.update(n, NodeStatus.BUSY));
 			return nodes;
 		}
 	}

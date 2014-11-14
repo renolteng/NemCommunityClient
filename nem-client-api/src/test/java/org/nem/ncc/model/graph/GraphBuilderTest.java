@@ -52,7 +52,7 @@ public class GraphBuilderTest {
 		final Node node4 = GraphUtils.createNodeFromHost("10.0.0.3");
 		final NodeCollection nodes = new NodeCollection();
 		nodes.update(node2, NodeStatus.ACTIVE);
-		nodes.update(node3, NodeStatus.INACTIVE);
+		nodes.update(node3, NodeStatus.BUSY);
 		nodes.update(node4, NodeStatus.ACTIVE);
 
 		// Act:
