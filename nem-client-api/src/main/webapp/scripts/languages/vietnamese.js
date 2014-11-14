@@ -316,6 +316,9 @@ define({
 				account: 'Tài khoản',
 				password: "Mật khẩu ví",
 				stop: 'Ngừng'
+			},
+			logoutWarning: {
+				leavePage: "Bạn đang rời khỏi ví của mình. Hãy nhớ rằng nếu bạn rời ví theo cách này, ai đó khác vẫn có thể truy cập vào ví của bạn từ máy tính này.\n\nĐể ngăn chặn điều đó xảy ra, hãy đăng xuất bằng cách chọn \"Đóng ví\" trong menu xổ xuống phía trên bên phải màn hình trước khi bạn đóng tab trình duyệt hoặc sang một trang web khác.",
 			}
 		},
 		landing: {
