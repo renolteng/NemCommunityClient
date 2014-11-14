@@ -20,7 +20,7 @@ define({
 			305: "NEM Infrastructure Server nu este disponibil.",
 			306: "A apărut o eroare care nu a fost anticipată de echipa de dezvoltare. Ne cerem scuze, o reîncercare ar putea ajuta. În caz contrar, te rog raportează problema în comunitatea NEM NIS/NCC.",
 			400: "Un parametru lipsește sau este invalid.",
-			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
+			401: "Această operațiune nu poate fi efectuată deoarece ar putea dezvălui o cheie privată transmițând-o unui NIS la distanță.",
 			404: "Resursele căutate nu au fost găsite.",
 			500: "Salvarea fișerului de configurație a eșuat.",
 			600: "NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.",
@@ -38,7 +38,7 @@ define({
 			901: "O eroare a apărut la setarea nodului offline.",
 			1000: "Cheia privată și cheia publică care au fost introduse nu se potrivesc.",
 			1001: "Cheia publică și adresa care au fost introduse nu se potrivesc.",
-			1002: 'The address does not belong to the main network.'
+			1002: "Adresa nu aparține rețelei principale."
 		},
 		common: {
 			success: "Succes",
@@ -100,41 +100,41 @@ define({
 				nullLabelDesc: "Acest cont nu are o etichetă",
 				amount: "Sumă",
 				recipient: "Contul destinatarului",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: "Adresa contului trebuie să aibă 40 de caractere excluzând spațiile goale.",
 				message: "Mesaj",
 				encrypt: "Mesaj encriptat",
 				fee: "Taxă",
-				feeValidation: 'Fee must not be less than the minimum fee',
+				feeValidation: "Taxa nu trebuie să fie mai mică decât taxa minimă",
 				dueBy: "Expiră in",
-				useMinimumFee: 'Use minimum fee',
+				useMinimumFee: "Folosește taxa minimă",
 				hours: "ore",
 				password: "Parola",
 				send: "Trimite",
-				cancel: 'Cancel',
+				cancel: "Anulează",
 				sending: "Se trimite...",
 				successMessage: "Tranzacția a fost efectuată cu succes!",
 				txConfirm: {
-					title: 'Confirm Transaction',
-					amount: 'Amount',
-					to: 'To',
-					fee: 'Fee',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					confirm: 'Confirm',
-					sending: 'Sending...'
+					title: "Confirm Transaction",
+					amount: "Sumă",
+					to: "To",
+					fee: "Taxă",
+					dueBy: "Scadentă până la",
+					hours: "ora (e)",
+					total: "Total",
+					message: "Message",
+					encrypted: "Message is encrypted",
+					noMessage: "No message",
+					cancel: "Cancel",
+					confirm: "Confirmă",
+					sending: "Sending..."
 				},
 				notBootedWarning: {
 					title: "Nodul nu a fost pornit!",
 					message: "Un nod local trebuie să fie pornit pentru a putea trimite NEM!"
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: "Nodul este în curs de pornire.",
+					message: "Te rog așteaptă până ce procesul de pornire este finalizat pentru a putea trimite tranzacția."
 				}
 			},
 			clientInfo: {
@@ -165,7 +165,7 @@ define({
 				encrypted: "Mesajul este encriptat",
 				time: "Data și ora",
 				confirmations: "Confirmări",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: "Necunoscut",
 				amount: "Sumă",
 				fee: "Taxă"
 			},
@@ -340,34 +340,34 @@ define({
 			},
 			carousel: {
 				items: [{
-					title: "NCC îți encripteaza portofelul",
-					description: "<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active."
-				}, {
-					title: "NCC îți encripteaza portofelul",
-					description: "<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active."
-				}]
+						title: "NCC îți encripteaza portofelul",
+						description: "<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active."
+					},{
+						title: "NCC îți encripteaza portofelul",
+						description: "<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active."
+					}]
 			},
 			about: {
 				sections: [{
-					title: "Cum funcționează NCC?",
-					paragraphs: [
-						"<strong>NCC</strong> facilitează accesul către activele și monedele tale la fel ca portofelele tradiționale. Ai voie",
-						"<strong>NCC</strong> necesită acces către <strong>NIS</strong> server pentru a putea funcționa. Standardul este să ai un nod local activ (este instalat împreună cu <strong>NCC</strong>)",
-						"Poți deasemeni să configurezi accesul către un remote <strong>NIS</strong>."
-					],
-					listItems: [
-						"Ai multiple portofele",
-						"Definește multiple conturi pentru a fi introduse într-un portofel"
-					]
-				}, {
-					title: "Ce este &#42;NIS?",
-					paragraphs: [
-						"Acest component este responsabil de a ține <strong>NEM</strong> cloud-ul activ.",
-						"Cu cât mai mult <strong>NIS</strong> cu atât mai bună securitate.",
-						"<strong>NIS</strong> este punctul de acces către <strong>NEM</strong> cloud."
-					],
-					legend: "<strong>&#42;NIS</strong> înseamnă <strong>NEM Infrastructure Server</strong>"
-				}]
+						title: "Cum funcționează NCC?",
+						paragraphs: [
+							"<strong>NCC</strong> facilitează accesul către activele și monedele tale la fel ca portofelele tradiționale. Ai voie",
+							"<strong>NCC</strong> necesită acces către <strong>NIS</strong> server pentru a putea funcționa. Standardul este să ai un nod local activ (este instalat împreună cu <strong>NCC</strong>)",
+							"Poți deasemeni să configurezi accesul către un remote <strong>NIS</strong>."
+						],
+						listItems: [
+							"Ai multiple portofele",
+							"Definește multiple conturi pentru a fi introduse într-un portofel"
+						]
+					},{
+						title: "Ce este &#42;NIS?",
+						paragraphs: [
+							"Acest component este responsabil de a ține <strong>NEM</strong> cloud-ul activ.",
+							"Cu cât mai mult <strong>NIS</strong> cu atât mai bună securitate.",
+							"<strong>NIS</strong> este punctul de acces către <strong>NEM</strong> cloud."
+						],
+						legend: "<strong>&#42;NIS</strong> înseamnă <strong>NEM Infrastructure Server</strong>"
+					}]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -464,7 +464,7 @@ define({
 				noMessage: "Fără mesaj",
 				encrypted: "Mesajul este encriptat",
 				view: "Vizualizează",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: "Necunoscut",
 				pending: "În așteptare",
 				seeAll: "Vizualizează toate tranzacțiile",
 				noTransactions: "Nu a fost efectuată nici o tranzacție până acum"
@@ -511,7 +511,7 @@ define({
 				noMessage: "Fără mesaj",
 				encrypted: "Mesajul este encriptat",
 				view: "Vizualizează",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: "Necunoscut",
 				pending: "În așteptare",
 				noTransactions: "Nu a fost efectuată nici o tranzacție până acum",
 				loading: "Se încarcă mai multe tranzacții..."
@@ -536,16 +536,16 @@ define({
 				harvesting: "Se recoltează",
 				stop: "Oprește recoltarea",
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: "Pornește recoltarea de la distanță",
+					stopRemoteHarvesting: "Oprește recoltarea de la distanță"
 				}
 			}
 		},
 		settings: {
 			title: "Setări",
 			settings: [{
-				name: "Limbă"
-			}],
+					name: "Limbă"
+				}],
 			save: "Salvează schimbările",
 			saveSuccess: "Setările au fost salvate cu succes"
 		}
