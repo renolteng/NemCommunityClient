@@ -705,6 +705,7 @@ $txConfirm-label-width: 130px;
 	padding-left: 8px;
 	padding-right: 8px;
 	text-align: right;
+	@include break-word();
 }
 
 .txConfirm-value {
@@ -713,6 +714,7 @@ $txConfirm-label-width: 130px;
 	padding-left: 8px;
 	padding-right: 8px;
 	text-align: left;
+	@include break-word();
 }
 
 .txConfirm-actions {
