@@ -18,19 +18,19 @@ define({
 			110: 'Portfel zawiera już to konto.',
 			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
 			305: 'Serwer Infrastruktury NEM jest niedostępny.',
-			306: 'Wystąpił błąd, którego dewelopery nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
+			306: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			400: 'Brakujący lub niewłaściwy parametr.',
 			401: 'Ta operacja nie może zostać wykonana ponieważ może to spowodować wyciek klucza prywatnego poprzez wysłanie go do zdalnego NIS.',
 			404: 'Żądany zasób nie został odnaleziony.',
-			500: 'Wystąpił błąd, którego dewelopery nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
+			500: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
 			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
-			700: 'Konto nie spełnia kryteriów dla zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 NEM na koncie.',
+			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 NEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
 			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
 			703: 'Nie masz wystarczających środków na koncie aby dokonać transakcji.',
 			704: 'Wiadomość jest zbyt długa. Spróbuj ją skrócić.',
-			705: 'Hasz transakcji istnieje już w bazie danych lub na liście niepotwierdzonych transakcji.',
+			705: 'Skrót (hash) transakcji istnieje już w bazie danych lub na liście niepotwierdzonych transakcji.',
 			706: 'Sygnatura transakcji nie mogła zostać zweryfikowana.',
 			707: 'Sygnatura czasowa transakcji jest zbyt daleko w przeszłości.',
 			708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
@@ -38,7 +38,7 @@ define({
 			901: 'Wystąpił błąd podczas przechodzenia w tryb offline.',
 			1000: 'Klucz prywatny i klucz publiczny nie pasują do siebie.',
 			1001: 'Klucz publiczny i adres nie pasują do siebie..',
-			1002: 'Adres nie należy do głównej sieci..'
+			1002: 'Adres nie należy do sieci głównej.'
 		},
 		common: {
 			success: 'Sukces', //title of the Success message modals
@@ -100,17 +100,17 @@ define({
 				nullLabelDesc: "To konto nie ma etykiety",
 				amount: 'Ilość',
 				recipient: "Konto odbiorcy",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: 'Adresy kont muszą mieć 40 znaków (nie licząc myślników)',
 				message: 'Wiadomość',
 				encrypt: 'Zaszyfruj wiadomość',
 				fee: 'Opłata',
-				feeValidation: 'Fee must not be less than the minimum fee',
+				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
 				dueBy: 'Ważne przez',
-				useMinimumFee: 'Use minimum fee',
+				useMinimumFee: 'Użyj minimalnej opłaty',
 				hours: 'godzin',
 				password: 'Hasło',
 				send: 'Wyślij',
-				cancel: 'Cancel',
+				cancel: 'Anuluj',
 				sending: 'Wysyłanie...',
 				successMessage: 'Transakcja została zrealizowana!',
 				txConfirm: {
@@ -120,7 +120,7 @@ define({
 					fee: 'Opłata',
 					dueBy: 'Ważne przez',
 					hours: 'godzin(y)',
-					total: 'Total',
+					total: 'Suma',
 					message: 'Wiadomość',
 					encrypted: 'Wiadomość jest zaszyfrowana',
 					noMessage: 'Brak wiadomości',
@@ -139,11 +139,11 @@ define({
 			},
 			clientInfo: {
 				title: 'Informacje o kliencie',
-				ncc: 'NEM Community Client - NCC',
+				ncc: 'Klient Społeczności NEM - NCC',
 				signer: 'Podpisujący',
 				remoteServer: 'Zdalny Serwer',
 				local: 'Lokalny',
-				nis: 'NEM Infrastructure Server - NIS',
+				nis: 'Serwer Infrastruktury NEM - NIS',
 				sync: 'Zsynchronizowany',
 				notSync: 'Niezsynchronizowany',
 				notConnected: 'Nie podłączony do chmury NEM',
@@ -152,7 +152,7 @@ define({
 			transactionDetails: {
 				title: 'Szczegóły transakcji',
 				id: 'ID',
-				hash: 'Hasz',
+				hash: 'Skrót (hash)',
 				type: 'Typ transakcji',
 				pending: 'Oczekujące',
 				outgoing: 'Wychodzące',
@@ -165,7 +165,7 @@ define({
 				encrypted: 'Wiadomość jest zaszyfrowana',
 				time: 'Data',
 				confirmations: 'Potwierdzenia',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Nieznana',
 				amount: 'Ilość',
 				fee: 'Opłata'
 			},
@@ -219,7 +219,7 @@ define({
 			},
 			verifyRealAccountData: {
 				title: 'Sprawdzenie poprawności prawdziwego konta',
-				message: 'Re-enter your saved address, public key and private key below to check if they match',
+				message: 'Wpisz ponownie zapisany adres, klucz publiczny i prywatny poniżej, by sprawdzić, czy pasują do siebie.',
 				address: 'Adres',
 				publicKey: 'Klucz publiczny',
 				privateKey: 'Klucz prywatny',
@@ -285,13 +285,13 @@ define({
 			},
 			shutdown: {
 				title: 'Zamknij program',
-				message: 'Czy na pewno chcesz zamknąć NEM Community Client?'
+				message: 'Czy na pewno chcesz zamknąć Klient Społeczności NEM?'
 			},
 			activateRemote: {
 				title: 'Aktywuj zdalne zbieranie bloków',
 				wallet: 'Portfel',
 				account: 'Konto',
-				hoursDue: 'Due by (godziny)',
+				hoursDue: 'Wykonaj w ciągu (godziny)',
 				password: "Hasło portfela",
 				activate: 'Aktywuj'
 			},
@@ -299,7 +299,7 @@ define({
 				title: 'Deaktywuj zdalne zbieranie bloków',
 				wallet: 'Portfel',
 				account: 'Konto',
-				hoursDue: 'Due by (godziny)',
+				hoursDue: 'Wykonaj w ciągu (godziny)',
 				password: "Hasło portfela",
 				deactivate: 'Deaktywuj'
 			},
@@ -327,16 +327,16 @@ define({
 				settings: 'Ustawienia'
 			},
 			main: {
-				leftTitle: 'New to <em>NEM</em>?',
+				leftTitle: 'Nowy w <em>NEM</em>?',
 				leftButton: 'Stwórz nowy portfel',
 				walletNamePlh: 'Nazwa Twojego portfela',
 				passwordPlh: 'Hasło',
 				create: 'Stwórz',
-				rightTitle: 'Already a <em>NEM</em>ber?',
+				rightTitle: 'Uczestnik <em>NEM</em>?',
 				rightButton: 'Otwórz swój portfel',
 				openButton: 'Otwórz',
 				walletsFound: 'Znaleziono <strong>{{1}}</strong> <em>portfeli</em>',
-				copyright: 'Photography by <em>Cas Cornelissen</em>'
+				copyright: 'Zdjęcie: <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [{
@@ -421,7 +421,7 @@ define({
 				title: 'Twoje aktywa'
 			},
 			importance: {
-				title: 'Poziom Importancji',
+				title: 'Wskaźnik Znaczenia',
 				unknown: 'Status nieznany',
 				start: 'Rozpocznij zbieranie',
 				harvesting: 'Zbieranie bloków',
@@ -464,7 +464,7 @@ define({
 				noMessage: 'Brak wiadomości',
 				encrypted: 'Wiadomość jest zaszyfrowana',
 				view: 'Zobacz',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Nieznana',
 				pending: 'Oczekuje',
 				seeAll: 'Zobacz wszystkie transakcje',
 				noTransactions: 'Nie wykonano żadnych transakcji'
@@ -511,7 +511,7 @@ define({
 				noMessage: 'Brak wiadomości',
 				encrypted: 'Wiadomość jest zaszyfrowana',
 				view: 'Zobacz',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Nieznana',
 				pending: 'Oczekuje',
 				noTransactions: 'Nie wykonano jeszcze żadnych transakcji',
 				loading: 'Ładowanie kolejnych transakcji...'
@@ -524,7 +524,7 @@ define({
 				columns: [
 					'Wysokość',
 					'Czas',
-					'Hasz bloku',
+					'Hash bloku',
 					'Opłata'
 				],
 				noBlocks: 'Brak zebranych bloków',
@@ -536,8 +536,8 @@ define({
 				harvesting: 'Zbieranie',
 				stop: 'Zakończ zbieranie bloków',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Zacznij zdalne zbieranie',
+					stopRemoteHarvesting: 'Zakończ zdalne zbieranie'
 				}
 			}
 		},
