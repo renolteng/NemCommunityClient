@@ -260,6 +260,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         yes: function() {
                             ncc.postRequest('wallet/close', { wallet: ncc.get('wallet.name') }, function(data) {
                                 if (data.ok) {
+                                    ncc.set('safeLogout', true);
                                     ncc.loadPage('landing');
                                 } else {
                                     ncc.showError();
@@ -901,9 +902,19 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 return ncc.get('texts.modals.logoutWarning.leavePage');
             });
         },
-        leave: [function() {            
+        leave: [function() {
+            if (!ncc.get('status.safeLogout')) {
+                var cont = confirm(ncc.get('texts.modals.logoutWarning.leavePage'));
+                if (!cont) {
+                    return true;
+                }
+                ncc.set('status.safeLogout', false);
+            }
+
             ncc.global.$window.off('resize.scrollableSidebar');
             ncc.global.$window.off('beforeunload');
+            ncc.set('activeAccount', null);
+            ncc.set('wallet', null);
         }]
     });
 });
