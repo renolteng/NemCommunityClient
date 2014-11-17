@@ -382,10 +382,9 @@ define(function(require) {
                     if (!currentLayout || (currentLayout.name !== layout.name)) {
                         var template = require(layout.template);
                         if (currentLayout && currentLayout.leave) {
-                            for (var j = 0; j < currentLayout.leave.length; j++) {
-                                var abort = currentLayout.leave[j].call(currentLayout);
-                                if (abort) return;
-                            }
+                            $.each(currentLayout.leave, function() {
+                                this.apply(currentLayout);
+                            });
                         }
 
                         // Init
