@@ -824,6 +824,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 startHarvesting: function() {
                     var account = ncc.get('activeAccount.address');
                     var wallet = ncc.get('wallet.name');
+                    ncc.set('walletPage.harvestButtonProcessing', true);
                     ncc.postRequest('wallet/account/unlock', 
                     {
                         wallet: wallet,
@@ -836,12 +837,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     {
                         complete: function() {
                             ncc.refreshAccount(null, null, true);
+                            ncc.set('walletPage.harvestButtonProcessing', false);
                         }
                     });
                 },
                 stopHarvesting: function() {
                     var account = ncc.get('activeAccount.address');
                     var wallet = ncc.get('wallet.name');
+                    ncc.set('walletPage.harvestButtonProcessing', true);
                     ncc.postRequest('wallet/account/lock', 
                     {
                         wallet: wallet,
@@ -854,8 +857,110 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     {
                         complete: function() {
                             ncc.refreshAccount(null, null, true);
+                            ncc.set('walletPage.harvestButtonProcessing', false);
                         }
                     });
+                },
+                startRemoteHarvesting: function() {
+                    ncc.showInputForm(ncc.get('texts.modals.startRemote.title'), '',
+                        [   
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.wallet')
+                                }
+                            },
+                            {
+                                name: 'password', 
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.password')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.modals.startRemote.account')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('activeAccount.address')
+                        },
+                        function(values, closeModal) {
+                            ncc.set('walletPage.harvestButtonProcessing', true);
+                            ncc.postRequest('wallet/account/remote/unlock', values, function(data) {
+                                closeModal();
+                            }, {
+                                complete: function() {
+                                    ncc.refreshAccount(null, null, true);
+                                    ncc.set('walletPage.harvestButtonProcessing', false);
+                                }
+                            });
+                        },
+                        ncc.get('texts.modals.startRemote.start')
+                    );
+                },
+                stopRemoteHarvesting: function() {
+                    ncc.showInputForm(ncc.get('texts.modals.stopRemote.title'), '',
+                        [   
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.wallet')
+                                }
+                            },
+                            {
+                                name: 'password', 
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.password')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.account')
+                                }
+                            },
+                            {
+                                name: 'host',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.stopRemote.host')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: ncc.get('wallet.name'),
+                            account: ncc.get('activeAccount.address')
+                        },
+                        function(values, closeModal) {
+                            ncc.set('walletPage.harvestButtonProcessing', true);
+                            ncc.postRequest('wallet/account/remote/lock', values, function(data) {
+                                closeModal();
+                            }, {
+                                complete: function() {
+                                    ncc.refreshAccount(null, null, true);
+                                    ncc.set('walletPage.harvestButtonProcessing', false);
+                                }
+                            });
+                        },
+                        ncc.get('texts.modals.stopRemote.stop')
+                    );
                 }
             }));
 

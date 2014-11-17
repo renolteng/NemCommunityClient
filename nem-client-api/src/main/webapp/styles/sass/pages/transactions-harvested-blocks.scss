@@ -173,6 +173,14 @@ input:checked + .recordList-filterLabel {
 		vertical-align: -3px;
 		font-size: 19px;
 	}
+
+	&:not(:disabled):hover {
+		background-color: #7c6890;
+	}
+
+	&:disabled {
+		opacity: .2;
+	}
 }
 
 .harvestedBlocksPage-forageButton--notForaging {
@@ -181,11 +189,4 @@ input:checked + .recordList-filterLabel {
 
 .harvestedBlocksPage-forageButton--foraging {
 	background-color: #a186b9;
-}
-
-.harvestedBlocksPage-forageButton--notForaging, 
-.harvestedBlocksPage-forageButton--foraging {
-	&:hover {
-		background-color: #7c6890;
-	}
 }
