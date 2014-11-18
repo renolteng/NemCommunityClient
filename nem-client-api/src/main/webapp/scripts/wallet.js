@@ -477,6 +477,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             {
                                 name: 'address',
                                 type: 'text',
+                                mask: 'address',
                                 label: {
                                     content: ncc.get('texts.modals.verifyRealAccountData.address')
                                 }

@@ -294,10 +294,7 @@ define(function(require) {
         },
         showInputForm: function(title, message, fields, initValues, submitCb, submitLabel, processingLabel) {
             var modal = this.getModal('input');
-            modal.set({
-                fields: null,
-                values: null
-            });
+            modal.set({});
 
             modal.set({
                 modalTitle: title,
@@ -440,7 +437,7 @@ define(function(require) {
 
             loadLayout(page);
         },
-        oncomplete: function(options) {
+        onrender: function(options) {
             var self = this;
 
             require(['languages'], function(languages) {

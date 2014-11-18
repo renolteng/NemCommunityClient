@@ -4,6 +4,7 @@ define(['jquery', 'ractive', 'Utils'], function($, Ractive, Utils) {
 	return Ractive.extend({
         template: '#modal-template',
         isolated: true,
+        listeners: [],
         open: function() {
             this.set('isActive', true);
             $('.active.modal-container').focus().find('.modal').css({
@@ -28,7 +29,7 @@ define(['jquery', 'ractive', 'Utils'], function($, Ractive, Utils) {
         unlockAction: function() {
             this.set('processing', false);
         },
-        oncomplete: function() {
+        onrender: function() {
             this.on({
                 modalContainerClick: function(e) {
                     if (e.node === e.original.target) { //clicked outside modal
@@ -41,6 +42,12 @@ define(['jquery', 'ractive', 'Utils'], function($, Ractive, Utils) {
                     }
                 }
             });
+        },
+        onunrender: function() {
+            $.each(this.listeners, function() {
+                this.cancel();
+            });
+            this.listeners = [];
         }
     });
 });

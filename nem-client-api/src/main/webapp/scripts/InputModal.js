@@ -14,7 +14,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 this.closeModal();
             }
         },
-        oncomplete: function() {
+        onrender: function() {
             this._super();
 
             this.on({

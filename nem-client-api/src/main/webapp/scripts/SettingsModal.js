@@ -50,7 +50,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         data: {
             activeTab: 'remoteServer'
         },
-        oncomplete: function() {
+        onrender: function() {
             this._super();
 
             this.on({
