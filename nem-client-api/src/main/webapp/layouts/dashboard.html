@@ -37,11 +37,11 @@
 					<div class="importanceTile-harvest">
 						{{#if activeAccount.remoteStatus === 'ACTIVE'}}
 							{{#if walletPage.remoteUnlocked}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopRemoteHarvesting">
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 									{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}
 								</button>
 							{{else}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
 							{{/if}}
 						{{else}}
 							{{#if status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
@@ -50,12 +50,12 @@
 								</button>
 							{{else}}
 								{{#if activeAccount.status === 'LOCKED'}}
-									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting">
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 										<span>{{texts.dashboard.importance.start}}</span>
 									</button>
 								{{/if}}
 								{{#if activeAccount.status === 'UNLOCKED'}}
-									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting">
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 										{{texts.dashboard.importance.stop}}
 									</button>
 								{{/if}}
@@ -119,7 +119,7 @@
                                     {{#.isIncoming}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
                                     {{/}}
-									<td class="txList-cell txList-col--message">
+									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
 										{{#if .message}}
 											{{.message}}
 										{{else}}

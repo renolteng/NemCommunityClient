@@ -259,6 +259,70 @@ define(function() {
                 }
             };
         })(),
+        generateMask: function(type) {
+            var oldVal;
+            return function(e) {
+                var target = e.target;
+                var currentVal = target.value;
+                // If the keypress doesn't change the textbox value then i don't give a sh!t.
+                if (currentVal === oldVal) { 
+                    return;
+                }
+
+                var caretToEnd = currentVal.length - target.selectionEnd;
+                var newVal = oldVal;
+
+                switch (type) {
+                    case 'nem':
+                        var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+
+                        // Remove illegal characters
+                        var dsRegex = new RegExp('[^0-9' + Utils.escapeRegExp(decimalSeparator) + ']', 'g');
+                        currentVal = currentVal.replace(dsRegex, '');
+                        // Remove leading zeroes
+                        while (currentVal.length > 1 && currentVal[0] === '0' && currentVal[1] !== decimalSeparator) {
+                            currentVal = currentVal.substring(1, currentVal.length);
+                        }
+                        // Remove redundant decimal separators
+                        var matchedOnce = false;
+                        var i = 0;
+                        while (i < currentVal.length) {
+                            if (currentVal[i] === decimalSeparator) {
+                                if (!matchedOnce) {
+                                    matchedOnce = true;
+                                } else {
+                                    currentVal = currentVal.substring(0, i) + currentVal.substring(i + 1);
+                                    i--; // not going forward
+                                }
+                            }
+                            i++;
+                        }
+
+                        var dotPos = currentVal.indexOf(decimalSeparator);
+                        if (dotPos === -1) {
+                            dotPos = currentVal.length;
+                        }
+                        var intPart = currentVal.substring(0, dotPos);
+                        var decimalPart = currentVal.substring(dotPos, currentVal.length);
+
+                        intPart = Utils.addThousandSeparators(intPart);
+                        // Limit to maximum 6 decimal digits
+                        decimalPart = decimalPart.substring(0, decimalSeparator.length + 6); 
+                        newVal = intPart + decimalPart;
+                        break;
+                    case 'address':
+                        // Remove all illegal characters
+                        var rawAddress = currentVal.replace(/[^0-9a-zA-Z]/g, '');
+                        var newVal = Utils.formatAddress(rawAddress);
+                        break;
+                }
+
+                target.value = oldVal = newVal;
+                ncc.updateModel();
+                var caret = newVal.length - caretToEnd;
+                target.setSelectionRange(caret, caret);
+            };
+        },
         daysPassed: function(begin) {
             var now = new Date().getTime();
             var timespan = now - begin;
