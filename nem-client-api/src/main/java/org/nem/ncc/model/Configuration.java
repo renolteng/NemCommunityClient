@@ -86,7 +86,12 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	 * @return true if NIS is local.
 	 */
 	public boolean isNisLocal() {
-		return null == this.nisEndpoint || NodeEndpoint.fromHost("localhost").equals(this.nisEndpoint);
+		if (null == this.nisEndpoint) {
+			return true;
+		}
+		final String host = this.nisEndpoint.getBaseUrl().getHost();
+		return NodeEndpoint.fromHost("localhost").getBaseUrl().getHost().equals(host) ||
+				NodeEndpoint.fromHost("127.0.0.1").getBaseUrl().getHost().equals(host);
 	}
 
 	/**

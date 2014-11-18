@@ -168,6 +168,18 @@ public class ConfigurationTest {
 		Assert.assertThat(isNisLocal(NodeEndpoint.fromHost("10.0.10.10")), IsEqual.equalTo(false));
 	}
 
+	@Test
+	public void isNisLocalReturnsTrueWhenLocalRemoteEndpointDoesNotUseDefaultPort() {
+		// Assert:
+		Assert.assertThat(isNisLocal(new NodeEndpoint("http", "localhost", 7891)), IsEqual.equalTo(true));
+	}
+
+	@Test
+	public void isNisLocalReturnsTrueWhenLocalRemoteEndpointDoesNotUseDefaultProtocol() {
+		// Assert:
+		Assert.assertThat(isNisLocal(new NodeEndpoint("ftp", "localhost", 7890)), IsEqual.equalTo(true));
+	}
+
 	private static boolean isNisLocal(final NodeEndpoint endpoint) {
 		final Configuration config = new Configuration("de-DE", endpoint, BOOT_INFO, "sp");
 		return config.isNisLocal();
