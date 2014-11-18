@@ -25,7 +25,7 @@ define({
 			500: "ocorreu um erro desconhecido. Por favor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.",
 			600: "NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu.",
 			601: "O NIS já foi inicializado.",
-			700: "Falha na colheita. Geralmente esse problema está relacionado com o tanto de NEMs na conta. Para colheitar são necessários  pelo menos 1000 NEMs.",
+			700: "Falha na colheita. Geralmente esse problema está relacionado com o tanto de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 NEMs.",
 			701: "O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.",
 			702: "O prazo final fornecido está no futuro. O prazo limite deve estar dentro do período de um dia.",
 			703: "Saldo insuficiente para realizar a transação.",
@@ -100,17 +100,17 @@ define({
 				nullLabelDesc: "Esta conta não tem uma identificação",
 				amount: "Total",
 				recipient: "Destinatário",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: 'endereços de contas devem ter pelo menos 40 caracteres, excluindo os sinais de menos.',
 				message: "Mensagem",
 				encrypt: "Criptografar mensagem",
 				fee: "Taxa",
-				feeValidation: 'Fee must not be less than the minimum fee',
+				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
 				dueBy: "Devido por",
-				useMinimumFee: 'Use minimum fee',
+				useMinimumFee: 'Usar taxa minima',
 				hours: "horas",
 				password: "Senha",
 				send: "Enviar",
-				cancel: 'Cancel',
+				cancel: 'Cancelar',
 				sending: "Enviando...",
 				successMessage: "A transação foi enviada!",
 				txConfirm: {
@@ -165,7 +165,7 @@ define({
 				encrypted: "Mensagem Criptografada",
 				time: "Data e hora",
 				confirmations: "Confirmações",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Desconhecida(o)',
 				amount: "Quantidade",
 				fee: "Taxa"
 			},
@@ -210,8 +210,8 @@ define({
 					incorrect: {
 						title: "Iche...",
 						message: "A chave privada que você forneceu não está correta! Por favor, cheque-a de novo e entre com os dados mais uma vez.",
-						tryAgain: 'Try to enter again',
-						seeOriginal: 'See the original data'
+						tryAgain: 'Tente inserí-la novamente',
+						seeOriginal: 'Veja os dados originais'
 					},
 					recheck: "Checar"
 				},
@@ -467,7 +467,7 @@ define({
 				noMessage: "Sem mensagem",
 				encrypted: "Mensagem criptografada",
 				view: "Ver",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Desconhecido(a)',
 				pending: "Pendente",
 				seeAll: "Ver todas as transações",
 				noTransactions: "Nenhuma transação realizada ainda."
@@ -514,7 +514,7 @@ define({
 				noMessage: "Sem mensagem",
 				encrypted: "Mensagem criptografada",
 				view: "Ver",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Desconhecido(a)',
 				pending: "Pendente",
 				noTransactions: "Nenhuma transação realizada, por enquanto",
 				loading: "Carregando mais transações..."
@@ -539,8 +539,8 @@ define({
 				harvesting: "Colheitando",
 				stop: "Parar de colheitar",
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Iniciar colheita remota',
+					stopRemoteHarvesting: 'Parar colheita remota'
 				}
 			}
 		},
