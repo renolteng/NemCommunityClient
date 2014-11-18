@@ -89,6 +89,8 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		if (null == this.nisEndpoint) {
 			return true;
 		}
+
+		// TODO J-B: i think we should add a getNormalizedHost to the endpoint and compare that
 		final String host = this.nisEndpoint.getBaseUrl().getHost();
 		return NodeEndpoint.fromHost("localhost").getBaseUrl().getHost().equals(host) ||
 				NodeEndpoint.fromHost("127.0.0.1").getBaseUrl().getHost().equals(host);
