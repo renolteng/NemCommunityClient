@@ -3,14 +3,14 @@ define({
 	name: '中文（简体）',
 	texts: {
 		preferences: {
-			thousandSeparator: '\u2009',
+			thousandSeparator: ' ',
 			decimalSeparator: '.'
 		},
 		faults: {
 			101: '未找到文件。',
 			102: '尚未建立钱包。',
 			103: '钱包文件已损坏。如果您的钱包存在备份，请使用备份恢复你的账户，或添加一个新账户。',
-			104: '该密码不正确，请认真回忆丢失的密码，如该密码丢失将造成无法复原！',
+			104: '该密码不正确，请认真回忆密码，如该密码丢失将造成无法复原！',
 			106: '使用钱包需先正常开启，您必须提供正确密码才能打开钱包。',
 			107: '钱包内无此账户。',
 			108: '无法删除该账户。可能的原因是，该账户存在余额或该帐户是主帐户。',
@@ -21,27 +21,27 @@ define({
 			306: '对不起，一个开发团队没有预见到的错误发生了。请尝试重试，若问题未解决，请在NEM NIS/NCC社区内提交该问题。',
 			400: '缺失某些参数。',
 			401: '抱歉，不允许执行该操作，本能地钱包登陆远程NIS存在私钥丢失风险！',
-			404: '启动策略值失败。',
+			404: '您请求的资源无法找到。',
 			500: '保存配置文件失败。',
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
-			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有10000 NEM才能开始收割。',
+			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有10000 NEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
 			702: '所提供的截止日期过晚。必须输入1天以内的日期作为截止日期。',
 			703: '您的帐户余额不足，请查证后重试。',
 			704: '提供消息的文本太大，无法通过NEM发送。请减少消息的长度。',
-			705: '数据库或交易清单中已经存在此交易的散列值。',
+			705: '数据库或交易清单中已经存在此交易的hash值。',
 			706: '无法验证本次交易的签名。',
 			707: '此交易ID的时间戳不合法，时间过早。',
 			708: '此交易ID的时间戳不合法，时间过晚。',
 			709: '该帐户未知。一个帐户需要至少完成一个交易（作为发件人或收件人）才能被网络公知。',
 			901: '设置离线模式发生错误。',
-			1000: "您所提供的密钥公钥与私钥不对应。",
+			1000: '您所提供的密钥公钥与私钥不对应。',
 			1001: '您所提供的公钥和地址不对应。',
 			1002: '网络中无法找到改地址。'
 		},
 		common: {
-			success: '成功', //title of the Success message modals
+			success: '成功',
 			appStatus: {
 				nccUnknown: 'NCC 状态未知',
 				nccUnavailable: 'NCC 不可用',
@@ -81,15 +81,15 @@ define({
 					protocolOptions: {
 						http: 'HTTP'
 					},
-					host: 'Host',
-					port: 'Port'
+					host: '主机名',
+					port: '端口'
 				},
 				autoBoot: {
 					tabTitle: '自动启用',
 					name: '节点名',
 					account: '帐户',
 					primaryAccount: '主帐户',
-					auto: '默认自动启动'
+					auto: '开启钱包时自动启用'
 				},
 				save: '保存',
 				saveSuccess: '设置保存成功'
@@ -97,20 +97,20 @@ define({
 			sendNem: {
 				title: '发送 NEM',
 				labelDesc: '此帐户标记为 {{1}}',
-				nullLabelDesc: "此帐户没有标记",
+				nullLabelDesc: '此帐户没有标记',
 				amount: '金额',
-				recipient: "收件人账号",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipient: '收件人账号',
+				recipientValidation: '账户地址长度必须为40个字符（含符号）',
 				message: '信息',
 				encrypt: '加密',
 				fee: '费用',
-				feeValidation: 'Fee must not be less than the minimum fee',
+				feeValidation: '无效费用值，必须填入等于或高于最小费用的值。',
 				dueBy: '限期（小时）',
-				useMinimumFee: 'Use minimum fee',
+				useMinimumFee: '支付最小费用',
 				hours: '小时',
 				password: '密码',
 				send: '发送',
-				cancel: 'Cancel',
+				cancel: '取消',
 				sending: '正在发送...',
 				successMessage: '交易发送成功!',
 				txConfirm: {
@@ -130,7 +130,7 @@ define({
 				},
 				notBootedWarning: {
 					title: '节点还没有启用!',
-					message: '本地节点需要被启用然后才能发送NEM!'
+					message: '本地节点需要被启用后才能发送NEM!'
 				},
 				bootingWarning: {
 					title: '正在启用节点',
@@ -165,14 +165,14 @@ define({
 				encrypted: '已加密',
 				time: '时间戳',
 				confirmations: '确认',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: '未知',
 				amount: '金额',
 				fee: '费用'
 			},
 			bootLocalNode: {
 				title: '启用本地节点',
 				account: '节点启用帐号',
-				noLabel: '<span class="null">&lt;没有标识&gt;</span>',
+				noLabel: '<span class=\'null\'>&lt;没有标识&gt;</span>',
 				wallet: '钱包',
 				node: '节点名称',
 				boot: '启用',
@@ -186,13 +186,13 @@ define({
 				title: '创建新帐号',
 				label: '标识',
 				wallet: '钱包',
-				password: "钱包的密码",
+				password: '钱包的密码',
 				successMessage: '帐号 {{1}} {{#2}}({{2}}){{/2}} 已创建!',
 				create: '创建'
 			},
 			createRealAccountData: {
 				title: '创建真实账户资料',
-				message: '以下数据是NEM启动后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的NEM币将永远消失!',
+				message: '以下数据是NEM正式发行后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的NEM币将永远消失!',
 				address: '地址',
 				publicKey: '公钥',
 				privateKey: '私钥',
@@ -202,14 +202,14 @@ define({
 				},
 				recheck: {
 					title: '重新检查您所保存的私钥',
-					message: "请重新输入您的私钥以确认您所保存的私钥是正确的。如果你的私钥已经丢失，你需要重新创建。",
+					message: '请重新输入您的私钥以确认您所保存的私钥是正确的。如果您的私钥已经丢失，您需要重新创建。',
 					correct: {
 						title: '没问题!',
-						message: '你保存的私钥正确，请妥善保管！'
+						message: '您保存的私钥正确，请妥善保管！'
 					},
 					incorrect: {
 						title: '啊哦...',
-						message: "你刚刚输入的私钥是不正确的！请仔细检查并再次输入。",
+						message: '您输入的私钥有误！请仔细检查并再次输入。',
 						tryAgain: '尝试重新输入',
 						seeOriginal: '查看原始数据'
 					},
@@ -230,7 +230,7 @@ define({
 				title: '添加一个现有帐户',
 				privateKey: '帐户的私钥',
 				wallet: '钱包',
-				password: "钱包的密码",
+				password: '钱包的密码',
 				successMessage: '帐户 {{1}} {{#2}}({{2}}){{/2}} 已被添加到钱包!',
 				add: '添加',
 				label: '标识'
@@ -238,17 +238,17 @@ define({
 			setPrimary: {
 				title: '设置主账户',
 				account: '帐户被设置为主账户',
-				noLabel: '<span class="null">&lt;无标识&gt;</span>',
+				noLabel: '<span class=\'null\'>&lt;无标识&gt;</span>',
 				wallet: '钱包',
-				password: "钱包的密码",
+				password: '钱包的密码',
 				successMessage: '帐户 {{1}} {{#2}}({{2}}){{/2}} 被设置为主账户!',
-				set: '设置为主账户',
+				set: '设置为主账户'
 			},
 			changeWalletName: {
 				title: '修改钱包名',
 				wallet: '当前钱包名',
 				newName: '新钱包名',
-				password: "钱包密码",
+				password: '钱包密码',
 				successMessage: '钱包名称已成功从<em>{{1}}</em>变更为<em>{{2}}</em>',
 				change: '修改'
 			},
@@ -267,14 +267,14 @@ define({
 				title: '更改帐户标识',
 				label: '帐户标识',
 				wallet: '帐户',
-				password: "钱包密码",
+				password: '钱包密码',
 				successMessage: '帐户{{1}}现在的标识是{{2}}',
 				change: '修改'
 			},
 			removeAccount: {
 				title: '删除帐户',
 				wallet: '钱包',
-				password: "钱包密码",
+				password: '钱包密码',
 				warning: '在你删除帐户前请确保您的帐户无剩余MEM，一经删除余额将无法恢复',
 				successMessage: '帐户 {{1}} {{#2}}({{2}}){{/2}} 被删除了!',
 				remove: '删除'
@@ -292,7 +292,7 @@ define({
 				wallet: '钱包',
 				account: '帐户',
 				hoursDue: '到期小时数',
-				password: "钱包密码",
+				password: '钱包密码',
 				activate: '激活'
 			},
 			deactivateRemote: {
@@ -300,25 +300,25 @@ define({
 				wallet: '钱包',
 				account: '帐户',
 				hoursDue: '到期小时数',
-				password: "钱包密码",
+				password: '钱包密码',
 				deactivate: '停止激活'
 			},
 			startRemote: {
 				title: '开始远程收获',
 				wallet: '钱包',
 				account: '帐户',
-				password: "钱包密码",
+				password: '钱包密码',
 				start: '开始'
 			},
 			stopRemote: {
 				title: '停止远程收获',
 				wallet: '钱包',
 				account: '帐户',
-				password: "钱包密码",
+				password: '钱包密码',
 				stop: '停止'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.\n",
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the "Close wallet" menu item in the top-right dropdown menu before you close the browser tab or navigate away.\n',
 			}
 		},
 		landing: {
@@ -326,7 +326,7 @@ define({
 			importSuccess: '钱包已成功导入!',
 			nav: {
 				start: '已经 开始',
-				about: '关于 NEM',
+				about: '关于NEM',
 				settings: '设置'
 			},
 			main: {
@@ -335,7 +335,7 @@ define({
 				walletNamePlh: '您钱包的名称',
 				passwordPlh: '密码',
 				create: '创建',
-				rightTitle: '已经是<em>NEM</em>玩家?',
+				rightTitle: '已经是<em>NEM</em>用户?',
 				rightButton: '打开您的钱包',
 				openButton: '打开',
 				walletsFound: '发现 <strong>{{1}}</strong> <em>钱包</em>',
@@ -355,11 +355,11 @@ define({
 					title: 'NCC是如何工作的?',
 					paragraphs: [
 						'<strong>NCC</strong> 让您使用NEM时就如使用一个传统的钱包一样。',
-						'<strong>NCC</strong> 您可单独开启<strong>NIS</strong> 服务器。 更常规的做法是和<strong>NCC</strong>一起安装',
-						'您也可以访问一个远程<strong>NIS</strong>。'
+						'<strong>NCC</strong>打开使用前需要您连接到<strong>NIS</strong> 服务器。 您可以本地同时安装<strong>NCC</strong>服务和<strong>NIS</strong>服务。',
+						'也可以访问一个远程<strong>NIS</strong>。'
 					],
 					listItems: [
-						'有多个钱包',
+						'拥有多个钱包',
 						'在一个钱包里定义多个帐户'
 					]
 				}, {
@@ -382,7 +382,7 @@ define({
 			lastAccessJustNow: '当前',
 			lastAccessTooltip: '上次访问时间 {{1}}',
 			primary: '主账户',
-			primaryShort: '主',
+			primaryShort: 'P',
 			noLabel: '<无标识>',
 			copiedToClipboard: '已复制地址到剪贴板!',
 			actions: {
@@ -426,9 +426,9 @@ define({
 			importance: {
 				title: '重要性',
 				unknown: '未知状态',
-				start: '开始收割',
-				harvesting: '正在收割',
-				stop: '停止收割',
+				start: '开始收获',
+				harvesting: '正在收获',
+				stop: '停止收获',
 				description: 'NEM帐户重要性(PoI)',
 				remoteHarvest: {
 					activate: '激活远程收获',
@@ -451,9 +451,9 @@ define({
 					'',
 					'时间',
 					'发送人/收件人',
-					'留言',
+					'信息',
 					'',
-					'细名',
+					'细节',
 					'确认',
 					'费用',
 					'金额'
@@ -462,12 +462,12 @@ define({
 					pending: '交易等待中',
 					outgoing: '交易发送中',
 					incoming: '交易接收中',
-					self: '自我交易',
+					self: '自我交易'
 				},
 				noMessage: '无信息',
 				encrypted: '消息被加密',
 				view: '查看',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: '未知',
 				pending: '待定',
 				seeAll: '查看所有交易',
 				noTransactions: '无交易'
@@ -481,7 +481,7 @@ define({
 			news: {
 				titleTooltip: '新闻'
 			},
-			notAvailable: 'alpha版本尚未开放该功能'
+			notAvailable: 'beta版本尚未开放该功能'
 		},
 		transactions: {
 			title: '交易',
@@ -491,7 +491,7 @@ define({
 				confirmed: '已确认交易',
 				unconfirmed: '未确认交易',
 				incoming: '接受中',
-				outgoing: '发送中',
+				outgoing: '发送中'
 			},
 			table: {
 				columns: [
@@ -509,12 +509,12 @@ define({
 					pending: '交易待处理中',
 					outgoing: '交易发送中',
 					incoming: '交易接收中',
-					self: '自我交易',
+					self: '自我交易'
 				},
 				noMessage: '无留言',
 				encrypted: '消息被加密',
 				view: '查看',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: '未知',
 				pending: '待定中',
 				noTransactions: '无交易',
 				loading: '载入更多的交易...'
@@ -522,7 +522,7 @@ define({
 		},
 		harvestedBlocks: {
 			title: '收获区块',
-			feeEarned: '最新挖出的25块的报酬',
+			feeEarned: '最新挖出的25个区块的报酬',
 			table: {
 				columns: [
 					'高',
@@ -539,8 +539,8 @@ define({
 				harvesting: '正在收获',
 				stop: '停止收获',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: '开启远程收获',
+					stopRemoteHarvesting: '停止远程收获'
 				}
 			}
 		},
