@@ -120,7 +120,8 @@ define(function() {
             return address.replace(/\-/g, '');
         },
         formatAddress: function(address) {
-            return address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g).join('-').toUpperCase();
+            var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
+            return segments.join('-').toUpperCase();
         },
         addThousandSeparators: function(num) {
             return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
