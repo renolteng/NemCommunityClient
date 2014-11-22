@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Use minimum fee',
 				hours: "時間単位",
 				password: "パスワード",
+				passwordValidation: 'Password must not be blank',
 				send: "送る",
 				cancel: 'Cancel',
 				sending: "送信中…",
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: "ハーベストされたブロック",
 			feeEarned: "現在のブロックから25ブロック前から発生する収入",
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					"ブロック番号",

@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Gebruik minimale toeslag',
 				hours: 'Uur',
 				password: 'Wachtwoord',
+				passwordValidation: 'Password must not be blank',
 				send: 'Verstuur',
 				cancel: 'Afbreken',
 				sending: 'Versturen...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: 'Geharveste Blocks',
 			feeEarned: 'Toeslagen verdiend van de laatste 25 geharveste blocks',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'Blockhoogte',

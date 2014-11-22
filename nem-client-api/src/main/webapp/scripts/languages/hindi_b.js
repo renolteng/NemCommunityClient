@@ -109,6 +109,7 @@
 				useMinimumFee: 'Use minimum fee',
 				hours: 'घंटे',
 				password: 'पासवर्ड',
+				passwordValidation: 'Password must not be blank',
 				send: 'भेजें',
 				cancel: 'Cancel',
 				sending: 'भेजा जा रहा है...',
@@ -523,6 +524,7 @@
 		harvestedBlocks: {
 			title: 'हारवेस्टेड ब्लॉक्स',
 			feeEarned: 'पिछले 25 ब्लॉक्स के हारवेस्टेड फ़ीस',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'Height',

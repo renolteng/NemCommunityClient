@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Sử dụng phí tối thiểu',
 				hours: 'giờ',
 				password: 'Mật khẩu',
+				passwordValidation: 'Mật khẩu không được để trống',
 				send: 'Gửi',
 				cancel: 'Huỷ',
 				sending: 'Đang gửi...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: 'Các block thu hoạch được',
 			feeEarned: 'Phí giao dịch kiếm được từ 25 block mới nhất',
+			unknown: 'Không rõ',
 			table: {
 				columns: [
 					'Chiều cao',

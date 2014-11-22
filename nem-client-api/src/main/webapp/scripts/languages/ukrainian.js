@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Use minimum fee',
 				hours: 'Годин',
 				password: 'Парольна фраза',
+				passwordValidation: 'Password must not be blank',
 				send: 'Вiдправити',
 				cancel: 'Cancel',
 				sending: 'Вiдправлення...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: 'Сгенерованi блоки',
 			feeEarned: 'Комісійні, отримані за останні 25 сгенерованих блоків',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'Порядковий номер',

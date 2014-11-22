@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Use minimum fee',
 				hours: "ore",
 				password: "Parola",
+				passwordValidation: 'Password must not be blank',
 				send: "Trimite",
 				cancel: 'Cancel',
 				sending: "Se trimite...",
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: "Block-uri recoltate",
 			feeEarned: "Taxe câștigate din ultimele 25 de blockuri recoltate",
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					"Block",

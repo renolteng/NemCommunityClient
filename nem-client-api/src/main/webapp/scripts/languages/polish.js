@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Użyj minimalnej opłaty',
 				hours: 'godzin',
 				password: 'Hasło',
+				passwordValidation: 'Password must not be blank',
 				send: 'Wyślij',
 				cancel: 'Anuluj',
 				sending: 'Wysyłanie...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: 'Zebrane bloki',
 			feeEarned: 'Opłaty otrzymane z ostatnich 25 zebranych bloków',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'Wysokość',

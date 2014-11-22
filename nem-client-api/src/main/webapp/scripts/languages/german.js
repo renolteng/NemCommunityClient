@@ -109,6 +109,7 @@ define({
 				useMinimumFee: "Benutze minimale Gebühr",
 				hours: "Stunden",
 				password: "Passwort",
+				passwordValidation: 'Password must not be blank',
 				send: "Senden",
 				cancel: "Abbrechen",
 				sending: "Sende...",
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: "Geerntete Blöcke",
 			feeEarned: "Aus den letzten 25 geernteten Blöcken erhaltene Gebühren",
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					"Block",
