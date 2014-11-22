@@ -9,11 +9,11 @@ define({
 		faults: {
 			101: 'File not found.',
 			102: 'Wallet has not been created.',
-			103: 'Wallet file is corrupted. Please recover your wallet from a back-up you should have taken when you created the wallet or added an account to it.',
-			104: 'The provided password is not correct. Hopefully you can remember the correct password. The password cannot be recovered if lost!',
+			103: 'Wallet file is corrupted. Please recover your wallet from a backup.',
+			104: 'The provided password is not correct.',
 			106: 'Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.',
 			107: 'Wallet does not contain this account.',
-			108: 'The account cannot be removed. Most likely because the account still has a balance greater than 0 NEMs or the account you are trying to remove is the primary account.',
+			108: 'The account cannot be removed. Most likely because the account still has a balance greater than 0 NEM or the account you are trying to remove is the primary account.',
 			109: 'Another wallet with the same name exists already. Please choose an other wallet name.',
 			110: 'Wallet already contains this account.',
 			202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
@@ -23,16 +23,16 @@ define({
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
 			404: 'The requested resource could not be found.',
 			500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
-			600: 'NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.',
-			601: 'The nis node is already booted. A second attempt to boot nis is not possible.',
-			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEMs within the account. Harvesting starts with at least 1000 NEM.',
+			600: 'Before sending and receiving transactions, the NEM Infrastructure Server (NIS) needs to be booted. Please use the NCC menu entry for booting the local node.',
+			601: 'The NEM Infrastructure Server (NIS) is already booted.',
+			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEM within the account. Harvesting starts with at least 1000 NEM.',
 			701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
 			702: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
-			703: 'Your account does not have the right balance to send the provided amount of NEMs.',
-			704: 'The provided message text is too large to be send via NEM. Please try to reduce the length of the message you want to send.',
-			705: 'The transaction hash already exists in the database or the list of unconfirmed transactions.',
+			703: 'Your account does not have the right balance to send the provided amount of NEM.',
+			704: 'The provided message text is too large to be sent. Please try to reduce the length of the message.',
+			705: 'The transaction hash already exists in the database or in the list of unconfirmed transactions.',
 			706: 'The signature of the transaction could not be verified.',
-			707: 'The time stamp of the transaction id too far in the past.',
+			707: 'The time stamp of the transaction is too far in the past.',
 			708: 'The time stamp of the transaction is too far in the future.',
 			709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
 			901: 'There was an error setting up offline mode.',
@@ -49,7 +49,7 @@ define({
 				nisUnknown: 'NIS status is unknown',
 				nisUnavailable: 'NIS is not available',
 				nisStarting: 'NIS is starting...',
-				notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+				notBooted: 'NIS needs to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
 				booting: 'Booting NIS...',
 				nisInfoNotAvailable: 'NIS info is not available yet. Trying to retrieve NIS info...',
 				synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
@@ -88,7 +88,7 @@ define({
 					tabTitle: 'Auto-boot',
 					name: 'Node name',
 					account: 'Account',
-					primaryAccount: 'Primary Account',
+					primaryAccount: 'Primary account',
 					auto: 'Auto boot when a wallet is opened'
 				},
 				save: 'Save',
@@ -100,14 +100,14 @@ define({
 				nullLabelDesc: "This account doesn't have a label",
 				amount: 'Amount',
 				recipient: "Recipient's account",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: 'Account addresses must be 40 characters long excluding dashes',
 				message: 'Message',
 				encrypt: 'Encrypt message',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hours',
+				hours: 'hour(s)',
 				password: 'Password',
 				send: 'Send',
 				cancel: 'Cancel',
@@ -179,11 +179,11 @@ define({
 				booting: 'Booting...'
 			},
 			closeWallet: {
-				title: 'Close wallet',
+				title: 'Close Wallet',
 				message: 'Are you sure you want to close your wallet and return to landing page?'
 			},
 			createAccount: {
-				title: 'Create new account',
+				title: 'Create New Account',
 				label: 'Private label',
 				wallet: 'Wallet',
 				password: "Wallet's password",
@@ -191,17 +191,17 @@ define({
 				create: 'Create'
 			},
 			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				title: 'Create Real Account Data',
+				message: 'The below data is for your real account after NEM launches. Save the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEM will be lost FOREVER!',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
 				confirm: {
-					title: 'Save the private key',
+					title: 'Save the Private Key',
 					message: 'Are you sure your private key has been saved into a safe place?'
 				},
 				recheck: {
-					title: 'Re-check your saved private key',
+					title: 'Re-check Your Saved Private Key',
 					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
 					correct: {
 						title: 'Nice!',
@@ -209,7 +209,7 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Do you want to try to enter private key again or come back to see the original account data?",
+						message: "The private key you've just entered is not correct! Do you want to try to enter the private key again or come back to see the original account data?",
 						tryAgain: 'Try to enter again',
 						seeOriginal: 'See the original data'
 					},
@@ -218,12 +218,12 @@ define({
 				ok: 'OK'
 			},
 			verifyRealAccountData: {
-				title: 'Verify real account data',
+				title: 'Verify Real Account Data',
 				message: 'Re-enter your saved address, public key and private key below to check if they match',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
-				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
+				dataMatched: 'Everything seems good. Your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
 			addAccount: {
@@ -236,8 +236,8 @@ define({
 				label: 'Label'
 			},
 			setPrimary: {
-				title: 'Set primary account',
-				account: 'Account to be set as Primary',
+				title: 'Set Primary Account',
+				account: 'Account to be set as primary',
 				noLabel: '<span class="null">&lt;No label&gt;</span>',
 				wallet: 'Wallet',
 				password: "Wallet's password",
@@ -245,7 +245,7 @@ define({
 				set: 'Set as primary',
 			},
 			changeWalletName: {
-				title: 'Change wallet name',
+				title: 'Change Wallet Name',
 				wallet: 'Current wallet name',
 				newName: 'New wallet name',
 				password: "Wallet's password",
@@ -253,7 +253,7 @@ define({
 				change: 'Change'
 			},
 			changeWalletPassword: {
-				title: 'Change wallet password',
+				title: 'Change Wallet Password',
 				wallet: 'Wallet',
 				password: 'Current password',
 				newPassword: 'New password',
@@ -264,7 +264,7 @@ define({
 				passwordNotMatchMessage: 'Your entered password and password confirmation do not match. Please be sure you type your new password correctly.'
 			},
 			changeAccountLabel: {
-				title: 'Change account label',
+				title: 'Change Account Label',
 				label: 'Account label',
 				wallet: 'Wallet',
 				password: "Wallet's password",
@@ -272,10 +272,10 @@ define({
 				change: 'Change'
 			},
 			removeAccount: {
-				title: 'Remove account',
+				title: 'Remove Account',
 				wallet: 'Wallet',
 				password: "Wallet's password",
-				warning: 'Please ensure that your account has no NEMs left before you remove it, or they would be lost forever.',
+				warning: 'Please ensure that your account has no NEM left before you remove it, or they would be lost forever.',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been removed!',
 				remove: 'Remove'
 			},
@@ -284,11 +284,11 @@ define({
 				message: 'Disconnected from NIS, waiting for connection'
 			},
 			shutdown: {
-				title: 'Close program',
+				title: 'Close Program',
 				message: 'Are you sure you want to close NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
+				title: 'Activate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Due by (hours)',
@@ -296,7 +296,7 @@ define({
 				activate: 'Activate'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
+				title: 'Deactivate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Due by (hours)',
@@ -304,14 +304,14 @@ define({
 				deactivate: 'Deactivate'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
+				title: 'Start Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
+				title: 'Stop Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
@@ -344,18 +344,18 @@ define({
 			carousel: {
 				items: [{
 					title: 'NCC encrypts your wallet',
-					description: '<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets.'
+					description: '<em>Wallet security</em> is very important to avoid the theft of NEM coins &amp; assets.'
 				}, {
 					title: 'NCC encrypts your wallet',
-					description: '<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets.'
+					description: '<em>Wallet security</em> is very important to avoid the theft of NEM coins &amp; assets.'
 				}]
 			},
 			about: {
 				sections: [{
-					title: 'How NCC works?',
+					title: 'How does NCC work?',
 					paragraphs: [
-						'<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may',
-						'<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)',
+						'<strong>NCC</strong> provides access to your assets and NEM like a traditional wallet. You may',
+						'<strong>NCC</strong> requires access to a <strong>NIS</strong> server in order to operate. Standard is to have a local server active (it is installed together with the <strong>NCC</strong>)',
 						'You may also configure an access to a remote <strong>NIS</strong>.'
 					],
 					listItems: [
@@ -392,9 +392,9 @@ define({
 				changeWalletPassword: 'Change Wallet Password',
 				mergeWallets: 'Merge Wallets',
 				exportWallet: 'Export Wallet',
-				createAccount: 'Create new Account',
-				createRealAccountData: 'Create real account data',
-				verifyRealAccountData: 'Verify real account data',
+				createAccount: 'Create New Account',
+				createRealAccountData: 'Create Real Account Data',
+				verifyRealAccountData: 'Verify Real Account Data',
 				addAccount: 'Add an Existing Account',
 				changeAccountLabel: 'Change Account Label',
 				setPrimary: 'Set as Primary Account',
@@ -402,7 +402,7 @@ define({
 				clientInfo: 'Client Info',
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
-				copyClipboard: 'Copy address to clipboard'
+				copyClipboard: 'Copy Address to Clipboard'
 			},
 			nav: [
 				'Dashboard',
@@ -421,15 +421,15 @@ define({
 		},
 		dashboard: {
 			assets: {
-				title: 'Your assets'
+				title: 'Your Assets'
 			},
 			importance: {
-				title: 'Importance score',
+				title: 'Importance Score',
 				unknown: 'Unknown status',
 				start: 'Start local harvesting',
 				harvesting: 'Harvesting',
 				stop: 'Stop local harvesting',
-				description: 'importance of account to the NEM cloud',
+				description: 'Importance of account to the NEM cloud',
 				remoteHarvest: {
 					activate: 'Activate remote harvesting',
 					activating: 'Activating remote harvesting...',
@@ -444,7 +444,7 @@ define({
 			transactions: {
 				title: 'Recent Transactions',
 				sendNem: 'Send NEM',
-				balance: 'Current balance',
+				balance: 'Current Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				unknown: 'unknown',
 				columns: [
