@@ -109,6 +109,7 @@ define({
 				useMinimumFee: '支付最小费用',
 				hours: '小时',
 				password: '密码',
+				passwordValidation: 'Password must not be blank',
 				send: '发送',
 				cancel: '取消',
 				sending: '正在发送...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: '收获区块',
 			feeEarned: '最新挖出的25个区块的报酬',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'高',

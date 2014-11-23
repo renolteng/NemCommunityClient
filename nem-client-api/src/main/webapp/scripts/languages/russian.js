@@ -109,6 +109,7 @@
 				useMinimumFee: 'Use minimum fee',
 				hours: 'часов',
 				password: 'Пароль',
+				passwordValidation: 'Password must not be blank',
 				send: 'Послать',
 				cancel: 'Cancel',
 				sending: 'Посылается...',
@@ -523,6 +524,7 @@
 		harvestedBlocks: {
 			title: 'Сгенерированные Блоки',
 			feeEarned: 'Вознаграждение за последние 25 сгенерированных блоков',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'Блок',

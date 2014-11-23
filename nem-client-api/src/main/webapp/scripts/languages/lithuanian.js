@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Use minimum fee',
 				hours: "valandos",
 				password: "Slaptažodis",
+				passwordValidation: 'Password must not be blank',
 				send: "Siųsti",
 				cancel: 'Cancel',
 				sending: "Siunčiama...",
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: "Iškasti blokai",
 			feeEarned: "Iš paskutinių 25 \"iškastų\" blokų gauti mokesciai",
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					"Bloko numeris",

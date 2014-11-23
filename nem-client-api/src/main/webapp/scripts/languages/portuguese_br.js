@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Usar taxa minima',
 				hours: "horas",
 				password: "Senha",
+				passwordValidation: 'Password must not be blank',
 				send: "Enviar",
 				cancel: 'Cancelar',
 				sending: "Enviando...",
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: "Blocos colhidos",
 			feeEarned: "Taxas ganhas com a colheita dos últimos 25 blocos",
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					"Altura do bloco",

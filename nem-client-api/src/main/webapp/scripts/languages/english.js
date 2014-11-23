@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hours',
 				password: 'Password',
+				passwordValidation: 'Password must not be blank',
 				send: 'Send',
 				cancel: 'Cancel',
 				sending: 'Sending...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: 'Harvested Blocks',
 			feeEarned: 'Fees earned from the last 25 harvested blocks',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'Height',

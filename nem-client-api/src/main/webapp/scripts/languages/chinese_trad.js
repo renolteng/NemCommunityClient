@@ -109,6 +109,7 @@ define({
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hours',
 				password: '密碼',
+				passwordValidation: 'Password must not be blank',
 				send: '發送',
 				cancel: 'Cancel',
 				sending: '發送...',
@@ -523,6 +524,7 @@ define({
 		harvestedBlocks: {
 			title: '收獲廣塊',
 			feeEarned: '從上25塊收獲的報酬',
+			unknown: 'Unknown',
 			table: {
 				columns: [
 					'高',
