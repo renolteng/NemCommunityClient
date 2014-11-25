@@ -58,14 +58,9 @@
 					<button class="ctaButton ctaButton-createWallet {{#landingPage.activeSection === 'left'}}ctaButton--active{{/}}" on-click="switchLeft">{{texts.landing.main.leftButton}}</button>
 					<div class="ctaSection-form createWalletForm expandable">
 						<div class="js-expand-content createWalletForm-content">
-							<div class="underlinedTextbox createWalletForm-field">
-								<input class="underlinedTextbox-textbox createWalletForm-textbox js-textbox-createWallet-name" type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{landingPage.createWalletForm.wallet}}" on-keypress="createWalletKeypress" />
-								<div class="underlinedTextbox-underline"></div>
-							</div>
-							<div class="underlinedTextbox createWalletForm-field">
-								<input class="underlinedTextbox-textbox createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.createWalletForm.password}}" on-keypress="createWalletKeypress" />
-								<div class="underlinedTextbox-underline"></div>
-							</div>
+							<input class="createWalletForm-textbox {{#lcwNameValid}}createWalletForm-textbox--valid{{/}} js-textbox-createWallet-name" type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{landingPage.createWalletForm.wallet}}" on-keypress="createWalletKeypress" />
+							<input class="createWalletForm-textbox {{#lcwPasswordValid}}createWalletForm-textbox--valid{{/}} createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.createWalletForm.password}}" on-keypress="createWalletKeypress" />
+							<input class="createWalletForm-textbox {{#lcwConfirmPasswordValid}}createWalletForm-textbox--valid{{/}} createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.confirmPasswordPlh}}" value="{{landingPage.confirmPassword}}" on-keypress="createWalletKeypress" />
 							<div class="createWalletForm-submit">
 								<div class="createWalletForm-loader loader {{#landingPage.creatingWallet}}loading{{/}}">
 									<div class="loader-container">
@@ -75,7 +70,13 @@
 									    <span class="loader-quarter quarter-4"></span>
 								    </div>
 								</div>
-								<input type="submit" class="createWalletForm-submitButton" value="{{texts.landing.main.create}}" on-click="createWallet" disabled="{{landingPage.creatingWallet}}" />
+								<button type="button" class="createWalletForm-submitButton" on-click="createWallet" disabled="{{landingPage.creatingWallet || !lcwFormValid}}">
+									{{#if landingPage.creatingWallet}}
+										{{texts.landing.main.creating}}
+									{{else}}
+										{{texts.landing.main.create}}
+									{{/if}}
+								</button>
 							</div>
 						</div>
 					</div>
