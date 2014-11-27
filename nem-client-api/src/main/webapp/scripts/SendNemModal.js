@@ -219,10 +219,12 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var $amount = $('.js-sendNem-amount-textbox');
             var amountTxb = $amount[0];
             $amount.on('keyup', Utils.generateMask('nem'));
+            $amount.on('keydown', Utils.ignoreThousandSeparators);
 
             var $fee = $('.js-sendNem-fee-textbox');
             var feeTxb = $fee[0];
             $fee.on('keyup', Utils.generateMask('nem'));
+            $fee.on('keydown', Utils.ignoreThousandSeparators);
 
             this.listeners.push(ncc.observe({
                 'texts.preferences.thousandSeparator': function(newProp, oldProp) {

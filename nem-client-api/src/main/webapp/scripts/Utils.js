@@ -327,6 +327,30 @@ define(function() {
                 target.setSelectionRange(caret, caret);
             };
         },
+        ignoreThousandSeparators: function(e) {
+            var target = e.target;
+            if (target.selectionStart === target.selectionEnd) {
+                var selection = target.selectionStart;
+                var text = target.value;
+                var thousandSeparator = ncc.get('texts.preferences.thousandSeparator');
+                if (e.keyCode === 8) { // Backspace key
+                    var tsStart = selection - thousandSeparator.length; // starting index of thousand separator (if any)
+                    if (selection > 0 && text.substring(tsStart, selection) === thousandSeparator) {
+                        target.value = text.substring(0, tsStart - 1) + text.substring(tsStart, text.length); // remove the character before thousand separator instead of the thousand separator
+                        target.setSelectionRange(selection - 1, selection - 1);
+                        e.preventDefault();
+                    }
+                }
+                if (e.keyCode === 46) { // Delete key
+                    var tsEnd = selection + thousandSeparator.length; // ending index of thousand separator (if any)
+                    if (selection < text.length - 1 && text.substring(selection, tsEnd) === thousandSeparator) {
+                        target.value = text.substring(0, tsEnd) + text.substring(tsEnd + 1, text.length); // remove the character after thousand separator instead of the thousand separator
+                        target.setSelectionRange(tsEnd, tsEnd);
+                        e.preventDefault();
+                    }
+                }
+            }
+        },
         daysPassed: function(begin) {
             var now = new Date().getTime();
             var timespan = now - begin;
