@@ -21,12 +21,14 @@ import org.nem.ncc.services.*;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
 public class AccountControllerTest {
+	private final SecureRandom random = new SecureRandom();
 
 	//region findAccount
 
@@ -62,7 +64,7 @@ public class AccountControllerTest {
 				.thenReturn(originalAccountViewModel);
 
 		// Act:
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final AccountViewModel accountViewModel = pair.getAccount();
 
@@ -87,7 +89,7 @@ public class AccountControllerTest {
 				.thenReturn(transactions);
 
 		// Act:
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
@@ -113,12 +115,12 @@ public class AccountControllerTest {
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(27);
 
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
-				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19),
-				createTransferMetaDataPair(account, Amount.fromNem(572), 17),
-				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27));
-		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getHash()))
+				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19, 12L),
+				createTransferMetaDataPair(account, Amount.fromNem(572), 17, 23L),
+				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27, 34L));
+		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId()))
 				.thenReturn(pairs);
 
 		// Act:
@@ -127,7 +129,7 @@ public class AccountControllerTest {
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getHash());
+				.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId());
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
@@ -153,10 +155,10 @@ public class AccountControllerTest {
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
 				.thenReturn(transactions);
 
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
-				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 25));
-		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getHash()))
+				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 25, 34L));
+		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId()))
 				.thenReturn(pairs);
 
 		// Act:
@@ -175,10 +177,14 @@ public class AccountControllerTest {
 				IsEqual.equalTo(Arrays.asList(0L, 3L)));
 	}
 
-	private static TransactionMetaDataPair createTransferMetaDataPair(final Account sender, final Amount amount, final int blockHeight) {
+	private static TransactionMetaDataPair createTransferMetaDataPair(
+			final Account sender,
+			final Amount amount,
+			final int blockHeight,
+			final Long transactionId) {
 		return new TransactionMetaDataPair(
 				createTransfer(sender, amount),
-				new TransactionMetaData(new BlockHeight(blockHeight)));
+				new TransactionMetaData(new BlockHeight(blockHeight), transactionId));
 	}
 
 	private static Transaction createTransfer(final Account sender, final Amount amount) {
@@ -272,19 +278,19 @@ public class AccountControllerTest {
 
 	private void assertGetTransactionsDelegateToAccountService(
 			final TransactionDirection direction,
-			final Function<TestContext, Function<AccountHashRequest, AccountTransactionsPair>> handlerFactory) {
+			final Function<TestContext, Function<AccountTransactionIdRequest, AccountTransactionsPair>> handlerFactory) {
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
 		Mockito.when(context.accountMapper.toViewModel(account.getAddress()))
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(34);
 
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), null);
+		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), null);
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
-				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19),
-				createTransferMetaDataPair(account, Amount.fromNem(572), 17),
-				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27));
-		Mockito.when(context.accountServices.getTransactions(direction, account.getAddress(), request.getHash()))
+				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19, 12L),
+				createTransferMetaDataPair(account, Amount.fromNem(572), 17, 23L),
+				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27, 34L));
+		Mockito.when(context.accountServices.getTransactions(direction, account.getAddress(), request.getTransactionId()))
 				.thenReturn(pairs);
 
 		// Act:
@@ -293,7 +299,7 @@ public class AccountControllerTest {
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getTransactions(direction, account.getAddress(), request.getHash());
+				.getTransactions(direction, account.getAddress(), request.getTransactionId());
 		Assert.assertThat(
 				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));

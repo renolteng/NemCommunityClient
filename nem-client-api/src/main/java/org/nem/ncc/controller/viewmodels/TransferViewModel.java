@@ -15,7 +15,7 @@ public class TransferViewModel implements SerializableEntity {
 	private static final int INCOMING_FLAG = 1;
 	private static final int OUTGOING_FLAG = 2;
 
-	private final long transactionId;
+	private long transactionId;
 	private final Hash transactionHash;
 
 	private final Address sender;
@@ -47,7 +47,6 @@ public class TransferViewModel implements SerializableEntity {
 
 		this.transactionHash = HashUtils.calculateHash(transaction);
 		this.transactionId = this.transactionHash.getShortId();
-
 		this.sender = transaction.getSigner().getAddress();
 		this.timeStamp = UnixTime.fromTimeInstant(transaction.getTimeStamp()).getMillis();
 		this.fee = transaction.getFee();
@@ -101,6 +100,7 @@ public class TransferViewModel implements SerializableEntity {
 
 		this.confirmations = lastBlockHeight.subtract(metaDataPair.getMetaData().getHeight()) + 1;
 		this.blockHeight = metaDataPair.getMetaData().getHeight().getRaw();
+		this.transactionId = metaDataPair.getMetaData().getId();
 		this.isConfirmed = true;
 	}
 

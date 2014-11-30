@@ -32,7 +32,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public AccountMetaDataPair getAccountMetaDataPair(final Address address) {
-		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, formatQueryString(address, null));
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, formatQueryString(address, null, null));
 		return new AccountMetaDataPair(deserializer);
 	}
 
@@ -52,11 +52,11 @@ public class AccountServices {
 	 *
 	 * @param direction Type of transactions.
 	 * @param address The account address.
-	 * @param endHash The hash of top-most transaction.
+	 * @param transactionId The id of top-most transaction.
 	 * @return The account information.
 	 */
-	public List<TransactionMetaDataPair> getTransactions(final TransactionDirection direction, final Address address, final Hash endHash) {
-		final String queryString = formatQueryString(address, endHash);
+	public List<TransactionMetaDataPair> getTransactions(final TransactionDirection direction, final Address address, final Long transactionId) {
+		final String queryString = formatQueryString(address, null, transactionId);
 		final Deserializer deserializer = this.nisConnector.get(this.typeOfTransactionToQueryId(direction), queryString);
 		return deserializer.readObjectArray("data", TransactionMetaDataPair::new);
 	}
@@ -68,7 +68,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public List<Transaction> getUnconfirmedTransactions(final Address address) {
-		final String queryString = formatQueryString(address, null);
+		final String queryString = formatQueryString(address, null, null);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, queryString);
 		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE).stream()
 				.sorted((lhs, rhs) -> -1 * lhs.getTimeStamp().compareTo(rhs.getTimeStamp()))
@@ -83,7 +83,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public List<HarvestInfo> getAccountHarvests(final Address address, final Hash endHash) {
-		final String queryString = formatQueryString(address, endHash);
+		final String queryString = formatQueryString(address, endHash, null);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
 		return deserializer.readObjectArray("data", HarvestInfo::new);
 	}
@@ -95,7 +95,7 @@ public class AccountServices {
 	 * @param hash The hash.
 	 * @return The formatted string.
 	 */
-	private static String formatQueryString(final Address address, final Hash hash) {
+	private static String formatQueryString(final Address address, final Hash hash, final Long id) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append("address=");
 		builder.append(address.getEncoded());
@@ -103,6 +103,11 @@ public class AccountServices {
 		if (null != hash) {
 			builder.append("&hash=");
 			builder.append(hash);
+		}
+
+		if (null != id) {
+			builder.append("&id=");
+			builder.append(id);
 		}
 
 		return builder.toString();
