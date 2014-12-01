@@ -39,7 +39,7 @@ public class AccountTransactionIdRequestTest {
 	//region serialization
 
 	@Test
-	public void requestCanBeRoundTripped() {
+	public void requestCanBeDeserialized() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
 
@@ -52,7 +52,7 @@ public class AccountTransactionIdRequestTest {
 	}
 
 	@Test
-	public void requestCanBeRoundTrippedWithoutTransactionId() {
+	public void requestCanBeDeserializedWithoutTransactionId() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
 

@@ -122,7 +122,7 @@ public class AccountServicesTest {
 	}
 
 	@Test
-	public void transactionsOutgoingDelegateToConnectorWithHash() {
+	public void transactionsOutgoingDelegateToConnectorWithId() {
 		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_OUTGOING,
 				TransactionDirection.OUTGOING,

@@ -100,6 +100,8 @@ public class AccountServices {
 		builder.append("address=");
 		builder.append(address.getEncoded());
 
+		// TODO 20141201 J-B: would anyone specify both hash and id? we should probably have two functions; formatHashQueryString / formatIdQueryString
+
 		if (null != hash) {
 			builder.append("&hash=");
 			builder.append(hash);

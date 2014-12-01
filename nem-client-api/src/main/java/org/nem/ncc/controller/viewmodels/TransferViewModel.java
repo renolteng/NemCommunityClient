@@ -100,6 +100,8 @@ public class TransferViewModel implements SerializableEntity {
 
 		this.confirmations = lastBlockHeight.subtract(metaDataPair.getMetaData().getHeight()) + 1;
 		this.blockHeight = metaDataPair.getMetaData().getHeight().getRaw();
+		// TODO 20141201 J-B: is it confusing that both Transaction and TransactionMetaData have ids now?
+		// we might want to rename one
 		this.transactionId = metaDataPair.getMetaData().getId();
 		this.isConfirmed = true;
 	}
