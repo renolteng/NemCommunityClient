@@ -269,14 +269,16 @@ define(function() {
                     var t = Utils.format.nem;
                     return t.formatNem(t.uNemToNem(uNem), options);
                 }
+            },
+            address: {
+                format: function(address) {
+                    var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
+                    return segments.join('-').toUpperCase();
+                },
+                restore: function(address) {
+                    return address.replace(/\-/g, '');
+                }
             }
-        },
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
-        },
-        formatAddress: function(address) {
-            var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
-            return segments.join('-').toUpperCase();
         },
         minDigits: function(num, digits) {
             num = num.toString(10);
@@ -361,7 +363,7 @@ define(function() {
                     case 'address':
                         // Remove all illegal characters
                         var rawAddress = currentVal.replace(/[^0-9a-zA-Z]/g, '');
-                        var newVal = Utils.formatAddress(rawAddress);
+                        var newVal = Utils.format.address.format(rawAddress);
                         break;
                 }
 
@@ -414,8 +416,8 @@ define(function() {
             tx.isIncoming = tx.direction === 1 || tx.direction === 0;
             tx.isOutgoing = tx.direction === 2;
             tx.isSelf = tx.direction === 3;
-            tx.formattedSender = Utils.formatAddress(tx.sender);
-            tx.formattedRecipient = Utils.formatAddress(tx.recipient);
+            tx.formattedSender = Utils.format.address.format(tx.sender);
+            tx.formattedRecipient = Utils.format.address.format(tx.recipient);
             tx.formattedFee = Utils.format.nem.formatNemAmount(tx.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(tx.fee);
@@ -448,7 +450,7 @@ define(function() {
             return blocks;
         },
         processAccount: function(account) {
-            account.formattedAddress = Utils.formatAddress(account.address);
+            account.formattedAddress = Utils.format.address.format(account.address);
             var balanceObj = Utils.format.nem.uNemToNem(account.balance);
             account.formattedBalance = Utils.format.nem.formatNem(balanceObj, {fixedDecimalPlaces: true});
             account.balanceInt = parseInt(balanceObj.intPart, 10);

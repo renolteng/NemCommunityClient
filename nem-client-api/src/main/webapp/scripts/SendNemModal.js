@@ -11,7 +11,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedAmount')));
             },
             recipient: function() {
-                return Utils.restoreAddress(this.get('formattedRecipient'));
+                return Utils.format.address.restore(this.get('formattedRecipient'));
             },
             recipientValid: function() {
                 var recipient = this.get('recipient');

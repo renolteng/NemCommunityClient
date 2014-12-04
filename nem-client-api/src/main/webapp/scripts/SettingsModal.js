@@ -16,12 +16,12 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     if (!this.get('settings.nisBootInfo.account')) {
                         return this.get('texts.modals.settings.autoBoot.primaryAccount');
                     } else {
-                        return Utils.formatAddress(this.get('settings.nisBootInfo.account'));
+                        return Utils.format.address.format(this.get('settings.nisBootInfo.account'));
                     }
                 },
                 set: function(address) {
                     if (address !== this.get('texts.modals.settings.autoBoot.primaryAccount')) {
-                        this.set('settings.nisBootInfo.account', Utils.restoreAddress(address));
+                        this.set('settings.nisBootInfo.account', Utils.format.address.restore(address));
                     }
                 }
             },
