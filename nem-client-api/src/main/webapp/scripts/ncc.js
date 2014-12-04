@@ -510,7 +510,6 @@ define(function(require) {
             });
 
             this.set('fill', this.fill);
-            this.set('formatCurrency', Utils.formatCurrency);
 
             this.global = {
                 $window: $(window),

@@ -77,8 +77,8 @@
 					<div class="transactionsTile-overview">
 						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}</h1>
 						<p>
-							<span class="transactionsTile-balance" title="{{Math.floor(activeAccount.balance / 1000000)}} NEM {{activeAccount.balance % 1000000}} µNEM" on-mouseover="registerToolTip">
-								{{{formatCurrency(activeAccount.balance, false)}}} 
+							<span class="transactionsTile-balance" title="{{activeAccount.balanceInt}} NEM {{activeAccount.balanceDec}} µNEM" on-mouseover="registerToolTip">
+								{{activeAccount.formattedBalance}} 
 								<span class="unit">NEM</span>
 							</span> 
 							<span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
@@ -181,26 +181,6 @@
 					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
 				</article>
 			</li>
-			<!--/*<li class="tile balance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
-				<article>
-					<h1>Your balance</h1>
-					<div>
-						<div class="last-month">
-							<p>Last month</p>
-							<p class="notAvailableMessage">{{.notAvailable}}</p>
-							/*<p class="number">50,000,000 <span class="unit">NEM</span></p>*/
-						</div>
-						<div class="current">
-							<p>
-								/*<span class="variation">
-									<span class="variation-arrow icon-arrow-up"></span>
-									<span class="variation-amount">3%</span>
-								</span>*/
-								{{{formatCurrency(activeAccount.balance, false)}}} <span class="unit">NEM</span></p>
-						</div>
-					</div>
-				</article>
-			</li>*/-->
 			<li class="tile tile-messages" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
 					<h1 class="icon-envelope tile-title" title="{{texts.dashboard.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>

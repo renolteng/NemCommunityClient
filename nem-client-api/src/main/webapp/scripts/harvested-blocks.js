@@ -54,14 +54,18 @@
 
     		local.listeners.push(ncc.observe({
     			'harvestedBlocks.list': function(harvestedBlocks) {
-    				var sum = 0;
+    				var feeEarned = 0;
     				if (harvestedBlocks) {
 	    				for (var i = 0; i < Math.min(harvestedBlocks.length, Utils.config.blocksPerPage); i++) {
-	    					sum += harvestedBlocks[i].fee;
+	    					feeEarned += harvestedBlocks[i].fee;
 	    				}
 	    			}
 
-	    			ncc.set('harvestedBlocks.feeEarned', sum);
+                    var feeEarnedObj = Utils.format.nem.uNemToNem(feeEarned);
+                    ncc.set('harvestedBlocks.feeEarned', feeEarned);
+                    ncc.set('harvestedBlocks.formattedFeeEarned', Utils.format.nem.formatNem(feeEarnedObj));
+                    ncc.set('harvestedBlocks.feeEarnedInt', parseInt(feeEarnedObj.intPart, 10));
+                    ncc.set('harvestedBlocks.feeEarnedDec', parseInt(feeEarnedObj.decimalPart, 10));
     			}
             }, {
                 init: false
