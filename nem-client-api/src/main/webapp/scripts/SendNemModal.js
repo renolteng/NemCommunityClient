@@ -214,21 +214,21 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             });
 
             var $recipient = $('.js-sendNem-recipient-textbox');
-            $recipient.on('keyup', Utils.generateMask('address', this));
+            $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            $recipient.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            $recipient.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $amount = $('.js-sendNem-amount-textbox');
             var amountTxb = $amount[0];
-            $amount.on('keyup', Utils.generateMask('nem', this));
-            $amount.on('keydown', function(e) {
-                Utils.ignoreThousandSeparators(e, self);
-            });
+            $amount.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
+            $amount.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $amount.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
 
             var $fee = $('.js-sendNem-fee-textbox');
             var feeTxb = $fee[0];
-            $fee.on('keyup', Utils.generateMask('nem', this));
-            $fee.on('keydown', function(e) {
-                Utils.ignoreThousandSeparators(e, self);
-            });
+            $fee.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
+            $fee.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $fee.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
 
             this.listeners.push(ncc.observe({
                 'texts.preferences.thousandSeparator': function(newProp, oldProp) {

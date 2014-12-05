@@ -67,6 +67,10 @@ define(function() {
             txt.innerHTML = str;
             return txt.value;
         },
+        getClipboardText: function(ev) {
+            var e = (ev && ev.clipboardData) ? ev : ev.originalEvent;
+            return (e && e.clipboardData && e.clipboardData.getData('text/plain')) || (window.clipboardData && window.clipboardData.getData('Text'));
+        },
         updateNewer: function(newArr, currentArr, comparedProp) {
             if (currentArr && currentArr[0] && newArr && newArr[0]) {
                 var comparedValue = newArr[newArr.length - 1][comparedProp];
@@ -268,7 +272,7 @@ define(function() {
                 formatNemAmount: function(uNem, options) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.uNemToNem(uNem), options);
-                }
+                },
             },
             address: {
                 format: function(address) {
@@ -277,8 +281,8 @@ define(function() {
                 },
                 restore: function(address) {
                     return address.replace(/\-/g, '');
-                }
-            }
+                },
+            },
         },
         minDigits: function(num, digits) {
             num = num.toString(10);
@@ -343,61 +347,234 @@ define(function() {
                 }
             };
         })(),
-        generateMask: function(type, ractive) {
-            var oldVal;
-            return function(e) {
-                var target = e.target;
-                var currentVal = target.value;
-                // If the keypress doesn't change the textbox value then i don't give a sh!t.
-                if (currentVal === oldVal) { 
-                    return;
+        mask: {
+            charsAllowed: {
+                nem: function() {
+                    return new RegExp('^[0-9' + Utils.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')) + ']$');
+                },
+                address: /^[0-9a-zA-Z]$/
+            },
+            transform: {
+                address: function(char) {
+                    return char.toUpperCase();
                 }
-
-                var caretToEnd = currentVal.length - target.selectionEnd;
-                var newVal = oldVal;
-
-                switch (type) {
-                    case 'nem':
-                        newVal = Utils.format.nem.formatNem(Utils.format.nem.stringToNem(currentVal), {keepTrailingZeroes: true});
-                        break;
-                    case 'address':
-                        // Remove all illegal characters
-                        var rawAddress = currentVal.replace(/[^0-9a-zA-Z]/g, '');
-                        var newVal = Utils.format.address.format(rawAddress);
-                        break;
+            },
+            reformat: {
+                nem: function(val) {
+                    return Utils.format.nem.formatNem(Utils.format.nem.stringToNem(val), {keepTrailingZeroes: true});
+                },
+                address: function(val) {
+                    return Utils.format.address.format(val.replace(/[^0-9a-zA-Z]/g, ''));
                 }
+            },
+            caretStickToRight: {
+                nem: function(oldCaret, oldText, newText) {
+                    var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+                    var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
+                    var chunkLength = 3 + tsLength;
 
-                target.value = oldVal = newVal;
+                    var oldDsPos = oldText.indexOf(decimalSeparator);
+                    var oldIntPartLength = oldDsPos !== -1 ? oldDsPos : oldText.length;
+                    if (oldCaret <= oldIntPartLength) { // the change is in the integer part, not affecting the decimal separator
+                        var newCaret = newText.length - oldText.length + oldCaret;
+                    } else {
+                        var oldCaretToRight = oldText.length - oldCaret;
+                        var decPartLength = oldText.length - oldIntPartLength;
+                        oldCaretToRight = oldCaretToRight - decPartLength;
+                        var wholeChunks = Math.floor(oldCaretToRight / chunkLength);
+                        var remaining = (oldCaretToRight % chunkLength);
+                        var realCaretToRight = (decPartLength ? decPartLength - decimalSeparator.length : 0) + (wholeChunks * 3) + remaining;
+
+                        var newDsPos = newText.indexOf(decimalSeparator);
+                        var newIntPartLength = newDsPos !== -1 ? newDsPos : newText.length;
+                        var newRealCaret = newText.length - realCaretToRight;
+                        if (newRealCaret >= newIntPartLength + decimalSeparator.length) {
+                            var newCaret = newRealCaret;
+                        } else {
+                            var newDecPartLength = newText.length - newIntPartLength;
+                            realCaretToRight = realCaretToRight - newDecPartLength;
+                            var newWholeChunks = Math.floor(realCaretToRight / chunkLength);
+                            var newRemaining = realCaretToRight % 3;
+                            var newCaretToRight = (newDecPartLength - decimalSeparator.length) + (newWholeChunks * 3) + newRemaining;
+                        }
+                    }
+
+                    return newCaret;
+                },
+                address: function(oldCaret, oldText, newText) {
+                    var oldCaretToRight = oldText.length - oldCaret;
+
+                    var lastChunk = oldText.length % 7; // 6 characters and 1 dash
+                    if (oldCaretToRight <= lastChunk) {
+                        var realCaretToRight = oldCaretToRight;
+                    } else {
+                        oldCaretToRight = oldCaretToRight - lastChunk - 1;
+                        var wholeChunks = Math.floor(oldCaretToRight / 7);
+                        var remaining = (oldCaretToRight % 7);
+                        var realCaretToRight = lastChunk + (wholeChunks * 6) + remaining;
+                    }
+
+                    var newLastChunk = newText.length % 7;
+                    if (realCaretToRight <= newLastChunk) {
+                        var newCaret = newText.length - realCaretToRight;
+                    } else {
+                        realCaretToRight = realCaretToRight - newLastChunk;
+                        var newWholeChunks = Math.floor(realCaretToRight / 6);
+                        var newRemaining = realCaretToRight % 6;
+                        var newCaretToRight = newLastChunk + 1 + (newWholeChunks * 7) + newRemaining;
+                        var newCaret = newText.length - newCaretToRight;
+                    }
+
+                    return newCaret;
+                }
+            },
+            caretStickToLeft: {
+                nem: function(oldCaret, oldText, newText) {
+                    var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+                    var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
+                    var chunkLength = 3 + tsLength;
+
+                    var oldDsPos = oldText.indexOf(decimalSeparator);
+                    var oldIntPartLength = oldDsPos !== -1 ? oldDsPos : oldText.length;
+                    var lastChunk = oldIntPartLength % chunkLength;
+                    if (oldCaret <= lastChunk) {
+                        var realCaret = oldCaret;
+                    } else {
+                        if (oldCaret > oldIntPartLength) {
+                            var afterDs = oldCaret - oldIntPartLength - decimalSeparator.length;
+                            oldCaret = oldIntPartLength;
+                        }
+                        oldCaret = oldCaret - lastChunk - tsLength;
+                        var wholeChunks = Math.floor(oldCaret / chunkLength);
+                        var remaining = (oldCaret % chunkLength);
+                        var realCaret = lastChunk + (wholeChunks * 3) + remaining + (afterDs || 0);
+                    }
+
+                    var newDsPos = newText.indexOf(decimalSeparator);
+                    var newIntPartLength = newDsPos !== -1 ? newDsPos : newText.length;
+                    var newLastChunk = newIntPartLength % chunkLength;
+                    if (realCaret <= newLastChunk) {
+                        var newCaret = realCaret;
+                    } else {
+                        var newRealIntDigits = Math.floor(newIntPartLength / chunkLength) * 3 + newIntPartLength % chunkLength;
+                        if (realCaret > newRealIntDigits) {
+                            var newCaret = newIntPartLength + decimalSeparator.length + (realCaret - newRealIntDigits);
+                        } else {
+                            realCaret = realCaret - newLastChunk;
+                            var newWholeChunks = Math.floor(realCaret / 3);
+                            var newRemaining = realCaret % 3;
+                            var newCaret = newLastChunk + tsLength + (newWholeChunks * chunkLength) + newRemaining;
+                        }
+                    }
+
+                    return newCaret;
+                },
+                address: function(oldCaret, oldText, newText) {
+                    return oldCaret;
+                }
+            },
+            skippedToken: {
+                nem: function() {
+                    return ncc.get('texts.preferences.thousandSeparator');
+                },
+                address: '-'
+            },
+            reformatTextbox: function(target, type, text, ractive) {
+                var reformat = this.reformat[type];
+                if (typeof reformat === 'function') {
+                    text = reformat(text);
+                }
+                target.value = text;
                 if (ractive) ractive.updateModel();
-                var caret = newVal.length - caretToEnd;
-                target.setSelectionRange(caret, caret);
-            };
-        },
-        ignoreThousandSeparators: function(e, ractive) {
-            var target = e.target;
-            if (target.selectionStart === target.selectionEnd) {
-                var selection = target.selectionStart;
-                var text = target.value;
-                var thousandSeparator = ncc.get('texts.preferences.thousandSeparator');
+                return text;
+            },
+            insertInput: function(input, target, type, ractive) {
+                var caretStart = target.selectionStart;
+                var caretEnd = target.selectionEnd;
+                var oldText = target.value;
+                var newText = oldText.substring(0, caretStart) + input + oldText.substring(caretEnd, oldText.length);
+
+                newText = this.reformatTextbox(target, type, newText, ractive);
+
+                var caretStickToRight = this.caretStickToRight[type];
+                if (typeof caretStickToRight === 'function') {
+                    var newCaret = caretStickToRight(caretEnd, oldText, newText);
+                    target.setSelectionRange(newCaret, newCaret);
+                }
+            },
+            keypress: function(e, type, ractive) {
+                e.preventDefault();
+                var chars = this.charsAllowed[type];
+                if (typeof chars === 'function') {
+                    chars = chars();
+                }
+
+                // Test if char is allowed
+                var char = String.fromCharCode(e.which);
+                if (!chars || !char || !chars.test(char)) return;
+
+                // Perform transformations (if any)
+                var target = e.target;
+                var transform = this.transform[type];
+                if (typeof transform === 'function') {
+                    char = transform(char);
+                }
+
+                // Apply inputted char
+                this.insertInput(char, target, type, ractive);
+            },
+            paste: function(e, type, ractive) {
+                e.preventDefault();
+                var pastedText = Utils.getClipboardText(e);
+                this.insertInput(pastedText, e.target, type, ractive);
+            },
+            keydown: function(e, type, ractive) {
+                var target = e.target;
+                var oldText = target.value;
+                var caret = target.selectionStart;
+                var token = this.skippedToken[type];
+                if (typeof token === 'function') {
+                    token = token();
+                }
+                if (!token || typeof token !== 'string') return;
+
                 if (e.keyCode === 8) { // Backspace key
-                    var tsStart = selection - thousandSeparator.length; // starting index of thousand separator (if any)
-                    if (selection > 0 && text.substring(tsStart, selection) === thousandSeparator) {
-                        target.value = text.substring(0, tsStart - 1) + text.substring(tsStart, text.length); // remove the character before thousand separator instead of the thousand separator
-                        if (ractive) ractive.updateModel();
-                        target.setSelectionRange(selection - 1, selection - 1);
-                        e.preventDefault();
+                    e.preventDefault();
+                    if (target.selectionStart !== target.selectionEnd) {
+                        this.insertInput('', target, type, ractive);
+                    } else {
+                        var tokenStart = caret - token.length; // starting index of the token (if any)
+                        var deletedPos = oldText.substring(tokenStart, caret) === token ? tokenStart : caret;
+                        var newText = oldText.substring(0, deletedPos - 1) + oldText.substring(deletedPos, oldText.length); // remove the character before thousand separator instead of the thousand separator
+
+                        newText = this.reformatTextbox(target, type, newText, ractive);
+
+                        var caretStickToRight = this.caretStickToRight[type];
+                        if (typeof caretStickToRight === 'function') {
+                            var newCaret = caretStickToRight(caret, oldText, newText);
+                            target.setSelectionRange(newCaret, newCaret);
+                        }
                     }
                 }
                 if (e.keyCode === 46) { // Delete key
-                    var tsEnd = selection + thousandSeparator.length; // ending index of thousand separator (if any)
-                    if (selection < text.length - 1 && text.substring(selection, tsEnd) === thousandSeparator) {
-                        target.value = text.substring(0, tsEnd) + text.substring(tsEnd + 1, text.length); // remove the character after thousand separator instead of the thousand separator
-                        if (ractive) ractive.updateModel();
-                        target.setSelectionRange(tsEnd, tsEnd);
-                        e.preventDefault();
+                    e.preventDefault();
+                    if (target.selectionStart !== target.selectionEnd) {
+                        this.insertInput('', target, type, ractive);
+                    } else {
+                        var tokenEnd = caret + token.length; // ending index of the token (if any)
+                        var deletedPos = oldText.substring(caret, tokenEnd) === token ? tokenEnd : caret;
+                        var newText = oldText.substring(0, deletedPos) + oldText.substring(deletedPos + 1, oldText.length); // remove the character after thousand separator instead of the thousand separator
+
+                        newText = this.reformatTextbox(target, type, newText, ractive);
+
+                        var caretStickToLeft = this.caretStickToLeft[type];
+                        if (typeof caretStickToLeft === 'function') {
+                            var newCaret = caretStickToLeft(caret, oldText, newText);
+                            target.setSelectionRange(newCaret, newCaret);
+                        }
                     }
                 }
-            }
+            },
         },
         daysPassed: function(begin) {
             var now = new Date().getTime();
