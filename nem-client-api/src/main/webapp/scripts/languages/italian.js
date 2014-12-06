@@ -3,7 +3,7 @@ define({
 	name: "Italiano",
 	texts: {
 		preferences: {
-			thousandSeparator: "\u2009",
+			thousandSeparator: " ",
 			decimalSeparator: ","
 		},
 		faults: {
@@ -100,18 +100,18 @@ define({
 				nullLabelDesc: "Questo indirizzo non ha un nome associato",
 				amount: "Importo",
 				recipient: "Indirizzo del destinatario",
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: "L'indirizzo deve essere composto di 40 caratteri trattini esclusi",
 				message: "Messaggio",
 				encrypt: "Cifra il mesaggio",
 				fee: "Commissioni",
-				feeValidation: 'Fee must not be less than the minimum fee',
+				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
 				dueBy: "Termine massimo",
-				useMinimumFee: 'Use minimum fee',
+				useMinimumFee: "Usa commissioni minime",
 				hours: "ore",
 				password: "Password",
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: "La password non può essere vuota",
 				send: "Invia",
-				cancel: 'Cancel',
+				cancel: "Annulla",
 				sending: "Invio in corso...",
 				successMessage: "Transazione inserita con successo!",
 				txConfirm: {
@@ -166,7 +166,7 @@ define({
 				encrypted: "Il messaggio è cifrato",
 				time: "Marca temporale",
 				confirmations: "Conferme",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: "Sconosciuto",
 				amount: "Importo",
 				fee: "Commissioni"
 			},
@@ -319,7 +319,7 @@ define({
 				stop: "Ferma"
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+				leavePage: "Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \"Chiudi portafoglio\" nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito."
 			}
 		},
 		landing: {
@@ -343,35 +343,41 @@ define({
 				copyright: "Grafica di <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC protegge il tuo portafoglio",
-					description: "La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli."
-				}, {
-					title: "NCC protegge il tuo portafoglio",
-					description: "La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli."
-				}]
+				items: [
+					{
+						title: "NCC protegge il tuo portafoglio",
+						description: "La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli."
+					},
+					{
+						title: "NCC protegge il tuo portafoglio",
+						description: "La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Come funziona NCC?",
-					paragraphs: [
-						"<strong>NCC</strong> gestisce l'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:",
-						"<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)",
-						"Puoi anche configurare l'accesso ad un server <strong>NIS</strong> remoto."
-					],
-					listItems: [
-						"Gestire diversi portafogli",
-						"Gestire diversi indirizzi per portafoglio"
-					]
-				}, {
-					title: "Cos'è &#42;NIS?",
-					paragraphs: [
-						"Fa funzionare la rete <strong>NEM</strong>.",
-						"Più server <strong>NIS</strong> esistono più la rete è sicura",
-						"<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>."
-					],
-					legend: "<strong>&#42;NIS</strong> è l'acronimo di <strong>NEM Infrastructure Server</strong>"
-				}]
+				sections: [
+					{
+						title: "Come funziona NCC?",
+						paragraphs: [
+							"<strong>NCC</strong> gestisce l'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:",
+							"<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)",
+							"Puoi anche configurare l'accesso ad un server <strong>NIS</strong> remoto."
+						],
+						listItems: [
+							"Gestire diversi portafogli",
+							"Gestire diversi indirizzi per portafoglio"
+						]
+					},
+					{
+						title: "Cos'è &#42;NIS?",
+						paragraphs: [
+							"Fa funzionare la rete <strong>NEM</strong>.",
+							"Più server <strong>NIS</strong> esistono più la rete è sicura",
+							"<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>."
+						],
+						legend: "<strong>&#42;NIS</strong> è l'acronimo di <strong>NEM Infrastructure Server</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -468,7 +474,7 @@ define({
 				noMessage: "Nessun messaggio",
 				encrypted: "Messaggio cifrato",
 				view: "Visualizza",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: "Sconosciuto",
 				pending: "In attesa",
 				seeAll: "Visualizza tutte le transazioni",
 				noTransactions: "Ancora nessuna transazione"
@@ -515,7 +521,7 @@ define({
 				noMessage: "Nessun messaggio",
 				encrypted: "Messaggio cifrato",
 				view: "Visualizza",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: "Sconoscito",
 				pending: "In attesa",
 				noTransactions: "Ancora nessuna transazione",
 				loading: "Caricamento ulteriori transazioni..."
@@ -524,7 +530,7 @@ define({
 		harvestedBlocks: {
 			title: "Blocchi generati",
 			feeEarned: "Commissioni guadagnate nella generazione degli ultimi 25 blocchi",
-			unknown: 'Unknown',
+			unknown: "Sconosciuto",
 			table: {
 				columns: [
 					"Numero",
@@ -541,16 +547,18 @@ define({
 				harvesting: "Generazione blocchi in corso",
 				stop: "Ferma generazione blocchi",
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: "Avvia generazione blocchi sicura",
+					stopRemoteHarvesting: "Ferma generazione blocchi sicura"
 				}
 			}
 		},
 		settings: {
 			title: "Impostazioni",
-			settings: [{
-				name: "Lingua"
-			}],
+			settings: [
+				{
+					name: "Lingua"
+				}
+			],
 			save: "Salva modifiche",
 			saveSuccess: "Le impostazioni sono state salvate"
 		}
