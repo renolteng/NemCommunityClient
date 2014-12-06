@@ -105,60 +105,60 @@ public class AccountController {
 	/**
 	 * Gets information about the specified account and incoming and outgoing confirmed and unconfirmed transactions.
 	 *
-	 * @param ahRequest The account identifier.
+	 * @param request The account (and optional) transaction identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/all", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountHashRequest ahRequest) {
-		final AccountViewModel account = this.getAccountInfo(ahRequest);
+	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountTransactionIdRequest request) {
+		final AccountViewModel account = this.getAccountInfo(request);
 		final List<TransferViewModel> allTransfers = new ArrayList<>();
-		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(ahRequest.getAccountId(), null)));
-		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, ahRequest));
+		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(request.getAccountId(), null)));
+		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, request));
 		return new AccountTransactionsPair(account, allTransfers);
 	}
 
 	/**
 	 * Gets information about the specified account and incoming and outgoing confirmed transactions.
 	 *
-	 * @param ahRequest The account identifier.
+	 * @param request The account identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/confirmed", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsConfirmed(@RequestBody final AccountHashRequest ahRequest) {
-		return this.getAccountTransactions(TransactionDirection.ALL, ahRequest);
+	public AccountTransactionsPair getAccountTransactionsConfirmed(@RequestBody final AccountTransactionIdRequest request) {
+		return this.getAccountTransactions(TransactionDirection.ALL, request);
 	}
 
 	/**
 	 * Gets information about the specified account and incoming confirmed transactions.
 	 *
-	 * @param ahRequest The account identifier.
+	 * @param request The account identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/incoming", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsIncoming(@RequestBody final AccountHashRequest ahRequest) {
-		return this.getAccountTransactions(TransactionDirection.INCOMING, ahRequest);
+	public AccountTransactionsPair getAccountTransactionsIncoming(@RequestBody final AccountTransactionIdRequest request) {
+		return this.getAccountTransactions(TransactionDirection.INCOMING, request);
 	}
 
 	/**
 	 * Gets information about the specified account and outgoing confirmed transactions.
 	 *
-	 * @param ahRequest The account identifier.
+	 * @param request The account identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/outgoing", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsOutgoing(@RequestBody final AccountHashRequest ahRequest) {
-		return this.getAccountTransactions(TransactionDirection.OUTGOING, ahRequest);
+	public AccountTransactionsPair getAccountTransactionsOutgoing(@RequestBody final AccountTransactionIdRequest request) {
+		return this.getAccountTransactions(TransactionDirection.OUTGOING, request);
 	}
 
-	private AccountTransactionsPair getAccountTransactions(final TransactionDirection direction, final AccountHashRequest ahRequest) {
-		final AccountViewModel account = this.getAccountInfo(ahRequest);
-		return new AccountTransactionsPair(account, this.getConfirmedTransactions(direction, ahRequest));
+	private AccountTransactionsPair getAccountTransactions(final TransactionDirection direction, final AccountTransactionIdRequest request) {
+		final AccountViewModel account = this.getAccountInfo(request);
+		return new AccountTransactionsPair(account, this.getConfirmedTransactions(direction, request));
 	}
 
-	private Collection<TransferViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountHashRequest ahRequest) {
+	private Collection<TransferViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountTransactionIdRequest ahRequest) {
 		final Address address = ahRequest.getAccountId();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
-		return this.accountServices.getTransactions(direction, address, ahRequest.getHash()).stream()
+		return this.accountServices.getTransactions(direction, address, ahRequest.getTransactionId()).stream()
 				.map(p -> new TransferViewModel(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}

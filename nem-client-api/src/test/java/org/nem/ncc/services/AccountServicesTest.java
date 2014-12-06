@@ -40,23 +40,23 @@ public class AccountServicesTest {
 
 	//region NEW account/transactions API
 
-	private static void assertGetTransactionsWithHashDelegatesToConnector(
+	private static void assertGetTransactionsWithIdDelegatesToConnector(
 			final NisApiId nisApiId,
 			final TransactionDirection direction,
-			final Hash hash,
+			final Long id,
 			final String expectedQueryString) {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final List<TransactionMetaDataPair> originalPairs = Arrays.asList(
-				createTransferMetaDataPair(Amount.fromNem(124), 5),
-				createTransferMetaDataPair(Amount.fromNem(572), 9),
-				createTransferMetaDataPair(Amount.fromNem(323), 4));
+				createTransferMetaDataPair(Amount.fromNem(124), 5, 12),
+				createTransferMetaDataPair(Amount.fromNem(572), 9, 23),
+				createTransferMetaDataPair(Amount.fromNem(323), 4, 34));
 
 		Mockito.when(context.connector.get(Matchers.eq(nisApiId), Matchers.anyString()))
 				.thenReturn(serialize(new SerializableList<>(originalPairs)));
 
 		// Act:
-		final List<TransactionMetaDataPair> pairs = context.services.getTransactions(direction, Address.fromEncoded("FOO"), hash);
+		final List<TransactionMetaDataPair> pairs = context.services.getTransactions(direction, Address.fromEncoded("FOO"), id);
 
 		// Assert:
 		Mockito.verify(context.connector, Mockito.times(1)).get(nisApiId, expectedQueryString);
@@ -66,11 +66,14 @@ public class AccountServicesTest {
 		Assert.assertThat(
 				pairs.stream().map(p -> p.getMetaData().getHeight()).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(new BlockHeight(5), new BlockHeight(9), new BlockHeight(4))));
+		Assert.assertThat(
+				pairs.stream().map(p -> p.getMetaData().getId()).collect(Collectors.toList()),
+				IsEqual.equalTo(Arrays.asList(12L, 23L, 34L)));
 	}
 
 	@Test
-	public void transactionsAllDelegateToConnectorWithoutHash() {
-		assertGetTransactionsWithHashDelegatesToConnector(
+	public void transactionsAllDelegateToConnectorWithoutId() {
+		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_ALL,
 				TransactionDirection.ALL,
 				null,
@@ -79,18 +82,18 @@ public class AccountServicesTest {
 	}
 
 	@Test
-	public void transactionsAllDelegateToConnectorWithHash() {
-		assertGetTransactionsWithHashDelegatesToConnector(
+	public void transactionsAllDelegateToConnectorWithId() {
+		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_ALL,
 				TransactionDirection.ALL,
-				Hash.fromHexString("1234"),
-				"address=FOO&hash=1234"
+				123L,
+				"address=FOO&id=123"
 		);
 	}
 
 	@Test
-	public void transactionsIncomingDelegateToConnectorWithoutHash() {
-		assertGetTransactionsWithHashDelegatesToConnector(
+	public void transactionsIncomingDelegateToConnectorWithoutId() {
+		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_INCOMING,
 				TransactionDirection.INCOMING,
 				null,
@@ -99,18 +102,18 @@ public class AccountServicesTest {
 	}
 
 	@Test
-	public void transactionsIncomingDelegateToConnectorWithHash() {
-		assertGetTransactionsWithHashDelegatesToConnector(
+	public void transactionsIncomingDelegateToConnectorWithId() {
+		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_INCOMING,
 				TransactionDirection.INCOMING,
-				Hash.fromHexString("1234"),
-				"address=FOO&hash=1234"
+				123L,
+				"address=FOO&id=123"
 		);
 	}
 
 	@Test
-	public void transactionsOutgoingDelegateToConnectorWithoutHash() {
-		assertGetTransactionsWithHashDelegatesToConnector(
+	public void transactionsOutgoingDelegateToConnectorWithoutId() {
+		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_OUTGOING,
 				TransactionDirection.OUTGOING,
 				null,
@@ -119,12 +122,12 @@ public class AccountServicesTest {
 	}
 
 	@Test
-	public void transactionsOutgoingDelegateToConnectorWithHash() {
-		assertGetTransactionsWithHashDelegatesToConnector(
+	public void transactionsOutgoingDelegateToConnectorWithId() {
+		assertGetTransactionsWithIdDelegatesToConnector(
 				NisApiId.NIS_REST_ACCOUNT_TRANSFERS_OUTGOING,
 				TransactionDirection.OUTGOING,
-				Hash.fromHexString("1234"),
-				"address=FOO&hash=1234"
+				123L,
+				"address=FOO&id=123"
 		);
 	}
 
@@ -232,10 +235,10 @@ public class AccountServicesTest {
 				new DeserializationContext(new MockAccountLookup()));
 	}
 
-	private static TransactionMetaDataPair createTransferMetaDataPair(final Amount fee, final int blockHeight) {
+	private static TransactionMetaDataPair createTransferMetaDataPair(final Amount fee, final int blockHeight, final long transactionId) {
 		return new TransactionMetaDataPair(
 				createTransfer(fee),
-				new TransactionMetaData(new BlockHeight(blockHeight)));
+				new TransactionMetaData(new BlockHeight(blockHeight), transactionId));
 	}
 
 	private static Transaction createTransfer(final Amount fee) {

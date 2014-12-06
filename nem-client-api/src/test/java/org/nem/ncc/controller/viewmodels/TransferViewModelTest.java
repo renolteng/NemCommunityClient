@@ -75,12 +75,12 @@ public class TransferViewModelTest {
 
 		// Act:
 		final TransferViewModel viewModel = new TransferViewModel(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7))),
+				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(12));
 
 		// Assert:
-		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(transactionHash.getShortId()));
+		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(14L));
 		Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(transactionHash));
 		Assert.assertThat(viewModel.getSender(), IsEqual.equalTo(sender.getAddress()));
 		Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
@@ -150,14 +150,14 @@ public class TransferViewModelTest {
 
 		// Act:
 		final TransferViewModel viewModel = new TransferViewModel(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7))),
+				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				sender.getAddress(),
 				new BlockHeight(12));
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(13));
-		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(transactionHash.getShortId()));
+		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(14L));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(sender.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
@@ -381,7 +381,7 @@ public class TransferViewModelTest {
 
 		// Act:
 		final TransferViewModel viewModel = new TransferViewModel(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7))),
+				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(7));
 
@@ -389,6 +389,7 @@ public class TransferViewModelTest {
 		Assert.assertThat(viewModel.isConfirmed(), IsEqual.equalTo(true));
 		Assert.assertThat(viewModel.getConfirmations(), IsEqual.equalTo(1L));
 		Assert.assertThat(viewModel.getBlockHeight(), IsEqual.equalTo(7L));
+		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(14L));
 	}
 
 	//endregion

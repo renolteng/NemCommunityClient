@@ -19,7 +19,7 @@
 				var requestData = { account: currAccount };
 				var currTxes = ncc.get('transactions.filtered');
 				if (type === 'append') {
-					requestData.hash = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].hash : undefined;
+					requestData.id = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].id : undefined;
 					ncc.set('status.loadingOlderTransactions', true);
 				}
 
@@ -29,7 +29,7 @@
 					if (type === 'append' && currTxes && currTxes.concat) {
 						all = currTxes.concat(updatedTxes);
 					} else if (type === 'update') {
-						var result = Utils.updateNewer(updatedTxes, currTxes, 'hash');
+						var result = Utils.updateNewer(updatedTxes, currTxes, 'id');
 						all = result.updatedArray;
 						if (result.noConnection) {
 							ncc.set('transactions.gotAll', false);
