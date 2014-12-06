@@ -538,19 +538,22 @@ $spreadingRate: 20%;
  	padding: 10px $formContent-sidePadding 24px;
  }
 
-.createWalletForm-field {
-	border-bottom: 1px solid #eeeeee;
-	margin-bottom: 20px;
-}
-
 .createWalletForm-textbox {
+	display: block;
+	margin-bottom: 20px;
 	width: 100%;
-	color: #33c56d;
 	padding-bottom: 7px;
+	border-bottom: 1px solid #eeeeee;
+	color: #33c56d;
+	@include transition(border .3s);
 	
 	@include input-placeholder {
 		color: #aeadad;
 	}
+}
+
+.createWalletForm-textbox--valid {
+	border-color: #5dcd86;
 }
 
 .createWalletForm-submit {
@@ -575,11 +578,13 @@ $spreadingRate: 20%;
 	font-weight: $fontWeight-bold;
 	text-transform: uppercase;
 
-	&:not([disabled]), 
-	&[disabled='false'] {
-		&:hover	{
-			background-color: lighten($bgColor, 7%);
-		}
+	&:hover	{
+		background-color: lighten($bgColor, 7%);
+	}
+
+	&:disabled {
+		background-color: #d1d1d1;
+		pointer-events: none;
 	}
 }
 

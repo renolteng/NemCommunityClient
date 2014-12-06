@@ -4,7 +4,9 @@ define(function() {
     var Utils = {
         config: {
             addressCharacters: 40,
-            fractionalDigits: 2,
+            defaultDecimalPlaces: 2,
+            maxDecimalPlaces: 6,
+            nemDivisibility: 1000000,
             txesPerPage: 25,
             blocksPerPage: 25,
             defaultLanguage: 'en',
@@ -65,6 +67,10 @@ define(function() {
             txt.innerHTML = str;
             return txt.value;
         },
+        getClipboardText: function(ev) {
+            var e = (ev && ev.clipboardData) ? ev : ev.originalEvent;
+            return (e && e.clipboardData && e.clipboardData.getData('text/plain')) || (window.clipboardData && window.clipboardData.getData('Text'));
+        },
         updateNewer: function(newArr, currentArr, comparedProp) {
             if (currentArr && currentArr[0] && newArr && newArr[0]) {
                 var comparedValue = newArr[newArr.length - 1][comparedProp];
@@ -116,15 +122,167 @@ define(function() {
         },
 
         // FORMAT & CONVERSON
-        restoreAddress: function(address) {
-            return address.replace(/\-/g, '');
-        },
-        formatAddress: function(address) {
-            var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
-            return segments.join('-').toUpperCase();
-        },
-        addThousandSeparators: function(num) {
-            return num.toString(10).replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator'));
+        format: {
+            nem: {
+                /**
+                 * @param {string} str any inputted string
+                 * @return {object} NEM Amount object
+                 */
+                stringToNem: function(str) {
+                    var nem = {
+                        intPart: '',
+                        decimalPart: ''
+                    };
+                    if (typeof str !== 'string') return nem;
+
+                    var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+
+                    // Remove illegal characters
+                    var dsRegex = new RegExp('[^0-9' + Utils.escapeRegExp(decimalSeparator) + ']', 'g');
+                    str = str.replace(dsRegex, '');
+
+                    // Split integer and decimal parts
+                    var dsPos = str.indexOf(decimalSeparator);
+                    if (dsPos >= 0) {
+                        nem.forceDecimalSeparator = true;
+                    } else {
+                        dsPos = str.length;
+                    }
+                    
+                    nem.intPart = str.substring(0, dsPos);
+                    var dsRegex = new RegExp(Utils.escapeRegExp(decimalSeparator), 'g');
+                    nem.decimalPart = str.substring(dsPos, str.length).replace(dsRegex, '');
+
+                    return nem;
+                },
+                /**
+                 * @param {number} uNem amount in uNEM
+                 * @return {object} NEM Amount object
+                 */
+                uNemToNem: function(uNem) {
+                    var nem = {
+                        intPart: '',
+                        decimalPart: ''
+                    };
+                    if (typeof uNem !== 'number') return nem;
+
+                    nem.intPart = Math.floor(uNem / Utils.config.nemDivisibility).toString();
+
+                    var decimalPart = (Math.floor(uNem) % Utils.config.nemDivisibility).toString();
+                    // Add leading zeroes
+                    if (decimalPart.length < Utils.config.maxDecimalPlaces) {
+                        decimalPart = new Array(Utils.config.maxDecimalPlaces - decimalPart.length + 1).join('0') + decimalPart;
+                    }
+                    // Remove trailing zeroes
+                    // for (var i = decimalPart.length - 1; decimalPart[i] === '0'; i--) {
+                    // }
+                    // decimalPart = decimalPart.substring(0, i + 1);
+
+                    nem.decimalPart = decimalPart;
+                    return nem;
+                },
+                 /**
+                 * @param {object} nem NEM Amount object
+                 * @param {boolean} options.fixedDecimalPlaces apply a fixed number of decimal places
+                 * @param {number} options.decimalPlaces decimal places to be applied, fallback to default if falsy
+                 * @param {boolean} options.dimUnimportantTrailing whether to dim the unimportant trailing part
+                 * @param {boolean} options.keepTrailingZeroes whether to keep trailing zeroes (ignored when fixedDecimalPlaces is true)
+                 * @return {string} formatted amount
+                 */
+                formatNem: function(nem, options) {
+                    if (!nem) return '';
+                    options = options || {};
+                    var firstPart = (parseInt(nem.intPart) || 0).toString();
+                    firstPart = firstPart.replace(/\B(?=(\d{3})+(?!\d))/g, ncc.get('texts.preferences.thousandSeparator')); // add thousand separators
+                    var lastPart = nem.decimalPart;
+
+                    if (options.fixedDecimalPlaces) {
+                        var decimalPlaces = options.decimalPlaces || Utils.config.defaultDecimalPlaces;
+                        if (lastPart.length > decimalPlaces) {
+                            lastPart = lastPart.substring(0, decimalPlaces);
+                        }
+                        if (lastPart.length < decimalPlaces) {
+                            lastPart = lastPart + new Array(decimalPlaces - lastPart.length + 1).join('0');
+                        }
+                    } else if (!options.keepTrailingZeroes) {
+                        for (var i = lastPart.length - 1; lastPart[i] === '0'; i--) {
+                        }
+                        lastPart = lastPart.substring(0, i + 1);
+                    }
+
+                    if (lastPart || nem.forceDecimalSeparator) {
+                        var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+                        lastPart = decimalSeparator + lastPart;
+
+                        if (options.dimUnimportantTrailing) {
+                            var cutPos = lastPart.length - 1;
+                            while (lastPart[cutPos] === '0') {
+                                cutPos--;
+                            }
+                            cutPos++;
+
+                            if (cutPos < lastPart.length && lastPart.length > 0) {
+                                if (lastPart.substring(0, cutPos) === decimalSeparator) {
+                                    cutPos = 0;
+                                }
+
+                                var clearPart = lastPart.substring(0, cutPos);
+                                var dimmedPart = lastPart.substring(cutPos, lastPart.length);
+                                lastPart = clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
+                            }
+                        }
+                    }
+
+                    return firstPart + lastPart;
+                },
+                /**
+                 * @param {string} str a formatted NEM amount
+                 * @param {string} oldThousandSep
+                 * @param {string} newThousandSep
+                 * @param {string} oldDecimalSep
+                 * @param {string} newDecimalSep
+                 * @return {string} the reformatted NEM amount
+                 */
+                reformat: function(str, oldThousandSep, newThousandSep, oldDecimalSep, newDecimalSep) {
+                    if (oldThousandSep) {
+                        var tsRegex = new RegExp(Utils.escapeRegExp(oldThousandSep), 'g');
+                        str = str.replace(tsRegex, newThousandSep);
+                    }
+
+                    if (oldDecimalSep) {
+                        var dsRegex = new RegExp(Utils.escapeRegExp(oldDecimalSep), 'g');
+                        str = str.replace(dsRegex, newDecimalSep);
+                    }
+
+                    return str;
+                },
+                /**
+                 * @param {object} NEM Amount object
+                 * @return {number} amount in uNEM
+                 */
+                getNemValue: function(nem) {
+                    return (parseInt(nem.intPart, 10) || 0) * Utils.config.nemDivisibility + (parseInt(nem.decimalPart, 10) || 0);
+                },
+                /**
+                 * Shortcut function for formatNem() and uNemToNem()
+                 * @param {number} uNem amount in uNEM
+                 * @param {object} options as in the formatNem()
+                 * @return {string} formatted amount
+                 */
+                formatNemAmount: function(uNem, options) {
+                    var t = Utils.format.nem;
+                    return t.formatNem(t.uNemToNem(uNem), options);
+                },
+            },
+            address: {
+                format: function(address) {
+                    var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
+                    return segments.join('-').toUpperCase();
+                },
+                restore: function(address) {
+                    return address.replace(/\-/g, '');
+                },
+            },
         },
         minDigits: function(num, digits) {
             num = num.toString(10);
@@ -132,80 +290,6 @@ define(function() {
                 num = '0' + num;
             }
             return num;
-        },
-        toNem: function(mNem) {
-            return mNem / 1000000;
-        },
-        toMNem: function(nem) {
-            // clever workaround to deal with JavaScript loss of precision bugs
-            // by using strings for multiplication
-            // the largest integer that can be stored in a java numeric type (64-bit floating point)
-            // is Math.pow(2, 53) > 8 * Math.pow(10, 15)
-            // [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
-            // NOTE: this only works because nem is assumed to be a string
-
-            // determine the number of trailing zeros to add based on the index of the decimal
-            var decimalIndex = nem.indexOf('.');
-            var power = 6 - (-1 === decimalIndex ? 0 : nem.length - decimalIndex - 1);
-            var trailingZeros = new Array(power + 1).join('0');
-            return parseInt(nem.replace('.', '') + trailingZeros);
-        },
-        formatCurrency: function(amount, dimTrailings, noLimitFractionalPart, noFixedDecimalPlaces) { // amount is in mNEM
-            var nem = Math.floor(Utils.toNem(amount));
-            var integerPart = Utils.addThousandSeparators(nem);
-            var mNem = Math.floor(amount % 1000000);
-
-            if (noFixedDecimalPlaces) {
-                // Remove trailing zeroes
-                while (mNem > 0 && mNem % 10 === 0) {
-                    mNem = mNem / 10;
-                }
-            }
-
-            var decimalPart = mNem.toString(10);
-            if (!noLimitFractionalPart) {
-                decimalPart = decimalPart.substring(0, Utils.config.fractionalDigits);
-                while (decimalPart.length < Utils.config.fractionalDigits) {
-                    decimalPart += '0';
-                }
-            }
-
-            if (dimTrailings) {                
-                var cutPos = decimalPart.length - 1;
-                while (decimalPart.charAt(cutPos) === '0') {
-                    cutPos--;
-                }
-                cutPos++;
-
-                var clearPart = decimalPart.substring(0, cutPos);
-                var dimmedPart = decimalPart.substring(cutPos, decimalPart.length);
-                if (dimmedPart) {
-                    if (clearPart) {
-                        return integerPart + ncc.get('texts.preferences.decimalSeparator') + clearPart + '<span class="dimmed">' + dimmedPart + '</span>';
-                    } else {
-                        return integerPart + '<span class="dimmed">' + ncc.get('texts.preferences.decimalSeparator') + dimmedPart + '</span>';
-                    }
-                }
-            }
-
-            return integerPart + ((noFixedDecimalPlaces && !mNem) ? '' : (ncc.get('texts.preferences.decimalSeparator') + decimalPart));
-        },
-        // @param {string} amount
-        convertCurrencyFormat: function(amount, oldThousandSeparator, newThousandSeparator, oldDecimalSeparator, newDecimalSeparator) {
-            if (oldThousandSeparator) {
-                var thousandSeparatorRegex = new RegExp(Utils.escapeRegExp(oldThousandSeparator), 'g');
-                amount = amount.replace(thousandSeparatorRegex, newThousandSeparator);
-            }
-
-            if (oldDecimalSeparator) {
-                var decimalSeparatorRegex = new RegExp(Utils.escapeRegExp(oldDecimalSeparator), 'g');
-                amount = amount.replace(decimalSeparatorRegex, newDecimalSeparator);
-            }
-
-            return amount;
-        },
-        convertCurrencyToStandard: function(amount) {
-            return Utils.convertCurrencyFormat(amount, ncc.get('texts.preferences.thousandSeparator'), '', ncc.get('texts.preferences.decimalSeparator'), '.');
         },
         toDate: function(ms) {
             return new Date(ms);
@@ -263,69 +347,228 @@ define(function() {
                 }
             };
         })(),
-        generateMask: function(type) {
-            var oldVal;
-            return function(e) {
+        mask: {
+            charsAllowed: {
+                nem: function() {
+                    return new RegExp('^[0-9' + Utils.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')) + ']$');
+                },
+                address: /^[0-9a-zA-Z]$/
+            },
+            transform: {
+                address: function(char) {
+                    return char.toUpperCase();
+                }
+            },
+            reformat: {
+                nem: function(val) {
+                    return Utils.format.nem.formatNem(Utils.format.nem.stringToNem(val), {keepTrailingZeroes: true});
+                },
+                address: function(val) {
+                    return Utils.format.address.format(val.replace(/[^0-9a-zA-Z]/g, ''));
+                }
+            },
+            caretStickToRight: {
+                nem: function(oldCaret, oldText, newText) {
+                    var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+                    var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
+                    var chunkLength = 3 + tsLength;
+
+                    var oldDsPos = oldText.indexOf(decimalSeparator);
+                    var oldIntPartLength = oldDsPos !== -1 ? oldDsPos : oldText.length;
+                    if (oldCaret <= oldIntPartLength) { // the change is in the integer part, not affecting the decimal separator
+                        var newCaret = newText.length - oldText.length + oldCaret;
+                    } else {
+                        var oldCaretToRight = oldText.length - oldCaret;
+                        var decPartLength = oldText.length - oldIntPartLength;
+                        oldCaretToRight = oldCaretToRight - decPartLength;
+                        var wholeChunks = Math.floor(oldCaretToRight / chunkLength);
+                        var realCaretToRight = (decPartLength ? decPartLength - decimalSeparator.length : 0) + (oldCaretToRight - wholeChunks * tsLength);
+
+                        var newDsPos = newText.indexOf(decimalSeparator);
+                        var newIntPartLength = newDsPos !== -1 ? newDsPos : newText.length;
+                        var newRealCaret = newText.length - realCaretToRight;
+                        if (newRealCaret >= newIntPartLength + decimalSeparator.length) {
+                            var newCaret = newRealCaret;
+                        } else {
+                            var newDecPartLength = newText.length - newIntPartLength;
+                            realCaretToRight = realCaretToRight - newDecPartLength;
+                            var newWholeChunks = Math.floor(realCaretToRight / chunkLength);
+                            var newCaretToRight = (newDecPartLength - decimalSeparator.length) + (realCaretToRight + newWholeChunks * tsLength);
+                        }
+                    }
+
+                    return newCaret;
+                },
+                address: function(oldCaret, oldText, newText) {
+                    var oldCaretToRight = oldText.length - oldCaret;
+
+                    var lastChunk = oldText.length % 7; // 6 characters and 1 dash
+                    if (oldCaretToRight <= lastChunk) {
+                        var realCaretToRight = oldCaretToRight;
+                    } else {
+                        oldCaretToRight = oldCaretToRight - (lastChunk? lastChunk + 1 : 0);
+                        var wholeChunks = Math.floor(oldCaretToRight / 7);
+                        var realCaretToRight = lastChunk + (oldCaretToRight - wholeChunks * 1);
+                    }
+
+                    var newLastChunk = newText.length % 7;
+                    if (realCaretToRight <= newLastChunk) {
+                        var newCaret = newText.length - realCaretToRight;
+                    } else {
+                        realCaretToRight = realCaretToRight - newLastChunk;
+                        var newWholeChunks = Math.floor(realCaretToRight / 6);
+                        var newCaretToRight = (newLastChunk? newLastChunk + 1 : 0) + (realCaretToRight + newWholeChunks * 1);
+                        var newCaret = newText.length - newCaretToRight;
+                    }
+
+                    return newCaret;
+                }
+            },
+            caretStickToLeft: {
+                nem: function(oldCaret, oldText, newText) {
+                    var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
+                    var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
+                    var chunkLength = 3 + tsLength;
+
+                    var oldDsPos = oldText.indexOf(decimalSeparator);
+                    var oldIntPartLength = oldDsPos !== -1 ? oldDsPos : oldText.length;
+                    var lastChunk = oldIntPartLength % chunkLength;
+                    if (oldCaret <= lastChunk) {
+                        var realCaret = oldCaret;
+                    } else {
+                        if (oldCaret > oldIntPartLength) {
+                            var afterDs = oldCaret - oldIntPartLength - decimalSeparator.length;
+                            oldCaret = oldIntPartLength;
+                        }
+                        oldCaret = oldCaret - (lastChunk? lastChunk + tsLength : 0);
+                        var wholeChunks = Math.floor(oldCaret / chunkLength);
+                        var realCaret = lastChunk + (oldCaret - wholeChunks * tsLength) + (afterDs || 0);
+                    }
+
+                    var newDsPos = newText.indexOf(decimalSeparator);
+                    var newIntPartLength = newDsPos !== -1 ? newDsPos : newText.length;
+                    var newLastChunk = newIntPartLength % chunkLength;
+                    if (realCaret <= newLastChunk) {
+                        var newCaret = realCaret;
+                    } else {
+                        var newRealIntDigits = newIntPartLength - Math.floor(newIntPartLength / chunkLength) * tsLength;
+                        if (realCaret > newRealIntDigits) {
+                            var newCaret = newIntPartLength + decimalSeparator.length + (realCaret - newRealIntDigits);
+                        } else {
+                            realCaret = realCaret - newLastChunk;
+                            var newWholeChunks = Math.floor(realCaret / 3);
+                            var newCaret = (newLastChunk? newLastChunk + tsLength : 0) + (realCaret + newWholeChunks * tsLength);
+                        }
+                    }
+
+                    return newCaret;
+                },
+                address: function(oldCaret, oldText, newText) {
+                    return oldCaret;
+                }
+            },
+            skippedToken: {
+                nem: function() {
+                    return ncc.get('texts.preferences.thousandSeparator');
+                },
+                address: '-'
+            },
+            reformatTextbox: function(target, type, text, ractive) {
+                var reformat = this.reformat[type];
+                if (typeof reformat === 'function') {
+                    text = reformat(text);
+                }
+                target.value = text;
+                if (ractive) ractive.updateModel();
+                return text;
+            },
+            insertInput: function(input, target, type, ractive) {
+                var caretStart = target.selectionStart;
+                var caretEnd = target.selectionEnd;
+                var oldText = target.value;
+                var newText = oldText.substring(0, caretStart) + input + oldText.substring(caretEnd, oldText.length);
+
+                newText = this.reformatTextbox(target, type, newText, ractive);
+
+                var caretStickToRight = this.caretStickToRight[type];
+                if (typeof caretStickToRight === 'function') {
+                    var newCaret = caretStickToRight(caretEnd, oldText, newText);
+                    target.setSelectionRange(newCaret, newCaret);
+                }
+            },
+            keypress: function(e, type, ractive) {
+                e.preventDefault();
+                var chars = this.charsAllowed[type];
+                if (typeof chars === 'function') {
+                    chars = chars();
+                }
+
+                // Test if char is allowed
+                var char = String.fromCharCode(e.which);
+                if (!chars || !char || !chars.test(char)) return;
+
+                // Perform transformations (if any)
                 var target = e.target;
-                var currentVal = target.value;
-                // If the keypress doesn't change the textbox value then i don't give a sh!t.
-                if (currentVal === oldVal) { 
-                    return;
+                var transform = this.transform[type];
+                if (typeof transform === 'function') {
+                    char = transform(char);
                 }
 
-                var caretToEnd = currentVal.length - target.selectionEnd;
-                var newVal = oldVal;
-
-                switch (type) {
-                    case 'nem':
-                        var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
-
-                        // Remove illegal characters
-                        var dsRegex = new RegExp('[^0-9' + Utils.escapeRegExp(decimalSeparator) + ']', 'g');
-                        currentVal = currentVal.replace(dsRegex, '');
-                        // Remove leading zeroes
-                        while (currentVal.length > 1 && currentVal[0] === '0' && currentVal[1] !== decimalSeparator) {
-                            currentVal = currentVal.substring(1, currentVal.length);
-                        }
-                        // Remove redundant decimal separators
-                        var matchedOnce = false;
-                        var i = 0;
-                        while (i < currentVal.length) {
-                            if (currentVal[i] === decimalSeparator) {
-                                if (!matchedOnce) {
-                                    matchedOnce = true;
-                                } else {
-                                    currentVal = currentVal.substring(0, i) + currentVal.substring(i + 1);
-                                    i--; // not going forward
-                                }
-                            }
-                            i++;
-                        }
-
-                        var dotPos = currentVal.indexOf(decimalSeparator);
-                        if (dotPos === -1) {
-                            dotPos = currentVal.length;
-                        }
-                        var intPart = currentVal.substring(0, dotPos);
-                        var decimalPart = currentVal.substring(dotPos, currentVal.length);
-
-                        intPart = Utils.addThousandSeparators(intPart);
-                        // Limit to maximum 6 decimal digits
-                        decimalPart = decimalPart.substring(0, decimalSeparator.length + 6); 
-                        newVal = intPart + decimalPart;
-                        break;
-                    case 'address':
-                        // Remove all illegal characters
-                        var rawAddress = currentVal.replace(/[^0-9a-zA-Z]/g, '');
-                        var newVal = Utils.formatAddress(rawAddress);
-                        break;
+                // Apply inputted char
+                this.insertInput(char, target, type, ractive);
+            },
+            paste: function(e, type, ractive) {
+                e.preventDefault();
+                var pastedText = Utils.getClipboardText(e);
+                this.insertInput(pastedText, e.target, type, ractive);
+            },
+            keydown: function(e, type, ractive) {
+                var target = e.target;
+                var oldText = target.value;
+                var caret = target.selectionStart;
+                var token = this.skippedToken[type];
+                if (typeof token === 'function') {
+                    token = token();
                 }
+                if (!token || typeof token !== 'string') return;
 
-                target.value = oldVal = newVal;
-                ncc.updateModel();
-                var caret = newVal.length - caretToEnd;
-                target.setSelectionRange(caret, caret);
-            };
+                if (e.keyCode === 8) { // Backspace key
+                    e.preventDefault();
+                    if (target.selectionStart !== target.selectionEnd) {
+                        this.insertInput('', target, type, ractive);
+                    } else {
+                        var tokenStart = caret - token.length; // starting index of the token (if any)
+                        var deletedPos = oldText.substring(tokenStart, caret) === token ? tokenStart : caret;
+                        var newText = oldText.substring(0, deletedPos - 1) + oldText.substring(deletedPos, oldText.length); // remove the character before thousand separator instead of the thousand separator
+
+                        newText = this.reformatTextbox(target, type, newText, ractive);
+
+                        var caretStickToRight = this.caretStickToRight[type];
+                        if (typeof caretStickToRight === 'function') {
+                            var newCaret = caretStickToRight(caret, oldText, newText);
+                            target.setSelectionRange(newCaret, newCaret);
+                        }
+                    }
+                }
+                if (e.keyCode === 46) { // Delete key
+                    e.preventDefault();
+                    if (target.selectionStart !== target.selectionEnd) {
+                        this.insertInput('', target, type, ractive);
+                    } else {
+                        var tokenEnd = caret + token.length; // ending index of the token (if any)
+                        var deletedPos = oldText.substring(caret, tokenEnd) === token ? tokenEnd : caret;
+                        var newText = oldText.substring(0, deletedPos) + oldText.substring(deletedPos + 1, oldText.length); // remove the character after thousand separator instead of the thousand separator
+
+                        newText = this.reformatTextbox(target, type, newText, ractive);
+
+                        var caretStickToLeft = this.caretStickToLeft[type];
+                        if (typeof caretStickToLeft === 'function') {
+                            var newCaret = caretStickToLeft(caret, oldText, newText);
+                            target.setSelectionRange(newCaret, newCaret);
+                        }
+                    }
+                }
+            },
         },
         daysPassed: function(begin) {
             var now = new Date().getTime();
@@ -344,12 +587,12 @@ define(function() {
             tx.isIncoming = tx.direction === 1 || tx.direction === 0;
             tx.isOutgoing = tx.direction === 2;
             tx.isSelf = tx.direction === 3;
-            tx.formattedSender = Utils.formatAddress(tx.sender);
-            tx.formattedRecipient = Utils.formatAddress(tx.recipient);
-            tx.formattedFee = Utils.formatCurrency(tx.fee, true);
-            tx.formattedAmount = Utils.formatCurrency(tx.amount, true);
-            tx.formattedFullFee = Utils.formatCurrency(tx.fee, false, true, true);
-            tx.formattedFullAmount = Utils.formatCurrency(tx.amount, false, true, true);
+            tx.formattedSender = Utils.format.address.format(tx.sender);
+            tx.formattedRecipient = Utils.format.address.format(tx.recipient);
+            tx.formattedFee = Utils.format.nem.formatNemAmount(tx.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullFee = Utils.format.nem.formatNemAmount(tx.fee);
+            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.amount);
             tx.formattedDate = Utils.formatDate(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
             return tx;
         },
@@ -368,7 +611,7 @@ define(function() {
             if (!block.fee && block.fee !== 0) block.fee = block.totalFee;
 
             block.formattedTime = Utils.formatDate(block.timeStamp, 'M dd, yyyy hh:mm:ss');
-            block.formattedFee = Utils.formatCurrency(block.fee, true);
+            block.formattedFee = Utils.format.nem.formatNemAmount(block.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             return block;
         },
         processHarvestedBlocks: function(blocks) {
@@ -378,7 +621,11 @@ define(function() {
             return blocks;
         },
         processAccount: function(account) {
-            account.formattedAddress = Utils.formatAddress(account.address);
+            account.formattedAddress = Utils.format.address.format(account.address);
+            var balanceObj = Utils.format.nem.uNemToNem(account.balance);
+            account.formattedBalance = Utils.format.nem.formatNem(balanceObj, {fixedDecimalPlaces: true});
+            account.balanceInt = parseInt(balanceObj.intPart, 10);
+            account.balanceDec = parseInt(balanceObj.decimalPart, 10);
 
             if (account.transactions) {
                 account.transactions = Utils.processTransactions(account.transactions);

@@ -8,10 +8,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         },
         computed: {
             amount: function() {
-                return Utils.toMNem(Utils.convertCurrencyToStandard(this.get('formattedAmount')));
+                return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedAmount')));
             },
             recipient: function() {
-                return Utils.restoreAddress(this.get('formattedRecipient'));
+                return Utils.format.address.restore(this.get('formattedRecipient'));
             },
             recipientValid: function() {
                 var recipient = this.get('recipient');
@@ -31,11 +31,11 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             },
             fee: {
                 get: function() {
-                    return Utils.toMNem(Utils.convertCurrencyToStandard(this.get('formattedFee')));
+                    return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedFee')));
                 },
                 set: function(fee) {
-                    this.set('formattedFee', Utils.formatCurrency(fee, false, true, true));
-                    this.update('fee'); // if not, stupid Ractive would not trigger fee observer
+                    this.set('formattedFee', Utils.format.nem.formatNemAmount(fee));
+                    this.update('fee'); // so that stupid Ractive trigger fee observers
                 }
             },
             feeValid: function() {
@@ -45,7 +45,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 return !this.get('feeValid') && this.get('feeChanged');
             },
             formattedMinimumFee: function() {
-                return Utils.formatCurrency(this.get('minimumFee'), false, true, true);
+                return Utils.format.nem.formatNemAmount(this.get('minimumFee'));
             },
             passwordValid: function() {
                 return !!this.get('password');
@@ -214,24 +214,30 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             });
 
             var $recipient = $('.js-sendNem-recipient-textbox');
-            $recipient.on('keyup', Utils.generateMask('address'));
+            $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            $recipient.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            $recipient.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $amount = $('.js-sendNem-amount-textbox');
             var amountTxb = $amount[0];
-            $amount.on('keyup', Utils.generateMask('nem'));
+            $amount.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
+            $amount.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $amount.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
 
             var $fee = $('.js-sendNem-fee-textbox');
             var feeTxb = $fee[0];
-            $fee.on('keyup', Utils.generateMask('nem'));
+            $fee.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
+            $fee.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $fee.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
 
             this.listeners.push(ncc.observe({
                 'texts.preferences.thousandSeparator': function(newProp, oldProp) {
-                    amountTxb.value = Utils.convertCurrencyFormat(amountTxb.value, oldProp, newProp);
-                    feeTxb.value = Utils.convertCurrencyFormat(feeTxb.value, oldProp, newProp);
+                    amountTxb.value = Utils.format.nem.reformat(amountTxb.value, oldProp, newProp);
+                    feeTxb.value = Utils.format.nem.reformat(feeTxb.value, oldProp, newProp);
                 },
                 'texts.preferences.decimalSeparator': function(newProp, oldProp) {
-                    amountTxb.value = Utils.convertCurrencyFormat(amountTxb.value, null, null, oldProp, newProp);
-                    feeTxb.value = Utils.convertCurrencyFormat(feeTxb.value, null, null, oldProp, newProp);
+                    amountTxb.value = Utils.format.nem.reformat(amountTxb.value, null, null, oldProp, newProp);
+                    feeTxb.value = Utils.format.nem.reformat(feeTxb.value, null, null, oldProp, newProp);
                 }
             }));
         }

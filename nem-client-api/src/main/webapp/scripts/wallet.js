@@ -122,7 +122,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         }
                     ],
                     {
-                        account: Utils.formatAddress(account),
+                        account: Utils.format.address.format(account),
                         wallet: wallet
                     },
                     function(values, closeModal) {
@@ -317,7 +317,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/account/new', values, function(data) {
                                 if (data.address) {
                                     var label = data.label;
-                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), Utils.formatAddress(data.address), label));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), Utils.format.address.format(data.address), label));
 
                                     var layout = ncc.get('layout');
                                     var wallet = ncc.get('wallet.name');
@@ -340,7 +340,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 },
                 createRealAccountData: (function() {
                     var showAccountData = function(accountData) {
-                        var formattedAddress = Utils.formatAddress(accountData.address);
+                        var formattedAddress = Utils.format.address.format(accountData.address);
 
                         // Open the 1st modal: generating account data
                         ncc.showInputForm(
@@ -499,7 +499,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         ],
                         {},
                         function(values, closeModal) {
-                            values.address = Utils.restoreAddress(values.address);
+                            values.address = Utils.format.address.restore(values.address);
                             ncc.postRequest('account/verify-real-account-data', values, function(data) {
                                 ncc.showMessage(ncc.get('texts.common.success'),
                                     ncc.get('texts.modals.verifyRealAccountData.dataMatched'));
@@ -551,7 +551,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/account/add', values, function(data) {
                                 if (data.address) {
                                     var label = data.label;
-                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), Utils.formatAddress(data.address), label));
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), Utils.format.address.format(data.address), label));
 
                                     var layout = ncc.get('layout');
                                     var wallet = ncc.get('wallet.name');
@@ -613,13 +613,13 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         ],
                         {
-                            account: Utils.formatAddress(account),
+                            account: Utils.format.address.format(account),
                             wallet: wallet
                         },
                         function(values, closeModal) {
                             values.account = account;
                             ncc.postRequest('wallet/account/primary', values, function(data) {
-                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), Utils.formatAddress(account), accountLabel));
+                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), Utils.format.address.format(account), accountLabel));
                                 ncc.set('wallet', Utils.processWallet(data));
                                 closeModal();
                             });
@@ -771,7 +771,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 var label = values.label;
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
-                                    ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), Utils.formatAddress(account), label)
+                                    ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), Utils.format.address.format(account), label)
                                 );
                                 ncc.refreshInfo();
                                 closeModal();
@@ -812,7 +812,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             ncc.postRequest('wallet/account/remove', values, function(data) {
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
-                                    ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), Utils.formatAddress(account), accountLabel)
+                                    ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), Utils.format.address.format(account), accountLabel)
                                 );
                                 ncc.set('wallet', Utils.processWallet(data));
                                 ncc.fire('switchAccount', null, data.primaryAccount.address);

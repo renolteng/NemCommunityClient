@@ -150,6 +150,18 @@ define(function(require) {
                 // 5 status code is not implemented yet
                 // so we cannot completely rely on NIS status code
                 return this.get('nisStatus.code') === Utils.config.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
+            },
+            lcwNameValid: function() {
+                return !!this.get('landingPage.createWalletForm.wallet');
+            },
+            lcwPasswordValid: function() {
+                return !!this.get('landingPage.createWalletForm.password');
+            },
+            lcwConfirmPasswordValid: function() {
+                return this.get('lcwPasswordValid') && this.get('landingPage.createWalletForm.password') === this.get('landingPage.confirmPassword');
+            },
+            lcwFormValid: function() {
+                return this.get('lcwNameValid') && this.get('lcwPasswordValid') && this.get('lcwConfirmPasswordValid');
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
@@ -498,7 +510,6 @@ define(function(require) {
             });
 
             this.set('fill', this.fill);
-            this.set('formatCurrency', Utils.formatCurrency);
 
             this.global = {
                 $window: $(window),

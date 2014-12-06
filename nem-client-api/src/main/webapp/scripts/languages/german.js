@@ -3,7 +3,7 @@ define({
 	name: "Deutsch",
 	texts: {
 		preferences: {
-			thousandSeparator: " .",
+			thousandSeparator: ".",
 			decimalSeparator: ","
 		},
 		faults: {
