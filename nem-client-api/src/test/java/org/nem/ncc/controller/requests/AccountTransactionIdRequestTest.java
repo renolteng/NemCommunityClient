@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.model.Address;
-import org.nem.core.serialization.JsonDeserializer;
+import org.nem.core.serialization.*;
 import org.nem.ncc.test.Utils;
 
 public class AccountTransactionIdRequestTest {
@@ -72,12 +72,12 @@ public class AccountTransactionIdRequestTest {
 		new AccountTransactionIdRequest(Address.fromEncoded("FOO"), null);
 	}
 
-	@Test(expected = NumberFormatException.class)
+	@Test(expected = TypeMismatchException.class)
 	public void requestCannotBeCreatedAroundInvalidTransactionId() {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", Utils.generateRandomAddress().getEncoded());
-		jsonObject.put("transactionId", "zzz");
+		jsonObject.put("id", "zzz");
 
 		// Act:
 		new AccountTransactionIdRequest(new JsonDeserializer(jsonObject, null));
@@ -88,7 +88,7 @@ public class AccountTransactionIdRequestTest {
 			final Long transactionId) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", address);
-		jsonObject.put("transactionId", transactionId == null ? null : transactionId.toString());
+		jsonObject.put("id", transactionId);
 		return new AccountTransactionIdRequest(new JsonDeserializer(jsonObject, null));
 	}
 }
