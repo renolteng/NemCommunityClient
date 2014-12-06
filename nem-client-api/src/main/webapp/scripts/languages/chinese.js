@@ -446,7 +446,7 @@ define({
 				title: '最近的交易',
 				sendNem: '发送NEM',
 				balance: '目前余额',
-				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后{{/2}}天)',
+				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后天数{{/2}})',
 				unknown: '未知',
 				columns: [
 					'',
