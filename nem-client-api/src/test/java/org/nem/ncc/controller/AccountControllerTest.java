@@ -115,8 +115,6 @@ public class AccountControllerTest {
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(27);
 
-		// TODO 20141201 J-B: can you create a helper function like createRequest(account.getAddress())?
-		// TODO 20141206 BR -> J done.
 		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19, 12L),
