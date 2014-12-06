@@ -382,8 +382,7 @@ define(function() {
                         var decPartLength = oldText.length - oldIntPartLength;
                         oldCaretToRight = oldCaretToRight - decPartLength;
                         var wholeChunks = Math.floor(oldCaretToRight / chunkLength);
-                        var remaining = (oldCaretToRight % chunkLength);
-                        var realCaretToRight = (decPartLength ? decPartLength - decimalSeparator.length : 0) + (wholeChunks * 3) + remaining;
+                        var realCaretToRight = (decPartLength ? decPartLength - decimalSeparator.length : 0) + (oldCaretToRight - wholeChunks * tsLength);
 
                         var newDsPos = newText.indexOf(decimalSeparator);
                         var newIntPartLength = newDsPos !== -1 ? newDsPos : newText.length;
@@ -394,8 +393,7 @@ define(function() {
                             var newDecPartLength = newText.length - newIntPartLength;
                             realCaretToRight = realCaretToRight - newDecPartLength;
                             var newWholeChunks = Math.floor(realCaretToRight / chunkLength);
-                            var newRemaining = realCaretToRight % 3;
-                            var newCaretToRight = (newDecPartLength - decimalSeparator.length) + (newWholeChunks * 3) + newRemaining;
+                            var newCaretToRight = (newDecPartLength - decimalSeparator.length) + (realCaretToRight + newWholeChunks * tsLength);
                         }
                     }
 
@@ -408,10 +406,9 @@ define(function() {
                     if (oldCaretToRight <= lastChunk) {
                         var realCaretToRight = oldCaretToRight;
                     } else {
-                        oldCaretToRight = oldCaretToRight - lastChunk - 1;
+                        oldCaretToRight = oldCaretToRight - (lastChunk? lastChunk + 1 : 0);
                         var wholeChunks = Math.floor(oldCaretToRight / 7);
-                        var remaining = (oldCaretToRight % 7);
-                        var realCaretToRight = lastChunk + (wholeChunks * 6) + remaining;
+                        var realCaretToRight = lastChunk + (oldCaretToRight - wholeChunks * 1);
                     }
 
                     var newLastChunk = newText.length % 7;
@@ -420,8 +417,7 @@ define(function() {
                     } else {
                         realCaretToRight = realCaretToRight - newLastChunk;
                         var newWholeChunks = Math.floor(realCaretToRight / 6);
-                        var newRemaining = realCaretToRight % 6;
-                        var newCaretToRight = newLastChunk + 1 + (newWholeChunks * 7) + newRemaining;
+                        var newCaretToRight = (newLastChunk? newLastChunk + 1 : 0) + (realCaretToRight + newWholeChunks * 1);
                         var newCaret = newText.length - newCaretToRight;
                     }
 
@@ -444,10 +440,9 @@ define(function() {
                             var afterDs = oldCaret - oldIntPartLength - decimalSeparator.length;
                             oldCaret = oldIntPartLength;
                         }
-                        oldCaret = oldCaret - lastChunk - tsLength;
+                        oldCaret = oldCaret - (lastChunk? lastChunk + tsLength : 0);
                         var wholeChunks = Math.floor(oldCaret / chunkLength);
-                        var remaining = (oldCaret % chunkLength);
-                        var realCaret = lastChunk + (wholeChunks * 3) + remaining + (afterDs || 0);
+                        var realCaret = lastChunk + (oldCaret - wholeChunks * tsLength) + (afterDs || 0);
                     }
 
                     var newDsPos = newText.indexOf(decimalSeparator);
@@ -456,14 +451,13 @@ define(function() {
                     if (realCaret <= newLastChunk) {
                         var newCaret = realCaret;
                     } else {
-                        var newRealIntDigits = Math.floor(newIntPartLength / chunkLength) * 3 + newIntPartLength % chunkLength;
+                        var newRealIntDigits = newIntPartLength - Math.floor(newIntPartLength / chunkLength) * tsLength;
                         if (realCaret > newRealIntDigits) {
                             var newCaret = newIntPartLength + decimalSeparator.length + (realCaret - newRealIntDigits);
                         } else {
                             realCaret = realCaret - newLastChunk;
                             var newWholeChunks = Math.floor(realCaret / 3);
-                            var newRemaining = realCaret % 3;
-                            var newCaret = newLastChunk + tsLength + (newWholeChunks * chunkLength) + newRemaining;
+                            var newCaret = (newLastChunk? newLastChunk + tsLength : 0) + (realCaret + newWholeChunks * tsLength);
                         }
                     }
 
