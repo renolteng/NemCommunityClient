@@ -6,6 +6,7 @@ import org.nem.core.serialization.Deserializer;
 /**
  * A request representing an account and an optional transaction id.
  * TODO 20141201 J-B: can we get rid of AccountHashRequest now?
+ * TODO 20141206 BR -> J: no, the harvest requests need it.
  */
 public class AccountTransactionIdRequest extends AccountIdRequest {
 	private final Long transactionId;

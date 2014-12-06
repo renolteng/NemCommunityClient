@@ -28,7 +28,7 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 
 public class AccountControllerTest {
-	private final SecureRandom random = new SecureRandom();
+	private static final SecureRandom random = new SecureRandom();
 
 	//region findAccount
 
@@ -64,7 +64,7 @@ public class AccountControllerTest {
 				.thenReturn(originalAccountViewModel);
 
 		// Act:
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
+		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final AccountViewModel accountViewModel = pair.getAccount();
 
@@ -89,7 +89,7 @@ public class AccountControllerTest {
 				.thenReturn(transactions);
 
 		// Act:
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
+		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
 
@@ -116,7 +116,8 @@ public class AccountControllerTest {
 		context.setLastBlockHeight(27);
 
 		// TODO 20141201 J-B: can you create a helper function like createRequest(account.getAddress())?
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
+		// TODO 20141206 BR -> J done.
+		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19, 12L),
 				createTransferMetaDataPair(account, Amount.fromNem(572), 17, 23L),
@@ -156,7 +157,7 @@ public class AccountControllerTest {
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
 				.thenReturn(transactions);
 
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), random.nextLong());
+		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 25, 34L));
 		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId()))
@@ -209,7 +210,7 @@ public class AccountControllerTest {
 		Mockito.when(context.accountMapper.toViewModel(account.getAddress()))
 				.thenReturn(createViewModel(account));
 
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), null);
+		final AccountHashRequest request = createHashRequest(account.getAddress(), null);
 		final List<Transaction> pairs = Arrays.asList(
 				createTransfer(Utils.generateRandomAccount(), Amount.fromNem(124)),
 				createTransfer(account, Amount.fromNem(572)),
@@ -240,7 +241,7 @@ public class AccountControllerTest {
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
 
-		final AccountHashRequest request = new AccountHashRequest(account.getAddress(), Utils.generateRandomHash());
+		final AccountHashRequest request = createHashRequest(account.getAddress(), Utils.generateRandomHash());
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
 				.thenReturn(Arrays.asList(createTransfer(account, Amount.fromNem(572))));
 
@@ -319,7 +320,7 @@ public class AccountControllerTest {
 	@Test
 	public void getAccountHarvestsDelegatesToAccountServices() {
 		// Arrange:
-		final AccountHashRequest ahRequest = new AccountHashRequest(Utils.generateRandomAddress(), Utils.generateRandomHash());
+		final AccountHashRequest ahRequest = createHashRequest(Utils.generateRandomAddress(), Utils.generateRandomHash());
 		final TestContext context = new TestContext();
 		final List<HarvestInfo> originalHarvestInfos = Arrays.asList(
 				new HarvestInfo(Hash.ZERO, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO),
@@ -367,7 +368,7 @@ public class AccountControllerTest {
 		Mockito.when(wallet.getAccountPrivateKey(account.getAddress())).thenReturn(keyPair.getPrivateKey());
 
 		// Act:
-		action.accept(context.controller, new AccountWalletRequest(account.getAddress(), new WalletName("wallet")));
+		action.accept(context.controller, createWalletRequest(account.getAddress(), new WalletName("wallet")));
 
 		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
 		Mockito.verify(context.connector, Mockito.times(1)).voidPost(Mockito.eq(apiId), requestCaptor.capture());
@@ -401,7 +402,7 @@ public class AccountControllerTest {
 	public void verifyRealAccountDataSucceedsWhenPassedMainNetKeyPair() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(), NetworkInfo.getMainNetworkInfo().getVersion());
+		final KeyPairViewModel viewModel = createKeyPairViewModel(new KeyPair(), NetworkInfo.getMainNetworkInfo().getVersion());
 
 		// Act:
 		context.controller.verifyRealAccountData(viewModel);
@@ -413,7 +414,7 @@ public class AccountControllerTest {
 	public void verifyRealAccountDataFailsWhenPassedTestNetKeyPair() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		final KeyPairViewModel viewModel = new KeyPairViewModel(new KeyPair(), NetworkInfo.getTestNetworkInfo().getVersion());
+		final KeyPairViewModel viewModel = createKeyPairViewModel(new KeyPair(), NetworkInfo.getTestNetworkInfo().getVersion());
 
 		// Act:
 		ExceptionAssert.assertThrowsNccException(
@@ -425,6 +426,22 @@ public class AccountControllerTest {
 
 	private static AccountViewModel createViewModel(final Account account) {
 		return Utils.createAccountViewModelFromAddress(account.getAddress());
+	}
+
+	private static AccountTransactionIdRequest createIdRequest(final Address address) {
+		return new AccountTransactionIdRequest(address, random.nextLong());
+	}
+
+	private static AccountHashRequest createHashRequest(final Address address, final Hash hash) {
+		return new AccountHashRequest(address, hash);
+	}
+
+	private static AccountWalletRequest createWalletRequest(final Address address, final WalletName walletName) {
+		return new AccountWalletRequest(address, walletName);
+	}
+
+	private static KeyPairViewModel createKeyPairViewModel(final KeyPair keyPair, final Byte version) {
+		return new KeyPairViewModel(keyPair, version);
 	}
 
 	private static class TestContext {

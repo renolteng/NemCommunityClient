@@ -32,7 +32,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public AccountMetaDataPair getAccountMetaDataPair(final Address address) {
-		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, formatQueryString(address, null, null));
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, formatIdQueryString(address, null));
 		return new AccountMetaDataPair(deserializer);
 	}
 
@@ -56,7 +56,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public List<TransactionMetaDataPair> getTransactions(final TransactionDirection direction, final Address address, final Long transactionId) {
-		final String queryString = formatQueryString(address, null, transactionId);
+		final String queryString = formatIdQueryString(address, transactionId);
 		final Deserializer deserializer = this.nisConnector.get(this.typeOfTransactionToQueryId(direction), queryString);
 		return deserializer.readObjectArray("data", TransactionMetaDataPair::new);
 	}
@@ -68,7 +68,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public List<Transaction> getUnconfirmedTransactions(final Address address) {
-		final String queryString = formatQueryString(address, null, null);
+		final String queryString = formatIdQueryString(address, null);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, queryString);
 		return deserializer.readObjectArray("data", TransactionFactory.VERIFIABLE).stream()
 				.sorted((lhs, rhs) -> -1 * lhs.getTimeStamp().compareTo(rhs.getTimeStamp()))
@@ -83,7 +83,7 @@ public class AccountServices {
 	 * @return The account information.
 	 */
 	public List<HarvestInfo> getAccountHarvests(final Address address, final Hash endHash) {
-		final String queryString = formatQueryString(address, endHash, null);
+		final String queryString = formatHashQueryString(address, endHash);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
 		return deserializer.readObjectArray("data", HarvestInfo::new);
 	}
@@ -95,17 +95,30 @@ public class AccountServices {
 	 * @param hash The hash.
 	 * @return The formatted string.
 	 */
-	private static String formatQueryString(final Address address, final Hash hash, final Long id) {
+	private static String formatHashQueryString(final Address address, final Hash hash) {
 		final StringBuilder builder = new StringBuilder();
 		builder.append("address=");
 		builder.append(address.getEncoded());
-
-		// TODO 20141201 J-B: would anyone specify both hash and id? we should probably have two functions; formatHashQueryString / formatIdQueryString
 
 		if (null != hash) {
 			builder.append("&hash=");
 			builder.append(hash);
 		}
+
+		return builder.toString();
+	}
+
+	/**
+	 * Formats a string containing address and id information.
+	 *
+	 * @param address The address.
+	 * @param id The id.
+	 * @return The formatted string.
+	 */
+	private static String formatIdQueryString(final Address address, final Long id) {
+		final StringBuilder builder = new StringBuilder();
+		builder.append("address=");
+		builder.append(address.getEncoded());
 
 		if (null != id) {
 			builder.append("&id=");
