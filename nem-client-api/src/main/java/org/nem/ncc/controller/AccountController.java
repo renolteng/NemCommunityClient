@@ -120,7 +120,7 @@ public class AccountController {
 	/**
 	 * Gets information about the specified account and incoming and outgoing confirmed transactions.
 	 *
-	 * @param request The account identifier.
+	 * @param request The account (and optional) transaction identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/confirmed", method = RequestMethod.POST)
@@ -131,7 +131,7 @@ public class AccountController {
 	/**
 	 * Gets information about the specified account and incoming confirmed transactions.
 	 *
-	 * @param request The account identifier.
+	 * @param request The account (and optional) transaction identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/incoming", method = RequestMethod.POST)
@@ -142,7 +142,7 @@ public class AccountController {
 	/**
 	 * Gets information about the specified account and outgoing confirmed transactions.
 	 *
-	 * @param request The account identifier.
+	 * @param request The account (and optional) transaction identifier.
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/outgoing", method = RequestMethod.POST)
