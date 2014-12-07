@@ -119,7 +119,7 @@ define({
 					amount: 'Quantidade',
 					to: 'Para',
 					fee: 'Taxa',
-					dueBy: 'Devido por',
+					dueBy: 'Tempo de espera',
 					hours: 'hora(s)',
 					total: 'Total',
 					message: 'Mensagem',
@@ -181,7 +181,7 @@ define({
 			},
 			closeWallet: {
 				title: "Fechar carteira",
-				message: "Confirmar o fechamento da carteira e o retorno a página inicial?"
+				message: "Confirmar o fechamento da carteira e o retorno à página inicial?"
 			},
 			createAccount: {
 				title: "Criar nova conta",
@@ -286,13 +286,13 @@ define({
 			},
 			shutdown: {
 				title: "Fechar programa",
-				message: "Tem certeza que quer fechar o programa (NEM)?"
+				message: "Tem certeza que quer fechar o programa (NCC)?"
 			},
 			activateRemote: {
 				title: "Ativar colheita remota",
 				wallet: "Carteira",
 				account: "Conta",
-				hoursDue: "Devido por",
+				hoursDue: "Tempo de espera",
 				password: "Senha da carteira",
 				activate: "Ativar"
 			},
@@ -319,7 +319,7 @@ define({
 				stop: "Parar"
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+				leavePage: "Você está saindo da carteira. Ela permanecerá aberta neste computador\n\nPara fazer Logout, por favor, clique em \"Fechar carteira\" no menu superior direito.",
 			}
 		},
 		landing: {
