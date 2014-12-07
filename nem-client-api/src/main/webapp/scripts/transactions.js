@@ -21,6 +21,8 @@
 				if (type === 'append') {
 					requestData.id = (currTxes && currTxes.length) ? currTxes[currTxes.length - 1].id : undefined;
 					ncc.set('status.loadingOlderTransactions', true);
+				} else if (type !== 'update') {
+					ncc.set('transactions.filtered', null);
 				}
 
 				ncc.postRequest(api, requestData, function(data) {
