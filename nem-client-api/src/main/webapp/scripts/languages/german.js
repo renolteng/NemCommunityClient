@@ -3,7 +3,7 @@ define({
 	name: "Deutsch",
 	texts: {
 		preferences: {
-			thousandSeparator: ".",
+			thousandSeparator: " .",
 			decimalSeparator: ","
 		},
 		faults: {
@@ -109,7 +109,7 @@ define({
 				useMinimumFee: "Benutze minimale Gebühr",
 				hours: "Stunden",
 				password: "Passwort",
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: "Password must not be blank",
 				send: "Senden",
 				cancel: "Abbrechen",
 				sending: "Sende...",
@@ -319,7 +319,7 @@ define({
 				stop: "Beenden"
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+				leavePage: "Du bist dabei die Seite zu verlassen ohne Deine Brieftasche zu schließen. Dadurch könnten andere Zugang zu Deiner Brieftasche erhalten.\n\nUm dies zu verhindern solltest Du den Menüpunkt \"Brieftasche schließen\" im Aufklappmenü anwählen bevor Du den Browser schließt oder zu einer anderen Seite navigierst.\n"
 			}
 		},
 		landing: {
@@ -335,7 +335,9 @@ define({
 				leftButton: "Brieftasche anlegen",
 				walletNamePlh: "Name Deiner Brieftasche",
 				passwordPlh: "Passwort",
+				confirmPasswordPlh: "Passwort bestätigen",
 				create: "Anlegen",
+				creating: "Wird angelegt...",
 				rightTitle: "Bist Du schon ein <em>NEM</em>ber?",
 				rightButton: "Öffne Deine Brieftasche",
 				openButton: "Öffnen",
@@ -343,35 +345,41 @@ define({
 				copyright: "Photografie von <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC verschlüsselt Deine Brieftasche",
-					description: "<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern."
-				}, {
-					title: "NCC verschlüsselt Deine Brieftasche",
-					description: "<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern."
-				}]
+				items: [
+					{
+						title: "NCC verschlüsselt Deine Brieftasche",
+						description: "<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern."
+					},
+					{
+						title: "NCC verschlüsselt Deine Brieftasche",
+						description: "<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Wie funktioniert NCC?",
-					paragraphs: [
-						"<strong>NCC</strong> ermöglicht Dir den Zugriff auf Anlagen und NEM genauso wie eine herkömmliche Brieftasche. Du kannst",
-						"<strong>NCC</strong> braucht Zugang zu einem <strong>NIS</strong> Server, um zu funktionieren. Normalerweise wird der Server lokal betrieben (wird zusammen mit dem <strong>NCC</strong> installiert)",
-						"Du kannst auch den Zugang zu einem remote <strong>NIS</strong> konfigurieren."
-					],
-					listItems: [
-						"mehrere Brieftaschen haben",
-						"mehrere Konten in jeder Brieftasche haben"
-					]
-				}, {
-					title: "Was ist &#42;NIS?",
-					paragraphs: [
-						"Diese Komponente ist dafür zuständig, die <strong>NEM</strong> Cloud am Leben zu halten.",
-						"Je mehr <strong>NIS</strong> Server, desto höher die Sicherheit.",
-						"<strong>NIS</strong> ist der Zugangspunkt zur <strong>NEM</strong> Cloud."
-					],
-					legend: "<strong>&#42;NIS</strong> steht für <strong>NEM Infrastructure Server</strong>"
-				}]
+				sections: [
+					{
+						title: "Wie funktioniert NCC?",
+						paragraphs: [
+							"<strong>NCC</strong> ermöglicht Dir den Zugriff auf Anlagen und NEM genauso wie eine herkömmliche Brieftasche. Du kannst",
+							"<strong>NCC</strong> braucht Zugang zu einem <strong>NIS</strong> Server, um zu funktionieren. Normalerweise wird der Server lokal betrieben (wird zusammen mit dem <strong>NCC</strong> installiert)",
+							"Du kannst auch den Zugang zu einem remote <strong>NIS</strong> konfigurieren."
+						],
+						listItems: [
+							"mehrere Brieftaschen haben",
+							"mehrere Konten in jeder Brieftasche haben"
+						]
+					},
+					{
+						title: "Was ist &#42;NIS?",
+						paragraphs: [
+							"Diese Komponente ist dafür zuständig, die <strong>NEM</strong> Cloud am Leben zu halten.",
+							"Je mehr <strong>NIS</strong> Server, desto höher die Sicherheit.",
+							"<strong>NIS</strong> ist der Zugangspunkt zur <strong>NEM</strong> Cloud."
+						],
+						legend: "<strong>&#42;NIS</strong> steht für <strong>NEM Infrastructure Server</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "© Copyright 2014. NEM Community Client."
@@ -524,7 +532,7 @@ define({
 		harvestedBlocks: {
 			title: "Geerntete Blöcke",
 			feeEarned: "Aus den letzten 25 geernteten Blöcken erhaltene Gebühren",
-			unknown: 'Unknown',
+			unknown: "Unbekannt",
 			table: {
 				columns: [
 					"Block",
@@ -541,16 +549,18 @@ define({
 				harvesting: "Ernte",
 				stop: "Ernte beenden",
 				remoteHarvest: {
-					startRemoteHarvesting: "Remote harvesting beginnen",
-					stopRemoteHarvesting: "Remote harvesting beenden"
+					startRemoteHarvesting: "Sichere Ernte beginnen",
+					stopRemoteHarvesting: "Sichere Ernte beenden"
 				}
 			}
 		},
 		settings: {
 			title: "Einstellungen",
-			settings: [{
-				name: "Sprache"
-			}],
+			settings: [
+				{
+					name: "Sprache"
+				}
+			],
 			save: "Änderungen speichern",
 			saveSuccess: "Die Änderungen wurden erfolgreich gespeichert"
 		}
