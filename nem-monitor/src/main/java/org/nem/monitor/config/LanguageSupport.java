@@ -2,7 +2,7 @@ package org.nem.monitor.config;
 
 import org.nem.core.i18n.UTF8ResourceBundleControl;
 
-import java.util.*;
+import java.util.ResourceBundle;
 
 /**
  * Language support.
