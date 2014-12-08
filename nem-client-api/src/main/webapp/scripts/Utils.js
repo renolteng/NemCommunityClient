@@ -261,7 +261,19 @@ define(function() {
                  * @return {number} amount in uNEM
                  */
                 getNemValue: function(nem) {
-                    return (parseInt(nem.intPart, 10) || 0) * Utils.config.nemDivisibility + (parseInt(nem.decimalPart, 10) || 0);
+                    // clever workaround to deal with JavaScript loss of precision bugs
+                    // by using strings for multiplication
+                    // the largest integer that can be stored in a java numeric type (64-bit floating point)
+                    // is Math.pow(2, 53) > 8 * Math.pow(10, 15)
+                    // [ Math.pow(2, 53) - 1 < Math.pow(2, 53) == Math.pow(2, 53) + 1 ]
+                    // NOTE: this only works because nem is assumed to be a string
+
+                    // determine the number of trailing zeros to add based on the index of the decimal
+                    // (note that the nem amount object decimalPart MUST contain leading zeros)
+                    var nemAmountString = nem.intPart + '.' + nem.decimalPart;
+                    var power = 6 - nem.decimalPart.length;
+                    var trailingZeros = new Array(power + 1).join('0');
+                    return parseInt(nemAmountString.replace('.', '') + trailingZeros);
                 },
                 /**
                  * Shortcut function for formatNem() and uNemToNem()
