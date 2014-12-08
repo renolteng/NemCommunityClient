@@ -123,6 +123,13 @@ define(function() {
 
         // FORMAT & CONVERSON
         format: {
+            minDigits: function(num, digits) {
+                num = num.toString();
+                if (num.length < digits) {
+                    num = new Array(digits - num.length + 1).join('0') + num;
+                }
+                return num;
+            },
             nem: {
                 /**
                  * @param {string} str any inputted string
@@ -295,70 +302,60 @@ define(function() {
                     return address.replace(/\-/g, '');
                 },
             },
-        },
-        minDigits: function(num, digits) {
-            num = num.toString(10);
-            while (num.length < digits) {
-                num = '0' + num;
-            }
-            return num;
-        },
-        toDate: function(ms) {
-            return new Date(ms);
-        },
-        formatDate: (function() {
-            var shortMonths = {
-                1: 'Jan',
-                2: 'Feb',
-                3: 'Mar',
-                4: 'Apr',
-                5: 'May',
-                6: 'Jun',
-                7: 'Jul',
-                8: 'Aug',
-                9: 'Sep',
-                10: 'Oct',
-                11: 'Nov',
-                12: 'Dec',
-            };
-            return function(date, format) {
-                if (typeof date === 'number') {
-                    date = Utils.toDate(date);
+            date: {
+                shortMonths: {
+                    1: 'Jan',
+                    2: 'Feb',
+                    3: 'Mar',
+                    4: 'Apr',
+                    5: 'May',
+                    6: 'Jun',
+                    7: 'Jul',
+                    8: 'Aug',
+                    9: 'Sep',
+                    10: 'Oct',
+                    11: 'Nov',
+                    12: 'Dec',
+                },
+                format: function(date, format) {
+                    if (typeof date === 'number') {
+                        date = new Date(date);
 
-                    var month = date.getMonth() + 1;
-                    var day = date.getDate();
-                    var year = date.getFullYear();
-                    var hour = date.getHours();
-                    var min = date.getMinutes();
-                    var sec = date.getSeconds();
+                        var month = date.getMonth() + 1;
+                        var day = date.getDate();
+                        var year = date.getFullYear();
+                        var hour = date.getHours();
+                        var min = date.getMinutes();
+                        var sec = date.getSeconds();
 
-                    switch (format) {
-                    case 'MM/dd/yy hh:mm:ss':
-                        month = Utils.minDigits(month, 2);
-                        day = Utils.minDigits(day, 2);
-                        year = year.toString(10);
-                        year = year.substring(year.length - 2, year.length);
-                        hour = Utils.minDigits(hour, 2);
-                        min = Utils.minDigits(min, 2);
-                        sec = Utils.minDigits(sec, 2);
-                        return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
-                    case 'M dd, yyyy':
-                        month = shortMonths[month];
-                        day = Utils.minDigits(day, 2);
-                        return month + ' ' + day + ', ' + year;
-                    case 'M dd, yyyy hh:mm:ss':
-                        month = shortMonths[month];
-                        day = Utils.minDigits(day, 2);
-                        hour = Utils.minDigits(hour, 2);
-                        min = Utils.minDigits(min, 2);
-                        sec = Utils.minDigits(sec, 2);
-                        return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
+                        switch (format) {
+                        case 'MM/dd/yy hh:mm:ss':
+                            month = Utils.format.minDigits(month, 2);
+                            day = Utils.format.minDigits(day, 2);
+                            year = year.toString(10);
+                            year = year.substring(year.length - 2, year.length);
+                            hour = Utils.format.minDigits(hour, 2);
+                            min = Utils.format.minDigits(min, 2);
+                            sec = Utils.format.minDigits(sec, 2);
+                            return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
+                        case 'M dd, yyyy':
+                            month = this.shortMonths[month];
+                            day = Utils.format.minDigits(day, 2);
+                            return month + ' ' + day + ', ' + year;
+                        case 'M dd, yyyy hh:mm:ss':
+                            month = this.shortMonths[month];
+                            day = Utils.format.minDigits(day, 2);
+                            hour = Utils.format.minDigits(hour, 2);
+                            min = Utils.format.minDigits(min, 2);
+                            sec = Utils.format.minDigits(sec, 2);
+                            return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
+                        }
+                    } else {
+                        return date;
                     }
-                } else {
-                    return date;
                 }
-            };
-        })(),
+            },
+        },
         mask: {
             charsAllowed: {
                 nem: function() {
@@ -605,7 +602,7 @@ define(function() {
             tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(tx.fee);
             tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.amount);
-            tx.formattedDate = Utils.formatDate(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
+            tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
             return tx;
         },
         processTransactions: function(transactions) {
@@ -622,7 +619,7 @@ define(function() {
             if (!block.timeStamp && block.fee !== 0) block.timeStamp = block.timeStamp;
             if (!block.fee && block.fee !== 0) block.fee = block.totalFee;
 
-            block.formattedTime = Utils.formatDate(block.timeStamp, 'M dd, yyyy hh:mm:ss');
+            block.formattedTime = Utils.format.date.format(block.timeStamp, 'M dd, yyyy hh:mm:ss');
             block.formattedFee = Utils.format.nem.formatNemAmount(block.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             return block;
         },
@@ -646,7 +643,7 @@ define(function() {
             return account;
         },
         processWallet: function(wallet) {
-            wallet.lastRefreshDate = Utils.toDate(wallet.lastRefresh).toString();
+            wallet.lastRefreshDate = new Date(wallet.lastRefresh).toString();
             wallet.daysPassed = Utils.daysPassed(wallet.lastRefresh);
 
             Utils.processAccount(wallet.primaryAccount);
