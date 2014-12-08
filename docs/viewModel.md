@@ -106,22 +106,20 @@ possible status values
 }
 ```
 
+### AccountWalletPasswordRequest
+```
+{
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
+	"wallet" : "Test-Wallet",
+	"password" : "Very Secret Password To The Wallet"
+}
+```
 ### AccountWalletRequest
 
 ```
 {
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"wallet" : "Test-Wallet"
-}
-```
-
-### TransferImportanceRequest
-```
-{
-	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
-	"wallet" : "Test-Wallet",
-	"password": "Very Secret Password To The Wallet",
-	"hours_due": "6" // (max: 24)
 }
 ```
 
@@ -291,6 +289,40 @@ Only a local NIS can be booted.
 ```
 
 
+### PartialTransferInformationRequest
+
+```
+{
+	"recipient": "TBYDNCLNEGESF5EWRFWFJU7RNCPWOOQH5LMRSQ5A",
+	"amount":  10000.0,
+	"message": "My first message",
+	"encrypt": 1,
+}
+```
+
+### PartialTransferInformationViewModel
+
+```
+{
+	"fee": 1.0,               # reflects the minimum fee that is required 
+	                          # to send the transaction
+	"encryptionSupported" : 1 # indicates whether an encrypted message can be sent
+	                          # to the recipient (if provided)
+	                          # 0 - encryption is not supported
+	                          # 1 - encryption is supported
+}
+```
+
+### TransferImportanceRequest
+```
+{
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
+	"wallet" : "Test-Wallet",
+	"password": "Very Secret Password To The Wallet",
+	"hours_due": "6" // (max: 24)
+}
+```
+
 ### TransferSendRequest
 
 ```
@@ -327,30 +359,6 @@ Only a local NIS can be booted.
 	"direction": 0																# 1 - incoming, 
 																				# 2 - outgoing, 
 																				# 3 - self
-}
-```
-
-### PartialTransferInformationRequest
-
-```
-{
-	"recipient": "TBYDNCLNEGESF5EWRFWFJU7RNCPWOOQH5LMRSQ5A",
-	"amount":  10000.0,
-	"message": "My first message",
-	"encrypt": 1,
-}
-```
-
-### PartialTransferInformationViewModel
-
-```
-{
-	"fee": 1.0,               # reflects the minimum fee that is required 
-	                          # to send the transaction
-	"encryptionSupported" : 1 # indicates whether an encrypted message can be sent
-	                          # to the recipient (if provided)
-	                          # 0 - encryption is not supported
-	                          # 1 - encryption is supported
 }
 ```
 

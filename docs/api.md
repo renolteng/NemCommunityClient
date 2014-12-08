@@ -163,8 +163,8 @@ Sends a new transaction (i.e., sending NEM, messages, assets).
 Validates a new transaction (i.e., sending NEM, messages, assets) and provides information on fee and encryption possibility.
 
 * Request Method: _POST_
-* Request: [TransferValidateRequest](viewModel.md#transfervalidaterequest)
-* Response: [ValidatedTransferViewModel](viewModel.md#validatedtransferviewmodel)
+* Request: [PartialTransferInformationRequest](viewModel.md#partialtransferinformationrequest)
+* Response: [PartialTransferInformationViewModel](viewModel.md#partialtransferinformationviewmodel)
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/unlock
@@ -187,7 +187,7 @@ Lock the account on the connected NIS server (stop foraging).
 Announces activation of remote harvesting account to the network (FEE: 1)
 
 * Request Method: _POST_
-* Request: [TransferImportanceRequest](viewModel.md#transferImportanceRequest)
+* Request: [TransferImportanceRequest](viewModel.md#transferimportancerequest)
 * Response: `-`
 * Dependent from NIS: _Yes_
 
@@ -195,7 +195,7 @@ Announces activation of remote harvesting account to the network (FEE: 1)
 Announces deactivation of remote harvesting account to the network (FEE: 1)
 
 * Request Method: _POST_
-* Request: [TransferImportanceRequest](viewModel.md#transferImportanceRequest)
+* Request: [TransferImportanceRequest](viewModel.md#transferimportancerequest)
 * Response: `-`
 * Dependent from NIS: _Yes_
 
@@ -203,15 +203,15 @@ Announces deactivation of remote harvesting account to the network (FEE: 1)
 Checks if account is unlocked on remote server, will return an error if
 
 * Request Method: _POST_
-* Request: [AccountWalletRequest](viewModel.md#accountWalletRequest)
-* Response: [AccountStatusViewModel](viewModel.md#accountStatusViewModel)
+* Request: [AccountWalletRequest](viewModel.md#accountwalletrequest)
+* Response: [AccountStatusViewModel](viewModel.md#accountstatusviewmodel)
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/unlock
 Unlock the account on the remote NIS server (start secure foraging).
 
 * Request Method: _POST_
-* Request: [AccountWalletPasswordRequest](viewModel.md#accountWalletPasswordRequest)
+* Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)
 * Response: `-`
 * Dependent from NIS: _Yes_
 
@@ -219,7 +219,7 @@ Unlock the account on the remote NIS server (start secure foraging).
 Lock the account on the remote NIS server (stop secure foraging).
 
 * Request Method: _POST_
-* Request: [AccountWalletPasswordRequest](viewModel.md#accountWalletPasswordRequest)
+* Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)
 * Response: `-`
 * Dependent from NIS: _Yes_
 
@@ -229,7 +229,7 @@ Gets information about the specified account.
 
 * Request Method: _POST_
 * Request: [AccountIdRequest](viewModel.md#accountidrequest)
-* Response: [AccountViewModel](viewModel.md#accountViewModel)
+* Response: [AccountViewModel](viewModel.md#accountviewmodel)
 * Dependent from NIS: _Yes_
 
 ### /account/transactions/unconfirmed
