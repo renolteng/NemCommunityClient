@@ -277,7 +277,7 @@ Boots the local node.
 
 * Request Method: _POST_
 * Request: [BootNodeRequest](viewModel.md#bootnoderequest)
-* Response: [FeeViewModel](viewModel.md#feeviewmodel)
+* Response: -
 * Dependent from NIS: _Yes_
 
 ### /node/status
