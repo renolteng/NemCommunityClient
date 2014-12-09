@@ -12,17 +12,17 @@ define({
 			103: "Lompakkotiedosto on vaurioitunut.Palauta lompakkotiedosto varmuuskopiosta, jonka olet luonut tiliä luodessasi.",
 			104: "Syöttämäsi salasana ei ole oikea. Toivottavasti muistat oikean salasanan. Salasanaa ei voi palauttaa, jos se hukkuu!",
 			106: "Ennenkuin voit käyttää lompakkoa, se pitää avata. Avataksesi lompakon, on sinulla oltava salasana.",
-			107: "Lompakko ei sisältää tätä tiliä.",
+			107: "Lompakko ei sisällä tätä tiliä.",
 			108: "Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 NEM, tai yrität poistaa ensisijaista tiliä.",
-			109: "Saman niminen tili on jo olemassa. Valitse toinen lompakon nimi.",
+			109: "Saman niminen lompakko on jo olemassa. Valitse toinen lompakon nimi.",
 			110: "Lompakko sisältää jo tämän tilin.",
 			202: "Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.",
 			305: "NEM Infrastructure Server ei ole käytettävissä.",
-			306: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannnetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
+			306: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
 			400: "Jotkut parametrit puuttuvat tai ovat viallisia.",
 			401: "Tätä toimintoa ei voida saattaa loppuun, koska muutoin on mahdollista että \"private key\" näkyy ulkopuolisille, mikäli se lähetetään NIS-palveluun.\n",
 			404: "Lähdettä ei löydy.",
-			500: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannnetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
+			500: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
 			600: "NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.",
 			601: "NIS node on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.",
 			700: "Louhintaa (Harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 NEM.",
@@ -45,13 +45,13 @@ define({
 			appStatus: {
 				nccUnknown: "NCC tila tuntematon.",
 				nccUnavailable: "NCC ei ole käytettävissä.",
-				nccStarting: "NCC on käynnistymässä.",
+				nccStarting: "NCC on käynnistymässä...",
 				nisUnknown: "NIS tila on tuntematon",
 				nisUnavailable: "NIS ei ole käytetttävissä",
-				nisStarting: "NIS on käynnistymässä.",
+				nisStarting: "NIS on käynnistymässä...",
 				notBooted: "NIS on käynnistettävä uudelleen. Avaa lompakkosi ja käynnistä local node uudelleen popup valikosta, jotta\nvoit muuttaa auto-boot asetuksia. ",
 				booting: "NIS on käynnistymässä uudelleen...",
-				nisInfoNotAvailable: "NIS info ei ole vielä käytettävissä. Yritetään hakua\nNIS infoa...",
+				nisInfoNotAvailable: "NIS info ei ole vielä käytettävissä. Yritetään hakea\nNIS infoa...",
 				synchronizing: "NIS synkronointi on käynnissä. Block {{1}}, est. {{2}} takana.",
 				daysBehind: {
 					0: "Vähemmän, kuin yksi päivä.",
@@ -76,7 +76,7 @@ define({
 					label: "Kieli"
 				},
 				remoteServer: {
-					tabTitle: "Etäpalvelin",
+					tabTitle: "Remote server",
 					protocol: "Protokolla",
 					protocolOptions: {
 						http: "HTTP"
@@ -130,7 +130,7 @@ define({
 					sending: "Lähetetään..."
 				},
 				notBootedWarning: {
-					title: "Node ei ole käynnistetty uudelleen!",
+					title: "Nodea ei ole käynnistetty uudelleen!",
 					message: "Local node on käynnistettävä uudelleen, jotta NEM\nvoidaan lähettää!"
 				},
 				bootingWarning: {
@@ -142,7 +142,7 @@ define({
 				title: "Client info",
 				ncc: "NEM Community Client - NCC",
 				signer: "Allekirjoittaja",
-				remoteServer: "Etäpalvelin",
+				remoteServer: "Remote server",
 				local: "Local",
 				nis: "NEM Infrastructure Server - NIS",
 				sync: "Synkronoitu",
@@ -193,7 +193,7 @@ define({
 			},
 			createRealAccountData: {
 				title: "Luo real account data",
-				message: "Alla olevat tiedot ovat oikean lompakkosi tiedot, kun\nNEM on julkaistu. Tallenna osoite, public key ja tärkeimpänä private key, turvalliseen paikkaan. Jos private key hukkuu hävität samalla kaikki NEM kolikkosi!",
+				message: "Alla olevat tiedot ovat oikean lompakkosi tiedot (real account data), kun NEM on julkaistu. Tallenna osoite, public key ja tärkeimpänä private key, turvalliseen paikkaan. Jos private key hukkuu hävität samalla kaikki NEM kolikkosi!",
 				address: "Osoite",
 				publicKey: "Public key",
 				privateKey: "Private key",
@@ -202,7 +202,7 @@ define({
 					message: "Oletko varma, että private key on tallennettu turvalliseen paikkaan?"
 				},
 				recheck: {
-					title: "Tarkista tallennetu private key uudellen",
+					title: "Tarkista tallennettu private key uudellen",
 					message: "Syötä juuri luomasi private key uudelleen tarkistaaksesi, että sinulla on oikea private key.\nJos sinulla ei ole sitä, niin haluat ehkä luoda uuden.",
 					correct: {
 						title: "Hienoa!",
@@ -248,7 +248,7 @@ define({
 			changeWalletName: {
 				title: "Vaihda lompakon nimi",
 				wallet: "Nykyisen lompakon nimi",
-				newName: "Uusi lompakon mini",
+				newName: "Uusi lompakon nimi",
 				password: "Lompakon salasana",
 				successMessage: "Lompakon nimi on vaihdetttu onnistuneesti<em>{{1}}</em> - <em>{{2}}</em>",
 				change: "Vaihda"
@@ -289,7 +289,7 @@ define({
 				message: "Haluatko sulkea NEM Community Client sovelluksen?"
 			},
 			activateRemote: {
-				title: "Aktivoi etälouhinta (Remote harvesting)",
+				title: "Aktivoi Remote harvesting",
 				wallet: "Lompakko",
 				account: "Tili",
 				hoursDue: "Maksettavaksi (tunnit)",
@@ -297,7 +297,7 @@ define({
 				activate: "Aktivoi"
 			},
 			deactivateRemote: {
-				title: "Lopeta etälouhinta (Remote harvesting)",
+				title: "Lopeta Remote harvesting",
 				wallet: "Lompakko",
 				account: "Tili",
 				hoursDue: "Maksettavaksi (tunnit)",
@@ -305,14 +305,14 @@ define({
 				deactivate: "Katkaise yhteys"
 			},
 			startRemote: {
-				title: "Aloita etälouhinta (Remote harvesting)",
+				title: "Aloita Remote harvesting",
 				wallet: "Lompakko",
 				account: "Tili",
 				password: "Lompakon salasana",
 				start: "Käynnistä"
 			},
 			stopRemote: {
-				title: "Lopeta etälouhinta (Remote harvesting)",
+				title: "Lopeta Remote harvesting",
 				wallet: "Lompakko",
 				account: "Tili",
 				password: "Lompakon salasana",
@@ -331,28 +331,28 @@ define({
 				settings: "Asetukset"
 			},
 			main: {
-				leftTitle: "Uusi <em>NEM</em>?",
+				leftTitle: "Uusi <em>NEM käyttäjä</em>?",
 				leftButton: "Luo uusi lompakko",
 				walletNamePlh: "Lompakkosi nimi",
 				passwordPlh: "Salasana",
 				confirmPasswordPlh: "Vahvista salasana",
 				create: "Luo",
 				creating: "Luodaan...",
-				rightTitle: "Oletko jo <em>NEM</em>ber?",
+				rightTitle: "Oletko jo <em>NEM</em>tilin käyttäjä?",
 				rightButton: "Avaa lompakkosi",
 				openButton: "Avaaa",
-				walletsFound: "Löydetty <strong>{{1}}</strong> <em>wallet(s)</em>",
-				copyright: "Kuvaaja <em>Cas Cornelissen</em>"
+				walletsFound: "Löydetty <strong>{{1}}</strong> <em>Lompakko(s)</em>",
+				copyright: "Valokuvaaja <em>Cas Cornelissen</em>"
 			},
 			carousel: {
 				items: [
 					{
 						title: "NCC salaa lompakkosi",
-						description: "<em>Security</em> on erittäin tärkeää, että kolikkoja ja assetteja ei varasteta."
+						description: "<em>Turvallisuus</em> on erittäin tärkeää, että kolikkoja ja assetteja ei varasteta."
 					},
 					{
 						title: "NCC salaa lompakkosi",
-						description: "<em>Security</em> on erittäin tärkeää, että kolikkoja ja assetteja ei varasteta."
+						description: "<em>Turvallisuus</em> on erittäin tärkeää, että kolikkoja ja assetteja ei varasteta."
 					}
 				]
 			},
@@ -361,8 +361,8 @@ define({
 					{
 						title: "Miten NCC toimii?",
 						paragraphs: [
-							"<strong>NCC</strong> luo yhteyden assetteihisi ja NEM tilillesi, kuin perinteinen lompakko. Voit",
-							"<strong>NCC</strong> requires access to an <strong>NIS</strong> Palvelin toimintavalmis. Normaalisti paikallinen palvelin on aktiivinen (se on asennettu NCC:n kanssa <strong>NCC</strong>)",
+							"<strong>NCC</strong> luo yhteyden assetteihisi ja NEM tilillesi, kuin perinteinen lompakko. Voit:",
+							"<strong>NCC</strong> vaatii yhteyden <strong>NIS</strong> palvelimelle, ollakseen toimintavalmis. Normaalisti paikallinen palvelin on aktiivinen, se on asennettu <strong>NCC</strong>)palvelun kanssa.",
 							"Voit myös konfiguroida pääsyn etäpalvelimelle <strong>NIS</strong>."
 						],
 						listItems: [
@@ -414,11 +414,11 @@ define({
 				copyClipboard: "Kopioi osoite työpöydälle"
 			},
 			nav: [
-				"Etusivu",
+				"Valikko",
 				"Viesti",
 				"Yhteystiedot",
 				"Siirrot",
-				"Louhitut lohkot (Harvested blocks)",
+				"Harvested blocks",
 				"Asset Exchange",
 				"Uutiset",
 				"Sovellukset",
@@ -436,18 +436,18 @@ define({
 				title: "Merkittävä määrä",
 				unknown: "Tuntematon tila",
 				start: "Aloita local harvesting",
-				harvesting: "Louhinta (Harvesting)",
-				stop: "Lopeta paikallinen louhinta (local harvesting)",
+				harvesting: "Harvesting",
+				stop: "Lopeta local harvesting",
 				description: "Tilin merkitys NEM cloud palvelussa",
 				remoteHarvest: {
-					activate: "Aktovoi eätälouhinta (remote harvesting)",
-					activating: "Aktivoidaan etälouhinta (remote harvesting)...",
-					active: "Etälouhinta (Remote harvesting) on aktiivinen",
-					deactivate: "Lopeta etälouhinta (remote harvesting)",
-					deactivating: "Lopetetaan etälouhinta (remote harvesting)...",
-					startRemoteHarvesting: "Käynnistä etälouhinta (remote harvesting)",
-					remotelyHarvesting: "Aloita louhinta (harvesting)",
-					stopRemoteHarvesting: "Pysäytä etälouhinta (remote harvesting)"
+					activate: "Aktovoi remote harvesting",
+					activating: "Aktivoidaan remote harvesting...",
+					active: "Remote harvesting on aktiivinen",
+					deactivate: "Lopeta remote harvesting",
+					deactivating: "Lopetetaan remote harvesting...",
+					startRemoteHarvesting: "Käynnistä remote harvesting",
+					remotelyHarvesting: "Remotely harvesting",
+					stopRemoteHarvesting: "Pysäytä remote harvesting"
 				}
 			},
 			transactions: {
@@ -468,7 +468,7 @@ define({
 					"Summa"
 				],
 				types: {
-					pending: "Viiästyneet siirrot",
+					pending: "Viivästyneet siirrot",
 					outgoing: "Lähtevät siirrot",
 					incoming: "Saapuvat siirrot",
 					self: "Automaattinen siirto"
@@ -530,27 +530,27 @@ define({
 			}
 		},
 		harvestedBlocks: {
-			title: "Louhitut lohkot (Harvested blocks)",
+			title: "Harvested blocks",
 			feeEarned: "Ansaittuja palkkioita 25 viimeisestä louhitusta lohkosta\n(harvested blocks)",
 			unknown: "Tuntematon",
 			table: {
 				columns: [
 					"Korkeus",
 					"Aika",
-					"Lohkon hash",
+					"Block hash",
 					"Palkkio"
 				],
-				noBlocks: "Yhtään lohkoa ei ole vielä louhittu",
-				loading: "Ladataan lisää louhittuja lohkoja (harvested blocks)"
+				noBlocks: "Yhtään Blockia ei ole vielä louhittu",
+				loading: "Ladataan lisää harvested blocks"
 			},
 			harvesting: {
 				unknown: "Tuntematon tila",
-				start: "Aloita paikallinen louhinta (local harvesting)",
-				harvesting: "Louhinta (Harvesting)",
-				stop: "Lopeta paikallinen louhinta (local harvesting)",
+				start: "Aloita local harvesting",
+				harvesting: "Harvesting",
+				stop: "Lopeta local harvesting",
 				remoteHarvest: {
-					startRemoteHarvesting: "Käynnistä etälouhinta (remote harvesting)",
-					stopRemoteHarvesting: "Lopeta etälouhinta (remote harvesting)"
+					startRemoteHarvesting: "Käynnistä remote harvesting",
+					stopRemoteHarvesting: "Lopeta remote harvesting"
 				}
 			}
 		},
