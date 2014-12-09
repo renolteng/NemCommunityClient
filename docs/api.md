@@ -240,11 +240,19 @@ Gets information about the specified account and unconfirmed transactions.
 * Response: [AccountTransactionsPair](viewModel.md#accounttransactionspair)
 * Dependent from NIS: _Yes_
 
+### /account/transactions/confirmed
+Gets information about the specified account and confirmed transactions.
+
+* Request Method: _POST_
+* Request: [AccountTransactionIdRequest](viewModel.md#accounttransactionidrequest)
+* Response: [AccountTransactionsPair](viewModel.md#accounttransactionspair)
+* Dependent from NIS: _Yes_
+
 ### /account/transactions/incoming
 Gets information about the specified account and incoming transactions.
 
 * Request Method: _POST_
-* Request: [AccountHashRequest](viewModel.md#accounthashrequest)
+* Request: [AccountTransactionIdRequest](viewModel.md#accounttransactionidrequest)
 * Response: [AccountTransactionsPair](viewModel.md#accounttransactionspair)
 * Dependent from NIS: _Yes_
 
@@ -252,7 +260,7 @@ Gets information about the specified account and incoming transactions.
 Gets information about the specified account and outgoing transactions.
 
 * Request Method: _POST_
-* Request: [AccountHashRequest](viewModel.md#accounthashrequest)
+* Request: [AccountTransactionIdRequest](viewModel.md#accounttransactionidrequest)
 * Response: [AccountTransactionsPair](viewModel.md#accounttransactionspair)
 * Dependent from NIS: _Yes_
 
@@ -260,7 +268,7 @@ Gets information about the specified account and outgoing transactions.
 Gets information about the specified account and incoming and outgoing transactions.
 
 * Request Method: _POST_
-* Request: [AccountHashRequest](viewModel.md#accounthashrequest)
+* Request: [AccountTransactionIdRequest](viewModel.md#accounttransactionidrequest)
 * Response: [TransferViewModel](viewModel.md#transferviewmodel)
 * Dependent from NIS: _Yes_
 
@@ -268,7 +276,7 @@ Gets information about the specified account and incoming and outgoing transacti
 Retrieves a list of infos on harvested blocks for an account.
 
 * Request Method: _POST_
-* Request: [AccountTimeStampRequest](viewModel.md#accounttimestamprequest)
+* Request: [AccountHashRequest](viewModel.md#accounthashrequest)
 * Response: [HarvestInfoViewModelList](viewModel.md#harvestinfoviewmodellist)
 * Dependent from NIS: _Yes_
 

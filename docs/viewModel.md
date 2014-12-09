@@ -9,11 +9,22 @@ The view model used by the NCC server.
 ```
 
 ### AccountHashRequest
+The transaction hash parameter is optional.
 
 ```
 {
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"hash": "37ccf321509d58a0d5f7fd48ff4350786abcddddf72d4b5baeae6d3c7f506150"
+}
+```
+
+### AccountTransactionIdRequest
+The transaction id parameter is optional.
+
+```
+{
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
+	"id": 12345
 }
 ```
 
