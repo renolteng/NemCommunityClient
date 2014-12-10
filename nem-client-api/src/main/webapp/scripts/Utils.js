@@ -508,7 +508,9 @@ define(function() {
             keypress: function(e, type, ractive) {
                 // Pasting in  Firefox also fires keypress event (stupid Firefox!)
                 // so we have to detect if Alt or Ctrl key is on
-                if (e.altKey || e.ctrlKey) return;
+                var char = String.fromCharCode(e.which);
+                var nonPrintables = /[\x00-\x1F]/;
+                if (e.altKey || e.ctrlKey || nonPrintables.test(char)) return;
 
                 e.preventDefault();
                 var chars = this.charsAllowed[type];
@@ -517,7 +519,6 @@ define(function() {
                 }
 
                 // Test if char is allowed
-                var char = String.fromCharCode(e.which);
                 if (!chars || !char || !chars.test(char)) return;
 
                 // Perform transformations (if any)
