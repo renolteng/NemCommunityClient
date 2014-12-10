@@ -506,6 +506,10 @@ define(function() {
                 }
             },
             keypress: function(e, type, ractive) {
+                // Pasting in  Firefox also fires keypress event (stupid Firefox!)
+                // so we have to detect if Alt or Ctrl key is on
+                if (e.altKey || e.ctrlKey) return;
+
                 e.preventDefault();
                 var chars = this.charsAllowed[type];
                 if (typeof chars === 'function') {
