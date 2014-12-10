@@ -242,6 +242,15 @@
 			</div>
 		</div>
 		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+			<label class="form-checkbox-label" for="chk-useMinimumFee">
+				{{texts.modals.sendNem.useMinimumFee}}
+				{{#if !useMinimumFee}}
+					({{formattedMinimumFee}} NEM)
+				{{/if}}
+			</label>
+		</div>
+		<div class="form-field">
 			<div class="sendNem-row">
 				<div class="sendNem-half sendNem-half--left">
 					<p class="form-label">
@@ -266,15 +275,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="form-subfield">
-				<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
-				<label class="form-checkbox-label" for="chk-useMinimumFee">
-					{{texts.modals.sendNem.useMinimumFee}}
-					{{#if !useMinimumFee}}
-						({{formattedMinimumFee}} NEM)
-					{{/if}}
-				</label>
 			</div>
 		</div>
 		<div class="form-field">
