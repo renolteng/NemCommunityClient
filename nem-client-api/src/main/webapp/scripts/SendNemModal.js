@@ -203,6 +203,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                         this.sendTransaction();
                     }
                 },
+                modalOpened: function() {
+                    $('.js-sendNem-recipient-textbox').focus();
+                },
                 modalClosed: function() {
                     this.resetDefaultData();
                 }
