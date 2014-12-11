@@ -280,7 +280,7 @@ define(function() {
                     var power = Utils.config.maxDecimalPlaces - nem.decimalPart.length;
                     if (power < 0) power = 0;
                     var trailingZeros = new Array(power + 1).join('0');
-                    return (parseInt(nem.intPart, 10) || 0) * Utils.config.nemDivisibility + (parseInt(nem.decimalPart + keepTrailingZeros, 10) || 0);
+                    return (parseInt(nem.intPart, 10) || 0) * Utils.config.nemDivisibility + (parseInt(nem.decimalPart + trailingZeros, 10) || 0);
                 },
                 /**
                  * Shortcut function for formatNem() and uNemToNem()

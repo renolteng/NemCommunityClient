@@ -75,7 +75,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             ncc.postRequest('wallet/account/transaction/validate', requestData, 
                 function(data) {
                     self.set('minimumFee', data.fee);
-                    self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));1                    
+                    self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
                 }, 
                 {
                     altFailCb: function(faultId, error) {
