@@ -40,7 +40,7 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 		final WalletAccount walletAccount = this.walletServices.tryFindOpenAccount(id);
 		return null == walletAccount
 				? account
-				: account.shallowCopyWithKeyPair(new KeyPair(walletAccount.getPrivateKey()));
+				: new Account(new KeyPair(walletAccount.getPrivateKey()));
 	}
 
 	@Override

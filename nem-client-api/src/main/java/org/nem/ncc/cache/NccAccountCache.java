@@ -119,16 +119,8 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 				final AccountMetaDataPair accountMetaDataPair,
 				final TimeInstant refreshTime) {
 			this.accountMetaDataPair = accountMetaDataPair;
-			this.account = mapAccountInfoToAccount(this.accountMetaDataPair.getAccount());
+			this.account = new Account(this.accountMetaDataPair.getAccount().getAddress());
 			this.refreshTime = refreshTime;
-		}
-
-		private static Account mapAccountInfoToAccount(final AccountInfo info) {
-			return new Account(
-					info.getAddress(),
-					info.getBalance(),
-					info.getNumForagedBlocks(),
-					info.getLabel());
 		}
 	}
 }

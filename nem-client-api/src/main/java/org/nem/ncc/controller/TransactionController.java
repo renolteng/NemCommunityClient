@@ -92,7 +92,7 @@ public class TransactionController {
 		final RequestPrepare preparedTransaction = new RequestPrepare(transferBytes);
 
 		// sign transaction and send to nis
-		final Signer signer = new Signer(transaction.getSigner().getKeyPair());
+		final Signer signer = transaction.getSigner().createSigner();
 		final RequestAnnounce announce = new RequestAnnounce(
 				preparedTransaction.getData(),
 				signer.sign(preparedTransaction.getData()).getBytes());

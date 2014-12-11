@@ -54,21 +54,17 @@ public class WalletAwareAccountLookupTest {
 		final Address address = Utils.generateRandomAddress();
 		final WalletAccount walletAccount = new WalletAccount();
 		final Account account = Mockito.mock(Account.class);
-		final Account accountWithPrivateKey = Mockito.mock(Account.class);
-		final ArgumentCaptor<KeyPair> keyPairCaptor = ArgumentCaptor.forClass(KeyPair.class);
 		Mockito.when(context.mockAccountLookup.findByAddress(address)).thenReturn(account);
 		Mockito.when(context.walletServices.tryFindOpenAccount(address)).thenReturn(walletAccount);
-		Mockito.when(account.shallowCopyWithKeyPair(keyPairCaptor.capture())).thenReturn(accountWithPrivateKey);
 
 		// Act:
 		final Account result = context.accountLookup.findByAddress(address);
 
 		// Assert:
-		Assert.assertThat(result, IsEqual.equalTo(accountWithPrivateKey));
-		Assert.assertThat(keyPairCaptor.getValue().getPrivateKey(), IsEqual.equalTo(walletAccount.getPrivateKey()));
+		Assert.assertThat(account.hasPrivateKey(), IsEqual.equalTo(false)); // sanity check
+		Assert.assertThat(result.hasPrivateKey(), IsEqual.equalTo(true));
 		Mockito.verify(context.mockAccountLookup, Mockito.times(1)).findByAddress(address);
 		Mockito.verify(context.walletServices, Mockito.times(1)).tryFindOpenAccount(address);
-		Mockito.verify(account, Mockito.times(1)).shallowCopyWithKeyPair(Mockito.any());
 	}
 
 	//endregion

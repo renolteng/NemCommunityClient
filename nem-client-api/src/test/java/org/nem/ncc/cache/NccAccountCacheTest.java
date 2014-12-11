@@ -84,10 +84,7 @@ public class NccAccountCacheTest {
 
 		// Assert:
 		Assert.assertThat(account.getAddress(), IsEqual.equalTo(address));
-		Assert.assertThat(account.getKeyPair().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
-		Assert.assertThat(account.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
-		Assert.assertThat(account.getForagedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
-		Assert.assertThat(account.getLabel(), IsEqual.equalTo("label"));
+		Assert.assertThat(account.getAddress().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 	}
 
 	//endregion
@@ -334,10 +331,7 @@ public class NccAccountCacheTest {
 	private static void assertAreEqual(final AccountInfo expectedInfo, final Account actualAccount) {
 		// Assert:
 		Assert.assertThat(actualAccount.getAddress(), IsEqual.equalTo(expectedInfo.getAddress()));
-		Assert.assertThat(actualAccount.getKeyPair().getPublicKey(), IsEqual.equalTo(expectedInfo.getKeyPair().getPublicKey()));
-		Assert.assertThat(actualAccount.getBalance(), IsEqual.equalTo(expectedInfo.getBalance()));
-		Assert.assertThat(actualAccount.getForagedBlocks(), IsEqual.equalTo(expectedInfo.getNumForagedBlocks()));
-		Assert.assertThat(actualAccount.getLabel(), IsEqual.equalTo(expectedInfo.getLabel()));
+		Assert.assertThat(actualAccount.getAddress().getPublicKey(), IsEqual.equalTo(expectedInfo.getKeyPair().getPublicKey()));
 	}
 
 	private static class TestContext {

@@ -71,7 +71,7 @@ public class TransactionMapper {
 
 		return new PartialTransferInformationViewModel(
 				transaction.getFee(),
-				null != request.getRecipientAddress() && null != this.accountLookup.findByAddress(request.getRecipientAddress()).getKeyPair());
+				null != request.getRecipientAddress() && this.accountLookup.findByAddress(request.getRecipientAddress()).hasPublicKey());
 	}
 
 	/**
@@ -147,8 +147,7 @@ public class TransactionMapper {
 			return new PlainMessage(messageBytes);
 		}
 
-		final KeyPair keyPair = recipient.getKeyPair();
-		if (null == keyPair) {
+		if (!recipient.hasPublicKey()) {
 			throw new NccException(NccException.Code.NO_PUBLIC_KEY);
 		}
 

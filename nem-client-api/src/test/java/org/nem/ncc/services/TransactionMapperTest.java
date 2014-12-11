@@ -49,9 +49,7 @@ public class TransactionMapperTest {
 		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferTransaction.Mode.Activate);
 
 		// Assert:
-		Assert.assertThat(
-				model.getRemote().getKeyPair().getPrivateKey(),
-				IsEqual.equalTo(context.account.getRemoteHarvestingPrivateKey())); // the remote address for harvesting
+		Assert.assertThat(model.getRemote().hasPrivateKey(), IsEqual.equalTo(true));
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
 		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferTransaction.Mode.Activate));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
@@ -352,8 +350,9 @@ public class TransactionMapperTest {
 				this.accountLookup,
 				this.timeProvider);
 
-		private final Account signer = Utils.generateRandomAccount();
-		private final WalletAccount account = new WalletAccount(Utils.generateRandomAccount().getKeyPair().getPrivateKey());
+		private final KeyPair signerKeyPair = new KeyPair();
+		private final Account signer = new Account(this.signerKeyPair);
+		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 
@@ -367,7 +366,7 @@ public class TransactionMapperTest {
 			Mockito.when(this.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(124));
 			Mockito.when(this.accountLookup.findByAddress(this.recipient.getAddress())).thenReturn(this.recipient);
 			Mockito.when(this.wallet.getAccountPrivateKey(this.signer.getAddress()))
-					.thenReturn(this.signer.getKeyPair().getPrivateKey());
+					.thenReturn(this.signerKeyPair.getPrivateKey());
 			Mockito.when(this.wallet.tryGetWalletAccount(this.signer.getAddress()))
 					.thenReturn(this.account);
 

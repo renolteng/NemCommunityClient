@@ -56,7 +56,7 @@ public class TransactionControllerTest {
 
 		// Assert:
 		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
-		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		final Signature expectedSignature = model.getSigner().createSigner().sign(serializedModelBytes);
 		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
@@ -137,7 +137,7 @@ public class TransactionControllerTest {
 
 		// Assert:
 		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
-		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		final Signature expectedSignature = model.getSigner().createSigner().sign(serializedModelBytes);
 		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
@@ -161,7 +161,7 @@ public class TransactionControllerTest {
 
 		// Assert:
 		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
-		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		final Signature expectedSignature = model.getSigner().createSigner().sign(serializedModelBytes);
 		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
