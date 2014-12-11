@@ -131,7 +131,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
     })();
 
     ncc.refreshChainHeight = function() {
-        ncc.getRequest('/info/nis/chain/height', function(data) {
+        ncc.getRequest('info/nis/chain/height', function(data) {
             ncc.set('blockchainHeight', data.height);
         }, null, true);
     };

@@ -12,11 +12,17 @@ import java.util.logging.Logger;
  */
 public class AuditInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger LOGGER = Logger.getLogger(AuditInterceptor.class.getName());
-	private static final List<String> IGNORED_API_PATHS = Arrays.asList(
-			"/ncc/api/heartbeat",
-			"/ncc/api/info/nis/check",
-			"/ncc/api/status",
-			"/ncc/api/node/status");
+
+	private final List<String> ignoredApiPaths;
+
+	/**
+	 * Creates a new audit interceptor.
+	 *
+	 * @param ignoredApiPaths The api paths to ignore.
+	 */
+	public AuditInterceptor(final List<String> ignoredApiPaths) {
+		this.ignoredApiPaths = ignoredApiPaths;
+	}
 
 	@Override
 	public boolean preHandle(
@@ -51,7 +57,7 @@ public class AuditInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-	private static class AuditEntry {
+	private class AuditEntry {
 		private final String host;
 		private final String path;
 
@@ -61,7 +67,7 @@ public class AuditInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		private boolean shouldIgnore() {
-			return IGNORED_API_PATHS.stream().anyMatch(this.path::equalsIgnoreCase);
+			return AuditInterceptor.this.ignoredApiPaths.stream().anyMatch(this.path::equalsIgnoreCase);
 		}
 	}
 }

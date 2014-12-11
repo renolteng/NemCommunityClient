@@ -179,4 +179,9 @@ public class NccAppConfig {
 	private File getNemFolder() {
 		return new File(this.configuration().getNemFolder());
 	}
+
+	@Bean
+	public CommonConfiguration nccConfiguration() {
+		return new CommonConfiguration();
+	}
 }

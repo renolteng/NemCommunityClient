@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.servlet.http.*;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletionException;
 
 /**
@@ -29,6 +29,9 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 
 	@Autowired
 	private org.nem.ncc.model.Configuration configuration;
+
+	@Autowired
+	private CommonConfiguration nccConfiguration;
 
 	private ApplicationContext applicationContext;
 
@@ -56,7 +59,7 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 
 	@Override
 	protected void addInterceptors(final InterceptorRegistry registry) {
-		registry.addInterceptor(new AuditInterceptor());
+		registry.addInterceptor(new AuditInterceptor(Arrays.asList(this.nccConfiguration.getNonAuditedApiPaths())));
 		registry.addInterceptor(new LocalNisInterceptor(this.configuration));
 		super.addInterceptors(registry);
 	}
