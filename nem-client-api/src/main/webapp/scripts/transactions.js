@@ -72,7 +72,9 @@
 					ncc.global.$window.off('scroll.txesInfiniteScrolling');
 				} else {
 					$win.on('scroll.txesInfiniteScrolling', function(event) {
-						if (!ncc.get('status.loadingOlderTransactions') && $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
+						if (ncc.get('transactions.filter') !== 'account/transactions/unconfirmed' 
+							&& !ncc.get('status.loadingOlderTransactions') 
+							&& $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
 							ncc.loadTransactions('append');
 						}
 					});
