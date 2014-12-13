@@ -6,7 +6,7 @@ import org.junit.*;
 import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
 import org.nem.core.connect.client.NisApiId;
-import org.nem.core.crypto.*;
+import org.nem.core.crypto.Signature;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.*;
@@ -56,7 +56,7 @@ public class TransactionControllerTest {
 
 		// Assert:
 		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
-		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		final Signature expectedSignature = model.getSigner().createSigner().sign(serializedModelBytes);
 		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
@@ -137,7 +137,7 @@ public class TransactionControllerTest {
 
 		// Assert:
 		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
-		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		final Signature expectedSignature = model.getSigner().createSigner().sign(serializedModelBytes);
 		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
@@ -161,7 +161,7 @@ public class TransactionControllerTest {
 
 		// Assert:
 		final byte[] serializedModelBytes = BinarySerializer.serializeToBytes(model.asNonVerifiable());
-		final Signature expectedSignature = new Signer(model.getSigner().getKeyPair()).sign(serializedModelBytes);
+		final Signature expectedSignature = model.getSigner().createSigner().sign(serializedModelBytes);
 		Assert.assertThat(requestAnnounce.getData(), IsEqual.equalTo(serializedModelBytes));
 		Assert.assertThat(requestAnnounce.getSignature(), IsEqual.equalTo(expectedSignature.getBytes()));
 	}
