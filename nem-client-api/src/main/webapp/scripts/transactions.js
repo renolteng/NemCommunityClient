@@ -61,7 +61,11 @@
 
 			local.listeners.push(ncc.on({
 				refreshAccount: function() {
-					ncc.loadTransactions('update');
+					if (ncc.get('transactions.filter') === 'account/transactions/unconfirmed') {
+						ncc.loadTransactions('reload');
+					} else {
+						ncc.loadTransactions('update');
+					}
 				}
 			}));
 
@@ -73,7 +77,7 @@
 				} else {
 					$win.on('scroll.txesInfiniteScrolling', function(event) {
 						if (ncc.get('transactions.filter') !== 'account/transactions/unconfirmed' 
-							&& !ncc.get('status.loadingOlderTransactions') 
+							&& !ncc.get('status.loadingOlderTransactions')
 							&& $win.scrollTop() + $win.height() >= $doc.height() - local.scrollBottomTolerance) {
 							ncc.loadTransactions('append');
 						}
