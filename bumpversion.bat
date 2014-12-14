@@ -26,7 +26,11 @@ popd
 awk "{ a=gensub(/(.*\.)([0-9]+)(-BETA.*)/,\"\\2\", \"g\",$0); if(a~/[0-9]+/) { gsub(/[0-9]+-BETA/, a+1\"-BETA\", $0);} print $0; }" < .travis.yml > .travis.out
 tr --delete "\r" < .travis.out > .travis.yml
 rm .travis.out
-
 git add .travis.yml
+
+awk "{ a=gensub(/(.*\.)([0-9]+)(-BETA.*)/,\"\\2\", \"g\",$0); if(a~/[0-9]+/) { gsub(/[0-9]+-BETA/, a+1\"-BETA\", $0);} print $0; }" < install-core.bat > install-core.bat.out
+ren install-core.bat.out install-core.bat
+git add install-core.bat
+
 sed -n "/BETA/{ s/.*\([0-9]\+.[0-9]\+.[0-9]\+-BETA\).*/bump version to \1/; p }" .travis.yml | xargs -iXX git commit -m XX
 
