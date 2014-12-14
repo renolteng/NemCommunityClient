@@ -57,6 +57,8 @@
 
 			local.listeners.push(ncc.observe('activeAccount.address transactions.filter', function() {
 				ncc.loadTransactions('reload');
+			}, {
+				init: false
 			}));
 
 			local.listeners.push(ncc.on({
@@ -84,6 +86,8 @@
 					});
 				}
 			}));
+
+			ncc.loadTransactions('reload');
     	},
     	leave: [function() {
     		ncc.global.$window.off('scroll.txesInfiniteScrolling');
