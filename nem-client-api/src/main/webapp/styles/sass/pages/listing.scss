@@ -7,7 +7,7 @@
  * Reuse styles of txList from dashboard.scss
  */
 
-.recordList {
+.listingPage {
 	margin-top: 25px;
 	margin-bottom: 36px;
 	border-top: 8px solid #736086;
@@ -15,12 +15,12 @@
 	color: #252a34;
 }
 
-.recordList-head {
+.listingPage-head {
 	border-bottom: 1px solid #aeaeae;
-	padding: 34px 0 16px 44px;
+	padding: 34px 25px 16px 44px;
 }
 
-.recordList-title {
+.listingPage-title {
 	display: inline-block;
 	font-size: 28px;
 	font-weight: $fontWeight-bold;
@@ -29,29 +29,64 @@
 	vertical-align: middle;
 }
 
-.recordList-overview {
+.listingPage-mainButton {
+	$height: 36px;
+	margin-left: 10px;
+	padding: 0 8px;
+	height: $height;
+	line-height: $height;
+	font-size: 15px;
+	font-weight: $fontWeight-medium;
+	vertical-align: middle;
+}
+
+.listingPage-searchArea {
+	float: right;
+	margin-top: 5px;
+}
+
+.listingPage-search {
+	border-bottom: 1px solid #afafaf;//#5f636a;
+	color: #afafaf; //#252a34;
+	pointer-events: none;
+}
+
+.listingPage-searchTextbox {
+	width: 235px;
+}
+
+.listingPage-searchButton {
+	padding: 0;
+	font-size: 16px;
+}
+
+.listingPage-overview {
 	margin-top: 20px;
 	font-size: 24px;
 }
 
-.recordList-overview-title {
+.listingPage-overview-title {
 	font-size: 14px;
 	font-weight: $fontWeight-black;
 	text-transform: none;
 }
 
-.recordList-body {
+.listingPage-body {
 	padding-top: 10px;
 	padding-bottom: 30px;
 	font-size: 13px;
 }
 
-.recordList-pager {
+.listingPage-list {
+	padding-top: 15px;
+}
+
+.listingPage-pager {
 	@extend %clearfix;
 	margin-top: 30px;
 }
 
-.recordList-pager-loading {
+.listingPage-pager-loading {
 	float: right;
 	padding: 4px 10px 2px;
 	background-color: #2e3440;
@@ -65,22 +100,22 @@
 // TRANSACTIONS PAGE ONLY
 // ================================================================================
 
-.recordList-filterBar {
+.listingPage-filterBar {
 	@extend %clearfix;
 	padding: 10px 25px 10px 44px;
 	color: #000;
 }
 
-.recordList-filter {
+.listingPage-filter {
 	float: left;
 }
 
-.recordList-filterOption {
+.listingPage-filterOption {
 	margin-right: 5px;
 	display: inline-block;
 }
 
-.recordList-filterLabel {
+.listingPage-filterLabel {
 	$height: 28px;
 	display: inline-block;
 	@include border-radius($height / 2);
@@ -94,45 +129,24 @@
 	@include transition-duration(.3s);
 }
 
-.recordList-filterLabel:hover, 
-input:checked + .recordList-filterLabel {
+.listingPage-filterLabel:hover, 
+input:checked + .listingPage-filterLabel {
 	background-color: #797979;
 	color: #fff;
 }
 
-.recordList-searchArea {
-	float: right;
+.transactionsPage-leftMost {
+	padding-left: 17px;
 }
 
-.recordList-search {
-	border-bottom: 1px solid #afafaf;//#5f636a;
-	color: #afafaf; //#252a34;
-	pointer-events: none;
-}
-
-.recordList-searchTextbox {
-	width: 235px;
-}
-
-.recordList-searchButton {
-	padding: 0;
-	font-size: 16px;
-}
-
-.transactionsPage-list {
-	padding-top: 20px;
-	padding-left: 12px;
-	padding-right: 12px;
+.transactionsPage-rightMost {
+	padding-right: 17px;
 }
 
 .transactionsPage-sendNemButton {
 	$bgColor: #41ce7d;
-	margin-left: 10px;
-	padding: 8px 14px 8px 11px;
 	background-color: $bgColor;
 	color: #fff;
-	font-size: 15px;
-	font-weight: $fontWeight-medium;
 
 	&:before {
 		margin-right: 5px;
@@ -154,19 +168,9 @@ input:checked + .recordList-filterLabel {
 // HARVESTED BLOCKS PAGE SPECIFIC
 // ================================================================================
 
-.harvestedBlocksPage-list {
-	padding-top: 10px;
-	padding-left: 44px;
-	padding-right: 30px;
-}
-
 .harvestedBlocksPage-forageButton {
-	margin-left: 10px;
-	padding: 0 8px;
-	height: 36px;
 	background-color: #7c6890;
 	color: #fff;
-	line-height: 36px;
 
 	&:before {
 		margin-right: 8px;
@@ -189,4 +193,41 @@ input:checked + .recordList-filterLabel {
 
 .harvestedBlocksPage-forageButton--foraging {
 	background-color: #a186b9;
+}
+
+.harvestedBlocksPage-forageButton--notForaging, 
+.harvestedBlocksPage-forageButton--foraging {
+	&:hover {
+		background-color: #7c6890;
+	}
+}
+
+.harvestedBlocksPage-leftMost {
+	padding-left: 44px;
+}
+
+.harvestedBlocksPage-rightMost {
+	padding-right: 30px;
+}
+
+// ================================================================================
+// ADDRESS BOOK PAGE SPECIFIC
+// ================================================================================
+
+.addressBook-addButton {
+	$bgColor: #34495e;
+	background-color: $bgColor;
+	color: #fff;
+
+	&:hover {
+		background-color: lighten($bgColor, 10%);
+	}
+}
+
+.addressBook-leftMost {
+	padding-left: 44px;
+}
+
+.addressBook-rightMost {
+	padding-right: 30px;
 }

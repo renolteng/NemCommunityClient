@@ -1,46 +1,46 @@
 <main class="transactions-main">
 	<div class="container">
-		<section class="recordList">
-			<div class="recordList-head">
-				<h1 class="recordList-title">{{texts.transactions.title}}</h1>
-				<button type="button" class="transactionsPage-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
-				<div class="recordList-overview">
-					<p class="recordList-overview-title">{{texts.transactions.balance}}</p>
+		<section class="listingPage">
+			<div class="listingPage-head">
+				<h1 class="listingPage-title">{{texts.transactions.title}}</h1>
+				<button type="button" class="listingPage-mainButton transactionsPage-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
+				<div class="listingPage-searchArea">
+					<div class="listingPage-search">
+						<input class="listingPage-searchTextbox" type="text" />
+						<button class="listingPage-searchButton" type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
+					</div>
+				</div>
+				<div class="listingPage-overview">
+					<p class="listingPage-overview-title">{{texts.transactions.balance}}</p>
 					<p><span title="{{activeAccount.balanceInt}} NEM {{activeAccount.balanceDec}} µNEM" on-mouseover="registerToolTip">{{activeAccount.formattedBalance}} <span class="unit">NEM</span></span></p>
 				</div>
 			</div>
-			<div class="recordList-body">
-				<div class="recordList-filterBar">
-					<ul class="recordList-filter">
-						<li class="recordList-filterOption">
+			<div class="listingPage-body">
+				<div class="listingPage-filterBar">
+					<ul class="listingPage-filter">
+						<li class="listingPage-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-all" name="{{transactions.filter}}" value="account/transactions/confirmed" checked />
-                            <label class="recordList-filterLabel" for="rad-transaction-filter-all">{{texts.transactions.filters.confirmed}}</label>
+                            <label class="listingPage-filterLabel" for="rad-transaction-filter-all">{{texts.transactions.filters.confirmed}}</label>
 						</li>
-						<li class="recordList-filterOption">
+						<li class="listingPage-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-pending" name="{{transactions.filter}}" value="account/transactions/unconfirmed" />
-                            <label class="recordList-filterLabel" for="rad-transaction-filter-pending">{{texts.transactions.filters.unconfirmed}}</label>
+                            <label class="listingPage-filterLabel" for="rad-transaction-filter-pending">{{texts.transactions.filters.unconfirmed}}</label>
 						</li>
-						<li class="recordList-filterOption">
+						<li class="listingPage-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-incoming" name="{{transactions.filter}}" value="account/transactions/incoming" />
-                            <label class="recordList-filterLabel" for="rad-transaction-filter-incoming">{{texts.transactions.filters.incoming}}</label>
+                            <label class="listingPage-filterLabel" for="rad-transaction-filter-incoming">{{texts.transactions.filters.incoming}}</label>
 						</li>
-						<li class="recordList-filterOption">
+						<li class="listingPage-filterOption">
                             <input type="radio" class="hidden" id="rad-transaction-filter-outgoing" name="{{transactions.filter}}" value="account/transactions/outgoing" />
-							<label class="recordList-filterLabel" for="rad-transaction-filter-outgoing">{{texts.transactions.filters.outgoing}}</label>
+							<label class="listingPage-filterLabel" for="rad-transaction-filter-outgoing">{{texts.transactions.filters.outgoing}}</label>
 						</li>
 					</ul>
-					<div class="recordList-searchArea">
-						<div class="recordList-search">
-							<input class="recordList-searchTextbox" type="text" />
-							<button class="recordList-searchButton" type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
-						</div>
-					</div>
 				</div>
-				<div class="transactionsPage-list">
+				<div class="listingPage-list listingPage-list--transactions">
 					<table class="txList">
 						<thead>
-							<tr>
-								<th class="txList-header txList-col--type">{{texts.transactions.table.columns.0}}</th>
+							<tr class="txList-row transactionsPage-row">
+								<th class="txList-header txList-col--type transactionsPage-leftMost">{{texts.transactions.table.columns.0}}</th>
 								<th class="txList-header txList-col--date">{{texts.transactions.table.columns.1}}</th>
 								<th class="txList-header txList-col--sender">{{texts.transactions.table.columns.2}}</th>
 								<th class="txList-header txList-col--message">{{texts.transactions.table.columns.3}}</th>
@@ -48,21 +48,21 @@
 								<th class="txList-header">{{texts.transactions.table.columns.5}}</th>
 								<th class="txList-header txList-col--confirmations">{{texts.transactions.table.columns.6}}</th>
 								<th class="txList-header txList-col--fee">{{texts.transactions.table.columns.7}} <span class="dimmed">(NEM)</span></th>
-								<th class="txList-header txList-col--amount">{{texts.transactions.table.columns.8}} <span class="dimmed">(NEM)</span></th>
+								<th class="txList-header txList-col--amount transactionsPage-rightMost">{{texts.transactions.table.columns.8}} <span class="dimmed">(NEM)</span></th>
 							</tr>
 						</thead>
 						<tbody>
 							{{#each transactions.filtered}}
-								<tr>
+								<tr class="txList-row">
                                     {{#if .confirmed}}
                                         {{#.isSelf}}
-                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.transactions.table.types.self}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type transactionsPage-leftMost icon-self" title="{{texts.transactions.table.types.self}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                         {{#.isOutgoing}}
-                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.transactions.table.types.outgoing}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--outgoing transactionsPage-leftMost icon-minus" title="{{texts.transactions.table.types.outgoing}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                         {{#.isIncoming}}
-                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactions.table.types.incoming}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--incoming transactionsPage-leftMost icon-plus" title="{{texts.transactions.table.types.incoming}}" on-mouseover="registerToolTip"></td>
                                         {{/}}
                                     {{else}}
                                     	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactions.table.types.pending}}" on-mouseover="registerToolTip"></td>
@@ -99,7 +99,7 @@
 										{{/if}}
 									</td>
                                     <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
-                                    <td class="txList-cell txList-col--amount">
+                                    <td class="txList-cell txList-col--amount transactionsPage-rightMost">
 	                                    {{#.isSelf}}&plusmn;{{/}}<!--
 	                                    -->{{#.isOutgoing}}-{{/}}<!--
 	                                    -->{{#.isIncoming}}+{{/}}<!--
@@ -110,11 +110,11 @@
 						</tbody>
 					</table>
 					{{^transactions.filtered}}
-						<p class="txList-noRecords">{{texts.transactions.table.noTransactions}}</p>
+						<p class="txList-noRecords transactionsPage-leftMost transactionsPage-rightMost">{{texts.transactions.table.noTransactions}}</p>
 					{{/}}
-					<div class="recordList-pager">
+					<div class="listingPage-pager transactionsPage-leftMost transactionsPage-rightMost">
 						{{#status.loadingOlderTransactions}}
-							<span type="buttton" class="recordList-pager-loading">{{texts.transactions.table.loading}}</span>
+							<span type="buttton" class="listingPage-pager-loading">{{texts.transactions.table.loading}}</span>
 						{{/}}
 					</div>
 				</div>

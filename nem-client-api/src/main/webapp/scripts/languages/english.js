@@ -548,6 +548,17 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			}
+		},
 		settings: {
 			title: 'Settings',
 			settings: [{

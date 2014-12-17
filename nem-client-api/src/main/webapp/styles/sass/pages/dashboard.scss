@@ -327,8 +327,14 @@
 	text-align: left;
 }
 
+.txList-row--colored {
+	&:nth-child(odd) {
+		background-color: #f6f6f6;
+	}
+}
+
 .txList-cell {
-	padding: 7px 5px;
+	padding: 8px 5px;
 	text-align: left;
 	font-weight: $fontWeight-medium;
 }
