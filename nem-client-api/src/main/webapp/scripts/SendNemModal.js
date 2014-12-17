@@ -105,6 +105,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
             this.set('passwordChanged', false);
+            this.resetFee({ silent: true });
         },
         sendTransaction: function() {
             var requestData = {
@@ -131,15 +132,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.resetDefaultData();
             
             this.observe({
-                'amount recipient message encrypt': (function() {
-                    var t;
-                    return function() {
-                        clearTimeout(t);
-                        t = setTimeout(function() {
-                            self.resetFee({ silent: true });
-                        }, 500);
-                    }
-                })(),
                 encryptionPossible: function(encryptionPossible) {
                     if (!encryptionPossible) {
                         this.set('encrypted', false);
@@ -158,6 +150,15 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             });
 
             this.observe({
+                'amount recipient message encrypt': (function() {
+                    var t;
+                    return function() {
+                        clearTimeout(t);
+                        t = setTimeout(function() {
+                            self.resetFee({ silent: true });
+                        }, 500);
+                    }
+                })(),
                 recipient: (function() {
                     var t;
                     return function(recipient) {
