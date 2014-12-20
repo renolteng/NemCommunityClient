@@ -234,7 +234,7 @@ $form-input-hPadding: 12px;
 	}
 }
 
-.form-input-unit {
+.form-input-end {
 	float: right;
 	line-height: $form-input-height;
 }
@@ -330,6 +330,15 @@ $form-input-hPadding: 12px;
 .form-checkbox,
 .form-checkbox-label {
 	vertical-align: middle;
+}
+
+.form-input-remove {
+	opacity: .6;
+	width: 20px;
+	padding: 0;
+	height: $form-input-height;
+	line-height: $form-input-height;
+	text-align: right;
 }
 
 // ================================================================================

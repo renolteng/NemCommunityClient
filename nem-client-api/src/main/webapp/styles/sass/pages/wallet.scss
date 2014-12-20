@@ -640,9 +640,17 @@ $sendNem-textbox-hPadding: 8px;
 	font-size: 12px;
 
 	.modal-body {
-		padding: 3px 16px 18px;
+		padding: 0;
 		text-align: left;
 	}
+}
+
+.sendNem-form {
+	padding: 3px 16px 18px;
+}
+
+.sendNem-form--txType {
+	background-color: #f5f5f5;
 }
 
 .sendNem-message {
@@ -675,6 +683,11 @@ $sendNem-textbox-hPadding: 8px;
 .sendNem-errorIcon {
 	color: #c03b2d;
 	vertical-align: middle;
+}
+
+.sendNem-addSignatory {
+	color: #5dcd86;
+	font-weight: $fontWeight-bold;
 }
 
 // ================================================================================

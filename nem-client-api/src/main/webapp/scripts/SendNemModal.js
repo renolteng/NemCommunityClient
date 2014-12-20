@@ -101,6 +101,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('dueBy', '12');
             this.set('password', '');
             this.set('useMinimumFee', true);
+            this.set('signatories', [{}]);
 
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
@@ -124,6 +125,14 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
             txConfirm.open();
+        },
+        addSignatory: function() {
+            $('.js-sendNem-signatory').last().focus();
+            this.get('signatories').push({});
+            $('.js-sendNem-signatory').last().focus();
+        },
+        removeSignatory: function(index) {
+            this.get('signatories').splice(index, 1);
         },
         onrender: function() {
             this._super();
@@ -200,7 +209,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 
             this.on({
                 sendFormKeypress: function(e) {
-                    if (e.original.keyCode === 13) {
+                    if (e.original.keyCode === 13 && this.get('formValid')) {
                         this.sendTransaction();
                     }
                 },
@@ -212,10 +221,8 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 }
             });
 
-            require(['maskedinput'], function() {
-                var $dueBy = $('.js-sendNem-dueBy-textbox');
-                $dueBy.mask('00');
-            });
+            var $dueBy = $('.js-sendNem-dueBy-textbox');
+            $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
             var $recipient = $('.js-sendNem-recipient-textbox');
             $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
