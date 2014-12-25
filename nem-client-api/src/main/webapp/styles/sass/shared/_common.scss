@@ -435,6 +435,11 @@ $modal-transitionDuration: .3s;
 	margin-top: 26px;
 }
 
+.modal-buttons {
+	text-align: right;
+	margin-top: 10px;
+}
+
 .modal-button {
 	min-width: 80px;
 	@include border-radius(4px);

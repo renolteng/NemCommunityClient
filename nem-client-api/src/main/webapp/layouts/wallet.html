@@ -350,7 +350,7 @@
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
 		</div>
 	</div>
-	<div class="sendNem-submit">
+	<div class="modal-buttons sendNem-buttons">
 		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.cancel}}</button>
 		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.sendNem.send}}</button>
 	</div>
@@ -411,24 +411,24 @@
 	{{#transaction}}
 		<table>
             <tr>
-                <td class="txDetails-cell--label">{{texts.modals.transactionDetails.hash}}</td>
-                <td class="txDetails-cell--content">{{.hash}}</td>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.hash}}</td>
+                <td class="table-cell table-cell--content">{{.hash}}</td>
             </tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.type}}</td>
-				<td class="txDetails-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="table-cell table-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.sender}}</td>
-				<td class="txDetails-cell--content">{{.formattedSender}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
+				<td class="table-cell table-cell--content">{{.formattedSender}}</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
-				<td class="txDetails-cell--content">{{.formattedRecipient}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
+				<td class="table-cell table-cell--content">{{.formattedRecipient}}</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.message}}</td>
-				<td class="txDetails-cell--content">
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.message}}</td>
+				<td class="table-cell table-cell--content">
 					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
 					{{#.encrypted}}
 						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
@@ -436,12 +436,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.time}}</td>
-				<td class="txDetails-cell--content">{{.formattedDate}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
+				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
-				<td class="txDetails-cell--content">
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
+				<td class="table-cell table-cell--content">
 					{{#if .confirmed}}
 						{{#if blockchainHeight}}
 							{{blockchainHeight - .blockHeight}}
@@ -454,12 +454,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="txDetails-cell--content">{{{.formattedFullAmount}}} NEM</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
+				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} NEM</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="txDetails-cell--content">{{{.formattedFullFee}}} NEM</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
+				<td class="table-cell table-cell--content">{{{.formattedFullFee}}} NEM</td>
 			</tr>
 		</table>
 	{{/}}

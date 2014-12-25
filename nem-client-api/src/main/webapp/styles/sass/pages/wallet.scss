@@ -675,8 +675,9 @@ $sendNem-textbox-hPadding: 8px;
 	}
 }
 
-.sendNem-submit {
-	margin-top: 20px;
+.sendNem-buttons {
+	padding-bottom: 18px;
+	padding-right: 16px;
 	text-align: right;
 }
 
@@ -775,22 +776,21 @@ $txConfirm-label-width: 130px;
 	}
 }
 
-.txDetails-cell--label,
-.txDetails-cell--content {
+.table-cell {
 	$padding: 2px;
 	padding-top: $padding;
 	padding-bottom: $padding;
 	@include break-word();
 }
 
-.txDetails-cell--label {
+.table-cell--label {
 	font-weight: $fontWeight-bold;
 	text-align: right;
 	white-space: nowrap;
 	vertical-align: top;
 }
 
-.txDetails-cell--content {
+.table-cell--content {
 	padding-left: 15px;
 	font-weight: $fontWeight-medium;
 	text-align: left;
