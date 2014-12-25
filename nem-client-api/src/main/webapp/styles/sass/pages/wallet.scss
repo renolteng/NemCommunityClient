@@ -767,12 +767,12 @@ $txConfirm-label-width: 130px;
 // TRANSACTION DETAILS MODAL
 // ================================================================================
 
-.txDetailsModal {
+.txDetailsModal, .accDetailsModal {
 	font-size: 13px;
 	color: #444444;
 
 	.modal-body {
-		padding: 20px;
+		padding: 15px 20px;
 	}
 }
 

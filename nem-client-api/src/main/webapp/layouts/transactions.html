@@ -69,10 +69,14 @@
                                     {{/if}}
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
-                                        <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
+                                        <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
+                                    	</td>
                                     {{/}}
                                     {{#.isIncoming}}
-                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
+                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+                                    	</td>
                                     {{/}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
 										{{#if .message}}
@@ -86,7 +90,9 @@
 											<span class="icon-lock" title="{{texts.transactions.table.encrypted}}" on-mouseover="registerToolTip"></span>
 										{{/}}
 									</td>
-									<td class="txList-cell txList-col--details" on-click="viewTransaction:{{.}}">{{texts.transactions.table.view}}</td>
+									<td class="txList-cell txList-col--details">
+										<a class="hyperlink--default" href="javascript:;" on-click="viewTransaction(.)">{{texts.transactions.table.view}}</a>
+									</td>
 									<td class="txList-cell txList-col--confirmations">
 										{{#if .confirmed}}											
 											{{#if blockchainHeight}}

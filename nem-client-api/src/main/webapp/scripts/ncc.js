@@ -12,6 +12,8 @@ define(function(require) {
     var SettingsModal = require('SettingsModal');
     var SendNemModal = require('SendNemModal');
     var TransactionConfirmModal = require('TransactionConfirmModal');
+    var TransactionDetailsModal = require('TransactionDetailsModal');
+    var AccountDetailsModal = require('AccountDetailsModal');
 
     var NccRactive = Ractive.extend({
         el: document.body,
@@ -24,8 +26,9 @@ define(function(require) {
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
-            transactionDetailsModal: NccModal,
-            transactionConfirmModal: TransactionConfirmModal
+            transactionDetailsModal: TransactionDetailsModal,
+            transactionConfirmModal: TransactionConfirmModal,
+            accountDetailsModal: AccountDetailsModal
         },
         computed: {
             allAccounts: function() {

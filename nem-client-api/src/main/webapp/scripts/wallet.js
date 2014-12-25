@@ -157,6 +157,23 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 );
             };
 
+            ncc.viewTransaction = function(transaction) {
+                var m = ncc.getModal('transactionDetails');
+                m.set('transaction', transaction);
+                m.open();
+            };
+
+            ncc.viewAccount = function(address) {
+                ncc.postRequest(
+                    'account/find', 
+                    {account: Utils.format.address.restore(address)},
+                    function(data) {
+                        var m = ncc.getModal('accountDetails');
+                        m.set('account', data);
+                        m.open();
+                    });
+            };
+
             ncc.on('registerScrollableSidebar', function(e) {
                 var $sidebarNav = $(e.node);
                 var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
@@ -630,13 +647,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 bootLocalNode: function(e, message) {
                     ncc.showBootModal(message);
                 },
-                viewTransaction: (function() {
-                    var modal = ncc.getModal('transactionDetails');
-                    return function(e, transaction) {
-                        modal.set('transaction', transaction);
-                        modal.open();
-                    };
-                })(),
                 changeWalletName: function() {
                     var wallet = ncc.get('wallet.name');
                     ncc.showInputForm(ncc.get('texts.modals.changeWalletName.title'), '',

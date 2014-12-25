@@ -170,6 +170,17 @@ define({
 				amount: 'Amount',
 				fee: 'Fee'
 			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				foragedBlocks: "Foraged blocks",
+				close: "Close"
+			},
 			bootLocalNode: {
 				title: 'Boot local node',
 				account: 'Account to boot local node',

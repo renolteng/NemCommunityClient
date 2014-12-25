@@ -420,11 +420,15 @@
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
-				<td class="table-cell table-cell--content">{{.formattedSender}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+				</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
-				<td class="table-cell table-cell--content">{{.formattedRecipient}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
+				</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.message}}</td>
@@ -464,6 +468,45 @@
 		</table>
 	{{/}}
 </transactionDetailsModal>
+<accountDetailsModal modalClass="accDetailsModal modal--wide" modalTitle="{{texts.modals.accountDetails.title}}" closeOnEnter="true" texts="{{texts}}">
+	{{#account}}
+		<table>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.address}}</td>
+				<td class="table-cell table-cell--content">{{formattedAddress}}</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.label}}</td>
+				<td class="table-cell table-cell--content">
+					{{#if .label}}
+						{{.label}}
+					{{else}}
+						<span class="dimmed">{{texts.modals.accountDetails.noLabel}}</span>
+					{{/if}}
+				</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.balance}}</td>
+				<td class="table-cell table-cell--content">{{formattedBalance}} NEM</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.importance}}</td>
+				<td class="table-cell table-cell--content">{{Math.round(.importance * 10000) / 100}}%</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
+				<td class="table-cell table-cell--content">{{.publicKey}}</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.foragedBlocks}}</td>
+				<td class="table-cell table-cell--content">{{.foragedBlocks}}</td>
+			</tr>
+		</table>
+	{{/}}
+	<div class="modal-buttons">
+		<button type="button" class="modal-button modal-button--primary" on-click="closeModal()">{{texts.modals.accountDetails.close}}</button>
+	</div>
+</accountDetailsModal>
 <clientInfoModal modalClass="clientInfoModal modal--wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}" nisSynchronized="{{nisSynchronized}}">
 	<div class="logo">
 		<img src="images/nem_logo.png" alt="NEM - New Economy Movement">
