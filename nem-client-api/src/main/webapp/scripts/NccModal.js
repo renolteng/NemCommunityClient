@@ -7,7 +7,7 @@ define(['jquery', 'ractive', 'Utils'], function($, Ractive, Utils) {
         listeners: [],
         open: function() {
             this.set('isActive', true);
-            $('.active.modal-container').focus().find('.modal').css({
+            $('.modal--active.modal-container').focus().find('.modal').css({
                 left: 'auto',
                 top: 'auto'
             });

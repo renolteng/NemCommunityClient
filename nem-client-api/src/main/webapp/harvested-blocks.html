@@ -155,7 +155,7 @@
 		<script type="text/ractive" id="modal-template">
 			<div tabindex="-1" class="modal-container {{#isActive}}modal--active{{/}}" on-click="{{^disableEasyClose}}modalContainerClick{{/}}" on-keyup="{{^disableEasyClose}}modalContainerKeyup{{/}}">
 				<article class="modal {{modalClass}}">
-					<div class="modal-head">
+					<div class="modal-head {{^modalTitle}}modal-head--empty{{/}}">
 						<h1 class="modal-title">{{modalTitle}}</h1>
 					</div>
 					<div class="modal-body">

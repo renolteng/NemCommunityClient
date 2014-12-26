@@ -513,6 +513,10 @@ $modal-transitionDuration: .3s;
 	padding: 8px 16px;
 }
 
+.modal-head--empty {
+	border-bottom: none;
+}
+
 .modal-title {
 	text-transform: uppercase;
 	font-size: 14px;
