@@ -3,13 +3,14 @@
 define(['NccModal', 'Utils'], function(NccModal, Utils) {
 	return NccModal.extend({
         computed: {
+            multisigAccount: function() {
+                return ncc.get('activeAccount.address');
+            },
             formattedMultisigAccount: {
                 get: function() {
-                    return Utils.format.address.format(this.get('multisigAccount'));
+                    return ncc.get('activeAccount.formattedAddress');
                 },
-                set: function(address) {
-                    this.set('multisigAccount', Utils.format.address.restore(address));
-                }
+                set: function() {}
             }
         },
 		addCosignatory: function() {
@@ -22,7 +23,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         },
         resetDefaultData: function() {
         	this.set('cosignatories', [{}]);
-            this.set('multisigAccount', ncc.get('activeAccount.address'));
             this.set('useMinimumFee', true);
         },
         onrender: function() {
