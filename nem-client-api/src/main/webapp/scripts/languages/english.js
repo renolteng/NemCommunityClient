@@ -94,6 +94,16 @@ define({
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'This account is labeled as {{1}}',
+				nullLabelDesc: "This account doesn't have a label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert'
+			},
 			sendNem: {
 				title: 'Send NEM',
 				labelDesc: 'This account is labeled as {{1}}',
@@ -416,7 +426,8 @@ define({
 				clientInfo: 'Client Info',
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
-				copyClipboard: 'Copy Address to Clipboard'
+				copyClipboard: 'Copy Address to Clipboard',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Dashboard',

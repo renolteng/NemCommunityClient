@@ -527,7 +527,6 @@ $modal-transitionDuration: .3s;
 .modal-body {
 	color: #444444;
 	padding: 34px 50px 26px;
-	text-align: center;
 }
 
 .modal-closeBtn {
@@ -610,6 +609,7 @@ $modal-transitionDuration: .3s;
 	.modal-body {
 		padding-top: 0;
 		color: #888888;
+		text-align: center;
 	}
 }
 
@@ -624,6 +624,14 @@ $modal-transitionDuration: .3s;
 .errorModal-caption,
 .errorModal-message {
 	margin-top: .2em;
+}
+
+/** Message Modal **/
+
+.messageModal {
+	.modal-body {
+		text-align: center;
+	}
 }
 
 /** Input Modal **/
@@ -643,7 +651,6 @@ $modal-transitionDuration: .3s;
 }
 
 .inputModal-form {
-	text-align: left;
 	padding-bottom: 10px;
 }
 
@@ -660,7 +667,6 @@ $settingModal-bgColor: #fff;
 
 	.modal-body {
 		padding: 0;
-		text-align: left;
 	}
 }
 

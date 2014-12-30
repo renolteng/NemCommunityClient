@@ -610,7 +610,6 @@ $account-actions-width: 33px;
 .clientInfo-content {
 	@extend %clearfix;
 	margin-top: 40px;
-	text-align: left;
 	@include break-word();
 }
 
@@ -632,16 +631,11 @@ $account-actions-width: 33px;
 // SEND NEM MODAL
 // ================================================================================
 
-$sendNem-textbox-height: 27px;
-$sendNem-textbox-vPadding: 6px;
-$sendNem-textbox-hPadding: 8px;
-
 .sendNemModal {
 	font-size: 12px;
 
 	.modal-body {
 		padding: 0;
-		text-align: left;
 	}
 }
 
@@ -686,7 +680,19 @@ $sendNem-textbox-hPadding: 8px;
 	vertical-align: middle;
 }
 
-.sendNem-addSignatory {
+// ================================================================================
+// CONVERT TO MULTISIG MODAL
+// ================================================================================
+
+.convertMultisigModal {
+	font-size: 12px;
+
+	.modal-body {
+		padding: 3px 16px 18px;
+	}
+}
+
+.multisig-addCosignatory {
 	color: #5dcd86;
 	font-weight: $fontWeight-bold;
 }
@@ -733,6 +739,7 @@ $txConfirm-label-width: 130px;
 
 .txConfirm-actions {
 	margin-top: 20px;
+	text-align: center;
 }
 
 .txConfirm-recipient {
