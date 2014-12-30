@@ -102,7 +102,12 @@ define({
 				nullLabelDesc: "This account doesn't have a label",
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Cancel',
-				convert: 'Convert'
+				convert: 'Convert',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
 			},
 			sendNem: {
 				title: 'Send NEM',

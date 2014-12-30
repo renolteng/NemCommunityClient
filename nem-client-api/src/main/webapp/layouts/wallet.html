@@ -267,10 +267,46 @@
 				<button type="button" class="multisig-addCosignatory" on-click="addCosignatory()">{{texts.modals.multisig.addCosignatory}}</button>
 			</div>
 		</div>
-		<div class="modal-buttons sendNem-buttons">
-			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.multisig.cancel}}</button>
-			<button type="button" class="modal-button modal-button--primary" on-click="convertMultisig()">{{texts.modals.multisig.convert}}</button>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+			<label class="form-checkbox-label" for="chk-useMinimumFee">
+				{{texts.modals.multisig.useMinimumFee}}
+				{{#if !useMinimumFee}}
+					({{formattedMinimumFee}} NEM)
+				{{/if}}
+			</label>
 		</div>
+		<div class="form-field">
+			<div class="form-row">
+				<div class="form-half form-half--left">
+					<p class="form-label">
+						{{texts.modals.multisig.fee}}
+						{{#if feeError}}
+							<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+						{{/if}}
+					</p>
+					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+						<span class="form-input-end unit">NEM</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-sendNem-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+						</div>
+					</div>
+				</div>
+				<div class="form-half form-half--right">
+					<p class="form-label">{{texts.modals.multisig.dueBy}}</p>
+					<div class="form-input">
+						<span class="form-input-end unit">{{texts.modals.multisig.hours}}</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-buttons sendNem-buttons">
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.multisig.cancel}}</button>
+		<button type="button" class="modal-button modal-button--primary" on-click="convertMultisig()">{{texts.modals.multisig.convert}}</button>
 	</div>
 </convertMultisigModal>
 <sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip">
@@ -366,8 +402,8 @@
 			</label>
 		</div>
 		<div class="form-field">
-			<div class="sendNem-row">
-				<div class="sendNem-half sendNem-half--left">
+			<div class="form-row">
+				<div class="form-half form-half--left">
 					<p class="form-label">
 						{{texts.modals.sendNem.fee}}
 						{{#if feeError}}
@@ -381,7 +417,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="sendNem-half sendNem-half--right">
+				<div class="form-half form-half--right">
 					<p class="form-label">{{texts.modals.sendNem.dueBy}}</p>
 					<div class="form-input">
 						<span class="form-input-end unit">{{texts.modals.sendNem.hours}}</span>

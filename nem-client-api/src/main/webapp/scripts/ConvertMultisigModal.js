@@ -23,6 +23,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         resetDefaultData: function() {
         	this.set('cosignatories', [{}]);
             this.set('multisigAccount', ncc.get('activeAccount.address'));
+            this.set('useMinimumFee', true);
         },
         onrender: function() {
             this.on('modalOpened', function() {

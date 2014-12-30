@@ -263,6 +263,24 @@ $form-input-hPadding: 12px;
 	margin-top: 6px;
 }
 
+.form-row {
+	@extend %clearfix;
+}
+
+.form-half {
+	$middleGap: 16px;
+	float: left;
+	width: 50%;
+
+	&.form-half--left {
+		padding-right: $middleGap / 2;
+	}
+
+	&.form-half--right {
+		padding-left: $middleGap / 2;
+	}
+}
+
 .form-dropdownbox {
 	position: relative;
 }

@@ -651,24 +651,6 @@ $account-actions-width: 33px;
 	height: 100px;
 }
 
-.sendNem-row {
-	@extend %clearfix;
-}
-
-.sendNem-half {
-	$middleGap: 16px;
-	float: left;
-	width: 50%;
-
-	&.sendNem-half--left {
-		padding-right: $middleGap / 2;
-	}
-
-	&.sendNem-half--right {
-		padding-left: $middleGap / 2;
-	}
-}
-
 .sendNem-buttons {
 	padding-bottom: 18px;
 	padding-right: 16px;
