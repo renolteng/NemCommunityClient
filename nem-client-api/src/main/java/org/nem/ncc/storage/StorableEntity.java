@@ -1,7 +1,31 @@
 package org.nem.ncc.storage;
 
+import org.nem.core.serialization.*;
+import org.nem.core.serialization.ObjectDeserializer;
+
 /**
- * Created by BloodyRookie on 30.12.2014.
+ *
  */
-public class StorableEntity {
+public interface StorableEntity extends ObjectDeserializer<StorableEntity>, SerializableEntity {
+
+	/**
+	 * Gets the label name of the storable entity for serialization (e.g. 'wallet', 'accountLabel').
+	 *
+	 * @return The label name.
+	 */
+	public String getLabelName();
+
+	/**
+	 * Gets the name of the storable entity.
+	 *
+	 * @return The name.
+	 */
+	public StorableEntityName getName();
+
+	/**
+	 * Gets the file extension of the storable entity.
+	 *
+	 * @return The file extension.
+	 */
+	public StorableEntityFileExtension getFileExtension();
 }
