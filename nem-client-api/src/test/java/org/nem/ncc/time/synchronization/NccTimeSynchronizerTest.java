@@ -2,8 +2,8 @@ package org.nem.ncc.time.synchronization;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.nem.core.model.primitive.*;
-import org.nem.core.time.SystemTimeProvider;
+import org.nem.core.model.primitive.TimeOffset;
+import org.nem.core.time.*;
 import org.nem.core.time.synchronization.CommunicationTimeStamps;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.services.TimeSynchronizationServices;

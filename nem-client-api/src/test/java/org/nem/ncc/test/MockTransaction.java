@@ -6,6 +6,8 @@ import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 
+import java.util.*;
+
 /**
  * A mock Transaction implementation.
  */
@@ -73,6 +75,11 @@ public class MockTransaction extends Transaction {
 	@Override
 	protected Amount getMinimumFee() {
 		return Amount.ZERO;
+	}
+
+	@Override
+	protected Collection<Account> getOtherAccounts() {
+		return new ArrayList<>();
 	}
 
 	@Override

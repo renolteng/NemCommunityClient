@@ -3,7 +3,7 @@ package org.nem.ncc.controller.interceptors;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.*;
-import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
