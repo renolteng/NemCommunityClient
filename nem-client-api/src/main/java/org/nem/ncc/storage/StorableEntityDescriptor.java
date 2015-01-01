@@ -10,7 +10,7 @@ import java.io.*;
 public interface StorableEntityDescriptor<TEntity extends StorableEntity> extends SerializableEntity{
 
 	/**
-	 * Gets the underlying TEntity.
+	 * Gets the underlying entity.
 	 *
 	 * @return The underlying entity.
 	 */

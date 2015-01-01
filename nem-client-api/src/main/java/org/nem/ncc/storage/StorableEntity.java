@@ -4,7 +4,7 @@ import org.nem.core.serialization.*;
 import org.nem.core.serialization.ObjectDeserializer;
 
 /**
- *
+ * An interface that describes an entity that can be stored.
  */
 public interface StorableEntity extends ObjectDeserializer<StorableEntity>, SerializableEntity {
 
