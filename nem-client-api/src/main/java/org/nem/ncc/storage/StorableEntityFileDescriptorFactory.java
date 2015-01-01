@@ -3,14 +3,14 @@ package org.nem.ncc.storage;
 import org.eclipse.jetty.util.UrlEncoded;
 
 import java.io.File;
-import java.util.function.BiFunction;
+import java.util.function.*;
 
 /**
  * Factory that creates file-backed storable entity descriptors.
  */
 public class StorableEntityFileDescriptorFactory<TEntity extends StorableEntity> implements StorableEntityDescriptorFactory {
 	private final File directory;
-	private final BiFunction<StorableEntityName, StorableEntityFileExtension, TEntity> entityActivator;
+	private final Function<StorableEntityName, TEntity> entityActivator;
 
 	/**
 	 * Creates a new storable entity descriptor factory.
@@ -19,30 +19,30 @@ public class StorableEntityFileDescriptorFactory<TEntity extends StorableEntity>
 	 */
 	public StorableEntityFileDescriptorFactory(
 			final File directory,
-			final BiFunction<StorableEntityName, StorableEntityFileExtension, TEntity> entityActivator) {
+			final Function<StorableEntityName, TEntity> entityActivator) {
 		this.directory = directory;
 		this.entityActivator = entityActivator;
 	}
 
 	@Override
-	public StorableEntityDescriptor createNew(final StorableEntityNamePasswordPair pair, final StorableEntityFileExtension fileExtension) {
-		final File file = this.createFile(pair.getName(), fileExtension);
+	public StorableEntityDescriptor createNew(final StorableEntityNamePasswordPair pair) {
+		final TEntity entity = this.entityActivator.apply(pair.getName());
+		final File file = this.createFile(entity.getName(), entity.getFileExtension());
 		if (file.exists()) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS);
 		}
 
-		final TEntity entity = this.entityActivator.apply(pair.getName(), fileExtension);
 		return new StorableEntityFileDescriptor<>(entity, file);
 	}
 
 	@Override
-	public StorableEntityDescriptor openExisting(final StorableEntityNamePasswordPair pair, final StorableEntityFileExtension fileExtension) {
-		final File file = this.createFile(pair.getName(), fileExtension);
+	public StorableEntityDescriptor openExisting(final StorableEntityNamePasswordPair pair) {
+		final TEntity entity = this.entityActivator.apply(pair.getName());
+		final File file = this.createFile(entity.getName(), entity.getFileExtension());
 		if (!file.exists()) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
 		}
 
-		final TEntity entity = this.entityActivator.apply(pair.getName(), fileExtension);
 		return new StorableEntityFileDescriptor<>(entity, file);
 	}
 

@@ -4,13 +4,18 @@ import org.nem.core.serialization.*;
 import org.nem.ncc.storage.*;
 
 public class StorableEntityUtils {
+	public static final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+
+	public static StorableEntity createStorableEntity(final String name) {
+		return new DefaultStorableEntity(new StorableEntityName(name), FILE_EXTENSION);
+	}
 
 	public static StorableEntity createStorableEntity(final String name, final String fileExtension) {
 		return new DefaultStorableEntity(new StorableEntityName(name), new StorableEntityFileExtension(fileExtension));
 	}
 
-	public static StorableEntity createStorableEntity(final StorableEntityName name, final StorableEntityFileExtension fileExtension) {
-		return new DefaultStorableEntity(name, fileExtension);
+	public static StorableEntity createStorableEntity(final StorableEntityName name) {
+		return new DefaultStorableEntity(name, FILE_EXTENSION);
 	}
 
 	private static class DefaultStorableEntity implements StorableEntity {
@@ -41,7 +46,7 @@ public class StorableEntityUtils {
 
 		@Override
 		public StorableEntity deserialize(final Deserializer deserializer) {
-			return new DefaultStorableEntity(new StorableEntityName("foo"), new StorableEntityFileExtension(".bar"));
+			return new DefaultStorableEntity(new StorableEntityName("foo"), FILE_EXTENSION);
 		}
 
 		@Override

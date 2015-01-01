@@ -47,6 +47,11 @@ public class StorableEntityStorageException extends NccException {
 		STORABLE_ENTITY_PASSWORD_INCORRECT(104),
 
 		/**
+		 * The storable entity password cannot be a null sting.
+		 */
+		STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL(105),
+
+		/**
 		 * The storable entity creation failed because a storable entity of the same name already exists.
 		 */
 		STORABLE_ENTITY_ALREADY_EXISTS(109),

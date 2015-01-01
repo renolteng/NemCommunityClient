@@ -1,19 +1,17 @@
 package org.nem.ncc.storage;
 
 import org.apache.commons.io.FileUtils;
-import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.ncc.test.*;
 
 import java.io.*;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class SecureStorableEntityDescriptorFactoryTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	private static final StorableEntityFileExtension TEST_FILE_EXTENSION = new StorableEntityFileExtension(".bar");
-	private final BiFunction<StorableEntityName, StorableEntityFileExtension, StorableEntity> entityActivator =	StorableEntityUtils::createStorableEntity;
+	private final Function<StorableEntityName, StorableEntity> entityActivator = StorableEntityUtils::createStorableEntity;
 
 	//region BeforeClass / AfterClass
 
@@ -34,62 +32,30 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	//endregion
 
 	@Test
-	public void createNewFailsIfFileAlreadyExists() {
-		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
-				new StorableEntityName("test"),
-				new StorableEntityPassword("p"));
-
-		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> descriptorFactory.createNew(pair, TEST_FILE_EXTENSION),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS);
-	}
-
-	@Test
-	public void createNewSucceedsIfFileDoesNotExist() {
+	public void createNewFailsIfPasswordIsNull() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
 				new StorableEntityName("test-create"),
-				new StorableEntityPassword("p"));
-
-		// Act:
-		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, TEST_FILE_EXTENSION);
-
-		// Assert:
-		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(SecureStorableEntityDescriptor.class));
-	}
-
-	@Test
-	public void openExistingFailsIfFileDoesNotExist() {
-		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
-				new StorableEntityName("test-open"),
-				new StorableEntityPassword("p"));
+				null);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> descriptorFactory.openExisting(pair, TEST_FILE_EXTENSION),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
+				v -> descriptorFactory.createNew(pair),
+				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
 	}
 
 	@Test
-	public void openExistingSucceedsIfFileAlreadyExists() {
+	public void openExistingFailsIfPasswordIsNull() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
 				new StorableEntityName("test"),
-				new StorableEntityPassword("p"));
+				null);
 
 		// Act:
-		final StorableEntityDescriptor descriptor = descriptorFactory.openExisting(pair, TEST_FILE_EXTENSION);
-
-		// Assert:
-		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test")));
-		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(SecureStorableEntityDescriptor.class));
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
+				v -> descriptorFactory.openExisting(pair),
+				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
 	}
 }

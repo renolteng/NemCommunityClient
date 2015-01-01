@@ -29,6 +29,10 @@ public class SecureStorableEntityDescriptor implements StorableEntityDescriptor 
 	public SecureStorableEntityDescriptor(
 			final StorableEntityDescriptor descriptor,
 			final StorableEntityPassword password) {
+		if (null == password) {
+			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
+		}
+
 		this.descriptor = descriptor;
 		this.password = password;
 	}
