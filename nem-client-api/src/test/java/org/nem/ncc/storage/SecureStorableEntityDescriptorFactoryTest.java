@@ -3,14 +3,17 @@ package org.nem.ncc.storage;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.ncc.test.ExceptionAssert;
+import org.nem.ncc.test.*;
 
 import java.io.*;
+import java.util.function.BiFunction;
+
 public class SecureStorableEntityDescriptorFactoryTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
 	private static final StorableEntityFileExtension TEST_FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+	private final BiFunction<StorableEntityName, StorableEntityFileExtension, StorableEntity> entityActivator =	StorableEntityUtils::createStorableEntity;
 
 	//region BeforeClass / AfterClass
 
@@ -33,7 +36,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	@Test
 	public void createNewFailsIfFileAlreadyExists() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory(TEST_FILE_DIRECTORY);
+		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
 				new StorableEntityName("test"),
 				new StorableEntityPassword("p"));
@@ -47,7 +50,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	@Test
 	public void createNewSucceedsIfFileDoesNotExist() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory(TEST_FILE_DIRECTORY);
+		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
 				new StorableEntityName("test-create"),
 				new StorableEntityPassword("p"));
@@ -56,14 +59,14 @@ public class SecureStorableEntityDescriptorFactoryTest {
 		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, TEST_FILE_EXTENSION);
 
 		// Assert:
-		Assert.assertThat(descriptor.getStorableEntityName(), IsEqual.equalTo(new StorableEntityName("test-create")));
+		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(SecureStorableEntityDescriptor.class));
 	}
 
 	@Test
 	public void openExistingFailsIfFileDoesNotExist() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory(TEST_FILE_DIRECTORY);
+		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
 				new StorableEntityName("test-open"),
 				new StorableEntityPassword("p"));
@@ -77,7 +80,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	@Test
 	public void openExistingSucceedsIfFileAlreadyExists() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory(TEST_FILE_DIRECTORY);
+		final StorableEntityDescriptorFactory descriptorFactory = new SecureStorableEntityDescriptorFactory<>(TEST_FILE_DIRECTORY, entityActivator);
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
 				new StorableEntityName("test"),
 				new StorableEntityPassword("p"));
@@ -86,7 +89,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 		final StorableEntityDescriptor descriptor = descriptorFactory.openExisting(pair, TEST_FILE_EXTENSION);
 
 		// Assert:
-		Assert.assertThat(descriptor.getStorableEntityName(), IsEqual.equalTo(new StorableEntityName("test")));
+		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test")));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(SecureStorableEntityDescriptor.class));
 	}
 }

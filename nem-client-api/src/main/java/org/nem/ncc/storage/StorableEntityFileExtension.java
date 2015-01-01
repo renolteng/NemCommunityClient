@@ -1,6 +1,7 @@
 package org.nem.ncc.storage;
 
 import org.nem.core.utils.StringUtils;
+
 /**
  * Represents a file extension for a storable entity.
  */
@@ -32,6 +33,21 @@ public class StorableEntityFileExtension {
 	public static boolean hasValidExtension(final String fileName) {
 		final int index = fileName.lastIndexOf(".");
 		return -1 != index && EXTENSION_LENGTH == fileName.length() - index;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.fileExtension.hashCode();
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (!(obj instanceof StorableEntityFileExtension)) {
+			return false;
+		}
+
+		final StorableEntityFileExtension rhs = (StorableEntityFileExtension)obj;
+		return this.fileExtension.equals(rhs.fileExtension);
 	}
 
 	@Override

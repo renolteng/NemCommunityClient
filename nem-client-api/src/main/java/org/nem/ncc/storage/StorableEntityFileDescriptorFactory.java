@@ -32,7 +32,7 @@ public class StorableEntityFileDescriptorFactory<TEntity extends StorableEntity>
 		}
 
 		final TEntity entity = this.entityActivator.apply(pair.getName(), fileExtension);
-		return new StorableEntityFileDescriptor(entity, file);
+		return new StorableEntityFileDescriptor<>(entity, file);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class StorableEntityFileDescriptorFactory<TEntity extends StorableEntity>
 		}
 
 		final TEntity entity = this.entityActivator.apply(pair.getName(), fileExtension);
-		return new StorableEntityFileDescriptor(entity, file);
+		return new StorableEntityFileDescriptor<>(entity, file);
 	}
 
 	private File createFile(final StorableEntityName name, final StorableEntityFileExtension fileExtension) {

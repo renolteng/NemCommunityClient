@@ -1,5 +1,6 @@
 package org.nem.ncc.storage;
 
+import org.eclipse.jetty.util.UrlEncoded;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.ExceptionUtils;
 
@@ -31,6 +32,14 @@ public class StorableEntityFileDescriptor<TEntity extends StorableEntity> implem
 		if (!StorableEntityFileExtension.hasValidExtension(fileName)) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION);
 		}
+
+		if (!entity.getName().equals(this.getNameFromFileName(fileName))) {
+			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_FILE_NAME_DOES_NOT_MATCH_ENTITY_NAME);
+		}
+
+		if (!entity.getFileExtension().equals(this.getFileExtensionFromFileName(fileName))) {
+			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_FILE_EXTENSION_DOES_NOT_MATCH_ENTITY_FILE_EXTENSION);
+		}
 	}
 
 	/**
@@ -40,6 +49,16 @@ public class StorableEntityFileDescriptor<TEntity extends StorableEntity> implem
 	 */
 	public String getStorableEntityLocation() {
 		return this.file.getAbsolutePath();
+	}
+
+	private StorableEntityName getNameFromFileName(final String fileName) {
+		final String entityName = fileName.substring(0, fileName.length() - StorableEntityFileExtension.EXTENSION_LENGTH);
+		return new StorableEntityName(UrlEncoded.decodeString(entityName, 0, entityName.length(), UrlEncoded.ENCODING));
+	}
+
+	private StorableEntityFileExtension getFileExtensionFromFileName(final String fileName) {
+		final String fileExtension = fileName.substring(fileName.length() - StorableEntityFileExtension.EXTENSION_LENGTH, fileName.length());
+		return new StorableEntityFileExtension(UrlEncoded.decodeString(fileExtension, 0, fileExtension.length(), UrlEncoded.ENCODING));
 	}
 
 	@Override

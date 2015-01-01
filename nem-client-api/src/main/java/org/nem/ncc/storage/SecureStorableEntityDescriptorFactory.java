@@ -32,8 +32,8 @@ public class SecureStorableEntityDescriptorFactory<TEntity extends StorableEntit
 		return new SecureStorableEntityDescriptor(this.getFileDescriptorFactory(entityActivator).openExisting(pair, fileExtension), pair.getPassword());
 	}
 
-	private StorableEntityFileDescriptorFactory getFileDescriptorFactory(
+	private StorableEntityFileDescriptorFactory<TEntity> getFileDescriptorFactory(
 			final BiFunction<StorableEntityName, StorableEntityFileExtension, TEntity> entityActivator) {
-		return new StorableEntityFileDescriptorFactory(this.directory, entityActivator);
+		return new StorableEntityFileDescriptorFactory<>(this.directory, entityActivator);
 	}
 }

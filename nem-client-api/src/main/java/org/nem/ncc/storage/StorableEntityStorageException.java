@@ -8,7 +8,7 @@ import org.nem.ncc.exceptions.*;
 public class StorableEntityStorageException extends NccException {
 
 	/**
-	 * Wallet storage exception codes.
+	 * Storable entity storage exception codes.
 	 */
 	public static enum Code implements ValueBasedEnum {
 		/**
@@ -49,7 +49,17 @@ public class StorableEntityStorageException extends NccException {
 		/**
 		 * The storable entity creation failed because a storable entity of the same name already exists.
 		 */
-		STORABLE_ENTITY_ALREADY_EXISTS(109);
+		STORABLE_ENTITY_ALREADY_EXISTS(109),
+
+		/**
+		 * The name of the provided file doesn't not match the storable entity name.
+		 */
+		STORABLE_ENTITY_FILE_NAME_DOES_NOT_MATCH_ENTITY_NAME(110),
+
+		/**
+		 * The file extension of the provided file doesn't not match the storable entity file extension.
+		 */
+		STORABLE_ENTITY_FILE_EXTENSION_DOES_NOT_MATCH_ENTITY_FILE_EXTENSION(111);
 
 		private final int value;
 
