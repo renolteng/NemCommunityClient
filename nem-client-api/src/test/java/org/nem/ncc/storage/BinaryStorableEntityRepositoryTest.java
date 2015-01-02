@@ -41,18 +41,20 @@ public class BinaryStorableEntityRepositoryTest {
 	@Test
 	public void canLoadBinaryStorableEntityFromReadStream() {
 		// Arrange:
-		final StorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
+		final DefaultStorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
 		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
 		final ByteArrayInputStream inputStream = new ByteArrayInputStream(BinarySerializer.serializeToBytes(originalEntity));
+		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
-		Mockito.when(descriptor.getEntity()).thenReturn(StorableEntityUtils.createStorableEntity(new StorableEntityName("blah")));
+		Mockito.when(descriptor.getEntity()).thenReturn(entity);
+		Mockito.when(descriptor.getEntityDeserializer()).thenReturn(entity);
 
 		// Act:
-		final StorableEntity entity = new BinaryStorableEntityRepository().load(descriptor);
+		final StorableEntity loadedEntity = new BinaryStorableEntityRepository().load(descriptor);
 
 		// Assert:
 		// TODO 20150101 BR: Any way to do this with IsEquivalent matcher?
-		Assert.assertThat(StorableEntityUtils.isEqual(entity, originalEntity), IsEqual.equalTo(true));
+		Assert.assertThat(originalEntity.isEqual(loadedEntity), IsEqual.equalTo(true));
 	}
 
 	@Test
@@ -72,8 +74,10 @@ public class BinaryStorableEntityRepositoryTest {
 		// Arrange: (storable entity deserialization will fail because the binary stream contains no data)
 		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
 		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { });
+		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
-		Mockito.when(descriptor.getEntity()).thenReturn(StorableEntityUtils.createStorableEntity(new StorableEntityName("blah")));
+		Mockito.when(descriptor.getEntity()).thenReturn(entity);
+		Mockito.when(descriptor.getEntityDeserializer()).thenReturn(entity);
 
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
@@ -86,7 +90,7 @@ public class BinaryStorableEntityRepositoryTest {
 		// Arrange:
 		final StorableEntityRepository repository = new BinaryStorableEntityRepository();
 
-		final StorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
+		final DefaultStorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
 		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		Mockito.when(descriptor.openWrite()).thenReturn(outputStream);
@@ -95,13 +99,15 @@ public class BinaryStorableEntityRepositoryTest {
 		// Act:
 		repository.save(descriptor, originalEntity);
 
+		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
 		Mockito.when(descriptor.openRead()).thenReturn(new ByteArrayInputStream(outputStream.toByteArray()));
-		Mockito.when(descriptor.getEntity()).thenReturn(StorableEntityUtils.createStorableEntity(new StorableEntityName("blah")));
+		Mockito.when(descriptor.getEntity()).thenReturn(entity);
+		Mockito.when(descriptor.getEntityDeserializer()).thenReturn(entity);
 
-		final StorableEntity entity = repository.load(descriptor);
+		final StorableEntity loadedEntity = repository.load(descriptor);
 
 		// Assert:
 		// TODO 20150101 BR: Any way to do this with IsEquivalent matcher?
-		Assert.assertThat(StorableEntityUtils.isEqual(entity, originalEntity), IsEqual.equalTo(true));
+		Assert.assertThat(originalEntity.isEqual(loadedEntity), IsEqual.equalTo(true));
 	}
 }

@@ -1,13 +1,13 @@
 package org.nem.ncc.storage;
 
-import org.nem.core.serialization.SerializableEntity;
+import org.nem.core.serialization.*;
 
 import java.io.*;
 
 /**
  * An interface that describes a storable entity.
  */
-public interface StorableEntityDescriptor<TEntity extends StorableEntity> extends SerializableEntity{
+public interface StorableEntityDescriptor<TEntity extends StorableEntity & ObjectDeserializer<StorableEntity>> extends SerializableEntity{
 
 	/**
 	 * Gets the underlying entity.
@@ -15,6 +15,13 @@ public interface StorableEntityDescriptor<TEntity extends StorableEntity> extend
 	 * @return The underlying entity.
 	 */
 	public TEntity getEntity();
+
+	/**
+	 * Gets the entity deserializer.
+	 *
+	 * @return The entity deserializer.
+	 */
+	public ObjectDeserializer<StorableEntity> getEntityDeserializer();
 
 	/**
 	 * Opens a read stream that can be used to read the contents of the referenced storable entity.

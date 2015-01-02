@@ -18,7 +18,7 @@ public class StorableEntityFileDescriptorTest {
 	private static final File TEST_STORABLE_ENTITY_FILE_BAD_EXT = new File(TEST_FILE_DIRECTORY, "test.foobar");
 	private static final File TEST_STORABLE_ENTITY_FILE_MISMATCH_NAME = new File(TEST_FILE_DIRECTORY, "foo.bar");
 	private static final File TEST_STORABLE_ENTITY_FILE_MISMATCH_FILE_EXTENSION = new File(TEST_FILE_DIRECTORY, "test.foo");
-	private final StorableEntity ENTITY = this.getEntity("test", ".bar");
+	private final DefaultStorableEntity ENTITY = this.getEntity("test", ".bar");
 
 	//region BeforeClass / AfterClass
 
@@ -46,7 +46,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundDirectory() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new StorableEntityFileDescriptor<StorableEntity>(ENTITY, TEST_FILE_DIRECTORY),
+				v -> new StorableEntityFileDescriptor<DefaultStorableEntity>(ENTITY, TEST_FILE_DIRECTORY),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY);
 	}
 
@@ -54,7 +54,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundStorableEntityWithInvalidExtension() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new StorableEntityFileDescriptor<StorableEntity>(ENTITY, TEST_STORABLE_ENTITY_FILE_BAD_EXT),
+				v -> new StorableEntityFileDescriptor<DefaultStorableEntity>(ENTITY, TEST_STORABLE_ENTITY_FILE_BAD_EXT),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION);
 	}
 
@@ -62,7 +62,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundStorableEntityWithMismatchingName() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new StorableEntityFileDescriptor<StorableEntity>(ENTITY, TEST_STORABLE_ENTITY_FILE_MISMATCH_NAME),
+				v -> new StorableEntityFileDescriptor<DefaultStorableEntity>(ENTITY, TEST_STORABLE_ENTITY_FILE_MISMATCH_NAME),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_FILE_NAME_DOES_NOT_MATCH_ENTITY_NAME);
 	}
 
@@ -70,7 +70,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundStorableEntityWithMismatchingFileExtension() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new StorableEntityFileDescriptor<StorableEntity>(ENTITY, TEST_STORABLE_ENTITY_FILE_MISMATCH_FILE_EXTENSION),
+				v -> new StorableEntityFileDescriptor<DefaultStorableEntity>(ENTITY, TEST_STORABLE_ENTITY_FILE_MISMATCH_FILE_EXTENSION),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_FILE_EXTENSION_DOES_NOT_MATCH_ENTITY_FILE_EXTENSION);
 	}
 
@@ -78,7 +78,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCanBeCreatedAroundStorableEntityWithValidExtension() {
 		// Arrange:
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "foo.bar");
-		final StorableEntity entity = getEntity("foo", ".bar");
+		final DefaultStorableEntity entity = getEntity("foo", ".bar");
 
 		// Act:
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
@@ -95,7 +95,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCanBeCreatedAroundStorableEntityWithMixedCaseExtension() {
 		// Arrange:
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "BlAh").toString(), "FoO.BaR");
-		final StorableEntity entity = getEntity("FoO", ".BaR");
+		final DefaultStorableEntity entity = getEntity("FoO", ".BaR");
 
 		// Act:
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
@@ -112,7 +112,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCanBeCreatedAroundUrlEncodedStorableEntityWithValidExtension() {
 		// Arrange:
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "%C3%B6%C3%A4%C3%BC%40.bar");
-		final StorableEntity entity = getEntity("öäü@", ".bar");
+		final DefaultStorableEntity entity = getEntity("öäü@", ".bar");
 
 		// Act:
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
@@ -145,7 +145,7 @@ public class StorableEntityFileDescriptorTest {
 	public void openReadCannotOpenFileThatDoesNotExist() {
 		// Arrange:
 		final File file = new File(TEST_FILE_DIRECTORY, "imaginary-read.bar");
-		final StorableEntity entity = getEntity("imaginary-read", ".bar");
+		final DefaultStorableEntity entity = getEntity("imaginary-read", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 
 		// Act:
@@ -161,7 +161,7 @@ public class StorableEntityFileDescriptorTest {
 		Mockito.when(file.getName()).thenReturn("fo\0o.bar");
 		Mockito.when(file.getAbsolutePath()).thenReturn("fo\0o.bar");
 		Mockito.when(file.exists()).thenReturn(true);
-		final StorableEntity entity = getEntity("fo\0o", ".bar");
+		final DefaultStorableEntity entity = getEntity("fo\0o", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 
 		// Act:
@@ -190,7 +190,7 @@ public class StorableEntityFileDescriptorTest {
 	public void openWriteCanOpenFileThatDoesNotExist() throws IOException {
 		// Arrange:
 		final File file = new File(TEST_FILE_DIRECTORY, "imaginary-write.bar");
-		final StorableEntity entity = getEntity("imaginary-write", ".bar");
+		final DefaultStorableEntity entity = getEntity("imaginary-write", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 
 		// Act:
@@ -206,7 +206,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = Mockito.mock(File.class);
 		Mockito.when(file.getName()).thenReturn("fo\0o.bar");
 		Mockito.when(file.getAbsolutePath()).thenReturn("fo\0o.bar");
-		final StorableEntity entity = getEntity("fo\0o", ".bar");
+		final DefaultStorableEntity entity = getEntity("fo\0o", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 
 		// Act:
@@ -223,7 +223,7 @@ public class StorableEntityFileDescriptorTest {
 	public void deleteDeletesUnderlyingStorableEntityFile() throws IOException {
 		// Arrange:
 		final File file = new File(TEST_FILE_DIRECTORY, "to-be-deleted.bar");
-		final StorableEntity entity = getEntity("to-be-deleted", ".bar");
+		final DefaultStorableEntity entity = getEntity("to-be-deleted", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 		Assert.assertThat(file.createNewFile(), IsEqual.equalTo(true));
 
@@ -240,7 +240,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = Mockito.mock(File.class);
 		Mockito.when(file.getName()).thenReturn("foo.bar");
 		Mockito.when(file.getAbsolutePath()).thenReturn("foo.bar");
-		final StorableEntity entity = getEntity("foo", ".bar");
+		final DefaultStorableEntity entity = getEntity("foo", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 
 		Mockito.when(file.delete()).thenReturn(false);
@@ -259,7 +259,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCanBeSerialized() {
 		// Arrange:
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "foo.bar");
-		final StorableEntity entity = getEntity("foo", ".bar");
+		final DefaultStorableEntity entity = getEntity("foo", ".bar");
 		final StorableEntityFileDescriptor descriptor = new StorableEntityFileDescriptor<>(entity, file);
 
 		// Act:
@@ -275,7 +275,7 @@ public class StorableEntityFileDescriptorTest {
 
 	//endregion
 
-	private StorableEntity getEntity(final String name, final String fileExtension) {
+	private DefaultStorableEntity getEntity(final String name, final String fileExtension) {
 		return StorableEntityUtils.createStorableEntity(name, fileExtension);
 	}
 

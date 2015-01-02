@@ -1,12 +1,15 @@
 package org.nem.ncc.storage;
 
+import org.nem.core.serialization.ObjectDeserializer;
+
 import java.io.File;
 import java.util.function.*;
 
 /**
  * Factory that creates secure, file-backed storable entity descriptors.
  */
-public class SecureStorableEntityDescriptorFactory<TEntity extends StorableEntity> implements StorableEntityDescriptorFactory {
+public class SecureStorableEntityDescriptorFactory<TEntity extends StorableEntity & ObjectDeserializer<StorableEntity>>
+		implements StorableEntityDescriptorFactory {
 	private final File directory;
 	private final Function<StorableEntityName, TEntity> entityActivator;
 

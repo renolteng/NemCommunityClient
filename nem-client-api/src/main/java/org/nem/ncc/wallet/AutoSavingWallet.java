@@ -2,7 +2,7 @@ package org.nem.ncc.wallet;
 
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 import org.nem.ncc.wallet.storage.WalletDescriptor;
 
 import java.util.List;

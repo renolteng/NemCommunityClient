@@ -25,7 +25,8 @@ public class BinaryStorableEntityRepository implements StorableEntityRepository 
 		try {
 			try (final InputStream is = descriptor.openRead()) {
 				final byte[] bytes = IOUtils.toByteArray(is);
-				return descriptor.getEntity().deserialize(new BinaryDeserializer(bytes, new DeserializationContext(null)));
+				final ObjectDeserializer<StorableEntity> deserializer = descriptor.getEntityDeserializer();
+				return deserializer.deserialize(new BinaryDeserializer(bytes, new DeserializationContext(null)));
 			}
 		} catch (final SerializationException | IOException ex) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ, ex);

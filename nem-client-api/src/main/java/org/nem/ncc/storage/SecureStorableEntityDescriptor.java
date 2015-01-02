@@ -7,7 +7,7 @@ import org.bouncycastle.crypto.modes.CBCBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.*;
 import org.nem.core.crypto.Hashes;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 import org.nem.core.utils.*;
 
 import java.io.*;
@@ -40,6 +40,11 @@ public class SecureStorableEntityDescriptor implements StorableEntityDescriptor 
 	@Override
 	public StorableEntity getEntity() {
 		return this.descriptor.getEntity();
+	}
+
+	@Override
+	public ObjectDeserializer<StorableEntity> getEntityDeserializer() {
+		return this.descriptor.getEntityDeserializer();
 	}
 
 	@Override

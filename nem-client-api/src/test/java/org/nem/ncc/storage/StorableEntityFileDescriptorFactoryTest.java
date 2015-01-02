@@ -12,7 +12,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	private final Function<StorableEntityName, StorableEntity> entityActivator = StorableEntityUtils::createStorableEntity;
+	private final Function<StorableEntityName, DefaultStorableEntity> entityActivator = StorableEntityUtils::createStorableEntity;
 
 	//region BeforeClass / AfterClass
 
@@ -46,7 +46,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 
 		// Assert:
 		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getEntity().getFileExtension(), IsEqual.equalTo(StorableEntityUtils.FILE_EXTENSION));
+		Assert.assertThat(descriptor.getEntity().getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.FILE_EXTENSION));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
@@ -77,7 +77,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 
 		// Assert:
 		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getEntity().getFileExtension(), IsEqual.equalTo(StorableEntityUtils.FILE_EXTENSION));
+		Assert.assertThat(descriptor.getEntity().getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.FILE_EXTENSION));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
@@ -108,7 +108,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 
 		// Assert:
 		Assert.assertThat(descriptor.getEntity().getName(), IsEqual.equalTo(new StorableEntityName("test")));
-		Assert.assertThat(descriptor.getEntity().getFileExtension(), IsEqual.equalTo(StorableEntityUtils.FILE_EXTENSION));
+		Assert.assertThat(descriptor.getEntity().getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.FILE_EXTENSION));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 }

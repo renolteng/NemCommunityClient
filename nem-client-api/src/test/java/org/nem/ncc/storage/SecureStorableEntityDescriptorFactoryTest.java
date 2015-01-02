@@ -11,7 +11,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	private final Function<StorableEntityName, StorableEntity> entityActivator = StorableEntityUtils::createStorableEntity;
+	private final Function<StorableEntityName, DefaultStorableEntity> entityActivator = StorableEntityUtils::createStorableEntity;
 
 	//region BeforeClass / AfterClass
 

@@ -5,9 +5,10 @@ import org.nem.core.utils.StringUtils;
 /**
  * Represents a file extension for a storable entity.
  */
-public class StorableEntityFileExtension {
+public class StorableEntityFileExtension<TDerived extends StorableEntityFileExtension> {
 	public static final int EXTENSION_LENGTH = 4;
 	private final String fileExtension;
+	private final Class<TDerived> derivedClass;
 
 	/**
 	 * Creates a storable entity file extension.
@@ -15,6 +16,16 @@ public class StorableEntityFileExtension {
 	 * @param fileExtension The file extension.
 	 */
 	public StorableEntityFileExtension(final String fileExtension) {
+		this(fileExtension, null);
+	}
+
+	/**
+	 * Creates a storable entity file extension.
+	 *
+	 * @param fileExtension The file extension.
+	 * @param derivedClass The derived class.
+	 */
+	public StorableEntityFileExtension(final String fileExtension, final Class<TDerived> derivedClass) {
 		if (StringUtils.isNullOrWhitespace(fileExtension)) {
 			throw new IllegalArgumentException("file extension must be non-whitespace");
 		}
@@ -28,6 +39,7 @@ public class StorableEntityFileExtension {
 		}
 
 		this.fileExtension = fileExtension;
+		this.derivedClass = derivedClass;
 	}
 
 	public static boolean hasValidExtension(final String fileName) {
@@ -42,7 +54,8 @@ public class StorableEntityFileExtension {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (!(obj instanceof StorableEntityFileExtension)) {
+		final Class clazz = null == this.derivedClass? StorableEntityFileExtension.class : this.derivedClass;
+		if (!clazz.isInstance(obj)) {
 			return false;
 		}
 

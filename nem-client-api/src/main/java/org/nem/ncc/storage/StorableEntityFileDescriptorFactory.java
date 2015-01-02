@@ -1,6 +1,7 @@
 package org.nem.ncc.storage;
 
 import org.eclipse.jetty.util.UrlEncoded;
+import org.nem.core.serialization.ObjectDeserializer;
 
 import java.io.File;
 import java.util.function.*;
@@ -8,7 +9,8 @@ import java.util.function.*;
 /**
  * Factory that creates file-backed storable entity descriptors.
  */
-public class StorableEntityFileDescriptorFactory<TEntity extends StorableEntity> implements StorableEntityDescriptorFactory {
+public class StorableEntityFileDescriptorFactory<TEntity extends StorableEntity & ObjectDeserializer<StorableEntity>>
+		implements StorableEntityDescriptorFactory {
 	private final File directory;
 	private final Function<StorableEntityName, TEntity> entityActivator;
 

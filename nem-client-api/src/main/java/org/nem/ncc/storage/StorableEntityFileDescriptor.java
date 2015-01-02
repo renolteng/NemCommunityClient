@@ -1,7 +1,7 @@
 package org.nem.ncc.storage;
 
 import org.eclipse.jetty.util.UrlEncoded;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
 
 import java.io.*;
@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 /**
  * A StorableEntityDescriptor implementation that references files stored on disk.
  */
-public class StorableEntityFileDescriptor<TEntity extends StorableEntity> implements StorableEntityDescriptor {
+public class StorableEntityFileDescriptor<TEntity extends StorableEntity & ObjectDeserializer<StorableEntity>> implements StorableEntityDescriptor {
 	private final static Logger LOGGER = Logger.getLogger(StorableEntityFileDescriptor.class.getName());
 
 	private final File file;
@@ -63,6 +63,11 @@ public class StorableEntityFileDescriptor<TEntity extends StorableEntity> implem
 
 	@Override
 	public StorableEntity getEntity() {
+		return this.entity;
+	}
+
+	@Override
+	public ObjectDeserializer<StorableEntity> getEntityDeserializer() {
 		return this.entity;
 	}
 
