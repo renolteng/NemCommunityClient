@@ -126,14 +126,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             txConfirm.set('requestData', requestData);
             txConfirm.open();
         },
-        addSignatory: function() {
-            $('.js-sendNem-signatory').last().focus();
-            this.get('signatories').push({});
-            $('.js-sendNem-signatory').last().focus();
-        },
-        removeSignatory: function(index) {
-            this.get('signatories').splice(index, 1);
-        },
         onrender: function() {
             this._super();
             var self = this;

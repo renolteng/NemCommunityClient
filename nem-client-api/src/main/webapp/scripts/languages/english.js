@@ -111,6 +111,8 @@ define({
 			},
 			sendNem: {
 				title: 'Send NEM',
+				sender: 'Sender',
+				thisAccount: 'This account',
 				labelDesc: 'This account is labeled as {{1}}',
 				nullLabelDesc: "This account doesn't have a label",
 				amount: 'Amount',

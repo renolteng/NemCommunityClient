@@ -51,7 +51,7 @@
 							</div>
 						</div>
 					</div>*/-->
-					<div class="walletBox-notiArea">
+					<!--<div class="walletBox-notiArea">
 						<div class="walletBox-notiBox">
 							<span class="notiBox-icon icon-bell"></span>
 							<span class="notiBox-number">3</span>
@@ -69,7 +69,7 @@
 								{{/each}}
 							</ul>
 						</div>
-					</div>
+					</div>-->
 					<div class="walletBox-walletInfo">
 						<p><a href="javascript:;" class="walletBox-walletName">{{wallet.name}}</a></p>
 						<p><span class="walletBox-lastAccess" title="{{fill(texts.wallet.lastAccessTooltip, wallet.lastRefreshDate)}}" on-mouseover="registerToolTip">{{#wallet.daysPassed}}
@@ -282,13 +282,13 @@
 					<p class="form-label">
 						{{texts.modals.multisig.fee}}
 						{{#if feeError}}
-							<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+							<span class="multisig-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
 						<span class="form-input-end unit">NEM</span>
 						<div class="restOfWidth">
-							<input class="form-input-inner js-sendNem-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+							<input class="form-input-inner js-multisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
 						</div>
 					</div>
 				</div>
@@ -297,7 +297,7 @@
 					<div class="form-input">
 						<span class="form-input-end unit">{{texts.modals.multisig.hours}}</span>
 						<div class="restOfWidth">
-							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+							<input class="form-input-inner js-multisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
 					</div>
 				</div>
@@ -309,63 +309,26 @@
 		<button type="button" class="modal-button modal-button--primary" on-click="convertMultisig()">{{texts.modals.multisig.convert}}</button>
 	</div>
 </convertMultisigModal>
-<sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip">
-	<div class="form sendNem-form sendNem-form--txType">
+<sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+	<div class="form sendNem-form">
 		<div class="form-field">
-			<p class="form-label">Transaction Type</p>
+			<p class="form-label">{{texts.modals.sendNem.sender}}</p>
 			<div class="form-dropdownbox">
-				<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-txType']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-txType')">
-					{{#if multisig}}
-						Multisig Transaction
+				<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
+					{{#if sender}}
+						{{sender}}
 					{{else}}
-						Regular Transaction
+						{{texts.modals.sendNem.thisAccount}}
 					{{/if}}
 				</div>
-				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-txType']}}hidden{{/}}">
-					<li class="form-dropdownbox-item" on-click="set('multisig', false)">Regular Transaction</li>
-					<li class="form-dropdownbox-item" on-click="set('multisig', true)">Multisig Transaction</li>
-				</ul>
-			</div>
-		</div>
-		<div class="sendNem-multisig {{^multisig}}hidden{{/}}">
-			<div class="form-field">
-				<p class="form-label">Signatories' addresses</p>
-				{{#each signatories : i}}
-					<div class="{{#i !== 0}}form-field{{/}}">
-						<div>
-							<div class="form-input-end form-input-remove">
-								{{#i !== 0}}<button type="button" class="icon-cross" on-click="removeSignatory(i)"></button>{{/}}
-							</div>
-							<div class="restOfWidth">
-								<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-sendNem-signatory" value="{{.text}}" on-keypress="sendFormKeypress" />
-							</div>
-						</div>
-						<p class="form-sublabel">
-							{{#.label}}
-								{{{fill(true, texts.modals.sendNem.labelDesc, '<strong>' + .label + '</strong>')}}}
-							{{/}}
-							{{#.label === ''}}
-								{{texts.modals.sendNem.nullLabelDesc}}
-							{{/}}
-						</p>
-					</div>
-				{{/each }}
-				<div>
-					<button type="button" class="sendNem-addSignatory" on-click="addSignatory()">+ Add Signatory</button>
-				</div>
-			</div>
-			<div class="form-field">
-				<p class="form-label">How many signs required to proceed the transaction?</p>
-				<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-signsRequired']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-signsRequired')">{{signsRequired}}</div>
-				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-signsRequired']}}hidden{{/}}">
-					{{#each signatories : i}}
-						<li class="form-dropdownbox-item" on-click="set('signsRequired', {{i + 1}})">{{i + 1}}</li>
+				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
+					<li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.modals.sendNem.thisAccount}}</li>
+					{{#each cosignatories}}
+						<li class="form-dropdownbox-item" on-click="set('sender', .address)">{{.address}}</li>
 					{{/each}}
 				</ul>
 			</div>
 		</div>
-	</div>
-	<div class="form sendNem-form">
 		<div class="form-field">
 			<p class="form-label">
 				{{texts.modals.sendNem.recipient}}
@@ -445,10 +408,10 @@
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
 		</div>
-	</div>
-	<div class="modal-buttons sendNem-buttons">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.cancel}}</button>
-		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.sendNem.send}}</button>
+		<div class="modal-buttons sendNem-buttons">
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.cancel}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.sendNem.send}}</button>
+		</div>
 	</div>
 </sendNemModal>
 <transactionConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
