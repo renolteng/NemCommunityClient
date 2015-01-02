@@ -3,7 +3,7 @@ package org.nem.ncc.storage;
 /**
  * Factory for creating storable entity descriptors.
  */
-public interface StorableEntityDescriptorFactory {
+public interface StorableEntityDescriptorFactory<TDescriptor extends StorableEntityDescriptor> {
 
 	/**
 	 * Creates a storable entity descriptor corresponding to a new storable entity.
@@ -11,7 +11,7 @@ public interface StorableEntityDescriptorFactory {
 	 * @param pair The storable entity name and password.
 	 * @return The descriptor.
 	 */
-	public StorableEntityDescriptor createNew(final StorableEntityNamePasswordPair pair);
+	public TDescriptor createNew(final StorableEntityNamePasswordPair pair);
 
 	/**
 	 * Opens a storable entity descriptor corresponding to en existing storable entity.
@@ -19,5 +19,5 @@ public interface StorableEntityDescriptorFactory {
 	 * @param pair The storable entity name and password.
 	 * @return The descriptor.
 	 */
-	public StorableEntityDescriptor openExisting(final StorableEntityNamePasswordPair pair);
+	public TDescriptor openExisting(final StorableEntityNamePasswordPair pair);
 }

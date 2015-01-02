@@ -3,7 +3,6 @@ package org.nem.ncc.wallet;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storage.StorableEntity;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * A memory-backed wallet implementation.
  */
-public class MemoryWallet implements Wallet, StorableEntity<WalletName, WalletFileExtension>, ObjectDeserializer<StorableEntity> {
+public class MemoryWallet implements StorableWallet {
 	private final WalletName name;
 	private final WalletFileExtension fileExtension = new WalletFileExtension();
 	private final String label = "name";

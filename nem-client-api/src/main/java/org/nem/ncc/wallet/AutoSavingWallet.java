@@ -2,8 +2,8 @@ package org.nem.ncc.wallet;
 
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
-import org.nem.core.serialization.*;
-import org.nem.ncc.wallet.storage.WalletDescriptor;
+import org.nem.core.serialization.Serializer;
+import org.nem.ncc.storage.*;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
  * Wallet implementation that automatically saves the wallet after changes are made.
  */
 public class AutoSavingWallet implements Wallet {
-	private final Wallet wallet;
-	private final WalletDescriptor descriptor;
-	private final WalletRepository repository;
+	private final StorableWallet wallet;
+	private final StorableEntityDescriptor descriptor;
+	private final StorableEntityRepository repository;
 
 	/**
 	 * Creates a new auto-saving wallet.
@@ -23,9 +23,9 @@ public class AutoSavingWallet implements Wallet {
 	 * @param repository The repository to use for saving.
 	 */
 	public AutoSavingWallet(
-			final Wallet wallet,
-			final WalletDescriptor descriptor,
-			final WalletRepository repository) {
+			final StorableWallet wallet,
+			final StorableEntityDescriptor descriptor,
+			final StorableEntityRepository repository) {
 		this.wallet = wallet;
 		this.descriptor = descriptor;
 		this.repository = repository;
@@ -84,7 +84,7 @@ public class AutoSavingWallet implements Wallet {
 	 */
 	public void save() {
 		if (null != this.repository) {
-			this.repository.save(this.descriptor, this);
+			this.repository.save(this.descriptor, this.wallet);
 		}
 	}
 }

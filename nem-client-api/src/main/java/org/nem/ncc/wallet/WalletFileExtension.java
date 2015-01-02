@@ -9,7 +9,6 @@ public class WalletFileExtension extends StorableEntityFileExtension {
 
 	/**
 	 * Creates a new wallet file extension.
-	 *
 	 */
 	public WalletFileExtension() {
 		super(".wlt", WalletFileExtension.class);

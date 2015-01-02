@@ -11,13 +11,17 @@ import org.nem.core.serialization.*;
 import org.nem.core.utils.*;
 
 import java.io.*;
+
 /**
  * StorableEntityDescriptor that automatically encrypts and decrypts data using a password.
  */
-public class SecureStorableEntityDescriptor implements StorableEntityDescriptor {
+public class SecureStorableEntityDescriptor<
+		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
+		TDescriptor extends StorableEntityDescriptor<TEntity>>
+		implements StorableEntityDescriptor {
 	private static final int BLOCK_SIZE = 16;
 
-	private final StorableEntityDescriptor descriptor;
+	private final TDescriptor descriptor;
 	private final StorableEntityPassword password;
 
 	/**
@@ -27,7 +31,7 @@ public class SecureStorableEntityDescriptor implements StorableEntityDescriptor 
 	 * @param password The password.
 	 */
 	public SecureStorableEntityDescriptor(
-			final StorableEntityDescriptor descriptor,
+			final TDescriptor descriptor,
 			final StorableEntityPassword password) {
 		if (null == password) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
@@ -38,12 +42,12 @@ public class SecureStorableEntityDescriptor implements StorableEntityDescriptor 
 	}
 
 	@Override
-	public StorableEntity getEntity() {
+	public TEntity getEntity() {
 		return this.descriptor.getEntity();
 	}
 
 	@Override
-	public ObjectDeserializer<StorableEntity> getEntityDeserializer() {
+	public ObjectDeserializer<TEntity> getEntityDeserializer() {
 		return this.descriptor.getEntityDeserializer();
 	}
 

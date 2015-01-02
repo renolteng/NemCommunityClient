@@ -9,10 +9,10 @@ import java.io.*;
 /**
  * A binary storable entity repository.
  */
-public class BinaryStorableEntityRepository implements StorableEntityRepository {
+public class BinaryStorableEntityRepository<TEntity extends StorableEntity & ObjectDeserializer<TEntity>> implements StorableEntityRepository {
 
 	@Override
-	public void save(final StorableEntityDescriptor descriptor, final StorableEntity storableEntity) {
+	public void save(final StorableEntityDescriptor<TEntity> descriptor, final TEntity storableEntity) {
 		ExceptionUtils.propagateVoid(() -> {
 			try (final OutputStream os = descriptor.openWrite()) {
 				os.write(BinarySerializer.serializeToBytes(storableEntity));
@@ -21,11 +21,11 @@ public class BinaryStorableEntityRepository implements StorableEntityRepository 
 	}
 
 	@Override
-	public StorableEntity load(final StorableEntityDescriptor descriptor) {
+	public TEntity load(final StorableEntityDescriptor<TEntity> descriptor) {
 		try {
 			try (final InputStream is = descriptor.openRead()) {
 				final byte[] bytes = IOUtils.toByteArray(is);
-				final ObjectDeserializer<StorableEntity> deserializer = descriptor.getEntityDeserializer();
+				final ObjectDeserializer<TEntity> deserializer = descriptor.getEntityDeserializer();
 				return deserializer.deserialize(new BinaryDeserializer(bytes, new DeserializationContext(null)));
 			}
 		} catch (final SerializationException | IOException ex) {

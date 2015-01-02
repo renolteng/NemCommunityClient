@@ -87,7 +87,7 @@ public class DefaultWalletServices implements WalletServices {
 		this.wallets.remove(name);
 	}
 
-	private AutoSavingWallet wrapWallet(final Wallet wallet, final WalletDescriptor descriptor) {
+	private AutoSavingWallet wrapWallet(final StorableWallet wallet, final WalletDescriptor descriptor) {
 		final AutoSavingWallet autoSavingWallet = new AutoSavingWallet(wallet, descriptor, this.repository);
 		this.wallets.put(descriptor.getWalletName(), autoSavingWallet);
 		return autoSavingWallet;
