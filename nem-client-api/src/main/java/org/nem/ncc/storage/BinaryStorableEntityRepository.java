@@ -9,7 +9,7 @@ import java.io.*;
 /**
  * A binary storable entity repository.
  */
-public class BinaryStorableEntityRepository<TEntity extends StorableEntity & ObjectDeserializer<TEntity>> implements StorableEntityRepository {
+public class BinaryStorableEntityRepository<TEntity extends StorableEntity & ObjectDeserializer<TEntity>> implements StorableEntityRepository<TEntity> {
 
 	@Override
 	public void save(final StorableEntityDescriptor<TEntity> descriptor, final TEntity storableEntity) {

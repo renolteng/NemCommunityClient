@@ -13,7 +13,7 @@ public class SecureStorableEntityDescriptorFactory<
 		TDescriptor extends StorableEntityDescriptor<TEntity>,
 		TDescriptorFactory extends StorableEntityFileDescriptorFactory<TEntity, TDescriptor>,
 		TSecureDescriptor extends SecureStorableEntityDescriptor<TEntity, TDescriptor>>
-		implements StorableEntityDescriptorFactory {
+		implements StorableEntityDescriptorFactory<TSecureDescriptor> {
 	private final File directory;
 	private final Function<StorableEntityName, TEntity> entityActivator;
 	private final BiFunction<TEntity, File, TDescriptor> descriptorActivator;

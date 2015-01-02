@@ -18,7 +18,7 @@ import java.io.*;
 public class SecureStorableEntityDescriptor<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TDescriptor extends StorableEntityDescriptor<TEntity>>
-		implements StorableEntityDescriptor {
+		implements StorableEntityDescriptor<TEntity> {
 	private static final int BLOCK_SIZE = 16;
 
 	private final TDescriptor descriptor;
