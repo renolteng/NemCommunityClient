@@ -64,7 +64,7 @@ public class StorableEntityUtils {
 		final DefaultStorableEntity rhs = (DefaultStorableEntity)entity2;
 		return lhs.name.equals(rhs.name) &&
 				lhs.fileExtension.equals(rhs.fileExtension) &&
-				lhs.labelName.equals(rhs.labelName) &&
+				lhs.label.equals(rhs.label) &&
 				lhs.heights.equals(rhs.heights);
 	}
 
@@ -72,19 +72,19 @@ public class StorableEntityUtils {
 		private final List<BlockHeight> heights;
 		private final StorableEntityName name;
 		private final StorableEntityFileExtension fileExtension;
-		private final String labelName;
+		private final String label;
 
 		private DefaultStorableEntity(final StorableEntityName name, final StorableEntityFileExtension fileExtension) {
 			this.heights = new ArrayList<>();
 			this.name = name;
 			this.fileExtension = fileExtension;
-			this.labelName = "defaultStorableEntity";
+			this.label = "defaultStorableEntity";
 		}
 
 		private DefaultStorableEntity(final Deserializer deserializer) {
 			this.fileExtension = FILE_EXTENSION;
-			this.labelName = "defaultStorableEntity";
-			this.name = StorableEntityName.readFrom(deserializer, this.labelName);
+			this.label = "defaultStorableEntity";
+			this.name = StorableEntityName.readFrom(deserializer, this.label);
 			this.heights = deserializer.readObjectArray("heights", BlockHeight::new);
 		}
 
@@ -95,8 +95,8 @@ public class StorableEntityUtils {
 		}
 
 		@Override
-		public String getLabelName() {
-			return this.labelName;
+		public String getLabel() {
+			return this.label;
 		}
 
 		@Override
@@ -116,7 +116,7 @@ public class StorableEntityUtils {
 
 		@Override
 		public void serialize(final Serializer serializer) {
-			StorableEntityName.writeTo(serializer, this.labelName, this.name);
+			StorableEntityName.writeTo(serializer, this.label, this.name);
 			serializer.writeObjectArray("heights", this.heights);
 		}
 	}

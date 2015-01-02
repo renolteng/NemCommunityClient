@@ -9,11 +9,11 @@ import org.nem.core.serialization.ObjectDeserializer;
 public interface StorableEntity extends ObjectDeserializer<StorableEntity>, SerializableEntity {
 
 	/**
-	 * Gets the label name of the storable entity for serialization (e.g. 'wallet', 'accountLabel').
+	 * Gets the label of the storable entity for serialization (e.g. 'wallet', 'accountLabel').
 	 *
-	 * @return The label name.
+	 * @return The label.
 	 */
-	public String getLabelName();
+	public String getLabel();
 
 	/**
 	 * Gets the name of the storable entity.

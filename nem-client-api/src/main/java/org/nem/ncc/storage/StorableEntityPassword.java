@@ -6,8 +6,9 @@ import org.nem.core.utils.StringUtils;
 /**
  * Represents a storable entity password.
  */
-public class StorableEntityPassword {
+public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 	private final String password;
+	private final Class<TDerived> derivedClass;
 
 	/**
 	 * Creates a new storable entity password.
@@ -15,11 +16,37 @@ public class StorableEntityPassword {
 	 * @param password The password.
 	 */
 	public StorableEntityPassword(final String password) {
+		this(password, null);
+	}
+
+	/**
+	 * Creates a new storable entity password.
+	 *
+	 * @param password The password.
+	 * @param derivedClass The derived class.
+	 */
+	public StorableEntityPassword(final String password, final Class<TDerived> derivedClass) {
 		if (StringUtils.isNullOrWhitespace(password)) {
 			throw new IllegalArgumentException("password must be non-whitespace");
 		}
 
 		this.password = password;
+		this.derivedClass = derivedClass;
+	}
+
+	/**
+	 * Creates a storable entity password.
+	 *
+	 * @param deserializer The deserializer.
+	 * @param label The label to read from.
+	 * @param derivedClass The derived class.
+	 */
+	public StorableEntityPassword(
+			final Deserializer deserializer,
+			final String label,
+			final Class<TDerived> derivedClass) {
+		this.password = deserializer.readString(label);
+		this.derivedClass = derivedClass;
 	}
 
 	@Override
@@ -29,7 +56,8 @@ public class StorableEntityPassword {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (!(obj instanceof StorableEntityPassword)) {
+		final Class clazz = null == this.derivedClass? StorableEntityPassword.class : this.derivedClass;
+		if (!clazz.isInstance(obj)) {
 			return false;
 		}
 
@@ -63,7 +91,7 @@ public class StorableEntityPassword {
 	 * @return The read object.
 	 */
 	public static StorableEntityPassword readFrom(final Deserializer deserializer, final String label) {
-		return new StorableEntityPassword(deserializer.readString(label));
+		return new StorableEntityPassword<>(deserializer.readString(label));
 	}
 
 	/**
@@ -75,7 +103,7 @@ public class StorableEntityPassword {
 	 */
 	public static StorableEntityPassword readFromOptional(final Deserializer deserializer, final String label) {
 		final String password = deserializer.readOptionalString(label);
-		return null == password ? null : new StorableEntityPassword(password);
+		return null == password ? null : new StorableEntityPassword<>(password);
 	}
 
 	//endregion

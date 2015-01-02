@@ -32,7 +32,7 @@ public class StorableEntityNameTest {
 		jsonObject.put("storableEntity", "bar");
 
 		// Act:
-		final StorableEntityName name = new StorableEntityName(Utils.createDeserializer(jsonObject));
+		final StorableEntityName name = new StorableEntityName<>(Utils.createDeserializer(jsonObject), "storableEntity", null);
 
 		// Assert:
 		Assert.assertThat(name.toString(), IsEqual.equalTo("bar"));
@@ -44,7 +44,7 @@ public class StorableEntityNameTest {
 		final JSONObject jsonObject = new JSONObject();
 
 		// Act:
-		new StorableEntityName(Utils.createDeserializer(jsonObject));
+		new StorableEntityName<>(Utils.createDeserializer(jsonObject), "storableEntity", null);
 	}
 
 	@Test

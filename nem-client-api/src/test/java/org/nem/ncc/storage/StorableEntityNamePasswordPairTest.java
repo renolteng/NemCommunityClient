@@ -67,7 +67,7 @@ public class StorableEntityNamePasswordPairTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("storableEntity", name);
 		jsonObject.put("password", password);
-		return new StorableEntityNamePasswordPair(new JsonDeserializer(jsonObject, null));
+		return new StorableEntityNamePasswordPair<>(new JsonDeserializer(jsonObject, null), null);
 	}
 
 	//endregion

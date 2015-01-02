@@ -6,24 +6,75 @@ import org.nem.core.utils.StringUtils;
 /**
  * Represents a name for a storable entity.
  */
-public class StorableEntityName {
-	private final String name;
+public class StorableEntityName<TDerived extends StorableEntityName> {
+	protected final String name;
+	protected final String label;
+	private final Class<TDerived> derivedClass;
 
 	/**
 	 * Creates a storable entity name.
 	 *
 	 * @param name The name.
 	 */
-	public StorableEntityName(final String name) {
+	public StorableEntityName(
+			final String name) {
+		this(name, "storableEntity", null);
+	}
+
+	/**
+	 * Creates a storable entity name.
+	 *
+	 * @param name The name.
+	 * @param label The label.
+	 */
+	public StorableEntityName(
+			final String name,
+			final String label) {
+		this(name, label, null);
+	}
+
+	/**
+	 * Creates a storable entity name.
+	 *
+	 * @param name The name.
+	 * @param label The label.
+	 * @param derivedClass The derived class.
+	 */
+	public StorableEntityName(
+			final String name,
+			final String label,
+			final Class<TDerived> derivedClass) {
 		if (StringUtils.isNullOrWhitespace(name)) {
 			throw new IllegalArgumentException("name must be non-whitespace");
 		}
 
+		if (StringUtils.isNullOrWhitespace(label)) {
+			throw new IllegalArgumentException("label must be non-whitespace");
+		}
+
 		this.name = name;
+		this.label = label;
+		this.derivedClass = derivedClass;
 	}
 
-	public StorableEntityName(final Deserializer deserializer) {
-		this.name = deserializer.readString("storableEntity");
+	/**
+	 * Creates a storable entity name.
+	 *
+	 * @param deserializer The deserializer.
+	 * @param label The label to read from.
+	 * @param derivedClass The derived class.
+	 */
+	public StorableEntityName(
+			final Deserializer deserializer,
+			final String label,
+			final Class<TDerived> derivedClass) {
+		if (StringUtils.isNullOrWhitespace(label)) {
+			throw new IllegalArgumentException("label must be non-whitespace");
+		}
+
+		this.label = label;
+		this.name = deserializer.readString(this.label);
+		this.derivedClass = derivedClass;
 	}
 
 	@Override
@@ -33,7 +84,8 @@ public class StorableEntityName {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (!(obj instanceof StorableEntityName)) {
+		final Class clazz = null == this.derivedClass? StorableEntityName.class : this.derivedClass;
+		if (!clazz.isInstance(obj)) {
 			return false;
 		}
 
@@ -67,7 +119,7 @@ public class StorableEntityName {
 	 * @return The read object.
 	 */
 	public static StorableEntityName readFrom(final Deserializer deserializer, final String label) {
-		return new StorableEntityName(deserializer.readString(label));
+		return new StorableEntityName<>(deserializer.readString(label), label);
 	}
 
 	//endregion

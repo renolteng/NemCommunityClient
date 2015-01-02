@@ -93,7 +93,7 @@ public class SecureStorableEntityDescriptorTest {
 		final StorableEntity entity = Mockito.mock(StorableEntity.class);
 		Mockito.when(entity.getName()).thenReturn(new StorableEntityName("foo"));
 		Mockito.when(entity.getFileExtension()).thenReturn(new StorableEntityFileExtension(".bar"));
-		Mockito.when(entity.getLabelName()).thenReturn("label");
+		Mockito.when(entity.getLabel()).thenReturn("label");
 		Mockito.when(wrappedDescriptor.getEntity()).thenReturn(entity);
 		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
@@ -104,7 +104,7 @@ public class SecureStorableEntityDescriptorTest {
 		Mockito.verify(wrappedDescriptor, Mockito.times(1)).getEntity();
 		Assert.assertThat(theEntity.getName(), IsEqual.equalTo(new StorableEntityName("foo")));
 		Assert.assertThat(theEntity.getFileExtension(), IsEqual.equalTo(new StorableEntityFileExtension(".bar")));
-		Assert.assertThat(theEntity.getLabelName(), IsEqual.equalTo("label"));
+		Assert.assertThat(theEntity.getLabel(), IsEqual.equalTo("label"));
 	}
 
 	@Test

@@ -5,9 +5,10 @@ import org.nem.core.serialization.Deserializer;
 /**
  * A pair of a storable entity name and a storable entity password.
  */
-public class StorableEntityNamePasswordPair {
+public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNamePasswordPair> {
 	private final StorableEntityName name;
 	private final StorableEntityPassword password;
+	private final Class<TDerived> derivedClass;
 
 	/**
 	 * Creates a new storable entity name / password pair.
@@ -15,9 +16,26 @@ public class StorableEntityNamePasswordPair {
 	 * @param name The storable entity name.
 	 * @param password The storable entity password.
 	 */
-	public StorableEntityNamePasswordPair(final StorableEntityName name, final StorableEntityPassword password) {
+	public StorableEntityNamePasswordPair(
+			final StorableEntityName name,
+			final StorableEntityPassword password) {
+		this(name, password, null);
+	}
+
+	/**
+	 * Creates a new storable entity name / password pair.
+	 *
+	 * @param name The storable entity name.
+	 * @param password The storable entity password.
+	 * @param derivedClass The derived class.
+	 */
+	public StorableEntityNamePasswordPair(
+			final StorableEntityName name,
+			final StorableEntityPassword password,
+			final Class<TDerived> derivedClass) {
 		this.name = name;
 		this.password = password;
+		this.derivedClass = derivedClass;
 	}
 
 	/**
@@ -26,8 +44,10 @@ public class StorableEntityNamePasswordPair {
 	 * @param name The storable entity name.
 	 * @param password The storable entity password.
 	 */
-	public StorableEntityNamePasswordPair(final String name, final String password) {
-		this(new StorableEntityName(name), new StorableEntityPassword(password));
+	public StorableEntityNamePasswordPair(
+			final String name,
+			final String password) {
+		this(new StorableEntityName<>(name), new StorableEntityPassword<>(password), null);
 	}
 
 	/**
@@ -35,9 +55,12 @@ public class StorableEntityNamePasswordPair {
 	 *
 	 * @param deserializer The deserializer.
 	 */
-	public StorableEntityNamePasswordPair(final Deserializer deserializer) {
+	public StorableEntityNamePasswordPair(
+			final Deserializer deserializer,
+			final Class<TDerived> derivedClass) {
 		this.name = StorableEntityName.readFrom(deserializer, "storableEntity");
 		this.password = StorableEntityPassword.readFrom(deserializer, "password");
+		this.derivedClass = derivedClass;
 	}
 
 	/**
@@ -65,7 +88,8 @@ public class StorableEntityNamePasswordPair {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (!(obj instanceof StorableEntityNamePasswordPair)) {
+		final Class clazz = null == this.derivedClass? StorableEntityNamePasswordPair.class : this.derivedClass;
+		if (!clazz.isInstance(obj)) {
 			return false;
 		}
 

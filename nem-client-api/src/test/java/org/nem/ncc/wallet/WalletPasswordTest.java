@@ -17,7 +17,7 @@ public class WalletPasswordTest {
 	@Test
 	public void passwordCannotBeCreatedAroundWhitespaceString() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> new WalletPassword(null), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> new WalletPassword((String)null), IllegalArgumentException.class);
 		ExceptionAssert.assertThrows(v -> new WalletPassword(""), IllegalArgumentException.class);
 		ExceptionAssert.assertThrows(v -> new WalletPassword("  \t\t "), IllegalArgumentException.class);
 	}
