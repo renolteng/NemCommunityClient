@@ -15,7 +15,7 @@ public class SecureWalletDescriptorFactory extends
 				WalletPassword,
 				WalletNamePasswordPair,
 				WalletFileExtension,
-				WalletFileDescriptor,
+				WalletDescriptor,
 				WalletFileDescriptorFactory,
 				SecureWalletDescriptor>
 		implements WalletDescriptorFactory {

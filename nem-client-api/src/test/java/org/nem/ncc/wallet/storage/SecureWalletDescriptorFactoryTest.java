@@ -3,6 +3,7 @@ package org.nem.ncc.wallet.storage;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
+import org.nem.ncc.storage.StorableEntityStorageException;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.*;
 
@@ -12,6 +13,7 @@ public class SecureWalletDescriptorFactoryTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_WALLET = new File(TEST_FILE_DIRECTORY, "test.wlt");
+	private static final WalletFileExtension FILE_EXTENSION = new WalletFileExtension();
 
 	//region BeforeClass / AfterClass
 
@@ -40,9 +42,9 @@ public class SecureWalletDescriptorFactoryTest {
 				new WalletPassword("p"));
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
-				v -> descriptorFactory.createNew(pair),
-				WalletStorageException.Code.WALLET_ALREADY_EXISTS);
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
+				v -> descriptorFactory.createNew(pair, FILE_EXTENSION),
+				StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS);
 	}
 
 	@Test
@@ -54,7 +56,7 @@ public class SecureWalletDescriptorFactoryTest {
 				new WalletPassword("p"));
 
 		// Act:
-		final WalletDescriptor descriptor = descriptorFactory.createNew(pair);
+		final WalletDescriptor descriptor = descriptorFactory.createNew(pair, FILE_EXTENSION);
 
 		// Assert:
 		Assert.assertThat(descriptor.getWalletName(), IsEqual.equalTo(new WalletName("test-create")));
@@ -70,9 +72,9 @@ public class SecureWalletDescriptorFactoryTest {
 				new WalletPassword("p"));
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
-				v -> descriptorFactory.openExisting(pair),
-				WalletStorageException.Code.WALLET_DOES_NOT_EXIST);
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
+				v -> descriptorFactory.openExisting(pair, FILE_EXTENSION),
+				StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
 	}
 
 	@Test
@@ -84,7 +86,7 @@ public class SecureWalletDescriptorFactoryTest {
 				new WalletPassword("p"));
 
 		// Act:
-		final WalletDescriptor descriptor = descriptorFactory.openExisting(pair);
+		final WalletDescriptor descriptor = descriptorFactory.openExisting(pair, FILE_EXTENSION);
 
 		// Assert:
 		Assert.assertThat(descriptor.getWalletName(), IsEqual.equalTo(new WalletName("test")));

@@ -26,7 +26,7 @@ public class StorableEntityFileDescriptorFactory<
 			ObjectDeserializer<TEntity>,
 			Function<String, TEntityName>,
 			Function<String, TEntityFileExtension>,
-	TEntityDescriptor> descriptorActivator;
+			TEntityDescriptor> descriptorActivator;
 
 	/**
 	 * Creates a new storable entity descriptor factory.

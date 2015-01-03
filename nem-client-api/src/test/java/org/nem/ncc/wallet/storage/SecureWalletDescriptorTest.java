@@ -6,6 +6,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.ExceptionUtils;
+import org.nem.ncc.storage.StorableEntityStorageException;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 
@@ -40,9 +41,9 @@ public class SecureWalletDescriptorTest {
 		final WalletDescriptor descriptor = new SecureWalletDescriptor(wrappedDescriptor, new WalletPassword("pwd2"));
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(descriptor.openRead())),
-				WalletStorageException.Code.WALLET_PASSWORD_INCORRECT);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_INCORRECT);
 	}
 
 	@Test
@@ -53,9 +54,9 @@ public class SecureWalletDescriptorTest {
 		final WalletDescriptor descriptor = new SecureWalletDescriptor(wrappedDescriptor, new WalletPassword("pwd"));
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(descriptor.openRead())),
-				WalletStorageException.Code.WALLET_COULD_NOT_BE_READ);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
 	}
 
 	//endregion

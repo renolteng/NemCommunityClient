@@ -12,7 +12,7 @@ public class SecureWalletDescriptor
 		WalletName,
 		WalletFileExtension,
 		WalletPassword,
-		WalletFileDescriptor>
+		WalletDescriptor>
 		implements WalletDescriptor {
 
 	/**
@@ -22,13 +22,13 @@ public class SecureWalletDescriptor
 	 * @param password The password.
 	 */
 	public SecureWalletDescriptor(
-			final WalletFileDescriptor descriptor,
+			final WalletDescriptor descriptor,
 			final WalletPassword password) {
 		super(descriptor, password);
 	}
 
 	@Override
 	public WalletName getWalletName() {
-		return super.getEntityDescriptor().getName();
+		return super.getDescriptor().getWalletName();
 	}
 }

@@ -87,27 +87,6 @@ public class SecureStorableEntityDescriptorTest {
 	//region simple delegation
 
 	@Test
-	public void getStorableEntityNameDelegatesToWrappedDescriptor() {
-		// Arrange:
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		final StorableEntity entity = Mockito.mock(StorableEntity.class);
-		Mockito.when(entity.getName()).thenReturn(new StorableEntityName("foo"));
-		Mockito.when(entity.getFileExtension()).thenReturn(new StorableEntityFileExtension(".bar"));
-		Mockito.when(entity.getLabel()).thenReturn("label");
-		Mockito.when(wrappedDescriptor.getEntity()).thenReturn(entity);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
-
-		// Act:
-		final StorableEntity theEntity = descriptor.getEntity();
-
-		// Assert:
-		Mockito.verify(wrappedDescriptor, Mockito.times(1)).getEntity();
-		Assert.assertThat(theEntity.getName(), IsEqual.equalTo(new StorableEntityName("foo")));
-		Assert.assertThat(theEntity.getFileExtension(), IsEqual.equalTo(new StorableEntityFileExtension(".bar")));
-		Assert.assertThat(theEntity.getLabel(), IsEqual.equalTo("label"));
-	}
-
-	@Test
 	public void deleteDelegatesToWrappedDescriptor() {
 		// Arrange:
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);

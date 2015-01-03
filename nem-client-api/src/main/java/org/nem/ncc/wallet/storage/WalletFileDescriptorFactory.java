@@ -17,7 +17,7 @@ public class WalletFileDescriptorFactory
 		WalletPassword,
 		WalletFileExtension,
 		WalletNamePasswordPair,
-		WalletFileDescriptor>
+		WalletDescriptor>
 		implements WalletDescriptorFactory {
 
 	/**
@@ -44,7 +44,7 @@ public class WalletFileDescriptorFactory
 					ObjectDeserializer<StorableWallet>,
 					Function<String, WalletName>,
 					Function<String, WalletFileExtension>,
-					WalletFileDescriptor> descriptorActivator) {
+					WalletDescriptor> descriptorActivator) {
 		super(directory, deserializer, nameActivator, fileExtensionActivator, descriptorActivator);
 	}
 }

@@ -6,6 +6,7 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.JsonSerializer;
+import org.nem.ncc.storage.StorableEntityStorageException;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.WalletName;
 
@@ -43,17 +44,17 @@ public class WalletFileDescriptorTest {
 	@Test
 	public void descriptorCannotBeCreatedAroundDirectory() {
 		// Assert:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> new WalletFileDescriptor(TEST_FILE_DIRECTORY),
-				WalletStorageException.Code.WALLET_CANNOT_BE_DIRECTORY);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY);
 	}
 
 	@Test
 	public void descriptorCannotBeCreatedAroundWalletWithInvalidExtension() {
 		// Assert:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> new WalletFileDescriptor(TEST_WALLET_FILE_BAD_EXT),
-				WalletStorageException.Code.WALLET_HAS_INVALID_EXTENSION);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION);
 	}
 
 	@Test
@@ -124,9 +125,9 @@ public class WalletFileDescriptorTest {
 		final WalletFileDescriptor descriptor = new WalletFileDescriptor(file);
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> descriptor.openRead(),
-				WalletStorageException.Code.WALLET_DOES_NOT_EXIST);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
 	}
 
 	@Test
@@ -139,9 +140,9 @@ public class WalletFileDescriptorTest {
 		final WalletFileDescriptor descriptor = new WalletFileDescriptor(file);
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> descriptor.openRead(),
-				WalletStorageException.Code.WALLET_COULD_NOT_BE_READ);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
 	}
 
 	//endregion
@@ -182,9 +183,9 @@ public class WalletFileDescriptorTest {
 		final WalletFileDescriptor descriptor = new WalletFileDescriptor(file);
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> descriptor.openWrite(),
-				WalletStorageException.Code.WALLET_COULD_NOT_BE_SAVED);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED);
 	}
 
 	//endregion
@@ -216,9 +217,9 @@ public class WalletFileDescriptorTest {
 		Mockito.when(file.delete()).thenReturn(false);
 
 		// Act:
-		ExceptionAssert.assertThrowsWalletStorageException(
+		ExceptionAssert.assertThrowsStorableEntityStorageException(
 				v -> descriptor.delete(),
-				WalletStorageException.Code.WALLET_COULD_NOT_BE_DELETED);
+				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_DELETED);
 	}
 
 	//endregion
@@ -236,7 +237,7 @@ public class WalletFileDescriptorTest {
 
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(2));
-		Assert.assertThat(jsonObject.get("wallet"), IsEqual.equalTo("foo"));
+		Assert.assertThat(jsonObject.get("name"), IsEqual.equalTo("foo"));
 		Assert.assertThat(
 				jsonObject.get("location"),
 				IsEqual.equalTo(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah", "foo.wlt").toString()));

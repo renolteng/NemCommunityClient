@@ -28,7 +28,7 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void pairCanBeCreatedUsingConstructorWithStringParameters() {
 		// Act:
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair("name", "password");
+		final StorableEntityNamePasswordPair pair = this.createPair("name", "password");
 
 		// Assert:
 		Assert.assertThat(pair.getName(), IsEqual.equalTo(new StorableEntityName("name")));
@@ -67,7 +67,11 @@ public class StorableEntityNamePasswordPairTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("storableEntity", name);
 		jsonObject.put("password", password);
-		return new StorableEntityNamePasswordPair<>(new JsonDeserializer(jsonObject, null), null);
+		return new StorableEntityNamePasswordPair<>(
+				new JsonDeserializer(jsonObject, null),
+				StorableEntityName::new,
+				StorableEntityPassword::new,
+				null);
 	}
 
 	//endregion
@@ -77,12 +81,12 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void equalsOnlyReturnsTrueForEquivalentObjects() {
 		// Arrange:
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair("name", "password");
+		final StorableEntityNamePasswordPair pair = this.createPair("name", "password");
 
 		// Assert:
-		Assert.assertThat(new StorableEntityNamePasswordPair("name", "password"), IsEqual.equalTo(pair));
-		Assert.assertThat(new StorableEntityNamePasswordPair("lame", "password"), IsNot.not(IsEqual.equalTo(pair)));
-		Assert.assertThat(new StorableEntityNamePasswordPair("name", "word"), IsNot.not(IsEqual.equalTo(pair)));
+		Assert.assertThat(this.createPair("name", "password"), IsEqual.equalTo(pair));
+		Assert.assertThat(this.createPair("lame", "password"), IsNot.not(IsEqual.equalTo(pair)));
+		Assert.assertThat(this.createPair("name", "word"), IsNot.not(IsEqual.equalTo(pair)));
 		Assert.assertThat(null, IsNot.not(IsEqual.equalTo(pair)));
 		Assert.assertThat("name", IsNot.not(IsEqual.equalTo((Object)pair)));
 	}
@@ -90,14 +94,22 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void hashCodesAreEqualForEquivalentObjects() {
 		// Arrange::
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair("name", "password");
+		final StorableEntityNamePasswordPair pair = this.createPair("name", "password");
 		final int hashCode = pair.hashCode();
 
 		// Assert:
-		Assert.assertThat(new StorableEntityNamePasswordPair("name", "password").hashCode(), IsEqual.equalTo(hashCode));
-		Assert.assertThat(new StorableEntityNamePasswordPair("lame", "password").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
-		Assert.assertThat(new StorableEntityNamePasswordPair("name", "word").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
+		Assert.assertThat(this.createPair("name", "password").hashCode(), IsEqual.equalTo(hashCode));
+		Assert.assertThat(this.createPair("lame", "password").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
+		Assert.assertThat(this.createPair("name", "word").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
 	}
 
 	//endregion
+
+	private StorableEntityNamePasswordPair createPair(final String name, final String password) {
+		return new StorableEntityNamePasswordPair<>(
+				name,
+				password,
+				StorableEntityName::new,
+				StorableEntityPassword::new);
+	}
 }

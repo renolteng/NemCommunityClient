@@ -1,5 +1,6 @@
 package org.nem.ncc.storage;
 
+import org.eclipse.jetty.util.UrlEncoded;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
 
@@ -44,7 +45,7 @@ public class StorableEntityFileDescriptor<
 		}
 
 		final String entityName = fileName.substring(0, fileName.length() - StorableEntityFileExtension.EXTENSION_LENGTH);
-		this.name = nameActivator.apply(entityName);
+		this.name = nameActivator.apply(UrlEncoded.decodeString(entityName, 0, entityName.length(), UrlEncoded.ENCODING));
 		final String entityFileExtension = fileName.substring(fileName.length() - StorableEntityFileExtension.EXTENSION_LENGTH, fileName.length());
 		this.fileExtension = fileExtensionActivator.apply(entityFileExtension);
 	}

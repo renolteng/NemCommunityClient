@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Default implementation of a storable entity with object deserialization.
  */
-public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer<StorableEntity> {
+public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer<DefaultStorableEntity> {
 	/**
 	 * The default file extension for the DefaultStorableEntity class.
 	 */
@@ -48,13 +48,8 @@ public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer
 	}
 
 	@Override
-	public StorableEntity deserialize(final Deserializer deserializer) {
+	public DefaultStorableEntity deserialize(final Deserializer deserializer) {
 		return new DefaultStorableEntity(deserializer);
-	}
-
-	@Override
-	public String getLabel() {
-		return this.label;
 	}
 
 	@Override

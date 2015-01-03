@@ -49,7 +49,7 @@ public class SecureStorableEntityDescriptor<
 	 *
 	 * @return The entity descriptor.
 	 */
-	public TEntityDescriptor getEntityDescriptor() {
+	public TEntityDescriptor getDescriptor() {
 		return this.descriptor;
 	}
 

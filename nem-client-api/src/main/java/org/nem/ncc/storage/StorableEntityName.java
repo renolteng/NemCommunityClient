@@ -16,8 +16,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 *
 	 * @param name The name.
 	 */
-	public StorableEntityName(
-			final String name) {
+	public StorableEntityName(final String name) {
 		this(name, "storableEntity", null);
 	}
 
@@ -27,9 +26,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 * @param name The name.
 	 * @param label The label.
 	 */
-	public StorableEntityName(
-			final String name,
-			final String label) {
+	public StorableEntityName(final String name, final String label) {
 		this(name, label, null);
 	}
 

@@ -46,8 +46,7 @@ public class BinaryStorableEntityRepositoryTest {
 		final ByteArrayInputStream inputStream = new ByteArrayInputStream(BinarySerializer.serializeToBytes(originalEntity));
 		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
-		Mockito.when(descriptor.getEntity()).thenReturn(entity);
-		Mockito.when(descriptor.getEntityDeserializer()).thenReturn(entity);
+		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
 		// Act:
 		final StorableEntity loadedEntity = new BinaryStorableEntityRepository().load(descriptor);
@@ -76,8 +75,7 @@ public class BinaryStorableEntityRepositoryTest {
 		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { });
 		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
-		Mockito.when(descriptor.getEntity()).thenReturn(entity);
-		Mockito.when(descriptor.getEntityDeserializer()).thenReturn(entity);
+		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
@@ -94,15 +92,13 @@ public class BinaryStorableEntityRepositoryTest {
 		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		Mockito.when(descriptor.openWrite()).thenReturn(outputStream);
-		Mockito.when(descriptor.getEntity()).thenReturn(originalEntity);
 
 		// Act:
 		repository.save(descriptor, originalEntity);
 
 		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
 		Mockito.when(descriptor.openRead()).thenReturn(new ByteArrayInputStream(outputStream.toByteArray()));
-		Mockito.when(descriptor.getEntity()).thenReturn(entity);
-		Mockito.when(descriptor.getEntityDeserializer()).thenReturn(entity);
+		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
 		final StorableEntity loadedEntity = repository.load(descriptor);
 
