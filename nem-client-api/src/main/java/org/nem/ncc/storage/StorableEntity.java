@@ -9,13 +9,6 @@ public interface StorableEntity<TEntityName extends StorableEntityName, TEntityF
 		extends SerializableEntity {
 
 	/**
-	 * Gets the label of the storable entity for serialization (e.g. 'wallet', 'accountLabel').
-	 *
-	 * @return The label.
-	 */
-	public String getLabel();
-
-	/**
 	 * Gets the name of the storable entity.
 	 *
 	 * @return The name.

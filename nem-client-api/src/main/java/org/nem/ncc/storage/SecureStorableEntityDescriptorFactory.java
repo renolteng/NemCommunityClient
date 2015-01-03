@@ -10,19 +10,37 @@ import java.util.function.*;
  */
 public class SecureStorableEntityDescriptorFactory<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
-		TDescriptor extends StorableEntityDescriptor<TEntity>,
-		TDescriptorFactory extends StorableEntityFileDescriptorFactory<TEntity, TDescriptor>,
-		TSecureDescriptor extends SecureStorableEntityDescriptor<TEntity, TDescriptor>>
-		implements StorableEntityDescriptorFactory<TSecureDescriptor> {
+		TEntityName extends StorableEntityName,
+		TEntityPassword extends StorableEntityPassword,
+		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, TEntityNamePasswordPair>,
+		TEntityFileExtension extends StorableEntityFileExtension,
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension>,
+		TEntityDescriptorFactory extends StorableEntityFileDescriptorFactory<TEntity, TEntityName, TEntityPassword, TEntityFileExtension, TEntityNamePasswordPair, TEntityDescriptor>,
+		TSecureDescriptor extends SecureStorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension, TEntityPassword, TEntityDescriptor>>
+		implements StorableEntityDescriptorFactory<TEntityNamePasswordPair, TEntityFileExtension, TSecureDescriptor> {
 	private final File directory;
-	private final Function<StorableEntityName, TEntity> entityActivator;
-	private final BiFunction<TEntity, File, TDescriptor> descriptorActivator;
-	private final TripleFunction<
+	private final ObjectDeserializer<TEntity> deserializer;
+	private final Function<String, TEntityName> nameActivator;
+	private final Function<String, TEntityFileExtension> fileExtensionActivator;
+	private final QuadFunction<
 			File,
-			Function<StorableEntityName, TEntity>,
-			BiFunction<TEntity, File, TDescriptor>,
-			TDescriptorFactory> descriptorFactoryActivator;
-	private final BiFunction<TDescriptor, StorableEntityPassword, TSecureDescriptor> secureDescriptorActivator;
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			TEntityDescriptor> descriptorActivator;
+	private final PentaFunction<
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			QuadFunction<
+					File,
+					ObjectDeserializer<TEntity>,
+					Function<String, TEntityName>,
+					Function<String, TEntityFileExtension>,
+					TEntityDescriptor>,
+			TEntityDescriptorFactory> descriptorFactoryActivator;
+	private final BiFunction<TEntityDescriptor, TEntityPassword, TSecureDescriptor> secureDescriptorActivator;
 
 	/**
 	 * Creates a new secure storable entity descriptor factory.
@@ -31,32 +49,53 @@ public class SecureStorableEntityDescriptorFactory<
 	 */
 	public SecureStorableEntityDescriptorFactory(
 			final File directory,
-			final Function<StorableEntityName, TEntity> entityActivator,
-			final BiFunction<TEntity, File, TDescriptor> descriptorActivator,
-			final BiFunction<TDescriptor, StorableEntityPassword, TSecureDescriptor> secureDescriptorActivator,
-			final TripleFunction<
+			final ObjectDeserializer<TEntity> deserializer,
+			final Function<String, TEntityName> nameActivator,
+			final Function<String, TEntityFileExtension> fileExtensionActivator,
+			final QuadFunction<
 					File,
-					Function<StorableEntityName, TEntity>,
-					BiFunction<TEntity, File, TDescriptor>,
-					TDescriptorFactory> descriptorFactoryActivator) {
+					ObjectDeserializer<TEntity>,
+					Function<String, TEntityName>,
+					Function<String, TEntityFileExtension>,
+					TEntityDescriptor> descriptorActivator,
+			final BiFunction<TEntityDescriptor, TEntityPassword, TSecureDescriptor> secureDescriptorActivator,
+			final PentaFunction<
+					File,
+					ObjectDeserializer<TEntity>,
+					Function<String, TEntityName>,
+					Function<String, TEntityFileExtension>,
+					QuadFunction<
+							File,
+							ObjectDeserializer<TEntity>,
+							Function<String, TEntityName>,
+							Function<String, TEntityFileExtension>,
+							TEntityDescriptor>,
+					TEntityDescriptorFactory> descriptorFactoryActivator) {
 		this.directory = directory;
-		this.entityActivator = entityActivator;
+		this.deserializer = deserializer;
+		this.nameActivator = nameActivator;
+		this.fileExtensionActivator = fileExtensionActivator;
 		this.descriptorActivator = descriptorActivator;
 		this.secureDescriptorActivator = secureDescriptorActivator;
 		this.descriptorFactoryActivator = descriptorFactoryActivator;
 	}
 
 	@Override
-	public TSecureDescriptor createNew(final StorableEntityNamePasswordPair pair) {
-		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().createNew(pair), pair.getPassword());
+	public TSecureDescriptor createNew(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
+		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().createNew(pair, fileExtension), pair.getPassword());
 	}
 
 	@Override
-	public TSecureDescriptor openExisting(final StorableEntityNamePasswordPair pair) {
-		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().openExisting(pair), pair.getPassword());
+	public TSecureDescriptor openExisting(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
+		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().openExisting(pair, fileExtension), pair.getPassword());
 	}
 
-	private TDescriptorFactory getFileDescriptorFactory() {
-		return descriptorFactoryActivator.apply(this.directory, this.entityActivator, this.descriptorActivator);
+	private TEntityDescriptorFactory getFileDescriptorFactory() {
+		return descriptorFactoryActivator.apply(
+				this.directory,
+				this.deserializer,
+				this.nameActivator,
+				this.fileExtensionActivator,
+				this.descriptorActivator);
 	}
 }

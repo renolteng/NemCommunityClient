@@ -25,12 +25,12 @@ public class AutoFallbackRepository implements WalletRepository {
 	}
 
 	@Override
-	public void save(final WalletDescriptor descriptor, final Wallet wallet) {
+	public void save(final WalletDescriptor descriptor, final StorableWallet wallet) {
 		this.repositories.iterator().next().save(descriptor, wallet);
 	}
 
 	@Override
-	public Wallet load(final WalletDescriptor descriptor) {
+	public StorableWallet load(final WalletDescriptor descriptor) {
 		WalletStorageException firstException = null;
 		for (final WalletRepository repository : this.repositories) {
 			try {

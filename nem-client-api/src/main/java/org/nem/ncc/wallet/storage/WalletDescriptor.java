@@ -1,14 +1,14 @@
 package org.nem.ncc.wallet.storage;
 
-import org.nem.core.serialization.SerializableEntity;
-import org.nem.ncc.wallet.WalletName;
+import org.nem.ncc.storage.StorableEntityDescriptor;
+import org.nem.ncc.wallet.*;
 
 import java.io.*;
 
 /**
  * An interface that describes a wallet.
  */
-public interface WalletDescriptor extends SerializableEntity {
+public interface WalletDescriptor extends StorableEntityDescriptor<StorableWallet, WalletName, WalletFileExtension> {
 
 	/**
 	 * Gets the wallet name.

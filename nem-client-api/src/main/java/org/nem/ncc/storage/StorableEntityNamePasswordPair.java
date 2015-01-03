@@ -2,12 +2,17 @@ package org.nem.ncc.storage;
 
 import org.nem.core.serialization.Deserializer;
 
+import java.util.function.Function;
+
 /**
  * A pair of a storable entity name and a storable entity password.
  */
-public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNamePasswordPair> {
-	private final StorableEntityName name;
-	private final StorableEntityPassword password;
+public class StorableEntityNamePasswordPair<
+		TEntityName extends StorableEntityName,
+		TEntityPassword extends StorableEntityPassword,
+		TDerived extends StorableEntityNamePasswordPair> {
+	private final TEntityName name;
+	private final TEntityPassword password;
 	private final Class<TDerived> derivedClass;
 
 	/**
@@ -17,8 +22,8 @@ public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNameP
 	 * @param password The storable entity password.
 	 */
 	public StorableEntityNamePasswordPair(
-			final StorableEntityName name,
-			final StorableEntityPassword password) {
+			final TEntityName name,
+			final TEntityPassword password) {
 		this(name, password, null);
 	}
 
@@ -30,8 +35,8 @@ public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNameP
 	 * @param derivedClass The derived class.
 	 */
 	public StorableEntityNamePasswordPair(
-			final StorableEntityName name,
-			final StorableEntityPassword password,
+			final TEntityName name,
+			final TEntityPassword password,
 			final Class<TDerived> derivedClass) {
 		this.name = name;
 		this.password = password;
@@ -46,8 +51,10 @@ public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNameP
 	 */
 	public StorableEntityNamePasswordPair(
 			final String name,
-			final String password) {
-		this(new StorableEntityName<>(name), new StorableEntityPassword<>(password), null);
+			final String password,
+			final Function<String, TEntityName> nameActivator,
+			final Function<String, TEntityPassword> passwordActivator) {
+		this(nameActivator.apply(name), passwordActivator.apply(password), null);
 	}
 
 	/**
@@ -57,9 +64,11 @@ public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNameP
 	 */
 	public StorableEntityNamePasswordPair(
 			final Deserializer deserializer,
+			final Function<String, TEntityName> nameActivator,
+			final Function<String, TEntityPassword> passwordActivator,
 			final Class<TDerived> derivedClass) {
-		this.name = StorableEntityName.readFrom(deserializer, "storableEntity");
-		this.password = StorableEntityPassword.readFrom(deserializer, "password");
+		this.name = nameActivator.apply(deserializer.readString("storableEntity"));
+		this.password = passwordActivator.apply(deserializer.readString("password"));
 		this.derivedClass = derivedClass;
 	}
 
@@ -68,7 +77,7 @@ public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNameP
 	 *
 	 * @return The storable entity name.
 	 */
-	public StorableEntityName getName() {
+	public TEntityName getName() {
 		return this.name;
 	}
 
@@ -77,7 +86,7 @@ public class StorableEntityNamePasswordPair<TDerived extends StorableEntityNameP
 	 *
 	 * @return The storable entity password.
 	 */
-	public StorableEntityPassword getPassword() {
+	public TEntityPassword getPassword() {
 		return this.password;
 	}
 

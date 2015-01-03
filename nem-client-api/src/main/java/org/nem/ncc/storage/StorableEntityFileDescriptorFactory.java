@@ -1,55 +1,78 @@
 package org.nem.ncc.storage;
 
 import org.eclipse.jetty.util.UrlEncoded;
+import org.nem.core.serialization.ObjectDeserializer;
 
 import java.io.File;
-import java.util.function.*;
+import java.util.function.Function;
 
 /**
  * Factory that creates file-backed storable entity descriptors.
  */
 public class StorableEntityFileDescriptorFactory<
-		TEntity extends StorableEntity,
-		TDescriptor extends StorableEntityDescriptor>
-		implements StorableEntityDescriptorFactory {
+		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
+		TEntityName extends StorableEntityName,
+		TEntityPassword extends StorableEntityPassword,
+		TEntityFileExtension extends StorableEntityFileExtension,
+		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, TEntityNamePasswordPair>,
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension>>
+		implements StorableEntityDescriptorFactory<TEntityNamePasswordPair, TEntityFileExtension, TEntityDescriptor> {
 	private final File directory;
-	private final Function<StorableEntityName, TEntity> entityActivator;
-	private final BiFunction<TEntity, File, TDescriptor> descriptorActivator;
+	private final ObjectDeserializer<TEntity> deserializer;
+	private final Function<String, TEntityName> nameActivator;
+	private final Function<String, TEntityFileExtension> fileExtensionActivator;
+	private final QuadFunction<
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+	TEntityDescriptor> descriptorActivator;
 
 	/**
 	 * Creates a new storable entity descriptor factory.
 	 *
 	 * @param directory The search directory.
+	 * @param deserializer The entity deserializer.
+	 * @param nameActivator The name activator.
+	 * @param fileExtensionActivator The file extension activator.
+	 * @param descriptorActivator The descriptor activator.
 	 */
 	public StorableEntityFileDescriptorFactory(
 			final File directory,
-			final Function<StorableEntityName, TEntity> entityActivator,
-			final BiFunction<TEntity, File, TDescriptor> descriptorActivator) {
+			final ObjectDeserializer<TEntity> deserializer,
+			final Function<String, TEntityName> nameActivator,
+			final Function<String, TEntityFileExtension> fileExtensionActivator,
+			final QuadFunction<
+					File,
+					ObjectDeserializer<TEntity>,
+					Function<String, TEntityName>,
+					Function<String, TEntityFileExtension>,
+					TEntityDescriptor> descriptorActivator) {
 		this.directory = directory;
-		this.entityActivator = entityActivator;
+		this.deserializer = deserializer;
+		this.nameActivator = nameActivator;
+		this.fileExtensionActivator = fileExtensionActivator;
 		this.descriptorActivator = descriptorActivator;
 	}
 
 	@Override
-	public TDescriptor createNew(final StorableEntityNamePasswordPair pair) {
-		final TEntity entity = this.entityActivator.apply(pair.getName());
-		final File file = this.createFile(entity.getName(), entity.getFileExtension());
+	public TEntityDescriptor createNew(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
+		final File file = this.createFile(pair.getName(), fileExtension);
 		if (file.exists()) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS);
 		}
 
-		return this.descriptorActivator.apply(entity, file);
+		return this.descriptorActivator.apply(file, this.deserializer, this.nameActivator, this.fileExtensionActivator);
 	}
 
 	@Override
-	public TDescriptor openExisting(final StorableEntityNamePasswordPair pair) {
-		final TEntity entity = this.entityActivator.apply(pair.getName());
-		final File file = this.createFile(entity.getName(), entity.getFileExtension());
+	public TEntityDescriptor openExisting(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
+		final File file = this.createFile(pair.getName(), fileExtension);
 		if (!file.exists()) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
 		}
 
-		return this.descriptorActivator.apply(entity, file);
+		return this.descriptorActivator.apply(file, this.deserializer, this.nameActivator, this.fileExtensionActivator);
 	}
 
 	private File createFile(final StorableEntityName name, final StorableEntityFileExtension fileExtension) {

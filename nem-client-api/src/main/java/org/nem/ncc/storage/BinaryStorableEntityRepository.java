@@ -9,10 +9,15 @@ import java.io.*;
 /**
  * A binary storable entity repository.
  */
-public class BinaryStorableEntityRepository<TEntity extends StorableEntity & ObjectDeserializer<TEntity>> implements StorableEntityRepository<TEntity> {
+public class BinaryStorableEntityRepository<
+		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
+		TEntityName extends StorableEntityName,
+		TEntityFileExtension extends StorableEntityFileExtension,
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension>>
+		implements StorableEntityRepository<TEntity, TEntityName, TEntityFileExtension, TEntityDescriptor> {
 
 	@Override
-	public void save(final StorableEntityDescriptor<TEntity> descriptor, final TEntity storableEntity) {
+	public void save(final TEntityDescriptor descriptor, final TEntity storableEntity) {
 		ExceptionUtils.propagateVoid(() -> {
 			try (final OutputStream os = descriptor.openWrite()) {
 				os.write(BinarySerializer.serializeToBytes(storableEntity));
@@ -21,11 +26,11 @@ public class BinaryStorableEntityRepository<TEntity extends StorableEntity & Obj
 	}
 
 	@Override
-	public TEntity load(final StorableEntityDescriptor<TEntity> descriptor) {
+	public TEntity load(final TEntityDescriptor descriptor) {
 		try {
 			try (final InputStream is = descriptor.openRead()) {
 				final byte[] bytes = IOUtils.toByteArray(is);
-				final ObjectDeserializer<TEntity> deserializer = descriptor.getEntityDeserializer();
+				final ObjectDeserializer<TEntity> deserializer = descriptor.getDeserializer();
 				return deserializer.deserialize(new BinaryDeserializer(bytes, new DeserializationContext(null)));
 			}
 		} catch (final SerializationException | IOException ex) {

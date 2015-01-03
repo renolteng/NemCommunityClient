@@ -17,12 +17,15 @@ import java.io.*;
  */
 public class SecureStorableEntityDescriptor<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
-		TDescriptor extends StorableEntityDescriptor<TEntity>>
-		implements StorableEntityDescriptor<TEntity> {
+		TEntityName extends StorableEntityName,
+		TEntityFileExtension extends StorableEntityFileExtension,
+		TEntityPassword extends StorableEntityPassword,
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName,TEntityFileExtension>>
+		implements StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension> {
 	private static final int BLOCK_SIZE = 16;
 
-	private final TDescriptor descriptor;
-	private final StorableEntityPassword password;
+	private final TEntityDescriptor descriptor;
+	private final TEntityPassword password;
 
 	/**
 	 * Creates a new secure storable entity descriptor.
@@ -31,8 +34,8 @@ public class SecureStorableEntityDescriptor<
 	 * @param password The password.
 	 */
 	public SecureStorableEntityDescriptor(
-			final TDescriptor descriptor,
-			final StorableEntityPassword password) {
+			final TEntityDescriptor descriptor,
+			final TEntityPassword password) {
 		if (null == password) {
 			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
 		}
@@ -41,14 +44,28 @@ public class SecureStorableEntityDescriptor<
 		this.password = password;
 	}
 
-	@Override
-	public TEntity getEntity() {
-		return this.descriptor.getEntity();
+	/**
+	 * Gets the entity descriptor.
+	 *
+	 * @return The entity descriptor.
+	 */
+	public TEntityDescriptor getEntityDescriptor() {
+		return this.descriptor;
 	}
 
 	@Override
-	public ObjectDeserializer<TEntity> getEntityDeserializer() {
-		return this.descriptor.getEntityDeserializer();
+	public TEntityName getName() {
+		return this.descriptor.getName();
+	}
+
+	@Override
+	public TEntityFileExtension getFileExtension() {
+		return this.descriptor.getFileExtension();
+	}
+
+	@Override
+	public ObjectDeserializer<TEntity> getDeserializer() {
+		return this.descriptor.getDeserializer();
 	}
 
 	@Override

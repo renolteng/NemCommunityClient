@@ -6,5 +6,8 @@ import org.nem.ncc.storage.StorableEntity;
 /**
  * Interface that represents a wallet that can be stored and loaded.
  */
-public interface StorableWallet extends Wallet, StorableEntity<WalletName, WalletFileExtension>, ObjectDeserializer<StorableEntity> {
+public interface StorableWallet extends
+		Wallet,
+		StorableEntity<WalletName, WalletFileExtension>,
+		ObjectDeserializer<StorableWallet> {
 }

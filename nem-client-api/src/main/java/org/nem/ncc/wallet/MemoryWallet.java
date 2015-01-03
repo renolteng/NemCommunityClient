@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemoryWallet implements StorableWallet {
 	private final WalletName name;
 	private final WalletFileExtension fileExtension = new WalletFileExtension();
-	private final String label = "name";
 	private final Map<Address, WalletAccount> otherAccounts;
 	private WalletAccount primaryAccount;
 
@@ -81,11 +80,6 @@ public class MemoryWallet implements StorableWallet {
 	@Override
 	public MemoryWallet deserialize(final Deserializer deserializer) {
 		return new MemoryWallet(deserializer);
-	}
-
-	@Override
-	public String getLabel() {
-		return this.label;
 	}
 
 	@Override
@@ -178,7 +172,7 @@ public class MemoryWallet implements StorableWallet {
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		WalletName.writeTo(serializer, this.label, this.name);
+		WalletName.writeTo(serializer, "name", this.name);
 		serializer.writeObject("primaryAccount", this.primaryAccount);
 		serializer.writeObjectArray("otherAccounts", this.otherAccounts.values());
 	}
