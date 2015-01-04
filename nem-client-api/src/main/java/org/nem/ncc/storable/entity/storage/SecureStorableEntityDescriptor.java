@@ -1,4 +1,4 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.crypto.engines.AESEngine;
@@ -9,6 +9,7 @@ import org.bouncycastle.crypto.params.*;
 import org.nem.core.crypto.Hashes;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.*;
+import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 

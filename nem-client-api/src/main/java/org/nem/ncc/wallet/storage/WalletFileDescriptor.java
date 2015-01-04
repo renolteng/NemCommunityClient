@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet.storage;
 
 import org.nem.core.serialization.ObjectDeserializer;
-import org.nem.ncc.storage.StorableEntityFileDescriptor;
+import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptor;
 import org.nem.ncc.wallet.*;
 
 import java.io.File;

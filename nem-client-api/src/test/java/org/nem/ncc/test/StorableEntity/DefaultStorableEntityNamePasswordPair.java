@@ -1,6 +1,6 @@
 package org.nem.ncc.test.StorableEntity;
 
-import org.nem.ncc.storage.*;
+import org.nem.ncc.storable.entity.*;
 
 public class DefaultStorableEntityNamePasswordPair extends StorableEntityNamePasswordPair<StorableEntityName, StorableEntityPassword, DefaultStorableEntityNamePasswordPair> {
 	public DefaultStorableEntityNamePasswordPair(

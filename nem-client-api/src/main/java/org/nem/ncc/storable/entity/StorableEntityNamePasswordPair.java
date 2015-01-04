@@ -1,4 +1,4 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity;
 
 import org.nem.core.serialization.Deserializer;
 

@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet;
 
 import org.nem.core.serialization.Deserializer;
-import org.nem.ncc.storage.StorableEntityNamePasswordPair;
+import org.nem.ncc.storable.entity.StorableEntityNamePasswordPair;
 
 /**
  * A pair of a wallet name and a wallet password.

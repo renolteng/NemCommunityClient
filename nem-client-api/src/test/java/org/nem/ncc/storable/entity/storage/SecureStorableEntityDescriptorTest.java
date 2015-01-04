@@ -1,4 +1,4 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.core.*;
@@ -6,6 +6,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.ExceptionUtils;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.*;
 
 import java.io.*;

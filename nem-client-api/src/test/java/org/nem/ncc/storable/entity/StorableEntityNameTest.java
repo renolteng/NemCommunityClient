@@ -1,4 +1,4 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity;
 
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;

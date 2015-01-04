@@ -6,7 +6,7 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.JsonSerializer;
-import org.nem.ncc.storage.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.WalletName;
 

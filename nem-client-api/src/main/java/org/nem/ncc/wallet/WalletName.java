@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet;
 
 import org.nem.core.serialization.*;
-import org.nem.ncc.storage.StorableEntityName;
+import org.nem.ncc.storable.entity.StorableEntityName;
 
 /**
  * Represents a wallet name.

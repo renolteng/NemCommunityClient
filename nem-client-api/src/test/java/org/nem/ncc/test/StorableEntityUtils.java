@@ -1,6 +1,6 @@
 package org.nem.ncc.test;
 
-import org.nem.ncc.storage.*;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
 public class StorableEntityUtils {

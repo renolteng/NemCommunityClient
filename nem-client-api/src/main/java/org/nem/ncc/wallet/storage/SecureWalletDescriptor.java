@@ -1,6 +1,6 @@
 package org.nem.ncc.wallet.storage;
 
-import org.nem.ncc.storage.SecureStorableEntityDescriptor;
+import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptor;
 import org.nem.ncc.wallet.*;
 
 /**

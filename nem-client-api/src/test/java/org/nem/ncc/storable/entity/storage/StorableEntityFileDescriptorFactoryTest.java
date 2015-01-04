@@ -1,8 +1,9 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.test.StorableEntity.*;
 

@@ -1,8 +1,9 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import org.eclipse.jetty.util.UrlEncoded;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
+import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 import java.util.function.Function;

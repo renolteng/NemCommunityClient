@@ -1,6 +1,6 @@
 package org.nem.ncc.wallet.storage;
 
-import org.nem.ncc.storage.StorableEntityDescriptor;
+import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
 import org.nem.ncc.wallet.*;
 
 import java.io.*;

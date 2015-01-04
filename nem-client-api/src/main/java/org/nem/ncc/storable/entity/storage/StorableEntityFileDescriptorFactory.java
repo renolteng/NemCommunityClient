@@ -1,7 +1,9 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import org.eclipse.jetty.util.UrlEncoded;
 import org.nem.core.serialization.ObjectDeserializer;
+import org.nem.ncc.function.QuadFunction;
+import org.nem.ncc.storable.entity.*;
 
 import java.io.File;
 import java.util.function.Function;
@@ -22,11 +24,11 @@ public class StorableEntityFileDescriptorFactory<
 	private final Function<String, TEntityName> nameActivator;
 	private final Function<String, TEntityFileExtension> fileExtensionActivator;
 	private final QuadFunction<
-			File,
-			ObjectDeserializer<TEntity>,
-			Function<String, TEntityName>,
-			Function<String, TEntityFileExtension>,
-			TEntityDescriptor> descriptorActivator;
+				File,
+				ObjectDeserializer<TEntity>,
+				Function<String, TEntityName>,
+				Function<String, TEntityFileExtension>,
+				TEntityDescriptor> descriptorActivator;
 
 	/**
 	 * Creates a new storable entity descriptor factory.

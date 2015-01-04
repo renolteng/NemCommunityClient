@@ -1,7 +1,8 @@
 package org.nem.ncc.test.StorableEntity;
 
 import org.nem.core.serialization.ObjectDeserializer;
-import org.nem.ncc.storage.*;
+import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptor;
 
 import java.io.File;
 import java.util.function.Function;

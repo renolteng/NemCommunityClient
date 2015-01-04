@@ -1,19 +1,21 @@
 package org.nem.ncc.test.StorableEntity;
 
 import org.nem.core.serialization.ObjectDeserializer;
-import org.nem.ncc.storage.*;
+import org.nem.ncc.function.QuadFunction;
+import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptorFactory;
 
 import java.io.File;
 import java.util.function.Function;
 
 public class DefaultStorableEntityFileDescriptorFactory
-		extends  StorableEntityFileDescriptorFactory<
-		DefaultStorableEntity,
+		extends StorableEntityFileDescriptorFactory<
+				DefaultStorableEntity,
 		StorableEntityName,
-		StorableEntityPassword,
+				StorableEntityPassword,
 		StorableEntityFileExtension,
-		DefaultStorableEntityNamePasswordPair,
-		DefaultStorableEntityFileDescriptor> {
+				DefaultStorableEntityNamePasswordPair,
+				DefaultStorableEntityFileDescriptor> {
 
 	public DefaultStorableEntityFileDescriptorFactory(
 			final File directory,
@@ -21,11 +23,11 @@ public class DefaultStorableEntityFileDescriptorFactory
 			final Function<String, StorableEntityName> nameActivator,
 			final Function<String, StorableEntityFileExtension> fileExtensionActivator,
 			final QuadFunction<
-					File,
-					ObjectDeserializer<DefaultStorableEntity>,
-					Function<String, StorableEntityName>,
-					Function<String, StorableEntityFileExtension>,
-					DefaultStorableEntityFileDescriptor> descriptorActivator) {
+								File,
+								ObjectDeserializer<DefaultStorableEntity>,
+								Function<String, StorableEntityName>,
+								Function<String, StorableEntityFileExtension>,
+								DefaultStorableEntityFileDescriptor> descriptorActivator) {
 		super(
 				directory,
 				deserializer,

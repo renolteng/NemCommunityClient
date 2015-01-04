@@ -4,7 +4,7 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.BinarySerializer;
-import org.nem.ncc.storage.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.storage.WalletDescriptor;
 

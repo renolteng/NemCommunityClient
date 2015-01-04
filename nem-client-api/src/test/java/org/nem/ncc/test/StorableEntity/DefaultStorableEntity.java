@@ -2,7 +2,7 @@ package org.nem.ncc.test.StorableEntity;
 
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storage.*;
+import org.nem.ncc.storable.entity.*;
 
 import java.util.*;
 

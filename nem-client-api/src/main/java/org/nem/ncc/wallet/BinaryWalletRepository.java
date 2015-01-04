@@ -1,6 +1,6 @@
 package org.nem.ncc.wallet;
 
-import org.nem.ncc.storage.BinaryStorableEntityRepository;
+import org.nem.ncc.storable.entity.BinaryStorableEntityRepository;
 import org.nem.ncc.wallet.storage.WalletDescriptor;
 
 /**

@@ -1,4 +1,4 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.function;
 
 /**
  * Penta Function interface declaration.

@@ -1,6 +1,6 @@
 package org.nem.ncc.wallet;
 
-import org.nem.ncc.storage.StorableEntityFileExtension;
+import org.nem.ncc.storable.entity.StorableEntityFileExtension;
 
 /**
  * Represents a file extension for a wallet.

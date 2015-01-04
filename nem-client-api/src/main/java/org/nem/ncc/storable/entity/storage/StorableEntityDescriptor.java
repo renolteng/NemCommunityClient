@@ -1,6 +1,7 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import org.nem.core.serialization.*;
+import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 

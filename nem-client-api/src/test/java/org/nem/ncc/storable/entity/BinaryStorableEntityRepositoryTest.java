@@ -1,9 +1,10 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.BinarySerializer;
+import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
 import org.nem.ncc.test.*;
 import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 

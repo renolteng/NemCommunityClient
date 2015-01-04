@@ -3,7 +3,7 @@ package org.nem.ncc.wallet.storage;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.ncc.storage.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.*;
 

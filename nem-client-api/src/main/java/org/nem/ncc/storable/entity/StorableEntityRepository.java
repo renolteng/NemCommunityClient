@@ -1,6 +1,7 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity;
 
 import org.nem.core.serialization.ObjectDeserializer;
+import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
 
 /**
  * Repository class for loading and saving storable entities.

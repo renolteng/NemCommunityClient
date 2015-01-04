@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet;
 
 import org.nem.core.serialization.*;
-import org.nem.ncc.storage.StorableEntityPassword;
+import org.nem.ncc.storable.entity.StorableEntityPassword;
 
 /**
  * Represents a wallet password.

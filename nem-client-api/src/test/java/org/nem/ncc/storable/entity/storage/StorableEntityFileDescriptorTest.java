@@ -1,11 +1,12 @@
-package org.nem.ncc.storage;
+package org.nem.ncc.storable.entity.storage;
 
 import net.minidev.json.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.JsonSerializer;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.*;
 import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
