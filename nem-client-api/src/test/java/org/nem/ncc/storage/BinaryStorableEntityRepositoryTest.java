@@ -5,6 +5,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.test.*;
+import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
 import java.io.*;
 

@@ -7,6 +7,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.*;
 import org.nem.ncc.test.*;
+import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -16,8 +17,6 @@ public class StorableEntityFileDescriptorTest {
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_STORABLE_ENTITY_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
 	private static final File TEST_STORABLE_ENTITY_FILE_BAD_EXT = new File(TEST_FILE_DIRECTORY, "test.foobar");
-	private static final File TEST_STORABLE_ENTITY_FILE_MISMATCH_NAME = new File(TEST_FILE_DIRECTORY, "foo.bar");
-	private static final File TEST_STORABLE_ENTITY_FILE_MISMATCH_FILE_EXTENSION = new File(TEST_FILE_DIRECTORY, "test.foo");
 	private final DefaultStorableEntity ENTITY = this.getEntity("test", ".bar");
 
 	//region BeforeClass / AfterClass

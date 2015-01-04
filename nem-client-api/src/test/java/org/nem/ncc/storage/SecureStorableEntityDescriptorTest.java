@@ -21,7 +21,7 @@ public class SecureStorableEntityDescriptorTest {
 		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload(new StorableEntityPassword("pwd")));
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
 		Mockito.when(wrappedDescriptor.openRead()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
 		// Act:
 		final byte[] bytes = IOUtils.toByteArray(descriptor.openRead());
@@ -36,7 +36,7 @@ public class SecureStorableEntityDescriptorTest {
 		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload(new StorableEntityPassword("pwd")));
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
 		Mockito.when(wrappedDescriptor.openRead()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd2"));
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd2"));
 
 		// Act:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
@@ -49,7 +49,7 @@ public class SecureStorableEntityDescriptorTest {
 		// Arrange:
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
 		Mockito.when(wrappedDescriptor.openRead()).thenReturn(CorruptStreams.createRead());
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
 		// Act:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
@@ -67,7 +67,7 @@ public class SecureStorableEntityDescriptorTest {
 		final ByteArrayOutputStream memoryStream = new ByteArrayOutputStream();
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
 		Mockito.when(wrappedDescriptor.openWrite()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
@@ -90,7 +90,7 @@ public class SecureStorableEntityDescriptorTest {
 	public void deleteDelegatesToWrappedDescriptor() {
 		// Arrange:
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
 		// Act:
 		descriptor.delete();
@@ -104,7 +104,7 @@ public class SecureStorableEntityDescriptorTest {
 		// Arrange:
 		final Serializer serializer = Mockito.mock(Serializer.class);
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
 		// Act:
 		descriptor.serialize(serializer);
@@ -119,7 +119,7 @@ public class SecureStorableEntityDescriptorTest {
 		final ByteArrayOutputStream memoryStream = new ByteArrayOutputStream();
 		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
 		Mockito.when(wrappedDescriptor.openWrite()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, password);
+		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, password);
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
@@ -129,5 +129,10 @@ public class SecureStorableEntityDescriptorTest {
 		}
 
 		return memoryStream.toByteArray();
+	}
+
+	@SuppressWarnings("unchecked")
+	private static SecureStorableEntityDescriptor createSecureDescriptor(final StorableEntityDescriptor descriptor, final StorableEntityPassword password) {
+		return  new SecureStorableEntityDescriptor(descriptor, password);
 	}
 }

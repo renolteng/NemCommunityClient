@@ -102,10 +102,10 @@
 									{{#wallets:i}}
 										<li class="openWalletList-item">
 											<input class="openWalletList-radio" id="openWallet-wallet{{i}}" name="wallet-choice" type="radio" />
-											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{wallet}}</label>
+											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{name}}</label>
 											<div class="openWalletList-passwordPrompt">
-												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}" 
-												/><input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openWallet:{{.wallet}}" value="{{texts.landing.main.openButton}}" />
+												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.name]}}" on-keypress="passwordKeypress:{{.name}}"
+												/><input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openWallet:{{.name}}" value="{{texts.landing.main.openButton}}" />
 											</div>
 										</li>
 									{{/wallets}}

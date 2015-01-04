@@ -2,6 +2,8 @@ package org.nem.ncc.storage;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
+import org.nem.ncc.test.ExceptionAssert;
+import org.nem.ncc.test.StorableEntity.*;
 
 import java.io.*;
 
@@ -28,7 +30,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	}
 
 	//endregion
-/*
+
 	@Test
 	public void createNewFailsIfPasswordIsNull() {
 		// Arrange:
@@ -57,16 +59,14 @@ public class SecureStorableEntityDescriptorFactoryTest {
 				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
 	}
 
-	@SuppressWarnings("unchecked")
 	private SecureStorableEntityDescriptorFactory createFactory(final File file) {
-		return new SecureStorableEntityDescriptorFactory(
+		return new SecureStorableEntityDescriptorFactory<>(
 				file,
 				DefaultStorableEntity::new,
 				StorableEntityName::new,
 				StorableEntityFileExtension::new,
-				StorableEntityFileDescriptor::new,
-				SecureStorableEntityDescriptor::new,
-				StorableEntityFileDescriptorFactory::new);
+				DefaultStorableEntityFileDescriptor::new,
+				DefaultSecureStorableEntityDescriptor::new,
+				DefaultStorableEntityFileDescriptorFactory::new);
 	}
-	*/
 }

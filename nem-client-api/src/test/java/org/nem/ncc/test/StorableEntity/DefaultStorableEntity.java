@@ -1,4 +1,4 @@
-package org.nem.ncc.test;
+package org.nem.ncc.test.StorableEntity;
 
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;

@@ -16,7 +16,7 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void pairCanBeCreated() {
 		// Act:
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair(
+		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
 				new StorableEntityName("name"),
 				new StorableEntityPassword("password"));
 

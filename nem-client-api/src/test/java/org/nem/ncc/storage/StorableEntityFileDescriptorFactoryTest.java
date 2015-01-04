@@ -1,17 +1,17 @@
 package org.nem.ncc.storage;
 
 import org.apache.commons.io.FileUtils;
+import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.ncc.test.*;
+import org.nem.ncc.test.ExceptionAssert;
+import org.nem.ncc.test.StorableEntity.*;
 
 import java.io.*;
-import java.util.function.Function;
 
 public class StorableEntityFileDescriptorFactoryTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	private final Function<StorableEntityName, DefaultStorableEntity> entityActivator = StorableEntityUtils::createStorableEntity;
 	private final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
 
 	//region BeforeClass / AfterClass
@@ -31,7 +31,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 	}
 
 	//endregion
-/*
+
 	// TODO 20150101 BR: Same as createNewSucceedsIfFileDoesNotExist. How can I test another way?
 	@Test
 	public void createNewSucceedsWithNullPasswordInPair() {
@@ -112,14 +112,18 @@ public class StorableEntityFileDescriptorFactoryTest {
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
-	@SuppressWarnings("unchecked")
 	private StorableEntityFileDescriptorFactory createFactory(final File file) {
-		return new StorableEntityFileDescriptorFactory(
+		return new StorableEntityFileDescriptorFactory<
+				DefaultStorableEntity,
+				StorableEntityName,
+				StorableEntityPassword,
+				StorableEntityFileExtension,
+				DefaultStorableEntityNamePasswordPair,
+				DefaultStorableEntityFileDescriptor>(
 				file,
 				DefaultStorableEntity::new,
 				StorableEntityName::new,
 				StorableEntityFileExtension::new,
-				StorableEntityFileDescriptor::new);
+				DefaultStorableEntityFileDescriptor::new);
 	}
-	*/
 }
