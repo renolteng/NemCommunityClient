@@ -46,6 +46,11 @@ public class SecureStorableEntityDescriptorFactory<
 	 * Creates a new secure storable entity descriptor factory.
 	 *
 	 * @param directory The search directory.
+	 * @param deserializer The entity deserializer.
+	 * @param nameActivator The entity name activator.
+	 * @param fileExtensionActivator The entity file extension activator.
+	 * @param secureDescriptorActivator The secure descriptor activator.
+	 * @param descriptorFactoryActivator The file descriptor factory activator.
 	 */
 	public SecureStorableEntityDescriptorFactory(
 			final File directory,

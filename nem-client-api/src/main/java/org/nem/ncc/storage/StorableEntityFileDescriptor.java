@@ -27,6 +27,9 @@ public class StorableEntityFileDescriptor<
 	 * Creates a new storable entity file descriptor around a file.
 	 *
 	 * @param file The storable entity location.
+	 * @param deserializer The entity deserializer.
+	 * @param nameActivator The entity name activator.
+	 * @param fileExtensionActivator The entity file extension activator.
 	 */
 	public StorableEntityFileDescriptor(
 			final File file,

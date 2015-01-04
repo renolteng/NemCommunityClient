@@ -42,6 +42,12 @@ public class StorableEntityFileExtension<TDerived extends StorableEntityFileExte
 		this.derivedClass = derivedClass;
 	}
 
+	/**
+	 * Gets a value indicating whether the supplies file name has a valid extension.
+	 *
+	 * @param fileName The file name.
+	 * @return true if the extension is valid, false otherwise.
+	 */
 	public static boolean hasValidExtension(final String fileName) {
 		final int index = fileName.lastIndexOf(".");
 		return -1 != index && EXTENSION_LENGTH == fileName.length() - index;

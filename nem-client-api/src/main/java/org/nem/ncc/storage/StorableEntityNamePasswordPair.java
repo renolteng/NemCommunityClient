@@ -48,6 +48,8 @@ public class StorableEntityNamePasswordPair<
 	 *
 	 * @param name The storable entity name.
 	 * @param password The storable entity password.
+	 * @param nameActivator The name activator.
+	 * @param passwordActivator The password activator.
 	 */
 	public StorableEntityNamePasswordPair(
 			final String name,
@@ -61,6 +63,9 @@ public class StorableEntityNamePasswordPair<
 	 * Deserializes a new storable entity name / password pair.
 	 *
 	 * @param deserializer The deserializer.
+	 * @param nameActivator The name activator.
+	 * @param passwordActivator The password activator.
+	 * @param derivedClass The derived class.
 	 */
 	public StorableEntityNamePasswordPair(
 			final Deserializer deserializer,
