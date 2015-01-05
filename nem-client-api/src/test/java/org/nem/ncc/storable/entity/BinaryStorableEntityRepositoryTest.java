@@ -21,7 +21,7 @@ public class BinaryStorableEntityRepositoryTest {
 		Mockito.when(descriptor.openWrite()).thenReturn(outputStream);
 
 		// Act:
-		new BinaryStorableEntityRepository().save(descriptor, entity);
+		this.createRepository().save(descriptor, entity);
 
 		// Assert:
 		Assert.assertThat(outputStream.toByteArray(), IsEqual.equalTo(BinarySerializer.serializeToBytes(entity)));
@@ -36,7 +36,7 @@ public class BinaryStorableEntityRepositoryTest {
 
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new BinaryStorableEntityRepository().save(descriptor, entity),
+				v -> this.createRepository().save(descriptor, entity),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED);
 	}
 
@@ -51,7 +51,7 @@ public class BinaryStorableEntityRepositoryTest {
 		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
 		// Act:
-		final StorableEntity loadedEntity = new BinaryStorableEntityRepository().load(descriptor);
+		final StorableEntity loadedEntity = this.createRepository().load(descriptor);
 
 		// Assert:
 		// TODO 20150101 BR: Any way to do this with IsEquivalent matcher?
@@ -66,7 +66,7 @@ public class BinaryStorableEntityRepositoryTest {
 
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new BinaryStorableEntityRepository().load(descriptor),
+				v -> this.createRepository().load(descriptor),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
 	}
 
@@ -81,14 +81,14 @@ public class BinaryStorableEntityRepositoryTest {
 
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new BinaryStorableEntityRepository().load(descriptor),
+				v -> this.createRepository().load(descriptor),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
 	}
 
 	@Test
 	public void binaryStorableEntityCanBeRoundTripped() {
 		// Arrange:
-		final StorableEntityRepository repository = new BinaryStorableEntityRepository();
+		final StorableEntityRepository repository = this.createRepository();
 
 		final DefaultStorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
 		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
@@ -107,5 +107,9 @@ public class BinaryStorableEntityRepositoryTest {
 		// Assert:
 		// TODO 20150101 BR: Any way to do this with IsEquivalent matcher?
 		Assert.assertThat(originalEntity.isEqual(loadedEntity), IsEqual.equalTo(true));
+	}
+
+	protected BinaryStorableEntityRepository createRepository() {
+		return new BinaryStorableEntityRepository();
 	}
 }

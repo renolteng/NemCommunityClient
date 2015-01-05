@@ -1,43 +1,26 @@
 package org.nem.ncc.wallet.storage;
 
 import net.minidev.json.JSONObject;
-import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.WalletName;
 
 import java.io.*;
 import java.nio.file.Paths;
 
-public class WalletFileDescriptorTest {
-	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
-	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
-	private static final File TEST_WALLET_FILE = new File(TEST_FILE_DIRECTORY, "test.wlt");
-	private static final File TEST_WALLET_FILE_BAD_EXT = new File(TEST_FILE_DIRECTORY, "test.wltx");
+public class WalletFileDescriptorTest extends StorableEntityFileDescriptorTest {
+	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.wlt");
+	private static final File TEST_FILE_BAD_EXT = new File(TEST_FILE_DIRECTORY, "test.wltx");
 
-	//region BeforeClass / AfterClass
-
-	@BeforeClass
-	public static void createTestFiles() throws IOException {
-		final boolean result = TEST_FILE_DIRECTORY.mkdir()
-				&& TEST_WALLET_FILE.createNewFile()
-				&& TEST_WALLET_FILE_BAD_EXT.createNewFile();
-
-		if (!result) {
-			throw new RuntimeException("unable to initialize test suite");
-		}
+	@Override
+	protected StorableEntityFileDescriptor createDesciptor(final File file) {
+		return new WalletFileDescriptor(file);
 	}
-
-	@AfterClass
-	public static void removeTestFiles() throws IOException {
-		FileUtils.deleteDirectory(TEST_FILE_DIRECTORY);
-	}
-
-	//endregion
 
 	//region construction
 
@@ -53,7 +36,7 @@ public class WalletFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundWalletWithInvalidExtension() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> new WalletFileDescriptor(TEST_WALLET_FILE_BAD_EXT),
+				v -> new WalletFileDescriptor(TEST_FILE_BAD_EXT),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION);
 	}
 
@@ -109,7 +92,7 @@ public class WalletFileDescriptorTest {
 	@Test
 	public void openReadCanOpenFileThatExists() throws IOException {
 		// Arrange:
-		final WalletFileDescriptor descriptor = new WalletFileDescriptor(TEST_WALLET_FILE);
+		final WalletFileDescriptor descriptor = new WalletFileDescriptor(TEST_FILE);
 
 		// Act:
 		try (final InputStream is = descriptor.openRead()) {
@@ -152,7 +135,7 @@ public class WalletFileDescriptorTest {
 	@Test
 	public void openWriteCanOpenFileThatExists() throws IOException {
 		// Arrange:
-		final WalletFileDescriptor descriptor = new WalletFileDescriptor(TEST_WALLET_FILE);
+		final WalletFileDescriptor descriptor = new WalletFileDescriptor(TEST_FILE);
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
