@@ -28,7 +28,7 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void pairCanBeCreatedUsingConstructorWithStringParameters() {
 		// Act:
-		final StorableEntityNamePasswordPair pair = this.createPair("name", "password");
+		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("name", "password");
 
 		// Assert:
 		Assert.assertThat(pair.getName(), IsEqual.equalTo(new StorableEntityName("name")));
@@ -81,12 +81,12 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void equalsOnlyReturnsTrueForEquivalentObjects() {
 		// Arrange:
-		final StorableEntityNamePasswordPair pair = this.createPair("name", "password");
+		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("name", "password");
 
 		// Assert:
-		Assert.assertThat(this.createPair("name", "password"), IsEqual.equalTo(pair));
-		Assert.assertThat(this.createPair("lame", "password"), IsNot.not(IsEqual.equalTo(pair)));
-		Assert.assertThat(this.createPair("name", "word"), IsNot.not(IsEqual.equalTo(pair)));
+		Assert.assertThat(this.createEntityNamePasswordPair("name", "password"), IsEqual.equalTo(pair));
+		Assert.assertThat(this.createEntityNamePasswordPair("lame", "password"), IsNot.not(IsEqual.equalTo(pair)));
+		Assert.assertThat(this.createEntityNamePasswordPair("name", "word"), IsNot.not(IsEqual.equalTo(pair)));
 		Assert.assertThat(null, IsNot.not(IsEqual.equalTo(pair)));
 		Assert.assertThat("name", IsNot.not(IsEqual.equalTo((Object)pair)));
 	}
@@ -94,18 +94,18 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void hashCodesAreEqualForEquivalentObjects() {
 		// Arrange::
-		final StorableEntityNamePasswordPair pair = this.createPair("name", "password");
+		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("name", "password");
 		final int hashCode = pair.hashCode();
 
 		// Assert:
-		Assert.assertThat(this.createPair("name", "password").hashCode(), IsEqual.equalTo(hashCode));
-		Assert.assertThat(this.createPair("lame", "password").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
-		Assert.assertThat(this.createPair("name", "word").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
+		Assert.assertThat(this.createEntityNamePasswordPair("name", "password").hashCode(), IsEqual.equalTo(hashCode));
+		Assert.assertThat(this.createEntityNamePasswordPair("lame", "password").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
+		Assert.assertThat(this.createEntityNamePasswordPair("name", "word").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
 	}
 
 	//endregion
 
-	private StorableEntityNamePasswordPair createPair(final String name, final String password) {
+	protected StorableEntityNamePasswordPair createEntityNamePasswordPair(final String name, final String password) {
 		return new StorableEntityNamePasswordPair<>(
 				name,
 				password,

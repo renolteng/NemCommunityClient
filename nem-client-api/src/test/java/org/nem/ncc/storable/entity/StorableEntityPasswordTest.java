@@ -5,30 +5,31 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
 import org.nem.ncc.test.*;
+
 public class StorableEntityPasswordTest {
 
 	@Test
 	public void passwordCanBeCreatedAroundValidNonWhitespaceString() {
 		// Act:
-		new StorableEntityPassword("foo");
+		this.createEntityPassword("foo");
 	}
 
 	@Test
 	public void passwordCannotBeCreatedAroundWhitespaceString() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> new StorableEntityPassword(null), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> new StorableEntityPassword(""), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> new StorableEntityPassword("  \t\t "), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityPassword((String)null), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityPassword(""), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityPassword("  \t\t "), IllegalArgumentException.class);
 	}
 
 	@Test
 	public void equalsOnlyReturnsTrueForEquivalentObjects() {
 		// Arrange:
-		final StorableEntityPassword password = new StorableEntityPassword("foo");
+		final StorableEntityPassword password = this.createEntityPassword("foo");
 
 		// Assert:
-		Assert.assertThat(new StorableEntityPassword("foo"), IsEqual.equalTo(password));
-		Assert.assertThat(new StorableEntityPassword("fob"), IsNot.not(IsEqual.equalTo(password)));
+		Assert.assertThat(this.createEntityPassword("foo"), IsEqual.equalTo(password));
+		Assert.assertThat(this.createEntityPassword("fob"), IsNot.not(IsEqual.equalTo(password)));
 		Assert.assertThat(null, IsNot.not(IsEqual.equalTo(password)));
 		Assert.assertThat("foo", IsNot.not(IsEqual.equalTo((Object)password)));
 	}
@@ -36,18 +37,18 @@ public class StorableEntityPasswordTest {
 	@Test
 	public void hashCodesAreEqualForEquivalentObjects() {
 		// Arrange:
-		final StorableEntityPassword password = new StorableEntityPassword("foo");
+		final StorableEntityPassword password = this.createEntityPassword("foo");
 		final int hashCode = password.hashCode();
 
 		// Assert:
-		Assert.assertThat(new StorableEntityPassword("foo").hashCode(), IsEqual.equalTo(hashCode));
-		Assert.assertThat(new StorableEntityPassword("fob").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
+		Assert.assertThat(this.createEntityPassword("foo").hashCode(), IsEqual.equalTo(hashCode));
+		Assert.assertThat(this.createEntityPassword("fob").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
 	}
 
 	@Test
 	public void toStringReturnsRawPassword() {
 		// Arrange:
-		final StorableEntityPassword password = new StorableEntityPassword("foo");
+		final StorableEntityPassword password = this.createEntityPassword("foo");
 
 		// Assert:
 		Assert.assertThat(password.toString(), IsEqual.equalTo("foo"));
@@ -59,7 +60,7 @@ public class StorableEntityPasswordTest {
 	public void canWritePassword() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		final StorableEntityPassword password = new StorableEntityPassword("foo");
+		final StorableEntityPassword password = this.createEntityPassword("foo");
 
 		// Act:
 		StorableEntityPassword.writeTo(serializer, "sep", password);
@@ -74,23 +75,23 @@ public class StorableEntityPasswordTest {
 	public void canRoundtripRequiredPassword() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		StorableEntityPassword.writeTo(serializer, "sep", new StorableEntityPassword("foo"));
+		StorableEntityPassword.writeTo(serializer, "sep", this.createEntityPassword("foo"));
 		final StorableEntityPassword password = StorableEntityPassword.readFrom(Utils.createDeserializer(serializer.getObject()), "sep");
 
 		// Assert:
-		Assert.assertThat(password, IsEqual.equalTo(new StorableEntityPassword("foo")));
+		Assert.assertThat(password, IsEqual.equalTo(this.createEntityPassword("foo")));
 	}
 
 	@Test
 	public void canRoundtripOptionalPassword() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		StorableEntityPassword.writeTo(serializer, "sep", new StorableEntityPassword("foo"));
+		StorableEntityPassword.writeTo(serializer, "sep", this.createEntityPassword("foo"));
 		final StorableEntityPassword password = StorableEntityPassword.readFromOptional(
 				Utils.createDeserializer(serializer.getObject()), "sep");
 
 		// Assert:
-		Assert.assertThat(password, IsEqual.equalTo(new StorableEntityPassword("foo")));
+		Assert.assertThat(password, IsEqual.equalTo(this.createEntityPassword("foo")));
 	}
 
 	@Test
@@ -109,4 +110,8 @@ public class StorableEntityPasswordTest {
 	}
 
 	//endregion
+
+	protected StorableEntityPassword createEntityPassword(final String name) {
+		return new StorableEntityPassword<>(name);
+	}
 }

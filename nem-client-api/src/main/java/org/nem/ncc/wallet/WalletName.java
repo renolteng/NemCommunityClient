@@ -14,11 +14,11 @@ public class WalletName extends StorableEntityName {
 	 * @param name The name.
 	 */
 	public WalletName(final String name) {
-		super(name, "wallet", WalletName.class);
+		super(name, "name", WalletName.class);
 	}
 
 	public WalletName(final Deserializer deserializer) {
-		super(deserializer, "wallet", WalletName.class);
+		super(deserializer, "name", WalletName.class);
 	}
 
 	//region inline serialization
