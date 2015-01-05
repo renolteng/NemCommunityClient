@@ -18,12 +18,17 @@ public class WalletNameTest extends StorableEntityNameTest {
 		return new WalletName(deserializer);
 	}
 
+	@Override
+	protected String getEntityNameLabel() {
+		return "wallet";
+	}
+
 	@Test
 	public void canRoundtripName() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		WalletName.writeTo(serializer, "name", this.createEntityName("foo"));
-		final WalletName name = WalletName.readFrom(Utils.createDeserializer(serializer.getObject()), "name");
+		WalletName.writeTo(serializer, this.getEntityNameLabel(), this.createEntityName("foo"));
+		final WalletName name = WalletName.readFrom(Utils.createDeserializer(serializer.getObject()), this.getEntityNameLabel());
 
 		// Assert:
 		Assert.assertThat(name, IsEqual.equalTo(this.createEntityName("foo")));

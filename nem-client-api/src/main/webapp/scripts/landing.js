@@ -16,7 +16,7 @@
             	ncc.set('wallet', Utils.processWallet(walletData));
             	ncc.set('activeAccount', Utils.processAccount(walletData.primaryAccount));
                 ncc.loadPage('dashboard', {
-                	wallet: walletData.name,
+                	wallet: walletData.wallet,
                 	account: walletData.primaryAccount.address
                 });
 	        };

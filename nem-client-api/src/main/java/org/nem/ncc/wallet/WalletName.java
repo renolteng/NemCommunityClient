@@ -6,7 +6,7 @@ import org.nem.ncc.storable.entity.StorableEntityName;
 /**
  * Represents a wallet name.
  */
-public class WalletName extends StorableEntityName {
+public class WalletName extends StorableEntityName<WalletName> {
 
 	/**
 	 * Creates a new wallet name.
@@ -14,11 +14,11 @@ public class WalletName extends StorableEntityName {
 	 * @param name The name.
 	 */
 	public WalletName(final String name) {
-		super(name, "name", WalletName.class);
+		super(name, "wallet", WalletName.class);
 	}
 
 	public WalletName(final Deserializer deserializer) {
-		super(deserializer, "name", WalletName.class);
+		super(deserializer, "wallet", WalletName.class);
 	}
 
 	//region inline serialization

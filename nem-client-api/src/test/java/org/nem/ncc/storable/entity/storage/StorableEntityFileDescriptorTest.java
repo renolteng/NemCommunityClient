@@ -251,7 +251,7 @@ public class StorableEntityFileDescriptorTest {
 
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(2));
-		Assert.assertThat(jsonObject.get("name"), IsEqual.equalTo("foo"));
+		Assert.assertThat(jsonObject.get(entity.getName().getLabel()), IsEqual.equalTo("foo"));
 		Assert.assertThat(
 				jsonObject.get("location"),
 				IsEqual.equalTo(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah", "foo.bar").toString()));

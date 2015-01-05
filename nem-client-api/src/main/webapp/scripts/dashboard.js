@@ -114,7 +114,7 @@
                             }
                         ],
                         {
-                            wallet: ncc.get('wallet.name'),
+                            wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address')
                         },
                         function(values, closeModal) {
@@ -167,7 +167,7 @@
                             }
                         ],
                         {
-                            wallet: ncc.get('wallet.name'),
+                            wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address')
                         },
                         function(values, closeModal) {

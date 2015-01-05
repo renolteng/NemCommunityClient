@@ -5,7 +5,7 @@ import org.nem.ncc.storable.entity.StorableEntityFileExtension;
 /**
  * Represents a file extension for a wallet.
  */
-public class WalletFileExtension extends StorableEntityFileExtension {
+public class WalletFileExtension extends StorableEntityFileExtension<WalletFileExtension> {
 
 	/**
 	 * Creates a new wallet file extension.

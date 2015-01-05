@@ -29,7 +29,7 @@ public class StorableEntityNameTest {
 	public void nameCanBeDeserialized() {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("name", "bar");
+		jsonObject.put(this.getEntityNameLabel(), "bar");
 
 		// Act:
 		final StorableEntityName name = this.createEntityName(Utils.createDeserializer(jsonObject));
@@ -88,20 +88,20 @@ public class StorableEntityNameTest {
 		final StorableEntityName name = this.createEntityName("foo");
 
 		// Act:
-		StorableEntityName.writeTo(serializer, "name", name);
+		StorableEntityName.writeTo(serializer, this.getEntityNameLabel(), name);
 
 		// Assert:
 		final JSONObject object = serializer.getObject();
 		Assert.assertThat(object.size(), IsEqual.equalTo(1));
-		Assert.assertThat(object.get("name"), IsEqual.equalTo("foo"));
+		Assert.assertThat(object.get(this.getEntityNameLabel()), IsEqual.equalTo("foo"));
 	}
 
 	@Test
 	public void canRoundtripName() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		StorableEntityName.writeTo(serializer, "name", this.createEntityName("foo"));
-		final StorableEntityName name = StorableEntityName.readFrom(Utils.createDeserializer(serializer.getObject()), "name");
+		StorableEntityName.writeTo(serializer, this.getEntityNameLabel(), this.createEntityName("foo"));
+		final StorableEntityName name = StorableEntityName.readFrom(Utils.createDeserializer(serializer.getObject()), this.getEntityNameLabel());
 
 		// Assert:
 		Assert.assertThat(name, IsEqual.equalTo(this.createEntityName("foo")));
@@ -114,6 +114,10 @@ public class StorableEntityNameTest {
 	}
 
 	protected StorableEntityName createEntityName(final Deserializer deserializer) {
-		return new StorableEntityName<>(deserializer, "name", null);
+		return new StorableEntityName<>(deserializer, this.getEntityNameLabel(), null);
+	}
+
+	protected String getEntityNameLabel() {
+		return "name";
 	}
 }

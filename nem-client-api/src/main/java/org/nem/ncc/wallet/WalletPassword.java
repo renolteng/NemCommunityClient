@@ -6,7 +6,7 @@ import org.nem.ncc.storable.entity.StorableEntityPassword;
 /**
  * Represents a wallet password.
  */
-public class WalletPassword extends StorableEntityPassword {
+public class WalletPassword extends StorableEntityPassword<WalletPassword> {
 
 	/**
 	 * Creates a new wallet password.

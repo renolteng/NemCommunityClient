@@ -58,7 +58,7 @@
 					<button class="ctaButton ctaButton-createWallet {{#landingPage.activeSection === 'left'}}ctaButton--active{{/}}" on-click="switchLeft">{{texts.landing.main.leftButton}}</button>
 					<div class="ctaSection-form createWalletForm expandable">
 						<div class="js-expand-content createWalletForm-content">
-							<input class="createWalletForm-textbox {{#lcwNameValid}}createWalletForm-textbox--valid{{/}} js-textbox-createWallet-name" type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{landingPage.createWalletForm.name}}" on-keypress="createWalletKeypress" />
+							<input class="createWalletForm-textbox {{#lcwNameValid}}createWalletForm-textbox--valid{{/}} js-textbox-createWallet-name" type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{landingPage.createWalletForm.wallet}}" on-keypress="createWalletKeypress" />
 							<input class="createWalletForm-textbox {{#lcwPasswordValid}}createWalletForm-textbox--valid{{/}} createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.createWalletForm.password}}" on-keypress="createWalletKeypress" />
 							<input class="createWalletForm-textbox {{#lcwConfirmPasswordValid}}createWalletForm-textbox--valid{{/}} createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.confirmPasswordPlh}}" value="{{landingPage.confirmPassword}}" on-keypress="createWalletKeypress" />
 							<div class="createWalletForm-submit">
@@ -102,10 +102,10 @@
 									{{#wallets:i}}
 										<li class="openWalletList-item">
 											<input class="openWalletList-radio" id="openWallet-wallet{{i}}" name="wallet-choice" type="radio" />
-											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{name}}</label>
+											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{wallet}}</label>
 											<div class="openWalletList-passwordPrompt">
-												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.name]}}" on-keypress="passwordKeypress:{{.name}}"
-												/><input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openWallet:{{.name}}" value="{{texts.landing.main.openButton}}" />
+												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}"
+												/><input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openWallet:{{.wallet}}" value="{{texts.landing.main.openButton}}" />
 											</div>
 										</li>
 									{{/wallets}}

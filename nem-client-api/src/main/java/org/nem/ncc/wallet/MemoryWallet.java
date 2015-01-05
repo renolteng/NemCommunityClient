@@ -67,7 +67,7 @@ public class MemoryWallet implements StorableWallet {
 	 * @param deserializer The deserializer.
 	 */
 	public MemoryWallet(final Deserializer deserializer) {
-		this.name = WalletName.readFrom(deserializer, "name");
+		this.name = WalletName.readFrom(deserializer, "wallet");
 		this.primaryAccount = deserializer.readObject("primaryAccount", WalletAccount::new);
 		this.otherAccounts = new ConcurrentHashMap<>();
 		this.addOtherAccounts(deserializer.readObjectArray("otherAccounts", WalletAccount::new));
@@ -172,7 +172,7 @@ public class MemoryWallet implements StorableWallet {
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		WalletName.writeTo(serializer, "name", this.name);
+		WalletName.writeTo(serializer, "wallet", this.name);
 		serializer.writeObject("primaryAccount", this.primaryAccount);
 		serializer.writeObjectArray("otherAccounts", this.otherAccounts.values());
 	}

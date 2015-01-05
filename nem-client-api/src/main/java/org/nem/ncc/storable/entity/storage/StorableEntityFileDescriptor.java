@@ -108,7 +108,7 @@ public class StorableEntityFileDescriptor<
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		StorableEntityName.writeTo(serializer, "name", this.name);
+		StorableEntityName.writeTo(serializer, this.name.getLabel(), this.name);
 		serializer.writeString("location", this.getStorableEntityLocation());
 	}
 }

@@ -74,6 +74,15 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 		this.derivedClass = derivedClass;
 	}
 
+	/**
+	 * Gets the label for serialization.
+	 *
+	 * @return The label.
+	 */
+	public String getLabel() {
+		return this.label;
+	}
+
 	@Override
 	public int hashCode() {
 		return this.name.hashCode();

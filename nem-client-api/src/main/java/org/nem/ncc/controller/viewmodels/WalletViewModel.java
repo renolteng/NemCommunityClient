@@ -72,7 +72,7 @@ public class WalletViewModel implements SerializableEntity {
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		WalletName.writeTo(serializer, "name", this.name);
+		WalletName.writeTo(serializer, "wallet", this.name);
 		serializer.writeLong("lastRefresh", UnixTime.fromTimeInstant(this.updateTime).getMillis());
 		serializer.writeObject("primaryAccount", this.primaryAccount);
 		serializer.writeObjectArray("otherAccounts", this.otherAccounts);

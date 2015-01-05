@@ -237,7 +237,7 @@ public class WalletFileDescriptorTest {
 
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(2));
-		Assert.assertThat(jsonObject.get("name"), IsEqual.equalTo("foo"));
+		Assert.assertThat(jsonObject.get("wallet"), IsEqual.equalTo("foo"));
 		Assert.assertThat(
 				jsonObject.get("location"),
 				IsEqual.equalTo(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah", "foo.wlt").toString()));

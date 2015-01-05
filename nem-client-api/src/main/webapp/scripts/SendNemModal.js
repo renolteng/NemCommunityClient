@@ -62,7 +62,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
          */
         resetFee: function(options) {
             var requestData = {
-                wallet: ncc.get('wallet.name'),
+                wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
                 amount: this.get('amount'),
                 message: this.get('message'),
@@ -109,7 +109,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         },
         sendTransaction: function() {
             var requestData = {
-                wallet: ncc.get('wallet.name'),
+                wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
                 password: this.get('password'),
                 amount: this.get('amount'),
