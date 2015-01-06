@@ -8,8 +8,8 @@ import java.io.File;
 /**
  * Factory that creates secure, file-backed wallet descriptors.
  */
-public class SecureWalletDescriptorFactory extends
-		SecureStorableEntityDescriptorFactory<
+public class SecureWalletDescriptorFactory
+		extends SecureStorableEntityDescriptorFactory<
 				StorableWallet,
 				WalletName,
 				WalletPassword,
@@ -21,7 +21,7 @@ public class SecureWalletDescriptorFactory extends
 		implements WalletDescriptorFactory {
 
 	/**
-	 * Creates a new secure storable entity descriptor factory.
+	 * Creates a new secure wallet descriptor factory.
 	 *
 	 * @param directory The search directory.
 	 */

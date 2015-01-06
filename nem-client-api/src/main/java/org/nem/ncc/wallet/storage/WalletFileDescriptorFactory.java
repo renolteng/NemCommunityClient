@@ -22,7 +22,7 @@ public class WalletFileDescriptorFactory
 		implements WalletDescriptorFactory {
 
 	/**
-	 * Creates a new storable entity descriptor factory.
+	 * Creates a new wallet descriptor factory.
 	 *
 	 * @param directory The search directory.
 	 */
@@ -31,9 +31,13 @@ public class WalletFileDescriptorFactory
 	}
 
 	/**
-	 * Creates a new storable entity descriptor factory.
+	 * Creates a new wallet descriptor factory.
 	 *
 	 * @param directory The search directory.
+	 * @param deserializer The deserializer.
+	 * @param nameActivator The name activator.
+	 * @param fileExtensionActivator The file extension activator.
+	 * @param descriptorActivator The descriptor activator.
 	 */
 	public WalletFileDescriptorFactory(
 			final File directory,
