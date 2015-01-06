@@ -113,7 +113,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
-	private StorableEntityFileDescriptorFactory createFactory(final File file) {
+	protected StorableEntityFileDescriptorFactory createFactory(final File file) {
 		return new StorableEntityFileDescriptorFactory<
 				DefaultStorableEntity,
 				StorableEntityName,

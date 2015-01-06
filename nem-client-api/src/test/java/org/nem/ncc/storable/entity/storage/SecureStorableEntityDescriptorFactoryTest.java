@@ -3,17 +3,16 @@ package org.nem.ncc.storable.entity.storage;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.nem.ncc.storable.entity.*;
-import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.test.StorableEntity.*;
 
 import java.io.*;
 
 public class SecureStorableEntityDescriptorFactoryTest {
-	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
-	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
-	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	private final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
+	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
+	protected static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
+	protected final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
 
 	//region BeforeClass / AfterClass
 
@@ -61,7 +60,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
 	}
 
-	private SecureStorableEntityDescriptorFactory createFactory(final File file) {
+	protected SecureStorableEntityDescriptorFactory createFactory(final File file) {
 		return new SecureStorableEntityDescriptorFactory<>(
 				file,
 				DefaultStorableEntity::new,

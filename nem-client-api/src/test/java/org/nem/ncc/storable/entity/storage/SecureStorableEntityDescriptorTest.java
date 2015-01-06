@@ -12,20 +12,20 @@ import org.nem.ncc.test.*;
 import java.io.*;
 
 public class SecureStorableEntityDescriptorTest {
-	private static final byte[] WRITTEN_BYTES = new byte[] { 5, 7, 123, 56, 11, 2, 53, 99, 100 };
+	protected static final byte[] WRITTEN_BYTES = new byte[] { 5, 7, 123, 56, 11, 2, 53, 99, 100 };
 
 	//region openRead
 
 	@Test
 	public void readStreamCanDecryptEncryptedPayloadWithCorrectPassword() throws IOException {
 		// Arrange:
-		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload(new StorableEntityPassword("pwd")));
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		Mockito.when(wrappedDescriptor.openRead()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final TestContext context = new TestContext("pwd");
+		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload("pwd"));
+		context.mockRead(memoryStream);
+
 
 		// Act:
-		final byte[] bytes = IOUtils.toByteArray(descriptor.openRead());
+		final byte[] bytes = IOUtils.toByteArray(context.secureDescriptor.openRead());
 
 		// Assert:
 		Assert.assertThat(bytes, IsEqual.equalTo(WRITTEN_BYTES));
@@ -34,27 +34,25 @@ public class SecureStorableEntityDescriptorTest {
 	@Test
 	public void readStreamCannotDecryptEncryptedPayloadWithIncorrectPassword() throws IOException {
 		// Arrange:
-		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload(new StorableEntityPassword("pwd")));
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		Mockito.when(wrappedDescriptor.openRead()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd2"));
+		final TestContext context = new TestContext("pwd2");
+		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload("pwd"));
+		context.mockRead(memoryStream);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(descriptor.openRead())),
+				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(context.secureDescriptor.openRead())),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_INCORRECT);
 	}
 
 	@Test
 	public void readFailureIsMappedToAppropriateException() throws IOException {
 		// Arrange:
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		Mockito.when(wrappedDescriptor.openRead()).thenReturn(CorruptStreams.createRead());
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final TestContext context = new TestContext("pwd");
+		context.mockRead(CorruptStreams.createRead());
 
 		// Act:
 		ExceptionAssert.assertThrowsStorableEntityStorageException(
-				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(descriptor.openRead())),
+				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(context.secureDescriptor.openRead())),
 				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
 	}
 
@@ -65,13 +63,12 @@ public class SecureStorableEntityDescriptorTest {
 	@Test
 	public void writeStreamEncryptsContentsWithPasswordAutomatically() throws IOException {
 		// Arrange:
+		final TestContext context = new TestContext("pwd");
 		final ByteArrayOutputStream memoryStream = new ByteArrayOutputStream();
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		Mockito.when(wrappedDescriptor.openWrite()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		context.mockWrite(memoryStream);
 
 		// Act:
-		try (final OutputStream os = descriptor.openWrite()) {
+		try (final OutputStream os = context.secureDescriptor.openWrite()) {
 			os.write(new byte[] { 5, 7, 123, 56 });
 			os.write(new byte[] { 11, 2 });
 			os.write(new byte[] { 53, 99, 100 });
@@ -90,37 +87,36 @@ public class SecureStorableEntityDescriptorTest {
 	@Test
 	public void deleteDelegatesToWrappedDescriptor() {
 		// Arrange:
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
+		final TestContext context = new TestContext("pwd");
 
 		// Act:
-		descriptor.delete();
+		context.secureDescriptor.delete();
 
 		// Assert:
-		Mockito.verify(wrappedDescriptor, Mockito.times(1)).delete();
+		Mockito.verify(context.descriptor, Mockito.times(1)).delete();
 	}
 
 	@Test
 	public void serializeDelegatesToWrappedDescriptor() {
 		// Arrange:
+		final TestContext context = new TestContext("pwd");
 		final Serializer serializer = Mockito.mock(Serializer.class);
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, new StorableEntityPassword("pwd"));
 
 		// Act:
-		descriptor.serialize(serializer);
+		context.secureDescriptor.serialize(serializer);
 
 		// Assert:
-		Mockito.verify(wrappedDescriptor, Mockito.times(1)).serialize(serializer);
+		Mockito.verify(context.descriptor, Mockito.times(1)).serialize(serializer);
 	}
 
 	//endregion
 
-	private static byte[] createEncryptedPayload(final StorableEntityPassword password) throws IOException {
+	@SuppressWarnings("unchecked")
+	private byte[] createEncryptedPayload(final String password) throws IOException {
 		final ByteArrayOutputStream memoryStream = new ByteArrayOutputStream();
-		final StorableEntityDescriptor wrappedDescriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final StorableEntityDescriptor wrappedDescriptor = this.createDescriptor();
 		Mockito.when(wrappedDescriptor.openWrite()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = createSecureDescriptor(wrappedDescriptor, password);
+		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword(password));
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
@@ -132,8 +128,45 @@ public class SecureStorableEntityDescriptorTest {
 		return memoryStream.toByteArray();
 	}
 
+	protected StorableEntityDescriptor createDescriptor() {
+		return Mockito.mock(StorableEntityDescriptor.class);
+	}
+
+	// TODO 20150106 BR: this code is ugly. Need to improve.
 	@SuppressWarnings("unchecked")
-	private static SecureStorableEntityDescriptor createSecureDescriptor(final StorableEntityDescriptor descriptor, final StorableEntityPassword password) {
-		return  new SecureStorableEntityDescriptor(descriptor, password);
+	protected void createSecureDescriptor(final TestContext context) {
+		context.descriptor = this.createDescriptor();
+		context.secureDescriptor = new SecureStorableEntityDescriptor(context.descriptor, new StorableEntityPassword(context.password));
+	}
+
+	protected class TestContext {
+		protected final String password;
+		protected StorableEntityDescriptor descriptor;
+		protected SecureStorableEntityDescriptor secureDescriptor;
+
+		protected TestContext(final String password) {
+			this.password = password;
+			createSecureDescriptor(this);
+		}
+
+		public void setDescriptor(final StorableEntityDescriptor descriptor) {
+			this.descriptor = descriptor;
+		}
+
+		public void setSecureDescriptor(final SecureStorableEntityDescriptor secureDescriptor) {
+			this.secureDescriptor = secureDescriptor;
+		}
+
+		public String getPassword() {
+			return this.password;
+		}
+
+		protected void mockRead(final InputStream stream) {
+			Mockito.when(descriptor.openRead()).thenReturn(stream);
+		}
+
+		protected void mockWrite(final OutputStream stream) {
+			Mockito.when(descriptor.openWrite()).thenReturn(stream);
+		}
 	}
 }
