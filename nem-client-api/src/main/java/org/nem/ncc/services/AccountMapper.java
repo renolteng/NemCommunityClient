@@ -2,7 +2,7 @@ package org.nem.ncc.services;
 
 import org.nem.core.model.Address;
 import org.nem.ncc.controller.viewmodels.AccountViewModel;
-import org.nem.ncc.model.AccountLabels;
+import org.nem.ncc.addressbook.AccountLabels;
 import org.nem.ncc.wallet.WalletAccount;
 
 /**

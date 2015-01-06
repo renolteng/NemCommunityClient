@@ -5,7 +5,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.model.AccountLabel;
+import org.nem.ncc.addressbook.AccountLabel;
 
 /**
  * Represents an account.

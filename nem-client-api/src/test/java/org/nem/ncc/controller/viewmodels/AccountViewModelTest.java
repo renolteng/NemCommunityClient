@@ -8,7 +8,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.JsonSerializer;
-import org.nem.ncc.model.AccountLabel;
+import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.test.Utils;
 
 public class AccountViewModelTest {

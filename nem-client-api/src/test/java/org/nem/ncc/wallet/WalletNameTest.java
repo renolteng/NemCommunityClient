@@ -33,5 +33,4 @@ public class WalletNameTest extends StorableEntityNameTest {
 		// Assert:
 		Assert.assertThat(name, IsEqual.equalTo(this.createEntityName("foo")));
 	}
-
 }

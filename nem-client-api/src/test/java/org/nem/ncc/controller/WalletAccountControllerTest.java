@@ -9,7 +9,7 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.MissingRequiredPropertyException;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.model.AccountLabels;
+import org.nem.ncc.addressbook.AccountLabels;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.Utils;
 import org.nem.ncc.wallet.*;

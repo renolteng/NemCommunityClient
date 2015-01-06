@@ -6,6 +6,7 @@ import org.junit.*;
 import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
+import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.test.*;
 
 import java.util.*;

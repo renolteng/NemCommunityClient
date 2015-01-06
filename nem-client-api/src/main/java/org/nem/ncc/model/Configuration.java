@@ -3,6 +3,7 @@ package org.nem.ncc.model;
 import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
+import org.nem.ncc.addressbook.*;
 
 import java.util.*;
 
