@@ -8,13 +8,6 @@ import org.nem.core.model.Address;
 public interface AccountLabels {
 
 	/**
-	 * Gets the number of account labels.
-	 *
-	 * @return The number of account labels.
-	 */
-	public int getNumLabels();
-
-	/**
 	 * Gets the label associated with the specified address.
 	 *
 	 * @param address The address.
@@ -30,6 +23,13 @@ public interface AccountLabels {
 	 * @param privateLabel The private label.
 	 */
 	public void setLabel(final Address address, final String label, final String privateLabel);
+
+	/**
+	 * Adds a new account label.
+	 *
+	 * @param accountLabel The account label.
+	 */
+	public void addLabel(final AccountLabel accountLabel);
 
 	/**
 	 * Removes the label associate with the specified address.

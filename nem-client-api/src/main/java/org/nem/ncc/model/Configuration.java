@@ -117,7 +117,6 @@ public class Configuration implements SerializableEntity, AccountLabels {
 
 	//region AccountLabels implementation
 
-	@Override
 	public int getNumLabels() {
 		return this.accountLabels.size();
 	}
@@ -125,6 +124,11 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	@Override
 	public AccountLabel getLabel(final Address address) {
 		return this.accountLabels.get(address);
+	}
+
+	@Override
+	public void addLabel(final AccountLabel accountLabel) {
+		this.accountLabels.put(accountLabel.getAddress(), accountLabel);
 	}
 
 	@Override
