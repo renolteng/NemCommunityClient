@@ -67,7 +67,7 @@ public class AutoSavingWalletTest extends WalletTest {
 	}
 
 	@Test
-	public void addOtherAccountCallsSaveOnSuccessDoesNotCallSaveOnFailure() {
+	public void addOtherAccountDoesNotCallSaveOnFailure() {
 		// Arrange:
 		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
