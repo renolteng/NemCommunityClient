@@ -158,7 +158,7 @@ public class WalletNamePasswordBagTest {
 
 	//endregion
 
-	//region getNewPassword
+	//region getAccountAddress
 
 	@Test
 	public void getAccountAddressFailsIfAddressIsNotSpecified() {

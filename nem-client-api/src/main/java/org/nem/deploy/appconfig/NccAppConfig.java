@@ -7,7 +7,7 @@ import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
 import org.nem.ncc.*;
-import org.nem.ncc.addressbook.AddressBookRepository;
+import org.nem.ncc.addressbook.*;
 import org.nem.ncc.addressbook.storage.*;
 import org.nem.ncc.cache.*;
 import org.nem.ncc.connector.*;
@@ -123,6 +123,16 @@ public class NccAppConfig {
 				this.walletServices(),
 				this.accountLookup(),
 				this.timeProvider());
+	}
+
+	@Bean
+	public AddressBookLocator addressBookLocator() {
+		return new AddressBookFileLocator(this.getNemFolder());
+	}
+
+	@Bean
+	public AddressBookMapper addressBookMapper() {
+		return new AddressBookMapper();
 	}
 
 	@Bean

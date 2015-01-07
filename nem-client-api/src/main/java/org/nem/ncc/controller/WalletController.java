@@ -16,7 +16,7 @@ public class WalletController {
 	private final WalletMapper walletMapper;
 
 	/**
-	 * Creates a new transaction controller.
+	 * Creates a new wallet controller.
 	 *
 	 * @param walletServices The wallet services.
 	 * @param walletMapper The wallet mapper.

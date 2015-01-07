@@ -3,14 +3,14 @@ package org.nem.ncc.controller.viewmodels;
 import org.nem.core.serialization.*;
 import org.nem.ncc.addressbook.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * A view model representing an address book.
  */
 public class AddressBookViewModel implements SerializableEntity {
 	private final AddressBookName name;
-	private final List<AccountLabel> accountLabels;
+	private final Collection<AccountLabel> accountLabels;
 
 	/**
 	 * Creates a new address book view model.
@@ -20,7 +20,7 @@ public class AddressBookViewModel implements SerializableEntity {
 	 */
 	public AddressBookViewModel(
 			final AddressBookName name,
-			final List<AccountLabel> accountLabels) {
+			final Collection<AccountLabel> accountLabels) {
 		this.name = name;
 		this.accountLabels = accountLabels;
 	}
@@ -39,7 +39,7 @@ public class AddressBookViewModel implements SerializableEntity {
 	 *
 	 * @return The account labels.
 	 */
-	public List<AccountLabel> getAccountLabels() {
+	public Collection<AccountLabel> getAccountLabels() {
 		return this.accountLabels;
 	}
 
