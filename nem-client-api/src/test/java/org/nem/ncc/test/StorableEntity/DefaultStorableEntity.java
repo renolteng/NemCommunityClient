@@ -13,7 +13,7 @@ public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer
 	/**
 	 * The default file extension for the DefaultStorableEntity class.
 	 */
-	public static final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+	public static final String DEFAULT_FILE_EXTENSION = ".bar";
 
 	private final List<BlockHeight> heights;
 	private final StorableEntityName name;
@@ -30,12 +30,12 @@ public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer
 	public DefaultStorableEntity(final StorableEntityName name) {
 		this.heights = new ArrayList<>();
 		this.name = name;
-		this.fileExtension = FILE_EXTENSION;
+		this.fileExtension = getDefaultFileExtension();
 		this.label = "defaultStorableEntity";
 	}
 
 	public DefaultStorableEntity(final Deserializer deserializer) {
-		this.fileExtension = FILE_EXTENSION;
+		this.fileExtension = getDefaultFileExtension();
 		this.label = "defaultStorableEntity";
 		this.name = StorableEntityName.readFrom(deserializer, this.label);
 		this.heights = deserializer.readObjectArray("heights", BlockHeight::new);
@@ -45,6 +45,34 @@ public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer
 		for (int i=1; i<= count; i++) {
 			this.heights.add(new BlockHeight(i));
 		}
+	}
+
+	/**
+	 * Gets a value indicating whether the extension is the default extension.
+	 *
+	 * @return true if the extension is the default extension, false otherwise.
+	 */
+	public boolean isDefaultExtension() {
+		return this.toString().toLowerCase().equals(DEFAULT_FILE_EXTENSION);
+	}
+
+	/**
+	 * Gets the default file extension.
+	 *
+	 * @return The file extension.
+	 */
+	public static StorableEntityFileExtension getDefaultFileExtension() {
+		return new StorableEntityFileExtension(DEFAULT_FILE_EXTENSION);
+	}
+
+	/**
+	 * Gets a value indicating whether the supplies file name is valid and has the default extension.
+	 *
+	 * @param fileName The file name.
+	 * @return true if the file name is valid and has the default extension, false otherwise.
+	 */
+	public static boolean isValidAndHasDefaultExtension(final String fileName) {
+		return fileName.toLowerCase().endsWith(DEFAULT_FILE_EXTENSION) && fileName.indexOf(".") > 0;
 	}
 
 	@Override

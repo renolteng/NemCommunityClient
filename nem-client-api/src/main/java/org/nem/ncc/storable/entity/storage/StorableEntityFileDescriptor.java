@@ -44,10 +44,6 @@ public class StorableEntityFileDescriptor<
 		}
 
 		final String fileName = this.file.getName();
-		if (!StorableEntityFileExtension.hasValidExtension(fileName)) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION);
-		}
-
 		final String entityName = fileName.substring(0, fileName.length() - StorableEntityFileExtension.EXTENSION_LENGTH);
 		this.name = nameActivator.apply(UrlEncoded.decodeString(entityName, 0, entityName.length(), UrlEncoded.ENCODING));
 		final String entityFileExtension = fileName.substring(fileName.length() - StorableEntityFileExtension.EXTENSION_LENGTH, fileName.length());

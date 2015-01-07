@@ -1,11 +1,11 @@
-package org.nem.ncc.wallet;
+package org.nem.ncc.addressbook;
 
 import org.junit.BeforeClass;
 import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 
-public class WalletFileLocatorTest extends StorableEntityFileLocatorTest {
+public class AddressBookFileLocatorTest extends StorableEntityFileLocatorTest {
 
 	@BeforeClass
 	public static void createTestFiles() throws IOException {
@@ -13,11 +13,11 @@ public class WalletFileLocatorTest extends StorableEntityFileLocatorTest {
 	}
 
 	protected static String getDefaultFileExtension() {
-		return WalletFileExtension.getDefaultFileExtension().toString();
+		return AddressBookFileExtension.getDefaultFileExtension().toString();
 	}
 
 	@Override
 	protected StorableEntityFileLocator createFileLocator(final File file) {
-		return new WalletFileLocator(file);
+		return new AddressBookFileLocator(file);
 	}
 }

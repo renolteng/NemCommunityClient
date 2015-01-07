@@ -47,7 +47,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 
 		// Assert:
 		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.FILE_EXTENSION));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
@@ -78,7 +78,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 
 		// Assert:
 		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.FILE_EXTENSION));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
@@ -109,7 +109,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 
 		// Assert:
 		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.FILE_EXTENSION));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 

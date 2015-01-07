@@ -7,6 +7,15 @@ import org.nem.ncc.test.ExceptionAssert;
 public class StorableEntityFileExtensionTest {
 
 	@Test
+	public void parameterlessConstructorUsesDefaultFileExtension() {
+		// Act:
+		final StorableEntityFileExtension fileExtension = this.createEntityFileExtension();
+
+		// Assert:
+		Assert.assertThat(fileExtension, IsEqual.equalTo(this.getDefaultFileExtension()));
+	}
+
+	@Test
 	public void fileExtensionCanBeCreatedAroundNonWhitespaceStringStartingWithADotAndHavingCorrectLength() {
 		// Act:
 		final StorableEntityFileExtension fileExtension = this.createEntityFileExtension(".bar");
@@ -18,25 +27,25 @@ public class StorableEntityFileExtensionTest {
 	@Test
 	public void fileExtensionCannotBeCreatedAroundWhitespaceString() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension((String)null), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(""), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("  \t\t "), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension((String)null), StorableEntityStorageException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(""), StorableEntityStorageException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("  \t\t "), StorableEntityStorageException.class);
 	}
 
 	@Test
 	public void fileExtensionCannotBeCreatedAroundStringNotStartingWithADot() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("bar"), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("*bar"), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(",bar"), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("bar"), StorableEntityStorageException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("*bar"), StorableEntityStorageException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(",bar"), StorableEntityStorageException.class);
 	}
 
 	@Test
 	public void fileExtensionCannotBeCreatedAroundStringWithWrongLength() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".fooBar"), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".baar"), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".anotherBar"), IllegalArgumentException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".fooBar"), StorableEntityStorageException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".baar"), StorableEntityStorageException.class);
+		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".anotherBar"), StorableEntityStorageException.class);
 	}
 
 	@Test
@@ -69,6 +78,14 @@ public class StorableEntityFileExtensionTest {
 
 		// Assert:
 		Assert.assertThat(name.toString(), IsEqual.equalTo(".bar"));
+	}
+
+	protected StorableEntityFileExtension getDefaultFileExtension() {
+		return StorableEntityFileExtension.getDefaultFileExtension();
+	}
+
+	protected StorableEntityFileExtension createEntityFileExtension() {
+		return new StorableEntityFileExtension();
 	}
 
 	protected StorableEntityFileExtension createEntityFileExtension(final String fileExtension) {

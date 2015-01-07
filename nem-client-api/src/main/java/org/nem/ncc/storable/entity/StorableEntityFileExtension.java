@@ -7,8 +7,16 @@ import org.nem.core.utils.StringUtils;
  */
 public class StorableEntityFileExtension<TDerived extends StorableEntityFileExtension> {
 	public static final int EXTENSION_LENGTH = 4;
+	public static final String DEFAULT_FILE_EXTENSION = ".ste";
 	private final String fileExtension;
 	private final Class<TDerived> derivedClass;
+
+	/**
+	 * Creates a storable entity file extension.
+	 */
+	public StorableEntityFileExtension() {
+		this(DEFAULT_FILE_EXTENSION, null);
+	}
 
 	/**
 	 * Creates a storable entity file extension.
@@ -26,31 +34,57 @@ public class StorableEntityFileExtension<TDerived extends StorableEntityFileExte
 	 * @param derivedClass The derived class.
 	 */
 	public StorableEntityFileExtension(final String fileExtension, final Class<TDerived> derivedClass) {
-		if (StringUtils.isNullOrWhitespace(fileExtension)) {
-			throw new IllegalArgumentException("file extension must be non-whitespace");
-		}
-
-		if (!fileExtension.startsWith(".")) {
-			throw new IllegalArgumentException("file extension must start with dot");
-		}
-
-		if (EXTENSION_LENGTH != fileExtension.length()) {
-			throw new IllegalArgumentException("file extension must consist of a dot followed by three characters");
-		}
-
+		this.checkExtension(fileExtension);
 		this.fileExtension = fileExtension;
 		this.derivedClass = derivedClass;
 	}
 
+	private void checkExtension(final String fileExtension) {
+		if (StringUtils.isNullOrWhitespace(fileExtension)) {
+			throw new StorableEntityStorageException(
+					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION,
+					new IllegalArgumentException("file extension must be non-whitespace"));
+		}
+
+		if (!fileExtension.startsWith(".")) {
+			throw new StorableEntityStorageException(
+					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION,
+					new IllegalArgumentException("file extension must start with dot"));
+		}
+
+		if (EXTENSION_LENGTH != fileExtension.length()) {
+			throw new StorableEntityStorageException(
+					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION,
+					new IllegalArgumentException("file extension must consist of a dot followed by three characters"));
+		}
+	}
+
 	/**
-	 * Gets a value indicating whether the supplies file name has a valid extension.
+	 * Gets a value indicating whether the extension is the default extension.
+	 *
+	 * @return true if the extension is the default extension, false otherwise.
+	 */
+	public boolean isDefaultExtension() {
+		return this.toString().toLowerCase().equals(DEFAULT_FILE_EXTENSION);
+	}
+
+	/**
+	 * Gets the default file extension.
+	 *
+	 * @return The file extension.
+	 */
+	public static StorableEntityFileExtension getDefaultFileExtension() {
+		return new StorableEntityFileExtension(DEFAULT_FILE_EXTENSION);
+	}
+
+	/**
+	 * Gets a value indicating whether the supplies file name is valid and has the default extension.
 	 *
 	 * @param fileName The file name.
-	 * @return true if the extension is valid, false otherwise.
+	 * @return true if the file name is valid and has the default extension, false otherwise.
 	 */
-	public static boolean hasValidExtension(final String fileName) {
-		final int index = fileName.lastIndexOf(".");
-		return -1 != index && EXTENSION_LENGTH == fileName.length() - index;
+	public static boolean isValidAndHasDefaultExtension(final String fileName) {
+		return fileName.toLowerCase().endsWith(DEFAULT_FILE_EXTENSION) && fileName.indexOf(".") > 0;
 	}
 
 	@Override
