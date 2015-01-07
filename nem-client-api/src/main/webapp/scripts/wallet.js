@@ -114,7 +114,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         }, 
                         {
-                            name: 'node_name', 
+                            name: 'nodeName',
                             type: 'text',
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.node')
@@ -514,7 +514,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     ncc.showInputForm(ncc.get('texts.modals.addAccount.title'), '',
                         [
                             {
-                                name: 'account_key',
+                                name: 'accountKey',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.addAccount.privateKey')
@@ -651,7 +651,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             },
                             {
-                                name: 'new_name',
+                                name: 'newName',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletName.newName')
@@ -670,7 +670,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         },
                         function(values, closeModal) {
                             ncc.postRequest('wallet/name/change', values, function(data) {
-                                var newWalletName = values['new_name'];
+                                var newWalletName = values['newName'];
                                 ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
                                 ncc.set('wallet', Utils.processWallet(data));
                                 closeModal();
@@ -700,7 +700,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             },
                             {
-                                name: 'new_password',
+                                name: 'newPassword',
                                 type: 'password',
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletPassword.newPassword')
@@ -718,7 +718,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             wallet: wallet
                         },
                         function(values, closeModal) {
-                            if (values['new_password'] === values.confirmPassword) {
+                            if (values['newPassword'] === values.confirmPassword) {
                                 values.confirmPassword = undefined;
                                 ncc.postRequest('wallet/password/change', values, function(data) {
                                     ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
@@ -973,7 +973,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         // default the node name to a substring of the account name so that auto-boot works out-of-box
                         var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
                         var bootData = {
-                            node_name: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
+                            nodeName: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
                             wallet: ncc.get('wallet.wallet'),
                             account: accountName
                         };

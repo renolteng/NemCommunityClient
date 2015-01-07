@@ -26,7 +26,7 @@ public class AddressBookNamePasswordBag extends AddressBookNamePasswordPair {
 	 * @return The new name.
 	 */
 	public AddressBookName getNewName() {
-		return AddressBookName.readFrom(this.deserializer, "new_name");
+		return AddressBookName.readFrom(this.deserializer, "newName");
 	}
 
 	/**
@@ -35,6 +35,6 @@ public class AddressBookNamePasswordBag extends AddressBookNamePasswordPair {
 	 * @return The new password.
 	 */
 	public AddressBookPassword getNewPassword() {
-		return AddressBookPassword.readFrom(this.deserializer, "new_password");
+		return AddressBookPassword.readFrom(this.deserializer, "newPassword");
 	}
 }

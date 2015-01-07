@@ -57,6 +57,59 @@ Updates the current configuration with the given values.
 * Response: `-`
 * Dependent from NIS: _No_
 
+### /addressBook/create
+Creates a new, empty address book. The address book is stored
+ encrypted in the configured address book directory. The name of the address book file
+ is the encoded (URL encoded) version of the address book name. The provided
+ password is used to encrypt the address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordPair](viewModel.md#addressBooknamepasswordpair)
+* Response: [AddressBookViewModel](viewModel.md#addressBookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressBook/open
+Open an address book. The address book is defined by the address book name. The address book has
+ to be located in the address book storage location. The password must match the
+ password of the given address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordPair](viewModel.md#addressBooknamepasswordpair)
+* Response: [AddressBookViewModel](viewModel.md#addressBookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressBook/info
+Returns information about an address book that is already open.
+
+* Request Method: _POST_
+* Request: [AddressBookName](viewModel.md#addressBookname)
+* Response: [AddressBookViewModel](viewModel.md#addressBookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressBook/close
+Closes an address book by removing it from the list of opened address books.
+
+* Request Method: _POST_
+* Request: [AddressBookName](viewModel.md#addressBookname)
+* Response: `-`
+* Dependent from NIS: _No_
+
+### /addressBook/password/change
+Changes the password of an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressBooknamepasswordbag)
+* Response: `-`
+* Dependent from NIS: _No_
+
+### /addressBook/name/change
+Changes the name of an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressBooknamepasswordbag)
+* Response: `-`
+* Dependent from NIS: _No_
+
 ### /wallet/list
 Gets all wallets that are located at the configured storage location for wallets.
 
@@ -78,9 +131,9 @@ Creates a new wallet with one account in it. The wallet is stored
 
 ### /wallet/open
 Open a wallet. The wallet is defined by the wallet name. The wallet has
-	  to be located in the wallet storage location. The password must match the
-	  password of the given wallet. For opening a wallet at a different
-	  location the function importWallet has to be used.
+ to be located in the wallet storage location. The password must match the
+ password of the given wallet. For opening a wallet at a different
+ location the function importWallet has to be used.
 
 * Request Method: _POST_
 * Request: [WalletNamePasswordPair](viewModel.md#walletnamepasswordpair)
@@ -112,7 +165,7 @@ Changes the password of a wallet.
 * Dependent from NIS: _No_
 
 ### /wallet/name/change
-Changes the password of a wallet.
+Changes the name of a wallet.
 
 * Request Method: _POST_
 * Request: [WalletNamePasswordBag](viewModel.md#walletnamepasswordbag)

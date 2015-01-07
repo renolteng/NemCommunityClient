@@ -134,11 +134,47 @@ possible status values
 }
 ```
 
+### AddressBookNamePasswordBag
+ ```
+ {
+ 	"addressBook": "myAddresses",
+ 	"password": "mySecretPassword",
+ 	"newName": "newNameForAddressBook",					# optional, required for address book name change
+ 	"newPassword": "newAndVerySecretPassword"				# optional, required for password change
+ }
+ ```
+
+### AddressBookNamePasswordPair
+```
+{
+	"addressBook": "myAddressBook",
+	"password": "mySecretPassword"
+}
+```
+
+### AddressBookViewModel
+
+```
+{
+	"addressBook": "myAddressBook",
+	"accountLabels" : [{
+		"address": "TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS",
+		"publicLabel": "Alice",
+		"privateLabel": "sister"
+	},
+	{
+		"address": "TBOBBSXX7BESJXDWGLP5Z7FM5HSTKUH5WIMPW562",
+		"publicLabel": "Bob",
+		"privateLabel": "brother"
+	}]
+}
+```
+
 ### BootNodeRequest
 
 ```
 {
-	"node_name": "Arthur",
+	"nodeName": "Arthur",
 	"wallet": "PrivateWallet",
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2"
 }
@@ -387,10 +423,12 @@ Only a local NIS can be booted.
 {
 	"wallet": "PrivateWallet",
 	"password": "Very Secret Password To The Wallet",
-	"new_password": "NEW very secret Password",   # optional, required for password change
-	"new_name": "P-Wallet"         ,   # optional, required for wallet name change
-	"label": "my private label"    ,   # optional, used during account creation and label change   
-	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2"
+	"newPassword": "NEW very secret Password",   # optional, required for password change
+	"newName": "P-Wallet"         ,   # optional, required for wallet name change
+	"label": "my private label"    ,   # optional, used during account creation and label change
+	"accountKey": "23ec43284fe99e0bef912682a4a3b963e17b658dc0e4b9c596436bb331613389"
+										# optional
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	                                   # optional, required for remove account, label change
 }
 ```

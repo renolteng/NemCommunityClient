@@ -94,7 +94,7 @@ public class AddressBookControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("addressBook", "ab1");
 		jsonObject.put("password", "p1");
-		jsonObject.put("new_password", "p2");
+		jsonObject.put("newPassword", "p2");
 		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
 		final TestContext context = new TestContext();
 
@@ -112,7 +112,7 @@ public class AddressBookControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("addressBook", "ab1");
 		jsonObject.put("password", "p1");
-		jsonObject.put("new_name", "ab2");
+		jsonObject.put("newName", "ab2");
 		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
 		final TestContext context = new TestContext();
 

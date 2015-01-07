@@ -73,7 +73,7 @@ public class WalletAccountControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
-		jsonObject.put("account_key", "0011223344");
+		jsonObject.put("accountKey", "0011223344");
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));
@@ -97,7 +97,7 @@ public class WalletAccountControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
-		jsonObject.put("account_key", "0011223344");
+		jsonObject.put("accountKey", "0011223344");
 		jsonObject.put("label", "l");
 		final TestContext context = new TestContext(jsonObject);
 

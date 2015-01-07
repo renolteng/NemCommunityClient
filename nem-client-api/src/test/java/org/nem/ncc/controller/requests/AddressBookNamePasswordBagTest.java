@@ -60,14 +60,14 @@ public class AddressBookNamePasswordBagTest {
 		final AddressBookNamePasswordBag bag = createBagFromJson("name", "password");
 
 		// Assert:
-		assertThrowsMissingPropertyException(bag::getNewName, "new_name");
+		assertThrowsMissingPropertyException(bag::getNewName, "newName");
 	}
 
 	@Test
 	public void getNewNameReturnsNameIfSpecified() {
 		// Arrange:
 		final JSONObject jsonObject = createJson("name", "password");
-		jsonObject.put("new_name", "blah");
+		jsonObject.put("newName", "blah");
 
 		// Act:
 		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
@@ -86,14 +86,14 @@ public class AddressBookNamePasswordBagTest {
 		final AddressBookNamePasswordBag bag = createBagFromJson("name", "password");
 
 		// Assert:
-		assertThrowsMissingPropertyException(bag::getNewPassword, "new_password");
+		assertThrowsMissingPropertyException(bag::getNewPassword, "newPassword");
 	}
 
 	@Test
 	public void getNewPasswordReturnsPasswordIfSpecified() {
 		// Arrange:
 		final JSONObject jsonObject = createJson("name", "password");
-		jsonObject.put("new_password", "pwd1");
+		jsonObject.put("newPassword", "pwd1");
 
 		// Act:
 		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));

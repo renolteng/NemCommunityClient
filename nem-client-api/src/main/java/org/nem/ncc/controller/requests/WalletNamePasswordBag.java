@@ -37,7 +37,7 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	 * @return The account private key.
 	 */
 	public PrivateKey getAccountPrivateKey() {
-		final String value = this.deserializer.readString("account_key");
+		final String value = this.deserializer.readString("accountKey");
 		return PrivateKey.fromHexString(value);
 	}
 
@@ -47,7 +47,7 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	 * @return The new name.
 	 */
 	public WalletName getNewName() {
-		return WalletName.readFrom(this.deserializer, "new_name");
+		return WalletName.readFrom(this.deserializer, "newName");
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	 * @return The new password.
 	 */
 	public WalletPassword getNewPassword() {
-		return WalletPassword.readFrom(this.deserializer, "new_password");
+		return WalletPassword.readFrom(this.deserializer, "newPassword");
 	}
 
 	/**

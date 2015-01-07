@@ -1,7 +1,8 @@
-package org.nem.ncc.controller.viewmodels;
+package org.nem.ncc.controller;
 
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.AddressBookNamePasswordBag;
+import org.nem.ncc.controller.viewmodels.AddressBookViewModel;
 import org.nem.ncc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
