@@ -57,56 +57,56 @@ Updates the current configuration with the given values.
 * Response: `-`
 * Dependent from NIS: _No_
 
-### /addressBook/create
+### /addressbook/create
 Creates a new, empty address book. The address book is stored
  encrypted in the configured address book directory. The name of the address book file
  is the encoded (URL encoded) version of the address book name. The provided
  password is used to encrypt the address book.
 
 * Request Method: _POST_
-* Request: [AddressBookNamePasswordPair](viewModel.md#addressBooknamepasswordpair)
-* Response: [AddressBookViewModel](viewModel.md#addressBookviewmodel)
+* Request: [AddressBookNamePasswordPair](viewModel.md#addressbooknamepasswordpair)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
 * Dependent from NIS: _No_
 
-### /addressBook/open
+### /addressbook/open
 Open an address book. The address book is defined by the address book name. The address book has
  to be located in the address book storage location. The password must match the
  password of the given address book.
 
 * Request Method: _POST_
-* Request: [AddressBookNamePasswordPair](viewModel.md#addressBooknamepasswordpair)
-* Response: [AddressBookViewModel](viewModel.md#addressBookviewmodel)
+* Request: [AddressBookNamePasswordPair](viewModel.md#addressbooknamepasswordpair)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
 * Dependent from NIS: _No_
 
-### /addressBook/info
+### /addressbook/info
 Returns information about an address book that is already open.
 
 * Request Method: _POST_
-* Request: [AddressBookName](viewModel.md#addressBookname)
-* Response: [AddressBookViewModel](viewModel.md#addressBookviewmodel)
+* Request: [AddressBookName](viewModel.md#addressbookname)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
 * Dependent from NIS: _No_
 
-### /addressBook/close
+### /addressbook/close
 Closes an address book by removing it from the list of opened address books.
 
 * Request Method: _POST_
-* Request: [AddressBookName](viewModel.md#addressBookname)
+* Request: [AddressBookName](viewModel.md#addressbookname)
 * Response: `-`
 * Dependent from NIS: _No_
 
-### /addressBook/password/change
+### /addressbook/password/change
 Changes the password of an address book.
 
 * Request Method: _POST_
-* Request: [AddressBookNamePasswordBag](viewModel.md#addressBooknamepasswordbag)
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
 * Response: `-`
 * Dependent from NIS: _No_
 
-### /addressBook/name/change
+### /addressbook/name/change
 Changes the name of an address book.
 
 * Request Method: _POST_
-* Request: [AddressBookNamePasswordBag](viewModel.md#addressBooknamepasswordbag)
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
 * Response: `-`
 * Dependent from NIS: _No_
 
