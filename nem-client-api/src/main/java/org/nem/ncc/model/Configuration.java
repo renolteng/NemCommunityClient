@@ -166,5 +166,6 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		serializer.writeString("language", this.language);
 		serializer.writeObject("remoteServer", this.nisEndpoint);
 		serializer.writeObject("nisBootInfo", this.nisBootInfo);
+		serializer.writeObjectArray("accountLabels", this.accountLabels.values());
 	}
 }
