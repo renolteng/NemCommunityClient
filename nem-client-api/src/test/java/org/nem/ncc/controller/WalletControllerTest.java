@@ -4,11 +4,15 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
+import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.WalletViewModel;
+import org.nem.ncc.model.Configuration;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.Utils;
 import org.nem.ncc.wallet.*;
+
+import java.util.ArrayList;
 
 public class WalletControllerTest {
 
@@ -126,9 +130,22 @@ public class WalletControllerTest {
 
 	//endregion
 
+	// TODO 20150108 BR: the changes here are temporary! Delete after one of the next releases.
 	private static class TestContext {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
 		private final WalletMapper walletMapper = Mockito.mock(WalletMapper.class);
-		private final WalletController controller = new WalletController(this.walletServices, this.walletMapper);
+		private final AddressBookServices addressBookServices = Mockito.mock(AddressBookServices.class);
+		private final Configuration configuration = Mockito.mock(Configuration.class);
+		private final WalletController controller = new WalletController(
+				this.walletServices,
+				this.walletMapper,
+				this.configuration,
+				this.addressBookServices);
+
+		private TestContext() {
+			Mockito.when(addressBookServices.create(Mockito.any())).thenReturn(new MemoryAddressBook(new AddressBookName("test")));
+			Mockito.when(configuration.getAccountLabels()).thenReturn(new ArrayList<>());
+			Mockito.when(configuration.getNemFolder()).thenReturn("");
+		}
 	}
 }

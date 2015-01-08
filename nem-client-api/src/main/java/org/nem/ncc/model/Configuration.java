@@ -143,6 +143,11 @@ public class Configuration implements SerializableEntity, AccountLabels {
 
 	//endregion
 
+	// TODO 20150108 BR: this is temporary! Delete after one of the next releases.
+	public Collection<AccountLabel> getAccountLabels() {
+		return this.accountLabels.values();
+	}
+
 	/**
 	 * Updates the persistent configuration based with the supplied parameters.
 	 *
@@ -161,6 +166,5 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		serializer.writeString("language", this.language);
 		serializer.writeObject("remoteServer", this.nisEndpoint);
 		serializer.writeObject("nisBootInfo", this.nisBootInfo);
-		serializer.writeObjectArray("accountLabels", this.accountLabels.values());
 	}
 }
