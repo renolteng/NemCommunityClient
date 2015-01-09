@@ -657,6 +657,13 @@ define(function() {
             }
 
             return wallet;
+        },
+        processContacts: function(ab) {
+            for (var i = 0; i < ab.length; i++) {
+                ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
+            }
+
+            return ab;
         }
     };
     return Utils;

@@ -70,7 +70,7 @@
 									    <span class="loader-quarter quarter-4"></span>
 								    </div>
 								</div>
-								<button type="button" class="createWalletForm-submitButton" on-click="createWallet" disabled="{{landingPage.creatingWallet || !lcwFormValid}}">
+								<button type="button" class="createWalletForm-submitButton" on-click="createWallet()" disabled="{{landingPage.creatingWallet || !lcwFormValid}}">
 									{{#if landingPage.creatingWallet}}
 										{{texts.landing.main.creating}}
 									{{else}}
@@ -105,7 +105,7 @@
 											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{wallet}}</label>
 											<div class="openWalletList-passwordPrompt">
 												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}"
-												/><input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openWallet:{{.wallet}}" value="{{texts.landing.main.openButton}}" />
+												/><input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openExistingWallet(.wallet)" value="{{texts.landing.main.openButton}}" />
 											</div>
 										</li>
 									{{/wallets}}

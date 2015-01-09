@@ -11,6 +11,10 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 ncc.postRequest('wallet/info', { wallet: wallet }, function(data) {
                     ncc.set('wallet', Utils.processWallet(data));
                 }, null, silent);
+
+                ncc.postRequest('addressbook/info', { addressBook: wallet }, function(data) {
+                    ncc.set('contacts', Utils.processContacts(data.accountLabels));
+                }, null, silent);
             };
 
             ncc.refreshRemoteHarvestingStatus = function(wallet, account, silent) {
@@ -258,13 +262,18 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 closeWallet: function() {
                     ncc.showConfirmation(ncc.get('texts.modals.closeWallet.title'), ncc.get('texts.modals.closeWallet.message'), {
                         yes: function() {
-                            ncc.postRequest('wallet/close', { wallet: ncc.get('wallet.wallet') }, function(data) {
+                            var requestData = {
+                                wallet: ncc.get('wallet.wallet') 
+                            };
+                            ncc.postRequest('wallet/close', requestData, function(data) {
                                 if (data.ok) {
                                     ncc.loadPage('landing');
                                 } else {
                                     ncc.showError();
                                 }
                             });
+
+                            ncc.postRequest('addressbook/close', requestData);
                         }
                     });
                 },

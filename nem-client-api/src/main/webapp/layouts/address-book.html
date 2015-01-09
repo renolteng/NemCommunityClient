@@ -22,10 +22,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							{{#contacts}}
+							{{#each contacts}}
 								<tr class="txList-row txList-row--colored addressBook-row">
-                                    <td class="txList-cell txList-col--address addressBook-leftMost">{{.address}}</td>
-									<td class="txList-cell txList-col--label">{{.label}}</td>
+                                    <td class="txList-cell txList-col--address addressBook-leftMost">{{.formattedAddress}}</td>
+									<td class="txList-cell txList-col--label">{{.privateLabel}}</td>
 									<td class="txList-cell txList-col--actions addressBook-rightMost">
 										<div class="consecutiveButtons">
 											<button class="consecutiveButtons-button" type="button">{{texts.addressBook.sendNem}}</button>
@@ -34,7 +34,7 @@
 										</div>
 									</td>
 								</tr>
-							{{/}}
+							{{/each}}
 						</tbody>
 					</table>
 					{{^contacts}}
