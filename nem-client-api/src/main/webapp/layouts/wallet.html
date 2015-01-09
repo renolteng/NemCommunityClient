@@ -52,7 +52,7 @@
 						</div>
 					</div>*/-->
 					<div class="walletBox-walletInfo">
-						<p><a href="javascript:;" class="walletBox-walletName">{{wallet.name}}</a></p>
+						<p><a href="javascript:;" class="walletBox-walletName">{{wallet.wallet}}</a></p>
 						<p><span class="walletBox-lastAccess" title="{{fill(texts.wallet.lastAccessTooltip, wallet.lastRefreshDate)}}" on-mouseover="registerToolTip">{{#wallet.daysPassed}}
 							{{#.roundedDays}}
 								{{fill(texts.wallet.lastAccess, .roundedDays)}}
@@ -62,7 +62,7 @@
 							{{/}}
 						{{/}}</span></p>
 					</div>
-					<img class="walletBox-avatar" src="images/default-avatar.png" alt="{{wallet.name}}" />
+					<img class="walletBox-avatar" src="images/default-avatar.png" alt="{{wallet.wallet}}" />
 					<div class="walletBox-menu">
 						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn('walletActions')"></a>
 						<ul class="walletBox-menu-dropdown dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
