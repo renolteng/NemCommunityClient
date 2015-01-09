@@ -273,6 +273,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             });
 
+                            requestData.addressbook = requestData.wallet;
+                            delete requestData.wallet;
                             ncc.postRequest('addressbook/close', requestData);
                         }
                     });
@@ -678,11 +680,27 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             wallet: wallet
                         },
                         function(values, closeModal) {
-                            ncc.postRequest('wallet/name/change', values, function(data) {
-                                var newWalletName = values['newName'];
-                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
-                                ncc.set('wallet', Utils.processWallet(data));
-                                closeModal();
+                            var oneCompleted = false;
+                            var newWalletName = values['newName'];
+
+                            ncc.postRequest('wallet/name/change', values, function() {
+                                if (oneCompleted) {
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
+                                    closeModal();
+                                } else {
+                                    oneCompleted = true;
+                                }
+                            });
+
+                            values.addressBook = values.wallet;
+                            delete values.wallet;
+                            ncc.postRequest('addressbook/name/change', values, function() {
+                                if (oneCompleted) {
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
+                                    closeModal();
+                                } else {
+                                    oneCompleted = true;
+                                }
                             });
                         },
                         ncc.get('texts.modals.changeWalletName.change')
@@ -728,10 +746,27 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         },
                         function(values, closeModal) {
                             if (values['newPassword'] === values.confirmPassword) {
-                                values.confirmPassword = undefined;
-                                ncc.postRequest('wallet/password/change', values, function(data) {
-                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
-                                    closeModal();
+                                var oneCompleted = false;
+                                delete values.confirmPassword;
+
+                                ncc.postRequest('wallet/password/change', values, function() {
+                                    if (oneCompleted) {
+                                        ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
+                                        closeModal();
+                                    } else {
+                                        oneCompleted = true;
+                                    }
+                                });
+
+                                values.addressBook = values.wallet;
+                                delete values.wallet;
+                                ncc.postRequest('addressbook/password/change', values, function() {
+                                    if (oneCompleted) {
+                                        ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
+                                        closeModal();
+                                    } else {
+                                        oneCompleted = true;
+                                    }
                                 });
                             } else {
                                 ncc.showMessage(ncc.get('texts.modals.changeWalletPassword.passwordNotMatchTitle'), ncc.get('texts.modals.changeWalletPassword.passwordNotMatchMessage'));
