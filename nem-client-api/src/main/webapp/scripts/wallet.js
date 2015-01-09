@@ -273,7 +273,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             });
 
-                            requestData.addressbook = requestData.wallet;
+                            requestData.addressBook = requestData.wallet;
                             delete requestData.wallet;
                             ncc.postRequest('addressbook/close', requestData);
                         }
@@ -1054,6 +1054,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
         leave: [function() {            
             ncc.global.$window.off('resize.scrollableSidebar');
             ncc.global.$window.off('beforeunload');
+            ncc.set('contacts', {});
         }]
     });
 });
