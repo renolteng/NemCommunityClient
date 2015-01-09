@@ -18,6 +18,16 @@ The transaction hash parameter is optional.
 }
 ```
 
+### AccountLabel
+
+```
+{
+	"address" : "TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS",
+	"publicLabel": "Alice",
+	"privateLabel": "sister"
+}
+```
+
 ### AccountTransactionIdRequest
 The transaction id parameter is optional.
 
@@ -140,7 +150,10 @@ possible status values
  	"addressBook": "myAddresses",
  	"password": "mySecretPassword",
  	"newName": "newNameForAddressBook",					# optional, required for address book name change
- 	"newPassword": "newAndVerySecretPassword"				# optional, required for password change
+ 	"newPassword": "newAndVerySecretPassword",				# optional, required for password change
+ 	"address": "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",	# optional, required for account label related requests
+ 	"publicLabel": "Alice",								# optional, required for account label related requests
+ 	"privateLabel": "sister"							# optional, required for account label related requests
  }
  ```
 

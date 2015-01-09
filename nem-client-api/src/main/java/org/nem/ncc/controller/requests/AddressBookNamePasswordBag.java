@@ -1,5 +1,6 @@
 package org.nem.ncc.controller.requests;
 
+import org.nem.core.model.Address;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.addressbook.*;
 
@@ -36,5 +37,32 @@ public class AddressBookNamePasswordBag extends AddressBookNamePasswordPair {
 	 */
 	public AddressBookPassword getNewPassword() {
 		return AddressBookPassword.readFrom(this.deserializer, "newPassword");
+	}
+
+	/**
+	 * Gets the address if it was specified.
+	 *
+	 * @return The address.
+	 */
+	public Address getAddress() {
+		return Address.readFrom(this.deserializer, "address");
+	}
+
+	/**
+	 * Gets the public label if it was specified.
+	 *
+	 * @return The public label.
+	 */
+	public String getPublicLabel() {
+		return this.deserializer.readString("publicLabel");
+	}
+
+	/**
+	 * Gets the private label if it was specified.
+	 *
+	 * @return The private label.
+	 */
+	public String getPrivateLabel() {
+		return this.deserializer.readString("privateLabel");
 	}
 }

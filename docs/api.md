@@ -110,6 +110,30 @@ Changes the name of an address book.
 * Response: `-`
 * Dependent from NIS: _No_
 
+### /addressbook/accountlabel/remove
+Removes an existing account label from an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressbook/accountlabel/add
+Adds an account label to an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AccountLabel](viewModel.md#accountlabel)
+* Dependent from NIS: _No_
+
+### /addressbook/accountlabel/change
+Changes an exiting account label in an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AccountLabel](viewModel.md#accountlabel)
+* Dependent from NIS: _No_
+
 ### /wallet/list
 Gets all wallets that are located at the configured storage location for wallets.
 
