@@ -18,6 +18,7 @@
 							<tr class="txList-row addressBook-row">
 								<th class="txList-header txList-col--address addressBook-leftMost">{{texts.addressBook.table.columns.0}}</th>
 								<th class="txList-header txList-col--label">{{texts.addressBook.table.columns.1}}</th>
+								<th class="txList-header txList-col--label">{{texts.addressBook.table.columns.2}}</th>
 								<th class="txList-header txList-col--actions addressBook-rightMost"></th>
 							</tr>
 						</thead>
@@ -25,12 +26,25 @@
 							{{#each contacts}}
 								<tr class="txList-row txList-row--colored addressBook-row">
                                     <td class="txList-cell txList-col--address addressBook-leftMost">{{.formattedAddress}}</td>
-									<td class="txList-cell txList-col--label">{{.privateLabel}}</td>
+									<td class="txList-cell txList-col--label">
+										{{#if .privateLabel}}
+											{{.privateLabel}}
+										{{else}}
+											<span class="dimmed">{{texts.addressBook.noLabel}}</span>
+										{{/if}}
+									</td>
+									<td class="txList-cell txList-col--label">
+										{{#if .publicLabel}}
+											{{.publicLabel}}
+										{{else}}
+											<span class="dimmed">{{texts.addressBook.noLabel}}</span>
+										{{/if}}
+									</td>
 									<td class="txList-cell txList-col--actions addressBook-rightMost">
 										<div class="consecutiveButtons">
-											<button class="consecutiveButtons-button" type="button">{{texts.addressBook.sendNem}}</button>
-											<button class="consecutiveButtons-button" type="button">{{texts.addressBook.edit}}</button>
-											<button class="consecutiveButtons-button" type="button">{{texts.addressBook.delete}}</button>
+											<button class="consecutiveButtons-button" type="button">{{texts.addressBook.sendNem}}</button><!--
+											--><button class="consecutiveButtons-button" type="button">{{texts.addressBook.edit}}</button><!--
+											--><button class="consecutiveButtons-button" type="button">{{texts.addressBook.remove}}</button>
 										</div>
 									</td>
 								</tr>
