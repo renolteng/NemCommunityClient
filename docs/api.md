@@ -127,7 +127,7 @@ Adds an account label to an address book.
 * Dependent from NIS: _No_
 
 ### /addressbook/accountlabel/change
-Changes an exiting account label in an address book.
+Changes an existing account label in an address book.
 
 * Request Method: _POST_
 * Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)

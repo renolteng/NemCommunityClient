@@ -3,6 +3,7 @@ package org.nem.ncc.controller.requests;
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
+import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.test.*;
@@ -100,6 +101,82 @@ public class AddressBookNamePasswordBagTest {
 
 		// Assert:
 		Assert.assertThat(bag.getNewPassword(), IsEqual.equalTo(new AddressBookPassword("pwd1")));
+	}
+
+	//region getAddress
+
+	@Test
+	public void getAddressFailsIfAddressIsNotSpecified() {
+		// Act:
+		final AddressBookNamePasswordBag bag = createBagFromJson("name", "password");
+
+		// Assert:
+		assertThrowsMissingPropertyException(bag::getAddress, "address");
+	}
+
+	@Test
+	public void getAddressReturnsAddressIfSpecified() {
+		// Arrange:
+		final JSONObject jsonObject = createJson("name", "password");
+		jsonObject.put("address", "TALICE");
+
+		// Act:
+		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
+
+		// Assert:
+		Assert.assertThat(bag.getAddress(), IsEqual.equalTo(Address.fromEncoded("TALICE")));
+	}
+
+	//endregion
+
+	//region getPublicLabel
+
+	@Test
+	public void getPublicLabelFailsIfPublicLabelIsNotSpecified() {
+		// Act:
+		final AddressBookNamePasswordBag bag = createBagFromJson("name", "password");
+
+		// Assert:
+		assertThrowsMissingPropertyException(bag::getPublicLabel, "publicLabel");
+	}
+
+	@Test
+	public void getPublicLabelReturnsPublicLabelIfSpecified() {
+		// Arrange:
+		final JSONObject jsonObject = createJson("name", "password");
+		jsonObject.put("publicLabel", "Alice");
+
+		// Act:
+		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
+
+		// Assert:
+		Assert.assertThat(bag.getPublicLabel(), IsEqual.equalTo("Alice"));
+	}
+
+	//endregion
+
+	//region getPrivateLabel
+
+	@Test
+	public void getPrivateLabelFailsIfPrivateLabelIsNotSpecified() {
+		// Act:
+		final AddressBookNamePasswordBag bag = createBagFromJson("name", "password");
+
+		// Assert:
+		assertThrowsMissingPropertyException(bag::getPrivateLabel, "privateLabel");
+	}
+
+	@Test
+	public void getPrivateLabelReturnsPrivateLabelIfSpecified() {
+		// Arrange:
+		final JSONObject jsonObject = createJson("name", "password");
+		jsonObject.put("privateLabel", "sister");
+
+		// Act:
+		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
+
+		// Assert:
+		Assert.assertThat(bag.getPrivateLabel(), IsEqual.equalTo("sister"));
 	}
 
 	//endregion
