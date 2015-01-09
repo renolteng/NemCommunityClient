@@ -5,6 +5,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
         name: 'wallet',
         template: 'rv!layout/wallet',
         initOnce: function() {
+            ncc.refreshAddressBook = function(addressBook, silent) {
+                ncc.postRequest('addressbook/info', { addressBook: addressBook }, function(data) {
+                    ncc.set('contacts', Utils.processContacts(data.accountLabels));
+                }, null, silent);
+            }
+
             ncc.refreshWallet = function(wallet, silent) {
                 if (!wallet) wallet = ncc.get('wallet.wallet');
 
@@ -12,9 +18,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     ncc.set('wallet', Utils.processWallet(data));
                 }, null, silent);
 
-                ncc.postRequest('addressbook/info', { addressBook: wallet }, function(data) {
-                    ncc.set('contacts', Utils.processContacts(data.accountLabels));
-                }, null, silent);
+                ncc.refreshAddressBook(wallet, silent);
             };
 
             ncc.refreshRemoteHarvestingStatus = function(wallet, account, silent) {
@@ -159,6 +163,23 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     ncc.get('texts.modals.bootLocalNode.boot'), 
                     ncc.get('texts.modals.bootLocalNode.booting')
                 );
+            };
+
+            ncc.viewTransaction = function(transaction) {
+                var m = ncc.getModal('transactionDetails');
+                m.set('transaction', transaction);
+                m.open();
+            };
+
+            ncc.viewAccount = function(address) {
+                ncc.postRequest(
+                    'account/find', 
+                    {account: Utils.format.address.restore(address)},
+                    function(data) {
+                        var m = ncc.getModal('accountDetails');
+                        m.set('account', data);
+                        m.open();
+                    });
             };
 
             ncc.on('registerScrollableSidebar', function(e) {
@@ -641,13 +662,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 bootLocalNode: function(e, message) {
                     ncc.showBootModal(message);
                 },
-                viewTransaction: (function() {
-                    var modal = ncc.getModal('transactionDetails');
-                    return function(e, transaction) {
-                        modal.set('transaction', transaction);
-                        modal.open();
-                    };
-                })(),
                 changeWalletName: function() {
                     var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.changeWalletName.title'), '',

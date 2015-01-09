@@ -94,8 +94,25 @@ define({
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'This account is labeled as {{1}}',
+				nullLabelDesc: "This account doesn't have a label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+			},
 			sendNem: {
 				title: 'Send NEM',
+				sender: 'Sender',
+				thisAccount: 'This account',
 				labelDesc: 'This account is labeled as {{1}}',
 				nullLabelDesc: "This account doesn't have a label",
 				amount: 'Amount',
@@ -169,6 +186,17 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
 				fee: 'Fee'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				foragedBlocks: "Foraged blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'Boot local node',
@@ -320,6 +348,15 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+			},
+			addContact: {
+				title: 'Add contact',
+				addressBook: 'Address book',
+				password: 'Password',
+				address: 'Address',
+				privateLabel: 'Private label',
+				publicLabel: 'Public label',
+				add: 'Add'
 			}
 		},
 		landing: {
@@ -405,7 +442,8 @@ define({
 				clientInfo: 'Client Info',
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
-				copyClipboard: 'Copy Address to Clipboard'
+				copyClipboard: 'Copy Address to Clipboard',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Dashboard',

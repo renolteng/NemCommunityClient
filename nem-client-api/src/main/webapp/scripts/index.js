@@ -7,7 +7,7 @@ require.config({
         'jquery': 'plugins/jquery-2.1.0.min',
         'expand': 'plugins/expand',
         'modernizr': 'plugins/modernizr.custom.00846',
-        'ractive': 'plugins/ractive.min',
+        'ractive': 'plugins/ractive',
         'tinycarousel': 'plugins/jquery.tinycarousel.min',
         'scroller': 'plugins/jquery.fs.scroller.min',
         'selecter': 'plugins/jquery.fs.selecter.min',

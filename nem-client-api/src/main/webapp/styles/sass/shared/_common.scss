@@ -253,7 +253,7 @@ $form-input-hPadding: 12px;
 	}
 }
 
-.form-input-unit {
+.form-input-end {
 	float: right;
 	line-height: $form-input-height;
 }
@@ -280,6 +280,24 @@ $form-input-hPadding: 12px;
 
 .form-subfield {
 	margin-top: 6px;
+}
+
+.form-row {
+	@extend %clearfix;
+}
+
+.form-half {
+	$middleGap: 16px;
+	float: left;
+	width: 50%;
+
+	&.form-half--left {
+		padding-right: $middleGap / 2;
+	}
+
+	&.form-half--right {
+		padding-left: $middleGap / 2;
+	}
 }
 
 .form-dropdownbox {
@@ -349,6 +367,118 @@ $form-input-hPadding: 12px;
 .form-checkbox,
 .form-checkbox-label {
 	vertical-align: middle;
+}
+
+.form-input-remove {
+	opacity: .6;
+	width: 20px;
+	padding: 0;
+	height: $form-input-height;
+	line-height: $form-input-height;
+	text-align: right;
+}
+
+// ================================================================================
+// TXLIST
+// ================================================================================
+
+.txList {
+	width: 100%;
+}
+
+.txList-header, 
+.txList-cell {
+	white-space: nowrap;
+}
+
+.txList-header {
+	padding: 7px 5px 12px;
+	font-size: 14px;
+	font-weight: $fontWeight-black;
+	text-align: left;
+}
+
+.txList-row--colored {
+	&:nth-child(odd) {
+		background-color: #f6f6f6;
+	}
+}
+
+.txList-cell {
+	padding: 8px 5px;
+	text-align: left;
+	font-weight: $fontWeight-medium;
+}
+
+.txList-col--type {
+	position: relative;
+	top: 2px;
+	font-size: 15px;
+}
+
+.txList-col--type--incoming {
+	color: #27ae60;
+}
+
+.txList-col--type--outgoing {
+	color: #c0392b;
+}
+
+.txList-col--type--pending {
+	color: #d1d1d1;
+	font-size: 13px;
+}
+
+.txList-col--sender, 
+.txList-col--message {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.txList-col--sender {
+	max-width: 150px;
+}
+
+.txList-col--message {
+	max-width: 150px;
+}
+
+.txList-col--confirmations {
+	text-align: center;
+}
+
+.txList-col--fee, 
+.txList-col--amount {
+	text-align: right;
+}
+
+.hyperlink--default {
+	font-weight: $fontWeight-bold;
+	color: #3498db;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.txList-seeAll {
+	$color: #252a34;
+	margin-top: 8px;
+	color: $color;
+	font-weight: $fontWeight-bold;
+	text-align: right;
+}
+
+.txList-seeAll-arrow {
+	font-size: 16px;
+	vertical-align: -3px;
+}
+
+.txList-noRecords {
+	margin-top: 2em;
+	color: rgba(#000, .4);
+	font-size: 12px;
+	font-style: italic;
 }
 
 // ================================================================================
@@ -525,6 +655,10 @@ $modal-transitionDuration: .3s;
 	padding: 8px 16px;
 }
 
+.modal-head--empty {
+	border-bottom: none;
+}
+
 .modal-title {
 	text-transform: uppercase;
 	font-size: 14px;
@@ -535,7 +669,6 @@ $modal-transitionDuration: .3s;
 .modal-body {
 	color: #444444;
 	padding: 34px 50px 26px;
-	text-align: center;
 }
 
 .modal-closeBtn {
@@ -548,6 +681,15 @@ $modal-transitionDuration: .3s;
 
 .modal-actions {
 	margin-top: 26px;
+}
+
+.modal-buttons {
+	text-align: right;
+	margin-top: 10px;
+}
+
+.modal-buttons--center {
+	text-align: center;
 }
 
 .modal-button {
@@ -596,7 +738,6 @@ $modal-transitionDuration: .3s;
 }
 
 .modal-button--submit {
-	margin-top: 10px;
 	text-transform: uppercase;
 }
 
@@ -613,6 +754,7 @@ $modal-transitionDuration: .3s;
 	.modal-body {
 		padding-top: 0;
 		color: #888888;
+		text-align: center;
 	}
 }
 
@@ -627,6 +769,14 @@ $modal-transitionDuration: .3s;
 .errorModal-caption,
 .errorModal-message {
 	margin-top: .2em;
+}
+
+/** Message Modal **/
+
+.messageModal {
+	.modal-body {
+		text-align: center;
+	}
 }
 
 /** Input Modal **/
@@ -646,7 +796,6 @@ $modal-transitionDuration: .3s;
 }
 
 .inputModal-form {
-	text-align: left;
 	padding-bottom: 10px;
 }
 
@@ -663,7 +812,6 @@ $settingModal-bgColor: #fff;
 
 	.modal-body {
 		padding: 0;
-		text-align: left;
 	}
 }
 

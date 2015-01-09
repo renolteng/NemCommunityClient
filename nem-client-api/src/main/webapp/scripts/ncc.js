@@ -12,6 +12,9 @@ define(function(require) {
     var SettingsModal = require('SettingsModal');
     var SendNemModal = require('SendNemModal');
     var TransactionConfirmModal = require('TransactionConfirmModal');
+    var TransactionDetailsModal = require('TransactionDetailsModal');
+    var AccountDetailsModal = require('AccountDetailsModal');
+    var ConvertMultisigModal = require('ConvertMultisigModal');
 
     var NccRactive = Ractive.extend({
         el: document.body,
@@ -24,8 +27,10 @@ define(function(require) {
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             clientInfoModal: NccModal,
-            transactionDetailsModal: NccModal,
-            transactionConfirmModal: TransactionConfirmModal
+            transactionDetailsModal: TransactionDetailsModal,
+            transactionConfirmModal: TransactionConfirmModal,
+            accountDetailsModal: AccountDetailsModal,
+            convertMultisigModal: ConvertMultisigModal
         },
         computed: {
             allAccounts: function() {
@@ -256,6 +261,9 @@ define(function(require) {
         getModal: function(modalName) {
             return this.findComponent(modalName + 'Modal');
         },
+        openModal: function(id) {
+            this.getModal(id).open();
+        },
         showError: function(errorId, message) {
             var modal = this.getModal('error');
             if (!message && typeof errorId === 'number') {
@@ -468,9 +476,6 @@ define(function(require) {
             this.on({
                 redirect: function(e, page, params) {
                     this.loadPage(page, params);
-                },
-                openModal: function(e, id) {
-                    this.getModal(id).open();
                 },
                 shutdown: function() {
                     var self = this;

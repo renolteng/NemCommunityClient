@@ -51,6 +51,25 @@
 							</div>
 						</div>
 					</div>*/-->
+					<!--<div class="walletBox-notiArea">
+						<div class="walletBox-notiBox">
+							<span class="notiBox-icon icon-bell"></span>
+							<span class="notiBox-number">3</span>
+						</div>
+						<div class="walletBox-notifications">
+							<ul>
+								{{#each notifications}}
+									<li>
+										<div class="notification">
+											<span>Makoto added you as his signatore</span>
+											<button type="button" class="icon-check"></button>
+											<button type="button" class="icon-close-plain"></button>
+										</div>
+									</li>
+								{{/each}}
+							</ul>
+						</div>
+					</div>-->
 					<div class="walletBox-walletInfo">
 						<p><a href="javascript:;" class="walletBox-walletName">{{wallet.wallet}}</a></p>
 						<p><span class="walletBox-lastAccess" title="{{fill(texts.wallet.lastAccessTooltip, wallet.lastRefreshDate)}}" on-mouseover="registerToolTip">{{#wallet.daysPassed}}
@@ -126,27 +145,30 @@
 					<li class="dropdownMenu-item" id="addressClipboard" data-clipboard-target="activeAccountAddress">
 						{{texts.wallet.actions.copyClipboard}}
 					</li>
-					<li class="dropdownMenu-item" on-click="createNewAccount">
-						{{texts.wallet.actions.createAccount}}
-					</li>
-					<li class="dropdownMenu-item" on-click="createRealAccountData">
-						{{texts.wallet.actions.createRealAccountData}}
-					</li>
-					<li class="dropdownMenu-item" on-click="verifyRealAccountData">
-						{{texts.wallet.actions.verifyRealAccountData}}
-					</li>
-					<li class="dropdownMenu-item" on-click="addAccount">
-						{{texts.wallet.actions.addAccount}}
-					</li>
 					<li class="dropdownMenu-item" on-click="changeAccountLabel">
 						{{texts.wallet.actions.changeAccountLabel}}
 					</li>
 					<li class="dropdownMenu-item {{#activeAccount.address === wallet.primaryAccount.address}}disabled{{/}}" on-click="setCurrentAccountAsPrimary">
 						{{texts.wallet.actions.setPrimary}}
 					</li>
-					<li class="dropdownMenu-item" on-click="removeAccount">
+					<li class="dropdownMenu-item" on-click="openModal('convertMultisig')">
+						{{texts.wallet.actions.convertMultisig}}
+					</li>
+					<li class="dropdownMenu-item dropdownMenu-item--separator" on-click="removeAccount">
 						{{texts.wallet.actions.removeAccount}}
 					</li>
+					<li class="dropdownMenu-item" on-click="createNewAccount">
+						{{texts.wallet.actions.createAccount}}
+					</li>
+					<li class="dropdownMenu-item" on-click="addAccount">
+						{{texts.wallet.actions.addAccount}}
+					</li>
+					<li class="dropdownMenu-item" on-click="createRealAccountData">
+						{{texts.wallet.actions.createRealAccountData}}
+					</li>
+					<li class="dropdownMenu-item" on-click="verifyRealAccountData">
+						{{texts.wallet.actions.verifyRealAccountData}}
+					</li>					
 				</ul>
 			</div>
 			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}}" id="accountSelect">
@@ -202,7 +224,7 @@
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
 					<span class="sidebar-nav-item-title icon-user"><span class="fullSidebarOnly">{{texts.wallet.nav.8}}</span></span>
 				</a></li>
-				<li class="sidebar-nav-item {{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="openModal:settings">
+				<li class="sidebar-nav-item {{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="openModal('settings')">
 					<span class="sidebar-nav-item-title icon-gear"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item"><a href="javascript:;" on-click="shutdown">
@@ -213,8 +235,100 @@
 	</div>
 	{{#layout.1.name}}{{>1}}{{/}}
 </div>
-<sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip">
-	<div class="form">
+<convertMultisigModal modalClass="convertMultisigModal" disableEasyClose="true" modalTitle="{{texts.modals.multisig.title}}" texts="{{texts}}" fill="{{fill}}">
+	<div class="form multisig-form">
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.multisig.multisigAccount}}</p>
+			<input class="form-input form-input--textbox form-input--unimportant" readonly value="{{formattedMultisigAccount}}" />
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
+			{{#each cosignatories : i}}
+				<div class="{{#i !== 0}}form-field{{/}}">
+					<div>
+						<div class="form-input-end form-input-remove">
+							{{#i !== 0}}<button type="button" class="icon-cross" on-click="removeCosignatory(i)"></button>{{/}}
+						</div>
+						<div class="restOfWidth">
+							<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.text}}" on-keypress="sendFormKeypress" />
+						</div>
+					</div>
+					<p class="form-sublabel">
+						{{#.label}}
+							{{{fill(true, texts.modals.multisig.labelDesc, '<strong>' + .label + '</strong>')}}}
+						{{/}}
+						{{#.label === ''}}
+							{{texts.modals.multisig.nullLabelDesc}}
+						{{/}}
+					</p>
+				</div>
+			{{/each}}
+			<div>
+				<button type="button" class="multisig-addCosignatory" on-click="addCosignatory()">{{texts.modals.multisig.addCosignatory}}</button>
+			</div>
+		</div>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+			<label class="form-checkbox-label" for="chk-useMinimumFee">
+				{{texts.modals.multisig.useMinimumFee}}
+				{{#if !useMinimumFee}}
+					({{formattedMinimumFee}} NEM)
+				{{/if}}
+			</label>
+		</div>
+		<div class="form-field">
+			<div class="form-row">
+				<div class="form-half form-half--left">
+					<p class="form-label">
+						{{texts.modals.multisig.fee}}
+						{{#if feeError}}
+							<span class="multisig-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+						{{/if}}
+					</p>
+					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+						<span class="form-input-end unit">NEM</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-multisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+						</div>
+					</div>
+				</div>
+				<div class="form-half form-half--right">
+					<p class="form-label">{{texts.modals.multisig.dueBy}}</p>
+					<div class="form-input">
+						<span class="form-input-end unit">{{texts.modals.multisig.hours}}</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-multisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-buttons sendNem-buttons">
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.multisig.cancel}}</button>
+		<button type="button" class="modal-button modal-button--primary" on-click="convertMultisig()">{{texts.modals.multisig.convert}}</button>
+	</div>
+</convertMultisigModal>
+<sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+	<div class="form sendNem-form">
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.sender}}</p>
+			<div class="form-dropdownbox">
+				<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
+					{{#if sender}}
+						{{sender}}
+					{{else}}
+						{{texts.modals.sendNem.thisAccount}}
+					{{/if}}
+				</div>
+				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
+					<li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.modals.sendNem.thisAccount}}</li>
+					{{#each cosignatories}}
+						<li class="form-dropdownbox-item" on-click="set('sender', .address)">{{.address}}</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
 		<div class="form-field">
 			<p class="form-label">
 				{{texts.modals.sendNem.recipient}}
@@ -234,8 +348,8 @@
 		</div>
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.sendNem.amount}}</p>
-			<div type="text" class="form-input">
-				<span class="form-input-unit unit">NEM</span>
+			<div class="form-input">
+				<span class="form-input-end unit">NEM</span>
 				<div class="restOfWidth">
 					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
 				</div>
@@ -251,27 +365,27 @@
 			</label>
 		</div>
 		<div class="form-field">
-			<div class="sendNem-row">
-				<div class="sendNem-half sendNem-half--left">
+			<div class="form-row">
+				<div class="form-half form-half--left">
 					<p class="form-label">
 						{{texts.modals.sendNem.fee}}
 						{{#if feeError}}
 							<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
-					<div type="text" class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
-						<span class="form-input-unit unit">NEM</span>
+					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+						<span class="form-input-end unit">NEM</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-sendNem-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
 						</div>
 					</div>
 				</div>
-				<div class="sendNem-half sendNem-half--right">
+				<div class="form-half form-half--right">
 					<p class="form-label">{{texts.modals.sendNem.dueBy}}</p>
-					<div type="text" class="form-input">
-						<span class="form-input-unit unit">{{texts.modals.sendNem.hours}}</span>
+					<div class="form-input">
+						<span class="form-input-end unit">{{texts.modals.sendNem.hours}}</span>
 						<div class="restOfWidth">
-							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" />
+							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
 					</div>
 				</div>
@@ -294,10 +408,10 @@
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
 		</div>
-	</div>
-	<div class="sendNem-submit">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.cancel}}</button>
-		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.sendNem.send}}</button>
+		<div class="modal-buttons sendNem-buttons">
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.cancel}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.sendNem.send}}</button>
+		</div>
 	</div>
 </sendNemModal>
 <transactionConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
@@ -356,24 +470,28 @@
 	{{#transaction}}
 		<table>
             <tr>
-                <td class="txDetails-cell--label">{{texts.modals.transactionDetails.hash}}</td>
-                <td class="txDetails-cell--content">{{.hash}}</td>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.hash}}</td>
+                <td class="table-cell table-cell--content">{{.hash}}</td>
             </tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.type}}</td>
-				<td class="txDetails-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="table-cell table-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.sender}}</td>
-				<td class="txDetails-cell--content">{{.formattedSender}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+				</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
-				<td class="txDetails-cell--content">{{.formattedRecipient}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
+				</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.message}}</td>
-				<td class="txDetails-cell--content">
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.message}}</td>
+				<td class="table-cell table-cell--content">
 					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
 					{{#.encrypted}}
 						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
@@ -381,12 +499,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.time}}</td>
-				<td class="txDetails-cell--content">{{.formattedDate}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
+				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
-				<td class="txDetails-cell--content">
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
+				<td class="table-cell table-cell--content">
 					{{#if .confirmed}}
 						{{#if blockchainHeight}}
 							{{blockchainHeight - .blockHeight}}
@@ -399,16 +517,55 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="txDetails-cell--content">{{{.formattedFullAmount}}} NEM</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
+				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} NEM</td>
 			</tr>
 			<tr>
-				<td class="txDetails-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="txDetails-cell--content">{{{.formattedFullFee}}} NEM</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
+				<td class="table-cell table-cell--content">{{{.formattedFullFee}}} NEM</td>
 			</tr>
 		</table>
 	{{/}}
 </transactionDetailsModal>
+<accountDetailsModal modalClass="accDetailsModal modal--wide" modalTitle="{{texts.modals.accountDetails.title}}" closeOnEnter="true" texts="{{texts}}">
+	{{#account}}
+		<table>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.address}}</td>
+				<td class="table-cell table-cell--content">{{formattedAddress}}</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.label}}</td>
+				<td class="table-cell table-cell--content">
+					{{#if .label}}
+						{{.label}}
+					{{else}}
+						<span class="dimmed">{{texts.modals.accountDetails.noLabel}}</span>
+					{{/if}}
+				</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.balance}}</td>
+				<td class="table-cell table-cell--content">{{formattedBalance}} NEM</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.importance}}</td>
+				<td class="table-cell table-cell--content">{{Math.round(.importance * 10000) / 100}}%</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
+				<td class="table-cell table-cell--content">{{.publicKey}}</td>
+			</tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.foragedBlocks}}</td>
+				<td class="table-cell table-cell--content">{{.foragedBlocks}}</td>
+			</tr>
+		</table>
+	{{/}}
+	<div class="modal-buttons">
+		<button type="button" class="modal-button modal-button--primary" on-click="closeModal()">{{texts.modals.accountDetails.close}}</button>
+	</div>
+</accountDetailsModal>
 <clientInfoModal modalClass="clientInfoModal modal--wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}" nisSynchronized="{{nisSynchronized}}">
 	<div class="logo">
 		<img src="images/nem_logo.png" alt="NEM - New Economy Movement">
