@@ -554,10 +554,15 @@ define({
 			table: {
 				columns: [
 					'Account address',
-					'Label'
+					'Private Label',
+					'Public Label'
 				],
 				noContacts: 'There is no contacts in your address book'
-			}
+			},
+			noLabel: 'No label',
+			sendNem: 'Send NEM',
+			edit: 'Edit',
+			remove: 'Remove'
 		},
 		settings: {
 			title: 'Settings',
