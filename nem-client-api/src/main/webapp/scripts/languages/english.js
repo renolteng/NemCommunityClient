@@ -202,6 +202,7 @@ define({
 				balance: "Balance",
 				importance: "Importance",
 				publicKey: "Public key",
+				noPublicKey: "No public key",
 				foragedBlocks: "Foraged blocks",
 				close: "Close"
 			},

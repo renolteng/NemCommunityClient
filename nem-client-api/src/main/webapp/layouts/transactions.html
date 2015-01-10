@@ -70,12 +70,24 @@
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">
-                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
+                                        		{{#if privateLabels[.recipient]}}
+                                        			{{privateLabels[.recipient]}}
+                                    			{{else}}
+                                    				{{.formattedRecipient}}
+                                				{{/if}}
+                            				</a>
                                     	</td>
                                     {{/}}
                                     {{#.isIncoming}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
-                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                        		{{#if privateLabels[.sender]}}
+                                        			{{privateLabels[.sender]}}
+                                    			{{else}}
+                                    				{{.formattedSender}}
+                                				{{/if}}
+                            				</a>
                                     	</td>
                                     {{/}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">

@@ -167,6 +167,16 @@ define(function(require) {
             },
             lcwFormValid: function() {
                 return this.get('lcwNameValid') && this.get('lcwPasswordValid') && this.get('lcwConfirmPasswordValid');
+            },
+            privateLabels: function() {
+                var contacts = this.get('contacts');
+                var result = {};
+                var contact;
+                for (var i = 0; i < contacts.length; i++) {
+                    contact = contacts[i];
+                    result[contact.address] = contact.privateLabel;
+                }
+                return result;
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {

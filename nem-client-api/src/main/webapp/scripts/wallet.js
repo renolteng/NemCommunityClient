@@ -6,6 +6,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
         template: 'rv!layout/wallet',
         initOnce: function() {
             ncc.refreshAddressBook = function(addressBook, silent) {
+                if (!addressBook) addressBook = ncc.get('wallet.wallet');
+                
                 ncc.postRequest('addressbook/info', { addressBook: addressBook }, function(data) {
                     ncc.set('contacts', Utils.processContacts(data.accountLabels));
                 }, null, silent);
@@ -230,14 +232,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             label: {
                                 content: ncc.get('texts.common.privateLabel')
                             }
-                        },
-                        {
-                            name: 'publicLabel',
-                            type: 'text',
-                            label: {
-                                content: ncc.get('texts.common.publicLabel')
-                            }
-                        },
+                        }
                     ],
                     {
                         addressBook: ncc.get('wallet.wallet'),
@@ -254,7 +249,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 );
             };
 
-            ncc.editContact = function(address, privateLabel, publicLabel) {
+            ncc.editContact = function(address, privateLabel) {
                 ncc.showInputForm(ncc.get('texts.modals.editContact.title'), '',
                     [
                         {
@@ -286,20 +281,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             label: {
                                 content: ncc.get('texts.common.privateLabel')
                             }
-                        },
-                        {
-                            name: 'publicLabel',
-                            type: 'text',
-                            label: {
-                                content: ncc.get('texts.common.publicLabel')
-                            }
-                        },
+                        }
                     ],
                     {
                         addressBook: ncc.get('wallet.wallet'),
                         address: Utils.format.address.format(address),
-                        privateLabel: privateLabel,
-                        publicLabel: publicLabel
+                        privateLabel: privateLabel
                     },
                     function(values, closeModal) {
                         values.address = Utils.format.address.restore(values.address);

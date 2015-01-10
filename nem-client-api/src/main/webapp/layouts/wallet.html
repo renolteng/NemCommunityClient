@@ -134,7 +134,7 @@
 								</span>
 							{{/}}
 						</p>
-						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{.label ? .label : texts.wallet.noLabel}}</p>
+						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{privateLabels[.address] ? privateLabels[.address] : texts.wallet.noLabel}}</p>
 					{{/}}
 				</div>
 				<button class="account-actionsButton {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
@@ -180,7 +180,7 @@
 									{{.formattedAddress}}
 								</p>
 								<p class="account-info-line account-label {{^.label}}account-label--blank{{/}}">
-									{{.label ? .label : texts.wallet.noLabel}}
+									{{privateLabels[.address] ? privateLabels[.address] : texts.wallet.noLabel}}
 									{{#.address === wallet.primaryAccount.address}}
 										<span class="account-primary">{{texts.wallet.primary}}</span>
 									{{/}}
@@ -527,7 +527,7 @@
 		</table>
 	{{/}}
 </transactionDetailsModal>
-<accountDetailsModal modalClass="accDetailsModal modal--wide" modalTitle="{{texts.modals.accountDetails.title}}" closeOnEnter="true" texts="{{texts}}">
+<accountDetailsModal modalClass="accDetailsModal modal--wide" modalTitle="{{texts.modals.accountDetails.title}}" closeOnEnter="true" texts="{{texts}}" privateLabels="{{privateLabels}}">
 	{{#account}}
 		<table>
 			<tr>
@@ -537,8 +537,8 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.label}}</td>
 				<td class="table-cell table-cell--content">
-					{{#if .label}}
-						<span>{{.label}}</span> -
+					{{#if privateLabels[.address]}}
+						<span>{{privateLabels[.address]}}</span> -
 						<a href="javascript:;" class="hyperlink--default" on-click="removeContact(.address)">{{texts.modals.accountDetails.remove}}</a>
 					{{else}}
 						<span class="dimmed">{{texts.modals.accountDetails.noLabel}}</span> -
@@ -556,7 +556,13 @@
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
-				<td class="table-cell table-cell--content">{{.publicKey}}</td>
+				<td class="table-cell table-cell--content">
+					{{#if .publicKey}}
+						{{.publicKey}}
+					{{else}}
+						<span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
+					{{/if}}
+				</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.foragedBlocks}}</td>
