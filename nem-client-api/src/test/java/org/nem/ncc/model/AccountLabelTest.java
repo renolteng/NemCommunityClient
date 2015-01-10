@@ -5,6 +5,7 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
+import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.test.Utils;
 
 public class AccountLabelTest {

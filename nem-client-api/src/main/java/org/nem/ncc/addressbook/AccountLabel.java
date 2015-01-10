@@ -1,4 +1,4 @@
-package org.nem.ncc.model;
+package org.nem.ncc.addressbook;
 
 import org.nem.core.model.Address;
 import org.nem.core.serialization.*;

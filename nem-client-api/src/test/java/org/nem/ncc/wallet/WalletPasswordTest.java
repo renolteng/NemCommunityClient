@@ -4,71 +4,14 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.test.*;
+import org.nem.ncc.storable.entity.StorableEntityPasswordTest;
+import org.nem.ncc.test.Utils;
 
-public class WalletPasswordTest {
+public class WalletPasswordTest extends StorableEntityPasswordTest {
 
-	@Test
-	public void passwordCanBeCreatedAroundValidNonWhitespaceString() {
-		// Act:
-		new WalletPassword("foo");
-	}
-
-	@Test
-	public void passwordCannotBeCreatedAroundWhitespaceString() {
-		// Assert:
-		ExceptionAssert.assertThrows(v -> new WalletPassword(null), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> new WalletPassword(""), IllegalArgumentException.class);
-		ExceptionAssert.assertThrows(v -> new WalletPassword("  \t\t "), IllegalArgumentException.class);
-	}
-
-	@Test
-	public void equalsOnlyReturnsTrueForEquivalentObjects() {
-		// Arrange:
-		final WalletPassword password = new WalletPassword("foo");
-
-		// Assert:
-		Assert.assertThat(new WalletPassword("foo"), IsEqual.equalTo(password));
-		Assert.assertThat(new WalletPassword("fob"), IsNot.not(IsEqual.equalTo(password)));
-		Assert.assertThat(null, IsNot.not(IsEqual.equalTo(password)));
-		Assert.assertThat("foo", IsNot.not(IsEqual.equalTo((Object)password)));
-	}
-
-	@Test
-	public void hashCodesAreEqualForEquivalentObjects() {
-		// Arrange:
-		final WalletPassword password = new WalletPassword("foo");
-		final int hashCode = password.hashCode();
-
-		// Assert:
-		Assert.assertThat(new WalletPassword("foo").hashCode(), IsEqual.equalTo(hashCode));
-		Assert.assertThat(new WalletPassword("fob").hashCode(), IsNot.not(IsEqual.equalTo(hashCode)));
-	}
-
-	@Test
-	public void toStringReturnsRawPassword() {
-		// Arrange:
-		final WalletPassword password = new WalletPassword("foo");
-
-		// Assert:
-		Assert.assertThat(password.toString(), IsEqual.equalTo("foo"));
-	}
-
-	//region inline serialization
-
-	@Test
-	public void canWritePassword() {
-		// Arrange:
-		final JsonSerializer serializer = new JsonSerializer();
-		final WalletPassword password = new WalletPassword("foo");
-
-		// Act:
-		WalletPassword.writeTo(serializer, "wp", password);
-
-		// Assert:
-		final JSONObject object = serializer.getObject();
-		Assert.assertThat(object.size(), IsEqual.equalTo(1));
-		Assert.assertThat(object.get("wp"), IsEqual.equalTo("foo"));
+	@Override
+	protected WalletPassword createEntityPassword(final String name) {
+		return new WalletPassword(name);
 	}
 
 	@Test

@@ -7,7 +7,7 @@ import org.nem.ncc.wallet.WalletName;
  * Utility class for dealing with wallet files.
  */
 public class WalletFileUtils {
-
+	private static final String WALLET_EXTENSION = ".wlt";
 	/**
 	 * Gets the file name corresponding to a wallet name.
 	 *
@@ -16,7 +16,7 @@ public class WalletFileUtils {
 	 */
 	public static String getWalletFileName(final WalletName name) {
 		// the wallet name could contain invalid file name characters, so encode the name
-		return UrlEncoded.encodeString(name.toString()) + WalletFileDescriptor.WALLET_EXTENSION;
+		return UrlEncoded.encodeString(name.toString()) + WALLET_EXTENSION;
 	}
 
 	/**
@@ -26,6 +26,6 @@ public class WalletFileUtils {
 	 * @return true if the name is a valid wallet file name.
 	 */
 	public static boolean isValidWalletFileName(final String name) {
-		return name.toLowerCase().endsWith(WalletFileDescriptor.WALLET_EXTENSION) && name.indexOf(".") > 0;
+		return name.toLowerCase().endsWith(WALLET_EXTENSION) && name.indexOf(".") > 0;
 	}
 }

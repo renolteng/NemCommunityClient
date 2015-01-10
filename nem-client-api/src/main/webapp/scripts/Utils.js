@@ -361,7 +361,8 @@ define(function() {
                 nem: function() {
                     return new RegExp('^[0-9' + Utils.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')) + ']$');
                 },
-                address: /^[0-9a-zA-Z]$/
+                address: /^[0-9a-zA-Z]$/,
+                number: /^[0-9]$/
             },
             transform: {
                 address: function(char) {
@@ -377,6 +378,9 @@ define(function() {
                 }
             },
             caretStickToRight: {
+                'default': function(oldCaret, oldText, newText) {
+                    return oldCaret + newText.length - oldText.length;
+                },
                 nem: function(oldCaret, oldText, newText) {
                     var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
                     var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
@@ -434,6 +438,9 @@ define(function() {
                 }
             },
             caretStickToLeft: {
+                'default': function(oldCaret) {
+                    return oldCaret;
+                },
                 nem: function(oldCaret, oldText, newText) {
                     var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
                     var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
@@ -499,7 +506,7 @@ define(function() {
 
                 newText = this.reformatTextbox(target, type, newText, ractive);
 
-                var caretStickToRight = this.caretStickToRight[type];
+                var caretStickToRight = this.caretStickToRight[type] || this.caretStickToRight['default'];
                 if (typeof caretStickToRight === 'function') {
                     var newCaret = caretStickToRight(caretEnd, oldText, newText);
                     target.setSelectionRange(newCaret, newCaret);
@@ -557,7 +564,7 @@ define(function() {
 
                         newText = this.reformatTextbox(target, type, newText, ractive);
 
-                        var caretStickToRight = this.caretStickToRight[type];
+                        var caretStickToRight = this.caretStickToRight[type] || this.caretStickToRight['default'];
                         if (typeof caretStickToRight === 'function') {
                             var newCaret = caretStickToRight(caret, oldText, newText);
                             target.setSelectionRange(newCaret, newCaret);
@@ -575,7 +582,7 @@ define(function() {
 
                         newText = this.reformatTextbox(target, type, newText, ractive);
 
-                        var caretStickToLeft = this.caretStickToLeft[type];
+                        var caretStickToLeft = this.caretStickToLeft[type] || this.caretStickToLeft['default'];
                         if (typeof caretStickToLeft === 'function') {
                             var newCaret = caretStickToLeft(caret, oldText, newText);
                             target.setSelectionRange(newCaret, newCaret);
@@ -657,6 +664,13 @@ define(function() {
             }
 
             return wallet;
+        },
+        processContacts: function(ab) {
+            for (var i = 0; i < ab.length; i++) {
+                ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
+            }
+
+            return ab;
         }
     };
     return Utils;

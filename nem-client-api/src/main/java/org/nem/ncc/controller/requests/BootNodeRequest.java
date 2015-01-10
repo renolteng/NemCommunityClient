@@ -32,7 +32,7 @@ public class BootNodeRequest extends AccountWalletRequest {
 	 */
 	public BootNodeRequest(final Deserializer deserializer) {
 		super(deserializer);
-		this.nodeName = deserializer.readString("node_name");
+		this.nodeName = deserializer.readString("nodeName");
 	}
 
 	/**

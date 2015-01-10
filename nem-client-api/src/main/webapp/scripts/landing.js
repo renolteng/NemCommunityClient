@@ -12,15 +12,6 @@
 			nisCheckingInterval: 3000
 		},
 		initOnce: function() {
-            ncc.openWallet = function(walletData) {
-            	ncc.set('wallet', Utils.processWallet(walletData));
-            	ncc.set('activeAccount', Utils.processAccount(walletData.primaryAccount));
-                ncc.loadPage('dashboard', {
-                	wallet: walletData.name,
-                	account: walletData.primaryAccount.address
-                });
-	        };
-
 	        ncc.listWallets = function() {
 	        	ncc.set('landingPage.listingWallets', true);
 	        	ncc.getRequest('wallet/list', 
@@ -34,6 +25,70 @@
 					}
 				);
 	        };
+
+	        ncc.openWallet = function(wallet, password, walletData) {
+	        	var setWalletData = function(data) {
+	        		ncc.set('wallet', Utils.processWallet(data));
+	            	ncc.set('activeAccount', Utils.processAccount(data.primaryAccount));
+	                ncc.loadPage('dashboard', {
+	                	wallet: data.wallet,
+	                	account: data.primaryAccount.address
+	                });
+	        	}
+
+	        	if (!walletData) {
+					ncc.set('landingPage.openingWallet', true);
+			    	ncc.postRequest('wallet/open', 
+			    		{
+							wallet: wallet,
+							password: password
+						},
+			    		function(data) {
+			        		setWalletData(data);
+			        	},
+						{
+							complete: function() {
+								ncc.set('landingPage.openingWallet', false);
+							}
+						}
+			    	);
+		    	} else {
+		    		setWalletData(walletData);
+		    	}
+
+		    	ncc.postRequest('addressbook/open', {
+					addressBook: wallet,
+					password: password
+				},
+		    		function(data) {
+		        		ncc.set('contacts', Utils.processContacts(data.accountLabels));
+		        	}
+		    	);
+		    };
+
+		    ncc.openExistingWallet = function(wallet) {
+		    	var password = ncc.get('landingPage.openWalletPasswords')[wallet];
+		    	ncc.openWallet(wallet, password);
+		    }
+
+			ncc.createWallet = function() {
+				var requestData = ncc.get('landingPage.createWalletForm');
+
+				ncc.set('landingPage.creatingWallet', true);
+		    	ncc.postRequest('wallet/create', requestData, function(data) {
+	    			ncc.postRequest('wallet/open', requestData,
+			    		function(data) {
+			        		ncc.openWallet(requestData.wallet, requestData.password, data);
+			        	}
+			    	);
+	    		},
+	    		{
+	    			complete: function() {
+	    				ncc.set('landingPage.creatingWallet', false);
+	    				ncc.listWallets();
+	    			}
+	    		});
+		    };
 		},
 		initEverytime: function() {
 			ncc.set('landingPage.gateClosed', false);
@@ -127,12 +182,13 @@
 
 			local.listeners.push(ncc.on({
 				openWallet: function(e, wallet) {
-			    	var requestData = {
-						wallet: wallet,
-						password: ncc.get('landingPage.openWalletPasswords')[wallet]
-					};
+					var password = ncc.get('landingPage.openWalletPasswords')[wallet];
 					ncc.set('landingPage.openingWallet', true);
-			    	ncc.postRequest('wallet/open', requestData,
+			    	ncc.postRequest('wallet/open', 
+			    		{
+							wallet: wallet,
+							password: password
+						},
 			    		function(data) {
 			        		ncc.openWallet(data);
 			        	},
@@ -141,6 +197,14 @@
 								ncc.set('landingPage.openingWallet', false);
 							}
 						}
+			    	);
+			    	ncc.postRequest('addressbook/open', {
+						addressBook: wallet,
+						password: password
+					},
+			    		function(data) {
+			        		ncc.set('addressBook', data.accountLabels);
+			        	}
 			    	);
 			    },
 				createWallet: function() {
@@ -158,6 +222,18 @@
 		    				ncc.set('landingPage.creatingWallet', false);
 		    				ncc.listWallets();
 		    			}
+		    		});
+
+		    		var abRequestData = {
+	    				addressBook: requestData.wallet,
+	    				password: requestData.password
+	    			};
+		    		ncc.postRequest('addressbook/create', abRequestData, function(data) {
+		    			ncc.postRequest('addressbook/open', abRequestData,
+				    		function(data) {
+				        		ncc.openWallet(data);
+				        	}
+				    	);
 		    		});
 			    },
 			    scrollTo: function(e, selector) {

@@ -1,16 +1,17 @@
 package org.nem.ncc.wallet;
 
+import org.nem.ncc.storable.entity.StorableEntityFileLocator;
 import org.nem.ncc.wallet.storage.*;
 
 import java.io.File;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 /**
  * A file-based WalletLocator implementation.
  */
-public class WalletFileLocator implements WalletLocator {
-	private final File directory;
+public class WalletFileLocator
+		extends StorableEntityFileLocator<StorableWallet, WalletName, WalletFileExtension, WalletDescriptor>
+		implements WalletLocator {
 
 	/**
 	 * Creates a new wallet file locator.
@@ -18,14 +19,17 @@ public class WalletFileLocator implements WalletLocator {
 	 * @param directory The search directory.
 	 */
 	public WalletFileLocator(final File directory) {
-		this.directory = directory;
+		super(
+				directory,
+				(dir, name) -> WalletFileExtension.isValidAndHasDefaultExtension(name),
+				MemoryWallet::new,
+				WalletName::new,
+				WalletFileExtension::new,
+				WalletFileDescriptor::new);
 	}
 
 	@Override
 	public List<WalletDescriptor> getAllWallets() {
-		final String[] files = this.directory.list((dir, name) -> WalletFileUtils.isValidWalletFileName(name));
-		return Arrays.asList(files).stream()
-				.map(f -> new WalletFileDescriptor(new File(f)))
-				.collect(Collectors.toList());
+		return super.getAll();
 	}
 }

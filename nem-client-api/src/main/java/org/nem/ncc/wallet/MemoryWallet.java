@@ -10,8 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * A memory-backed wallet implementation.
  */
-public class MemoryWallet implements Wallet {
+public class MemoryWallet implements StorableWallet {
 	private final WalletName name;
+	private final WalletFileExtension fileExtension = new WalletFileExtension();
 	private final Map<Address, WalletAccount> otherAccounts;
 	private WalletAccount primaryAccount;
 
@@ -66,7 +67,7 @@ public class MemoryWallet implements Wallet {
 	 * @param deserializer The deserializer.
 	 */
 	public MemoryWallet(final Deserializer deserializer) {
-		this.name = WalletName.readFrom(deserializer, "name");
+		this.name = WalletName.readFrom(deserializer, "wallet");
 		this.primaryAccount = deserializer.readObject("primaryAccount", WalletAccount::new);
 		this.otherAccounts = new ConcurrentHashMap<>();
 		this.addOtherAccounts(deserializer.readObjectArray("otherAccounts", WalletAccount::new));
@@ -77,8 +78,18 @@ public class MemoryWallet implements Wallet {
 	}
 
 	@Override
+	public MemoryWallet deserialize(final Deserializer deserializer) {
+		return new MemoryWallet(deserializer);
+	}
+
+	@Override
 	public WalletName getName() {
 		return this.name;
+	}
+
+	@Override
+	public WalletFileExtension getFileExtension() {
+		return this.fileExtension;
 	}
 
 	@Override
@@ -161,7 +172,7 @@ public class MemoryWallet implements Wallet {
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		WalletName.writeTo(serializer, "name", this.name);
+		WalletName.writeTo(serializer, "wallet", this.name);
 		serializer.writeObject("primaryAccount", this.primaryAccount);
 		serializer.writeObjectArray("otherAccounts", this.otherAccounts.values());
 	}

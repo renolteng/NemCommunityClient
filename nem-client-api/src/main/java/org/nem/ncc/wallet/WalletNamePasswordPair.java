@@ -1,13 +1,12 @@
 package org.nem.ncc.wallet;
 
 import org.nem.core.serialization.Deserializer;
+import org.nem.ncc.storable.entity.StorableEntityNamePasswordPair;
 
 /**
  * A pair of a wallet name and a wallet password.
  */
-public class WalletNamePasswordPair {
-	private final WalletName name;
-	private final WalletPassword password;
+public class WalletNamePasswordPair extends StorableEntityNamePasswordPair<WalletName, WalletPassword, WalletNamePasswordPair> {
 
 	/**
 	 * Creates a new wallet name / password pair.
@@ -16,8 +15,7 @@ public class WalletNamePasswordPair {
 	 * @param password The wallet password.
 	 */
 	public WalletNamePasswordPair(final WalletName name, final WalletPassword password) {
-		this.name = name;
-		this.password = password;
+		super(name, password, WalletNamePasswordPair.class);
 	}
 
 	/**
@@ -36,40 +34,6 @@ public class WalletNamePasswordPair {
 	 * @param deserializer The deserializer.
 	 */
 	public WalletNamePasswordPair(final Deserializer deserializer) {
-		this.name = WalletName.readFrom(deserializer, "wallet");
-		this.password = WalletPassword.readFrom(deserializer, "password");
-	}
-
-	/**
-	 * Gets the wallet name.
-	 *
-	 * @return The wallet name.
-	 */
-	public WalletName getName() {
-		return this.name;
-	}
-
-	/**
-	 * Gets the wallet password.
-	 *
-	 * @return The wallet password.
-	 */
-	public WalletPassword getPassword() {
-		return this.password;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.name.hashCode() ^ this.password.hashCode();
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (!(obj instanceof WalletNamePasswordPair)) {
-			return false;
-		}
-
-		final WalletNamePasswordPair rhs = (WalletNamePasswordPair)obj;
-		return this.name.equals(rhs.name) && this.password.equals(rhs.password);
+		super(new WalletName(deserializer), new WalletPassword(deserializer), WalletNamePasswordPair.class);
 	}
 }

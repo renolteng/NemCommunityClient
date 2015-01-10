@@ -64,7 +64,7 @@ public class DefaultWalletServices implements WalletServices {
 	@Override
 	public Wallet open(final WalletNamePasswordPair pair) {
 		final Wallet wallet = this.wallets.getOrDefault(pair.getName(), null);
-		final WalletDescriptor descriptor = this.descriptorFactory.openExisting(pair);
+		final WalletDescriptor descriptor = this.descriptorFactory.openExisting(pair, new WalletFileExtension());
 		if (null != wallet) {
 			// ensure that the wallet can be loaded; this also serves as a password check
 			this.repository.load(descriptor);
@@ -76,7 +76,7 @@ public class DefaultWalletServices implements WalletServices {
 
 	@Override
 	public Wallet create(final WalletNamePasswordPair pair) {
-		final WalletDescriptor descriptor = this.descriptorFactory.createNew(pair);
+		final WalletDescriptor descriptor = this.descriptorFactory.createNew(pair, new WalletFileExtension());
 		final AutoSavingWallet wallet = this.wrapWallet(new MemoryWallet(pair.getName()), descriptor);
 		wallet.save();
 		return wallet;
@@ -87,7 +87,7 @@ public class DefaultWalletServices implements WalletServices {
 		this.wallets.remove(name);
 	}
 
-	private AutoSavingWallet wrapWallet(final Wallet wallet, final WalletDescriptor descriptor) {
+	private AutoSavingWallet wrapWallet(final StorableWallet wallet, final WalletDescriptor descriptor) {
 		final AutoSavingWallet autoSavingWallet = new AutoSavingWallet(wallet, descriptor, this.repository);
 		this.wallets.put(descriptor.getWalletName(), autoSavingWallet);
 		return autoSavingWallet;
@@ -97,11 +97,11 @@ public class DefaultWalletServices implements WalletServices {
 	public void move(final WalletNamePasswordPair originalPair, final WalletNamePasswordPair desiredPair) {
 		final boolean hasNameChange = !originalPair.getName().equals(desiredPair.getName());
 		final WalletDescriptor newWalletDescriptor = hasNameChange
-				? this.descriptorFactory.createNew(desiredPair)
-				: this.descriptorFactory.openExisting(desiredPair);
+				? this.descriptorFactory.createNew(desiredPair, new WalletFileExtension())
+				: this.descriptorFactory.openExisting(desiredPair, new WalletFileExtension());
 
 		// be sure to reload the wallet here so that an auto-saved wallet is not wrapped
-		final WalletDescriptor originalWalletDescriptor = this.descriptorFactory.openExisting(originalPair);
+		final WalletDescriptor originalWalletDescriptor = this.descriptorFactory.openExisting(originalPair, new WalletFileExtension());
 		final Wallet originalWallet = this.repository.load(originalWalletDescriptor);
 		final AutoSavingWallet wallet = this.wrapWallet(
 				new MemoryWallet(desiredPair.getName(), originalWallet.getPrimaryAccount(), originalWallet.getOtherAccounts()),

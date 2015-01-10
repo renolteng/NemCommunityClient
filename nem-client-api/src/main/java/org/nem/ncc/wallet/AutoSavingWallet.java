@@ -11,7 +11,7 @@ import java.util.List;
  * Wallet implementation that automatically saves the wallet after changes are made.
  */
 public class AutoSavingWallet implements Wallet {
-	private final Wallet wallet;
+	private final StorableWallet wallet;
 	private final WalletDescriptor descriptor;
 	private final WalletRepository repository;
 
@@ -23,7 +23,7 @@ public class AutoSavingWallet implements Wallet {
 	 * @param repository The repository to use for saving.
 	 */
 	public AutoSavingWallet(
-			final Wallet wallet,
+			final StorableWallet wallet,
 			final WalletDescriptor descriptor,
 			final WalletRepository repository) {
 		this.wallet = wallet;
@@ -84,7 +84,7 @@ public class AutoSavingWallet implements Wallet {
 	 */
 	public void save() {
 		if (null != this.repository) {
-			this.repository.save(this.descriptor, this);
+			this.repository.save(this.descriptor, this.wallet);
 		}
 	}
 }

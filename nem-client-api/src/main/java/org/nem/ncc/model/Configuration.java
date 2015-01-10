@@ -3,6 +3,7 @@ package org.nem.ncc.model;
 import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
+import org.nem.ncc.addressbook.*;
 
 import java.util.*;
 
@@ -116,7 +117,6 @@ public class Configuration implements SerializableEntity, AccountLabels {
 
 	//region AccountLabels implementation
 
-	@Override
 	public int getNumLabels() {
 		return this.accountLabels.size();
 	}
@@ -124,6 +124,11 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	@Override
 	public AccountLabel getLabel(final Address address) {
 		return this.accountLabels.get(address);
+	}
+
+	@Override
+	public void addLabel(final AccountLabel accountLabel) {
+		this.accountLabels.put(accountLabel.getAddress(), accountLabel);
 	}
 
 	@Override
@@ -137,6 +142,11 @@ public class Configuration implements SerializableEntity, AccountLabels {
 	}
 
 	//endregion
+
+	// TODO 20150108 BR: this is temporary! Delete after one of the next releases.
+	public Collection<AccountLabel> getAccountLabels() {
+		return this.accountLabels.values();
+	}
 
 	/**
 	 * Updates the persistent configuration based with the supplied parameters.

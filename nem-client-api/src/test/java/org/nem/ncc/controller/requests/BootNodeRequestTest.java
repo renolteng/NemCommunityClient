@@ -66,7 +66,7 @@ public class BootNodeRequestTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", address);
 		jsonObject.put("wallet", walletName);
-		jsonObject.put("node_name", nodeName);
+		jsonObject.put("nodeName", nodeName);
 		return new BootNodeRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

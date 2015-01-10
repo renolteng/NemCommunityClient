@@ -26,7 +26,7 @@ public class AutoSavingWalletTest extends WalletTest {
 		return createAutoSavingWallet(new MemoryWallet(name, primaryAccount, otherAccounts));
 	}
 
-	private static Wallet createAutoSavingWallet(final Wallet wallet) {
+	private static Wallet createAutoSavingWallet(final StorableWallet wallet) {
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 		final WalletRepository repository = Mockito.mock(WalletRepository.class);
 		return new AutoSavingWallet(wallet, descriptor, repository);
@@ -39,7 +39,7 @@ public class AutoSavingWalletTest extends WalletTest {
 	@Test
 	public void saveDelegatesToRepository() {
 		// Arrange:
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 		final WalletRepository repository = Mockito.mock(WalletRepository.class);
 		final AutoSavingWallet wallet = new AutoSavingWallet(wrappedWallet, descriptor, repository);
@@ -48,13 +48,13 @@ public class AutoSavingWalletTest extends WalletTest {
 		wallet.save();
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wrappedWallet);
 	}
 
 	@Test
 	public void addOtherAccountCallsSaveOnSuccess() {
 		// Arrange:
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 		final WalletRepository repository = Mockito.mock(WalletRepository.class);
 		final AutoSavingWallet wallet = new AutoSavingWallet(wrappedWallet, descriptor, repository);
@@ -63,13 +63,13 @@ public class AutoSavingWalletTest extends WalletTest {
 		wallet.addOtherAccount(new WalletAccount());
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wrappedWallet);
 	}
 
 	@Test
-	public void addOtherAccountCallsSaveOnSuccessDoesNotCallSaveOnFailure() {
+	public void addOtherAccountDoesNotCallSaveOnFailure() {
 		// Arrange:
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 		final WalletRepository repository = Mockito.mock(WalletRepository.class);
 		final AutoSavingWallet wallet = new AutoSavingWallet(wrappedWallet, descriptor, repository);
@@ -78,14 +78,14 @@ public class AutoSavingWalletTest extends WalletTest {
 		ExceptionAssert.assertThrows(v -> wallet.addOtherAccount(null), IllegalArgumentException.class);
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(0)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(0)).save(descriptor, wrappedWallet);
 	}
 
 	@Test
 	public void setPrimaryAccountCallsSaveOnSuccess() {
 		// Arrange:
 		final WalletAccount otherAccount = new WalletAccount();
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		wrappedWallet.addOtherAccount(otherAccount);
 
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
@@ -96,13 +96,13 @@ public class AutoSavingWalletTest extends WalletTest {
 		wallet.setPrimaryAccount(otherAccount.getAddress());
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wrappedWallet);
 	}
 
 	@Test
 	public void setPrimaryAccountDoesNotCallSaveOnFailure() {
 		// Arrange:
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 		final WalletRepository repository = Mockito.mock(WalletRepository.class);
 		final AutoSavingWallet wallet = new AutoSavingWallet(wrappedWallet, descriptor, repository);
@@ -111,13 +111,13 @@ public class AutoSavingWalletTest extends WalletTest {
 		ExceptionAssert.assertThrows(v -> wallet.setPrimaryAccount(null), IllegalArgumentException.class);
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(0)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(0)).save(descriptor, wrappedWallet);
 	}
 
 	@Test
 	public void removeAccountCallsSaveOnSuccess() {
 		// Arrange:
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletAccount otherAccount = new WalletAccount();
 		wrappedWallet.addOtherAccount(otherAccount);
 
@@ -129,13 +129,13 @@ public class AutoSavingWalletTest extends WalletTest {
 		wallet.removeAccount(otherAccount.getAddress());
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(1)).save(descriptor, wrappedWallet);
 	}
 
 	@Test
 	public void removeAccountDoesNotCallSaveOnFailure() {
 		// Arrange:
-		final Wallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
+		final StorableWallet wrappedWallet = new MemoryWallet(new WalletName("blah"));
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 		final WalletRepository repository = Mockito.mock(WalletRepository.class);
 		final AutoSavingWallet wallet = new AutoSavingWallet(wrappedWallet, descriptor, repository);
@@ -144,7 +144,7 @@ public class AutoSavingWalletTest extends WalletTest {
 		ExceptionAssert.assertThrows(v -> wallet.removeAccount(Utils.generateRandomAddress()), WalletException.class);
 
 		// Assert:
-		Mockito.verify(repository, Mockito.times(0)).save(descriptor, wallet);
+		Mockito.verify(repository, Mockito.times(0)).save(descriptor, wrappedWallet);
 	}
 
 	//endregion

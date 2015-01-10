@@ -14,6 +14,11 @@ public class NccException extends RuntimeException {
 		WALLET_IS_NOT_OPEN(106),
 
 		/**
+		 * The specified address book is not open.
+		 */
+		ADDRESS_BOOK_IS_NOT_OPEN(126),
+
+		/**
 		 * The recipient public key is unknown.
 		 */
 		NO_PUBLIC_KEY(202),
