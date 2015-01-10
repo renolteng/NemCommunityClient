@@ -134,6 +134,15 @@ Changes an existing account label in an address book.
 * Response: [AccountLabel](viewModel.md#accountlabel)
 * Dependent from NIS: _No_
 
+### /addressbook/accountlabel/find
+Gets an existing account label from an address book.
+The address parameter in the AddressBookNamePasswordBag must be supplied.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AccountLabel](viewModel.md#accountlabel)
+* Dependent from NIS: _No_
+
 ### /wallet/list
 Gets all wallets that are located at the configured storage location for wallets.
 

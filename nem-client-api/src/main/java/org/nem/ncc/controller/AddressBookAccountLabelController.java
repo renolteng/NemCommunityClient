@@ -51,7 +51,7 @@ public class AddressBookAccountLabelController {
 	}
 
 	/**
-	 * Adds an account label to the address book.
+	 * Changes an account label in the address book.
 	 *
 	 * @param bag The request parameters.
 	 * @return The new account label.
@@ -60,6 +60,18 @@ public class AddressBookAccountLabelController {
 	public AccountLabel changeAccountLabel(@RequestBody final AddressBookNamePasswordBag bag) {
 		final AddressBook addressBook = this.addressBookServices.open(bag);
 		addressBook.setLabel(bag.getAddress(), bag.getPublicLabel(), bag.getPrivateLabel());
+		return addressBook.getLabel(bag.getAddress());
+	}
+
+	/**
+	 * Gets an account label from the address book.
+	 *
+	 * @param bag The request parameters.
+	 * @return The account label.
+	 */
+	@RequestMapping(value = "/addressbook/accountlabel/find", method = RequestMethod.POST)
+	public AccountLabel findAccountLabel(@RequestBody final AddressBookNamePasswordBag bag) {
+		final AddressBook addressBook = this.addressBookServices.open(bag);
 		return addressBook.getLabel(bag.getAddress());
 	}
 }
