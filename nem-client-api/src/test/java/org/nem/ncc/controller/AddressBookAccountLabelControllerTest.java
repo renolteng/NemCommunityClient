@@ -17,8 +17,8 @@ public class AddressBookAccountLabelControllerTest {
 	public void addAccountLabelDelegatesToServices() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
-		final JSONObject jsonObject = this.createJsonObject(address, "Alice", "sister");
-		final AccountLabel accountLabel = new AccountLabel(address, "Alice", "sister");
+		final JSONObject jsonObject = this.createJsonObject(address, "", "sister");
+		final AccountLabel accountLabel = new AccountLabel(address, "", "sister");
 		final TestContext context = new TestContext(jsonObject);
 
 		// Act:
@@ -53,8 +53,8 @@ public class AddressBookAccountLabelControllerTest {
 	public void changeAccountLabelDelegatesToServices() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
-		final JSONObject jsonObject = this.createJsonObject(address, "Bob", "brother");
-		final AccountLabel accountLabel = new AccountLabel(address, "Bob", "brother");
+		final JSONObject jsonObject = this.createJsonObject(address, "", "brother");
+		final AccountLabel accountLabel = new AccountLabel(address, "", "brother");
 		final TestContext context = new TestContext(jsonObject);
 		context.mockAddressBook();
 
@@ -64,16 +64,15 @@ public class AddressBookAccountLabelControllerTest {
 		// Assert:
 		Assert.assertThat(result, IsEqual.equalTo(accountLabel));
 		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(context.bag);
-		Mockito.verify(context.addressBook, Mockito.times(1)).setLabel(Mockito.eq(address), Mockito.eq("Bob"), Mockito.eq("brother"));
+		Mockito.verify(context.addressBook, Mockito.times(1)).setLabel(Mockito.eq(address), Mockito.eq(""), Mockito.eq("brother"));
 	}
-
 
 	@Test
 	public void findAccountLabelDelegatesToServices() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
-		final JSONObject jsonObject = this.createJsonObject(address, "Bob", "brother");
-		final AccountLabel accountLabel = new AccountLabel(address, "Bob", "brother");
+		final JSONObject jsonObject = this.createJsonObject(address, "", "brother");
+		final AccountLabel accountLabel = new AccountLabel(address, "", "brother");
 		final TestContext context = new TestContext(jsonObject);
 		context.mockAddressBook();
 
@@ -85,6 +84,7 @@ public class AddressBookAccountLabelControllerTest {
 		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(context.bag);
 		Mockito.verify(context.addressBook, Mockito.times(1)).getLabel(Mockito.eq(address));
 	}
+
 	private JSONObject createJsonObject(
 			final Address address,
 			final String publicLabel,
@@ -118,7 +118,7 @@ public class AddressBookAccountLabelControllerTest {
 
 		private void mockAddressBook() {
 			Mockito.when(this.addressBook.getLabel(this.bag.getAddress()))
-					.thenReturn(new AccountLabel(this.bag.getAddress(), this.bag.getPublicLabel(), this.bag.getPrivateLabel()));
+					.thenReturn(new AccountLabel(this.bag.getAddress(), "", this.bag.getPrivateLabel()));
 		}
 	}
 }
