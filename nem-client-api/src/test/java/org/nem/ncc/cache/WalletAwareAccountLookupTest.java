@@ -160,7 +160,7 @@ public class WalletAwareAccountLookupTest {
 		Assert.assertThat(resultInfo.getAddress().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getKeyPair().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getBalance(), IsEqual.equalTo(Amount.fromNem(17)));
-		Assert.assertThat(resultInfo.getNumForagedBlocks(), IsEqual.equalTo(new BlockAmount(12)));
+		Assert.assertThat(resultInfo.getNumHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(12)));
 		Assert.assertThat(resultInfo.getLabel(), IsEqual.equalTo("foo"));
 		Assert.assertThat(resultInfo.getImportance(), IsEqual.equalTo(1.5));
 		Assert.assertThat(result.getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));

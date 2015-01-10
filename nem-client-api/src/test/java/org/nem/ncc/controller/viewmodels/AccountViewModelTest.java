@@ -26,7 +26,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getLabel(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
-		Assert.assertThat(viewModel.getForagedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
+		Assert.assertThat(viewModel.getHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
@@ -79,7 +79,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getLabel(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
-		Assert.assertThat(viewModel.getForagedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
+		Assert.assertThat(viewModel.getHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
@@ -108,7 +108,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("publicKey"), IsEqual.equalTo(address.getPublicKey().toString()));
 		Assert.assertThat(jsonObject.get("balance"), IsEqual.equalTo(271000000L));
 		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
-		Assert.assertThat(jsonObject.get("foragedBlocks"), IsEqual.equalTo(3L));
+		Assert.assertThat(jsonObject.get("harvestedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
 	}
 

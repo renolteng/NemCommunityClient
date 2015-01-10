@@ -195,7 +195,7 @@ define({
 				balance: "Balance",
 				importance: "Importance",
 				publicKey: "Public key",
-				foragedBlocks: "Foraged blocks",
+				harvestedBlocks: "Harvested blocks",
 				close: "Close"
 			},
 			bootLocalNode: {

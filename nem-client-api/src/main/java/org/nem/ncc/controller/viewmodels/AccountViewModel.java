@@ -16,7 +16,7 @@ public class AccountViewModel implements SerializableEntity {
 	private final AccountRemoteStatus remoteStatus;
 	private final PublicKey publicKey;
 	private final Amount balance;
-	private final BlockAmount foragedBlocks;
+	private final BlockAmount harvestedBlocks;
 	private final Double importance;
 	private final AccountStatus status;
 
@@ -58,7 +58,7 @@ public class AccountViewModel implements SerializableEntity {
 				: info.getKeyPair().getPublicKey();
 
 		this.balance = info.getBalance();
-		this.foragedBlocks = info.getNumForagedBlocks();
+		this.harvestedBlocks = info.getNumHarvestedBlocks();
 		this.importance = info.getImportance();
 		this.status = status;
 	}
@@ -109,12 +109,12 @@ public class AccountViewModel implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the number of blocks foraged by the account.
+	 * Gets the number of blocks harvested by the account.
 	 *
-	 * @return The number of foraged blocks.
+	 * @return The number of harvested blocks.
 	 */
-	public BlockAmount getForagedBlocks() {
-		return this.foragedBlocks;
+	public BlockAmount getHarvestedBlocks() {
+		return this.harvestedBlocks;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class AccountViewModel implements SerializableEntity {
 		serializer.writeBytes("publicKey", null == this.publicKey ? null : this.publicKey.getRaw());
 		Amount.writeTo(serializer, "balance", this.balance);
 		serializer.writeDouble("importance", this.importance);
-		BlockAmount.writeTo(serializer, "foragedBlocks", this.foragedBlocks);
+		BlockAmount.writeTo(serializer, "harvestedBlocks", this.harvestedBlocks);
 		AccountStatus.writeTo(serializer, "status", this.status);
 	}
 }
