@@ -25,7 +25,9 @@
 						<tbody>
 							{{#each contacts}}
 								<tr class="txList-row txList-row--colored addressBook-row">
-                                    <td class="txList-cell txList-col--address addressBook-leftMost">{{.formattedAddress}}</td>
+                                    <td class="txList-cell txList-col--address addressBook-leftMost">
+                                    	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">{{.formattedAddress}}</a>
+                                	</td>
 									<td class="txList-cell txList-col--label">
 										{{#if .privateLabel}}
 											{{.privateLabel}}
@@ -42,9 +44,9 @@
 									</td>
 									<td class="txList-cell txList-col--actions addressBook-rightMost">
 										<div class="consecutiveButtons">
-											<button class="consecutiveButtons-button" type="button">{{texts.addressBook.sendNem}}</button><!--
-											--><button class="consecutiveButtons-button" type="button">{{texts.addressBook.edit}}</button><!--
-											--><button class="consecutiveButtons-button" type="button">{{texts.addressBook.remove}}</button>
+											<button class="consecutiveButtons-button" type="button" on-click="openSendNem(.address)">{{texts.addressBook.sendNem}}</button><!--
+											--><button class="consecutiveButtons-button" type="button" on-click="editContact(.address, .privateLabel, .publicLabel)">{{texts.addressBook.edit}}</button><!--
+											--><button class="consecutiveButtons-button" type="button" on-click="removeContact(.address)">{{texts.addressBook.remove}}</button>
 										</div>
 									</td>
 								</tr>

@@ -538,9 +538,11 @@
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.label}}</td>
 				<td class="table-cell table-cell--content">
 					{{#if .label}}
-						{{.label}}
+						<span>{{.label}}</span> -
+						<a href="javascript:;" class="hyperlink--default" on-click="removeContact(.address)">{{texts.modals.accountDetails.remove}}</a>
 					{{else}}
-						<span class="dimmed">{{texts.modals.accountDetails.noLabel}}</span>
+						<span class="dimmed">{{texts.modals.accountDetails.noLabel}}</span> -
+						<a href="javascript:;" class="hyperlink--default" on-click="addContact(.address)">{{texts.modals.accountDetails.add}}</a>
 					{{/if}}
 				</td>
 			</tr>

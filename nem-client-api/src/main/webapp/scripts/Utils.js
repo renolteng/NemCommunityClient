@@ -295,11 +295,12 @@ define(function() {
             },
             address: {
                 format: function(address) {
+                    if (!address) return address;
                     var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
                     return segments.join('-').toUpperCase();
                 },
-                restore: function(address) {
-                    return address.replace(/\-/g, '');
+                restore: function(formattedAddress) {
+                    return formattedAddress && formattedAddress.replace(/\-/g, '');
                 },
             },
             date: {
