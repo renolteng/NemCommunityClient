@@ -86,7 +86,7 @@ The transaction id parameter is optional.
 	"blockHeight" : 80765,
 		"direction": 1
 	}],
-	"foragedBlocks": 97,
+	"harvestedBlocks": 97,
 	"status": "UNLOCKED"
 	"remoteStatus": "ACTIVATING"
 }
@@ -122,7 +122,7 @@ possible status values
 	"importance": 0.0,
 	"label": "private Label",
 	"publicKey": null,
-	"foragedBlocks": 0,
+	"harvestedBlocks": 0,
 	"status": "LOCKED"
 }
 ```
@@ -468,7 +468,7 @@ Only a local NIS can be booted.
 		"importance": 0.0,
 		"label": null,
 		"publicKey": "03c55bd250e56c292ed4c898b0883676313283251d21b6a9099bb989db99d736d2",
-		"foragedBlocks": 0,
+		"harvestedBlocks": 0,
 		"status": "LOCKED",
 		"remoteStatus": "INACTIVE"
 	}
