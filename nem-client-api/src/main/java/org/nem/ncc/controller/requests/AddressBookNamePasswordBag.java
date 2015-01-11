@@ -54,7 +54,8 @@ public class AddressBookNamePasswordBag extends AddressBookNamePasswordPair {
 	 * @return The public label.
 	 */
 	public String getPublicLabel() {
-		return this.deserializer.readString("publicLabel");
+		// no public label supported yet!
+		return "";
 	}
 
 	/**

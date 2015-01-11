@@ -3,7 +3,7 @@
 		<section class="listingPage">
 			<div class="listingPage-head">
 				<h1 class="listingPage-title">{{texts.transactions.title}}</h1>
-				<button type="button" class="listingPage-mainButton transactionsPage-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.transactions.sendNem}}</button>
+				<button type="button" class="listingPage-mainButton transactionsPage-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem()">{{texts.transactions.sendNem}}</button>
 				<div class="listingPage-searchArea">
 					<div class="listingPage-search">
 						<input class="listingPage-searchTextbox" type="text" />
@@ -70,12 +70,24 @@
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">
-                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
+                                        		{{#if privateLabels[.recipient]}}
+                                        			{{privateLabels[.recipient]}}
+                                    			{{else}}
+                                    				{{.formattedRecipient}}
+                                				{{/if}}
+                            				</a>
                                     	</td>
                                     {{/}}
                                     {{#.isIncoming}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
-                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                        		{{#if privateLabels[.sender]}}
+                                        			{{privateLabels[.sender]}}
+                                    			{{else}}
+                                    				{{.formattedSender}}
+                                				{{/if}}
+                            				</a>
                                     	</td>
                                     {{/}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">

@@ -59,7 +59,12 @@ define({
 					many: '{{1}} days'
 				},
 				synchronized: 'NIS is synchronized!'
-			}
+			},
+			addressBook: 'Address book',
+			password: 'Password',
+			address: 'Address',
+			privateLabel: 'Private label',
+			publicLabel: 'Public label',
 		},
 		modals: {
 			error: {
@@ -192,9 +197,12 @@ define({
 				address: "Address",
 				label: "Label",
 				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
 				balance: "Balance",
 				importance: "Importance",
 				publicKey: "Public key",
+				noPublicKey: "No public key",
 				harvestedBlocks: "Harvested blocks",
 				close: "Close"
 			},
@@ -351,12 +359,15 @@ define({
 			},
 			addContact: {
 				title: 'Add contact',
-				addressBook: 'Address book',
-				password: 'Password',
-				address: 'Address',
-				privateLabel: 'Private label',
-				publicLabel: 'Public label',
 				add: 'Add'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Save changes',
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Remove',
 			}
 		},
 		landing: {
@@ -448,7 +459,7 @@ define({
 			nav: [
 				'Dashboard',
 				'Messages',
-				'Contacts',
+				'Address Book',
 				'Transactions',
 				'Harvested blocks',
 				'Asset Exchange',

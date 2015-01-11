@@ -132,16 +132,7 @@ public class AddressBookNamePasswordBagTest {
 	//region getPublicLabel
 
 	@Test
-	public void getPublicLabelFailsIfPublicLabelIsNotSpecified() {
-		// Act:
-		final AddressBookNamePasswordBag bag = createBagFromJson("name", "password");
-
-		// Assert:
-		assertThrowsMissingPropertyException(bag::getPublicLabel, "publicLabel");
-	}
-
-	@Test
-	public void getPublicLabelReturnsPublicLabelIfSpecified() {
+	public void getPublicLabelAlwaysReturnsEmptyString() {
 		// Arrange:
 		final JSONObject jsonObject = createJson("name", "password");
 		jsonObject.put("publicLabel", "Alice");
@@ -150,7 +141,7 @@ public class AddressBookNamePasswordBagTest {
 		final AddressBookNamePasswordBag bag = new AddressBookNamePasswordBag(Utils.createDeserializer(jsonObject));
 
 		// Assert:
-		Assert.assertThat(bag.getPublicLabel(), IsEqual.equalTo("Alice"));
+		Assert.assertThat(bag.getPublicLabel(), IsEqual.equalTo(""));
 	}
 
 	//endregion
