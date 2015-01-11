@@ -103,6 +103,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('useMinimumFee', true);
             this.set('signatories', [{}]);
 
+            this.set('cosignatories', ncc.get('activeAccount').cosignatoryOf);
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
             this.set('passwordChanged', false);
@@ -207,6 +208,8 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 },
                 modalOpened: function() {
                     $('.js-sendNem-recipient-textbox').focus();
+                    // TODO G-Krysto: this should be here not in modalClosed, or not?
+                    this.resetDefaultData();
                 },
                 modalClosed: function() {
                     this.resetDefaultData();
