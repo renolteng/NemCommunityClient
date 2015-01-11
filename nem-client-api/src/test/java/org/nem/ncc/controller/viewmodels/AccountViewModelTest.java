@@ -19,7 +19,7 @@ public class AccountViewModelTest {
 		final AccountInfo account = createAccountInfo(null, Address.fromEncoded("xyz"));
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
+		final AccountViewModel viewModel = createAccountViewModel(account, null);
 
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
@@ -38,11 +38,8 @@ public class AccountViewModelTest {
 		final AccountInfo account = createAccountInfo("my acc", Address.fromEncoded("xyz"));
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(
-				account,
-				AccountStatus.LOCKED,
-				AccountRemoteStatus.INACTIVE,
-				new AccountLabel(account.getAddress(), "my pub label", "my pri label"));
+		final AccountLabel label = new AccountLabel(account.getAddress(), "my pub label", "my pri label");
+		final AccountViewModel viewModel = createAccountViewModel(account, label);
 
 		// Assert:
 		Assert.assertThat(viewModel.getLabel(), IsEqual.equalTo("my pri label"));
@@ -55,7 +52,7 @@ public class AccountViewModelTest {
 		final AccountInfo account = createAccountInfo(null, address);
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(account, AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null);
+		final AccountViewModel viewModel = createAccountViewModel(account, null);
 
 		// Assert:
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.notNullValue());
@@ -69,7 +66,7 @@ public class AccountViewModelTest {
 
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				account,
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(pair, null);
@@ -91,11 +88,7 @@ public class AccountViewModelTest {
 		final Address address = Utils.generateRandomAddressWithPublicKey();
 		final AccountInfo account = createAccountInfo(null, address);
 
-		final AccountViewModel viewModel = new AccountViewModel(
-				account,
-				AccountStatus.LOCKED,
-				AccountRemoteStatus.INACTIVE,
-				new AccountLabel(account.getAddress(), "my pub label", "my pri label"));
+		final AccountViewModel viewModel = createAccountViewModel(account, new AccountLabel(account.getAddress(), "my pub label", "my pri label"));
 
 		// Act:
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
@@ -117,11 +110,7 @@ public class AccountViewModelTest {
 		// Arrange:
 		final KeyPair keyPair = new KeyPair();
 		final Account account = new Account(keyPair);
-		final AccountViewModel viewModel = new AccountViewModel(
-				Utils.createAccountInfoFromAddress(account.getAddress()),
-				AccountStatus.LOCKED,
-				AccountRemoteStatus.INACTIVE,
-				null);
+		final AccountViewModel viewModel = createAccountViewModel(Utils.createAccountInfoFromAddress(account.getAddress()), null);
 
 		// Act:
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
@@ -131,6 +120,16 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("label"), IsNull.nullValue());
 	}
 
+
+	private static AccountViewModel createAccountViewModel(AccountInfo account, AccountLabel label) {
+		return new AccountViewModel(
+				account,
+				AccountStatus.LOCKED,
+				AccountRemoteStatus.INACTIVE,
+				label,
+				null);
+	}
+	
 	private static AccountInfo createAccountInfo(final String label, final Address address) {
 		return new AccountInfo(
 				address,

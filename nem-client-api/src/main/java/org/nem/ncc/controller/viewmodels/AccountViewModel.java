@@ -7,6 +7,8 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.ncc.addressbook.AccountLabel;
 
+import java.util.List;
+
 /**
  * Represents an account.
  */
@@ -19,6 +21,7 @@ public class AccountViewModel implements SerializableEntity {
 	private final BlockAmount harvestedBlocks;
 	private final Double importance;
 	private final AccountStatus status;
+	private final List<AccountInfo> cosignatoryOf;
 
 	/**
 	 * Creates a new account view model around an account metadata pair.
@@ -33,22 +36,24 @@ public class AccountViewModel implements SerializableEntity {
 				accountMetaDataPair.getAccount(),
 				accountMetaDataPair.getMetaData().getStatus(),
 				accountMetaDataPair.getMetaData().getRemoteStatus(),
-				label);
+				label,
+				accountMetaDataPair.getMetaData().getCosignatoryOf());
 	}
 
 	/**
 	 * Creates a new account view model.
-	 *
-	 * @param info The account info.
+	 *  @param info The account info.
 	 * @param status The account status.
 	 * @param remoteStatus The remote account status.
 	 * @param label The account label.
+	 * @param cosignatoryOf The list of account information.
 	 */
 	public AccountViewModel(
 			final AccountInfo info,
 			final AccountStatus status,
 			final AccountRemoteStatus remoteStatus,
-			final AccountLabel label) {
+			final AccountLabel label,
+			final List<AccountInfo> cosignatoryOf) {
 		this.address = info.getAddress();
 		this.label = null == label ? null : label.getLabel();
 		this.remoteStatus = remoteStatus;
@@ -61,6 +66,7 @@ public class AccountViewModel implements SerializableEntity {
 		this.harvestedBlocks = info.getNumHarvestedBlocks();
 		this.importance = info.getImportance();
 		this.status = status;
+		this.cosignatoryOf = cosignatoryOf;
 	}
 
 	/**
@@ -145,5 +151,8 @@ public class AccountViewModel implements SerializableEntity {
 		serializer.writeDouble("importance", this.importance);
 		BlockAmount.writeTo(serializer, "harvestedBlocks", this.harvestedBlocks);
 		AccountStatus.writeTo(serializer, "status", this.status);
+
+		// temporary
+		serializer.writeObjectArray("cosignatoryOf", this.cosignatoryOf);
 	}
 }
