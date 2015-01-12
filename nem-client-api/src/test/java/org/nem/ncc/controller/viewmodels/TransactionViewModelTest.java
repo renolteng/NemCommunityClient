@@ -13,7 +13,7 @@ import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.test.*;
 
-public class TransferViewModelTest {
+public class TransactionViewModelTest {
 
 	//region constructor
 
@@ -23,7 +23,7 @@ public class TransferViewModelTest {
 		final Transaction transaction = new MockTransaction();
 
 		// Act:
-		new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class TransferViewModelTest {
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(transactionHash.getShortId()));
@@ -74,7 +74,7 @@ public class TransferViewModelTest {
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(
+		final TransactionViewModel viewModel = new TransactionViewModel(
 				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(12));
@@ -114,7 +114,7 @@ public class TransferViewModelTest {
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, recipient.getAddress());
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, recipient.getAddress());
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
@@ -149,7 +149,7 @@ public class TransferViewModelTest {
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(
+		final TransactionViewModel viewModel = new TransactionViewModel(
 				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				sender.getAddress(),
 				new BlockHeight(12));
@@ -185,7 +185,7 @@ public class TransferViewModelTest {
 				SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
@@ -210,7 +210,7 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsNull.nullValue());
@@ -230,7 +230,7 @@ public class TransferViewModelTest {
 				new PlainMessage(StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -250,7 +250,7 @@ public class TransferViewModelTest {
 				SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -277,7 +277,7 @@ public class TransferViewModelTest {
 						secureMessagePayload));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("Warning: message cannot be decoded!"));
@@ -301,7 +301,7 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(0));
@@ -320,7 +320,7 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, recipient.getAddress());
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, recipient.getAddress());
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(1));
@@ -339,7 +339,7 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, sender.getAddress());
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, sender.getAddress());
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(2));
@@ -357,7 +357,7 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, sender.getAddress());
+		final TransactionViewModel viewModel = new TransactionViewModel(transaction, sender.getAddress());
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(3));
@@ -380,7 +380,7 @@ public class TransferViewModelTest {
 				new PlainMessage(StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(
+		final TransactionViewModel viewModel = new TransactionViewModel(
 				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(7));

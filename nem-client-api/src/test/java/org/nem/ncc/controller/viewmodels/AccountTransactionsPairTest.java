@@ -14,7 +14,7 @@ public class AccountTransactionsPairTest {
 	public void canCreateMetaDataPair() {
 		// Arrange:
 		final AccountViewModel account = createAccountViewModel();
-		final List<TransferViewModel> transactions = new ArrayList<>();
+		final List<TransactionViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
 		// Assert:
@@ -26,7 +26,7 @@ public class AccountTransactionsPairTest {
 	public void canSerializeMetaDataPair() {
 		// Arrange:
 		final AccountViewModel account = createAccountViewModel();
-		final List<TransferViewModel> transactions = new ArrayList<>();
+		final List<TransactionViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
 		// Act:

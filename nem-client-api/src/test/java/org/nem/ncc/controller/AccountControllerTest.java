@@ -91,18 +91,18 @@ public class AccountControllerTest {
 		// Act:
 		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
-		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransactionViewModel> transactionViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1)).getUnconfirmedTransactions(account.getAddress());
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getDirection).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getDirection).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0, 2, 0)));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0L, 0L, 0L)));
 	}
 
@@ -125,19 +125,19 @@ public class AccountControllerTest {
 
 		// Act:
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
-		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransactionViewModel> transactionViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
 				.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId());
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getDirection).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getDirection).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0, 2, 0)));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(9L, 11L, 1L)));
 	}
 
@@ -163,17 +163,17 @@ public class AccountControllerTest {
 
 		// Act:
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
-		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransactionViewModel> transactionViewModels = pair.getTransactions();
 
 		// Assert:
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(323))));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getDirection).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getDirection).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(2, 0)));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0L, 3L)));
 	}
 
@@ -218,18 +218,18 @@ public class AccountControllerTest {
 
 		// Act:
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsUnconfirmed(request);
-		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransactionViewModel> transactionViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1)).getUnconfirmedTransactions(account.getAddress());
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getDirection).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getDirection).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0, 2, 0)));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0L, 0L, 0L)));
 	}
 
@@ -295,19 +295,19 @@ public class AccountControllerTest {
 
 		// Act:
 		final AccountTransactionsPair pair = handlerFactory.apply(context).apply(request);
-		final Collection<TransferViewModel> transferViewModels = pair.getTransactions();
+		final Collection<TransactionViewModel> transactionViewModels = pair.getTransactions();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
 				.getTransactions(direction, account.getAddress(), request.getTransactionId());
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getAmount).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getAmount).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getDirection).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getDirection).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(0, 2, 0)));
 		Assert.assertThat(
-				transferViewModels.stream().map(TransferViewModel::getConfirmations).collect(Collectors.toList()),
+				transactionViewModels.stream().map(TransactionViewModel::getConfirmations).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(16L, 18L, 8L)));
 	}
 

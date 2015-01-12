@@ -11,7 +11,7 @@ import org.nem.core.utils.StringEncoder;
 /**
  * A view model representing a transfer transaction.
  */
-public class TransferViewModel implements SerializableEntity {
+public class TransactionViewModel implements SerializableEntity {
 	private static final int INCOMING_FLAG = 1;
 	private static final int OUTGOING_FLAG = 2;
 
@@ -38,7 +38,7 @@ public class TransferViewModel implements SerializableEntity {
 	 * @param transaction The transaction.
 	 * @param relativeAccountAddress The relative account address.
 	 */
-	public TransferViewModel(
+	public TransactionViewModel(
 			final Transaction transaction,
 			final Address relativeAccountAddress) {
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
@@ -115,7 +115,7 @@ public class TransferViewModel implements SerializableEntity {
 	 * @param relativeAccountAddress The relative account address.
 	 * @param lastBlockHeight The last block height.
 	 */
-	public TransferViewModel(
+	public TransactionViewModel(
 			final TransactionMetaDataPair metaDataPair,
 			final Address relativeAccountAddress,
 			final BlockHeight lastBlockHeight) {

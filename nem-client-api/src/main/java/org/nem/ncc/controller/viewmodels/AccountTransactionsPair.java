@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public class AccountTransactionsPair implements SerializableEntity {
 	private final AccountViewModel account;
-	private final Collection<TransferViewModel> transactions;
+	private final Collection<TransactionViewModel> transactions;
 
 	/**
 	 * Creates a new pair.
@@ -17,7 +17,7 @@ public class AccountTransactionsPair implements SerializableEntity {
 	 * @param account The account.
 	 * @param transactions The transactions.
 	 */
-	public AccountTransactionsPair(final AccountViewModel account, final Collection<TransferViewModel> transactions) {
+	public AccountTransactionsPair(final AccountViewModel account, final Collection<TransactionViewModel> transactions) {
 		this.account = account;
 		this.transactions = transactions;
 	}
@@ -36,7 +36,7 @@ public class AccountTransactionsPair implements SerializableEntity {
 	 *
 	 * @return The transactions.
 	 */
-	public Collection<TransferViewModel> getTransactions() {
+	public Collection<TransactionViewModel> getTransactions() {
 		return this.transactions;
 	}
 
