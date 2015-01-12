@@ -1,12 +1,12 @@
 package org.nem.ncc.controller.requests;
 
 import org.nem.core.model.Address;
-import org.nem.core.serialization.Deserializer;
+import org.nem.core.serialization.*;
 
 /**
  * A request representing an account identifier.
  */
-public class AccountIdRequest {
+public class AccountIdRequest implements SerializableEntity {
 	private final Address address;
 
 	/**
@@ -42,5 +42,25 @@ public class AccountIdRequest {
 	 */
 	public Address getAccountId() {
 		return this.address;
+	}
+
+	@Override
+	public void serialize(final Serializer serializer) {
+		Address.writeTo(serializer, "account", this.address);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.address.hashCode();
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (!(obj instanceof AccountIdRequest)) {
+			return false;
+		}
+
+		final AccountIdRequest rhs = (AccountIdRequest)obj;
+		return this.address.equals(rhs.address);
 	}
 }
