@@ -94,7 +94,7 @@ public class AccountController {
 
 		final Address address = ahRequest.getAccountId();
 		return this.accountServices.getUnconfirmedTransactions(address).stream()
-				.map(t -> new TransactionViewModel(t, address))
+				.map(t -> TransactionToViewModelMapper.map(t, address))
 				.collect(Collectors.toList());
 	}
 
@@ -159,7 +159,7 @@ public class AccountController {
 		final Address address = ahRequest.getAccountId();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
 		return this.accountServices.getTransactions(direction, address, ahRequest.getTransactionId()).stream()
-				.map(p -> new TransactionViewModel(p, address, lastBlockHeight))
+				.map(p -> TransactionToViewModelMapper.map(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}
 

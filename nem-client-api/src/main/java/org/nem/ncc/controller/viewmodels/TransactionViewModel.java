@@ -12,121 +12,79 @@ import org.nem.core.utils.StringEncoder;
  * A view model representing a transfer transaction.
  */
 public class TransactionViewModel implements SerializableEntity {
-	private static final int INCOMING_FLAG = 1;
-	private static final int OUTGOING_FLAG = 2;
+	enum Type {
+		Unknown(0),
+		Transfer(1),
+		Importance_Transfer(2),
+		Multisig_Modification(3),
+		Multisig_Transfer(4);
 
+		private final int value;
+
+		private Type(final int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Gets the underlying integer representation of the status.
+		 *
+		 * @return The underlying value.
+		 */
+		public int getValue() {
+			return this.value;
+		}
+	}
+
+	private Type transactionViewModelType;
 	private long transactionId;
 	private final Hash transactionHash;
 
-	private final Address sender;
+	private final Address signer;
 	private final long timeStamp;
 	private final Amount fee;
-
-	private final Address recipient;
-	private final Amount amount;
-	private final String message;
-	private final boolean isEncrypted;
 
 	private boolean isConfirmed;
 	private long confirmations;
 	private long blockHeight;
-	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
 
 	/**
-	 * Creates a new transfer view model around an unconfirmed transaction.
+	 * Creates a new transaction view model around a transaction (confirmed or unconfirmed).
 	 *
-	 * @param transaction The transaction.
-	 * @param relativeAccountAddress The relative account address.
+	 * @param transactionViewModelType
+	 * @param metaDataPair
+	 * @param lastBlockHeight
 	 */
 	public TransactionViewModel(
-			final Transaction transaction,
-			final Address relativeAccountAddress) {
+			final Type transactionViewModelType,
+			final TransactionMetaDataPair metaDataPair,
+			final BlockHeight lastBlockHeight) {
+		final Transaction transaction = metaDataPair.getTransaction();
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
 				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
 				TransactionTypes.MULTISIG != transaction.getType()) {
 			throw new IllegalArgumentException("TransferViewModel can only be created around TRANSFER or IMPORTANCE_TRANSFER");
 		}
 
+		this.transactionViewModelType = transactionViewModelType;
 		this.transactionHash = HashUtils.calculateHash(transaction);
-		this.transactionId = this.transactionHash.getShortId();
-		this.sender = transaction.getSigner().getAddress();
+		this.signer = transaction.getSigner().getAddress();
 		this.timeStamp = UnixTime.fromTimeInstant(transaction.getTimeStamp()).getMillis();
 		this.fee = transaction.getFee();
 
-		// TODO 20141014 J-G: we should definitely add tests for this mapping
-		// > also from a design perspective, is it reasonable to show importance transfers like regular transfers?
-		switch (transaction.getType()) {
-			case TransactionTypes.TRANSFER: {
-				final TransferTransaction transfer = (TransferTransaction)transaction;
-				this.recipient = transfer.getRecipient().getAddress();
-				this.amount = transfer.getAmount();
+		if (metaDataPair.getMetaData() == null) {
+			this.confirmations = 0;
+			this.blockHeight = 0;
+			this.transactionId = this.transactionHash.getShortId();
+			this.isConfirmed = false;
 
-				final Message message = transfer.getMessage();
-				this.message = getMessageText(message);
-				this.isEncrypted = isEncrypted(message);
-			}
-			break;
-			case TransactionTypes.IMPORTANCE_TRANSFER: {
-				final ImportanceTransferTransaction importanceTransfer = (ImportanceTransferTransaction)transaction;
-				this.recipient = importanceTransfer.getRemote().getAddress();
-				this.amount = Amount.ZERO;
-				this.message = null;
-				this.isEncrypted = false;
-			}
-			break;
-			case TransactionTypes.MULTISIG: {
-				final MultisigTransaction multisigTransaction = (MultisigTransaction)transaction;
-				final Transaction other = multisigTransaction.getOtherTransaction();
-				if (other.getType() == TransactionTypes.TRANSFER) {
-					final TransferTransaction transfer = (TransferTransaction)other;
-					this.recipient = transfer.getRecipient().getAddress();
-					this.amount = transfer.getAmount();
-
-					// what to do with the message?
-					final Message message = transfer.getMessage();
-					this.message = getMessageText(message);
-					this.isEncrypted = isEncrypted(message);
-
-				} else {
-					this.amount = Amount.ZERO;
-					this.recipient = null;
-					this.message = null;
-					this.isEncrypted = false;
-				}
-			}
-			break;
-			default:
-				throw new IllegalArgumentException("TransferViewModel ctor error");
+		} else {
+			this.confirmations = lastBlockHeight.subtract(metaDataPair.getMetaData().getHeight()) + 1;
+			this.blockHeight = metaDataPair.getMetaData().getHeight().getRaw();
+			// TODO 20141201 J-B: is it confusing that both Transaction and TransactionMetaData have ids now?
+			// we might want to rename one
+			this.transactionId = metaDataPair.getMetaData().getId();
+			this.isConfirmed = true;
 		}
-
-		this.confirmations = 0;
-		this.blockHeight = 0;
-		this.isConfirmed = false;
-
-		this.direction =
-				(this.sender.equals(relativeAccountAddress) ? OUTGOING_FLAG : 0) +
-						(this.recipient.equals(relativeAccountAddress) ? INCOMING_FLAG : 0);
-	}
-
-	/**
-	 * Creates a new transfer view model around a confirmed transaction.
-	 *
-	 * @param metaDataPair The transaction metadata pair.
-	 * @param relativeAccountAddress The relative account address.
-	 * @param lastBlockHeight The last block height.
-	 */
-	public TransactionViewModel(
-			final TransactionMetaDataPair metaDataPair,
-			final Address relativeAccountAddress,
-			final BlockHeight lastBlockHeight) {
-		this(metaDataPair.getTransaction(), relativeAccountAddress);
-
-		this.confirmations = lastBlockHeight.subtract(metaDataPair.getMetaData().getHeight()) + 1;
-		this.blockHeight = metaDataPair.getMetaData().getHeight().getRaw();
-		// TODO 20141201 J-B: is it confusing that both Transaction and TransactionMetaData have ids now?
-		// we might want to rename one
-		this.transactionId = metaDataPair.getMetaData().getId();
-		this.isConfirmed = true;
 	}
 
 	/**
@@ -148,12 +106,12 @@ public class TransactionViewModel implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the sender address.
+	 * Gets the signer address.
 	 *
-	 * @return The sender address.
+	 * @return The signer address.
 	 */
-	public Address getSender() {
-		return this.sender;
+	public Address getSigner() {
+		return this.signer;
 	}
 
 	/**
@@ -172,42 +130,6 @@ public class TransactionViewModel implements SerializableEntity {
 	 */
 	public Amount getFee() {
 		return this.fee;
-	}
-
-	/**
-	 * Gets the recipient address.
-	 *
-	 * @return The recipient address.
-	 */
-	public Address getRecipient() {
-		return this.recipient;
-	}
-
-	/**
-	 * Gets the amount.
-	 *
-	 * @return The amount.
-	 */
-	public Amount getAmount() {
-		return this.amount;
-	}
-
-	/**
-	 * Gets the message.
-	 *
-	 * @return The message.
-	 */
-	public String getMessage() {
-		return this.message;
-	}
-
-	/**
-	 * Gets a value indicating whether or not the message is encrypted.
-	 *
-	 * @return true if the message is encrypted.
-	 */
-	public boolean isEncrypted() {
-		return this.isEncrypted;
 	}
 
 	/**
@@ -238,48 +160,22 @@ public class TransactionViewModel implements SerializableEntity {
 		return this.blockHeight;
 	}
 
-	/**
-	 * Gets the transaction direction relative to the reference account.
-	 *
-	 * @return The transaction direction.
-	 */
-	public int getDirection() {
-		return this.direction;
-	}
-
-	private static boolean isEncrypted(final Message message) {
-		return null != message && MessageTypes.SECURE == message.getType();
-	}
-
-	private static String getMessageText(final Message message) {
-		if (null == message) {
-			return null;
-		}
-
-		return message.canDecode()
-				? StringEncoder.getString(message.getDecodedPayload())
-				: "Warning: message cannot be decoded!";
-	}
-
 	@Override
 	public void serialize(final Serializer serializer) {
+		this.serializeImpl(serializer);
+	}
+
+	protected void serializeImpl(final Serializer serializer) {
+		serializer.writeInt("type", this.transactionViewModelType.getValue());
 		serializer.writeLong("id", this.transactionId);
 		serializer.writeString("hash", this.transactionHash.toString());
 
-		Address.writeTo(serializer, "sender", this.sender);
+		Address.writeTo(serializer, "sender", this.signer);
 		serializer.writeLong("timeStamp", this.timeStamp);
 		Amount.writeTo(serializer, "fee", this.fee);
-
-		Address.writeTo(serializer, "recipient", this.recipient);
-		Amount.writeTo(serializer, "amount", this.amount);
-		if (this.message != null) {
-			serializer.writeString("message", this.message);
-			serializer.writeInt("encrypted", this.isEncrypted ? 1 : 0);
-		}
 
 		serializer.writeInt("confirmed", this.isConfirmed ? 1 : 0);
 		serializer.writeLong("confirmations", this.confirmations);
 		serializer.writeLong("blockHeight", this.blockHeight);
-		serializer.writeInt("direction", this.direction);
 	}
 }
