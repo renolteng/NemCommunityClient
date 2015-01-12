@@ -310,6 +310,7 @@ public class TransactionMapperTest {
 	private static TransferSendRequest createSendRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
 		return new TransferSendRequest(
 				new WalletName("w"),
+				null,
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
@@ -323,6 +324,7 @@ public class TransactionMapperTest {
 	private static TransferSendRequest createSendRequestWithoutMessage(final TestContext context, final String password) {
 		return new TransferSendRequest(
 				new WalletName("w"),
+				null,
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
@@ -351,6 +353,7 @@ public class TransactionMapperTest {
 				this.timeProvider);
 
 		private final KeyPair signerKeyPair = new KeyPair();
+		private final Address multisigAddress = Utils.generateRandomAddress();
 		private final Account signer = new Account(this.signerKeyPair);
 		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;

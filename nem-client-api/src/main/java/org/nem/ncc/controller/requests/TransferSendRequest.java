@@ -2,6 +2,7 @@ package org.nem.ncc.controller.requests;
 
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
+import org.nem.core.serialization.AddressEncoding;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.*;
 
@@ -10,6 +11,7 @@ import org.nem.ncc.wallet.*;
  */
 public class TransferSendRequest {
 	private final WalletName walletName;
+	private final Address multisigAddress;
 	private final Address senderAddress;
 	private final Address recipientAddress;
 	private final Amount amount;
@@ -24,6 +26,7 @@ public class TransferSendRequest {
 	 */
 	public TransferSendRequest(
 			final WalletName walletName,
+			final Address multisigAddress,
 			final Address senderAddress,
 			final Address recipientAddress,
 			final Amount amount,
@@ -33,6 +36,7 @@ public class TransferSendRequest {
 			final WalletPassword password,
 			final Amount fee) {
 		this.walletName = walletName;
+		this.multisigAddress = multisigAddress;
 		this.senderAddress = senderAddress;
 		this.recipientAddress = recipientAddress;
 		this.amount = amount;
@@ -50,6 +54,7 @@ public class TransferSendRequest {
 	 */
 	public TransferSendRequest(final Deserializer deserializer) {
 		this.walletName = WalletName.readFrom(deserializer, "wallet");
+		this.multisigAddress = Address.readFromOptional(deserializer, "multisigAccount", AddressEncoding.COMPRESSED);
 		this.senderAddress = Address.readFrom(deserializer, "account");
 		this.recipientAddress = Address.readFrom(deserializer, "recipient");
 		this.amount = Amount.readFrom(deserializer, "amount");
@@ -58,6 +63,15 @@ public class TransferSendRequest {
 		this.hoursDue = deserializer.readInt("hours_due");
 		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.fee = Amount.readFrom(deserializer, "fee");
+	}
+
+	/**
+	 * Gets the multisig account id (can be null).
+	 *
+	 * @return The multisig account id.
+	 */
+	public Address getMultisigAddress() {
+		return multisigAddress;
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package org.nem.ncc.controller.requests;
 
 import net.minidev.json.JSONObject;
+import org.apache.commons.math3.analysis.function.Add;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.model.Address;
@@ -19,6 +20,7 @@ public class TransferSendRequestTest {
 		// Act:
 		final TransferSendRequest request = new TransferSendRequest(
 				new WalletName("w"),
+				Address.fromEncoded("m"),
 				Address.fromEncoded("a"),
 				Address.fromEncoded("r"),
 				Amount.fromMicroNem(7),
@@ -30,6 +32,7 @@ public class TransferSendRequestTest {
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(Address.fromEncoded("m")));
 		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(Address.fromEncoded("a")));
 		Assert.assertThat(request.getRecipientAddress(), IsEqual.equalTo(Address.fromEncoded("r")));
 		Assert.assertThat(request.getAmount(), IsEqual.equalTo(Amount.fromMicroNem(7L)));
