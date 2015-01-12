@@ -390,6 +390,22 @@
 					</div>
 				</div>
 			</div>
+			{{#if sender}}
+			<div class="form-row">
+				<p class="form-label">
+					Multisig {{texts.modals.sendNem.fee}}
+					{{#if multisigFeeError}}
+					<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
+					{{/if}}
+				</p>
+				<div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
+					<span class="form-input-end unit">NEM</span>
+					<div class="restOfWidth">
+						<input class="form-input-inner js-sendNem-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
+					</div>
+				</div>
+			</div>
+			{{/if}}
 		</div>
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.sendNem.message}}</p>

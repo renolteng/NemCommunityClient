@@ -41,7 +41,9 @@ public class TransferViewModel implements SerializableEntity {
 	public TransferViewModel(
 			final Transaction transaction,
 			final Address relativeAccountAddress) {
-		if (TransactionTypes.TRANSFER != transaction.getType() && TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType()) {
+		if (TransactionTypes.TRANSFER != transaction.getType() &&
+				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
+				TransactionTypes.MULTISIG != transaction.getType()) {
 			throw new IllegalArgumentException("TransferViewModel can only be created around TRANSFER or IMPORTANCE_TRANSFER");
 		}
 
@@ -70,6 +72,27 @@ public class TransferViewModel implements SerializableEntity {
 				this.amount = Amount.ZERO;
 				this.message = null;
 				this.isEncrypted = false;
+			}
+			break;
+			case TransactionTypes.MULTISIG: {
+				final MultisigTransaction multisigTransaction = (MultisigTransaction)transaction;
+				final Transaction other = multisigTransaction.getOtherTransaction();
+				if (other.getType() == TransactionTypes.TRANSFER) {
+					final TransferTransaction transfer = (TransferTransaction)other;
+					this.recipient = transfer.getRecipient().getAddress();
+					this.amount = transfer.getAmount();
+
+					// what to do with the message?
+					final Message message = transfer.getMessage();
+					this.message = getMessageText(message);
+					this.isEncrypted = isEncrypted(message);
+
+				} else {
+					this.amount = Amount.ZERO;
+					this.recipient = null;
+					this.message = null;
+					this.isEncrypted = false;
+				}
 			}
 			break;
 			default:

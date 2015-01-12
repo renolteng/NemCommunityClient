@@ -43,8 +43,7 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferSendRequest request) {
-		final TransferTransaction transaction = this.toModel(request, request.getPassword());
-		transaction.setFee(request.getFee());
+		final Transaction transaction = this.toModel(request, request.getPassword());
 		return transaction;
 	}
 
@@ -57,21 +56,28 @@ public class TransactionMapper {
 	 */
 	public PartialTransferInformationViewModel toViewModel(final PartialTransferInformationRequest request) {
 		// use a fake accounts so that encryption and signing are always possible
-		final Account fakeAccount = new Account(new KeyPair());
-		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), fakeAccount, fakeAccount);
+		final Account dummyAccount = new Account(new KeyPair());
+		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), dummyAccount, dummyAccount);
 
 		// if the amount isn't provided, assume a zero amount
 		final Amount amount = null == request.getAmount() ? Amount.ZERO : request.getAmount();
 		final TransferTransaction transaction = new TransferTransaction(
 				TimeInstant.ZERO,
-				fakeAccount,
-				fakeAccount,
+				dummyAccount,
+				dummyAccount,
 				amount,
 				message);
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				transaction
+		);
 
+		final boolean isEncryptionSupported = null != request.getRecipientAddress() && this.accountLookup.findByAddress(request.getRecipientAddress()).hasPublicKey();
 		return new PartialTransferInformationViewModel(
 				transaction.getFee(),
-				null != request.getRecipientAddress() && this.accountLookup.findByAddress(request.getRecipientAddress()).hasPublicKey());
+				multisigTransaction.getFee(),
+				isEncryptionSupported);
 	}
 
 	/**
@@ -95,21 +101,42 @@ public class TransactionMapper {
 		return transaction;
 	}
 
-	private TransferTransaction toModel(final TransferSendRequest request, final WalletPassword password) {
-		final Account sender = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
+	private Transaction toModel(final TransferSendRequest request, final WalletPassword password) {
+		final boolean isMultisig = request.getMultisigAddress() != null;
+		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
-		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), sender, recipient);
+		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), signer, recipient);
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
-		final TransferTransaction transaction = new TransferTransaction(
-				timeStamp,
-				sender,
-				recipient,
-				request.getAmount(),
-				message);
 
-		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
-		return transaction;
+		if (isMultisig) {
+			final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
+			final TransferTransaction transaction = new TransferTransaction(
+					timeStamp,
+					multisig,
+					recipient,
+					request.getAmount(),
+					message);
+			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			transaction.setFee(request.getFee());
+
+			final MultisigTransaction multisigTransaction = new MultisigTransaction(timeStamp,
+					signer,
+					transaction);
+			multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			multisigTransaction.setFee(multisigTransaction.getFee());
+			return multisigTransaction;
+		} else {
+			final TransferTransaction transaction = new TransferTransaction(
+					timeStamp,
+					signer,
+					recipient,
+					request.getAmount(),
+					message);
+			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			transaction.setFee(request.getFee());
+			return transaction;
+		}
 	}
 
 	private Account getSenderAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {

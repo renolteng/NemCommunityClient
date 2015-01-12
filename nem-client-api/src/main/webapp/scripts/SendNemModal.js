@@ -38,6 +38,15 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     this.update('fee'); // so that stupid Ractive trigger fee observers
                 }
             },
+            multisigFee: {
+                get: function() {
+                    return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedMultisigFee')));
+                },
+                set: function(fee) {
+                    this.set('formattedMultisigFee', Utils.format.nem.formatNemAmount(fee));
+                    this.update('multisigFee'); // so that stupid Ractive trigger fee observers
+                }
+            },
             feeValid: function() {
                 return this.get('fee') >= this.get('minimumFee');
             },
@@ -75,6 +84,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             ncc.postRequest('wallet/account/transaction/validate', requestData, 
                 function(data) {
                     self.set('minimumFee', data.fee);
+                    self.set('multisigFee', data.multisigFee);
                     self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
                 }, 
                 {
@@ -97,6 +107,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('rawMessage', '');
             this.set('encrypted', false);
             this.set('fee', 0);
+            this.set('multisigFee', 0);
             this.set('minimumFee', 0);
             this.set('dueBy', '12');
             this.set('password', '');
@@ -110,17 +121,34 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.resetFee({ silent: true });
         },
         sendTransaction: function() {
-            var requestData = {
-                wallet: ncc.get('wallet.wallet'),
-                account: ncc.get('activeAccount.address'),
-                password: this.get('password'),
-                amount: this.get('amount'),
-                recipient: this.get('recipient'),
-                message: this.get('message'),
-                fee: this.get('fee'),
-                encrypt: this.get('encrypt'),
-                hours_due: this.get('hours_due')
-            };
+            console.log(this.get('sender'));
+            if (this.get('sender') == null) {
+                var requestData = {
+                    wallet: ncc.get('wallet.wallet'),
+                    account: ncc.get('activeAccount.address'),
+                    password: this.get('password'),
+                    amount: this.get('amount'),
+                    recipient: this.get('recipient'),
+                    message: this.get('message'),
+                    fee: this.get('fee'),
+                    encrypt: this.get('encrypt'),
+                    hours_due: this.get('hours_due')
+                };
+            } else {
+                var requestData = {
+                    wallet: ncc.get('wallet.wallet'),
+                    multisigAccount: this.get('sender'),
+                    account: ncc.get('activeAccount.address'),
+                    password: this.get('password'),
+                    amount: this.get('amount'),
+                    recipient: this.get('recipient'),
+                    message: this.get('message'),
+                    fee: this.get('fee'),
+                    multisigFee: this.get('multisigFee'),
+                    encrypt: this.get('encrypt'),
+                    hours_due: this.get('hours_due')
+                };
+            }
 
             var txConfirm = ncc.getModal('transactionConfirm');
             txConfirm.set('txData', this.get());
