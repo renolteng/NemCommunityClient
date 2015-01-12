@@ -11,6 +11,7 @@ import org.nem.ncc.cache.*;
 import org.nem.ncc.connector.*;
 import org.nem.ncc.model.graph.GraphViewModelFactory;
 import org.nem.ncc.services.*;
+import org.nem.ncc.time.synchronization.NccTimeSynchronizer;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 import org.springframework.context.annotation.*;
@@ -87,7 +88,7 @@ public class NccAppConfig {
 	@Bean
 	public NccScheduler nccScheduler() {
 		final NccScheduler scheduler = new NccScheduler(this.timeProvider());
-		//scheduler.addTimeSynchronizationTask(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
+		scheduler.addTimeSynchronizationTask(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
 		scheduler.addAccountCacheUpdateTask(this.accountCache());
 		return scheduler;
 	}
