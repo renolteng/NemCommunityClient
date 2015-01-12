@@ -25,7 +25,7 @@ public class AccountServicesTest {
 		final TestContext context = new TestContext();
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(Address.fromEncoded("FOO")),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, null));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList()));
 
 		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, "address=FOO"))
 				.thenReturn(serialize(originalPair));
@@ -46,7 +46,7 @@ public class AccountServicesTest {
 		final Address address = Utils.generateRandomAddress();
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, null));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList()));
 		final Collection<AccountIdRequest> requests = Arrays.asList(new AccountIdRequest(address));
 
 		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))

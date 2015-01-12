@@ -8,7 +8,7 @@ import org.nem.core.model.primitive.BlockHeight;
 
 public class TransactionToViewModelMapper {
 	public static TransactionViewModel map(final Transaction transaction, final Address address) {
-		return new TransferTransactionViewModel(new TransactionMetaDataPair(transaction, null), address, null);
+		return map(new TransactionMetaDataPair(transaction, null), address, null);
 	}
 
 	public static TransactionViewModel map(final TransactionMetaDataPair metaDataPair, final Address address, final BlockHeight blockHeight) {
