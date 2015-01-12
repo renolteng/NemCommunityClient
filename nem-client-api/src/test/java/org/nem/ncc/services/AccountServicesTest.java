@@ -46,7 +46,7 @@ public class AccountServicesTest {
 		final Address address = Utils.generateRandomAddress();
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, null));
 		final Collection<AccountIdRequest> requests = Arrays.asList(new AccountIdRequest(address));
 
 		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))
