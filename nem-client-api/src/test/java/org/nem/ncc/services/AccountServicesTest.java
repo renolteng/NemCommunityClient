@@ -11,6 +11,7 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
+import org.nem.ncc.controller.requests.AccountIdRequest;
 import org.nem.ncc.test.*;
 
 import java.util.*;
@@ -36,6 +37,28 @@ public class AccountServicesTest {
 		Mockito.verify(context.connector, Mockito.times(1)).get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, "address=FOO");
 		Assert.assertThat(pair.getAccount().getAddress(), IsEqual.equalTo(Address.fromEncoded("FOO")));
 		Assert.assertThat(pair.getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
+	}
+
+	@Test
+	public void getAccountMetaDataPairsDelegatesToConnector() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Address address = Utils.generateRandomAddress();
+		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
+				Utils.createAccountInfoFromAddress(address),
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE));
+		final Collection<AccountIdRequest> requests = Arrays.asList(new AccountIdRequest(address));
+
+		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))
+				.thenReturn(serialize(new SerializableList<>(Arrays.asList(originalPair))));
+
+		// Act:
+		final List<AccountMetaDataPair> pairs = context.services.getAccountMetaDataPairs(requests).stream().collect(Collectors.toList());
+
+		// Assert:
+		Mockito.verify(context.connector, Mockito.times(1)).post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any());
+		Assert.assertThat(pairs.get(0).getAccount().getAddress(), IsEqual.equalTo(address));
+		Assert.assertThat(pairs.get(0).getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
 	}
 
 	//region NEW account/transactions API

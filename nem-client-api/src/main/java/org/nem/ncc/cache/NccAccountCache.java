@@ -3,6 +3,7 @@ package org.nem.ncc.cache;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.time.*;
+import org.nem.ncc.controller.requests.AccountIdRequest;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.services.*;
 
@@ -57,9 +58,11 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private FreshnessPair createFreshnessPairFromSeedAccount(final AccountInfo info) {
+		// TODO 20150112 BR -> J: you had initially null as timestamp probably so every account would be updated the first
+		// > time it was searched for. Since I changed to poll expired accounts on a regular interval it should be ok to use current time stamp.
 		return new FreshnessPair(
 				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE)),
-				null);
+				this.timeProvider.getCurrentTime());
 	}
 
 	@Override
@@ -80,10 +83,8 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	private FreshnessPair findFreshnessPairByAddress(final Address id) {
 		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 		FreshnessPair freshnessPair = this.cache.getOrDefault(id, null);
-		if (this.shouldUpdate(freshnessPair, currentTime)) {
-			freshnessPair = new FreshnessPair(
-					this.update(id, null == freshnessPair ? null : freshnessPair.accountMetaDataPair),
-					currentTime);
+		if (null == freshnessPair) {
+			freshnessPair = new FreshnessPair(this.update(id, null), currentTime);
 			this.cache.put(id, freshnessPair);
 		}
 
@@ -104,10 +105,28 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		}
 	}
 
+	/**
+	 * Updates all expired accounts. This method is called by a timer.
+	 */
+	public java.util.concurrent.CompletableFuture<java.lang.Void> updateCache() {
+		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
+		final List<AccountIdRequest> requests = new ArrayList<>();
+		this.cache.values().stream()
+				.forEach(f -> { if (this.shouldUpdate(f, currentTime)) { requests.add(new AccountIdRequest(f.account.getAddress())); }});
+		if (requests.isEmpty()) {
+			return CompletableFuture.completedFuture(null);
+		}
+		try {
+			final Collection<AccountMetaDataPair> pairs = this.accountServices.getAccountMetaDataPairs(requests);
+			pairs.stream().forEach(p -> this.cache.put(p.getAccount().getAddress(), new FreshnessPair(p, currentTime)));
+		} catch (final Exception ignored) {
+		}
+
+		return CompletableFuture.completedFuture(null);
+	}
+
 	private boolean shouldUpdate(final FreshnessPair freshnessPair, final TimeInstant currentTime) {
-		return null == freshnessPair ||
-				null == freshnessPair.refreshTime ||
-				currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
+		return null == freshnessPair ||	currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
 	}
 
 	private static class FreshnessPair {

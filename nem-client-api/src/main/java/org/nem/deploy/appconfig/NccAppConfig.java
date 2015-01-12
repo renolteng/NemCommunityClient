@@ -19,6 +19,7 @@ import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 import org.springframework.context.annotation.*;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -90,6 +91,7 @@ public class NccAppConfig {
 	public NccScheduler nccScheduler() {
 		final NccScheduler scheduler = new NccScheduler(this.timeProvider());
 		scheduler.addTimeSynchronizationTask(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
+		scheduler.addAccountCacheUpdateTask(this.accountCache());
 		return scheduler;
 	}
 
@@ -152,7 +154,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccAccountCache accountCache() {
-		final int refreshInSeconds = 2;
+		final int refreshInSeconds = 60;
 		final NccAccountCache accountCache = new NccAccountCache(this.accountServices(),
 				this.timeProvider(),
 				refreshInSeconds);
@@ -168,7 +170,10 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountsFileRepository accountsFileRepository() {
-		final File file = new File(this.getNemFolder(), "accounts_cache.json");
+		// TODO 20150112 BR -> J: this is a hack. I can't use getNemFolder() because then i have the infinite loop:
+		// > nccMain() -> nccScheduler() -> accountCache() -> accountsFileRepository() -> getNemFolder() -> configuration() -> NccMain()
+		final String nccFolder = Paths.get(nccConfiguration().getNemFolder(), "ncc").toString();
+		final File file = new File(nccFolder, "accounts_cache.json");
 		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(file);
 		return new AccountsFileRepository(descriptor);
 	}
