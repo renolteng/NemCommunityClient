@@ -189,34 +189,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                         }, 500);
                     }
                 })(),
-                recipient: (function() {
-                    var t;
-                    return function(recipient) {
-                        this.set('recipientChanged', true);
-
-                        clearTimeout(t);
-                        t = setTimeout(function() {
-                            ncc.postRequest('account/find', { account: recipient }, 
-                                function(data) {
-                                    if (data.address) {
-                                        self.set('recipientLabel', data.label || '');
-                                    } else {
-                                        self.set('recipientLabel', null);
-                                    }
-                                }, 
-                                {
-                                    error: function() {
-                                        self.set('recipientLabel', null);
-                                    },
-                                    altFailCb: function() {
-                                        self.set('recipientLabel', null);
-                                    }
-                                },
-                                true
-                            );
-                        }, 500);
-                    };
-                })(),
+                recipient: function(recipient) {
+                    this.set('recipientChanged', true);
+                    self.set('recipientLabel', ncc.get('privateLabels')[recipient]);
+                },
                 fee: function() {
                     this.set('feeChanged', true);
                 },

@@ -181,61 +181,6 @@
 			});
 
 			local.listeners.push(ncc.on({
-				openWallet: function(e, wallet) {
-					var password = ncc.get('landingPage.openWalletPasswords')[wallet];
-					ncc.set('landingPage.openingWallet', true);
-			    	ncc.postRequest('wallet/open', 
-			    		{
-							wallet: wallet,
-							password: password
-						},
-			    		function(data) {
-			        		ncc.openWallet(data);
-			        	},
-						{
-							complete: function() {
-								ncc.set('landingPage.openingWallet', false);
-							}
-						}
-			    	);
-			    	ncc.postRequest('addressbook/open', {
-						addressBook: wallet,
-						password: password
-					},
-			    		function(data) {
-			        		ncc.set('addressBook', data.accountLabels);
-			        	}
-			    	);
-			    },
-				createWallet: function() {
-					ncc.set('landingPage.creatingWallet', true);
-					var requestData = ncc.get('landingPage.createWalletForm');
-			    	ncc.postRequest('wallet/create', requestData, function(data) {
-		    			ncc.postRequest('wallet/open', requestData,
-				    		function(data) {
-				        		ncc.openWallet(data);
-				        	}
-				    	);
-		    		},
-		    		{
-		    			complete: function() {
-		    				ncc.set('landingPage.creatingWallet', false);
-		    				ncc.listWallets();
-		    			}
-		    		});
-
-		    		var abRequestData = {
-	    				addressBook: requestData.wallet,
-	    				password: requestData.password
-	    			};
-		    		ncc.postRequest('addressbook/create', abRequestData, function(data) {
-		    			ncc.postRequest('addressbook/open', abRequestData,
-				    		function(data) {
-				        		ncc.openWallet(data);
-				        	}
-				    	);
-		    		});
-			    },
 			    scrollTo: function(e, selector) {
 			    	var $el = $(selector);
 			    	if ($el[0]) {
@@ -247,12 +192,12 @@
 			    },
 			    createWalletKeypress: function(e) {
 			    	if (e.original.keyCode === 13) {
-			    		ncc.fire('createWallet');
+			    		ncc.createWallet();
 			    	}
 			    },
 			    passwordKeypress: function(e, wallet) {
 			    	if (e.original.keyCode === 13) {
-			    		ncc.fire('openWallet', {}, wallet);
+			    		ncc.openExistingWallet(wallet);
 			    	}
 			    },
 			    fileToImportSelected: function(e) {
