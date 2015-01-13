@@ -213,13 +213,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         },
                         {
-                            name: 'password',
-                            type: 'password',
-                            label: {
-                                content: ncc.get('texts.common.password')
-                            }
-                        },
-                        {
                             name: 'address',
                             type: 'text',
                             label: {
@@ -232,7 +225,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             label: {
                                 content: ncc.get('texts.common.privateLabel')
                             }
-                        }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.common.password')
+                            }
+                        },
                     ],
                     {
                         addressBook: ncc.get('wallet.wallet'),
@@ -262,13 +262,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         },
                         {
-                            name: 'password',
-                            type: 'password',
-                            label: {
-                                content: ncc.get('texts.common.password')
-                            }
-                        },
-                        {
                             name: 'address',
                             type: 'text',
                             label: {
@@ -281,7 +274,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             label: {
                                 content: ncc.get('texts.common.privateLabel')
                             }
-                        }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.common.password')
+                            }
+                        },
                     ],
                     {
                         addressBook: ncc.get('wallet.wallet'),
@@ -312,19 +312,19 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         },
                         {
+                            name: 'address',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.address')
+                            }
+                        },
+                        {
                             name: 'password',
                             type: 'password',
                             label: {
                                 content: ncc.get('texts.common.password')
                             }
                         },
-                        {
-                            name: 'address',
-                            type: 'text',
-                            label: {
-                                content: ncc.get('texts.common.address')
-                            }
-                        }
                     ],
                     {
                         addressBook: ncc.get('wallet.wallet'),
