@@ -101,17 +101,18 @@
 								<tr>
                                     {{#if .confirmed}}
                                         {{#.isSelf}}
-                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                         {{/}}
                                         {{#.isOutgoing}}
-                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.dashboard.transactions.types.outgoing}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.dashboard.transactions.types.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                         {{/}}
                                         {{#.isIncoming}}
-                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip"></td>
+                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                         {{/}}
                                     {{else}}
-                                    	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
+                                    	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                     {{/if}}
+
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">
@@ -163,10 +164,12 @@
 									</td>
                                     <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
                                     <td class="txList-cell txList-col--amount">
-	                                    {{#.isSelf}}&plusmn;{{/}}<!--
-	                                    -->{{#.isOutgoing}}-{{/}}<!--
-	                                    -->{{#.isIncoming}}+{{/}}<!--
-	                                    -->{{{formattedAmount}}}
+										{{#if .isMultisig}}see details{{else}}
+											{{#.isSelf}}&plusmn;{{/}}<!--
+											-->{{#.isOutgoing}}-{{/}}<!--
+											-->{{#.isIncoming}}+{{/}}<!--
+											-->
+										{{{formattedAmount}}}{{/if}}
                                     </td>
 								</tr>
 							{{/if}}

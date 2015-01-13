@@ -606,16 +606,32 @@ define(function() {
 
         // PROCESSING
         processTransaction: function(tx) {
-            tx.isIncoming = tx.direction === 1 || tx.direction === 0;
-            tx.isOutgoing = tx.direction === 2;
-            tx.isSelf = tx.direction === 3;
+            var transferTransaction = tx;
+            if (tx.inner != null) {
+                tx.isMultisig = true;
+                tx.isIncoming = false;
+                tx.isOutgoing = true;
+                tx.isSelf = false;
+                transferTransaction = tx.inner;
+                tx.message = transferTransaction.message;
+                tx.recipient = transferTransaction.recipient
+            }
+            else
+            {
+                tx.isMultisig = false;
+                tx.isIncoming = tx.direction === 1 || tx.direction === 0;
+                tx.isOutgoing = tx.direction === 2;
+                tx.isSelf = tx.direction === 3;
+            }
+
             tx.formattedSender = Utils.format.address.format(tx.sender);
-            tx.formattedRecipient = Utils.format.address.format(tx.recipient);
             tx.formattedFee = Utils.format.nem.formatNemAmount(tx.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(tx.fee);
-            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.amount);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
+
+            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
+            tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
             return tx;
         },
         processTransactions: function(transactions) {

@@ -30,6 +30,6 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	protected void serializeImpl(Serializer serializer) {
 		super.serializeImpl(serializer);
 
-		otherTransactionViewModel.serialize(serializer);
+		serializer.writeObject("inner", otherTransactionViewModel);
 	}
 }
