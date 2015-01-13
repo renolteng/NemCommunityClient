@@ -613,7 +613,7 @@ define(function() {
                 tx.isOutgoing = true;
                 tx.isSelf = false;
                 transferTransaction = tx.inner;
-                tx.message = transferTransaction.message;
+                tx.message = "#cosigs " + tx.signatures.length;
                 tx.recipient = transferTransaction.recipient
             }
             else

@@ -183,6 +183,21 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 }
             },
 
+            ncc.openSignMultisig = function(innerTransactionHash) {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('signMultisig');
+                    m.open();
+                    m.set('innerHash', innerTransactionHash);
+
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
             ncc.viewTransaction = function(transaction) {
                 var m = ncc.getModal('transactionDetails');
                 m.set('transaction', transaction);

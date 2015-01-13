@@ -430,6 +430,121 @@
 		</div>
 	</div>
 </sendNemModal>
+<signMultisigModal disableEasyClose="true" modalClass="signMultisigModal" modalTitle="{{texts.modals.signMultisig.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+	<div class="txConfirm-txInfo">
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.from}}</span>
+			<span class="txConfirm-value">
+				<span class="txConfirm-recipient">{{txData.formattedMultisigAddress}}</span>
+				{{#txData.multisigLabel}}
+					(<span class="txConfirm-recipientLabel">{{txData.multisigLabel}}</span>)
+				{{/}}
+			</span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.amount}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-amount">{{txData.formattedAmount}} NEM</span></span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.to}}</span>
+			<span class="txConfirm-value">
+				<span class="txConfirm-recipient">{{txData.formattedRecipient}}</span>
+				{{#txData.recipientLabel}}
+					(<span class="txConfirm-recipientLabel">{{txData.recipientLabel}}</span>)
+				{{/}}
+			</span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.fee}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} NEM</span></span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.dueBy}}</span>
+			<span class="txConfirm-value">{{txData.dueBy}} {{texts.modals.signMultisig.txConfirm.hours}}</span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label"><span class="txConfirm-totalLabel">{{texts.modals.signMultisig.txConfirm.total}}</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-total">{{formattedTotal}} NEM</span></span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label"><span class="txConfirm-messageLabel">{{texts.modals.signMultisig.txConfirm.message}}</span></span>
+			<span class="txConfirm-value">
+				{{#if txData.rawMessage}}
+					{{txData.rawMessage}}
+					{{#if txData.encrypted}}
+						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.signMultisig.txConfirm.encrypted}}" on-mouseover="registerToolTip"></span>
+					{{/if}}
+				{{else}}
+					<span class="dimmed">{{texts.modals.signMultisig.txConfirm.noMessage}}</span>
+				{{/if}}
+			</span>
+		</div>
+	</div>
+
+	<div class="form signMultisig-form">
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.signMultisig.innerHash}}</p>
+			<div class="form-input form-input--unimportant">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-signMultisig-innerHash-textbox" type="text" value="{{innerHash}}" on-keypress="sendFormKeypress" readonly="true" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.signMultisig.sender}}</p>
+			{{sender}}
+		</div>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+			<label class="form-checkbox-label" for="chk-useMinimumFee">
+				{{texts.modals.signMultisig.useMinimumFee}}
+				{{#if !useMinimumFee}}
+				({{formattedMinimumFee}} NEM)
+				{{/if}}
+			</label>
+		</div>
+		<div class="form-field">
+			<div class="form-row">
+				<div class="form-half form-half--left">
+					<p class="form-label">
+						{{texts.modals.signMultisig.fee}}
+						{{#if feeError}}
+						<span class="signMultisig-errorIcon icon-exclamation" title="{{texts.modals.signMultisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+						{{/if}}
+					</p>
+					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+						<span class="form-input-end unit">NEM</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-signMultisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+						</div>
+					</div>
+				</div>
+				<div class="form-half form-half--right">
+					<p class="form-label">{{texts.modals.signMultisig.dueBy}}</p>
+					<div class="form-input">
+						<span class="form-input-end unit">{{texts.modals.signMultisig.hours}}</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-signMultisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">
+				{{texts.modals.signMultisig.password}}
+				{{#if passwordError}}
+				<span class="signMultisig-errorIcon icon-exclamation" title="{{texts.modals.signMultisig.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				{{/if}}
+			</p>
+			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+		</div>
+		<div class="modal-buttons signMultisig-buttons">
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.signMultisig.cancel}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.signMultisig.send}}</button>
+		</div>
+	</div>
+</signMultisigModal>
 <transactionConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
 	<div class="txConfirm-txInfo">
 		<div class="txConfirm-line">
