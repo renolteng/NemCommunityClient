@@ -1,6 +1,6 @@
 package org.nem.ncc.addressbook;
 
-import org.nem.ncc.storable.entity.StorableEntityFileExtension;
+import org.nem.ncc.storable.entity.*;
 
 /**
  * Represents a file extension for an address book.
@@ -25,15 +25,6 @@ public class AddressBookFileExtension extends StorableEntityFileExtension<Addres
 	}
 
 	/**
-	 * Gets a value indicating whether the extension is the default extension.
-	 *
-	 * @return true if the extension is the default extension, false otherwise.
-	 */
-	public boolean isDefaultExtension() {
-		return this.toString().toLowerCase().equals(DEFAULT_FILE_EXTENSION);
-	}
-
-	/**
 	 * Gets the default file extension.
 	 *
 	 * @return The file extension.
@@ -50,5 +41,12 @@ public class AddressBookFileExtension extends StorableEntityFileExtension<Addres
 	 */
 	public static boolean isValidAndHasDefaultExtension(final String fileName) {
 		return fileName.toLowerCase().endsWith(DEFAULT_FILE_EXTENSION) && fileName.indexOf(".") > 0;
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex
+				? new AddressBookStorageException(value + AddressBookStorageException.OFFSET)
+				: new AddressBookStorageException(value + AddressBookStorageException.OFFSET, ex);
 	}
 }

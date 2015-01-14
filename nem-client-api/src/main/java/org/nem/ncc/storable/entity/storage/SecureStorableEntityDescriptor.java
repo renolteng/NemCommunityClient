@@ -38,7 +38,7 @@ public class SecureStorableEntityDescriptor<
 			final TEntityDescriptor descriptor,
 			final TEntityPassword password) {
 		if (null == password) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value(), null);
 		}
 
 		this.descriptor = descriptor;
@@ -76,10 +76,10 @@ public class SecureStorableEntityDescriptor<
 	public InputStream openRead() {
 		return ExceptionUtils.propagate(
 				this::openReadInternal,
-				ex -> new StorableEntityStorageException(
+				ex -> this.getException(
 						InvalidCipherTextIOException.class.isAssignableFrom(ex.getClass())
-								? StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_INCORRECT
-								: StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ,
+								? StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_INCORRECT.value()
+								: StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value(),
 						ex));
 	}
 
@@ -131,5 +131,9 @@ public class SecureStorableEntityDescriptor<
 		final ParametersWithIV parameterIV = new ParametersWithIV(key, new byte[BLOCK_SIZE]);
 		resultCipher.init(encrypt, parameterIV);
 		return resultCipher;
+	}
+
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex ? new StorableEntityStorageException(value) : new StorableEntityStorageException(value, ex);
 	}
 }

@@ -61,7 +61,7 @@ public class StorableEntityFileDescriptorFactory<
 	public TEntityDescriptor createNew(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
 		final File file = this.createFile(pair.getName(), fileExtension);
 		if (file.exists()) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS.value());
 		}
 
 		return this.descriptorActivator.apply(file, this.deserializer, this.nameActivator, this.fileExtensionActivator);
@@ -71,7 +71,7 @@ public class StorableEntityFileDescriptorFactory<
 	public TEntityDescriptor openExisting(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
 		final File file = this.createFile(pair.getName(), fileExtension);
 		if (!file.exists()) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST.value());
 		}
 
 		return this.descriptorActivator.apply(file, this.deserializer, this.nameActivator, this.fileExtensionActivator);
@@ -86,5 +86,9 @@ public class StorableEntityFileDescriptorFactory<
 
 	private String getStorableEntityFileName(final StorableEntityName name, final StorableEntityFileExtension fileExtension) {
 		return UrlEncoded.encodeString(name.toString()) + fileExtension.toString();
+	}
+
+	protected StorableEntityStorageException getException(final int value) {
+		return new StorableEntityStorageException(value);
 	}
 }

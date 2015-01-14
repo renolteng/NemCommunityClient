@@ -44,17 +44,19 @@ public class StorableEntityFileDescriptorTest {
 	@Test
 	public void descriptorCannotBeCreatedAroundDirectory() {
 		// Assert:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> this.createDesciptor(TEST_FILE_DIRECTORY),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY.value()));
 	}
 
 	@Test
 	public void descriptorCannotBeCreatedAroundStorableEntityWithInvalidExtension() {
 		// Assert:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> this.createDesciptor(TEST_FILE_BAD_EXT),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value()));
 	}
 
 	@Test
@@ -128,9 +130,10 @@ public class StorableEntityFileDescriptorTest {
 		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptor.openRead(),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST.value()));
 	}
 
 	@Test
@@ -143,9 +146,10 @@ public class StorableEntityFileDescriptorTest {
 		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptor.openRead(),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value()));
 	}
 
 	//endregion
@@ -186,9 +190,10 @@ public class StorableEntityFileDescriptorTest {
 		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptor.openWrite(),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED.value()));
 	}
 
 	//endregion
@@ -220,9 +225,10 @@ public class StorableEntityFileDescriptorTest {
 		Mockito.when(file.delete()).thenReturn(false);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptor.delete(),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_DELETED);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_DELETED.value()));
 	}
 
 	//endregion
@@ -255,5 +261,13 @@ public class StorableEntityFileDescriptorTest {
 				entity::deserialize,
 				StorableEntityName::new,
 				StorableEntityFileExtension::new);
+	}
+
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return StorableEntityStorageException.class;
+	}
+
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 }

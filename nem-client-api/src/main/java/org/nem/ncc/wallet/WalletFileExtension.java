@@ -1,6 +1,7 @@
 package org.nem.ncc.wallet;
 
-import org.nem.ncc.storable.entity.StorableEntityFileExtension;
+import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.wallet.storage.WalletStorageException;
 
 /**
  * Represents a file extension for a wallet.
@@ -25,15 +26,6 @@ public class WalletFileExtension extends StorableEntityFileExtension<WalletFileE
 	}
 
 	/**
-	 * Gets a value indicating whether the extension is the default extension.
-	 *
-	 * @return true if the extension is the default extension, false otherwise.
-	 */
-	public boolean isDefaultExtension() {
-		return this.toString().toLowerCase().equals(DEFAULT_FILE_EXTENSION);
-	}
-
-	/**
 	 * Gets the default file extension.
 	 *
 	 * @return The file extension.
@@ -53,5 +45,10 @@ public class WalletFileExtension extends StorableEntityFileExtension<WalletFileE
 	 */
 	public static boolean isValidAndHasDefaultExtension(final String fileName) {
 		return fileName.toLowerCase().endsWith(DEFAULT_FILE_EXTENSION) && fileName.indexOf(".") > 0;
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex ? new WalletStorageException(value) : new WalletStorageException(value, ex);
 	}
 }

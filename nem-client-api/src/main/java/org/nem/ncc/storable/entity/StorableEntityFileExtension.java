@@ -41,31 +41,22 @@ public class StorableEntityFileExtension<TDerived extends StorableEntityFileExte
 
 	private void checkExtension(final String fileExtension) {
 		if (StringUtils.isNullOrWhitespace(fileExtension)) {
-			throw new StorableEntityStorageException(
-					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION,
+			throw this.getException(
+					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value(),
 					new IllegalArgumentException("file extension must be non-whitespace"));
 		}
 
 		if (!fileExtension.startsWith(".")) {
-			throw new StorableEntityStorageException(
-					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION,
+			throw this.getException(
+					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value(),
 					new IllegalArgumentException("file extension must start with dot"));
 		}
 
 		if (EXTENSION_LENGTH != fileExtension.length()) {
-			throw new StorableEntityStorageException(
-					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION,
+			throw this.getException(
+					StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value(),
 					new IllegalArgumentException("file extension must consist of a dot followed by three characters"));
 		}
-	}
-
-	/**
-	 * Gets a value indicating whether the extension is the default extension.
-	 *
-	 * @return true if the extension is the default extension, false otherwise.
-	 */
-	public boolean isDefaultExtension() {
-		return this.toString().toLowerCase().equals(DEFAULT_FILE_EXTENSION);
 	}
 
 	/**
@@ -106,5 +97,9 @@ public class StorableEntityFileExtension<TDerived extends StorableEntityFileExte
 	@Override
 	public String toString() {
 		return this.fileExtension;
+	}
+
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex ? new StorableEntityStorageException(value) : new StorableEntityStorageException(value, ex);
 	}
 }

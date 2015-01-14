@@ -38,9 +38,10 @@ public class SecureStorableEntityDescriptorTest {
 		context.mockRead(memoryStream);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(context.secureDescriptor.openRead())),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_INCORRECT);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_INCORRECT.value()));
 	}
 
 	@Test
@@ -50,9 +51,10 @@ public class SecureStorableEntityDescriptorTest {
 		context.mockRead(CorruptStreams.createRead());
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> ExceptionUtils.propagateVoid(() -> IOUtils.toByteArray(context.secureDescriptor.openRead())),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value()));
 	}
 
 	//endregion
@@ -136,6 +138,14 @@ public class SecureStorableEntityDescriptorTest {
 	protected void createSecureDescriptor(final TestContext context) {
 		context.descriptor = this.createDescriptor();
 		context.secureDescriptor = new SecureStorableEntityDescriptor(context.descriptor, new StorableEntityPassword(context.password));
+	}
+
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return StorableEntityStorageException.class;
+	}
+
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 
 	protected class TestContext {
