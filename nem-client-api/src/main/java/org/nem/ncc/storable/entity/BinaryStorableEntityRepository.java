@@ -3,7 +3,7 @@ package org.nem.ncc.storable.entity;
 import org.apache.commons.io.IOUtils;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
-import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
+import org.nem.ncc.storable.entity.storage.*;
 
 import java.io.*;
 

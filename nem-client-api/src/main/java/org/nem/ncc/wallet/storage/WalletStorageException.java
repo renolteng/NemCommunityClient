@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet.storage;
 
 import org.nem.ncc.exceptions.ValueBasedEnum;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 
 import java.util.HashMap;
 
@@ -15,24 +15,9 @@ public class WalletStorageException extends StorableEntityStorageException {
 	 */
 	public static enum Code implements ValueBasedEnum {
 		/**
-		 * The specified wallet file is actually a directory.
-		 */
-		WALLET_CANNOT_BE_DIRECTORY(103),
-
-		/**
-		 * The specified wallet file has an invalid extension.
-		 */
-		WALLET_HAS_INVALID_EXTENSION(103),
-
-		/**
 		 * The specified wallet file does not exist.
 		 */
 		WALLET_DOES_NOT_EXIST(101),
-
-		/**
-		 * The wallet could not be deleted.
-		 */
-		WALLET_COULD_NOT_BE_DELETED(103),
 
 		/**
 		 * The wallet could not be saved.
@@ -57,7 +42,22 @@ public class WalletStorageException extends StorableEntityStorageException {
 		/**
 		 * The wallet creation failed because a wallet of the same name already exists.
 		 */
-		WALLET_ALREADY_EXISTS(109);
+		WALLET_ALREADY_EXISTS(109),
+
+		/**
+		 * The specified wallet file is actually a directory.
+		 */
+		WALLET_CANNOT_BE_DIRECTORY(111),
+
+		/**
+		 * The specified wallet file has an invalid extension.
+		 */
+		WALLET_HAS_INVALID_EXTENSION(112),
+
+		/**
+		 * The wallet could not be deleted.
+		 */
+		WALLET_COULD_NOT_BE_DELETED(113);
 
 		private static final HashMap<Integer, Code> lookup = new HashMap<>();
 

@@ -1,6 +1,7 @@
 package org.nem.ncc.wallet;
 
 import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.wallet.storage.WalletStorageException;
 
 public class WalletFileExtensionTest extends StorableEntityFileExtensionTest {

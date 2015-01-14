@@ -1,6 +1,7 @@
 package org.nem.ncc.storable.entity;
 
 import org.nem.core.utils.StringUtils;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 
 /**
  * Represents a file extension for a storable entity.

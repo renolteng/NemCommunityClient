@@ -13,12 +13,12 @@ public class AddressBookException extends NccException {
 		/**
 		 * An address can not be added to the address book multiple times.
 		 */
-		ADDRESS_BOOK_ALREADY_CONTAINS_ADDRESS(110),
+		ADDRESS_BOOK_ALREADY_CONTAINS_ADDRESS(130),
 
 		/**
 		 * An address can not be added to the address book multiple times.
 		 */
-		ADDRESS_NOT_IN_ADDRESS_BOOK(107);
+		ADDRESS_NOT_IN_ADDRESS_BOOK(127);
 
 		private final int value;
 

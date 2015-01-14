@@ -2,7 +2,7 @@ package org.nem.ncc.wallet.storage;
 
 import org.nem.core.serialization.ObjectDeserializer;
 import org.nem.ncc.function.QuadFunction;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptorFactory;
 import org.nem.ncc.wallet.*;
 

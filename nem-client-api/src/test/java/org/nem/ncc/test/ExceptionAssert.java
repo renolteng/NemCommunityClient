@@ -3,7 +3,7 @@ package org.nem.ncc.test;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.nem.ncc.exceptions.*;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.wallet.storage.WalletStorageException;
 
 import java.util.concurrent.CompletionException;
