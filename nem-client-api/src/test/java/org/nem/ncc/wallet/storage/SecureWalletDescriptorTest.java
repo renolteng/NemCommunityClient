@@ -1,6 +1,7 @@
 package org.nem.ncc.wallet.storage;
 
 import org.mockito.Mockito;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.wallet.WalletPassword;
 
@@ -16,5 +17,10 @@ public class SecureWalletDescriptorTest extends SecureStorableEntityDescriptorTe
 		final WalletDescriptor descriptor = this.createDescriptor();
 		context.setDescriptor(descriptor);
 		context.setSecureDescriptor(new SecureWalletDescriptor(descriptor, new WalletPassword(context.getPassword())));
+	}
+
+	@Override
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return WalletStorageException.class;
 	}
 }

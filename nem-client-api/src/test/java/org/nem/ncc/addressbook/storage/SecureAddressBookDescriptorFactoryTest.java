@@ -1,7 +1,8 @@
 package org.nem.ncc.addressbook.storage;
 
+import org.nem.ncc.addressbook.AddressBookStorageException;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.*;
-import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 
 import java.io.File;
 
@@ -10,5 +11,15 @@ public class SecureAddressBookDescriptorFactoryTest extends SecureStorableEntity
 	@Override
 	protected SecureStorableEntityDescriptorFactory createFactory(final File file) {
 		return new SecureAddressBookDescriptorFactory(file);
+	}
+
+	@Override
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return AddressBookStorageException.class;
+	}
+
+	@Override
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue + AddressBookStorageException.OFFSET;
 	}
 }

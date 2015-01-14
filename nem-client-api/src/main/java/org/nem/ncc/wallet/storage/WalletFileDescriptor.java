@@ -1,6 +1,7 @@
 package org.nem.ncc.wallet.storage;
 
 import org.nem.core.serialization.ObjectDeserializer;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptor;
 import org.nem.ncc.wallet.*;
 
@@ -35,17 +36,13 @@ public class WalletFileDescriptor extends StorableEntityFileDescriptor<StorableW
 		super(file, deserializer, nameActivator, fileExtensionActivator);
 	}
 
-	/**
-	 * Gets the wallet location.
-	 *
-	 * @return The wallet location.
-	 */
-	public String getWalletLocation() {
-		return super.getStorableEntityLocation();
-	}
-
 	@Override
 	public WalletName getWalletName() {
 		return super.getName();
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex ? new WalletStorageException(value) : new WalletStorageException(value, ex);
 	}
 }

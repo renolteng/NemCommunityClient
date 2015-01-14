@@ -60,9 +60,10 @@ public class StorableEntityFileDescriptorFactoryTest {
 				null);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptorFactory.createNew(pair, FILE_EXTENSION),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS.value()));
 	}
 
 	@Test
@@ -91,9 +92,10 @@ public class StorableEntityFileDescriptorFactoryTest {
 				null);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptorFactory.openExisting(pair, FILE_EXTENSION),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST.value()));
 	}
 
 	@Test
@@ -126,5 +128,13 @@ public class StorableEntityFileDescriptorFactoryTest {
 				StorableEntityName::new,
 				StorableEntityFileExtension::new,
 				DefaultStorableEntityFileDescriptor::new);
+	}
+
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return StorableEntityStorageException.class;
+	}
+
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 }

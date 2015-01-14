@@ -1,11 +1,14 @@
 package org.nem.ncc.wallet.storage;
 
-import org.nem.ncc.exceptions.*;
+import org.nem.ncc.exceptions.ValueBasedEnum;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
+
+import java.util.HashMap;
 
 /**
  * Exception that is used when a wallet storage operation fails.
  */
-public class WalletStorageException extends NccException {
+public class WalletStorageException extends StorableEntityStorageException {
 
 	/**
 	 * Wallet storage exception codes.
@@ -47,12 +50,24 @@ public class WalletStorageException extends NccException {
 		WALLET_PASSWORD_INCORRECT(104),
 
 		/**
+		 * The wallet password cannot be a null sting.
+		 */
+		WALLET_PASSWORD_CANNOT_BE_NULL(105),
+
+		/**
 		 * The wallet creation failed because a wallet of the same name already exists.
 		 */
 		WALLET_ALREADY_EXISTS(109);
 
-		private final int value;
+		private static final HashMap<Integer, Code> lookup = new HashMap<>();
 
+		static {
+			for (Code c : Code.values()) {
+				lookup.put(c.value(), c);
+			}
+		}
+
+		private final int value;
 		private Code(final int value) {
 			this.value = value;
 		}
@@ -68,7 +83,7 @@ public class WalletStorageException extends NccException {
 	 *
 	 * @param code The exception code.
 	 */
-	public WalletStorageException(final Code code) {
+	public WalletStorageException(final ValueBasedEnum code) {
 		super(code);
 	}
 
@@ -78,7 +93,26 @@ public class WalletStorageException extends NccException {
 	 * @param code The exception code.
 	 * @param cause The exception cause.
 	 */
-	public WalletStorageException(final Code code, final Throwable cause) {
+	public WalletStorageException(final ValueBasedEnum code, final Throwable cause) {
 		super(code, cause);
+	}
+
+	/**
+	 * Creates a new storable entity storage exception.
+	 *
+	 * @param value The exception code value.
+	 */
+	public WalletStorageException(final int value) {
+		super(Code.lookup.get(value));
+	}
+
+	/**
+	 * Creates a new storable entity storage exception.
+	 *
+	 * @param value The exception code value.
+	 * @param cause The exception cause.
+	 */
+	public WalletStorageException(final int value, final Throwable cause) {
+		super(Code.lookup.get(value), cause);
 	}
 }

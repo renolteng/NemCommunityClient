@@ -27,25 +27,25 @@ public class StorableEntityFileExtensionTest {
 	@Test
 	public void fileExtensionCannotBeCreatedAroundWhitespaceString() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension((String)null), StorableEntityStorageException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(""), StorableEntityStorageException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("  \t\t "), StorableEntityStorageException.class);
+		this.assertThrowsStorageExceptionDuringConstruction((String)null);
+		this.assertThrowsStorageExceptionDuringConstruction("");
+		this.assertThrowsStorageExceptionDuringConstruction("  \t\t ");
 	}
 
 	@Test
 	public void fileExtensionCannotBeCreatedAroundStringNotStartingWithADot() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("bar"), StorableEntityStorageException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension("*bar"), StorableEntityStorageException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(",bar"), StorableEntityStorageException.class);
+		this.assertThrowsStorageExceptionDuringConstruction("bar");
+		this.assertThrowsStorageExceptionDuringConstruction("*bar");
+		this.assertThrowsStorageExceptionDuringConstruction(",bar");
 	}
 
 	@Test
 	public void fileExtensionCannotBeCreatedAroundStringWithWrongLength() {
 		// Assert:
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".fooBar"), StorableEntityStorageException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".baar"), StorableEntityStorageException.class);
-		ExceptionAssert.assertThrows(v -> this.createEntityFileExtension(".anotherBar"), StorableEntityStorageException.class);
+		this.assertThrowsStorageExceptionDuringConstruction(".fooBar");
+		this.assertThrowsStorageExceptionDuringConstruction(".baar");
+		this.assertThrowsStorageExceptionDuringConstruction(".anotherBar");
 	}
 
 	@Test
@@ -80,6 +80,13 @@ public class StorableEntityFileExtensionTest {
 		Assert.assertThat(name.toString(), IsEqual.equalTo(".bar"));
 	}
 
+	protected void assertThrowsStorageExceptionDuringConstruction(final String fileExtension) {
+		ExceptionAssert.assertThrowsStorageException(
+				v -> this.createEntityFileExtension(fileExtension),
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value()));
+	}
+
 	protected StorableEntityFileExtension getDefaultFileExtension() {
 		return StorableEntityFileExtension.getDefaultFileExtension();
 	}
@@ -90,5 +97,13 @@ public class StorableEntityFileExtensionTest {
 
 	protected StorableEntityFileExtension createEntityFileExtension(final String fileExtension) {
 		return new StorableEntityFileExtension(fileExtension);
+	}
+
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return StorableEntityStorageException.class;
+	}
+
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 }

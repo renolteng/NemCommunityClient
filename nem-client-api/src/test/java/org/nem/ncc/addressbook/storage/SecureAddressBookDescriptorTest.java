@@ -1,7 +1,8 @@
 package org.nem.ncc.addressbook.storage;
 
 import org.mockito.Mockito;
-import org.nem.ncc.addressbook.AddressBookPassword;
+import org.nem.ncc.addressbook.*;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptorTest;
 
 public class SecureAddressBookDescriptorTest extends SecureStorableEntityDescriptorTest {
@@ -16,5 +17,15 @@ public class SecureAddressBookDescriptorTest extends SecureStorableEntityDescrip
 		final AddressBookDescriptor descriptor = this.createDescriptor();
 		context.setDescriptor(descriptor);
 		context.setSecureDescriptor(new SecureAddressBookDescriptor(descriptor, new AddressBookPassword(context.getPassword())));
+	}
+
+	@Override
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return AddressBookStorageException.class;
+	}
+
+	@Override
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue + AddressBookStorageException.OFFSET;
 	}
 }

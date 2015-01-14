@@ -2,6 +2,8 @@ package org.nem.ncc.storable.entity;
 
 import org.nem.ncc.exceptions.*;
 
+import java.util.HashMap;
+
 /**
  * Exception that is used when a storable entity storage operation fails.
  */
@@ -66,8 +68,15 @@ public class StorableEntityStorageException extends NccException {
 		 */
 		STORABLE_ENTITY_FILE_EXTENSION_DOES_NOT_MATCH_ENTITY_FILE_EXTENSION(111);
 
-		private final int value;
+		private static final HashMap<Integer, Code> lookup = new HashMap<>();
 
+		static {
+			for (Code c : Code.values()) {
+				lookup.put(c.value(), c);
+			}
+		}
+
+		private final int value;
 		private Code(final int value) {
 			this.value = value;
 		}
@@ -83,7 +92,7 @@ public class StorableEntityStorageException extends NccException {
 	 *
 	 * @param code The exception code.
 	 */
-	public StorableEntityStorageException(final Code code) {
+	public StorableEntityStorageException(final ValueBasedEnum code) {
 		super(code);
 	}
 
@@ -93,7 +102,26 @@ public class StorableEntityStorageException extends NccException {
 	 * @param code The exception code.
 	 * @param cause The exception cause.
 	 */
-	public StorableEntityStorageException(final Code code, final Throwable cause) {
+	public StorableEntityStorageException(final ValueBasedEnum code, final Throwable cause) {
 		super(code, cause);
+	}
+
+	/**
+	 * Creates a new storable entity storage exception.
+	 *
+	 * @param value The exception code value.
+	 */
+	public StorableEntityStorageException(final int value) {
+		super(Code.lookup.get(value));
+	}
+
+	/**
+	 * Creates a new storable entity storage exception.
+	 *
+	 * @param value The exception code value.
+	 * @param cause The exception cause.
+	 */
+	public StorableEntityStorageException(final int value, final Throwable cause) {
+		super(Code.lookup.get(value), cause);
 	}
 }

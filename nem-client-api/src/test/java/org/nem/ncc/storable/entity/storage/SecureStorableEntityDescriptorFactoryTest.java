@@ -41,9 +41,10 @@ public class SecureStorableEntityDescriptorFactoryTest {
 				null);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptorFactory.createNew(pair, FILE_EXTENSION),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value()));
 	}
 
 	@Test
@@ -55,9 +56,10 @@ public class SecureStorableEntityDescriptorFactoryTest {
 				null);
 
 		// Act:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptorFactory.openExisting(pair, FILE_EXTENSION),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value()));
 	}
 
 	protected SecureStorableEntityDescriptorFactory createFactory(final File file) {
@@ -69,5 +71,13 @@ public class SecureStorableEntityDescriptorFactoryTest {
 				DefaultStorableEntityFileDescriptor::new,
 				DefaultSecureStorableEntityDescriptor::new,
 				DefaultStorableEntityFileDescriptorFactory::new);
+	}
+
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return StorableEntityStorageException.class;
+	}
+
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 }

@@ -1,6 +1,7 @@
 package org.nem.ncc.addressbook.storage;
 
 import org.nem.ncc.addressbook.*;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptor;
 
 /**
@@ -30,5 +31,12 @@ public class SecureAddressBookDescriptor
 	@Override
 	public AddressBookName getAddressBookName() {
 		return super.getDescriptor().getAddressBookName();
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex
+				? new AddressBookStorageException(value + AddressBookStorageException.OFFSET)
+				: new AddressBookStorageException(value + AddressBookStorageException.OFFSET, ex);
 	}
 }

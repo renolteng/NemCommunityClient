@@ -3,6 +3,7 @@ package org.nem.ncc.addressbook.storage;
 import org.nem.core.serialization.ObjectDeserializer;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.function.QuadFunction;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptorFactory;
 
 import java.io.File;
@@ -51,5 +52,10 @@ public class AddressBookFileDescriptorFactory
 							Function<String, AddressBookFileExtension>,
 					AddressBookDescriptor> descriptorActivator) {
 		super(directory, deserializer, nameActivator, fileExtensionActivator, descriptorActivator);
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value) {
+		return new AddressBookStorageException(value + AddressBookStorageException.OFFSET);
 	}
 }

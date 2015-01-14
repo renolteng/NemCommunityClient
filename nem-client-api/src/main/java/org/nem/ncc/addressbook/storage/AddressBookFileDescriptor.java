@@ -2,6 +2,7 @@ package org.nem.ncc.addressbook.storage;
 
 import org.nem.core.serialization.ObjectDeserializer;
 import org.nem.ncc.addressbook.*;
+import org.nem.ncc.storable.entity.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptor;
 
 import java.io.File;
@@ -37,17 +38,15 @@ public class AddressBookFileDescriptor
 		super(file, deserializer, nameActivator, fileExtensionActivator);
 	}
 
-	/**
-	 * Gets the address book location.
-	 *
-	 * @return The address book location.
-	 */
-	public String getAddressBookLocation() {
-		return super.getStorableEntityLocation();
-	}
-
 	@Override
 	public AddressBookName getAddressBookName() {
 		return super.getName();
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex
+				? new AddressBookStorageException(value + AddressBookStorageException.OFFSET)
+				: new AddressBookStorageException(value + AddressBookStorageException.OFFSET, ex);
 	}
 }
