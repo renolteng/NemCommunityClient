@@ -8,6 +8,7 @@ import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
+import org.nem.ncc.controller.viewmodels.PartialSignatureInformationViewModel;
 import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
@@ -78,6 +79,17 @@ public class TransactionMapper {
 				transaction.getFee(),
 				multisigTransaction.getFee(),
 				isEncryptionSupported);
+	}
+
+	public PartialSignatureInformationViewModel toViewModel(final PartialSignatureInformationRequest request) {
+		final Account cosignatory = this.accountLookup.findByAddress(request.getCosignatoryAddress());
+		final MultisigSignatureTransaction transaction = new MultisigSignatureTransaction(
+				TimeInstant.ZERO,
+				cosignatory,
+				HashUtils.nextHash(Hash.ZERO, (new KeyPair()).getPublicKey()));
+		return new PartialSignatureInformationViewModel(
+				transaction.getFee()
+		);
 	}
 
 	/**

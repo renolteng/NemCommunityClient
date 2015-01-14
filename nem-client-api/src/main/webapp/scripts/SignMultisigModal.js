@@ -44,12 +44,12 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         resetFee: function(options) {
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),
-                account: ncc.get('activeAccount.address'),
-                hours_due: this.get('hours_due')
+                cosignatory: ncc.get('activeAccount.address'),
+                multisig: this.get('txData..inner.sender')
             };
             var self = this;
             
-            ncc.postRequest('wallet/account/transaction/validate', requestData, 
+            ncc.postRequest('wallet/account/signature/validate', requestData,
                 function(data) {
                     self.set('minimumFee', data.fee);
                 },
@@ -78,6 +78,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
+                innerHash: this.get('txData.innerHash'),
                 password: this.get('password'),
                 fee: this.get('fee'),
                 hours_due: this.get('hours_due')
