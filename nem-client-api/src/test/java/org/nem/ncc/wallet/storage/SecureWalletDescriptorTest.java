@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet.storage;
 
 import org.mockito.Mockito;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.wallet.WalletPassword;
 

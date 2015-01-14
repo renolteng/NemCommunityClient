@@ -2,6 +2,7 @@ package org.nem.ncc.storable.entity;
 
 import org.hamcrest.core.*;
 import org.junit.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.test.ExceptionAssert;
 
 public class StorableEntityFileExtensionTest {

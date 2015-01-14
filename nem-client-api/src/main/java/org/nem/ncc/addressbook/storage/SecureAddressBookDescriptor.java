@@ -1,7 +1,7 @@
 package org.nem.ncc.addressbook.storage;
 
 import org.nem.ncc.addressbook.*;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptor;
 
 /**

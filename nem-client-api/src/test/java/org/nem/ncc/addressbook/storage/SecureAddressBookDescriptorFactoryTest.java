@@ -1,7 +1,6 @@
 package org.nem.ncc.addressbook.storage;
 
-import org.nem.ncc.addressbook.AddressBookStorageException;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.*;
 
 import java.io.File;

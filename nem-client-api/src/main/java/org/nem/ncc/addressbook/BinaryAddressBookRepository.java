@@ -1,7 +1,8 @@
 package org.nem.ncc.addressbook;
 
-import org.nem.ncc.addressbook.storage.AddressBookDescriptor;
+import org.nem.ncc.addressbook.storage.*;
 import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 
 /**
  * A binary address book repository.

@@ -1,7 +1,7 @@
-package org.nem.ncc.addressbook;
+package org.nem.ncc.addressbook.storage;
 
 import org.nem.ncc.exceptions.*;
-import org.nem.ncc.storable.entity.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 
 import java.util.HashMap;
 
@@ -17,24 +17,9 @@ public class AddressBookStorageException extends StorableEntityStorageException 
 	 */
 	public static enum Code implements ValueBasedEnum {
 		/**
-		 * The specified address book file is actually a directory.
-		 */
-		ADDRESS_BOOK_CANNOT_BE_DIRECTORY(103 + OFFSET),
-
-		/**
-		 * The specified address book file has an invalid extension.
-		 */
-		ADDRESS_BOOK_HAS_INVALID_EXTENSION(103 + OFFSET),
-
-		/**
 		 * The specified address book file does not exist.
 		 */
 		ADDRESS_BOOK_DOES_NOT_EXIST(101 + OFFSET),
-
-		/**
-		 * The address book could not be deleted.
-		 */
-		ADDRESS_BOOK_COULD_NOT_BE_DELETED(103 + OFFSET),
 
 		/**
 		 * The address book could not be saved.
@@ -59,7 +44,22 @@ public class AddressBookStorageException extends StorableEntityStorageException 
 		/**
 		 * The address book creation failed because an address book of the same name already exists.
 		 */
-		ADDRESS_BOOK_ALREADY_EXISTS(109 + OFFSET);
+		ADDRESS_BOOK_ALREADY_EXISTS(109 + OFFSET),
+
+		/**
+		 * The specified address book file is actually a directory.
+		 */
+		ADDRESS_BOOK_CANNOT_BE_DIRECTORY(111 + OFFSET),
+
+		/**
+		 * The specified address book file has an invalid extension.
+		 */
+		ADDRESS_BOOK_HAS_INVALID_EXTENSION(112 + OFFSET),
+
+		/**
+		 * The address book could not be deleted.
+		 */
+		ADDRESS_BOOK_COULD_NOT_BE_DELETED(113 + OFFSET);
 
 		private static final HashMap<Integer, Code> lookup = new HashMap<>();
 
