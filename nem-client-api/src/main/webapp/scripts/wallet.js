@@ -183,11 +183,11 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 }
             },
 
-            ncc.openSignMultisig = function(innerTransactionHash) {
+            ncc.openSignMultisig = function(transaction) {
                 if (ncc.get('nodeBooted')) {
                     var m = ncc.getModal('signMultisig');
                     m.open();
-                    m.set('innerHash', innerTransactionHash);
+                    m.set('txData', transaction);
 
                 } else if (ncc.get('nodeBooting')) {
                     ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));

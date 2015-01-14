@@ -170,7 +170,7 @@
                                     <td class="txList-cell txList-col--amount">
 										{{#if .isMultisig}}
 											{{#if .requiresSignature}}
-											<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.innerHash.data)">{{texts.dashboard.transactions.signMultisig}}</button>
+											<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 											{{else}}
 											see details
 											{{/if}}

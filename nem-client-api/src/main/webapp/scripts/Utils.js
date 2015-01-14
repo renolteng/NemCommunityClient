@@ -616,7 +616,6 @@ define(function() {
                 tx.message = "#cosigs " + tx.signatures.length;
                 tx.recipient = transferTransaction.recipient
 
-                tx.multisigFormattedFrom = Utils.format.address.format(tx.inner.sender);
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
                 tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);

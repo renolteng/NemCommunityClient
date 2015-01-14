@@ -63,6 +63,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             return true;
         },
         resetDefaultData: function() {
+            this.set('sender', Utils.format.address.format(ncc.get('activeAccount.address')));
             this.set('fee', 0);
             this.set('minimumFee', 0);
             this.set('dueBy', '12');
@@ -92,7 +93,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var self = this;
 
             this.resetDefaultData();
-            
+
             this.observe({
                 useMinimumFee: function(useMinimumFee) {
                     if (useMinimumFee) {
