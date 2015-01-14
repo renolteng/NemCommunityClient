@@ -607,7 +607,7 @@ define(function() {
         // PROCESSING
         processTransaction: function(tx) {
             var transferTransaction = tx;
-            if (tx.inner != null) {
+            if (tx.type == 4) {
                 tx.isMultisig = true;
                 tx.isIncoming = false;
                 tx.isOutgoing = true;
@@ -615,8 +615,17 @@ define(function() {
                 transferTransaction = tx.inner;
                 tx.message = "#cosigs " + tx.signatures.length;
                 tx.recipient = transferTransaction.recipient
+
+                tx.multisigFormattedFrom = Utils.format.address.format(tx.inner.sender);
+                tx.multisig={};
+                tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
+                tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
+                tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
+                tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
             }
-            else
+            else if (tx.type == 1)
             {
                 tx.isMultisig = false;
                 tx.isIncoming = tx.direction === 1 || tx.direction === 0;
