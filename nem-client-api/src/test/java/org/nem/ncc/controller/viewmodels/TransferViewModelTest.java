@@ -48,7 +48,7 @@ public class TransferViewModelTest {
 		Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(transactionHash));
 		Assert.assertThat(viewModel.getSender(), IsEqual.equalTo(sender.getAddress()));
 		Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(3)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(3 + 10)));
 		Assert.assertThat(viewModel.getRecipient(), IsEqual.equalTo(recipient.getAddress()));
 		Assert.assertThat(viewModel.getAmount(), IsEqual.equalTo(Amount.fromNem(576)));
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -84,7 +84,7 @@ public class TransferViewModelTest {
 		Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(transactionHash));
 		Assert.assertThat(viewModel.getSender(), IsEqual.equalTo(sender.getAddress()));
 		Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(3)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(3 + 10)));
 		Assert.assertThat(viewModel.getRecipient(), IsEqual.equalTo(recipient.getAddress()));
 		Assert.assertThat(viewModel.getAmount(), IsEqual.equalTo(Amount.fromNem(576)));
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -123,7 +123,7 @@ public class TransferViewModelTest {
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(sender.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(3000000L));
+		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(3000000L + 10000000L));
 		Assert.assertThat(jsonObject.get("recipient"), IsEqual.equalTo(recipient.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("amount"), IsEqual.equalTo(576000000L));
 		Assert.assertThat(jsonObject.get("message"), IsEqual.equalTo("hello world"));
@@ -161,7 +161,7 @@ public class TransferViewModelTest {
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(sender.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(3000000L));
+		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(3000000L + 10000000L));
 		Assert.assertThat(jsonObject.get("recipient"), IsEqual.equalTo(recipient.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("amount"), IsEqual.equalTo(576000000L));
 		Assert.assertThat(jsonObject.get("message"), IsEqual.equalTo("hello world"));
