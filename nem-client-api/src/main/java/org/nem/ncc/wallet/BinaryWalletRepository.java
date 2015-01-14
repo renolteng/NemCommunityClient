@@ -1,7 +1,8 @@
 package org.nem.ncc.wallet;
 
-import org.nem.ncc.storable.entity.BinaryStorableEntityRepository;
-import org.nem.ncc.wallet.storage.WalletDescriptor;
+import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
+import org.nem.ncc.wallet.storage.*;
 
 /**
  * A binary wallet repository.
@@ -9,4 +10,9 @@ import org.nem.ncc.wallet.storage.WalletDescriptor;
 public class BinaryWalletRepository
 		extends BinaryStorableEntityRepository<StorableWallet, WalletName, WalletFileExtension, WalletDescriptor>
 		implements WalletRepository {
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return new WalletStorageException(value, ex);
+	}
 }

@@ -3,7 +3,7 @@ package org.nem.ncc.storable.entity;
 import org.apache.commons.io.IOUtils;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
-import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
+import org.nem.ncc.storable.entity.storage.*;
 
 import java.io.*;
 
@@ -23,7 +23,7 @@ public class BinaryStorableEntityRepository<
 			try (final OutputStream os = descriptor.openWrite()) {
 				os.write(BinarySerializer.serializeToBytes(storableEntity));
 			}
-		}, ex -> new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED, ex));
+		}, ex -> this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED.value(), ex));
 	}
 
 	@Override
@@ -35,7 +35,11 @@ public class BinaryStorableEntityRepository<
 				return deserializer.deserialize(new BinaryDeserializer(bytes, new DeserializationContext(null)));
 			}
 		} catch (final SerializationException | IOException ex) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ, ex);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value(), ex);
 		}
+	}
+
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return new StorableEntityStorageException(value, ex);
 	}
 }

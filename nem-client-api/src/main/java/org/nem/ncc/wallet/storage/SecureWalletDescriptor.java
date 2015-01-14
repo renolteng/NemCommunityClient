@@ -1,5 +1,6 @@
 package org.nem.ncc.wallet.storage;
 
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptor;
 import org.nem.ncc.wallet.*;
 
@@ -30,5 +31,10 @@ public class SecureWalletDescriptor
 	@Override
 	public WalletName getWalletName() {
 		return super.getDescriptor().getWalletName();
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex ? new WalletStorageException(value) : new WalletStorageException(value, ex);
 	}
 }

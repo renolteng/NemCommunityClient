@@ -40,7 +40,7 @@ public class StorableEntityFileDescriptor<
 		this.file = file;
 		this.deserializer = deserializer;
 		if (file.isDirectory()) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY.value(), null);
 		}
 
 		final String fileName = this.file.getName();
@@ -78,12 +78,12 @@ public class StorableEntityFileDescriptor<
 	public InputStream openRead() {
 		LOGGER.info(String.format("Opening storable entity for reading located at <%s>", this.getStorableEntityLocation()));
 		if (!this.file.exists()) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST.value(), null);
 		}
 
 		return ExceptionUtils.propagate(
 				() -> new FileInputStream(this.getStorableEntityLocation()),
-				ex -> new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ, ex));
+				ex -> this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value(), ex));
 	}
 
 	@Override
@@ -91,14 +91,14 @@ public class StorableEntityFileDescriptor<
 		LOGGER.info(String.format("Opening storable entity for writing located at <%s>", this.getStorableEntityLocation()));
 		return ExceptionUtils.propagate(
 				() -> new FileOutputStream(this.getStorableEntityLocation()),
-				ex -> new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED, ex));
+				ex -> this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED.value(), ex));
 	}
 
 	@Override
 	public void delete() {
 		LOGGER.info(String.format("Deleting storable entity <%s> located at <%s>.", this.name, this.getStorableEntityLocation()));
 		if (!this.file.delete()) {
-			throw new StorableEntityStorageException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_DELETED);
+			throw this.getException(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_DELETED.value(), null);
 		}
 	}
 
@@ -106,5 +106,9 @@ public class StorableEntityFileDescriptor<
 	public void serialize(final Serializer serializer) {
 		StorableEntityName.writeTo(serializer, this.name.getLabel(), this.name);
 		serializer.writeString("location", this.getStorableEntityLocation());
+	}
+
+	protected StorableEntityStorageException getException(final int value, final Exception ex) {
+		return null == ex ? new StorableEntityStorageException(value) : new StorableEntityStorageException(value, ex);
 	}
 }

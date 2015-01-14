@@ -4,7 +4,7 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.BinarySerializer;
-import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
+import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.test.*;
 import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
@@ -35,9 +35,10 @@ public class BinaryStorableEntityRepositoryTest {
 		Mockito.when(descriptor.openWrite()).thenReturn(CorruptStreams.createWrite());
 
 		// Assert:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> this.createRepository().save(descriptor, entity),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_SAVED.value()));
 	}
 
 	@Test
@@ -65,9 +66,10 @@ public class BinaryStorableEntityRepositoryTest {
 		Mockito.when(descriptor.openRead()).thenReturn(CorruptStreams.createRead());
 
 		// Assert:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> this.createRepository().load(descriptor),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value()));
 	}
 
 	@Test
@@ -80,9 +82,10 @@ public class BinaryStorableEntityRepositoryTest {
 		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
 		// Assert:
-		ExceptionAssert.assertThrowsStorableEntityStorageException(
+		ExceptionAssert.assertThrowsStorageException(
 				v -> this.createRepository().load(descriptor),
-				StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ);
+				this.getExceptionClass(),
+				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value()));
 	}
 
 	@Test
@@ -111,5 +114,13 @@ public class BinaryStorableEntityRepositoryTest {
 
 	protected BinaryStorableEntityRepository createRepository() {
 		return new BinaryStorableEntityRepository();
+	}
+
+	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
+		return StorableEntityStorageException.class;
+	}
+
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 }

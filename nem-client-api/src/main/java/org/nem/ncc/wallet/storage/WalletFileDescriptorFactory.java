@@ -2,6 +2,7 @@ package org.nem.ncc.wallet.storage;
 
 import org.nem.core.serialization.ObjectDeserializer;
 import org.nem.ncc.function.QuadFunction;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptorFactory;
 import org.nem.ncc.wallet.*;
 
@@ -51,5 +52,10 @@ public class WalletFileDescriptorFactory
 								Function<String, WalletFileExtension>,
 								WalletDescriptor> descriptorActivator) {
 		super(directory, deserializer, nameActivator, fileExtensionActivator, descriptorActivator);
+	}
+
+	@Override
+	protected StorableEntityStorageException getException(final int value) {
+		return new WalletStorageException(value);
 	}
 }
