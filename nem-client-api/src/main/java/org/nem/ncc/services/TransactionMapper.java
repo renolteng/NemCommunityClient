@@ -48,6 +48,11 @@ public class TransactionMapper {
 		return transaction;
 	}
 
+	public Transaction toModel(final MultisigSignatureRequest request) {
+		final Transaction transaction = this.toModel(request, request.getPassword());
+		return transaction;
+	}
+
 	/**
 	 * Converts the specified request to a view model.
 	 * TODO 20141025 J-J: not sure if this makes sense in this class
@@ -149,6 +154,19 @@ public class TransactionMapper {
 			transaction.setFee(request.getFee());
 			return transaction;
 		}
+	}
+
+	private Transaction toModel(final MultisigSignatureRequest request, final WalletPassword password) {
+		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
+		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
+
+		final MultisigSignatureTransaction multisigTransaction = new MultisigSignatureTransaction(
+				timeStamp,
+				signer,
+				request.getInnerTransactionHash());
+		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+		multisigTransaction.setFee(request.getFee());
+		return multisigTransaction;
 	}
 
 	private Account getSenderAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {

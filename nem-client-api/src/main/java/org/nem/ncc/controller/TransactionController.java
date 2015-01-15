@@ -49,6 +49,18 @@ public class TransactionController {
 	}
 
 	/**
+	 * Sends a new multisig signature
+	 *
+	 * @param multisigSignatureRequest The multisig signature transaction information.
+	 */
+	@RequestMapping(value = "/wallet/account/signature/send", method = RequestMethod.POST)
+	public void sendTransaction(@RequestBody final MultisigSignatureRequest multisigSignatureRequest) {
+		final Transaction transaction = this.transactionMapper.toModel(multisigSignatureRequest);
+		this.announceTransaction(transaction);
+	}
+
+
+	/**
 	 * Requests inspecting the transaction for validation purposes. The returned result will include:
 	 * - The minimum fee for sending the transaction.
 	 * - A value indicating whether or not the recipient can receive encrypted messages.

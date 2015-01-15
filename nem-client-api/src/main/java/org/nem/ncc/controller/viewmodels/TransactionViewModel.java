@@ -62,7 +62,8 @@ public class TransactionViewModel implements SerializableEntity {
 		final Transaction transaction = metaDataPair.getTransaction();
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
 				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
-				TransactionTypes.MULTISIG != transaction.getType()) {
+				TransactionTypes.MULTISIG != transaction.getType() &&
+				TransactionTypes.MULTISIG_SIGNATURE != transaction.getType()) {
 			throw new IllegalArgumentException("TransferViewModel can only be created around TRANSFER or IMPORTANCE_TRANSFER");
 		}
 

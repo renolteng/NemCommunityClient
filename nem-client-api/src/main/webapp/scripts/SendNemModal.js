@@ -126,6 +126,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 var requestData = {
                     wallet: ncc.get('wallet.wallet'),
                     account: ncc.get('activeAccount.address'),
+                    type: 1, // transfer
                     password: this.get('password'),
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
@@ -139,6 +140,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     wallet: ncc.get('wallet.wallet'),
                     multisigAccount: this.get('sender'),
                     account: ncc.get('activeAccount.address'),
+                    type: 4, // multisig transfer
                     password: this.get('password'),
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),

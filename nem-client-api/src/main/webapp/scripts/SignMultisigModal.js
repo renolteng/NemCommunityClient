@@ -7,7 +7,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             dueBy: 12
         },
         computed: {
-            hours_due: function() {
+            hoursDue: function() {
                 return this.get('dueBy') | 0;
             },
             fee: {
@@ -78,13 +78,14 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
+                type: 5, // multisig signature
                 innerHash: this.get('txData.innerHash'),
                 password: this.get('password'),
                 fee: this.get('fee'),
-                hours_due: this.get('hours_due')
+                hours_due: this.get('hoursDue')
             };
 
-            var txConfirm = ncc.getModal('transactionConfirm');
+            var txConfirm = ncc.getModal('signatureConfirm');
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
             txConfirm.open();
