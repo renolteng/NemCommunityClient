@@ -157,7 +157,7 @@ define(function(require) {
                 return this.get('nisStatus.code') === Utils.config.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             },
             lcwNameValid: function() {
-                return !!this.get('landingPage.createWalletForm.name');
+                return !!this.get('landingPage.createWalletForm.wallet');
             },
             lcwPasswordValid: function() {
                 return !!this.get('landingPage.createWalletForm.password');
