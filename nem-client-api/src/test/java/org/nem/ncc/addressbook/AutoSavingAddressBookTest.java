@@ -126,6 +126,6 @@ public class AutoSavingAddressBookTest extends AddressBookTest {
 		final StorableAddressBook wrappedAddressBook = new MemoryAddressBook(new AddressBookName("blah"));
 		final AddressBookDescriptor descriptor = Mockito.mock(AddressBookDescriptor.class);
 		final AddressBookRepository repository = Mockito.mock(AddressBookRepository.class);
-		final AutoSavingAddressBook addressBook = new AutoSavingAddressBook(wrappedAddressBook, descriptor, repository);
+		final AutoSavingAddressBook addressBook = new AutoSavingAddressBook(this.wrappedAddressBook, this.descriptor, this.repository);
 	}
 }

@@ -91,31 +91,31 @@ public class StorableEntityFileLocatorTest {
 	@Test
 	public void filesWithMatchingExtensionInSearchDirectoryAreDetected() {
 		// Assert:
-		assertLocatedStorableEntityNames(TEST_FILE_SUB_DIRECTORY, new String[] { "sub", "sigma" });
+		this.assertLocatedStorableEntityNames(TEST_FILE_SUB_DIRECTORY, new String[] { "sub", "sigma" });
 	}
 
 	@Test
 	public void searchDirectoryIsNotSearchedRecursively() {
 		// Assert: no wallet names from any subdirectory are surfaced
-		assertLocatedStorableEntityNames(TEST_FILE_DIRECTORY, new String[] { "alpha", "sigma", "zeta" });
+		this.assertLocatedStorableEntityNames(TEST_FILE_DIRECTORY, new String[] { "alpha", "sigma", "zeta" });
 	}
 
 	@Test
 	public void filesWithMatchingExtensionOfAnyCasingInSearchDirectoryAreDetected() {
 		// Assert:
-		assertLocatedStorableEntityNames(TEST_FILE_MC_DIRECTORY, new String[] { "upper", "lower", "mixed" });
+		this.assertLocatedStorableEntityNames(TEST_FILE_MC_DIRECTORY, new String[] { "upper", "lower", "mixed" });
 	}
 
 	@Test
 	public void namelessStorableEntityFilesAreNotDetected() {
 		// Assert:
-		assertLocatedStorableEntityNames(TEST_FILE_NN_DIRECTORY, new String[] { "name", "n" });
+		this.assertLocatedStorableEntityNames(TEST_FILE_NN_DIRECTORY, new String[] { "name", "n" });
 	}
 
 	@Test
 	public void walletFilesWithMultipleExtensionsAreDetected() {
 		// Assert:
-		assertLocatedStorableEntityNames(TEST_FILE_ME_DIRECTORY, new String[] { "tw.tmp" });
+		this.assertLocatedStorableEntityNames(TEST_FILE_ME_DIRECTORY, new String[] { "tw.tmp" });
 	}
 
 	private void assertLocatedStorableEntityNames(final File directory, final String[] expectedNames) {

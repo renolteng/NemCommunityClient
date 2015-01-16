@@ -86,7 +86,7 @@ public class WalletController {
 		if (!file.exists()) {
 			final AddressBookNamePasswordPair pair2 = new AddressBookNamePasswordPair(pair.getName().toString(), pair.getPassword().toString());
 			// this really is an AutoSavingAddressBook
-			final AddressBook addressBook = addressBookServices.create(pair2);
+			final AddressBook addressBook = this.addressBookServices.create(pair2);
 			this.configuration.getAccountLabels().forEach(addressBook::addLabel);
 		}
 	}

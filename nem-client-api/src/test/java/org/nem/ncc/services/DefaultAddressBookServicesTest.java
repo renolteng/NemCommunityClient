@@ -351,7 +351,7 @@ public class DefaultAddressBookServicesTest {
 	//endregion
 
 	private List<AccountLabel> createAccountLabels(final int count) {
-		List<AccountLabel> accountLabels = new ArrayList<>();
+		final List<AccountLabel> accountLabels = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			accountLabels.add(new AccountLabel(
 					Utils.generateRandomAddress(),

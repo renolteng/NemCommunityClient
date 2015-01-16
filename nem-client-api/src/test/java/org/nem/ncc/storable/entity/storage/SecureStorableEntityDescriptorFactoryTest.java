@@ -12,7 +12,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	protected static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	protected final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+	protected static final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
 
 	//region BeforeClass / AfterClass
 

@@ -89,16 +89,16 @@ public class SecureStorableEntityDescriptorFactory<
 
 	@Override
 	public TSecureDescriptor createNew(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
-		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().createNew(pair, fileExtension), pair.getPassword());
+		return this.secureDescriptorActivator.apply(this.getFileDescriptorFactory().createNew(pair, fileExtension), pair.getPassword());
 	}
 
 	@Override
 	public TSecureDescriptor openExisting(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
-		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().openExisting(pair, fileExtension), pair.getPassword());
+		return this.secureDescriptorActivator.apply(this.getFileDescriptorFactory().openExisting(pair, fileExtension), pair.getPassword());
 	}
 
 	private TEntityDescriptorFactory getFileDescriptorFactory() {
-		return descriptorFactoryActivator.apply(
+		return this.descriptorFactoryActivator.apply(
 				this.directory,
 				this.deserializer,
 				this.nameActivator,

@@ -276,7 +276,7 @@ public abstract class AddressBookTest {
 
 	//endregion
 
-	protected List<AccountLabel> getAccountLabels(final JSONArray array) {
+	protected static List<AccountLabel> getAccountLabels(final JSONArray array) {
 		return array.stream()
 				.map(o -> {
 					final JSONObject object = (JSONObject)o;
@@ -289,7 +289,7 @@ public abstract class AddressBookTest {
 	}
 
 	protected List<AccountLabel> createAccountLabels(final int count) {
-		List<AccountLabel> accountLabels = new ArrayList<>();
+		final List<AccountLabel> accountLabels = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			accountLabels.add(new AccountLabel(
 					Utils.generateRandomAddress(),
