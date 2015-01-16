@@ -172,6 +172,7 @@ public class NccAppConfig {
 	public AccountsFileRepository accountsFileRepository() {
 		// TODO 20150112 BR -> J: this is a hack. I can't use getNemFolder() because then i have the infinite loop:
 		// > nccMain() -> nccScheduler() -> accountCache() -> accountsFileRepository() -> getNemFolder() -> configuration() -> NccMain()
+		// TODO 20150115 J-B: can we somehow break the circular dependency?
 		final String nccFolder = Paths.get(this.nccConfiguration().getNemFolder(), "ncc").toString();
 		final File file = new File(nccFolder, "accounts_cache.json");
 		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(file);

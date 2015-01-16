@@ -58,8 +58,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private FreshnessPair createFreshnessPairFromSeedAccount(final AccountInfo info) {
-		// TODO 20150112 BR -> J: you had initially null as timestamp probably so every account would be updated the first
-		// > time it was searched for. Since I changed to poll expired accounts on a regular interval it should be ok to use current time stamp.
+		// accounts are polled on a regular interval, so it should be ok to use current time stamp
 		return new FreshnessPair(
 				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE, Arrays.asList())),
 				this.timeProvider.getCurrentTime());
@@ -105,6 +104,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		}
 	}
 
+	// TODO 20150115 J-B: i'm pretty sure this isn't doing what you expect it to do (it looks synchronous)
 	/**
 	 * Updates all expired accounts. This method is called by a timer.
 	 */

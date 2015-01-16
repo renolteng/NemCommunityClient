@@ -7,6 +7,7 @@ import java.util.*;
 
 /**
  * A NIS-originating exception.
+ * TODO 20150115 J-G: we need to map NIS -> NCC code more automatically :)
  */
 public class NisException extends NccException {
 	/**
@@ -30,6 +31,7 @@ public class NisException extends NccException {
 
 		/**
 		 * Maximum number of allowed harevsters was reached.
+		 * TODO 20150115 J-G: HARVESTING limit?
 		 */
 		FORAGING_LIMIT_HIT(699),
 

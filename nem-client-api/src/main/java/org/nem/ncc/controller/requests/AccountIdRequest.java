@@ -3,6 +3,9 @@ package org.nem.ncc.controller.requests;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 
+// TODO 20150115 J-B: maybe we should share the NIS one (in org.nem.nis.controller.requests)
+// TODO 20150115 J-B: why does this need to be serializable?
+
 /**
  * A request representing an account identifier.
  */

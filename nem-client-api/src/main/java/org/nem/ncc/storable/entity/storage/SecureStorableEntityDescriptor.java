@@ -13,6 +13,8 @@ import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 
+// TODO 20150115 J-B: i think it makes sense for these to be abstract?
+
 /**
  * StorableEntityDescriptor that automatically encrypts and decrypts data using a password.
  */
