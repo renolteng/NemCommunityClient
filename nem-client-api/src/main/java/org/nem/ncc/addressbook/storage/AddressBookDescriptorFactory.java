@@ -17,7 +17,7 @@ public interface AddressBookDescriptorFactory {
 	public AddressBookDescriptor createNew(final AddressBookNamePasswordPair pair, final AddressBookFileExtension fileExtension);
 
 	/**
-	 * Opens an address book descriptor corresponding to en existing address book.
+	 * Opens an address book descriptor corresponding to an existing address book.
 	 *
 	 * @param pair The address book name and password.
 	 * @param fileExtension The address book file extension.

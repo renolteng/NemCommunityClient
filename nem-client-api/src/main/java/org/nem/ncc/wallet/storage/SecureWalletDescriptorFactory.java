@@ -10,14 +10,14 @@ import java.io.File;
  */
 public class SecureWalletDescriptorFactory
 		extends SecureStorableEntityDescriptorFactory<
-				StorableWallet,
-				WalletName,
-				WalletPassword,
-				WalletNamePasswordPair,
-				WalletFileExtension,
-				WalletDescriptor,
-				WalletFileDescriptorFactory,
-				SecureWalletDescriptor>
+		StorableWallet,
+		WalletName,
+		WalletPassword,
+		WalletNamePasswordPair,
+		WalletFileExtension,
+		WalletDescriptor,
+		WalletFileDescriptorFactory,
+		SecureWalletDescriptor>
 		implements WalletDescriptorFactory {
 
 	/**

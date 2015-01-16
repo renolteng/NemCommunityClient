@@ -42,7 +42,7 @@ public class DefaultStorableEntity implements StorableEntity, ObjectDeserializer
 	}
 
 	public void addEntries(final int count) {
-		for (int i=1; i<= count; i++) {
+		for (int i = 1; i <= count; i++) {
 			this.heights.add(new BlockHeight(i));
 		}
 	}

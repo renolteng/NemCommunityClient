@@ -36,7 +36,7 @@ public class AddressBookFileExtension extends StorableEntityFileExtension<Addres
 	}
 
 	/**
-	 * Gets a value indicating whether the supplies file name is valid and has the default extension.
+	 * Gets a value indicating whether the supplied file name is valid and has the default extension.
 	 *
 	 * @param fileName The file name.
 	 * @return true if the file name is valid and has the default extension, false otherwise.

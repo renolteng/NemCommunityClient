@@ -3,7 +3,7 @@ package org.nem.ncc.controller.viewmodels;
 import org.nem.core.serialization.*;
 import org.nem.ncc.addressbook.*;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  * A view model representing an address book.

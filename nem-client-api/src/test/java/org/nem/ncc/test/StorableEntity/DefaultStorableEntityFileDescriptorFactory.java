@@ -10,12 +10,12 @@ import java.util.function.Function;
 
 public class DefaultStorableEntityFileDescriptorFactory
 		extends StorableEntityFileDescriptorFactory<
-				DefaultStorableEntity,
+		DefaultStorableEntity,
 		StorableEntityName,
-				StorableEntityPassword,
+		StorableEntityPassword,
 		StorableEntityFileExtension,
-				DefaultStorableEntityNamePasswordPair,
-				DefaultStorableEntityFileDescriptor> {
+		DefaultStorableEntityNamePasswordPair,
+		DefaultStorableEntityFileDescriptor> {
 
 	public DefaultStorableEntityFileDescriptorFactory(
 			final File directory,
@@ -23,11 +23,11 @@ public class DefaultStorableEntityFileDescriptorFactory
 			final Function<String, StorableEntityName> nameActivator,
 			final Function<String, StorableEntityFileExtension> fileExtensionActivator,
 			final QuadFunction<
-								File,
-								ObjectDeserializer<DefaultStorableEntity>,
-								Function<String, StorableEntityName>,
-								Function<String, StorableEntityFileExtension>,
-								DefaultStorableEntityFileDescriptor> descriptorActivator) {
+					File,
+					ObjectDeserializer<DefaultStorableEntity>,
+					Function<String, StorableEntityName>,
+					Function<String, StorableEntityFileExtension>,
+					DefaultStorableEntityFileDescriptor> descriptorActivator) {
 		super(
 				directory,
 				deserializer,

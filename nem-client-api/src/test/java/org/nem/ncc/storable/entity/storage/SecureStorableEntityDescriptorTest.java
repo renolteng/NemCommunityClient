@@ -20,9 +20,8 @@ public class SecureStorableEntityDescriptorTest {
 	public void readStreamCanDecryptEncryptedPayloadWithCorrectPassword() throws IOException {
 		// Arrange:
 		final TestContext context = new TestContext("pwd");
-		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload("pwd"));
+		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(this.createEncryptedPayload("pwd"));
 		context.mockRead(memoryStream);
-
 
 		// Act:
 		final byte[] bytes = IOUtils.toByteArray(context.secureDescriptor.openRead());
@@ -35,7 +34,7 @@ public class SecureStorableEntityDescriptorTest {
 	public void readStreamCannotDecryptEncryptedPayloadWithIncorrectPassword() throws IOException {
 		// Arrange:
 		final TestContext context = new TestContext("pwd2");
-		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(createEncryptedPayload("pwd"));
+		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(this.createEncryptedPayload("pwd"));
 		context.mockRead(memoryStream);
 
 		// Act:
@@ -156,7 +155,7 @@ public class SecureStorableEntityDescriptorTest {
 
 		protected TestContext(final String password) {
 			this.password = password;
-			createSecureDescriptor(this);
+			SecureStorableEntityDescriptorTest.this.createSecureDescriptor(this);
 		}
 
 		public void setDescriptor(final StorableEntityDescriptor descriptor) {
@@ -172,11 +171,11 @@ public class SecureStorableEntityDescriptorTest {
 		}
 
 		protected void mockRead(final InputStream stream) {
-			Mockito.when(descriptor.openRead()).thenReturn(stream);
+			Mockito.when(this.descriptor.openRead()).thenReturn(stream);
 		}
 
 		protected void mockWrite(final OutputStream stream) {
-			Mockito.when(descriptor.openWrite()).thenReturn(stream);
+			Mockito.when(this.descriptor.openWrite()).thenReturn(stream);
 		}
 	}
 }

@@ -5,7 +5,6 @@ import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
 public class StorableEntityUtils {
 
-
 	/**
 	 * Creates a storable entity.
 	 *

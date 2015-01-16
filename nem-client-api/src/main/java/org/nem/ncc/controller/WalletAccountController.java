@@ -1,9 +1,9 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.model.Address;
+import org.nem.ncc.addressbook.AccountLabels;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.addressbook.AccountLabels;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +90,8 @@ public class WalletAccountController {
 		wallet.removeAccount(bag.getAccountAddress());
 		return this.walletMapper.toViewModel(wallet);
 	}
+
+	// TODO 2015 J-B: does it make sense to store wallet account labels in the address book (not sure just a question)?
 
 	/**
 	 * Updates the label of an existing account.

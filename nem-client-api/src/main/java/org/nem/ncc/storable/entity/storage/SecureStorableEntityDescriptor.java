@@ -21,7 +21,7 @@ public class SecureStorableEntityDescriptor<
 		TEntityName extends StorableEntityName,
 		TEntityFileExtension extends StorableEntityFileExtension,
 		TEntityPassword extends StorableEntityPassword,
-		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName,TEntityFileExtension>>
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension>>
 		implements StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension> {
 	private static final int BLOCK_SIZE = 16;
 
@@ -63,6 +63,9 @@ public class SecureStorableEntityDescriptor<
 	public TEntityFileExtension getFileExtension() {
 		return this.descriptor.getFileExtension();
 	}
+
+	// TODO 20150115 J-B: why do you need to expose the deserializer?
+	// > applies to all occurrences of getDeserializer in an interface
 
 	@Override
 	public ObjectDeserializer<TEntity> getDeserializer() {

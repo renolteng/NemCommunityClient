@@ -107,7 +107,7 @@ public abstract class AddressBookTest {
 	//region size
 
 	@Test
-	public void SizeReturnsAddressBookSize() {
+	public void sizeReturnsAddressBookSize() {
 		// Arrange:
 		final List<AccountLabel> accountLabels = this.createAccountLabels(13);
 		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"), accountLabels);
@@ -276,7 +276,7 @@ public abstract class AddressBookTest {
 
 	//endregion
 
-	protected List<AccountLabel> getAccountLabels(final JSONArray array) {
+	protected static List<AccountLabel> getAccountLabels(final JSONArray array) {
 		return array.stream()
 				.map(o -> {
 					final JSONObject object = (JSONObject)o;
@@ -289,7 +289,7 @@ public abstract class AddressBookTest {
 	}
 
 	protected List<AccountLabel> createAccountLabels(final int count) {
-		List<AccountLabel> accountLabels = new ArrayList<>();
+		final List<AccountLabel> accountLabels = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			accountLabels.add(new AccountLabel(
 					Utils.generateRandomAddress(),

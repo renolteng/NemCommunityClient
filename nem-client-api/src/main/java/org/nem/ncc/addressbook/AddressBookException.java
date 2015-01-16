@@ -16,7 +16,7 @@ public class AddressBookException extends NccException {
 		ADDRESS_BOOK_ALREADY_CONTAINS_ADDRESS(130),
 
 		/**
-		 * An address can not be added to the address book multiple times.
+		 * A requested address is not stored in the address book.
 		 */
 		ADDRESS_NOT_IN_ADDRESS_BOOK(127);
 

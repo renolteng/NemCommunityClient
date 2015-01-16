@@ -86,7 +86,7 @@ public class StorableEntityFileExtension<TDerived extends StorableEntityFileExte
 
 	@Override
 	public boolean equals(final Object obj) {
-		final Class clazz = null == this.derivedClass? StorableEntityFileExtension.class : this.derivedClass;
+		final Class clazz = null == this.derivedClass ? StorableEntityFileExtension.class : this.derivedClass;
 		if (!clazz.isInstance(obj)) {
 			return false;
 		}

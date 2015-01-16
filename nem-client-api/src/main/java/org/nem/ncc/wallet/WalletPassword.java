@@ -1,6 +1,6 @@
 package org.nem.ncc.wallet;
 
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.storable.entity.StorableEntityPassword;
 
 /**
@@ -17,6 +17,11 @@ public class WalletPassword extends StorableEntityPassword<WalletPassword> {
 		super(password, WalletPassword.class);
 	}
 
+	/**
+	 * Deserializes a wallet password.
+	 *
+	 * @param deserializer The deserializer.
+	 */
 	public WalletPassword(final Deserializer deserializer) {
 		super(deserializer, "password", WalletPassword.class);
 	}

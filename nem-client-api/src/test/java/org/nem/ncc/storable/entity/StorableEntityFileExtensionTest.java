@@ -28,7 +28,7 @@ public class StorableEntityFileExtensionTest {
 	@Test
 	public void fileExtensionCannotBeCreatedAroundWhitespaceString() {
 		// Assert:
-		this.assertThrowsStorageExceptionDuringConstruction((String)null);
+		this.assertThrowsStorageExceptionDuringConstruction(null);
 		this.assertThrowsStorageExceptionDuringConstruction("");
 		this.assertThrowsStorageExceptionDuringConstruction("  \t\t ");
 	}

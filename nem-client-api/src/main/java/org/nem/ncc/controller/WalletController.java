@@ -29,7 +29,7 @@ public class WalletController {
 	 *
 	 * @param walletServices The wallet services.
 	 * @param walletMapper The wallet mapper.
-	// TODO 20150108 BR: the two additional arguments are temporary and only used for migration.
+	 * // TODO 20150108 BR: the two additional arguments are temporary and only used for migration.
 	 */
 	@Autowired(required = true)
 	public WalletController(
@@ -86,7 +86,7 @@ public class WalletController {
 		if (!file.exists()) {
 			final AddressBookNamePasswordPair pair2 = new AddressBookNamePasswordPair(pair.getName().toString(), pair.getPassword().toString());
 			// this really is an AutoSavingAddressBook
-			final AddressBook addressBook = addressBookServices.create(pair2);
+			final AddressBook addressBook = this.addressBookServices.create(pair2);
 			this.configuration.getAccountLabels().forEach(addressBook::addLabel);
 		}
 	}

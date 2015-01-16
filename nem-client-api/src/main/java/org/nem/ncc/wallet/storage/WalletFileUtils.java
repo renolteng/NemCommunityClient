@@ -8,6 +8,7 @@ import org.nem.ncc.wallet.WalletName;
  */
 public class WalletFileUtils {
 	private static final String WALLET_EXTENSION = ".wlt";
+
 	/**
 	 * Gets the file name corresponding to a wallet name.
 	 *

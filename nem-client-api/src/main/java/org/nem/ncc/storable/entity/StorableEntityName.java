@@ -90,7 +90,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 
 	@Override
 	public boolean equals(final Object obj) {
-		final Class clazz = null == this.derivedClass? StorableEntityName.class : this.derivedClass;
+		final Class clazz = null == this.derivedClass ? StorableEntityName.class : this.derivedClass;
 		if (!clazz.isInstance(obj)) {
 			return false;
 		}

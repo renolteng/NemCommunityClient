@@ -25,23 +25,23 @@ public class SecureStorableEntityDescriptorFactory<
 	private final Function<String, TEntityName> nameActivator;
 	private final Function<String, TEntityFileExtension> fileExtensionActivator;
 	private final QuadFunction<
-				File,
-				ObjectDeserializer<TEntity>,
-				Function<String, TEntityName>,
-				Function<String, TEntityFileExtension>,
-				TEntityDescriptor> descriptorActivator;
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			TEntityDescriptor> descriptorActivator;
 	private final PentaFunction<
-				File,
-				ObjectDeserializer<TEntity>,
-				Function<String, TEntityName>,
-				Function<String, TEntityFileExtension>,
-				QuadFunction<
-						File,
-						ObjectDeserializer<TEntity>,
-						Function<String, TEntityName>,
-						Function<String, TEntityFileExtension>,
-						TEntityDescriptor>,
-				TEntityDescriptorFactory> descriptorFactoryActivator;
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			QuadFunction<
+					File,
+					ObjectDeserializer<TEntity>,
+					Function<String, TEntityName>,
+					Function<String, TEntityFileExtension>,
+					TEntityDescriptor>,
+			TEntityDescriptorFactory> descriptorFactoryActivator;
 	private final BiFunction<TEntityDescriptor, TEntityPassword, TSecureDescriptor> secureDescriptorActivator;
 
 	/**
@@ -89,16 +89,16 @@ public class SecureStorableEntityDescriptorFactory<
 
 	@Override
 	public TSecureDescriptor createNew(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
-		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().createNew(pair, fileExtension), pair.getPassword());
+		return this.secureDescriptorActivator.apply(this.getFileDescriptorFactory().createNew(pair, fileExtension), pair.getPassword());
 	}
 
 	@Override
 	public TSecureDescriptor openExisting(final TEntityNamePasswordPair pair, final TEntityFileExtension fileExtension) {
-		return secureDescriptorActivator.apply(this.getFileDescriptorFactory().openExisting(pair, fileExtension), pair.getPassword());
+		return this.secureDescriptorActivator.apply(this.getFileDescriptorFactory().openExisting(pair, fileExtension), pair.getPassword());
 	}
 
 	private TEntityDescriptorFactory getFileDescriptorFactory() {
-		return descriptorFactoryActivator.apply(
+		return this.descriptorFactoryActivator.apply(
 				this.directory,
 				this.deserializer,
 				this.nameActivator,

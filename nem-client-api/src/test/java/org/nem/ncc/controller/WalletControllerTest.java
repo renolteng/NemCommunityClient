@@ -143,9 +143,9 @@ public class WalletControllerTest {
 				this.addressBookServices);
 
 		private TestContext() {
-			Mockito.when(addressBookServices.create(Mockito.any())).thenReturn(new MemoryAddressBook(new AddressBookName("test")));
-			Mockito.when(configuration.getAccountLabels()).thenReturn(new ArrayList<>());
-			Mockito.when(configuration.getNemFolder()).thenReturn("");
+			Mockito.when(this.addressBookServices.create(Mockito.any())).thenReturn(new MemoryAddressBook(new AddressBookName("test")));
+			Mockito.when(this.configuration.getAccountLabels()).thenReturn(new ArrayList<>());
+			Mockito.when(this.configuration.getNemFolder()).thenReturn("");
 		}
 	}
 }

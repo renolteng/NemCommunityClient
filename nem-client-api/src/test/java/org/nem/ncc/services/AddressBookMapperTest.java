@@ -27,11 +27,11 @@ public class AddressBookMapperTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getName(), IsEqual.equalTo(new AddressBookName("blah")));
-		Assert.assertThat(viewModel.getAccountLabels(),	IsEquivalent.equivalentTo(addressBook.getAccountLabels()));
+		Assert.assertThat(viewModel.getAccountLabels(), IsEquivalent.equivalentTo(addressBook.getAccountLabels()));
 	}
 
 	private static AccountLabel createAccountLabel() {
 		final Address address = Utils.generateRandomAddress();
-		return new AccountLabel(address, address.getEncoded().substring(0,5), address.getEncoded().substring(5,10));
+		return new AccountLabel(address, address.getEncoded().substring(0, 5), address.getEncoded().substring(5, 10));
 	}
 }

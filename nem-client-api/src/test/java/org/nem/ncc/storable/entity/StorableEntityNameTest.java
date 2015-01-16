@@ -108,7 +108,7 @@ public class StorableEntityNameTest {
 	}
 
 	//endregion
-	
+
 	protected StorableEntityName createEntityName(final String name) {
 		return new StorableEntityName(name);
 	}
