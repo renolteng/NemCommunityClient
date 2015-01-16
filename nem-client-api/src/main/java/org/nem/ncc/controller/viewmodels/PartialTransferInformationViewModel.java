@@ -13,6 +13,7 @@ public class PartialTransferInformationViewModel implements SerializableEntity {
 
 	/**
 	 * Creates a new partial transfer information view model.
+	 *
 	 * @param fee The fee.
 	 * @param multisigFee The multisig fee.
 	 * @param isEncryptionSupported true if encryption is supported.
@@ -44,7 +45,9 @@ public class PartialTransferInformationViewModel implements SerializableEntity {
 	 *
 	 * @return The multisig fee (0 if not a multisig transaction).
 	 */
-	public Amount getMultisigFee() { return this.multisigFee; }
+	public Amount getMultisigFee() {
+		return this.multisigFee;
+	}
 
 	/**
 	 * Gets a value indicating whether or not encryption is supported.

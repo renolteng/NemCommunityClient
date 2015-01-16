@@ -1,10 +1,7 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.model.Address;
-import org.nem.core.model.ImportanceTransferTransaction;
-import org.nem.core.model.Transaction;
+import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.Amount;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.Serializer;
 

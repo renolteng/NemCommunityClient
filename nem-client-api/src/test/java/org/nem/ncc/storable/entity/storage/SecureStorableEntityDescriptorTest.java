@@ -6,7 +6,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.ExceptionUtils;
-import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.StorableEntityPassword;
 import org.nem.ncc.test.*;
 
 import java.io.*;

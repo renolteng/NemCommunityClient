@@ -42,7 +42,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						Address.fromEncoded("foo"));
 
@@ -78,7 +78,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 						Address.fromEncoded("foo"),
 						new BlockHeight(12));
@@ -217,7 +217,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						Address.fromEncoded("foo"));
 
@@ -240,7 +240,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						Address.fromEncoded("foo"));
 
@@ -263,7 +263,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						Address.fromEncoded("foo"));
 
@@ -293,7 +293,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						Address.fromEncoded("foo"));
 
@@ -320,7 +320,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						Address.fromEncoded("foo"));
 
@@ -342,7 +342,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						recipient.getAddress());
 
@@ -364,7 +364,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						sender.getAddress());
 
@@ -385,7 +385,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel =
-				(TransferTransactionViewModel) TransactionToViewModelMapper.map(
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,
 						sender.getAddress());
 

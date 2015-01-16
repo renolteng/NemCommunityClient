@@ -6,7 +6,6 @@ import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.UnixTime;
-import org.nem.core.utils.StringEncoder;
 
 /**
  * A view model representing a transfer transaction.
@@ -78,7 +77,6 @@ public class TransactionViewModel implements SerializableEntity {
 			this.blockHeight = 0;
 			this.transactionId = this.transactionHash.getShortId();
 			this.isConfirmed = false;
-
 		} else {
 			this.confirmations = lastBlockHeight.subtract(metaDataPair.getMetaData().getHeight()) + 1;
 			this.blockHeight = metaDataPair.getMetaData().getHeight().getRaw();

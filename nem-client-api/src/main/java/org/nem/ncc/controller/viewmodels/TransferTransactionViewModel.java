@@ -2,8 +2,7 @@ package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.Amount;
-import org.nem.core.model.primitive.BlockHeight;
+import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.StringEncoder;
 
@@ -16,7 +15,6 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	private final String message;
 	private final boolean isEncrypted;
 	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
-
 
 	public TransferTransactionViewModel(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final BlockHeight lastBlockHeight) {
 		super(Type.Transfer, metaDataPair, lastBlockHeight);

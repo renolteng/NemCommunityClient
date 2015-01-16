@@ -42,7 +42,8 @@ public class AccountViewModel implements SerializableEntity {
 
 	/**
 	 * Creates a new account view model.
-	 *  @param info The account info.
+	 *
+	 * @param info The account info.
 	 * @param status The account status.
 	 * @param remoteStatus The remote account status.
 	 * @param label The account label.

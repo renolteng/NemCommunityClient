@@ -34,23 +34,25 @@ public class NccAccountCacheTest {
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPair(context.address);
 		Mockito.verify(context.timeProvider, Mockito.times(1)).getCurrentTime();
 	}
-/*
-	@Test
-	public void findByAddressDelegatesToAccountServicesIfCachedAccountIsExpired() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(52), new TimeInstant(52 + 61));
 
-		// Act:
-		context.cache.findByAddress(context.address);
-		final Account account = context.cache.findByAddress(context.address);
+	// TODO 20150115 J-? is this test still valid?
+	/*
+		@Test
+		public void findByAddressDelegatesToAccountServicesIfCachedAccountIsExpired() {
+			// Arrange:
+			final TestContext context = new TestContext();
+			Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(52), new TimeInstant(52 + 61));
 
-		// Assert:
-		assertAreEqual(context.pair2.getAccount(), account);
-		Mockito.verify(context.accountServices, Mockito.times(2)).getAccountMetaDataPair(context.address);
-		Mockito.verify(context.timeProvider, Mockito.times(2)).getCurrentTime();
-	}
-*/
+			// Act:
+			context.cache.findByAddress(context.address);
+			final Account account = context.cache.findByAddress(context.address);
+
+			// Assert:
+			assertAreEqual(context.pair2.getAccount(), account);
+			Mockito.verify(context.accountServices, Mockito.times(2)).getAccountMetaDataPair(context.address);
+			Mockito.verify(context.timeProvider, Mockito.times(2)).getCurrentTime();
+		}
+	*/
 	@Test
 	public void findByAddressUsesCachedValueIfCachedAccountIsNotExpired() {
 		// Arrange:
@@ -156,23 +158,25 @@ public class NccAccountCacheTest {
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPair(context.address);
 		Mockito.verify(context.timeProvider, Mockito.times(1)).getCurrentTime();
 	}
-/*
-	@Test
-	public void findPairByAddressDelegatesToAccountServicesIfCachedAccountIsExpired() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(52), new TimeInstant(52 + 61));
 
-		// Act:
-		context.cache.findPairByAddress(context.address);
-		final AccountMetaDataPair pair = context.cache.findPairByAddress(context.address);
+	// TODO 20150115 J-? is this test still valid?
+	/*
+		@Test
+		public void findPairByAddressDelegatesToAccountServicesIfCachedAccountIsExpired() {
+			// Arrange:
+			final TestContext context = new TestContext();
+			Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(52), new TimeInstant(52 + 61));
 
-		// Assert:
-		Assert.assertThat(pair, IsEqual.equalTo(context.pair2));
-		Mockito.verify(context.accountServices, Mockito.times(2)).getAccountMetaDataPair(context.address);
-		Mockito.verify(context.timeProvider, Mockito.times(2)).getCurrentTime();
-	}
-*/
+			// Act:
+			context.cache.findPairByAddress(context.address);
+			final AccountMetaDataPair pair = context.cache.findPairByAddress(context.address);
+
+			// Assert:
+			Assert.assertThat(pair, IsEqual.equalTo(context.pair2));
+			Mockito.verify(context.accountServices, Mockito.times(2)).getAccountMetaDataPair(context.address);
+			Mockito.verify(context.timeProvider, Mockito.times(2)).getCurrentTime();
+		}
+	*/
 	@Test
 	public void findPairByAddressUsesCachedValueIfCachedAccountIsNotExpired() {
 		// Arrange:

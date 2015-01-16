@@ -1,7 +1,7 @@
 package org.nem.ncc.addressbook;
 
 import org.nem.ncc.addressbook.storage.*;
-import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.BinaryStorableEntityRepository;
 import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 
 /**

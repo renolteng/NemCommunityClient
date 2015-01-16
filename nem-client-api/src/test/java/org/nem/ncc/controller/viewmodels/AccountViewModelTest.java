@@ -120,7 +120,6 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("label"), IsNull.nullValue());
 	}
 
-
 	private static AccountViewModel createAccountViewModel(final AccountInfo account, final AccountLabel label) {
 		return new AccountViewModel(
 				account,
@@ -129,7 +128,7 @@ public class AccountViewModelTest {
 				label,
 				null);
 	}
-	
+
 	private static AccountInfo createAccountInfo(final String label, final Address address) {
 		return new AccountInfo(
 				address,

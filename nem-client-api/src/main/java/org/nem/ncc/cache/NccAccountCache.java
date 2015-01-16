@@ -126,7 +126,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private boolean shouldUpdate(final FreshnessPair freshnessPair, final TimeInstant currentTime) {
-		return null == freshnessPair ||	currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
+		return null == freshnessPair || currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
 	}
 
 	private static class FreshnessPair {

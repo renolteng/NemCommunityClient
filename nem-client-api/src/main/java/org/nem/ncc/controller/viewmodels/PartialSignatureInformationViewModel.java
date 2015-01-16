@@ -1,8 +1,7 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.model.primitive.Amount;
-import org.nem.core.serialization.SerializableEntity;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 
 /**
  * Simple view model for a validated transfer which contains a fee that wraps an Amount. and the verification result whether a message can be sent encrypted.
@@ -12,6 +11,7 @@ public class PartialSignatureInformationViewModel implements SerializableEntity 
 
 	/**
 	 * Creates a new partial transfer information view model.
+	 *
 	 * @param fee The fee.
 	 */
 	public PartialSignatureInformationViewModel(final Amount fee) {

@@ -1,6 +1,6 @@
 package org.nem.ncc.addressbook.storage;
 
-import org.nem.ncc.exceptions.*;
+import org.nem.ncc.exceptions.ValueBasedEnum;
 import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 
 import java.util.HashMap;
@@ -70,6 +70,7 @@ public class AddressBookStorageException extends StorableEntityStorageException 
 		}
 
 		private final int value;
+
 		private Code(final int value) {
 			this.value = value;
 		}

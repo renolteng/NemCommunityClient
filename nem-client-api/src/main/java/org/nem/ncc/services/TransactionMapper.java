@@ -8,8 +8,7 @@ import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
-import org.nem.ncc.controller.viewmodels.PartialSignatureInformationViewModel;
-import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
+import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
 
@@ -79,7 +78,8 @@ public class TransactionMapper {
 				transaction
 		);
 
-		final boolean isEncryptionSupported = null != request.getRecipientAddress() && this.accountLookup.findByAddress(request.getRecipientAddress()).hasPublicKey();
+		final boolean isEncryptionSupported =
+				null != request.getRecipientAddress() && this.accountLookup.findByAddress(request.getRecipientAddress()).hasPublicKey();
 		return new PartialTransferInformationViewModel(
 				transaction.getFee(),
 				multisigTransaction.getFee(),

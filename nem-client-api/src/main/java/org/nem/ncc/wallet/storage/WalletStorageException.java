@@ -68,6 +68,7 @@ public class WalletStorageException extends StorableEntityStorageException {
 		}
 
 		private final int value;
+
 		private Code(final int value) {
 			this.value = value;
 		}

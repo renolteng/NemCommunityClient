@@ -8,7 +8,7 @@ import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
 import org.nem.ncc.*;
 import org.nem.ncc.addressbook.*;
-import org.nem.ncc.addressbook.storage.*;
+import org.nem.ncc.addressbook.storage.SecureAddressBookDescriptorFactory;
 import org.nem.ncc.cache.*;
 import org.nem.ncc.connector.*;
 import org.nem.ncc.model.graph.GraphViewModelFactory;
