@@ -13,6 +13,8 @@ import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 
+// TODO 20150115 J-B: why aren't the classes in this package abstract?
+
 /**
  * StorableEntityDescriptor that automatically encrypts and decrypts data using a password.
  */

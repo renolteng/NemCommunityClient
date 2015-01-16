@@ -99,7 +99,7 @@ public class WalletStorageException extends StorableEntityStorageException {
 	}
 
 	/**
-	 * Creates a new storable entity storage exception.
+	 * Creates a new wallet storage exception.
 	 *
 	 * @param value The exception code value.
 	 */
@@ -108,7 +108,7 @@ public class WalletStorageException extends StorableEntityStorageException {
 	}
 
 	/**
-	 * Creates a new storable entity storage exception.
+	 * Creates a new wallet storage exception.
 	 *
 	 * @param value The exception code value.
 	 * @param cause The exception cause.
