@@ -9,7 +9,6 @@ import org.nem.ncc.addressbook.*;
 import org.nem.ncc.test.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class AddressBookViewModelTest {
 
@@ -46,24 +45,11 @@ public class AddressBookViewModelTest {
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(2));
 		Assert.assertThat(jsonObject.get("addressBook"), IsEqual.equalTo("blah"));
-		Assert.assertThat(getAccountLabels((JSONArray)jsonObject.get("accountLabels")), IsEquivalent.equivalentTo(accountLabels));
+		Assert.assertThat(Utils.accountLabelsFromJson((JSONArray)jsonObject.get("accountLabels")), IsEquivalent.equivalentTo(accountLabels));
 	}
 
 	private static AccountLabel createAccountLabel() {
 		final Address address = Utils.generateRandomAddress();
 		return new AccountLabel(address, address.getEncoded().substring(0, 5), address.getEncoded().substring(5, 10));
-	}
-
-	// TODO 20150115 J-B: consider refactoring as this appears to be in multiple places
-	private static List<AccountLabel> getAccountLabels(final JSONArray array) {
-		return array.stream()
-				.map(o -> {
-					final JSONObject object = (JSONObject)o;
-					return new AccountLabel(
-							Address.fromEncoded((String)object.get("address")),
-							(String)object.get("publicLabel"),
-							(String)object.get("privateLabel"));
-				})
-				.collect(Collectors.toList());
 	}
 }

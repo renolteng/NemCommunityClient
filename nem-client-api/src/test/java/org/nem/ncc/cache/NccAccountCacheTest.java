@@ -36,6 +36,7 @@ public class NccAccountCacheTest {
 	}
 
 	// TODO 20150115 J-? is this test still valid?
+	// TODO 20150116 BR -> J: I don't think so, findByAddress only delegates if the address is unknown (test above).
 	/*
 		@Test
 		public void findByAddressDelegatesToAccountServicesIfCachedAccountIsExpired() {
@@ -160,6 +161,7 @@ public class NccAccountCacheTest {
 	}
 
 	// TODO 20150115 J-? is this test still valid?
+	// TODO 20150116 BR -> J: see comment for other test above.
 	/*
 		@Test
 		public void findPairByAddressDelegatesToAccountServicesIfCachedAccountIsExpired() {

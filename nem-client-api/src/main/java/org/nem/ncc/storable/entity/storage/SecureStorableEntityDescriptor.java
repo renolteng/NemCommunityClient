@@ -14,6 +14,8 @@ import org.nem.ncc.storable.entity.*;
 import java.io.*;
 
 // TODO 20150115 J-B: why aren't the classes in this package abstract?
+// TODO 20150116 BR -> J: probably only because at first I wanted the wallet and address book classes to use the storable entity classes directly.
+// > I ended up making the storable entity classes generic and thus i guess it is indeed better to make the classes abstract.
 
 /**
  * StorableEntityDescriptor that automatically encrypts and decrypts data using a password.
@@ -68,6 +70,7 @@ public class SecureStorableEntityDescriptor<
 
 	// TODO 20150115 J-B: why do you need to expose the deserializer?
 	// > applies to all occurrences of getDeserializer in an interface
+	// TODO 20150116 BR -> J: the repository needs to be able to construct the TEntity. Not a good idea to let the descriptor supply the deserializer?
 
 	@Override
 	public ObjectDeserializer<TEntity> getDeserializer() {

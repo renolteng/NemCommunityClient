@@ -105,6 +105,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	// TODO 20150115 J-B: i'm pretty sure this isn't doing what you expect it to do (it looks synchronous)
+	// TODO 20150116 BR -> J: it is synchronous, yes. Help me, i don't see the problem. Is it a problem for the AsyncTimer?
 	/**
 	 * Updates all expired accounts. This method is called by a timer.
 	 */
@@ -116,6 +117,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		if (requests.isEmpty()) {
 			return CompletableFuture.completedFuture(null);
 		}
+
 		try {
 			final Collection<AccountMetaDataPair> pairs = this.accountServices.getAccountMetaDataPairs(requests);
 			pairs.stream().forEach(p -> this.cache.put(p.getAccount().getAddress(), new FreshnessPair(p, currentTime)));

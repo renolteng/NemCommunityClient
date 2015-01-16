@@ -41,6 +41,8 @@ public class GraphViewModelFactory {
 			final NetworkServices networkServices,
 			final NodeServices nodeServices) {
 		// TODO 20141011 J-B: is the intent to really get the "local" network or the connected NIS network (when NIS is remote?)
+		// TODO 20150116 BR -> J: see comment from Thies1965 below, there was a problem with using local nodes internet ip
+		// > for people that had their port 7890 afaik.
 		final NodeEndpoint localEndPoint = new NodeEndpoint("http", "127.0.0.1", 7890);
 		final GraphBuilder builder = new GraphBuilder();
 		try {
@@ -50,11 +52,13 @@ public class GraphViewModelFactory {
 			localNode.setEndpoint(localEndPoint);
 			final Collection<Node> nodeSet = Collections.singleton(localNode);
 			// TODO 20141011 J-B: can you call into createViewModel at this point?
-			final Map<Node, NodeCollection> nodePeersMap = networkServices.getNodePeerListsAsync(
-					nodeSet).join();
+			// TODO 20150116 BR -> J: I don't follow, sorry...
+			final Map<Node, NodeCollection> nodePeersMap = networkServices.getNodePeerListsAsync(nodeSet).join();
 			nodePeersMap.entrySet().forEach(e -> builder.addToGraph(e.getKey(), e.getValue()));
 		} catch (ExecutionException | InterruptedException ex) {
 			// TODO 20141011 J-B: i would rather let an exception propagate out then bury it ... use ExceptionUtils.propagate
+			// TODO 20150116 BR -> J: idk why Thies1965 (i think it was him) surrounded it with try...catch. The other method above doesn't.
+			// > What do you mean with "then bury it"?
 			// we do nothing just an empty result;
 		}
 

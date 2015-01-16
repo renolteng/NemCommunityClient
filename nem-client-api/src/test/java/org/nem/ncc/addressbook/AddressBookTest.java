@@ -9,7 +9,6 @@ import org.nem.ncc.test.*;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public abstract class AddressBookTest {
 
@@ -271,22 +270,10 @@ public abstract class AddressBookTest {
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(2));
 		Assert.assertThat(jsonObject.get("addressBook"), IsEqual.equalTo("bar"));
-		Assert.assertThat(getAccountLabels((JSONArray)jsonObject.get("accountLabels")), IsEquivalent.equivalentTo(accountLabels));
+		Assert.assertThat(Utils.accountLabelsFromJson((JSONArray)jsonObject.get("accountLabels")), IsEquivalent.equivalentTo(accountLabels));
 	}
 
 	//endregion
-
-	protected static List<AccountLabel> getAccountLabels(final JSONArray array) {
-		return array.stream()
-				.map(o -> {
-					final JSONObject object = (JSONObject)o;
-					return new AccountLabel(
-							Address.fromEncoded((String)object.get("address")),
-							(String)object.get("publicLabel"),
-							(String)object.get("privateLabel"));
-				})
-				.collect(Collectors.toList());
-	}
 
 	protected List<AccountLabel> createAccountLabels(final int count) {
 		final List<AccountLabel> accountLabels = new ArrayList<>();

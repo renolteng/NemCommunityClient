@@ -37,6 +37,7 @@ public class WalletFileExtension extends StorableEntityFileExtension<WalletFileE
 
 	// TODO 20150115 J-B: why is this static vs an instance method?
 	// > also, you should make sure to test it
+	// TODO 20150116 BR -> J: it doesn't rely on anything that a specific instance has. I thought that was your argument to make a method static?
 
 	/**
 	 * Gets a value indicating whether the supplies file name is valid and has the default extension.

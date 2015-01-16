@@ -16,6 +16,8 @@ public class WalletPasswordTest extends StorableEntityPasswordTest {
 
 	// TODO 20150115 J-B: any reason you don't want to test serialization / deserialization in the base classes?
 	// > applies to all serialization / deserialization tests not in test base classes
+	// TODO 20150116 BR -> J: The base class doesn't know how to construct a WalletPassword. I would need to supply a constructor to the base class.
+	// You think that would be better?
 
 	@Test
 	public void canRoundtripRequiredPassword() {
