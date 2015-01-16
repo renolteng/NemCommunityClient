@@ -44,7 +44,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	}
 
 	@Override
-	protected void serializeImpl(Serializer serializer) {
+	protected void serializeImpl(final Serializer serializer) {
 		super.serializeImpl(serializer);
 
 		serializer.writeObject("inner", this.otherTransactionViewModel);

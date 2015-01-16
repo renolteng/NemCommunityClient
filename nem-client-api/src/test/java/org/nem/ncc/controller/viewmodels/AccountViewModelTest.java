@@ -121,7 +121,7 @@ public class AccountViewModelTest {
 	}
 
 
-	private static AccountViewModel createAccountViewModel(AccountInfo account, AccountLabel label) {
+	private static AccountViewModel createAccountViewModel(final AccountInfo account, final AccountLabel label) {
 		return new AccountViewModel(
 				account,
 				AccountStatus.LOCKED,

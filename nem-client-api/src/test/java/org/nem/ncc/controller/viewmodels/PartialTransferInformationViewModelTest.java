@@ -51,7 +51,7 @@ public class PartialTransferInformationViewModelTest {
 	}
 
 
-	private PartialTransferInformationViewModel createViewModel(final int multisigFee, final boolean isEncryptionSupported) {
+	private static PartialTransferInformationViewModel createViewModel(final int multisigFee, final boolean isEncryptionSupported) {
 		return new PartialTransferInformationViewModel(Amount.fromMicroNem(1720), Amount.fromMicroNem(multisigFee), isEncryptionSupported);
 	}
 

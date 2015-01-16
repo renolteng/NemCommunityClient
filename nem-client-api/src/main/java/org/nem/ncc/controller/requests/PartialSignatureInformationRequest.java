@@ -24,7 +24,7 @@ public class PartialSignatureInformationRequest {
 	 * @return The multisig account id.
 	 */
 	public Address getMultisigAddress() {
-		return multisigAddress;
+		return this.multisigAddress;
 	}
 
 	/**
@@ -33,6 +33,6 @@ public class PartialSignatureInformationRequest {
 	 * @return The cosignatory account id.
 	 */
 	public Address getCosignatoryAddress() {
-		return cosignatoryAddress;
+		return this.cosignatoryAddress;
 	}
 }

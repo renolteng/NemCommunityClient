@@ -57,7 +57,7 @@ public class NccSchedulerTest {
 			Thread.sleep(1000);
 			scheduler.close();
 			Thread.sleep(1000);
-		} catch (InterruptedException e) {
+		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
 

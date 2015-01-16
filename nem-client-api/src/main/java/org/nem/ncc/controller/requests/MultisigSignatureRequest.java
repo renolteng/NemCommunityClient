@@ -75,7 +75,7 @@ public class MultisigSignatureRequest {
 	 * @return The inner transaction hash.
 	 */
 	public Hash getInnerTransactionHash() {
-		return innerTransactionHash;
+		return this.innerTransactionHash;
 	}
 
 	/**

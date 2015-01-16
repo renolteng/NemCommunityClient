@@ -71,7 +71,7 @@ public class TransferSendRequest {
 	 * @return The multisig account id.
 	 */
 	public Address getMultisigAddress() {
-		return multisigAddress;
+		return this.multisigAddress;
 	}
 
 	/**

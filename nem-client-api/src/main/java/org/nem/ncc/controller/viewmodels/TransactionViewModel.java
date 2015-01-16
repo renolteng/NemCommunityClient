@@ -36,17 +36,17 @@ public class TransactionViewModel implements SerializableEntity {
 		}
 	}
 
-	private Type transactionViewModelType;
-	private long transactionId;
+	private final Type transactionViewModelType;
+	private final long transactionId;
 	private final Hash transactionHash;
 
 	private final Address signer;
 	private final long timeStamp;
 	private final Amount fee;
 
-	private boolean isConfirmed;
-	private long confirmations;
-	private long blockHeight;
+	private final boolean isConfirmed;
+	private final long confirmations;
+	private final long blockHeight;
 
 	/**
 	 * Creates a new transaction view model around a transaction (confirmed or unconfirmed).
