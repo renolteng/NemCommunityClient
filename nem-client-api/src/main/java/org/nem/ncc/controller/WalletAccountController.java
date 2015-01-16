@@ -91,6 +91,8 @@ public class WalletAccountController {
 		return this.walletMapper.toViewModel(wallet);
 	}
 
+	// TODO 2015 J-B: does it make sense to store wallet account labels in the address book (not sure just a question)?
+
 	/**
 	 * Updates the label of an existing account.
 	 *

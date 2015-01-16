@@ -64,6 +64,9 @@ public class SecureStorableEntityDescriptor<
 		return this.descriptor.getFileExtension();
 	}
 
+	// TODO 20150115 J-B: why do you need to expose the deserializer?
+	// > applies to all occurrences of getDeserializer in an interface
+
 	@Override
 	public ObjectDeserializer<TEntity> getDeserializer() {
 		return this.descriptor.getDeserializer();

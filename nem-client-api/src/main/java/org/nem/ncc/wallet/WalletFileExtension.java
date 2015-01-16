@@ -42,6 +42,9 @@ public class WalletFileExtension extends StorableEntityFileExtension<WalletFileE
 		return new WalletFileExtension(DEFAULT_FILE_EXTENSION);
 	}
 
+	// TODO 20150115 J-B: why is this static vs an instance method?
+	// > also, you should make sure to test it
+
 	/**
 	 * Gets a value indicating whether the supplies file name is valid and has the default extension.
 	 *

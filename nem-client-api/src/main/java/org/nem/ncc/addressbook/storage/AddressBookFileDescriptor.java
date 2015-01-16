@@ -37,15 +37,6 @@ public class AddressBookFileDescriptor
 		super(file, deserializer, nameActivator, fileExtensionActivator);
 	}
 
-	/**
-	 * Gets the address book location.
-	 *
-	 * @return The address book location.
-	 */
-	public String getAddressBookLocation() {
-		return super.getStorableEntityLocation();
-	}
-
 	@Override
 	public AddressBookName getAddressBookName() {
 		return super.getName();

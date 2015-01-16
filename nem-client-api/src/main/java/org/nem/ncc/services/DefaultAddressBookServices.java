@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+// TODO 20150115 J-B: can you share some of the logic between this class and walletservices?
+// > maybe some of the controller logic too (not sure)?
+
 /**
  * Implements default address book services
  */

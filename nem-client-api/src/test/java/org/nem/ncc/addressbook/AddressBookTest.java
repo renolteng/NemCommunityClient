@@ -107,7 +107,7 @@ public abstract class AddressBookTest {
 	//region size
 
 	@Test
-	public void SizeReturnsAddressBookSize() {
+	public void sizeReturnsAddressBookSize() {
 		// Arrange:
 		final List<AccountLabel> accountLabels = this.createAccountLabels(13);
 		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"), accountLabels);
