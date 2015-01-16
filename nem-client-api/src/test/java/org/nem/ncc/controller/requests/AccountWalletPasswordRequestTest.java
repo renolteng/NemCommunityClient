@@ -22,7 +22,7 @@ public class AccountWalletPasswordRequestTest {
 		final AccountWalletPasswordRequest request = this.createRequest();
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 		Assert.assertThat(request.getWalletPassword(), IsEqual.equalTo(this.TEST_WALLET_PASS));
 	}
@@ -35,7 +35,7 @@ public class AccountWalletPasswordRequestTest {
 				this.TEST_WALLET_PASS.toString());
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 	}
 

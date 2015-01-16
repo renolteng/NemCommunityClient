@@ -18,23 +18,23 @@ public class BootNodeRequestTest {
 	@Test
 	public void requestCanBeCreated() {
 		// Act:
-		final BootNodeRequest bootNode = new BootNodeRequest(this.TEST_ADDRESS, this.TEST_WALLET_NAME, "name");
+		final BootNodeRequest bootNodeRequest = new BootNodeRequest(this.TEST_ADDRESS, this.TEST_WALLET_NAME, "name");
 
 		// Assert:
-		Assert.assertThat(bootNode.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
-		Assert.assertThat(bootNode.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
-		Assert.assertThat(bootNode.getNodeName(), IsEqual.equalTo("name"));
+		Assert.assertThat(bootNodeRequest.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(bootNodeRequest.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
+		Assert.assertThat(bootNodeRequest.getNodeName(), IsEqual.equalTo("name"));
 	}
 
 	@Test
 	public void requestCanBeDeserialized() {
 		// Act:
-		final BootNodeRequest bootNode = this.createRequestFromJson(this.TEST_ADDRESS.getEncoded(), this.TEST_WALLET_NAME.toString(), "name");
+		final BootNodeRequest bootNodeRequest = this.createRequestFromJson(this.TEST_ADDRESS.getEncoded(), this.TEST_WALLET_NAME.toString(), "name");
 
 		// Assert:
-		Assert.assertThat(bootNode.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
-		Assert.assertThat(bootNode.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
-		Assert.assertThat(bootNode.getNodeName(), IsEqual.equalTo("name"));
+		Assert.assertThat(bootNodeRequest.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(bootNodeRequest.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
+		Assert.assertThat(bootNodeRequest.getNodeName(), IsEqual.equalTo("name"));
 	}
 
 	@Test

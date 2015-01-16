@@ -42,7 +42,7 @@ public class AccountControllerTest {
 				.thenReturn(originalAccountViewModel);
 
 		// Act:
-		final AccountIdRequest request = new AccountIdRequest(account.getAddress());
+		final AccountId request = new AccountId(account.getAddress());
 		final AccountViewModel accountViewModel = context.controller.getAccountInfo(request);
 
 		// Assert:
@@ -325,14 +325,14 @@ public class AccountControllerTest {
 				new HarvestInfo(Hash.ZERO, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO),
 				new HarvestInfo(Hash.ZERO, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO));
 
-		Mockito.when(context.accountServices.getAccountHarvests(ahRequest.getAccountId(), ahRequest.getHash()))
+		Mockito.when(context.accountServices.getAccountHarvests(ahRequest.getAddress(), ahRequest.getHash()))
 				.thenReturn(originalHarvestInfos);
 
 		// Act:
 		final SerializableList<HarvestInfoViewModel> harvestInfos = context.controller.getAccountHarvests(ahRequest);
 
 		// Assert:
-		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountHarvests(ahRequest.getAccountId(), ahRequest.getHash());
+		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountHarvests(ahRequest.getAddress(), ahRequest.getHash());
 		Assert.assertThat(
 				harvestInfos.asCollection().stream().map(HarvestInfoViewModel::getBlockHeight).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(new BlockHeight(7), new BlockHeight(5), new BlockHeight(9))));

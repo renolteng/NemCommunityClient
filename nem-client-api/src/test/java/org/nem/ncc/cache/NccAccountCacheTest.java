@@ -8,7 +8,6 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.time.*;
-import org.nem.ncc.controller.requests.AccountIdRequest;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.AccountServices;
 import org.nem.ncc.test.*;
@@ -343,10 +342,10 @@ public class NccAccountCacheTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(2);
-		final List<AccountIdRequest> requests = accounts.stream()
-				.map(a -> new AccountIdRequest(a.getAddress()))
+		final List<AccountId> requests = accounts.stream()
+				.map(a -> new AccountId(a.getAddress()))
 				.collect(Collectors.toList());
-		final ArgumentCaptor<? extends List<AccountIdRequest>> captor = ArgumentCaptor.forClass(ArrayList.class);
+		final ArgumentCaptor<? extends List<AccountId>> captor = ArgumentCaptor.forClass(ArrayList.class);
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(120));
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(captor.capture()))
@@ -365,7 +364,7 @@ public class NccAccountCacheTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(2);
-		final List<AccountIdRequest> requests = Arrays.asList(new AccountIdRequest(accounts.get(0).getAddress()));
+		final List<AccountId> requests = Arrays.asList(new AccountId(accounts.get(0).getAddress()));
 		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(1), new TimeInstant(120), new TimeInstant(130));
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(Mockito.eq(requests)))

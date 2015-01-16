@@ -21,7 +21,7 @@ public class AccountHashRequestTest {
 		final AccountHashRequest request = new AccountHashRequest(address, TESTING_HASH);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getHash(), IsEqual.equalTo(TESTING_HASH));
 	}
 
@@ -32,7 +32,7 @@ public class AccountHashRequestTest {
 		final AccountHashRequest request = new AccountHashRequest(address, null);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getHash(), IsNull.nullValue());
 	}
 
@@ -49,7 +49,7 @@ public class AccountHashRequestTest {
 		final AccountHashRequest request = this.createRequestFromJson(address.getEncoded(), TESTING_HASH);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getHash(), IsEqual.equalTo(TESTING_HASH));
 	}
 
@@ -62,7 +62,7 @@ public class AccountHashRequestTest {
 		final AccountHashRequest request = this.createRequestFromJson(address.getEncoded(), null);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getHash(), IsNull.nullValue());
 	}
 

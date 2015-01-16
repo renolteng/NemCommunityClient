@@ -19,7 +19,7 @@ public class AccountTransactionIdRequestTest {
 		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(address, TRANSACTION_ID);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getTransactionId(), IsEqual.equalTo(TRANSACTION_ID));
 	}
 
@@ -30,7 +30,7 @@ public class AccountTransactionIdRequestTest {
 		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(address, null);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getTransactionId(), IsNull.nullValue());
 	}
 
@@ -47,7 +47,7 @@ public class AccountTransactionIdRequestTest {
 		final AccountTransactionIdRequest request = this.createRequestFromJson(address.getEncoded(), TRANSACTION_ID);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getTransactionId(), IsEqual.equalTo(TRANSACTION_ID));
 	}
 
@@ -60,7 +60,7 @@ public class AccountTransactionIdRequestTest {
 		final AccountTransactionIdRequest request = this.createRequestFromJson(address.getEncoded(), null);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(address));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(request.getTransactionId(), IsNull.nullValue());
 	}
 

@@ -1,13 +1,14 @@
 package org.nem.ncc.controller.requests;
 
 import org.nem.core.model.Address;
+import org.nem.core.model.ncc.AccountId;
 import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.WalletName;
 
 /**
  * A request representing an account and a wallet.
  */
-public class AccountWalletRequest extends AccountIdRequest {
+public class AccountWalletRequest extends AccountId {
 	private final WalletName walletName;
 
 	/**

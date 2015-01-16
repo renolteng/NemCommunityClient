@@ -104,8 +104,8 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
-		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAccountId(), request.getPassword());
-		final Account remoteAccount = this.getRemoteAccount(request.getWalletName(), request.getAccountId(), request.getPassword());
+		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAddress(), request.getPassword());
+		final Account remoteAccount = this.getRemoteAccount(request.getWalletName(), request.getAddress(), request.getPassword());
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(

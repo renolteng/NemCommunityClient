@@ -317,6 +317,8 @@ public class GraphViewModelFactoryTest {
 
 			Mockito.when(this.nodeServices.getNodesAsync(Mockito.any()))
 					.thenReturn(CompletableFuture.completedFuture(null));
+			Mockito.when(this.nodeServices.getNodeAsync(Mockito.any()))
+					.thenReturn(CompletableFuture.completedFuture(createNode(HOSTS.get(0))));
 			Mockito.when(this.networkServices.getNodePeerListsAsync(Mockito.any()))
 					.thenReturn(CompletableFuture.completedFuture(visibleNeighborhoods));
 		}

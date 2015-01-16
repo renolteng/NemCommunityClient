@@ -3,7 +3,6 @@ package org.nem.ncc.cache;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.time.*;
-import org.nem.ncc.controller.requests.AccountIdRequest;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.services.*;
 
@@ -111,9 +110,9 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	 */
 	public java.util.concurrent.CompletableFuture<java.lang.Void> updateCache() {
 		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
-		final List<AccountIdRequest> requests = new ArrayList<>();
+		final List<AccountId> requests = new ArrayList<>();
 		this.cache.values().stream()
-				.forEach(f -> { if (this.shouldUpdate(f, currentTime)) { requests.add(new AccountIdRequest(f.account.getAddress())); }});
+				.forEach(f -> { if (this.shouldUpdate(f, currentTime)) { requests.add(new AccountId(f.account.getAddress())); }});
 		if (requests.isEmpty()) {
 			return CompletableFuture.completedFuture(null);
 		}

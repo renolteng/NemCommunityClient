@@ -7,7 +7,6 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
-import org.nem.ncc.controller.requests.AccountIdRequest;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -44,7 +43,7 @@ public class AccountServices {
 	 * @param requests The collection of account requests.
 	 * @return The collection of account information.
 	 */
-	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<AccountIdRequest> requests) {
+	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<AccountId> requests) {
 		final Deserializer deserializer = this.nisConnector.post(
 				NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP,
 				new HttpJsonPostRequest(new SerializableList<>(requests)));

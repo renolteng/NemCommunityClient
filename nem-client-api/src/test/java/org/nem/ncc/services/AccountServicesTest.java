@@ -11,7 +11,6 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
-import org.nem.ncc.controller.requests.AccountIdRequest;
 import org.nem.ncc.test.*;
 
 import java.util.*;
@@ -47,7 +46,7 @@ public class AccountServicesTest {
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
 				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList()));
-		final Collection<AccountIdRequest> requests = Arrays.asList(new AccountIdRequest(address));
+		final Collection<AccountId> requests = Arrays.asList(new AccountId(address));
 
 		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))
 				.thenReturn(serialize(new SerializableList<>(Arrays.asList(originalPair))));
