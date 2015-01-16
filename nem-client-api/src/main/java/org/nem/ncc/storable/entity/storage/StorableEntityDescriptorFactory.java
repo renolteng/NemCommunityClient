@@ -1,6 +1,7 @@
 package org.nem.ncc.storable.entity.storage;
 
 import org.nem.ncc.storable.entity.*;
+
 /**
  * Factory for creating storable entity descriptors.
  */

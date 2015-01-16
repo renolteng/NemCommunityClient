@@ -1,7 +1,7 @@
 package org.nem.ncc.wallet.storage;
 
 import org.mockito.Mockito;
-import org.nem.ncc.storable.entity.storage.*;
+import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptorTest;
 import org.nem.ncc.wallet.WalletPassword;
 
 public class SecureWalletDescriptorTest extends SecureStorableEntityDescriptorTest {

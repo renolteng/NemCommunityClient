@@ -51,7 +51,7 @@ public class AddressBookViewModelTest {
 
 	private static AccountLabel createAccountLabel() {
 		final Address address = Utils.generateRandomAddress();
-		return new AccountLabel(address, address.getEncoded().substring(0,5), address.getEncoded().substring(5,10));
+		return new AccountLabel(address, address.getEncoded().substring(0, 5), address.getEncoded().substring(5, 10));
 	}
 
 	// TODO 20150115 J-B: consider refactoring as this appears to be in multiple places

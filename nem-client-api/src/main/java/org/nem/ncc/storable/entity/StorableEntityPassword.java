@@ -56,7 +56,7 @@ public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 
 	@Override
 	public boolean equals(final Object obj) {
-		final Class clazz = null == this.derivedClass? StorableEntityPassword.class : this.derivedClass;
+		final Class clazz = null == this.derivedClass ? StorableEntityPassword.class : this.derivedClass;
 		if (!clazz.isInstance(obj)) {
 			return false;
 		}

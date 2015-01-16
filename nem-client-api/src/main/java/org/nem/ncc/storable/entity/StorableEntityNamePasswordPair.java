@@ -102,7 +102,7 @@ public class StorableEntityNamePasswordPair<
 
 	@Override
 	public boolean equals(final Object obj) {
-		final Class clazz = null == this.derivedClass? StorableEntityNamePasswordPair.class : this.derivedClass;
+		final Class clazz = null == this.derivedClass ? StorableEntityNamePasswordPair.class : this.derivedClass;
 		if (!clazz.isInstance(obj)) {
 			return false;
 		}

@@ -8,11 +8,11 @@ import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptor;
  */
 public class SecureAddressBookDescriptor
 		extends SecureStorableEntityDescriptor<
-				StorableAddressBook,
-				AddressBookName,
-				AddressBookFileExtension,
-				AddressBookPassword,
-				AddressBookDescriptor>
+		StorableAddressBook,
+		AddressBookName,
+		AddressBookFileExtension,
+		AddressBookPassword,
+		AddressBookDescriptor>
 		implements AddressBookDescriptor {
 
 	/**

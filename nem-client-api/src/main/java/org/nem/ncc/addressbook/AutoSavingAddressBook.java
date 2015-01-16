@@ -4,7 +4,7 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.Serializer;
 import org.nem.ncc.addressbook.storage.AddressBookDescriptor;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  * Address book implementation that automatically saves the address book after changes are made.

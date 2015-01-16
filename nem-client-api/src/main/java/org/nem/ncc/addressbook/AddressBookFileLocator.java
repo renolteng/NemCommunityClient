@@ -10,8 +10,8 @@ import java.util.List;
  * A file-based AddressBookLocator implementation.
  */
 public class AddressBookFileLocator
-	extends StorableEntityFileLocator<StorableAddressBook, AddressBookName, AddressBookFileExtension, AddressBookDescriptor>
-	implements AddressBookLocator {
+		extends StorableEntityFileLocator<StorableAddressBook, AddressBookName, AddressBookFileExtension, AddressBookDescriptor>
+		implements AddressBookLocator {
 
 	/**
 	 * Creates a new address book file locator.

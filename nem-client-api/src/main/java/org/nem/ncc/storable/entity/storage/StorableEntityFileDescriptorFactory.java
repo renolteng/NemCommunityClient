@@ -24,11 +24,11 @@ public class StorableEntityFileDescriptorFactory<
 	private final Function<String, TEntityName> nameActivator;
 	private final Function<String, TEntityFileExtension> fileExtensionActivator;
 	private final QuadFunction<
-				File,
-				ObjectDeserializer<TEntity>,
-				Function<String, TEntityName>,
-				Function<String, TEntityFileExtension>,
-				TEntityDescriptor> descriptorActivator;
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			TEntityDescriptor> descriptorActivator;
 
 	/**
 	 * Creates a new storable entity descriptor factory.

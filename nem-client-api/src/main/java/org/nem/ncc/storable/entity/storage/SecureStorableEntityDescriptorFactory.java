@@ -25,23 +25,23 @@ public class SecureStorableEntityDescriptorFactory<
 	private final Function<String, TEntityName> nameActivator;
 	private final Function<String, TEntityFileExtension> fileExtensionActivator;
 	private final QuadFunction<
-				File,
-				ObjectDeserializer<TEntity>,
-				Function<String, TEntityName>,
-				Function<String, TEntityFileExtension>,
-				TEntityDescriptor> descriptorActivator;
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			TEntityDescriptor> descriptorActivator;
 	private final PentaFunction<
-				File,
-				ObjectDeserializer<TEntity>,
-				Function<String, TEntityName>,
-				Function<String, TEntityFileExtension>,
-				QuadFunction<
-						File,
-						ObjectDeserializer<TEntity>,
-						Function<String, TEntityName>,
-						Function<String, TEntityFileExtension>,
-						TEntityDescriptor>,
-				TEntityDescriptorFactory> descriptorFactoryActivator;
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			QuadFunction<
+					File,
+					ObjectDeserializer<TEntity>,
+					Function<String, TEntityName>,
+					Function<String, TEntityFileExtension>,
+					TEntityDescriptor>,
+			TEntityDescriptorFactory> descriptorFactoryActivator;
 	private final BiFunction<TEntityDescriptor, TEntityPassword, TSecureDescriptor> secureDescriptorActivator;
 
 	/**

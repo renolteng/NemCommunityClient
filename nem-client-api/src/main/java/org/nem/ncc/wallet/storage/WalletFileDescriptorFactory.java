@@ -13,12 +13,12 @@ import java.util.function.Function;
  */
 public class WalletFileDescriptorFactory
 		extends StorableEntityFileDescriptorFactory<
-				StorableWallet,
-				WalletName,
-				WalletPassword,
-				WalletFileExtension,
-				WalletNamePasswordPair,
-				WalletDescriptor>
+		StorableWallet,
+		WalletName,
+		WalletPassword,
+		WalletFileExtension,
+		WalletNamePasswordPair,
+		WalletDescriptor>
 		implements WalletDescriptorFactory {
 
 	/**
@@ -45,11 +45,11 @@ public class WalletFileDescriptorFactory
 			final Function<String, WalletName> nameActivator,
 			final Function<String, WalletFileExtension> fileExtensionActivator,
 			final QuadFunction<
-								File,
-								ObjectDeserializer<StorableWallet>,
-								Function<String, WalletName>,
-								Function<String, WalletFileExtension>,
-								WalletDescriptor> descriptorActivator) {
+					File,
+					ObjectDeserializer<StorableWallet>,
+					Function<String, WalletName>,
+					Function<String, WalletFileExtension>,
+					WalletDescriptor> descriptorActivator) {
 		super(directory, deserializer, nameActivator, fileExtensionActivator, descriptorActivator);
 	}
 }

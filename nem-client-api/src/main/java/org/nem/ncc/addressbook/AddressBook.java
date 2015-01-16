@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * Represents a NEM address book that can contain zero or more entries.
  */
-public interface AddressBook  extends SerializableEntity, AccountLabels {
+public interface AddressBook extends SerializableEntity, AccountLabels {
 	/**
 	 * Gets the size of the address book.
 	 *

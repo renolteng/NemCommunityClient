@@ -1,7 +1,6 @@
 package org.nem.ncc.addressbook.storage;
 
 import org.nem.ncc.storable.entity.storage.*;
-import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 
 import java.io.File;
 

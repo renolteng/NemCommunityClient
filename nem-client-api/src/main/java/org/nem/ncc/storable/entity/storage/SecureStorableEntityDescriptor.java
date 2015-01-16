@@ -21,7 +21,7 @@ public class SecureStorableEntityDescriptor<
 		TEntityName extends StorableEntityName,
 		TEntityFileExtension extends StorableEntityFileExtension,
 		TEntityPassword extends StorableEntityPassword,
-		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName,TEntityFileExtension>>
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension>>
 		implements StorableEntityDescriptor<TEntity, TEntityName, TEntityFileExtension> {
 	private static final int BLOCK_SIZE = 16;
 

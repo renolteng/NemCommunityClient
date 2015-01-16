@@ -23,7 +23,6 @@ public class SecureStorableEntityDescriptorTest {
 		final ByteArrayInputStream memoryStream = new ByteArrayInputStream(this.createEncryptedPayload("pwd"));
 		context.mockRead(memoryStream);
 
-
 		// Act:
 		final byte[] bytes = IOUtils.toByteArray(context.secureDescriptor.openRead());
 

@@ -3,7 +3,7 @@ package org.nem.ncc.wallet;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.StorableEntityNameTest;
 import org.nem.ncc.test.Utils;
 
 public class WalletNameTest extends StorableEntityNameTest {

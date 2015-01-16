@@ -6,7 +6,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.AddressBookNamePasswordBag;
-import org.nem.ncc.controller.viewmodels.*;
+import org.nem.ncc.controller.viewmodels.AddressBookViewModel;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.Utils;
 

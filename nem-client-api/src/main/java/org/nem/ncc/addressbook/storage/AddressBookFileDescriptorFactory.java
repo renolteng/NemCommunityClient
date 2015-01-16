@@ -12,14 +12,14 @@ import java.util.function.Function;
  * Factory that creates file-backed storable address book descriptors.
  */
 public class AddressBookFileDescriptorFactory
-	extends StorableEntityFileDescriptorFactory<
-				StorableAddressBook,
-				AddressBookName,
-				AddressBookPassword,
-				AddressBookFileExtension,
-				AddressBookNamePasswordPair,
-				AddressBookDescriptor>
-	implements AddressBookDescriptorFactory {
+		extends StorableEntityFileDescriptorFactory<
+		StorableAddressBook,
+		AddressBookName,
+		AddressBookPassword,
+		AddressBookFileExtension,
+		AddressBookNamePasswordPair,
+		AddressBookDescriptor>
+		implements AddressBookDescriptorFactory {
 
 	/**
 	 * Creates a new address book descriptor factory.
@@ -45,10 +45,10 @@ public class AddressBookFileDescriptorFactory
 			final Function<String, AddressBookName> nameActivator,
 			final Function<String, AddressBookFileExtension> fileExtensionActivator,
 			final QuadFunction<
-							File,
-							ObjectDeserializer<StorableAddressBook>,
-							Function<String, AddressBookName>,
-							Function<String, AddressBookFileExtension>,
+					File,
+					ObjectDeserializer<StorableAddressBook>,
+					Function<String, AddressBookName>,
+					Function<String, AddressBookFileExtension>,
 					AddressBookDescriptor> descriptorActivator) {
 		super(directory, deserializer, nameActivator, fileExtensionActivator, descriptorActivator);
 	}

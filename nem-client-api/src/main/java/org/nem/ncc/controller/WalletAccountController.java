@@ -1,9 +1,9 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.model.Address;
+import org.nem.ncc.addressbook.AccountLabels;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.addressbook.AccountLabels;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.*;
 import org.springframework.beans.factory.annotation.Autowired;

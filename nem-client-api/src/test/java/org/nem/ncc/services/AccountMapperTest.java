@@ -5,8 +5,8 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
-import org.nem.ncc.controller.viewmodels.AccountViewModel;
 import org.nem.ncc.addressbook.*;
+import org.nem.ncc.controller.viewmodels.AccountViewModel;
 import org.nem.ncc.test.Utils;
 import org.nem.ncc.wallet.WalletAccount;
 

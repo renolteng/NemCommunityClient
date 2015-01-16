@@ -7,12 +7,12 @@ import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptor;
 // > applies to most everything in this package
 
 public class DefaultSecureStorableEntityDescriptor
-	extends SecureStorableEntityDescriptor<
-			DefaultStorableEntity,
+		extends SecureStorableEntityDescriptor<
+		DefaultStorableEntity,
 		StorableEntityName,
 		StorableEntityFileExtension,
-			StorableEntityPassword,
-			DefaultStorableEntityFileDescriptor> {
+		StorableEntityPassword,
+		DefaultStorableEntityFileDescriptor> {
 
 	public DefaultSecureStorableEntityDescriptor(
 			final DefaultStorableEntityFileDescriptor descriptor,

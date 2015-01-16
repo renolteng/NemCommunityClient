@@ -29,7 +29,7 @@ public class WalletController {
 	 *
 	 * @param walletServices The wallet services.
 	 * @param walletMapper The wallet mapper.
-	// TODO 20150108 BR: the two additional arguments are temporary and only used for migration.
+	 * // TODO 20150108 BR: the two additional arguments are temporary and only used for migration.
 	 */
 	@Autowired(required = true)
 	public WalletController(

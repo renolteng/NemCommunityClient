@@ -1,6 +1,6 @@
 package org.nem.ncc.wallet;
 
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.storable.entity.StorableEntityPassword;
 
 /**
