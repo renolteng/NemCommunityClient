@@ -1,9 +1,8 @@
 package org.nem.ncc.addressbook.storage;
 
 import org.mockito.Mockito;
-import org.nem.ncc.addressbook.*;
-import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
-import org.nem.ncc.storable.entity.storage.SecureStorableEntityDescriptorTest;
+import org.nem.ncc.addressbook.AddressBookPassword;
+import org.nem.ncc.storable.entity.storage.*;
 
 public class SecureAddressBookDescriptorTest extends SecureStorableEntityDescriptorTest {
 

@@ -67,6 +67,7 @@ public class StorableEntityStorageException extends NccException {
 		}
 
 		private final int value;
+
 		private Code(final int value) {
 			this.value = value;
 		}
