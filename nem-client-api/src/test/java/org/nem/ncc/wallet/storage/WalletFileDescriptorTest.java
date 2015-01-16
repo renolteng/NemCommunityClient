@@ -7,7 +7,7 @@ import java.io.File;
 public class WalletFileDescriptorTest extends StorableEntityFileDescriptorTest {
 
 	@Override
-	protected StorableEntityFileDescriptor createDesciptor(final File file) {
+	protected StorableEntityFileDescriptor createDescriptor(final File file) {
 		return new WalletFileDescriptor(file);
 	}
 

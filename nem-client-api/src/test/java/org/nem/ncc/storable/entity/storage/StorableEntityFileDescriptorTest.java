@@ -45,7 +45,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundDirectory() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorageException(
-				v -> this.createDesciptor(TEST_FILE_DIRECTORY),
+				v -> this.createDescriptor(TEST_FILE_DIRECTORY),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_CANNOT_BE_DIRECTORY.value()));
 	}
@@ -54,7 +54,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCannotBeCreatedAroundStorableEntityWithInvalidExtension() {
 		// Assert:
 		ExceptionAssert.assertThrowsStorageException(
-				v -> this.createDesciptor(TEST_FILE_BAD_EXT),
+				v -> this.createDescriptor(TEST_FILE_BAD_EXT),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value()));
 	}
@@ -65,7 +65,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "foo.bar");
 
 		// Act:
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Assert:
 		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("foo")));
@@ -81,7 +81,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "BlAh").toString(), "FoO.BaR");
 
 		// Act:
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Assert:
 		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("FoO")));
@@ -97,7 +97,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "%C3%B6%C3%A4%C3%BC%40.bar");
 
 		// Act:
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Assert:
 		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("öäü@")));
@@ -114,7 +114,7 @@ public class StorableEntityFileDescriptorTest {
 	@Test
 	public void openReadCanOpenFileThatExists() throws IOException {
 		// Arrange:
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(TEST_FILE);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(TEST_FILE);
 
 		// Act:
 		try (final InputStream is = descriptor.openRead()) {
@@ -127,7 +127,7 @@ public class StorableEntityFileDescriptorTest {
 	public void openReadCannotOpenFileThatDoesNotExist() {
 		// Arrange:
 		final File file = new File(TEST_FILE_DIRECTORY, "imaginary-read.bar");
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -143,7 +143,7 @@ public class StorableEntityFileDescriptorTest {
 		Mockito.when(file.getName()).thenReturn("fo\0o.bar");
 		Mockito.when(file.getAbsolutePath()).thenReturn("fo\0o.bar");
 		Mockito.when(file.exists()).thenReturn(true);
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -159,7 +159,7 @@ public class StorableEntityFileDescriptorTest {
 	@Test
 	public void openWriteCanOpenFileThatExists() throws IOException {
 		// Arrange:
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(TEST_FILE);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(TEST_FILE);
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
@@ -172,7 +172,7 @@ public class StorableEntityFileDescriptorTest {
 	public void openWriteCanOpenFileThatDoesNotExist() throws IOException {
 		// Arrange:
 		final File file = new File(TEST_FILE_DIRECTORY, "imaginary-write.bar");
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
@@ -187,7 +187,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = Mockito.mock(File.class);
 		Mockito.when(file.getName()).thenReturn("fo\0o.bar");
 		Mockito.when(file.getAbsolutePath()).thenReturn("fo\0o.bar");
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -204,7 +204,7 @@ public class StorableEntityFileDescriptorTest {
 	public void deleteDeletesUnderlyingStorableEntityFile() throws IOException {
 		// Arrange:
 		final File file = new File(TEST_FILE_DIRECTORY, "to-be-deleted.bar");
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 		Assert.assertThat(file.createNewFile(), IsEqual.equalTo(true));
 
 		// Act:
@@ -220,7 +220,7 @@ public class StorableEntityFileDescriptorTest {
 		final File file = Mockito.mock(File.class);
 		Mockito.when(file.getName()).thenReturn("foo.bar");
 		Mockito.when(file.getAbsolutePath()).thenReturn("foo.bar");
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		Mockito.when(file.delete()).thenReturn(false);
 
@@ -239,7 +239,7 @@ public class StorableEntityFileDescriptorTest {
 	public void descriptorCanBeSerialized() {
 		// Arrange:
 		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "foo.bar");
-		final StorableEntityFileDescriptor descriptor = this.createDesciptor(file);
+		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Act:
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(descriptor);
@@ -254,7 +254,7 @@ public class StorableEntityFileDescriptorTest {
 
 	//endregion
 
-	protected StorableEntityFileDescriptor createDesciptor(final File file) {
+	protected StorableEntityFileDescriptor createDescriptor(final File file) {
 		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity("foo", ".bar");
 		return new StorableEntityFileDescriptor<DefaultStorableEntity, StorableEntityName, StorableEntityFileExtension>(
 				file,

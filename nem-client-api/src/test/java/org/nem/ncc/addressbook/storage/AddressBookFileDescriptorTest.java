@@ -7,7 +7,7 @@ import java.io.File;
 public class AddressBookFileDescriptorTest extends StorableEntityFileDescriptorTest {
 
 	@Override
-	protected StorableEntityFileDescriptor createDesciptor(final File file) {
+	protected StorableEntityFileDescriptor createDescriptor(final File file) {
 		return new AddressBookFileDescriptor(file);
 	}
 
