@@ -1,13 +1,14 @@
 package org.nem.ncc.services;
 
+import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
-import org.nem.core.serialization.Deserializer;
+import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +35,19 @@ public class AccountServices {
 	public AccountMetaDataPair getAccountMetaDataPair(final Address address) {
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, formatIdQueryString(address, null));
 		return new AccountMetaDataPair(deserializer);
+	}
+
+	/**
+	 * Gets account information for the specified collections of accounts.
+	 *
+	 * @param requests The collection of account requests.
+	 * @return The collection of account information.
+	 */
+	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<AccountId> requests) {
+		final Deserializer deserializer = this.nisConnector.post(
+				NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP,
+				new HttpJsonPostRequest(new SerializableList<>(requests)));
+		return new SerializableList<>(deserializer, AccountMetaDataPair::new).asCollection();
 	}
 
 	private NisApiId typeOfTransactionToQueryId(final TransactionDirection direction) {

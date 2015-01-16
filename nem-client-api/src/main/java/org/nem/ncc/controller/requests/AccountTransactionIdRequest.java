@@ -1,12 +1,13 @@
 package org.nem.ncc.controller.requests;
 
 import org.nem.core.model.Address;
+import org.nem.core.model.ncc.AccountId;
 import org.nem.core.serialization.Deserializer;
 
 /**
  * A request representing an account and an optional transaction id.
  */
-public class AccountTransactionIdRequest extends AccountIdRequest {
+public class AccountTransactionIdRequest extends AccountId {
 	private final Long transactionId;
 
 	/**

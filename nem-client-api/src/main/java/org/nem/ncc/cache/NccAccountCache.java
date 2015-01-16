@@ -57,9 +57,10 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private FreshnessPair createFreshnessPairFromSeedAccount(final AccountInfo info) {
+		// accounts are polled on a regular interval, so it should be ok to use current time stamp
 		return new FreshnessPair(
-				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE)),
-				null);
+				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE, Arrays.asList())),
+				this.timeProvider.getCurrentTime());
 	}
 
 	@Override
@@ -80,10 +81,8 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	private FreshnessPair findFreshnessPairByAddress(final Address id) {
 		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 		FreshnessPair freshnessPair = this.cache.getOrDefault(id, null);
-		if (this.shouldUpdate(freshnessPair, currentTime)) {
-			freshnessPair = new FreshnessPair(
-					this.update(id, null == freshnessPair ? null : freshnessPair.accountMetaDataPair),
-					currentTime);
+		if (null == freshnessPair) {
+			freshnessPair = new FreshnessPair(this.update(id, null), currentTime);
 			this.cache.put(id, freshnessPair);
 		}
 
@@ -104,10 +103,31 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		}
 	}
 
+	// TODO 20150115 J-B: i'm pretty sure this isn't doing what you expect it to do (it looks synchronous)
+	// TODO 20150116 BR -> J: it is synchronous, yes. Help me, i don't see the problem. Is it a problem for the AsyncTimer?
+	/**
+	 * Updates all expired accounts. This method is called by a timer.
+	 */
+	public java.util.concurrent.CompletableFuture<java.lang.Void> updateCache() {
+		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
+		final List<AccountId> requests = new ArrayList<>();
+		this.cache.values().stream()
+				.forEach(f -> { if (this.shouldUpdate(f, currentTime)) { requests.add(new AccountId(f.account.getAddress())); }});
+		if (requests.isEmpty()) {
+			return CompletableFuture.completedFuture(null);
+		}
+
+		try {
+			final Collection<AccountMetaDataPair> pairs = this.accountServices.getAccountMetaDataPairs(requests);
+			pairs.stream().forEach(p -> this.cache.put(p.getAccount().getAddress(), new FreshnessPair(p, currentTime)));
+		} catch (final Exception ignored) {
+		}
+
+		return CompletableFuture.completedFuture(null);
+	}
+
 	private boolean shouldUpdate(final FreshnessPair freshnessPair, final TimeInstant currentTime) {
-		return null == freshnessPair ||
-				null == freshnessPair.refreshTime ||
-				currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
+		return null == freshnessPair || currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
 	}
 
 	private static class FreshnessPair {

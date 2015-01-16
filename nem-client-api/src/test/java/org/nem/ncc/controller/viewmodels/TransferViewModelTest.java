@@ -13,7 +13,7 @@ import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.test.*;
 
-public class TransferViewModelTest {
+public class TransferTransactionViewModelTest {
 
 	//region constructor
 
@@ -23,7 +23,7 @@ public class TransferViewModelTest {
 		final Transaction transaction = new MockTransaction();
 
 		// Act:
-		new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		TransactionToViewModelMapper.map(transaction, Address.fromEncoded("foo"));
 	}
 
 	@Test
@@ -37,18 +37,21 @@ public class TransferViewModelTest {
 				recipient,
 				Amount.fromNem(576),
 				new PlainMessage(StringEncoder.getBytes("hello world")));
-		transaction.setFee(Amount.fromNem(3));
+		transaction.setFee(Amount.fromNem(23));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(transactionHash.getShortId()));
 		Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(transactionHash));
-		Assert.assertThat(viewModel.getSender(), IsEqual.equalTo(sender.getAddress()));
+		Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(sender.getAddress()));
 		Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(3)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
 		Assert.assertThat(viewModel.getRecipient(), IsEqual.equalTo(recipient.getAddress()));
 		Assert.assertThat(viewModel.getAmount(), IsEqual.equalTo(Amount.fromNem(576)));
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -70,21 +73,22 @@ public class TransferViewModelTest {
 				recipient,
 				Amount.fromNem(576),
 				new PlainMessage(StringEncoder.getBytes("hello world")));
-		transaction.setFee(Amount.fromNem(3));
+		transaction.setFee(Amount.fromNem(23));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
-				Address.fromEncoded("foo"),
-				new BlockHeight(12));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
+						Address.fromEncoded("foo"),
+						new BlockHeight(12));
 
 		// Assert:
 		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(14L));
 		Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(transactionHash));
-		Assert.assertThat(viewModel.getSender(), IsEqual.equalTo(sender.getAddress()));
+		Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(sender.getAddress()));
 		Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(3)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
 		Assert.assertThat(viewModel.getRecipient(), IsEqual.equalTo(recipient.getAddress()));
 		Assert.assertThat(viewModel.getAmount(), IsEqual.equalTo(Amount.fromNem(576)));
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -110,20 +114,21 @@ public class TransferViewModelTest {
 				recipient,
 				Amount.fromNem(576),
 				new PlainMessage(StringEncoder.getBytes("hello world")));
-		transaction.setFee(Amount.fromNem(3));
+		transaction.setFee(Amount.fromNem(23));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, recipient.getAddress());
+		final TransactionViewModel viewModel = TransactionToViewModelMapper.map(transaction, recipient.getAddress());
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(13));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(14));
+		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(transactionHash.getShortId()));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(sender.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(3000000L));
+		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(23000000L));
 		Assert.assertThat(jsonObject.get("recipient"), IsEqual.equalTo(recipient.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("amount"), IsEqual.equalTo(576000000L));
 		Assert.assertThat(jsonObject.get("message"), IsEqual.equalTo("hello world"));
@@ -145,23 +150,24 @@ public class TransferViewModelTest {
 				recipient,
 				Amount.fromNem(576),
 				new PlainMessage(StringEncoder.getBytes("hello world")));
-		transaction.setFee(Amount.fromNem(3));
+		transaction.setFee(Amount.fromNem(23));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(
+		final TransactionViewModel viewModel = TransactionToViewModelMapper.map(
 				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				sender.getAddress(),
 				new BlockHeight(12));
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(13));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(14));
+		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(14L));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(sender.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(3000000L));
+		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(23000000L));
 		Assert.assertThat(jsonObject.get("recipient"), IsEqual.equalTo(recipient.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("amount"), IsEqual.equalTo(576000000L));
 		Assert.assertThat(jsonObject.get("message"), IsEqual.equalTo("hello world"));
@@ -185,7 +191,7 @@ public class TransferViewModelTest {
 				SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransactionViewModel viewModel = TransactionToViewModelMapper.map(transaction, Address.fromEncoded("foo"));
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
@@ -210,7 +216,10 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsNull.nullValue());
@@ -230,7 +239,10 @@ public class TransferViewModelTest {
 				new PlainMessage(StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -250,7 +262,10 @@ public class TransferViewModelTest {
 				SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("hello world"));
@@ -277,7 +292,10 @@ public class TransferViewModelTest {
 						secureMessagePayload));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getMessage(), IsEqual.equalTo("Warning: message cannot be decoded!"));
@@ -301,7 +319,10 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, Address.fromEncoded("foo"));
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						Address.fromEncoded("foo"));
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(0));
@@ -320,7 +341,10 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, recipient.getAddress());
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						recipient.getAddress());
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(1));
@@ -339,7 +363,10 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, sender.getAddress());
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						sender.getAddress());
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(2));
@@ -357,7 +384,10 @@ public class TransferViewModelTest {
 				null);
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(transaction, sender.getAddress());
+		final TransferTransactionViewModel viewModel =
+				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
+						transaction,
+						sender.getAddress());
 
 		// Assert:
 		Assert.assertThat(viewModel.getDirection(), IsEqual.equalTo(3));
@@ -380,7 +410,7 @@ public class TransferViewModelTest {
 				new PlainMessage(StringEncoder.getBytes("hello world")));
 
 		// Act:
-		final TransferViewModel viewModel = new TransferViewModel(
+		final TransactionViewModel viewModel = TransactionToViewModelMapper.map(
 				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(7));

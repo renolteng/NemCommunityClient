@@ -73,6 +73,7 @@ public class ChainServicesTest {
 		final TestContext context = new TestContext();
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.0.0.4");
 		context.setChainHeightForNode(endpoint, createExceptionalFuture());
+		context.setActivePeersMaxChainHeight(endpoint, Utils.createDeserializerFuture(BlockHeight.ONE));
 
 		// Arrange: set up the peer nodes
 		Mockito.when(context.networkServices.getNodePeerListAsync(endpoint))
@@ -129,6 +130,11 @@ public class ChainServicesTest {
 
 		private void setChainHeightForNode(final NodeEndpoint endpoint, final CompletableFuture<Deserializer> future) {
 			Mockito.when(this.connector.getAsync(endpoint, NisApiId.NIS_REST_CHAIN_HEIGHT, null))
+					.thenReturn(future);
+		}
+
+		private void setActivePeersMaxChainHeight(final NodeEndpoint endpoint, final CompletableFuture<Deserializer> future) {
+			Mockito.when(this.connector.getAsync(endpoint, NisApiId.NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT, null))
 					.thenReturn(future);
 		}
 

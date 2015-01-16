@@ -4,7 +4,7 @@ import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
-import org.nem.core.model.ncc.HarvestInfo;
+import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
@@ -64,8 +64,8 @@ public class AccountController {
 	 * @return The account information.
 	 */
 	@RequestMapping(value = "/account/find", method = RequestMethod.POST)
-	public AccountViewModel getAccountInfo(@RequestBody final AccountIdRequest aidRequest) {
-		final Address address = aidRequest.getAccountId();
+	public AccountViewModel getAccountInfo(@RequestBody final AccountId aidRequest) {
+		final Address address = aidRequest.getAddress();
 		return this.accountMapper.toViewModel(address);
 	}
 
@@ -85,16 +85,16 @@ public class AccountController {
 		return new AccountTransactionsPair(account, this.getUnconfirmedTransactions(ahRequest));
 	}
 
-	private Collection<TransferViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
+	private Collection<TransactionViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
 		// the unconfirmed transactions api does not support paging
 		// in order to simplify the UX code, pretend all subsequent pages are empty
 		if (null != ahRequest.getHash()) {
 			return new ArrayList<>();
 		}
 
-		final Address address = ahRequest.getAccountId();
+		final Address address = ahRequest.getAddress();
 		return this.accountServices.getUnconfirmedTransactions(address).stream()
-				.map(t -> new TransferViewModel(t, address))
+				.map(t -> TransactionToViewModelMapper.map(t, address))
 				.collect(Collectors.toList());
 	}
 
@@ -111,8 +111,8 @@ public class AccountController {
 	@RequestMapping(value = "/account/transactions/all", method = RequestMethod.POST)
 	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountTransactionIdRequest request) {
 		final AccountViewModel account = this.getAccountInfo(request);
-		final List<TransferViewModel> allTransfers = new ArrayList<>();
-		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(request.getAccountId(), null)));
+		final List<TransactionViewModel> allTransfers = new ArrayList<>();
+		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(request.getAddress(), null)));
 		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, request));
 		return new AccountTransactionsPair(account, allTransfers);
 	}
@@ -155,11 +155,11 @@ public class AccountController {
 		return new AccountTransactionsPair(account, this.getConfirmedTransactions(direction, request));
 	}
 
-	private Collection<TransferViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountTransactionIdRequest ahRequest) {
-		final Address address = ahRequest.getAccountId();
+	private Collection<TransactionViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountTransactionIdRequest ahRequest) {
+		final Address address = ahRequest.getAddress();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
 		return this.accountServices.getTransactions(direction, address, ahRequest.getTransactionId()).stream()
-				.map(p -> new TransferViewModel(p, address, lastBlockHeight))
+				.map(p -> TransactionToViewModelMapper.map(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}
 
@@ -175,7 +175,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/account/harvests", method = RequestMethod.POST)
 	public SerializableList<HarvestInfoViewModel> getAccountHarvests(@RequestBody final AccountHashRequest ahRequest) {
-		final List<HarvestInfo> harvestInfos = this.accountServices.getAccountHarvests(ahRequest.getAccountId(), ahRequest.getHash());
+		final List<HarvestInfo> harvestInfos = this.accountServices.getAccountHarvests(ahRequest.getAddress(), ahRequest.getHash());
 		return new SerializableList<>(harvestInfos.stream().map(HarvestInfoViewModel::new).collect(Collectors.toList()));
 	}
 
@@ -207,7 +207,7 @@ public class AccountController {
 
 	private PrivateKey getPrivateKey(final AccountWalletRequest request) {
 		return this.walletServices.get(request.getWalletName())
-				.getAccountPrivateKey(request.getAccountId());
+				.getAccountPrivateKey(request.getAddress());
 	}
 
 	// TODO 20141005 J-G i guess we need tests for these
@@ -229,13 +229,13 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
 	public void remoteUnlock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAddress());
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
 	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
 	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletRequest awRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAccountId());
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAddress());
 		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey());
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, "address=" + remoteAddress.getEncoded());
 		return new AccountStatusViewModel(deserializer);
@@ -248,7 +248,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
 	public void remoteLock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAccountId());
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAddress());
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
 	}
 
