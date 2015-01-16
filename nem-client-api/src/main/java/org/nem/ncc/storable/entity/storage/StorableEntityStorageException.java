@@ -61,7 +61,7 @@ public class StorableEntityStorageException extends NccException {
 		private static final HashMap<Integer, Code> lookup = new HashMap<>();
 
 		static {
-			for (Code c : Code.values()) {
+			for (final Code c : Code.values()) {
 				lookup.put(c.value(), c);
 			}
 		}
