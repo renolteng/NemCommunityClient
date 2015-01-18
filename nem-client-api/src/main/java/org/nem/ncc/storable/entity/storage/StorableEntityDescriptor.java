@@ -30,6 +30,7 @@ public interface StorableEntityDescriptor<
 
 	/**
 	 * Gets the entity deserializer.
+	 * This is necessary because the repository needs to be able to deserialize the entity.
 	 *
 	 * @return The entity deserializer.
 	 */

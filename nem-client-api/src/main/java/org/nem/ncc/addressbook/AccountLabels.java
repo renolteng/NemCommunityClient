@@ -16,7 +16,9 @@ public interface AccountLabels {
 	public AccountLabel getLabel(final Address address);
 
 	/**
-	 * Sets the labels associated with the specified address.
+	 * Changes an existing label associated with the specified address.
+	 * Having setLabel and addLabel allows better insight into gui state and the ability
+	 * to provide better error messages.
 	 *
 	 * @param address The address.
 	 * @param label The public label.

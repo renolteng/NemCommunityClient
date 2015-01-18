@@ -92,6 +92,10 @@ public class WalletAccountController {
 	}
 
 	// TODO 2015 J-B: does it make sense to store wallet account labels in the address book (not sure just a question)?
+	// TODO 20150116 BR -> J: i thought that is the sole reason for having an address book for each wallet? all the methods/structures that
+	// > right now still use labels from the wallet are only there for being backward compatible for a few releases.
+	// (you think (because of blockchain restart) we don't have to be backward compatible?)
+	// TODO 20150118 J-B: 'you think (because of blockchain restart) we don't have to be backward compatible' - yes
 
 	/**
 	 * Updates the label of an existing account.

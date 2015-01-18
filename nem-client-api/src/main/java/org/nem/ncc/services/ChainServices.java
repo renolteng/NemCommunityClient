@@ -2,7 +2,7 @@ package org.nem.ncc.services;
 
 import org.nem.core.connect.client.*;
 import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.node.NodeEndpoint;
+import org.nem.core.node.*;
 import org.nem.ncc.model.NisNodeMetaData;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,20 +35,12 @@ public class ChainServices {
 	public CompletableFuture<NisNodeMetaData> getNodeMetaDataAsync(final NodeEndpoint endpoint) {
 		final int[] numPeers = new int[1]; // this is just a hack to allow getMaxBlockHeightAsync to return the number of nodes
 		final CompletableFuture<BlockHeight> heightFuture = this.getChainHeightAsync(endpoint);
-		final CompletableFuture<BlockHeight> maxHeightFuture = this.getMaxChainHeightAsync(endpoint, numPeers);
-		return CompletableFuture.allOf(heightFuture, maxHeightFuture)
-				.thenApply(v -> new NisNodeMetaData(numPeers[0], maxHeightFuture.join(), heightFuture.join()));
-	}
-
-	private CompletableFuture<BlockHeight> getMaxChainHeightAsync(final NodeEndpoint endpoint, final int[] numPeers) {
-		// TODO 20140927 J-B: i think it makes sense to query  getNodePeerListAsync and NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT
-		// > separately (i.e. different futures) because there is not a dependency anymore
-		return this.networkServices.getNodePeerListAsync(endpoint)
-				.thenCompose(nodes -> {
-					numPeers[0] = nodes.getActiveNodes().size();
-					return this.connector.getAsync(endpoint, NisApiId.NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT, null)
-							.thenApply(BlockHeight::new);
-				});
+		final CompletableFuture<BlockHeight> maxHeightFuture = this.connector.getAsync(endpoint, NisApiId.NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT, null)
+				.thenApply(BlockHeight::new);
+		final CompletableFuture<Integer> numNodesFuture = this.networkServices.getNodePeerListAsync(endpoint)
+				.thenApply(nodes -> nodes.size());
+		return CompletableFuture.allOf(heightFuture, maxHeightFuture, numNodesFuture)
+				.thenApply(v -> new NisNodeMetaData(numNodesFuture.join(), maxHeightFuture.join(), heightFuture.join()));
 	}
 
 	/**
