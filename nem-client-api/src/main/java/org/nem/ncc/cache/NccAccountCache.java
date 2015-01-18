@@ -103,27 +103,23 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		}
 	}
 
-	// TODO 20150115 J-B: i'm pretty sure this isn't doing what you expect it to do (it looks synchronous)
-	// TODO 20150116 BR -> J: it is synchronous, yes. Help me, i don't see the problem. Is it a problem for the AsyncTimer?
 	/**
 	 * Updates all expired accounts. This method is called by a timer.
 	 */
 	public java.util.concurrent.CompletableFuture<java.lang.Void> updateCache() {
-		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
-		final List<AccountId> requests = new ArrayList<>();
-		this.cache.values().stream()
-				.forEach(f -> { if (this.shouldUpdate(f, currentTime)) { requests.add(new AccountId(f.account.getAddress())); }});
-		if (requests.isEmpty()) {
-			return CompletableFuture.completedFuture(null);
-		}
+		return CompletableFuture.runAsync(() -> {
+			final TimeInstant currentTime = this.timeProvider.getCurrentTime();
+			final List<AccountId> requests = this.cache.values().stream()
+					.filter(f -> this.shouldUpdate(f, currentTime))
+					.map(f -> new AccountId(f.account.getAddress()))
+					.collect(Collectors.toList());
+			if (requests.isEmpty()) {
+				return;
+			}
 
-		try {
 			final Collection<AccountMetaDataPair> pairs = this.accountServices.getAccountMetaDataPairs(requests);
 			pairs.stream().forEach(p -> this.cache.put(p.getAccount().getAddress(), new FreshnessPair(p, currentTime)));
-		} catch (final Exception ignored) {
-		}
-
-		return CompletableFuture.completedFuture(null);
+		});
 	}
 
 	private boolean shouldUpdate(final FreshnessPair freshnessPair, final TimeInstant currentTime) {

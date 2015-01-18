@@ -4,7 +4,7 @@ import org.nem.core.node.*;
 import org.nem.ncc.services.*;
 
 import java.util.*;
-import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 /**
  * Factory for creating GraphViewModel.
@@ -26,7 +26,6 @@ public class GraphViewModelFactory {
 				.thenCompose(networkServices::getNodePeerListsAsync).join();
 		final GraphBuilder builder = new GraphBuilder();
 		nodePeersMap.entrySet().forEach(e -> builder.addToGraph(e.getKey(), e.getValue()));
-
 		return builder.create();
 	}
 
@@ -43,25 +42,18 @@ public class GraphViewModelFactory {
 		// TODO 20141011 J-B: is the intent to really get the "local" network or the connected NIS network (when NIS is remote?)
 		// TODO 20150116 BR -> J: see comment from Thies1965 below, there was a problem with using local nodes internet ip
 		// > for people that had their port 7890 afaik.
+		// TODO 20150118 J-B: right, i remember the issue, but if someone is using a remote NIS, shouldn't this request go to the remote NIS
+		// > (as a NIS wouldn't be running locally)?
+
+		// local end point should not be addressed through the external URL which is returned from getNode
 		final NodeEndpoint localEndPoint = new NodeEndpoint("http", "127.0.0.1", 7890);
-		final GraphBuilder builder = new GraphBuilder();
-		try {
-			final Node localNode = nodeServices.getNodeAsync(localEndPoint).get();
-
-			// local end point should not be addressed through the external URL which is returned from getNode
-			localNode.setEndpoint(localEndPoint);
-			final Collection<Node> nodeSet = Collections.singleton(localNode);
-			// TODO 20141011 J-B: can you call into createViewModel at this point?
-			// TODO 20150116 BR -> J: I don't follow, sorry...
-			final Map<Node, NodeCollection> nodePeersMap = networkServices.getNodePeerListsAsync(nodeSet).join();
-			nodePeersMap.entrySet().forEach(e -> builder.addToGraph(e.getKey(), e.getValue()));
-		} catch (ExecutionException | InterruptedException ex) {
-			// TODO 20141011 J-B: i would rather let an exception propagate out then bury it ... use ExceptionUtils.propagate
-			// TODO 20150116 BR -> J: idk why Thies1965 (i think it was him) surrounded it with try...catch. The other method above doesn't.
-			// > What do you mean with "then bury it"?
-			// we do nothing just an empty result;
-		}
-
-		return builder.create();
+		final GraphViewModelFactory t = this;
+		return nodeServices.getNodeAsync(localEndPoint).thenApply(localNode -> {
+				final Collection<Node> nodeSet = Collections.singleton(localNode);
+				return t.createViewModel(
+						networkServices,
+						nodeServices,
+						nodeSet.stream().map(Node::getEndpoint).collect(Collectors.toList()));
+		}).join();
 	}
 }

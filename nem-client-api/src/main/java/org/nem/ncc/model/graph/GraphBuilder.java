@@ -45,8 +45,6 @@ public class GraphBuilder {
 					this.addEdge(node, peerNode);
 				});
 
-		// TODO 20141110 G-B: I've changed it to busy nodes, but I guess that might not be what we want
-		// TODO 20150116 BR -> G: ok for now, we can decide what to display and what not later
 		neighbors.getBusyNodes().stream()
 				.forEach(peerNode -> {
 					this.addNode(peerNode, false);

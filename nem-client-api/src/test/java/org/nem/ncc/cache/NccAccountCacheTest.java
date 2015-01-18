@@ -352,7 +352,7 @@ public class NccAccountCacheTest {
 				.thenReturn(Arrays.asList(context.pair1, context.pair2));
 
 		// Act:
-		context.cache.updateCache();
+		context.cache.updateCache().join();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPairs(Mockito.any());

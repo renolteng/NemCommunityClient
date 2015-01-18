@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 // TODO 20150115 J-B: can you share some of the logic between this class and walletservices?
 // > maybe some of the controller logic too (not sure)?
 // TODO 20150116 BR -> J: you mean by letting this class extend a generic version too?
+// TODO 20150118 J-B: 'you mean by letting this class extend a generic version too' - yea, the logic looks quite similar
 
 /**
  * Implements default address book services

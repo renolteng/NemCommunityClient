@@ -68,10 +68,6 @@ public class SecureStorableEntityDescriptor<
 		return this.descriptor.getFileExtension();
 	}
 
-	// TODO 20150115 J-B: why do you need to expose the deserializer?
-	// > applies to all occurrences of getDeserializer in an interface
-	// TODO 20150116 BR -> J: the repository needs to be able to construct the TEntity. Not a good idea to let the descriptor supply the deserializer?
-
 	@Override
 	public ObjectDeserializer<TEntity> getDeserializer() {
 		return this.descriptor.getDeserializer();

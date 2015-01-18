@@ -215,9 +215,6 @@ public class GraphViewModelFactoryTest {
 
 	@Test
 	public void buildGraphReturnsCorrectGraphViewModelForNoUrlList() {
-		// TODO 20141011 J-B: i think this test is the same as buildGraphReturnsCorrectGraphViewModelForUrlListConsistingOfA01
-		// > except for the createViewModel call; can we refactor?
-		// TODO 20150116 BR -> J: done (though I know you don't like calling with a boolean parameter)
 		// Assert (false = do not use constructed endpoints in createViewModel call):
 		this.assertCreateViewModelReturnsCorrectGraphViewModel(false);
 	}

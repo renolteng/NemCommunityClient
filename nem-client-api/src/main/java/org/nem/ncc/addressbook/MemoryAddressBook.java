@@ -95,9 +95,6 @@ public class MemoryAddressBook implements StorableAddressBook {
 
 	@Override
 	public void setLabel(final Address address, final String label, final String privateLabel) {
-		// TODO 20150115 J-B: any reason you wanted to differentiate set and add?
-		// TODO 20150116 BR -> J: as the error handling suggests, this is only to detect inconsistencies between what the gui thinks
-		// > what the address book contains and what it actually contains. Maybe setLabel should be called changeLabel.
 		final AccountLabel accountLabel = this.accountLabels.get(address);
 		if (null == accountLabel) {
 			throw new AddressBookException(AddressBookException.Code.ADDRESS_NOT_IN_ADDRESS_BOOK);
