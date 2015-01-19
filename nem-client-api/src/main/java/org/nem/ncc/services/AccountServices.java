@@ -43,7 +43,7 @@ public class AccountServices {
 	 * @param requests The collection of account requests.
 	 * @return The collection of account information.
 	 */
-	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<AccountId> requests) {
+	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<SerializableAccountId> requests) {
 		final Deserializer deserializer = this.nisConnector.post(
 				NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP,
 				new HttpJsonPostRequest(new SerializableList<>(requests)));

@@ -46,7 +46,7 @@ public class AccountServicesTest {
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
 				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList()));
-		final Collection<AccountId> requests = Arrays.asList(new AccountId(address));
+		final Collection<SerializableAccountId> requests = Arrays.asList(new SerializableAccountId(address));
 
 		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))
 				.thenReturn(serialize(new SerializableList<>(Arrays.asList(originalPair))));
