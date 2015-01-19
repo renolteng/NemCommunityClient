@@ -109,9 +109,9 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	public java.util.concurrent.CompletableFuture<java.lang.Void> updateCache() {
 		return CompletableFuture.runAsync(() -> {
 			final TimeInstant currentTime = this.timeProvider.getCurrentTime();
-			final List<AccountId> requests = this.cache.values().stream()
+			final List<SerializableAccountId> requests = this.cache.values().stream()
 					.filter(f -> this.shouldUpdate(f, currentTime))
-					.map(f -> new AccountId(f.account.getAddress()))
+					.map(f -> new SerializableAccountId(f.account.getAddress()))
 					.collect(Collectors.toList());
 			if (requests.isEmpty()) {
 				return;

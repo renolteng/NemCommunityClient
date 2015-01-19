@@ -342,10 +342,10 @@ public class NccAccountCacheTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(2);
-		final List<AccountId> requests = accounts.stream()
-				.map(a -> new AccountId(a.getAddress()))
+		final List<SerializableAccountId> requests = accounts.stream()
+				.map(a -> new SerializableAccountId(a.getAddress()))
 				.collect(Collectors.toList());
-		final ArgumentCaptor<? extends List<AccountId>> captor = ArgumentCaptor.forClass(ArrayList.class);
+		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = ArgumentCaptor.forClass(ArrayList.class);
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(120));
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(captor.capture()))
@@ -364,14 +364,14 @@ public class NccAccountCacheTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(2);
-		final List<AccountId> requests = Arrays.asList(new AccountId(accounts.get(0).getAddress()));
+		final List<SerializableAccountId> requests = Arrays.asList(new SerializableAccountId(accounts.get(0).getAddress()));
 		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(1), new TimeInstant(120), new TimeInstant(130));
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(Mockito.eq(requests)))
 				.thenReturn(Arrays.asList(context.pair1));
 
 		// Act:
-		context.cache.updateCache();
+		context.cache.updateCache().join();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPairs(Mockito.eq(requests));
@@ -386,7 +386,7 @@ public class NccAccountCacheTest {
 		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(60));
 
 		// Act:
-		context.cache.updateCache();
+		context.cache.updateCache().join();
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.never()).getAccountMetaDataPairs(Mockito.any());
