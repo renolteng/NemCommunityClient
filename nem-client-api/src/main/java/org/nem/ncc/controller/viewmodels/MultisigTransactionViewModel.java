@@ -14,15 +14,17 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	private final List<MultisigSignatureViewModel> signatureViewModel;
 	private final int requiresSignature;
 	private final Hash innerTransactionHash;
+	private final Address issuer;
 
 	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final BlockHeight lastBlockHeight) {
 		super(Type.Multisig_Transfer, metaDataPair, lastBlockHeight);
 		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
 		final Transaction other = multisigTransaction.getOtherTransaction();
-
 		final TransactionMetaData innerMetaData = metaDataPair.getMetaData() == null
 				? null
 				: new TransactionMetaData(metaDataPair.getMetaData().getHeight(), 0L);
+
+		this.issuer = multisigTransaction.getSigner().getAddress();
 
 		if (other.getType() == TransactionTypes.TRANSFER) {
 			this.otherTransactionViewModel = new TransferTransactionViewModel(
@@ -46,6 +48,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	protected void serializeImpl(final Serializer serializer) {
 		super.serializeImpl(serializer);
 
+		Address.writeTo(serializer, "issuer", this.issuer);
 		serializer.writeObject("inner", this.otherTransactionViewModel);
 		serializer.writeObject("innerHash", this.innerTransactionHash);
 		serializer.writeObjectArray("signatures", this.signatureViewModel);

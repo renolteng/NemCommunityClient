@@ -68,7 +68,11 @@ public class TransactionViewModel implements SerializableEntity {
 
 		this.transactionViewModelType = transactionViewModelType;
 		this.transactionHash = HashUtils.calculateHash(transaction);
-		this.signer = transaction.getSigner().getAddress();
+
+		this.signer = (TransactionTypes.MULTISIG != transaction.getType())
+				? transaction.getSigner().getAddress()
+				: ((MultisigTransaction)transaction).getOtherTransaction().getSigner().getAddress();
+
 		this.timeStamp = UnixTime.fromTimeInstant(transaction.getTimeStamp()).getMillis();
 		this.fee = transaction.getFee();
 
