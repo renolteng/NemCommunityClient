@@ -17,7 +17,8 @@ public interface AccountLabels {
 
 	/**
 	 * Changes an existing label associated with the specified address.
-	 * Having setLabel and addLabel allows better insight into gui state and the ability
+	 * <br/>
+	 * Having setLabel and addLabel allows better insight into the gui state and the ability
 	 * to provide better error messages.
 	 *
 	 * @param address The address.
