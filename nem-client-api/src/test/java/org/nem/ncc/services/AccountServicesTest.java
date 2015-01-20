@@ -56,6 +56,7 @@ public class AccountServicesTest {
 
 		// Assert:
 		Mockito.verify(context.connector, Mockito.times(1)).post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any());
+		Assert.assertThat(pairs.size(), IsEqual.equalTo(1));
 		Assert.assertThat(pairs.get(0).getAccount().getAddress(), IsEqual.equalTo(address));
 		Assert.assertThat(pairs.get(0).getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
 	}

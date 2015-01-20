@@ -10,6 +10,8 @@ import org.nem.ncc.controller.viewmodels.AccountViewModel;
 import org.nem.ncc.test.Utils;
 import org.nem.ncc.wallet.WalletAccount;
 
+import java.util.ArrayList;
+
 public class AccountMapperTest {
 
 	@Test
@@ -59,6 +61,6 @@ public class AccountMapperTest {
 	private static AccountMetaDataPair createMetaDataPair(final Address address) {
 		return new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, new ArrayList<>()));
 	}
 }

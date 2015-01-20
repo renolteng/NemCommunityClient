@@ -58,7 +58,7 @@ public class AccountViewModel implements SerializableEntity {
 				: info.getKeyPair().getPublicKey();
 
 		this.balance = info.getBalance();
-		this.foragedBlocks = info.getNumForagedBlocks();
+		this.foragedBlocks = info.getNumHarvestedBlocks();
 		this.importance = info.getImportance();
 		this.status = status;
 	}

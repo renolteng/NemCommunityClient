@@ -11,6 +11,8 @@ import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.test.Utils;
 
+import java.util.ArrayList;
+
 public class AccountViewModelTest {
 
 	@Test
@@ -69,7 +71,7 @@ public class AccountViewModelTest {
 
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				account,
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, new ArrayList<>()));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(pair, null);

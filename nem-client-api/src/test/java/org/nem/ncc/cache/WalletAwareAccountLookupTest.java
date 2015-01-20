@@ -11,6 +11,8 @@ import org.nem.ncc.services.*;
 import org.nem.ncc.test.Utils;
 import org.nem.ncc.wallet.WalletAccount;
 
+import java.util.ArrayList;
+
 public class WalletAwareAccountLookupTest {
 
 	//region findByAddress
@@ -148,7 +150,7 @@ public class WalletAwareAccountLookupTest {
 		final Address addressWithoutPublicKey = Address.fromEncoded(address.getEncoded());
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				new AccountInfo(addressWithoutPublicKey, Amount.fromNem(17), new BlockAmount(12), "foo", 1.5),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, new ArrayList<>()));
 		Mockito.when(context.mockAccountLookup.findPairByAddress(address)).thenReturn(pair);
 		Mockito.when(context.walletServices.tryFindOpenAccount(addressWithoutPublicKey)).thenReturn(new WalletAccount(keyPair.getPrivateKey()));
 
@@ -160,7 +162,7 @@ public class WalletAwareAccountLookupTest {
 		Assert.assertThat(resultInfo.getAddress().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getKeyPair().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getBalance(), IsEqual.equalTo(Amount.fromNem(17)));
-		Assert.assertThat(resultInfo.getNumForagedBlocks(), IsEqual.equalTo(new BlockAmount(12)));
+		Assert.assertThat(resultInfo.getNumHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(12)));
 		Assert.assertThat(resultInfo.getLabel(), IsEqual.equalTo("foo"));
 		Assert.assertThat(resultInfo.getImportance(), IsEqual.equalTo(1.5));
 		Assert.assertThat(result.getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
@@ -174,7 +176,7 @@ public class WalletAwareAccountLookupTest {
 	private static AccountMetaDataPair createAccountMetaDataPair(final Address address) {
 		return new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, new ArrayList<>()));
 	}
 
 	private static class TestContext {

@@ -85,7 +85,7 @@ public class AccountController {
 		return new AccountTransactionsPair(account, this.getUnconfirmedTransactions(ahRequest));
 	}
 
-	private Collection<TransactionViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
+	private Collection<TransferViewModel> getUnconfirmedTransactions(final AccountHashRequest ahRequest) {
 		// the unconfirmed transactions api does not support paging
 		// in order to simplify the UX code, pretend all subsequent pages are empty
 		if (null != ahRequest.getHash()) {
@@ -94,7 +94,7 @@ public class AccountController {
 
 		final Address address = ahRequest.getAddress();
 		return this.accountServices.getUnconfirmedTransactions(address).stream()
-				.map(t -> TransactionToViewModelMapper.map(t, address))
+				.map(t -> new TransferViewModel(t, address))
 				.collect(Collectors.toList());
 	}
 
@@ -111,7 +111,7 @@ public class AccountController {
 	@RequestMapping(value = "/account/transactions/all", method = RequestMethod.POST)
 	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountTransactionIdRequest request) {
 		final AccountViewModel account = this.getAccountInfo(request);
-		final List<TransactionViewModel> allTransfers = new ArrayList<>();
+		final List<TransferViewModel> allTransfers = new ArrayList<>();
 		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(request.getAddress(), null)));
 		allTransfers.addAll(this.getConfirmedTransactions(TransactionDirection.ALL, request));
 		return new AccountTransactionsPair(account, allTransfers);
@@ -155,11 +155,11 @@ public class AccountController {
 		return new AccountTransactionsPair(account, this.getConfirmedTransactions(direction, request));
 	}
 
-	private Collection<TransactionViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountTransactionIdRequest ahRequest) {
+	private Collection<TransferViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountTransactionIdRequest ahRequest) {
 		final Address address = ahRequest.getAddress();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
 		return this.accountServices.getTransactions(direction, address, ahRequest.getTransactionId()).stream()
-				.map(p -> TransactionToViewModelMapper.map(p, address, lastBlockHeight))
+				.map(p -> new TransferViewModel(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}
 

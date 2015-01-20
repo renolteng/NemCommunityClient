@@ -33,7 +33,6 @@ public class ChainServices {
 	 * @return The NIS node meta data.
 	 */
 	public CompletableFuture<NisNodeMetaData> getNodeMetaDataAsync(final NodeEndpoint endpoint) {
-		final int[] numPeers = new int[1]; // this is just a hack to allow getMaxBlockHeightAsync to return the number of nodes
 		final CompletableFuture<BlockHeight> heightFuture = this.getChainHeightAsync(endpoint);
 		final CompletableFuture<BlockHeight> maxHeightFuture = this.connector.getAsync(endpoint, NisApiId.NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT, null)
 				.thenApply(BlockHeight::new);
