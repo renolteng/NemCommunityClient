@@ -9,6 +9,7 @@ import org.nem.core.utils.StringEncoder;
 public class TransferTransactionViewModel extends TransactionViewModel {
 	private static final int INCOMING_FLAG = 1;
 	private static final int OUTGOING_FLAG = 2;
+	private static final int SELF_FLAG = 3;
 
 	private final Address recipient;
 	private final Amount amount;
@@ -27,9 +28,14 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		this.message = getMessageText(message);
 		this.isEncrypted = isEncrypted(message);
 
-		this.direction =
-				(this.getSigner().equals(relativeAccountAddress) ? OUTGOING_FLAG : 0) +
-						(this.recipient.equals(relativeAccountAddress) ? INCOMING_FLAG : 0);
+		this.direction = calculateDirection(relativeAccountAddress);
+	}
+
+	private int calculateDirection(final Address relativeAccountAddress) {
+		if (this.recipient.equals(relativeAccountAddress)) {
+			return this.getSigner().equals(relativeAccountAddress) ? SELF_FLAG : INCOMING_FLAG;
+		}
+		return OUTGOING_FLAG;
 	}
 
 	@Override

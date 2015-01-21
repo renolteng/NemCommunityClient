@@ -38,7 +38,15 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				.map(t -> new MultisigSignatureViewModel(new TransactionMetaDataPair(t, innerMetaData), lastBlockHeight))
 				.collect(Collectors.toList());
 
-		this.requiresSignature = multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
+		this.requiresSignature = requiresSignature(metaDataPair, relativeAccountAddress);
+	}
+
+	private int requiresSignature(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress) {
+		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
+		if (metaDataPair.getMetaData() != null) {
+			return 0;
+		}
+		return  multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
 				|| multisigTransaction.getSigners().stream()
 				.anyMatch(t -> t.getAddress().equals(relativeAccountAddress))
 				? 0 : 1;

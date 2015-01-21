@@ -607,11 +607,10 @@ define(function() {
         // PROCESSING
         processTransaction: function(tx) {
             var transferTransaction = tx;
+            var currentFee = 0;
+            // multisig
             if (tx.type == 4) {
                 tx.isMultisig = true;
-                tx.isIncoming = false;
-                tx.isOutgoing = true;
-                tx.isSelf = false;
                 transferTransaction = tx.inner;
                 tx.message = "#cosigs " + tx.signatures.length;
                 tx.recipient = transferTransaction.recipient
@@ -623,18 +622,25 @@ define(function() {
                 tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
+
+                currentFee = tx.inner.fee;
             }
-            else if (tx.type == 1)
+            else
             {
                 tx.isMultisig = false;
-                tx.isIncoming = tx.direction === 1 || tx.direction === 0;
-                tx.isOutgoing = tx.direction === 2;
-                tx.isSelf = tx.direction === 3;
+                currentFee = tx.fee;
+            }
+
+            if (transferTransaction.type == 1)
+            {
+                tx.isIncoming = transferTransaction.direction === 1; //  || transferTransaction.direction === 0;
+                tx.isOutgoing = transferTransaction.direction === 2;
+                tx.isSelf = transferTransaction.direction === 3;
             }
 
             tx.formattedSender = Utils.format.address.format(tx.sender);
-            tx.formattedFee = Utils.format.nem.formatNemAmount(tx.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedFullFee = Utils.format.nem.formatNemAmount(tx.fee);
+            tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
             tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
