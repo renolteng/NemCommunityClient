@@ -5,7 +5,6 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.addressbook.AccountLabel;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  */
 public class AccountViewModel implements SerializableEntity {
 	private final Address address;
-	private final String label;
 	private final AccountRemoteStatus remoteStatus;
 	private final PublicKey publicKey;
 	private final Amount balance;
@@ -27,16 +25,12 @@ public class AccountViewModel implements SerializableEntity {
 	 * Creates a new account view model around an account metadata pair.
 	 *
 	 * @param accountMetaDataPair The account metadata pair.
-	 * @param label The account label.
 	 */
-	public AccountViewModel(
-			final AccountMetaDataPair accountMetaDataPair,
-			final AccountLabel label) {
+	public AccountViewModel(final AccountMetaDataPair accountMetaDataPair) {
 		this(
 				accountMetaDataPair.getAccount(),
 				accountMetaDataPair.getMetaData().getStatus(),
 				accountMetaDataPair.getMetaData().getRemoteStatus(),
-				label,
 				accountMetaDataPair.getMetaData().getCosignatoryOf());
 	}
 
@@ -46,17 +40,14 @@ public class AccountViewModel implements SerializableEntity {
 	 * @param info The account info.
 	 * @param status The account status.
 	 * @param remoteStatus The remote account status.
-	 * @param label The account label.
 	 * @param cosignatoryOf The list of account information.
 	 */
 	public AccountViewModel(
 			final AccountInfo info,
 			final AccountStatus status,
 			final AccountRemoteStatus remoteStatus,
-			final AccountLabel label,
 			final List<AccountInfo> cosignatoryOf) {
 		this.address = info.getAddress();
-		this.label = null == label ? null : label.getLabel();
 		this.remoteStatus = remoteStatus;
 
 		this.publicKey = null == info.getKeyPair()
@@ -86,15 +77,6 @@ public class AccountViewModel implements SerializableEntity {
 	 */
 	public AccountRemoteStatus getRemoteStatus() {
 		return this.remoteStatus;
-	}
-
-	/**
-	 * Gets the account label.
-	 *
-	 * @return The label.
-	 */
-	public String getLabel() {
-		return this.label;
 	}
 
 	/**
@@ -145,7 +127,6 @@ public class AccountViewModel implements SerializableEntity {
 	@Override
 	public void serialize(final Serializer serializer) {
 		Address.writeTo(serializer, "address", this.address);
-		serializer.writeString("label", this.label);
 		AccountRemoteStatus.writeTo(serializer, "remoteStatus", this.remoteStatus);
 		serializer.writeBytes("publicKey", null == this.publicKey ? null : this.publicKey.getRaw());
 		Amount.writeTo(serializer, "balance", this.balance);

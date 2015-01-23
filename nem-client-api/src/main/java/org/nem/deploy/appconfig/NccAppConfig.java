@@ -149,7 +149,7 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountMapper accountMapper() {
-		return new AccountMapper(this.configuration(), this.accountLookup());
+		return new AccountMapper(this.accountLookup());
 	}
 
 	@Bean

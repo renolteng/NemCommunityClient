@@ -3,12 +3,10 @@ package org.nem.ncc.controller.viewmodels;
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
-import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.JsonSerializer;
-import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.test.Utils;
 
 public class AccountViewModelTest {
@@ -19,11 +17,10 @@ public class AccountViewModelTest {
 		final AccountInfo account = createAccountInfo(null, Address.fromEncoded("xyz"));
 
 		// Act:
-		final AccountViewModel viewModel = createAccountViewModel(account, null);
+		final AccountViewModel viewModel = createAccountViewModel(account);
 
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
-		Assert.assertThat(viewModel.getLabel(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
 		Assert.assertThat(viewModel.getHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
@@ -33,26 +30,13 @@ public class AccountViewModelTest {
 	}
 
 	@Test
-	public void viewModelCanBeCreatedWithLabel() {
-		// Arrange:
-		final AccountInfo account = createAccountInfo("my acc", Address.fromEncoded("xyz"));
-
-		// Act:
-		final AccountLabel label = new AccountLabel(account.getAddress(), "my pub label", "my pri label");
-		final AccountViewModel viewModel = createAccountViewModel(account, label);
-
-		// Assert:
-		Assert.assertThat(viewModel.getLabel(), IsEqual.equalTo("my pri label"));
-	}
-
-	@Test
 	public void viewModelCanBeCreatedAroundAccountWithPublicKey() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
 		final AccountInfo account = createAccountInfo(null, address);
 
 		// Act:
-		final AccountViewModel viewModel = createAccountViewModel(account, null);
+		final AccountViewModel viewModel = createAccountViewModel(account);
 
 		// Assert:
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.notNullValue());
@@ -69,11 +53,10 @@ public class AccountViewModelTest {
 				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null));
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(pair, null);
+		final AccountViewModel viewModel = new AccountViewModel(pair);
 
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
-		Assert.assertThat(viewModel.getLabel(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
 		Assert.assertThat(viewModel.getHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
@@ -88,15 +71,14 @@ public class AccountViewModelTest {
 		final Address address = Utils.generateRandomAddressWithPublicKey();
 		final AccountInfo account = createAccountInfo(null, address);
 
-		final AccountViewModel viewModel = createAccountViewModel(account, new AccountLabel(account.getAddress(), "my pub label", "my pri label"));
+		final AccountViewModel viewModel = createAccountViewModel(account);
 
 		// Act:
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(7));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
-		Assert.assertThat(jsonObject.get("label"), IsEqual.equalTo("my pri label"));
 		Assert.assertThat(jsonObject.get("remoteStatus"), IsEqual.equalTo("INACTIVE"));
 		Assert.assertThat(jsonObject.get("publicKey"), IsEqual.equalTo(address.getPublicKey().toString()));
 		Assert.assertThat(jsonObject.get("balance"), IsEqual.equalTo(271000000L));
@@ -105,27 +87,11 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
 	}
 
-	@Test
-	public void viewModelCanBeSerializedWithoutLabel() {
-		// Arrange:
-		final KeyPair keyPair = new KeyPair();
-		final Account account = new Account(keyPair);
-		final AccountViewModel viewModel = createAccountViewModel(Utils.createAccountInfoFromAddress(account.getAddress()), null);
-
-		// Act:
-		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
-
-		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
-		Assert.assertThat(jsonObject.get("label"), IsNull.nullValue());
-	}
-
-	private static AccountViewModel createAccountViewModel(final AccountInfo account, final AccountLabel label) {
+	private static AccountViewModel createAccountViewModel(final AccountInfo account) {
 		return new AccountViewModel(
 				account,
 				AccountStatus.LOCKED,
 				AccountRemoteStatus.INACTIVE,
-				label,
 				null);
 	}
 

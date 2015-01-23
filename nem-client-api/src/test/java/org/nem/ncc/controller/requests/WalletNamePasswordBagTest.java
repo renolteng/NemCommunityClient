@@ -54,32 +54,6 @@ public class WalletNamePasswordBagTest {
 
 	//endregion
 
-	//region getAccountLabelOrDefault
-
-	@Test
-	public void getAccountLabelOrDefaultReturnsNullIfNotSpecified() {
-		// Act:
-		final WalletNamePasswordBag bag = createBagFromJson("name", "password");
-
-		// Assert:
-		Assert.assertThat(bag.getAccountLabelOrDefault(), IsNull.nullValue());
-	}
-
-	@Test
-	public void getAccountLabelOrDefaultReturnsLabelIfSpecified() {
-		// Arrange:
-		final JSONObject jsonObject = createJson("name", "password");
-		jsonObject.put("label", "lab");
-
-		// Act:
-		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
-
-		// Assert:
-		Assert.assertThat(bag.getAccountLabelOrDefault(), IsEqual.equalTo("lab"));
-	}
-
-	//endregion
-
 	//region getAccountPrivateKey
 
 	@Test

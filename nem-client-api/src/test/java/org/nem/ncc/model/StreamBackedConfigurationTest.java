@@ -2,7 +2,6 @@ package org.nem.ncc.model;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
-import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.test.CorruptStreams;
@@ -27,45 +26,6 @@ public class StreamBackedConfigurationTest {
 		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
-	}
-
-	@Test
-	public void configCanBeDeserializedWithLabels() {
-		// Arrange:
-		final Configuration originalConfig = new Configuration("de-DE", ENDPOINT, BOOT_INFO, "sp");
-		originalConfig.setLabel(Address.fromEncoded("sigma"), "s", "ps");
-		originalConfig.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-
-		// Act:
-		final Configuration config = deserializeStreamBackedConfig(originalConfig, "sp2", null);
-
-		// Assert:
-		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
-		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
-		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(2));
-	}
-
-	@Test
-	public void setLabelSavesConfiguration() {
-		// Arrange:
-		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		final Configuration config = deserializeStreamBackedConfig(
-				new Configuration("de-DE", ENDPOINT, BOOT_INFO, "sp"),
-				"sp2",
-				() -> outputStream);
-
-		// Act:
-		config.setLabel(Address.fromEncoded("sigma"), "s", "ps");
-		final Configuration reloadedConfig = new StreamBackedConfiguration(
-				"sp2",
-				new ByteArrayInputStream(outputStream.toByteArray()),
-				null);
-
-		// Assert:
-		Assert.assertThat(reloadedConfig.getNumLabels(), IsEqual.equalTo(1));
 	}
 
 	@Test
@@ -102,12 +62,10 @@ public class StreamBackedConfigurationTest {
 				});
 
 		// Act:
-		config.setLabel(Address.fromEncoded("sigma"), "s", "ps");
-		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
 		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.15"), new NisBootInfo(11, "5", "4"));
 
 		// Assert:
-		Assert.assertThat(numSupplierCalls[0], IsEqual.equalTo(3));
+		Assert.assertThat(numSupplierCalls[0], IsEqual.equalTo(1));
 	}
 
 	@Test(expected = ConfigurationException.class)
@@ -120,7 +78,7 @@ public class StreamBackedConfigurationTest {
 				() -> outputStream);
 
 		// Act:
-		config.setLabel(Address.fromEncoded("sigma"), "s", "ps");
+		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.15"), new NisBootInfo(11, "5", "4"));
 	}
 
 	private static Configuration deserializeStreamBackedConfig(

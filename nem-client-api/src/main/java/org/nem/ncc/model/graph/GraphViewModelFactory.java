@@ -44,6 +44,7 @@ public class GraphViewModelFactory {
 		// > for people that had their port 7890 afaik.
 		// TODO 20150118 J-B: right, i remember the issue, but if someone is using a remote NIS, shouldn't this request go to the remote NIS
 		// > (as a NIS wouldn't be running locally)?
+		// TODO 20150123 BR -> J: yea, in this case it should go to the remote NIS.
 
 		// local end point should not be addressed through the external URL which is returned from getNode
 		final NodeEndpoint localEndPoint = new NodeEndpoint("http", "127.0.0.1", 7890);
