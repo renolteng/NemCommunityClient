@@ -93,8 +93,9 @@ public class AccountController {
 		}
 
 		final Address address = ahRequest.getAddress();
+		final AccountMetaDataPair accountData = this.accountServices.getAccountMetaDataPair(address);
 		return this.accountServices.getUnconfirmedTransactions(address).stream()
-				.map(t -> TransactionToViewModelMapper.map(t, address))
+				.map(t -> TransactionToViewModelMapper.map(t, accountData))
 				.collect(Collectors.toList());
 	}
 

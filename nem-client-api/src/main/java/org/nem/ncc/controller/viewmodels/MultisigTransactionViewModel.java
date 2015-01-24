@@ -16,10 +16,11 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	private final Hash innerTransactionHash;
 	private final Address issuer;
 
-	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final BlockHeight lastBlockHeight) {
+	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccoundData, final BlockHeight lastBlockHeight) {
 		super(Type.Multisig_Transfer, metaDataPair, lastBlockHeight);
 		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
 		final Transaction other = multisigTransaction.getOtherTransaction();
+		final Address relativeAccountAddress = relativeAccoundData.getAccount().getAddress();
 		final TransactionMetaData innerMetaData = metaDataPair.getMetaData() == null
 				? null
 				: new TransactionMetaData(metaDataPair.getMetaData().getHeight(), 0L);
@@ -38,18 +39,32 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				.map(t -> new MultisigSignatureViewModel(new TransactionMetaDataPair(t, innerMetaData), lastBlockHeight))
 				.collect(Collectors.toList());
 
-		this.requiresSignature = requiresSignature(metaDataPair, relativeAccountAddress);
+		this.requiresSignature = requiresSignature(metaDataPair, relativeAccountAddress, relativeAccoundData);
 	}
 
-	private int requiresSignature(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress) {
+	private int requiresSignature(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final AccountMetaDataPair relativeAccoundData) {
 		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
 		if (metaDataPair.getMetaData() != null) {
 			return 0;
 		}
-		return  multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
-				|| multisigTransaction.getSigners().stream()
-				.anyMatch(t -> t.getAddress().equals(relativeAccountAddress))
-				? 0 : 1;
+
+		if (relativeAccoundData.getMetaData() == null) {
+			return 0;
+		}
+
+		// multisig account is on the list of accounts that relativeAccountAddress is eligible to sign
+		final Address multisigAddress = multisigTransaction.getOtherTransaction().getSigner().getAddress();
+		if (relativeAccoundData.getMetaData().getCosignatoryOf().stream()
+				.map(info -> info.getAddress())
+				.anyMatch(t -> t.equals(multisigAddress)))
+		{
+			return  multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
+					|| multisigTransaction.getSigners().stream()
+					.anyMatch(t -> t.getAddress().equals(relativeAccountAddress))
+					? 0 : 1;
+		}
+
+		return 0;
 	}
 
 	@Override
