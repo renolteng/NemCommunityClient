@@ -544,16 +544,25 @@
 <signatureConfirmModal modalClass="sigConfirmModal modal--wide" modalTitle="{{texts.modals.signMultisig.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
 	<div class="sigConfirm-txInfo">
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.sender}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-sender">{{txData.sender}}</span></span>
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.from}}</span>
+			<span class="sigConfirm-value"><span class="sigConfirm-sender">{{txData.txData.sender}}</span></span>
+		</div>
+		<div class="sigConfirm-line">
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.to}}</span>
+			<span class="sigConfirm-value">{{txData.txData.recipient}}</span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.fee}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{txData.formattedFee}} NEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{txData.txData.formattedFee}} NEM</span></span>
 		</div>
+		<hr>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.dueBy}}</span>
 			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.modals.signMultisig.txConfirm.hours}}</span>
+		</div>
+		<div class="sigConfirm-line">
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.sender}}</span>
+			<span class="sigConfirm-value">{{txData.sender}}</span>
 		</div>
 	</div>
 	<div class="sigConfirm-actions">
@@ -622,12 +631,19 @@
 <transactionDetailsModal modalClass="txDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}" blockchainHeight="{{blockchainHeight}}">
 	{{#transaction}}
 		<table>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="table-cell table-cell--content">
+					{{texts.transactionTypes[.type - 1]}}
+				</td>
+			</tr>
+
             <tr>
                 <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.hash}}</td>
                 <td class="table-cell table-cell--content">{{.hash}}</td>
             </tr>
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.direction}}</td>
 				<td class="table-cell table-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
 			</tr>
 			<tr>
@@ -642,12 +658,25 @@
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
 				</td>
 			</tr>
+			{{#.isMultisig}}
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.message}}</td>
+				<td class="table-cell table-cell--label">
+					{{texts.modals.transactionDetails.multisigMessage}}
+				</td>
 				<td class="table-cell table-cell--content">
-					{{.message}}{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
+					{{.cosignatoriesCount}}
+				</td>
+			</tr>
+			{{/}}
+			<tr>
+				<td class="table-cell table-cell--label">
+					{{texts.modals.transactionDetails.message}}
+				</td>
+				<td class="table-cell table-cell--content">
+					{{.message}}
+					{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
 					{{#.encrypted}}
-						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+					&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
 					{{/}}
 				</td>
 			</tr>

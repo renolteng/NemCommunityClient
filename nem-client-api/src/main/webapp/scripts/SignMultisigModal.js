@@ -45,7 +45,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),
                 cosignatory: ncc.get('activeAccount.address'),
-                multisig: this.get('txData..inner.sender')
+                multisig: this.get('txData.inner.sender')
             };
             var self = this;
             

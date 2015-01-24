@@ -138,7 +138,7 @@
                                     {{/}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
 										{{#if .isMultisig}}
-											<span style='font-style:italic;'>{{.message}}</span>
+											<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
 										{{else}}
 											{{#if .message}}
 												{{.message}}

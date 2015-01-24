@@ -612,8 +612,9 @@ define(function() {
             if (tx.type == 4) {
                 tx.isMultisig = true;
                 transferTransaction = tx.inner;
-                tx.message = "#cosigs " + tx.signatures.length;
+                tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.recipient = transferTransaction.recipient
+                tx.message = tx.inner.message;
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);

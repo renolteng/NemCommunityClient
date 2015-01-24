@@ -91,6 +91,12 @@ define({
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 		},
+		transactionTypes: [
+			'Transfer Transaction',
+			'Importance Transaction',
+			'Modification of Multisig Account',
+			'Multisig Transaction'
+		],
 		modals: {
 			error: {
 				title: 'Oops!',
@@ -154,6 +160,7 @@ define({
 				sending: 'Sending...',
 				successMessage: 'Transaction has been sent successfully!',
 				txConfirm: {
+					title: 'Confirm Multisig Transaction',
 					amount: 'Amount',
 					from: 'Multisig account',
 					to: 'To',
@@ -229,12 +236,14 @@ define({
 				id: 'ID',
 				hash: 'Hash',
 				type: 'Transaction Type',
+				direction: 'Transaction Direction',
 				pending: 'Pending',
 				outgoing: 'Outgoing',
 				incoming: 'Incoming',
 				self: 'Self',
 				sender: 'Sender',
 				recipient: 'Recipient',
+				multisigMessage: 'Signatures present',
 				message: 'Message',
 				noMessage: 'No message',
 				encrypted: 'Message is encrypted',
