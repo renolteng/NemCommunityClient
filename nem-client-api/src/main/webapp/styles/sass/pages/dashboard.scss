@@ -178,7 +178,8 @@
 	vertical-align: middle;
 }
 
-.transactionsTile-sendNemButton {
+.transactionsTile-sendNemButton,
+.transactionsTile-signMultisigButton {
 	$bgColor: #41ce7d;
 	margin-left: 10px;
 	height: 27px;

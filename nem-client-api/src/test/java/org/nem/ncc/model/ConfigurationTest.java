@@ -1,12 +1,10 @@
 package org.nem.ncc.model;
 
-import net.minidev.json.*;
-import org.hamcrest.core.*;
+import net.minidev.json.JSONObject;
+import org.hamcrest.core.IsEqual;
 import org.junit.*;
-import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.test.*;
 
 import java.util.*;
@@ -29,11 +27,10 @@ public class ConfigurationTest {
 		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
 	}
 
 	@Test
-	public void configCanBeRoundTrippedWithoutLabels() {
+	public void configCanBeRoundTripped() {
 		// Arrange:
 		final Configuration originalConfig = new Configuration("de-DE", ENDPOINT, BOOT_INFO, "sp");
 
@@ -47,33 +44,6 @@ public class ConfigurationTest {
 		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
-	}
-
-	@Test
-	public void configCanBeRoundTrippedWithLabels() {
-		// Arrange:
-		final Configuration originalConfig = new Configuration("de-DE", ENDPOINT, BOOT_INFO, "sp");
-		originalConfig.setLabel(Address.fromEncoded("sigma"), "s", "ps");
-		originalConfig.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-
-		// Act:
-		final Configuration config = new Configuration(
-				Utils.createDeserializer(JsonSerializer.serializeToJson(originalConfig)),
-				"sp2");
-
-		// Assert:
-		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
-		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
-		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp2"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(2));
-		Assert.assertThat(
-				config.getLabel(Address.fromEncoded("sigma")),
-				IsEqual.equalTo(new AccountLabel(Address.fromEncoded("sigma"), "s", "ps")));
-		Assert.assertThat(
-				config.getLabel(Address.fromEncoded("alpha")),
-				IsEqual.equalTo(new AccountLabel(Address.fromEncoded("alpha"), "a", "pa")));
 	}
 
 	//endregion
@@ -83,36 +53,33 @@ public class ConfigurationTest {
 	@Test
 	public void configCanBeDeserializedWithAllRequiredParameters() {
 		// Act:
-		final Configuration config = this.createConfigFromJson("de-DE", ENDPOINT, BOOT_INFO, true);
+		final Configuration config = this.createConfigFromJson("de-DE", ENDPOINT, BOOT_INFO);
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
 		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
 	}
 
 	@Test
 	public void configCanBeDeserializedWithoutRemoteServer() {
 		// Act:
-		final Configuration config = this.createConfigFromJson("de-DE", null, BOOT_INFO, true);
+		final Configuration config = this.createConfigFromJson("de-DE", null, BOOT_INFO);
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("de-DE"));
 		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("localhost")));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("sp"));
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
 	}
 
 	@Test
 	public void configCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createConfigFromJson(null, ENDPOINT, BOOT_INFO, true),
-				v -> this.createConfigFromJson("de-DE", ENDPOINT, null, true),
-				v -> this.createConfigFromJson("de-DE", ENDPOINT, BOOT_INFO, false));
+				v -> this.createConfigFromJson(null, ENDPOINT, BOOT_INFO),
+				v -> this.createConfigFromJson("de-DE", ENDPOINT, null));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
@@ -133,8 +100,7 @@ public class ConfigurationTest {
 	private Configuration createConfigFromJson(
 			final String language,
 			final NodeEndpoint remoteServer,
-			final NisBootInfo bootInfo,
-			final boolean hasAccountLabels) {
+			final NisBootInfo bootInfo) {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
 		if (null != language) {
@@ -147,10 +113,6 @@ public class ConfigurationTest {
 
 		if (null != bootInfo) {
 			jsonObject.put("nisBootInfo", JsonSerializer.serializeToJson(bootInfo));
-		}
-
-		if (hasAccountLabels) {
-			jsonObject.put("accountLabels", new JSONArray());
 		}
 
 		return new Configuration(Utils.createDeserializer(jsonObject), "sp");
@@ -184,78 +146,6 @@ public class ConfigurationTest {
 	private static boolean isNisLocal(final NodeEndpoint endpoint) {
 		final Configuration config = new Configuration("de-DE", endpoint, BOOT_INFO, "sp");
 		return config.isNisLocal();
-	}
-
-	//endregion
-
-	//region label management
-
-	@Test
-	public void accountLabelCanBeSet() {
-		// Arrange:
-		final Configuration config = createDefaultConfiguration();
-
-		// Act:
-		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-		final AccountLabel label = config.getLabel(Address.fromEncoded("alpha"));
-
-		// Assert:
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(1));
-		Assert.assertThat(label, IsEqual.equalTo(new AccountLabel(Address.fromEncoded("alpha"), "a", "pa")));
-	}
-
-	@Test
-	public void accountLabelCanBeUpdated() {
-		// Arrange:
-		final Configuration config = createDefaultConfiguration();
-		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-
-		// Act:
-		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-		config.setLabel(Address.fromEncoded("alpha"), "b", "pb");
-		final AccountLabel label = config.getLabel(Address.fromEncoded("alpha"));
-
-		// Assert:
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(1));
-		Assert.assertThat(label, IsEqual.equalTo(new AccountLabel(Address.fromEncoded("alpha"), "b", "pb")));
-	}
-
-	@Test
-	public void unsetAccountLabelCannotBeRetrieved() {
-		// Arrange:
-		final Configuration config = createDefaultConfiguration();
-
-		// Act:
-		final AccountLabel label = config.getLabel(Address.fromEncoded("alpha"));
-
-		// Assert:
-		Assert.assertThat(label, IsNull.nullValue());
-	}
-
-	@Test
-	public void accountLabelCanBeRemoved() {
-		// Arrange:
-		final Configuration config = createDefaultConfiguration();
-		config.setLabel(Address.fromEncoded("alpha"), "a", "pa");
-
-		// Act:
-		config.removeLabel(Address.fromEncoded("alpha"));
-
-		// Assert:
-		Assert.assertThat(config.getNumLabels(), IsEqual.equalTo(0));
-	}
-
-	@Test
-	public void unsetAccountLabelCannotBeRetrievedAfterRemoval() {
-		// Arrange:
-		final Configuration config = createDefaultConfiguration();
-		config.removeLabel(Address.fromEncoded("alpha"));
-
-		// Act:
-		final AccountLabel label = config.getLabel(Address.fromEncoded("alpha"));
-
-		// Assert:
-		Assert.assertThat(label, IsNull.nullValue());
 	}
 
 	//endregion

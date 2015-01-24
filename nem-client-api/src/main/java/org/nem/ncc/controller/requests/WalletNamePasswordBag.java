@@ -23,15 +23,6 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	}
 
 	/**
-	 * Gets the account label if it was specified or null otherwise.
-	 *
-	 * @return The account label.
-	 */
-	public String getAccountLabelOrDefault() {
-		return this.deserializer.readOptionalString("label");
-	}
-
-	/**
 	 * Gets the account private key if it was specified.
 	 *
 	 * @return The account private key.

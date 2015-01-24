@@ -1,7 +1,6 @@
 package org.nem.ncc.model;
 
 import net.minidev.json.*;
-import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
@@ -35,13 +34,6 @@ public class StreamBackedConfiguration extends Configuration {
 				ExceptionUtils.propagate(() -> (JSONObject)JSONValue.parse(inputStream)),
 				null);
 	}
-
-	@Override
-	public void setLabel(final Address address, final String label, final String privateLabel) {
-		super.setLabel(address, label, privateLabel);
-		this.save();
-	}
-
 	@Override
 	public void update(final String language, final NodeEndpoint remoteServer, final NisBootInfo nisBootInfo) {
 		super.update(language, remoteServer, nisBootInfo);
