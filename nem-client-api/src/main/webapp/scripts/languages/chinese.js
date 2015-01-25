@@ -11,11 +11,26 @@ define({
 			102: '尚未建立钱包。',
 			103: '钱包文件已损坏。如果您的钱包存在备份，请使用备份恢复你的账户，或添加一个新账户。',
 			104: '该密码不正确，请认真回忆密码，如该密码丢失将造成无法复原！',
+			105: 'No password was provided for the wallet.',
 			106: '使用钱包需先正常开启，您必须提供正确密码才能打开钱包。',
 			107: '钱包内无此账户。',
 			108: '无法删除该账户。可能的原因是，该账户存在余额或该帐户是主帐户。',
 			109: '具有相同名称的另一个钱包已经存在。请选择一个其它的钱包名。',
 			110: '钱包里已经包含了此帐户。',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: '该公钥不存在。',
 			305: 'NEM 基础架构服务器(NIS)无法使用。',
 			306: '对不起，一个开发团队没有预见到的错误发生了。请尝试重试，若问题未解决，请在NEM NIS/NCC社区内提交该问题。',
@@ -25,6 +40,7 @@ define({
 			500: '保存配置文件失败。',
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有10000 NEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
 			702: '所提供的截止日期过晚。必须输入1天以内的日期作为截止日期。',
@@ -35,6 +51,15 @@ define({
 			707: '此交易ID的时间戳不合法，时间过早。',
 			708: '此交易ID的时间戳不合法，时间过晚。',
 			709: '该帐户未知。一个帐户需要至少完成一个交易（作为发件人或收件人）才能被网络公知。',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: '设置离线模式发生错误。',
 			1000: '您所提供的密钥公钥与私钥不对应。',
 			1001: '您所提供的公钥和地址不对应。',
@@ -59,7 +84,24 @@ define({
 					many: '{{1}} 天'
 				},
 				synchronized: 'NIS已完成同步!'
-			}
+			},
+			addressBook: 'Address book',
+			password: 'Password',
+			address: 'Address',
+			privateLabel: 'Private label',
+			publicLabel: 'Public label',
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+		],
+		transactionDirections: {
+			pending: '交易等待中',
+			outgoing: '交易发送中',
+			incoming: '交易接收中',
+			self: '自我交易'
 		},
 		modals: {
 			error: {
@@ -94,8 +136,53 @@ define({
 				save: '保存',
 				saveSuccess: '设置保存成功'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'This account is labeled as {{1}}',
+				nullLabelDesc: "This account doesn't have a label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: 'Password',
+				passwordValidation: 'Password must not be blank',
+				send: 'Send',
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: 'Transaction has been sent successfully!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: 'Amount',
+					from: 'Multisig account',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+				},
+			},
 			sendNem: {
 				title: '发送 NEM',
+				sender: 'Sender',
+				thisAccount: 'This account',
 				labelDesc: '此帐户标记为 {{1}}',
 				nullLabelDesc: '此帐户没有标记',
 				amount: '金额',
@@ -155,12 +242,15 @@ define({
 				id: 'ID',
 				hash: 'Hash',
 				type: '交易类型',
+				direction: 'Transaction Direction',
 				pending: '待定',
 				outgoing: '发送',
 				incoming: '接收',
 				self: '本人',
 				sender: '发件人',
 				recipient: '收件人',
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: '信息',
 				noMessage: '无信息',
 				encrypted: '已加密',
@@ -169,6 +259,20 @@ define({
 				confirmationsUnknown: '未知',
 				amount: '金额',
 				fee: '费用'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: '启用本地节点',
@@ -320,6 +424,18 @@ define({
 			},
 			logoutWarning: {
 				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the "Close wallet" menu item in the top-right dropdown menu before you close the browser tab or navigate away.\n',
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Add'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Save changes',
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Remove',
 			}
 		},
 		landing: {
@@ -335,7 +451,9 @@ define({
 				leftButton: '创建新钱包',
 				walletNamePlh: '您钱包的名称',
 				passwordPlh: '密码',
+				confirmPasswordPlh: 'Confirm password',
 				create: '创建',
+				creating: 'Creating...',
 				rightTitle: '已经是<em>NEM</em>用户?',
 				rightButton: '打开您的钱包',
 				openButton: '打开',
@@ -445,6 +563,7 @@ define({
 			transactions: {
 				title: '最近的交易',
 				sendNem: '发送NEM',
+				signMultisig: 'SIGN',
 				balance: '目前余额',
 				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后天数{{/2}})',
 				unknown: '未知',
@@ -459,12 +578,6 @@ define({
 					'费用',
 					'金额'
 				],
-				types: {
-					pending: '交易等待中',
-					outgoing: '交易发送中',
-					incoming: '交易接收中',
-					self: '自我交易'
-				},
 				noMessage: '无信息',
 				encrypted: '消息被加密',
 				view: '查看',
@@ -506,12 +619,6 @@ define({
 					'费用',
 					'金额'
 				],
-				types: {
-					pending: '交易待处理中',
-					outgoing: '交易发送中',
-					incoming: '交易接收中',
-					self: '自我交易'
-				},
 				noMessage: '无留言',
 				encrypted: '消息被加密',
 				view: '查看',
@@ -545,6 +652,22 @@ define({
 					stopRemoteHarvesting: '停止远程收获'
 				}
 			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Send NEM',
+			edit: 'Edit',
+			remove: 'Remove'
 		},
 		settings: {
 			title: '设置',

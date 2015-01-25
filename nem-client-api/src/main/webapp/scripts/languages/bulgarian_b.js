@@ -11,11 +11,26 @@ define({
 			102: "Портфейлът не е създаден.",
 			103: "Файлът на портфела е повреден.Моля възстановете файла от копие което сте запазили при създаването на портфейла или създайте нов акаунт.",
 			104: "Въведената парола е грешна. Опитайте се да си спомните правилната парола. Паролата не може да бъде въстановена ако е загубена",
+			105: 'No password was provided for the wallet.',
 			106: "Преди да започнете работа с портфейла се убедете че той е отворен. За да получите достъп до портфейла въведете паролата за този портфейл.",
 			107: "Портфейла не съдържа този акаунт.",
 			108: "Акаунта не може да бъде премахнат. По всяка вероятност това е така защото акаунта има баланс повече от 0 NEM или акаунта ,който се опитвате да премахнете е главен акаунт. ",
 			109: "Друг портфейл със същото име вече съществува. Моля  изберете друго име на портфейла.",
 			110: "Портфейла вече съдържа този акаунт.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Криптирано съобщение не може да бъде изпратено понеже получателя до сега не е извършил нито една транзакция и няма публичен ключ.",
 			305: "NEM Infrastructure Server е недостъпен",
 			306: "Възникна непредвидена грешка.Извиняваме се за това ,опитайте отново може това да помогне.В противен случай се обърнете за помощ към NEM NIS/NCC community.",
@@ -25,6 +40,7 @@ define({
 			500: "Възникна грешка, която не е предвидена от разработчиците. Извиняваме се за това, може би повторен опит може да помогне. В противен случай се обърнете за помощ към NEM NIS/NCC community.",
 			600: "За получаване и изпращане на транзакции NCC изисква NIS сървъра да бъде рестартиран.Моля използвайте менюто на NCC за рестартиране в локалния възел.",
 			601: "NIS възела е вече стартиран.Повторен опит за рестартиране на NIS възела е невъзможен.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Предоставения акаунт не удовлетворява основните критерии за генерация.Основно това е свързано с количеството NEM в сметката.Генерацията започва поне с 1000 NEM в баланса.",
 			701: "Предоставеният срок е в миналото. Срокът трябва да бъде предоставен в рамките на 1-дневен период.",
 			702: "Предоставеният срок е твърде далеч в бъдещето. Срокът трябва да бъде в рамките на еднодневен период от време.",
@@ -35,6 +51,15 @@ define({
 			707: "Времевата отметка на ID на трансакцията е много далеч в миналото.",
 			708: "Времевата отметка на транзакцията е много далеч в бъдещето.",
 			709: "Неизвестен акаунт. Акаунта трябва да е част от поне една транзакция (входяща или изходяща) за да бъде разпознат от мрежата.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Възникна грешка при преминаване в режим офлайн.",
 			1000: "Частният ключ и публичният ключ ,който въведохте са разменени.",
 			1001: "Публичният ключ и адресът ,който въведохте са разменени.",
@@ -59,7 +84,25 @@ define({
 					many: "{{1}} дни"
 				},
 				synchronized: "NIS е синхронизиран!"
-			}
+			},
+			addressBook: 'Address book',
+			password: 'Password',
+			address: 'Address',
+			privateLabel: 'Private label',
+			publicLabel: 'Public label',
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+		],
+		transactionDirections: {
+			pending: "Чакащи транзакции",
+			outgoing: "Изходящи транзакции",
+			incoming: "Входящи транзакции",
+			self: "Собственни транзакции"
+
 		},
 		modals: {
 			error: {
@@ -94,8 +137,53 @@ define({
 				save: "Запази",
 				saveSuccess: "Настройките бяха успешно запазени"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'This account is labeled as {{1}}',
+				nullLabelDesc: "This account doesn't have a label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: 'Password',
+				passwordValidation: 'Password must not be blank',
+				send: 'Send',
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: 'Transaction has been sent successfully!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: 'Amount',
+					from: 'Multisig account',
+					to: 'To',
+					fee: 'Fee',
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+				},
+			},
 			sendNem: {
 				title: "Изпрати NEM",
+				sender: 'Sender',
+				thisAccount: 'This account',
 				labelDesc: "Този акаунт е маркиран като {{1}}",
 				nullLabelDesc: "Този акаунт не е маркиран",
 				amount: "Сума",
@@ -155,12 +243,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Тип на транзакцията",
+				direction: 'Transaction Direction',
 				pending: "В очакване",
 				outgoing: "Изходящи",
 				incoming: "Входящи",
 				self: "Собственна",
 				sender: "Изпращач",
 				recipient: "Получател",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Съобщение",
 				noMessage: "Няма съобщение",
 				encrypted: "Съобщението е криптирано",
@@ -169,6 +260,20 @@ define({
 				confirmationsUnknown: "Неизвестни",
 				amount: "Сума",
 				fee: "Такса"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Стартирайте локалния възел.",
@@ -320,6 +425,18 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "Вие напускате вашия портфейл.Запомнете че напускайки вашия портфейл по този начин ,някой друг може да има достъп до портфейла ви от този компютър."
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Add'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Save changes',
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Remove',
 			}
 		},
 		landing: {
@@ -447,6 +564,7 @@ define({
 			transactions: {
 				title: "Скорошни транзакции",
 				sendNem: "Изпрати NEM",
+				signMultisig: 'SIGN',
 				balance: "Текущ баланс",
 				syncStatus: "( Блок {{1}}{{#2}} : около {{3}} дена на зад {{/2}})",
 				unknown: "неизвестно",
@@ -461,12 +579,6 @@ define({
 					"Такса",
 					"Сума"
 				],
-				types: {
-					pending: "Чакащи транзакции",
-					outgoing: "Изходящи транзакции",
-					incoming: "Входящи транзакции",
-					self: "Собственни транзакции"
-				},
 				noMessage: "Няма съобщение",
 				encrypted: "Съобщението е криптирано",
 				view: "Преглед",
@@ -508,12 +620,6 @@ define({
 					"Такса",
 					"Сума"
 				],
-				types: {
-					pending: "Чакащи транзакции",
-					outgoing: "Изходящи транзакции",
-					incoming: "Входящи транзакции",
-					self: "Собственни транзакции"
-				},
 				noMessage: "Няма съобщение",
 				encrypted: "Съобщението е криптирано",
 				view: "Преглед",
@@ -547,6 +653,22 @@ define({
 					stopRemoteHarvesting: "Стоп на отдалеченото генериране"
 				}
 			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Send NEM',
+			edit: 'Edit',
+			remove: 'Remove'
 		},
 		settings: {
 			title: "Настройки",
