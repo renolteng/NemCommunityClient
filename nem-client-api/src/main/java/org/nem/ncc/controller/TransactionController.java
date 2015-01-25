@@ -73,7 +73,12 @@ public class TransactionController {
 	}
 
 	@RequestMapping(value = "/wallet/account/signature/validate", method = RequestMethod.POST)
-	public PartialSignatureInformationViewModel validateTransferData(@RequestBody final PartialSignatureInformationRequest request) {
+	public PartialFeeInformationViewModel validateSignatureData(@RequestBody final PartialSignatureInformationRequest request) {
+		return this.transactionMapper.toViewModel(request);
+	}
+
+	@RequestMapping(value = "/wallet/account/modification/validate", method = RequestMethod.POST)
+	public PartialFeeInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
 		return this.transactionMapper.toViewModel(request);
 	}
 

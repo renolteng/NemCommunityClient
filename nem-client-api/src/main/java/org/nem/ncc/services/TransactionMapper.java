@@ -86,15 +86,19 @@ public class TransactionMapper {
 				isEncryptionSupported);
 	}
 
-	public PartialSignatureInformationViewModel toViewModel(final PartialSignatureInformationRequest request) {
+	public PartialFeeInformationViewModel toViewModel(final PartialSignatureInformationRequest request) {
 		final Account cosignatory = this.accountLookup.findByAddress(request.getCosignatoryAddress());
 		final MultisigSignatureTransaction transaction = new MultisigSignatureTransaction(
 				TimeInstant.ZERO,
 				cosignatory,
 				HashUtils.nextHash(Hash.ZERO, (new KeyPair()).getPublicKey()));
-		return new PartialSignatureInformationViewModel(
+		return new PartialFeeInformationViewModel(
 				transaction.getFee()
 		);
+	}
+
+	public PartialFeeInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
+		return new PartialFeeInformationViewModel(Amount.fromNem(12345L));
 	}
 
 	/**

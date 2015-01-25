@@ -6,7 +6,7 @@ import org.nem.core.serialization.*;
 /**
  * Simple view model for a validated transfer which contains a fee that wraps an Amount. and the verification result whether a message can be sent encrypted.
  */
-public class PartialSignatureInformationViewModel implements SerializableEntity {
+public class PartialFeeInformationViewModel implements SerializableEntity {
 	private final Amount fee;
 
 	/**
@@ -14,7 +14,7 @@ public class PartialSignatureInformationViewModel implements SerializableEntity 
 	 *
 	 * @param fee The fee.
 	 */
-	public PartialSignatureInformationViewModel(final Amount fee) {
+	public PartialFeeInformationViewModel(final Amount fee) {
 		this.fee = fee;
 	}
 
