@@ -7,10 +7,10 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: '未找到文件。',
+			101: 'The wallet file does not exist.',
 			102: '尚未建立钱包。',
-			103: '钱包文件已损坏。如果您的钱包存在备份，请使用备份恢复你的账户，或添加一个新账户。',
-			104: '该密码不正确，请认真回忆密码，如该密码丢失将造成无法复原！',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
 			105: 'No password was provided for the wallet.',
 			106: '使用钱包需先正常开启，您必须提供正确密码才能打开钱包。',
 			107: '钱包内无此账户。',
@@ -86,16 +86,18 @@ define({
 				synchronized: 'NIS已完成同步!'
 			},
 			addressBook: 'Address book',
-			password: 'Password',
-			address: 'Address',
-			privateLabel: 'Private label',
+			password: '密码',
+			address: '地址',
+			privateLabel: '标识',
 			publicLabel: 'Public label',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
 			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: '交易等待中',
@@ -140,48 +142,51 @@ define({
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
 				cosignatories: "Cosignatories' addresses",
-				labelDesc: 'This account is labeled as {{1}}',
-				nullLabelDesc: "This account doesn't have a label",
+				labelDesc: '此帐户标记为 {{1}}',
+				nullLabelDesc: '此帐户没有标记',
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
+				cancel: '取消',
 				convert: 'Convert',
-				fee: 'Fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
+				fee: '费用',
+				feeValidation: '无效费用值，必须填入等于或高于最小费用的值。',
+				dueBy: '限期',
+				useMinimumFee: '支付最小费用',
+				hours: '小时数',
+
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
 				sender: 'Cosignatory',
-				fee: 'Fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
-				password: 'Password',
+				fee: '费用',
+				feeValidation: '无效费用值，必须填入等于或高于最小费用的值。',
+				dueBy: '限期',
+				useMinimumFee: '支付最小费用',
+				hours: '小时数',
+				password: '密码',
 				passwordValidation: 'Password must not be blank',
-				send: 'Send',
-				cancel: 'Cancel',
-				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!',
+				send: '发送',
+				cancel: '取消',
+				sending: '正在发送中...',
+				successMessage: '交易发送成功!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Amount',
+					amount: '金额',
 					from: 'Multisig account',
-					to: 'To',
-					fee: 'Fee',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
+					to: '收件人',
+					fee: '费用',
+					dueBy: '限期',
+					hours: '小时数',
+					total: '总价',
+					message: '留言',
+					encrypted: '消息被加密',
+					noMessage: '无留言',
+
 				},
+
 			},
 			sendNem: {
 				title: '发送 NEM',
-				sender: 'Sender',
+				sender: '发件人',
 				thisAccount: 'This account',
 				labelDesc: '此帐户标记为 {{1}}',
 				nullLabelDesc: '此帐户没有标记',
@@ -347,7 +352,8 @@ define({
 				wallet: '钱包',
 				password: '钱包的密码',
 				successMessage: '帐户 {{1}} {{#2}}({{2}}){{/2}} 被设置为主账户!',
-				set: '设置为主账户'
+				set: '设置为主账户',
+
 			},
 			changeWalletName: {
 				title: '修改钱包名',
@@ -424,18 +430,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the "Close wallet" menu item in the top-right dropdown menu before you close the browser tab or navigate away.\n',
+
 			},
 			addContact: {
 				title: 'Add contact',
-				add: 'Add'
+				add: '添加'
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Save changes',
+				saveChanges: '保存更改',
+
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Remove',
+				remove: '删除',
+
 			}
 		},
 		landing: {
@@ -461,35 +470,41 @@ define({
 				copyright: '由<em>Cas Cornelissen</em>摄制'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC 加密你的钱包',
-					description: '为避免NEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
-				}, {
-					title: 'NCC 加密你的钱包',
-					description: ' 为避免NEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
-				}]
+				items: [
+					{
+						title: 'NCC 加密你的钱包',
+						description: '为避免NEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
+					},
+					{
+						title: 'NCC 加密你的钱包',
+						description: ' 为避免NEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'NCC是如何工作的?',
-					paragraphs: [
-						'<strong>NCC</strong> 让您使用NEM时就如使用一个传统的钱包一样。',
-						'<strong>NCC</strong>打开使用前需要您连接到<strong>NIS</strong> 服务器。 您可以本地同时安装<strong>NCC</strong>服务和<strong>NIS</strong>服务。',
-						'也可以访问一个远程<strong>NIS</strong>。'
-					],
-					listItems: [
-						'拥有多个钱包',
-						'在一个钱包里定义多个帐户'
-					]
-				}, {
-					title: '什么是&#42;NIS?',
-					paragraphs: [
-						'负责保持<strong>NEM</strong>云存活.',
-						'<strong>NIS</strong>服务器越多，NEM的整体安全性越好。',
-						'<strong>NIS</strong> 是 <strong>NEM</strong> 云的接入点。'
-					],
-					legend: '<strong>&#42;NIS</strong> 是 <strong>NEM基础架构服务</strong>的缩写'
-				}]
+				sections: [
+					{
+						title: 'NCC是如何工作的?',
+						paragraphs: [
+							'<strong>NCC</strong> 让您使用NEM时就如使用一个传统的钱包一样。',
+							'<strong>NCC</strong>打开使用前需要您连接到<strong>NIS</strong> 服务器。 您可以本地同时安装<strong>NCC</strong>服务和<strong>NIS</strong>服务。',
+							'也可以访问一个远程<strong>NIS</strong>。'
+						],
+						listItems: [
+							'拥有多个钱包',
+							'在一个钱包里定义多个帐户'
+						]
+					},
+					{
+						title: '什么是&#42;NIS?',
+						paragraphs: [
+							'负责保持<strong>NEM</strong>云存活.',
+							'<strong>NIS</strong>服务器越多，NEM的整体安全性越好。',
+							'<strong>NIS</strong> 是 <strong>NEM</strong> 云的接入点。'
+						],
+						legend: '<strong>&#42;NIS</strong> 是 <strong>NEM基础架构服务</strong>的缩写'
+					}
+				]
 			},
 			footer: {
 				copyright: '&copy; 版权所有 2014. NEM 社区客户端。'
@@ -521,12 +536,13 @@ define({
 				clientInfo: '客户信息',
 				closeWallet: '关闭钱包',
 				closeProgram: '关闭程序',
-				copyClipboard: '复制地址至剪贴板'
+				copyClipboard: '复制地址至剪贴板',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'仪表板',
 				'消息',
-				'联系人',
+				'Address Book',
 				'交易',
 				'收获的区块',
 				'资产交换',
@@ -605,7 +621,8 @@ define({
 				confirmed: '已确认交易',
 				unconfirmed: '未确认交易',
 				incoming: '接受中',
-				outgoing: '发送中'
+				outgoing: '发送中',
+
 			},
 			table: {
 				columns: [
@@ -665,15 +682,17 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Send NEM',
+			sendNem: '发送 NEM',
 			edit: 'Edit',
-			remove: 'Remove'
+			remove: '删除'
 		},
 		settings: {
 			title: '设置',
-			settings: [{
-				name: '语言'
-			}],
+			settings: [
+				{
+					name: '语言'
+				}
+			],
 			save: '保存更改',
 			saveSuccess: '设置已保存成功'
 		}

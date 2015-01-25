@@ -7,10 +7,10 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "Файлът не е намерен",
+			101: 'The wallet file does not exist.',
 			102: "Портфейлът не е създаден.",
-			103: "Файлът на портфела е повреден.Моля възстановете файла от копие което сте запазили при създаването на портфейла или създайте нов акаунт.",
-			104: "Въведената парола е грешна. Опитайте се да си спомните правилната парола. Паролата не може да бъде въстановена ако е загубена",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
 			105: 'No password was provided for the wallet.',
 			106: "Преди да започнете работа с портфейла се убедете че той е отворен. За да получите достъп до портфейла въведете паролата за този портфейл.",
 			107: "Портфейла не съдържа този акаунт.",
@@ -86,16 +86,18 @@ define({
 				synchronized: "NIS е синхронизиран!"
 			},
 			addressBook: 'Address book',
-			password: 'Password',
-			address: 'Address',
-			privateLabel: 'Private label',
+			password: "Парола",
+			address: "Адрес",
+			privateLabel: "Частна маркировка",
 			publicLabel: 'Public label',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
 			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: "Чакащи транзакции",
@@ -141,48 +143,51 @@ define({
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
 				cosignatories: "Cosignatories' addresses",
-				labelDesc: 'This account is labeled as {{1}}',
-				nullLabelDesc: "This account doesn't have a label",
+				labelDesc: "Този акаунт е маркиран като {{1}}",
+				nullLabelDesc: "Този акаунт не е маркиран",
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
+				cancel: "Отмени",
 				convert: 'Convert',
-				fee: 'Fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
+				fee: "Такса",
+				feeValidation: "Таксата не трябва да бъде по малка от минималната такса",
+				dueBy: "Време до края",
+				useMinimumFee: "Ползвай минималната такса",
+				hours: "час(а)",
+
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
 				sender: 'Cosignatory',
-				fee: 'Fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
-				password: 'Password',
-				passwordValidation: 'Password must not be blank',
-				send: 'Send',
-				cancel: 'Cancel',
-				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!',
+				fee: "Такса",
+				feeValidation: "Таксата не трябва да бъде по малка от минималната такса",
+				dueBy: "Време до края",
+				useMinimumFee: "Ползвай минималната такса",
+				hours: "час(а)",
+				password: "Парола",
+				passwordValidation: "Паролата не трябва да е празна",
+				send: "Изпрати",
+				cancel: "Отмени",
+				sending: "Изпращам...",
+				successMessage: "Транзакцията беше изпратена успешно!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Amount',
+					amount: "Сума",
 					from: 'Multisig account',
-					to: 'To',
-					fee: 'Fee',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
+					to: "До",
+					fee: "Такса",
+					dueBy: "Време до края",
+					hours: "час(а)",
+					total: "Общо",
+					message: "Съобщение",
+					encrypted: "Съобщението е криптирано",
+					noMessage: "Няма съобщение",
+
 				},
+
 			},
 			sendNem: {
 				title: "Изпрати NEM",
-				sender: 'Sender',
+				sender: "Изпращач",
 				thisAccount: 'This account',
 				labelDesc: "Този акаунт е маркиран като {{1}}",
 				nullLabelDesc: "Този акаунт не е маркиран",
@@ -348,7 +353,8 @@ define({
 				wallet: "Портфейл",
 				password: "Парола на портфейла",
 				successMessage: "Акаунтът {{1}} {{#2}}({{2}}){{/2}} беше зададен като главен!",
-				set: "Задай като главен"
+				set: "Задай като главен",
+
 			},
 			changeWalletName: {
 				title: "Сменете името на портфейла",
@@ -424,19 +430,22 @@ define({
 				stop: "Стоп"
 			},
 			logoutWarning: {
-				leavePage: "Вие напускате вашия портфейл.Запомнете че напускайки вашия портфейл по този начин ,някой друг може да има достъп до портфейла ви от този компютър."
+				leavePage: "Вие напускате вашия портфейл.Запомнете че напускайки вашия портфейл по този начин ,някой друг може да има достъп до портфейла ви от този компютър.",
+
 			},
 			addContact: {
 				title: 'Add contact',
-				add: 'Add'
+				add: "Добави"
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Save changes',
+				saveChanges: "Запази промените",
+
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Remove',
+				remove: "Премахни",
+
 			}
 		},
 		landing: {
@@ -462,35 +471,41 @@ define({
 				copyright: "Фотография от <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC криптира твоя портфейл",
-					description: "<em>Сигурността</em> е най важната задача за NEM състояща се в защита на вашите NEM монети и активи."
-				}, {
-					title: "NCC криптира твоя портфейл",
-					description: "<em>Сигурността</em> е най важната задача за NEM състояща се в защита на вашите NEM монети и активи."
-				}]
+				items: [
+					{
+						title: "NCC криптира твоя портфейл",
+						description: "<em>Сигурността</em> е най важната задача за NEM състояща се в защита на вашите NEM монети и активи."
+					},
+					{
+						title: "NCC криптира твоя портфейл",
+						description: "<em>Сигурността</em> е най важната задача за NEM състояща се в защита на вашите NEM монети и активи."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Как работи NCC?",
-					paragraphs: [
-						"<strong>NCC</strong> предоставя достъп до вашите активи и NEM монети като обикновен портфейл.Вие можете",
-						"<strong>NCC</strong> изисква достъп до <strong>NIS</strong> сървър за да може да работи.Локалния сървър трябва да е активен(той се инсталира заедно <strong>NCC</strong>)",
-						"Вие също може да конфигурирате достъп до отдалечен <strong>NIS</strong>."
-					],
-					listItems: [
-						"Да имате няколко портфейла",
-						"Да дефинирате няколко акаунта да се съдържат в един портфейл."
-					]
-				}, {
-					title: "Какво е &#42;NIS?",
-					paragraphs: [
-						"Този компонент отговаря за функционирането на <strong>NEM</strong> облака.",
-						"Колкото повече <strong>NIS</strong> толкова по добра е сигурността.",
-						"<strong>NIS</strong> това е точката за достъп за <strong>NEM</strong> облака."
-					],
-					legend: "<strong>&#42;NIS</strong> се разшифрова <strong>NEM Infrastructure Server</strong>"
-				}]
+				sections: [
+					{
+						title: "Как работи NCC?",
+						paragraphs: [
+							"<strong>NCC</strong> предоставя достъп до вашите активи и NEM монети като обикновен портфейл.Вие можете",
+							"<strong>NCC</strong> изисква достъп до <strong>NIS</strong> сървър за да може да работи.Локалния сървър трябва да е активен(той се инсталира заедно <strong>NCC</strong>)",
+							"Вие също може да конфигурирате достъп до отдалечен <strong>NIS</strong>."
+						],
+						listItems: [
+							"Да имате няколко портфейла",
+							"Да дефинирате няколко акаунта да се съдържат в един портфейл."
+						]
+					},
+					{
+						title: "Какво е &#42;NIS?",
+						paragraphs: [
+							"Този компонент отговаря за функционирането на <strong>NEM</strong> облака.",
+							"Колкото повече <strong>NIS</strong> толкова по добра е сигурността.",
+							"<strong>NIS</strong> това е точката за достъп за <strong>NEM</strong> облака."
+						],
+						legend: "<strong>&#42;NIS</strong> се разшифрова <strong>NEM Infrastructure Server</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -522,12 +537,13 @@ define({
 				clientInfo: "Информация за клиента",
 				closeWallet: "Затвори портфейла",
 				closeProgram: "Затвори програмата",
-				copyClipboard: "Копирай адреса в клипборда"
+				copyClipboard: "Копирай адреса в клипборда",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Панел за управление",
 				"Съобщения",
-				"Контакти",
+				'Address Book',
 				"Транзакции",
 				"Генерирани блокове",
 				"Обмен на активи",
@@ -606,7 +622,8 @@ define({
 				confirmed: "Потвърдени",
 				unconfirmed: "Непотвърдени",
 				incoming: "Входящи",
-				outgoing: "Изходящи"
+				outgoing: "Изходящи",
+
 			},
 			table: {
 				columns: [
@@ -666,15 +683,17 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Send NEM',
+			sendNem: "Изпрати NEM",
 			edit: 'Edit',
-			remove: 'Remove'
+			remove: "Премахни"
 		},
 		settings: {
 			title: "Настройки",
-			settings: [{
-				name: "Език"
-			}],
+			settings: [
+				{
+					name: "Език"
+				}
+			],
 			save: "Запази промените",
 			saveSuccess: "Настройките бяха успешно запазени"
 		}
