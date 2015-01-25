@@ -1,0 +1,226 @@
+changed texts.faults.101
+	from: 'File not found.'
+	  to: 'The wallet file does not exist.'
+	 was: "Arquivo não encontrado."
+
+changed texts.faults.103
+	from: 'Wallet file is corrupted. Please recover your wallet from a backup.'
+	  to: 'Wallet file is corrupt. Please recover your wallet from a backup.'
+	 was: "O arquivo da carteira está corrompido. Por favor, restaure uma cópia ou crie outra conta."
+
+changed texts.faults.104
+	from: 'The provided password is not correct.'
+	  to: 'The provided password for the wallet is not correct.'
+	 was: "Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-la se perdida!"
+
+changed texts.wallet.nav.[2]
+	from: 'Contacts'
+	  to: 'Address Book'
+	 was: "Contatos"
+
+translated texts.common.password
+	    from: 'Password'
+	      to: "Senha"
+	based on: texts.landing.main.passwordPlh
+
+translated texts.common.address
+	    from: 'Address'
+	      to: 'Endereço'
+	based on: texts.modals.verifyRealAccountData.address
+
+translated texts.common.privateLabel
+	    from: 'Private label'
+	      to: "Identificação"
+	based on: texts.modals.createAccount.label
+
+translated texts.transactionDirections.pending
+	    from: 'Pending transaction'
+	      to: "Pendente"
+	based on: texts.transactions.table.types.pending
+
+translated texts.transactionDirections.outgoing
+	    from: 'Outgoing transaction'
+	      to: "Enviada"
+	based on: texts.transactions.table.types.outgoing
+
+translated texts.transactionDirections.incoming
+	    from: 'Incoming transaction'
+	      to: "Recebida"
+	based on: texts.transactions.table.types.incoming
+
+translated texts.transactionDirections.self
+	    from: 'Self transaction'
+	      to: "Enviada para si mesmo"
+	based on: texts.transactions.table.types.self
+
+translated texts.modals.multisig.labelDesc
+	    from: 'This account is labeled as {{1}}'
+	      to: "Esta conta está identificada como {{1}}"
+	based on: texts.modals.sendNem.labelDesc
+
+translated texts.modals.multisig.nullLabelDesc
+	    from: "This account doesn't have a label"
+	      to: "Esta conta não tem uma identificação"
+	based on: texts.modals.sendNem.nullLabelDesc
+
+translated texts.modals.multisig.cancel
+	    from: 'Cancel'
+	      to: 'Cancelar'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.multisig.fee
+	    from: 'Fee'
+	      to: "Taxa"
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.multisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'A taxa de transação não deve ser inferior a taxa mínima'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.multisig.dueBy
+	    from: 'Due by'
+	      to: 'Tempo de espera'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.multisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Usar taxa minima'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.multisig.hours
+	    from: 'hour(s)'
+	      to: 'hora(s)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.fee
+	    from: 'Fee'
+	      to: "Taxa"
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'A taxa de transação não deve ser inferior a taxa mínima'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.signMultisig.dueBy
+	    from: 'Due by'
+	      to: 'Tempo de espera'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Usar taxa minima'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.signMultisig.hours
+	    from: 'hour(s)'
+	      to: 'hora(s)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.password
+	    from: 'Password'
+	      to: "Senha"
+	based on: texts.landing.main.passwordPlh
+
+translated texts.modals.signMultisig.passwordValidation
+	    from: 'Password must not be blank'
+	      to: 'Password must not be blank'
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.signMultisig.send
+	    from: 'Send'
+	      to: "Enviar"
+	based on: texts.modals.sendNem.send
+
+translated texts.modals.signMultisig.cancel
+	    from: 'Cancel'
+	      to: 'Cancelar'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.signMultisig.sending
+	    from: 'Sending...'
+	      to: 'Enviando...'
+	based on: texts.modals.sendNem.txConfirm.sending
+
+translated texts.modals.signMultisig.successMessage
+	    from: 'Transaction has been sent successfully!'
+	      to: "A transação foi enviada!"
+	based on: texts.modals.sendNem.successMessage
+
+translated texts.modals.signMultisig.txConfirm.amount
+	    from: 'Amount'
+	      to: "Quantidade"
+	based on: texts.transactions.table.columns.[8]
+
+translated texts.modals.signMultisig.txConfirm.to
+	    from: 'To'
+	      to: 'Para'
+	based on: texts.modals.sendNem.txConfirm.to
+
+translated texts.modals.signMultisig.txConfirm.fee
+	    from: 'Fee'
+	      to: "Taxa"
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.dueBy
+	    from: 'Due by'
+	      to: 'Tempo de espera'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.txConfirm.hours
+	    from: 'hour(s)'
+	      to: 'hora(s)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.txConfirm.total
+	    from: 'Total'
+	      to: 'Total'
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.signMultisig.txConfirm.message
+	    from: 'Message'
+	      to: "Mensagem"
+	based on: texts.transactions.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.encrypted
+	    from: 'Message is encrypted'
+	      to: "Mensagem criptografada"
+	based on: texts.transactions.table.encrypted
+
+translated texts.modals.signMultisig.txConfirm.noMessage
+	    from: 'No message'
+	      to: "Sem mensagem"
+	based on: texts.transactions.table.noMessage
+
+translated texts.modals.sendNem.sender
+	    from: 'Sender'
+	      to: "Remetente"
+	based on: texts.modals.transactionDetails.sender
+
+translated texts.modals.addContact.add
+	    from: 'Add'
+	      to: "Criar"
+	based on: texts.modals.addAccount.add
+
+translated texts.modals.editContact.saveChanges
+	    from: 'Save changes'
+	      to: "Salvar modificações"
+	based on: texts.settings.save
+
+translated texts.modals.removeContact.remove
+	    from: 'Remove'
+	      to: "Remover"
+	based on: texts.modals.removeAccount.remove
+
+translated texts.addressBook.sendNem
+	    from: 'Send NEM'
+	      to: "Enviar NEM"
+	based on: texts.transactions.sendNem
+
+translated texts.addressBook.remove
+	    from: 'Remove'
+	      to: "Remover"
+	based on: texts.modals.removeAccount.remove
+
+-----

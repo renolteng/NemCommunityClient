@@ -7,15 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "ファイルが見つかりませんでした。",
+			101: 'The wallet file does not exist.',
 			102: "ウォレットが作成できませんでした。",
-			103: "ウォレットのデータが破損しています。バックアップファイルから復元してください。",
-			104: "パスワードが正しくありません。パスワードを忘れてしまった場合、復元することは不可能です。",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "ウォレットを開く前に、ウォレットのロックを解いてください. ウォレットにパスワードを入力することでアクセスすることができます。",
 			107: "ウォレットにはこのアカウントはありません。",
 			108: "このアカウントは削除することができません。おそらく、アカウント残高がゼロではないか、そのアカウントがプライマリーアカウント（削除不可なアカウント）だからです。",
 			109: "同名のウォレットがすでに存在します。他の名前にしてください。",
 			110: "ウォレットにはこのアカウントはもうすでに存在しています。",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "相手が送金及びメッセージを送信されていない為、このメッセージを暗号化して送れない。",
 			305: "NEM Infrastructure Serverは無効。",
 			306: "開発者が考えられなかったエラーが発生しまして、申し訳ありません。もう一度実行して、問題が再び発生したら場合、NIS/NCCのサイトにエラーリポートを書いてください。",
@@ -25,6 +40,7 @@ define({
 			500: "Failed to save configuration file.",
 			600: "NCCはNISサーバーがNEMクラウドからトランザクション(取引)履歴を送受信するために起動しておく必要があります。ローカルノードを起動するためにNCCメニューエントリを使用してください。",
 			601: "NISノードはすでに起動しています。NISは複数起動することができません。",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "入力されたアカウントがハーベストのための基準を満たしていません。その基準はそのアカウントにあるNEMの量が関係しています。ハーベストは少なくとも1000NEMから始めることができます。",
 			701: "提供期限が過ぎています。期限は1日の間です。",
 			702: "提供期限はまだ先です。期間は1日の間です。",
@@ -35,6 +51,15 @@ define({
 			707: "トランザクション(取引)IDのタイムスタンプが古すすぎます。",
 			708: "トランザクション(取引)のタイムスタンプが先すぎます",
 			709: "不明なアカウントです。アカウントはNEMクラウド内で共有されている少なくとも1つのトランザクション(取引)に記載されている必要がある。(送信側、受信側どちらでも良い)",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "オフラインモードに変換する際にエラーが発生しました。",
 			1000: "入力したプライベートキーとパブリックキーは合っていません。",
 			1001: "入力したパブリックキーとNEMアドレスは合っていません。",
@@ -59,7 +84,27 @@ define({
 					many: "{{1}}日"
 				},
 				synchronized: "NISは同期されました！"
-			}
+			},
+			addressBook: 'Address book',
+			password: "パスワード",
+			address: "アドレス",
+			privateLabel: "プライベートラベル",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "未処理（未検証）の取引",
+			outgoing: "出金",
+			incoming: "入金",
+			self: "セルフトランザクション",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: "保存",
 				saveSuccess: "設定は保存されました。"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "このアカウントのラベルは {{1}}",
+				nullLabelDesc: "このアカウントにラベルはありません。",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: "手数料",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "手数料",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: "パスワード",
+				passwordValidation: 'Password must not be blank',
+				send: "送る",
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: "送信に成功しました!!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "残高",
+					from: 'Multisig account',
+					to: 'To',
+					fee: "手数料",
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: "メッセージ",
+					encrypted: "メッセージを暗号させた",
+					noMessage: "メッセージなし",
+
+				},
+
+			},
 			sendNem: {
 				title: "NEMを送信する",
+				sender: "送信元",
+				thisAccount: 'This account',
 				labelDesc: "このアカウントのラベルは {{1}}",
 				nullLabelDesc: "このアカウントにラベルはありません。",
 				amount: "金額",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "ハッシュ",
 				type: "トランザクションのタイプ",
+				direction: 'Transaction Direction',
 				pending: "処理中",
 				outgoing: "送金",
 				incoming: "入金",
 				self: "自分",
 				sender: "送信元",
 				recipient: "受取先",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "メッセージ",
 				noMessage: "メッセージなし",
 				encrypted: "暗号化されたメッセージ",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "量",
 				fee: "手数料"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "ローカルノードを起動する",
@@ -243,7 +353,8 @@ define({
 				wallet: "ウォレット",
 				password: "ウォレットのパスワード",
 				successMessage: "アカウント: {{1}} {{#2}}({{2}}){{/2}} はプライマリーに設定されました!",
-				set: "プライマリに設定"
+				set: "プライマリに設定",
+
 			},
 			changeWalletName: {
 				title: "ウォレットの名前の変更する",
@@ -320,6 +431,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "追加"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "変更を保存する",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "削除",
+
 			}
 		},
 		landing: {
@@ -335,7 +461,9 @@ define({
 				leftButton: "新しいウォレットを作成する",
 				walletNamePlh: "あなたのウォレットの名前",
 				passwordPlh: "パスワード",
+				confirmPasswordPlh: 'Confirm password',
 				create: "作成",
+				creating: 'Creating...',
 				rightTitle: "すでに<em>NEM</em>のアカウントを持っていますか?",
 				rightButton: "ウォレットを開く",
 				openButton: "開く",
@@ -343,35 +471,41 @@ define({
 				copyright: "撮影者：<em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "あなたのウォレットをNCC暗号化する。",
-					description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。 "
-				}, {
-					title: "あなたのウォレットをNCC暗号化する。",
-					description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。"
-				}]
+				items: [
+					{
+						title: "あなたのウォレットをNCC暗号化する。",
+						description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。 "
+					},
+					{
+						title: "あなたのウォレットをNCC暗号化する。",
+						description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。"
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "どの様にNCCは動いている?",
-					paragraphs: [
-						"<strong>NCC</strong> では一般的なウォレットでのNEMやその他の財産へのアクセスができるようになります。",
-						"<strong>NCC</strong> サーバーは動作するために <strong>NIS</strong> サーバーへの接続を必要とします。標準ではローカルサーバーを起動します。 (ローカルサーバーは<strong>NCC</strong>と一緒にインストールされています。)",
-						"また、遠隔で<strong>NIS</strong>へのアクセスを作成することもできます。."
-					],
-					listItems: [
-						"複数のウォレットを持っている",
-						"複数のウォレットのアカウントを決める"
-					]
-				}, {
-					title: "&#42;NISとは?",
-					paragraphs: [
-						"このコンポーネント(NEMの部品の1つ) は<strong>NEM</strong> クラウドを維持するものです。",
-						" より強い<strong>NIS</strong> はより強力なセキュリティとなります。",
-						"<strong>NIS</strong> は <strong>NEM</strong> クラウドにアクセスする際の中継所となります。"
-					],
-					legend: "<strong>&#42;NIS</strong> は <strong>NEM のインフラとして機能しています。</strong>"
-				}]
+				sections: [
+					{
+						title: "どの様にNCCは動いている?",
+						paragraphs: [
+							"<strong>NCC</strong> では一般的なウォレットでのNEMやその他の財産へのアクセスができるようになります。",
+							"<strong>NCC</strong> サーバーは動作するために <strong>NIS</strong> サーバーへの接続を必要とします。標準ではローカルサーバーを起動します。 (ローカルサーバーは<strong>NCC</strong>と一緒にインストールされています。)",
+							"また、遠隔で<strong>NIS</strong>へのアクセスを作成することもできます。."
+						],
+						listItems: [
+							"複数のウォレットを持っている",
+							"複数のウォレットのアカウントを決める"
+						]
+					},
+					{
+						title: "&#42;NISとは?",
+						paragraphs: [
+							"このコンポーネント(NEMの部品の1つ) は<strong>NEM</strong> クラウドを維持するものです。",
+							" より強い<strong>NIS</strong> はより強力なセキュリティとなります。",
+							"<strong>NIS</strong> は <strong>NEM</strong> クラウドにアクセスする際の中継所となります。"
+						],
+						legend: "<strong>&#42;NIS</strong> は <strong>NEM のインフラとして機能しています。</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -403,12 +537,13 @@ define({
 				clientInfo: "クライアント情報",
 				closeWallet: "ウォレットを閉じる",
 				closeProgram: "終了する",
-				copyClipboard: "アドレスをクリップボードにコピーする"
+				copyClipboard: "アドレスをクリップボードにコピーする",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"ダッシュボード",
 				"メッセージ",
-				"連絡先",
+				'Address Book',
 				"トランザクション(取引)",
 				"ハーベストされたブロック",
 				"残高のやりとり",
@@ -445,6 +580,7 @@ define({
 			transactions: {
 				title: "直近の取引",
 				sendNem: "NEMの送金",
+				signMultisig: 'SIGN',
 				balance: "現在の残高",
 				syncStatus: "(現在同期しているブロック: {{1}}{{#2}} 推定で {{3}} 日前の取引{{/2}})",
 				unknown: "unknown",
@@ -459,12 +595,6 @@ define({
 					"手数料",
 					"残高"
 				],
-				types: {
-					pending: "未処理(未検証)のトランザクション(取引)",
-					outgoing: "出金のトランザクション(取引)",
-					incoming: "入金のトランザクション(取引)",
-					self: "セルフトランザクション"
-				},
 				noMessage: "メッセージはありません",
 				encrypted: "メッセージは暗号化されています。",
 				view: "表示",
@@ -492,7 +622,8 @@ define({
 				confirmed: "検証済",
 				unconfirmed: "未検証",
 				incoming: "入金",
-				outgoing: "出金"
+				outgoing: "出金",
+
 			},
 			table: {
 				columns: [
@@ -506,12 +637,6 @@ define({
 					"手数料",
 					"残高"
 				],
-				types: {
-					pending: "未処理（未検証）の取引",
-					outgoing: "出金",
-					incoming: "入金",
-					self: "セルフトランザクション"
-				},
 				noMessage: "メッセージなし",
 				encrypted: "メッセージを暗号させた",
 				view: "提示",
@@ -546,11 +671,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "NEMを送金する",
+			edit: 'Edit',
+			remove: "削除"
+		},
 		settings: {
 			title: "設定",
-			settings: [{
-				name: "言語"
-			}],
+			settings: [
+				{
+					name: "言語"
+				}
+			],
 			save: "変更を保存する",
 			saveSuccess: "変更の保存に成功しました"
 		}

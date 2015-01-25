@@ -1,0 +1,226 @@
+changed texts.faults.101
+	from: 'File not found.'
+	  to: 'The wallet file does not exist.'
+	 was: 'Không tìm thấy file.'
+
+changed texts.faults.103
+	from: 'Wallet file is corrupted. Please recover your wallet from a backup.'
+	  to: 'Wallet file is corrupt. Please recover your wallet from a backup.'
+	 was: 'File ví của bạn đã bị hỏng. Xin hãy khôi phục ví của bạn từ một nguồn dự phòng mà bạn đã tạo khi bạn tạo ví hoặc khi thêm tài khoản vào đó.'
+
+changed texts.faults.104
+	from: 'The provided password is not correct.'
+	  to: 'The provided password for the wallet is not correct.'
+	 was: 'Mật khẩu bạn cung cấp không đúng. Hy vọng rằng bạn vẫn nhớ mật khẩu đúng. Mật khẩu không thể khôi phục được nếu đã bị mất!'
+
+changed texts.wallet.nav.[2]
+	from: 'Contacts'
+	  to: 'Address Book'
+	 was: 'Liên lạc'
+
+translated texts.common.password
+	    from: 'Password'
+	      to: 'Mật khẩu'
+	based on: texts.landing.main.passwordPlh
+
+translated texts.common.address
+	    from: 'Address'
+	      to: 'Địa chỉ'
+	based on: texts.modals.verifyRealAccountData.address
+
+translated texts.common.privateLabel
+	    from: 'Private label'
+	      to: 'Nhãn cá nhân'
+	based on: texts.modals.createAccount.label
+
+translated texts.transactionDirections.pending
+	    from: 'Pending transaction'
+	      to: 'Giao dịch đang chờ xác nhận'
+	based on: texts.transactions.table.types.pending
+
+translated texts.transactionDirections.outgoing
+	    from: 'Outgoing transaction'
+	      to: 'Giao dịch gửi đi'
+	based on: texts.transactions.table.types.outgoing
+
+translated texts.transactionDirections.incoming
+	    from: 'Incoming transaction'
+	      to: 'Giao dịch gửi đến'
+	based on: texts.transactions.table.types.incoming
+
+translated texts.transactionDirections.self
+	    from: 'Self transaction'
+	      to: 'Giao dịch tự gửi'
+	based on: texts.transactions.table.types.self
+
+translated texts.modals.multisig.labelDesc
+	    from: 'This account is labeled as {{1}}'
+	      to: 'Tài khoản này được dán nhãn là {{1}}'
+	based on: texts.modals.sendNem.labelDesc
+
+translated texts.modals.multisig.nullLabelDesc
+	    from: "This account doesn't have a label"
+	      to: "Tài khoản này không được dán nhãn"
+	based on: texts.modals.sendNem.nullLabelDesc
+
+translated texts.modals.multisig.cancel
+	    from: 'Cancel'
+	      to: 'Huỷ'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.multisig.fee
+	    from: 'Fee'
+	      to: 'Phí'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.multisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Phí không được thấp hơn phí tối thiểu'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.multisig.dueBy
+	    from: 'Due by'
+	      to: 'Hết hạn'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.multisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Sử dụng phí tối thiểu'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.multisig.hours
+	    from: 'hour(s)'
+	      to: 'giờ'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.fee
+	    from: 'Fee'
+	      to: 'Phí'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Phí không được thấp hơn phí tối thiểu'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.signMultisig.dueBy
+	    from: 'Due by'
+	      to: 'Hết hạn'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Sử dụng phí tối thiểu'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.signMultisig.hours
+	    from: 'hour(s)'
+	      to: 'giờ'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.password
+	    from: 'Password'
+	      to: 'Mật khẩu'
+	based on: texts.landing.main.passwordPlh
+
+translated texts.modals.signMultisig.passwordValidation
+	    from: 'Password must not be blank'
+	      to: 'Mật khẩu không được để trống'
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.signMultisig.send
+	    from: 'Send'
+	      to: 'Gửi'
+	based on: texts.modals.sendNem.send
+
+translated texts.modals.signMultisig.cancel
+	    from: 'Cancel'
+	      to: 'Huỷ'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.signMultisig.sending
+	    from: 'Sending...'
+	      to: 'Đang gửi...'
+	based on: texts.modals.sendNem.txConfirm.sending
+
+translated texts.modals.signMultisig.successMessage
+	    from: 'Transaction has been sent successfully!'
+	      to: 'Giao dịch đã được gửi đi thành công!'
+	based on: texts.modals.sendNem.successMessage
+
+translated texts.modals.signMultisig.txConfirm.amount
+	    from: 'Amount'
+	      to: 'Số lượng'
+	based on: texts.transactions.table.columns.[8]
+
+translated texts.modals.signMultisig.txConfirm.to
+	    from: 'To'
+	      to: 'Tới'
+	based on: texts.modals.sendNem.txConfirm.to
+
+translated texts.modals.signMultisig.txConfirm.fee
+	    from: 'Fee'
+	      to: 'Phí'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.dueBy
+	    from: 'Due by'
+	      to: 'Hết hạn'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.txConfirm.hours
+	    from: 'hour(s)'
+	      to: 'giờ'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.txConfirm.total
+	    from: 'Total'
+	      to: 'Tổng cộng'
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.signMultisig.txConfirm.message
+	    from: 'Message'
+	      to: 'Thông điệp'
+	based on: texts.transactions.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.encrypted
+	    from: 'Message is encrypted'
+	      to: 'Thông điệp được mã hoá'
+	based on: texts.transactions.table.encrypted
+
+translated texts.modals.signMultisig.txConfirm.noMessage
+	    from: 'No message'
+	      to: 'Không có'
+	based on: texts.transactions.table.noMessage
+
+translated texts.modals.sendNem.sender
+	    from: 'Sender'
+	      to: 'Người gửi'
+	based on: texts.modals.transactionDetails.sender
+
+translated texts.modals.addContact.add
+	    from: 'Add'
+	      to: 'Thêm'
+	based on: texts.modals.addAccount.add
+
+translated texts.modals.editContact.saveChanges
+	    from: 'Save changes'
+	      to: 'Lưu thay đổi'
+	based on: texts.settings.save
+
+translated texts.modals.removeContact.remove
+	    from: 'Remove'
+	      to: 'Xoá'
+	based on: texts.modals.removeAccount.remove
+
+translated texts.addressBook.sendNem
+	    from: 'Send NEM'
+	      to: 'Gửi NEM'
+	based on: texts.transactions.sendNem
+
+translated texts.addressBook.remove
+	    from: 'Remove'
+	      to: 'Xoá'
+	based on: texts.modals.removeAccount.remove
+
+-----

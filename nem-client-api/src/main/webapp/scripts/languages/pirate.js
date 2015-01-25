@@ -7,15 +7,30 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: "File not found.",
+			101: 'The wallet file does not exist.',
 			102: "Wallet has not been created.",
-			103: "Wallet file is corrupted. Please recover your wallet from a back-up you should have taken when you created the wallet or added an account to it.",
-			104: "Coffer's pick ain't right. Ye surely have tatooed it somewhere. Unleash the Krakken otherwise!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.",
 			107: "Wallet does not contain this account.",
 			108: "The account cannot be removed. Most likely because the account still has a balance greater than 0 NEMs or the account you are trying to remove is the primary account.",
 			109: "Another wallet with the same name exists already. Please choose an other wallet name.",
 			110: "Wallet already contains this account.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "An encrypted message cannot be sent because the recipient has never made a transaction before.",
 			305: "NEM Infrastructure Server is not available.",
 			306: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
@@ -25,6 +40,7 @@ define({
 			500: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
 			600: "NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.",
 			601: "The nis node is already booted. A second attempt to boot nis is not possible.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEMs within the account. Harvesting starts with at least 1000 NEM.",
 			701: "The provided deadline is in the past. The deadline must be provided within a 1 day period.",
 			702: "The provided deadline is too far in the future. The deadline must be within one day time period.",
@@ -35,13 +51,22 @@ define({
 			707: "The time stamp of the transaction id too far in the past.",
 			708: "The time stamp of the transaction is too far in the future.",
 			709: "The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "There was an error setting up offline mode.",
 			1000: "The private key and the public key you have provided mismatch.",
 			1001: 'The public key and the address you have provided mismatch.',
 			1002: 'The address does not belong to the main network.'
 		},
 		common: {
-			success: "Aye!", //title of the Success message modals
+			success: "Aye!",
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'Ship not in range',
@@ -59,7 +84,27 @@ define({
 					many: '{{1}} days'
 				},
 				synchronized: 'Beauty in port!'
-			}
+			},
+			addressBook: 'Address book',
+			password: "Pick",
+			address: 'Address',
+			privateLabel: "Private label",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Queued loot",
+			outgoing: "Delivered loot",
+			incoming: "Hail-shot",
+			self: "Buried loot",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "This account is labeled as <strong>{{1}}</strong>",
+				nullLabelDesc: "This account doesn't have a label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: "Bounty",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "Bounty",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: "Pick",
+				passwordValidation: 'Password must not be blank',
+				send: "Deliver",
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: "Yer loot delivered!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "Loot",
+					from: 'Multisig account',
+					to: 'To',
+					fee: "Bounty",
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: "Parley",
+					encrypted: "Message is in a bottle",
+					noMessage: "No parlay",
+
+				},
+
+			},
 			sendNem: {
 				title: "Send booty",
+				sender: "Hearties",
+				thisAccount: 'This account',
 				labelDesc: "This account is labeled as <strong>{{1}}</strong>",
 				nullLabelDesc: "This account doesn't have a label",
 				amount: "Loot",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Loot Type",
+				direction: 'Transaction Direction',
 				pending: "Queued",
 				outgoing: "Delivered",
 				incoming: "Hail-shot",
 				self: "Buried",
 				sender: "Hearties",
 				recipient: "Me hearties",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Parley",
 				noMessage: "No parley",
 				encrypted: "Message is in bottle",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Loot",
 				fee: "Bounty"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Set sail",
@@ -244,6 +354,7 @@ define({
 				password: "Coffer's pick",
 				successMessage: "Log {{1}} {{#2}}({{2}}){{/2}} has been set as primary!",
 				set: "Set as primary",
+
 			},
 			changeWalletName: {
 				title: "Name yer coffer",
@@ -320,6 +431,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Put"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "AYE!",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Overboard",
+
 			}
 		},
 		landing: {
@@ -335,7 +461,9 @@ define({
 				leftButton: "Craft a coffer",
 				walletNamePlh: "Name yer Coffer",
 				passwordPlh: "Pick",
+				confirmPasswordPlh: 'Confirm password',
 				create: "Craft",
+				creating: 'Creating...',
 				rightTitle: "Already a <em>NEM</em>ber?",
 				rightButton: "Open yer Coffer",
 				openButton: "Pick",
@@ -343,35 +471,41 @@ define({
 				copyright: "Photography by <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC encrypts your wallet",
-					description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
-				}, {
-					title: "NCC encrypts your wallet",
-					description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
-				}]
+				items: [
+					{
+						title: "NCC encrypts your wallet",
+						description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
+					},
+					{
+						title: "NCC encrypts your wallet",
+						description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "How NCC works?",
-					paragraphs: [
-						"<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may",
-						"<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)",
-						"You may also configure an access to a remote <strong>NIS</strong>."
-					],
-					listItems: [
-						"Have multiple wallets",
-						"Define multiple accounts to be included in a wallet"
-					]
-				}, {
-					title: "What is &#42;NIS?",
-					paragraphs: [
-						"This component is responsible for keeping the <strong>NEM</strong> cloud alive.",
-						"The more <strong>NIS</strong> the better the security.",
-						"<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud."
-					],
-					legend: "<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>"
-				}]
+				sections: [
+					{
+						title: "How NCC works?",
+						paragraphs: [
+							"<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may",
+							"<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)",
+							"You may also configure an access to a remote <strong>NIS</strong>."
+						],
+						listItems: [
+							"Have multiple wallets",
+							"Define multiple accounts to be included in a wallet"
+						]
+					},
+					{
+						title: "What is &#42;NIS?",
+						paragraphs: [
+							"This component is responsible for keeping the <strong>NEM</strong> cloud alive.",
+							"The more <strong>NIS</strong> the better the security.",
+							"<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud."
+						],
+						legend: "<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -403,12 +537,13 @@ define({
 				clientInfo: "Ship's Particulars",
 				closeWallet: "Close the Coffer",
 				closeProgram: "Abandon Ship",
-				copyClipboard: "Click to copy me hearties to clipboard"
+				copyClipboard: "Click to copy me hearties to clipboard",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Port",
 				"Parley",
-				"Matey",
+				'Address Book',
 				"Loot",
 				"Plunderings",
 				"Trade",
@@ -445,6 +580,7 @@ define({
 			transactions: {
 				title: "Recent Loot",
 				sendNem: "Send Booty",
+				signMultisig: 'SIGN',
 				balance: "Pieces of Eight",
 				syncStatus: "(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})",
 				unknown: "unknown",
@@ -459,12 +595,6 @@ define({
 					"Bounty",
 					"Loot"
 				],
-				types: {
-					pending: "Queued loot",
-					outgoing: "Delivered loot",
-					incoming: "Hail-shot",
-					self: "Buried loot",
-				},
 				noMessage: "No parley",
 				encrypted: "Message is in a bottle",
 				view: "Spyglass",
@@ -493,6 +623,7 @@ define({
 				unconfirmed: "Queued",
 				incoming: "Hail-shot",
 				outgoing: "Delivered",
+
 			},
 			table: {
 				columns: [
@@ -506,12 +637,6 @@ define({
 					"Booty",
 					"Loot"
 				],
-				types: {
-					pending: "Queued loot",
-					outgoing: "Delivered loot",
-					incoming: "Hail-shot",
-					self: "Buried loot",
-				},
 				noMessage: "No parlay",
 				encrypted: "Message is in a bottle",
 				view: "Spyglass",
@@ -546,11 +671,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Send booty",
+			edit: 'Edit',
+			remove: "Overboard"
+		},
 		settings: {
 			title: "Fix riggin'",
-			settings: [{
-				name: "Parlance"
-			}],
+			settings: [
+				{
+					name: "Parlance"
+				}
+			],
 			save: "AYE!",
 			saveSuccess: "Riggin' has been fixed"
 		}

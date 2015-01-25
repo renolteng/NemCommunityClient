@@ -7,15 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "Arquivo não encontrado.",
+			101: 'The wallet file does not exist.',
 			102: "A carteira não foi criada.",
-			103: "O arquivo da carteira está corrompido. Por favor, restaure uma cópia ou crie outra conta.",
-			104: "Senha incorreta. Por favor, insira a senha correta. Não há como recuperá-la se perdida!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha de uma carteira ou crie outra.",
 			107: "A carteira não contém essa conta.",
 			108: "A conta não pode ser removida. Provavelmente ela tem saldo maior que 0 NEMs ou é a conta primária.",
 			109: "Já existe uma conta com o mesmo nome. Por favor, escolha outro.",
 			110: "A carteira já contém essa conta.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.",
 			305: "NIS inicializando.",
 			306: "Ocorreu um erro desconhecido. Talvez uma nova nova tentativa ou reiniciar o cliente/servidor dê certo; caso contrário, informe aos desenvolvedores do NEM no fórum oficial forum.nemcoin.com.",
@@ -25,6 +40,7 @@ define({
 			500: "Ocorreu um erro desconhecido. Por favor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.",
 			600: "NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu superior direito.",
 			601: "O NIS já foi inicializado.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 NEMs.",
 			701: "O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.",
 			702: "O prazo final fornecido está no futuro. O prazo limite deve estar dentro do período de um dia.",
@@ -35,6 +51,15 @@ define({
 			707: "A data da ID de transação está muito no passado.",
 			708: "A data da ID de transação está muito no futuro.",
 			709: "Conta desconhecida, Por favor, faça uma transação para conseguir uma chave pública.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Erro na configuração do modo off-line.",
 			1000: "Chave privada e pública não combinam.",
 			1001: 'Chave publica e endereço não combinam.',
@@ -59,7 +84,27 @@ define({
 					many: "{{1}} dias"
 				},
 				synchronized: "NIS está sincronizado!!"
-			}
+			},
+			addressBook: 'Address book',
+			password: "Senha",
+			address: 'Endereço',
+			privateLabel: "Identificação",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Pendente",
+			outgoing: "Enviada",
+			incoming: "Recebida",
+			self: "Enviada para si mesmo",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: "Salvar",
 				saveSuccess: "As configurações foram salvas!"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Esta conta está identificada como {{1}}",
+				nullLabelDesc: "Esta conta não tem uma identificação",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancelar',
+				convert: 'Convert',
+				fee: "Taxa",
+				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
+				dueBy: 'Tempo de espera',
+				useMinimumFee: 'Usar taxa minima',
+				hours: 'hora(s)',
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "Taxa",
+				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
+				dueBy: 'Tempo de espera',
+				useMinimumFee: 'Usar taxa minima',
+				hours: 'hora(s)',
+				password: "Senha",
+				passwordValidation: 'Password must not be blank',
+				send: "Enviar",
+				cancel: 'Cancelar',
+				sending: 'Enviando...',
+				successMessage: "A transação foi enviada!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "Quantidade",
+					from: 'Multisig account',
+					to: 'Para',
+					fee: "Taxa",
+					dueBy: 'Tempo de espera',
+					hours: 'hora(s)',
+					total: 'Total',
+					message: "Mensagem",
+					encrypted: "Mensagem criptografada",
+					noMessage: "Sem mensagem",
+
+				},
+
+			},
 			sendNem: {
 				title: "Enviar NEM",
+				sender: "Remetente",
+				thisAccount: 'This account',
 				labelDesc: "Esta conta está identificada como {{1}}",
 				nullLabelDesc: "Esta conta não tem uma identificação",
 				amount: "Total",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Tipo de transação",
+				direction: 'Transaction Direction',
 				pending: "Pendente",
 				outgoing: "Enviado",
 				incoming: "Recebido",
 				self: "Enviado para si mesmo",
 				sender: "Remetente",
 				recipient: "Destinatário",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Mensagem",
 				noMessage: "Sem mensagem",
 				encrypted: "Mensagem Criptografada",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: 'Desconhecida(o)',
 				amount: "Quantidade",
 				fee: "Taxa"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Inicializar nó local",
@@ -243,7 +353,8 @@ define({
 				wallet: "Carteira",
 				password: "Senha",
 				successMessage: "Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!",
-				set: "Definir como conta primária"
+				set: "Definir como conta primária",
+
 			},
 			changeWalletName: {
 				title: "Renomear Carteira",
@@ -320,6 +431,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "Você está saindo da carteira. Ela permanecerá aberta neste computador\n\nPara fazer Logout, por favor, clique em \"Fechar carteira\" no menu superior direito.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Criar"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Salvar modificações",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Remover",
+
 			}
 		},
 		landing: {
@@ -335,7 +461,9 @@ define({
 				leftButton: "Criar nova carteira",
 				walletNamePlh: "Nome para a carteira",
 				passwordPlh: "Senha",
+				confirmPasswordPlh: 'Confirm password',
 				create: "Criar",
+				creating: 'Creating...',
 				rightTitle: "Já possui uma carteira?",
 				rightButton: "Abrir carteira existente",
 				openButton: "Abrir",
@@ -343,35 +471,41 @@ define({
 				copyright: "Fotografado por <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "Como o NCC funciona?",
-					description: "<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos."
-				}, {
-					title: "NCC encripta sua carteira",
-					description: "<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos."
-				}]
+				items: [
+					{
+						title: "Como o NCC funciona?",
+						description: "<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos."
+					},
+					{
+						title: "NCC encripta sua carteira",
+						description: "<em>Segurança</em> baseada em forte criptografia para evitar roubo de moedas &amp; ativos."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Como o NCC funciona?",
-					paragraphs: [
-						"<strong>NCC</strong> providencia acesso aos seus ativos e moedas como uma carteira de moeda digital tradicional faz. Você pode",
-						"<strong>NCC</strong> requerer acesso a um servidor <strong>NIS</strong> para operar. O padrão é ter um servidor local ativo (está instalado junto com o <strong>NCC</strong>)",
-						"Você também pode configurar acesso a um servidor remoto <strong>NIS</strong>."
-					],
-					listItems: [
-						"Tenha múltiplas carteiras",
-						"Defina múltiplas carteiras para serem incluídas em uma carteira"
-					]
-				}, {
-					title: "O que é &#42;NIS?",
-					paragraphs: [
-						"Este componente é responsável por manter a nuvem <strong>NEM</strong> viva.",
-						"Quanto mais <strong>NIS</strong> melhor será a segurança.",
-						"<strong>NIS</strong> é o ponto de acesso a nuvem <strong>NEM</strong> de servidores."
-					],
-					legend: "<strong>&#42;NIS</strong> significa <strong>NEM Infraestrutura de Servidores</strong>"
-				}]
+				sections: [
+					{
+						title: "Como o NCC funciona?",
+						paragraphs: [
+							"<strong>NCC</strong> providencia acesso aos seus ativos e moedas como uma carteira de moeda digital tradicional faz. Você pode",
+							"<strong>NCC</strong> requerer acesso a um servidor <strong>NIS</strong> para operar. O padrão é ter um servidor local ativo (está instalado junto com o <strong>NCC</strong>)",
+							"Você também pode configurar acesso a um servidor remoto <strong>NIS</strong>."
+						],
+						listItems: [
+							"Tenha múltiplas carteiras",
+							"Defina múltiplas carteiras para serem incluídas em uma carteira"
+						]
+					},
+					{
+						title: "O que é &#42;NIS?",
+						paragraphs: [
+							"Este componente é responsável por manter a nuvem <strong>NEM</strong> viva.",
+							"Quanto mais <strong>NIS</strong> melhor será a segurança.",
+							"<strong>NIS</strong> é o ponto de acesso a nuvem <strong>NEM</strong> de servidores."
+						],
+						legend: "<strong>&#42;NIS</strong> significa <strong>NEM Infraestrutura de Servidores</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -403,12 +537,13 @@ define({
 				clientInfo: "Informações do Programa",
 				closeWallet: "Fechar carteira",
 				closeProgram: "Fechar programa",
-				copyClipboard: "Copiar para a área de transferência"
+				copyClipboard: "Copiar para a área de transferência",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Painel Administrativo",
 				"Mensagens",
-				"Contatos",
+				'Address Book',
 				"Transações",
 				"Blocos colhidos",
 				"Exchange de ativos",
@@ -445,6 +580,7 @@ define({
 			transactions: {
 				title: "Transações recentes",
 				sendNem: "Enviar NEM",
+				signMultisig: 'SIGN',
 				balance: "Saldo atual",
 				syncStatus: "(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})",
 				unknown: "Desconhecido",
@@ -459,12 +595,6 @@ define({
 					"Taxa",
 					"Quantidade"
 				],
-				types: {
-					pending: "Pendente",
-					outgoing: "Enviada",
-					incoming: "Recebida",
-					self: "Enviada para si mesmo"
-				},
 				noMessage: "Sem mensagem",
 				encrypted: "Mensagem criptografada",
 				view: "Detalhes",
@@ -492,7 +622,8 @@ define({
 				confirmed: "Confirmadas",
 				unconfirmed: "Não confirmadas",
 				incoming: "Recebidas",
-				outgoing: "Enviadas"
+				outgoing: "Enviadas",
+
 			},
 			table: {
 				columns: [
@@ -506,12 +637,6 @@ define({
 					"Taxa",
 					"Quantidade"
 				],
-				types: {
-					pending: "Pendente",
-					outgoing: "Enviada",
-					incoming: "Recebida",
-					self: "Enviada para si mesmo"
-				},
 				noMessage: "Sem mensagem",
 				encrypted: "Mensagem criptografada",
 				view: "Detalhes",
@@ -546,11 +671,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Enviar NEM",
+			edit: 'Edit',
+			remove: "Remover"
+		},
 		settings: {
 			title: "Opções",
-			settings: [{
-				name: "Idioma"
-			}],
+			settings: [
+				{
+					name: "Idioma"
+				}
+			],
 			save: "Salvar modificações",
 			saveSuccess: "Modificações salvas"
 		}

@@ -7,15 +7,30 @@ define({
 			decimalSeparator: ","
 		},
 		faults: {
-			101: "Die Datei wurde nicht gefunden.",
+			101: 'The wallet file does not exist.',
 			102: "Die Brieftasche wurde nicht erstellt.",
-			103: "Die Brieftaschendatei ist beschädigt. Bitte stelle die Brieftasche aus einem Backup wieder her.",
-			104: "Das eingegebene Passwort ist nicht korrekt. Hoffentlich kannst Du Dich an das richtige Passwort erinnern. Ein verlorenes Passwort kann nicht wiederhergestellt werden!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Bevor Du eine Brieftasche benutzen kannst, muss sie geöffnet werden. Um sicher zu gehen, dass Du berechtigt bist, die Brieftasche zu verwenden, musst Du das Passwort für die Brieftasche eingeben.",
 			107: "Die Brieftasche enthält dieses Konto nicht.",
 			108: "Das Konto kann nicht entfernt werden. Der Grund ist meistens, dass der Kontostand größer als 0 NEM ist oder, dass Du versuchst, ein Hauptkonto zu entfernen.",
 			109: "Es gibt bereits eine Brieftasche mit demselben Namen. Bitte wähle einen anderen Namen für die Brieftasche.",
 			110: "Die Brieftasche enthält dieses Konto schon.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Die verschlüsselte Nachricht kann nicht gesendet werden, da der Empfänger bisher noch keine Transaktion gemacht hat und deswegen der öffentliche Schlüssel des Empfängers unbekannt ist.",
 			305: "Der NEM Infrastructure Server (NIS) ist nicht verfügbar.",
 			306: "Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls, eröffne bitte einen Thread in der NEM NIS/NCC Community.",
@@ -25,6 +40,7 @@ define({
 			500: "Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls, eröffne bitte einen Thread in der NEM NIS/NCC Community.",
 			600: "Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.",
 			601: "Der NEM Infrastructure Server (NIS) ist bereits gebootet. Es ist nicht nötig, NIS ein weiteres Mal zu booten.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 NEM benötigt.",
 			701: "Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
 			702: "Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
@@ -35,6 +51,15 @@ define({
 			707: "Der Zeitstempel der Transaktion liegt zu weit in der Vergangenheit.",
 			708: "Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.",
 			709: "Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Sender oder Empfänger in einer Transaktion auftreten, um dem Netzwerk bekannt zu sein.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Es ist ein Fehler beim Übergang zum Offlinemodus aufgetreten.",
 			1000: "Der eingegebene private Schlüssel passt nicht zum eingegebenen öffentlichen Schlüssel.",
 			1001: "Der eingegebene öffentliche Schlüssel passt nicht zur eingegebenen Adresse.",
@@ -59,7 +84,27 @@ define({
 					many: "etwa {{1}} Tage"
 				},
 				synchronized: "NIS ist synchron!"
-			}
+			},
+			addressBook: 'Address book',
+			password: "Passwort",
+			address: "Adresse",
+			privateLabel: "Privates Label",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Unbestätigte Transaktion",
+			outgoing: "Ausgehende Transaktion",
+			incoming: "Eingehende Transaktion",
+			self: "Transaktion zu sich selbst",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: "Speichern",
 				saveSuccess: "Die Einstellungen wurden erfolgreich gespeichert"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Das Label des Kontos ist {{1}}",
+				nullLabelDesc: "Dieses Konto hat kein Label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: "Abbrechen",
+				convert: 'Convert',
+				fee: "Gebühr",
+				feeValidation: "Die Gebühr darf die Minimalgebühr nicht unterschreiten",
+				dueBy: "Verfällt in",
+				useMinimumFee: "Benutze minimale Gebühr",
+				hours: "Stunde(n)",
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "Gebühr",
+				feeValidation: "Die Gebühr darf die Minimalgebühr nicht unterschreiten",
+				dueBy: "Verfällt in",
+				useMinimumFee: "Benutze minimale Gebühr",
+				hours: "Stunde(n)",
+				password: "Passwort",
+				passwordValidation: "Password must not be blank",
+				send: "Senden",
+				cancel: "Abbrechen",
+				sending: "Sende...",
+				successMessage: "Die Transaktion wurde erfolgreich gesendet!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "Betrag",
+					from: 'Multisig account',
+					to: "An",
+					fee: "Gebühr",
+					dueBy: "Verfällt in",
+					hours: "Stunde(n)",
+					total: "Insgesamt",
+					message: "Nachricht",
+					encrypted: "Nachricht ist verschlüsselt",
+					noMessage: "Keine Nachricht",
+
+				},
+
+			},
 			sendNem: {
 				title: "NEM senden",
+				sender: "Sender",
+				thisAccount: 'This account',
 				labelDesc: "Das Label des Kontos ist {{1}}",
 				nullLabelDesc: "Dieses Konto hat kein Label",
 				amount: "Betrag",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Transaktionstyp",
+				direction: 'Transaction Direction',
 				pending: "Unbestätigt",
 				outgoing: "Ausgehend",
 				incoming: "Eingehend",
 				self: "Selbst",
 				sender: "Sender",
 				recipient: "Empfänger",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Nachricht",
 				noMessage: "Keine Nachricht",
 				encrypted: "Nachricht ist verschlüsselt",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: "Unbekannt",
 				amount: "Betrag",
 				fee: "Gebühr"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Lokalen Knotenpunkt booten",
@@ -243,7 +353,8 @@ define({
 				wallet: "Brieftasche",
 				password: "Passwort der Brieftasche",
 				successMessage: "Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde als Hauptkonto festgelegt!",
-				set: "Als Hauptkonto festlegen"
+				set: "Als Hauptkonto festlegen",
+
 			},
 			changeWalletName: {
 				title: "Namen der Brieftasche ändern",
@@ -319,7 +430,22 @@ define({
 				stop: "Beenden"
 			},
 			logoutWarning: {
-				leavePage: "Du bist dabei die Seite zu verlassen ohne Deine Brieftasche zu schließen. Dadurch könnten andere Zugang zu Deiner Brieftasche erhalten.\n\nUm dies zu verhindern solltest Du den Menüpunkt \"Brieftasche schließen\" im Aufklappmenü anwählen bevor Du den Browser schließt oder zu einer anderen Seite navigierst.\n"
+				leavePage: "Du bist dabei die Seite zu verlassen ohne Deine Brieftasche zu schließen. Dadurch könnten andere Zugang zu Deiner Brieftasche erhalten.\n\nUm dies zu verhindern solltest Du den Menüpunkt \"Brieftasche schließen\" im Aufklappmenü anwählen bevor Du den Browser schließt oder zu einer anderen Seite navigierst.\n",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Hinzufügen"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Änderungen speichern",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Entfernen",
+
 			}
 		},
 		landing: {
@@ -411,12 +537,13 @@ define({
 				clientInfo: "Software Informationen",
 				closeWallet: "Brieftasche schließen",
 				closeProgram: "Programm beenden",
-				copyClipboard: "Addresse in die Zwischenablage kopieren"
+				copyClipboard: "Addresse in die Zwischenablage kopieren",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Dashboard",
 				"Nachrichten",
-				"Kontakte",
+				'Address Book',
 				"Transaktionen",
 				"Geerntete Blöcke",
 				"Börse",
@@ -453,6 +580,7 @@ define({
 			transactions: {
 				title: "Letzte Transaktionen",
 				sendNem: "NEM senden",
+				signMultisig: 'SIGN',
 				balance: "Kontostand",
 				syncStatus: "(Block {{1}}{{#2}} : etwa {{3}} Tage im Rückstand{{/2}})",
 				unknown: "unbekannt",
@@ -467,12 +595,6 @@ define({
 					"Gebühr",
 					"Betrag"
 				],
-				types: {
-					pending: "Unbestätigte Transaktion",
-					outgoing: "Ausgehende Transaktion",
-					incoming: "Eingehende Transaktion",
-					self: "Transaktion zu sich selbst"
-				},
 				noMessage: "Keine Nachricht",
 				encrypted: "Nachricht ist verschlüsselt",
 				view: "Ansehen",
@@ -500,7 +622,8 @@ define({
 				confirmed: "Bestätigt",
 				unconfirmed: "Unbestätigt",
 				incoming: "Eingehend",
-				outgoing: "Ausgehend"
+				outgoing: "Ausgehend",
+
 			},
 			table: {
 				columns: [
@@ -514,12 +637,6 @@ define({
 					"Gebühr",
 					"Betrag"
 				],
-				types: {
-					pending: "Unbestätigte Transaktion",
-					outgoing: "Ausgehende Transaktion",
-					incoming: "Eingehende Transaktion",
-					self: "Transaktion zu sich selbst"
-				},
 				noMessage: "Keine Nachricht",
 				encrypted: "Nachricht ist verschlüsselt",
 				view: "Ansehen",
@@ -553,6 +670,22 @@ define({
 					stopRemoteHarvesting: "Sichere Ernte beenden"
 				}
 			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "NEM senden",
+			edit: 'Edit',
+			remove: "Entfernen"
 		},
 		settings: {
 			title: "Einstellungen",

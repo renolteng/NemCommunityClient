@@ -1,0 +1,226 @@
+changed texts.faults.101
+	from: 'File not found.'
+	  to: 'The wallet file does not exist.'
+	 was: 'Bestand niet gevonden.'
+
+changed texts.faults.103
+	from: 'Wallet file is corrupted. Please recover your wallet from a backup.'
+	  to: 'Wallet file is corrupt. Please recover your wallet from a backup.'
+	 was: 'Wallet bestand is corrupt. Herstel je wallet van een eerder gemaakte back-up. Tip: back-up je wallet gelijk nadat deze is gegenereerd, of wanneer een account is toegevoegd aan de wallet.'
+
+changed texts.faults.104
+	from: 'The provided password is not correct.'
+	  to: 'The provided password for the wallet is not correct.'
+	 was: 'Het ingevoerde wachtwoord is niet juist. Hopelijk kun je het nog herinneren, dit is de enige mogelijkheid om toegang te krijgen tot je wallet.'
+
+changed texts.wallet.nav.[2]
+	from: 'Contacts'
+	  to: 'Address Book'
+	 was: 'Contacten'
+
+translated texts.common.password
+	    from: 'Password'
+	      to: 'Wachtwoord'
+	based on: texts.landing.main.passwordPlh
+
+translated texts.common.address
+	    from: 'Address'
+	      to: 'Address'
+	based on: texts.modals.verifyRealAccountData.address
+
+translated texts.common.privateLabel
+	    from: 'Private label'
+	      to: 'Privé label'
+	based on: texts.modals.createAccount.label
+
+translated texts.transactionDirections.pending
+	    from: 'Pending transaction'
+	      to: 'Wachtende transactie'
+	based on: texts.transactions.table.types.pending
+
+translated texts.transactionDirections.outgoing
+	    from: 'Outgoing transaction'
+	      to: 'Uitgaande transactie'
+	based on: texts.transactions.table.types.outgoing
+
+translated texts.transactionDirections.incoming
+	    from: 'Incoming transaction'
+	      to: 'Inkomende transactie'
+	based on: texts.transactions.table.types.incoming
+
+translated texts.transactionDirections.self
+	    from: 'Self transaction'
+	      to: 'Eigen transactie'
+	based on: texts.transactions.table.types.self
+
+translated texts.modals.multisig.labelDesc
+	    from: 'This account is labeled as {{1}}'
+	      to: 'Deze rekening is als {{1}} gelabeld'
+	based on: texts.modals.sendNem.labelDesc
+
+translated texts.modals.multisig.nullLabelDesc
+	    from: "This account doesn't have a label"
+	      to: "Deze rekening heeft geen label"
+	based on: texts.modals.sendNem.nullLabelDesc
+
+translated texts.modals.multisig.cancel
+	    from: 'Cancel'
+	      to: 'Annuleer'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.multisig.fee
+	    from: 'Fee'
+	      to: 'Toeslag'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.multisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Toeslag mag niet lager zijn dan het minimum'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.multisig.dueBy
+	    from: 'Due by'
+	      to: 'Verzenden voor'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.multisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Gebruik minimale toeslag'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.multisig.hours
+	    from: 'hour(s)'
+	      to: 'uur'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.fee
+	    from: 'Fee'
+	      to: 'Toeslag'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Toeslag mag niet lager zijn dan het minimum'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.signMultisig.dueBy
+	    from: 'Due by'
+	      to: 'Verzenden voor'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Gebruik minimale toeslag'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.signMultisig.hours
+	    from: 'hour(s)'
+	      to: 'uur'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.password
+	    from: 'Password'
+	      to: 'Wachtwoord'
+	based on: texts.landing.main.passwordPlh
+
+translated texts.modals.signMultisig.passwordValidation
+	    from: 'Password must not be blank'
+	      to: 'Password must not be blank'
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.signMultisig.send
+	    from: 'Send'
+	      to: 'Verstuur'
+	based on: texts.modals.sendNem.send
+
+translated texts.modals.signMultisig.cancel
+	    from: 'Cancel'
+	      to: 'Annuleer'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.signMultisig.sending
+	    from: 'Sending...'
+	      to: 'Verzenden...'
+	based on: texts.modals.sendNem.txConfirm.sending
+
+translated texts.modals.signMultisig.successMessage
+	    from: 'Transaction has been sent successfully!'
+	      to: 'Transactie is verzonden!'
+	based on: texts.modals.sendNem.successMessage
+
+translated texts.modals.signMultisig.txConfirm.amount
+	    from: 'Amount'
+	      to: 'Bedrag'
+	based on: texts.transactions.table.columns.[8]
+
+translated texts.modals.signMultisig.txConfirm.to
+	    from: 'To'
+	      to: 'Naar'
+	based on: texts.modals.sendNem.txConfirm.to
+
+translated texts.modals.signMultisig.txConfirm.fee
+	    from: 'Fee'
+	      to: 'Toeslag'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.dueBy
+	    from: 'Due by'
+	      to: 'Verzenden voor'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.txConfirm.hours
+	    from: 'hour(s)'
+	      to: 'uur'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.txConfirm.total
+	    from: 'Total'
+	      to: 'Totaal'
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.signMultisig.txConfirm.message
+	    from: 'Message'
+	      to: 'Bericht'
+	based on: texts.transactions.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.encrypted
+	    from: 'Message is encrypted'
+	      to: 'Bericht is versleuteld'
+	based on: texts.transactions.table.encrypted
+
+translated texts.modals.signMultisig.txConfirm.noMessage
+	    from: 'No message'
+	      to: 'Geen bericht'
+	based on: texts.transactions.table.noMessage
+
+translated texts.modals.sendNem.sender
+	    from: 'Sender'
+	      to: 'Afzender'
+	based on: texts.modals.transactionDetails.sender
+
+translated texts.modals.addContact.add
+	    from: 'Add'
+	      to: 'Voeg toe'
+	based on: texts.modals.addAccount.add
+
+translated texts.modals.editContact.saveChanges
+	    from: 'Save changes'
+	      to: 'Opslaan'
+	based on: texts.settings.save
+
+translated texts.modals.removeContact.remove
+	    from: 'Remove'
+	      to: 'Verwijderen'
+	based on: texts.modals.removeAccount.remove
+
+translated texts.addressBook.sendNem
+	    from: 'Send NEM'
+	      to: 'Verstuur NEM'
+	based on: texts.transactions.sendNem
+
+translated texts.addressBook.remove
+	    from: 'Remove'
+	      to: 'Verwijderen'
+	based on: texts.modals.removeAccount.remove
+
+-----

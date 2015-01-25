@@ -7,15 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "Datoteka nije pronađena.",
+			101: 'The wallet file does not exist.',
 			102: "Novčanik nije stvoren.",
-			103: "Datoteka novčanika je oštećena. Molim Vas povratite novčanik iz sigurnosne kopije koju ste trebali napraviti prilikom stvaranja novčanika ili dodavanja računa.",
-			104: "Unesena lozinka je netočna. Nadam se da se možete sjetiti točne lozinke jer izgubljenu lozinku je nemoguće povratiti!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Novčanik mora biti otvoren da biste ga mogli koristiti. Morate unijeti lozinku za novčanik da biste bili sigurni da ste ovlašteni za korištenje istog.",
 			107: "Novčanik ne sadrži taj račun.",
 			108: "Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 NEM-ova ili jer pokušavate ukloniti primarni račun.",
 			109: "Drugi novčanik sa istim nazivom već postoji. Molim Vas izaberite drugi naziv za novčanik.",
 			110: "Novčanik već sadrži taj račun.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Šifrirana se poruka nije mogla poslati jer primatelj nije nikad napravio niti jednu transakciju.",
 			305: "NEM infrastrukturni poslužitelj nije dostupan.",
 			306: "Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Novi pokušaj bi mogao pomoći, u suprotnom molim Vas pošaljite upit NEM NIS/NCC zajednici.",
@@ -25,6 +40,7 @@ define({
 			500: "Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Ponovno pokretanje programa bi moglo pomoći u suprotnom molimo vas da grešku prijavite NEM NIS/NCC zajednicom.",
 			600: "Za slanje i primanje transakcija sa NEM oblaka, NCC zahtijeva da NIS poslužitelj bude pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.",
 			601: "NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 NEM-ova.",
 			701: "Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.",
 			702: "Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.",
@@ -35,6 +51,15 @@ define({
 			707: "Vremenska oznaka transakcije je predaleko u prošlosti.",
 			708: "Vremenska oznaka transakcije je predaleko u budućnosti.",
 			709: "Račun je nepoznat. Račun se mora pojaviti barem u jednoj transakciji (pošiljatelja ili primatelja) da bi bio prepoznat u mreži.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Došlo je do pogreške kod postavljanja u izvanmrežni način rada.",
 			1000: "Privatni i javni ključ koji ste unijeli se ne poklapaju.",
 			1001: "Javni ključ i adresa koju ste unijeli se ne poklapaju.",
@@ -59,7 +84,27 @@ define({
 					many: "{{1}} dana"
 				},
 				synchronized: "NIS je sinkroniziran!"
-			}
+			},
+			addressBook: 'Address book',
+			password: "Lozinka",
+			address: "Adresa",
+			privateLabel: "Privatna oznaka",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Transakcija u tijeku",
+			outgoing: "Odlazna transakcija",
+			incoming: "Dolazna transakcija",
+			self: "Vlastita transakcija",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: "Spremi",
 				saveSuccess: "Postavke su uspješno spremljene"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Ovaj račun je označen kao {{1}}",
+				nullLabelDesc: "Ovaj račun nema oznake",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: "Odustani",
+				convert: 'Convert',
+				fee: "Naknada",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: "Zbog",
+				useMinimumFee: 'Use minimum fee',
+				hours: "sat(i)",
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "Naknada",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: "Zbog",
+				useMinimumFee: 'Use minimum fee',
+				hours: "sat(i)",
+				password: "Lozinka",
+				passwordValidation: 'Password must not be blank',
+				send: "Šalji",
+				cancel: "Odustani",
+				sending: "Šaljem...",
+				successMessage: "Transakcija je uspješno provedena!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "Iznos",
+					from: 'Multisig account',
+					to: "Na",
+					fee: "Naknada",
+					dueBy: "Zbog",
+					hours: "sat(i)",
+					total: "Ukupno",
+					message: "poruke",
+					encrypted: "Poruka je šifrirana",
+					noMessage: "Nema poruke",
+
+				},
+
+			},
 			sendNem: {
 				title: "Slanje NEMa",
+				sender: "Pošiljatelj",
+				thisAccount: 'This account',
 				labelDesc: "Ovaj račun je označen kao {{1}}",
 				nullLabelDesc: "Ovaj račun nema oznake",
 				amount: "Iznos",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Tip transakcije",
+				direction: 'Transaction Direction',
 				pending: "U tijeku",
 				outgoing: "Odlazno",
 				incoming: "Dolazno",
 				self: "Self",
 				sender: "Pošiljatelj",
 				recipient: "Primatelj",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Poruka",
 				noMessage: "Nema poruka",
 				encrypted: "Poruka je šifrirana",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Iznos",
 				fee: "Naknada"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Pokreni lokalni čvor",
@@ -243,7 +353,8 @@ define({
 				wallet: "Novčanik",
 				password: "Lozinka novčanika",
 				successMessage: "Račun {{1}} {{#2}}({{2}}){{/2}} je postavljen kao primarni!",
-				set: "Postavi kao primarni"
+				set: "Postavi kao primarni",
+
 			},
 			changeWalletName: {
 				title: "Izmijeni naziv novčanika",
@@ -320,6 +431,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Dodaj"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Spremi izmjene",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Ukloni",
+
 			}
 		},
 		landing: {
@@ -335,7 +461,9 @@ define({
 				leftButton: "Stvori novi novčanik",
 				walletNamePlh: "Naziv Vašeg novčanika",
 				passwordPlh: "Lozinka",
+				confirmPasswordPlh: 'Confirm password',
 				create: "Stvori",
+				creating: 'Creating...',
 				rightTitle: "Već si <em>NEM</em>ber?",
 				rightButton: "Otvori novčanik",
 				openButton: "Otvori",
@@ -343,35 +471,41 @@ define({
 				copyright: "Fotografiju ustupio  <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC šifrira vaš novčanik",
-					description: "<em>Sigurnost</em> je za NEM  jako važna za sprječavanje krađe NEM novčića &amp; udjela."
-				}, {
-					title: "NCC šifrira vaš novčanik",
-					description: "<em>Sigurnost</em> je za NEM jako važna za sprječavanje krađe NEM novčića &amp; udjela."
-				}]
+				items: [
+					{
+						title: "NCC šifrira vaš novčanik",
+						description: "<em>Sigurnost</em> je za NEM  jako važna za sprječavanje krađe NEM novčića &amp; udjela."
+					},
+					{
+						title: "NCC šifrira vaš novčanik",
+						description: "<em>Sigurnost</em> je za NEM jako važna za sprječavanje krađe NEM novčića &amp; udjela."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Kako radi NCC?",
-					paragraphs: [
-						"<strong>NCC</strong> pruža pristup Vašim udjelima i NEM novčićima kao što to čini tradicionalni novčanik. Možete",
-						"<strong>NCC</strong> zahtijeva pristup na <strong>NIS</strong> poslužitelj kako bi mogao funkcionirati. Standardno je imati aktivan lokalni poslužitelj (instalira se zajedno sa <strong>NCC</strong>-om)",
-						"Moguće je također podesiti pristup na udaljeni <strong>NIS</strong> poslužitelj."
-					],
-					listItems: [
-						"Koristiti više novčanika",
-						"Definirati više računa koji će biti uključeni u novčanik"
-					]
-				}, {
-					title: "Što je to &#42;NIS?",
-					paragraphs: [
-						"Ova komponenta je odgovorna za održavanje <strong>NEM</strong> oblaka.",
-						"Što je više <strong>NIS</strong> poslužitelja to je bolja sigurnost.",
-						"<strong>NIS</strong> je pristupna točka <strong>NEM</strong> oblaku."
-					],
-					legend: "<strong>&#42;NIS</strong> je oznaka za <strong>NEM Infrastructure Server</strong>"
-				}]
+				sections: [
+					{
+						title: "Kako radi NCC?",
+						paragraphs: [
+							"<strong>NCC</strong> pruža pristup Vašim udjelima i NEM novčićima kao što to čini tradicionalni novčanik. Možete",
+							"<strong>NCC</strong> zahtijeva pristup na <strong>NIS</strong> poslužitelj kako bi mogao funkcionirati. Standardno je imati aktivan lokalni poslužitelj (instalira se zajedno sa <strong>NCC</strong>-om)",
+							"Moguće je također podesiti pristup na udaljeni <strong>NIS</strong> poslužitelj."
+						],
+						listItems: [
+							"Koristiti više novčanika",
+							"Definirati više računa koji će biti uključeni u novčanik"
+						]
+					},
+					{
+						title: "Što je to &#42;NIS?",
+						paragraphs: [
+							"Ova komponenta je odgovorna za održavanje <strong>NEM</strong> oblaka.",
+							"Što je više <strong>NIS</strong> poslužitelja to je bolja sigurnost.",
+							"<strong>NIS</strong> je pristupna točka <strong>NEM</strong> oblaku."
+						],
+						legend: "<strong>&#42;NIS</strong> je oznaka za <strong>NEM Infrastructure Server</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -403,12 +537,13 @@ define({
 				clientInfo: "Informacije klijenta",
 				closeWallet: "Zatvori novčanik",
 				closeProgram: "Zatvori  program",
-				copyClipboard: "Kopiraj adresu u međuspremnik"
+				copyClipboard: "Kopiraj adresu u međuspremnik",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Kontrolna ploča",
 				"Poruke",
-				"Kontakti",
+				'Address Book',
 				"Transakcije",
 				"Ubrani blokovi",
 				"Razmjena udjela",
@@ -445,6 +580,7 @@ define({
 			transactions: {
 				title: "Nedavne transakcije",
 				sendNem: "Šalji NEM",
+				signMultisig: 'SIGN',
 				balance: "Trenutno stanje",
 				syncStatus: "(na bloku {{1}}{{#2}} : otprilike {{3}} dan(a) u zaostatku {{/2}})",
 				unknown: "nepoznato",
@@ -459,12 +595,6 @@ define({
 					"Naknada",
 					"Iznos"
 				],
-				types: {
-					pending: "Transakcija u tijeku",
-					outgoing: "Odlazna transakcija",
-					incoming: "Dolazna transakcija",
-					self: "Vlastita transakcija"
-				},
 				noMessage: "Nema poruke",
 				encrypted: "Poruka je šifrirana",
 				view: "Pregled",
@@ -492,7 +622,8 @@ define({
 				confirmed: "Potvrđene",
 				unconfirmed: "Nepotvrđene",
 				incoming: "Dolazne",
-				outgoing: "Odlazne"
+				outgoing: "Odlazne",
+
 			},
 			table: {
 				columns: [
@@ -506,12 +637,6 @@ define({
 					"Naknada",
 					"Iznos"
 				],
-				types: {
-					pending: "Transakcija u tijeku",
-					outgoing: "Odlazna transakcija",
-					incoming: "Dolazna transakcija",
-					self: "Vlastita transakcija"
-				},
 				noMessage: "Nema poruke",
 				encrypted: "Poruka je šifrirana",
 				view: "Pregled",
@@ -546,11 +671,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Šalji NEM",
+			edit: 'Edit',
+			remove: "Ukloni"
+		},
 		settings: {
 			title: "Postavke",
-			settings: [{
-				name: "Jezik"
-			}],
+			settings: [
+				{
+					name: "Jezik"
+				}
+			],
 			save: "Spremi izmjene",
 			saveSuccess: "Postavke su uspješno spremljene"
 		}

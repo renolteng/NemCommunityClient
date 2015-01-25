@@ -1,0 +1,206 @@
+changed texts.faults.101
+	from: 'File not found.'
+	  to: 'The wallet file does not exist.'
+	 was: "Файлът не е намерен"
+
+changed texts.faults.103
+	from: 'Wallet file is corrupted. Please recover your wallet from a backup.'
+	  to: 'Wallet file is corrupt. Please recover your wallet from a backup.'
+	 was: "Файлът на портфела е повреден.Моля възстановете файла от копие което сте запазили при създаването на портфейла или създайте нов акаунт."
+
+changed texts.faults.104
+	from: 'The provided password is not correct.'
+	  to: 'The provided password for the wallet is not correct.'
+	 was: "Въведената парола е грешна. Опитайте се да си спомните правилната парола. Паролата не може да бъде въстановена ако е загубена"
+
+changed texts.wallet.nav.[2]
+	from: 'Contacts'
+	  to: 'Address Book'
+	 was: "Контакти"
+
+translated texts.common.password
+	    from: 'Password'
+	      to: "Парола"
+	based on: texts.landing.main.passwordPlh
+
+translated texts.common.address
+	    from: 'Address'
+	      to: "Адрес"
+	based on: texts.modals.verifyRealAccountData.address
+
+translated texts.common.privateLabel
+	    from: 'Private label'
+	      to: "Частна маркировка"
+	based on: texts.modals.createAccount.label
+
+translated texts.modals.multisig.labelDesc
+	    from: 'This account is labeled as {{1}}'
+	      to: "Този акаунт е маркиран като {{1}}"
+	based on: texts.modals.sendNem.labelDesc
+
+translated texts.modals.multisig.nullLabelDesc
+	    from: "This account doesn't have a label"
+	      to: "Този акаунт не е маркиран"
+	based on: texts.modals.sendNem.nullLabelDesc
+
+translated texts.modals.multisig.cancel
+	    from: 'Cancel'
+	      to: "Отмени"
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.multisig.fee
+	    from: 'Fee'
+	      to: "Такса"
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.multisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: "Таксата не трябва да бъде по малка от минималната такса"
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.multisig.dueBy
+	    from: 'Due by'
+	      to: "Време до края"
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.multisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: "Ползвай минималната такса"
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.multisig.hours
+	    from: 'hour(s)'
+	      to: "час(а)"
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.fee
+	    from: 'Fee'
+	      to: "Такса"
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: "Таксата не трябва да бъде по малка от минималната такса"
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.signMultisig.dueBy
+	    from: 'Due by'
+	      to: "Време до края"
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: "Ползвай минималната такса"
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.signMultisig.hours
+	    from: 'hour(s)'
+	      to: "час(а)"
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.password
+	    from: 'Password'
+	      to: "Парола"
+	based on: texts.landing.main.passwordPlh
+
+translated texts.modals.signMultisig.passwordValidation
+	    from: 'Password must not be blank'
+	      to: "Паролата не трябва да е празна"
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.signMultisig.send
+	    from: 'Send'
+	      to: "Изпрати"
+	based on: texts.modals.sendNem.send
+
+translated texts.modals.signMultisig.cancel
+	    from: 'Cancel'
+	      to: "Отмени"
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.signMultisig.sending
+	    from: 'Sending...'
+	      to: "Изпращам..."
+	based on: texts.modals.sendNem.txConfirm.sending
+
+translated texts.modals.signMultisig.successMessage
+	    from: 'Transaction has been sent successfully!'
+	      to: "Транзакцията беше изпратена успешно!"
+	based on: texts.modals.sendNem.successMessage
+
+translated texts.modals.signMultisig.txConfirm.amount
+	    from: 'Amount'
+	      to: "Сума"
+	based on: texts.transactions.table.columns.[8]
+
+translated texts.modals.signMultisig.txConfirm.to
+	    from: 'To'
+	      to: "До"
+	based on: texts.modals.sendNem.txConfirm.to
+
+translated texts.modals.signMultisig.txConfirm.fee
+	    from: 'Fee'
+	      to: "Такса"
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.dueBy
+	    from: 'Due by'
+	      to: "Време до края"
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.txConfirm.hours
+	    from: 'hour(s)'
+	      to: "час(а)"
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.txConfirm.total
+	    from: 'Total'
+	      to: "Общо"
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.signMultisig.txConfirm.message
+	    from: 'Message'
+	      to: "Съобщение"
+	based on: texts.transactions.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.encrypted
+	    from: 'Message is encrypted'
+	      to: "Съобщението е криптирано"
+	based on: texts.transactions.table.encrypted
+
+translated texts.modals.signMultisig.txConfirm.noMessage
+	    from: 'No message'
+	      to: "Няма съобщение"
+	based on: texts.transactions.table.noMessage
+
+translated texts.modals.sendNem.sender
+	    from: 'Sender'
+	      to: "Изпращач"
+	based on: texts.modals.transactionDetails.sender
+
+translated texts.modals.addContact.add
+	    from: 'Add'
+	      to: "Добави"
+	based on: texts.modals.addAccount.add
+
+translated texts.modals.editContact.saveChanges
+	    from: 'Save changes'
+	      to: "Запази промените"
+	based on: texts.settings.save
+
+translated texts.modals.removeContact.remove
+	    from: 'Remove'
+	      to: "Премахни"
+	based on: texts.modals.removeAccount.remove
+
+translated texts.addressBook.sendNem
+	    from: 'Send NEM'
+	      to: "Изпрати NEM"
+	based on: texts.transactions.sendNem
+
+translated texts.addressBook.remove
+	    from: 'Remove'
+	      to: "Премахни"
+	based on: texts.modals.removeAccount.remove
+
+-----

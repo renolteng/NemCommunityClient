@@ -1,0 +1,206 @@
+changed texts.faults.101
+	from: 'File not found.'
+	  to: 'The wallet file does not exist.'
+	 was: '未找到文件。'
+
+changed texts.faults.103
+	from: 'Wallet file is corrupted. Please recover your wallet from a backup.'
+	  to: 'Wallet file is corrupt. Please recover your wallet from a backup.'
+	 was: '钱包文件已损坏。如果您的钱包存在备份，请使用备份恢复你的账户，或添加一个新账户。'
+
+changed texts.faults.104
+	from: 'The provided password is not correct.'
+	  to: 'The provided password for the wallet is not correct.'
+	 was: '该密码不正确，请认真回忆密码，如该密码丢失将造成无法复原！'
+
+changed texts.wallet.nav.[2]
+	from: 'Contacts'
+	  to: 'Address Book'
+	 was: '联系人'
+
+translated texts.common.password
+	    from: 'Password'
+	      to: '密码'
+	based on: texts.landing.main.passwordPlh
+
+translated texts.common.address
+	    from: 'Address'
+	      to: '地址'
+	based on: texts.modals.verifyRealAccountData.address
+
+translated texts.common.privateLabel
+	    from: 'Private label'
+	      to: '标识'
+	based on: texts.modals.createAccount.label
+
+translated texts.modals.multisig.labelDesc
+	    from: 'This account is labeled as {{1}}'
+	      to: '此帐户标记为 {{1}}'
+	based on: texts.modals.sendNem.labelDesc
+
+translated texts.modals.multisig.nullLabelDesc
+	    from: "This account doesn't have a label"
+	      to: '此帐户没有标记'
+	based on: texts.modals.sendNem.nullLabelDesc
+
+translated texts.modals.multisig.cancel
+	    from: 'Cancel'
+	      to: '取消'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.multisig.fee
+	    from: 'Fee'
+	      to: '费用'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.multisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: '无效费用值，必须填入等于或高于最小费用的值。'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.multisig.dueBy
+	    from: 'Due by'
+	      to: '限期'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.multisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: '支付最小费用'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.multisig.hours
+	    from: 'hour(s)'
+	      to: '小时数'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.fee
+	    from: 'Fee'
+	      to: '费用'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: '无效费用值，必须填入等于或高于最小费用的值。'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.modals.signMultisig.dueBy
+	    from: 'Due by'
+	      to: '限期'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: '支付最小费用'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.modals.signMultisig.hours
+	    from: 'hour(s)'
+	      to: '小时数'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.password
+	    from: 'Password'
+	      to: '密码'
+	based on: texts.landing.main.passwordPlh
+
+translated texts.modals.signMultisig.passwordValidation
+	    from: 'Password must not be blank'
+	      to: 'Password must not be blank'
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.signMultisig.send
+	    from: 'Send'
+	      to: '发送'
+	based on: texts.modals.sendNem.send
+
+translated texts.modals.signMultisig.cancel
+	    from: 'Cancel'
+	      to: '取消'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.modals.signMultisig.sending
+	    from: 'Sending...'
+	      to: '正在发送中...'
+	based on: texts.modals.sendNem.txConfirm.sending
+
+translated texts.modals.signMultisig.successMessage
+	    from: 'Transaction has been sent successfully!'
+	      to: '交易发送成功!'
+	based on: texts.modals.sendNem.successMessage
+
+translated texts.modals.signMultisig.txConfirm.amount
+	    from: 'Amount'
+	      to: '金额'
+	based on: texts.transactions.table.columns.[8]
+
+translated texts.modals.signMultisig.txConfirm.to
+	    from: 'To'
+	      to: '收件人'
+	based on: texts.modals.sendNem.txConfirm.to
+
+translated texts.modals.signMultisig.txConfirm.fee
+	    from: 'Fee'
+	      to: '费用'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.dueBy
+	    from: 'Due by'
+	      to: '限期'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.modals.signMultisig.txConfirm.hours
+	    from: 'hour(s)'
+	      to: '小时数'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.modals.signMultisig.txConfirm.total
+	    from: 'Total'
+	      to: '总价'
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.signMultisig.txConfirm.message
+	    from: 'Message'
+	      to: '留言'
+	based on: texts.transactions.table.columns.[3]
+
+translated texts.modals.signMultisig.txConfirm.encrypted
+	    from: 'Message is encrypted'
+	      to: '消息被加密'
+	based on: texts.transactions.table.encrypted
+
+translated texts.modals.signMultisig.txConfirm.noMessage
+	    from: 'No message'
+	      to: '无留言'
+	based on: texts.transactions.table.noMessage
+
+translated texts.modals.sendNem.sender
+	    from: 'Sender'
+	      to: '发件人'
+	based on: texts.modals.transactionDetails.sender
+
+translated texts.modals.addContact.add
+	    from: 'Add'
+	      to: '添加'
+	based on: texts.modals.addAccount.add
+
+translated texts.modals.editContact.saveChanges
+	    from: 'Save changes'
+	      to: '保存更改'
+	based on: texts.settings.save
+
+translated texts.modals.removeContact.remove
+	    from: 'Remove'
+	      to: '删除'
+	based on: texts.modals.removeAccount.remove
+
+translated texts.addressBook.sendNem
+	    from: 'Send NEM'
+	      to: '发送 NEM'
+	based on: texts.transactions.sendNem
+
+translated texts.addressBook.remove
+	    from: 'Remove'
+	      to: '删除'
+	based on: texts.modals.removeAccount.remove
+
+-----

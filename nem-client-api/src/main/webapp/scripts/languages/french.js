@@ -7,15 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "Fichier non trouvé.",
+			101: 'The wallet file does not exist.',
 			102: "Le portefeuille a été créé.",
-			103: "Le portefeuille est corrompu. S'il vous plait, récupérez votre portefeuille à partir de la copie de sauvegarde que vous avez faite lors de la création de votre portefeuille or lorsque vous y avez ajouté un compte.",
-			104: "Le mot de passe est incorrect. En espérant que vous pourrez vous en rappeler. Les mots de passe ne peuvent pas être récupérés s'ils sont perdus!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Avant de pouvoir utiliser un portefeuille, il doit être ouvert. Pour s'assurer que vous autoriser à accéder à ce portefeuille, vous devez fournir le mot de passe pour ce portefeuille.",
 			107: "Ce portefeuille ne contient pas ce compte.",
 			108: "Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 NEMs ou s'il s'agit de votre compte primaire.",
 			109: "Un autre portefeuille avec le même nom existe déjà. S'il vous plait, veuillez choisir un nom différent.",
 			110: "Le portefeuille contient déjà ce compte.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Un message chiffré ne peut être envoyé si le destinataire n'a jamais effectué de transaction auparavant.",
 			305: "Le serveur d'infrastructure NEM n'est pas disponible.",
 			306: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
@@ -25,6 +40,7 @@ define({
 			500: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
 			600: "NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S'il vous plait, utilisez le menu NCC pour démarrer le noeud local.",
 			601: "Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Le compte fourni ne satisfait pas les critères de base pour la récolte. C'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 NEM pour que la récolte débute.",
 			701: "La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.",
 			702: "La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.",
@@ -35,6 +51,15 @@ define({
 			707: "L'horodatage de la transaction trop loin dans le passé.",
 			708: "TL'horodatage de la transaction trop loin dans le futur.",
 			709: "Ce compte est inconnu. Un compte à besoin de faire partie d'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Il y a une erreur lors de la mise en place du mode déconnecté.",
 			1000: "La clé privée et la clé publique que vous avez fournies ne correspondent pas.",
 			1001: "La clé publique et l'adresse que vous avez fourni ne correspondent pas.",
@@ -59,7 +84,27 @@ define({
 					many: "{{1}} jours"
 				},
 				synchronized: "NIS est synchronisé!"
-			}
+			},
+			addressBook: 'Address book',
+			password: "Mot de passe",
+			address: "Addresse",
+			privateLabel: "Étiquette privé",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Transaction en attente",
+			outgoing: "Transaction sortante",
+			incoming: "Transaction entrante",
+			self: "Transaction vers sois même",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: "Enregistrer",
 				saveSuccess: "Les paramètres ont été enregistrés avec succès"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Ce compte est étiqueté comme {{1}}",
+				nullLabelDesc: "Ce compte n'est pas étiqueté",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: "Annuler",
+				convert: 'Convert',
+				fee: "Honoraires",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "Honoraires",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: "Mot de passe",
+				passwordValidation: 'Password must not be blank',
+				send: "Envoyez",
+				cancel: "Annuler",
+				sending: "Envoi...",
+				successMessage: "La transaction a été envoyé avec succès!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "Montant",
+					from: 'Multisig account',
+					to: 'À',
+					fee: "Honoraires",
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: "Message",
+					encrypted: "Le message est chiffé",
+					noMessage: "Pas de message",
+
+				},
+
+			},
 			sendNem: {
 				title: "Envoyez des NEMs",
+				sender: "Expéditeur",
+				thisAccount: 'This account',
 				labelDesc: "Ce compte est étiqueté comme {{1}}",
 				nullLabelDesc: "Ce compte n'est pas étiqueté",
 				amount: "Montant",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Type de transaction",
+				direction: 'Transaction Direction',
 				pending: "En attente",
 				outgoing: "Sortant",
 				incoming: "Entrant",
 				self: "Sois même",
 				sender: "Expéditeur",
 				recipient: "Destinataire",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Message",
 				noMessage: "Aucun message",
 				encrypted: "Le Message est chiffré",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Montant",
 				fee: "Frais"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Démarrage du noeud local",
@@ -243,7 +353,8 @@ define({
 				wallet: "Portefeuille",
 				password: "Mot de passe du portefeuille",
 				successMessage: "Le compte {{1}} {{#2}}({{2}}){{/2}} a été défini comme votre compte principal!",
-				set: "Définir comme compte principal"
+				set: "Définir comme compte principal",
+
 			},
 			changeWalletName: {
 				title: "Changez le nom du portefeuille",
@@ -320,6 +431,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Ajouter"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Enregistrer les modifications",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Retirer",
+
 			}
 		},
 		landing: {
@@ -335,7 +461,9 @@ define({
 				leftButton: "Créer un nouveau portefeuille ",
 				walletNamePlh: "Nom de votre portefeuille",
 				passwordPlh: "Mot de passe",
+				confirmPasswordPlh: 'Confirm password',
 				create: "Créer",
+				creating: 'Creating...',
 				rightTitle: "Déjà un <em>NEM</em>bre?",
 				rightButton: "Ouvrir votre portefeuille",
 				openButton: "Ouvrir",
@@ -343,35 +471,41 @@ define({
 				copyright: "Photographie par <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC chiffre votre portefeuille",
-					description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
-				}, {
-					title: "NCC chiffre votre portefeuille",
-					description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
-				}]
+				items: [
+					{
+						title: "NCC chiffre votre portefeuille",
+						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
+					},
+					{
+						title: "NCC chiffre votre portefeuille",
+						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Comment NCC fonctionne?",
-					paragraphs: [
-						"<strong>NCC</strong>offre un accès à vos actifs et vos NEMs comme un portefeuille traditionnel le ferait.",
-						"<strong>NCC</strong> requiert l'accès à un serveur <strong>NIS</strong> pour pouvoir être fonctionnelle. Le standard est d'avoir un serveur local actif (est installé ensemble avec <strong>NCC</strong>)",
-						"Vous pouvez aussi configurer un accès à un serveur <strong>NIS</strong> distant."
-					],
-					listItems: [
-						"Multiples portefeuilles",
-						"Définir de multiple compte à être inclus dans votre portefeuille"
-					]
-				}, {
-					title: "Qu'est-ce que le &#42;NIS?",
-					paragraphs: [
-						"Cette composante est responsable de garder le nuage <strong>NEM</strong> vivant.",
-						"Plus il y a de <strong>NIS</strong> meilleure est la sécurité.",
-						"<strong>NIS</strong> est le point d'accès au nuage <strong>NEM</strong>."
-					],
-					legend: "<strong>&#42;NIS</strong> signifie <strong>Serveur d'infrastructure NEM (NEM Infrastructure Server)</strong>"
-				}]
+				sections: [
+					{
+						title: "Comment NCC fonctionne?",
+						paragraphs: [
+							"<strong>NCC</strong>offre un accès à vos actifs et vos NEMs comme un portefeuille traditionnel le ferait.",
+							"<strong>NCC</strong> requiert l'accès à un serveur <strong>NIS</strong> pour pouvoir être fonctionnelle. Le standard est d'avoir un serveur local actif (est installé ensemble avec <strong>NCC</strong>)",
+							"Vous pouvez aussi configurer un accès à un serveur <strong>NIS</strong> distant."
+						],
+						listItems: [
+							"Multiples portefeuilles",
+							"Définir de multiple compte à être inclus dans votre portefeuille"
+						]
+					},
+					{
+						title: "Qu'est-ce que le &#42;NIS?",
+						paragraphs: [
+							"Cette composante est responsable de garder le nuage <strong>NEM</strong> vivant.",
+							"Plus il y a de <strong>NIS</strong> meilleure est la sécurité.",
+							"<strong>NIS</strong> est le point d'accès au nuage <strong>NEM</strong>."
+						],
+						legend: "<strong>&#42;NIS</strong> signifie <strong>Serveur d'infrastructure NEM (NEM Infrastructure Server)</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -403,12 +537,13 @@ define({
 				clientInfo: "Information sur le Client",
 				closeWallet: "Fermer le portefeuille",
 				closeProgram: "Fermer l'application",
-				copyClipboard: "Copier l'adresse dans le presse-papier"
+				copyClipboard: "Copier l'adresse dans le presse-papier",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Tableau de bord",
 				"Messages",
-				"Contacts",
+				'Address Book',
 				"Transactions",
 				"Blocs récoltés",
 				"Bourse d'actif",
@@ -445,6 +580,7 @@ define({
 			transactions: {
 				title: "Transactions récentes",
 				sendNem: "Envoyer des NEMs",
+				signMultisig: 'SIGN',
 				balance: "Balance courante",
 				syncStatus: "(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})",
 				unknown: "inconnu",
@@ -459,12 +595,6 @@ define({
 					"Frais",
 					"Montant"
 				],
-				types: {
-					pending: "Transaction en attente",
-					outgoing: "Transaction sortante",
-					incoming: "Transaction entrante",
-					self: "Transaction vers sois même"
-				},
 				noMessage: "Pas de message",
 				encrypted: "Le message est chiffé",
 				view: "Voir",
@@ -492,7 +622,8 @@ define({
 				confirmed: "Confirmé",
 				unconfirmed: "Non-confirmé",
 				incoming: "Entrante",
-				outgoing: "Sortante"
+				outgoing: "Sortante",
+
 			},
 			table: {
 				columns: [
@@ -506,12 +637,6 @@ define({
 					"Frais",
 					"Montant"
 				],
-				types: {
-					pending: "Transaction en attente",
-					outgoing: "Transaction sortante",
-					incoming: "Transaction entrante",
-					self: "Transaction vers sois même"
-				},
 				noMessage: "Pas de message",
 				encrypted: "Le message est chiffé",
 				view: "Voir",
@@ -546,11 +671,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Envoyer des NEMs",
+			edit: 'Edit',
+			remove: "Retirer"
+		},
 		settings: {
 			title: "Paramètres",
-			settings: [{
-				name: "Langue"
-			}],
+			settings: [
+				{
+					name: "Langue"
+				}
+			],
 			save: "Enregistrer les modifications",
 			saveSuccess: "`Les paramètres ont été enregistrés avec succès"
 		}

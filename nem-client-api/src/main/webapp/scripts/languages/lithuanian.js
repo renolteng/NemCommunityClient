@@ -7,15 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "Byla nerasta.",
+			101: 'The wallet file does not exist.',
 			102: "Piniginė nesukurta.",
-			103: "Piniginės byla yra sugadinta. Prašome atstatyti Jūsų piniginę iš atsarginės kopijos, kurią Jūs turėjote susikurti, kai kūrėte naują piniginę arba pridėjote naują sąskaitą į ją.",
-			104: "Pateiktas slaptažodis netinka. Tikėkimes Jūs galite atsiminti teisingą slaptažodį. Jei jį praradote, jis negali būti atkurtas!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Prieš pradedant darbą su pinigine, ji turi būti atidaryta. Norint atidaryti piniginę, Jūs turite įvesti piniginės slaptažodį.",
 			107: "Piniginėje nėra šios sąskaitos",
 			108: "Sąskaita negali būti pašalinta. Panašu, kad sąskaitoje yra daugiau kaip 0 NEM arba ši sąskaita yra Jūsų pagrindinė sąskaita.",
 			109: "Jau egzistuoja piniginė su tokiu pavadinimu. Prašome pasirinkti kitą piniginės pavadinimą.",
 			110: "Pinigiėeje jau yra ši sąskaita.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Nėra viešojo rakto",
 			305: "NEM Infrastruktūros serveris negalimas",
 			306: "Įvyko klaida, kurios kūrėjai nenumatė. Atsiprašome, bet gal paleidimas iš naujo padės. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei",
@@ -25,6 +40,7 @@ define({
 			500: "Nepavyko užsaugoti konfigūracijos bylos",
 			600: "NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.",
 			601: "NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \"kasti\". Pagrinde, tai susiję su NEM kiekiu Jūsų sąskaitoje. \"Kasimas\" prasideda tik turint ne mažiau 1,000 NEM.",
 			701: "Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.",
 			702: "Pateiktas galutinis terminas yra per toli ateityje. Galutinis terminas turi būti ne daugiau kaip viena diena.",
@@ -35,6 +51,15 @@ define({
 			707: "Transakcijos laiko žymė yra per toli praeityje.",
 			708: "Transakcijos laiko žymė yra per toli ateityje.",
 			709: "Sąskaita nežinoma. Sąskaita turi turėti bent vieną transakciją (siuntimo ar gavimo), kad būtų žinoma tinkle.",
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Įvyko klaida nustatant offline režimą.",
 			1000: "Jūsų pateikti privatus ir viešas raktai neatitinka.",
 			1001: "Jūsų pateiktas viešas raktas ir adresas neatitinka.",
@@ -59,7 +84,27 @@ define({
 					many: "{{1}} dienos"
 				},
 				synchronized: "NIS susisinchronizavęs!"
-			}
+			},
+			addressBook: 'Address book',
+			password: "Slaptažodis",
+			address: "Adresas",
+			privateLabel: "Nuosavas pavadinimas",
+			publicLabel: 'Public label',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Vykdoma transakcija",
+			outgoing: "Išeinanti transakcija",
+			incoming: "Įeinanti transakcija",
+			self: "Transakcija sau",
+
 		},
 		modals: {
 			error: {
@@ -94,8 +139,56 @@ define({
 				save: "Išsaugoti",
 				saveSuccess: "Nustatymai sėkmingai išsaugoti"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Ši sąskaita pavadinta kaip {{1}}",
+				nullLabelDesc: "Ši sąskaita neturi pavadinimo",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: "Mokestis",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				sender: 'Cosignatory',
+				fee: "Mokestis",
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: "Slaptažodis",
+				passwordValidation: 'Password must not be blank',
+				send: "Siųsti",
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: "Transakcija išsiųsta sėkmingai!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					amount: "Suma",
+					from: 'Multisig account',
+					to: 'To',
+					fee: "Mokestis",
+					dueBy: 'Due by',
+					hours: 'hour(s)',
+					total: 'Total',
+					message: "Žinutė",
+					encrypted: "Žinutė šifruota",
+					noMessage: "Nėra žinutės",
+
+				},
+
+			},
 			sendNem: {
 				title: "Siųsti NEM",
+				sender: "Siuntėjas",
+				thisAccount: 'This account',
 				labelDesc: "Ši sąskaita pavadinta kaip {{1}}",
 				nullLabelDesc: "Ši sąskaita neturi pavadinimo",
 				amount: "Suma",
@@ -155,12 +248,15 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Transakcijos tipas",
+				direction: 'Transaction Direction',
 				pending: "Kol kas vyksta",
 				outgoing: "Išeinanti",
 				incoming: "Įeinanti",
 				self: "Sau",
 				sender: "Siuntėjas",
 				recipient: "Gavėjas",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Žinutė",
 				noMessage: "Nėra žinutės",
 				encrypted: "Žinutė yra užšifruota",
@@ -169,6 +265,20 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Suma",
 				fee: "Mokestis"
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Užkrauti vietinį prieigos tašką",
@@ -243,7 +353,8 @@ define({
 				wallet: "Piniginė",
 				password: "Piniginės slaptažodis",
 				successMessage: "Sąskaita {{1}} {{#2}}({{2}}){{/2}} nustatyta kaip pagrindinė!",
-				set: "Nustatyta kaip pagrindinė"
+				set: "Nustatyta kaip pagrindinė",
+
 			},
 			changeWalletName: {
 				title: "Pakeisti piniginės pavadinimą",
@@ -320,6 +431,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Pridėti"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Išsaugoti pakeitimus",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Panaikinti",
+
 			}
 		},
 		landing: {
@@ -335,7 +461,9 @@ define({
 				leftButton: "Sukurti nauja piniginę",
 				walletNamePlh: "Sukurkite piniginės pavadinimą",
 				passwordPlh: "Slaptažodis",
+				confirmPasswordPlh: 'Confirm password',
 				create: "Sukurti",
+				creating: 'Creating...',
 				rightTitle: "Esate <em>NEM</em>eris?",
 				rightButton: "Atidaryti savo piniginę",
 				openButton: "Atidaryti",
@@ -343,35 +471,41 @@ define({
 				copyright: "Fotografas <em>Cas Cornelissen</em>"
 			},
 			carousel: {
-				items: [{
-					title: "NCC šifruoja Jūsų piniginę",
-					description: "<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysčių &amp; assets."
-				}, {
-					title: "NCC šifruoja Jūsų piniginę",
-					description: "<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysčių &amp; assets."
-				}]
+				items: [
+					{
+						title: "NCC šifruoja Jūsų piniginę",
+						description: "<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysčių &amp; assets."
+					},
+					{
+						title: "NCC šifruoja Jūsų piniginę",
+						description: "<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysčių &amp; assets."
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: "Kaip veikia NCC?",
-					paragraphs: [
-						"<strong>NCC</strong> leidžia Jums prieiti prie savo NEM ir aktyvų. Jūs galite",
-						"<strong>NCC</strong> reikia prieigos prie <strong>NIS</strong> serverio, kad veiktų. Paprastai reikia, kad vietinis serveris būtų aktyvus (jis instaliuojamas kartu su <strong>NCC</strong>)",
-						"Jūs taip pat galite susikonfigūruoti prieigą prie nuotolinio <strong>NIS</strong> serverio."
-					],
-					listItems: [
-						"Turėti keletą piniginių",
-						"Turėti keletą sąskaitų piniginėje"
-					]
-				}, {
-					title: "Kas yra &#42;NIS?",
-					paragraphs: [
-						"Šis komponentas reikalingas, kad veiktų <strong>NEM</strong> \"debesis\".",
-						"Kuo daugiau yra veikiancių <strong>NIS</strong>, tuo geresnis saugumas.",
-						"<strong>NIS</strong> yra prieigos taškas į <strong>NEM</strong> \"debesi\"."
-					],
-					legend: "<strong>&#42;NIS</strong> iššifruojamas kaip <strong>NEM Infrastruktūros Serveris</strong>"
-				}]
+				sections: [
+					{
+						title: "Kaip veikia NCC?",
+						paragraphs: [
+							"<strong>NCC</strong> leidžia Jums prieiti prie savo NEM ir aktyvų. Jūs galite",
+							"<strong>NCC</strong> reikia prieigos prie <strong>NIS</strong> serverio, kad veiktų. Paprastai reikia, kad vietinis serveris būtų aktyvus (jis instaliuojamas kartu su <strong>NCC</strong>)",
+							"Jūs taip pat galite susikonfigūruoti prieigą prie nuotolinio <strong>NIS</strong> serverio."
+						],
+						listItems: [
+							"Turėti keletą piniginių",
+							"Turėti keletą sąskaitų piniginėje"
+						]
+					},
+					{
+						title: "Kas yra &#42;NIS?",
+						paragraphs: [
+							"Šis komponentas reikalingas, kad veiktų <strong>NEM</strong> \"debesis\".",
+							"Kuo daugiau yra veikiancių <strong>NIS</strong>, tuo geresnis saugumas.",
+							"<strong>NIS</strong> yra prieigos taškas į <strong>NEM</strong> \"debesi\"."
+						],
+						legend: "<strong>&#42;NIS</strong> iššifruojamas kaip <strong>NEM Infrastruktūros Serveris</strong>"
+					}
+				]
 			},
 			footer: {
 				copyright: "&copy; Copyright 2014. NEM Community Client."
@@ -403,12 +537,13 @@ define({
 				clientInfo: "Programos informacija",
 				closeWallet: "Uždaryti piniginę",
 				closeProgram: "Uždaryti programą",
-				copyClipboard: "Kopijuoti adresą į laikinąją atmintį"
+				copyClipboard: "Kopijuoti adresą į laikinąją atmintį",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Skydelis",
 				"Žinutės",
-				"Kontaktai",
+				'Address Book',
 				"Transakcijos",
 				"\"Iškasti\" blokai",
 				"Aktyvų birža",
@@ -445,6 +580,7 @@ define({
 			transactions: {
 				title: "Paskutinės transakcijos",
 				sendNem: "Siųsti NEM",
+				signMultisig: 'SIGN',
 				balance: "Turimas balansas",
 				syncStatus: "(blokas {{1}}{{#2}} : po {{3}} dienu{{/2}})",
 				unknown: "nežinomas",
@@ -459,12 +595,6 @@ define({
 					"Mokestis",
 					"Suma"
 				],
-				types: {
-					pending: "Atliekama transakcija",
-					outgoing: "Išeinanti transakcija",
-					incoming: "Įeinanti transakcija",
-					self: "Transakcija sau"
-				},
 				noMessage: "Žinutės nera",
 				encrypted: "Žinutė šifruota",
 				view: "Peržiūrėti",
@@ -492,7 +622,8 @@ define({
 				confirmed: "Patvirtintos",
 				unconfirmed: "Nepatvirtintos",
 				incoming: "Įeinancios",
-				outgoing: "Išeinancios"
+				outgoing: "Išeinancios",
+
 			},
 			table: {
 				columns: [
@@ -506,12 +637,6 @@ define({
 					"Mokestis",
 					"Suma"
 				],
-				types: {
-					pending: "Vykdoma transakcija",
-					outgoing: "Išeinanti transakcija",
-					incoming: "Įeinanti transakcija",
-					self: "Transakcija sau"
-				},
 				noMessage: "Nėra žinutės",
 				encrypted: "Žinutė šifruota",
 				view: "Peržiūrėti",
@@ -546,11 +671,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Siųsti NEM",
+			edit: 'Edit',
+			remove: "Panaikinti"
+		},
 		settings: {
 			title: "Nustatymai",
-			settings: [{
-				name: "Kalba"
-			}],
+			settings: [
+				{
+					name: "Kalba"
+				}
+			],
 			save: "Išsaugoti pakeitimus",
 			saveSuccess: "Nustatymai išsaugoti sėkmingai"
 		}
