@@ -97,6 +97,12 @@ define({
 			'MODIFICATION OF MULTISIG ACCOUNT',
 			'MULTISIG TRANSACTION',
 		],
+		transactionDirections: {
+			pending: 'Pending transaction',
+			outgoing: 'Outgoing transaction',
+			incoming: 'Incoming transaction',
+			self: 'Self transaction',
+		},
 		modals: {
 			error: {
 				title: 'Oops!',
@@ -573,12 +579,6 @@ define({
 					'Fee',
 					'Amount'
 				],
-				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
-				},
 				noMessage: 'No message',
 				encrypted: 'Message is encrypted',
 				view: 'View',
@@ -620,12 +620,6 @@ define({
 					'Fee',
 					'Amount'
 				],
-				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
-				},
 				noMessage: 'No message',
 				encrypted: 'Message is encrypted',
 				view: 'View',
