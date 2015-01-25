@@ -128,7 +128,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     }
                 },
                 modalOpened: function() {
-                    $('.js-sendNem-recipient-textbox').focus();
+                    $('.form-input--textbox').focus();
                     // TODO G-Krysto: this should be here not in modalClosed, or not?
                     this.resetDefaultData();
                 },
@@ -137,10 +137,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 }
             });
 
-            var $dueBy = $('.js-sendNem-dueBy-textbox');
+            var $dueBy = $('.js-signMultisig-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
-            var $fee = $('.js-sendNem-fee-textbox');
+            var $fee = $('.js-signMultisig-fee-textbox');
             var feeTxb = $fee[0];
             $fee.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
             $fee.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });

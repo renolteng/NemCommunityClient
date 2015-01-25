@@ -282,7 +282,7 @@
 					<p class="form-label">
 						{{texts.modals.multisig.fee}}
 						{{#if feeError}}
-							<span class="multisig-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+							<span class="convertMultisig-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -303,10 +303,19 @@
 				</div>
 			</div>
 		</div>
+		<div class="form-field">
+			<p class="form-label">
+				{{texts.common.password}}
+				{{#if passwordError}}
+				<span class="convertMultisig-errorIcon icon-exclamation" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				{{/if}}
+			</p>
+			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+		</div>
 	</div>
 	<div class="modal-buttons sendNem-buttons">
 		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.multisig.cancel}}</button>
-		<button type="button" class="modal-button modal-button--primary" on-click="convertMultisig()">{{texts.modals.multisig.convert}}</button>
+		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.multisig.convert}}</button>
 	</div>
 </convertMultisigModal>
 <sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">

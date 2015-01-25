@@ -652,7 +652,9 @@ $account-actions-width: 33px;
 	text-align: right;
 }
 
-.sendNem-errorIcon {
+.sendNem-errorIcon,
+.convertMultisig-errorIcon,
+.signMultisig-errorIcon {
 	color: #c03b2d;
 	vertical-align: middle;
 }
