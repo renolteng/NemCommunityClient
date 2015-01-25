@@ -92,10 +92,10 @@ define({
 			publicLabel: 'Public label',
 		},
 		transactionTypes: [
-			'Transfer Transaction',
-			'Importance Transaction',
-			'Modification of Multisig Account',
-			'Multisig Transaction'
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
 		],
 		modals: {
 			error: {
@@ -243,6 +243,7 @@ define({
 				self: 'Self',
 				sender: 'Sender',
 				recipient: 'Recipient',
+				remote: 'Remote',
 				multisigMessage: 'Signatures present',
 				message: 'Message',
 				noMessage: 'No message',

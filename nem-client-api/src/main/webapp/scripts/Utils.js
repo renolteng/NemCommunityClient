@@ -632,6 +632,14 @@ define(function() {
                 currentFee = tx.fee;
             }
 
+            // importance transfer
+            if (tx.type == 2) {
+                tx.recipient = tx.remote;
+                tx.isIncoming = false;
+                tx.isOutgoing = false;
+                tx.isSelf = true;
+            }
+
             if (transferTransaction.type == 1)
             {
                 tx.isIncoming = transferTransaction.direction === 1; //  || transferTransaction.direction === 0;

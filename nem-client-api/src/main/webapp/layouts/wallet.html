@@ -632,7 +632,7 @@
 	{{#transaction}}
 		<table>
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.type}}</td>
+				<td class="table-cell table-cell--label"><strong>{{texts.modals.transactionDetails.type}}</strong></td>
 				<td class="table-cell table-cell--content">
 					{{texts.transactionTypes[.type - 1]}}
 				</td>
@@ -653,7 +653,13 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.recipient}}</td>
+				<td class="table-cell table-cell--label">
+					{{#if (.type === 2)}}
+					{{texts.modals.transactionDetails.remote}}
+					{{else}}
+					{{texts.modals.transactionDetails.recipient}}
+					{{/if}}
+				</td>
 				<td class="table-cell table-cell--content">
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
 				</td>
@@ -668,18 +674,21 @@
 				</td>
 			</tr>
 			{{/}}
-			<tr>
-				<td class="table-cell table-cell--label">
-					{{texts.modals.transactionDetails.message}}
-				</td>
-				<td class="table-cell table-cell--content">
-					{{.message}}
-					{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
-					{{#.encrypted}}
-					&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
-					{{/}}
-				</td>
-			</tr>
+
+			{{#if (.type === 1 || .type == 4)}}
+				<tr>
+					<td class="table-cell table-cell--label">
+						{{texts.modals.transactionDetails.message}}
+					</td>
+					<td class="table-cell table-cell--content">
+						{{.message}}
+						{{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
+						{{#.encrypted}}
+						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+						{{/}}
+					</td>
+				</tr>
+			{{/if}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
 				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
