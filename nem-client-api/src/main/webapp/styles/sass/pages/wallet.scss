@@ -749,6 +749,78 @@ $txConfirm-label-width: 130px;
 	font-weight: $fontWeight-bold;
 }
 
+
+// ================================================================================
+// CONVERSION CONFIRMATION MODAL
+// ================================================================================
+
+$modificationConfirm-label-width: 130px;
+
+.modificationConfirmModal {
+	.modal-body {
+		padding: 16px;
+	}
+}
+
+.modificationConfirm-txInfo {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: 1px dashed #d2d2d2;
+}
+
+.modificationConfirm-line {
+	@extend %clearfix;
+}
+
+.modificationConfirm-label {
+	float: left;
+	width: $modificationConfirm-label-width;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: right;
+	@include break-word();
+}
+
+.modificationConfirm-value {
+	float: left;
+	width: calc(100% - #{$modificationConfirm-label-width});
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: left;
+	@include break-word();
+}
+
+.modificationConfirm-actions {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.modificationConfirm-recipient {
+	text-transform: uppercase;
+}
+
+.modificationConfirm-totalLabel,
+.modificationConfirm-total {
+	display: inline-block;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border-top: 1px solid #aeaeae;
+	border-bottom: 1px solid #aeaeae;
+	height: 48px;
+	line-height: 48px;
+}
+
+.modificationConfirm-total {
+	font-size: 24px;
+	font-weight: $fontWeight-light;
+}
+
+.modificationConfirm-account,
+.modificationConfirm-fee,
+.modificationConfirm-cosignatory {
+	font-weight: $fontWeight-bold;
+}
+
 // ================================================================================
 // TRANSACTION DETAILS MODAL
 // ================================================================================

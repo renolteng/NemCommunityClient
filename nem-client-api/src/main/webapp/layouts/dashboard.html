@@ -100,15 +100,19 @@
 							{{#if i < 4}}
 								<tr>
                                     {{#if .confirmed}}
-                                        {{#.isSelf}}
-                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-                                        {{/}}
-                                        {{#.isOutgoing}}
-                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-                                        {{/}}
-                                        {{#.isIncoming}}
-                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-                                        {{/}}
+										{{#if (.type === 3)}}
+											<td class="txList-cell txList-col--type icon-out" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+										{{else}}
+											{{#.isSelf}}
+												<td class="txList-cell txList-col--type icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+											{{#.isOutgoing}}
+												<td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+											{{#.isIncoming}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+										{{/if}}
                                     {{else}}
                                     	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                     {{/if}}
@@ -125,7 +129,7 @@
                                         	</a>
                                     	</td>
                                     {{/}}
-                                    {{#.isIncoming}}
+                                    {{#if (.isIncoming || .type === 3)}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
                                         	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
                                         		{{#if privateLabels[.sender]}}
@@ -135,7 +139,7 @@
                                         		{{/if}}
                                     		</a>
                                     	</td>
-                                    {{/}}
+                                    {{/if}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
 										{{#if .isMultisig}}
 											<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>

@@ -62,8 +62,9 @@ public class TransactionViewModel implements SerializableEntity {
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
 				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
 				TransactionTypes.MULTISIG != transaction.getType() &&
-				TransactionTypes.MULTISIG_SIGNATURE != transaction.getType()) {
-			throw new IllegalArgumentException("TransferViewModel can only be created around TRANSFER or IMPORTANCE_TRANSFER");
+				TransactionTypes.MULTISIG_SIGNATURE != transaction.getType() &&
+				TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION != transaction.getType()) {
+			throw new IllegalArgumentException("TransactionViewModel cannot be created around passed transaction");
 		}
 
 		this.transactionViewModelType = transactionViewModelType;

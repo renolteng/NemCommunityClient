@@ -12,6 +12,7 @@ define(function(require) {
     var SettingsModal = require('SettingsModal');
     var SendNemModal = require('SendNemModal');
     var SignMultisigModal = require('SignMultisigModal');
+    var ModificationConfirmModal = require('ModificationConfirmModal');
     var SignatureConfirmModal = require('SignatureConfirmModal');
     var TransactionConfirmModal = require('TransactionConfirmModal');
     var TransactionDetailsModal = require('TransactionDetailsModal');
@@ -29,6 +30,7 @@ define(function(require) {
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
             signMultisigModal: SignMultisigModal,
+            modificationConfirmModal: ModificationConfirmModal,
             signatureConfirmModal: SignatureConfirmModal,
             clientInfoModal: NccModal,
             transactionDetailsModal: TransactionDetailsModal,

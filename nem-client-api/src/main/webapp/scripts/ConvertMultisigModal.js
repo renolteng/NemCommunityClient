@@ -97,7 +97,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.resetFee({ silent: true });
         },
         sendTransaction: function() {
-            console.log(this.get('sender'));
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
@@ -110,7 +109,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 hoursDue: this.get('hoursDue')
             };
 
-            var txConfirm = ncc.getModal('transactionConfirm');
+            var txConfirm = ncc.getModal('modificationConfirm');
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
             txConfirm.open();
