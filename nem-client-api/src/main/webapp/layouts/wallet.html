@@ -250,7 +250,7 @@
 							{{#i !== 0}}<button type="button" class="icon-cross" on-click="removeCosignatory(i)"></button>{{/}}
 						</div>
 						<div class="restOfWidth">
-							<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.text}}" on-keypress="sendFormKeypress" />
+							<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
 						</div>
 					</div>
 					<p class="form-sublabel">

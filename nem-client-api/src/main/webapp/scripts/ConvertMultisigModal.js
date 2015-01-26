@@ -29,7 +29,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 set: function() {}
             },
             feeValid: function() {
-                console.log(this.get('fee'), this.get('minimumFee'));
                 return this.get('fee') >= this.get('minimumFee');
             },
             feeError: function() {
@@ -53,17 +52,14 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 wallet: ncc.get('wallet.wallet'),
                 multisig: ncc.get('activeAccount.address'),
                 cosignatories: this.get('cosignatories')
-                    .filter(function(e){ return (e.text != null); })
-                    .map(function(e){ return {'address':e.text}}),
+                    .filter(function(e){ return (!!e.address); })
+                    .map(function(e){ return {'address':e.address}}),
                 hours_due: this.get('hoursDue')
             };
             var self = this;
 
-            console.log(requestData);
-
             ncc.postRequest('wallet/account/modification/validate', requestData,
                 function(data) {
-                    console.log(data);
                     self.set('minimumFee', data.fee);
                 },
                 {
@@ -74,14 +70,21 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         },
 		addCosignatory: function() {
             $('.js-cosignatory').last().focus();
-            this.get('cosignatories').push({});
+            this.get('cosignatories').push({label:''});
             $('.js-cosignatory').last().focus();
+
+            // TODO: not sure if this is ok to do... can this cause leaks?
+            var self = this;
+            var $cosignatory = $('.js-cosignatory');
+            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
         },
         removeCosignatory: function(index) {
             this.get('cosignatories').splice(index, 1);
         },
         resetDefaultData: function() {
-        	this.set('cosignatories', [{}]);
+        	this.set('cosignatories', [{label:''}]);
 
             this.set('fee', 0);
             this.set('minimumFee', 0);
@@ -102,7 +105,11 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.observe({
                 'cosignatories': (function() {
                     var t;
-                    return function() {
+                    return function(objs) {
+                        // that's bit dumb ;p
+                        objs.forEach(function(e){
+                            e.address = Utils.format.address.restore(e.formattedAddress);
+                        });
                         clearTimeout(t);
                         t = setTimeout(function() {
                             self.resetFee({ silent: true });
@@ -154,6 +161,11 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 
             var $dueBy = $('.js-multisig-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+
+            var $cosignatory = $('.js-cosignatory');
+            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $fee = $('.js-multisig-fee-textbox');
             var feeTxb = $fee[0];
