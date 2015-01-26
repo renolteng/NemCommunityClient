@@ -33,7 +33,7 @@ public class TransferImportanceRequest extends AccountWalletPasswordRequest {
 	 */
 	public TransferImportanceRequest(final Deserializer deserializer) {
 		super(deserializer);
-		this.hoursDue = deserializer.readInt("hours_due");
+		this.hoursDue = deserializer.readInt("hoursDue");
 	}
 
 	/**

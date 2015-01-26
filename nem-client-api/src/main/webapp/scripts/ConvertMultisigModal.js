@@ -54,7 +54,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
-                hours_due: this.get('hoursDue')
+                hoursDue: this.get('hoursDue')
             };
             var self = this;
 
@@ -95,6 +95,25 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('feeChanged', false);
             this.set('passwordChanged', true);
             this.resetFee({ silent: true });
+        },
+        sendTransaction: function() {
+            console.log(this.get('sender'));
+            var requestData = {
+                wallet: ncc.get('wallet.wallet'),
+                account: ncc.get('activeAccount.address'),
+                type: 3, // multisig aggregate
+                cosignatories: this.get('cosignatories')
+                    .filter(function(e){ return (!!e.address); })
+                    .map(function(e){ return {'address':e.address}}),
+                password: this.get('password'),
+                fee: this.get('fee'),
+                hoursDue: this.get('hoursDue')
+            };
+
+            var txConfirm = ncc.getModal('transactionConfirm');
+            txConfirm.set('txData', this.get());
+            txConfirm.set('requestData', requestData);
+            txConfirm.open();
         },
         onrender: function() {
             this._super();

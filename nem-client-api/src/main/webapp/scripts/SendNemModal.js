@@ -26,7 +26,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             encrypt: function() {
                 return this.get('encryptionPossible') ? (this.get('encrypted') ? 1 : 0) : 0;
             },
-            hours_due: function() {
+            hoursDue: function() {
                 return this.get('dueBy') | 0;
             },
             fee: {
@@ -77,7 +77,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 message: this.get('message'),
                 encrypt: this.get('encrypt'),
                 recipient: this.get('recipientValid') ? this.get('recipient') : ncc.get('activeAccount.address'),
-                hours_due: this.get('hours_due')
+                hoursDue: this.get('hoursDue')
             };
             var self = this;
             
@@ -121,7 +121,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.resetFee({ silent: true });
         },
         sendTransaction: function() {
-            console.log(this.get('sender'));
             if (this.get('sender') == null) {
                 var requestData = {
                     wallet: ncc.get('wallet.wallet'),
@@ -133,7 +132,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     message: this.get('message'),
                     fee: this.get('fee'),
                     encrypt: this.get('encrypt'),
-                    hours_due: this.get('hours_due')
+                    hoursDue: this.get('hoursDue')
                 };
             } else {
                 var requestData = {
@@ -148,7 +147,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
                     encrypt: this.get('encrypt'),
-                    hours_due: this.get('hours_due')
+                    hoursDue: this.get('hoursDue')
                 };
             }
 

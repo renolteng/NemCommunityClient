@@ -59,7 +59,7 @@ public class TransferSendRequest {
 		this.amount = Amount.readFrom(deserializer, "amount");
 		this.message = deserializer.readOptionalString("message");
 		this.shouldEncrypt = 0 != deserializer.readInt("encrypt");
-		this.hoursDue = deserializer.readInt("hours_due");
+		this.hoursDue = deserializer.readInt("hoursDue");
 		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.fee = Amount.readFrom(deserializer, "fee");
 	}

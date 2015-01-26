@@ -105,7 +105,7 @@ public class TransferSendRequestTest {
 		jsonObject.put("amount", amount);
 		jsonObject.put("message", message);
 		jsonObject.put("encrypt", shouldEncrypt);
-		jsonObject.put("hours_due", hoursDue);
+		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("password", password);
 		jsonObject.put("fee", fee);
 		return new TransferSendRequest(new JsonDeserializer(jsonObject, null));

@@ -85,7 +85,7 @@ public class TransferImportanceRequestTest {
 		jsonObject.put("account", address);
 		jsonObject.put("wallet", walletName);
 		jsonObject.put("password", walletPassword);
-		jsonObject.put("hours_due", hoursDue);
+		jsonObject.put("hoursDue", hoursDue);
 		return new TransferImportanceRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

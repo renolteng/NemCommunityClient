@@ -82,7 +82,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 innerHash: this.get('txData.innerHash'),
                 password: this.get('password'),
                 fee: this.get('fee'),
-                hours_due: this.get('hoursDue')
+                hoursDue: this.get('hoursDue')
             };
 
             var txConfirm = ncc.getModal('signatureConfirm');

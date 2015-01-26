@@ -45,7 +45,7 @@ public class MultisigSignatureRequest {
 		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.senderAddress = Address.readFrom(deserializer, "account");
 		this.innerTransactionHash = deserializer.readObject("innerHash", Hash.DESERIALIZER);
-		this.hoursDue = deserializer.readInt("hours_due");
+		this.hoursDue = deserializer.readInt("hoursDue");
 		this.fee = Amount.readFrom(deserializer, "fee");
 	}
 
