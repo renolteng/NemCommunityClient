@@ -53,8 +53,19 @@ public class TransactionController {
 	 * @param multisigSignatureRequest The multisig signature transaction information.
 	 */
 	@RequestMapping(value = "/wallet/account/signature/send", method = RequestMethod.POST)
-	public void sendTransaction(@RequestBody final MultisigSignatureRequest multisigSignatureRequest) {
+	public void sendSignature(@RequestBody final MultisigSignatureRequest multisigSignatureRequest) {
 		final Transaction transaction = this.transactionMapper.toModel(multisigSignatureRequest);
+		this.announceTransaction(transaction);
+	}
+
+	/**
+	 * Sends a new multisig modification
+	 *
+	 * @param multisigModification The multisig account modification transaction information.
+	 */
+	@RequestMapping(value = "/wallet/account/modification/send", method = RequestMethod.POST)
+	public void sendModification(@RequestBody final MultisigModificationRequest multisigModification) {
+		final Transaction transaction = this.transactionMapper.toModel(multisigModification);
 		this.announceTransaction(transaction);
 	}
 
@@ -72,11 +83,25 @@ public class TransactionController {
 		return this.transactionMapper.toViewModel(request);
 	}
 
+	/**
+	 * Request inspecting the multisig signature transaction for validation purposes. The returned result will include:
+	 * - A minimum fee for creating the transaction.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
 	@RequestMapping(value = "/wallet/account/signature/validate", method = RequestMethod.POST)
 	public PartialFeeInformationViewModel validateSignatureData(@RequestBody final PartialSignatureInformationRequest request) {
 		return this.transactionMapper.toViewModel(request);
 	}
 
+	/**
+	 * Request inspecting the multisig modification transaction for validation purposes. The returned result will include:
+	 * - A minimum fee for creating modification transaction.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
 	@RequestMapping(value = "/wallet/account/modification/validate", method = RequestMethod.POST)
 	public PartialFeeInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
 		return this.transactionMapper.toViewModel(request);

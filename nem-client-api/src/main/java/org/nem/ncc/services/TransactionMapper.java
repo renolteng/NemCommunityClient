@@ -51,7 +51,24 @@ public class TransactionMapper {
 		return transaction;
 	}
 
+	/**
+	 * Converts the specified request to a model.
+	 *
+	 * @param request The request.
+	 * @return The model.
+	 */
 	public Transaction toModel(final MultisigSignatureRequest request) {
+		final Transaction transaction = this.toModel(request, request.getPassword());
+		return transaction;
+	}
+
+	/**
+	 * Converts the specified request to a model.
+	 *
+	 * @param request The request.
+	 * @return The model.
+	 */
+	public Transaction toModel(final MultisigModificationRequest request) {
 		final Transaction transaction = this.toModel(request, request.getPassword());
 		return transaction;
 	}
@@ -185,6 +202,24 @@ public class TransactionMapper {
 				timeStamp,
 				signer,
 				request.getInnerTransactionHash());
+		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+		multisigTransaction.setFee(request.getFee());
+		return multisigTransaction;
+	}
+
+	private Transaction toModel(final MultisigModificationRequest request, final WalletPassword password) {
+		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
+		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
+
+		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
+				.map(o -> this.accountLookup.findByAddress(o))
+				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
+				.collect(Collectors.toList());
+
+		final MultisigAggregateModificationTransaction multisigTransaction = new MultisigAggregateModificationTransaction(
+				timeStamp,
+				signer,
+				modifications);
 		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 		multisigTransaction.setFee(request.getFee());
 		return multisigTransaction;
