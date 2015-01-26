@@ -100,8 +100,12 @@
 							{{#if i < 4}}
 								<tr>
                                     {{#if .confirmed}}
-										{{#if (.type === 3)}}
-											<td class="txList-cell txList-col--type icon-out" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+										{{#if (.type === 2 || .type === 3)}}
+											{{#if (.type === 2)}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{else}}
+												<td class="txList-cell txList-col--type encryptedIcon icon-attachment" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/if}}
 										{{else}}
 											{{#.isSelf}}
 												<td class="txList-cell txList-col--type icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
