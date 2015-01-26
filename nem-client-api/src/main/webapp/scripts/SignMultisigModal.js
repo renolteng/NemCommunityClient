@@ -71,7 +71,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('useMinimumFee', true);
 
             this.set('feeChanged', false);
-            this.set('passwordChanged', false);
+            this.set('passwordChanged', true);
             this.resetFee({ silent: true });
         },
         sendTransaction: function() {

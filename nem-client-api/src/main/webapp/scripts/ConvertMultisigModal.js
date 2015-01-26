@@ -29,6 +29,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 set: function() {}
             },
             feeValid: function() {
+                console.log(this.get('fee'), this.get('minimumFee'));
                 return this.get('fee') >= this.get('minimumFee');
             },
             feeError: function() {
@@ -51,28 +52,25 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),
                 multisig: ncc.get('activeAccount.address'),
-                cosignatories: this.get('cosignatories'),
+                cosignatories: this.get('cosignatories')
+                    .filter(function(e){ return (e.text != null); })
+                    .map(function(e){ return {'address':e.text}}),
                 hours_due: this.get('hoursDue')
             };
             var self = this;
 
             console.log(requestData);
-            /*
+
             ncc.postRequest('wallet/account/modification/validate', requestData,
                 function(data) {
+                    console.log(data);
                     self.set('minimumFee', data.fee);
-                    self.set('multisigFee', data.multisigFee);
-                    self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
                 },
                 {
                     altFailCb: function(faultId, error) {
-                        if (faultId === 202) { // request encrypting while recipient unable to encrypt
-                            self.set('encrypted', false); // this will automatically trigger resetFee
-                            return true;
-                        }
                     }
                 }, options.silent
-            );*/
+            );
         },
 		addCosignatory: function() {
             $('.js-cosignatory').last().focus();
@@ -84,7 +82,16 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         },
         resetDefaultData: function() {
         	this.set('cosignatories', [{}]);
+
+            this.set('fee', 0);
+            this.set('minimumFee', 0);
+            this.set('dueBy', '12');
+            this.set('password', '');
             this.set('useMinimumFee', true);
+
+            this.set('feeChanged', false);
+            this.set('passwordChanged', true);
+            this.resetFee({ silent: true });
         },
         onrender: function() {
             this._super();
@@ -92,6 +99,20 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 
             this.resetDefaultData();
 
+            this.observe({
+                'cosignatories': (function() {
+                    var t;
+                    return function() {
+                        clearTimeout(t);
+                        t = setTimeout(function() {
+                            self.resetFee({ silent: true });
+                        }, 500);
+                    }
+                })()
+            },
+            {
+                init: false
+            });
             this.observe({
                 useMinimumFee: function(useMinimumFee) {
                     if (useMinimumFee) {

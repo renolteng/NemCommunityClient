@@ -30,4 +30,12 @@ public class PartialModificationInformationRequest {
 		this.multisigAddress = Address.readFrom(deserializer, "multisig", AddressEncoding.COMPRESSED);
 		this.cosignatoriesAddresses = deserializer.readObjectArray("cosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
 	}
+
+	public Address getMultisigAddress() {
+		return multisigAddress;
+	}
+
+	public List<Address> getCosignatoriesAddresses() {
+		return cosignatoriesAddresses;
+	}
 }

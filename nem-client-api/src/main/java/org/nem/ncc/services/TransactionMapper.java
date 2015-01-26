@@ -12,6 +12,10 @@ import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Helper class that is able to map a TransactionViewModel to a Transaction.
  */
@@ -98,7 +102,20 @@ public class TransactionMapper {
 	}
 
 	public PartialFeeInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
-		return new PartialFeeInformationViewModel(Amount.fromNem(12345L));
+		final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
+
+		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
+				.map(o -> this.accountLookup.findByAddress(o))
+				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
+				.collect(Collectors.toList());
+
+		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
+				TimeInstant.ZERO,
+				multisig,
+				modifications
+		);
+
+		return new PartialFeeInformationViewModel(transaction.getFee());
 	}
 
 	/**
