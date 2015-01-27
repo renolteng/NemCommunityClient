@@ -379,7 +379,7 @@ Only a local NIS can be booted.
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"wallet" : "Test-Wallet",
 	"password": "Very Secret Password To The Wallet",
-	"hours_due": "6" // (max: 24)
+	"hoursDue": "6" // (max: 24)
 }
 ```
 
@@ -395,7 +395,7 @@ Only a local NIS can be booted.
 	"fee": 1.0,
 	"message": "My first message",
 	"encrypt": 1,
-	"hours_due": 18
+	"hoursDue": 18
 }
 ```
 

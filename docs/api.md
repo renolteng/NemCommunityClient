@@ -254,7 +254,7 @@ Validates a new transaction (i.e., sending NEM, messages, assets) and provides i
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/unlock
-Unlock the account on the connected NIS server (start foraging).
+Unlock the account on the connected NIS server (start harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletRequest](viewModel.md#accountwalletrequest)
@@ -262,7 +262,7 @@ Unlock the account on the connected NIS server (start foraging).
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/lock
-Lock the account on the connected NIS server (stop foraging).
+Lock the account on the connected NIS server (stop harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletRequest](viewModel.md#accountwalletrequest)
@@ -294,7 +294,7 @@ Checks if account is unlocked on remote server, will return an error if
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/unlock
-Unlock the account on the remote NIS server (start secure foraging).
+Unlock the account on the remote NIS server (start secure harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)
@@ -302,7 +302,7 @@ Unlock the account on the remote NIS server (start secure foraging).
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/lock
-Lock the account on the remote NIS server (stop secure foraging).
+Lock the account on the remote NIS server (stop secure harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)

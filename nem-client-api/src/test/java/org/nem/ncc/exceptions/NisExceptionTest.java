@@ -13,7 +13,7 @@ public class NisExceptionTest {
 	public void nisErrorResponseMessageIsCorrectlyMappedToNisExceptionCode() {
 		// Arrange:
 		final Map<String, NisException.Code> nisErrorMap = new HashMap<String, NisException.Code>() {
-			{ this.put("FAILURE_FORAGING_INELIGIBLE", NisException.Code.FORAGING_INELIGIBLE); }
+			{ this.put("FAILURE_FORAGING_INELIGIBLE", NisException.Code.HARVESTING_INELIGIBLE); }
 
 			{ this.put("FAILURE_PAST_DEADLINE", NisException.Code.TRANSACTION_REJECTED_PAST_DEADLINE); }
 

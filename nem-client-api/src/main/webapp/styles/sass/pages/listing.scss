@@ -168,7 +168,7 @@ input:checked + .listingPage-filterLabel {
 // HARVESTED BLOCKS PAGE SPECIFIC
 // ================================================================================
 
-.harvestedBlocksPage-forageButton {
+.harvestedBlocksPage-harvestButton {
 	background-color: #7c6890;
 	color: #fff;
 
@@ -187,16 +187,16 @@ input:checked + .listingPage-filterLabel {
 	}
 }
 
-.harvestedBlocksPage-forageButton--notForaging {
+.harvestedBlocksPage-harvestButton--notHarvesting {
 	background-color: #4c4058;
 }
 
-.harvestedBlocksPage-forageButton--foraging {
+.harvestedBlocksPage-harvestButton--harvesting {
 	background-color: #a186b9;
 }
 
-.harvestedBlocksPage-forageButton--notForaging, 
-.harvestedBlocksPage-forageButton--foraging {
+.harvestedBlocksPage-harvestButton--notHarvesting,
+.harvestedBlocksPage-harvestButton--harvesting {
 	&:hover {
 		background-color: #7c6890;
 	}

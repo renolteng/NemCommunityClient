@@ -31,14 +31,13 @@ public class NisException extends NccException {
 
 		/**
 		 * Maximum number of allowed harevsters was reached.
-		 * TODO 20150115 J-G: HARVESTING limit?
 		 */
-		FORAGING_LIMIT_HIT(699),
+		HARVESTING_LIMIT_HIT(699),
 
 		/**
 		 * The account is ineligible for foraging.
 		 */
-		FORAGING_INELIGIBLE(700),
+		HARVESTING_INELIGIBLE(700),
 
 		/**
 		 * The transaction was rejected because its deadline has passed.
@@ -144,9 +143,9 @@ public class NisException extends NccException {
 
 		// note: commented errors will never be shown in NCC UI
 		private static final Map<String, Code> NIS_ERROR_MAP = new HashMap<String, Code>() {
-			{ this.put("FAILURE_SERVER_LIMIT", FORAGING_LIMIT_HIT); }
+			{ this.put("FAILURE_SERVER_LIMIT", HARVESTING_LIMIT_HIT); }
 
-			{ this.put("FAILURE_FORAGING_INELIGIBLE", FORAGING_INELIGIBLE); }
+			{ this.put("FAILURE_HARVESTING_INELIGIBLE", HARVESTING_INELIGIBLE); }
 
 			{ this.put("FAILURE_PAST_DEADLINE", TRANSACTION_REJECTED_PAST_DEADLINE); }
 
