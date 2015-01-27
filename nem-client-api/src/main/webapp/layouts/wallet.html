@@ -786,7 +786,9 @@
 			{{#each .modifications}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
-				<td class="table-cell table-cell--content">{{.address}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">{{.address}}</a>
+				</td>
 			</tr>
 			{{/each}}
 			{{/if}}
@@ -795,15 +797,14 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
 				<td class="table-cell table-cell--content">
-					{{.issuer}}
-					<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.issuer] ? privateLabels[.issuer] : texts.wallet.noLabel}}</p>
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">{{.issuer}}</a>
 				</td>
 			</tr>
 			{{#each .signatures}}
 			<tr><td colspan="2">Signatures present</td></tr>
 			<tr>
-				<td colspan="2" class="table-cell table-cell--content">{{.sender}}
-					<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}}</p>
+				<td colspan="2" class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.sender}}</a>
 				</td>
 			</tr>
 			{{/each}}
