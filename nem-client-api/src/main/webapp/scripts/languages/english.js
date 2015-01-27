@@ -265,6 +265,7 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
 				fee: 'Fee',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

@@ -19,15 +19,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     this.update('fee'); // so that stupid Ractive trigger fee observers
                 }
             },
-            multisigAccount: function() {
-                return ncc.get('activeAccount.address');
-            },
-            formattedMultisigAccount: {
-                get: function() {
-                    return ncc.get('activeAccount.formattedAddress');
-                },
-                set: function() {}
-            },
             feeValid: function() {
                 return this.get('fee') >= this.get('minimumFee');
             },
@@ -84,6 +75,8 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.get('cosignatories').splice(index, 1);
         },
         resetDefaultData: function() {
+            this.set('formattedMultisigAccount', Utils.format.address.format(ncc.get('activeAccount.address')));
+            this.set('multisigAccount', ncc.get('activeAccount.address'));
         	this.set('cosignatories', [{label:''}]);
 
             this.set('fee', 0);

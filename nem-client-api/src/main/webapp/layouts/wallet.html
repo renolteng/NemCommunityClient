@@ -461,11 +461,11 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.amount}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-amount">{{txData.multisig.formattedAmount}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-amount">{{{txData.multisig.formattedAmount}}} NEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.fee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.multisig.formattedFee}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFee}}} NEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.dueBy}}</span>
@@ -484,6 +484,24 @@
 				{{/if}}
 			</span>
 		</div>
+		<div class="txConfirm-line">
+			<hr>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.transactionDetails.issuer}}</span>
+			<span class="txConfirm-value">
+				{{txData.issuer}}
+				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[txData.issuer] ? privateLabels[txData.issuer] : texts.wallet.noLabel}}</p>
+			</span>
+		</div>
+		{{#each txData.signatures}}
+		<tr><td colspan="2">Signatures present</td></tr>
+		<tr>
+			<td colspan="2" class="table-cell table-cell--content">{{.sender}}
+				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}}</p>
+			</td>
+		</tr>
+		{{/each}}
 	</div>
 
 	<div class="form signMultisig-form">
@@ -571,7 +589,7 @@
 		<hr>
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{texts.modals.multisig.dueBy}}</span>
-			<span class="modificationConfirm-value">{{requestData.dueBy}} || {{txData.dueBy}} || {{texts.modals.multisig.hours}}</span>
+			<span class="modificationConfirm-value">{{requestData.hoursDue}} {{texts.modals.multisig.hours}}</span>
 		</div>
 	</div>
 	<div class="modificationConfirm-actions">
@@ -597,7 +615,7 @@
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.fee}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{txData.txData.formattedFee}} NEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.formattedFee}}} NEM</span></span>
 		</div>
 		<hr>
 		<div class="sigConfirm-line">
@@ -769,6 +787,24 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
 				<td class="table-cell table-cell--content">{{.address}}</td>
+			</tr>
+			{{/each}}
+			{{/if}}
+			{{#if (.type === 4)}}
+			<tr><td colspan="2"><hr></td></tr>
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+				<td class="table-cell table-cell--content">
+					{{.issuer}}
+					<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.issuer] ? privateLabels[.issuer] : texts.wallet.noLabel}}</p>
+				</td>
+			</tr>
+			{{#each .signatures}}
+			<tr><td colspan="2">Signatures present</td></tr>
+			<tr>
+				<td colspan="2" class="table-cell table-cell--content">{{.sender}}
+					<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}}</p>
+				</td>
 			</tr>
 			{{/each}}
 			{{/if}}

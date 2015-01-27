@@ -79,6 +79,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
                 type: 5, // multisig signature
+                multisigAddress: this.get('txData.inner.sender'),
                 innerHash: this.get('txData.innerHash'),
                 password: this.get('password'),
                 fee: this.get('fee'),

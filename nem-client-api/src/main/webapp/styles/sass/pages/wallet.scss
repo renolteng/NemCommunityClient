@@ -821,6 +821,79 @@ $modificationConfirm-label-width: 130px;
 	font-weight: $fontWeight-bold;
 }
 
+
+
+// ================================================================================
+// CONVERSION CONFIRMATION MODAL
+// ================================================================================
+
+$sigConfirm-label-width: 130px;
+
+.sigConfirmModal {
+	.modal-body {
+		padding: 16px;
+	}
+}
+
+.sigConfirm-txInfo {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: 1px dashed #d2d2d2;
+}
+
+.sigConfirm-line {
+	@extend %clearfix;
+}
+
+.sigConfirm-label {
+	float: left;
+	width: $sigConfirm-label-width;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: right;
+	@include break-word();
+}
+
+.sigConfirm-value {
+	float: left;
+	width: calc(100% - #{$sigConfirm-label-width});
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: left;
+	@include break-word();
+}
+
+.sigConfirm-actions {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.sigConfirm-recipient {
+	text-transform: uppercase;
+}
+
+.sigConfirm-totalLabel,
+.sigConfirm-total {
+	display: inline-block;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border-top: 1px solid #aeaeae;
+	border-bottom: 1px solid #aeaeae;
+	height: 48px;
+	line-height: 48px;
+}
+
+.sigConfirm-total {
+	font-size: 24px;
+	font-weight: $fontWeight-light;
+}
+
+.sigConfirm-account,
+.sigConfirm-fee,
+.sigConfirm-cosignatory {
+	font-weight: $fontWeight-bold;
+}
+
 // ================================================================================
 // TRANSACTION DETAILS MODAL
 // ================================================================================
