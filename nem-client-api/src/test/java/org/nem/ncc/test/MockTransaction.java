@@ -73,7 +73,7 @@ public class MockTransaction extends Transaction {
 	}
 
 	@Override
-	protected Amount getMinimumFee() {
+	public Amount getMinimumFee() {
 		return Amount.ZERO;
 	}
 

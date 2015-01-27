@@ -83,7 +83,8 @@ define({
 					1: "1 zi",
 					many: "{{1}} zile"
 				},
-				synchronized: "NIS este sincronizat!"
+				synchronized: "NIS este sincronizat!",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: "Parola",

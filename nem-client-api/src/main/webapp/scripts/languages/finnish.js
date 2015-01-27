@@ -83,7 +83,8 @@ define({
 					1: "Yksi päivä",
 					many: "{{1}} päivää"
 				},
-				synchronized: "NIS on sykronoitu !"
+				synchronized: "NIS on sykronoitu !",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: "Salasana",

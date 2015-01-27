@@ -83,7 +83,8 @@ define({
 					1: '一天',
 					many: '{{1}} 天'
 				},
-				synchronized: 'NIS已完成同步!'
+				synchronized: 'NIS已完成同步!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: '密码',

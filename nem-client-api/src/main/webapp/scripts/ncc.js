@@ -141,7 +141,12 @@ define(function(require) {
                                     type: 'message',
                                     message: this.get('texts.common.appStatus.synchronized')
                                 };
-                        }
+                            case Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE:
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.noRemoteNisAvailable')
+                                };
+                       }
                 }
             },
             nodeBooting: function() {

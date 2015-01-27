@@ -83,7 +83,8 @@ define({
 					1: "une journée",
 					many: "{{1}} jours"
 				},
-				synchronized: "NIS est synchronisé!"
+				synchronized: "NIS est synchronisé!",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: "Mot de passe",

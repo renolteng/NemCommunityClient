@@ -83,7 +83,8 @@ define({
 					1: "１日",
 					many: "{{1}}日"
 				},
-				synchronized: "NISは同期されました！"
+				synchronized: "NISは同期されました！",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: "パスワード",

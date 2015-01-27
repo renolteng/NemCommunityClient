@@ -83,7 +83,8 @@ define({
 					1: '1 day',
 					many: '{{1}} days'
 				},
-				synchronized: 'Beauty in port!'
+				synchronized: 'Beauty in port!',
+				noRemoteNisAvailable: 'No ship seen at all, are we on land?'
 			},
 			addressBook: 'Address book',
 			password: "Pick",
