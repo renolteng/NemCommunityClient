@@ -254,12 +254,11 @@
 						</div>
 					</div>
 					<p class="form-sublabel">
-						{{#.label}}
-							{{{fill(true, texts.modals.multisig.labelDesc, '<strong>' + .label + '</strong>')}}}
-						{{/}}
-						{{#.label === ''}}
+						{{#if (privateLabels[.address])}}
+							{{{fill(true, texts.modals.multisig.labelDesc, '<strong>' + privateLabels[.address] + '</strong>')}}}
+						{{else}}
 							{{texts.modals.multisig.nullLabelDesc}}
-						{{/}}
+						{{/if}}
 					</p>
 				</div>
 			{{/each}}

@@ -75,6 +75,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.get('cosignatories').splice(index, 1);
         },
         resetDefaultData: function() {
+            this.set('privateLabels', ncc.get('privateLabels'));
             this.set('formattedMultisigAccount', Utils.format.address.format(ncc.get('activeAccount.address')));
             this.set('multisigAccount', ncc.get('activeAccount.address'));
         	this.set('cosignatories', [{label:''}]);
@@ -118,9 +119,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     var t;
                     return function(objs) {
                         // that's bit dumb ;p
-                        objs.forEach(function(e){
-                            e.address = Utils.format.address.restore(e.formattedAddress);
-                        });
+                        for (var i = 0; i<objs.length; ++i) {
+                            self.set('cosignatories['+i+'].address', Utils.format.address.restore(objs[i].formattedAddress));
+                        }
                         clearTimeout(t);
                         t = setTimeout(function() {
                             self.resetFee({ silent: true });
