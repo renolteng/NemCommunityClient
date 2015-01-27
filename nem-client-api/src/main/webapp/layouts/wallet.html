@@ -490,15 +490,16 @@
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.transactionDetails.issuer}}</span>
 			<span class="txConfirm-value">
-				{{txData.issuer}}
 				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[txData.issuer] ? privateLabels[txData.issuer] : texts.wallet.noLabel}}</p>
+				- {{txData.issuer}}
 			</span>
 		</div>
 		{{#each txData.signatures}}
 		<tr><td colspan="2">Signatures present</td></tr>
 		<tr>
-			<td colspan="2" class="table-cell table-cell--content">{{.sender}}
+			<td colspan="2" class="table-cell table-cell--content">
 				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}}</p>
+				- {{.sender}}
 			</td>
 		</tr>
 		{{/each}}
@@ -797,6 +798,7 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
 				<td class="table-cell table-cell--content">
+					<span>{{privateLabels[.issuer]}}</span> -
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">{{.issuer}}</a>
 				</td>
 			</tr>
@@ -804,6 +806,7 @@
 			<tr><td colspan="2">Signatures present</td></tr>
 			<tr>
 				<td colspan="2" class="table-cell table-cell--content">
+					<span>{{privateLabels[.sender]}}</span> -
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.sender}}</a>
 				</td>
 			</tr>

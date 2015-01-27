@@ -63,6 +63,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             return true;
         },
         resetDefaultData: function() {
+            this.set('privateLabels', ncc.get('privateLabels'));
             this.set('sender', Utils.format.address.format(ncc.get('activeAccount.address')));
             this.set('fee', 0);
             this.set('minimumFee', 0);
