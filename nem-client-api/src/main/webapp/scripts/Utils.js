@@ -16,7 +16,8 @@ define(function() {
             STATUS_RUNNING: 3,
             STATUS_BOOTING: 4,
             STATUS_BOOTED: 5,
-            STATUS_SYNCHRONIZED: 6
+            STATUS_SYNCHRONIZED: 6,
+            STATUS_NO_REMOTE_NIS_AVAILABLE: 7
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);

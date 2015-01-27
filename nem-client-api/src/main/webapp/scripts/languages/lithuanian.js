@@ -83,7 +83,8 @@ define({
 					1: "1 diena",
 					many: "{{1}} dienos"
 				},
-				synchronized: "NIS susisinchronizavęs!"
+				synchronized: "NIS susisinchronizavęs!",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: "Slaptažodis",

@@ -1,4 +1,4 @@
-define({
+﻿define({
 	id: 'ru',
 	name: 'Русский',
 	texts: {
@@ -83,7 +83,8 @@ define({
 					1: '1 day',
 					many: '{{1}} days'
 				},
-				synchronized: 'NIS is synchronized!'
+				synchronized: 'NIS is synchronized!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: 'Пароль',
