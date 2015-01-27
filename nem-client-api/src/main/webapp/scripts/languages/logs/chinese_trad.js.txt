@@ -223,4 +223,19 @@ translated texts.addressBook.remove
 	      to: '删除'
 	based on: texts.modals.removeAccount.remove
 
+-----translated texts.common.passwordValidation
+	    from: 'Password must not be blank'
+	      to: 'Password must not be blank'
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.multisig.txConfirm.total
+	    from: 'Total'
+	      to: 'Total'
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.transactionDetails.cosignatory
+	    from: 'Cosignatory'
+	      to: 'Cosignatory'
+	based on: texts.modals.signMultisig.sender
+
 -----

@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: "Slaptažodis",
+			passwordValidation: 'Password must not be blank',
 			address: "Adresas",
 			privateLabel: "Nuosavas pavadinimas",
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: "Patvirtinimai",
 				confirmationsUnknown: 'Unknown',
 				amount: "Suma",
-				fee: "Mokestis"
+				fee: "Mokestis",
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

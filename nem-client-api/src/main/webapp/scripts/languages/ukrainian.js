@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: 'Пароль',
+			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: 'Приватна позначка',
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: 'Пiдтверджень',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Кiлькiсть',
-				fee: 'Комісія'
+				fee: 'Комісія',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

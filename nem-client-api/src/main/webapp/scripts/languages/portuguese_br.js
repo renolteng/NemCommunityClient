@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: "Senha",
+			passwordValidation: 'Password must not be blank',
 			address: 'Endereço',
 			privateLabel: "Identificação",
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: 'Tempo de espera',
 				useMinimumFee: 'Usar taxa minima',
 				hours: 'hora(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: "Confirmações",
 				confirmationsUnknown: 'Desconhecida(o)',
 				amount: "Quantidade",
-				fee: "Taxa"
+				fee: "Taxa",
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

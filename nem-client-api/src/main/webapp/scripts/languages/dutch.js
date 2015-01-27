@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: 'Wachtwoord',
+			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: 'Privé label',
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: 'Verzenden voor',
 				useMinimumFee: 'Gebruik minimale toeslag',
 				hours: 'uur',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Totaal',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: 'Confirmaties',
 				confirmationsUnknown: 'Onbekend',
 				amount: 'Bedrag',
-				fee: 'Toeslag'
+				fee: 'Toeslag',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

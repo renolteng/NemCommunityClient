@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: '密碼',
+			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: '私人標識',
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: '確認',
 				confirmationsUnknown: 'Unknown',
 				amount: '金額',
-				fee: '費'
+				fee: '費',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

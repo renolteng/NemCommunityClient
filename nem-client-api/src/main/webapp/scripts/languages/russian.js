@@ -1,4 +1,4 @@
-﻿define({
+define({
 	id: 'ru',
 	name: 'Русский',
 	texts: {
@@ -88,6 +88,7 @@
 			},
 			addressBook: 'Address book',
 			password: 'Пароль',
+			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: 'Приватная маркировка',
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@
 				confirmations: 'Подтверждения',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Сумма',
-				fee: 'Оплата'
+				fee: 'Оплата',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

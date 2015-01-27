@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: 'Mật khẩu',
+			passwordValidation: 'Mật khẩu không được để trống',
 			address: 'Địa chỉ',
 			privateLabel: 'Nhãn cá nhân',
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: 'Hết hạn',
 				useMinimumFee: 'Sử dụng phí tối thiểu',
 				hours: 'giờ',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Tổng cộng',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: 'Số xác nhận',
 				confirmationsUnknown: 'Không rõ',
 				amount: 'Số lượng',
-				fee: 'Phí'
+				fee: 'Phí',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

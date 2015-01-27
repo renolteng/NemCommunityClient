@@ -203,4 +203,19 @@ translated texts.addressBook.remove
 	      to: "Премахни"
 	based on: texts.modals.removeAccount.remove
 
+-----translated texts.common.passwordValidation
+	    from: 'Password must not be blank'
+	      to: "Паролата не трябва да е празна"
+	based on: texts.modals.sendNem.passwordValidation
+
+translated texts.modals.multisig.txConfirm.total
+	    from: 'Total'
+	      to: "Общо"
+	based on: texts.modals.sendNem.txConfirm.total
+
+translated texts.modals.transactionDetails.cosignatory
+	    from: 'Cosignatory'
+	      to: 'Cosignatory'
+	based on: texts.modals.signMultisig.sender
+
 -----

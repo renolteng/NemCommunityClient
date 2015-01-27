@@ -88,15 +88,18 @@ define({
 			},
 			addressBook: 'Adressbuch',
 			password: "Passwort",
+			passwordValidation: "Password must not be blank",
 			address: "Adresse",
 			privateLabel: "Privates Label",
 			publicLabel: 'Public label',
+
 		},
 		transactionTypes: [
 			'NEM Transfer',
 			'Transfer der Wichtigkeit',
 			'Änderung eines Multisig Kontos',
 			'Multisig Transaktion',
+			
 		],
 		transactionDirections: {
 			pending: "Unbestätigte Transaktion",
@@ -152,6 +155,11 @@ define({
 				dueBy: "Verfällt in",
 				useMinimumFee: "Benutze minimale Gebühr",
 				hours: "Stunde(n)",
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: "Insgesamt",
+
+				},
 
 			},
 			signMultisig: {
@@ -263,7 +271,8 @@ define({
 				confirmations: "Bestätigungen",
 				confirmationsUnknown: "Unbekannt",
 				amount: "Betrag",
-				fee: "Gebühr"
+				fee: "Gebühr",
+				cosignatory: 'Mitunterzeichner'
 			},
 			accountDetails: {
 				title: "Kontodetails",

@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: "Парола",
+			passwordValidation: "Паролата не трябва да е празна",
 			address: "Адрес",
 			privateLabel: "Частна маркировка",
 			publicLabel: 'Public label',
@@ -104,7 +105,7 @@ define({
 			pending: "Чакащи транзакции",
 			outgoing: "Изходящи транзакции",
 			incoming: "Входящи транзакции",
-			self: "Собственни транзакции"
+			self: "Собственни транзакции",
 
 		},
 		modals: {
@@ -154,6 +155,11 @@ define({
 				dueBy: "Време до края",
 				useMinimumFee: "Ползвай минималната такса",
 				hours: "час(а)",
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: "Общо",
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: "Потвърждения",
 				confirmationsUnknown: "Неизвестни",
 				amount: "Сума",
-				fee: "Такса"
+				fee: "Такса",
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

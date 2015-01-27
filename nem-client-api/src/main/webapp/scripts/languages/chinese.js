@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: '密码',
+			passwordValidation: 'Password must not be blank',
 			address: '地址',
 			privateLabel: '标识',
 			publicLabel: 'Public label',
@@ -104,7 +105,8 @@ define({
 			pending: '交易等待中',
 			outgoing: '交易发送中',
 			incoming: '交易接收中',
-			self: '自我交易'
+			self: '自我交易',
+
 		},
 		modals: {
 			error: {
@@ -153,6 +155,11 @@ define({
 				dueBy: '限期',
 				useMinimumFee: '支付最小费用',
 				hours: '小时数',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: '总价',
+
+				},
 
 			},
 			signMultisig: {
@@ -264,7 +271,8 @@ define({
 				confirmations: '确认',
 				confirmationsUnknown: '未知',
 				amount: '金额',
-				fee: '费用'
+				fee: '费用',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

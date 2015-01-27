@@ -1,4 +1,4 @@
-﻿define({
+define({
 	id: 'Hn',
 	name: 'हिन्दी (Hindi)',
 	texts: {
@@ -83,11 +83,12 @@
 					1: '1 दिन',
 					many: '{{1}} दिन'
 				},
-				synchronized: 'NIS सिंक्रनाइज़ हो चुकी है!,
+				synchronized: 'NIS सिंक्रनाइज़ हो चुकी है!',
 				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
 			password: 'पासवर्ड',
+			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: 'निजी लेबल',
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@
 				confirmations: 'कन्फर्मेशन्स',
 				confirmationsUnknown: 'Unknown',
 				amount: 'अमाउंट',
-				fee: 'फ़ीस'
+				fee: 'फ़ीस',
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

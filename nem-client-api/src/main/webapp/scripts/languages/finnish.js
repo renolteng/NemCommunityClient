@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: "Salasana",
+			passwordValidation: "Salasanakenttä ei voi olla tyhjä",
 			address: "Osoite",
 			privateLabel: "Yksityinen merkintä",
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: "Maksettava",
 				useMinimumFee: "Käytä minimipalkkiota",
 				hours: "Tunnit",
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: "Kokonaissumma",
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: "Vahvistuksia",
 				confirmationsUnknown: "Tuntemaon",
 				amount: "Summa",
-				fee: "Palkkio"
+				fee: "Palkkio",
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",

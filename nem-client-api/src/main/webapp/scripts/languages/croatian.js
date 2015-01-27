@@ -88,6 +88,7 @@ define({
 			},
 			addressBook: 'Address book',
 			password: "Lozinka",
+			passwordValidation: 'Password must not be blank',
 			address: "Adresa",
 			privateLabel: "Privatna oznaka",
 			publicLabel: 'Public label',
@@ -154,6 +155,11 @@ define({
 				dueBy: "Zbog",
 				useMinimumFee: 'Use minimum fee',
 				hours: "sat(i)",
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: "Ukupno",
+
+				},
 
 			},
 			signMultisig: {
@@ -265,7 +271,8 @@ define({
 				confirmations: "Potvrde",
 				confirmationsUnknown: 'Unknown',
 				amount: "Iznos",
-				fee: "Naknada"
+				fee: "Naknada",
+				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",
