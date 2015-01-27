@@ -112,6 +112,7 @@ public class TransactionMapper {
 		final MultisigSignatureTransaction transaction = new MultisigSignatureTransaction(
 				TimeInstant.ZERO,
 				cosignatory,
+				cosignatory, // DUMMY
 				HashUtils.nextHash(Hash.ZERO, (new KeyPair()).getPublicKey()));
 		return new PartialFeeInformationViewModel(
 				transaction.getFee()
@@ -196,11 +197,13 @@ public class TransactionMapper {
 
 	private Transaction toModel(final MultisigSignatureRequest request, final WalletPassword password) {
 		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
+		final Account multisigAccount = this.accountLookup.findByAddress(request.getMultisigAddress());
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
 		final MultisigSignatureTransaction multisigTransaction = new MultisigSignatureTransaction(
 				timeStamp,
 				signer,
+				multisigAccount,
 				request.getInnerTransactionHash());
 		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 		multisigTransaction.setFee(request.getFee());
