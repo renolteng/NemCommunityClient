@@ -92,6 +92,7 @@ define({
 			address: 'Address',
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -161,6 +162,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Recipient',
+					amount: 'Amount',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -175,13 +185,6 @@ define({
 				successMessage: 'Transaction has been sent successfully!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Amount',
-					from: 'Multisig account',
-					to: 'To',
-					fee: 'Fee',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
@@ -200,7 +203,6 @@ define({
 				encrypt: 'Encrypt message',
 				fee: 'Fee',
 				multisigFee: 'Multisig fee',
-				noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',

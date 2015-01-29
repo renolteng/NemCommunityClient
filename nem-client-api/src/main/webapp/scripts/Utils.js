@@ -625,7 +625,20 @@ define(['TransactionType'], function(TransactionType) {
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
 
-                currentFee = tx.inner.fee;
+                var fees = tx.fee + tx.signatures
+                    .map(function(d){return d.fee})
+                    .reduce(function(p,c){return p+c}, 0);
+
+                tx.multisig.formattedFees = Utils.format.nem.formatNemAmount(fees, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullFees = Utils.format.nem.formatNemAmount(fees);
+
+                var total = fees + tx.inner.fee + tx.inner.amount;
+                tx.multisig.formattedTotal = Utils.format.nem.formatNemAmount(total, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullTotal = Utils.format.nem.formatNemAmount(total);
+
+                tx.multisig.deadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
+
+                currentFee = 0;
             }
             else
             {

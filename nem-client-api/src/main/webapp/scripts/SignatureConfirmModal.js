@@ -2,11 +2,6 @@
 
 define(['NccModal', 'Utils'], function(NccModal, Utils) {
 	return NccModal.extend({
-        computed: {
-            total: function() {
-                return this.get('requestData.amount') + this.get('requestData.fee');
-            },
-        },
 		confirm: function() {
             this.lockAction();
 

@@ -42,6 +42,7 @@ public class TransactionViewModel implements SerializableEntity {
 
 	private final Address signer;
 	private final long timeStamp;
+	private final long deadline;
 	private final Amount fee;
 
 	private final boolean isConfirmed;
@@ -71,11 +72,9 @@ public class TransactionViewModel implements SerializableEntity {
 		this.transactionViewModelType = transactionViewModelType;
 		this.transactionHash = HashUtils.calculateHash(transaction);
 
-		this.signer = (TransactionTypes.MULTISIG != transaction.getType())
-				? transaction.getSigner().getAddress()
-				: ((MultisigTransaction)transaction).getOtherTransaction().getSigner().getAddress();
-
+		this.signer = transaction.getSigner().getAddress();
 		this.timeStamp = UnixTime.fromTimeInstant(transaction.getTimeStamp()).getMillis();
+		this.deadline =  UnixTime.fromTimeInstant(transaction.getDeadline()).getMillis();
 		this.fee = transaction.getFee();
 
 		if (metaDataPair.getMetaData() == null) {
@@ -178,6 +177,7 @@ public class TransactionViewModel implements SerializableEntity {
 
 		Address.writeTo(serializer, "sender", this.signer);
 		serializer.writeLong("timeStamp", this.timeStamp);
+		serializer.writeLong("deadline", this.deadline);
 		Amount.writeTo(serializer, "fee", this.fee);
 
 		serializer.writeInt("confirmed", this.isConfirmed ? 1 : 0);

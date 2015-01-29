@@ -414,7 +414,7 @@
 				</div>
 			</div>
 			<div class="form-row">
-				<p>{{{texts.modals.sendNem.noCharge}}}</p>
+				<p>{{{texts.common.noCharge}}}</p>
 			</div>
 			{{/if}}
 		</div>
@@ -444,7 +444,7 @@
 <signMultisigModal disableEasyClose="true" modalClass="signMultisigModal modal--wide" modalTitle="{{texts.modals.signMultisig.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
 	<div class="txConfirm-txInfo">
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.from}}</span>
+			<span class="txConfirm-label">{{texts.modals.signMultisig.original.from}}</span>
 			<span class="txConfirm-value">
 				<span class="txConfirm-recipient">{{txData.multisig.formattedFrom}}</span>
 				{{#txData.multisig.senderLabel}}
@@ -453,7 +453,7 @@
 			</span>
 		</div>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.to}}</span>
+			<span class="txConfirm-label">{{texts.modals.signMultisig.original.to}}</span>
 			<span class="txConfirm-value">
 				<span class="txConfirm-recipient">{{txData.multisig.formattedTo}}</span>
 				{{#txData.multisig.recipientLabel}}
@@ -462,16 +462,24 @@
 			</span>
 		</div>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.amount}}</span>
+			<span class="txConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-amount">{{{txData.multisig.formattedAmount}}} NEM</span></span>
 		</div>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.fee}}</span>
+			<span class="txConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFee}}} NEM</span></span>
 		</div>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.txConfirm.dueBy}}</span>
-			<span class="txConfirm-value">{{txData.multisig.dueBy}} {{texts.modals.signMultisig.txConfirm.hours}}</span>
+			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFees}}} NEM</span></span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigTotal}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedTotal}}} NEM</span></span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.original.deadline}}</span>
+			<span class="txConfirm-value">{{txData.multisig.deadline}}</span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-messageLabel">{{texts.modals.signMultisig.txConfirm.message}}</span></span>
@@ -500,8 +508,7 @@
 		<tr><td colspan="2">Signatures present</td></tr>
 		<tr>
 			<td colspan="2" class="table-cell table-cell--content">
-				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}}</p>
-				- {{.sender}}
+				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}} - {{.sender}} </p>
 			</td>
 		</tr>
 		{{/each}}
@@ -557,6 +564,9 @@
 			</div>
 		</div>
 		<div class="form-field">
+			<p>{{{texts.common.noCharge}}}</p>
+		</div>
+		<div class="form-field">
 			<p class="form-label">
 				{{texts.modals.signMultisig.password}}
 				{{#if passwordError}}
@@ -609,21 +619,33 @@
 <signatureConfirmModal modalClass="sigConfirmModal modal--wide" modalTitle="{{texts.modals.signMultisig.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
 	<div class="sigConfirm-txInfo">
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.from}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-sender">{{txData.txData.sender}}</span></span>
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.from}}</span>
+			<span class="sigConfirm-value"><span class="sigConfirm-sender">{{txData.txData.multisig.formattedFrom}}</span></span>
 		</div>
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.to}}</span>
-			<span class="sigConfirm-value">{{txData.txData.recipient}}</span>
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.to}}</span>
+			<span class="sigConfirm-value">{{txData.txData.multisig.formattedTo}}</span>
 		</div>
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.fee}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.formattedFee}}} NEM</span></span>
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedAmount}}} NEM</span></span>
+		</div>
+		<div class="sigConfirm-line">
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedFee}}} NEM</span></span>
+		</div>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedFees}}} NEM</span></span>
 		</div>
 		<hr>
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.signMultisig.fee}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.formattedFee}}} NEM</span></span>
+		</div>
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.txConfirm.dueBy}}</span>
-			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.modals.signMultisig.txConfirm.hours}}</span>
+			<span class="sigConfirm-label">{{texts.modals.signMultisig.dueBy}}</span>
+			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.modals.signMultisig.hours}}</span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.sender}}</span>

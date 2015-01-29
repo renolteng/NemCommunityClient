@@ -174,7 +174,13 @@
 											{{texts.dashboard.transactions.pending}}
 										{{/if}}
 									</td>
-                                    <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--fee">
+										{{#if .isMultisig}}
+											n/a
+										{{else}}
+											{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
+										{{/if}}
+									</td>
                                     <td class="txList-cell txList-col--amount">
 										{{#if .isMultisig}}
 											{{#if .requiresSignature}}
