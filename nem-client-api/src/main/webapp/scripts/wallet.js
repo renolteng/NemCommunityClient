@@ -955,19 +955,19 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 },
                 changeAccountLabel: function() {
                     var wallet = ncc.get('wallet.wallet');
-                    var account = ncc.get('activeAccount.address');
-                    var accountLabel = ncc.get('activeAccount.label');
+                    var address = ncc.get('activeAccount.address');
+                    var label = ncc.get('activeAccount.label');
                     ncc.showInputForm(ncc.get('texts.modals.changeAccountLabel.title'), '',
                         [
                             {
-                                name: 'label',
+                                name: 'privateLabel',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.changeAccountLabel.label')
                                 }
                             },
                             {
-                                name: 'wallet',
+                                name: 'addressBook',
                                 type: 'text',
                                 readonly: true,
                                 unimportant: true,
@@ -984,12 +984,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                             }
                         ],
                         {
-                            wallet: wallet,
-                            account: account,
-                            label: accountLabel
+                            addressBook: wallet,
+                            address: address,
+                            privateLabel: label
                         },
                         function(values, closeModal) {
-                            ncc.postRequest('wallet/account/label', values, function(data) {
+                            ncc.postRequest('addressbook/accountlabel/change', values, function(data) {
                                 var label = values.label;
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
