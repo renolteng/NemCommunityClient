@@ -4,7 +4,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 	return NccModal.extend({
         computed: {
             total: function() {
-                return this.get('requestData.amount') + this.get('requestData.fee');
+                return this.get('requestData.amount') + this.get('requestData.fee') + this.get('requestData.multisigFee');
             },
             formattedTotal: function() {
                 return Utils.format.nem.formatNemAmount(this.get('total'));

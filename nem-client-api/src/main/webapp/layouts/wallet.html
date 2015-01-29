@@ -401,7 +401,7 @@
 			{{#if sender}}
 			<div class="form-row">
 				<p class="form-label">
-					Multisig {{texts.modals.sendNem.fee}}
+					{{texts.modals.sendNem.multisigFee}}
 					{{#if multisigFeeError}}
 					<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
 					{{/if}}
@@ -412,6 +412,9 @@
 						<input class="form-input-inner js-sendNem-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
 					</div>
 				</div>
+			</div>
+			<div class="form-row">
+				<p>{{{texts.modals.sendNem.noCharge}}}</p>
 			</div>
 			{{/if}}
 		</div>
@@ -654,9 +657,15 @@
 			</span>
 		</div>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.fee}}</span>
+			<span class="txConfirm-label">{{texts.modals.sendNem.fee}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} NEM</span></span>
 		</div>
+		{{#if (requestData.type === TransactionType.Multisig_Transfer)}}
+		<div class="txConfirm-line">
+			<span class="txConfirm-label">{{texts.modals.sendNem.multisigFee}}</span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} NEM</span></span>
+		</div>
+		{{/if}}
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.dueBy}}</span>
 			<span class="txConfirm-value">{{txData.dueBy}} {{texts.modals.sendNem.txConfirm.hours}}</span>

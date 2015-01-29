@@ -6,6 +6,7 @@ import org.junit.*;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
+import org.nem.ncc.controller.viewmodels.TransactionViewModel;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.*;
 
@@ -27,7 +28,9 @@ public class TransferSendRequestTest {
 				true,
 				5,
 				new WalletPassword("p"),
-				Amount.fromMicroNem(2));
+				Amount.fromMicroNem(2),
+				Amount.ZERO,
+				TransactionViewModel.Type.Transfer.getValue());
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -108,6 +111,8 @@ public class TransferSendRequestTest {
 		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("password", password);
 		jsonObject.put("fee", fee);
+		jsonObject.put("multisigFee", fee);
+		jsonObject.put("type", TransactionViewModel.Type.Transfer.getValue());
 		return new TransferSendRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

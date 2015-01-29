@@ -158,7 +158,7 @@ public class TransactionMapper {
 	}
 
 	private Transaction toModel(final TransferSendRequest request, final WalletPassword password) {
-		final boolean isMultisig = request.getMultisigAddress() != null;
+		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Transfer.getValue();
 		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
 		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), signer, recipient);
@@ -180,7 +180,7 @@ public class TransactionMapper {
 					signer,
 					transaction);
 			multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
-			multisigTransaction.setFee(multisigTransaction.getFee());
+			multisigTransaction.setFee(request.getMultisigFee());
 			return multisigTransaction;
 		} else {
 			final TransferTransaction transaction = new TransferTransaction(

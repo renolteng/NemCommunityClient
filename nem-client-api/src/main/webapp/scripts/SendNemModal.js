@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils'], function(NccModal, Utils) {
+define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, TransactionType) {
 	return NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -66,6 +66,29 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 return this.get('recipientValid') && this.get('feeValid') && this.get('passwordValid');
             }
         },
+        validateTx: function() {
+            if (!this.get('recipientValid')) return false;
+            return true;
+        },
+        resetDefaultData: function() {
+            this.set('formattedAmount', '0');
+            this.set('formattedRecipient', '');
+            this.set('rawMessage', '');
+            this.set('encrypted', false);
+            this.set('fee', 0);
+            this.set('multisigFee', 0);
+            this.set('minimumFee', 0);
+            this.set('dueBy', '12');
+            this.set('password', '');
+            this.set('useMinimumFee', true);
+            this.set('signatories', [{}]);
+
+            this.set('cosignatories', ncc.get('activeAccount').cosignatoryOf);
+            this.set('recipientChanged', false);
+            this.set('feeChanged', false);
+            this.set('passwordChanged', false);
+            this.resetFee({ silent: true });
+        },
         /**
          * @param {boolean} options.silent
          */
@@ -97,49 +120,27 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 }, options.silent
             );
         },
-        validateTx: function() {
-            if (!this.get('recipientValid')) return false;
-            return true;
-        },
-        resetDefaultData: function() {
-            this.set('formattedAmount', '0');
-            this.set('formattedRecipient', '');
-            this.set('rawMessage', '');
-            this.set('encrypted', false);
-            this.set('fee', 0);
-            this.set('multisigFee', 0);
-            this.set('minimumFee', 0);
-            this.set('dueBy', '12');
-            this.set('password', '');
-            this.set('useMinimumFee', true);
-            this.set('signatories', [{}]);
-
-            this.set('cosignatories', ncc.get('activeAccount').cosignatoryOf);
-            this.set('recipientChanged', false);
-            this.set('feeChanged', false);
-            this.set('passwordChanged', false);
-            this.resetFee({ silent: true });
-        },
         sendTransaction: function() {
             if (this.get('sender') == null) {
                 var requestData = {
                     wallet: ncc.get('wallet.wallet'),
+                    type: TransactionType.Transfer,
                     account: ncc.get('activeAccount.address'),
-                    type: 1, // transfer
                     password: this.get('password'),
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
                     message: this.get('message'),
                     fee: this.get('fee'),
+                    multisigFee: 0,
                     encrypt: this.get('encrypt'),
                     hoursDue: this.get('hoursDue')
                 };
             } else {
                 var requestData = {
                     wallet: ncc.get('wallet.wallet'),
+                    type: TransactionType.Multisig_Transfer,
                     multisigAccount: this.get('sender'),
                     account: ncc.get('activeAccount.address'),
-                    type: 4, // multisig transfer
                     password: this.get('password'),
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
@@ -152,6 +153,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             }
 
             var txConfirm = ncc.getModal('transactionConfirm');
+            txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
             txConfirm.open();

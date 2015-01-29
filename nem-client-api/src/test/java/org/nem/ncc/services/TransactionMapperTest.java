@@ -11,6 +11,7 @@ import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
+import org.nem.ncc.controller.viewmodels.TransactionViewModel;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
@@ -319,7 +320,9 @@ public class TransactionMapperTest {
 				shouldEncrypt,
 				5,
 				new WalletPassword("p"),
-				Amount.fromNem(2));
+				Amount.fromNem(2),
+				Amount.ZERO,
+				TransactionViewModel.Type.Transfer.getValue());
 	}
 
 	private static TransferSendRequest createSendRequestWithoutMessage(final TestContext context, final String password) {
@@ -333,7 +336,9 @@ public class TransactionMapperTest {
 				false,
 				5,
 				null == password ? null : new WalletPassword(password),
-				Amount.fromNem(2));
+				Amount.fromNem(2),
+				Amount.ZERO,
+				TransactionViewModel.Type.Transfer.getValue());
 	}
 
 	private static TransferImportanceRequest createRemoteHarvestRequest(final TestContext context, final String password) {

@@ -11,7 +11,8 @@ import org.nem.core.time.UnixTime;
  * A view model representing a transfer transaction.
  */
 public class TransactionViewModel implements SerializableEntity {
-	enum Type {
+	// This enum needs to be kept in sync with JS TransactionType
+	public enum Type {
 		Unknown(0),
 		Transfer(1),
 		Importance_Transfer(2),

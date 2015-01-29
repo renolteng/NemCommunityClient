@@ -19,6 +19,8 @@ public class TransferSendRequest {
 	private final int hoursDue;
 	private final WalletPassword password;
 	private final Amount fee;
+	private final Amount multisigFee;
+	private final int type;
 
 	/**
 	 * Creates a new transfer send request.
@@ -33,7 +35,9 @@ public class TransferSendRequest {
 			final boolean shouldEncrypt,
 			final int hoursDue,
 			final WalletPassword password,
-			final Amount fee) {
+			final Amount fee,
+			final Amount multisigFee,
+			final int type) {
 		this.walletName = walletName;
 		this.multisigAddress = multisigAddress;
 		this.senderAddress = senderAddress;
@@ -44,6 +48,8 @@ public class TransferSendRequest {
 		this.hoursDue = hoursDue;
 		this.password = password;
 		this.fee = fee;
+		this.multisigFee = multisigFee;
+		this.type = type;
 	}
 
 	/**
@@ -53,6 +59,7 @@ public class TransferSendRequest {
 	 */
 	public TransferSendRequest(final Deserializer deserializer) {
 		this.walletName = WalletName.readFrom(deserializer, "wallet");
+		this.type = deserializer.readInt("type");
 		this.multisigAddress = Address.readFromOptional(deserializer, "multisigAccount", AddressEncoding.COMPRESSED);
 		this.senderAddress = Address.readFrom(deserializer, "account");
 		this.recipientAddress = Address.readFrom(deserializer, "recipient");
@@ -62,6 +69,7 @@ public class TransferSendRequest {
 		this.hoursDue = deserializer.readInt("hoursDue");
 		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.fee = Amount.readFrom(deserializer, "fee");
+		this.multisigFee = Amount.readFrom(deserializer, "multisigFee");
 	}
 
 	/**
@@ -80,6 +88,15 @@ public class TransferSendRequest {
 	 */
 	public WalletName getWalletName() {
 		return this.walletName;
+	}
+
+	/**
+	 * Gets the type of transfer.
+	 *
+	 * @return The type of transfer (multisig or normal).
+	 */
+	public int getType() {
+		return this.type;
 	}
 
 	/**
@@ -152,5 +169,14 @@ public class TransferSendRequest {
 	 */
 	public Amount getFee() {
 		return this.fee;
+	}
+
+	/**
+	 * Gets the multisig transaction fee.
+	 *
+	 * @return The fee.
+	 */
+	public Amount getMultisigFee() {
+		return this.multisigFee;
 	}
 }
