@@ -100,11 +100,11 @@
 							{{#if i < 4}}
 								<tr>
                                     {{#if .confirmed}}
-										{{#if (.type === 2 || .type === 3)}}
-											{{#if (.type === 2)}}
-												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+										{{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Aggregate_Modification)}}
+											{{#if (.type === TransactionType.Importance_Transfer)}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 											{{else}}
-												<td class="txList-cell txList-col--type encryptedIcon icon-attachment" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+												<td class="txList-cell txList-col--type encryptedIcon icon-attachment" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 											{{/if}}
 										{{else}}
 											{{#.isSelf}}
@@ -133,7 +133,7 @@
                                         	</a>
                                     	</td>
                                     {{/}}
-                                    {{#if (.isIncoming || .type === 3)}}
+                                    {{#if (.isIncoming || .type === TransactionType.Aggregate_Modification)}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
                                         	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
                                         		{{#if privateLabels[.sender]}}

@@ -1,6 +1,7 @@
 "use strict";
 
 define(function(require) {
+    var TransactionType = require('TransactionType');
     var $ = require('jquery');
     var Ractive = require('ractive');
     var Mustache = require('mustache');

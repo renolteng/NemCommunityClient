@@ -714,10 +714,10 @@
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
 				</td>
 			</tr>
-			{{#if (.type !== 3)}}
+			{{#if (.type !== TransactionType.Aggregate_Modification)}}
 			<tr>
 				<td class="table-cell table-cell--label">
-					{{#if (.type === 2)}}
+					{{#if (.type === TransactionType.Importance_Transfer)}}
 					{{texts.modals.transactionDetails.remote}}
 					{{else}}
 					{{texts.modals.transactionDetails.recipient}}
@@ -740,7 +740,7 @@
 			</tr>
 			{{/}}
 
-			{{#if (.type === 1 || .type === 4)}}
+			{{#if (.type === TransactionType.Transfer || .type === TransactionType.Multisig_Transfer)}}
 				<tr>
 					<td class="table-cell table-cell--label">
 						{{texts.modals.transactionDetails.message}}
@@ -772,7 +772,7 @@
 					{{/if}}
 				</td>
 			</tr>
-			{{#if (.type !== 3 && .type !== 2)}}
+			{{#if (.type !== TransactionType.Aggregate_Modification && .type !== TransactionType.Importance_Transfer)}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
 				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} NEM</td>
@@ -782,7 +782,7 @@
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
 				<td class="table-cell table-cell--content">{{{.formattedFullFee}}} NEM</td>
 			</tr>
-			{{#if (.type === 3)}}
+			{{#if (.type === TransactionType.Aggregate_Modification)}}
 			{{#each .modifications}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
@@ -792,24 +792,24 @@
 			</tr>
 			{{/each}}
 			{{/if}}
-			{{#if (.type === 4)}}
-			<tr><td colspan="2"><hr></td></tr>
-			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
-				<td class="table-cell table-cell--content">
-					<span>{{privateLabels[.issuer]}}</span> -
-					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">{{.issuer}}</a>
-				</td>
-			</tr>
-			{{#each .signatures}}
-			<tr><td colspan="2">Signatures present</td></tr>
-			<tr>
-				<td colspan="2" class="table-cell table-cell--content">
-					<span>{{privateLabels[.sender]}}</span> -
-					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.sender}}</a>
-				</td>
-			</tr>
-			{{/each}}
+			{{#if (.type === TransactionType.Multisig_Transfer)}}
+				<tr><td colspan="2"><hr></td></tr>
+				<tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+					<td class="table-cell table-cell--content">
+						<span>{{privateLabels[.issuer]}}</span> -
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">{{.issuer}}</a>
+					</td>
+				</tr>
+				{{#each .signatures}}
+					<tr><td colspan="2">Signatures present</td></tr>
+					<tr>
+						<td colspan="2" class="table-cell table-cell--content">
+							<span>{{privateLabels[.sender]}}</span> -
+							<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.sender}}</a>
+						</td>
+					</tr>
+				{{/each}}
 			{{/if}}
 		</table>
 	{{/}}

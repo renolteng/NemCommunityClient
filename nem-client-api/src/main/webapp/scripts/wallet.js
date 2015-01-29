@@ -1,6 +1,6 @@
 "use strict";
 
-define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
+define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, ncc, NccLayout, Utils, TransactionType) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
         template: 'rv!layout/wallet',
@@ -200,6 +200,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
 
             ncc.viewTransaction = function(transaction) {
                 var m = ncc.getModal('transactionDetails');
+                m.set('TransactionType', TransactionType);
                 m.set('transaction', transaction);
                 m.open();
             };

@@ -1,6 +1,6 @@
 "use strict";
 
-define(function() {
+define(['TransactionType'], function(TransactionType) {
     var Utils = {
         config: {
             addressCharacters: 40,
@@ -610,7 +610,7 @@ define(function() {
             var transferTransaction = tx;
             var currentFee = 0;
             // multisig
-            if (tx.type == 4) {
+            if (tx.type == TransactionType.Multisig_Transfer) {
                 tx.isMultisig = true;
                 transferTransaction = tx.inner;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
@@ -634,14 +634,14 @@ define(function() {
             }
 
             // importance transfer
-            if (tx.type == 2) {
+            if (tx.type == TransactionType.Importance_Transfer) {
                 tx.recipient = tx.remote;
                 tx.isIncoming = false;
                 tx.isOutgoing = false;
                 tx.isSelf = true;
             }
 
-            if (transferTransaction.type == 1)
+            if (transferTransaction.type == TransactionType.Transfer)
             {
                 tx.isIncoming = transferTransaction.direction === 1; //  || transferTransaction.direction === 0;
                 tx.isOutgoing = transferTransaction.direction === 2;

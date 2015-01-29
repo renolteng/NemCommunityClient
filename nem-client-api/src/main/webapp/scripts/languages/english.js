@@ -104,6 +104,8 @@ define({
 			outgoing: 'Outgoing transaction',
 			incoming: 'Incoming transaction',
 			self: 'Self transaction',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
