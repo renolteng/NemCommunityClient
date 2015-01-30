@@ -259,6 +259,8 @@ define({
 				incoming: 'Incoming',
 				self: 'Self',
 				sender: 'Sender',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Recipient',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -270,6 +272,8 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
 				fee: 'Fee',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
 				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},

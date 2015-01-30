@@ -624,11 +624,11 @@
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.to}}</span>
-			<span class="sigConfirm-value">{{txData.txData.multisig.formattedTo}}</span>
+			<span class="sigConfirm-value"><span class="sigConfirm-recipient">{{txData.txData.multisig.formattedTo}}</span></span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedAmount}}} NEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-amount">{{{txData.txData.multisig.formattedAmount}}} NEM</span></span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
@@ -740,11 +740,28 @@
 				<td class="table-cell table-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
 			</tr>
 			<tr>
+				{{#if (.type === TransactionType.Multisig_Transfer)}}
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigAccount}}</td>
+					<td class="table-cell table-cell--content">
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">{{.multisig.formattedFrom}}</a>
+					</td>
+				{{else}}
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
 				<td class="table-cell table-cell--content">
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
 				</td>
+				{{/if}}
 			</tr>
+
+			{{#if (.type === TransactionType.Multisig_Transfer)}}
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+				</td>
+			</tr>
+			{{/if}}
+
 			{{#if (.type !== TransactionType.Aggregate_Modification)}}
 			<tr>
 				<td class="table-cell table-cell--label">
@@ -809,10 +826,21 @@
 				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} NEM</td>
 			</tr>
 			{{/if}}
-			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-				<td class="table-cell table-cell--content">{{{.formattedFullFee}}} NEM</td>
-			</tr>
+			{{#if (.type === TransactionType.Multisig_Transfer)}}
+				<tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedFee}}} NEM</td>
+				</tr>
+				<tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigFees}}</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedFees}}} NEM</td>
+				</tr>
+			{{else}}
+				<tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
+					<td class="table-cell table-cell--content">{{{.formattedFee}}} NEM</td>
+				</tr>
+			{{/if}}
 			{{#if (.type === TransactionType.Aggregate_Modification)}}
 			{{#each .modifications}}
 			<tr>
@@ -832,8 +860,8 @@
 						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">{{.issuer}}</a>
 					</td>
 				</tr>
+				<tr><td colspan="2">Signatures present:</td></tr>
 				{{#each .signatures}}
-					<tr><td colspan="2">Signatures present</td></tr>
 					<tr>
 						<td colspan="2" class="table-cell table-cell--content">
 							<span>{{privateLabels[.sender]}}</span> -
