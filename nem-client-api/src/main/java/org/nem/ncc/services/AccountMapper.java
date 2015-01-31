@@ -2,26 +2,20 @@ package org.nem.ncc.services;
 
 import org.nem.core.model.Address;
 import org.nem.ncc.controller.viewmodels.AccountViewModel;
-import org.nem.ncc.model.AccountLabels;
 import org.nem.ncc.wallet.WalletAccount;
 
 /**
  * Helper class that is able to map various account representations to an AccountViewModel.
  */
 public class AccountMapper {
-	private final AccountLabels accountLabels;
 	private final AccountMetaDataPairLookup accountLookup;
 
 	/**
 	 * Creates a wallet mapper.
 	 *
-	 * @param accountLabels The account labels.
 	 * @param accountLookup The account lookup.
 	 */
-	public AccountMapper(
-			final AccountLabels accountLabels,
-			final AccountMetaDataPairLookup accountLookup) {
-		this.accountLabels = accountLabels;
+	public AccountMapper(final AccountMetaDataPairLookup accountLookup) {
 		this.accountLookup = accountLookup;
 	}
 
@@ -42,8 +36,15 @@ public class AccountMapper {
 	 * @return The view model.
 	 */
 	public AccountViewModel toViewModel(final Address address) {
-		return new AccountViewModel(
-				this.accountLookup.findPairByAddress(address),
-				this.accountLabels.getLabel(address));
+		return new AccountViewModel(this.accountLookup.findPairByAddress(address));
+	}
+
+	/**
+	 * Forces refresh of account data.
+	 *
+	 * @param address The address.
+	 */
+	public void refreshAccount(final Address address) {
+		this.accountLookup.refreshAccount(address);
 	}
 }

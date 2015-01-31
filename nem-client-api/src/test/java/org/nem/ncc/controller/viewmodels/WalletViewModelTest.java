@@ -53,7 +53,7 @@ public class WalletViewModelTest {
 
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(4));
-		Assert.assertThat(jsonObject.get("name"), IsEqual.equalTo("blah"));
+		Assert.assertThat(jsonObject.get("wallet"), IsEqual.equalTo("blah"));
 		Assert.assertThat(getAddress(jsonObject.get("primaryAccount")), IsEqual.equalTo(primaryAccount.getAddress().toString()));
 		Assert.assertThat(
 				getAddresses(jsonObject.get("otherAccounts")),

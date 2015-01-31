@@ -14,7 +14,7 @@ public class AccountTransactionsPairTest {
 	public void canCreateMetaDataPair() {
 		// Arrange:
 		final AccountViewModel account = createAccountViewModel();
-		final List<TransferViewModel> transactions = new ArrayList<>();
+		final List<TransactionViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
 		// Assert:
@@ -26,14 +26,14 @@ public class AccountTransactionsPairTest {
 	public void canSerializeMetaDataPair() {
 		// Arrange:
 		final AccountViewModel account = createAccountViewModel();
-		final List<TransferViewModel> transactions = new ArrayList<>();
+		final List<TransactionViewModel> transactions = new ArrayList<>();
 		final AccountTransactionsPair pair = new AccountTransactionsPair(account, transactions);
 
 		// Act:
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(pair);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(9));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(((JSONArray)jsonObject.get("transactions")).size(), IsEqual.equalTo(0));
 	}

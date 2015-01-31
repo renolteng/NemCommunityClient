@@ -83,7 +83,7 @@ public class MemoryWalletTest extends WalletTest {
 			final List<WalletAccount> otherAccounts) {
 		final JsonSerializer serializer = new JsonSerializer();
 		if (null != name) {
-			serializer.writeString("name", name);
+			serializer.writeString("wallet", name);
 		}
 
 		if (null != primaryAccount) {

@@ -1,36 +1,36 @@
 <main class="harvestedBlocks-main">
 	<div class="container">
-		<section class="recordList">
-			<div class="recordList-head">
-				<h1 class="recordList-title">{{texts.harvestedBlocks.title}}</h1>
+		<section class="listingPage">
+			<div class="listingPage-head">
+				<h1 class="listingPage-title">{{texts.harvestedBlocks.title}}</h1>
 				{{#if activeAccount.remoteStatus === 'ACTIVE'}}
 					{{#if walletPage.remoteUnlocked}}
-						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--foraging icon-pause" on-click="stopRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
+						<button type="button" class="listingPage-mainButton harvestedBlocksPage-harvestButton harvestedBlocksPage-harvestButton--harvesting icon-pause" on-click="stopRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 							{{texts.harvestedBlocks.harvesting.remoteHarvest.stopRemoteHarvesting}}
 						</button>
 					{{else}}
-						<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">{{texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting}}</button>
+						<button type="button" class="listingPage-mainButton harvestedBlocksPage-harvestButton harvestedBlocksPage-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">{{texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting}}</button>
 					{{/if}}
 				{{else}}
 					{{#if status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-						<button type="button" class="harvestedBlocksPage-forageButton icon-question-circle" disabled>
+						<button type="button" class="listingPage-mainButton harvestedBlocksPage-harvestButton harvestedBlocksPage-harvestButton--unknown icon-question-circle" disabled>
 							<span>{{texts.harvestedBlocks.harvesting.unknown}}</span>
 						</button>
 					{{else}}
 						{{#if activeAccount.status === 'LOCKED'}}
-							<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--notForaging icon-play" on-click="startHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
+							<button type="button" class="listingPage-mainButton harvestedBlocksPage-harvestButton harvestedBlocksPage-harvestButton--notHarvesting icon-play" on-click="startHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 								<span>{{texts.harvestedBlocks.harvesting.start}}</span>
 							</button>
 						{{/if}}
 						{{#if activeAccount.status === 'UNLOCKED'}}
-							<button type="button" class="harvestedBlocksPage-forageButton harvestedBlocksPage-forageButton--foraging icon-pause" on-click="stopHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
+							<button type="button" class="listingPage-mainButton harvestedBlocksPage-harvestButton harvestedBlocksPage-harvestButton--harvesting icon-pause" on-click="stopHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 								{{texts.harvestedBlocks.harvesting.stop}}
 							</button>
 						{{/if}}
 					{{/if}}
 				{{/if}}
-				<div class="recordList-overview">
-					<p class="recordList-overview-title">{{texts.harvestedBlocks.feeEarned}}</p>
+				<div class="listingPage-overview">
+					<p class="listingPage-overview-title">{{texts.harvestedBlocks.feeEarned}}</p>
 					<p>
 						{{#if typeof harvestedBlocks.feeEarned === 'number'}}
 							<span title="{{harvestedBlocks.feeEarnedInt}} NEM {{harvestedBlocks.feeEarnedDec}} µNEM" on-mouseover="registerToolTip">{{harvestedBlocks.formattedFeeEarned}} <span class="unit">NEM</span></span>
@@ -40,34 +40,34 @@
 					</p>
 				</div>
 			</div>
-			<div class="recordList-body">
-				<div class="harvestedBlocksPage-list">
+			<div class="listingPage-body">
+				<div class="listingPage-list listingPage-list--harvests">
 					<table class="txList">
 						<thead>
-							<tr>
-								<th class="txList-header txList-col--height">{{texts.harvestedBlocks.table.columns.0}}</th>
+							<tr class="txList-row harvestedBlocksPage-row">
+								<th class="txList-header txList-col--height harvestedBlocksPage-leftMost">{{texts.harvestedBlocks.table.columns.0}}</th>
 								<th class="txList-header txList-col--time">{{texts.harvestedBlocks.table.columns.1}}</th>
 								<th class="txList-header txList-col--hash">{{texts.harvestedBlocks.table.columns.2}}</th>
-								<th class="txList-header txList-col--fee">{{texts.harvestedBlocks.table.columns.3}}</th>
+								<th class="txList-header txList-col--fee harvestedBlocksPage-rightMost">{{texts.harvestedBlocks.table.columns.3}}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{{#each harvestedBlocks.list}}
-								<tr>
-                                    <td class="txList-cell txList-col--height">{{.message}}</td>
+								<tr class="txList-row txList-row--colored harvestedBlocksPage-row">
+                                    <td class="txList-cell txList-col--height harvestedBlocksPage-leftMost">{{.message}}</td>
 									<td class="txList-cell txList-col--time">{{.formattedTime}}</td>
 									<td class="txList-cell txList-col--hash">{{.hash}}</td>
-                                    <td class="txList-cell txList-col--fee">{{{.formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--fee harvestedBlocksPage-rightMost">{{{.formattedFee}}}</td>
 								</tr>
 							{{/each}}
 						</tbody>
 					</table>
 					{{^harvestedBlocks.list}}
-						<p class="txList-noRecords">{{texts.harvestedBlocks.table.noBlocks}}</p>
+						<p class="txList-noRecords harvestedBlocksPage-leftMost harvestedBlocksPage-rightMost">{{texts.harvestedBlocks.table.noBlocks}}</p>
 					{{/}}
-					<div class="recordList-pager">
+					<div class="listingPage-pager harvestedBlocksPage-leftMost harvestedBlocksPage-rightMost">
 						{{#status.loadingOlderBlocks}}
-							<span type="buttton" class="recordList-pager-loading">{{texts.harvestedBlocks.table.loading}}</span>
+							<span type="buttton" class="listingPage-pager-loading">{{texts.harvestedBlocks.table.loading}}</span>
 						{{/}}
 					</div>
 				</div>

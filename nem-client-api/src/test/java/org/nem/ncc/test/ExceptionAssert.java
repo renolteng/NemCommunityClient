@@ -2,7 +2,8 @@ package org.nem.ncc.test;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
-import org.nem.ncc.exceptions.NccException;
+import org.nem.ncc.exceptions.*;
+import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.wallet.storage.WalletStorageException;
 
 import java.util.concurrent.CompletionException;
@@ -85,6 +86,38 @@ public class ExceptionAssert {
 				consumer,
 				WalletStorageException.class,
 				ex -> Assert.assertThat(ex.getCode(), IsEqual.equalTo(code)));
+	}
+
+	/**
+	 * Asserts that the execution of consumer throws a StorableEntityStorageException with the specified code.
+	 *
+	 * @param consumer The consumer.
+	 * @param code The expected code.
+	 */
+	public static void assertThrowsStorableEntityStorageException(
+			final Consumer<Void> consumer,
+			final ValueBasedEnum code) {
+		assertThrows(
+				consumer,
+				StorableEntityStorageException.class,
+				ex -> Assert.assertThat(ex.getCode(), IsEqual.equalTo(code)));
+	}
+
+	/**
+	 * Asserts that the execution of consumer throws a xyzStorageException with the specified value.
+	 *
+	 * @param consumer The consumer.
+	 * @param exceptionClass The exception class.
+	 * @param exceptionValue The expected value.
+	 */
+	public static <T extends StorableEntityStorageException> void assertThrowsStorageException(
+			final Consumer<Void> consumer,
+			final Class<T> exceptionClass,
+			final Integer exceptionValue) {
+		assertThrows(
+				consumer,
+				exceptionClass,
+				ex -> Assert.assertThat(ex.getCode().value(), IsEqual.equalTo(exceptionValue)));
 	}
 
 	/**

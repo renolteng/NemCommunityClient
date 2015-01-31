@@ -2,12 +2,13 @@ package org.nem.ncc.controller.requests;
 
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.Address;
+import org.nem.core.model.ncc.AccountId;
 import org.nem.core.serialization.Deserializer;
 
 /**
  * A request representing an account and an optional hash.
  */
-public class AccountHashRequest extends AccountIdRequest {
+public class AccountHashRequest extends AccountId {
 	private final Hash hash;
 
 	/**

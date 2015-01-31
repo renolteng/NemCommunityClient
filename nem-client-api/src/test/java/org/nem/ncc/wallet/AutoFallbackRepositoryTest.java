@@ -45,7 +45,7 @@ public class AutoFallbackRepositoryTest {
 		final WalletRepository childRepository2 = Mockito.mock(WalletRepository.class);
 		final WalletRepository repository = new AutoFallbackRepository(Arrays.asList(childRepository1, childRepository2));
 
-		final Wallet wallet = Mockito.mock(Wallet.class);
+		final StorableWallet wallet = Mockito.mock(StorableWallet.class);
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 
 		// Act:
@@ -63,7 +63,7 @@ public class AutoFallbackRepositoryTest {
 		final WalletRepository childRepository2 = Mockito.mock(WalletRepository.class);
 		final WalletRepository repository = new AutoFallbackRepository(Arrays.asList(childRepository1, childRepository2));
 
-		final Wallet wallet = Mockito.mock(Wallet.class);
+		final StorableWallet wallet = Mockito.mock(StorableWallet.class);
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 
 		Mockito.doThrow(new WalletStorageException(WalletStorageException.Code.WALLET_COULD_NOT_BE_SAVED))
@@ -90,7 +90,7 @@ public class AutoFallbackRepositoryTest {
 		final WalletRepository childRepository2 = Mockito.mock(WalletRepository.class);
 		final WalletRepository repository = new AutoFallbackRepository(Arrays.asList(childRepository1, childRepository2));
 
-		final Wallet wallet = Mockito.mock(Wallet.class);
+		final StorableWallet wallet = Mockito.mock(StorableWallet.class);
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 
 		Mockito.when(childRepository1.load(descriptor)).thenReturn(wallet);
@@ -111,7 +111,7 @@ public class AutoFallbackRepositoryTest {
 		final WalletRepository childRepository2 = Mockito.mock(WalletRepository.class);
 		final WalletRepository repository = new AutoFallbackRepository(Arrays.asList(childRepository1, childRepository2));
 
-		final Wallet wallet = Mockito.mock(Wallet.class);
+		final StorableWallet wallet = Mockito.mock(StorableWallet.class);
 		final WalletDescriptor descriptor = Mockito.mock(WalletDescriptor.class);
 
 		Mockito.doThrow(new WalletStorageException(WalletStorageException.Code.WALLET_COULD_NOT_BE_READ))

@@ -16,4 +16,11 @@ public interface AccountMetaDataPairLookup extends AccountLookup {
 	 * @return The account with the specified id.
 	 */
 	public AccountMetaDataPair findPairByAddress(final Address id);
+
+	/**
+	 * Force refresh of account inside lookup object.
+	 *
+	 * @param address The account id.
+	 */
+	void refreshAccount(final Address address);
 }

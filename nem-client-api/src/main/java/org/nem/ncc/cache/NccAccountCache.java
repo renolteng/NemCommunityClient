@@ -57,9 +57,10 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private FreshnessPair createFreshnessPairFromSeedAccount(final AccountInfo info) {
+		// accounts are polled on a regular interval, so it should be ok to use current time stamp
 		return new FreshnessPair(
-				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE)),
-				null);
+				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE, Arrays.asList())),
+				this.timeProvider.getCurrentTime());
 	}
 
 	@Override
@@ -77,13 +78,19 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		return this.findFreshnessPairByAddress(id).accountMetaDataPair;
 	}
 
+	@Override
+	public void refreshAccount(final Address address) {
+		if (this.isKnownAddress(address)) {
+			this.cache.remove(address);
+			this.findFreshnessPairByAddress(address);
+		}
+	}
+
 	private FreshnessPair findFreshnessPairByAddress(final Address id) {
 		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 		FreshnessPair freshnessPair = this.cache.getOrDefault(id, null);
-		if (this.shouldUpdate(freshnessPair, currentTime)) {
-			freshnessPair = new FreshnessPair(
-					this.update(id, null == freshnessPair ? null : freshnessPair.accountMetaDataPair),
-					currentTime);
+		if (null == freshnessPair) {
+			freshnessPair = new FreshnessPair(this.update(id, null), currentTime);
 			this.cache.put(id, freshnessPair);
 		}
 
@@ -104,10 +111,27 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		}
 	}
 
+	/**
+	 * Updates all expired accounts. This method is called by a timer.
+	 */
+	public java.util.concurrent.CompletableFuture<java.lang.Void> updateCache() {
+		return CompletableFuture.runAsync(() -> {
+			final TimeInstant currentTime = this.timeProvider.getCurrentTime();
+			final List<SerializableAccountId> requests = this.cache.values().stream()
+					.filter(f -> this.shouldUpdate(f, currentTime))
+					.map(f -> new SerializableAccountId(f.account.getAddress()))
+					.collect(Collectors.toList());
+			if (requests.isEmpty()) {
+				return;
+			}
+
+			final Collection<AccountMetaDataPair> pairs = this.accountServices.getAccountMetaDataPairs(requests);
+			pairs.stream().forEach(p -> this.cache.put(p.getAccount().getAddress(), new FreshnessPair(p, currentTime)));
+		});
+	}
+
 	private boolean shouldUpdate(final FreshnessPair freshnessPair, final TimeInstant currentTime) {
-		return null == freshnessPair ||
-				null == freshnessPair.refreshTime ||
-				currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
+		return null == freshnessPair || currentTime.subtract(freshnessPair.refreshTime) > this.refreshInSeconds;
 	}
 
 	private static class FreshnessPair {

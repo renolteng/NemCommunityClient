@@ -1,4 +1,4 @@
-﻿ define({
+define({
 	id: 'ru',
 	name: 'Русский',
 	texts: {
@@ -7,15 +7,30 @@
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'Файл не найден.',
+			101: 'The wallet file does not exist.',
 			102: 'Кошелёк не создан.',
-			103: 'Файл кошелька повреждён. Пожалуйста, восстановите Ваш файл кошелька из раннее сохранённого или добавьте новый аккаунт.',
-			104: 'Введённый пароль неверен.  Попытайтесь вспомнить правильный пароль. Пароль не может быть восстановлен, если утерян!',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: 'Перед  тем, как Вы начнёте работать с кошельком, убедитесь , что он открыт. Чтобы получить доступ к кошельку, введите пароль.',
 			107: 'Кошелёк не содержит этот аккаунт .',
 			108: 'Аккаунт не может быть удалён .  Вероятнее всего, что аккаунт содержит на балансе более чем 0 NEM или аккаунт, который Вы пытаетесь удалить, является главным.',
 			109: 'Кошелёк с таким же именем уже существует. Пожалуйста, выберете другое имя для кошелька.',
 			110: 'Кошелёк уже содержит этот аккаунт .',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: 'Отсутствует public key.',
 			305: 'NEM Infrastructure Server  не доступен',
 			306: 'Произошла непредвиденная ошибка . Приносим свои извинения, повторите попытку снова. В противном случае, обратитесь за поддержкой в NEM NIS/NCC Community.',
@@ -25,6 +40,7 @@
 			500: 'Невозможно сохранить файл конфигурации',
 			600: 'Для отсылки и приёма транзакций, NCC требует перезагрузку NIS сервера. Пожалуйста, используйте меню NCC для перезагрузки в локальный узел.',
 			601: 'NIS узел уже запущен. Повторная попытка перезагрузки NIS невозможна.',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Предоставленный аккаунт не соответствует базовым требованиям для Генерации . В основном, это связанно с количеством NEM на счету.  Генерация начинается хотя бы с 1,000 NEM.',
 			701: 'Предоставленный срок завершения в прошлом. Срок должен быть предоставлен в течении 1-дневного периода.',
 			702: 'Предоставленный срок завершения находится  далеко в будущем. Срок должен быть предоставлен в течении 1-дневного периода.',
@@ -35,13 +51,23 @@
 			707: 'Временная отметка транзакции слишком далеко в прошлом.',
 			708: 'Временная отметка транзакции слишком далеко в будущем.',
 			709: 'Неизвестный аккакунт. Аккаунт должен быть частью хотя бы одной транзакции (входящей или исходящей),  чтобы быть опознанным сетью.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'Произошла ошибка в настройках offline mode.',
 			1000: "Введённые Вами private key и  public key не соответствуют.",
 			1001: 'Введённые Вами  public key и адрес  не соответствуют.',
 			1002: 'Адрес не принадлежит главной сети.'
 		},
 		common: {
-			success: 'Успешно', //title of the Success message modals
+			success: 'Успешно',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC не доступен',
@@ -58,8 +84,32 @@
 					1: '1 day',
 					many: '{{1}} days'
 				},
-				synchronized: 'NIS is synchronized!'
-			}
+				synchronized: 'NIS is synchronized!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: 'Пароль',
+			passwordValidation: 'Password must not be blank',
+			address: 'Address',
+			privateLabel: 'Приватная маркировка',
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: 'Транзакции в ожидании',
+			outgoing: 'Исходящие Транзакции',
+			incoming: 'Входящие Транзакции',
+			self: 'Авто транзакции',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'Этот аккаунт маркирован как {{1}}',
+				nullLabelDesc: "Этот аккаунт не имеет маркировки",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Оплата',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Получатель',
+					amount: 'Сумма',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
+				sender: 'Cosignatory',
+				fee: 'Оплата',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: 'Пароль',
+				passwordValidation: 'Password must not be blank',
+				send: 'Послать',
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: 'Транзакция была успешно послана!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: 'Сообщение',
+					encrypted: 'Сообщение Зашифровано',
+					noMessage: 'Нет сообщения',
+
+				},
+
+			},
 			sendNem: {
 				title: 'Послать NEM',
+				sender: 'Отправитель',
+				thisAccount: 'This account',
 				labelDesc: 'Этот аккаунт маркирован как {{1}}',
 				nullLabelDesc: "Этот аккаунт не имеет маркировки",
 				amount: 'Сумма',
@@ -104,6 +209,7 @@
 				message: 'Сообщение',
 				encrypt: 'Зашифрованное сообщение',
 				fee: 'Оплата',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'В течение',
 				useMinimumFee: 'Use minimum fee',
@@ -118,7 +224,6 @@
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -155,12 +260,17 @@
 				id: 'ID',
 				hash: 'Хэш',
 				type: 'Тип транзакции',
+				direction: 'Transaction Direction',
 				pending: 'В ожидании',
 				outgoing: 'Исходящие',
 				incoming: 'Входящие',
 				self: 'Авто',
 				sender: 'Отправитель',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Получатель',
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: 'Сообщение',
 				noMessage: 'Нет сообщений',
 				encrypted: 'Сообщение зашифровано',
@@ -168,7 +278,25 @@
 				confirmations: 'Подтверждения',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Сумма',
-				fee: 'Оплата'
+				fee: 'Оплата',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'Загрузить как локальный узел',
@@ -244,6 +372,7 @@
 				password: "Пароль кошелька",
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был установлен как Главный!',
 				set: 'Установлен как главный',
+
 			},
 			changeWalletName: {
 				title: 'Изменить имя кошелька',
@@ -320,6 +449,21 @@
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. emember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Добавить'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Сохранить настройки',
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Удалить',
+
 			}
 		},
 		landing: {
@@ -335,7 +479,9 @@
 				leftButton: 'Создать новый кошелёк',
 				walletNamePlh: 'Имя Вашего кошелька',
 				passwordPlh: 'Пароль',
+				confirmPasswordPlh: 'Confirm password',
 				create: 'Создать',
+				creating: 'Creating...',
 				rightTitle: 'Вы уже <em>NEM</em>ber?',
 				rightButton: 'Открыть Ваш кошелёк',
 				openButton: 'Открыть',
@@ -343,35 +489,41 @@
 				copyright: 'Фотография <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC зашифровывает Ваш кошелёк',
-					description: '<em>Безопасность!</em> Важнейшая задача NEM состоит в защите Ваших NEM монет и активов.'
-				}, {
-					title: 'NCC зашифровывает Ваш кошелёк',
-					description: '<em>Безопасность!</em> Важнейшая задача NEM состоит в защите Ваших NEM монет и активов.'
-				}]
+				items: [
+					{
+						title: 'NCC зашифровывает Ваш кошелёк',
+						description: '<em>Безопасность!</em> Важнейшая задача NEM состоит в защите Ваших NEM монет и активов.'
+					},
+					{
+						title: 'NCC зашифровывает Ваш кошелёк',
+						description: '<em>Безопасность!</em> Важнейшая задача NEM состоит в защите Ваших NEM монет и активов.'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'Как работает NCC?',
-					paragraphs: [
-						'<strong>NCC</strong>предоставляет доступ к Вашим NEM монетам и активам  как обычный кошелёк. Вы можете',
-						'<strong>NCC</strong> требует доступ к<strong>NIS</strong>серверу для корректной работы. Локальный сервер должен быть активный ( устанавливается вместе с <strong>NCC</strong>)',
-						'Вы можете сконфигурировать доступ до удалённого  <strong>NIS</strong>.'
-					],
-					listItems: [
-						'Иметь несколько кошельков',
-						'Определить несколько аккаунтов, которые будут включены в кошелёк'
-					]
-				}, {
-					title: 'Что такое &#42;NIS?',
-					paragraphs: [
-						'Этот компонент отвечает за функционирование <strong>NEM</strong>cloud.',
-						'Чем больше <strong>NIS</strong> тем лучше безопасность.',
-						'<strong>NIS</strong>это точка доступа в<strong>NEM</strong> cloud.'
-					],
-					legend: '<strong>&#42;NIS</strong> расшифровывается как <strong>NEM Infrastructure Server</strong>'
-				}]
+				sections: [
+					{
+						title: 'Как работает NCC?',
+						paragraphs: [
+							'<strong>NCC</strong>предоставляет доступ к Вашим NEM монетам и активам  как обычный кошелёк. Вы можете',
+							'<strong>NCC</strong> требует доступ к<strong>NIS</strong>серверу для корректной работы. Локальный сервер должен быть активный ( устанавливается вместе с <strong>NCC</strong>)',
+							'Вы можете сконфигурировать доступ до удалённого  <strong>NIS</strong>.'
+						],
+						listItems: [
+							'Иметь несколько кошельков',
+							'Определить несколько аккаунтов, которые будут включены в кошелёк'
+						]
+					},
+					{
+						title: 'Что такое &#42;NIS?',
+						paragraphs: [
+							'Этот компонент отвечает за функционирование <strong>NEM</strong>cloud.',
+							'Чем больше <strong>NIS</strong> тем лучше безопасность.',
+							'<strong>NIS</strong>это точка доступа в<strong>NEM</strong> cloud.'
+						],
+						legend: '<strong>&#42;NIS</strong> расшифровывается как <strong>NEM Infrastructure Server</strong>'
+					}
+				]
 			},
 			footer: {
 				copyright: '© 2014 NEM Community Client.Все права защищены.'
@@ -403,12 +555,13 @@
 				clientInfo: 'Информация о Клиенте',
 				closeWallet: 'Закрыть Кошелёк',
 				closeProgram: 'Закрыть Программу',
-				copyClipboard: 'Скопируйте адрес в буфер обмена'
+				copyClipboard: 'Скопируйте адрес в буфер обмена',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Панель Управления',
 				'Сообщения',
-				'Контакты',
+				'Address Book',
 				'Транзакции',
 				'Собранные Блоки',
 				'Обмен Активов',
@@ -445,6 +598,7 @@
 			transactions: {
 				title: 'Недавние Транзакции',
 				sendNem: 'Послать NEM',
+				signMultisig: 'SIGN',
 				balance: 'Текущий Баланс',
 				syncStatus: '(Блок {{1}}{{#2}} : примерно {{3}} дней{{/2}})',
 				unknown: 'неизвестно',
@@ -459,12 +613,6 @@
 					'Оплата',
 					'Сумма'
 				],
-				types: {
-					pending: 'Незаконченные Транзакции',
-					outgoing: 'Исходящие Транзакции',
-					incoming: 'Входящие Транзакции',
-					self: 'Авто транзакции',
-				},
 				noMessage: 'Нет Сообщений',
 				encrypted: 'Сообщение Зашифровано',
 				view: 'Обзор',
@@ -493,6 +641,7 @@
 				unconfirmed: 'Неподтверждённых',
 				incoming: 'Входящие',
 				outgoing: 'Исходящие',
+
 			},
 			table: {
 				columns: [
@@ -506,12 +655,6 @@
 					'Оплата',
 					'Сумма'
 				],
-				types: {
-					pending: 'Транзакции в ожидании',
-					outgoing: 'Исходящие Транзакции',
-					incoming: 'Входящие Транзакции',
-					self: 'Авто транзакции',
-				},
 				noMessage: 'Нет сообщения',
 				encrypted: 'Сообщение Зашифровано',
 				view: 'Обзор',
@@ -546,11 +689,29 @@
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Послать NEM',
+			edit: 'Edit',
+			remove: 'Удалить'
+		},
 		settings: {
 			title: 'Настройки',
-			settings: [{
-				name: 'Язык'
-			}],
+			settings: [
+				{
+					name: 'Язык'
+				}
+			],
 			save: 'Сохранить настройки',
 			saveSuccess: 'Настройки успешно сохранены'
 		}

@@ -11,6 +11,7 @@ import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
+import org.nem.ncc.controller.viewmodels.TransactionViewModel;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
@@ -182,7 +183,7 @@ public class TransactionMapperTest {
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
 
 		// Assert:
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(1)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
 		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
 	}
 
@@ -264,8 +265,9 @@ public class TransactionMapperTest {
 		// Act:
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
 
-		// Assert:
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
+		// Assert (plain message has length < 32, secure messages has length 64):
+		final long messageFee = isSecure ? 20 : 10;
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2 + messageFee)));
 		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
 	}
 
@@ -284,7 +286,7 @@ public class TransactionMapperTest {
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
 
 		// Assert:
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(1)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
 		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(true));
 	}
 
@@ -299,7 +301,7 @@ public class TransactionMapperTest {
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
 
 		// Assert:
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(12)));
 		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(true));
 	}
 
@@ -310,6 +312,7 @@ public class TransactionMapperTest {
 	private static TransferSendRequest createSendRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
 		return new TransferSendRequest(
 				new WalletName("w"),
+				null,
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
@@ -317,12 +320,15 @@ public class TransactionMapperTest {
 				shouldEncrypt,
 				5,
 				new WalletPassword("p"),
-				Amount.fromNem(2));
+				Amount.fromNem(2),
+				Amount.ZERO,
+				TransactionViewModel.Type.Transfer.getValue());
 	}
 
 	private static TransferSendRequest createSendRequestWithoutMessage(final TestContext context, final String password) {
 		return new TransferSendRequest(
 				new WalletName("w"),
+				null,
 				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
@@ -330,7 +336,9 @@ public class TransactionMapperTest {
 				false,
 				5,
 				null == password ? null : new WalletPassword(password),
-				Amount.fromNem(2));
+				Amount.fromNem(2),
+				Amount.ZERO,
+				TransactionViewModel.Type.Transfer.getValue());
 	}
 
 	private static TransferImportanceRequest createRemoteHarvestRequest(final TestContext context, final String password) {
@@ -351,6 +359,7 @@ public class TransactionMapperTest {
 				this.timeProvider);
 
 		private final KeyPair signerKeyPair = new KeyPair();
+		private final Address multisigAddress = Utils.generateRandomAddress();
 		private final Account signer = new Account(this.signerKeyPair);
 		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;

@@ -401,7 +401,7 @@ public abstract class WalletTest {
 
 		// Assert:
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(3));
-		Assert.assertThat(jsonObject.get("name"), IsEqual.equalTo("bar"));
+		Assert.assertThat(jsonObject.get("wallet"), IsEqual.equalTo("bar"));
 		Assert.assertThat(getPrivateKey(jsonObject.get("primaryAccount")), IsEqual.equalTo(account.getPrivateKey()));
 		Assert.assertThat(
 				getPrivateKeys(jsonObject.get("otherAccounts")),

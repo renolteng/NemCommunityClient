@@ -7,15 +7,30 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'Archivo no encontrado.',
+			101: 'The wallet file does not exist.',
 			102: 'El monedero no ha sido creado.',
-			103: 'El archivo de monedero está corrupto. Favor recuperar su monedero de una copia de seguridad que debio de haber creado en el momento en que el monedero fue creado o en que agrego una cuenta a este.',
-			104: 'La contraseña especificada es inválida. Esperemos que pueda recordar la contraseña correcta. La contraseña no puede ser recuperada si se pierde!',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: 'Antes de que puedas comenzar a usar un monedero, este debe abrirse. Debes de proveer la contraseña para asegurar que eres elegible para accesar el monedero.',
 			107: 'El monedero no contiene esta cuenta.',
 			108: 'La cuenta no puede ser removida. Probablemente se debe a que la cuenta aún tiene un balance mayor de 0 NEMs o a que la cuenta que estás tratando de remover es la cuenta primaria.',
 			109: 'Ya existe un monedero con el mismo nombre. Por favor, elija otro nombre de monedero.',
 			110: 'Wallet already contains this account.',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: 'Enviar una transacción encriptada no es posible debido a que el destinatario nunca ha realizado una transacción.',
 			305: 'El Servidor de Infraestructura NEM no está disponible.',
 			306: 'Un error imprevisto ha ocurrido. Pedimos disculpas por este problema. Tal vez re-intentar ayude a resolver el problema. De otra ma nera',
@@ -25,6 +40,7 @@ define({
 			500: 'Error al guardar archivo de configuración.',
 			600: 'NCC requiere la iniciación de un servidor NIS para enviar y recibir transacciones de la nube NEM. Por favor, use las opciones de menu NCC para iniciar un servidor NIS local.',
 			601: 'El nodo NIS ya ha sido iniciado. No es válido intentar iniciar el nodo NIS ya estando iniciado.',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'La cuenta especificada no satisface los criterios básicos para recolectar. Normalmente este problema está relacionado al balance de la cuenta. Al menos 1000 NEMs son necesarios para participar en el proceso de recolecta.',
 			701: 'La fecha limite especificada esta en el pasado. La fecha limite especificada debe de estar dentro del periodo de un dia.',
 			702: 'La fecha limite especificada esta muy lejos en el futuro. La fecha limite especificada debe de estar dentro del periodo de un dia.',
@@ -35,13 +51,23 @@ define({
 			707: 'La marca de tiempo de la transacción esta muy lejos en el pasado.',
 			708: 'La marca de tiempo de la transacción esta muy lejos en el futuro.',
 			709: 'La cuenta es desconocida. Una cuenta necesita ser parte de al menos una transacción (ya sea emisor o destinatario) para ser conocida en la red.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'Error al intentar establecer modo fuera de linea.',
 			1000: 'La clave publica y la clave privada especificada no combinan.',
 			1001: 'La clave publica y la direccion especificada no combinan.',
 			1002: 'La direccion no pertenece a la red principal.'
 		},
 		common: {
-			success: 'Exito', //title of the Success message modals
+			success: 'Exito',
 			appStatus: {
 				nccUnknown: 'El estado de NCC es desconocido',
 				nccUnavailable: 'NCC no está disponible',
@@ -58,8 +84,32 @@ define({
 					1: '1 dia',
 					many: '{{1}} dias'
 				},
-				synchronized: 'NIS está sincronizado!'
-			}
+				synchronized: 'NIS está sincronizado!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: 'Contraseña',
+			passwordValidation: 'La contraseña no debe ser vacía',
+			address: 'Dirección',
+			privateLabel: 'Etiqueta privada',
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: 'Transacción pendiente',
+			outgoing: 'Transacción saliente',
+			incoming: 'Transacción entrante',
+			self: 'Transacción a si mismo',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@ define({
 				save: 'Guardar',
 				saveSuccess: 'La configuración ha sido actualizada con exito'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'Esta cuenta está etiquetada como {{1}}',
+				nullLabelDesc: "Esta cuenta no está etiquetada.",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancelar',
+				convert: 'Convert',
+				fee: 'Tarifa',
+				feeValidation: 'Tarifa no debe ser inferior a la tarifa mínima',
+				dueBy: 'Debido por',
+				useMinimumFee: 'Usar tarifa mínima',
+				hours: 'hora(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Cuenta de destinatario",
+					amount: 'Cantidad',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
+				sender: 'Cosignatory',
+				fee: 'Tarifa',
+				feeValidation: 'Tarifa no debe ser inferior a la tarifa mínima',
+				dueBy: 'Debido por',
+				useMinimumFee: 'Usar tarifa mínima',
+				hours: 'hora(s)',
+				password: 'Contraseña',
+				passwordValidation: 'La contraseña no debe ser vacía',
+				send: 'Enviar',
+				cancel: 'Cancelar',
+				sending: 'Enviando...',
+				successMessage: '¡La transacción ha sido enviada exitosamente!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: 'Mensaje',
+					encrypted: 'Mensaje esta encriptado',
+					noMessage: 'Sin mensaje',
+
+				},
+
+			},
 			sendNem: {
 				title: 'Enviar NEM',
+				sender: 'Emisor',
+				thisAccount: 'This account',
 				labelDesc: 'Esta cuenta está etiquetada como {{1}}',
 				nullLabelDesc: "Esta cuenta no está etiquetada.",
 				amount: 'Cantidad',
@@ -104,6 +209,7 @@ define({
 				message: 'Mensaje',
 				encrypt: 'Encriptar mensaje',
 				fee: 'Tarifa',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Tarifa no debe ser inferior a la tarifa mínima',
 				dueBy: 'Debido por',
 				useMinimumFee: 'Usar tarifa mínima',
@@ -118,7 +224,6 @@ define({
 					title: 'Confirmar Transacción',
 					amount: 'Cantidad',
 					to: 'Para',
-					fee: 'Tarifa',
 					dueBy: 'Debido por',
 					hours: 'hora(s)',
 					total: 'Total',
@@ -155,12 +260,17 @@ define({
 				id: 'ID',
 				hash: 'Hash',
 				type: 'Tipo de Transacción',
+				direction: 'Transaction Direction',
 				pending: 'Pendiente',
 				outgoing: 'Saliente',
 				incoming: 'Entrante',
 				self: 'Self',
 				sender: 'Emisor',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Cuenta de destinatario",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: 'Mensaje',
 				noMessage: 'Sin mensaje',
 				encrypted: 'Mensaje está encriptado.',
@@ -168,7 +278,25 @@ define({
 				confirmations: 'Confirmaciones',
 				confirmationsUnknown: 'Desconocido',
 				amount: 'Cantidad',
-				fee: 'Tarifa'
+				fee: 'Tarifa',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'Iniciar nodo local',
@@ -243,7 +371,8 @@ define({
 				wallet: 'Monedero',
 				password: "Contraseña de monedero",
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido definida como cuenta primaria!',
-				set: 'Definir como primaria'
+				set: 'Definir como primaria',
+
 			},
 			changeWalletName: {
 				title: 'Cambiar nombre de monedero',
@@ -319,7 +448,22 @@ define({
 				stop: 'Detener'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Añadir'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Guardar cambios',
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Remover',
+
 			}
 		},
 		landing: {
@@ -335,7 +479,9 @@ define({
 				leftButton: 'Crear nuevo monedero',
 				walletNamePlh: 'Nombre de su monedero',
 				passwordPlh: 'Contraseña',
+				confirmPasswordPlh: 'Confirm password',
 				create: 'Crear',
+				creating: 'Creating...',
 				rightTitle: 'Ya es miembro de <em>NEM</em>?',
 				rightButton: 'Abrir su monedero',
 				openButton: 'Abrir',
@@ -343,35 +489,41 @@ define({
 				copyright: 'Fotografía por <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC encripta su monedero',
-					description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas NEM y/o activos.'
-				}, {
-					title: 'NCC encripta su monedero',
-					description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas NEM y/o activos.'
-				}]
+				items: [
+					{
+						title: 'NCC encripta su monedero',
+						description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas NEM y/o activos.'
+					},
+					{
+						title: 'NCC encripta su monedero',
+						description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas NEM y/o activos.'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'Como funciona NCC?',
-					paragraphs: [
-						'<strong>NCC</strong> te provee acceso a tus activos y NEMs como cualquier monedero tradicional. Usted puede',
-						'<strong>NCC</strong> requiere acceso a un servidor <strong>NIS</strong> para poder operar. La convención es tener un servidor NIS local activo (instalado junto a <strong>NCC</strong>)',
-						'Usted también puede configurar acceso a un servidor <strong>NIS</strong> remoto'
-					],
-					listItems: [
-						'Have multiple wallets',
-						'Define multiple accounts to be included in a wallet'
-					]
-				}, {
-					title: 'Qué es &#42;NIS?',
-					paragraphs: [
-						'Este componente es responsable de mantener la nube <strong>NEM</strong> con vida',
-						'Mayor sera la seguridad mientras mas instancias de <strong>NIS</strong> esten conectadas a la nube <strong>NEM</strong>',
-						'<strong>NIS</strong> es el punto de acceso a la nube <strong>NEM</strong>'
-					],
-					legend: '<strong>&#42;NIS</strong> significa <strong>Servidor de Infraestructura NEM</strong>'
-				}]
+				sections: [
+					{
+						title: 'Como funciona NCC?',
+						paragraphs: [
+							'<strong>NCC</strong> te provee acceso a tus activos y NEMs como cualquier monedero tradicional. Usted puede',
+							'<strong>NCC</strong> requiere acceso a un servidor <strong>NIS</strong> para poder operar. La convención es tener un servidor NIS local activo (instalado junto a <strong>NCC</strong>)',
+							'Usted también puede configurar acceso a un servidor <strong>NIS</strong> remoto'
+						],
+						listItems: [
+							'Have multiple wallets',
+							'Define multiple accounts to be included in a wallet'
+						]
+					},
+					{
+						title: 'Qué es &#42;NIS?',
+						paragraphs: [
+							'Este componente es responsable de mantener la nube <strong>NEM</strong> con vida',
+							'Mayor sera la seguridad mientras mas instancias de <strong>NIS</strong> esten conectadas a la nube <strong>NEM</strong>',
+							'<strong>NIS</strong> es el punto de acceso a la nube <strong>NEM</strong>'
+						],
+						legend: '<strong>&#42;NIS</strong> significa <strong>Servidor de Infraestructura NEM</strong>'
+					}
+				]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2014. Cliente de Comunidad NEM.'
@@ -403,12 +555,13 @@ define({
 				clientInfo: 'Informacion de cliente',
 				closeWallet: 'Cerrar monedero',
 				closeProgram: 'Cerrar programa',
-				copyClipboard: 'Copiar dirección al portapapeles'
+				copyClipboard: 'Copiar dirección al portapapeles',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Panel de información',
 				'Mensajes',
-				'Contactos',
+				'Address Book',
 				'Transacciones',
 				'Bloques recolectados',
 				'Intercambio de activos',
@@ -445,6 +598,7 @@ define({
 			transactions: {
 				title: 'Transacciones recientes',
 				sendNem: 'Enviar NEM',
+				signMultisig: 'SIGN',
 				balance: 'Saldo actual',
 				syncStatus: '(En el bloque {{1}}{{#2}}: aproximadamente {{3}} dia(s) atras{{/2}})',
 				unknown: 'desconocido',
@@ -459,12 +613,6 @@ define({
 					'Tarifa',
 					'Cantidad'
 				],
-				types: {
-					pending: 'Transacción pendiente',
-					outgoing: 'Transacción saliente',
-					incoming: 'Transacción entrante',
-					self: 'Transacción a sí mismo'
-				},
 				noMessage: 'Sin mensaje',
 				encrypted: 'Mensaje esta encriptado',
 				view: 'Ver',
@@ -492,7 +640,8 @@ define({
 				confirmed: 'Confirmadas',
 				unconfirmed: 'Sin confirmar',
 				incoming: 'Entrantes',
-				outgoing: 'Salientes'
+				outgoing: 'Salientes',
+
 			},
 			table: {
 				columns: [
@@ -506,12 +655,6 @@ define({
 					'Tarifa',
 					'Cantidad'
 				],
-				types: {
-					pending: 'Transacción pendiente',
-					outgoing: 'Transacción saliente',
-					incoming: 'Transacción entrante',
-					self: 'Transacción a si mismo'
-				},
 				noMessage: 'Sin mensaje',
 				encrypted: 'Mensaje esta encriptado',
 				view: 'Ver',
@@ -546,11 +689,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Enviar NEM',
+			edit: 'Edit',
+			remove: 'Remover'
+		},
 		settings: {
 			title: 'Configuración',
-			settings: [{
-				name: 'Idioma'
-			}],
+			settings: [
+				{
+					name: 'Idioma'
+				}
+			],
 			save: 'Guardar cambios',
 			saveSuccess: 'La configuración ha sido actualizada con exito'
 		}

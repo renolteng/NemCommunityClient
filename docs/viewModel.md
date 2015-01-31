@@ -18,6 +18,16 @@ The transaction hash parameter is optional.
 }
 ```
 
+### AccountLabel
+
+```
+{
+	"address" : "TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS",
+	"publicLabel": "Alice",
+	"privateLabel": "sister"
+}
+```
+
 ### AccountTransactionIdRequest
 The transaction id parameter is optional.
 
@@ -76,7 +86,7 @@ The transaction id parameter is optional.
 	"blockHeight" : 80765,
 		"direction": 1
 	}],
-	"foragedBlocks": 97,
+	"harvestedBlocks": 97,
 	"status": "UNLOCKED"
 	"remoteStatus": "ACTIVATING"
 }
@@ -112,7 +122,7 @@ possible status values
 	"importance": 0.0,
 	"label": "private Label",
 	"publicKey": null,
-	"foragedBlocks": 0,
+	"harvestedBlocks": 0,
 	"status": "LOCKED"
 }
 ```
@@ -134,11 +144,50 @@ possible status values
 }
 ```
 
+### AddressBookNamePasswordBag
+ ```
+ {
+ 	"addressBook": "myAddresses",
+ 	"password": "mySecretPassword",
+ 	"newName": "newNameForAddressBook",					# optional, required for address book name change
+ 	"newPassword": "newAndVerySecretPassword",				# optional, required for password change
+ 	"address": "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",	# optional, required for account label related requests
+ 	"publicLabel": "Alice",								# optional, required for account label related requests
+ 	"privateLabel": "sister"							# optional, required for account label related requests
+ }
+ ```
+
+### AddressBookNamePasswordPair
+```
+{
+	"addressBook": "myAddressBook",
+	"password": "mySecretPassword"
+}
+```
+
+### AddressBookViewModel
+
+```
+{
+	"addressBook": "myAddressBook",
+	"accountLabels" : [{
+		"address": "TALICELCD3XPH4FFI5STGGNSNSWPOTG5E4DS2TOS",
+		"publicLabel": "Alice",
+		"privateLabel": "sister"
+	},
+	{
+		"address": "TBOBBSXX7BESJXDWGLP5Z7FM5HSTKUH5WIMPW562",
+		"publicLabel": "Bob",
+		"privateLabel": "brother"
+	}]
+}
+```
+
 ### BootNodeRequest
 
 ```
 {
-	"node_name": "Arthur",
+	"nodeName": "Arthur",
 	"wallet": "PrivateWallet",
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2"
 }
@@ -330,7 +379,7 @@ Only a local NIS can be booted.
 	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	"wallet" : "Test-Wallet",
 	"password": "Very Secret Password To The Wallet",
-	"hours_due": "6" // (max: 24)
+	"hoursDue": "6" // (max: 24)
 }
 ```
 
@@ -346,7 +395,7 @@ Only a local NIS can be booted.
 	"fee": 1.0,
 	"message": "My first message",
 	"encrypt": 1,
-	"hours_due": 18
+	"hoursDue": 18
 }
 ```
 
@@ -387,10 +436,12 @@ Only a local NIS can be booted.
 {
 	"wallet": "PrivateWallet",
 	"password": "Very Secret Password To The Wallet",
-	"new_password": "NEW very secret Password",   # optional, required for password change
-	"new_name": "P-Wallet"         ,   # optional, required for wallet name change
-	"label": "my private label"    ,   # optional, used during account creation and label change   
-	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2"
+	"newPassword": "NEW very secret Password",   # optional, required for password change
+	"newName": "P-Wallet"         ,   # optional, required for wallet name change
+	"label": "my private label"    ,   # optional, used during account creation and label change
+	"accountKey": "23ec43284fe99e0bef912682a4a3b963e17b658dc0e4b9c596436bb331613389"
+										# optional
+	"account" : "TCN33UYH7OREBBFPA4D7GAE6TALNAZJOF6ZPDVA2",
 	                                   # optional, required for remove account, label change
 }
 ```
@@ -417,7 +468,7 @@ Only a local NIS can be booted.
 		"importance": 0.0,
 		"label": null,
 		"publicKey": "03c55bd250e56c292ed4c898b0883676313283251d21b6a9099bb989db99d736d2",
-		"foragedBlocks": 0,
+		"harvestedBlocks": 0,
 		"status": "LOCKED",
 		"remoteStatus": "INACTIVE"
 	}

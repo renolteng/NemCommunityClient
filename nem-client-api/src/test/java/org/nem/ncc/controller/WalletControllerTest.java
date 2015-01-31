@@ -94,7 +94,7 @@ public class WalletControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "w1");
 		jsonObject.put("password", "p1");
-		jsonObject.put("new_password", "p2");
+		jsonObject.put("newPassword", "p2");
 		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
 		final TestContext context = new TestContext();
 
@@ -112,7 +112,7 @@ public class WalletControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "w1");
 		jsonObject.put("password", "p1");
-		jsonObject.put("new_name", "w2");
+		jsonObject.put("newName", "w2");
 		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
 		final TestContext context = new TestContext();
 
@@ -129,6 +129,8 @@ public class WalletControllerTest {
 	private static class TestContext {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
 		private final WalletMapper walletMapper = Mockito.mock(WalletMapper.class);
-		private final WalletController controller = new WalletController(this.walletServices, this.walletMapper);
+		private final WalletController controller = new WalletController(
+				this.walletServices,
+				this.walletMapper);
 	}
 }

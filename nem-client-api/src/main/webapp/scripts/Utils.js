@@ -1,6 +1,6 @@
 "use strict";
 
-define(function() {
+define(['TransactionType'], function(TransactionType) {
     var Utils = {
         config: {
             addressCharacters: 40,
@@ -16,7 +16,8 @@ define(function() {
             STATUS_RUNNING: 3,
             STATUS_BOOTING: 4,
             STATUS_BOOTED: 5,
-            STATUS_SYNCHRONIZED: 6
+            STATUS_SYNCHRONIZED: 6,
+            STATUS_NO_REMOTE_NIS_AVAILABLE: 7
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);
@@ -295,11 +296,12 @@ define(function() {
             },
             address: {
                 format: function(address) {
+                    if (!address) return address;
                     var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
                     return segments.join('-').toUpperCase();
                 },
-                restore: function(address) {
-                    return address.replace(/\-/g, '');
+                restore: function(formattedAddress) {
+                    return formattedAddress && formattedAddress.replace(/\-/g, '');
                 },
             },
             date: {
@@ -361,7 +363,8 @@ define(function() {
                 nem: function() {
                     return new RegExp('^[0-9' + Utils.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')) + ']$');
                 },
-                address: /^[0-9a-zA-Z]$/
+                address: /^[0-9a-zA-Z]$/,
+                number: /^[0-9]$/
             },
             transform: {
                 address: function(char) {
@@ -377,6 +380,9 @@ define(function() {
                 }
             },
             caretStickToRight: {
+                'default': function(oldCaret, oldText, newText) {
+                    return oldCaret + newText.length - oldText.length;
+                },
                 nem: function(oldCaret, oldText, newText) {
                     var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
                     var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
@@ -434,6 +440,9 @@ define(function() {
                 }
             },
             caretStickToLeft: {
+                'default': function(oldCaret) {
+                    return oldCaret;
+                },
                 nem: function(oldCaret, oldText, newText) {
                     var decimalSeparator = ncc.get('texts.preferences.decimalSeparator');
                     var tsLength = ncc.get('texts.preferences.thousandSeparator').length;
@@ -499,7 +508,7 @@ define(function() {
 
                 newText = this.reformatTextbox(target, type, newText, ractive);
 
-                var caretStickToRight = this.caretStickToRight[type];
+                var caretStickToRight = this.caretStickToRight[type] || this.caretStickToRight['default'];
                 if (typeof caretStickToRight === 'function') {
                     var newCaret = caretStickToRight(caretEnd, oldText, newText);
                     target.setSelectionRange(newCaret, newCaret);
@@ -557,7 +566,7 @@ define(function() {
 
                         newText = this.reformatTextbox(target, type, newText, ractive);
 
-                        var caretStickToRight = this.caretStickToRight[type];
+                        var caretStickToRight = this.caretStickToRight[type] || this.caretStickToRight['default'];
                         if (typeof caretStickToRight === 'function') {
                             var newCaret = caretStickToRight(caret, oldText, newText);
                             target.setSelectionRange(newCaret, newCaret);
@@ -575,7 +584,7 @@ define(function() {
 
                         newText = this.reformatTextbox(target, type, newText, ractive);
 
-                        var caretStickToLeft = this.caretStickToLeft[type];
+                        var caretStickToLeft = this.caretStickToLeft[type] || this.caretStickToLeft['default'];
                         if (typeof caretStickToLeft === 'function') {
                             var newCaret = caretStickToLeft(caret, oldText, newText);
                             target.setSelectionRange(newCaret, newCaret);
@@ -598,16 +607,68 @@ define(function() {
 
         // PROCESSING
         processTransaction: function(tx) {
-            tx.isIncoming = tx.direction === 1 || tx.direction === 0;
-            tx.isOutgoing = tx.direction === 2;
-            tx.isSelf = tx.direction === 3;
+            var transferTransaction = tx;
+            var currentFee = 0;
+            // multisig
+            if (tx.type == TransactionType.Multisig_Transfer) {
+                tx.isMultisig = true;
+                transferTransaction = tx.inner;
+                tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
+                tx.recipient = transferTransaction.recipient
+                tx.message = tx.inner.message;
+
+                tx.multisig={};
+                tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
+                tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
+                tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
+                tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
+
+                var fees = tx.fee + tx.signatures
+                    .map(function(d){return d.fee})
+                    .reduce(function(p,c){return p+c}, 0);
+
+                tx.multisig.formattedFees = Utils.format.nem.formatNemAmount(fees, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullFees = Utils.format.nem.formatNemAmount(fees);
+
+                var total = fees + tx.inner.fee + tx.inner.amount;
+                tx.multisig.formattedTotal = Utils.format.nem.formatNemAmount(total, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedFullTotal = Utils.format.nem.formatNemAmount(total);
+
+                tx.multisig.deadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
+
+                currentFee = 0;
+            }
+            else
+            {
+                tx.isMultisig = false;
+                currentFee = tx.fee;
+            }
+
+            // importance transfer
+            if (tx.type == TransactionType.Importance_Transfer) {
+                tx.recipient = tx.remote;
+                tx.isIncoming = false;
+                tx.isOutgoing = false;
+                tx.isSelf = true;
+            }
+
+            if (transferTransaction.type == TransactionType.Transfer)
+            {
+                tx.isIncoming = transferTransaction.direction === 1; //  || transferTransaction.direction === 0;
+                tx.isOutgoing = transferTransaction.direction === 2;
+                tx.isSelf = transferTransaction.direction === 3;
+            }
+
             tx.formattedSender = Utils.format.address.format(tx.sender);
-            tx.formattedRecipient = Utils.format.address.format(tx.recipient);
-            tx.formattedFee = Utils.format.nem.formatNemAmount(tx.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedFullFee = Utils.format.nem.formatNemAmount(tx.fee);
-            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.amount);
+            tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
+
+            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
+            tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
             return tx;
         },
         processTransactions: function(transactions) {
@@ -657,6 +718,13 @@ define(function() {
             }
 
             return wallet;
+        },
+        processContacts: function(ab) {
+            for (var i = 0; i < ab.length; i++) {
+                ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
+            }
+
+            return ab;
         }
     };
     return Utils;

@@ -1,16 +1,12 @@
 package org.nem.ncc.model;
 
-import org.nem.core.model.Address;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-
-import java.util.*;
 
 /**
  * Configuration that is persisted across sessions.
  */
-public class Configuration implements SerializableEntity, AccountLabels {
-	private final HashMap<Address, AccountLabel> accountLabels;
+public class Configuration implements SerializableEntity {
 	private String language;
 	private NodeEndpoint nisEndpoint;
 	private NisBootInfo nisBootInfo;
@@ -32,7 +28,6 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		this.nisEndpoint = nisEndpoint;
 		this.nisBootInfo = nisBootInfo;
 		this.nemFolder = nemFolder;
-		this.accountLabels = new HashMap<>();
 	}
 
 	/**
@@ -54,12 +49,6 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		}
 
 		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
-
-		this.accountLabels = new HashMap<>();
-		final List<AccountLabel> labels = deserializer.readObjectArray("accountLabels", AccountLabel::new);
-		for (final AccountLabel label : labels) {
-			this.accountLabels.put(label.getAddress(), label);
-		}
 	}
 
 	/**
@@ -114,30 +103,6 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		return this.nemFolder;
 	}
 
-	//region AccountLabels implementation
-
-	@Override
-	public int getNumLabels() {
-		return this.accountLabels.size();
-	}
-
-	@Override
-	public AccountLabel getLabel(final Address address) {
-		return this.accountLabels.get(address);
-	}
-
-	@Override
-	public void setLabel(final Address address, final String label, final String privateLabel) {
-		this.accountLabels.put(address, new AccountLabel(address, label, privateLabel));
-	}
-
-	@Override
-	public void removeLabel(final Address address) {
-		this.accountLabels.remove(address);
-	}
-
-	//endregion
-
 	/**
 	 * Updates the persistent configuration based with the supplied parameters.
 	 *
@@ -156,6 +121,5 @@ public class Configuration implements SerializableEntity, AccountLabels {
 		serializer.writeString("language", this.language);
 		serializer.writeObject("remoteServer", this.nisEndpoint);
 		serializer.writeObject("nisBootInfo", this.nisBootInfo);
-		serializer.writeObjectArray("accountLabels", this.accountLabels.values());
 	}
 }

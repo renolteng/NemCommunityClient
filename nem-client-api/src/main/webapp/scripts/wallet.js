@@ -1,20 +1,30 @@
 "use strict";
 
-define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
+define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, ncc, NccLayout, Utils, TransactionType) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
         template: 'rv!layout/wallet',
         initOnce: function() {
+            ncc.refreshAddressBook = function(addressBook, silent) {
+                if (!addressBook) addressBook = ncc.get('wallet.wallet');
+                
+                ncc.postRequest('addressbook/info', { addressBook: addressBook }, function(data) {
+                    ncc.set('contacts', Utils.processContacts(data.accountLabels));
+                }, null, silent);
+            }
+
             ncc.refreshWallet = function(wallet, silent) {
-                if (!wallet) wallet = ncc.get('wallet.name');
+                if (!wallet) wallet = ncc.get('wallet.wallet');
 
                 ncc.postRequest('wallet/info', { wallet: wallet }, function(data) {
                     ncc.set('wallet', Utils.processWallet(data));
                 }, null, silent);
+
+                ncc.refreshAddressBook(wallet, silent);
             };
 
             ncc.refreshRemoteHarvestingStatus = function(wallet, account, silent) {
-                if (!wallet) wallet = ncc.get('wallet.name');
+                if (!wallet) wallet = ncc.get('wallet.wallet');
                 if (!account) account = ncc.get('activeAccount.address');
 
                 ncc.postRequest('wallet/account/remote/status', 
@@ -35,7 +45,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             };
 
             ncc.refreshAccount = function(wallet, account, silent) {
-                if (!wallet) wallet = ncc.get('wallet.name');
+                if (!wallet) wallet = ncc.get('wallet.wallet');
                 if (!account) account = ncc.get('activeAccount.address');
 
                 var success = false;
@@ -84,7 +94,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             ncc.showBootModal = function(message) {
                 var account = ncc.get('activeAccount.address');
                 var accountLabel = ncc.get('activeAccount.label');
-                var wallet = ncc.get('wallet.name');
+                var wallet = ncc.get('wallet.wallet');
                 ncc.showInputForm(ncc.get('texts.modals.bootLocalNode.title'), message,
                     [
                         {
@@ -114,7 +124,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         }, 
                         {
-                            name: 'node_name', 
+                            name: 'nodeName',
                             type: 'text',
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.node')
@@ -157,6 +167,196 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 );
             };
 
+            ncc.openSendNem = function(recipient) {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('sendNem');
+                    m.open();
+                    if (recipient) {
+                        m.set('formattedRecipient', Utils.format.address.format(recipient));
+                    }
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
+            ncc.openSignMultisig = function(transaction) {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('signMultisig');
+                    m.open();
+                    m.set('txData', transaction);
+
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
+            ncc.viewTransaction = function(transaction) {
+                var m = ncc.getModal('transactionDetails');
+                m.set('TransactionType', TransactionType);
+                m.set('transaction', transaction);
+                m.open();
+            };
+
+            ncc.viewAccount = function(address) {
+                ncc.postRequest(
+                    'account/find', 
+                    {account: Utils.format.address.restore(address)},
+                    function(data) {
+                        var m = ncc.getModal('accountDetails');
+                        m.set('account', data);
+                        m.open();
+                    });
+            };
+
+            ncc.addContact = function(address) {
+                ncc.showInputForm(ncc.get('texts.modals.addContact.title'), '',
+                    [
+                        {
+                            name: 'addressBook',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.common.addressBook')
+                            }
+                        },
+                        {
+                            name: 'address',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.address')
+                            }
+                        },
+                        {
+                            name: 'privateLabel',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.privateLabel')
+                            }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.common.password')
+                            }
+                        },
+                    ],
+                    {
+                        addressBook: ncc.get('wallet.wallet'),
+                        address: Utils.format.address.format(address)
+                    },
+                    function(values, closeModal) {
+                        values.address = Utils.format.address.restore(values.address);
+                        ncc.postRequest('addressbook/accountlabel/add', values, function(data) {
+                            closeModal();
+                            ncc.refreshAddressBook();
+                        });
+                    },
+                    ncc.get('texts.modals.addContact.add')
+                );
+            };
+
+            ncc.editContact = function(address, privateLabel) {
+                ncc.showInputForm(ncc.get('texts.modals.editContact.title'), '',
+                    [
+                        {
+                            name: 'addressBook',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.common.addressBook')
+                            }
+                        },
+                        {
+                            name: 'address',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.address')
+                            }
+                        },
+                        {
+                            name: 'privateLabel',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.privateLabel')
+                            }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.common.password')
+                            }
+                        },
+                    ],
+                    {
+                        addressBook: ncc.get('wallet.wallet'),
+                        address: Utils.format.address.format(address),
+                        privateLabel: privateLabel
+                    },
+                    function(values, closeModal) {
+                        values.address = Utils.format.address.restore(values.address);
+                        ncc.postRequest('addressbook/accountlabel/change', values, function(data) {
+                            closeModal();
+                            ncc.refreshAddressBook();
+                        });
+                    },
+                    ncc.get('texts.modals.editContact.saveChanges')
+                );
+            };
+
+            ncc.removeContact = function(address) {
+                ncc.showInputForm(ncc.get('texts.modals.removeContact.title'), '',
+                    [
+                        {
+                            name: 'addressBook',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.common.addressBook')
+                            }
+                        },
+                        {
+                            name: 'address',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.address')
+                            }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.common.password')
+                            }
+                        },
+                    ],
+                    {
+                        addressBook: ncc.get('wallet.wallet'),
+                        address: Utils.format.address.format(address)
+                    },
+                    function(values, closeModal) {
+                        values.address = Utils.format.address.restore(values.address);
+                        ncc.postRequest('addressbook/accountlabel/remove', values, function(data) {
+                            closeModal();
+                            ncc.refreshAddressBook();
+                        });
+                    },
+                    ncc.get('texts.modals.removeContact.remove')
+                );
+            };
+
             ncc.on('registerScrollableSidebar', function(e) {
                 var $sidebarNav = $(e.node);
                 var navBottom = $sidebarNav.offset().top + $sidebarNav.outerHeight();
@@ -178,8 +378,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 ncc.loadPage('landing');
                 return true;
             } else {
-                if (!ncc.get('wallet') || ncc.get('wallet.name') != wallet) {
-                    ncc.set('wallet.name', wallet);
+                if (!ncc.get('wallet') || ncc.get('wallet.wallet') != wallet) {
+                    ncc.set('wallet.wallet', wallet);
                     ncc.refreshWallet(wallet);
                 }
             }
@@ -212,17 +412,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             local.listeners.push(ncc.on({
                 toggleSidebar: function() {
                     ncc.set('walletPage.miniSidebar', !ncc.get('walletPage.miniSidebar'));
-                },
-                openSendNem: function() {
-                    if (ncc.get('nodeBooted')) {
-                        ncc.getModal('sendNem').open();
-                    } else if (ncc.get('nodeBooting')) {
-                        ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
-                    } else {
-                        ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
-                            ncc.showBootModal();
-                        });
-                    }
                 },
                 showClientInfo: function() {
                     var modal = ncc.getModal('clientInfo');
@@ -258,13 +447,20 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 closeWallet: function() {
                     ncc.showConfirmation(ncc.get('texts.modals.closeWallet.title'), ncc.get('texts.modals.closeWallet.message'), {
                         yes: function() {
-                            ncc.postRequest('wallet/close', { wallet: ncc.get('wallet.name') }, function(data) {
+                            var requestData = {
+                                wallet: ncc.get('wallet.wallet') 
+                            };
+                            ncc.postRequest('wallet/close', requestData, function(data) {
                                 if (data.ok) {
                                     ncc.loadPage('landing');
                                 } else {
                                     ncc.showError();
                                 }
                             });
+
+                            requestData.addressBook = requestData.wallet;
+                            delete requestData.wallet;
+                            ncc.postRequest('addressbook/close', requestData);
                         }
                     });
                 },
@@ -273,7 +469,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     if (currentAccount !== newAccount) {
                         var layouts = ncc.get('layout');
                         var currentPage = layouts[layouts.length - 1].name;
-                        var wallet = ncc.get('wallet.name');
+                        var wallet = ncc.get('wallet.wallet');
                         ncc.loadPage(currentPage, { wallet: wallet, account: newAccount });
                     }
                 },
@@ -283,7 +479,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     this.refreshNisInfo();
                 },
                 createNewAccount: function() {
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.createAccount.title'), '',
                         [
                             {
@@ -320,7 +516,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                     ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.createAccount.successMessage'), Utils.format.address.format(data.address), label));
 
                                     var layout = ncc.get('layout');
-                                    var wallet = ncc.get('wallet.name');
+                                    var wallet = ncc.get('wallet.wallet');
                                     ncc.loadPage(layout[layout.length - 1].name, 
                                         {
                                             wallet: wallet,
@@ -510,11 +706,11 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     );
                 },
                 addAccount: function() {
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.addAccount.title'), '',
                         [
                             {
-                                name: 'account_key',
+                                name: 'accountKey',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.addAccount.privateKey')
@@ -554,7 +750,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                     ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.addAccount.successMessage'), Utils.format.address.format(data.address), label));
 
                                     var layout = ncc.get('layout');
-                                    var wallet = ncc.get('wallet.name');
+                                    var wallet = ncc.get('wallet.wallet');
                                     ncc.loadPage(layout[layout.length - 1].name, 
                                         {
                                             wallet: wallet,
@@ -575,7 +771,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 setCurrentAccountAsPrimary: function() {
                     var account = ncc.get('activeAccount.address');
                     var accountLabel = ncc.get('activeAccount.label');
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.setPrimary.title'), '',
                         [
                             {
@@ -630,15 +826,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 bootLocalNode: function(e, message) {
                     ncc.showBootModal(message);
                 },
-                viewTransaction: (function() {
-                    var modal = ncc.getModal('transactionDetails');
-                    return function(e, transaction) {
-                        modal.set('transaction', transaction);
-                        modal.open();
-                    };
-                })(),
                 changeWalletName: function() {
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.changeWalletName.title'), '',
                         [
                             {
@@ -651,7 +840,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             },
                             {
-                                name: 'new_name',
+                                name: 'newName',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletName.newName')
@@ -669,18 +858,34 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             wallet: wallet
                         },
                         function(values, closeModal) {
-                            ncc.postRequest('wallet/name/change', values, function(data) {
-                                var newWalletName = values['new_name'];
-                                ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
-                                ncc.set('wallet', Utils.processWallet(data));
-                                closeModal();
+                            var oneCompleted = false;
+                            var newWalletName = values['newName'];
+
+                            ncc.postRequest('wallet/name/change', values, function() {
+                                if (oneCompleted) {
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
+                                    closeModal();
+                                } else {
+                                    oneCompleted = true;
+                                }
+                            });
+
+                            values.addressBook = values.wallet;
+                            delete values.wallet;
+                            ncc.postRequest('addressbook/name/change', values, function() {
+                                if (oneCompleted) {
+                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.changeWalletName.successMessage'), wallet, newWalletName));
+                                    closeModal();
+                                } else {
+                                    oneCompleted = true;
+                                }
                             });
                         },
                         ncc.get('texts.modals.changeWalletName.change')
                     );
                 },
                 changeWalletPassword: function() {
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.changeWalletPassword.title'), '',
                         [
                             {
@@ -700,7 +905,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                                 }
                             },
                             {
-                                name: 'new_password',
+                                name: 'newPassword',
                                 type: 'password',
                                 label: {
                                     content: ncc.get('texts.modals.changeWalletPassword.newPassword')
@@ -718,11 +923,28 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             wallet: wallet
                         },
                         function(values, closeModal) {
-                            if (values['new_password'] === values.confirmPassword) {
-                                values.confirmPassword = undefined;
-                                ncc.postRequest('wallet/password/change', values, function(data) {
-                                    ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
-                                    closeModal();
+                            if (values['newPassword'] === values.confirmPassword) {
+                                var oneCompleted = false;
+                                delete values.confirmPassword;
+
+                                ncc.postRequest('wallet/password/change', values, function() {
+                                    if (oneCompleted) {
+                                        ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
+                                        closeModal();
+                                    } else {
+                                        oneCompleted = true;
+                                    }
+                                });
+
+                                values.addressBook = values.wallet;
+                                delete values.wallet;
+                                ncc.postRequest('addressbook/password/change', values, function() {
+                                    if (oneCompleted) {
+                                        ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.changeWalletPassword.successMessage'));
+                                        closeModal();
+                                    } else {
+                                        oneCompleted = true;
+                                    }
                                 });
                             } else {
                                 ncc.showMessage(ncc.get('texts.modals.changeWalletPassword.passwordNotMatchTitle'), ncc.get('texts.modals.changeWalletPassword.passwordNotMatchMessage'));
@@ -732,20 +954,20 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     );
                 },
                 changeAccountLabel: function() {
-                    var wallet = ncc.get('wallet.name');
-                    var account = ncc.get('activeAccount.address');
-                    var accountLabel = ncc.get('activeAccount.label');
+                    var wallet = ncc.get('wallet.wallet');
+                    var address = ncc.get('activeAccount.address');
+                    var label = ncc.get('activeAccount.label');
                     ncc.showInputForm(ncc.get('texts.modals.changeAccountLabel.title'), '',
                         [
                             {
-                                name: 'label',
+                                name: 'privateLabel',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.changeAccountLabel.label')
                                 }
                             },
                             {
-                                name: 'wallet',
+                                name: 'addressBook',
                                 type: 'text',
                                 readonly: true,
                                 unimportant: true,
@@ -762,12 +984,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         ],
                         {
-                            wallet: wallet,
-                            account: account,
-                            label: accountLabel
+                            addressBook: wallet,
+                            address: address,
+                            privateLabel: label
                         },
                         function(values, closeModal) {
-                            ncc.postRequest('wallet/account/label', values, function(data) {
+                            ncc.postRequest('addressbook/accountlabel/change', values, function(data) {
                                 var label = values.label;
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
@@ -781,7 +1003,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                     );
                 },
                 removeAccount: function() {
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     var account = ncc.get('activeAccount.address');
                     var accountLabel = ncc.get('activeAccount.label');
                     ncc.showInputForm(ncc.get('texts.modals.removeAccount.title'), 
@@ -824,7 +1046,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 },
                 startHarvesting: function() {
                     var account = ncc.get('activeAccount.address');
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.set('walletPage.harvestButtonProcessing', true);
                     ncc.postRequest('wallet/account/unlock', 
                     {
@@ -844,7 +1066,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                 },
                 stopHarvesting: function() {
                     var account = ncc.get('activeAccount.address');
-                    var wallet = ncc.get('wallet.name');
+                    var wallet = ncc.get('wallet.wallet');
                     ncc.set('walletPage.harvestButtonProcessing', true);
                     ncc.postRequest('wallet/account/lock', 
                     {
@@ -892,7 +1114,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         ],
                         {
-                            wallet: ncc.get('wallet.name'),
+                            wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address')
                         },
                         function(values, closeModal) {
@@ -946,7 +1168,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                             }
                         ],
                         {
-                            wallet: ncc.get('wallet.name'),
+                            wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address')
                         },
                         function(values, closeModal) {
@@ -973,8 +1195,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
                         // default the node name to a substring of the account name so that auto-boot works out-of-box
                         var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
                         var bootData = {
-                            node_name: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
-                            wallet: ncc.get('wallet.name'),
+                            nodeName: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
+                            wallet: ncc.get('wallet.wallet'),
                             account: accountName
                         };
 
@@ -1010,6 +1232,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
         leave: [function() {            
             ncc.global.$window.off('resize.scrollableSidebar');
             ncc.global.$window.off('beforeunload');
+            ncc.set('contacts', {});
         }]
     });
 });

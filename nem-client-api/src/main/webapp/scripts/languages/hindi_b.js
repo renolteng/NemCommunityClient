@@ -1,4 +1,4 @@
-﻿ define({
+define({
 	id: 'Hn',
 	name: 'हिन्दी (Hindi)',
 	texts: {
@@ -7,15 +7,30 @@
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'फ़ाइल नहीं मिली.',
+			101: 'The wallet file does not exist.',
 			102: 'वॉलेट बनाया नहीं गया हे.',
-			103: 'वॉलेट फ़ाइल अनुपयोगी है. कृपया बैक अप फ़ाइल से वॉलेट की वसूली कीजिये.',
-			104: 'पासवर्ड गलत है. उम्मीद है कि आप सही पासवर्ड याद कर सकते हैं. अगर पासवर्ड खो गया हे तो बरामद नहीं किया  जा सकता हे!',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: 'वॉलेट खोलने के बाद हि आप इस्के साथ काम कर सक्ते हैं. वॉलेट का उपयोग करने के लिए आपको पासवर्ड प्रदान  कर्ना हे.',
 			107: 'वॉलेट मे अकाउंट शामिल नहीं है.',
 			108: 'अकाउंट नहीं हटाया जा सकता हे. यह संभावना है कि अकाउंट खाली नही हे या फिर आप प्राइमरी अकाउंट को हटाने की कोशिश कर रहें हें.',
 			109: 'इसी नाम से एक और वॉलेट पहले से ही मौजूद है. एक अन्य नाम चुनें.',
 			110: 'अकाउंट पहले से ही इस वॉलेट में हे.',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: 'एन्क्रिप्टेड मेसेज नहीं भेजा जा सकता हे क्योंकि रेसिपईयेंट ने अभी तक एक बार भी NEM का ट्रांजैक्शन नही किया है.',
 			305: 'NEM इंफ्रास्ट्रक्चर सर्वर उपलब्ध नहीं है.',
 			306: 'एक एरर आ गया हे जिसके बारे में विकास टीम ने नही सोचा था. इस बात के लिए हम माफी चाहते हें, शायद एक बार फिरसे प्रयास करने पर मदद मिल सकती है. अन्यथा, NEM NIS/NCC समुदाय के भीतर एक मुद्दे को खोलने का कष्ट करें.',
@@ -25,6 +40,7 @@
 			500: 'एक एरर आ गया हे जिसके बारे में विकास टीम ने नही सोचा था. इस बात के लिए हम माफी चाहते हें, शायद एक बार फिरसे प्रयास करने पर मदद मिल सकती है. अन्यथा, NEM NIS/NCC समुदाय के भीतर एक मुद्दे को खोलने का कष्ट करें.',
 			600: 'NCC मे NEM की लेनदेन करने के लिए NIS सर्वर को बूट करने की आवश्यकता हे. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
 			601: 'NIS नोड पहले से बूट हो चुकी हे. NIS बूट करने के लिए एक दूसरा प्रयास संभव नहीं है.',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'प्रदान किया गया अकाउंट हार्वेस्टिंग के लिए बुनियादी मानदंडों को पूरा नहीं करता है. मुख्य रूप से यह अकाउंट के अंदर NEM की राशि से संबंधित है. हार्वेस्टिंग के लिए कम से कम 1000 NEM की ज़रूरत हे और पहले ट्रांजैक्शन के बाद एक दिन की प्रतीक्षा करनी पड़ती है.',
 			701: 'प्रदान की गई समय सीमा अतीत में है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
 			702: 'प्रदान की गई समय सीमा भविष्य में बहुत दूर है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
@@ -35,13 +51,23 @@
 			707: 'ट्रांजैक्शन ID का समय बहुत दूर अतीत में हे.',
 			708: 'ट्रांजैक्शन ID का समय बहुत दूर भविष्य में हे.',
 			709: 'यह अकाउंट अज्ञात है. नेटवर्क को अकाउंट को पहचानने के लिए अकाउंट में कम से कम एक ट्रांजैक्शन (सेनडर/रेसिपईयेंट) का शामिल होना ज़रूरी होता है.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'ऑफलाइन मोड की स्थापना करने में त्रुटि आई है.',
 			1000: 'आपके द्वारा प्रदान की गई Private Key और Public Key मैच नहीं कर रहीं है.',
 			1001: 'आपके द्वारा प्रदान की गई Public key और Address मैच नहीं कर रहीं है.',
 			1002: 'यह Address मुख्य नेटवर्क से संबंधित नहीं है.'
 		},
 		common: {
-			success: 'Success', //title of the Success message modals
+			success: 'Success',
 			appStatus: {
 				nccUnknown: 'NCC की स्तिति अग्यात है',
 				nccUnavailable: 'NCC उपलब्ध नहीं है',
@@ -58,8 +84,32 @@
 					1: '1 दिन',
 					many: '{{1}} दिन'
 				},
-				synchronized: 'NIS सिंक्रनाइज़ हो चुकी है!'
-			}
+				synchronized: 'NIS सिंक्रनाइज़ हो चुकी है!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: 'पासवर्ड',
+			passwordValidation: 'Password must not be blank',
+			address: 'Address',
+			privateLabel: 'निजी लेबल',
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: 'Pending transaction',
+			outgoing: 'Outgoing transaction',
+			incoming: 'Incoming transaction',
+			self: 'Self transaction',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@
 				save: 'Save',
 				saveSuccess: 'सेटिंग्स सफलतापूर्वक बचा लिया गया है.'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'इस अकाउंट का लेबल {{1}} हे',
+				nullLabelDesc: "इस अकाउंट का लेबल मौजूद नही हे",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'रेसिपईयेंट',
+					amount: 'अमाउंट',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
+				sender: 'Cosignatory',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: 'पासवर्ड',
+				passwordValidation: 'Password must not be blank',
+				send: 'भेजें',
+				cancel: 'Cancel',
+				sending: 'भेजा जा रहा है...',
+				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: 'मेसेज',
+					encrypted: 'मेसेज एनक्रिपटेड है',
+					noMessage: 'नो मेसेज',
+
+				},
+
+			},
 			sendNem: {
 				title: 'NEM भेजें',
+				sender: 'सेनडर',
+				thisAccount: 'This account',
 				labelDesc: 'इस अकाउंट का लेबल {{1}} हे',
 				nullLabelDesc: "इस अकाउंट का लेबल मौजूद नही हे",
 				amount: 'रकम',
@@ -104,6 +209,7 @@
 				message: 'मेसेज',
 				encrypt: 'एन्क्रिप्टेड मेसेज',
 				fee: 'फ़ीस',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'चुकाने का समय',
 				useMinimumFee: 'Use minimum fee',
@@ -118,7 +224,6 @@
 					title: 'ट्रांजैक्शन की पुष्टि करें',
 					amount: 'अमाउंट',
 					to: 'To',
-					fee: 'फ़ीस',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -155,12 +260,17 @@
 				id: 'ID',
 				hash: 'Hash',
 				type: 'ट्रांजैक्शन प्रकार',
+				direction: 'Transaction Direction',
 				pending: 'Pending',
 				outgoing: 'Outgoing',
 				incoming: 'Incoming',
 				self: 'Self',
 				sender: 'सेनडर',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'रेसिपईयेंट',
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: 'मेसेज',
 				noMessage: 'नो मेसेज',
 				encrypted: 'मेसेज एन्क्रिप्टेड है',
@@ -168,7 +278,25 @@
 				confirmations: 'कन्फर्मेशन्स',
 				confirmationsUnknown: 'Unknown',
 				amount: 'अमाउंट',
-				fee: 'फ़ीस'
+				fee: 'फ़ीस',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'लोकल नोड बूट कीजिए',
@@ -244,6 +372,7 @@
 				password: "वॉलेट का पासवर्ड",
 				successMessage: 'अकाउंट {{1}} {{#2}}({{2}}){{/2}} प्राइमरी सेट हो चुका है!',
 				set: 'प्राइमरी सेट करें',
+
 			},
 			changeWalletName: {
 				title: 'वॉलेट का नाम बदलें',
@@ -320,6 +449,21 @@
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'जोड़ें'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Save changes',
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'हटाएँ',
+
 			}
 		},
 		landing: {
@@ -345,35 +489,41 @@
 				copyright: 'फोटोग्राफ़ी <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC आपके वॉलेट को एनक्रिप्ट करता है',
-					description: 'NEM और असेट्स की चोरी से बचने के लिए <em>सुरक्षा</em> बहुत महत्वपूर्ण है.'
-				}, {
-					title: 'NCC आपके वॉलेट को एनक्रिप्ट करता है',
-					description: 'NEM और असेट्स की चोरी से बचने के लिए <em>सुरक्षा</em> बहुत महत्वपूर्ण है.'
-				}]
+				items: [
+					{
+						title: 'NCC आपके वॉलेट को एनक्रिप्ट करता है',
+						description: 'NEM और असेट्स की चोरी से बचने के लिए <em>सुरक्षा</em> बहुत महत्वपूर्ण है.'
+					},
+					{
+						title: 'NCC आपके वॉलेट को एनक्रिप्ट करता है',
+						description: 'NEM और असेट्स की चोरी से बचने के लिए <em>सुरक्षा</em> बहुत महत्वपूर्ण है.'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'NCC कैसे काम करता है?',
-					paragraphs: [
-						'<strong>NCC</strong> एक पारंपरिक वॉलेट की तरह आपके असेट्स और NEMs के लिए एक पहुँच प्रदान करता है.',
-						'<strong>NCC</strong> को संचालित रहने के लिए एक <strong>NIS</strong> सर्वर तक पहुँच की आवश्यकता होती है. एक स्थानीय सर्वर को हमेशा सक्रिय रहना होता है(यह <strong>NCC</strong> के साथ इनस्टॉल्ड आता है)',
-						'आप एक रिमोट <strong>NIS</strong> भी कॉन्फ़िगर कर सकते हैं.'
-					],
-					listItems: [
-						'मल्टिपल वॉलेट्स',
-						'एक वॉलेट में मल्टिपल अकाउंट्स को शामिल करने के लिए अकाउंट्स निर्धारित कीजिए'
-					]
-				}, {
-					title: '&#42;NIS क्या है?',
-					paragraphs: [
-						'यह कॉंपोनेंट <strong>NEM</strong> क्लाउड को जिंदा रखने के लिए जिम्मेदार है.',
-						'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',
-						'<strong>NEM</strong> क्लाउड की पहुँच बिंदु <strong>NIS</strong> है.'
-					],
-					legend: '<strong>&#42;NIS</strong> का मतलब <strong>NEM Infrastructure Server</strong> है'
-				}]
+				sections: [
+					{
+						title: 'NCC कैसे काम करता है?',
+						paragraphs: [
+							'<strong>NCC</strong> एक पारंपरिक वॉलेट की तरह आपके असेट्स और NEMs के लिए एक पहुँच प्रदान करता है.',
+							'<strong>NCC</strong> को संचालित रहने के लिए एक <strong>NIS</strong> सर्वर तक पहुँच की आवश्यकता होती है. एक स्थानीय सर्वर को हमेशा सक्रिय रहना होता है(यह <strong>NCC</strong> के साथ इनस्टॉल्ड आता है)',
+							'आप एक रिमोट <strong>NIS</strong> भी कॉन्फ़िगर कर सकते हैं.'
+						],
+						listItems: [
+							'मल्टिपल वॉलेट्स',
+							'एक वॉलेट में मल्टिपल अकाउंट्स को शामिल करने के लिए अकाउंट्स निर्धारित कीजिए'
+						]
+					},
+					{
+						title: '&#42;NIS क्या है?',
+						paragraphs: [
+							'यह कॉंपोनेंट <strong>NEM</strong> क्लाउड को जिंदा रखने के लिए जिम्मेदार है.',
+							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',
+							'<strong>NEM</strong> क्लाउड की पहुँच बिंदु <strong>NIS</strong> है.'
+						],
+						legend: '<strong>&#42;NIS</strong> का मतलब <strong>NEM Infrastructure Server</strong> है'
+					}
+				]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2014. NEM Community Client.'
@@ -405,12 +555,13 @@
 				clientInfo: 'क्लाइंट इन्फो.',
 				closeWallet: 'क्लोज़ वॉलेट',
 				closeProgram: 'क्लोज़ प्रोग्राम',
-				copyClipboard: 'अड्रेस को क्लिपबोर्ड पर कॉपी करें'
+				copyClipboard: 'अड्रेस को क्लिपबोर्ड पर कॉपी करें',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'डैशबोर्ड',
 				'मेसेजस',
-				'कॉंटॅक्ट्स',
+				'Address Book',
 				'ट्रॅन्सॅक्षन्स',
 				'हारवेस्टेड ब्लॉक्स',
 				'असेट एक्सचेंज',
@@ -447,6 +598,7 @@
 			transactions: {
 				title: 'हाल ही में किए गये ट्रॅन्सॅक्षन्स',
 				sendNem: 'NEM भेजें',
+				signMultisig: 'SIGN',
 				balance: 'मौजूदा NEM राशि',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				unknown: 'अज्ञात',
@@ -461,12 +613,6 @@
 					'फ़ीस',
 					'अमाउंट'
 				],
-				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
-				},
 				noMessage: 'नो मेसेज',
 				encrypted: 'मेसेज एनक्रिपटेड है',
 				view: 'जाँचे',
@@ -495,6 +641,7 @@
 				unconfirmed: 'Unconfirmed',
 				incoming: 'Incoming',
 				outgoing: 'Outgoing',
+
 			},
 			table: {
 				columns: [
@@ -508,12 +655,6 @@
 					'फ़ीस',
 					'अमाउंट'
 				],
-				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
-				},
 				noMessage: 'नो मेसेज',
 				encrypted: 'मेसेज एनक्रिपटेड है',
 				view: 'जाँचे',
@@ -548,11 +689,29 @@
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'NEM भेजें',
+			edit: 'Edit',
+			remove: 'हटाएँ'
+		},
 		settings: {
 			title: 'Settings',
-			settings: [{
-				name: 'भाषा'
-			}],
+			settings: [
+				{
+					name: 'भाषा'
+				}
+			],
 			save: 'Save changes',
 			saveSuccess: 'Settings have been saved successfully'
 		}

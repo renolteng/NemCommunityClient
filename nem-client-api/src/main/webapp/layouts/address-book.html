@@ -1,0 +1,60 @@
+<main class="addressBook-main">
+	<div class="container">
+		<section class="listingPage">
+			<div class="listingPage-head">
+				<h1 class="listingPage-title">{{texts.addressBook.title}}</h1>
+				<button type="button" class="listingPage-mainButton addressBook-addButton" on-click="addContact()">{{texts.addressBook.addContact}}</button>
+				<div class="listingPage-searchArea">
+					<div class="listingPage-search">
+						<input class="listingPage-searchTextbox" type="text" />
+						<button class="listingPage-searchButton" type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
+					</div>
+				</div>
+			</div>
+			<div class="listingPage-body">
+				<div class="listingPage-list listingPage-list--contacts">
+					<table class="txList">
+						<thead>
+							<tr class="txList-row addressBook-row">
+								<th class="txList-header txList-col--address addressBook-leftMost">{{texts.addressBook.table.columns.0}}</th>
+								<th class="txList-header txList-col--label">{{texts.addressBook.table.columns.1}}</th>
+								<th class="txList-header txList-col--actions addressBook-rightMost"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each contacts}}
+								<tr class="txList-row txList-row--colored addressBook-row">
+                                    <td class="txList-cell txList-col--address addressBook-leftMost">
+                                    	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">{{.formattedAddress}}</a>
+                                	</td>
+									<td class="txList-cell txList-col--label">
+										{{#if .privateLabel}}
+											{{.privateLabel}}
+										{{else}}
+											<span class="dimmed">{{texts.addressBook.noLabel}}</span>
+										{{/if}}
+									</td>
+									<td class="txList-cell txList-col--actions addressBook-rightMost">
+										<div class="consecutiveButtons">
+											<button class="consecutiveButtons-button" type="button" on-click="openSendNem(.address)">{{texts.addressBook.sendNem}}</button><!--
+											--><button class="consecutiveButtons-button" type="button" on-click="editContact(.address, .privateLabel)">{{texts.addressBook.edit}}</button><!--
+											--><button class="consecutiveButtons-button" type="button" on-click="removeContact(.address)">{{texts.addressBook.remove}}</button>
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					{{^contacts}}
+						<p class="txList-noRecords addressBook-leftMost addressBook-rightMost">{{texts.addressBook.table.noContacts}}</p>
+					{{/}}
+					<div class="listingPage-pager addressBook-leftMost addressBook-rightMost">
+						{{#status.loadingOlderContacts}}
+							<span type="buttton" class="listingPage-pager-loading">{{texts.addressBook.table.loading}}</span>
+						{{/}}
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</main>

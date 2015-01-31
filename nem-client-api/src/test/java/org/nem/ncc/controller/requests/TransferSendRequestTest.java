@@ -6,6 +6,7 @@ import org.junit.*;
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.*;
+import org.nem.ncc.controller.viewmodels.TransactionViewModel;
 import org.nem.ncc.test.ExceptionAssert;
 import org.nem.ncc.wallet.*;
 
@@ -19,6 +20,7 @@ public class TransferSendRequestTest {
 		// Act:
 		final TransferSendRequest request = new TransferSendRequest(
 				new WalletName("w"),
+				Address.fromEncoded("m"),
 				Address.fromEncoded("a"),
 				Address.fromEncoded("r"),
 				Amount.fromMicroNem(7),
@@ -26,10 +28,13 @@ public class TransferSendRequestTest {
 				true,
 				5,
 				new WalletPassword("p"),
-				Amount.fromMicroNem(2));
+				Amount.fromMicroNem(2),
+				Amount.ZERO,
+				TransactionViewModel.Type.Transfer.getValue());
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(Address.fromEncoded("m")));
 		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(Address.fromEncoded("a")));
 		Assert.assertThat(request.getRecipientAddress(), IsEqual.equalTo(Address.fromEncoded("r")));
 		Assert.assertThat(request.getAmount(), IsEqual.equalTo(Amount.fromMicroNem(7L)));
@@ -103,9 +108,11 @@ public class TransferSendRequestTest {
 		jsonObject.put("amount", amount);
 		jsonObject.put("message", message);
 		jsonObject.put("encrypt", shouldEncrypt);
-		jsonObject.put("hours_due", hoursDue);
+		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("password", password);
 		jsonObject.put("fee", fee);
+		jsonObject.put("multisigFee", fee);
+		jsonObject.put("type", TransactionViewModel.Type.Transfer.getValue());
 		return new TransferSendRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

@@ -1,9 +1,11 @@
 package org.nem.ncc.controller;
 
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
+import org.nem.ncc.addressbook.*;
+import org.nem.ncc.controller.requests.LabelWalletNamePasswordBag;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.model.AccountLabels;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ public class WalletAccountController {
 	private final WalletServices walletServices;
 	private final WalletMapper walletMapper;
 	private final AccountMapper accountMapper;
-	private final AccountLabels accountLabels;
+
+	private final AddressBookServices addressBookServices;
+
 
 	/**
 	 * Handles requests related to the REST resource "wallet/account".
@@ -24,11 +28,11 @@ public class WalletAccountController {
 			final WalletServices walletServices,
 			final WalletMapper walletMapper,
 			final AccountMapper accountMapper,
-			final AccountLabels accountLabels) {
+			final AddressBookServices addressBookServices) {
 		this.walletServices = walletServices;
 		this.walletMapper = walletMapper;
 		this.accountMapper = accountMapper;
-		this.accountLabels = accountLabels;
+		this.addressBookServices = addressBookServices;
 	}
 
 	/**
@@ -49,18 +53,24 @@ public class WalletAccountController {
 	 * @return A view of the new account.
 	 */
 	@RequestMapping(value = "/wallet/account/add", method = RequestMethod.POST)
-	public AccountViewModel addExistingAccount(@RequestBody final WalletNamePasswordBag bag) {
+	public AccountViewModel addExistingAccount(@RequestBody final LabelWalletNamePasswordBag bag) {
+		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(
+				new AddressBookName(bag.getName().toString()), new AddressBookPassword(bag.getPassword().toString())));
+
+		final Address address = Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey());
+		final AccountLabel accountLabel = new AccountLabel(address, "", bag.getWalletAccountLabel());
+		try {
+			addressBook.addLabel(accountLabel);
+		} catch (final AddressBookException ex) {
+			// it means entry is already in address book we won't update it here.
+		}
+
 		return this.addAccount(bag, new WalletAccount(bag.getAccountPrivateKey()));
 	}
 
 	private AccountViewModel addAccount(final WalletNamePasswordBag bag, final WalletAccount account) {
 		final Wallet wallet = this.walletServices.open(bag);
 		wallet.addOtherAccount(account);
-
-		final String label = bag.getAccountLabelOrDefault();
-		if (null != label) {
-			this.accountLabels.setLabel(account.getAddress(), null, label);
-		}
 
 		return this.accountMapper.toViewModel(account);
 	}
@@ -89,19 +99,5 @@ public class WalletAccountController {
 		final Wallet wallet = this.walletServices.open(bag);
 		wallet.removeAccount(bag.getAccountAddress());
 		return this.walletMapper.toViewModel(wallet);
-	}
-
-	/**
-	 * Updates the label of an existing account.
-	 *
-	 * @param bag The request parameters.
-	 * @return A view of the updated wallet.
-	 */
-	@RequestMapping(value = "/wallet/account/label", method = RequestMethod.POST)
-	public AccountViewModel setAccountLabel(@RequestBody final WalletNamePasswordBag bag) {
-		final Address address = bag.getAccountAddress();
-		final String label = bag.getAccountLabelOrDefault();
-		this.accountLabels.setLabel(address, null, label);
-		return this.accountMapper.toViewModel(address);
 	}
 }

@@ -7,15 +7,30 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'Файл не знайдено.',
+			101: 'The wallet file does not exist.',
 			102: 'Гаманець не був створений.',
-			103: 'Файл гаманця пошкоджений. Будь ласка відновіть файл вашого гаманця з резерву, який ви повинні були створити при створенні гаманця, або створiть новий акаунт .',
-			104: 'Введений пароль невірний. Сподіваємося, ви зможете згадати вірний пароль. Пароль не може бути відновлений, якщо він був втрачений',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: 'Перш ніж ви зможете працювати з гаманцем, він повинен бути відкритий. Щоб переконатися, що ви авторизованi на доступ до файлу гаманця, ви повинні ввести пароль гаманця.',
 			107: 'Гаманець не містить цей акаунт.',
 			108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 NEM, або акаунт, який ви намагаєтеся видалити є основним.',
 			109: "Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.",
 			110: 'Гаманець вже містить цей акаунт.',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: 'Зашифроване повідомлення не може бути відправлено, так як одержувач ніколи не здійснював жодної транзакції.',
 			305: 'NEM Infrastructure Server не досяжний.',
 			306: 'Сталася помилка, не передбачувана командою розробникiв. Вибачте за це, та повторiть спробу ще раз. В іншому випадку, будь ласка, відкрийте питання у співтовариствi NEM NIS/NCC.',
@@ -25,6 +40,7 @@ define({
 			500: 'Не вдалося зберегти файл налаштувань.',
 			600: 'NCC вимагає запущений сервер NIS для надсилання та отримання транзакцiй з NEM cloud. Будь ласка скористайтеся меню NCC для запуску локального вузла.',
 			601: 'Сервер NIS вже запущено. Завантажити NIS вдруге неможливо.',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 NEM.',
 			701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
 			702: 'Встановленний крайній термін занадто далеко в майбутньому. Термін повинен бути в рамках 1-денного періоду.',
@@ -35,13 +51,23 @@ define({
 			707: 'Мітка часу транзакції занадто далеко в минулому.',
 			708: 'Мітка часу транзакції занадто далеко в майбутньому.',
 			709: 'Рахунок невідомий мережi. Рахунок повинен бути частиною щонайменше однієї угоди (відправником або одержувачєм), щоб стати відомим в мережі.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'При переході в автономний режим сталася помилка.',
 			1000: "The private key and the public key you have provided mismatch.",
 			1001: 'The public key and the address you have provided mismatch.',
 			1002: 'The address does not belong to the main network.'
 		},
 		common: {
-			success: 'Успiшно', //title of the Success message modals
+			success: 'Успiшно',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC не досяжний',
@@ -58,8 +84,32 @@ define({
 					1: '1 day',
 					many: '{{1}} days'
 				},
-				synchronized: 'NIS is synchronized!'
-			}
+				synchronized: 'NIS is synchronized!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: 'Пароль',
+			passwordValidation: 'Password must not be blank',
+			address: 'Address',
+			privateLabel: 'Приватна позначка',
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: 'Очiкуючи транзакцiї',
+			outgoing: 'Вихiднi транзакцiї',
+			incoming: 'Вхiднi транзакцiї',
+			self: 'Транзакцiї самому собi',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@ define({
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'Цей акаунт позначений як {{1}}',
+				nullLabelDesc: "Цей акаунт не має позначки",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Комiсiя',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Одержувач',
+					amount: 'Кiлькiсть',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
+				sender: 'Cosignatory',
+				fee: 'Комiсiя',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: 'Пароль',
+				passwordValidation: 'Password must not be blank',
+				send: 'Вiдправити',
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: 'Транзакцiя пройшла успішно!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: 'Повiдомлення',
+					encrypted: 'Зашифроване повiдомлення',
+					noMessage: 'Без повiдомлень',
+
+				},
+
+			},
 			sendNem: {
 				title: 'Відправити NEM',
+				sender: 'Вiдправник',
+				thisAccount: 'This account',
 				labelDesc: 'Цей акаунт позначений як {{1}}',
 				nullLabelDesc: "Цей акаунт не має позначки",
 				amount: 'Кiлькiсть',
@@ -104,6 +209,7 @@ define({
 				message: 'Повiдомлення',
 				encrypt: 'Зашифрованне повiдомлення',
 				fee: 'Комісія',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Протягом',
 				useMinimumFee: 'Use minimum fee',
@@ -118,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -155,12 +260,17 @@ define({
 				id: 'Блок або ідентифікаційний код транзакцiї',
 				hash: 'Хеш транзакцiї',
 				type: 'Тип транзакцiї',
+				direction: 'Transaction Direction',
 				pending: 'В очiкуваннi',
 				outgoing: 'Вихiдна',
 				incoming: 'Вхiдна',
 				self: 'Собi',
 				sender: 'Вiдправник',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Одержувач',
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: 'Повiдомлення',
 				noMessage: 'Без повiдомлення',
 				encrypted: 'Повiдомлення зашифроване',
@@ -168,7 +278,25 @@ define({
 				confirmations: 'Пiдтверджень',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Кiлькiсть',
-				fee: 'Комісія'
+				fee: 'Комісія',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'Завантажити локальний вузол',
@@ -244,6 +372,7 @@ define({
 				password: "Пароль файлу гаманця",
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} був встановлений як основний!',
 				set: 'Встановити як основний',
+
 			},
 			changeWalletName: {
 				title: "Змiнити iм'я гаманця",
@@ -320,6 +449,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Додати'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Зберегти зміни',
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Видалити',
+
 			}
 		},
 		landing: {
@@ -335,7 +479,9 @@ define({
 				leftButton: 'Створити новий гаманець',
 				walletNamePlh: "Iм'я гаманця",
 				passwordPlh: 'Пароль',
+				confirmPasswordPlh: 'Confirm password',
 				create: 'Створити',
+				creating: 'Creating...',
 				rightTitle: 'Вже зареестрованi у мережi <em>NEM</em>?',
 				rightButton: 'Вiдкрити мiй гаманець',
 				openButton: 'Вiдкрити',
@@ -343,35 +489,41 @@ define({
 				copyright: 'Фото <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC шифрує ваш гаманець',
-					description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
-				}, {
-					title: 'NCC шифрує ваш гаманець',
-					description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
-				}]
+				items: [
+					{
+						title: 'NCC шифрує ваш гаманець',
+						description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
+					},
+					{
+						title: 'NCC шифрує ваш гаманець',
+						description: '<em>Безпека</em> дуже важлива для запобігання крадіжки NEM монет &amp; активiв.'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'Як працює NCC?',
-					paragraphs: [
-						'<strong>NCC</strong> надає доступ до ваших активів і NEM монет як традиційний гаманець. ви можете:',
-						'Для корректної роботи <strong>NCC</strong> вимагає доступу до сервера <strong>NIS</strong>. зазвичай вiн запускається автоматично (встановлюється разом з <strong>NCC</strong>)',
-						'Ви також можете налаштувати віддалений доступ до сервера <strong>NIS</strong>.'
-					],
-					listItems: [
-						'Мати декiлька гаманцiв',
-						'Визначити кiлька акаунтiв, якi будуть включенi в гаманець'
-					]
-				}, {
-					title: 'Що таке &#42;NIS?',
-					paragraphs: [
-						'Цей компонент вiдповiдає за підтримання працездатностi <strong>NEM</strong> cloud.',
-						'Чим бiльша кiлькiсть <strong>NIS</strong>, тим краща безпека мережi.',
-						'<strong>NIS</strong> є точкою доступу до <strong>NEM</strong> cloud.'
-					],
-					legend: '<strong>&#42;NIS</strong> розшифровується як <strong>NEM Infrastructure Server</strong>'
-				}]
+				sections: [
+					{
+						title: 'Як працює NCC?',
+						paragraphs: [
+							'<strong>NCC</strong> надає доступ до ваших активів і NEM монет як традиційний гаманець. ви можете:',
+							'Для корректної роботи <strong>NCC</strong> вимагає доступу до сервера <strong>NIS</strong>. зазвичай вiн запускається автоматично (встановлюється разом з <strong>NCC</strong>)',
+							'Ви також можете налаштувати віддалений доступ до сервера <strong>NIS</strong>.'
+						],
+						listItems: [
+							'Мати декiлька гаманцiв',
+							'Визначити кiлька акаунтiв, якi будуть включенi в гаманець'
+						]
+					},
+					{
+						title: 'Що таке &#42;NIS?',
+						paragraphs: [
+							'Цей компонент вiдповiдає за підтримання працездатностi <strong>NEM</strong> cloud.',
+							'Чим бiльша кiлькiсть <strong>NIS</strong>, тим краща безпека мережi.',
+							'<strong>NIS</strong> є точкою доступу до <strong>NEM</strong> cloud.'
+						],
+						legend: '<strong>&#42;NIS</strong> розшифровується як <strong>NEM Infrastructure Server</strong>'
+					}
+				]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2014. NEM Community Client.'
@@ -403,12 +555,13 @@ define({
 				clientInfo: 'Iнформацiя',
 				closeWallet: 'Закрити гаманець',
 				closeProgram: 'Закрити програму',
-				copyClipboard: 'Cкопіювати адресу в буфер обміну'
+				copyClipboard: 'Cкопіювати адресу в буфер обміну',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Головна сторiнка',
 				'Повiдомлення',
-				'Контакти',
+				'Address Book',
 				'Транзакцiї',
 				'Сгенерованi блоки',
 				'Бiржа активiв',
@@ -445,6 +598,7 @@ define({
 			transactions: {
 				title: 'Останні транзакцiї',
 				sendNem: 'Вiдправити NEM',
+				signMultisig: 'SIGN',
 				balance: 'Поточний баланс',
 				syncStatus: '(Блок {{1}}{{#2}} : прибл. {{3}} днів тому{{/2}})',
 				unknown: 'Невiдомо',
@@ -459,12 +613,6 @@ define({
 					'Комiсiя',
 					'Кiлькiсть'
 				],
-				types: {
-					pending: 'Очiкуючи транзакцiї',
-					outgoing: 'Вихiднi транзакцiї',
-					incoming: 'Вхiднi транзакцiї',
-					self: 'Транзакцiї самому собi',
-				},
 				noMessage: 'Без повiдомлень',
 				encrypted: 'Зашифроване повiдомлення',
 				view: 'Переглянути',
@@ -493,6 +641,7 @@ define({
 				unconfirmed: 'Unconfirmed',
 				incoming: 'Вхiднi',
 				outgoing: 'Вихiднi',
+
 			},
 			table: {
 				columns: [
@@ -506,12 +655,6 @@ define({
 					'Комiсiя',
 					'Кiлькiсть'
 				],
-				types: {
-					pending: 'Очiкуючи транзакцiї',
-					outgoing: 'Вихiднi транзакцiї',
-					incoming: 'Вхiднi транзакцiї',
-					self: 'Транзакцiї самому собi',
-				},
 				noMessage: 'Без повiдомлень',
 				encrypted: 'Зашифроване повiдомлення',
 				view: 'Переглянути',
@@ -546,11 +689,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Відправити NEM',
+			edit: 'Edit',
+			remove: 'Видалити'
+		},
 		settings: {
 			title: 'Налаштування',
-			settings: [{
-				name: 'Мова'
-			}],
+			settings: [
+				{
+					name: 'Мова'
+				}
+			],
 			save: 'Зберегти зміни',
 			saveSuccess: 'Налаштування були успiшно збереженi'
 		}

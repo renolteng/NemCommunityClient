@@ -1,6 +1,7 @@
 "use strict";
 
 define(function(require) {
+    var TransactionType = require('TransactionType');
     var $ = require('jquery');
     var Ractive = require('ractive');
     var Mustache = require('mustache');
@@ -11,7 +12,13 @@ define(function(require) {
     var InputModal = require('InputModal');
     var SettingsModal = require('SettingsModal');
     var SendNemModal = require('SendNemModal');
+    var SignMultisigModal = require('SignMultisigModal');
+    var ModificationConfirmModal = require('ModificationConfirmModal');
+    var SignatureConfirmModal = require('SignatureConfirmModal');
     var TransactionConfirmModal = require('TransactionConfirmModal');
+    var TransactionDetailsModal = require('TransactionDetailsModal');
+    var AccountDetailsModal = require('AccountDetailsModal');
+    var ConvertMultisigModal = require('ConvertMultisigModal');
 
     var NccRactive = Ractive.extend({
         el: document.body,
@@ -23,9 +30,14 @@ define(function(require) {
             inputModal: InputModal,
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
+            signMultisigModal: SignMultisigModal,
+            modificationConfirmModal: ModificationConfirmModal,
+            signatureConfirmModal: SignatureConfirmModal,
             clientInfoModal: NccModal,
-            transactionDetailsModal: NccModal,
-            transactionConfirmModal: TransactionConfirmModal
+            transactionDetailsModal: TransactionDetailsModal,
+            transactionConfirmModal: TransactionConfirmModal,
+            accountDetailsModal: AccountDetailsModal,
+            convertMultisigModal: ConvertMultisigModal
         },
         computed: {
             allAccounts: function() {
@@ -130,7 +142,12 @@ define(function(require) {
                                     type: 'message',
                                     message: this.get('texts.common.appStatus.synchronized')
                                 };
-                        }
+                            case Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE:
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.noRemoteNisAvailable')
+                                };
+                       }
                 }
             },
             nodeBooting: function() {
@@ -162,6 +179,16 @@ define(function(require) {
             },
             lcwFormValid: function() {
                 return this.get('lcwNameValid') && this.get('lcwPasswordValid') && this.get('lcwConfirmPasswordValid');
+            },
+            privateLabels: function() {
+                var contacts = this.get('contacts');
+                var result = {};
+                var contact;
+                for (var i = 0; i < contacts.length; i++) {
+                    contact = contacts[i];
+                    result[contact.address] = contact.privateLabel;
+                }
+                return result;
             }
         },
         ajaxError: function(jqXHR, textStatus, errorThrown) {
@@ -255,6 +282,9 @@ define(function(require) {
         },
         getModal: function(modalName) {
             return this.findComponent(modalName + 'Modal');
+        },
+        openModal: function(id) {
+            this.getModal(id).open();
         },
         showError: function(errorId, message) {
             var modal = this.getModal('error');
@@ -468,9 +498,6 @@ define(function(require) {
             this.on({
                 redirect: function(e, page, params) {
                     this.loadPage(page, params);
-                },
-                openModal: function(e, id) {
-                    this.getModal(id).open();
                 },
                 shutdown: function() {
                     var self = this;

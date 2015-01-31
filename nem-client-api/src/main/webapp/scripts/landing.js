@@ -1,6 +1,6 @@
 "use strict";
 
- define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
+ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, ncc, NccLayout, Utils, TransactionType) {
  	return $.extend(true, {}, NccLayout, {
  		name: 'landing',
  		url: 'index.html',
@@ -12,15 +12,6 @@
 			nisCheckingInterval: 3000
 		},
 		initOnce: function() {
-            ncc.openWallet = function(walletData) {
-            	ncc.set('wallet', Utils.processWallet(walletData));
-            	ncc.set('activeAccount', Utils.processAccount(walletData.primaryAccount));
-                ncc.loadPage('dashboard', {
-                	wallet: walletData.name,
-                	account: walletData.primaryAccount.address
-                });
-	        };
-
 	        ncc.listWallets = function() {
 	        	ncc.set('landingPage.listingWallets', true);
 	        	ncc.getRequest('wallet/list', 
@@ -34,6 +25,80 @@
 					}
 				);
 	        };
+
+	        ncc.openWallet = function(wallet, password, walletData) {
+	        	var setWalletData = function(data) {
+	        		ncc.set('wallet', Utils.processWallet(data));
+	            	ncc.set('activeAccount', Utils.processAccount(data.primaryAccount));
+	            	ncc.set('TransactionType', TransactionType);
+	                ncc.loadPage('dashboard', {
+	                	wallet: data.wallet,
+	                	account: data.primaryAccount.address
+	                });
+	        	}
+
+	        	if (!walletData) {
+					ncc.set('landingPage.openingWallet', true);
+			    	ncc.postRequest('wallet/open', 
+			    		{
+							wallet: wallet,
+							password: password
+						},
+			    		function(data) {
+			        		setWalletData(data);
+			        	},
+						{
+							complete: function() {
+								ncc.set('landingPage.openingWallet', false);
+							}
+						}
+			    	);
+		    	} else {
+		    		setWalletData(walletData);
+		    	}
+
+		    	ncc.postRequest('addressbook/open', {
+					addressBook: wallet,
+					password: password
+				},
+		    		function(data) {
+		        		ncc.set('contacts', Utils.processContacts(data.accountLabels));
+		        	}
+		    	);
+		    };
+
+		    ncc.openExistingWallet = function(wallet) {
+		    	var password = ncc.get('landingPage.openWalletPasswords')[wallet];
+		    	ncc.openWallet(wallet, password);
+		    }
+
+			ncc.createWallet = function() {
+				var requestData = ncc.get('landingPage.createWalletForm');
+
+				ncc.set('landingPage.creatingWallet', true);
+
+				var addressBook = {addressBook:requestData.wallet, password:requestData.password};
+				ncc.postRequest('wallet/create', requestData, function(data) {
+					ncc.postRequest('addressbook/create', addressBook, function(data) {
+						ncc.postRequest('wallet/open', requestData,
+							function(data) {
+								ncc.openWallet(requestData.wallet, requestData.password, data);
+							});
+					},
+					{
+						complete: function() {
+							ncc.set('landingPage.creatingWallet', false);
+							ncc.listWallets();
+						}
+					});
+	    		},
+	    		{
+	    			complete: function() {
+	    				ncc.set('landingPage.creatingWallet', false);
+	    				ncc.listWallets();
+	    			}
+	    		});
+		    };
 		},
 		initEverytime: function() {
 			ncc.set('landingPage.gateClosed', false);
@@ -126,40 +191,6 @@
 			});
 
 			local.listeners.push(ncc.on({
-				openWallet: function(e, wallet) {
-			    	var requestData = {
-						wallet: wallet,
-						password: ncc.get('landingPage.openWalletPasswords')[wallet]
-					};
-					ncc.set('landingPage.openingWallet', true);
-			    	ncc.postRequest('wallet/open', requestData,
-			    		function(data) {
-			        		ncc.openWallet(data);
-			        	},
-						{
-							complete: function() {
-								ncc.set('landingPage.openingWallet', false);
-							}
-						}
-			    	);
-			    },
-				createWallet: function() {
-					ncc.set('landingPage.creatingWallet', true);
-					var requestData = ncc.get('landingPage.createWalletForm');
-			    	ncc.postRequest('wallet/create', requestData, function(data) {
-		    			ncc.postRequest('wallet/open', requestData,
-				    		function(data) {
-				        		ncc.openWallet(data);
-				        	}
-				    	);
-		    		},
-		    		{
-		    			complete: function() {
-		    				ncc.set('landingPage.creatingWallet', false);
-		    				ncc.listWallets();
-		    			}
-		    		});
-			    },
 			    scrollTo: function(e, selector) {
 			    	var $el = $(selector);
 			    	if ($el[0]) {
@@ -171,12 +202,12 @@
 			    },
 			    createWalletKeypress: function(e) {
 			    	if (e.original.keyCode === 13) {
-			    		ncc.fire('createWallet');
+			    		ncc.createWallet();
 			    	}
 			    },
 			    passwordKeypress: function(e, wallet) {
 			    	if (e.original.keyCode === 13) {
-			    		ncc.fire('openWallet', {}, wallet);
+			    		ncc.openExistingWallet(wallet);
 			    	}
 			    },
 			    fileToImportSelected: function(e) {

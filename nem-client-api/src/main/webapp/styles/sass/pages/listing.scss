@@ -1,0 +1,233 @@
+@import 'compass';
+@import '../config';
+@import '../mixins';
+@import 'wallet-pages';
+
+/*
+ * Reuse styles of txList from dashboard.scss
+ */
+
+.listingPage {
+	margin-top: 25px;
+	margin-bottom: 36px;
+	border-top: 8px solid #736086;
+	background-color: #fff;
+	color: #252a34;
+}
+
+.listingPage-head {
+	border-bottom: 1px solid #aeaeae;
+	padding: 34px 25px 16px 44px;
+}
+
+.listingPage-title {
+	display: inline-block;
+	font-size: 28px;
+	font-weight: $fontWeight-bold;
+	color: #736086;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+.listingPage-mainButton {
+	$height: 36px;
+	margin-left: 10px;
+	padding: 0 8px;
+	height: $height;
+	line-height: $height;
+	font-size: 15px;
+	font-weight: $fontWeight-medium;
+	vertical-align: middle;
+}
+
+.listingPage-searchArea {
+	float: right;
+	margin-top: 5px;
+}
+
+.listingPage-search {
+	border-bottom: 1px solid #afafaf;//#5f636a;
+	color: #afafaf; //#252a34;
+	pointer-events: none;
+}
+
+.listingPage-searchTextbox {
+	width: 235px;
+}
+
+.listingPage-searchButton {
+	padding: 0;
+	font-size: 16px;
+}
+
+.listingPage-overview {
+	margin-top: 20px;
+	font-size: 24px;
+}
+
+.listingPage-overview-title {
+	font-size: 14px;
+	font-weight: $fontWeight-black;
+	text-transform: none;
+}
+
+.listingPage-body {
+	padding-top: 10px;
+	padding-bottom: 30px;
+	font-size: 13px;
+}
+
+.listingPage-list {
+	padding-top: 15px;
+}
+
+.listingPage-pager {
+	@extend %clearfix;
+	margin-top: 30px;
+}
+
+.listingPage-pager-loading {
+	float: right;
+	padding: 4px 10px 2px;
+	background-color: #2e3440;
+	color: #fff;
+	font-size: 12px;
+	font-weight: $fontWeight-bold;
+	text-transform: uppercase;
+}
+
+// ================================================================================
+// TRANSACTIONS PAGE ONLY
+// ================================================================================
+
+.listingPage-filterBar {
+	@extend %clearfix;
+	padding: 10px 25px 10px 44px;
+	color: #000;
+}
+
+.listingPage-filter {
+	float: left;
+}
+
+.listingPage-filterOption {
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.listingPage-filterLabel {
+	$height: 28px;
+	display: inline-block;
+	@include border-radius($height / 2);
+	padding-left: 12px;
+	padding-right: 12px;
+	height: 28px;
+	line-height: 28px;
+	font-weight: $fontWeight-medium;
+	cursor: pointer;
+	@include transition-property(background-color, color);
+	@include transition-duration(.3s);
+}
+
+.listingPage-filterLabel:hover, 
+input:checked + .listingPage-filterLabel {
+	background-color: #797979;
+	color: #fff;
+}
+
+.transactionsPage-leftMost {
+	padding-left: 17px;
+}
+
+.transactionsPage-rightMost {
+	padding-right: 17px;
+}
+
+.transactionsPage-sendNemButton {
+	$bgColor: #41ce7d;
+	background-color: $bgColor;
+	color: #fff;
+
+	&:before {
+		margin-right: 5px;
+		font-size: 16px;
+		vertical-align: -2px;
+	}
+
+	&:hover {
+		background-color: lighten($bgColor, 10%);
+	}
+
+	&:disabled {
+		background-color: #888888;
+		pointer-events: none;
+	}
+}
+
+// ================================================================================
+// HARVESTED BLOCKS PAGE SPECIFIC
+// ================================================================================
+
+.harvestedBlocksPage-harvestButton {
+	background-color: #7c6890;
+	color: #fff;
+
+	&:before {
+		margin-right: 8px;
+		vertical-align: -3px;
+		font-size: 19px;
+	}
+
+	&:not(:disabled):hover {
+		background-color: #7c6890;
+	}
+
+	&:disabled {
+		opacity: .2;
+	}
+}
+
+.harvestedBlocksPage-harvestButton--notHarvesting {
+	background-color: #4c4058;
+}
+
+.harvestedBlocksPage-harvestButton--harvesting {
+	background-color: #a186b9;
+}
+
+.harvestedBlocksPage-harvestButton--notHarvesting,
+.harvestedBlocksPage-harvestButton--harvesting {
+	&:hover {
+		background-color: #7c6890;
+	}
+}
+
+.harvestedBlocksPage-leftMost {
+	padding-left: 44px;
+}
+
+.harvestedBlocksPage-rightMost {
+	padding-right: 30px;
+}
+
+// ================================================================================
+// ADDRESS BOOK PAGE SPECIFIC
+// ================================================================================
+
+.addressBook-addButton {
+	$bgColor: #34495e;
+	background-color: $bgColor;
+	color: #fff;
+
+	&:hover {
+		background-color: lighten($bgColor, 10%);
+	}
+}
+
+.addressBook-leftMost {
+	padding-left: 44px;
+}
+
+.addressBook-rightMost {
+	padding-right: 30px;
+}

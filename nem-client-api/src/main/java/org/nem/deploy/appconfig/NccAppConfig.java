@@ -7,6 +7,8 @@ import org.nem.core.metadata.ApplicationMetaData;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
 import org.nem.ncc.*;
+import org.nem.ncc.addressbook.*;
+import org.nem.ncc.addressbook.storage.SecureAddressBookDescriptorFactory;
 import org.nem.ncc.cache.*;
 import org.nem.ncc.connector.*;
 import org.nem.ncc.model.graph.GraphViewModelFactory;
@@ -17,6 +19,7 @@ import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 import org.springframework.context.annotation.*;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -88,6 +91,7 @@ public class NccAppConfig {
 	public NccScheduler nccScheduler() {
 		final NccScheduler scheduler = new NccScheduler(this.timeProvider());
 		scheduler.addTimeSynchronizationTask(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
+		scheduler.addAccountCacheUpdateTask(this.accountCache());
 		return scheduler;
 	}
 
@@ -124,6 +128,16 @@ public class NccAppConfig {
 	}
 
 	@Bean
+	public AddressBookLocator addressBookLocator() {
+		return new AddressBookFileLocator(this.getNemFolder());
+	}
+
+	@Bean
+	public AddressBookMapper addressBookMapper() {
+		return new AddressBookMapper();
+	}
+
+	@Bean
 	public WalletLocator walletLocator() {
 		return new WalletFileLocator(this.getNemFolder());
 	}
@@ -135,12 +149,12 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountMapper accountMapper() {
-		return new AccountMapper(this.configuration(), this.accountLookup());
+		return new AccountMapper(this.accountLookup());
 	}
 
 	@Bean
 	public NccAccountCache accountCache() {
-		final int refreshInSeconds = 2;
+		final int refreshInSeconds = 60;
 		final NccAccountCache accountCache = new NccAccountCache(this.accountServices(),
 				this.timeProvider(),
 				refreshInSeconds);
@@ -156,7 +170,11 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountsFileRepository accountsFileRepository() {
-		final File file = new File(this.getNemFolder(), "accounts_cache.json");
+		// TODO 20150112 BR -> J: this is a hack. I can't use getNemFolder() because then i have the infinite loop:
+		// > nccMain() -> nccScheduler() -> accountCache() -> accountsFileRepository() -> getNemFolder() -> configuration() -> NccMain()
+		// TODO 20150115 J-B: can we somehow break the circular dependency?
+		final String nccFolder = Paths.get(this.nccConfiguration().getNemFolder(), "ncc").toString();
+		final File file = new File(nccFolder, "accounts_cache.json");
 		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(file);
 		return new AccountsFileRepository(descriptor);
 	}
@@ -169,6 +187,15 @@ public class NccAppConfig {
 		return new DefaultWalletServices(
 				walletRepository,
 				new SecureWalletDescriptorFactory(this.getNemFolder()));
+	}
+
+	@Bean
+	public AddressBookServices addressBookServices() {
+		final AddressBookRepository addressBookRepository = new BinaryAddressBookRepository();
+
+		return new DefaultAddressBookServices(
+				addressBookRepository,
+				new SecureAddressBookDescriptorFactory(this.getNemFolder()));
 	}
 
 	@Bean

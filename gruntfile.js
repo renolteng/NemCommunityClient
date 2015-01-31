@@ -35,7 +35,8 @@ module.exports = function(grunt) {
 		      	}
 			},
 			css: {
-				files: ['nem-client-api/src/main/webapp/styles/css/shared.css', 'nem-client-api/src/main/webapp/styles/css/pages/page_groups/*.css', 'nem-client-api/src/main/webapp/styles/css/pages/*.css'],
+				files: ['nem-client-api/src/main/webapp/styles/css/shared.css', 
+				'nem-client-api/src/main/webapp/styles/css/pages/*.css'],
 				tasks: ['concat:css', 'copy:css'],
 				options: {
 			    	spawn: false
@@ -96,6 +97,16 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'nem-client-api/src/main/webapp/harvested-blocks.html': ['nem-client-api/src/main/webapp/entry.tpl']
+				}
+			},
+			addressBook: {
+				options: {
+					data: {
+						entryPage: 'address-book'
+					}
+				},
+				files: {
+					'nem-client-api/src/main/webapp/address-book.html': ['nem-client-api/src/main/webapp/entry.tpl']
 				}
 			},
 			transactions: {

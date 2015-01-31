@@ -21,7 +21,7 @@ public class AccountWalletRequestTest {
 		final AccountWalletRequest request = new AccountWalletRequest(this.TEST_ADDRESS, this.TEST_WALLET_NAME);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 	}
 
@@ -31,7 +31,7 @@ public class AccountWalletRequestTest {
 		final AccountWalletRequest request = this.createRequestFromJson(this.TEST_ADDRESS.getEncoded(), this.TEST_WALLET_NAME.toString());
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 	}
 

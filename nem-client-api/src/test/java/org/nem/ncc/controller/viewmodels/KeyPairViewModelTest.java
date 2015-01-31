@@ -45,7 +45,6 @@ public class KeyPairViewModelTest {
 		jsonObject.replace("address", Utils.generateRandomAddress().getEncoded());
 
 		// Act:
-		// TODO 20141023 J-B: when asserting NCC exceptions are thrown, use assertThrowsNccException (already fixed but added as an FYI)
 		ExceptionAssert.assertThrowsNccException(
 				v -> new KeyPairViewModel(new JsonDeserializer(jsonObject, null)),
 				NccException.Code.PUBLIC_KEY_ADDRESS_MISMATCH);

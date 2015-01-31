@@ -610,7 +610,6 @@ $account-actions-width: 33px;
 .clientInfo-content {
 	@extend %clearfix;
 	margin-top: 40px;
-	text-align: left;
 	@include break-word();
 }
 
@@ -632,49 +631,49 @@ $account-actions-width: 33px;
 // SEND NEM MODAL
 // ================================================================================
 
-$sendNem-textbox-height: 27px;
-$sendNem-textbox-vPadding: 6px;
-$sendNem-textbox-hPadding: 8px;
-
 .sendNemModal {
 	font-size: 12px;
 
 	.modal-body {
-		padding: 3px 16px 18px;
-		text-align: left;
+		padding: 0;
 	}
+}
+
+.sendNem-form {
+	padding: 3px 16px 18px;
 }
 
 .sendNem-message {
 	height: 100px;
 }
 
-.sendNem-row {
-	@extend %clearfix;
-}
-
-.sendNem-half {
-	$middleGap: 16px;
-	float: left;
-	width: 50%;
-
-	&.sendNem-half--left {
-		padding-right: $middleGap / 2;
-	}
-
-	&.sendNem-half--right {
-		padding-left: $middleGap / 2;
-	}
-}
-
-.sendNem-submit {
-	margin-top: 20px;
+.sendNem-buttons {
+	padding-top: 16px;
 	text-align: right;
 }
 
-.sendNem-errorIcon {
+.sendNem-errorIcon,
+.convertMultisig-errorIcon,
+.signMultisig-errorIcon {
 	color: #c03b2d;
 	vertical-align: middle;
+}
+
+// ================================================================================
+// CONVERT TO MULTISIG MODAL
+// ================================================================================
+
+.convertMultisigModal {
+	font-size: 12px;
+
+	.modal-body {
+		padding: 3px 16px 18px;
+	}
+}
+
+.multisig-addCosignatory {
+	color: #5dcd86;
+	font-weight: $fontWeight-bold;
 }
 
 // ================================================================================
@@ -719,6 +718,7 @@ $txConfirm-label-width: 130px;
 
 .txConfirm-actions {
 	margin-top: 20px;
+	text-align: center;
 }
 
 .txConfirm-recipient {
@@ -749,37 +749,182 @@ $txConfirm-label-width: 130px;
 	font-weight: $fontWeight-bold;
 }
 
+
+// ================================================================================
+// CONVERSION CONFIRMATION MODAL
+// ================================================================================
+
+$modificationConfirm-label-width: 130px;
+
+.modificationConfirmModal {
+	.modal-body {
+		padding: 16px;
+	}
+}
+
+.modificationConfirm-txInfo {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: 1px dashed #d2d2d2;
+}
+
+.modificationConfirm-line {
+	@extend %clearfix;
+}
+
+.modificationConfirm-label {
+	float: left;
+	width: $modificationConfirm-label-width;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: right;
+	@include break-word();
+}
+
+.modificationConfirm-value {
+	float: left;
+	width: calc(100% - #{$modificationConfirm-label-width});
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: left;
+	@include break-word();
+}
+
+.modificationConfirm-actions {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.modificationConfirm-recipient {
+	text-transform: uppercase;
+}
+
+.modificationConfirm-totalLabel,
+.modificationConfirm-total {
+	display: inline-block;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border-top: 1px solid #aeaeae;
+	border-bottom: 1px solid #aeaeae;
+	height: 48px;
+	line-height: 48px;
+}
+
+.modificationConfirm-total {
+	font-size: 24px;
+	font-weight: $fontWeight-light;
+}
+
+.modificationConfirm-account,
+.modificationConfirm-fee,
+.modificationConfirm-cosignatory {
+	font-weight: $fontWeight-bold;
+}
+
+
+
+// ================================================================================
+// CONVERSION CONFIRMATION MODAL
+// ================================================================================
+
+$sigConfirm-label-width: 130px;
+
+.sigConfirmModal {
+	.modal-body {
+		padding: 16px;
+	}
+}
+
+.sigConfirm-txInfo {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border: 1px dashed #d2d2d2;
+}
+
+.sigConfirm-line {
+	@extend %clearfix;
+}
+
+.sigConfirm-label {
+	float: left;
+	width: $sigConfirm-label-width;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: right;
+	@include break-word();
+}
+
+.sigConfirm-value {
+	float: left;
+	width: calc(100% - #{$sigConfirm-label-width});
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: left;
+	@include break-word();
+}
+
+.sigConfirm-actions {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.sigConfirm-recipient {
+	text-transform: uppercase;
+}
+
+.sigConfirm-totalLabel,
+.sigConfirm-total {
+	display: inline-block;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	border-top: 1px solid #aeaeae;
+	border-bottom: 1px solid #aeaeae;
+	height: 48px;
+	line-height: 48px;
+}
+
+.sigConfirm-total {
+	font-size: 24px;
+	font-weight: $fontWeight-light;
+}
+
+.sigConfirm-account,
+.sigConfirm-fee,
+.sigConfirm-cosignatory {
+	font-weight: $fontWeight-bold;
+}
+
 // ================================================================================
 // TRANSACTION DETAILS MODAL
 // ================================================================================
 
-.txDetailsModal {
+.txDetailsModal, .accDetailsModal {
 	font-size: 13px;
 	color: #444444;
 
 	.modal-body {
-		padding: 20px;
+		padding: 15px 20px;
 	}
 }
 
-.txDetails-cell--label,
-.txDetails-cell--content {
+.table-cell {
 	$padding: 2px;
 	padding-top: $padding;
 	padding-bottom: $padding;
 	@include break-word();
 }
 
-.txDetails-cell--label {
+.table-cell--label {
 	font-weight: $fontWeight-bold;
 	text-align: right;
 	white-space: nowrap;
 	vertical-align: top;
 }
 
-.txDetails-cell--content {
+.table-cell--content {
 	padding-left: 15px;
 	font-weight: $fontWeight-medium;
 	text-align: left;
 	vertical-align: top;
 }
+

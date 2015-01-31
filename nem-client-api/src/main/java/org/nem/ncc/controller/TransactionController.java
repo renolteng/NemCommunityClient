@@ -8,7 +8,7 @@ import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
-import org.nem.ncc.controller.viewmodels.PartialTransferInformationViewModel;
+import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.TransactionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +48,28 @@ public class TransactionController {
 	}
 
 	/**
+	 * Sends a new multisig signature
+	 *
+	 * @param multisigSignatureRequest The multisig signature transaction information.
+	 */
+	@RequestMapping(value = "/wallet/account/signature/send", method = RequestMethod.POST)
+	public void sendSignature(@RequestBody final MultisigSignatureRequest multisigSignatureRequest) {
+		final Transaction transaction = this.transactionMapper.toModel(multisigSignatureRequest);
+		this.announceTransaction(transaction);
+	}
+
+	/**
+	 * Sends a new multisig modification
+	 *
+	 * @param multisigModification The multisig account modification transaction information.
+	 */
+	@RequestMapping(value = "/wallet/account/modification/send", method = RequestMethod.POST)
+	public void sendModification(@RequestBody final MultisigModificationRequest multisigModification) {
+		final Transaction transaction = this.transactionMapper.toModel(multisigModification);
+		this.announceTransaction(transaction);
+	}
+
+	/**
 	 * Requests inspecting the transaction for validation purposes. The returned result will include:
 	 * - The minimum fee for sending the transaction.
 	 * - A value indicating whether or not the recipient can receive encrypted messages.
@@ -58,6 +80,30 @@ public class TransactionController {
 	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
 	public PartialTransferInformationViewModel validateTransferData(@RequestBody final PartialTransferInformationRequest request) {
 		// TODO 20141005 J-G: should we update this function / add a new function that is able to validate importance transfer transactions?
+		return this.transactionMapper.toViewModel(request);
+	}
+
+	/**
+	 * Request inspecting the multisig signature transaction for validation purposes. The returned result will include:
+	 * - A minimum fee for creating the transaction.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
+	@RequestMapping(value = "/wallet/account/signature/validate", method = RequestMethod.POST)
+	public PartialFeeInformationViewModel validateSignatureData(@RequestBody final PartialSignatureInformationRequest request) {
+		return this.transactionMapper.toViewModel(request);
+	}
+
+	/**
+	 * Request inspecting the multisig modification transaction for validation purposes. The returned result will include:
+	 * - A minimum fee for creating modification transaction.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
+	@RequestMapping(value = "/wallet/account/modification/validate", method = RequestMethod.POST)
+	public PartialFeeInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
 		return this.transactionMapper.toViewModel(request);
 	}
 

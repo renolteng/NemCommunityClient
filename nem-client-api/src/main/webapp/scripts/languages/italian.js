@@ -7,15 +7,30 @@ define({
 			decimalSeparator: ","
 		},
 		faults: {
-			101: "File non trovato.",
+			101: 'The wallet file does not exist.',
 			102: "Il portafoglio non è stato creato.",
-			103: "Il file del portafoglio è corrotto. Ripristina il portafoglio dal backup che dovresti aver effettuato quando l'hai creato o vi hai aggiunto un indirizzo.",
-			104: "La password inserita non è corretta. Si spera tu riesca a ricordare la password corretta in quanto non c'è modo di recuperarla!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Per poter utilizzare un portafoglio è necessario aprirlo. Per accertarsi che l'utente sia autorizzato ad accedervi, è necessario fornire la password del portafoglio.",
 			107: "Il portafoglio non contiene questo indirizzo",
 			108: "L'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l'indirizzo principale.",
 			109: "Esiste già un portafoglio con questo nome. Scegli un nome differente.",
 			110: "Esiste già un portafoglio contenete questo indirizzo.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario",
 			305: "Il server NIS non è in esecuzione",
 			306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
@@ -25,6 +40,7 @@ define({
 			500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
 			600: "NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \"Avvia il nodo locale\" nel menu di NCC.",
 			601: "Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 NEM",
 			701: "Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.",
 			702: "Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.",
@@ -35,6 +51,16 @@ define({
 			707: "La marca temporale della transazione è troppo lontana nel passato.",
 			708: "La marca temporale della transazione è troppo lontana nel futuro.",
 			709: "Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Errore nella modalità fuori rete.",
 			1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
 			1001: "Mancata corrispondenza tra chiave pubblica ed indirizzo.",
@@ -58,8 +84,32 @@ define({
 					1: "un giorno",
 					many: "{{1}} giorni"
 				},
-				synchronized: "NIS è sincronizzato!"
-			}
+				synchronized: "NIS è sincronizzato!",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: "Password",
+			passwordValidation: "La password non può essere vuota",
+			address: "Indirizzo",
+			privateLabel: "Nome privato",
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Transazione in attesa",
+			outgoing: "Transazione in uscita",
+			incoming: "Transazione in ingresso",
+			self: "Transazione verso te stesso",
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@ define({
 				save: "Salva",
 				saveSuccess: "Impostazioni salvate con successo"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Questo indirizzo è denominato {{1}}",
+				nullLabelDesc: "Questo indirizzo non ha un nome associato",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: "Annulla",
+				convert: 'Convert',
+				fee: "Commissioni",
+				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
+				dueBy: "Tempo massimo",
+				useMinimumFee: "Usa commissioni minime",
+				hours: "ore",
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: "Totale",
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Destinatario",
+					amount: "Importo",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Totale",
+				sender: 'Cosignatory',
+				fee: "Commissioni",
+				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
+				dueBy: "Tempo massimo",
+				useMinimumFee: "Usa commissioni minime",
+				hours: "ore",
+				password: "Password",
+				passwordValidation: "La password non può essere vuota",
+				send: "Invia",
+				cancel: "Annulla",
+				sending: "Invio in corso...",
+				successMessage: "Transazione inserita con successo!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: "Messaggio",
+					encrypted: "Messaggio cifrato",
+					noMessage: "Nessun messaggio",
+
+				},
+
+			},
 			sendNem: {
 				title: "Invia NEM",
+				sender: "Mittente",
+				thisAccount: 'This account',
 				labelDesc: "Questo indirizzo è denominato {{1}}",
 				nullLabelDesc: "Questo indirizzo non ha un nome associato",
 				amount: "Importo",
@@ -104,6 +209,7 @@ define({
 				message: "Messaggio",
 				encrypt: "Cifra il mesaggio",
 				fee: "Commissioni",
+				multisigFee: 'Multisig fee',
 				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
 				dueBy: "Termine massimo",
 				useMinimumFee: "Usa commissioni minime",
@@ -118,7 +224,6 @@ define({
 					title: "Conferma transazione",
 					amount: "Importo",
 					to: "A",
-					fee: "Commissioni",
 					dueBy: "Tempo massimo",
 					hours: "ore",
 					total: "Totale",
@@ -155,12 +260,17 @@ define({
 				id: "Identificativo",
 				hash: "Firma",
 				type: "Tipo di transazione",
+				direction: 'Transaction Direction',
 				pending: "In attesa",
 				outgoing: "In uscita",
 				incoming: "In ingresso",
 				self: "A te stesso",
 				sender: "Mittente",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Destinatario",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Messaggio",
 				noMessage: "Nessun messaggio",
 				encrypted: "Il messaggio è cifrato",
@@ -168,7 +278,25 @@ define({
 				confirmations: "Conferme",
 				confirmationsUnknown: "Sconosciuto",
 				amount: "Importo",
-				fee: "Commissioni"
+				fee: "Commissioni",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Avvia nodo locale",
@@ -243,7 +371,8 @@ define({
 				wallet: "Portafoglio",
 				password: "Password del portafoglio",
 				successMessage: "L'indirizzo {{1}} {{#2}}({{2}}){{/2}} è il principale",
-				set: "Imposta come principale"
+				set: "Imposta come principale",
+
 			},
 			changeWalletName: {
 				title: "Modifica nome del portafoglio",
@@ -319,7 +448,22 @@ define({
 				stop: "Ferma"
 			},
 			logoutWarning: {
-				leavePage: "Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \"Chiudi portafoglio\" nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito."
+				leavePage: "Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \"Chiudi portafoglio\" nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Aggiungi"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Salva modifiche",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Elimina",
+
 			}
 		},
 		landing: {
@@ -335,7 +479,9 @@ define({
 				leftButton: "Crea nuovo portafoglio",
 				walletNamePlh: "Nome del portafoglio",
 				passwordPlh: "Password",
+				confirmPasswordPlh: 'Confirm password',
 				create: "Crea",
+				creating: 'Creating...',
 				rightTitle: "Già utente <em>NEM</em>?",
 				rightButton: "Apri il portafoglio",
 				openButton: "Apri",
@@ -409,12 +555,13 @@ define({
 				clientInfo: "Informazioni sul programma",
 				closeWallet: "Chiudi portafoglio",
 				closeProgram: "Arresta NCC",
-				copyClipboard: "Copia indirizzo negli appunti"
+				copyClipboard: "Copia indirizzo negli appunti",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Vista d'insieme",
 				"Messaggi",
-				"Contatti",
+				'Address Book',
 				"Transazioni",
 				"Blocchi generati",
 				"Borsa",
@@ -451,6 +598,7 @@ define({
 			transactions: {
 				title: "Transazioni recenti",
 				sendNem: "Invia NEM",
+				signMultisig: 'SIGN',
 				balance: "Bilancio attuale",
 				syncStatus: "(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})",
 				unknown: "sconosciuto",
@@ -465,12 +613,6 @@ define({
 					"Commissioni",
 					"Importo"
 				],
-				types: {
-					pending: "Transazione in attesa",
-					outgoing: "Transazione in uscita",
-					incoming: "Transazione in ingresso",
-					self: "Transazione verso te stesso"
-				},
 				noMessage: "Nessun messaggio",
 				encrypted: "Messaggio cifrato",
 				view: "Visualizza",
@@ -498,7 +640,8 @@ define({
 				confirmed: "Confermate",
 				unconfirmed: "Non confermate",
 				incoming: "In ingresso",
-				outgoing: "In uscita"
+				outgoing: "In uscita",
+
 			},
 			table: {
 				columns: [
@@ -512,12 +655,6 @@ define({
 					"Commissioni",
 					"Importo"
 				],
-				types: {
-					pending: "Transazione in attesa",
-					outgoing: "Transazione in uscita",
-					incoming: "Transazione in ingresso",
-					self: "Transazione verso te stesso"
-				},
 				noMessage: "Nessun messaggio",
 				encrypted: "Messaggio cifrato",
 				view: "Visualizza",
@@ -551,6 +688,22 @@ define({
 					stopRemoteHarvesting: "Ferma generazione blocchi sicura"
 				}
 			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Invia NEM",
+			edit: 'Edit',
+			remove: "Elimina"
 		},
 		settings: {
 			title: "Impostazioni",

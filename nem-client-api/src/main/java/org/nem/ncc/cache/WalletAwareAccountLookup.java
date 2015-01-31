@@ -69,9 +69,14 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 				new AccountInfo(
 						walletAccount.getAddress(),
 						info.getBalance(),
-						info.getNumForagedBlocks(),
+						info.getNumHarvestedBlocks(),
 						info.getLabel(),
 						info.getImportance()),
 				pair.getMetaData());
+	}
+
+	@Override
+	public void refreshAccount(final Address address) {
+		this.accountLookup.refreshAccount(address);
 	}
 }

@@ -38,14 +38,14 @@ public class NodeController {
 	/**
 	 * Boots the local node.
 	 *
-	 * @param bootNode Information about the node to boot.
+	 * @param bootNodeRequest Information about the node to boot.
 	 */
 	@RequestMapping(value = "/node/boot", method = RequestMethod.POST)
 	@RequiresTrustedNis
-	public void bootNode(@RequestBody final BootNodeRequest bootNode) {
-		final Wallet wallet = this.walletServices.get(bootNode.getWalletName());
-		final PrivateKey privateKey = wallet.getAccountPrivateKey(bootNode.getAccountId());
-		this.nisConnector.voidPost(NisApiId.NIS_REST_NODE_BOOT, this.createBootNodeRequest(privateKey, bootNode.getNodeName()));
+	public void bootNode(@RequestBody final BootNodeRequest bootNodeRequest) {
+		final Wallet wallet = this.walletServices.get(bootNodeRequest.getWalletName());
+		final PrivateKey privateKey = wallet.getAccountPrivateKey(bootNodeRequest.getAddress());
+		this.nisConnector.voidPost(NisApiId.NIS_REST_NODE_BOOT, this.createBootNodeRequest(privateKey, bootNodeRequest.getNodeName()));
 	}
 
 	private HttpPostRequest createBootNodeRequest(final PrivateKey privateKey, final String nodeName) {

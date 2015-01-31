@@ -73,6 +73,7 @@ public class ChainServicesTest {
 		final TestContext context = new TestContext();
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost("10.0.0.4");
 		context.setChainHeightForNode(endpoint, createExceptionalFuture());
+		context.setMaxChainHeightForNode(endpoint, Utils.createDeserializerFuture(BlockHeight.ONE));
 
 		// Arrange: set up the peer nodes
 		Mockito.when(context.networkServices.getNodePeerListAsync(endpoint))

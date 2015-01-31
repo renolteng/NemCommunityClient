@@ -57,6 +57,92 @@ Updates the current configuration with the given values.
 * Response: `-`
 * Dependent from NIS: _No_
 
+### /addressbook/create
+Creates a new, empty address book. The address book is stored
+ encrypted in the configured address book directory. The name of the address book file
+ is the encoded (URL encoded) version of the address book name. The provided
+ password is used to encrypt the address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordPair](viewModel.md#addressbooknamepasswordpair)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressbook/open
+Open an address book. The address book is defined by the address book name. The address book has
+ to be located in the address book storage location. The password must match the
+ password of the given address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordPair](viewModel.md#addressbooknamepasswordpair)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressbook/info
+Returns information about an address book that is already open.
+
+* Request Method: _POST_
+* Request: [AddressBookName](viewModel.md#addressbookname)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressbook/close
+Closes an address book by removing it from the list of opened address books.
+
+* Request Method: _POST_
+* Request: [AddressBookName](viewModel.md#addressbookname)
+* Response: `-`
+* Dependent from NIS: _No_
+
+### /addressbook/password/change
+Changes the password of an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: `-`
+* Dependent from NIS: _No_
+
+### /addressbook/name/change
+Changes the name of an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: `-`
+* Dependent from NIS: _No_
+
+### /addressbook/accountlabel/remove
+Removes an existing account label from an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AddressBookViewModel](viewModel.md#addressbookviewmodel)
+* Dependent from NIS: _No_
+
+### /addressbook/accountlabel/add
+Adds an account label to an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AccountLabel](viewModel.md#accountlabel)
+* Dependent from NIS: _No_
+
+### /addressbook/accountlabel/change
+Changes an existing account label in an address book.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AccountLabel](viewModel.md#accountlabel)
+* Dependent from NIS: _No_
+
+### /addressbook/accountlabel/find
+Gets an existing account label from an address book.
+The address parameter in the AddressBookNamePasswordBag must be supplied.
+
+* Request Method: _POST_
+* Request: [AddressBookNamePasswordBag](viewModel.md#addressbooknamepasswordbag)
+* Response: [AccountLabel](viewModel.md#accountlabel)
+* Dependent from NIS: _No_
+
 ### /wallet/list
 Gets all wallets that are located at the configured storage location for wallets.
 
@@ -78,9 +164,9 @@ Creates a new wallet with one account in it. The wallet is stored
 
 ### /wallet/open
 Open a wallet. The wallet is defined by the wallet name. The wallet has
-	  to be located in the wallet storage location. The password must match the
-	  password of the given wallet. For opening a wallet at a different
-	  location the function importWallet has to be used.
+ to be located in the wallet storage location. The password must match the
+ password of the given wallet. For opening a wallet at a different
+ location the function importWallet has to be used.
 
 * Request Method: _POST_
 * Request: [WalletNamePasswordPair](viewModel.md#walletnamepasswordpair)
@@ -112,7 +198,7 @@ Changes the password of a wallet.
 * Dependent from NIS: _No_
 
 ### /wallet/name/change
-Changes the password of a wallet.
+Changes the name of a wallet.
 
 * Request Method: _POST_
 * Request: [WalletNamePasswordBag](viewModel.md#walletnamepasswordbag)
@@ -168,7 +254,7 @@ Validates a new transaction (i.e., sending NEM, messages, assets) and provides i
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/unlock
-Unlock the account on the connected NIS server (start foraging).
+Unlock the account on the connected NIS server (start harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletRequest](viewModel.md#accountwalletrequest)
@@ -176,7 +262,7 @@ Unlock the account on the connected NIS server (start foraging).
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/lock
-Lock the account on the connected NIS server (stop foraging).
+Lock the account on the connected NIS server (stop harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletRequest](viewModel.md#accountwalletrequest)
@@ -208,7 +294,7 @@ Checks if account is unlocked on remote server, will return an error if
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/unlock
-Unlock the account on the remote NIS server (start secure foraging).
+Unlock the account on the remote NIS server (start secure harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)
@@ -216,7 +302,7 @@ Unlock the account on the remote NIS server (start secure foraging).
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/lock
-Lock the account on the remote NIS server (stop secure foraging).
+Lock the account on the remote NIS server (stop secure harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)

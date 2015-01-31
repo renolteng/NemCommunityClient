@@ -7,15 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: "Tiedostoa ei löydy.",
+			101: 'The wallet file does not exist.',
 			102: "Lompakkoa ei ole luotu.",
-			103: "Lompakkotiedosto on vaurioitunut.Palauta lompakkotiedosto varmuuskopiosta, jonka olet luonut tiliä luodessasi.",
-			104: "Syöttämäsi salasana ei ole oikea. Toivottavasti muistat oikean salasanan. Salasanaa ei voi palauttaa, jos se hukkuu!",
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: "Ennenkuin voit käyttää lompakkoa, se pitää avata. Avataksesi lompakon, on sinulla oltava salasana.",
 			107: "Lompakko ei sisällä tätä tiliä.",
 			108: "Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 NEM, tai yrität poistaa ensisijaista tiliä.",
 			109: "Saman niminen lompakko on jo olemassa. Valitse toinen lompakon nimi.",
 			110: "Lompakko sisältää jo tämän tilin.",
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: "Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.",
 			305: "NEM Infrastructure Server ei ole käytettävissä.",
 			306: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
@@ -25,6 +40,7 @@ define({
 			500: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
 			600: "NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.",
 			601: "NIS node on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.",
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Louhintaa (Harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 NEM.",
 			701: "Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.",
 			702: "Valittu aikaraja on liian kaukana tulevaisuudessa. Aikaraja täytyy olla yhden päivän sisällä.",
@@ -35,6 +51,16 @@ define({
 			707: "Siirron aikamerkintä on liian kaukana menneisyydessä.",
 			708: "Siirron aikamerkintä on liian kaukana tulevaisuudessa.",
 			709: "Tili on tuntematon. Tilillä on oltava yksi siirto tai vastaanotto, jotta se voidaan tunnistaa verkossa.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: "Tapahtui virhe määritettäessä offline node.",
 			1000: "Private key ja public key, eivät vastaa toisiaan.",
 			1001: "Public key ja osoite eivät vastaa toisiaan.",
@@ -58,8 +84,32 @@ define({
 					1: "Yksi päivä",
 					many: "{{1}} päivää"
 				},
-				synchronized: "NIS on sykronoitu !"
-			}
+				synchronized: "NIS on sykronoitu !",
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: "Salasana",
+			passwordValidation: "Salasanakenttä ei voi olla tyhjä",
+			address: "Osoite",
+			privateLabel: "Yksityinen merkintä",
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: "Viivästyneet siirrot",
+			outgoing: "Lähtevät siirrot",
+			incoming: "Saapuvat siirrot",
+			self: "Automaattiset siirrot",
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@ define({
 				save: "Tallenna",
 				saveSuccess: "Asetukset on tallennettu onnistuneesti"
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: "Tämä tili on nimetty {{1}}",
+				nullLabelDesc: "Tällä tilillä ei ole nimeä",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: "Peruuta",
+				convert: 'Convert',
+				fee: "Palkkio",
+				feeValidation: "Palkkio ei voi olla vähempää, kuin minimipalkkio.",
+				dueBy: "Maksettava",
+				useMinimumFee: "Käytä minimipalkkiota",
+				hours: "Tunnit",
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: "Kokonaissumma",
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Vastaanottaja",
+					amount: "Summa",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Kokonaissumma",
+				sender: 'Cosignatory',
+				fee: "Palkkio",
+				feeValidation: "Palkkio ei voi olla vähempää, kuin minimipalkkio.",
+				dueBy: "Maksettava",
+				useMinimumFee: "Käytä minimipalkkiota",
+				hours: "Tunnit",
+				password: "Salasana",
+				passwordValidation: "Salasanakenttä ei voi olla tyhjä",
+				send: "Lähetys",
+				cancel: "Peruuta",
+				sending: "Lähetetään...",
+				successMessage: "Siirto on lähetetty onnistuneesti!",
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: "Viesti",
+					encrypted: "Viesti on salattu",
+					noMessage: "Ei viestiä",
+
+				},
+
+			},
 			sendNem: {
 				title: "Lähetä NEM",
+				sender: "Lähettäjä",
+				thisAccount: 'This account',
 				labelDesc: "Tämä tili on nimetty {{1}}",
 				nullLabelDesc: "Tällä tilillä ei ole nimeä",
 				amount: "Summa",
@@ -104,6 +209,7 @@ define({
 				message: "Viesti",
 				encrypt: "Salaa viesti",
 				fee: "Palkkio",
+				multisigFee: 'Multisig fee',
 				feeValidation: "Palkkio ei voi olla vähempää, kuin minimipalkkio.",
 				dueBy: "Maksettava",
 				useMinimumFee: "Käytä minimipalkkiota",
@@ -118,7 +224,6 @@ define({
 					title: "Vahvista siirto",
 					amount: "Summa",
 					to: "Minne",
-					fee: "Palkkio",
 					dueBy: "Maksettava",
 					hours: "Tunnit",
 					total: "Kokonaissumma",
@@ -155,12 +260,17 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Siiron tyyppi",
+				direction: 'Transaction Direction',
 				pending: "Odotetaan",
 				outgoing: "Lähtevä",
 				incoming: "Saapuva",
 				self: "Itse",
 				sender: "Lähettäjä",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Vastaanottaja",
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: "Viesti",
 				noMessage: "Ei viestiä",
 				encrypted: "Viesti on salattu",
@@ -168,7 +278,25 @@ define({
 				confirmations: "Vahvistuksia",
 				confirmationsUnknown: "Tuntemaon",
 				amount: "Summa",
-				fee: "Palkkio"
+				fee: "Palkkio",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: "Käynnistä local node uudelleen",
@@ -243,7 +371,8 @@ define({
 				wallet: "Lompakko",
 				password: "Lompakon salasana",
 				successMessage: "Tili {{1}} {{#2}}({{2}}){{/2}} on asetettu ensisijaiseksi!",
-				set: "Aseta ensisijaiseksi"
+				set: "Aseta ensisijaiseksi",
+
 			},
 			changeWalletName: {
 				title: "Vaihda lompakon nimi",
@@ -319,7 +448,22 @@ define({
 				stop: "Pysäytä"
 			},
 			logoutWarning: {
-				leavePage: "Olet poistumassa lompakostasi. Jos poistut näin, on toisilla tämän tietokoneen käyttäjillä mahdollisuus käyttää lompakkoasi. Poistu lompakosta \"close wallet\"\ntoiminnolla menu pudotusvalikosta, joka sijaitsee ruudun oikeassa yläkulmassa, ennen kuin suljet selaimen."
+				leavePage: "Olet poistumassa lompakostasi. Jos poistut näin, on toisilla tämän tietokoneen käyttäjillä mahdollisuus käyttää lompakkoasi. Poistu lompakosta \"close wallet\"\ntoiminnolla menu pudotusvalikosta, joka sijaitsee ruudun oikeassa yläkulmassa, ennen kuin suljet selaimen.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: "Lisää"
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: "Tallenna muutokset",
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: "Poistettu",
+
 			}
 		},
 		landing: {
@@ -411,12 +555,13 @@ define({
 				clientInfo: "Client Info",
 				closeWallet: "Sulje lomakko",
 				closeProgram: "Sulje ohjelma",
-				copyClipboard: "Kopioi osoite työpöydälle"
+				copyClipboard: "Kopioi osoite työpöydälle",
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				"Valikko",
 				"Viesti",
-				"Yhteystiedot",
+				'Address Book',
 				"Siirrot",
 				"Harvested blocks",
 				"Asset Exchange",
@@ -453,6 +598,7 @@ define({
 			transactions: {
 				title: "Viimeisimmät siirrot",
 				sendNem: "Lähetä NEM",
+				signMultisig: 'SIGN',
 				balance: "Tämänhetkinen saldo",
 				syncStatus: "(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})",
 				unknown: "Tuntematon",
@@ -467,12 +613,6 @@ define({
 					"Palkkio",
 					"Summa"
 				],
-				types: {
-					pending: "Viivästyneet siirrot",
-					outgoing: "Lähtevät siirrot",
-					incoming: "Saapuvat siirrot",
-					self: "Automaattinen siirto"
-				},
 				noMessage: "Ei viestiä",
 				encrypted: "Viesti on salattu",
 				view: "Näytä",
@@ -500,7 +640,8 @@ define({
 				confirmed: "Vahvistettu",
 				unconfirmed: "Vahvistamaton",
 				incoming: "Saapuva",
-				outgoing: "Lähtevä"
+				outgoing: "Lähtevä",
+
 			},
 			table: {
 				columns: [
@@ -514,12 +655,6 @@ define({
 					"Palkkio",
 					"Summa"
 				],
-				types: {
-					pending: "Viivästyneet siirrot",
-					outgoing: "Lähtevät siirrot",
-					incoming: "Saapuvat siirrot",
-					self: "Automaattiset siirrot"
-				},
 				noMessage: "Ei viestiä",
 				encrypted: "Viesti on salattu",
 				view: "Näytä",
@@ -553,6 +688,22 @@ define({
 					stopRemoteHarvesting: "Lopeta remote harvesting"
 				}
 			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: "Lähetä NEM",
+			edit: 'Edit',
+			remove: "Poistettu"
 		},
 		settings: {
 			title: "Asetukset",

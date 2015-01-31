@@ -73,7 +73,7 @@
 			<li class="tile tile--transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
 				<article>
 					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
-					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem">{{texts.dashboard.transactions.sendNem}}</button>
+					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
 					<div class="transactionsTile-overview">
 						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}</h1>
 						<p>
@@ -99,31 +99,60 @@
 						{{#each activeAccount.transactions:i}}
 							{{#if i < 4}}
 								<tr>
-                                    {{#if .confirmed}}
-                                        {{#.isSelf}}
-                                            <td class="txList-cell txList-col--type icon-self" title="{{texts.dashboard.transactions.types.self}}" on-mouseover="registerToolTip"></td>
-                                        {{/}}
-                                        {{#.isOutgoing}}
-                                            <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.dashboard.transactions.types.outgoing}}" on-mouseover="registerToolTip"></td>
-                                        {{/}}
-                                        {{#.isIncoming}}
-                                            <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.dashboard.transactions.types.incoming}}" on-mouseover="registerToolTip"></td>
-                                        {{/}}
+									{{#if .confirmed}}
+										{{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Aggregate_Modification)}}
+											{{#if (.type === TransactionType.Importance_Transfer)}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{else}}
+												<td class="txList-cell txList-col--type encryptedIcon icon-attachment" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/if}}
+										{{else}}
+											{{#.isSelf}}
+												<td class="txList-cell txList-col--type icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+											{{#.isOutgoing}}
+												<td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+											{{#.isIncoming}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+										{{/if}}
                                     {{else}}
-                                    	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.dashboard.transactions.types.pending}}" on-mouseover="registerToolTip"></td>
+                                    	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                     {{/if}}
+
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
                                     {{#.isSelf || .isOutgoing}}
-                                        <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">{{.formattedRecipient}}</td>
+                                        <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
+                                        		{{#if privateLabels[.recipient]}}
+                                        			{{privateLabels[.recipient]}}
+                                    			{{else}}
+                                        			{{.formattedRecipient}}
+                                        		{{/if}}
+                                        	</a>
+                                    	</td>
                                     {{/}}
-                                    {{#.isIncoming}}
-                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">{{.formattedSender}}</td>
-                                    {{/}}
+                                    {{#if (.isIncoming || .type === TransactionType.Aggregate_Modification)}}
+                                        <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
+                                        	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                        		{{#if privateLabels[.sender]}}
+                                        			{{privateLabels[.sender]}}
+                                    			{{else}}
+                                    				{{.formattedSender}}
+                                        		{{/if}}
+                                    		</a>
+                                    	</td>
+                                    {{/if}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
-										{{#if .message}}
-											{{.message}}
+										{{#if .isMultisig}}
+											<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
 										{{else}}
-											<span class="dimmed">{{texts.dashboard.transactions.noMessage}}</span>
+											{{#if .message}}
+												{{.message}}
+											{{else}}
+												<span class="dimmed">{{texts.dashboard.transactions.noMessage}}</span>
+											{{/if}}
 										{{/if}}
 									</td>
 									<td class="txList-cell txList-col--encrypted encryptedIcon">
@@ -131,7 +160,9 @@
 											<span class="icon-lock" title="{{texts.dashboard.transactions.encrypted}}" on-mouseover="registerToolTip"></span>
 										{{/}}
 									</td>
-									<td class="txList-cell txList-col--details" on-click="viewTransaction:{{.}}">{{texts.dashboard.transactions.view}}</td>
+									<td class="txList-cell txList-col--details">
+										<a class="hyperlink--default" href="javascript:;" on-click="viewTransaction(.)">{{texts.dashboard.transactions.view}}</a>
+									</td>
 									<td class="txList-col--confirmations">
 										{{#if .confirmed}}
 											{{#if blockchainHeight}}
@@ -143,12 +174,26 @@
 											{{texts.dashboard.transactions.pending}}
 										{{/if}}
 									</td>
-                                    <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--fee">
+										{{#if .isMultisig}}
+											n/a
+										{{else}}
+											{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
+										{{/if}}
+									</td>
                                     <td class="txList-cell txList-col--amount">
-	                                    {{#.isSelf}}&plusmn;{{/}}<!--
-	                                    -->{{#.isOutgoing}}-{{/}}<!--
-	                                    -->{{#.isIncoming}}+{{/}}<!--
-	                                    -->{{{formattedAmount}}}
+										{{#if .isMultisig}}
+											{{#if .requiresSignature}}
+												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
+											{{else}}
+												see details
+											{{/if}}
+										{{else}}
+											{{#.isSelf}}&plusmn;{{/}}
+											{{#.isOutgoing}}-{{/}}
+											{{#.isIncoming}}+{{/}}
+											{{{formattedAmount}}}
+										{{/if}}
                                     </td>
 								</tr>
 							{{/if}}

@@ -106,7 +106,7 @@
                                 }
                             },
                             {
-                                name: 'hours_due',
+                                name: 'hoursDue',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.activateRemote.hoursDue')
@@ -114,11 +114,11 @@
                             }
                         ],
                         {
-                            wallet: ncc.get('wallet.name'),
+                            wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address')
                         },
                         function(values, closeModal) {
-                            values.hours_due = parseInt(values.hours_due, 10);
+                            values.hoursDue = parseInt(values.hoursDue, 10);
                             ncc.postRequest('wallet/account/remote/activate', values, function(data) {
                                 closeModal();
                             }, {
@@ -159,7 +159,7 @@
                                 }
                             },
                             {
-                                name: 'hours_due',
+                                name: 'hoursDue',
                                 type: 'text',
                                 label: {
                                     content: ncc.get('texts.modals.deactivateRemote.hoursDue')
@@ -167,11 +167,11 @@
                             }
                         ],
                         {
-                            wallet: ncc.get('wallet.name'),
+                            wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address')
                         },
                         function(values, closeModal) {
-                            values.hours_due = parseInt(values.hours_due, 10);
+                            values.hoursDue = parseInt(values.hoursDue, 10);
                             ncc.postRequest('wallet/account/remote/deactivate', values, function(data) {
                                 closeModal();
                             }, {

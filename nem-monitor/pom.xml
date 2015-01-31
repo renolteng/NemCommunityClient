@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.nem.monitor</groupId>
     <artifactId>nem-monitor</artifactId>
-    <version>0.4.48-BETA</version>
+    <version>0.5.0-BETA</version>
     <name>NEM Monitor</name>
 
     <organization>
@@ -26,7 +26,7 @@
         <nem-certificate-password>nem-start-201404</nem-certificate-password>
         <nem-code-base>http://bob.nem.ninja/webstart</nem-code-base>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <nemcore.version>0.4.48-BETA</nemcore.version>
+        <nemcore.version>0.5.0-BETA</nemcore.version>
     </properties>
 
     <dependencies>
@@ -113,6 +113,16 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpasyncclient</artifactId>
             <version>4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore-nio</artifactId>
+            <version>4.3.3</version>
         </dependency>
     </dependencies>
     <build>

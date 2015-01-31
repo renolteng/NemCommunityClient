@@ -23,7 +23,7 @@ public class TransferImportanceRequestTest {
 		final TransferImportanceRequest request = this.createRequest();
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 		Assert.assertThat(request.getWalletPassword(), IsEqual.equalTo(this.TEST_WALLET_PASS));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(this.TEST_HOURS_DUE));
@@ -39,7 +39,7 @@ public class TransferImportanceRequestTest {
 				this.TEST_HOURS_DUE);
 
 		// Assert:
-		Assert.assertThat(request.getAccountId(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 		Assert.assertThat(request.getWalletPassword(), IsEqual.equalTo(this.TEST_WALLET_PASS));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(this.TEST_HOURS_DUE));
@@ -85,7 +85,7 @@ public class TransferImportanceRequestTest {
 		jsonObject.put("account", address);
 		jsonObject.put("wallet", walletName);
 		jsonObject.put("password", walletPassword);
-		jsonObject.put("hours_due", hoursDue);
+		jsonObject.put("hoursDue", hoursDue);
 		return new TransferImportanceRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils'], function(NccModal, Utils) {
+define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, TransactionType) {
 	return NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -26,7 +26,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             encrypt: function() {
                 return this.get('encryptionPossible') ? (this.get('encrypted') ? 1 : 0) : 0;
             },
-            hours_due: function() {
+            hoursDue: function() {
                 return this.get('dueBy') | 0;
             },
             fee: {
@@ -36,6 +36,15 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 set: function(fee) {
                     this.set('formattedFee', Utils.format.nem.formatNemAmount(fee));
                     this.update('fee'); // so that stupid Ractive trigger fee observers
+                }
+            },
+            multisigFee: {
+                get: function() {
+                    return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedMultisigFee')));
+                },
+                set: function(fee) {
+                    this.set('formattedMultisigFee', Utils.format.nem.formatNemAmount(fee));
+                    this.update('multisigFee'); // so that stupid Ractive trigger fee observers
                 }
             },
             feeValid: function() {
@@ -57,36 +66,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 return this.get('recipientValid') && this.get('feeValid') && this.get('passwordValid');
             }
         },
-        /**
-         * @param {boolean} options.silent
-         */
-        resetFee: function(options) {
-            var requestData = {
-                wallet: ncc.get('wallet.name'),
-                account: ncc.get('activeAccount.address'),
-                amount: this.get('amount'),
-                message: this.get('message'),
-                encrypt: this.get('encrypt'),
-                recipient: this.get('recipientValid') ? this.get('recipient') : ncc.get('activeAccount.address'),
-                hours_due: this.get('hours_due')
-            };
-            var self = this;
-            
-            ncc.postRequest('wallet/account/transaction/validate', requestData, 
-                function(data) {
-                    self.set('minimumFee', data.fee);
-                    self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
-                }, 
-                {
-                    altFailCb: function(faultId, error) {
-                        if (faultId === 202) { // request encrypting while recipient unable to encrypt
-                            self.set('encrypted', false); // this will automatically trigger resetFee
-                            return true;
-                        }
-                    }
-                }, options.silent
-            );
-        },
         validateTx: function() {
             if (!this.get('recipientValid')) return false;
             return true;
@@ -97,30 +76,88 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('rawMessage', '');
             this.set('encrypted', false);
             this.set('fee', 0);
+            this.set('multisigFee', 0);
             this.set('minimumFee', 0);
             this.set('dueBy', '12');
             this.set('password', '');
             this.set('useMinimumFee', true);
+            this.set('signatories', [{}]);
 
+            this.set('cosignatories', ncc.get('activeAccount').cosignatoryOf);
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
             this.set('passwordChanged', false);
             this.resetFee({ silent: true });
         },
-        sendTransaction: function() {
+        /**
+         * @param {boolean} options.silent
+         */
+        resetFee: function(options) {
             var requestData = {
-                wallet: ncc.get('wallet.name'),
+                wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
-                password: this.get('password'),
                 amount: this.get('amount'),
-                recipient: this.get('recipient'),
                 message: this.get('message'),
-                fee: this.get('fee'),
                 encrypt: this.get('encrypt'),
-                hours_due: this.get('hours_due')
+                recipient: this.get('recipientValid') ? this.get('recipient') : ncc.get('activeAccount.address'),
+                hoursDue: this.get('hoursDue')
             };
+            var self = this;
+            
+            ncc.postRequest('wallet/account/transaction/validate', requestData, 
+                function(data) {
+                    self.set('minimumFee', data.fee);
+                    self.set('multisigFee', data.multisigFee);
+                    if (self.get('sender') == null) {
+                        self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
+                    } else {
+                        self.set('encryptionPossible', false);
+                    }
+                },
+                {
+                    altFailCb: function(faultId, error) {
+                        if (faultId === 202) { // request encrypting while recipient unable to encrypt
+                            self.set('encrypted', false); // this will automatically trigger resetFee
+                            return true;
+                        }
+                    }
+                }, options.silent
+            );
+        },
+        sendTransaction: function() {
+            if (this.get('sender') == null) {
+                var requestData = {
+                    wallet: ncc.get('wallet.wallet'),
+                    type: TransactionType.Transfer,
+                    account: ncc.get('activeAccount.address'),
+                    password: this.get('password'),
+                    amount: this.get('amount'),
+                    recipient: this.get('recipient'),
+                    message: this.get('message'),
+                    fee: this.get('fee'),
+                    multisigFee: 0,
+                    encrypt: this.get('encrypt'),
+                    hoursDue: this.get('hoursDue')
+                };
+            } else {
+                var requestData = {
+                    wallet: ncc.get('wallet.wallet'),
+                    type: TransactionType.Multisig_Transfer,
+                    multisigAccount: this.get('sender'),
+                    account: ncc.get('activeAccount.address'),
+                    password: this.get('password'),
+                    amount: this.get('amount'),
+                    recipient: this.get('recipient'),
+                    message: this.get('message'),
+                    fee: this.get('fee'),
+                    multisigFee: this.get('multisigFee'),
+                    encrypt: this.get('encrypt'),
+                    hoursDue: this.get('hoursDue')
+                };
+            }
 
             var txConfirm = ncc.getModal('transactionConfirm');
+            txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
             txConfirm.open();
@@ -159,39 +196,20 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                         }, 500);
                     }
                 })(),
-                recipient: (function() {
-                    var t;
-                    return function(recipient) {
-                        this.set('recipientChanged', true);
-
-                        clearTimeout(t);
-                        t = setTimeout(function() {
-                            ncc.postRequest('account/find', { account: recipient }, 
-                                function(data) {
-                                    if (data.address) {
-                                        self.set('recipientLabel', data.label || '');
-                                    } else {
-                                        self.set('recipientLabel', null);
-                                    }
-                                }, 
-                                {
-                                    error: function() {
-                                        self.set('recipientLabel', null);
-                                    },
-                                    altFailCb: function() {
-                                        self.set('recipientLabel', null);
-                                    }
-                                },
-                                true
-                            );
-                        }, 500);
-                    };
-                })(),
+                recipient: function(recipient) {
+                    this.set('recipientChanged', true);
+                    self.set('recipientLabel', ncc.get('privateLabels')[recipient]);
+                },
                 fee: function() {
                     this.set('feeChanged', true);
                 },
                 password: function() {
                     this.set('passwordChanged', true);
+                },
+                sender: function(senderData) {
+                    if (senderData != null) {
+                        this.set('encryptionPossible', false);
+                    }
                 }
             }, 
             {
@@ -200,22 +218,22 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 
             this.on({
                 sendFormKeypress: function(e) {
-                    if (e.original.keyCode === 13) {
+                    if (e.original.keyCode === 13 && this.get('formValid')) {
                         this.sendTransaction();
                     }
                 },
                 modalOpened: function() {
                     $('.js-sendNem-recipient-textbox').focus();
+                    // TODO G-Krysto: this should be here not in modalClosed, or not?
+                    this.resetDefaultData();
                 },
                 modalClosed: function() {
                     this.resetDefaultData();
                 }
             });
 
-            require(['maskedinput'], function() {
-                var $dueBy = $('.js-sendNem-dueBy-textbox');
-                $dueBy.mask('00');
-            });
+            var $dueBy = $('.js-sendNem-dueBy-textbox');
+            $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
             var $recipient = $('.js-sendNem-recipient-textbox');
             $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });

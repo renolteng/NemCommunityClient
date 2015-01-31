@@ -7,15 +7,30 @@ define({
 			decimalSeparator: ','
 		},
 		faults: {
-			101: 'Không tìm thấy file.',
+			101: 'The wallet file does not exist.',
 			102: 'Ví của bạn chưa được tạo.',
-			103: 'File ví của bạn đã bị hỏng. Xin hãy khôi phục ví của bạn từ một nguồn dự phòng mà bạn đã tạo khi bạn tạo ví hoặc khi thêm tài khoản vào đó.',
-			104: 'Mật khẩu bạn cung cấp không đúng. Hy vọng rằng bạn vẫn nhớ mật khẩu đúng. Mật khẩu không thể khôi phục được nếu đã bị mất!',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: 'Trước khi bạn có thể làm việc với một chiếc ví, nó phải được mở. Để chắc chắn rằng bạn có quyền truy cập vào ví, bạn phải cung cấp mật khẩu cho ví đó.',
 			107: 'Ví không chứa tài khoản này',
 			108: 'Tài khoản không thể bị xoá. Có vẻ bởi vì tài khoản vẫn còn số dư lón hơn 0 NEM hoặc tài khoản bạn đang cố gắng xoá là tài khoản chính.',
 			109: 'Một ví khác có cùng tên đã tồn tại. Hãy chọn một cái tên khác.',
 			110: 'Tài khoản này đã có trong ví rồi.',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: 'Không thể gửi thông điệp mã hoá bởi vì người nhận chưa từng thực hiện một giao dịch trước đây.',
 			305: 'NEM Infrastructure Server không khả dụng.',
 			306: 'Một lỗi nằm ngoài dự tính của nhóm phát triển đã xảy ra. Xin lỗi bạn vì điều này, có thể thử lại sẽ có tác dụng. Nếu không, hãy tạo một issue trong cộng đồng NIS/NCC của NEM.',
@@ -25,6 +40,7 @@ define({
 			500: 'Lưu file cấu hình thất bại.',
 			600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
 			601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng NEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 NEM.',
 			701: 'Deadline được cung cấp đã trôi qua.',
 			702: 'Deadline được cung cấp quá xa trong tương lai.',
@@ -35,13 +51,23 @@ define({
 			707: 'Mốc thời gian của giao dịch quá xa trong quá khứ.',
 			708: 'Mốc thời gian của giao dịch quá xa về tương lai.',
 			709: 'Tài khoản không được biết đến. Một tài khoản cần phải tham gia vào ít nhất một giao dịch (là người gửi hoặc người nhận) để được mạng lưới biết đến.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.',
 			1000: "Khoá bí mật và khoá công khai mà bạn vừa cung cấp không khớp với nhau.",
 			1001: 'Khoá công khai và địa chỉ mà bạn vừa cung cấp không khớp với nhau.',
 			1002: 'Địa chỉ không thuộc về mạng lưới chính.'
 		},
 		common: {
-			success: 'Thành công', //title of the Success message modals
+			success: 'Thành công',
 			appStatus: {
 				nccUnknown: 'Không rõ trạng thái của NCC',
 				nccUnavailable: 'Mất kết nối với NCC',
@@ -58,8 +84,32 @@ define({
 					1: '1 ngày',
 					many: '{{1}} ngày'
 				},
-				synchronized: 'NIS đã được đồng bộ!'
-			}
+				synchronized: 'NIS đã được đồng bộ!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: 'Mật khẩu',
+			passwordValidation: 'Mật khẩu không được để trống',
+			address: 'Địa chỉ',
+			privateLabel: 'Nhãn cá nhân',
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+			
+		],
+		transactionDirections: {
+			pending: 'Giao dịch đang chờ xác nhận',
+			outgoing: 'Giao dịch gửi đi',
+			incoming: 'Giao dịch gửi đến',
+			self: 'Giao dịch tự gửi',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +144,63 @@ define({
 				save: 'Lưu',
 				saveSuccess: 'Thiết lập đã được lưu thành công'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
+				nullLabelDesc: "Tài khoản này không được dán nhãn",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Huỷ',
+				convert: 'Convert',
+				fee: 'Phí',
+				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
+				dueBy: 'Hết hạn',
+				useMinimumFee: 'Sử dụng phí tối thiểu',
+				hours: 'giờ',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Tổng cộng',
+
+				},
+
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Người nhận',
+					amount: 'Số lượng',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Tổng cộng',
+				sender: 'Cosignatory',
+				fee: 'Phí',
+				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
+				dueBy: 'Hết hạn',
+				useMinimumFee: 'Sử dụng phí tối thiểu',
+				hours: 'giờ',
+				password: 'Mật khẩu',
+				passwordValidation: 'Mật khẩu không được để trống',
+				send: 'Gửi',
+				cancel: 'Huỷ',
+				sending: 'Đang gửi...',
+				successMessage: 'Giao dịch đã được gửi đi thành công!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: 'Thông điệp',
+					encrypted: 'Thông điệp được mã hoá',
+					noMessage: 'Không có',
+
+				},
+
+			},
 			sendNem: {
 				title: 'Gửi NEM',
+				sender: 'Người gửi',
+				thisAccount: 'This account',
 				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
 				nullLabelDesc: "Tài khoản này không được dán nhãn",
 				amount: 'Số lượng',
@@ -104,6 +209,7 @@ define({
 				message: 'Thông điệp',
 				encrypt: 'Mã hoá thông điệp',
 				fee: 'Phí',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
 				dueBy: 'Hết hạn',
 				useMinimumFee: 'Sử dụng phí tối thiểu',
@@ -118,7 +224,6 @@ define({
 					title: 'Xác nhận giao dịch',
 					amount: 'Số lượng',
 					to: 'Tới',
-					fee: 'Phí',
 					dueBy: 'Hết hạn',
 					hours: 'giờ',
 					total: 'Tổng cộng',
@@ -155,12 +260,17 @@ define({
 				id: 'ID',
 				hash: 'Hash',
 				type: 'Loại giao dịch',
+				direction: 'Transaction Direction',
 				pending: 'Đang chờ xác nhận',
 				outgoing: 'Gửi đi',
 				incoming: 'Gửi đến',
 				self: 'Tự gửi',
 				sender: 'Người gửi',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Người nhận',
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: 'Thông điệp',
 				noMessage: 'Không có thông điệp nào',
 				encrypted: 'Thông điệp được mã hoá',
@@ -168,7 +278,25 @@ define({
 				confirmations: 'Số xác nhận',
 				confirmationsUnknown: 'Không rõ',
 				amount: 'Số lượng',
-				fee: 'Phí'
+				fee: 'Phí',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'Boot node cục bộ',
@@ -244,6 +372,7 @@ define({
 				password: "Mật khẩu ví",
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được đặt làm tài khoản chính!',
 				set: 'Đặt làm tài khoản chính',
+
 			},
 			changeWalletName: {
 				title: 'Đổi tên ví',
@@ -320,6 +449,21 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "Bạn đang rời khỏi ví của mình. Hãy nhớ rằng nếu bạn rời ví theo cách này, ai đó khác vẫn có thể truy cập vào ví của bạn từ máy tính này.\n\nĐể ngăn chặn điều đó xảy ra, hãy đăng xuất bằng cách chọn \"Đóng ví\" trong menu xổ xuống phía trên bên phải màn hình trước khi bạn đóng tab trình duyệt hoặc sang một trang web khác.",
+
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Thêm'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Lưu thay đổi',
+
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Xoá',
+
 			}
 		},
 		landing: {
@@ -335,7 +479,9 @@ define({
 				leftButton: 'Tạo một ví mới',
 				walletNamePlh: 'Tên ví của bạn',
 				passwordPlh: 'Mật khẩu',
+				confirmPasswordPlh: 'Confirm password',
 				create: 'Tạo',
+				creating: 'Creating...',
 				rightTitle: 'Đã là <em>thành viên</em>?',
 				rightButton: 'Mở ví của bạn',
 				openButton: 'Mở',
@@ -343,35 +489,41 @@ define({
 				copyright: 'Ảnh chụp bởi <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC mã hoá ví của bạn',
-					description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
-				}, {
-					title: 'NCC mã hoá ví của bạn',
-					description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
-				}]
+				items: [
+					{
+						title: 'NCC mã hoá ví của bạn',
+						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
+					},
+					{
+						title: 'NCC mã hoá ví của bạn',
+						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'NCC hoạt động thế nào?',
-					paragraphs: [
-						'<strong>NCC</strong> cho phép bạn tiếp cận với tài sản và NEM của bạn như một chiếc ví thông thường vẫn làm. Bạn có thể',
-						'<strong>NCC</strong> yêu cầu truy cập tới một <strong>NIS</strong> server để có thể hoạt động. Thôgn thường là sẽ có một server chạy trên máy bạn (được cài đặt cùng với <strong>NCC</strong>)',
-						'Bạn cũng có thể cấu hình truy cập tới một máy chủ <strong>NIS</strong> từ xa.'
-					],
-					listItems: [
-						'Có nhiều ví cùng lúc',
-						'Lập ra nhiều tài khoản chứa trong một chiếc ví'
-					]
-				}, {
-					title: '&#42;NIS là gì?',
-					paragraphs: [
-						'Thành phần này chịu trách nhiệm giữ cho <strong>NEM</strong> cloud hoạt động.',
-						'Càng nhiều <strong>NIS</strong> chạy thì độ bảo mật càng cao.',
-						'<strong>NIS</strong> là điểm truy cập tới <strong>NEM</strong> cloud.'
-					],
-					legend: '<strong>&#42;NIS</strong> là viết tắt của <strong>NEM Infrastructure Server</strong>'
-				}]
+				sections: [
+					{
+						title: 'NCC hoạt động thế nào?',
+						paragraphs: [
+							'<strong>NCC</strong> cho phép bạn tiếp cận với tài sản và NEM của bạn như một chiếc ví thông thường vẫn làm. Bạn có thể',
+							'<strong>NCC</strong> yêu cầu truy cập tới một <strong>NIS</strong> server để có thể hoạt động. Thôgn thường là sẽ có một server chạy trên máy bạn (được cài đặt cùng với <strong>NCC</strong>)',
+							'Bạn cũng có thể cấu hình truy cập tới một máy chủ <strong>NIS</strong> từ xa.'
+						],
+						listItems: [
+							'Có nhiều ví cùng lúc',
+							'Lập ra nhiều tài khoản chứa trong một chiếc ví'
+						]
+					},
+					{
+						title: '&#42;NIS là gì?',
+						paragraphs: [
+							'Thành phần này chịu trách nhiệm giữ cho <strong>NEM</strong> cloud hoạt động.',
+							'Càng nhiều <strong>NIS</strong> chạy thì độ bảo mật càng cao.',
+							'<strong>NIS</strong> là điểm truy cập tới <strong>NEM</strong> cloud.'
+						],
+						legend: '<strong>&#42;NIS</strong> là viết tắt của <strong>NEM Infrastructure Server</strong>'
+					}
+				]
 			},
 			footer: {
 				copyright: '&copy; Quyền tác giả 2014. NEM Community Client.'
@@ -403,12 +555,13 @@ define({
 				clientInfo: 'Thông tin client',
 				closeWallet: 'Đóng ví',
 				closeProgram: 'Đóng chương trình',
-				copyClipboard: 'Copy địa chỉ vào clipboard'
+				copyClipboard: 'Copy địa chỉ vào clipboard',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Bảng tin',
 				'Tin nhắn',
-				'Liên lạc',
+				'Address Book',
 				'Các giao dịch',
 				'Block thu hoạch được',
 				'Trao đổi tài sản',
@@ -445,6 +598,7 @@ define({
 			transactions: {
 				title: 'Các giao dịch gần đây',
 				sendNem: 'Gửi NEM',
+				signMultisig: 'SIGN',
 				balance: 'Số dư hiện tại',
 				syncStatus: '(tại block {{1}}{{#2}} : chậm khoảng {{3}} ngày{{/2}})',
 				unknown: 'không xác định',
@@ -459,12 +613,6 @@ define({
 					'Phí',
 					'Số lượng'
 				],
-				types: {
-					pending: 'Giao dịch đang chờ xác nhận',
-					outgoing: 'Giao dịch gửi đi',
-					incoming: 'Giao dịch gửi đến',
-					self: 'Giao dịch tự gửi',
-				},
 				noMessage: 'Không có',
 				encrypted: 'Thông điệp được mã hoá',
 				view: 'Xem',
@@ -493,6 +641,7 @@ define({
 				unconfirmed: 'Chưa xác nhận',
 				incoming: 'Gửi đến',
 				outgoing: 'Gửi đi',
+
 			},
 			table: {
 				columns: [
@@ -506,12 +655,6 @@ define({
 					'Phí',
 					'Số lượng'
 				],
-				types: {
-					pending: 'Giao dịch đang chờ xác nhận',
-					outgoing: 'Giao dịch gửi đi',
-					incoming: 'Giao dịch gửi đến',
-					self: 'Giao dịch tự gửi',
-				},
 				noMessage: 'Không có',
 				encrypted: 'Thông điệp được mã hoá',
 				view: 'Xem',
@@ -546,11 +689,29 @@ define({
 				}
 			}
 		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Gửi NEM',
+			edit: 'Edit',
+			remove: 'Xoá'
+		},
 		settings: {
 			title: 'Thiết lập',
-			settings: [{
-				name: 'Ngôn ngữ'
-			}],
+			settings: [
+				{
+					name: 'Ngôn ngữ'
+				}
+			],
 			save: 'Lưu thay đổi',
 			saveSuccess: 'Thiết lập đã được lưu thành công'
 		}

@@ -1,18 +1,20 @@
 package org.nem.ncc.test;
 
-import net.minidev.json.JSONObject;
+import net.minidev.json.*;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.AccountInfo;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
+import org.nem.ncc.addressbook.AccountLabel;
 import org.nem.ncc.controller.viewmodels.AccountViewModel;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * Static class containing test utilities.
@@ -367,5 +369,23 @@ public class Utils {
 	public static CompletableFuture<Deserializer> createDeserializerFuture(final SerializableEntity entity) {
 		final Deserializer deserializer = Utils.createDeserializer(JsonSerializer.serializeToJson(entity));
 		return CompletableFuture.completedFuture(deserializer);
+	}
+
+	/**
+	 * Creates a collection of account label from a JSON array.
+	 *
+	 * @param array The JSON array.
+	 * @return The collection of account labels.
+	 */
+	public static Collection<AccountLabel> accountLabelsFromJson(final JSONArray array) {
+		return array.stream()
+				.map(o -> {
+					final JSONObject object = (JSONObject)o;
+					return new AccountLabel(
+							Address.fromEncoded((String)object.get("address")),
+							(String)object.get("publicLabel"),
+							(String)object.get("privateLabel"));
+				})
+				.collect(Collectors.toList());
 	}
 }

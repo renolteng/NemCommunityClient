@@ -7,15 +7,30 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'File not found.',
+			101: 'The wallet file does not exist.',
 			102: 'Wallet has not been created.',
-			103: 'Wallet file is corrupted. Please recover your wallet from a backup.',
-			104: 'The provided password is not correct.',
+			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
+			104: 'The provided password for the wallet is not correct.',
+			105: 'No password was provided for the wallet.',
 			106: 'Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.',
 			107: 'Wallet does not contain this account.',
 			108: 'The account cannot be removed. Most likely because the account still has a balance greater than 0 NEM or the account you are trying to remove is the primary account.',
 			109: 'Another wallet with the same name exists already. Please choose an other wallet name.',
 			110: 'Wallet already contains this account.',
+			111: 'The wallet name is a directory.',
+			112: 'The extension of the wallet file is incorrect.',
+			113: 'The wallet could not be deleted.',
+			121: 'The address book file does not exist.',
+			122: 'Address book has not been created.',
+			123: 'Address book file is corrupt. Please recover your address book from a backup.',
+			124: 'The provided password for the address book is not correct.',
+			125: 'No password was provided for the address book.',
+			127: 'Address book does not contain this address.',
+			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			130: 'Address book already contains this address.',
+			131: 'The address book name is a directory.',
+			132: 'The extension of the address book file is incorrect.',
+			133: 'The address book could not be deleted.',
 			202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
 			305: 'NEM Infrastructure Server is not available.',
 			306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
@@ -25,6 +40,7 @@ define({
 			500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			600: 'Before sending and receiving transactions, the NEM Infrastructure Server (NIS) needs to be booted. Please use the NCC menu entry for booting the local node.',
 			601: 'The NEM Infrastructure Server (NIS) is already booted.',
+			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEM within the account. Harvesting starts with at least 1000 NEM.',
 			701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
 			702: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
@@ -35,6 +51,16 @@ define({
 			707: 'The time stamp of the transaction is too far in the past.',
 			708: 'The time stamp of the transaction is too far in the future.',
 			709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
+			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			733: 'Secure harvesting is already active.',
+			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			740: 'Transaction is not allowed for multisig account.',
+			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
+			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
+			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'There was an error setting up offline mode.',
 			1000: "The private key and the public key you have provided mismatch.",
 			1001: 'The public key and the address you have provided mismatch.',
@@ -58,8 +84,30 @@ define({
 					1: '1 day',
 					many: '{{1}} days'
 				},
-				synchronized: 'NIS is synchronized!'
-			}
+				synchronized: 'NIS is synchronized!',
+				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+			},
+			addressBook: 'Address book',
+			password: 'Password',
+			passwordValidation: 'Password must not be blank',
+			address: 'Address',
+			privateLabel: 'Private label',
+			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+		},
+		transactionTypes: [
+			'TRANSFER TRANSACTION',
+			'IMPORTANCE TRANSFER',
+			'MODIFICATION OF MULTISIG ACCOUNT',
+			'MULTISIG TRANSACTION',
+		],
+		transactionDirections: {
+			pending: 'Pending transaction',
+			outgoing: 'Outgoing transaction',
+			incoming: 'Incoming transaction',
+			self: 'Self transaction',
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -94,8 +142,59 @@ define({
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			multisig: {
+				title: 'Convert account to multisig',
+				multisigAccount: 'Multisig account',
+				cosignatories: "Cosignatories' addresses",
+				labelDesc: 'This account is labeled as {{1}}',
+				nullLabelDesc: "This account doesn't have a label",
+				addCosignatory: '+ Add Cosignatory',
+				cancel: 'Cancel',
+				convert: 'Convert',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				txConfirm: {
+					title: 'Confirm Conversion to Multisig Account',
+					total: 'Total',
+				},
+			},
+			signMultisig: {
+				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Recipient',
+					amount: 'Amount',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
+				sender: 'Cosignatory',
+				fee: 'Fee',
+				feeValidation: 'Fee must not be less than the minimum fee',
+				dueBy: 'Due by',
+				useMinimumFee: 'Use minimum fee',
+				hours: 'hour(s)',
+				password: 'Password',
+				passwordValidation: 'Password must not be blank',
+				send: 'Send',
+				cancel: 'Cancel',
+				sending: 'Sending...',
+				successMessage: 'Transaction has been sent successfully!',
+				txConfirm: {
+					title: 'Confirm Multisig Transaction',
+					message: 'Message',
+					encrypted: 'Message is encrypted',
+					noMessage: 'No message',
+				},
+			},
 			sendNem: {
 				title: 'Send NEM',
+				sender: 'Sender',
+				thisAccount: 'This account',
 				labelDesc: 'This account is labeled as {{1}}',
 				nullLabelDesc: "This account doesn't have a label",
 				amount: 'Amount',
@@ -104,6 +203,7 @@ define({
 				message: 'Message',
 				encrypt: 'Encrypt message',
 				fee: 'Fee',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
@@ -118,7 +218,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -155,12 +254,17 @@ define({
 				id: 'ID',
 				hash: 'Hash',
 				type: 'Transaction Type',
+				direction: 'Transaction Direction',
 				pending: 'Pending',
 				outgoing: 'Outgoing',
 				incoming: 'Incoming',
 				self: 'Self',
 				sender: 'Sender',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Recipient',
+				remote: 'Remote',
+				multisigMessage: 'Signatures present',
 				message: 'Message',
 				noMessage: 'No message',
 				encrypted: 'Message is encrypted',
@@ -168,7 +272,25 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
-				fee: 'Fee'
+				fee: 'Fee',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
+				cosignatory: 'Cosignatory'
+			},
+			accountDetails: {
+				title: "Account details",
+				address: "Address",
+				label: "Label",
+				noLabel: "No label",
+				add: "Add to address book",
+				remove: "Remove from address book",
+				balance: "Balance",
+				importance: "Importance",
+				publicKey: "Public key",
+				noPublicKey: "No public key",
+				harvestedBlocks: "Harvested blocks",
+				close: "Close"
 			},
 			bootLocalNode: {
 				title: 'Boot local node',
@@ -320,6 +442,18 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+			},
+			addContact: {
+				title: 'Add contact',
+				add: 'Add'
+			},
+			editContact: {
+				title: 'Edit contact',
+				saveChanges: 'Save changes',
+			},
+			removeContact: {
+				title: 'Remove contact',
+				remove: 'Remove',
 			}
 		},
 		landing: {
@@ -405,12 +539,13 @@ define({
 				clientInfo: 'Client Info',
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
-				copyClipboard: 'Copy Address to Clipboard'
+				copyClipboard: 'Copy Address to Clipboard',
+				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
 				'Dashboard',
 				'Messages',
-				'Contacts',
+				'Address Book',
 				'Transactions',
 				'Harvested blocks',
 				'Asset Exchange',
@@ -447,6 +582,7 @@ define({
 			transactions: {
 				title: 'Recent Transactions',
 				sendNem: 'Send NEM',
+				signMultisig: 'SIGN',
 				balance: 'Current Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				unknown: 'unknown',
@@ -461,12 +597,6 @@ define({
 					'Fee',
 					'Amount'
 				],
-				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
-				},
 				noMessage: 'No message',
 				encrypted: 'Message is encrypted',
 				view: 'View',
@@ -508,12 +638,6 @@ define({
 					'Fee',
 					'Amount'
 				],
-				types: {
-					pending: 'Pending transaction',
-					outgoing: 'Outgoing transaction',
-					incoming: 'Incoming transaction',
-					self: 'Self transaction',
-				},
 				noMessage: 'No message',
 				encrypted: 'Message is encrypted',
 				view: 'View',
@@ -547,6 +671,22 @@ define({
 					stopRemoteHarvesting: 'Stop remote harvesting'
 				}
 			}
+		},
+		addressBook: {
+			title: 'Address book',
+			addContact: 'Add contact',
+			table: {
+				columns: [
+					'Account address',
+					'Private Label',
+					'Public Label'
+				],
+				noContacts: 'There is no contacts in your address book'
+			},
+			noLabel: 'No label',
+			sendNem: 'Send NEM',
+			edit: 'Edit',
+			remove: 'Remove'
 		},
 		settings: {
 			title: 'Settings',
