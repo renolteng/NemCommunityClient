@@ -85,6 +85,11 @@ public class NisException extends NccException {
 		TRANSACTION_REJECTED_UNKNOWN_ACCOUNT(709),
 
 		/**
+		 * The transaction was rejected because the transaction cache is too full.
+		 */
+		TRANSACTION_REJECTED_CACHE_TOO_FULL(710),
+
+		/**
 		 * The transaction was rejected because one of the accounts was unknown.
 		 * note: shouldn't happen in UI
 		 */
@@ -166,6 +171,8 @@ public class NisException extends NccException {
 			{ this.put("FAILURE_TIMESTAMP_TOO_FAR_IN_FUTURE", TRANSACTION_REJECTED_NOT_TIMESTAMP_TOO_FAR_IN_FUTURE); }
 
 			{ this.put("FAILURE_UNKNOWN_ACCOUNT", TRANSACTION_REJECTED_UNKNOWN_ACCOUNT); }
+
+			{ this.put("FAILURE_TRANSACTION_CACHE_TOO_FULL", TRANSACTION_REJECTED_CACHE_TOO_FULL); }
 
 			{ this.put("network has not been booted yet", NODE_NOT_BOOTED); }
 

@@ -51,6 +51,7 @@ define({
 			707: 'The time stamp of the transaction is too far in the past.',
 			708: 'The time stamp of the transaction is too far in the future.',
 			709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',

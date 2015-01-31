@@ -51,6 +51,7 @@ define({
 			707: "Der Zeitstempel der Transaktion liegt zu weit in der Vergangenheit.",
 			708: "Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.",
 			709: "Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Sender oder Empfänger in einer Transaktion auftreten, um dem Netzwerk bekannt zu sein.",
+			710: 'Die Transaktion wurde zurückgewiesen weil der Cache bereits zu voll ist. Eine höhere Gebühr erhöht die Chance dass die Transaktion akzeptiert wird.',
 			730: 'Die Transaktion zur Übertragung der Wichtigkeit (für die sichere Ernte) steht im Konfikt zu einer anderen Transaktion.',
 			731: 'Das Konto für die sichere Ernte ist nicht leer und kann daher nicht benutzt werden.',
 			732: 'Transaktion zur Übertragung der Wichtigkeit eines Kontos wurde gescheitert. Eine andere solche Transaktion ist nocht nicht abgeschlossen..',
