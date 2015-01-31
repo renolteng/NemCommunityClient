@@ -115,7 +115,8 @@
                         ],
                         {
                             wallet: ncc.get('wallet.wallet'),
-                            account: ncc.get('activeAccount.address')
+                            account: ncc.get('activeAccount.address'),
+                            hoursDue: 1
                         },
                         function(values, closeModal) {
                             values.hoursDue = parseInt(values.hoursDue, 10);

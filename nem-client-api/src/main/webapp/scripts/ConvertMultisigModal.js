@@ -4,7 +4,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 	return NccModal.extend({
 	    data: {
             isFeeAutofilled: true,
-            dueBy: 12
+            dueBy: 1
         },
         computed: {
             hoursDue: function() {
@@ -82,7 +82,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 
             this.set('fee', 0);
             this.set('minimumFee', 0);
-            this.set('dueBy', '12');
+            this.set('dueBy', '1');
             this.set('password', '');
             this.set('useMinimumFee', true);
 

@@ -4,7 +4,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
 	return NccModal.extend({
         data: {
             isFeeAutofilled: true,
-            dueBy: 12
+            dueBy: 1
         },
         computed: {
             amount: function() {
@@ -78,7 +78,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
             this.set('fee', 0);
             this.set('multisigFee', 0);
             this.set('minimumFee', 0);
-            this.set('dueBy', '12');
+            this.set('dueBy', '1');
             this.set('password', '');
             this.set('useMinimumFee', true);
             this.set('signatories', [{}]);
