@@ -38,4 +38,13 @@ public class AccountMapper {
 	public AccountViewModel toViewModel(final Address address) {
 		return new AccountViewModel(this.accountLookup.findPairByAddress(address));
 	}
+
+	/**
+	 * Forces refresh of account data.
+	 *
+	 * @param address The address.
+	 */
+	public void refreshAccount(final Address address) {
+		this.accountLookup.refreshAccount(address);
+	}
 }

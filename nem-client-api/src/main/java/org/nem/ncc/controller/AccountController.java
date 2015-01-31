@@ -193,6 +193,7 @@ public class AccountController {
 	@RequiresTrustedNis
 	public void unlock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		this.accountMapper.refreshAccount(awRequest.getAddress());
 	}
 
 	/**
@@ -204,6 +205,7 @@ public class AccountController {
 	@RequiresTrustedNis
 	public void lock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		this.accountMapper.refreshAccount(awRequest.getAddress());
 	}
 
 	private PrivateKey getPrivateKey(final AccountWalletRequest request) {
