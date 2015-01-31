@@ -51,6 +51,7 @@ define({
 			707: 'Mốc thời gian của giao dịch quá xa trong quá khứ.',
 			708: 'Mốc thời gian của giao dịch quá xa về tương lai.',
 			709: 'Tài khoản không được biết đến. Một tài khoản cần phải tham gia vào ít nhất một giao dịch (là người gửi hoặc người nhận) để được mạng lưới biết đến.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Địa chỉ',
 			privateLabel: 'Nhãn cá nhân',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: 'Giao dịch gửi đi',
 			incoming: 'Giao dịch gửi đến',
 			self: 'Giao dịch tự gửi',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Người nhận',
+					amount: 'Số lượng',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Tổng cộng',
 				sender: 'Cosignatory',
 				fee: 'Phí',
 				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
@@ -178,13 +190,6 @@ define({
 				successMessage: 'Giao dịch đã được gửi đi thành công!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Số lượng',
-					from: 'Multisig account',
-					to: 'Tới',
-					fee: 'Phí',
-					dueBy: 'Hết hạn',
-					hours: 'giờ',
-					total: 'Tổng cộng',
 					message: 'Thông điệp',
 					encrypted: 'Thông điệp được mã hoá',
 					noMessage: 'Không có',
@@ -204,6 +209,7 @@ define({
 				message: 'Thông điệp',
 				encrypt: 'Mã hoá thông điệp',
 				fee: 'Phí',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
 				dueBy: 'Hết hạn',
 				useMinimumFee: 'Sử dụng phí tối thiểu',
@@ -218,7 +224,6 @@ define({
 					title: 'Xác nhận giao dịch',
 					amount: 'Số lượng',
 					to: 'Tới',
-					fee: 'Phí',
 					dueBy: 'Hết hạn',
 					hours: 'giờ',
 					total: 'Tổng cộng',
@@ -261,6 +266,8 @@ define({
 				incoming: 'Gửi đến',
 				self: 'Tự gửi',
 				sender: 'Người gửi',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Người nhận',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Không rõ',
 				amount: 'Số lượng',
 				fee: 'Phí',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

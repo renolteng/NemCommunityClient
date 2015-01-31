@@ -51,6 +51,7 @@ define({
 			707: '此交易的ID已失效。',
 			708: '此交易的ID時間戳超過有效期限。',
 			709: '未知的賬戶。一个賬戶需要至少執行一个交易（作為發件人或收件人）才能在網路公開。',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Address',
 			privateLabel: '私人標識',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: '交易發送中',
 			incoming: '交易接收中',
 			self: '自我交易',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: '收件人',
+					amount: '金額',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: '費',
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: '交易成功!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: '金額',
-					from: 'Multisig account',
-					to: 'To',
-					fee: '費',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: '留言',
 					encrypted: '消息被加密',
 					noMessage: '無留言',
@@ -204,6 +209,7 @@ define({
 				message: '信息',
 				encrypt: '加密信息',
 				fee: '費',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: '限期（小時）',
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: '接入',
 				self: '本人',
 				sender: '發件人',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: '收件人',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: '金額',
 				fee: '費',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

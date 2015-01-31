@@ -51,6 +51,7 @@ define({
 			707: 'Мітка часу транзакції занадто далеко в минулому.',
 			708: 'Мітка часу транзакції занадто далеко в майбутньому.',
 			709: 'Рахунок невідомий мережi. Рахунок повинен бути частиною щонайменше однієї угоди (відправником або одержувачєм), щоб стати відомим в мережі.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Address',
 			privateLabel: 'Приватна позначка',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: 'Вихiднi транзакцiї',
 			incoming: 'Вхiднi транзакцiї',
 			self: 'Транзакцiї самому собi',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Одержувач',
+					amount: 'Кiлькiсть',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: 'Комiсiя',
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: 'Транзакцiя пройшла успішно!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Кiлькiсть',
-					from: 'Multisig account',
-					to: 'To',
-					fee: 'Комiсiя',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: 'Повiдомлення',
 					encrypted: 'Зашифроване повiдомлення',
 					noMessage: 'Без повiдомлень',
@@ -204,6 +209,7 @@ define({
 				message: 'Повiдомлення',
 				encrypt: 'Зашифрованне повiдомлення',
 				fee: 'Комісія',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Протягом',
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: 'Вхiдна',
 				self: 'Собi',
 				sender: 'Вiдправник',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Одержувач',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: 'Кiлькiсть',
 				fee: 'Комісія',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

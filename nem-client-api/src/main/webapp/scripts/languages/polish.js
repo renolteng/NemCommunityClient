@@ -51,6 +51,7 @@ define({
 			707: 'Sygnatura czasowa transakcji jest zbyt daleko w przeszłości.',
 			708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
 			709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Adres',
 			privateLabel: 'Etykieta',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: 'Transakcja wychodząca',
 			incoming: 'Transakcja przychodząca',
 			self: 'Transakcja wewnętrzna',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Odbiorca',
+					amount: 'Ilość',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Suma',
 				sender: 'Cosignatory',
 				fee: 'Opłata',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
@@ -178,13 +190,6 @@ define({
 				successMessage: 'Transakcja została zrealizowana!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Ilość',
-					from: 'Multisig account',
-					to: 'Do',
-					fee: 'Opłata',
-					dueBy: 'Ważne przez',
-					hours: 'godzin(y)',
-					total: 'Suma',
 					message: 'Wiadomość',
 					encrypted: 'Wiadomość jest zaszyfrowana',
 					noMessage: 'Brak wiadomości',
@@ -204,6 +209,7 @@ define({
 				message: 'Wiadomość',
 				encrypt: 'Zaszyfruj wiadomość',
 				fee: 'Opłata',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
 				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
@@ -218,7 +224,6 @@ define({
 					title: 'Potwierdź transakcję',
 					amount: 'Ilość',
 					to: 'Do',
-					fee: 'Opłata',
 					dueBy: 'Ważne przez',
 					hours: 'godzin(y)',
 					total: 'Suma',
@@ -261,6 +266,8 @@ define({
 				incoming: 'Przychodzące',
 				self: 'Wewnętrzne',
 				sender: 'Nadawca',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Odbiorca',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Nieznana',
 				amount: 'Ilość',
 				fee: 'Opłata',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

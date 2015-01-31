@@ -51,6 +51,7 @@ define({
 			707: "La marca temporale della transazione è troppo lontana nel passato.",
 			708: "La marca temporale della transazione è troppo lontana nel futuro.",
 			709: "Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "Indirizzo",
 			privateLabel: "Nome privato",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Transazione in uscita",
 			incoming: "Transazione in ingresso",
 			self: "Transazione verso te stesso",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Destinatario",
+					amount: "Importo",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Totale",
 				sender: 'Cosignatory',
 				fee: "Commissioni",
 				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
@@ -178,13 +190,6 @@ define({
 				successMessage: "Transazione inserita con successo!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Importo",
-					from: 'Multisig account',
-					to: "A",
-					fee: "Commissioni",
-					dueBy: "Tempo massimo",
-					hours: "ore",
-					total: "Totale",
 					message: "Messaggio",
 					encrypted: "Messaggio cifrato",
 					noMessage: "Nessun messaggio",
@@ -204,6 +209,7 @@ define({
 				message: "Messaggio",
 				encrypt: "Cifra il mesaggio",
 				fee: "Commissioni",
+				multisigFee: 'Multisig fee',
 				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
 				dueBy: "Termine massimo",
 				useMinimumFee: "Usa commissioni minime",
@@ -218,7 +224,6 @@ define({
 					title: "Conferma transazione",
 					amount: "Importo",
 					to: "A",
-					fee: "Commissioni",
 					dueBy: "Tempo massimo",
 					hours: "ore",
 					total: "Totale",
@@ -261,6 +266,8 @@ define({
 				incoming: "In ingresso",
 				self: "A te stesso",
 				sender: "Mittente",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Destinatario",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: "Sconosciuto",
 				amount: "Importo",
 				fee: "Commissioni",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

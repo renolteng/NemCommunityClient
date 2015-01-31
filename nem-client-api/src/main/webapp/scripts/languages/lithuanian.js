@@ -51,6 +51,7 @@ define({
 			707: "Transakcijos laiko žymė yra per toli praeityje.",
 			708: "Transakcijos laiko žymė yra per toli ateityje.",
 			709: "Sąskaita nežinoma. Sąskaita turi turėti bent vieną transakciją (siuntimo ar gavimo), kad būtų žinoma tinkle.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "Adresas",
 			privateLabel: "Nuosavas pavadinimas",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Išeinanti transakcija",
 			incoming: "Įeinanti transakcija",
 			self: "Transakcija sau",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Gavėjas",
+					amount: "Suma",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: "Mokestis",
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: "Transakcija išsiųsta sėkmingai!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Suma",
-					from: 'Multisig account',
-					to: 'To',
-					fee: "Mokestis",
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: "Žinutė",
 					encrypted: "Žinutė šifruota",
 					noMessage: "Nėra žinutės",
@@ -204,6 +209,7 @@ define({
 				message: "Žinutė",
 				encrypt: "Užšifruoti žinutę",
 				fee: "Mokestis",
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: "Galiojimo trukmė",
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: "Įeinanti",
 				self: "Sau",
 				sender: "Siuntėjas",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Gavėjas",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Suma",
 				fee: "Mokestis",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

@@ -51,6 +51,7 @@ define({
 			707: "トランザクション(取引)IDのタイムスタンプが古すすぎます。",
 			708: "トランザクション(取引)のタイムスタンプが先すぎます",
 			709: "不明なアカウントです。アカウントはNEMクラウド内で共有されている少なくとも1つのトランザクション(取引)に記載されている必要がある。(送信側、受信側どちらでも良い)",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "アドレス",
 			privateLabel: "プライベートラベル",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "出金",
 			incoming: "入金",
 			self: "セルフトランザクション",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "受取先",
+					amount: "残高",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: "手数料",
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: "送信に成功しました!!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "残高",
-					from: 'Multisig account',
-					to: 'To',
-					fee: "手数料",
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: "メッセージ",
 					encrypted: "メッセージを暗号させた",
 					noMessage: "メッセージなし",
@@ -204,6 +209,7 @@ define({
 				message: "メッセージ",
 				encrypt: "メッセージを暗号化する。",
 				fee: "手数料",
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: "期限",
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: "入金",
 				self: "自分",
 				sender: "送信元",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "受取先",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "量",
 				fee: "手数料",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

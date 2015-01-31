@@ -51,6 +51,7 @@ define({
 			707: "Data si ora tranzacției sunt prea îndepărtate în trecut.",
 			708: "Data si ora tranzacției sunt prea îndepărtate în viitor.",
 			709: "Contul este necunoscut. Un cont trebuie să facă parte din măcar o tranzacție (expeditor sau destinatar) pentru a fi cunoscut în rețea.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "Adresa",
 			privateLabel: "Etichetă privată",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Tranzacție de trimis",
 			incoming: "Tranzacție de primit",
 			self: "Tranzacție proprie",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Destinatar",
+					amount: "Sumă",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: "Taxă",
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: "Tranzacția a fost efectuată cu succes!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Sumă",
-					from: 'Multisig account',
-					to: 'To',
-					fee: "Taxă",
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: "Mesaj",
 					encrypted: "Mesajul este encriptat",
 					noMessage: "Fără mesaj",
@@ -204,6 +209,7 @@ define({
 				message: "Mesaj",
 				encrypt: "Mesaj encriptat",
 				fee: "Taxă",
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: "Expiră in",
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: "De primit",
 				self: "Sine",
 				sender: "Expeditor",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Destinatar",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Sumă",
 				fee: "Taxă",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

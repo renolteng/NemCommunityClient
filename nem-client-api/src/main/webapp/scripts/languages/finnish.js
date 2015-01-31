@@ -51,6 +51,7 @@ define({
 			707: "Siirron aikamerkintä on liian kaukana menneisyydessä.",
 			708: "Siirron aikamerkintä on liian kaukana tulevaisuudessa.",
 			709: "Tili on tuntematon. Tilillä on oltava yksi siirto tai vastaanotto, jotta se voidaan tunnistaa verkossa.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "Osoite",
 			privateLabel: "Yksityinen merkintä",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Lähtevät siirrot",
 			incoming: "Saapuvat siirrot",
 			self: "Automaattiset siirrot",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Vastaanottaja",
+					amount: "Summa",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Kokonaissumma",
 				sender: 'Cosignatory',
 				fee: "Palkkio",
 				feeValidation: "Palkkio ei voi olla vähempää, kuin minimipalkkio.",
@@ -178,13 +190,6 @@ define({
 				successMessage: "Siirto on lähetetty onnistuneesti!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Summa",
-					from: 'Multisig account',
-					to: "Minne",
-					fee: "Palkkio",
-					dueBy: "Maksettava",
-					hours: "Tunnit",
-					total: "Kokonaissumma",
 					message: "Viesti",
 					encrypted: "Viesti on salattu",
 					noMessage: "Ei viestiä",
@@ -204,6 +209,7 @@ define({
 				message: "Viesti",
 				encrypt: "Salaa viesti",
 				fee: "Palkkio",
+				multisigFee: 'Multisig fee',
 				feeValidation: "Palkkio ei voi olla vähempää, kuin minimipalkkio.",
 				dueBy: "Maksettava",
 				useMinimumFee: "Käytä minimipalkkiota",
@@ -218,7 +224,6 @@ define({
 					title: "Vahvista siirto",
 					amount: "Summa",
 					to: "Minne",
-					fee: "Palkkio",
 					dueBy: "Maksettava",
 					hours: "Tunnit",
 					total: "Kokonaissumma",
@@ -261,6 +266,8 @@ define({
 				incoming: "Saapuva",
 				self: "Itse",
 				sender: "Lähettäjä",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Vastaanottaja",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: "Tuntemaon",
 				amount: "Summa",
 				fee: "Palkkio",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

@@ -51,6 +51,7 @@ define({
 			707: "Времевата отметка на ID на трансакцията е много далеч в миналото.",
 			708: "Времевата отметка на транзакцията е много далеч в бъдещето.",
 			709: "Неизвестен акаунт. Акаунта трябва да е част от поне една транзакция (входяща или изходяща) за да бъде разпознат от мрежата.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "Адрес",
 			privateLabel: "Частна маркировка",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Изходящи транзакции",
 			incoming: "Входящи транзакции",
 			self: "Собственни транзакции",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Получател",
+					amount: "Сума",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Общо",
 				sender: 'Cosignatory',
 				fee: "Такса",
 				feeValidation: "Таксата не трябва да бъде по малка от минималната такса",
@@ -178,13 +190,6 @@ define({
 				successMessage: "Транзакцията беше изпратена успешно!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Сума",
-					from: 'Multisig account',
-					to: "До",
-					fee: "Такса",
-					dueBy: "Време до края",
-					hours: "час(а)",
-					total: "Общо",
 					message: "Съобщение",
 					encrypted: "Съобщението е криптирано",
 					noMessage: "Няма съобщение",
@@ -204,6 +209,7 @@ define({
 				message: "Съобщение",
 				encrypt: "Криптирано съобщение",
 				fee: "Такса",
+				multisigFee: 'Multisig fee',
 				feeValidation: "Таксата не трябва да бъде по малка от минималната такса",
 				dueBy: "Време до края",
 				useMinimumFee: "Ползвай минималната такса",
@@ -218,7 +224,6 @@ define({
 					title: "Потвърдете транзакцията",
 					amount: "Сума",
 					to: "До",
-					fee: "Такса",
 					dueBy: "Време до края",
 					hours: "час(а)",
 					total: "Общо",
@@ -261,6 +266,8 @@ define({
 				incoming: "Входящи",
 				self: "Собственна",
 				sender: "Изпращач",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Получател",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: "Неизвестни",
 				amount: "Сума",
 				fee: "Такса",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

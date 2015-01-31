@@ -51,6 +51,7 @@ define({
 			707: "Vremenska oznaka transakcije je predaleko u prošlosti.",
 			708: "Vremenska oznaka transakcije je predaleko u budućnosti.",
 			709: "Račun je nepoznat. Račun se mora pojaviti barem u jednoj transakciji (pošiljatelja ili primatelja) da bi bio prepoznat u mreži.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: "Adresa",
 			privateLabel: "Privatna oznaka",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Odlazna transakcija",
 			incoming: "Dolazna transakcija",
 			self: "Vlastita transakcija",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Primatelj",
+					amount: "Iznos",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Ukupno",
 				sender: 'Cosignatory',
 				fee: "Naknada",
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: "Transakcija je uspješno provedena!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Iznos",
-					from: 'Multisig account',
-					to: "Na",
-					fee: "Naknada",
-					dueBy: "Zbog",
-					hours: "sat(i)",
-					total: "Ukupno",
 					message: "poruke",
 					encrypted: "Poruka je šifrirana",
 					noMessage: "Nema poruke",
@@ -204,6 +209,7 @@ define({
 				message: "Poruka",
 				encrypt: "Šifriraj poruku",
 				fee: "Naknada",
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: "zbog",
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: "Potvrdi transakciju",
 					amount: "Iznos",
 					to: "Na",
-					fee: "Naknada",
 					dueBy: "Zbog",
 					hours: "sat(i)",
 					total: "Ukupno",
@@ -261,6 +266,8 @@ define({
 				incoming: "Dolazno",
 				self: "Self",
 				sender: "Pošiljatelj",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Primatelj",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Iznos",
 				fee: "Naknada",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

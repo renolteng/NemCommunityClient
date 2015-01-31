@@ -51,6 +51,7 @@ define({
 			707: "The time stamp of the transaction id too far in the past.",
 			708: "The time stamp of the transaction is too far in the future.",
 			709: "The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.",
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Address',
 			privateLabel: "Private label",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: "Delivered loot",
 			incoming: "Hail-shot",
 			self: "Buried loot",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: "Me hearties",
+					amount: "Loot",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: "Bounty",
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: "Yer loot delivered!",
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: "Loot",
-					from: 'Multisig account',
-					to: 'To',
-					fee: "Bounty",
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: "Parley",
 					encrypted: "Message is in a bottle",
 					noMessage: "No parlay",
@@ -204,6 +209,7 @@ define({
 				message: "Parley",
 				encrypt: "Message in a bottle",
 				fee: "Bounty",
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: "Due by",
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					fee: 'Fee',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: "Hail-shot",
 				self: "Buried",
 				sender: "Hearties",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Me hearties",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: "Loot",
 				fee: "Bounty",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

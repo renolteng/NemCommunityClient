@@ -238,4 +238,24 @@ translated texts.modals.transactionDetails.cosignatory
 	      to: 'Cosignatory'
 	based on: texts.modals.signMultisig.sender
 
+-----translated texts.modals.signMultisig.original.from
+	    from: 'Multisig account'
+	      to: 'Multisig account'
+	based on: texts.modals.signMultisig.txConfirm.from
+
+translated texts.modals.signMultisig.original.to
+	    from: 'Recipient'
+	      to: "Destinatar"
+	based on: texts.modals.transactionDetails.recipient
+
+translated texts.modals.signMultisig.original.amount
+	    from: 'Amount'
+	      to: "Sumă"
+	based on: texts.transactions.table.columns.[8]
+
+translated texts.modals.signMultisig.multisigTotal
+	    from: 'Total'
+	      to: 'Total'
+	based on: texts.modals.sendNem.txConfirm.total
+
 -----

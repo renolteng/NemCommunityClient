@@ -51,6 +51,7 @@ define({
 			707: 'De timestamp van de transactie ligt te ver in het verleden.',
 			708: 'De timestamp van de transactie ligt te ver in de toekomst.',
 			709: 'Het rekeningnummer is onbekend.  Een rekening wordt pas bekend op het netwerk als deze deel heeft uitgemaakt van een transactie als verzender of ontvanger.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Address',
 			privateLabel: 'Privé label',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: 'Uitgaande transactie',
 			incoming: 'Inkomende transactie',
 			self: 'Eigen transactie',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'Ontvanger',
+					amount: 'Bedrag',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Totaal',
 				sender: 'Cosignatory',
 				fee: 'Toeslag',
 				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
@@ -178,13 +190,6 @@ define({
 				successMessage: 'Transactie is verzonden!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'Bedrag',
-					from: 'Multisig account',
-					to: 'Naar',
-					fee: 'Toeslag',
-					dueBy: 'Verzenden voor',
-					hours: 'uur',
-					total: 'Totaal',
 					message: 'Bericht',
 					encrypted: 'Bericht is versleuteld',
 					noMessage: 'Geen bericht',
@@ -204,6 +209,7 @@ define({
 				message: 'Bericht',
 				encrypt: 'Beveilig bericht',
 				fee: 'Toeslag',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
 				dueBy: 'Overmaken voor',
 				useMinimumFee: 'Gebruik minimale toeslag',
@@ -218,7 +224,6 @@ define({
 					title: 'Bevestig transactie',
 					amount: 'Hoeveelheid',
 					to: 'Naar',
-					fee: 'Toeslag',
 					dueBy: 'Verzenden voor',
 					hours: 'uur',
 					total: 'Totaal',
@@ -261,6 +266,8 @@ define({
 				incoming: 'Inkomend',
 				self: 'Zelf',
 				sender: 'Afzender',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'Ontvanger',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Onbekend',
 				amount: 'Bedrag',
 				fee: 'Toeslag',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

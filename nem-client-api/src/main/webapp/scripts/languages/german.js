@@ -93,6 +93,7 @@ define({
 			address: "Adresse",
 			privateLabel: "Privates Label",
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -107,7 +108,8 @@ define({
 			outgoing: "Ausgehende Transaktion",
 			incoming: "Eingehende Transaktion",
 			self: "Transaktion zu sich selbst",
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -165,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Multisig Transaktion unterzeichnen',
+				original: {
+					from: 'Multisig Konto',
+					to: "Empfänger",
+					amount: "Betrag",
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: "Insgesamt",
 				sender: 'Mitunterzeichner',
 				fee: "Gebühr",
 				feeValidation: "Die Gebühr darf die Minimalgebühr nicht unterschreiten",
@@ -179,13 +190,6 @@ define({
 				successMessage: "Die Transaktion wurde erfolgreich gesendet!",
 				txConfirm: {
 					title: 'Multisig Transaktion bestätigen',
-					amount: "Betrag",
-					from: 'Multisig Konto',
-					to: "An",
-					fee: "Gebühr",
-					dueBy: "Verfällt in",
-					hours: "Stunde(n)",
-					total: "Insgesamt",
 					message: "Nachricht",
 					encrypted: "Nachricht ist verschlüsselt",
 					noMessage: "Keine Nachricht",
@@ -205,6 +209,7 @@ define({
 				message: "Nachricht",
 				encrypt: "Nachricht verschlüsseln",
 				fee: "Gebühr",
+				multisigFee: 'Multisig fee',
 				feeValidation: "Die Gebühr darf die Minimalgebühr nicht unterschreiten",
 				dueBy: "Verfällt in",
 				useMinimumFee: "Benutze minimale Gebühr",
@@ -219,7 +224,6 @@ define({
 					title: "Transaktion bestätigen",
 					amount: "Betrag",
 					to: "An",
-					fee: "Gebühr",
 					dueBy: "Verfällt in",
 					hours: "Stunde(n)",
 					total: "Insgesamt",
@@ -262,6 +266,8 @@ define({
 				incoming: "Eingehend",
 				self: "Selbst",
 				sender: "Sender",
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: "Empfänger",
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -273,6 +279,9 @@ define({
 				confirmationsUnknown: "Unbekannt",
 				amount: "Betrag",
 				fee: "Gebühr",
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Mitunterzeichner'
 			},
 			accountDetails: {

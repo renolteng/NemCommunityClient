@@ -51,6 +51,7 @@ define({
 			707: '此交易ID的时间戳不合法，时间过早。',
 			708: '此交易ID的时间戳不合法，时间过晚。',
 			709: '该帐户未知。一个帐户需要至少完成一个交易（作为发件人或收件人）才能被网络公知。',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: '地址',
 			privateLabel: '标识',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: '交易发送中',
 			incoming: '交易接收中',
 			self: '自我交易',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: '收件人',
+					amount: '金额',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: '总价',
 				sender: 'Cosignatory',
 				fee: '费用',
 				feeValidation: '无效费用值，必须填入等于或高于最小费用的值。',
@@ -178,13 +190,6 @@ define({
 				successMessage: '交易发送成功!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: '金额',
-					from: 'Multisig account',
-					to: '收件人',
-					fee: '费用',
-					dueBy: '限期',
-					hours: '小时数',
-					total: '总价',
 					message: '留言',
 					encrypted: '消息被加密',
 					noMessage: '无留言',
@@ -204,6 +209,7 @@ define({
 				message: '信息',
 				encrypt: '加密',
 				fee: '费用',
+				multisigFee: 'Multisig fee',
 				feeValidation: '无效费用值，必须填入等于或高于最小费用的值。',
 				dueBy: '限期（小时）',
 				useMinimumFee: '支付最小费用',
@@ -218,7 +224,6 @@ define({
 					title: '确认交易',
 					amount: '金额',
 					to: '收件人',
-					fee: '费用',
 					dueBy: '限期',
 					hours: '小时数',
 					total: '总价',
@@ -261,6 +266,8 @@ define({
 				incoming: '接收',
 				self: '本人',
 				sender: '发件人',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: '收件人',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: '未知',
 				amount: '金额',
 				fee: '费用',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {

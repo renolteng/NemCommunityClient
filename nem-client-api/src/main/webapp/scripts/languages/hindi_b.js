@@ -51,6 +51,7 @@ define({
 			707: 'ट्रांजैक्शन ID का समय बहुत दूर अतीत में हे.',
 			708: 'ट्रांजैक्शन ID का समय बहुत दूर भविष्य में हे.',
 			709: 'यह अकाउंट अज्ञात है. नेटवर्क को अकाउंट को पहचानने के लिए अकाउंट में कम से कम एक ट्रांजैक्शन (सेनडर/रेसिपईयेंट) का शामिल होना ज़रूरी होता है.',
+			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
@@ -92,6 +93,7 @@ define({
 			address: 'Address',
 			privateLabel: 'निजी लेबल',
 			publicLabel: 'Public label',
+			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 
 		},
 		transactionTypes: [
@@ -106,7 +108,8 @@ define({
 			outgoing: 'Outgoing transaction',
 			incoming: 'Incoming transaction',
 			self: 'Self transaction',
-
+			importance: 'Importance transaction',
+			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
@@ -164,6 +167,15 @@ define({
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
+				original: {
+					from: 'Multisig account',
+					to: 'रेसिपईयेंट',
+					amount: 'अमाउंट',
+					fee: 'Inner Fee',
+					deadline: 'Deadline'
+				},
+				multisigFees: 'Multisig Fees',
+				multisigTotal: 'Total',
 				sender: 'Cosignatory',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
@@ -178,13 +190,6 @@ define({
 				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					amount: 'अमाउंट',
-					from: 'Multisig account',
-					to: 'To',
-					fee: 'Fee',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
 					message: 'मेसेज',
 					encrypted: 'मेसेज एनक्रिपटेड है',
 					noMessage: 'नो मेसेज',
@@ -204,6 +209,7 @@ define({
 				message: 'मेसेज',
 				encrypt: 'एन्क्रिप्टेड मेसेज',
 				fee: 'फ़ीस',
+				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'चुकाने का समय',
 				useMinimumFee: 'Use minimum fee',
@@ -218,7 +224,6 @@ define({
 					title: 'ट्रांजैक्शन की पुष्टि करें',
 					amount: 'अमाउंट',
 					to: 'To',
-					fee: 'फ़ीस',
 					dueBy: 'Due by',
 					hours: 'hour(s)',
 					total: 'Total',
@@ -261,6 +266,8 @@ define({
 				incoming: 'Incoming',
 				self: 'Self',
 				sender: 'सेनडर',
+				multisigAccount: 'Multisig Account',
+				issuer: 'Issuer',
 				recipient: 'रेसिपईयेंट',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
@@ -272,6 +279,9 @@ define({
 				confirmationsUnknown: 'Unknown',
 				amount: 'अमाउंट',
 				fee: 'फ़ीस',
+				innerFee: 'Inner Fee',
+				multisigFees: 'Multisig Fees',
+				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
