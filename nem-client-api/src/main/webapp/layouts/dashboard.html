@@ -99,7 +99,7 @@
 						{{#each activeAccount.transactions:i}}
 							{{#if i < 4}}
 								<tr>
-                                    {{#if .confirmed}}
+									{{#if .confirmed}}
 										{{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Aggregate_Modification)}}
 											{{#if (.type === TransactionType.Importance_Transfer)}}
 												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>

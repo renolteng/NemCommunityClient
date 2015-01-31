@@ -54,16 +54,24 @@
 						<tbody>
 							{{#each transactions.filtered}}
 								<tr class="txList-row">
-                                    {{#if .confirmed}}
-                                        {{#.isSelf}}
-                                            <td class="txList-cell txList-col--type transactionsPage-leftMost icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-                                        {{/}}
-                                        {{#.isOutgoing}}
-                                            <td class="txList-cell txList-col--type txList-col--type--outgoing transactionsPage-leftMost icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-                                        {{/}}
-                                        {{#.isIncoming}}
-                                            <td class="txList-cell txList-col--type txList-col--type--incoming transactionsPage-leftMost icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-                                        {{/}}
+									{{#if .confirmed}}
+										{{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Aggregate_Modification)}}
+											{{#if (.type === TransactionType.Importance_Transfer)}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{else}}
+												<td class="txList-cell txList-col--type encryptedIcon icon-attachment" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/if}}
+										{{else}}
+											{{#.isSelf}}
+												<td class="txList-cell txList-col--type transactionsPage-leftMost icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+											{{#.isOutgoing}}
+												<td class="txList-cell txList-col--type txList-col--type--outgoing transactionsPage-leftMost icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+											{{#.isIncoming}}
+												<td class="txList-cell txList-col--type txList-col--type--incoming transactionsPage-leftMost icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+											{{/}}
+										{{/if}}
                                     {{else}}
                                     	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                     {{/if}}
@@ -79,7 +87,7 @@
                             				</a>
                                     	</td>
                                     {{/}}
-                                    {{#.isIncoming}}
+                                    {{#if (.isIncoming || .type === TransactionType.Aggregate_Modification)}}
                                         <td class="txList-cell txList-col--sender" title="{{formattedSender}}" on-mouseover="registerToolTip">
                                         	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
                                         		{{#if privateLabels[.sender]}}
@@ -89,7 +97,7 @@
                                 				{{/if}}
                             				</a>
                                     	</td>
-                                    {{/}}
+                                    {{/if}}
 									<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
 										{{#if .isMultisig}}
 											<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
@@ -120,7 +128,13 @@
 											{{texts.transactions.table.pending}}
 										{{/if}}
 									</td>
-                                    <td class="txList-cell txList-col--fee">{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}</td>
+                                    <td class="txList-cell txList-col--fee">
+										{{#if .isMultisig}}
+											n/a
+										{{else}}
+											{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
+										{{/if}}
+									</td>
                                     <td class="txList-cell txList-col--amount transactionsPage-rightMost">
 										{{#if .isMultisig}}
 											{{#if .requiresSignature}}
