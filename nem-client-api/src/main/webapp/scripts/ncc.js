@@ -155,7 +155,7 @@ define(function(require) {
             },
             nodeBooted: function() {
                 var nisStatus = this.get('nisStatus.code');
-                return nisStatus === Utils.config.STATUS_BOOTED || nisStatus === Utils.config.STATUS_SYNCHRONIZED;
+                return nisStatus === Utils.config.STATUS_BOOTED || nisStatus === Utils.config.STATUS_SYNCHRONIZED || nisStatus == Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE;
             },
             nisUnavailable: function() {
                 return this.get('nisStatus.code') === Utils.config.STATUS_STOPPED;
