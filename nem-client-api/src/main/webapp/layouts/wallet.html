@@ -423,7 +423,7 @@
 			<textarea class="form-input form-input--textarea sendNem-message" value="{{rawMessage}}" maxlength="256"></textarea>
 			<div class="form-subfield">
 				<input class="form-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
-				<label class="form-checkbox-label" for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
+				<label class="form-checkbox-label{{^encryptionPossible}} disabled{{/}}" for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
 			</div>
 		</div>
 		<div class="form-field">

@@ -367,6 +367,9 @@ $form-input-hPadding: 12px;
 .form-checkbox,
 .form-checkbox-label {
 	vertical-align: middle;
+	&.disabled {
+		color: #888;
+	}
 }
 
 .form-input-remove {
