@@ -125,16 +125,29 @@
 			<div class="account account--active {{#active.accountSelect}}account--selecting{{/}}">
 				<div class="account-info" on-click="toggleOn('accountSelect')">
 					{{#activeAccount}}
-						<p class="account-info-line">
-							<span class="account-id fullSidebarOnly" id="activeAccountAddress">{{.formattedAddress}}</span>
-							{{#.address === wallet.primaryAccount.address}}
-								<span class="account-primary">
-									<span class="fullSidebarOnly">{{texts.wallet.primary}}</span>
-									<span class="miniSidebarOnly">{{texts.wallet.primaryShort}}</span>
-								</span>
-							{{/}}
-						</p>
-						<p class="account-info-line account-label {{^.label}}account-label--blank{{/}} fullSidebarOnly">{{privateLabels[.address] ? privateLabels[.address] : texts.wallet.noLabel}}</p>
+						{{#if (privateLabels[.address])}}
+							<p class="account-info-line--darken">
+								<span class="account-id fullSidebarOnly" id="activeAccountAddress">{{.formattedAddress}}</span>
+								{{#.address === wallet.primaryAccount.address}}
+									<span class="account-primary">
+										<span class="fullSidebarOnly">{{texts.wallet.primary}}</span>
+										<span class="miniSidebarOnly">{{texts.wallet.primaryShort}}</span>
+									</span>
+								{{/}}
+							</p>
+							<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.address] }}</p>
+						{{else}}
+							<p class="account-info-line">
+								<span class="account-id fullSidebarOnly" id="activeAccountAddress">{{.formattedAddress}}</span>
+								{{#.address === wallet.primaryAccount.address}}
+									<span class="account-primary">
+										<span class="fullSidebarOnly">{{texts.wallet.primary}}</span>
+										<span class="miniSidebarOnly">{{texts.wallet.primaryShort}}</span>
+									</span>
+								{{/}}
+							</p>
+							<p class="account-info-line account-label account-label--blank fullSidebarOnly">{{texts.wallet.noLabel}}</p>
+						{{/if}}
 					{{/}}
 				</div>
 				<button class="account-actionsButton {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
@@ -176,15 +189,26 @@
 					{{#allAccounts}}
 						<li class="account account--others" on-click="switchAccount:{{.address}}">
 							<div class="account-info">
-								<p class="account-id account-info-line">
-									{{.formattedAddress}}
-								</p>
-								<p class="account-info-line account-label {{^.label}}account-label--blank{{/}}">
-									{{privateLabels[.address] ? privateLabels[.address] : texts.wallet.noLabel}}
-									{{#.address === wallet.primaryAccount.address}}
-										<span class="account-primary">{{texts.wallet.primary}}</span>
-									{{/}}
-								</p>
+								{{#if (privateLabels[.address])}}
+									<p class="account-info-line--darken">
+										{{.formattedAddress}}
+									</p>
+									<p class="account-info-line account-label">{{privateLabels[.address] }}
+										{{#.address === wallet.primaryAccount.address}}
+											<span class="account-primary">{{texts.wallet.primary}}</span>
+										{{/}}
+									</p>
+								{{else}}
+									<p class="account-id account-info-line">
+										{{.formattedAddress}}
+									</p>
+									<p class="account-info-line account-label account-label--blank">
+										{{texts.wallet.noLabel}}
+										{{#.address === wallet.primaryAccount.address}}
+											<span class="account-primary">{{texts.wallet.primary}}</span>
+										{{/}}
+									</p>
+								{{/if}}
 							</div>
 						</li>
 					{{/}}

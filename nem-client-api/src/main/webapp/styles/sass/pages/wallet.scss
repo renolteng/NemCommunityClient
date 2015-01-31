@@ -302,13 +302,18 @@ $account-actions-width: 33px;
 	margin-bottom: 3px;
 }
 
+.account-info-line--darken {
+	margin-bottom: 3px;
+	color: #ccc;
+}
+
 .account-id {
 	margin-bottom: 3px;
 	outline: none;
 }
 
 .account-label {
-	color: #a1bbee;
+	color: #d9ecff;
 	font-weight: $fontWeight-medium;
 	@include break-word();
 }
