@@ -108,8 +108,12 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                 function(data) {
                     self.set('minimumFee', data.fee);
                     self.set('multisigFee', data.multisigFee);
-                    self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
-                }, 
+                    if (self.get('sender') == null) {
+                        self.set('encryptionPossible', data.encryptionSupported && self.get('recipientValid'));
+                    } else {
+                        self.set('encryptionPossible', false);
+                    }
+                },
                 {
                     altFailCb: function(faultId, error) {
                         if (faultId === 202) { // request encrypting while recipient unable to encrypt
@@ -201,6 +205,11 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                 },
                 password: function() {
                     this.set('passwordChanged', true);
+                },
+                sender: function(senderData) {
+                    if (senderData != null) {
+                        this.set('encryptionPossible', false);
+                    }
                 }
             }, 
             {
