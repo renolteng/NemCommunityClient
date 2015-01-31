@@ -70,7 +70,7 @@ public class MultisigSignatureRequest {
 	 * @return The multisig account address.
 	 */
 	public Address getMultisigAddress() {
-		return multisigAddress;
+		return this.multisigAddress;
 	}
 
 	/**

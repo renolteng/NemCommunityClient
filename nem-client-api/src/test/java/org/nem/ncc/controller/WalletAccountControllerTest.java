@@ -145,7 +145,7 @@ public class WalletAccountControllerTest {
 				this.walletServices,
 				this.walletMapper,
 				this.accountMapper,
-				addressBookServices);
+				this.addressBookServices);
 
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 		private final WalletNamePasswordBag bag;

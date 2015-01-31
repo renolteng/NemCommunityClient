@@ -70,7 +70,7 @@ public class MultisigModificationRequest {
 	 * @return The sender account id.
 	 */
 	public Address getSenderAddress() {
-		return senderAddress;
+		return this.senderAddress;
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class MultisigModificationRequest {
 	 * @return The list of cosignatories.
 	 */
 	public List<Address> getCosignatoriesAddresses() {
-		return cosignatoriesAddresses;
+		return this.cosignatoriesAddresses;
 	}
 
 	/**

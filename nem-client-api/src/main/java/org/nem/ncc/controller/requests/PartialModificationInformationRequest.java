@@ -34,10 +34,10 @@ public class PartialModificationInformationRequest {
 	}
 
 	public Address getMultisigAddress() {
-		return multisigAddress;
+		return this.multisigAddress;
 	}
 
 	public List<Address> getCosignatoriesAddresses() {
-		return cosignatoriesAddresses;
+		return this.cosignatoriesAddresses;
 	}
 }

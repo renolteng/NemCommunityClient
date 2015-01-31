@@ -45,7 +45,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 
 
 		// TODO 20150131 J-G: accound -> account
-		this.requiresSignature = requiresSignature(metaDataPair, relativeAccountAddress, relativeAccoundData);
+		this.requiresSignature = this.requiresSignature(metaDataPair, relativeAccountAddress, relativeAccoundData);
 	}
 
 	private int requiresSignature(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final AccountMetaDataPair relativeAccoundData) {

@@ -27,6 +27,6 @@ public class LabelWalletNamePasswordBag extends WalletNamePasswordBag {
 	 * @return The label.
 	 */
 	public String getWalletAccountLabel() {
-		return label;
+		return this.label;
 	}
 }

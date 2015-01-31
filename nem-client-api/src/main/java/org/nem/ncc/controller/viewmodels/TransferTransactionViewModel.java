@@ -33,7 +33,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		this.message = getMessageText(message);
 		this.isEncrypted = isEncrypted(message);
 
-		this.direction = calculateDirection(relativeAccountAddress);
+		this.direction = this.calculateDirection(relativeAccountAddress);
 	}
 
 	private int calculateDirection(final Address relativeAccountAddress) {
