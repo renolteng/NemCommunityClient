@@ -1,14 +1,9 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.model.Address;
-import org.nem.core.model.MultisigAggregateModificationTransaction;
-import org.nem.core.model.MultisigModification;
-import org.nem.core.model.MultisigModificationType;
-import org.nem.core.model.ncc.AccountMetaDataPair;
-import org.nem.core.model.ncc.TransactionMetaDataPair;
+import org.nem.core.model.*;
+import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.serialization.SerializableEntity;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +16,7 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 	private class ModificationWrapper implements SerializableEntity {
 		final MultisigModificationType modificationType;
 		final Address address;
+
 		public ModificationWrapper(final MultisigModification multisigModification) {
 			this.modificationType = multisigModification.getModificationType();
 			this.address = multisigModification.getCosignatory().getAddress();
@@ -32,6 +28,7 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 			serializer.writeString("type", this.modificationType == MultisigModificationType.Add ? "add" : "del");
 		}
 	}
+
 	final List<ModificationWrapper> modifications;
 
 	public MultisigAggregateViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair accountData, final BlockHeight blockHeight) {

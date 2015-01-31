@@ -43,7 +43,6 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				.map(t -> new MultisigSignatureViewModel(new TransactionMetaDataPair(t, innerMetaData), lastBlockHeight))
 				.collect(Collectors.toList());
 
-
 		// TODO 20150131 J-G: accound -> account
 		this.requiresSignature = this.requiresSignature(metaDataPair, relativeAccountAddress, relativeAccoundData);
 	}
@@ -62,10 +61,9 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 		final Address multisigAddress = multisigTransaction.getOtherTransaction().getSigner().getAddress();
 		if (relativeAccoundData.getMetaData().getCosignatoryOf().stream()
 				.map(info -> info.getAddress())
-				.anyMatch(t -> t.equals(multisigAddress)))
-		{
-		 	// TODO 20150131 J-G: does it make sense to add a hasSignature(Account) to MultisigTransaction?
-			return  multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
+				.anyMatch(t -> t.equals(multisigAddress))) {
+			// TODO 20150131 J-G: does it make sense to add a hasSignature(Account) to MultisigTransaction?
+			return multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
 					|| multisigTransaction.getSigners().stream()
 					.anyMatch(t -> t.getAddress().equals(relativeAccountAddress))
 					? 0 : 1;

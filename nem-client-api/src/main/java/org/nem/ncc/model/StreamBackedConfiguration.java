@@ -34,6 +34,7 @@ public class StreamBackedConfiguration extends Configuration {
 				ExceptionUtils.propagate(() -> (JSONObject)JSONValue.parse(inputStream)),
 				null);
 	}
+
 	@Override
 	public void update(final String language, final NodeEndpoint remoteServer, final NisBootInfo nisBootInfo) {
 		super.update(language, remoteServer, nisBootInfo);

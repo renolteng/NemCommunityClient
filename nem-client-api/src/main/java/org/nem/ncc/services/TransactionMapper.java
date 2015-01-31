@@ -12,7 +12,6 @@ import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

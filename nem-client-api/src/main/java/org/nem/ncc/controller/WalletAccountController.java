@@ -3,8 +3,7 @@ package org.nem.ncc.controller;
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.model.Address;
 import org.nem.ncc.addressbook.*;
-import org.nem.ncc.controller.requests.LabelWalletNamePasswordBag;
-import org.nem.ncc.controller.requests.WalletNamePasswordBag;
+import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.*;
@@ -18,7 +17,6 @@ public class WalletAccountController {
 	private final AccountMapper accountMapper;
 
 	private final AddressBookServices addressBookServices;
-
 
 	/**
 	 * Handles requests related to the REST resource "wallet/account".

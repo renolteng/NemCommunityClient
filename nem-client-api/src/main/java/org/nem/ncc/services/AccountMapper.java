@@ -40,6 +40,7 @@ public class AccountMapper {
 	}
 
 	// TODO 20150131 J-G: not sure if this should be here (in this class).
+
 	/**
 	 * Forces refresh of account data.
 	 *

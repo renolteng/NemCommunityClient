@@ -42,7 +42,7 @@ public class JarFileServlet extends DefaultServlet {
 		}
 
 		final Resource r = Resource.newResource(url);
-		if (! r.exists()) {
+		if (!r.exists()) {
 			LOGGER.log(Level.SEVERE, "Resource does not exist", url);
 		}
 

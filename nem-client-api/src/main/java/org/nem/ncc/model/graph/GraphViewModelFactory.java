@@ -50,11 +50,11 @@ public class GraphViewModelFactory {
 		final NodeEndpoint localEndPoint = new NodeEndpoint("http", "127.0.0.1", 7890);
 		final GraphViewModelFactory t = this;
 		return nodeServices.getNodeAsync(localEndPoint).thenApply(localNode -> {
-				final Collection<Node> nodeSet = Collections.singleton(localNode);
-				return t.createViewModel(
-						networkServices,
-						nodeServices,
-						nodeSet.stream().map(Node::getEndpoint).collect(Collectors.toList()));
+			final Collection<Node> nodeSet = Collections.singleton(localNode);
+			return t.createViewModel(
+					networkServices,
+					nodeServices,
+					nodeSet.stream().map(Node::getEndpoint).collect(Collectors.toList()));
 		}).join();
 	}
 }

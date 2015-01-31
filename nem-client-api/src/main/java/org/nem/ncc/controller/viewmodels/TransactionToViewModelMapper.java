@@ -1,12 +1,8 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.model.*;
-import org.nem.core.model.ncc.AccountInfo;
-import org.nem.core.model.ncc.AccountMetaDataPair;
-import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.Amount;
-import org.nem.core.model.primitive.BlockAmount;
-import org.nem.core.model.primitive.BlockHeight;
+import org.nem.core.model.ncc.*;
+import org.nem.core.model.primitive.*;
 
 /**
  * TODO 20150131 J-G: fix empty comments

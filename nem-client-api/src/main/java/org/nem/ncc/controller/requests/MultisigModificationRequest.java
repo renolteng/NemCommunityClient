@@ -2,10 +2,8 @@ package org.nem.ncc.controller.requests;
 
 import org.nem.core.model.Address;
 import org.nem.core.model.primitive.Amount;
-import org.nem.core.serialization.AddressEncoding;
-import org.nem.core.serialization.Deserializer;
-import org.nem.ncc.wallet.WalletName;
-import org.nem.ncc.wallet.WalletPassword;
+import org.nem.core.serialization.*;
+import org.nem.ncc.wallet.*;
 
 import java.util.List;
 

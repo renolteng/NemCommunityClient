@@ -75,7 +75,7 @@ public class TransactionViewModel implements SerializableEntity {
 
 		this.signer = transaction.getSigner().getAddress();
 		this.timeStamp = UnixTime.fromTimeInstant(transaction.getTimeStamp()).getMillis();
-		this.deadline =  UnixTime.fromTimeInstant(transaction.getDeadline()).getMillis();
+		this.deadline = UnixTime.fromTimeInstant(transaction.getDeadline()).getMillis();
 		this.fee = transaction.getFee();
 
 		if (metaDataPair.getMetaData() == null) {

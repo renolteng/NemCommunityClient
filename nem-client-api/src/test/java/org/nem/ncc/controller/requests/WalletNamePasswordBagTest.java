@@ -1,7 +1,7 @@
 package org.nem.ncc.controller.requests;
 
 import net.minidev.json.JSONObject;
-import org.hamcrest.core.*;
+import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
