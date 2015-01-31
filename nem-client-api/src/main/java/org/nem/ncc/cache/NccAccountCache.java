@@ -78,6 +78,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		return this.findFreshnessPairByAddress(id).accountMetaDataPair;
 	}
 
+	// TODO 20150131 J-G: should add a test for refreshAccount
 	@Override
 	public void refreshAccount(final Address address) {
 		if (this.isKnownAddress(address)) {

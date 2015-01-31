@@ -5,6 +5,10 @@ import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.Serializer;
 
+/**
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: some basic tests
+ */
 public class ImportanceTransferTransactionViewModel extends TransactionViewModel {
 	private final Address remote;
 

@@ -384,6 +384,7 @@ public class TransferTransactionViewModelTest {
 				null);
 
 		// Act:
+		// TODO 20150131 J-G: since you are doing the casting everywhere, consider a helper function like map(...) in this class
 		final TransferTransactionViewModel viewModel =
 				(TransferTransactionViewModel)TransactionToViewModelMapper.map(
 						transaction,

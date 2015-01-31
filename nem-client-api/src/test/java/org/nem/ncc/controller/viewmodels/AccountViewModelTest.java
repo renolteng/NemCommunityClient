@@ -9,6 +9,8 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.test.Utils;
 
+// TODO 20150131 J-G: should update tests to deal with cosignatories
+
 public class AccountViewModelTest {
 
 	@Test

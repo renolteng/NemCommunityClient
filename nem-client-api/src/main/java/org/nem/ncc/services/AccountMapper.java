@@ -39,6 +39,7 @@ public class AccountMapper {
 		return new AccountViewModel(this.accountLookup.findPairByAddress(address));
 	}
 
+	// TODO 20150131 J-G: not sure if this should be here (in this class).
 	/**
 	 * Forces refresh of account data.
 	 *

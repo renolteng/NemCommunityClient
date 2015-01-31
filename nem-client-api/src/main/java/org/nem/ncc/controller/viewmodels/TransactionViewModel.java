@@ -61,6 +61,7 @@ public class TransactionViewModel implements SerializableEntity {
 			final TransactionMetaDataPair metaDataPair,
 			final BlockHeight lastBlockHeight) {
 		final Transaction transaction = metaDataPair.getTransaction();
+		// TODO 20150131 J-G: do we really need this check?
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
 				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
 				TransactionTypes.MULTISIG != transaction.getType() &&

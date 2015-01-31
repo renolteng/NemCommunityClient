@@ -8,6 +8,11 @@ import org.nem.core.model.primitive.Amount;
 import org.nem.core.model.primitive.BlockAmount;
 import org.nem.core.model.primitive.BlockHeight;
 
+/**
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: some basic tests
+ * TODO 20150131 J-G: ok for now, but would be nicer to do mapping like nis
+ */
 public class TransactionToViewModelMapper {
 	public static TransactionViewModel map(final Transaction transaction, final Address address) {
 		return map(new TransactionMetaDataPair(transaction, null), address, null);

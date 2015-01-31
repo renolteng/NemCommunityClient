@@ -193,6 +193,7 @@ public class AccountController {
 	@RequiresTrustedNis
 	public void unlock(@RequestBody final AccountWalletRequest awRequest) {
 		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		// TODO 20150131 J-G: did you add refreshAccount just for unlock/lock?
 		this.accountMapper.refreshAccount(awRequest.getAddress());
 	}
 

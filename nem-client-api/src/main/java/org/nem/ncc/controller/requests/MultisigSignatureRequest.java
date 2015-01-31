@@ -8,6 +8,8 @@ import org.nem.ncc.wallet.*;
 
 /**
  * A request containing all information necessary to create a transfer.
+ * TODO 20150131 J-G: fix comments referring to transfer [send request]
+ * TODO 20150131 J-G: a few basic tests
  */
 public class MultisigSignatureRequest {
 	private final WalletName walletName;

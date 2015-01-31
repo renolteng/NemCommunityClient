@@ -6,6 +6,11 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.StringEncoder;
 
+/**
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: i guess the test coverage is ok for this as you mostly just split up the original transferviewmodel into two?
+ * > i mean i don't think you added anything to this class's functionality?
+ */
 public class TransferTransactionViewModel extends TransactionViewModel {
 	private static final int INCOMING_FLAG = 1;
 	private static final int OUTGOING_FLAG = 2;

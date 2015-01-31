@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * Helper class that is able to map a TransactionViewModel to a Transaction.
+ * TODO 20150131 J-G: i guess we need some new tests for this class?
  */
 public class TransactionMapper {
 	private final WalletServices walletServices;

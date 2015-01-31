@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * A request to get information about a partially created multisig modification.
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: a few basic tests
  */
 public class PartialModificationInformationRequest {
 	private final Address multisigAddress;

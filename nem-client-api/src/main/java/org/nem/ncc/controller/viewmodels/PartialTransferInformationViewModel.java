@@ -5,6 +5,7 @@ import org.nem.core.serialization.*;
 
 /**
  * Simple view model for a validated transfer which contains a fee that wraps an Amount. and the verification result whether a message can be sent encrypted.
+ * TODO 20150131 J-G: why is multisig fee here?
  */
 public class PartialTransferInformationViewModel implements SerializableEntity {
 	private final Amount fee;

@@ -9,6 +9,10 @@ import org.nem.core.serialization.Serializer;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: some basic tests
+ */
 public class MultisigTransactionViewModel extends TransactionViewModel {
 	private final TransactionViewModel otherTransactionViewModel;
 	private final List<MultisigSignatureViewModel> signatureViewModel;
@@ -39,6 +43,8 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				.map(t -> new MultisigSignatureViewModel(new TransactionMetaDataPair(t, innerMetaData), lastBlockHeight))
 				.collect(Collectors.toList());
 
+
+		// TODO 20150131 J-G: accound -> account
 		this.requiresSignature = requiresSignature(metaDataPair, relativeAccountAddress, relativeAccoundData);
 	}
 
@@ -58,6 +64,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				.map(info -> info.getAddress())
 				.anyMatch(t -> t.equals(multisigAddress)))
 		{
+		 	// TODO 20150131 J-G: does it make sense to add a hasSignature(Account) to MultisigTransaction?
 			return  multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
 					|| multisigTransaction.getSigners().stream()
 					.anyMatch(t -> t.getAddress().equals(relativeAccountAddress))

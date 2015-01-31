@@ -41,6 +41,9 @@ public class WalletAccountControllerTest {
 
 	//endregion
 
+	// TODO 20150131 J-B: why aren't the canAddNewAccountWithLabel and canAddExistingAccountWithKeyAndLabel
+	// > tests still valid?
+
 	//region addExistingAccount
 
 	@Test
@@ -50,7 +53,7 @@ public class WalletAccountControllerTest {
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
 		jsonObject.put("accountKey", "0011223344");
-		jsonObject.put("label", "nemwillprevail");
+		jsonObject.put("label", "nemwillprevail"); // TODO 20150131 J-B: should we assert that this label was set?
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));

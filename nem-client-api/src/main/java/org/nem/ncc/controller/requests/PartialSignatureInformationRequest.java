@@ -3,6 +3,10 @@ package org.nem.ncc.controller.requests;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 
+/**
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: a few basic tests
+ */
 public class PartialSignatureInformationRequest {
 	private final Address multisigAddress;
 	private final Address cosignatoryAddress;

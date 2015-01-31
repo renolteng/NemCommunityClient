@@ -45,6 +45,7 @@ public class JarFileServlet extends DefaultServlet {
 		if (! r.exists()) {
 			LOGGER.log(Level.SEVERE, "Resource does not exist", url);
 		}
+
 		return r;
 	}
 

@@ -134,7 +134,8 @@ public class AccountViewModel implements SerializableEntity {
 		BlockAmount.writeTo(serializer, "harvestedBlocks", this.harvestedBlocks);
 		AccountStatus.writeTo(serializer, "status", this.status);
 
-		// temporary
+		// TODO 20150131 J-G: why temporary?
+		// TODO 20150131 J-G: consider renaming cosignatoryOf to cosignatoriesOf?
 		serializer.writeObjectArray("cosignatoryOf", this.cosignatoryOf);
 	}
 }

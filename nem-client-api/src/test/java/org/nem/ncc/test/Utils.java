@@ -372,7 +372,7 @@ public class Utils {
 	}
 
 	/**
-	 * Creates a collection of account label from a JSON array.
+	 * Creates a collection of account labels from a JSON array.
 	 *
 	 * @param array The JSON array.
 	 * @return The collection of account labels.

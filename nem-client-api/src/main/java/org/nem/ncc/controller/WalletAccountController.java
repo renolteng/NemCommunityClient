@@ -43,6 +43,8 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/new", method = RequestMethod.POST)
 	public AccountViewModel addNewAccount(@RequestBody final WalletNamePasswordBag bag) {
+		// TODO 20150131 J-B: previously i could set a label when adding an account?
+		// > did we lose that functionality?
 		return this.addAccount(bag, new WalletAccount());
 	}
 
@@ -63,6 +65,7 @@ public class WalletAccountController {
 			addressBook.addLabel(accountLabel);
 		} catch (final AddressBookException ex) {
 			// it means entry is already in address book we won't update it here.
+			// TODO 20150131 J-B: can we check if the address book contains the lable before adding it?
 		}
 
 		return this.addAccount(bag, new WalletAccount(bag.getAccountPrivateKey()));
@@ -71,7 +74,6 @@ public class WalletAccountController {
 	private AccountViewModel addAccount(final WalletNamePasswordBag bag, final WalletAccount account) {
 		final Wallet wallet = this.walletServices.open(bag);
 		wallet.addOtherAccount(account);
-
 		return this.accountMapper.toViewModel(account);
 	}
 

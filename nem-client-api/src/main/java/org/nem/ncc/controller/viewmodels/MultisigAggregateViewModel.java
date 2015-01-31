@@ -13,6 +13,10 @@ import org.nem.core.serialization.Serializer;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * TODO 20150131 J-G: fix empty comments
+ * TODO 20150131 J-G: some basic tests
+ */
 public class MultisigAggregateViewModel extends TransactionViewModel {
 	private class ModificationWrapper implements SerializableEntity {
 		final MultisigModificationType modificationType;

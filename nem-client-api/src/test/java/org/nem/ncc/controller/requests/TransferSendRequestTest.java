@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 
 public class TransferSendRequestTest {
 
+	// TODO 20150131 J-G: should check all new fields in create and deserialize tests
 	@Test
 	public void requestCanBeCreated() {
 		// Act:

@@ -75,6 +75,7 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 				pair.getMetaData());
 	}
 
+	// TODO 20150131 J-G: should add a test for refreshAccount
 	@Override
 	public void refreshAccount(final Address address) {
 		this.accountLookup.refreshAccount(address);

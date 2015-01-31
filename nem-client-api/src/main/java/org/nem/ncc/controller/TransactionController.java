@@ -83,6 +83,9 @@ public class TransactionController {
 		return this.transactionMapper.toViewModel(request);
 	}
 
+	// TODO 20150131 J-G: do we need a validate for importance transfer transactions too?
+	// TODO 20150131 J-G: why don't we want to try consolidating into a single transaction/send transaction/validate?
+
 	/**
 	 * Request inspecting the multisig signature transaction for validation purposes. The returned result will include:
 	 * - A minimum fee for creating the transaction.
