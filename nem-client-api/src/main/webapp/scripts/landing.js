@@ -76,12 +76,21 @@
 				var requestData = ncc.get('landingPage.createWalletForm');
 
 				ncc.set('landingPage.creatingWallet', true);
-		    	ncc.postRequest('wallet/create', requestData, function(data) {
-	    			ncc.postRequest('wallet/open', requestData,
-			    		function(data) {
-			        		ncc.openWallet(requestData.wallet, requestData.password, data);
-			        	}
-			    	);
+
+				var addressBook = {addressBook:requestData.wallet, password:requestData.password};
+				ncc.postRequest('wallet/create', requestData, function(data) {
+					ncc.postRequest('addressbook/create', addressBook, function(data) {
+						ncc.postRequest('wallet/open', requestData,
+							function(data) {
+								ncc.openWallet(requestData.wallet, requestData.password, data);
+							});
+					},
+					{
+						complete: function() {
+							ncc.set('landingPage.creatingWallet', false);
+							ncc.listWallets();
+						}
+					});
 	    		},
 	    		{
 	    			complete: function() {

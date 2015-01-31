@@ -1,5 +1,7 @@
 package org.nem.ncc.controller;
 
+import org.nem.core.crypto.KeyPair;
+import org.nem.core.model.Address;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.LabelWalletNamePasswordBag;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
@@ -55,7 +57,8 @@ public class WalletAccountController {
 		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(
 				new AddressBookName(bag.getName().toString()), new AddressBookPassword(bag.getPassword().toString())));
 
-		final AccountLabel accountLabel = new AccountLabel(bag.getAccountAddress(), "", bag.getWalletAccountLabel());
+		final Address address = Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey());
+		final AccountLabel accountLabel = new AccountLabel(address, "", bag.getWalletAccountLabel());
 		try {
 			addressBook.addLabel(accountLabel);
 		} catch (final AddressBookException ex) {
