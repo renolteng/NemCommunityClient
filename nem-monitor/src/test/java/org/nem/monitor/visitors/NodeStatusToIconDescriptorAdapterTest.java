@@ -65,14 +65,21 @@ public class NodeStatusToIconDescriptorAdapterTest {
 	@Test
 	public void allStateCombinationsAreSupported() {
 		// Arrange:
+		final NemStatus[] bootedStatuses = new NemStatus[] {
+				NemStatus.BOOTING,
+				NemStatus.BOOTED,
+				NemStatus.NO_REMOTE_NIS_AVAILABLE
+		};
+
 		final Map<StatusPair, IconDescriptor> statusToDescriptorMap = new HashMap<>();
 		for (final NemStatus status : new NemStatus[] { NemStatus.UNKNOWN, NemStatus.STOPPED }) {
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.UNKNOWN), ICON_11_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.STOPPED), ICON_11_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.STARTING), ICON_12_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.RUNNING), ICON_13_DESCRIPTOR);
-			statusToDescriptorMap.put(new StatusPair(status, NemStatus.BOOTING), ICON_14_DESCRIPTOR);
-			statusToDescriptorMap.put(new StatusPair(status, NemStatus.BOOTED), ICON_14_DESCRIPTOR);
+			for (final NemStatus bootedStatus : bootedStatuses) {
+				statusToDescriptorMap.put(new StatusPair(status, bootedStatus), ICON_14_DESCRIPTOR);
+			}
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.SYNCHRONIZED), ICON_15_DESCRIPTOR);
 		}
 
@@ -81,18 +88,27 @@ public class NodeStatusToIconDescriptorAdapterTest {
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.STOPPED), ICON_21_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.STARTING), ICON_22_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.RUNNING), ICON_23_DESCRIPTOR);
-			statusToDescriptorMap.put(new StatusPair(status, NemStatus.BOOTING), ICON_24_DESCRIPTOR);
-			statusToDescriptorMap.put(new StatusPair(status, NemStatus.BOOTED), ICON_24_DESCRIPTOR);
+			for (final NemStatus bootedStatus : bootedStatuses) {
+				statusToDescriptorMap.put(new StatusPair(status, bootedStatus), ICON_24_DESCRIPTOR);
+			}
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.SYNCHRONIZED), ICON_25_DESCRIPTOR);
 		}
 
-		for (final NemStatus status : new NemStatus[] { NemStatus.RUNNING, NemStatus.BOOTING, NemStatus.BOOTED, NemStatus.SYNCHRONIZED }) {
+		final NemStatus[] runningStatuses = new NemStatus[] {
+				NemStatus.RUNNING,
+				NemStatus.BOOTING,
+				NemStatus.BOOTED,
+				NemStatus.NO_REMOTE_NIS_AVAILABLE,
+				NemStatus.SYNCHRONIZED
+		};
+		for (final NemStatus status : runningStatuses) {
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.UNKNOWN), ICON_31_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.STOPPED), ICON_31_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.STARTING), ICON_32_DESCRIPTOR);
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.RUNNING), ICON_33_DESCRIPTOR);
-			statusToDescriptorMap.put(new StatusPair(status, NemStatus.BOOTING), ICON_34_DESCRIPTOR);
-			statusToDescriptorMap.put(new StatusPair(status, NemStatus.BOOTED), ICON_34_DESCRIPTOR);
+			for (final NemStatus bootedStatus : bootedStatuses) {
+				statusToDescriptorMap.put(new StatusPair(status, bootedStatus), ICON_34_DESCRIPTOR);
+			}
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.SYNCHRONIZED), ICON_35_DESCRIPTOR);
 		}
 

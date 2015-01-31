@@ -57,6 +57,7 @@ public class NodeStatusToIconDescriptorAdapter implements NodeStatusVisitor {
 				return NemStatus.STOPPED;
 
 			case BOOTING:
+			case NO_REMOTE_NIS_AVAILABLE:
 				return NemStatus.BOOTED;
 
 			default:
