@@ -264,9 +264,11 @@ public class TransactionMapperTest {
 		// Act:
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
 
-		// Assert (plain message has length < 32, secure messages has length 64):
-		final long messageFee = isSecure ? 20 : 10;
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2 + messageFee)));
+		// Assert:
+		// - plain message: (transfer 10NEM) + (msg length 6) = 2 + 2 = 4
+		// - secure message: (transfer 10NEM) + (msg length 64) = 2 + 8 = 10
+		final Amount expectedFee = Amount.fromNem(!isSecure ? 4 : 10);
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(expectedFee));
 		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(isEncryptionSupported));
 	}
 
@@ -285,7 +287,7 @@ public class TransactionMapperTest {
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
 
 		// Assert:
-		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
+		Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(10)));
 		Assert.assertThat(viewModel.isEncryptionSupported(), IsEqual.equalTo(true));
 	}
 
