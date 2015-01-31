@@ -41,14 +41,10 @@ public class JarFileServlet extends DefaultServlet {
 			return null;
 		}
 
-		Resource r;
-		try {
-			r = Resource.newResource(url);
-		} catch (final IOException e) {
-			LOGGER.log(Level.SEVERE, "Resource could not be found. Trying DefaultServlet behaviour.", e);
-			r = super.getResource(pathInContext);
+		Resource r = Resource.newResource(url);
+		if (! r.exists()) {
+			LOGGER.log(Level.SEVERE, "Resource does not exist", url);
 		}
-
 		return r;
 	}
 

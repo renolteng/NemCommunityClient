@@ -73,11 +73,6 @@ public class MockTransaction extends Transaction {
 	}
 
 	@Override
-	public Amount getMinimumFee() {
-		return Amount.ZERO;
-	}
-
-	@Override
 	protected Collection<Account> getOtherAccounts() {
 		return new ArrayList<>();
 	}
