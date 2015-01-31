@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.MissingRequiredPropertyException;
+import org.nem.ncc.controller.requests.LabelWalletNamePasswordBag;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
@@ -49,6 +50,7 @@ public class WalletAccountControllerTest {
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
 		jsonObject.put("accountKey", "0011223344");
+		jsonObject.put("label", "nemwillprevail");
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));
@@ -56,7 +58,7 @@ public class WalletAccountControllerTest {
 		Mockito.when(context.accountMapper.toViewModel(walletAccount)).thenReturn(accountViewModel);
 
 		// Act:
-		final AccountViewModel result = context.controller.addExistingAccount(context.bag);
+		final AccountViewModel result = context.controller.addExistingAccount(context.labelBag);
 
 		// Assert:
 		Assert.assertThat(result, IsEqual.equalTo(accountViewModel));
@@ -78,7 +80,7 @@ public class WalletAccountControllerTest {
 		Mockito.when(context.accountMapper.toViewModel(walletAccount)).thenReturn(accountViewModel);
 
 		// Act:
-		context.controller.addExistingAccount(context.bag);
+		context.controller.addExistingAccount(context.labelBag);
 	}
 
 	//endregion
@@ -135,16 +137,21 @@ public class WalletAccountControllerTest {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
 		private final WalletMapper walletMapper = Mockito.mock(WalletMapper.class);
 		private final AccountMapper accountMapper = Mockito.mock(AccountMapper.class);
+		private final AddressBookServices addressBookServices = Mockito.mock(AddressBookServices.class);
 		private final WalletAccountController controller = new WalletAccountController(
 				this.walletServices,
 				this.walletMapper,
-				this.accountMapper);
+				this.accountMapper,
+				addressBookServices);
 
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 		private final WalletNamePasswordBag bag;
+		private final LabelWalletNamePasswordBag labelBag;
 
 		private TestContext(final JSONObject jsonObject) {
 			this.bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
+			this.labelBag = new LabelWalletNamePasswordBag(Utils.createDeserializer(jsonObject));
+
 			Mockito.when(this.walletServices.open(this.bag)).thenReturn(this.wallet);
 		}
 	}
