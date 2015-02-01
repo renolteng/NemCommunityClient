@@ -460,6 +460,15 @@ public class AccountControllerTest {
 		private TestContext() {
 			this.setLastBlockHeight(1);
 			ServicesUtils.setupForwarding(this.connector, this.nisEndpoint);
+
+			// getAccountMetaDataPair should return a pair containing an account info matching the address parameter
+			Mockito.when(this.accountServices.getAccountMetaDataPair(Mockito.any()))
+					.thenAnswer(invocationOnMock -> {
+						final Address address = (Address)invocationOnMock.getArguments()[0];
+						return new AccountMetaDataPair(
+								new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, null, 0.0),
+								Mockito.mock(AccountMetaData.class));
+					});
 		}
 
 		private void setLastBlockHeight(final int height) {
