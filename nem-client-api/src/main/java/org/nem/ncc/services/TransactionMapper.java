@@ -96,8 +96,7 @@ public class TransactionMapper {
 		final MultisigTransaction multisigTransaction = new MultisigTransaction(
 				TimeInstant.ZERO,
 				dummyAccount,
-				transaction
-		);
+				transaction);
 
 		final boolean isEncryptionSupported =
 				null != request.getRecipientAddress() && this.accountLookup.findByAddress(request.getRecipientAddress()).hasPublicKey();

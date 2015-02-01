@@ -33,14 +33,8 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		this.message = getMessageText(message);
 		this.isEncrypted = isEncrypted(message);
 
-		this.direction = this.calculateDirection(relativeAccountAddress);
-	}
-
-	private int calculateDirection(final Address relativeAccountAddress) {
-		if (this.recipient.equals(relativeAccountAddress)) {
-			return this.getSigner().equals(relativeAccountAddress) ? SELF_FLAG : INCOMING_FLAG;
-		}
-		return OUTGOING_FLAG;
+		this.direction = (this.getSigner().equals(relativeAccountAddress) ? OUTGOING_FLAG : 0)
+				+ (this.recipient.equals(relativeAccountAddress) ? INCOMING_FLAG : 0);
 	}
 
 	@Override
