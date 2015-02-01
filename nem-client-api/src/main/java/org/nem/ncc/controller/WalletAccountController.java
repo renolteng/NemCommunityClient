@@ -54,6 +54,7 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/add", method = RequestMethod.POST)
 	public AccountViewModel addExistingAccount(@RequestBody final LabelWalletNamePasswordBag bag) {
+		// TODO 20150131 J-B: it also seems like labels are REQUIRED now; is that intentional?
 		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(
 				new AddressBookName(bag.getName().toString()), new AddressBookPassword(bag.getPassword().toString())));
 

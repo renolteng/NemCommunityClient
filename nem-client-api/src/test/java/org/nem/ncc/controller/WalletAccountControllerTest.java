@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.MissingRequiredPropertyException;
+import org.nem.ncc.addressbook.AddressBook;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
@@ -23,6 +24,7 @@ public class WalletAccountControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
+		jsonObject.put("label", "l");
 		final TestContext context = new TestContext(jsonObject);
 
 		final AccountViewModel accountViewModel = Mockito.mock(AccountViewModel.class);
@@ -52,7 +54,7 @@ public class WalletAccountControllerTest {
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
 		jsonObject.put("accountKey", "0011223344");
-		jsonObject.put("label", "nemwillprevail"); // TODO 20150131 J-B: should we assert that this label was set?
+		jsonObject.put("label", "l"); // TODO 20150131 J-B: should we assert that this label was set?
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));
@@ -75,6 +77,7 @@ public class WalletAccountControllerTest {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
+		jsonObject.put("label", "l");
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));
@@ -93,10 +96,7 @@ public class WalletAccountControllerTest {
 	public void setPrimaryAccountDelegatesToServices() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
-		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("wallet", "n");
-		jsonObject.put("password", "p");
-		jsonObject.put("account", address.getEncoded());
+		final JSONObject jsonObject = createJsonObjectWithAddress(address);
 		final TestContext context = new TestContext(jsonObject);
 		final WalletViewModel walletViewModel = Mockito.mock(WalletViewModel.class);
 		Mockito.when(context.walletMapper.toViewModel(context.wallet)).thenReturn(walletViewModel);
@@ -115,10 +115,7 @@ public class WalletAccountControllerTest {
 	public void removeAccountDelegatesToServices() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
-		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("wallet", "n");
-		jsonObject.put("password", "p");
-		jsonObject.put("account", address.getEncoded());
+		final JSONObject jsonObject = createJsonObjectWithAddress(address);
 		final TestContext context = new TestContext(jsonObject);
 		final WalletViewModel walletViewModel = Mockito.mock(WalletViewModel.class);
 		Mockito.when(context.walletMapper.toViewModel(context.wallet)).thenReturn(walletViewModel);
@@ -134,6 +131,15 @@ public class WalletAccountControllerTest {
 	}
 
 	//endregion
+
+	private static JSONObject createJsonObjectWithAddress(final Address address) {
+		final JSONObject jsonObject = new JSONObject();
+		jsonObject.put("wallet", "n");
+		jsonObject.put("password", "p");
+		jsonObject.put("account", address.getEncoded());
+		jsonObject.put("label", "l");
+		return jsonObject;
+	}
 
 	private static class TestContext {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
@@ -155,6 +161,7 @@ public class WalletAccountControllerTest {
 			this.labelBag = new LabelWalletNamePasswordBag(Utils.createDeserializer(jsonObject));
 
 			Mockito.when(this.walletServices.open(this.bag)).thenReturn(this.wallet);
+			Mockito.when(this.addressBookServices.open(Mockito.any())).thenReturn(Mockito.mock(AddressBook.class));
 		}
 	}
 }
