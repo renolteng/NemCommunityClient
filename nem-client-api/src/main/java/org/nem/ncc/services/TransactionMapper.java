@@ -126,7 +126,7 @@ public class TransactionMapper {
 				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
 				.collect(Collectors.toList());
 
-		// quick and bit dirty hack for UI...
+		// TODO 20150201 J-G: quick and bit dirty hack for UI...
 		if (modifications.size() == 0) {
 			return new PartialFeeInformationViewModel(Amount.ZERO);
 		}
@@ -134,8 +134,7 @@ public class TransactionMapper {
 		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
 				TimeInstant.ZERO,
 				multisig,
-				modifications
-		);
+				modifications);
 
 		return new PartialFeeInformationViewModel(transaction.getFee());
 	}
