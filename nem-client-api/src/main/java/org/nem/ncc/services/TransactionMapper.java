@@ -126,6 +126,11 @@ public class TransactionMapper {
 				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
 				.collect(Collectors.toList());
 
+		// quick and bit dirty hack for UI...
+		if (modifications.size() == 0) {
+			return new PartialFeeInformationViewModel(Amount.ZERO);
+		}
+
 		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
 				TimeInstant.ZERO,
 				multisig,
