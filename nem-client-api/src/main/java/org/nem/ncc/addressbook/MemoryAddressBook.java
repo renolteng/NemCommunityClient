@@ -127,6 +127,11 @@ public class MemoryAddressBook implements StorableAddressBook {
 	}
 
 	@Override
+	public boolean contains(final Address address) {
+		return null != this.accountLabels.get(address);
+	}
+
+	@Override
 	public void serialize(final Serializer serializer) {
 		AddressBookName.writeTo(serializer, "addressBook", this.name);
 		serializer.writeObjectArray("accountLabels", this.accountLabels.values());

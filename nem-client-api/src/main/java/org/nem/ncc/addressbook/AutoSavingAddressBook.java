@@ -69,6 +69,11 @@ public class AutoSavingAddressBook implements AddressBook {
 	}
 
 	@Override
+	public boolean contains(final Address address) {
+		return this.addressBook.contains(address);
+	}
+
+	@Override
 	public void serialize(final Serializer serializer) {
 		this.addressBook.serialize(serializer);
 	}

@@ -22,6 +22,13 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	private final boolean isEncrypted;
 	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
 
+	/**
+	 * Creates a transfer transaction view model.
+	 *
+	 * @param metaDataPair The meta data pair.
+	 * @param relativeAccountAddress The account address (either sender or recipient or both).
+	 * @param lastBlockHeight The last block height.
+	 */
 	public TransferTransactionViewModel(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final BlockHeight lastBlockHeight) {
 		super(Type.Transfer, metaDataPair, lastBlockHeight);
 

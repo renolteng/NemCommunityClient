@@ -52,9 +52,9 @@ public class TransactionViewModel implements SerializableEntity {
 	/**
 	 * Creates a new transaction view model around a transaction (confirmed or unconfirmed).
 	 *
-	 * @param transactionViewModelType
-	 * @param metaDataPair
-	 * @param lastBlockHeight
+	 * @param transactionViewModelType The transaction view model type.
+	 * @param metaDataPair The meta data pair.
+	 * @param lastBlockHeight The last block height (for calculating confirmations).
 	 */
 	public TransactionViewModel(
 			final Type transactionViewModelType,
@@ -81,6 +81,7 @@ public class TransactionViewModel implements SerializableEntity {
 		if (metaDataPair.getMetaData() == null) {
 			this.confirmations = 0;
 			this.blockHeight = 0;
+			// TODO BR -> G: can we safely set transactionId to 0 or Long.MAX_VALUE here?
 			this.transactionId = this.transactionHash.getShortId();
 			this.isConfirmed = false;
 		} else {
@@ -88,6 +89,7 @@ public class TransactionViewModel implements SerializableEntity {
 			this.blockHeight = metaDataPair.getMetaData().getHeight().getRaw();
 			// TODO 20141201 J-B: is it confusing that both Transaction and TransactionMetaData have ids now?
 			// we might want to rename one
+			// TODO 20150202 BR -> J: there is only one id, but it is used in two different ways (see above).
 			this.transactionId = metaDataPair.getMetaData().getId();
 			this.isConfirmed = true;
 		}
