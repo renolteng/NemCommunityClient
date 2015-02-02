@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils'], function(NccModal, Utils) {
+define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Utils, Handlebars) {
 	return NccModal.extend({
 	    data: {
             isFeeAutofilled: true,
@@ -62,14 +62,33 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 		addCosignatory: function() {
             $('.js-cosignatory').last().focus();
             this.get('cosignatories').push({label:''});
-            $('.js-cosignatory').last().focus();
+            $('.js-cosignatory').last().focus().typeahead({
+                hint: false,
+                highlight: true
+            }, {
+                name: 'address-book',
+                source: Utils.typeahead.addressBookMatcher,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span> <span class="abSuggestion-address">{{formattedAddress}}</span>')
+                }
+            }, {
+                name: 'format-address',
+                source: Utils.typeahead.justFormatAddress,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
+                }
+            });
 
             // TODO: not sure if this is ok to do... can this cause leaks?
-            var self = this;
-            var $cosignatory = $('.js-cosignatory');
-            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
+            // var self = this;
+            // var $cosignatory = $('.js-cosignatory');
+            // $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            // $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            // $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
+
+
         },
         removeCosignatory: function(index) {
             this.get('cosignatories').splice(index, 1);
@@ -174,10 +193,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var $dueBy = $('.js-multisig-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
-            var $cosignatory = $('.js-cosignatory');
-            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
+            // var $cosignatory = $('.js-cosignatory');
+            // $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            // $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            // $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $fee = $('.js-multisig-fee-textbox');
             var feeTxb = $fee[0];
@@ -193,6 +212,27 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     feeTxb.value = Utils.format.nem.reformat(feeTxb.value, null, null, oldProp, newProp);
                 }
             }));
+
+            // Cosignatory fields
+
+            $('.js-cosignatory').typeahead({
+                hint: false,
+                highlight: true
+            }, {
+                name: 'address-book',
+                source: Utils.typeahead.addressBookMatcher,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span> <span class="abSuggestion-address">{{formattedAddress}}</span>')
+                }
+            }, {
+                name: 'format-address',
+                source: Utils.typeahead.justFormatAddress,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
+                }
+            });
         }
 	});
 });

@@ -593,6 +593,26 @@ define(['TransactionType'], function(TransactionType) {
                 }
             },
         },
+        typeahead: {
+            addressBookMatcher: function(query, cb) {
+                var matches = [];
+                var regex = new RegExp(query, 'i');
+                $.each(ncc.get('addressBook'), function(i, item) {
+                    if (regex.test(item.address) || regex.test(item.privateLabel)) {
+                        matches.push(item);
+                    }
+                });
+
+                cb(matches);
+            },
+            justFormatAddress: function(query, cb) {
+                var suggestion = {
+                    text: ncc.get('texts.common.justUse'),
+                    formattedAddress: Utils.format.address.format(query)
+                };
+                cb([suggestion]);
+            }
+        },
         daysPassed: function(begin) {
             var now = new Date().getTime();
             var timespan = now - begin;

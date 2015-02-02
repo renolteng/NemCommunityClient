@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, TransactionType) {
+define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], function(NccModal, Utils, TransactionType, Handlebars) {
 	return NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -235,10 +235,10 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
             var $dueBy = $('.js-sendNem-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
-            var $recipient = $('.js-sendNem-recipient-textbox');
-            $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-            $recipient.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-            $recipient.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
+            // var $recipient = $('.js-sendNem-recipient-textbox');
+            // $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            // $recipient.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            // $recipient.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $amount = $('.js-sendNem-amount-textbox');
             var amountTxb = $amount[0];
@@ -262,6 +262,27 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                     feeTxb.value = Utils.format.nem.reformat(feeTxb.value, null, null, oldProp, newProp);
                 }
             }));
+
+            // Recipient field
+
+            $('.js-sendNem-recipient-textbox').typeahead({
+                hint: false,
+                highlight: true
+            }, {
+                name: 'address-book',
+                source: Utils.typeahead.addressBookMatcher,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span> <span class="abSuggestion-address">{{formattedAddress}}</span>')
+                }
+            }, {
+                name: 'format-address',
+                source: Utils.typeahead.justFormatAddress,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
+                }
+            });
         }
     });
 });

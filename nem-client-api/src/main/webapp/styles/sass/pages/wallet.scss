@@ -637,7 +637,7 @@ $account-actions-width: 33px;
 // ================================================================================
 
 .sendNemModal {
-	font-size: 12px;
+	font-size: 13px;
 
 	.modal-body {
 		padding: 0;
@@ -673,6 +673,13 @@ $account-actions-width: 33px;
 
 	.modal-body {
 		padding: 3px 16px 18px;
+	}
+}
+
+.multisig-cosignatory {
+	.twitter-typeahead {
+		float: left;
+		width: calc(100% - 20px);
 	}
 }
 

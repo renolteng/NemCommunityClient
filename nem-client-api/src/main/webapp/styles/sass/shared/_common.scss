@@ -649,6 +649,10 @@ $modal-transitionDuration: .3s;
 	}
 }
 
+.modal--medium {
+	width: 530px;
+}
+
 .modal--wide {
 	width: 650px;
 }
@@ -866,3 +870,52 @@ $settingModal-bgColor: #fff;
 	}
 }
 
+// ================================================================================
+// TYPEAHEAD.JS
+// ================================================================================
+
+.twitter-typeahead {
+	width: 100%;
+}
+
+.tt-dropdown-menu {
+	width: 100%;
+	padding: 4px 0;
+	@include border-radius(3px);
+	@include box-shadow(0 0 15px 0 rgba(#000, .3));
+	background-color: #fff;
+}
+
+.tt-suggestion {
+	padding: 0 10px;
+	height: 32px;
+	line-height: 32px;
+	font-size: 13px;
+	cursor: pointer;
+	@extend %clearfix;
+
+	strong {
+		font-weight: $fontWeight-bold;
+	}
+}
+
+.tt-cursor {
+	background-color: #5dcd86;
+	color: #fff;
+}
+
+.abSuggestion-label {
+	float: left;
+}
+
+.abSuggestion-address {
+	float: right;
+}
+
+.abSuggestion-justFormat {
+	color: #8e8e8e;
+
+	.tt-cursor & {
+		color: #fff;
+	}
+}

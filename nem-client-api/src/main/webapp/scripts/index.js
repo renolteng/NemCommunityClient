@@ -18,7 +18,9 @@ require.config({
         'zeroClipboard': 'plugins/ZeroClipboard.min',
         'tooltipster': 'plugins/jquery.tooltipster.min',
         'mustache': 'plugins/mustache.min',
-        'draggable': 'plugins/jquery-ui.draggable.min'
+        'draggable': 'plugins/jquery-ui.draggable.min',
+        'typeahead': 'plugins/typeahead.jquery-dist',
+        'handlebars': 'plugins/handlebars-v2.0.0-dist'
     },
     shim: {
         'scroller': { deps: ['jquery'] },
@@ -27,7 +29,8 @@ require.config({
         'gridster': { deps: ['jquery'] },
         'maskedinput': { deps: ['jquery'] },
         'dropit': { deps: ['jquery'] },
-        'tooltipster': { deps: ['jquery'] }
+        'tooltipster': { deps: ['jquery'] },
+        'typeahead': { deps: ['jquery'] }
     }
 });
 
