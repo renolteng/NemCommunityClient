@@ -41,7 +41,7 @@ define({
 			600: "NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \"Avvia il nodo locale\" nel menu di NCC.",
 			601: "Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 NEM",
+			700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM",
 			701: "Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.",
 			702: "Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.",
 			703: "L'indirizzo non dispone di abbastanza fondi per inviare la quantità di NEM indicata.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Invia NEM",
+				title: "Invia XEM",
 				sender: "Mittente",
 				thisAccount: 'This account',
 				labelDesc: "Questo indirizzo è denominato {{1}}",
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: "Crea indirizzo reale",
-				message: "I dati riportati qui sotto sono relativi al tuo indirizzo NEM reale da utilizzare solo dopo il lancio di NEM. Salvati l'indirizzo, la chiave pubblica e soprattuto la chiave privata in un posto sicuro. Se perdi la chiave privata i tuoi NEM saranno PERSI IRRIMEDIABILMENTE!",
+				message: "I dati riportati qui sotto sono relativi al tuo indirizzo NEM reale da utilizzare solo dopo il lancio di NEM. Salvati l'indirizzo, la chiave pubblica e soprattuto la chiave privata in un posto sicuro. Se perdi la chiave privata i tuoi XEM saranno PERSI IRRIMEDIABILMENTE!",
 				address: "Indirizzo",
 				publicKey: "Chiave pubblica",
 				privateKey: "Chiave privata",
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Transazioni recenti",
-				sendNem: "Invia NEM",
+				sendNem: "Invia XEM",
 				signMultisig: 'SIGN',
 				balance: "Bilancio attuale",
 				syncStatus: "(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Ancora nessuna transazione"
 			},
 			nemValue: {
-				title: "Statistiche sul valore dei NEM"
+				title: "Statistiche sul valore dei XEM"
 			},
 			messages: {
 				titleTooltip: "Messaggi"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Transazioni",
-			sendNem: "Invia NEM",
+			sendNem: "Invia XEM",
 			balance: "Bilancio attuale",
 			filters: {
 				confirmed: "Confermate",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Invia NEM",
+			sendNem: "Invia XEM",
 			edit: 'Edit',
 			remove: "Elimina"
 		},

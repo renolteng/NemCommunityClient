@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Ennenkuin voit käyttää lompakkoa, se pitää avata. Avataksesi lompakon, on sinulla oltava salasana.",
 			107: "Lompakko ei sisällä tätä tiliä.",
-			108: "Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 NEM, tai yrität poistaa ensisijaista tiliä.",
+			108: "Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 XEM, tai yrität poistaa ensisijaista tiliä.",
 			109: "Saman niminen lompakko on jo olemassa. Valitse toinen lompakon nimi.",
 			110: "Lompakko sisältää jo tämän tilin.",
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: "NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.",
 			601: "NIS node on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Louhintaa (Harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 NEM.",
+			700: "Louhintaa (Harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.",
 			701: "Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.",
 			702: "Valittu aikaraja on liian kaukana tulevaisuudessa. Aikaraja täytyy olla yhden päivän sisällä.",
 			703: "Tililläsi ei ole siirrettävää summaa.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Lähetä NEM",
+				title: "Lähetä XEM",
 				sender: "Lähettäjä",
 				thisAccount: 'This account',
 				labelDesc: "Tämä tili on nimetty {{1}}",
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Viimeisimmät siirrot",
-				sendNem: "Lähetä NEM",
+				sendNem: "Lähetä XEM",
 				signMultisig: 'SIGN',
 				balance: "Tämänhetkinen saldo",
 				syncStatus: "(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Siirtoja ei ole vielä tehty"
 			},
 			nemValue: {
-				title: "NEM arvon staistiiikka"
+				title: "XEM arvon staistiiikka"
 			},
 			messages: {
 				titleTooltip: "Viesti"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Siirrot",
-			sendNem: "Lähetä NEM",
+			sendNem: "Lähetä XEM",
 			balance: "Tämänhetkinen saldo",
 			filters: {
 				confirmed: "Vahvistettu",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Lähetä NEM",
+			sendNem: "Lähetä XEM",
 			edit: 'Edit',
 			remove: "Poistettu"
 		},

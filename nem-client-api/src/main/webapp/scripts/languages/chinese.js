@@ -41,11 +41,11 @@ define({
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有10000 NEM才能开始收获。',
+			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有10000 XEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
 			702: '所提供的截止日期过晚。必须输入1天以内的日期作为截止日期。',
 			703: '您的帐户余额不足，请查证后重试。',
-			704: '提供消息的文本太大，无法通过NEM发送。请减少消息的长度。',
+			704: '提供消息的文本太大，无法通过XEM发送。请减少消息的长度。',
 			705: '数据库或交易清单中已经存在此交易的hash值。',
 			706: '无法验证本次交易的签名。',
 			707: '此交易ID的时间戳不合法，时间过早。',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: '发送 NEM',
+				title: '发送 XEM',
 				sender: '发件人',
 				thisAccount: 'This account',
 				labelDesc: '此帐户标记为 {{1}}',
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: '创建真实账户资料',
-				message: '以下数据是NEM正式发行后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的NEM币将永远消失!',
+				message: '以下数据是NEM正式发行后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的XEM币将永远消失!',
 				address: '地址',
 				publicKey: '公钥',
 				privateKey: '私钥',
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; 版权所有 2014. NEM 社区客户端。'
+				copyright: '&copy; 版权所有 2015. NEM 社区客户端。'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: '最近的交易',
-				sendNem: '发送NEM',
+				sendNem: '发送XEM',
 				signMultisig: 'SIGN',
 				balance: '目前余额',
 				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后天数{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: '无交易'
 			},
 			nemValue: {
-				title: 'NEM 值统计'
+				title: 'XEM 值统计'
 			},
 			messages: {
 				titleTooltip: '留言'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: '交易',
-			sendNem: '发送 NEM',
+			sendNem: '发送 XEM',
 			balance: '目前余额',
 			filters: {
 				confirmed: '已确认交易',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: '发送 NEM',
+			sendNem: '发送 XEM',
 			edit: 'Edit',
 			remove: '删除'
 		},

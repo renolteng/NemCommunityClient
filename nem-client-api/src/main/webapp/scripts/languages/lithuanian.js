@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Prieš pradedant darbą su pinigine, ji turi būti atidaryta. Norint atidaryti piniginę, Jūs turite įvesti piniginės slaptažodį.",
 			107: "Piniginėje nėra šios sąskaitos",
-			108: "Sąskaita negali būti pašalinta. Panašu, kad sąskaitoje yra daugiau kaip 0 NEM arba ši sąskaita yra Jūsų pagrindinė sąskaita.",
+			108: "Sąskaita negali būti pašalinta. Panašu, kad sąskaitoje yra daugiau kaip 0 XEM arba ši sąskaita yra Jūsų pagrindinė sąskaita.",
 			109: "Jau egzistuoja piniginė su tokiu pavadinimu. Prašome pasirinkti kitą piniginės pavadinimą.",
 			110: "Pinigiėeje jau yra ši sąskaita.",
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: "NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.",
 			601: "NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \"kasti\". Pagrinde, tai susiję su NEM kiekiu Jūsų sąskaitoje. \"Kasimas\" prasideda tik turint ne mažiau 1,000 NEM.",
+			700: "Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \"kasti\". Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \"Kasimas\" prasideda tik turint ne mažiau 1,000 XEM.",
 			701: "Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.",
 			702: "Pateiktas galutinis terminas yra per toli ateityje. Galutinis terminas turi būti ne daugiau kaip viena diena.",
 			703: "Jūsų sąskaitoje neužtenka lėšų, kad išsiųsti nurodytą NEM sumą.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Siųsti NEM",
+				title: "Siųsti XEM",
 				sender: "Siuntėjas",
 				thisAccount: 'This account',
 				labelDesc: "Ši sąskaita pavadinta kaip {{1}}",
@@ -405,7 +405,7 @@ define({
 				title: "Panaikinti sąskaitą",
 				wallet: "Piniginė",
 				password: "Piniginės slaptažodis",
-				warning: "Prašome įsitikinti, kad Jūsų sąskaitoje nėra NEM prieš ją panaikinant. Panaikinus sąskaitą, Jūs prarasite joje turėtus NEM visam laikui.",
+				warning: "Prašome įsitikinti, kad Jūsų sąskaitoje nėra NEM prieš ją panaikinant. Panaikinus sąskaitą, Jūs prarasite joje turėtus XEM visam laikui.",
 				successMessage: "Sąskaita {{1}} {{#2}}({{2}}){{/2}} panaikinta!",
 				remove: "Panaikinti"
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Paskutinės transakcijos",
-				sendNem: "Siųsti NEM",
+				sendNem: "Siųsti XEM",
 				signMultisig: 'SIGN',
 				balance: "Turimas balansas",
 				syncStatus: "(blokas {{1}}{{#2}} : po {{3}} dienu{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Nėra dar atlikta jokių transakcijų"
 			},
 			nemValue: {
-				title: "NEM vertės statistika"
+				title: "XEM vertės statistika"
 			},
 			messages: {
 				titleTooltip: "Žinutės"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Transakcijos",
-			sendNem: "Siųsti NEM",
+			sendNem: "Siųsti XEM",
 			balance: "Turimas balansas",
 			filters: {
 				confirmed: "Patvirtintos",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Siųsti NEM",
+			sendNem: "Siųsti XEM",
 			edit: 'Edit',
 			remove: "Panaikinti"
 		},
