@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha de uma carteira ou crie outra.",
 			107: "A carteira não contém essa conta.",
-			108: "A conta não pode ser removida. Provavelmente ela tem saldo maior que 0 NEMs ou é a conta primária.",
+			108: "A conta não pode ser removida. Provavelmente ela tem saldo maior que 0 XEMs ou é a conta primária.",
 			109: "Já existe uma conta com o mesmo nome. Por favor, escolha outro.",
 			110: "A carteira já contém essa conta.",
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: "NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu superior direito.",
 			601: "O NIS já foi inicializado.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 NEMs.",
+			700: "Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 XEMs.",
 			701: "O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.",
 			702: "O prazo final fornecido está no futuro. O prazo limite deve estar dentro do período de um dia.",
 			703: "Saldo insuficiente.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Enviar NEM",
+				title: "Enviar XEM",
 				sender: "Remetente",
 				thisAccount: 'This account',
 				labelDesc: "Esta conta está identificada como {{1}}",
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Transações recentes",
-				sendNem: "Enviar NEM",
+				sendNem: "Enviar XEM",
 				signMultisig: 'SIGN',
 				balance: "Saldo atual",
 				syncStatus: "(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})",
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Transações",
-			sendNem: "Enviar NEM",
+			sendNem: "Enviar XEM",
 			balance: "Saldo",
 			filters: {
 				confirmed: "Confirmadas",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Enviar NEM",
+			sendNem: "Enviar XEM",
 			edit: 'Edit',
 			remove: "Remover"
 		},

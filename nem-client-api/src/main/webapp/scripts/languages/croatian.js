@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Novčanik mora biti otvoren da biste ga mogli koristiti. Morate unijeti lozinku za novčanik da biste bili sigurni da ste ovlašteni za korištenje istog.",
 			107: "Novčanik ne sadrži taj račun.",
-			108: "Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 NEM-ova ili jer pokušavate ukloniti primarni račun.",
+			108: "Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 XEM-ova ili jer pokušavate ukloniti primarni račun.",
 			109: "Drugi novčanik sa istim nazivom već postoji. Molim Vas izaberite drugi naziv za novčanik.",
 			110: "Novčanik već sadrži taj račun.",
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: "Za slanje i primanje transakcija sa NEM oblaka, NCC zahtijeva da NIS poslužitelj bude pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.",
 			601: "NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 NEM-ova.",
+			700: "Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 XEM-ova.",
 			701: "Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.",
 			702: "Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.",
 			703: "Stanje na Vašem računu nije dovoljno za slanje određenog iznosa NEMa.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Slanje NEMa",
+				title: "Slanje XEMa",
 				sender: "Pošiljatelj",
 				thisAccount: 'This account',
 				labelDesc: "Ovaj račun je označen kao {{1}}",
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: "Stvori stvarni račun",
-				message: "Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni NEM-ovi bit će izgubljeni ZAUVIJEK!",
+				message: "Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni XEM-ovi bit će izgubljeni ZAUVIJEK!",
 				address: "Adresa",
 				publicKey: "Javni ključ",
 				privateKey: "Privatni ključ",
@@ -405,7 +405,7 @@ define({
 				title: "Ukloni račun",
 				wallet: "Novčanik",
 				password: "Lozinka novčanika",
-				warning: "Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži NEM ili će biti izgubljen zauvijek nakon uklanjanja računa.",
+				warning: "Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži XEM ili će biti izgubljen zauvijek nakon uklanjanja računa.",
 				successMessage: "Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno uklonjen!",
 				remove: "Ukloni"
 			},
@@ -471,7 +471,7 @@ define({
 			importSuccess: "Novčanik je uspješno uvezen!",
 			nav: {
 				start: "Početak",
-				about: "O NEM",
+				about: "O XEM",
 				settings: "Postavke"
 			},
 			main: {
@@ -492,11 +492,11 @@ define({
 				items: [
 					{
 						title: "NCC šifrira vaš novčanik",
-						description: "<em>Sigurnost</em> je za NEM  jako važna za sprječavanje krađe NEM novčića &amp; udjela."
+						description: "<em>Sigurnost</em> je za NEM  jako važna za sprječavanje krađe XEM novčića &amp; udjela."
 					},
 					{
 						title: "NCC šifrira vaš novčanik",
-						description: "<em>Sigurnost</em> je za NEM jako važna za sprječavanje krađe NEM novčića &amp; udjela."
+						description: "<em>Sigurnost</em> je za NEM jako važna za sprječavanje krađe XEM novčića &amp; udjela."
 					}
 				]
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Nedavne transakcije",
-				sendNem: "Šalji NEM",
+				sendNem: "Šalji XEM",
 				signMultisig: 'SIGN',
 				balance: "Trenutno stanje",
 				syncStatus: "(na bloku {{1}}{{#2}} : otprilike {{3}} dan(a) u zaostatku {{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Niti jedna transakcija nije još izvršena"
 			},
 			nemValue: {
-				title: "NEM statistika vrijednosti"
+				title: "XEM statistika vrijednosti"
 			},
 			messages: {
 				titleTooltip: "Poruke"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Transakcije",
-			sendNem: "Šalji NEM",
+			sendNem: "Šalji XEM",
 			balance: "Trenutno stanje",
 			filters: {
 				confirmed: "Potvrđene",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Šalji NEM",
+			sendNem: "Šalji XEM",
 			edit: 'Edit',
 			remove: "Ukloni"
 		},

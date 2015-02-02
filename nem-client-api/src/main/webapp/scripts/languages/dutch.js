@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Voordat je met je wallet kan beginnen, moet hij worden geopend. Om er zeker van te zijn dat jij de rechtmatige eigenaar bent, moet je het wachtwoord opgeven.',
 			107: 'Rekeningnummer komt niet voor in de wallet.',
-			108: 'De rekening kan niet worden verwijderd. Waarschijnlijk komt dit omdat er nog NEM in zit. Het kan ook zijn dat de rekening de primaire rekening is van de wallet.',
+			108: 'De rekening kan niet worden verwijderd. Waarschijnlijk komt dit omdat er nog XEM in zit. Het kan ook zijn dat de rekening de primaire rekening is van de wallet.',
 			109: 'Een andere wallet met dezelfde naam bestaat al, kies een andere wallet-naam.',
 			110: 'Rekening komt al voor in de wallet.',
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: 'Voor de NCC (Nem Community Client) is het vereist om de NIS (Network Infrastructure Server) het starten voor het verzenden en ontvangen van transacties van de NEM cloud. Gebruik de NCC menu optie om lokaal te starten.',
 			601: 'De nis node is al gestart. Een tweede poging om te starten is niet mogelijk.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'De opgegeven rekening voldoet niet aan de basis criteria om te harvesten/oogsten. Waarschijnlijk heeft dat te maken met het aantal NEM wat zich in de rekening bevindt. Harvesten begint bij tenminste 1000 NEM.',
+			700: 'De opgegeven rekening voldoet niet aan de basis criteria om te harvesten/oogsten. Waarschijnlijk heeft dat te maken met het aantal XEM wat zich in de rekening bevindt. Harvesten begint bij tenminste 1000 XEM.',
 			701: 'De termijn ligt in het verleden en kan alleen geldig zijn binnen een periode van 1 dag.',
 			702: 'De termijn ligt te ver in de toekomst en kan alleen geldig zijn binnen een periode van 1 dag.',
 			703: 'De rekening heeft niet genoeg saldo om het aangegeven aantal NEM te verzenden.',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'NEM versturen',
+				title: 'XEM versturen',
 				sender: 'Afzender',
 				thisAccount: 'This account',
 				labelDesc: 'Deze rekening is als {{1}} gelabeld',
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Aanmaken ECHTE account',
-				message: 'De onderstaande gegevens is bedoeld voor je echte account, nadat NEM live-gang is geweest. Bewaard het adres, publieke sleutel en het belangrijkste: de privé sleutel op een veilige plaats. Als de privé sleutel verloren raakt is het niet meer mogelijk om toegang tot je NEM te krijgen!',
+				message: 'De onderstaande gegevens is bedoeld voor je echte account, nadat NEM live-gang is geweest. Bewaard het adres, publieke sleutel en het belangrijkste: de privé sleutel op een veilige plaats. Als de privé sleutel verloren raakt is het niet meer mogelijk om toegang tot je XEM te krijgen!',
 				address: 'Adres',
 				publicKey: 'Publiek sleutel key',
 				privateKey: 'Privé sleutel',
@@ -405,7 +405,7 @@ define({
 				title: 'Rekening verwijderen',
 				wallet: 'Wallet',
 				password: "Wallet wachtwoord",
-				warning: 'Let op! Wees er zeker van dat er geen NEM saldo opstaat. Eventueel saldo wordt voor altijd verwijderd.',
+				warning: 'Let op! Wees er zeker van dat er geen XEM saldo opstaat. Eventueel saldo wordt voor altijd verwijderd.',
 				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} is verwijderd!',
 				remove: 'Verwijderen'
 			},
@@ -492,11 +492,11 @@ define({
 				items: [
 					{
 						title: 'NCC beveiligt je wallet',
-						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van NEM coins&amp; assets te voorkomen.'
+						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van XEM&amp; assets te voorkomen.'
 					},
 					{
 						title: 'NCC beveiligt je wallet',
-						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van NEM coins&amp; assets te voorkomen.'
+						description: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van XEM&amp; assets te voorkomen.'
 					}
 				]
 			},
@@ -505,7 +505,7 @@ define({
 					{
 						title: 'Hoe werkt NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> zorgt voor toegang tot je Assets en NEMs zoals een traditionele Wallet, of portomonnee, dat doet.',
+							'<strong>NCC</strong> zorgt voor toegang tot je Assets en XEM zoals een traditionele Wallet, of portomonnee, dat doet.',
 							'<strong>NCC</strong> heeft toegang to de <strong>NIS</strong> server nodig om te kunnen werken. Standaard is een lokale service actief. Deze wordt geinstalleerd met de community client (NCC)',
 							'Je kan NCC ook configureren om toegang te krijgen tot een remote <strong>NIS</strong>.'
 						],
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Copyright 2014. NEM Community Client.'
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'Recente Transacties',
-				sendNem: 'Verstuur NEM',
+				sendNem: 'Verstuur XEM',
 				signMultisig: 'SIGN',
 				balance: 'Huidige balans',
 				syncStatus: '(bij block {{1}}{{#2}} : ong. {{3}} dagen achter{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'Nog geen transacties zijn uitgevoerd'
 			},
 			nemValue: {
-				title: 'NEM statistieken'
+				title: 'XEM statistieken'
 			},
 			messages: {
 				titleTooltip: 'Berichten'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'Transacties',
-			sendNem: 'Verstuur NEM',
+			sendNem: 'Verstuur XEM',
 			balance: 'Huidige Balans',
 			filters: {
 				confirmed: 'Bevestigd',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Verstuur NEM',
+			sendNem: 'Verstuur XEM',
 			edit: 'Edit',
 			remove: 'Verwijderen'
 		},

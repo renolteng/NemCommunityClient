@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Перш ніж ви зможете працювати з гаманцем, він повинен бути відкритий. Щоб переконатися, що ви авторизованi на доступ до файлу гаманця, ви повинні ввести пароль гаманця.',
 			107: 'Гаманець не містить цей акаунт.',
-			108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 NEM, або акаунт, який ви намагаєтеся видалити є основним.',
+			108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 XEM, або акаунт, який ви намагаєтеся видалити є основним.',
 			109: "Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.",
 			110: 'Гаманець вже містить цей акаунт.',
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: 'NCC вимагає запущений сервер NIS для надсилання та отримання транзакцiй з NEM cloud. Будь ласка скористайтеся меню NCC для запуску локального вузла.',
 			601: 'Сервер NIS вже запущено. Завантажити NIS вдруге неможливо.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 NEM.',
+			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 XEM.',
 			701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
 			702: 'Встановленний крайній термін занадто далеко в майбутньому. Термін повинен бути в рамках 1-денного періоду.',
 			703: 'Баланс вашого рахунку не дозволяє вiдправити вказану кiлькiсть NEM.',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'Відправити NEM',
+				title: 'Відправити XEM',
 				sender: 'Вiдправник',
 				thisAccount: 'This account',
 				labelDesc: 'Цей акаунт позначений як {{1}}',
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEMs will be lost FOREVER!',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Copyright 2014. NEM Community Client.'
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'Останні транзакцiї',
-				sendNem: 'Вiдправити NEM',
+				sendNem: 'Вiдправити XEM',
 				signMultisig: 'SIGN',
 				balance: 'Поточний баланс',
 				syncStatus: '(Блок {{1}}{{#2}} : прибл. {{3}} днів тому{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'Не було здiйснено жодної транзакцiї'
 			},
 			nemValue: {
-				title: 'Статистика NEM'
+				title: 'Статистика XEM'
 			},
 			messages: {
 				titleTooltip: 'Повiдомлення'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'Транзакцiї',
-			sendNem: 'Відправити NEM',
+			sendNem: 'Відправити XEM',
 			balance: 'Поточний баланс',
 			filters: {
 				confirmed: 'Confirmed',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Відправити NEM',
+			sendNem: 'Відправити XEM',
 			edit: 'Edit',
 			remove: 'Видалити'
 		},

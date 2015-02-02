@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Zanim zaczniesz używać portfela, musisz go otworzyć. Aby go otworzyć, musisz podać hasło do tego portfela.',
 			107: 'Poftfel nie zawiera tego konta.',
-			108: 'Konto nie może zostać usunięte. Prawdopodobnie dlatego, że bilans konta jest większy niż 0 NEM lub jest to konto główne.',
+			108: 'Konto nie może zostać usunięte. Prawdopodobnie dlatego, że bilans konta jest większy niż 0 XEM lub jest to konto główne.',
 			109: 'Inny portfel z tą samą nazwą już istnieje. Proszę wybrać inną nazwę dla portfela.',
 			110: 'Portfel zawiera już to konto.',
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
 			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 NEM na koncie.',
+			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 XEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
 			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
 			703: 'Nie masz wystarczających środków na koncie aby dokonać transakcji.',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'Wyślij NEM',
+				title: 'Wyślij XEM',
 				sender: 'Nadawca',
 				thisAccount: 'This account',
 				labelDesc: 'To konto jest oznaczone jako {{1}}',
@@ -471,7 +471,7 @@ define({
 			importSuccess: 'Portfel został zaimportowany!',
 			nav: {
 				start: 'Getting Started',
-				about: 'O NEM',
+				about: 'O XEM',
 				settings: 'Ustawienia'
 			},
 			main: {
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Copyright 2014. NEM Community Client.'
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'Ostatnie Transakcje',
-				sendNem: 'Wyślij NEM',
+				sendNem: 'Wyślij XEM',
 				signMultisig: 'SIGN',
 				balance: 'Stan Konta',
 				syncStatus: '(blok {{1}}{{#2}} : ok. {{3}} dni opóźnienia{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'Nie wykonano żadnych transakcji'
 			},
 			nemValue: {
-				title: 'Statystyki wartości NEM'
+				title: 'Statystyki wartości XEM'
 			},
 			messages: {
 				titleTooltip: 'Wiadomości'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'Transakcje',
-			sendNem: 'Wyślij NEM',
+			sendNem: 'Wyślij XEM',
 			balance: 'Stan Konta',
 			filters: {
 				confirmed: 'Potwierdzone',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Wyślij NEM',
+			sendNem: 'Wyślij XEM',
 			edit: 'Edit',
 			remove: 'Usuń'
 		},

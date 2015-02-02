@@ -41,7 +41,7 @@ define({
 			600: 'NCC मे NEM की लेनदेन करने के लिए NIS सर्वर को बूट करने की आवश्यकता हे. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
 			601: 'NIS नोड पहले से बूट हो चुकी हे. NIS बूट करने के लिए एक दूसरा प्रयास संभव नहीं है.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'प्रदान किया गया अकाउंट हार्वेस्टिंग के लिए बुनियादी मानदंडों को पूरा नहीं करता है. मुख्य रूप से यह अकाउंट के अंदर NEM की राशि से संबंधित है. हार्वेस्टिंग के लिए कम से कम 1000 NEM की ज़रूरत हे और पहले ट्रांजैक्शन के बाद एक दिन की प्रतीक्षा करनी पड़ती है.',
+			700: 'प्रदान किया गया अकाउंट हार्वेस्टिंग के लिए बुनियादी मानदंडों को पूरा नहीं करता है. मुख्य रूप से यह अकाउंट के अंदर NEM की राशि से संबंधित है. हार्वेस्टिंग के लिए कम से कम 1000 XEM की ज़रूरत हे और पहले ट्रांजैक्शन के बाद एक दिन की प्रतीक्षा करनी पड़ती है.',
 			701: 'प्रदान की गई समय सीमा अतीत में है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
 			702: 'प्रदान की गई समय सीमा भविष्य में बहुत दूर है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
 			703: 'आपके अकाउंट में पर्याप्त NEM बैलेंस नही हे.',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'NEM भेजें',
+				title: 'XEM भेजें',
 				sender: 'सेनडर',
 				thisAccount: 'This account',
 				labelDesc: 'इस अकाउंट का लेबल {{1}} हे',
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'असली NEM खाते के लिए डेटा बनाएं',
-				message: 'नीचे दिए गए डेटा NEM लॉंच के बाद आपके असली खाते के लिए है. Address, Public key और सबसे महत्वपूर्ण बात यह है कि अपना Private Key कहीं सुरक्षित सहेजें. अगर आप अपना Private Key खो देते हैं, तो आप अपने अकाउंट ओर सभी असली NEMS हमेशा के लिए खो देंगे.',
+				message: 'नीचे दिए गए डेटा NEM लॉंच के बाद आपके असली खाते के लिए है. Address, Public key और सबसे महत्वपूर्ण बात यह है कि अपना Private Key कहीं सुरक्षित सहेजें. अगर आप अपना Private Key खो देते हैं, तो आप अपने अकाउंट ओर सभी असली XEM हमेशा के लिए खो देंगे.',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -405,7 +405,7 @@ define({
 				title: 'Remove account',
 				wallet: 'वॉलेट',
 				password: "वॉलेट का पासवर्ड",
-				warning: 'कृपया हटाने से पहले यह सुनिश्चित करें कि अकाउंट में कोई भी NEM ना हो, अथवा वे हमेशा के लिए खो जाएँगे.',
+				warning: 'कृपया हटाने से पहले यह सुनिश्चित करें कि अकाउंट में कोई भी XEM ना हो, अथवा वे हमेशा के लिए खो जाएँगे.',
 				successMessage: 'अकाउंट {{1}} {{# 2}} ({{2}}) {{/ 2}} हटा दिया गया है!',
 				remove: 'हटाएँ'
 			},
@@ -505,7 +505,7 @@ define({
 					{
 						title: 'NCC कैसे काम करता है?',
 						paragraphs: [
-							'<strong>NCC</strong> एक पारंपरिक वॉलेट की तरह आपके असेट्स और NEMs के लिए एक पहुँच प्रदान करता है.',
+							'<strong>NCC</strong> एक पारंपरिक वॉलेट की तरह आपके असेट्स और XEM के लिए एक पहुँच प्रदान करता है.',
 							'<strong>NCC</strong> को संचालित रहने के लिए एक <strong>NIS</strong> सर्वर तक पहुँच की आवश्यकता होती है. एक स्थानीय सर्वर को हमेशा सक्रिय रहना होता है(यह <strong>NCC</strong> के साथ इनस्टॉल्ड आता है)',
 							'आप एक रिमोट <strong>NIS</strong> भी कॉन्फ़िगर कर सकते हैं.'
 						],
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Copyright 2014. NEM Community Client.'
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'हाल ही में किए गये ट्रॅन्सॅक्षन्स',
-				sendNem: 'NEM भेजें',
+				sendNem: 'XEM भेजें',
 				signMultisig: 'SIGN',
 				balance: 'मौजूदा NEM राशि',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'अभी तक कोई ट्रॅन्सॅक्षन्स नही किया गया है'
 			},
 			nemValue: {
-				title: 'NEM मूल्य आँकड़े'
+				title: 'XEM मूल्य आँकड़े'
 			},
 			messages: {
 				titleTooltip: 'मेसेजस'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'ट्रॅन्सॅक्षन्स',
-			sendNem: 'NEM भेजें',
+			sendNem: 'XEM भेजें',
 			balance: 'मौजूदा NEM राशि',
 			filters: {
 				confirmed: 'Confirmed',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'NEM भेजें',
+			sendNem: 'XEM भेजें',
 			edit: 'Edit',
 			remove: 'हटाएँ'
 		},

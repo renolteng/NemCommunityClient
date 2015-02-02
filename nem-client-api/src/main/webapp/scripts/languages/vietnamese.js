@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'Gửi NEM',
+				title: 'Gửi XEM',
 				sender: 'Người gửi',
 				thisAccount: 'This account',
 				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
@@ -405,7 +405,7 @@ define({
 				title: 'Xoá tài khoản',
 				wallet: 'Ví',
 				password: "Mật khẩu ví",
-				warning: 'Please ensure that your account has no NEMs left before you remove it, or they would be lost forever.',
+				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được xoá!',
 				remove: 'Xoá'
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Quyền tác giả 2014. NEM Community Client.'
+				copyright: '&copy; Quyền tác giả 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'Các giao dịch gần đây',
-				sendNem: 'Gửi NEM',
+				sendNem: 'Gửi XEM',
 				signMultisig: 'SIGN',
 				balance: 'Số dư hiện tại',
 				syncStatus: '(tại block {{1}}{{#2}} : chậm khoảng {{3}} ngày{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'Chưa có giao dịch nào'
 			},
 			nemValue: {
-				title: 'Thống kê giá trị NEM'
+				title: 'Thống kê giá trị XEM'
 			},
 			messages: {
 				titleTooltip: 'Tin nhắn'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'Các giao dịch',
-			sendNem: 'Gửi NEM',
+			sendNem: 'Gửi XEM',
 			balance: 'Số dư hiện tại',
 			filters: {
 				confirmed: 'Đã xác nhận',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Gửi NEM',
+			sendNem: 'Gửi XEM',
 			edit: 'Edit',
 			remove: 'Xoá'
 		},

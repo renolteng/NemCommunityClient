@@ -14,7 +14,7 @@ define({
 			105: 'Es wurde kein Passwort für die Brieftasche eingegeben.',
 			106: "Bevor Du eine Brieftasche benutzen kannst, muss sie geöffnet werden. Um sicher zu gehen, dass Du berechtigt bist, die Brieftasche zu verwenden, musst Du das Passwort für die Brieftasche eingeben.",
 			107: "Die Brieftasche enthält dieses Konto nicht.",
-			108: "Das Konto kann nicht entfernt werden. Der Grund ist meistens, dass der Kontostand größer als 0 NEM ist oder, dass Du versuchst, ein Hauptkonto zu entfernen.",
+			108: "Das Konto kann nicht entfernt werden. Der Grund ist meistens, dass der Kontostand größer als 0 XEM ist oder, dass Du versuchst, ein Hauptkonto zu entfernen.",
 			109: "Es gibt bereits eine Brieftasche mit demselben Namen. Bitte wähle einen anderen Namen für die Brieftasche.",
 			110: "Die Brieftasche enthält dieses Konto schon.",
 			111: 'Der Name der Brieftasche darf kein Dateierzeichnis sein.',
@@ -41,7 +41,7 @@ define({
 			600: "Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.",
 			601: "Der NEM Infrastructure Server (NIS) ist bereits gebootet. Es ist nicht nötig, NIS ein weiteres Mal zu booten.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 NEM benötigt.",
+			700: "Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 XEM benötigt.",
 			701: "Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
 			702: "Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
 			703: "Dein Kontoguthaben reicht nicht aus, um den angegebenen Betrag an NEM zu senden.",
@@ -97,7 +97,7 @@ define({
 
 		},
 		transactionTypes: [
-			'NEM Transfer',
+			'XEM Transfer',
 			'Transfer der Wichtigkeit',
 			'Änderung eines Multisig Kontos',
 			'Multisig Transaktion',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "NEM senden",
+				title: "XEM senden",
 				sender: "Sender",
 				thisAccount: 'This account',
 				labelDesc: "Das Label des Kontos ist {{1}}",
@@ -405,7 +405,7 @@ define({
 				title: "Konto entfernen",
 				wallet: "Name der Brieftasche",
 				password: "Passwort der Brieftasche",
-				warning: "Stelle bitte sicher, dass auf Deinem Konto keine NEM sind, bevor Du das Konto entfernst, da diese verloren gehen.",
+				warning: "Stelle bitte sicher, dass auf Deinem Konto keine XEM sind, bevor Du das Konto entfernst, da diese verloren gehen.",
 				successMessage: "Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde entfernt!",
 				remove: "Entfernen"
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "© Copyright 2014. NEM Community Client."
+				copyright: "© Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Letzte Transaktionen",
-				sendNem: "NEM senden",
+				sendNem: "XEM senden",
 				signMultisig: 'Unterzeichnen',
 				balance: "Kontostand",
 				syncStatus: "(Block {{1}}{{#2}} : etwa {{3}} Tage im Rückstand{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Es wurden noch keine Transaktionen ausgeführt"
 			},
 			nemValue: {
-				title: "NEM Statistiken"
+				title: "XEM Statistiken"
 			},
 			messages: {
 				titleTooltip: "Nachrichten"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Transaktionen",
-			sendNem: "NEM senden",
+			sendNem: "XEM senden",
 			balance: "Kontostand",
 			filters: {
 				confirmed: "Bestätigt",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'Keine Kontakte im Adressbuch vorhanden'
 			},
 			noLabel: 'Kein Label',
-			sendNem: "NEM senden",
+			sendNem: "XEM senden",
 			edit: 'Bearbeiten',
 			remove: "Entfernen"
 		},
