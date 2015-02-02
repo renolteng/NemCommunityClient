@@ -256,6 +256,31 @@ public abstract class AddressBookTest {
 
 	//endregion
 
+	// region labelExists
+
+	@Test
+	public void labelExistsReturnTrueIfLabelExistsInAddressBook() {
+		// Arrange:
+		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"));
+		final Address address = Utils.generateRandomAddress();
+		addressBook.addLabel(new AccountLabel(address, "foo", "bar"));
+
+		// Assert:
+		Assert.assertThat(addressBook.contains(address), IsEqual.equalTo(true));
+	}
+
+	@Test
+	public void labelExistsReturnFalseIfLabelDoesNotExistInAddressBook() {
+		// Arrange:
+		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"));
+		final Address address = Utils.generateRandomAddress();
+
+		// Assert:
+		Assert.assertThat(addressBook.contains(address), IsEqual.equalTo(false));
+	}
+
+	// endregion
+
 	//region serialization
 
 	@Test

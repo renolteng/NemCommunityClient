@@ -6,7 +6,7 @@ import org.nem.core.serialization.Deserializer;
 import org.nem.ncc.wallet.*;
 
 /**
- * Request object that that requires a wallet name and a wallet password
+ * Request object that requires a wallet name and a wallet password
  * but can contain any number of optional properties too.
  */
 public class WalletNamePasswordBag extends WalletNamePasswordPair {

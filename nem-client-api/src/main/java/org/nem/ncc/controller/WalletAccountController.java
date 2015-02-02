@@ -43,6 +43,7 @@ public class WalletAccountController {
 	public AccountViewModel addNewAccount(@RequestBody final WalletNamePasswordBag bag) {
 		// TODO 20150131 J-B: previously i could set a label when adding an account?
 		// > did we lose that functionality?
+		// TODO 20150202 BR -> J: not sure if we had that feature. But I think an optional label parameter in WalletNamePasswordBag would be good (see also below).
 		return this.addAccount(bag, new WalletAccount());
 	}
 
@@ -55,18 +56,17 @@ public class WalletAccountController {
 	@RequestMapping(value = "/wallet/account/add", method = RequestMethod.POST)
 	public AccountViewModel addExistingAccount(@RequestBody final LabelWalletNamePasswordBag bag) {
 		// TODO 20150131 J-B: it also seems like labels are REQUIRED now; is that intentional?
+		// TODO 20150202 BR -> G: Do you want the label to be optional or required? If optional we could just add it to WalletNamePasswordBag.
 		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(
 				new AddressBookName(bag.getName().toString()), new AddressBookPassword(bag.getPassword().toString())));
 
 		final Address address = Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey());
 		final AccountLabel accountLabel = new AccountLabel(address, "", bag.getWalletAccountLabel());
-		try {
-			addressBook.addLabel(accountLabel);
-		} catch (final AddressBookException ex) {
-			// it means entry is already in address book we won't update it here.
-			// TODO 20150131 J-B: can we check if the address book contains the lable before adding it?
+		if (addressBook.contains(address)) {
+			throw new AddressBookException(AddressBookException.Code.ADDRESS_BOOK_ALREADY_CONTAINS_ADDRESS);
 		}
 
+		addressBook.addLabel(accountLabel);
 		return this.addAccount(bag, new WalletAccount(bag.getAccountPrivateKey()));
 	}
 
