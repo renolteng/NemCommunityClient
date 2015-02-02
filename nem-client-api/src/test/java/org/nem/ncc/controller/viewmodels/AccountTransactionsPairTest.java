@@ -33,8 +33,6 @@ public class AccountTransactionsPairTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(pair);
 
 		// Assert:
-		// TODO 20150131 J-G: what was removed (from 9 -> 8)?
-		// TODO 20150202 BR -> J: The label was removed from AccountViewModel.
 		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(((JSONArray)jsonObject.get("transactions")).size(), IsEqual.equalTo(0));

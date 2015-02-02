@@ -42,7 +42,7 @@ public interface AccountLabels {
 	public void removeLabel(final Address address);
 
 	/**
-	 * Gets a value indicating whether or not a label is assotiated with the specified address.
+	 * Gets a value indicating whether or not a label is associated with the specified address.
 	 *
 	 * @param address The address.
 	 * @return True if a label exists, false otherwise.

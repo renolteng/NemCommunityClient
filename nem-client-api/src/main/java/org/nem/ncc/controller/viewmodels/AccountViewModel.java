@@ -144,9 +144,10 @@ public class AccountViewModel implements SerializableEntity {
 		AccountStatus.writeTo(serializer, "status", this.status);
 
 		// TODO 20150131 J-G: why temporary?
-		// TODO 20150131 J-G: consider renaming cosignatoryOf to cosignatoriesOf?
 		// TODO 20150202 BR -> J: done (is the naming really better? It is a list of accounts (account infos) that this account is cosignatory of.
 		// > Same question for the field in AccountMetaData)
+		// TODO 20150202 J-B: i don't love the name either, but at least it's plural and consistent with what we're using in nis
+		// > maybe we could call it multisigAccounts; idk?
 		serializer.writeObjectArray("cosignatoriesOf", this.cosignatoriesOf);
 	}
 }
