@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Перед  тем, как Вы начнёте работать с кошельком, убедитесь , что он открыт. Чтобы получить доступ к кошельку, введите пароль.',
 			107: 'Кошелёк не содержит этот аккаунт .',
-			108: 'Аккаунт не может быть удалён .  Вероятнее всего, что аккаунт содержит на балансе более чем 0 NEM или аккаунт, который Вы пытаетесь удалить, является главным.',
+			108: 'Аккаунт не может быть удалён .  Вероятнее всего, что аккаунт содержит на балансе более чем 0 XEM или аккаунт, который Вы пытаетесь удалить, является главным.',
 			109: 'Кошелёк с таким же именем уже существует. Пожалуйста, выберете другое имя для кошелька.',
 			110: 'Кошелёк уже содержит этот аккаунт .',
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: 'Для отсылки и приёма транзакций, NCC требует перезагрузку NIS сервера. Пожалуйста, используйте меню NCC для перезагрузки в локальный узел.',
 			601: 'NIS узел уже запущен. Повторная попытка перезагрузки NIS невозможна.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Предоставленный аккаунт не соответствует базовым требованиям для Генерации . В основном, это связанно с количеством NEM на счету.  Генерация начинается хотя бы с 1,000 NEM.',
+			700: 'Предоставленный аккаунт не соответствует базовым требованиям для Генерации . В основном, это связанно с количеством NEM на счету.  Генерация начинается хотя бы с 1,000 XEM.',
 			701: 'Предоставленный срок завершения в прошлом. Срок должен быть предоставлен в течении 1-дневного периода.',
 			702: 'Предоставленный срок завершения находится  далеко в будущем. Срок должен быть предоставлен в течении 1-дневного периода.',
 			703: 'Ваш аккаунт не располагает достаточным количеством средств для отправки этой суммы NEM.',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'Послать NEM',
+				title: 'Послать XEM',
 				sender: 'Отправитель',
 				thisAccount: 'This account',
 				labelDesc: 'Этот аккаунт маркирован как {{1}}',
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEM will be lost FOREVER!',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -405,7 +405,7 @@ define({
 				title: 'Удалить аккаунт',
 				wallet: 'Кошелёк',
 				password: "Пароль от кошелька",
-				warning: 'Пожалуйста  убедитесь, что Ваш аккаунт не имеет NEM монет, прежде чем Вы удалите его, или они будут потеряны навсегда.',
+				warning: 'Пожалуйста  убедитесь, что Ваш аккаунт не имеет XEM монет, прежде чем Вы удалите его, или они будут потеряны навсегда.',
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был удалён!',
 				remove: 'Удалить'
 			},
@@ -471,7 +471,7 @@ define({
 			importSuccess: 'Кошелёк успешно импортирован!',
 			nav: {
 				start: 'Введение',
-				about: 'О NEM',
+				about: 'О XEM',
 				settings: 'Settings'
 			},
 			main: {
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '© 2014 NEM Community Client.Все права защищены.'
+				copyright: '© 2015 NEM Community Client.Все права защищены.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'Недавние Транзакции',
-				sendNem: 'Послать NEM',
+				sendNem: 'Послать XEM',
 				signMultisig: 'SIGN',
 				balance: 'Текущий Баланс',
 				syncStatus: '(Блок {{1}}{{#2}} : примерно {{3}} дней{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'Не было сделано ни одной транзакции'
 			},
 			nemValue: {
-				title: 'Статистика NEM'
+				title: 'Статистика XEM'
 			},
 			messages: {
 				titleTooltip: 'Сообщения'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'Транзакции',
-			sendNem: 'Послать NEM',
+			sendNem: 'Послать XEM',
 			balance: 'Текущий Баланс',
 			filters: {
 				confirmed: 'Подтвержденные',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Послать NEM',
+			sendNem: 'Послать XEM',
 			edit: 'Edit',
 			remove: 'Удалить'
 		},

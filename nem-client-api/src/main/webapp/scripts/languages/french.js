@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Avant de pouvoir utiliser un portefeuille, il doit être ouvert. Pour s'assurer que vous autoriser à accéder à ce portefeuille, vous devez fournir le mot de passe pour ce portefeuille.",
 			107: "Ce portefeuille ne contient pas ce compte.",
-			108: "Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 NEMs ou s'il s'agit de votre compte primaire.",
+			108: "Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 XEM ou s'il s'agit de votre compte primaire.",
 			109: "Un autre portefeuille avec le même nom existe déjà. S'il vous plait, veuillez choisir un nom différent.",
 			110: "Le portefeuille contient déjà ce compte.",
 			111: 'The wallet name is a directory.',
@@ -41,10 +41,10 @@ define({
 			600: "NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S'il vous plait, utilisez le menu NCC pour démarrer le noeud local.",
 			601: "Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Le compte fourni ne satisfait pas les critères de base pour la récolte. C'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 NEM pour que la récolte débute.",
+			700: "Le compte fourni ne satisfait pas les critères de base pour la récolte. C'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.",
 			701: "La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.",
 			702: "La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.",
-			703: "Votre compte n'a pas une balance suffisante pour envoyer le nombre nombre de NEMs indiqué.",
+			703: "Votre compte n'a pas une balance suffisante pour envoyer le nombre nombre de XEM indiqué.",
 			704: "Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d'expédier.",
 			705: "Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.",
 			706: "La signature de la transaction n'a pas pu être vérifiée.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Envoyez des NEMs",
+				title: "Envoyez des XEM",
 				sender: "Expéditeur",
 				thisAccount: 'This account',
 				labelDesc: "Ce compte est étiqueté comme {{1}}",
@@ -236,7 +236,7 @@ define({
 				},
 				notBootedWarning: {
 					title: "Le noeud n'a pas été démarré!",
-					message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des NEMs!"
+					message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des XEM!"
 				},
 				bootingWarning: {
 					title: 'Node is being booted',
@@ -405,7 +405,7 @@ define({
 				title: "Retirer un compte",
 				wallet: "Portefeuille",
 				password: "Mot de passe du portefeuille",
-				warning: "S'il vous plait, assurez-vous que ce compte ne contient plus de NEMs avant de le retirer, sinon les NEMs qu'il contient seront perdus pour toujours.",
+				warning: "S'il vous plait, assurez-vous que ce compte ne contient plus de XEM avant de le retirer, sinon les XEM qu'il contient seront perdus pour toujours.",
 				successMessage: "Le compte {{1}} {{#2}}({{2}}){{/2}} à été retiré!",
 				remove: "Retirer"
 			},
@@ -492,11 +492,11 @@ define({
 				items: [
 					{
 						title: "NCC chiffre votre portefeuille",
-						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
+						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEM &amp; actifs."
 					},
 					{
 						title: "NCC chiffre votre portefeuille",
-						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs."
+						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEM &amp; actifs."
 					}
 				]
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Transactions récentes",
-				sendNem: "Envoyer des NEMs",
+				sendNem: "Envoyer des XEM",
 				signMultisig: 'SIGN',
 				balance: "Balance courante",
 				syncStatus: "(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Aucune transaction n'a encore été effectuée"
 			},
 			nemValue: {
-				title: "Statistiques sur la valeur de NEM"
+				title: "Statistiques sur la valeur de XEM"
 			},
 			messages: {
 				titleTooltip: "Messages"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Transactions",
-			sendNem: "Envoyer des NEMs",
+			sendNem: "Envoyer des XEM",
 			balance: "Balance courante",
 			filters: {
 				confirmed: "Confirmé",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Envoyer des NEMs",
+			sendNem: "Envoyer des XEM",
 			edit: 'Edit',
 			remove: "Retirer"
 		},

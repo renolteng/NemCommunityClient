@@ -41,7 +41,7 @@ define({
 			600: 'NCC需要啟動NIS伺服器以執行 NEM Cloud 發送和接收交易資料。請使用NCC選單來啟動本地節點。',
 			601: 'NIS節點已啟動。無法啟動第二个NIS節點。',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: '所提供的賬戶無法满足收割的（條件）基本標準。必須至少有10.000 NEMs才能開始收割。',
+			700: '所提供的賬戶無法满足收割的（條件）基本標準。必須至少有10.000 XEM才能開始收割。',
 			701: '所提供的截止日期已过期。截止日期必須在1天之内提供。',
 			702: '所提供的截止日期超過有效期限。截止時間必須在一天之內。',
 			703: '您的賬戶没有正确的金額以提供您要發送的NEM額。',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: '發送 NEM',
+				title: '發送 XEM',
 				sender: '發件人',
 				thisAccount: 'This account',
 				labelDesc: '此賬戶被標記為 <strong>{{1}}</strong>',
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEM will be lost FOREVER!',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; 版權所有 2014. NEM 社區客户端。'
+				copyright: '&copy; 版權所有 2015. NEM 社區客户端。'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: '最近的交易',
-				sendNem: '發送NEM',
+				sendNem: '發送XEM',
 				signMultisig: 'SIGN',
 				balance: '目前余額',
 				syncStatus: '(礦塊{{1}}{{#2}} : 估計{{3}}落後{{/2}}天)',
@@ -622,7 +622,7 @@ define({
 				noTransactions: '無交易'
 			},
 			nemValue: {
-				title: 'NEM 值統計'
+				title: 'XEM 值統計'
 			},
 			messages: {
 				titleTooltip: '留言'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: '交易',
-			sendNem: '發送 NEM',
+			sendNem: '發送 XEM',
 			balance: '目前余額',
 			filters: {
 				confirmed: 'Confirmed',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: '發送 NEM',
+			sendNem: '發送 XEM',
 			edit: 'Edit',
 			remove: '删除'
 		},

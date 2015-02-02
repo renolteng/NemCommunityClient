@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.",
 			107: "Wallet does not contain this account.",
-			108: "The account cannot be removed. Most likely because the account still has a balance greater than 0 NEMs or the account you are trying to remove is the primary account.",
+			108: "The account cannot be removed. Most likely because the account still has a balance greater than 0 XEM or the account you are trying to remove is the primary account.",
 			109: "Another wallet with the same name exists already. Please choose an other wallet name.",
 			110: "Wallet already contains this account.",
 			111: 'The wallet name is a directory.',
@@ -41,10 +41,10 @@ define({
 			600: "NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.",
 			601: "The nis node is already booted. A second attempt to boot nis is not possible.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of NEMs within the account. Harvesting starts with at least 1000 NEM.",
+			700: "The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 1000 XEM.",
 			701: "The provided deadline is in the past. The deadline must be provided within a 1 day period.",
 			702: "The provided deadline is too far in the future. The deadline must be within one day time period.",
-			703: "Your account does not have the right balance to send the provided amount of NEMs.",
+			703: "Your account does not have the right balance to send the provided amount of XEM.",
 			704: "The provided message text is too large to be send via NEM. Please try to reduce the length of the message you want to send.",
 			705: "The transaction hash already exists in the database or the list of unconfirmed transactions.",
 			706: "The signature of the transaction could not be verified.",
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEMs will be lost FOREVER!',
+				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEM will be lost FOREVER!',
 				address: 'Address',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -492,11 +492,11 @@ define({
 				items: [
 					{
 						title: "NCC encrypts your wallet",
-						description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
+						description: "<em>Security</em> is very important for NEM to avoid theft of XEM &amp; assets."
 					},
 					{
 						title: "NCC encrypts your wallet",
-						description: "<em>Security</em> is very important for NEM to avoid theft of NEM coins &amp; assets."
+						description: "<em>Security</em> is very important for NEM to avoid theft of XEM &amp; assets."
 					}
 				]
 			},
@@ -505,7 +505,7 @@ define({
 					{
 						title: "How NCC works?",
 						paragraphs: [
-							"<strong>NCC</strong> provides an access to your assets and NEMs like a traditional wallet does. You may",
+							"<strong>NCC</strong> provides an access to your assets and XEM like a traditional wallet does. You may",
 							"<strong>NCC</strong> requires access to an <strong>NIS</strong> server in order to operate. Standard is to have a local server active (is installed together with the <strong>NCC</strong>)",
 							"You may also configure an access to a remote <strong>NIS</strong>."
 						],
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -622,7 +622,7 @@ define({
 				noTransactions: "No loot has been delivered or gathered"
 			},
 			nemValue: {
-				title: "NEM value statistics"
+				title: "XEM value statistics"
 			},
 			messages: {
 				titleTooltip: "Parley"

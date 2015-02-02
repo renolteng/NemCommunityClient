@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Antes de que puedas comenzar a usar un monedero, este debe abrirse. Debes de proveer la contraseña para asegurar que eres elegible para accesar el monedero.',
 			107: 'El monedero no contiene esta cuenta.',
-			108: 'La cuenta no puede ser removida. Probablemente se debe a que la cuenta aún tiene un balance mayor de 0 NEMs o a que la cuenta que estás tratando de remover es la cuenta primaria.',
+			108: 'La cuenta no puede ser removida. Probablemente se debe a que la cuenta aún tiene un balance mayor de 0 XEM o a que la cuenta que estás tratando de remover es la cuenta primaria.',
 			109: 'Ya existe un monedero con el mismo nombre. Por favor, elija otro nombre de monedero.',
 			110: 'Wallet already contains this account.',
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: 'NCC requiere la iniciación de un servidor NIS para enviar y recibir transacciones de la nube NEM. Por favor, use las opciones de menu NCC para iniciar un servidor NIS local.',
 			601: 'El nodo NIS ya ha sido iniciado. No es válido intentar iniciar el nodo NIS ya estando iniciado.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'La cuenta especificada no satisface los criterios básicos para recolectar. Normalmente este problema está relacionado al balance de la cuenta. Al menos 1000 NEMs son necesarios para participar en el proceso de recolecta.',
+			700: 'La cuenta especificada no satisface los criterios básicos para recolectar. Normalmente este problema está relacionado al balance de la cuenta. Al menos 1000 XEM son necesarios para participar en el proceso de recolecta.',
 			701: 'La fecha limite especificada esta en el pasado. La fecha limite especificada debe de estar dentro del periodo de un dia.',
 			702: 'La fecha limite especificada esta muy lejos en el futuro. La fecha limite especificada debe de estar dentro del periodo de un dia.',
 			703: 'La cuenta no tiene balance suficiente para enviar la cantidad especificada de NEMs.',
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: 'Enviar NEM',
+				title: 'Enviar XEM',
 				sender: 'Emisor',
 				thisAccount: 'This account',
 				labelDesc: 'Esta cuenta está etiquetada como {{1}}',
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '&copy; Copyright 2014. Cliente de Comunidad NEM.'
+				copyright: '&copy; Copyright 2015. Cliente de Comunidad NEM.'
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: 'Transacciones recientes',
-				sendNem: 'Enviar NEM',
+				sendNem: 'Enviar XEM',
 				signMultisig: 'SIGN',
 				balance: 'Saldo actual',
 				syncStatus: '(En el bloque {{1}}{{#2}}: aproximadamente {{3}} dia(s) atras{{/2}})',
@@ -622,7 +622,7 @@ define({
 				noTransactions: 'Aun no se ha ejecutado ninguna transacción'
 			},
 			nemValue: {
-				title: 'Valores de estadísticas de NEM'
+				title: 'Valores de estadísticas de XEM'
 			},
 			messages: {
 				titleTooltip: 'Mensajes'
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: 'Transacciones',
-			sendNem: 'Enviar NEM',
+			sendNem: 'Enviar XEM',
 			balance: 'Balance actual',
 			filters: {
 				confirmed: 'Confirmadas',
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: 'Enviar NEM',
+			sendNem: 'Enviar XEM',
 			edit: 'Edit',
 			remove: 'Remover'
 		},

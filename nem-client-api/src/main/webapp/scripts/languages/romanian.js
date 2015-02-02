@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: "Înainte să poți lucra cu portofelul trebuie să fie deschis. Pentru a fi sigur că esti eligibil de a accesa portofelul, trebuie să introduci parola portofelului.",
 			107: "Portofelul nu conține acest cont.",
-			108: "Contul nu poate fi înlăturat. Cel mai probabil fie pentru că acest cont are un sold mai mare decât 0 NEM sau contul pe care încerci să îl înlături este contul primar.",
+			108: "Contul nu poate fi înlăturat. Cel mai probabil fie pentru că acest cont are un sold mai mare decât 0 XEM sau contul pe care încerci să îl înlături este contul primar.",
 			109: "Un alt portofel cu același nume există deja. Te rog alegeți un alt nume pentru portofel.",
 			110: "Portofelul conține acest cont deja.",
 			111: 'The wallet name is a directory.',
@@ -41,7 +41,7 @@ define({
 			600: "NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.",
 			601: "Nodul NIS este deja pornit. O a doua încercare de a porni nodul NIS nu este posibilă.",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de NEM disponibilă în cont. Recoltarea poate începe cu minim 1000 NEM.",
+			700: "Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de NEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.",
 			701: "Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.",
 			702: "Data scadentă introdusă este prea îndepărtată în viitor. Scadența trebuie introdusă cu o perioadă de grație de o zi.",
 			703: "Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de NEM.",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "Trimite NEM",
+				title: "Trimite XEM",
 				sender: "Expeditor",
 				thisAccount: 'This account',
 				labelDesc: "Eticheta contului este <strong>{{1}}</strong>",
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: "Crează date reale de cont",
-				message: "Datele de mai jos sunt pentru contul real de după lansarea NEM. Salvează adresa, cheia publică, si cel mai important, cheia privată intr-un loc sigur. Dacă pierzi cheia privată, contul tău împreună cu toți NEM reali vor fi pierduți pentru TOTDEAUNA!",
+				message: "Datele de mai jos sunt pentru contul real de după lansarea NEM. Salvează adresa, cheia publică, si cel mai important, cheia privată intr-un loc sigur. Dacă pierzi cheia privată, contul tău împreună cu toți XEM reali vor fi pierduți pentru TOTDEAUNA!",
 				address: "Adresa",
 				publicKey: "Cheia publică",
 				privateKey: "Cheia privată",
@@ -405,7 +405,7 @@ define({
 				title: "Înlătură contul",
 				wallet: "Portofel",
 				password: "Parola portofelului",
-				warning: "Te rog să asigură-te că contul tău nu mai are nici un NEM în el înainte să îl înlături, în caz contrar aceștia vor fi pierduți pentru totdeauna.",
+				warning: "Te rog să asigură-te că contul tău nu mai are nici un XEM în el înainte să îl înlături, în caz contrar aceștia vor fi pierduți pentru totdeauna.",
 				successMessage: "Contul {{1}} {{#2}}({{2}}){{/2}} a fost înlăturat!",
 				remove: "Înlătură"
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "Tranzacții recente",
-				sendNem: "Trimite NEM",
+				sendNem: "Trimite XEM",
 				signMultisig: 'SIGN',
 				balance: "Sold actual",
 				syncStatus: "(la block-ul {{1}}{{#2}} : est. {{3}} zile în urmă{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "Nu a fost efectuată nici o tranzacție până acum"
 			},
 			nemValue: {
-				title: "Statistici despre valoarea NEM"
+				title: "Statistici despre valoarea XEM"
 			},
 			messages: {
 				titleTooltip: "Mesaje"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "Tranzacții",
-			sendNem: "Trimite NEM",
+			sendNem: "Trimite XEM",
 			balance: "Sold actual",
 			filters: {
 				confirmed: "Confirmat",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Trimite NEM",
+			sendNem: "Trimite XEM",
 			edit: 'Edit',
 			remove: "Înlătură"
 		},

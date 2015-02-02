@@ -41,10 +41,10 @@ define({
 			600: "NCCはNISサーバーがNEMクラウドからトランザクション(取引)履歴を送受信するために起動しておく必要があります。ローカルノードを起動するためにNCCメニューエントリを使用してください。",
 			601: "NISノードはすでに起動しています。NISは複数起動することができません。",
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "入力されたアカウントがハーベストのための基準を満たしていません。その基準はそのアカウントにあるNEMの量が関係しています。ハーベストは少なくとも1000NEMから始めることができます。",
+			700: "入力されたアカウントがハーベストのための基準を満たしていません。その基準はそのアカウントにあるXEMの量が関係しています。ハーベストは少なくとも1000XEMから始めることができます。",
 			701: "提供期限が過ぎています。期限は1日の間です。",
 			702: "提供期限はまだ先です。期間は1日の間です。",
-			703: "送金しようとしているNEMがあなたの残高を超えています。送金する金額を減らしてください。",
+			703: "送金しようとしているXEMがあなたの残高を超えています。送金する金額を減らしてください。",
 			704: "入力されたメッセージテキストは、NEMを経由して送信するには長すぎます。メッセージを短くしてください。",
 			705: "その取引のハッシュはすでにデータベースの未検証取引の中に存在しています。",
 			706: "トランザクション(取引)の電子署名の正当性を確認できませんでした。",
@@ -198,7 +198,7 @@ define({
 
 			},
 			sendNem: {
-				title: "NEMを送信する",
+				title: "XEMを送信する",
 				sender: "送信元",
 				thisAccount: 'This account',
 				labelDesc: "このアカウントのラベルは {{1}}",
@@ -321,7 +321,7 @@ define({
 			},
 			createRealAccountData: {
 				title: "実際のアカウントデータの生成",
-				message: "下記のアカウントデータがNEMのリリース後の実際のアカウント情報となります。アドレス、パブリックキー、そして特にプライベートキーを安全な場所に保存・保管して下さい。万が一プライベートキーをなくした場合、アカウントと共にそのアカウントのNEM全てが失われますのでご注意下さい！",
+				message: "下記のアカウントデータがNEMのリリース後の実際のアカウント情報となります。アドレス、パブリックキー、そして特にプライベートキーを安全な場所に保存・保管して下さい。万が一プライベートキーをなくした場合、アカウントと共にそのアカウントのXEM全てが失われますのでご注意下さい！",
 				address: "アドレス",
 				publicKey: "パブリックキー",
 				privateKey: "プライベートキー",
@@ -405,7 +405,7 @@ define({
 				title: "アカウントを削除",
 				wallet: "ウォレット",
 				password: "ウォレットのパスワード",
-				warning: "アカウントを削除する前にNEMが残っていないか確認してください。削除が完了したら、一旦削除したNEMは復元できません。",
+				warning: "アカウントを削除する前にXEMが残っていないか確認してください。削除が完了したら、一旦削除したXEMは復元できません。",
 				successMessage: "アカウント: {{1}} {{#2}}({{2}}){{/2}} は削除されました。",
 				remove: "削除"
 			},
@@ -492,11 +492,11 @@ define({
 				items: [
 					{
 						title: "あなたのウォレットをNCC暗号化する。",
-						description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。 "
+						description: "<em>セキュリティ</em> はあなたのXEMの資産を盗難から守る上で非常に&amp;重要です。 "
 					},
 					{
 						title: "あなたのウォレットをNCC暗号化する。",
-						description: "<em>セキュリティ</em> はあなたのNEMcoinの資産を盗難から守る上で非常に&amp;重要です。"
+						description: "<em>セキュリティ</em> はあなたのXEMの資産を盗難から守る上で非常に&amp;重要です。"
 					}
 				]
 			},
@@ -526,7 +526,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2014. NEM Community Client."
+				copyright: "&copy; Copyright 2015. NEM Community Client."
 			}
 		},
 		wallet: {
@@ -597,7 +597,7 @@ define({
 			},
 			transactions: {
 				title: "直近の取引",
-				sendNem: "NEMの送金",
+				sendNem: "XEMの送金",
 				signMultisig: 'SIGN',
 				balance: "現在の残高",
 				syncStatus: "(現在同期しているブロック: {{1}}{{#2}} 推定で {{3}} 日前の取引{{/2}})",
@@ -622,7 +622,7 @@ define({
 				noTransactions: "まだ取引は行われていません。"
 			},
 			nemValue: {
-				title: "NEMの統計"
+				title: "XEMの統計"
 			},
 			messages: {
 				titleTooltip: "メッセージ"
@@ -634,7 +634,7 @@ define({
 		},
 		transactions: {
 			title: "取引",
-			sendNem: "NEMを送金する",
+			sendNem: "XEMを送金する",
 			balance: "現在の残高",
 			filters: {
 				confirmed: "検証済",
@@ -701,7 +701,7 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "NEMを送金する",
+			sendNem: "XEMを送金する",
 			edit: 'Edit',
 			remove: "削除"
 		},
