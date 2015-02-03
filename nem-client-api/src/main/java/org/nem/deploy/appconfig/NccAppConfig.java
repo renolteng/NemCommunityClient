@@ -59,7 +59,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
-		return new NccMain(this.nccScheduler());
+		return new NccMain(this.nccConfiguration(), this.nccScheduler());
 	}
 
 	@Bean
@@ -97,11 +97,6 @@ public class NccAppConfig {
 
 	public TimeSynchronizationServices timeSynchronizationServices() {
 		return new TimeSynchronizationServices(this.cloudConnector());
-	}
-
-	@Bean
-	public org.nem.ncc.model.Configuration configuration() {
-		return this.nccMain().getConfiguration();
 	}
 
 	@Bean
@@ -170,11 +165,7 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountsFileRepository accountsFileRepository() {
-		// TODO 20150112 BR -> J: this is a hack. I can't use getNemFolder() because then i have the infinite loop:
-		// > nccMain() -> nccScheduler() -> accountCache() -> accountsFileRepository() -> getNemFolder() -> configuration() -> NccMain()
-		// TODO 20150115 J-B: can we somehow break the circular dependency?
-		final String nccFolder = Paths.get(this.nccConfiguration().getNemFolder(), "ncc").toString();
-		final File file = new File(nccFolder, "accounts_cache.json");
+		final File file = new File(this.getNemFolder(), "accounts_cache.json");
 		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(file);
 		return new AccountsFileRepository(descriptor);
 	}
@@ -208,7 +199,17 @@ public class NccAppConfig {
 	}
 
 	@Bean
-	public CommonConfiguration nccConfiguration() {
+	public org.nem.ncc.model.Configuration configuration() {
+		return this.nccConfiguration().getConfiguration();
+	}
+
+	@Bean
+	public CommonConfiguration commonConfiguration() {
 		return new CommonConfiguration();
+	}
+
+	@Bean
+	public NccConfiguration nccConfiguration() {
+		return new NccConfiguration();
 	}
 }
