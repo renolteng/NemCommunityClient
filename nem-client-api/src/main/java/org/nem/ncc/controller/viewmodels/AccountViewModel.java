@@ -19,7 +19,7 @@ public class AccountViewModel implements SerializableEntity {
 	private final BlockAmount harvestedBlocks;
 	private final Double importance;
 	private final AccountStatus status;
-	private final List<AccountInfo> cosignatoriesOf;
+	private final List<AccountInfo> multisigAccounts;
 
 	/**
 	 * Creates a new account view model around an account metadata pair.
@@ -40,13 +40,13 @@ public class AccountViewModel implements SerializableEntity {
 	 * @param info The account info.
 	 * @param status The account status.
 	 * @param remoteStatus The remote account status.
-	 * @param cosignatoriesOf The list of account information.
+	 * @param multisigAccounts The list of account information.
 	 */
 	public AccountViewModel(
 			final AccountInfo info,
 			final AccountStatus status,
 			final AccountRemoteStatus remoteStatus,
-			final List<AccountInfo> cosignatoriesOf) {
+			final List<AccountInfo> multisigAccounts) {
 		this.address = info.getAddress();
 		this.remoteStatus = remoteStatus;
 
@@ -58,7 +58,7 @@ public class AccountViewModel implements SerializableEntity {
 		this.harvestedBlocks = info.getNumHarvestedBlocks();
 		this.importance = info.getImportance();
 		this.status = status;
-		this.cosignatoriesOf = cosignatoriesOf;
+		this.multisigAccounts = multisigAccounts;
 	}
 
 	/**
@@ -129,8 +129,8 @@ public class AccountViewModel implements SerializableEntity {
 	 *
 	 * @return The list of accounts (infos).
 	 */
-	public List<AccountInfo> getCosignatoriesOf() {
-		return this.cosignatoriesOf;
+	public List<AccountInfo> getMultisigAccounts() {
+		return this.multisigAccounts;
 	}
 
 	@Override
@@ -142,12 +142,6 @@ public class AccountViewModel implements SerializableEntity {
 		serializer.writeDouble("importance", this.importance);
 		BlockAmount.writeTo(serializer, "harvestedBlocks", this.harvestedBlocks);
 		AccountStatus.writeTo(serializer, "status", this.status);
-
-		// TODO 20150131 J-G: why temporary?
-		// TODO 20150202 BR -> J: done (is the naming really better? It is a list of accounts (account infos) that this account is cosignatory of.
-		// > Same question for the field in AccountMetaData)
-		// TODO 20150202 J-B: i don't love the name either, but at least it's plural and consistent with what we're using in nis
-		// > maybe we could call it multisigAccounts; idk?
-		serializer.writeObjectArray("cosignatoriesOf", this.cosignatoriesOf);
+		serializer.writeObjectArray("multisigAccounts", this.multisigAccounts);
 	}
 }

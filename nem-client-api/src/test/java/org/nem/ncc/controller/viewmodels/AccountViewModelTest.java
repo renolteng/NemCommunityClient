@@ -31,7 +31,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
-		Assert.assertThat(viewModel.getCosignatoriesOf(), IsEquivalent.equivalentTo(multisigAccounts));
+		Assert.assertThat(viewModel.getMultisigAccounts(), IsEquivalent.equivalentTo(multisigAccounts));
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.nullValue());
 		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
-		Assert.assertThat(viewModel.getCosignatoriesOf(), IsEquivalent.equivalentTo(multisigAccounts));
+		Assert.assertThat(viewModel.getMultisigAccounts(), IsEquivalent.equivalentTo(multisigAccounts));
 	}
 
 	@Test
@@ -92,11 +92,11 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
 		Assert.assertThat(jsonObject.get("harvestedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
-		assertCosignatoriesMatch((JSONArray)jsonObject.get("cosignatoriesOf"), multisigAccounts);
+		assertCosignatoriesMatch((JSONArray)jsonObject.get("multisigAccounts"), multisigAccounts);
 	}
 
 	@Test
-	public void viewModelCanBeWithoutCosignatoriesOf() {
+	public void viewModelCanBeWithoutMultisigAccounts() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
 		final AccountInfo account = createAccountInfo(null, address);
@@ -115,7 +115,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
 		Assert.assertThat(jsonObject.get("harvestedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
-		Assert.assertThat(jsonObject.get("cosignatoriesOf"), IsNull.nullValue());
+		Assert.assertThat(jsonObject.get("multisigAccounts"), IsNull.nullValue());
 	}
 
 	private static void assertCosignatoriesMatch(final JSONArray jsonCosignatories, final List<AccountInfo> originalCosignatories) {
@@ -135,12 +135,12 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonAccountInfo.get("label"), IsEqual.equalTo(originalAccountInfo.getLabel()));
 	}
 
-	private static AccountViewModel createAccountViewModel(final AccountInfo account, final List<AccountInfo> cosignatoriesOf) {
+	private static AccountViewModel createAccountViewModel(final AccountInfo account, final List<AccountInfo> multisigAccounts) {
 		return new AccountViewModel(
 				account,
 				AccountStatus.LOCKED,
 				AccountRemoteStatus.INACTIVE,
-				cosignatoriesOf);
+				multisigAccounts);
 	}
 
 	private static AccountInfo createAccountInfo(final String label, final Address address) {

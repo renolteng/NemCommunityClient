@@ -83,7 +83,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
             this.set('useMinimumFee', true);
             this.set('signatories', [{}]);
 
-            this.set('cosignatories', ncc.get('activeAccount').cosignatoryOf);
+            this.set('cosignatories', ncc.get('activeAccount').multisigAccounts);
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
             this.set('passwordChanged', false);
