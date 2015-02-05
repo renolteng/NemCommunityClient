@@ -597,8 +597,9 @@ define(['TransactionType'], function(TransactionType) {
             addressBookMatcher: function(query, cb) {
                 var matches = [];
                 var regex = new RegExp(query, 'i');
-                $.each(ncc.get('addressBook'), function(i, item) {
-                    if (regex.test(item.address) || regex.test(item.privateLabel)) {
+                var addressBook = ncc.get('contacts');
+                $.each(addressBook, function(i, item) {
+                    if (regex.test(item.privateLabel)) {
                         matches.push(item);
                     }
                 });

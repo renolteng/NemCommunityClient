@@ -266,22 +266,20 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             // Recipient field
 
             $('.js-sendNem-recipient-textbox').typeahead({
-                hint: false,
+                hint: true,
                 highlight: true
             }, {
                 name: 'address-book',
                 source: Utils.typeahead.addressBookMatcher,
                 displayKey: 'formattedAddress',
                 templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span> <span class="abSuggestion-address">{{formattedAddress}}</span>')
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
                 }
-            }, {
-                name: 'format-address',
-                source: Utils.typeahead.justFormatAddress,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
-                }
+            })
+            .on('typeahead:selected', function($e, datum){
+                 self.set('recipientChanged', true);
+                 self.set('recipientLabel', datum.privateLabel);
+                 $('.js-sendNem-amount-textbox').focus();
             });
         }
     });

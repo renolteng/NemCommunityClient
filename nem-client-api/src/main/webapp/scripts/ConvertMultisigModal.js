@@ -70,7 +70,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 source: Utils.typeahead.addressBookMatcher,
                 displayKey: 'formattedAddress',
                 templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span> <span class="abSuggestion-address">{{formattedAddress}}</span>')
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
                 }
             }, {
                 name: 'format-address',
@@ -223,7 +223,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 source: Utils.typeahead.addressBookMatcher,
                 displayKey: 'formattedAddress',
                 templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span> <span class="abSuggestion-address">{{formattedAddress}}</span>')
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
                 }
             }, {
                 name: 'format-address',
@@ -232,7 +232,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 templates: {
                     suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
                 }
-            });
+            })
         }
 	});
 });
