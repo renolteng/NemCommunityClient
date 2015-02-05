@@ -3,12 +3,12 @@ package org.nem.ncc.controller;
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.MissingRequiredPropertyException;
 import org.nem.ncc.addressbook.*;
-import org.nem.ncc.controller.requests.*;
+import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.Utils;
@@ -19,39 +19,62 @@ public class WalletAccountControllerTest {
 	//region addNewAccount
 
 	@Test
-	public void canAddNewAccount() {
+	public void canAddNewAccountWithoutLabel() {
+		this.assertNewAccountCanBeAdded(null);
+	}
+
+	@Test
+	public void canAddNewAccountWithLabel() {
+		this.assertNewAccountCanBeAdded("l");
+	}
+
+	private void assertNewAccountCanBeAdded(final String label) {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
-		jsonObject.put("label", "l");
+		if (null != label) {
+			jsonObject.put("label", label);
+		}
 		final TestContext context = new TestContext(jsonObject);
-
 		final AccountViewModel accountViewModel = Mockito.mock(AccountViewModel.class);
-		Mockito.when(context.accountMapper.toViewModel(Mockito.any(WalletAccount.class))).thenReturn(accountViewModel);
+		final ArgumentCaptor<WalletAccount> walletAccountCaptor = ArgumentCaptor.forClass(WalletAccount.class);
+		Mockito.when(context.accountMapper.toViewModel(walletAccountCaptor.capture())).thenReturn(accountViewModel);
 
 		// Act:
 		final AccountViewModel result = context.controller.addNewAccount(context.bag);
 
 		// Assert:
+		final WalletAccount walletAccount = walletAccountCaptor.getValue();
 		Assert.assertThat(result, IsEqual.equalTo(accountViewModel));
 		Mockito.verify(context.wallet, Mockito.times(1)).addOtherAccount(Mockito.any());
 		Mockito.verify(context.walletServices, Mockito.times(1)).open(context.bag);
 		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(Mockito.any());
 		Mockito.verify(context.addressBook, Mockito.times(1)).contains(Mockito.any());
 		Mockito.verify(context.accountMapper, Mockito.times(1)).toViewModel(Mockito.any(WalletAccount.class));
-		Mockito.verify(context.addressBook, Mockito.times(1)).addLabel(Mockito.any());
+		Mockito.verify(context.addressBook, Mockito.times(1))
+				.addLabel(Mockito.eq(new AccountLabel(walletAccount.getAddress(), "", null == label ? "" : label)));
 	}
 
 	//endregion
 
 	// TODO 20150131 J-B: why aren't the canAddNewAccountWithLabel and canAddExistingAccountWithKeyAndLabel
 	// > tests still valid?
+	// TODO 20150205 BR -> J: fear not, I added them back ^^
 
 	//region addExistingAccount
 
 	@Test
 	public void canAddExistingAccountWithKey() {
+		this.assertExistingAccountWithKeyCanBeAdded(null);
+	}
+
+	@Test
+	public void canAddExistingAccountWithKeyAndLabel() {
+		this.assertExistingAccountWithKeyCanBeAdded("l");
+	}
+
+	public void assertExistingAccountWithKeyCanBeAdded(final String label) {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
@@ -59,7 +82,9 @@ public class WalletAccountControllerTest {
 		jsonObject.put("accountKey", "0011223344");
 		// TODO 20150131 J-B: should we assert that this label was set?
 		// TODO 20150205: BR -> J: sure.
-		jsonObject.put("label", "l");
+		if (null != label) {
+			jsonObject.put("label", label);
+		}
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));
@@ -76,7 +101,8 @@ public class WalletAccountControllerTest {
 		Mockito.verify(context.accountMapper, Mockito.times(1)).toViewModel(walletAccount);
 		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(Mockito.any());
 		Mockito.verify(context.addressBook, Mockito.times(1)).contains(Mockito.eq(walletAccount.getAddress()));
-		Mockito.verify(context.addressBook, Mockito.times(1)).addLabel(Mockito.eq(new AccountLabel(walletAccount.getAddress(), "", "l")));
+		Mockito.verify(context.addressBook, Mockito.times(1))
+				.addLabel(Mockito.eq(new AccountLabel(walletAccount.getAddress(), "", null == label ? "" : label)));
 	}
 
 	@Test(expected = MissingRequiredPropertyException.class)

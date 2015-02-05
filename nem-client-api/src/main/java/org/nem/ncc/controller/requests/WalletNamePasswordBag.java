@@ -67,4 +67,13 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	public String getLabel() {
 		return deserializer.readString("label");
 	}
+
+	/**
+	 * Gets a value indicating whether or not a property is available.
+	 *
+	 * @return True if the property is available, false otherwise.
+	 */
+	public boolean propertyAvailable(final String name) {
+		return null != deserializer.readOptionalString(name);
+	}
 }

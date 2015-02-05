@@ -44,12 +44,13 @@ public class WalletAccountController {
 		// TODO 20150131 J-B: previously i could set a label when adding an account?
 		// > did we lose that functionality?
 		// TODO 20150202 BR -> J: not sure if we had that feature. But I think an optional label parameter in WalletNamePasswordBag would be good (see also below).
+		// TODO 20150205 BR -> J: label is now optional.
 		final WalletAccount account = new WalletAccount();
 		this.addToAddressBook(
 				new AddressBookName(bag.getName().toString()),
 				new AddressBookPassword(bag.getPassword().toString()),
 				account.getAddress(),
-				bag.getLabel());
+				bag.propertyAvailable("label") ? bag.getLabel() : "");
 		return this.addAccount(bag, account);
 	}
 
@@ -63,11 +64,12 @@ public class WalletAccountController {
 	public AccountViewModel addExistingAccount(@RequestBody final WalletNamePasswordBag bag) {
 		// TODO 20150131 J-B: it also seems like labels are REQUIRED now; is that intentional?
 		// TODO 20150202 BR -> G: Do you want the label to be optional or required? If optional we could just add it to WalletNamePasswordBag.
+		// TODO 20150205 BR -> J: label is now optional.
 		this.addToAddressBook(
 				new AddressBookName(bag.getName().toString()),
 				new AddressBookPassword(bag.getPassword().toString()),
 				Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey()),
-				bag.getLabel());
+				bag.propertyAvailable("label") ? bag.getLabel() : "");
 		return this.addAccount(bag, new WalletAccount(bag.getAccountPrivateKey()));
 	}
 
