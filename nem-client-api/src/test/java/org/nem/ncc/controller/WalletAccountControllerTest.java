@@ -138,6 +138,26 @@ public class WalletAccountControllerTest {
 		Mockito.verify(context.walletMapper, Mockito.times(1)).toViewModel(context.wallet);
 	}
 
+	@Test
+	public void removeAccountRemovesLabelFromAddressBook() {
+		// Arrange:
+		final Address address = Utils.generateRandomAddress();
+		final JSONObject jsonObject = createJsonObjectWithAddress(address);
+		final TestContext context = new TestContext(jsonObject);
+		final WalletViewModel walletViewModel = Mockito.mock(WalletViewModel.class);
+		Mockito.when(context.walletMapper.toViewModel(context.wallet)).thenReturn(walletViewModel);
+		Mockito.when(context.addressBook.contains(address)).thenReturn(true);
+
+		// Act:
+		final WalletViewModel result = context.controller.removeAccount(context.bag);
+
+		// Assert:
+		Assert.assertThat(result, IsEqual.equalTo(walletViewModel));
+		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(Mockito.any());
+		Mockito.verify(context.addressBook, Mockito.times(1)).contains(address);
+		Mockito.verify(context.addressBook, Mockito.times(1)).removeLabel(address);
+	}
+
 	//endregion
 
 	private static JSONObject createJsonObjectWithAddress(final Address address) {
