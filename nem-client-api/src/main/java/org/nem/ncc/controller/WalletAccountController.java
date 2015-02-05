@@ -130,5 +130,4 @@ public class WalletAccountController {
 		wallet.addOtherAccount(account);
 		return this.accountMapper.toViewModel(account);
 	}
-
 }

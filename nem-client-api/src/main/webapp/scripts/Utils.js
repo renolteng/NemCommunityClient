@@ -725,6 +725,15 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             return ab;
+        },
+        removeContact: function(ab, address) {
+            for (var i = 0; i < ab.length; i++) {
+                if (ab[i].address === address) {
+                    ab.splice(i, 1);
+                }
+            }
+
+            return ab;
         }
     };
     return Utils;
