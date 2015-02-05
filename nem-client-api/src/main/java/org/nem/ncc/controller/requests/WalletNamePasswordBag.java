@@ -58,4 +58,13 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	public Address getAccountAddress() {
 		return Address.readFrom(this.deserializer, "account");
 	}
+
+	/**
+	 * Gets the label if it was specified.
+	 *
+	 * @return The label.
+	 */
+	public String getLabel() {
+		return deserializer.readString("label");
+	}
 }

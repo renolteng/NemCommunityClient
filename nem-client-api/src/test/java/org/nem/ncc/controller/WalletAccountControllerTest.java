@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
 import org.nem.core.serialization.MissingRequiredPropertyException;
-import org.nem.ncc.addressbook.AddressBook;
+import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
@@ -35,9 +35,12 @@ public class WalletAccountControllerTest {
 
 		// Assert:
 		Assert.assertThat(result, IsEqual.equalTo(accountViewModel));
-		Mockito.verify(context.walletServices, Mockito.times(1)).open(context.bag);
 		Mockito.verify(context.wallet, Mockito.times(1)).addOtherAccount(Mockito.any());
+		Mockito.verify(context.walletServices, Mockito.times(1)).open(context.bag);
+		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(Mockito.any());
+		Mockito.verify(context.addressBook, Mockito.times(1)).contains(Mockito.any());
 		Mockito.verify(context.accountMapper, Mockito.times(1)).toViewModel(Mockito.any(WalletAccount.class));
+		Mockito.verify(context.addressBook, Mockito.times(1)).addLabel(Mockito.any());
 	}
 
 	//endregion
@@ -54,7 +57,9 @@ public class WalletAccountControllerTest {
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
 		jsonObject.put("accountKey", "0011223344");
-		jsonObject.put("label", "l"); // TODO 20150131 J-B: should we assert that this label was set?
+		// TODO 20150131 J-B: should we assert that this label was set?
+		// TODO 20150205: BR -> J: sure.
+		jsonObject.put("label", "l");
 		final TestContext context = new TestContext(jsonObject);
 
 		final WalletAccount walletAccount = new WalletAccount(PrivateKey.fromHexString("0011223344"));
@@ -62,13 +67,16 @@ public class WalletAccountControllerTest {
 		Mockito.when(context.accountMapper.toViewModel(walletAccount)).thenReturn(accountViewModel);
 
 		// Act:
-		final AccountViewModel result = context.controller.addExistingAccount(context.labelBag);
+		final AccountViewModel result = context.controller.addExistingAccount(context.bag);
 
 		// Assert:
 		Assert.assertThat(result, IsEqual.equalTo(accountViewModel));
 		Mockito.verify(context.walletServices, Mockito.times(1)).open(context.bag);
 		Mockito.verify(context.wallet, Mockito.times(1)).addOtherAccount(walletAccount);
 		Mockito.verify(context.accountMapper, Mockito.times(1)).toViewModel(walletAccount);
+		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(Mockito.any());
+		Mockito.verify(context.addressBook, Mockito.times(1)).contains(Mockito.eq(walletAccount.getAddress()));
+		Mockito.verify(context.addressBook, Mockito.times(1)).addLabel(Mockito.eq(new AccountLabel(walletAccount.getAddress(), "", "l")));
 	}
 
 	@Test(expected = MissingRequiredPropertyException.class)
@@ -85,7 +93,7 @@ public class WalletAccountControllerTest {
 		Mockito.when(context.accountMapper.toViewModel(walletAccount)).thenReturn(accountViewModel);
 
 		// Act:
-		context.controller.addExistingAccount(context.labelBag);
+		context.controller.addExistingAccount(context.bag);
 	}
 
 	//endregion
@@ -146,6 +154,7 @@ public class WalletAccountControllerTest {
 		private final WalletMapper walletMapper = Mockito.mock(WalletMapper.class);
 		private final AccountMapper accountMapper = Mockito.mock(AccountMapper.class);
 		private final AddressBookServices addressBookServices = Mockito.mock(AddressBookServices.class);
+		private final AddressBook addressBook = Mockito.mock(AddressBook.class);
 		private final WalletAccountController controller = new WalletAccountController(
 				this.walletServices,
 				this.walletMapper,
@@ -154,14 +163,12 @@ public class WalletAccountControllerTest {
 
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 		private final WalletNamePasswordBag bag;
-		private final LabelWalletNamePasswordBag labelBag;
 
 		private TestContext(final JSONObject jsonObject) {
 			this.bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
-			this.labelBag = new LabelWalletNamePasswordBag(Utils.createDeserializer(jsonObject));
 
 			Mockito.when(this.walletServices.open(this.bag)).thenReturn(this.wallet);
-			Mockito.when(this.addressBookServices.open(Mockito.any())).thenReturn(Mockito.mock(AddressBook.class));
+			Mockito.when(this.addressBookServices.open(Mockito.any())).thenReturn(this.addressBook);
 		}
 	}
 }
