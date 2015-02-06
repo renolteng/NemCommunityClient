@@ -12,17 +12,19 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'ractive-events-tap'], function($
         initOnce: function() {
             ncc.on( 'sort', function (event, column) {
                 this.set('contactsSortColumn', column);
-                console.log( 'Will sort by ' + column );
+                var name = 'contactsSort_'+column;
+                this.set(name, this.get(name) ^ 1);
             });
 
-            ncc.set('contactsSortOrder', { 'formattedAddress': -1, 'privateLabel': -1 });
+            ncc.set('contactsSortColumn', 'privateLabel');
+            ncc.set('contactsSort_privateLabel', 1);
             ncc.set('sortContacts',
                 function (array, sortColumn) {
-                    array = array.slice(); // clone, so we don't modify the underlying data
-                    ncc.get('contactsSortOrder')[sortColumn] = -ncc.get('contactsSortOrder')[sortColumn];
+                    array = array.slice();
 
+                    var order = this.get('contactsSort_'+sortColumn) === 1 ? 1 : -1;
                     return array.sort(function(a, b) {
-                        return ncc.get('contactsSortOrder')[sortColumn] * (a[sortColumn] < b[sortColumn] ? -1 : 1);
+                        return order*(a[sortColumn].toLowerCase().localeCompare(b[sortColumn].toLowerCase()));
                     });
                 }
             );
