@@ -159,6 +159,8 @@ public abstract class AddressBookTest {
 		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"));
 
 		// Assert:
+		// TODO 20150206 J-B: probably should call assertThrowsAddressBookException
+		// > also, i might inline createAccountLabelsWithInvalidAddress since you are only calling it in this test
 		accountLabels.forEach(a -> ExceptionAssert.assertThrows(v -> addressBook.addLabel(a), AddressBookException.class));
 	}
 
