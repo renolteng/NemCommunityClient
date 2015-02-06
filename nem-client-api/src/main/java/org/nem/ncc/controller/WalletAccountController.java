@@ -41,10 +41,6 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/new", method = RequestMethod.POST)
 	public AccountViewModel addNewAccount(@RequestBody final WalletNamePasswordBag bag) {
-		// TODO 20150131 J-B: previously i could set a label when adding an account?
-		// > did we lose that functionality?
-		// TODO 20150202 BR -> J: not sure if we had that feature. But I think an optional label parameter in WalletNamePasswordBag would be good (see also below).
-		// TODO 20150205 BR -> J: label is now optional.
 		final WalletAccount account = new WalletAccount();
 		this.addToAddressBook(
 				new AddressBookName(bag.getName().toString()),
@@ -62,9 +58,8 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/add", method = RequestMethod.POST)
 	public AccountViewModel addExistingAccount(@RequestBody final WalletNamePasswordBag bag) {
-		// TODO 20150131 J-B: it also seems like labels are REQUIRED now; is that intentional?
-		// TODO 20150202 BR -> G: Do you want the label to be optional or required? If optional we could just add it to WalletNamePasswordBag.
-		// TODO 20150205 BR -> J: label is now optional.
+		// TODO 20150206 J-B: consider having addToAddressBook take a bag an an address (all but the third parameter are derived from the bag the same way)
+		// > you could also have a function that opens an address book given a bag
 		this.addToAddressBook(
 				new AddressBookName(bag.getName().toString()),
 				new AddressBookPassword(bag.getPassword().toString()),

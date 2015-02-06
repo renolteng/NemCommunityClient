@@ -58,10 +58,6 @@ public class WalletAccountControllerTest {
 
 	//endregion
 
-	// TODO 20150131 J-B: why aren't the canAddNewAccountWithLabel and canAddExistingAccountWithKeyAndLabel
-	// > tests still valid?
-	// TODO 20150205 BR -> J: fear not, I added them back ^^
-
 	//region addExistingAccount
 
 	@Test
@@ -80,8 +76,6 @@ public class WalletAccountControllerTest {
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
 		jsonObject.put("accountKey", "0011223344");
-		// TODO 20150131 J-B: should we assert that this label was set?
-		// TODO 20150205: BR -> J: sure.
 		if (null != label) {
 			jsonObject.put("label", label);
 		}
@@ -96,11 +90,11 @@ public class WalletAccountControllerTest {
 
 		// Assert:
 		Assert.assertThat(result, IsEqual.equalTo(accountViewModel));
-		Mockito.verify(context.walletServices, Mockito.times(1)).open(context.bag);
 		Mockito.verify(context.wallet, Mockito.times(1)).addOtherAccount(walletAccount);
-		Mockito.verify(context.accountMapper, Mockito.times(1)).toViewModel(walletAccount);
+		Mockito.verify(context.walletServices, Mockito.times(1)).open(context.bag);
 		Mockito.verify(context.addressBookServices, Mockito.times(1)).open(Mockito.any());
 		Mockito.verify(context.addressBook, Mockito.times(1)).contains(Mockito.eq(walletAccount.getAddress()));
+		Mockito.verify(context.accountMapper, Mockito.times(1)).toViewModel(walletAccount);
 		Mockito.verify(context.addressBook, Mockito.times(1))
 				.addLabel(Mockito.eq(new AccountLabel(walletAccount.getAddress(), "", null == label ? "" : label)));
 	}
