@@ -18,7 +18,12 @@ public class AddressBookException extends NccException {
 		/**
 		 * A requested address is not stored in the address book.
 		 */
-		ADDRESS_NOT_IN_ADDRESS_BOOK(127);
+		ADDRESS_NOT_IN_ADDRESS_BOOK(127),
+
+		/**
+		 * The provided address is not valid.
+		 */
+		ADDRESS_NOT_VALID(128);
 
 		private final int value;
 

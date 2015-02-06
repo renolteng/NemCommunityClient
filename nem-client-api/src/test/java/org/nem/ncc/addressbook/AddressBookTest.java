@@ -153,6 +153,16 @@ public abstract class AddressBookTest {
 	}
 
 	@Test
+	public void newLabelCannotBeAddedToAddressBookIfAddressIsInvalid() {
+		// Arrange:
+		final List<AccountLabel> accountLabels = this.createAccountLabelsWithInvalidAddress();
+		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"));
+
+		// Assert:
+		accountLabels.forEach(a -> ExceptionAssert.assertThrows(v -> addressBook.addLabel(a), AddressBookException.class));
+	}
+
+	@Test
 	public void otherAccountsCannotBeModifiedDirectly() {
 		// Act:
 		final List<AccountLabel> accountLabels = this.createAccountLabels(3);
@@ -308,6 +318,16 @@ public abstract class AddressBookTest {
 					String.format("publicLabel%d", i),
 					String.format("privateLabel%d", i)));
 		}
+
+		return accountLabels;
+	}
+
+	protected List<AccountLabel> createAccountLabelsWithInvalidAddress() {
+		final List<AccountLabel> accountLabels = new ArrayList<>();
+		accountLabels.add(new AccountLabel(
+				Address.fromEncoded(Utils.generateRandomAccount().getAddress().getEncoded() + "badness"), "pub", "priv")); // too long
+		accountLabels.add(new AccountLabel(Address.fromEncoded(""), "pub", "priv")); // empty
+		accountLabels.add(new AccountLabel(Address.fromEncoded("QALICEBMLRCCYHAYBKUVAPLB2DMZIBZFFGIMJHSC"), "pub", "priv")); // invalid network
 
 		return accountLabels;
 	}

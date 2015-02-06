@@ -109,6 +109,10 @@ public class MemoryAddressBook implements StorableAddressBook {
 			throw new IllegalArgumentException("accountLabel must be non-null");
 		}
 
+		if (!accountLabel.getAddress().isValid()) {
+			throw new AddressBookException(AddressBookException.Code.ADDRESS_NOT_VALID);
+		}
+
 		if (this.accountLabels.containsKey(accountLabel.getAddress())) {
 			throw new AddressBookException(AddressBookException.Code.ADDRESS_BOOK_ALREADY_CONTAINS_ADDRESS);
 		}
