@@ -155,13 +155,14 @@ public abstract class AddressBookTest {
 	@Test
 	public void newLabelCannotBeAddedToAddressBookIfAddressIsInvalid() {
 		// Arrange:
-		final List<AccountLabel> accountLabels = this.createAccountLabelsWithInvalidAddress();
+		final List<AccountLabel> accountLabels = Arrays.asList(
+				new AccountLabel(Address.fromEncoded(Utils.generateRandomAccount().getAddress().getEncoded() + "badness"), "pub", "priv"), // too long
+				new AccountLabel(Address.fromEncoded(""), "pub", "priv"), // empty
+				new AccountLabel(Address.fromEncoded("QALICEBMLRCCYHAYBKUVAPLB2DMZIBZFFGIMJHSC"), "pub", "priv")); // invalid network
 		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"));
 
 		// Assert:
-		// TODO 20150206 J-B: probably should call assertThrowsAddressBookException
-		// > also, i might inline createAccountLabelsWithInvalidAddress since you are only calling it in this test
-		accountLabels.forEach(a -> ExceptionAssert.assertThrows(v -> addressBook.addLabel(a), AddressBookException.class));
+		accountLabels.forEach(a -> assertThrowsAddressBookException(v -> addressBook.addLabel(a), AddressBookException.Code.ADDRESS_NOT_VALID));
 	}
 
 	@Test
@@ -322,13 +323,6 @@ public abstract class AddressBookTest {
 		}
 
 		return accountLabels;
-	}
-
-	protected List<AccountLabel> createAccountLabelsWithInvalidAddress() {
-		return Arrays.asList(
-			new AccountLabel(Address.fromEncoded(Utils.generateRandomAccount().getAddress().getEncoded() + "badness"), "pub", "priv"), // too long
-			new AccountLabel(Address.fromEncoded(""), "pub", "priv"), // empty
-			new AccountLabel(Address.fromEncoded("QALICEBMLRCCYHAYBKUVAPLB2DMZIBZFFGIMJHSC"), "pub", "priv")); // invalid network
 	}
 
 	/**
