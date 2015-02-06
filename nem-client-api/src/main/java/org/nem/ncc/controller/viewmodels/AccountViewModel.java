@@ -40,7 +40,7 @@ public class AccountViewModel implements SerializableEntity {
 	 * @param info The account info.
 	 * @param status The account status.
 	 * @param remoteStatus The remote account status.
-	 * @param multisigAccounts The list of account information.
+	 * @param multisigAccounts The list of multisig accounts that this account can cosign.
 	 */
 	public AccountViewModel(
 			final AccountInfo info,

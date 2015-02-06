@@ -92,7 +92,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
 		Assert.assertThat(jsonObject.get("harvestedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
-		assertCosignatoriesMatch((JSONArray)jsonObject.get("multisigAccounts"), multisigAccounts);
+		assertAccountsMatch((JSONArray)jsonObject.get("multisigAccounts"), multisigAccounts);
 	}
 
 	@Test
@@ -118,10 +118,10 @@ public class AccountViewModelTest {
 		Assert.assertThat(jsonObject.get("multisigAccounts"), IsNull.nullValue());
 	}
 
-	private static void assertCosignatoriesMatch(final JSONArray jsonCosignatories, final List<AccountInfo> originalCosignatories) {
-		Assert.assertThat(jsonCosignatories.size(), IsEqual.equalTo(originalCosignatories.size()));
-		for (int i = 0; i < jsonCosignatories.size(); ++i) {
-			assertAccountInfoMatches((JSONObject)jsonCosignatories.get(i), originalCosignatories.get(i));
+	private static void assertAccountsMatch(final JSONArray jsonAccounts, final List<AccountInfo> originalAccounts) {
+		Assert.assertThat(jsonAccounts.size(), IsEqual.equalTo(originalAccounts.size()));
+		for (int i = 0; i < jsonAccounts.size(); ++i) {
+			assertAccountInfoMatches((JSONObject)jsonAccounts.get(i), originalAccounts.get(i));
 		}
 	}
 
@@ -154,7 +154,7 @@ public class AccountViewModelTest {
 
 	private static List<AccountInfo> createAccountInfos() {
 		return IntStream.range(0, 3)
-				.mapToObj(i -> createAccountInfo(String.format("cosignatory%d", i + 1), Utils.generateRandomAddress()))
+				.mapToObj(i -> createAccountInfo(String.format("multisig%d", i + 1), Utils.generateRandomAddress()))
 				.collect(Collectors.toList());
 	}
 }
