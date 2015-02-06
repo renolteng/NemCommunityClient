@@ -11,6 +11,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedAmount')));
             },
             recipient: function() {
+                // FEELS ugly....
+                $('.js-sendNem-recipient-textbox').typeahead('val', this.get('formattedRecipient'));
                 return Utils.format.address.restore(this.get('formattedRecipient'));
             },
             recipientValid: function() {
@@ -277,9 +279,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 }
             })
             .on('typeahead:selected', function($e, datum){
-                 self.set('recipientChanged', true);
-                 self.set('recipientLabel', datum.privateLabel);
-                 $('.js-sendNem-amount-textbox').focus();
+                // no need to set anything... typehead should use displayKey
+                $('.js-sendNem-amount-textbox').focus();
             });
         }
     });
