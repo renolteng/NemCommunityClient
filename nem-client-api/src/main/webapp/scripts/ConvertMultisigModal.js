@@ -81,14 +81,11 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }
             });
 
-            // TODO: not sure if this is ok to do... can this cause leaks?
-            // var self = this;
-            // var $cosignatory = $('.js-cosignatory');
-            // $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-            // $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-            // $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
-
-
+//            var self = this;
+//            var $cosignatory = $('.js-cosignatory').last();
+//            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+//            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+//            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
         },
         removeCosignatory: function(index) {
             this.get('cosignatories').splice(index, 1);
@@ -98,6 +95,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.set('formattedMultisigAccount', Utils.format.address.format(ncc.get('activeAccount.address')));
             this.set('multisigAccount', ncc.get('activeAccount.address'));
         	this.set('cosignatories', [{label:''}]);
+        	$('.js-cosignatory').last().typeahead('val', '');
 
             this.set('fee', 0);
             this.set('minimumFee', 0);
@@ -193,10 +191,10 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             var $dueBy = $('.js-multisig-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
-            // var $cosignatory = $('.js-cosignatory');
-            // $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-            // $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-            // $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
+//            var $cosignatory = $('.js-cosignatory');
+//            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+//            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+//            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $fee = $('.js-multisig-fee-textbox');
             var feeTxb = $fee[0];
