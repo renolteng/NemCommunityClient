@@ -9,6 +9,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 if (!addressBook) addressBook = ncc.get('wallet.wallet');
                 
                 ncc.postRequest('addressbook/info', { addressBook: addressBook }, function(data) {
+                    ncc.set('addressBook', data.accountLabels);
                     ncc.set('contacts', Utils.processContacts(data.accountLabels));
                 }, null, silent);
             }

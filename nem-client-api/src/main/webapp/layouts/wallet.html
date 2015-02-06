@@ -259,7 +259,7 @@
 	</div>
 	{{#layout.1.name}}{{>1}}{{/}}
 </div>
-<convertMultisigModal modalClass="convertMultisigModal" disableEasyClose="true" modalTitle="{{texts.modals.multisig.title}}" texts="{{texts}}" fill="{{fill}}">
+<convertMultisigModal modalClass="convertMultisigModal modal--medium" disableEasyClose="true" modalTitle="{{texts.modals.multisig.title}}" texts="{{texts}}" fill="{{fill}}">
 	<div class="form multisig-form">
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.multisig.multisigAccount}}</p>
@@ -269,13 +269,11 @@
 			<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
 			{{#each cosignatories : i}}
 				<div class="{{#i !== 0}}form-field{{/}}">
-					<div>
+					<div class="form-row multisig-cosignatory">
 						<div class="form-input-end form-input-remove">
 							{{#i !== 0}}<button type="button" class="icon-cross" on-click="removeCosignatory(i)"></button>{{/}}
 						</div>
-						<div class="restOfWidth">
-							<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
-						</div>
+						<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
 					</div>
 					<p class="form-sublabel">
 						{{#if (privateLabels[.address])}}
@@ -341,7 +339,7 @@
 		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.multisig.convert}}</button>
 	</div>
 </convertMultisigModal>
-<sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+<sendNemModal disableEasyClose="true" modalClass="sendNemModal modal--medium" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
 	<div class="form sendNem-form">
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.sendNem.sender}}</p>

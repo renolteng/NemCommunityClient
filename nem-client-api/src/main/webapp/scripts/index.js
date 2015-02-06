@@ -18,7 +18,9 @@ require.config({
         'zeroClipboard': 'plugins/ZeroClipboard.min',
         'tooltipster': 'plugins/jquery.tooltipster.min',
         'mustache': 'plugins/mustache.min',
-        'draggable': 'plugins/jquery-ui.draggable.min'
+        'draggable': 'plugins/jquery-ui.draggable.min',
+        'typeahead': 'plugins/typeahead.jquery-dist',
+        'handlebars': 'plugins/handlebars-v2.0.0-dist'
     },
     shim: {
         'scroller': { deps: ['jquery'] },
@@ -27,7 +29,40 @@ require.config({
         'gridster': { deps: ['jquery'] },
         'maskedinput': { deps: ['jquery'] },
         'dropit': { deps: ['jquery'] },
-        'tooltipster': { deps: ['jquery'] }
+        'tooltipster': { deps: ['jquery'] },
+        'typeahead': {
+            deps: ['jquery'],
+            init: function () {
+                // this is an ugly hack to get 'click' selection working for typeahead
+                // without modifying the typeahead code
+                //
+                // the problem is that when clicking on a 'suggestion':
+                // - mousedown is triggered
+                // - click is not triggered (this is the event that actually selects an item)
+                // - blur (of the input) is triggered, which closes the dropdown without selecting anything
+                //
+                // after a lot of testing, it seems that a mousedown event handler *somewhere* is triggering blur
+                // (the typeahead plugin works fine on a standalone page)
+                //
+                // the more 'correct' fix would be to modify the plugin code itself, but this is unobtrusive
+                // when a node is inserted into the page, if it is a 'tt-suggestions' node (added by the typeahead)
+                // suppress the mousedown event on any of the items ('tt-suggestion')
+                //
+                // (DOMNodeInserted is called for the entire 'tt-suggestions' tree)
+                $('body').on('DOMNodeInserted', function (e) {
+                    var newNode = $(e.target);
+                    if (!newNode.hasClass('tt-suggestions')) {
+                        return;
+                    }
+
+                    $.each(newNode.find('.tt-suggestion'), function () {
+                        newNode.on('mousedown', function (e) {
+                            return false;
+                        });
+                    });
+                });
+            }
+        }
     }
 });
 
@@ -43,7 +78,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
 
     ncc.refreshNccStatus = function(complete) {
         var success = false;
-        ncc.getRequest('status', 
+        ncc.getRequest('status',
             function(data) {
                 ncc.set('nccStatus', data);
                 success = true;
@@ -65,7 +100,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
 
     ncc.refreshNisStatus = function(complete) {
         var success = false;
-        ncc.getRequest('node/status', 
+        ncc.getRequest('node/status',
             function(data) {
                 ncc.set('nisStatus', data);
                 success = true;
@@ -103,7 +138,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
             ncc.getRequest('info/nis',
                 function(data) {
                     var blockchainHeight = ncc.get('blockchainHeight') || data.nodeMetaData.nodeBlockChainHeight;
-                	var lastBlockBehind = (data.nodeMetaData.maxBlockChainHeight - blockchainHeight) * 60;
+                    var lastBlockBehind = (data.nodeMetaData.maxBlockChainHeight - blockchainHeight) * 60;
                     ncc.set('nis', data);
                     ncc.set('nis.nodeMetaData.lastBlockBehind', lastBlockBehind < 0? 0 : lastBlockBehind);
                     if (data.nodeMetaData.maxBlockChainHeight === blockchainHeight) {

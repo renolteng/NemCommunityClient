@@ -75,7 +75,7 @@ define(['TransactionType'], function(TransactionType) {
         updateNewer: function(newArr, currentArr, comparedProp) {
             if (currentArr && currentArr[0] && newArr && newArr[0]) {
                 var comparedValue = newArr[newArr.length - 1][comparedProp];
-                
+
                 for (var i = currentArr.length - 1; i >= 0; i--) {
                     if (currentArr[i][comparedProp] === comparedValue) {
                         break;
@@ -122,6 +122,38 @@ define(['TransactionType'], function(TransactionType) {
             $(document).off('click.' + id);
         },
 
+        // ADDRESS BOOK
+        addressBook: {
+            query: function(query) {
+                var matches = [];
+                var addressBook = ncc.get('contacts');
+                if (addressBook) {
+                    var regex = new RegExp(query, 'i');
+                    $.each(addressBook, function(i, item) {
+                        if (regex.test(item.address) || regex.test(item.privateLabel)) {
+                            matches.push(item);
+                        }
+                    });
+                }
+
+                return matches;
+            },
+            findByAddress: function(address) {
+                var label = undefined;
+                var addressBook = ncc.get('contacts');
+                if (addressBook) {
+                    $.each(addressBook, function(i, item) {
+                        if (item.address === address) {
+                            label = item.privateLabel;
+                            return false;
+                        }
+                    });
+                }
+
+                return label;
+            }
+        },
+
         // FORMAT & CONVERSON
         format: {
             minDigits: function(num, digits) {
@@ -156,7 +188,7 @@ define(['TransactionType'], function(TransactionType) {
                     } else {
                         dsPos = str.length;
                     }
-                    
+
                     nem.intPart = str.substring(0, dsPos);
                     var dsRegex = new RegExp(Utils.escapeRegExp(decimalSeparator), 'g');
                     nem.decimalPart = str.substring(dsPos, str.length).replace(dsRegex, '');
@@ -295,14 +327,26 @@ define(['TransactionType'], function(TransactionType) {
                 },
             },
             address: {
-                format: function(address) {
+                formatWithoutLabel: function(address) {
                     if (!address) return address;
                     var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
                     return segments.join('-').toUpperCase();
                 },
-                restore: function(formattedAddress) {
-                    return formattedAddress && formattedAddress.replace(/\-/g, '');
+                format: function(address) {
+                    if (!address) return address;
+                    var label = Utils.addressBook.findByAddress(address);
+                    var formattedAddress = Utils.format.address.formatWithoutLabel(address);
+                    if (label)
+                        formattedAddress = label + ' ' + formattedAddress;
+
+                    return formattedAddress
                 },
+                restore: function(formattedAddress) {
+                    if (!formattedAddress) return formattedAddress;
+                    var address = formattedAddress.replace(/\-/g, '');
+                    var separatorIndex = address.indexOf(' ');
+                    return address.substr(separatorIndex + 1);
+                }
             },
             date: {
                 shortMonths: {
@@ -593,6 +637,19 @@ define(['TransactionType'], function(TransactionType) {
                 }
             },
         },
+        typeahead: {
+            addressBookMatcher: function(query, cb) {
+                var matches = Utils.addressBook.query(query);
+                cb(matches);
+            },
+            justFormatAddress: function(query, cb) {
+                var suggestion = {
+                    text: ncc.get('texts.common.justUse'),
+                    formattedAddress: Utils.format.address.format(query)
+                };
+                cb([suggestion]);
+            }
+        },
         daysPassed: function(begin) {
             var now = new Date().getTime();
             var timespan = now - begin;
@@ -721,7 +778,7 @@ define(['TransactionType'], function(TransactionType) {
         },
         processContacts: function(ab) {
             for (var i = 0; i < ab.length; i++) {
-                ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
+                ab[i].formattedAddress = Utils.format.address.formatWithoutLabel(ab[i].address);
             }
 
             return ab;
