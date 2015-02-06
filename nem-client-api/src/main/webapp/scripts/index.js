@@ -8,6 +8,7 @@ require.config({
         'expand': 'plugins/expand',
         'modernizr': 'plugins/modernizr.custom.00846',
         'ractive': 'plugins/ractive',
+         'ractive-events-tap': 'plugins/ractive-events-tap',
         'tinycarousel': 'plugins/jquery.tinycarousel.min',
         'scroller': 'plugins/jquery.fs.scroller.min',
         'selecter': 'plugins/jquery.fs.selecter.min',

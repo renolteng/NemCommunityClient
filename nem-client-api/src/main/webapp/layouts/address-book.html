@@ -16,13 +16,13 @@
 					<table class="txList">
 						<thead>
 							<tr class="txList-row addressBook-row">
-								<th class="txList-header txList-col--address addressBook-leftMost">{{texts.addressBook.table.columns.0}}</th>
-								<th class="txList-header txList-col--label">{{texts.addressBook.table.columns.1}}</th>
-								<th class="txList-header txList-col--actions addressBook-rightMost"></th>
+								<th class="sortable txList-header txList-col--address addressBook-leftMost" on-tap='sort:formattedAddress'>{{texts.addressBook.table.columns.0}}</th>
+								<th class="sortable txList-header txList-col--label"  on-tap='sort:privateLabel'>{{texts.addressBook.table.columns.1}}</th>
+								<th class="sortable txList-header txList-col--actions addressBook-rightMost"></th>
 							</tr>
 						</thead>
 						<tbody>
-							{{#each contacts}}
+							{{#each sortContacts(contacts, contactsSortColumn):num}}
 								<tr class="txList-row txList-row--colored addressBook-row">
                                     <td class="txList-cell txList-col--address addressBook-leftMost">
                                     	<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">{{.formattedAddress}}</a>
