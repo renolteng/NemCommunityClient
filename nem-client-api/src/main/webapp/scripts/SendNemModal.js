@@ -237,10 +237,10 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             var $dueBy = $('.js-sendNem-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
 
-            // var $recipient = $('.js-sendNem-recipient-textbox');
-            // $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-            // $recipient.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-            // $recipient.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
+            var $recipient = $('.js-sendNem-recipient-textbox');
+            $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
+            $recipient.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
+            $recipient.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
 
             var $amount = $('.js-sendNem-amount-textbox');
             var amountTxb = $amount[0];
