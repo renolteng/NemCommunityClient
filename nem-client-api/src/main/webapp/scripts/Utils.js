@@ -327,12 +327,15 @@ define(['TransactionType'], function(TransactionType) {
                 },
             },
             address: {
+                formatWithoutLabel: function(address) {
+                    if (!address) return address;
+                    var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
+                    return segments.join('-').toUpperCase();
+                },
                 format: function(address) {
                     if (!address) return address;
                     var label = Utils.addressBook.findByAddress(address);
-                    var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
-
-                    var formattedAddress = segments.join('-').toUpperCase();
+                    var formattedAddress = Utils.format.address.formatWithoutLabel(address);
                     if (label)
                         formattedAddress = label + ' ' + formattedAddress;
 
@@ -775,7 +778,7 @@ define(['TransactionType'], function(TransactionType) {
         },
         processContacts: function(ab) {
             for (var i = 0; i < ab.length; i++) {
-                ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
+                ab[i].formattedAddress = Utils.format.address.formatWithoutLabel(ab[i].address);
             }
 
             return ab;
