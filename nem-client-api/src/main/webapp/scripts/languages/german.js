@@ -26,6 +26,7 @@ define({
 			124: 'Das Passwort für die das Adressbuch ist nicht korrekt.',
 			125: 'Es wurde kein Passwort für das Adressbuch eingegeben.',
 			127: 'Das Adressbuch enthält die angegebene Adresse nicht.',
+			128: 'Die Adresse ist nicht gültig.',
 			129: 'Es gibt bereits ein Adressbuch mit demselben Namen. Bitte wähle einen anderen Namen für das Adressbuch.',
 			130: 'Das Adressbuch enthält die Adresse bereits.',
 			131: 'Der Name des Adressbuches darf kein Dateierzeichnis sein.',
