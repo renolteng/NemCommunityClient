@@ -334,18 +334,19 @@ define(['TransactionType'], function(TransactionType) {
                 },
                 format: function(address) {
                     if (!address) return address;
-                    var label = Utils.addressBook.findByAddress(address);
+                    //var label = Utils.addressBook.findByAddress(address);
                     var formattedAddress = Utils.format.address.formatWithoutLabel(address);
-                    if (label)
-                        formattedAddress = label + ' ' + formattedAddress;
+                    //if (label)
+                    //    formattedAddress = label + ' ' + formattedAddress;
 
                     return formattedAddress
                 },
                 restore: function(formattedAddress) {
                     if (!formattedAddress) return formattedAddress;
                     var address = formattedAddress.replace(/\-/g, '');
-                    var separatorIndex = address.indexOf(' ');
-                    return address.substr(separatorIndex + 1);
+                    return address;
+                    //var separatorIndex = address.indexOf(' ');
+                    //return address.substr(separatorIndex + 1);
                 }
             },
             date: {
