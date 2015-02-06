@@ -323,13 +323,10 @@ public abstract class AddressBookTest {
 	}
 
 	protected List<AccountLabel> createAccountLabelsWithInvalidAddress() {
-		final List<AccountLabel> accountLabels = new ArrayList<>();
-		accountLabels.add(new AccountLabel(
-				Address.fromEncoded(Utils.generateRandomAccount().getAddress().getEncoded() + "badness"), "pub", "priv")); // too long
-		accountLabels.add(new AccountLabel(Address.fromEncoded(""), "pub", "priv")); // empty
-		accountLabels.add(new AccountLabel(Address.fromEncoded("QALICEBMLRCCYHAYBKUVAPLB2DMZIBZFFGIMJHSC"), "pub", "priv")); // invalid network
-
-		return accountLabels;
+		return Arrays.asList(
+			new AccountLabel(Address.fromEncoded(Utils.generateRandomAccount().getAddress().getEncoded() + "badness"), "pub", "priv"), // too long
+			new AccountLabel(Address.fromEncoded(""), "pub", "priv"), // empty
+			new AccountLabel(Address.fromEncoded("QALICEBMLRCCYHAYBKUVAPLB2DMZIBZFFGIMJHSC"), "pub", "priv")); // invalid network
 	}
 
 	/**
