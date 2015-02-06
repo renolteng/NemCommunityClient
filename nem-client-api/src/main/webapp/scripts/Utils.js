@@ -221,7 +221,7 @@ define(['TransactionType'], function(TransactionType) {
                     nem.decimalPart = decimalPart;
                     return nem;
                 },
-                 /**
+                /**
                  * @param {object} nem NEM Amount object
                  * @param {boolean} options.fixedDecimalPlaces apply a fixed number of decimal places
                  * @param {number} options.decimalPlaces decimal places to be applied, fallback to default if falsy
@@ -327,26 +327,25 @@ define(['TransactionType'], function(TransactionType) {
                 },
             },
             address: {
-                formatWithoutLabel: function(address) {
+                format: function(address) {
                     if (!address) return address;
                     var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
                     return segments.join('-').toUpperCase();
                 },
-                format: function(address) {
+                formatWithLabel: function(address) {
                     if (!address) return address;
-                    //var label = Utils.addressBook.findByAddress(address);
-                    var formattedAddress = Utils.format.address.formatWithoutLabel(address);
-                    //if (label)
-                    //    formattedAddress = label + ' ' + formattedAddress;
+                    var label = Utils.addressBook.findByAddress(address);
+                    var formattedAddress = Utils.format.address.format(address);
+                    if (label)
+                        formattedAddress = label + ' ' + formattedAddress;
 
                     return formattedAddress
                 },
                 restore: function(formattedAddress) {
                     if (!formattedAddress) return formattedAddress;
                     var address = formattedAddress.replace(/\-/g, '');
-                    return address;
-                    //var separatorIndex = address.indexOf(' ');
-                    //return address.substr(separatorIndex + 1);
+                    var separatorIndex = address.indexOf(' ');
+                    return address.substr(separatorIndex + 1);
                 }
             },
             date: {
@@ -376,26 +375,26 @@ define(['TransactionType'], function(TransactionType) {
                         var sec = date.getSeconds();
 
                         switch (format) {
-                        case 'MM/dd/yy hh:mm:ss':
-                            month = Utils.format.minDigits(month, 2);
-                            day = Utils.format.minDigits(day, 2);
-                            year = year.toString(10);
-                            year = year.substring(year.length - 2, year.length);
-                            hour = Utils.format.minDigits(hour, 2);
-                            min = Utils.format.minDigits(min, 2);
-                            sec = Utils.format.minDigits(sec, 2);
-                            return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
-                        case 'M dd, yyyy':
-                            month = this.shortMonths[month];
-                            day = Utils.format.minDigits(day, 2);
-                            return month + ' ' + day + ', ' + year;
-                        case 'M dd, yyyy hh:mm:ss':
-                            month = this.shortMonths[month];
-                            day = Utils.format.minDigits(day, 2);
-                            hour = Utils.format.minDigits(hour, 2);
-                            min = Utils.format.minDigits(min, 2);
-                            sec = Utils.format.minDigits(sec, 2);
-                            return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
+                            case 'MM/dd/yy hh:mm:ss':
+                                month = Utils.format.minDigits(month, 2);
+                                day = Utils.format.minDigits(day, 2);
+                                year = year.toString(10);
+                                year = year.substring(year.length - 2, year.length);
+                                hour = Utils.format.minDigits(hour, 2);
+                                min = Utils.format.minDigits(min, 2);
+                                sec = Utils.format.minDigits(sec, 2);
+                                return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
+                            case 'M dd, yyyy':
+                                month = this.shortMonths[month];
+                                day = Utils.format.minDigits(day, 2);
+                                return month + ' ' + day + ', ' + year;
+                            case 'M dd, yyyy hh:mm:ss':
+                                month = this.shortMonths[month];
+                                day = Utils.format.minDigits(day, 2);
+                                hour = Utils.format.minDigits(hour, 2);
+                                min = Utils.format.minDigits(min, 2);
+                                sec = Utils.format.minDigits(sec, 2);
+                                return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
                         }
                     } else {
                         return date;
@@ -676,8 +675,8 @@ define(['TransactionType'], function(TransactionType) {
                 tx.message = tx.inner.message;
 
                 tx.multisig={};
-                tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
-                tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
+                tx.multisig.formattedFrom = Utils.format.address.formatWithLabel(tx.inner.sender);
+                tx.multisig.formattedTo = Utils.format.address.formatWithLabel(tx.inner.recipient);
                 tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
@@ -719,12 +718,12 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = transferTransaction.direction === 3;
             }
 
-            tx.formattedSender = Utils.format.address.format(tx.sender);
+            tx.formattedSender = Utils.format.address.formatWithLabel(tx.sender);
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
+            tx.formattedRecipient = Utils.format.address.formatWithLabel(transferTransaction.recipient);
             tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
             return tx;
@@ -779,7 +778,7 @@ define(['TransactionType'], function(TransactionType) {
         },
         processContacts: function(ab) {
             for (var i = 0; i < ab.length; i++) {
-                ab[i].formattedAddress = Utils.format.address.formatWithoutLabel(ab[i].address);
+                ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
             }
 
             return ab;
