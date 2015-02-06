@@ -993,7 +993,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                                 var label = values.label;
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
-                                    ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), Utils.format.address.format(account), label)
+                                    ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), Utils.format.address.format(address), label)
                                 );
                                 ncc.refreshInfo();
                                 closeModal();
@@ -1032,6 +1032,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         },
                         function(values, closeModal) {
                             ncc.postRequest('wallet/account/remove', values, function(data) {
+                                var contacts = ncc.get('contacts');
+                                Utils.removeContact(contacts, account)
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
                                     ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), Utils.format.address.format(account), accountLabel)

@@ -58,4 +58,24 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	public Address getAccountAddress() {
 		return Address.readFrom(this.deserializer, "account");
 	}
+
+	/**
+	 * Gets the label if it was specified.
+	 *
+	 * @return The label.
+	 */
+	public String getLabel() {
+		// TODO 20150206 J-B: why not just call readOptionalString here?
+		// > and return "" if not present?
+		return deserializer.readString("label");
+	}
+
+	/**
+	 * Gets a value indicating whether or not a property is available.
+	 *
+	 * @return True if the property is available, false otherwise.
+	 */
+	public boolean propertyAvailable(final String name) {
+		return null != deserializer.readOptionalString(name);
+	}
 }
