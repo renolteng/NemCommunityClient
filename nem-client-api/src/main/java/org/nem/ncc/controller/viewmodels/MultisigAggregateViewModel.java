@@ -31,7 +31,7 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 
 	final List<ModificationWrapper> modifications;
 
-	public MultisigAggregateViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair accountData, final BlockHeight blockHeight) {
+	public MultisigAggregateViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight blockHeight) {
 		super(Type.Multisig_Modification, metaDataPair, blockHeight);
 
 		final MultisigAggregateModificationTransaction transaction = (MultisigAggregateModificationTransaction)metaDataPair.getTransaction();

@@ -34,6 +34,10 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 		if (other.getType() == TransactionTypes.TRANSFER) {
 			this.otherTransactionViewModel = new TransferTransactionViewModel(
 					new TransactionMetaDataPair(other, innerMetaData), relativeAccountAddress, lastBlockHeight);
+
+		} else if (other.getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION) {
+			this.otherTransactionViewModel = new MultisigAggregateViewModel(
+					new TransactionMetaDataPair(other, innerMetaData), lastBlockHeight);
 		} else {
 			throw new IllegalArgumentException("MultisigTransactionViewModel can handle only Transfers at the moment");
 		}
