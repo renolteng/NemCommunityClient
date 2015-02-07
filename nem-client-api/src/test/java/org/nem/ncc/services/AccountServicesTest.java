@@ -43,21 +43,42 @@ public class AccountServicesTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Address address = Utils.generateRandomAddress();
+
+		// Act:
+		final List<AccountMetaDataPair> pairs = getAccountMetaDataPairs(context, address);
+		// Assert:
+		Mockito.verify(context.connector, Mockito.times(1)).post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any());
+		Assert.assertThat(pairs.get(0).getAccount().getAddress(), IsEqual.equalTo(address));
+		Assert.assertThat(pairs.get(0).getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
+	}
+
+	@Test
+	public void getAccountMetaDataPairsIsBypassedIfDisconnectedFromNis() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		Mockito.when(context.connector.isConnected()).thenReturn(false);
+		final Address address = Utils.generateRandomAddress();
+
+		// Act:
+		final List<AccountMetaDataPair> pairs = getAccountMetaDataPairs(context, address);
+
+		// Assert:
+		Mockito.verify(context.connector, Mockito.never()).post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any());
+		Assert.assertThat(pairs.isEmpty(), IsEqual.equalTo(true));
+	}
+
+	private static List<AccountMetaDataPair> getAccountMetaDataPairs(final TestContext context, final Address requestAddress) {
+		// Arrange:
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
-				Utils.createAccountInfoFromAddress(address),
+				Utils.createAccountInfoFromAddress(requestAddress),
 				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList()));
-		final Collection<SerializableAccountId> requests = Arrays.asList(new SerializableAccountId(address));
+		final Collection<SerializableAccountId> requests = Arrays.asList(new SerializableAccountId(requestAddress));
 
 		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))
 				.thenReturn(serialize(new SerializableList<>(Arrays.asList(originalPair))));
 
 		// Act:
-		final List<AccountMetaDataPair> pairs = context.services.getAccountMetaDataPairs(requests).stream().collect(Collectors.toList());
-
-		// Assert:
-		Mockito.verify(context.connector, Mockito.times(1)).post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any());
-		Assert.assertThat(pairs.get(0).getAccount().getAddress(), IsEqual.equalTo(address));
-		Assert.assertThat(pairs.get(0).getMetaData().getStatus(), IsEqual.equalTo(AccountStatus.UNLOCKED));
+		return context.services.getAccountMetaDataPairs(requests).stream().collect(Collectors.toList());
 	}
 
 	//region NEW account/transactions API
