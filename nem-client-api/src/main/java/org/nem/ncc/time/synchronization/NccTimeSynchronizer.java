@@ -37,7 +37,6 @@ public class NccTimeSynchronizer implements TimeSynchronizer {
 
 	@Override
 	public java.util.concurrent.CompletableFuture<java.lang.Void> synchronizeTime() {
-		// TODO 20150207 J-B: i guess add a test for this
 		if (!this.nisConnector.isConnected()) {
 			LOGGER.warning("Time synchronization not possible, NIS not available.");
 			return CompletableFuture.completedFuture(null);
