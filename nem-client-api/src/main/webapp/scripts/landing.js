@@ -27,6 +27,10 @@
 	        };
 
 	        ncc.openWallet = function(wallet, password, walletData) {
+	        	if (password === "") {
+	        		ncc.showError(105);
+	        		return;
+	        	}
 	        	var setWalletData = function(data) {
 	        		ncc.set('wallet', Utils.processWallet(data));
 	            	ncc.set('activeAccount', Utils.processAccount(data.primaryAccount));
