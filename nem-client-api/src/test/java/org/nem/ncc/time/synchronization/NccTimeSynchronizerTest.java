@@ -66,6 +66,7 @@ public class NccTimeSynchronizerTest {
 		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
 
 		private TimeSynchronizationContext() {
+			Mockito.when(this.connector.isConnected()).thenReturn(true);
 			Mockito.when(this.timeProvider.getNetworkTime()).thenReturn(
 					new NetworkTimeStamp(0),
 					new NetworkTimeStamp(10));

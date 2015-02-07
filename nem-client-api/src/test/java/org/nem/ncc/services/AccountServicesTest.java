@@ -281,7 +281,10 @@ public class AccountServicesTest {
 
 	private static class TestContext {
 		private final PrimaryNisConnector connector = Mockito.mock(PrimaryNisConnector.class);
-
 		private final AccountServices services = new AccountServices(this.connector);
+
+		public TestContext() {
+			Mockito.when(this.connector.isConnected()).thenReturn(true);
+		}
 	}
 }
