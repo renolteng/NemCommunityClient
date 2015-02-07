@@ -368,7 +368,7 @@ public class NccAccountCacheTest {
 		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(
 				new TimeInstant(context.refreshInSeconds),
 				new TimeInstant(context.refreshInSeconds + 120),
-				new TimeInstant(130));
+				new TimeInstant(130)); // TODO 20150207 J-B: this doesn't really make sense any more as 130 is in the past relative to 181
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(Mockito.eq(requests)))
 				.thenReturn(Arrays.asList(context.pair1));

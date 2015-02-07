@@ -46,6 +46,7 @@ public class AccountServices {
 	 * @return The collection of account information.
 	 */
 	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<SerializableAccountId> requests) {
+		// TODO 20150207 J-B: i guess add a test for this
 		if (!this.nisConnector.isConnected()) {
 			LOGGER.warning("Account cache update not possible, NIS not available.");
 			return new ArrayList<>();
