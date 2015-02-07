@@ -92,9 +92,9 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private FreshnessPair findFreshnessPairByAddress(final Address id) {
-		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 		FreshnessPair freshnessPair = this.cache.getOrDefault(id, null);
 		if (null == freshnessPair) {
+			final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 			freshnessPair = new FreshnessPair(this.update(id, null), currentTime);
 			this.cache.put(id, freshnessPair);
 		}
