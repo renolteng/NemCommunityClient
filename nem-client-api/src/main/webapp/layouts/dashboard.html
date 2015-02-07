@@ -77,9 +77,9 @@
 					<div class="transactionsTile-overview">
 						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}</h1>
 						<p>
-							<span class="transactionsTile-balance" title="{{activeAccount.balanceInt}} NEM {{activeAccount.balanceDec}} µNEM" on-mouseover="registerToolTip">
+							<span class="transactionsTile-balance" title="{{activeAccount.balanceInt}} XEM {{activeAccount.balanceDec}} µXEM" on-mouseover="registerToolTip">
 								{{activeAccount.formattedBalance}} 
-								<span class="unit">NEM</span>
+								<span class="unit">XEM</span>
 							</span> 
 							<span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
 						</p>
@@ -93,8 +93,8 @@
 							<th class="txList-header txList-col--encrypted">{{texts.dashboard.transactions.columns.4}}</th>
 							<th class="txList-header">{{texts.dashboard.transactions.columns.5}}</th>
 							<th class="txList-header txList-col--confirmations">{{texts.dashboard.transactions.columns.6}}</th>
-							<th class="txList-header txList-col--fee">{{texts.dashboard.transactions.columns.7}} <span class="dimmed">(NEM)</span></th>
-							<th class="txList-header txList-col--amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(NEM)</span></th>
+							<th class="txList-header txList-col--fee">{{texts.dashboard.transactions.columns.7}} <span class="dimmed">(XEM)</span></th>
+							<th class="txList-header txList-col--amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(XEM)</span></th>
 						</tr>
 						{{#each activeAccount.transactions:i}}
 							{{#if i < 4}}
