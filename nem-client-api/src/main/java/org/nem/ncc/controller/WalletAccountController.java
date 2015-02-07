@@ -42,11 +42,7 @@ public class WalletAccountController {
 	@RequestMapping(value = "/wallet/account/new", method = RequestMethod.POST)
 	public AccountViewModel addNewAccount(@RequestBody final WalletNamePasswordBag bag) {
 		final WalletAccount account = new WalletAccount();
-		this.addToAddressBook(
-				new AddressBookName(bag.getName().toString()),
-				new AddressBookPassword(bag.getPassword().toString()),
-				account.getAddress(),
-				bag.propertyAvailable("label") ? bag.getLabel() : "");
+		this.addToAddressBook(bag, account.getAddress());
 		return this.addAccount(bag, account);
 	}
 
@@ -60,11 +56,8 @@ public class WalletAccountController {
 	public AccountViewModel addExistingAccount(@RequestBody final WalletNamePasswordBag bag) {
 		// TODO 20150206 J-B: consider having addToAddressBook take a bag an an address (all but the third parameter are derived from the bag the same way)
 		// > you could also have a function that opens an address book given a bag
-		this.addToAddressBook(
-				new AddressBookName(bag.getName().toString()),
-				new AddressBookPassword(bag.getPassword().toString()),
-				Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey()),
-				bag.propertyAvailable("label") ? bag.getLabel() : "");
+		// TODO 20150207 BR -> J: i had it that way but somehow didn't like it. Can't remember why though.
+		this.addToAddressBook(bag, Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey()));
 		return this.addAccount(bag, new WalletAccount(bag.getAccountPrivateKey()));
 	}
 
@@ -89,36 +82,32 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/remove", method = RequestMethod.POST)
 	public WalletViewModel removeAccount(@RequestBody final WalletNamePasswordBag bag) {
-		this.removeFromAddressBook(
-				new AddressBookName(bag.getName().toString()),
-				new AddressBookPassword(bag.getPassword().toString()),
-				bag.getAccountAddress());
+		this.removeFromAddressBook(bag);
 		final Wallet wallet = this.walletServices.open(bag);
 		wallet.removeAccount(bag.getAccountAddress());
 		return this.walletMapper.toViewModel(wallet);
 	}
 
 	private void addToAddressBook(
-			final AddressBookName name,
-			final AddressBookPassword password,
-			final Address address,
-			final String label) {
-		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(name, password));
+			final WalletNamePasswordBag bag,
+			final Address address) {
+		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(
+				new AddressBookName(bag.getName().toString()),
+				new AddressBookPassword(bag.getPassword().toString())));
 		if (addressBook.contains(address)) {
 			throw new AddressBookException(AddressBookException.Code.ADDRESS_BOOK_ALREADY_CONTAINS_ADDRESS);
 		}
 
-		final AccountLabel accountLabel = new AccountLabel(address, "", label);
+		final AccountLabel accountLabel = new AccountLabel(address, "", bag.getLabel());
 		addressBook.addLabel(accountLabel);
 	}
 
-	private void removeFromAddressBook(
-			final AddressBookName name,
-			final AddressBookPassword password,
-			final Address address) {
-		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(name, password));
-		if (addressBook.contains(address)) {
-			addressBook.removeLabel(address);
+	private void removeFromAddressBook(final WalletNamePasswordBag bag) {
+		final AddressBook addressBook = this.addressBookServices.open(new AddressBookNamePasswordPair(
+				new AddressBookName(bag.getName().toString()),
+				new AddressBookPassword(bag.getPassword().toString())));
+		if (addressBook.contains(bag.getAccountAddress())) {
+			addressBook.removeLabel(bag.getAccountAddress());
 		}
 	}
 

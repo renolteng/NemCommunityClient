@@ -162,12 +162,12 @@ public class WalletNamePasswordBagTest {
 	//region getLabel
 
 	@Test
-	public void getLabelFailsIfLabelIsNotSpecified() {
+	public void getLabelReturnsEmptyStringIfLabelIsNotSpecified() {
 		// Act:
 		final WalletNamePasswordBag bag = createBagFromJson("name", "password");
 
 		// Assert:
-		assertThrowsMissingPropertyException(bag::getLabel, "label");
+		Assert.assertThat(bag.getLabel().isEmpty(), IsEqual.equalTo(true));
 	}
 
 	@Test

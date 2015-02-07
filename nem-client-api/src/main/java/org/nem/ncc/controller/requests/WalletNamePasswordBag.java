@@ -67,15 +67,8 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	public String getLabel() {
 		// TODO 20150206 J-B: why not just call readOptionalString here?
 		// > and return "" if not present?
-		return deserializer.readString("label");
-	}
-
-	/**
-	 * Gets a value indicating whether or not a property is available.
-	 *
-	 * @return True if the property is available, false otherwise.
-	 */
-	public boolean propertyAvailable(final String name) {
-		return null != deserializer.readOptionalString(name);
+		// TODO 20150207 BR -> J: for now that is ok since we are only using it in WalletAccountController ans always need a label (even if it is an empty string).
+		final String label = deserializer.readOptionalString("label");
+		return null == label ? "" : label;
 	}
 }
