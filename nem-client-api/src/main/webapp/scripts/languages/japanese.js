@@ -239,7 +239,7 @@ define({
 					message: "NEMを送信する前に、ローカルノードを起動する必要があります。"
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
+					title: 'ノードは起動中',
 					message: 'Please wait until booting process is done to send your transaction.'
 				}
 			},
@@ -260,23 +260,23 @@ define({
 				id: "ID",
 				hash: "ハッシュ",
 				type: "トランザクションのタイプ",
-				direction: 'Transaction Direction',
+				direction: 'トランザクションの方向',
 				pending: "処理中",
 				outgoing: "送金",
 				incoming: "入金",
 				self: "自分",
 				sender: "送信元",
-				multisigAccount: 'Multisig Account',
+				multisigAccount: '複数調印のみアカウント',
 				issuer: 'Issuer',
 				recipient: "受取先",
 				remote: 'Remote',
-				multisigMessage: 'Signatures present',
+				multisigMessage: '調印あり',
 				message: "メッセージ",
 				noMessage: "メッセージなし",
 				encrypted: "暗号化されたメッセージ",
 				time: "タイムスタンプ",
 				confirmations: "承認数",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: '承認数不明',
 				amount: "量",
 				fee: "手数料",
 				innerFee: 'Inner Fee',
@@ -452,16 +452,16 @@ define({
 
 			},
 			addContact: {
-				title: 'Add contact',
+				title: '新規連絡先',
 				add: "追加"
 			},
 			editContact: {
-				title: 'Edit contact',
+				title: '連絡先を編集',
 				saveChanges: "変更を保存する",
 
 			},
 			removeContact: {
-				title: 'Remove contact',
+				title: '連絡先を削除',
 				remove: "削除",
 
 			}
@@ -556,7 +556,7 @@ define({
 				closeWallet: "ウォレットを閉じる",
 				closeProgram: "終了する",
 				copyClipboard: "アドレスをクリップボードにコピーする",
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: '複数調印アカウントに変換する'
 			},
 			nav: [
 				"ダッシュボード",
@@ -598,10 +598,10 @@ define({
 			transactions: {
 				title: "直近の取引",
 				sendNem: "XEMの送金",
-				signMultisig: 'SIGN',
+				signMultisig: '調印する',
 				balance: "現在の残高",
 				syncStatus: "(現在同期しているブロック: {{1}}{{#2}} 推定で {{3}} 日前の取引{{/2}})",
-				unknown: "unknown",
+				unknown: "不明",
 				columns: [
 					"",
 					"時間",
@@ -616,7 +616,7 @@ define({
 				noMessage: "メッセージはありません",
 				encrypted: "メッセージは暗号化されています。",
 				view: "表示",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: '不明',
 				pending: "未処理（未検証）",
 				seeAll: "すべてのトランザクション(取引)を見る",
 				noTransactions: "まだ取引は行われていません。"
@@ -630,7 +630,7 @@ define({
 			news: {
 				titleTooltip: "ニュース"
 			},
-			notAvailable: "アルファ版ではまだ利用できません。"
+			notAvailable: "ベータ版ではまだ利用できません。"
 		},
 		transactions: {
 			title: "取引",
@@ -658,7 +658,7 @@ define({
 				noMessage: "メッセージなし",
 				encrypted: "メッセージを暗号させた",
 				view: "提示",
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: '不明',
 				pending: "未定",
 				noTransactions: "まだ取引は行われていません。",
 				loading: "過去のトランザクションを見る"
@@ -667,7 +667,7 @@ define({
 		harvestedBlocks: {
 			title: "ハーベストされたブロック",
 			feeEarned: "現在のブロックから25ブロック前から発生する収入",
-			unknown: 'Unknown',
+			unknown: '不明',
 			table: {
 				columns: [
 					"ブロック番号",
@@ -684,25 +684,25 @@ define({
 				harvesting: "ハーベスティング",
 				stop: "ハーベスティングを停止する",
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'リモートハーベスティングを開始する',
+					stopRemoteHarvesting: 'リモートハーベスティングを停止する'
 				}
 			}
 		},
 		addressBook: {
-			title: 'Address book',
-			addContact: 'Add contact',
+			title: '連絡先',
+			addContact: '新規連絡先',
 			table: {
 				columns: [
-					'Account address',
-					'Private Label',
-					'Public Label'
+					'NEMアドレス',
+					'非公開レベル',
+					'一般公開レベル'
 				],
-				noContacts: 'There is no contacts in your address book'
+				noContacts: '連絡先無し'
 			},
-			noLabel: 'No label',
+			noLabel: 'レベル無し',
 			sendNem: "XEMを送金する",
-			edit: 'Edit',
+			edit: '編集',
 			remove: "削除"
 		},
 		settings: {
