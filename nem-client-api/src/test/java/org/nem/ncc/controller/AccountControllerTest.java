@@ -466,7 +466,7 @@ public class AccountControllerTest {
 					.thenAnswer(invocationOnMock -> {
 						final Address address = (Address)invocationOnMock.getArguments()[0];
 						return new AccountMetaDataPair(
-								new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, null, 0.0),
+								new AccountInfo(address, Amount.ZERO, Amount.ZERO, BlockAmount.ZERO, null, 0.0),
 								Mockito.mock(AccountMetaData.class));
 					});
 		}

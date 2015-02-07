@@ -72,6 +72,7 @@ public class NccAccountCacheTest {
 		final AccountInfo accountInfo = new AccountInfo(
 				address,
 				Amount.fromNem(271),
+				Amount.fromNem(234),
 				new BlockAmount(3),
 				"label",
 				3.7);

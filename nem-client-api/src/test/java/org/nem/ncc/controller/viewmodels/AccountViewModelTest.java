@@ -126,10 +126,11 @@ public class AccountViewModelTest {
 	}
 
 	private static void assertAccountInfoMatches(final JSONObject jsonAccountInfo, final AccountInfo originalAccountInfo) {
-		Assert.assertThat(jsonAccountInfo.size(), IsEqual.equalTo(6));
+		Assert.assertThat(jsonAccountInfo.size(), IsEqual.equalTo(7));
 		Assert.assertThat(jsonAccountInfo.get("address"), IsEqual.equalTo(originalAccountInfo.getAddress().getEncoded()));
 		Assert.assertThat(jsonAccountInfo.get("publicKey"), IsNull.nullValue());
 		Assert.assertThat(jsonAccountInfo.get("balance"), IsEqual.equalTo(originalAccountInfo.getBalance().getNumMicroNem()));
+		Assert.assertThat(jsonAccountInfo.get("vestedBalance"), IsEqual.equalTo(originalAccountInfo.getVestedBalance().getNumMicroNem()));
 		Assert.assertThat(jsonAccountInfo.get("importance"), IsEqual.equalTo(originalAccountInfo.getImportance()));
 		Assert.assertThat(jsonAccountInfo.get("harvestedBlocks"), IsEqual.equalTo(originalAccountInfo.getNumHarvestedBlocks().getRaw()));
 		Assert.assertThat(jsonAccountInfo.get("label"), IsEqual.equalTo(originalAccountInfo.getLabel()));
@@ -147,6 +148,7 @@ public class AccountViewModelTest {
 		return new AccountInfo(
 				address,
 				Amount.fromNem(271),
+				Amount.fromNem(234),
 				new BlockAmount(3),
 				label,
 				3.7);
