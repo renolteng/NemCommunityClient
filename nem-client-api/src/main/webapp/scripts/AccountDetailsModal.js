@@ -8,7 +8,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 			},
 			formattedBalance: function() {
 				return Utils.format.nem.formatNemAmount(this.get('account.balance'));
-			}
+			},
+			formattedVestedBalance: function() {
+                return Utils.format.nem.formatNemAmount(this.get('account.vestedBalance'));
+            }
 		},
 		addContact: function(address) {
 			ncc.addContact(address);

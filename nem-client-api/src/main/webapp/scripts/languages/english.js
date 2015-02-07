@@ -288,6 +288,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -586,6 +587,7 @@ define({
 				sendNem: 'Send XEM',
 				signMultisig: 'SIGN',
 				balance: 'Current Balance',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				unknown: 'unknown',
 				columns: [

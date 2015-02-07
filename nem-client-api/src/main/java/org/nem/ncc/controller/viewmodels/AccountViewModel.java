@@ -16,6 +16,7 @@ public class AccountViewModel implements SerializableEntity {
 	private final AccountRemoteStatus remoteStatus;
 	private final PublicKey publicKey;
 	private final Amount balance;
+	private final Amount vestedBalance;
 	private final BlockAmount harvestedBlocks;
 	private final Double importance;
 	private final AccountStatus status;
@@ -55,6 +56,7 @@ public class AccountViewModel implements SerializableEntity {
 				: info.getKeyPair().getPublicKey();
 
 		this.balance = info.getBalance();
+		this.vestedBalance = info.getVestedBalance();
 		this.harvestedBlocks = info.getNumHarvestedBlocks();
 		this.importance = info.getImportance();
 		this.status = status;
@@ -95,6 +97,15 @@ public class AccountViewModel implements SerializableEntity {
 	 */
 	public Amount getBalance() {
 		return this.balance;
+	}
+
+	/**
+	 * Gets the account vested balance.
+	 *
+	 * @return The balance.
+	 */
+	public Amount getVestedBalance() {
+		return this.vestedBalance;
 	}
 
 	/**
@@ -139,6 +150,7 @@ public class AccountViewModel implements SerializableEntity {
 		AccountRemoteStatus.writeTo(serializer, "remoteStatus", this.remoteStatus);
 		serializer.writeBytes("publicKey", null == this.publicKey ? null : this.publicKey.getRaw());
 		Amount.writeTo(serializer, "balance", this.balance);
+		Amount.writeTo(serializer, "vestedBalance", this.vestedBalance);
 		serializer.writeDouble("importance", this.importance);
 		BlockAmount.writeTo(serializer, "harvestedBlocks", this.harvestedBlocks);
 		AccountStatus.writeTo(serializer, "status", this.status);

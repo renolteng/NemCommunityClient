@@ -80,9 +80,12 @@
 							<span class="transactionsTile-balance" title="{{activeAccount.balanceInt}} XEM {{activeAccount.balanceDec}} µXEM" on-mouseover="registerToolTip">
 								{{activeAccount.formattedBalance}} 
 								<span class="unit">XEM</span>
-							</span> 
-							<span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
+							</span>
+                            <span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
 						</p>
+                        <p>
+                            <span>{{texts.dashboard.transactions.vestedBalance}} {{activeAccount.formattedVestedBalance}}</span>
+                        </p>
 					</div>
 					<table class="txList">
 						<tr>
