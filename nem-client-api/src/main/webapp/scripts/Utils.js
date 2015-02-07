@@ -673,6 +673,7 @@ define(['TransactionType'], function(TransactionType) {
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.recipient = transferTransaction.recipient
                 tx.message = tx.inner.message;
+                tx.innerType = tx.inner.type;
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.formatWithLabel(tx.inner.sender);

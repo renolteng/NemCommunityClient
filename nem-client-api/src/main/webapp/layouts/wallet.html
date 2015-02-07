@@ -749,7 +749,7 @@
 			<tr>
 				<td class="table-cell table-cell--label"><strong>{{texts.modals.transactionDetails.type}}</strong></td>
 				<td class="table-cell table-cell--content">
-					{{texts.transactionTypes[.type - 1]}}
+					{{texts.transactionTypes[.type - 1]}} {{#innerType}}({{texts.transactionTypes[.innerType - 1]}}){{/innerType}}
 				</td>
 			</tr>
 
@@ -759,7 +759,26 @@
             </tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.direction}}</td>
-				<td class="table-cell table-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
+				<td class="table-cell table-cell--content">
+                    {{#.isPending}}
+                        {{texts.modals.transactionDetails.pending}}
+                    {{else}}
+                        {{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Aggregate_Modification)}}
+                            {{#if (.type === TransactionType.Importance_Transfer)}}
+                                {{texts.transactionDirections.importance}}
+                            {{else}}
+                                {{texts.transactionDirections.modification}}
+                            {{/if}}
+                        {{else}}
+                            {{#if (.isSelf || .isOutgoing || .isIncoming)}}
+                                {{#.isSelf}}{{texts.transactionDirections.self}}{{/}}
+                                {{#.isOutgoing}}{{texts.transactionDirections.incoming}}{{/}}
+                                {{#.isIncoming}}{{texts.transactionDirections.outgoing}}{{/}}
+                            {{else}}
+                                Multisig
+                            {{/if}}
+                        {{/if}}
+                    {{/}}
 			</tr>
 			<tr>
 				{{#if (.type === TransactionType.Multisig_Transfer)}}
