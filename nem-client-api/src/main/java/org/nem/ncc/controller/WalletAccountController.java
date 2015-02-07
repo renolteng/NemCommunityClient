@@ -54,9 +54,6 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/add", method = RequestMethod.POST)
 	public AccountViewModel addExistingAccount(@RequestBody final WalletNamePasswordBag bag) {
-		// TODO 20150206 J-B: consider having addToAddressBook take a bag an an address (all but the third parameter are derived from the bag the same way)
-		// > you could also have a function that opens an address book given a bag
-		// TODO 20150207 BR -> J: i had it that way but somehow didn't like it. Can't remember why though.
 		this.addToAddressBook(bag, Address.fromPublicKey(new KeyPair(bag.getAccountPrivateKey()).getPublicKey()));
 		return this.addAccount(bag, new WalletAccount(bag.getAccountPrivateKey()));
 	}
