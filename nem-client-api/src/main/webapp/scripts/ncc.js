@@ -204,22 +204,35 @@ define(function(require) {
                     var noErrorModal = settings.altFailCb(faultId, error);
                 }
                 if (!silent && !noErrorModal) {
-                    self.showError(faultId);
+                    self.showError(faultId, error);
                 }
                 return false;
             }
 
             if (undefined !== data.error) {
+                var propertyName = undefined;
+                if (400 == data.status)
                 switch (data.status) {
                     case 200:
+                        return true;
+
+                    case 400:
+                        var propertyNameRegex = /property (.*),/i;
+                        propertyName = data.message.match(propertyNameRegex)[1];
                         break;
 
                     case 601: // NODE_ALREADY_BOOTED
                         silent = true;
-
-                    default:
-                        return showError(data.status);
+                        break;
                 }
+
+                var message = undefined;
+                if (propertyName) {
+                    message = this.get('texts.faults.' + data.status);
+                    message += ' (' + propertyName + ')';
+                }
+
+                return showError(data.status, message);
             }
 
             return true;
