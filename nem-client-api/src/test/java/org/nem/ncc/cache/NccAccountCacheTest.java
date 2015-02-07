@@ -224,7 +224,7 @@ public class NccAccountCacheTest {
 		// Arrange:
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(3);
 		final TestContext context = new TestContext();
-		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(3));
+		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(context.refreshInSeconds));
 		context.setAccountServicesFailure(); // fail the services lookup so that the seed account is not replaced
 
 		// Act:
@@ -253,7 +253,7 @@ public class NccAccountCacheTest {
 		// Arrange:
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(3);
 		final TestContext context = new TestContext();
-		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(3));
+		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(context.refreshInSeconds));
 		context.setAccountServicesFailure(); // fail the services lookup so that the seed account is not replaced
 
 		// Act:
@@ -365,7 +365,10 @@ public class NccAccountCacheTest {
 		final TestContext context = new TestContext();
 		final List<AccountInfo> accounts = Utils.generateRandomAccountInfos(2);
 		final List<SerializableAccountId> requests = Arrays.asList(new SerializableAccountId(accounts.get(0).getAddress()));
-		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(1), new TimeInstant(120), new TimeInstant(130));
+		Mockito.when(context.timeProvider.getCurrentTime()).thenReturn(
+				new TimeInstant(context.refreshInSeconds),
+				new TimeInstant(context.refreshInSeconds + 120),
+				new TimeInstant(130));
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(Mockito.eq(requests)))
 				.thenReturn(Arrays.asList(context.pair1));
@@ -404,13 +407,14 @@ public class NccAccountCacheTest {
 		private final Address address = Address.fromEncoded("sigma");
 		private final AccountMetaDataPair pair1 = new AccountMetaDataPair(Utils.generateRandomAccountInfo(), null);
 		private final AccountMetaDataPair pair2 = new AccountMetaDataPair(Utils.generateRandomAccountInfo(), null);
+		private final int refreshInSeconds = 60;
 
 		private final AccountServices accountServices = Mockito.mock(AccountServices.class);
 		private final TimeProvider timeProvider = Mockito.mock(TimeProvider.class);
-		private final NccAccountCache cache = new NccAccountCache(this.accountServices, this.timeProvider, 60);
+		private final NccAccountCache cache = new NccAccountCache(this.accountServices, this.timeProvider, this.refreshInSeconds);
 
 		public TestContext() {
-			Mockito.when(this.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(52));
+			Mockito.when(this.timeProvider.getCurrentTime()).thenReturn(new TimeInstant(this.refreshInSeconds));
 			Mockito.when(this.accountServices.getAccountMetaDataPair(this.address))
 					.thenReturn(this.pair1, this.pair2);
 		}

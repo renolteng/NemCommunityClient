@@ -17,8 +17,8 @@ public class NccScheduler implements AutoCloseable {
 	private static final int TIME_SYNC_INITIAL_DELAY = 10 * ONE_SECOND;
 	private static final int TIME_SYNC_INTERVAL = ONE_MINUTE;
 
-	private static final int CACHE_UPDATE_INITIAL_DELAY = 10 * ONE_SECOND;
-	private static final int CACHE_UPDATE_INTERVAL = ONE_MINUTE;
+	private static final int CACHE_UPDATE_INITIAL_DELAY = 3 * ONE_SECOND;
+	private static final int CACHE_UPDATE_INTERVAL = 3 * ONE_SECOND;
 
 	private final TimeProvider timeProvider;
 	private final Optional<Integer> customInitialDelay;
