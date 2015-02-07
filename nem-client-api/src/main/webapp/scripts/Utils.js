@@ -674,22 +674,26 @@ define(['TransactionType'], function(TransactionType) {
             tx.mainType = tx.type;
 
             // multisig
-            if (tx.type == TransactionType.Multisig_Transfer) {
+            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification) {
                 tx.isMultisig = true;
-                transferTransaction = tx.inner;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
-                tx.recipient = transferTransaction.recipient
-                tx.message = tx.inner.message;
                 tx.innerType = tx.inner.type;
                 tx.mainType = tx.inner.type;
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.formatWithLabel(tx.inner.sender);
-                tx.multisig.formattedTo = Utils.format.address.formatWithLabel(tx.inner.recipient);
-                tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
+
+                if (tx.type === TransactionType.Multisig_Transfer) {
+                    tx.multisig.formattedTo = Utils.format.address.formatWithLabel(tx.inner.recipient);
+                    tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                    tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
+
+                    transferTransaction = tx.inner;
+                    tx.recipient = transferTransaction.recipient
+                    tx.message = tx.inner.message;
+                }
 
                 var fees = tx.fee + tx.signatures
                     .map(function(d){return d.fee})
