@@ -21,7 +21,13 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	private final Address issuer;
 
 	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccoundData, final BlockHeight lastBlockHeight) {
-		super(Type.Multisig_Transfer, metaDataPair, lastBlockHeight);
+
+
+		super(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType() ==  TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION ?
+						Type.Multisig_Multisig_Modification :
+						Type.Multisig_Transfer,
+				metaDataPair,
+				lastBlockHeight);
 		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
 		final Transaction other = multisigTransaction.getOtherTransaction();
 		final Address relativeAccountAddress = relativeAccoundData.getAccount().getAddress();

@@ -7,6 +7,7 @@ define(function() {
         , Aggregate_Modification: 3
         , Multisig_Transfer: 4
         , Multisig_Signature: 5
+        , Multisig_Aggregate_Modification: 6
     };
 
     return TransactionType;

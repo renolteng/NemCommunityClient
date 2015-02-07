@@ -666,6 +666,13 @@ define(['TransactionType'], function(TransactionType) {
         processTransaction: function(tx) {
             var transferTransaction = tx;
             var currentFee = 0;
+
+            // there are three types now, to make ui templates simpler:
+            // tx.type - this is type of transaction
+            // tx.maintype - this is either type of transaction or in case of multisig type of inner transaction
+            // tx.innerType - only avail for multisig transactions, this is shortcut for tx.inner.type
+            tx.mainType = tx.type;
+
             // multisig
             if (tx.type == TransactionType.Multisig_Transfer) {
                 tx.isMultisig = true;
@@ -674,6 +681,7 @@ define(['TransactionType'], function(TransactionType) {
                 tx.recipient = transferTransaction.recipient
                 tx.message = tx.inner.message;
                 tx.innerType = tx.inner.type;
+                tx.mainType = tx.inner.type;
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.formatWithLabel(tx.inner.sender);
