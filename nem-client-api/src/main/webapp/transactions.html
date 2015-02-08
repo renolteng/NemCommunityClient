@@ -109,7 +109,8 @@
 							{{/}}
 							{{#.sublabel}}
 								<p class="form-sublabel {{#nullContent}}form-sublabel-nullContent{{/}}">
-									{{.content}}
+									{{#nullContent}}{{{.content}}}{{/}}
+									{{^nullContent}}{{.content}}{{/}}
 								</p>
 							{{/}}
 						</div>
