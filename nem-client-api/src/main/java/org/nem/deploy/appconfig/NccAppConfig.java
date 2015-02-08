@@ -19,7 +19,6 @@ import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 import org.springframework.context.annotation.*;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**

@@ -1,7 +1,7 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.model.*;
-import org.nem.core.model.ncc.*;
+import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
 

@@ -65,7 +65,7 @@ public class WalletNamePasswordBag extends WalletNamePasswordPair {
 	 * @return The label.
 	 */
 	public String getLabel() {
-		final String label = deserializer.readOptionalString("label");
+		final String label = this.deserializer.readOptionalString("label");
 		return null == label ? "" : label;
 	}
 }

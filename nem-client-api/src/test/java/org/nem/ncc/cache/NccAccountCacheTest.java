@@ -6,7 +6,6 @@ import org.mockito.*;
 import org.nem.core.connect.ErrorResponse;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
-import org.nem.core.model.primitive.*;
 import org.nem.core.time.*;
 import org.nem.ncc.exceptions.NisException;
 import org.nem.ncc.services.AccountServices;

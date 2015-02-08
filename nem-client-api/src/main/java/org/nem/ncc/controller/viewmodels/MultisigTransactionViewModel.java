@@ -22,8 +22,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 
 	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccoundData, final BlockHeight lastBlockHeight) {
 
-
-		super(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType() ==  TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION ?
+		super(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION ?
 						Type.Multisig_Multisig_Modification :
 						Type.Multisig_Transfer,
 				metaDataPair,
@@ -40,7 +39,6 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 		if (other.getType() == TransactionTypes.TRANSFER) {
 			this.otherTransactionViewModel = new TransferTransactionViewModel(
 					new TransactionMetaDataPair(other, innerMetaData), relativeAccountAddress, lastBlockHeight);
-
 		} else if (other.getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION) {
 			this.otherTransactionViewModel = new MultisigAggregateViewModel(
 					new TransactionMetaDataPair(other, innerMetaData), lastBlockHeight);
