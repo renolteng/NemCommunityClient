@@ -68,7 +68,8 @@ public class NodeStatusToIconDescriptorAdapterTest {
 		final NemStatus[] bootedStatuses = new NemStatus[] {
 				NemStatus.BOOTING,
 				NemStatus.BOOTED,
-				NemStatus.NO_REMOTE_NIS_AVAILABLE
+				NemStatus.NO_REMOTE_NIS_AVAILABLE,
+				NemStatus.LOADING
 		};
 
 		final Map<StatusPair, IconDescriptor> statusToDescriptorMap = new HashMap<>();
@@ -99,7 +100,8 @@ public class NodeStatusToIconDescriptorAdapterTest {
 				NemStatus.BOOTING,
 				NemStatus.BOOTED,
 				NemStatus.NO_REMOTE_NIS_AVAILABLE,
-				NemStatus.SYNCHRONIZED
+				NemStatus.SYNCHRONIZED,
+				NemStatus.LOADING
 		};
 		for (final NemStatus status : runningStatuses) {
 			statusToDescriptorMap.put(new StatusPair(status, NemStatus.UNKNOWN), ICON_31_DESCRIPTOR);
