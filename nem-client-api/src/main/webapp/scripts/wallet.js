@@ -283,6 +283,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         },
                         {
                             name: 'address',
+                            readonly: true,
+                            unimportant: true,
                             type: 'text',
                             label: {
                                 content: ncc.get('texts.common.address')
@@ -334,6 +336,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         {
                             name: 'address',
                             type: 'text',
+                            readonly: true,
+                            unimportant: true,
                             label: {
                                 content: ncc.get('texts.common.address')
                             }
