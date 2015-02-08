@@ -69,13 +69,7 @@ public class NccAccountCacheTest {
 	public void cacheAutomaticallyMapsAccountInfoToAccount() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddressWithPublicKey();
-		final AccountInfo accountInfo = new AccountInfo(
-				address,
-				Amount.fromNem(271),
-				Amount.fromNem(234),
-				new BlockAmount(3),
-				"label",
-				3.7);
+		final AccountInfo accountInfo = Utils.createAccountInfoFromAddress(address);
 
 		final TestContext context = new TestContext();
 		Mockito.when(context.accountServices.getAccountMetaDataPair(address))

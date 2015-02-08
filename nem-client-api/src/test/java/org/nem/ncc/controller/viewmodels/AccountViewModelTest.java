@@ -27,6 +27,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
 		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
+		Assert.assertThat(viewModel.getVestedBalance(), IsEqual.equalTo(Amount.fromNem(234)));
 		Assert.assertThat(viewModel.getHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.nullValue());
@@ -64,6 +65,7 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
 		Assert.assertThat(viewModel.getRemoteStatus(), IsEqual.equalTo(AccountRemoteStatus.INACTIVE));
 		Assert.assertThat(viewModel.getBalance(), IsEqual.equalTo(Amount.fromNem(271)));
+		Assert.assertThat(viewModel.getVestedBalance(), IsEqual.equalTo(Amount.fromNem(234)));
 		Assert.assertThat(viewModel.getHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(3)));
 		Assert.assertThat(viewModel.getImportance(), IsEqual.equalTo(3.7));
 		Assert.assertThat(viewModel.getPublicKey(), IsNull.nullValue());
@@ -84,11 +86,12 @@ public class AccountViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(9));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(jsonObject.get("remoteStatus"), IsEqual.equalTo("INACTIVE"));
 		Assert.assertThat(jsonObject.get("publicKey"), IsEqual.equalTo(address.getPublicKey().toString()));
 		Assert.assertThat(jsonObject.get("balance"), IsEqual.equalTo(271000000L));
+		Assert.assertThat(jsonObject.get("vestedBalance"), IsEqual.equalTo(234000000L));
 		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
 		Assert.assertThat(jsonObject.get("harvestedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));
@@ -107,11 +110,12 @@ public class AccountViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(7));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(jsonObject.get("remoteStatus"), IsEqual.equalTo("INACTIVE"));
 		Assert.assertThat(jsonObject.get("publicKey"), IsEqual.equalTo(address.getPublicKey().toString()));
 		Assert.assertThat(jsonObject.get("balance"), IsEqual.equalTo(271000000L));
+		Assert.assertThat(jsonObject.get("vestedBalance"), IsEqual.equalTo(234000000L));
 		Assert.assertThat(jsonObject.get("importance"), IsEqual.equalTo(3.7));
 		Assert.assertThat(jsonObject.get("harvestedBlocks"), IsEqual.equalTo(3L));
 		Assert.assertThat(jsonObject.get("status"), IsEqual.equalTo("LOCKED"));

@@ -97,7 +97,7 @@ public class GraphUtils {
 	public static Node createNode() {
 		final KeyPair keyPair = new KeyPair(Utils.generateRandomPublicKey());
 		final NodeEndpoint endpoint = new NodeEndpoint("http", "localhost", 8080);
-		final NodeMetaData metaData = new NodeMetaData("p", "a", new NodeVersion(1, 0, 0), 0);
+		final NodeMetaData metaData = new NodeMetaData("p", "a");
 		final NodeIdentity identity = new NodeIdentity(keyPair, "Hi, I am Alice");
 		return new Node(identity, endpoint, metaData);
 	}
@@ -111,7 +111,7 @@ public class GraphUtils {
 	public static Node createNode(final String name) {
 		final KeyPair keyPair = new KeyPair(Utils.generateRandomPublicKey());
 		final NodeEndpoint endpoint = new NodeEndpoint("http", "localhost", 8080);
-		final NodeMetaData metaData = new NodeMetaData("p", "a", new NodeVersion(1, 0, 0), 0);
+		final NodeMetaData metaData = new NodeMetaData("p", "a");
 		final NodeIdentity identity = new NodeIdentity(keyPair, name);
 		return new Node(identity, endpoint, metaData);
 	}
@@ -125,7 +125,7 @@ public class GraphUtils {
 	public static Node createNodeFromHost(final String host) {
 		final KeyPair keyPair = new KeyPair(Utils.generateRandomPublicKey());
 		final NodeEndpoint endpoint = new NodeEndpoint("http", host, 8080);
-		final NodeMetaData metaData = new NodeMetaData("p", "a", new NodeVersion(1, 0, 0), 0);
+		final NodeMetaData metaData = new NodeMetaData("p", "a");
 		final NodeIdentity identity = new NodeIdentity(keyPair);
 		return new Node(identity, endpoint, metaData);
 	}
@@ -142,7 +142,7 @@ public class GraphUtils {
 		}
 
 		final NodeEndpoint endpoint = new NodeEndpoint("http", "localhost", 8080);
-		final NodeMetaData metaData = new NodeMetaData("p", "a", new NodeVersion(1, 0, 0), 0);
+		final NodeMetaData metaData = new NodeMetaData("p", "a");
 		final NodeIdentity identity = new NodeIdentity(keyPair, "Hi, I am Alice");
 		return new Node(identity, endpoint, metaData);
 	}

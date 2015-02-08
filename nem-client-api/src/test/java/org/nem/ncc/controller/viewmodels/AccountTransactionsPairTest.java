@@ -33,7 +33,7 @@ public class AccountTransactionsPairTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(pair);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(8));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(9));
 		Assert.assertThat(jsonObject.get("address"), IsEqual.equalTo(account.getAddress().getEncoded()));
 		Assert.assertThat(((JSONArray)jsonObject.get("transactions")).size(), IsEqual.equalTo(0));
 	}
