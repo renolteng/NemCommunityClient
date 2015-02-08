@@ -45,7 +45,7 @@ public class AdminControllerTest {
 		Thread.sleep(500);
 
 		// Assert:
-		Mockito.verify(commonStarter, Mockito.times(1)).stopServer();
+		Mockito.verify(commonStarter, Mockito.times(1)).stopServerAsync();
 		Mockito.verify(repository, Mockito.times(1)).save(cache.getAccounts());
 	}
 

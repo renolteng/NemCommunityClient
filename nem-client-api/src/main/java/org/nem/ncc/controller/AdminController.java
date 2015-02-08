@@ -47,15 +47,8 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/shutdown", method = RequestMethod.GET)
 	public void shutdown() {
-		LOGGER.info(String.format("Async shut-down initiated in %d msec.", SHUTDOWN_DELAY));
-		final Runnable r = () -> {
-			ExceptionUtils.propagateVoid(() -> Thread.sleep(SHUTDOWN_DELAY));
-			this.flushAccountsCache();
-			this.commonStarter.stopServer();
-		};
-
-		final Thread thread = new Thread(r);
-		thread.start();
+		this.flushAccountsCache();
+		this.commonStarter.stopServerAsync();
 	}
 
 	/**
