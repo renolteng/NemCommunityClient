@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: 'Невозможно сохранить файл конфигурации',
 			600: 'Для отсылки и приёма транзакций, NCC требует перезагрузку NIS сервера. Пожалуйста, используйте меню NCC для перезагрузки в локальный узел.',
 			601: 'NIS узел уже запущен. Повторная попытка перезагрузки NIS невозможна.',
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Предоставленный аккаунт не соответствует базовым требованиям для Генерации . В основном, это связанно с количеством NEM на счету.  Генерация начинается хотя бы с 1,000 XEM.',
 			701: 'Предоставленный срок завершения в прошлом. Срок должен быть предоставлен в течении 1-дневного периода.',
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: 'NIS не доступен',
 				nisStarting: 'NIS is starting...',
 				notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+				loading: 'Loading blocks from db, at block: ',
 				booting: 'Booting NIS...',
 				nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
 				synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
@@ -94,7 +97,7 @@ define({
 			privateLabel: 'Приватная маркировка',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: 'Послать XEM',
 				signMultisig: 'SIGN',
 				balance: 'Текущий Баланс',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(Блок {{1}}{{#2}} : примерно {{3}} дней{{/2}})',
 				unknown: 'неизвестно',
 				columns: [

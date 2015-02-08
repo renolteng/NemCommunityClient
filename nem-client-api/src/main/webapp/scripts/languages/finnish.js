@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: "Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.",
 			600: "NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.",
 			601: "NIS node on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Louhintaa (Harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.",
 			701: "Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NIS ei ole käytetttävissä",
 				nisStarting: "NIS on käynnistymässä...",
 				notBooted: "NIS on käynnistettävä uudelleen. Avaa lompakkosi ja käynnistä local node uudelleen popup valikosta, jotta\nvoit muuttaa auto-boot asetuksia. ",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "NIS on käynnistymässä uudelleen...",
 				nisInfoNotAvailable: "NIS info ei ole vielä käytettävissä. Yritetään hakea\nNIS infoa...",
 				synchronizing: "NIS synkronointi on käynnissä. Block {{1}}, est. {{2}} takana.",
@@ -94,7 +97,7 @@ define({
 			privateLabel: "Yksityinen merkintä",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: "Node on käynnistymässä uudelleen",
 					message: "Odota, että uudelleenkäynnistys on valmis, ennenkuin teet siirtoja."
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: "Lähetä XEM",
 				signMultisig: 'SIGN',
 				balance: "Tämänhetkinen saldo",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})",
 				unknown: "Tuntematon",
 				columns: [

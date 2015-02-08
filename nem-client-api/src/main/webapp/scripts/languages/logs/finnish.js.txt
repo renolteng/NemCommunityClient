@@ -258,4 +258,4 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: "Kokonaissumma"
 	based on: texts.modals.sendNem.txConfirm.total
 
------
+----------

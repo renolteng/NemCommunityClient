@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: "Nepavyko užsaugoti konfigūracijos bylos",
 			600: "NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.",
 			601: "NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \"kasti\". Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \"Kasimas\" prasideda tik turint ne mažiau 1,000 XEM.",
 			701: "Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NIS nėra paleistas",
 				nisStarting: "NIS startuoja...",
 				notBooted: "NIS turi būti užkrautas. Prašome atsidaryti Jūsų piniginę ir paleisti vietinį prieigos tašką atsidariusiame dialogo lange arba sukonfigūruokite automatinį paleidimą nustatymuose.",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "NIS kraunasi...",
 				nisInfoNotAvailable: "NIS informacijos kolkas nėra. Bandoma išgauti informaciją apie NIS...",
 				synchronizing: "NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .",
@@ -94,7 +97,7 @@ define({
 			privateLabel: "Nuosavas pavadinimas",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: "Siųsti XEM",
 				signMultisig: 'SIGN',
 				balance: "Turimas balansas",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(blokas {{1}}{{#2}} : po {{3}} dienu{{/2}})",
 				unknown: "nežinomas",
 				columns: [

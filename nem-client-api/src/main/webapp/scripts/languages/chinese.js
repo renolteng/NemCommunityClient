@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: '保存配置文件失败。',
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有10000 XEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: 'NIS 不可用',
 				nisStarting: 'NIS 开始启用…',
 				notBooted: '需要启用NIS。请打开你的钱包，通过弹出的对话框启用一个本地节点，或设置自动启用。',
+				loading: 'Loading blocks from db, at block: ',
 				booting: '正在启用 NIS...',
 				nisInfoNotAvailable: '收不到NIS信息，正尝试接收NIS信息...',
 				synchronizing: 'NIS 在和服务器执行同步. 现位于 {{1}}, 大约落后 {{2}} 。',
@@ -94,7 +97,7 @@ define({
 			privateLabel: '标识',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: '正在启用节点',
 					message: '请等待节点启用完成后再发起交互。'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: '发送XEM',
 				signMultisig: 'SIGN',
 				balance: '目前余额',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后天数{{/2}})',
 				unknown: '未知',
 				columns: [

@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
 			600: "NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S'il vous plait, utilisez le menu NCC pour démarrer le noeud local.",
 			601: "Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Le compte fourni ne satisfait pas les critères de base pour la récolte. C'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.",
 			701: "La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NIS est introuvable",
 				nisStarting: "NIS démarre...",
 				notBooted: "NIS à besoin d'être démarré. S'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "Démarrage de NIS...",
 				nisInfoNotAvailable: "L'information sur NIS n'est pas encore disponible. Tentative de récupération de l'information sur NIS...",
 				synchronizing: "NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.",
@@ -94,7 +97,7 @@ define({
 			privateLabel: "Étiquette privé",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: "Envoyer des XEM",
 				signMultisig: 'SIGN',
 				balance: "Balance courante",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})",
 				unknown: "inconnu",
 				columns: [

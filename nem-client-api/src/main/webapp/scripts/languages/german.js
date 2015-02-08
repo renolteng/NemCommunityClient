@@ -41,6 +41,7 @@ define({
 			500: "Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls, eröffne bitte einen Thread in der NEM NIS/NCC Community.",
 			600: "Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.",
 			601: "Der NEM Infrastructure Server (NIS) ist bereits gebootet. Es ist nicht nötig, NIS ein weiteres Mal zu booten.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 XEM benötigt.",
 			701: "Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
@@ -77,6 +78,7 @@ define({
 				nisUnavailable: "NIS ist nicht verfügbar",
 				nisStarting: "NIS wird gestartet...",
 				notBooted: "NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "NIS wird gebootet...",
 				nisInfoNotAvailable: "NIS-Status wird abgefragt...",
 				synchronizing: "NIS synchronisiert gerade. Block {{1}}, {{2}} im Rückstand.",
@@ -95,7 +97,7 @@ define({
 			privateLabel: "Privates Label",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'XEM Transfer',
@@ -242,6 +244,9 @@ define({
 				bootingWarning: {
 					title: "Der Knotenpunkt wird gebootet",
 					message: "Bitte warte bis der Bootprozess abgeschlossen ist, bevor Du eine Transaktion sendest."
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -293,6 +298,7 @@ define({
 				add: "Zum Adressbuch hinzufügen",
 				remove: "Vom Adressbuch entfernen",
 				balance: "Kontostand",
+				vested: "vested",
 				importance: "Wichtigkeit",
 				publicKey: "Öffentlicher Schlüssel",
 				noPublicKey: "öffentlicher Schlüssel unbekannt",
@@ -601,6 +607,7 @@ define({
 				sendNem: "XEM senden",
 				signMultisig: 'Unterzeichnen',
 				balance: "Kontostand",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(Block {{1}}{{#2}} : etwa {{3}} Tage im Rückstand{{/2}})",
 				unknown: "unbekannt",
 				columns: [

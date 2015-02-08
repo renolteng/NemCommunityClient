@@ -258,4 +258,4 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: 'Totaal'
 	based on: texts.modals.sendNem.txConfirm.total
 
------
+----------

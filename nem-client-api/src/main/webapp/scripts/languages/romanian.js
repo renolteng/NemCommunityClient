@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: "Salvarea fișerului de configurație a eșuat.",
 			600: "NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.",
 			601: "Nodul NIS este deja pornit. O a doua încercare de a porni nodul NIS nu este posibilă.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de NEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.",
 			701: "Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NIS nu este disponibil",
 				nisStarting: "NIS pornește...",
 				notBooted: "NIS are necesită să fie pornit. Te rog deschide portofelul și pornește un nod local prin fereastra care apare sau configurează setarea de auto-pornire.",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "NIS se pornește...",
 				nisInfoNotAvailable: "Informația NIS nu este disponibilă încă. Se încearcă a prelua informația NIS...",
 				synchronizing: "NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.",
@@ -94,7 +97,7 @@ define({
 			privateLabel: "Etichetă privată",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: "Trimite XEM",
 				signMultisig: 'SIGN',
 				balance: "Sold actual",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(la block-ul {{1}}{{#2}} : est. {{3}} zile în urmă{{/2}})",
 				unknown: "necunoscut",
 				columns: [

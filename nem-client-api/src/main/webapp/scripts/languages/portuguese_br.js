@@ -26,6 +26,7 @@ define({
 			124: 'A senha para o arquivo de contatos não incorreta.',
 			125: 'Não foi fornecido nenhuma senha para o arquivo de contatos.',
 			127: 'Não existe esse endereço nos arquivos.',
+			128: 'The address provided is not valid.',
 			129: 'Outro arquivo de contatos já existe com esse nome. Por favor, escolha outro nome para esse arquivo.',
 			130: 'Já existe esse contato nos arquivos.',
 			131: 'O nome do arquivo de contatos é um diretório.',
@@ -40,6 +41,7 @@ define({
 			500: "Ocorreu um erro desconhecido. Por favor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.",
 			600: "NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu superior direito.",
 			601: "O NIS já foi inicializado.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'O número de máximo de colheitadores no servidor foi atingido.',
 			700: "Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 XEMs.",
 			701: "O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NIS não inicializado",
 				nisStarting: "NIS está inicializando...",
 				notBooted: "NIS requere inicialização. Por favor, abra a carteira para ativar o auto-boot ou inicialize o nó manualmente.",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "NIS inicializando...",
 				nisInfoNotAvailable: "Informações do NIS não disponível. Recuperando informações...",
 				synchronizing: "NIS está sincronizando com o bloco {{1}}, encontrado {{2}} atrás.",
@@ -94,12 +97,14 @@ define({
 			privateLabel: "Identificação",
 			publicLabel: 'Identificação pública',
 			noCharge: 'A conta atual <b>NÃO</b> pode receber taxas de transações, uma conta do tipo Multisig a acoberta',
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSAÇÕES DE VALORES',
 			'ITRANSFERENCIAS DE IMPORTANCIA',
 			'MODIFICAÇÃO DE UMA CONTA MULTISIG',
 			'TRANSAÇÃO MULTISIG',
+			
 		],
 		transactionDirections: {
 			pending: "Pendente",
@@ -159,6 +164,7 @@ define({
 				txConfirm: {
 					title: 'Confirmar Conversão para conta Multisig',
 					total: 'Total',
+
 				},
 
 			},
@@ -190,6 +196,7 @@ define({
 					message: "Mensagem",
 					encrypted: "Mensagem criptografada",
 					noMessage: "Sem mensagem",
+
 				},
 
 			},
@@ -237,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'O Nó está sendo inicializado',
 					message: 'Por favor, espere até o nó inicializar completamente para poder enviar sua transação.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -288,6 +298,7 @@ define({
 				add: "Adicionar ao arquivo de contatos",
 				remove: "Remover do arquivo de contatos",
 				balance: "Balanço",
+				vested: "vested",
 				importance: "Importancia",
 				publicKey: "Chave Publica",
 				noPublicKey: "Sem chave públida",
@@ -368,6 +379,7 @@ define({
 				password: "Senha",
 				successMessage: "Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!",
 				set: "Definir como conta primária",
+
 			},
 			changeWalletName: {
 				title: "Renomear Carteira",
@@ -595,6 +607,7 @@ define({
 				sendNem: "Enviar XEM",
 				signMultisig: 'ASSINAR',
 				balance: "Saldo atual",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})",
 				unknown: "Desconhecido",
 				columns: [
@@ -636,6 +649,7 @@ define({
 				unconfirmed: "Não confirmadas",
 				incoming: "Recebidas",
 				outgoing: "Enviadas",
+
 			},
 			table: {
 				columns: [

@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: '保存配置文件失敗。',
 			600: 'NCC需要啟動NIS伺服器以執行 NEM Cloud 發送和接收交易資料。請使用NCC選單來啟動本地節點。',
 			601: 'NIS節點已啟動。無法啟動第二个NIS節點。',
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: '所提供的賬戶無法满足收割的（條件）基本標準。必須至少有10.000 XEM才能開始收割。',
 			701: '所提供的截止日期已过期。截止日期必須在1天之内提供。',
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: 'NIS is not available',
 				nisStarting: 'NIS is starting...',
 				notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+				loading: 'Loading blocks from db, at block: ',
 				booting: 'Booting NIS...',
 				nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
 				synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
@@ -94,7 +97,7 @@ define({
 			privateLabel: '私人標識',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: '發送XEM',
 				signMultisig: 'SIGN',
 				balance: '目前余額',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(礦塊{{1}}{{#2}} : 估計{{3}}落後{{/2}}天)',
 				unknown: 'unknown',
 				columns: [

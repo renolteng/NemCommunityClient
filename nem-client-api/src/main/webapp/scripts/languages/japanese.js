@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: "Failed to save configuration file.",
 			600: "NCCはNISサーバーがNEMクラウドからトランザクション(取引)履歴を送受信するために起動しておく必要があります。ローカルノードを起動するためにNCCメニューエントリを使用してください。",
 			601: "NISノードはすでに起動しています。NISは複数起動することができません。",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "入力されたアカウントがハーベストのための基準を満たしていません。その基準はそのアカウントにあるXEMの量が関係しています。ハーベストは少なくとも1000XEMから始めることができます。",
 			701: "提供期限が過ぎています。期限は1日の間です。",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NISは無効",
 				nisStarting: "NIS開始中",
 				notBooted: "NISを起動する必要があります。ウオレットを開き、ポップアップダイアログでローカルノードを起動し、またはローカルノードの自動起動設定を行って下さい。",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "NIS起動中・・・",
 				nisInfoNotAvailable: "NIS情報はまだ取得不可能。NIS情報を取得しようとしています・・・",
 				synchronizing: "NISはブロック{{1}}を同期中で、約{{2}}個ブロックを遅れています。",
@@ -94,7 +97,7 @@ define({
 			privateLabel: "プライベートラベル",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'ノードは起動中',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: "XEMの送金",
 				signMultisig: '調印する',
 				balance: "現在の残高",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(現在同期しているブロック: {{1}}{{#2}} 推定で {{3}} 日前の取引{{/2}})",
 				unknown: "不明",
 				columns: [

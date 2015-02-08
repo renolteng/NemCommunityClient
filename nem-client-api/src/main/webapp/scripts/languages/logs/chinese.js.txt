@@ -238,4 +238,4 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: '总价'
 	based on: texts.modals.sendNem.txConfirm.total
 
------
+----------

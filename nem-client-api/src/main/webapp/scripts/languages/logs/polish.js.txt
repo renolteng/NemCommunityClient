@@ -257,4 +257,4 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: 'Suma'
 	based on: texts.modals.sendNem.txConfirm.total
 
------
+----------

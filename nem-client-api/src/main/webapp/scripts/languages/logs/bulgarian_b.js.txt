@@ -238,4 +238,4 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: "Общо"
 	based on: texts.modals.sendNem.txConfirm.total
 
------
+----------

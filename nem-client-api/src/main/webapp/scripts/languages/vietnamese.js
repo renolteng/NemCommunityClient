@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: 'Lưu file cấu hình thất bại.',
 			600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
 			601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng NEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 NEM.',
 			701: 'Deadline được cung cấp đã trôi qua.',
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: 'Mất kết nối với NIS',
 				nisStarting: 'NIS đang khởi động...',
 				notBooted: 'NIS cần phải được boot. Hãy mở ví của bạn và boot node cục bộ bằng hộp thoại hiện ra hoặc đặt cấu hình thiết lập tự động boot.',
+				loading: 'Loading blocks from db, at block: ',
 				booting: 'Đang boot NIS...',
 				nisInfoNotAvailable: 'Thông tin về NIS chưa sẵn sàng. Đang truy xuất thông tin về NIS...',
 				synchronizing: 'NIS đang đồng bộ hoá. Đang ở block {{1}}, trễ khoảng {{2}}.',
@@ -94,7 +97,7 @@ define({
 			privateLabel: 'Nhãn cá nhân',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node đang được boot',
 					message: 'Xin hãy đợi cho quá trình boot hoàn thành để gửi giao dịch của bạn.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: 'Gửi XEM',
 				signMultisig: 'SIGN',
 				balance: 'Số dư hiện tại',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(tại block {{1}}{{#2}} : chậm khoảng {{3}} ngày{{/2}})',
 				unknown: 'không xác định',
 				columns: [

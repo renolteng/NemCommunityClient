@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: 'Не вдалося зберегти файл налаштувань.',
 			600: 'NCC вимагає запущений сервер NIS для надсилання та отримання транзакцiй з NEM cloud. Будь ласка скористайтеся меню NCC для запуску локального вузла.',
 			601: 'Сервер NIS вже запущено. Завантажити NIS вдруге неможливо.',
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 XEM.',
 			701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: 'NIS не досяжний',
 				nisStarting: 'NIS is starting...',
 				notBooted: 'NIS requires to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+				loading: 'Loading blocks from db, at block: ',
 				booting: 'Booting NIS...',
 				nisInfoNotAvailable: 'NIS info is not avaiable yet. Trying to retrieve NIS info...',
 				synchronizing: 'NIS синхронізується. Блок {{1}}, приблизно. {{2}} днiв.',
@@ -94,7 +97,7 @@ define({
 			privateLabel: 'Приватна позначка',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: 'Вiдправити XEM',
 				signMultisig: 'SIGN',
 				balance: 'Поточний баланс',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(Блок {{1}}{{#2}} : прибл. {{3}} днів тому{{/2}})',
 				unknown: 'Невiдомо',
 				columns: [

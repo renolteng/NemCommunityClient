@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
 			600: "NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \"Avvia il nodo locale\" nel menu di NCC.",
 			601: "Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.",
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM",
 			701: "Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.",
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: "NIS non disponibile",
 				nisStarting: "NIS sta partendo...",
 				notBooted: "NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l'auto-avvio.",
+				loading: 'Loading blocks from db, at block: ',
 				booting: "Avvio di NIS in corso...",
 				nisInfoNotAvailable: "Verifica dello stato di NIS...",
 				synchronizing: "Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.",
@@ -94,7 +97,7 @@ define({
 			privateLabel: "Nome privato",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -241,6 +244,9 @@ define({
 				bootingWarning: {
 					title: "Avvio NIS in corso",
 					message: "Attendi finché NIS non è avviato prima di effettuare una transazione"
+				},
+				loadingWarning: {
+					title: 'Loading db'
 				}
 			},
 			clientInfo: {
@@ -292,6 +298,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -600,6 +607,7 @@ define({
 				sendNem: "Invia XEM",
 				signMultisig: 'SIGN',
 				balance: "Bilancio attuale",
+				vestedBalance: 'Vested Balance',
 				syncStatus: "(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})",
 				unknown: "sconosciuto",
 				columns: [

@@ -258,4 +258,4 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: 'Tổng cộng'
 	based on: texts.modals.sendNem.txConfirm.total
 
------
+----------
