@@ -81,6 +81,11 @@ define(function(require) {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.nisStarting')
                                 };
+                            case Utils.config.STATUS_LOADING:
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.loading') + this.get('blockchainHeight')
+                                };
                             case Utils.config.STATUS_RUNNING:
                                 if (this.get('status.booting')) {
                                     return {
