@@ -556,6 +556,11 @@ $spreadingRate: 20%;
 	border-color: #5dcd86;
 }
 
+.createWalletForm-textbox--invalid {
+	border-color: #c03b2d;
+	border-width: 2px;
+}
+
 .createWalletForm-submit {
 	text-align: right;
 
@@ -725,6 +730,11 @@ $openWalletList-submitButton-rightMargin: 4px;
 	width: $openWalletList-submitButton-width;
 	padding: 3px 0;
 	font-size: 11px;
+
+	&:disabled {
+        background-color: #d1d1d1;
+        pointer-events: none;
+    }
 }
 
 // ================================================================================
