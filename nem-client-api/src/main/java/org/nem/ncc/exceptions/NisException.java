@@ -154,13 +154,13 @@ public class NisException extends NccException {
 		// note: commented errors will never be shown in NCC UI
 		private static final Map<String, Code> NIS_ERROR_MAP = new HashMap<String, Code>() {
 			{
+				// GENERAL
 				this.put("FAILURE_SERVER_LIMIT", HARVESTING_LIMIT_HIT);
 				this.put("FAILURE_HARVESTING_INELIGIBLE", HARVESTING_INELIGIBLE);
 				this.put("FAILURE_PAST_DEADLINE", TRANSACTION_REJECTED_PAST_DEADLINE);
 				this.put("FAILURE_FUTURE_DEADLINE", TRANSACTION_REJECTED_FUTURE_DEADLINE);
 				this.put("FAILURE_INSUFFICIENT_BALANCE", TRANSACTION_REJECTED_INSUFFICIENT_BALANCE);
 				this.put("FAILURE_MESSAGE_TOO_LARGE", TRANSACTION_REJECTED_MESSAGE_TOO_LARGE);
-				this.put("network boot was already attempted", NODE_ALREADY_BOOTED);
 				this.put("FAILURE_HASH_EXISTS", TRANSACTION_REJECTED_HASH_EXISTS);
 				this.put("FAILURE_SIGNATURE_NOT_VERIFIABLE", TRANSACTION_REJECTED_NOT_VERIFIABLE);
 				this.put("FAILURE_TIMESTAMP_TOO_FAR_IN_PAST", TRANSACTION_REJECTED_NOT_TIMESTAMP_TOO_FAR_IN_PAST);
@@ -171,6 +171,10 @@ public class NisException extends NccException {
 				//this.put("FAILURE_ENTITY_UNUSABLE", );
 				//this.put("FAILURE_CHAIN_SCORE_INFERIOR", );
 				//this.put("FAILURE_CHAIN_INVALID", );
+
+				// ILLEGAL STATE
+				this.put("NIS_ILLEGAL_STATE_NOT_BOOTED", NODE_ALREADY_BOOTED);
+				this.put("NIS_ILLEGAL_STATE_LOADING_CHAIN", NODE_LOADING_DB);
 
 				// IMPORTANCE TRANSFERS
 				this.put("FAILURE_CONFLICTING_IMPORTANCE_TRANSFER", TRANSACTION_REJECTED_CONFLICTING_IMPORTANCE_TRANSFER);
@@ -195,10 +199,6 @@ public class NisException extends NccException {
 		 * Gets the NIS code corresponding to a NIS message.
 		 */
 		public static Code fromMessage(final String message) {
-			// ugliness ;(
-			if (message.startsWith("Can't perform any actions until db is fully loaded")) {
-				return NODE_LOADING_DB;
-			}
 			return NIS_ERROR_MAP.getOrDefault(message, UNEXPECTED_ERROR);
 		}
 	}
