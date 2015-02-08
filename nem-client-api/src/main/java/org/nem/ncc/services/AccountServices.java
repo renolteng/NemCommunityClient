@@ -9,12 +9,14 @@ import org.nem.core.serialization.*;
 import org.nem.ncc.connector.PrimaryNisConnector;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * This class provides higher-level functions around accessing accounts.
  */
 public class AccountServices {
+	final private static Logger LOGGER = Logger.getLogger(AccountServices.class.getName());
 	private final PrimaryNisConnector nisConnector;
 
 	/**
@@ -44,6 +46,11 @@ public class AccountServices {
 	 * @return The collection of account information.
 	 */
 	public Collection<AccountMetaDataPair> getAccountMetaDataPairs(final Collection<SerializableAccountId> requests) {
+		if (!this.nisConnector.isConnected()) {
+			LOGGER.warning("Account cache update not possible, NIS not available.");
+			return new ArrayList<>();
+		}
+
 		final Deserializer deserializer = this.nisConnector.post(
 				NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP,
 				new HttpJsonPostRequest(new SerializableList<>(requests)));

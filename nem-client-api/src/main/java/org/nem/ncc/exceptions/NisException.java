@@ -30,6 +30,11 @@ public class NisException extends NccException {
 		NODE_ALREADY_BOOTED(601),
 
 		/**
+		 * The NIS node is loading db.
+		 */
+		NODE_LOADING_DB(602),
+
+		/**
 		 * Maximum number of allowed harvesters was reached.
 		 */
 		HARVESTING_LIMIT_HIT(699),
@@ -190,6 +195,10 @@ public class NisException extends NccException {
 		 * Gets the NIS code corresponding to a NIS message.
 		 */
 		public static Code fromMessage(final String message) {
+			// ugliness ;(
+			if (message.startsWith("Can't perform any actions until db is fully loaded")) {
+				return NODE_LOADING_DB;
+			}
 			return NIS_ERROR_MAP.getOrDefault(message, UNEXPECTED_ERROR);
 		}
 	}

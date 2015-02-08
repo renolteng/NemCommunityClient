@@ -4,7 +4,6 @@ import org.nem.core.deploy.CommonStarter;
 import org.nem.core.model.NemStatus;
 import org.nem.core.model.ncc.NemRequestResult;
 import org.nem.core.serialization.SerializableEntity;
-import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.cache.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,15 +46,8 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/shutdown", method = RequestMethod.GET)
 	public void shutdown() {
-		LOGGER.info(String.format("Async shut-down initiated in %d msec.", SHUTDOWN_DELAY));
-		final Runnable r = () -> {
-			ExceptionUtils.propagateVoid(() -> Thread.sleep(SHUTDOWN_DELAY));
-			this.flushAccountsCache();
-			this.commonStarter.stopServer();
-		};
-
-		final Thread thread = new Thread(r);
-		thread.start();
+		this.flushAccountsCache();
+		this.commonStarter.stopServerAsync();
 	}
 
 	/**

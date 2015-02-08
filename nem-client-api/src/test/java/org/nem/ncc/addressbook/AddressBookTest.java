@@ -153,6 +153,19 @@ public abstract class AddressBookTest {
 	}
 
 	@Test
+	public void newLabelCannotBeAddedToAddressBookIfAddressIsInvalid() {
+		// Arrange:
+		final List<AccountLabel> accountLabels = Arrays.asList(
+				new AccountLabel(Address.fromEncoded(Utils.generateRandomAccount().getAddress().getEncoded() + "badness"), "pub", "priv"), // too long
+				new AccountLabel(Address.fromEncoded(""), "pub", "priv"), // empty
+				new AccountLabel(Address.fromEncoded("QALICEBMLRCCYHAYBKUVAPLB2DMZIBZFFGIMJHSC"), "pub", "priv")); // invalid network
+		final AddressBook addressBook = this.createAddressBook(new AddressBookName("bar"));
+
+		// Assert:
+		accountLabels.forEach(a -> assertThrowsAddressBookException(v -> addressBook.addLabel(a), AddressBookException.Code.ADDRESS_NOT_VALID));
+	}
+
+	@Test
 	public void otherAccountsCannotBeModifiedDirectly() {
 		// Act:
 		final List<AccountLabel> accountLabels = this.createAccountLabels(3);

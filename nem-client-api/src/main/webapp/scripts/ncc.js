@@ -81,6 +81,11 @@ define(function(require) {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.nisStarting')
                                 };
+                            case Utils.config.STATUS_LOADING:
+                                return {
+                                    type: 'warning',
+                                    message: this.get('texts.common.appStatus.loading') + this.get('blockchainHeight')
+                                };
                             case Utils.config.STATUS_RUNNING:
                                 if (this.get('status.booting')) {
                                     return {
@@ -150,6 +155,9 @@ define(function(require) {
                        }
                 }
             },
+            loadingDb: function() {
+                return this.get('nisStatus.code') === Utils.config.STATUS_LOADING;
+            },
             nodeBooting: function() {
                 return this.get('status.booting') || this.get('nisStatus.code') === Utils.config.STATUS_BOOTING;
             },
@@ -204,22 +212,35 @@ define(function(require) {
                     var noErrorModal = settings.altFailCb(faultId, error);
                 }
                 if (!silent && !noErrorModal) {
-                    self.showError(faultId);
+                    self.showError(faultId, error);
                 }
                 return false;
             }
 
             if (undefined !== data.error) {
+                var propertyName = undefined;
+                if (400 == data.status)
                 switch (data.status) {
                     case 200:
+                        return true;
+
+                    case 400:
+                        var propertyNameRegex = /property (.*),/i;
+                        propertyName = data.message.match(propertyNameRegex)[1];
                         break;
 
                     case 601: // NODE_ALREADY_BOOTED
                         silent = true;
-
-                    default:
-                        return showError(data.status);
+                        break;
                 }
+
+                var message = undefined;
+                if (propertyName) {
+                    message = this.get('texts.faults.' + data.status);
+                    message += ' (' + propertyName + ')';
+                }
+
+                return showError(data.status, message);
             }
 
             return true;

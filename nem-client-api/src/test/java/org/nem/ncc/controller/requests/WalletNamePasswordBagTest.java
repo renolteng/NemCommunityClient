@@ -159,6 +159,32 @@ public class WalletNamePasswordBagTest {
 
 	//endregion
 
+	//region getLabel
+
+	@Test
+	public void getLabelReturnsEmptyStringIfLabelIsNotSpecified() {
+		// Act:
+		final WalletNamePasswordBag bag = createBagFromJson("name", "password");
+
+		// Assert:
+		Assert.assertThat(bag.getLabel().isEmpty(), IsEqual.equalTo(true));
+	}
+
+	@Test
+	public void getLabelReturnsLabelIfSpecified() {
+		// Arrange:
+		final JSONObject jsonObject = createJson("name", "password");
+		jsonObject.put("label", "Alice");
+
+		// Act:
+		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
+
+		// Assert:
+		Assert.assertThat(bag.getLabel(), IsEqual.equalTo("Alice"));
+	}
+
+	//endregion
+
 	private static void assertThrowsMissingPropertyException(final Supplier<Object> consumer, final String propertyName) {
 		ExceptionAssert.assertThrows(
 				v -> consumer.get(),

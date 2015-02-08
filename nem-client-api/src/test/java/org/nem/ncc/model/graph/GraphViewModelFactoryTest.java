@@ -289,7 +289,7 @@ public class GraphViewModelFactoryTest {
 	private static Node createNode(final String host) {
 		final NodeIdentity identity = new NodeIdentity(KEY_PAIRS.get(HOSTS.indexOf(host)), "alice" + (HOSTS.indexOf(host) + 1));
 		final NodeEndpoint endpoint = NodeEndpoint.fromHost(host);
-		final NodeMetaData metaData = new NodeMetaData("Linux", "NIS", new NodeVersion(1, 0, 0));
+		final NodeMetaData metaData = new NodeMetaData("Linux", "NIS");
 		return new Node(identity, endpoint, metaData);
 	}
 

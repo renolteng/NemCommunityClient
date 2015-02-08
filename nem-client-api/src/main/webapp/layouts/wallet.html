@@ -259,7 +259,7 @@
 	</div>
 	{{#layout.1.name}}{{>1}}{{/}}
 </div>
-<convertMultisigModal modalClass="convertMultisigModal" disableEasyClose="true" modalTitle="{{texts.modals.multisig.title}}" texts="{{texts}}" fill="{{fill}}">
+<convertMultisigModal modalClass="convertMultisigModal modal--medium" disableEasyClose="true" modalTitle="{{texts.modals.multisig.title}}" texts="{{texts}}" fill="{{fill}}">
 	<div class="form multisig-form">
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.multisig.multisigAccount}}</p>
@@ -269,13 +269,11 @@
 			<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
 			{{#each cosignatories : i}}
 				<div class="{{#i !== 0}}form-field{{/}}">
-					<div>
+					<div class="form-row multisig-cosignatory">
 						<div class="form-input-end form-input-remove">
 							{{#i !== 0}}<button type="button" class="icon-cross" on-click="removeCosignatory(i)"></button>{{/}}
 						</div>
-						<div class="restOfWidth">
-							<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
-						</div>
+						<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
 					</div>
 					<p class="form-sublabel">
 						{{#if (privateLabels[.address])}}
@@ -295,7 +293,7 @@
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
 				{{texts.modals.multisig.useMinimumFee}}
 				{{#if !useMinimumFee}}
-					({{formattedMinimumFee}} NEM)
+					({{formattedMinimumFee}} XEM)
 				{{/if}}
 			</label>
 		</div>
@@ -309,7 +307,7 @@
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
-						<span class="form-input-end unit">NEM</span>
+						<span class="form-input-end unit">XEM</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-multisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
 						</div>
@@ -341,7 +339,7 @@
 		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.multisig.convert}}</button>
 	</div>
 </convertMultisigModal>
-<sendNemModal disableEasyClose="true" modalClass="sendNemModal" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+<sendNemModal disableEasyClose="true" modalClass="sendNemModal modal--medium" modalTitle="{{texts.modals.sendNem.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
 	<div class="form sendNem-form">
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.sendNem.sender}}</p>
@@ -381,7 +379,7 @@
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.sendNem.amount}}</p>
 			<div class="form-input">
-				<span class="form-input-end unit">NEM</span>
+				<span class="form-input-end unit">XEM</span>
 				<div class="restOfWidth">
 					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
 				</div>
@@ -392,7 +390,7 @@
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
 				{{texts.modals.sendNem.useMinimumFee}}
 				{{#if !useMinimumFee}}
-					({{formattedMinimumFee}} NEM)
+					({{formattedMinimumFee}} XEM)
 				{{/if}}
 			</label>
 		</div>
@@ -406,7 +404,7 @@
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
-						<span class="form-input-end unit">NEM</span>
+						<span class="form-input-end unit">XEM</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-sendNem-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
 						</div>
@@ -431,7 +429,7 @@
 					{{/if}}
 				</p>
 				<div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
-					<span class="form-input-end unit">NEM</span>
+					<span class="form-input-end unit">XEM</span>
 					<div class="restOfWidth">
 						<input class="form-input-inner js-sendNem-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
 					</div>
@@ -487,19 +485,19 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-amount">{{{txData.multisig.formattedAmount}}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-amount">{{{txData.multisig.formattedAmount}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFee}}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFee}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFees}}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFees}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigTotal}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedTotal}}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedTotal}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.deadline}}</span>
@@ -556,7 +554,7 @@
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
 				{{texts.modals.signMultisig.useMinimumFee}}
 				{{#if !useMinimumFee}}
-				({{formattedMinimumFee}} NEM)
+				({{formattedMinimumFee}} XEM)
 				{{/if}}
 			</label>
 		</div>
@@ -570,7 +568,7 @@
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
-						<span class="form-input-end unit">NEM</span>
+						<span class="form-input-end unit">XEM</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-signMultisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
 						</div>
@@ -613,7 +611,7 @@
 		</div>
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{texts.modals.multisig.fee}}</span>
-			<span class="modificationConfirm-value"><span class="modificationConfirm-fee">{{txData.formattedFee}} NEM</span></span>
+			<span class="modificationConfirm-value"><span class="modificationConfirm-fee">{{txData.formattedFee}} XEM</span></span>
 		</div>
 		<hr>
 		<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
@@ -652,20 +650,20 @@
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-amount">{{{txData.txData.multisig.formattedAmount}}} NEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-amount">{{{txData.txData.multisig.formattedAmount}}} XEM</span></span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedFee}}} NEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedFee}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedFees}}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedFees}}} XEM</span></span>
 		</div>
 		<hr>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.fee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.formattedFee}}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.formattedFee}}} XEM</span></span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.dueBy}}</span>
@@ -691,7 +689,7 @@
 	<div class="txConfirm-txInfo">
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.amount}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-amount">{{txData.formattedAmount}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-amount">{{txData.formattedAmount}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.to}}</span>
@@ -704,12 +702,12 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.sendNem.fee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} XEM</span></span>
 		</div>
 		{{#if (requestData.type === TransactionType.Multisig_Transfer)}}
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.sendNem.multisigFee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} XEM</span></span>
 		</div>
 		{{/if}}
 		<div class="txConfirm-line">
@@ -718,7 +716,7 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-totalLabel">{{texts.modals.sendNem.txConfirm.total}}</span></span>
-			<span class="txConfirm-value"><span class="txConfirm-total">{{formattedTotal}} NEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-total">{{formattedTotal}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-messageLabel">{{texts.modals.sendNem.txConfirm.message}}</span></span>
@@ -751,7 +749,7 @@
 			<tr>
 				<td class="table-cell table-cell--label"><strong>{{texts.modals.transactionDetails.type}}</strong></td>
 				<td class="table-cell table-cell--content">
-					{{texts.transactionTypes[.type - 1]}}
+					{{texts.transactionTypes[.type - 1]}} {{#innerType}}({{texts.transactionTypes[.innerType - 1]}}){{/innerType}}
 				</td>
 			</tr>
 
@@ -761,7 +759,26 @@
             </tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.direction}}</td>
-				<td class="table-cell table-cell--content">{{.isPending? texts.modals.transactionDetails.pending : (.isSelf? texts.modals.transactionDetails.self : (.isOutgoing? texts.modals.transactionDetails.outgoing : texts.modals.transactionDetails.incoming))}}</td>
+				<td class="table-cell table-cell--content">
+                    {{#.isPending}}
+                        {{texts.modals.transactionDetails.pending}}
+                    {{else}}
+                        {{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Aggregate_Modification)}}
+                            {{#if (.type === TransactionType.Importance_Transfer)}}
+                                {{texts.transactionDirections.importance}}
+                            {{else}}
+                                {{texts.transactionDirections.modification}}
+                            {{/if}}
+                        {{else}}
+                            {{#if (.isSelf || .isOutgoing || .isIncoming)}}
+                                {{#.isSelf}}{{texts.transactionDirections.self}}{{/}}
+                                {{#.isOutgoing}}{{texts.transactionDirections.incoming}}{{/}}
+                                {{#.isIncoming}}{{texts.transactionDirections.outgoing}}{{/}}
+                            {{else}}
+                                Multisig
+                            {{/if}}
+                        {{/if}}
+                    {{/}}
 			</tr>
 			<tr>
 				{{#if (.type === TransactionType.Multisig_Transfer)}}
@@ -847,22 +864,22 @@
 			{{#if (.type !== TransactionType.Aggregate_Modification && .type !== TransactionType.Importance_Transfer)}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} NEM</td>
+				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} XEM</td>
 			</tr>
 			{{/if}}
 			{{#if (.type === TransactionType.Multisig_Transfer)}}
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
-					<td class="table-cell table-cell--content">{{{.multisig.formattedFee}}} NEM</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedFee}}} XEM</td>
 				</tr>
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigFees}}</td>
-					<td class="table-cell table-cell--content">{{{.multisig.formattedFees}}} NEM</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedFees}}} XEM</td>
 				</tr>
 			{{else}}
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
-					<td class="table-cell table-cell--content">{{{.formattedFee}}} NEM</td>
+					<td class="table-cell table-cell--content">{{{.formattedFee}}} XEM</td>
 				</tr>
 			{{/if}}
 			{{#if (.type === TransactionType.Aggregate_Modification)}}
@@ -918,7 +935,7 @@
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.balance}}</td>
-				<td class="table-cell table-cell--content">{{formattedBalance}} NEM</td>
+				<td class="table-cell table-cell--content">{{formattedBalance}} XEM ({{texts.modals.accountDetails.vested}}: {{formattedVestedBalance}})</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.importance}}</td>

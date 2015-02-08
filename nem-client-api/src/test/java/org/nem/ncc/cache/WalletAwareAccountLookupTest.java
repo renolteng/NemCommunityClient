@@ -147,7 +147,7 @@ public class WalletAwareAccountLookupTest {
 		final Address address = Address.fromPublicKey(keyPair.getPublicKey());
 		final Address addressWithoutPublicKey = Address.fromEncoded(address.getEncoded());
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
-				new AccountInfo(addressWithoutPublicKey, Amount.fromNem(17), new BlockAmount(12), "foo", 1.5),
+				new AccountInfo(addressWithoutPublicKey, Amount.fromNem(17), Amount.fromNem(14), new BlockAmount(12), "foo", 1.5),
 				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, null));
 		Mockito.when(context.mockAccountLookup.findPairByAddress(address)).thenReturn(pair);
 		Mockito.when(context.walletServices.tryFindOpenAccount(addressWithoutPublicKey)).thenReturn(new WalletAccount(keyPair.getPrivateKey()));
@@ -160,6 +160,7 @@ public class WalletAwareAccountLookupTest {
 		Assert.assertThat(resultInfo.getAddress().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getKeyPair().getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 		Assert.assertThat(resultInfo.getBalance(), IsEqual.equalTo(Amount.fromNem(17)));
+		Assert.assertThat(resultInfo.getVestedBalance(), IsEqual.equalTo(Amount.fromNem(14)));
 		Assert.assertThat(resultInfo.getNumHarvestedBlocks(), IsEqual.equalTo(new BlockAmount(12)));
 		Assert.assertThat(resultInfo.getLabel(), IsEqual.equalTo("foo"));
 		Assert.assertThat(resultInfo.getImportance(), IsEqual.equalTo(1.5));

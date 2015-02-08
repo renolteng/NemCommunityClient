@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, TransactionType) {
+define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], function(NccModal, Utils, TransactionType, Handlebars) {
 	return NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -11,6 +11,8 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                 return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedAmount')));
             },
             recipient: function() {
+                // FEELS ugly....
+                $('.js-sendNem-recipient-textbox').typeahead('val', this.get('formattedRecipient'));
                 return Utils.format.address.restore(this.get('formattedRecipient'));
             },
             recipientValid: function() {
@@ -83,7 +85,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
             this.set('useMinimumFee', true);
             this.set('signatories', [{}]);
 
-            this.set('cosignatories', ncc.get('activeAccount').cosignatoryOf);
+            this.set('cosignatories', ncc.get('activeAccount').multisigAccounts);
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
             this.set('passwordChanged', false);
@@ -97,7 +99,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                 wallet: ncc.get('wallet.wallet'),
                 account: ncc.get('activeAccount.address'),
                 amount: this.get('amount'),
-                message: this.get('message'),
+                message: this.get('message') || undefined,
                 encrypt: this.get('encrypt'),
                 recipient: this.get('recipientValid') ? this.get('recipient') : ncc.get('activeAccount.address'),
                 hoursDue: this.get('hoursDue')
@@ -133,7 +135,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                     password: this.get('password'),
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
-                    message: this.get('message'),
+                    message: this.get('message') || undefined,
                     fee: this.get('fee'),
                     multisigFee: 0,
                     encrypt: this.get('encrypt'),
@@ -148,7 +150,7 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                     password: this.get('password'),
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
-                    message: this.get('message'),
+                    message: this.get('message') || undefined,
                     fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
                     encrypt: this.get('encrypt'),
@@ -262,6 +264,24 @@ define(['NccModal', 'Utils', 'TransactionType'], function(NccModal, Utils, Trans
                     feeTxb.value = Utils.format.nem.reformat(feeTxb.value, null, null, oldProp, newProp);
                 }
             }));
+
+            // Recipient field
+
+            $('.js-sendNem-recipient-textbox').typeahead({
+                hint: true,
+                highlight: true
+            }, {
+                name: 'address-book',
+                source: Utils.typeahead.addressBookMatcher,
+                displayKey: 'formattedAddress',
+                templates: {
+                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
+                }
+            })
+            .on('typeahead:selected', function($e, datum){
+                // no need to set anything... typehead should use displayKey
+                $('.js-sendNem-amount-textbox').focus();
+            });
         }
     });
 });

@@ -58,9 +58,13 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 
 	private FreshnessPair createFreshnessPairFromSeedAccount(final AccountInfo info) {
 		// accounts are polled on a regular interval, so it should be ok to use current time stamp
+
+		// TODO 20150204: G-Br: so list of cosignatories is not saved so it won't be avail until first refresh... :/
+		// > not sure how to fix that
+		// TODO 20150207 BR -> G: updating now every 3 seconds and all seeded accounts are marked for update.
 		return new FreshnessPair(
 				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE, Arrays.asList())),
-				this.timeProvider.getCurrentTime());
+				this.timeProvider.getCurrentTime().addSeconds(-this.refreshInSeconds));
 	}
 
 	@Override
@@ -88,9 +92,9 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	private FreshnessPair findFreshnessPairByAddress(final Address id) {
-		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 		FreshnessPair freshnessPair = this.cache.getOrDefault(id, null);
 		if (null == freshnessPair) {
+			final TimeInstant currentTime = this.timeProvider.getCurrentTime();
 			freshnessPair = new FreshnessPair(this.update(id, null), currentTime);
 			this.cache.put(id, freshnessPair);
 		}

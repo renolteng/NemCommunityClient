@@ -127,7 +127,7 @@ public class TransactionMapper {
 				.collect(Collectors.toList());
 
 		// TODO 20150201 J-G: quick and bit dirty hack for UI...
-		if (modifications.size() == 0) {
+		if (modifications.isEmpty()) {
 			return new PartialFeeInformationViewModel(Amount.ZERO);
 		}
 

@@ -19,7 +19,7 @@ public class TransactionToViewModelMapper {
 	}
 
 	public static TransactionViewModel map(final TransactionMetaDataPair metaDataPair, final Address address, final BlockHeight blockHeight) {
-		return map(metaDataPair, new AccountMetaDataPair(new AccountInfo(address, Amount.ZERO, BlockAmount.ZERO, "", 0.0), null), blockHeight);
+		return map(metaDataPair, new AccountMetaDataPair(new AccountInfo(address, Amount.ZERO, Amount.ZERO, BlockAmount.ZERO, "", 0.0), null), blockHeight);
 	}
 
 	private static TransactionViewModel map(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair accountData, final BlockHeight blockHeight) {
@@ -31,7 +31,7 @@ public class TransactionToViewModelMapper {
 			case TransactionTypes.MULTISIG:
 				return new MultisigTransactionViewModel(metaDataPair, accountData, blockHeight);
 			case TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION:
-				return new MultisigAggregateViewModel(metaDataPair, accountData, blockHeight);
+				return new MultisigAggregateViewModel(metaDataPair, blockHeight);
 			default:
 				throw new IllegalArgumentException("transaction type is not handled inside TransactionToViewModelMapper");
 		}

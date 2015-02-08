@@ -26,6 +26,7 @@ define({
 			124: 'The provided password for the address book is not correct.',
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
+			128: 'The address provided is not valid.',
 			129: 'Another address book with the same name exists already. Please choose an other address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
@@ -40,6 +41,7 @@ define({
 			500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			600: 'Before sending and receiving transactions, the NEM Infrastructure Server (NIS) needs to be booted. Please use the NCC menu entry for booting the local node.',
 			601: 'The NEM Infrastructure Server (NIS) is already booted.',
+			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 1000 XEM.',
 			701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
@@ -76,6 +78,7 @@ define({
 				nisUnavailable: 'NIS is not available',
 				nisStarting: 'NIS is starting...',
 				notBooted: 'NIS needs to be booted. Please open your wallet and boot a local node via the popup dialog or configure the auto-boot setting.',
+				loading: 'Loading blocks from db, at block: ',
 				booting: 'Booting NIS...',
 				nisInfoNotAvailable: 'NIS info is not available yet. Trying to retrieve NIS info...',
 				synchronizing: 'NIS is synchronizing. At block {{1}}, est. {{2}} behind.',
@@ -94,6 +97,7 @@ define({
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+			justUse: 'Just use'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -235,7 +239,10 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
-				}
+				},
+                loadingWarning: {
+                    title: 'Loading db'
+                }
 			},
 			clientInfo: {
 				title: 'Client info',
@@ -286,6 +293,7 @@ define({
 				add: "Add to address book",
 				remove: "Remove from address book",
 				balance: "Balance",
+				vested: "vested",
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
@@ -584,6 +592,7 @@ define({
 				sendNem: 'Send XEM',
 				signMultisig: 'SIGN',
 				balance: 'Current Balance',
+				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				unknown: 'unknown',
 				columns: [

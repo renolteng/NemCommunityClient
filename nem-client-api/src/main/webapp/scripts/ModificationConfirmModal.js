@@ -13,7 +13,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             var self = this;
             ncc.postRequest('wallet/account/modification/send', this.get('requestData'), function(data) {
                 self.closeModal();
-            	ncc.getModal('signMultisig').closeModal();
+             	ncc.getModal('convertMultisig').closeModal();
 
                 ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
                 ncc.refreshInfo();

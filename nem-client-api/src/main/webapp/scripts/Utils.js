@@ -17,7 +17,8 @@ define(['TransactionType'], function(TransactionType) {
             STATUS_BOOTING: 4,
             STATUS_BOOTED: 5,
             STATUS_SYNCHRONIZED: 6,
-            STATUS_NO_REMOTE_NIS_AVAILABLE: 7
+            STATUS_NO_REMOTE_NIS_AVAILABLE: 7,
+            STATUS_LOADING: 8
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);
@@ -75,7 +76,7 @@ define(['TransactionType'], function(TransactionType) {
         updateNewer: function(newArr, currentArr, comparedProp) {
             if (currentArr && currentArr[0] && newArr && newArr[0]) {
                 var comparedValue = newArr[newArr.length - 1][comparedProp];
-                
+
                 for (var i = currentArr.length - 1; i >= 0; i--) {
                     if (currentArr[i][comparedProp] === comparedValue) {
                         break;
@@ -122,6 +123,38 @@ define(['TransactionType'], function(TransactionType) {
             $(document).off('click.' + id);
         },
 
+        // ADDRESS BOOK
+        addressBook: {
+            query: function(query) {
+                var matches = [];
+                var addressBook = ncc.get('contacts');
+                if (addressBook) {
+                    var regex = new RegExp(query, 'i');
+                    $.each(addressBook, function(i, item) {
+                        if (regex.test(item.address) || regex.test(item.privateLabel)) {
+                            matches.push(item);
+                        }
+                    });
+                }
+
+                return matches;
+            },
+            findByAddress: function(address) {
+                var label = undefined;
+                var addressBook = ncc.get('contacts');
+                if (addressBook) {
+                    $.each(addressBook, function(i, item) {
+                        if (item.address === address) {
+                            label = item.privateLabel;
+                            return false;
+                        }
+                    });
+                }
+
+                return label;
+            }
+        },
+
         // FORMAT & CONVERSON
         format: {
             minDigits: function(num, digits) {
@@ -156,7 +189,7 @@ define(['TransactionType'], function(TransactionType) {
                     } else {
                         dsPos = str.length;
                     }
-                    
+
                     nem.intPart = str.substring(0, dsPos);
                     var dsRegex = new RegExp(Utils.escapeRegExp(decimalSeparator), 'g');
                     nem.decimalPart = str.substring(dsPos, str.length).replace(dsRegex, '');
@@ -189,7 +222,7 @@ define(['TransactionType'], function(TransactionType) {
                     nem.decimalPart = decimalPart;
                     return nem;
                 },
-                 /**
+                /**
                  * @param {object} nem NEM Amount object
                  * @param {boolean} options.fixedDecimalPlaces apply a fixed number of decimal places
                  * @param {number} options.decimalPlaces decimal places to be applied, fallback to default if falsy
@@ -300,9 +333,21 @@ define(['TransactionType'], function(TransactionType) {
                     var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
                     return segments.join('-').toUpperCase();
                 },
-                restore: function(formattedAddress) {
-                    return formattedAddress && formattedAddress.replace(/\-/g, '');
+                formatWithLabel: function(address) {
+                    if (!address) return address;
+                    var label = Utils.addressBook.findByAddress(address);
+                    var formattedAddress = Utils.format.address.format(address);
+                    if (label)
+                        formattedAddress = label + ' ' + formattedAddress;
+
+                    return formattedAddress
                 },
+                restore: function(formattedAddress) {
+                    if (!formattedAddress) return formattedAddress;
+                    var address = formattedAddress.replace(/\-/g, '');
+                    var separatorIndex = address.indexOf(' ');
+                    return address.substr(separatorIndex + 1);
+                }
             },
             date: {
                 shortMonths: {
@@ -331,26 +376,26 @@ define(['TransactionType'], function(TransactionType) {
                         var sec = date.getSeconds();
 
                         switch (format) {
-                        case 'MM/dd/yy hh:mm:ss':
-                            month = Utils.format.minDigits(month, 2);
-                            day = Utils.format.minDigits(day, 2);
-                            year = year.toString(10);
-                            year = year.substring(year.length - 2, year.length);
-                            hour = Utils.format.minDigits(hour, 2);
-                            min = Utils.format.minDigits(min, 2);
-                            sec = Utils.format.minDigits(sec, 2);
-                            return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
-                        case 'M dd, yyyy':
-                            month = this.shortMonths[month];
-                            day = Utils.format.minDigits(day, 2);
-                            return month + ' ' + day + ', ' + year;
-                        case 'M dd, yyyy hh:mm:ss':
-                            month = this.shortMonths[month];
-                            day = Utils.format.minDigits(day, 2);
-                            hour = Utils.format.minDigits(hour, 2);
-                            min = Utils.format.minDigits(min, 2);
-                            sec = Utils.format.minDigits(sec, 2);
-                            return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
+                            case 'MM/dd/yy hh:mm:ss':
+                                month = Utils.format.minDigits(month, 2);
+                                day = Utils.format.minDigits(day, 2);
+                                year = year.toString(10);
+                                year = year.substring(year.length - 2, year.length);
+                                hour = Utils.format.minDigits(hour, 2);
+                                min = Utils.format.minDigits(min, 2);
+                                sec = Utils.format.minDigits(sec, 2);
+                                return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + sec;
+                            case 'M dd, yyyy':
+                                month = this.shortMonths[month];
+                                day = Utils.format.minDigits(day, 2);
+                                return month + ' ' + day + ', ' + year;
+                            case 'M dd, yyyy hh:mm:ss':
+                                month = this.shortMonths[month];
+                                day = Utils.format.minDigits(day, 2);
+                                hour = Utils.format.minDigits(hour, 2);
+                                min = Utils.format.minDigits(min, 2);
+                                sec = Utils.format.minDigits(sec, 2);
+                                return month + ' ' + day + ', ' + year + ' ' + hour + ':' + min + ':' + sec;
                         }
                     } else {
                         return date;
@@ -593,6 +638,19 @@ define(['TransactionType'], function(TransactionType) {
                 }
             },
         },
+        typeahead: {
+            addressBookMatcher: function(query, cb) {
+                var matches = Utils.addressBook.query(query);
+                cb(matches);
+            },
+            justFormatAddress: function(query, cb) {
+                var suggestion = {
+                    text: ncc.get('texts.common.justUse'),
+                    formattedAddress: Utils.format.address.format(query)
+                };
+                cb([suggestion]);
+            }
+        },
         daysPassed: function(begin) {
             var now = new Date().getTime();
             var timespan = now - begin;
@@ -609,21 +667,34 @@ define(['TransactionType'], function(TransactionType) {
         processTransaction: function(tx) {
             var transferTransaction = tx;
             var currentFee = 0;
+
+            // there are three types now, to make ui templates simpler:
+            // tx.type - this is type of transaction
+            // tx.maintype - this is either type of transaction or in case of multisig type of inner transaction
+            // tx.innerType - only avail for multisig transactions, this is shortcut for tx.inner.type
+            tx.mainType = tx.type;
+
             // multisig
-            if (tx.type == TransactionType.Multisig_Transfer) {
+            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification) {
                 tx.isMultisig = true;
-                transferTransaction = tx.inner;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
-                tx.recipient = transferTransaction.recipient
-                tx.message = tx.inner.message;
+                tx.innerType = tx.inner.type;
+                tx.mainType = tx.inner.type;
 
                 tx.multisig={};
-                tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
-                tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
-                tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
+                tx.multisig.formattedFrom = Utils.format.address.formatWithLabel(tx.inner.sender);
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
+
+                if (tx.type === TransactionType.Multisig_Transfer) {
+                    tx.multisig.formattedTo = Utils.format.address.formatWithLabel(tx.inner.recipient);
+                    tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                    tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
+
+                    transferTransaction = tx.inner;
+                    tx.recipient = transferTransaction.recipient
+                    tx.message = tx.inner.message;
+                }
 
                 var fees = tx.fee + tx.signatures
                     .map(function(d){return d.fee})
@@ -661,12 +732,12 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = transferTransaction.direction === 3;
             }
 
-            tx.formattedSender = Utils.format.address.format(tx.sender);
+            tx.formattedSender = Utils.format.address.formatWithLabel(tx.sender);
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
+            tx.formattedRecipient = Utils.format.address.formatWithLabel(transferTransaction.recipient);
             tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
             return tx;
@@ -699,6 +770,7 @@ define(['TransactionType'], function(TransactionType) {
             account.formattedAddress = Utils.format.address.format(account.address);
             var balanceObj = Utils.format.nem.uNemToNem(account.balance);
             account.formattedBalance = Utils.format.nem.formatNem(balanceObj, {fixedDecimalPlaces: true});
+            account.formattedVestedBalance = Utils.format.nem.formatNem(Utils.format.nem.uNemToNem(account.vestedBalance), {fixedDecimalPlaces: true});
             account.balanceInt = parseInt(balanceObj.intPart, 10);
             account.balanceDec = parseInt(balanceObj.decimalPart, 10);
 
@@ -722,6 +794,15 @@ define(['TransactionType'], function(TransactionType) {
         processContacts: function(ab) {
             for (var i = 0; i < ab.length; i++) {
                 ab[i].formattedAddress = Utils.format.address.format(ab[i].address);
+            }
+
+            return ab;
+        },
+        removeContact: function(ab, address) {
+            for (var i = 0; i < ab.length; i++) {
+                if (ab[i].address === address) {
+                    ab.splice(i, 1);
+                }
             }
 
             return ab;

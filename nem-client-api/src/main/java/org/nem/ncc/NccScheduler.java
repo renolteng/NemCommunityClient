@@ -17,10 +17,11 @@ public class NccScheduler implements AutoCloseable {
 	private static final int TIME_SYNC_INITIAL_DELAY = 10 * ONE_SECOND;
 	private static final int TIME_SYNC_INTERVAL = ONE_MINUTE;
 
-	private static final int CACHE_UPDATE_INITIAL_DELAY = 10 * ONE_SECOND;
-	private static final int CACHE_UPDATE_INTERVAL = ONE_MINUTE;
+	private static final int CACHE_UPDATE_INITIAL_DELAY = 3 * ONE_SECOND;
+	private static final int CACHE_UPDATE_INTERVAL = 3 * ONE_SECOND;
 
 	private final TimeProvider timeProvider;
+	private final Optional<Integer> customInitialDelay;
 	private final List<NemAsyncTimerVisitor> timerVisitors = new ArrayList<>();
 	private final List<AsyncTimer> timers = new ArrayList<>();
 
@@ -31,6 +32,18 @@ public class NccScheduler implements AutoCloseable {
 	 */
 	public NccScheduler(final TimeProvider timeProvider) {
 		this.timeProvider = timeProvider;
+		this.customInitialDelay = Optional.empty();
+	}
+
+	/**
+	 * Creates a new scheduler with a custom initial delay.
+	 *
+	 * @param timeProvider The time provider.
+	 * @param initialDelay The custom initial delay.
+	 */
+	public NccScheduler(final TimeProvider timeProvider, final int initialDelay) {
+		this.timeProvider = timeProvider;
+		this.customInitialDelay = Optional.of(initialDelay);
 	}
 
 	/**
@@ -51,7 +64,7 @@ public class NccScheduler implements AutoCloseable {
 		final AsyncTimerVisitor timerVisitor = this.createNamedVisitor("TIME SYNCHRONIZATION");
 		final AsyncTimerOptions options = new AsyncTimerOptionsBuilder()
 				.setRecurringFutureSupplier(nccTimeSynchronizer::synchronizeTime)
-				.setInitialDelay(TIME_SYNC_INITIAL_DELAY)
+				.setInitialDelay(this.customInitialDelay.orElse(TIME_SYNC_INITIAL_DELAY))
 				.setDelayStrategy(new UniformDelayStrategy(TIME_SYNC_INTERVAL))
 				.setVisitor(timerVisitor)
 				.create();
@@ -67,16 +80,22 @@ public class NccScheduler implements AutoCloseable {
 		final AsyncTimerVisitor timerVisitor = this.createNamedVisitor("CACHE UPDATE");
 		final AsyncTimerOptions options = new AsyncTimerOptionsBuilder()
 				.setRecurringFutureSupplier(cache::updateCache)
-				.setInitialDelay(CACHE_UPDATE_INITIAL_DELAY)
+				.setInitialDelay(this.customInitialDelay.orElse(CACHE_UPDATE_INITIAL_DELAY))
 				.setDelayStrategy(new UniformDelayStrategy(CACHE_UPDATE_INTERVAL))
 				.setVisitor(timerVisitor)
 				.create();
 		this.timers.add(new AsyncTimer(options));
 	}
 
-	// TODO 20140928 J-B (minor) might want to add a test that close transitions all timers to stopped
-	// TODO 20150112 BR -> J: the problem is that i would need to wait until the timer is started and after closing
-	// > wait until the future is done and that takes up to a minute :/ (see test)
+	/**
+	 * Gets the number of timers currently scheduled to run.
+	 *
+	 * @return The number of timers currently scheduled to run.
+	 */
+	public int getNumScheduledTimers() {
+		return (int)this.timers.stream().filter(t -> !t.isStopped()).count();
+	}
+
 	@Override
 	public void close() {
 		this.timers.forEach(AsyncTimer::close);
