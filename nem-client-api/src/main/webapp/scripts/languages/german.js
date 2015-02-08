@@ -41,8 +41,8 @@ define({
 			500: "Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls, eröffne bitte einen Thread in der NEM NIS/NCC Community.",
 			600: "Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.",
 			601: "Der NEM Infrastructure Server (NIS) ist bereits gebootet. Es ist nicht nötig, NIS ein weiteres Mal zu booten.",
-			602: 'Cannot perform any operations until db is fully loaded.',
-			699: 'Maximum number of harvesters allowed on server has been reached.',
+			602: 'Es können keine Aktionen ausgeführt werden bevor die Blockkette vollständig geladen ist.',
+			699: 'Die maximale Anzahl von Erntervorgängen auf diesem Server ist bereits erreicht.',
 			700: "Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 XEM benötigt.",
 			701: "Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
 			702: "Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.",
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: "NIS ist nicht verfügbar",
 				nisStarting: "NIS wird gestartet...",
 				notBooted: "NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.",
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Lade Blöcke aus der Datenbank, im Moment bei Block: ',
 				booting: "NIS wird gebootet...",
 				nisInfoNotAvailable: "NIS-Status wird abgefragt...",
 				synchronizing: "NIS synchronisiert gerade. Block {{1}}, {{2}} im Rückstand.",
@@ -92,11 +92,11 @@ define({
 			},
 			addressBook: 'Adressbuch',
 			password: "Passwort",
-			passwordValidation: "Password must not be blank",
+			passwordValidation: "Das Passwort darf nicht leer sein",
 			address: "Adresse",
 			privateLabel: "Privates Label",
-			publicLabel: 'Public label',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+			publicLabel: 'Öffentlicher Label',
+			noCharge: 'Das Konto wird <b>NICHT</b> mit Gebühren belastet, das multisig Konto übernimmt alles',
 			justUse: 'Just use'
 		},
 		transactionTypes: [
@@ -111,8 +111,8 @@ define({
 			outgoing: "Ausgehende Transaktion",
 			incoming: "Eingehende Transaktion",
 			self: "Transaktion zu sich selbst",
-			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			importance: 'Transfer der Wichtigkeit',
+			modification: 'Anderungen der Multisignatur'
 		},
 		modals: {
 			error: {
@@ -148,7 +148,7 @@ define({
 				saveSuccess: "Die Einstellungen wurden erfolgreich gespeichert"
 			},
 			multisig: {
-				title: 'Konto in eine Multisig Konto umwandeln',
+				title: 'Konto in ein Multisig Konto umwandeln',
 				multisigAccount: 'Multisig Konto',
 				cosignatories: "Adressen der Mitunterzeichner",
 				labelDesc: "Das Label des Kontos ist {{1}}",
@@ -162,7 +162,7 @@ define({
 				useMinimumFee: "Benutze minimale Gebühr",
 				hours: "Stunde(n)",
 				txConfirm: {
-					title: 'Confirm Conversion to Multisig Account',
+					title: 'Bestätigung der Umwandlung in ein multig Konto',
 					total: "Insgesamt",
 
 				},
@@ -246,7 +246,7 @@ define({
 					message: "Bitte warte bis der Bootprozess abgeschlossen ist, bevor Du eine Transaktion sendest."
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: 'Lesen der Datenbank'
 				}
 			},
 			clientInfo: {
@@ -272,11 +272,11 @@ define({
 				incoming: "Eingehend",
 				self: "Selbst",
 				sender: "Sender",
-				multisigAccount: 'Multisig Account',
-				issuer: 'Issuer',
+				multisigAccount: 'Multisig Konto',
+				issuer: 'Initiator',
 				recipient: "Empfänger",
 				remote: 'Remote',
-				multisigMessage: 'Signatures present',
+				multisigMessage: 'Vorhandene Unterschriften',
 				message: "Nachricht",
 				noMessage: "Keine Nachricht",
 				encrypted: "Nachricht ist verschlüsselt",
@@ -285,9 +285,9 @@ define({
 				confirmationsUnknown: "Unbekannt",
 				amount: "Betrag",
 				fee: "Gebühr",
-				innerFee: 'Inner Fee',
-				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
+				innerFee: 'innere Gebühr',
+				multisigFees: 'Multisig Gebühr',
+				issuer: 'Initiator',
 				cosignatory: 'Mitunterzeichner'
 			},
 			accountDetails: {
@@ -298,7 +298,7 @@ define({
 				add: "Zum Adressbuch hinzufügen",
 				remove: "Vom Adressbuch entfernen",
 				balance: "Kontostand",
-				vested: "vested",
+				vested: "Arbeitender Teil",
 				importance: "Wichtigkeit",
 				publicKey: "Öffentlicher Schlüssel",
 				noPublicKey: "öffentlicher Schlüssel unbekannt",
@@ -459,16 +459,16 @@ define({
 
 			},
 			addContact: {
-				title: 'Add contact',
+				title: 'Kontakt hinzufügen',
 				add: "Hinzufügen"
 			},
 			editContact: {
-				title: 'Edit contact',
+				title: 'Kontakt bearbeiten',
 				saveChanges: "Änderungen speichern",
 
 			},
 			removeContact: {
-				title: 'Remove contact',
+				title: 'Kontakt entfernen',
 				remove: "Entfernen",
 
 			}
@@ -563,12 +563,12 @@ define({
 				closeWallet: "Brieftasche schließen",
 				closeProgram: "Programm beenden",
 				copyClipboard: "Addresse in die Zwischenablage kopieren",
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'In ein multisig Konto konvertieren'
 			},
 			nav: [
 				"Dashboard",
 				"Nachrichten",
-				'Address Book',
+				'Adressbuch',
 				"Transaktionen",
 				"Geerntete Blöcke",
 				"Börse",
@@ -607,7 +607,7 @@ define({
 				sendNem: "XEM senden",
 				signMultisig: 'Unterzeichnen',
 				balance: "Kontostand",
-				vestedBalance: 'Vested Balance',
+				vestedBalance: 'Arbeitender Teil des Kontostands',
 				syncStatus: "(Block {{1}}{{#2}} : etwa {{3}} Tage im Rückstand{{/2}})",
 				unknown: "unbekannt",
 				columns: [
