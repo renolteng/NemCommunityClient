@@ -7,30 +7,30 @@ define({
 			decimalSeparator: "."
 		},
 		faults: {
-			101: 'The wallet file does not exist.',
+			101: 'A carteira não existe.',
 			102: "A carteira não foi criada.",
-			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
-			104: 'The provided password for the wallet is not correct.',
-			105: 'No password was provided for the wallet.',
-			106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha de uma carteira ou crie outra.",
+			103: 'O arquivo da carteira está corrompido. Por favor, recupere-o de um back-up que você deveria ter feito.',
+			104: 'A senha fornecida para essa carteira não está correta.',
+			105: 'Não foi fornecido nenhuma senha para a carteira.',
+			106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha da carteira ou crie outra.",
 			107: "A carteira não contém essa conta.",
 			108: "A conta não pode ser removida. Provavelmente ela tem saldo maior que 0 XEMs ou é a conta primária.",
 			109: "Já existe uma conta com o mesmo nome. Por favor, escolha outro.",
 			110: "A carteira já contém essa conta.",
-			111: 'The wallet name is a directory.',
-			112: 'The extension of the wallet file is incorrect.',
-			113: 'The wallet could not be deleted.',
-			121: 'The address book file does not exist.',
-			122: 'Address book has not been created.',
-			123: 'Address book file is corrupt. Please recover your address book from a backup.',
-			124: 'The provided password for the address book is not correct.',
-			125: 'No password was provided for the address book.',
-			127: 'Address book does not contain this address.',
-			129: 'Another address book with the same name exists already. Please choose an other address book name.',
-			130: 'Address book already contains this address.',
-			131: 'The address book name is a directory.',
-			132: 'The extension of the address book file is incorrect.',
-			133: 'The address book could not be deleted.',
+			111: 'O nome da carteira é um diretório.',
+			112: 'A extensão do arquivo da carteira está incorreto.',
+			113: 'A carteira não pode ser deletada.',
+			121: 'O arquivo de contatos não existe.',
+			122: 'O arquivo de contatos não foi criado.',
+			123: 'O arquivo de contatos está corrompido. Por favor, recupere-o de um back-up que você deveria ter feito.',
+			124: 'A senha para o arquivo de contatos não incorreta.',
+			125: 'Não foi fornecido nenhuma senha para o arquivo de contatos.',
+			127: 'Não existe esse endereço nos arquivos.',
+			129: 'Outro arquivo de contatos já existe com esse nome. Por favor, escolha outro nome para esse arquivo.',
+			130: 'Já existe esse contato nos arquivos.',
+			131: 'O nome do arquivo de contatos é um diretório.',
+			132: 'A extensão do arquivo de contatos está incorreta.',
+			133: 'Não foi possível deletar o arquivo de contatos.',
 			202: "Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.",
 			305: "NIS inicializando.",
 			306: "Ocorreu um erro desconhecido. Talvez uma nova nova tentativa ou reiniciar o cliente/servidor dê certo; caso contrário, informe aos desenvolvedores do NEM no fórum oficial forum.nemcoin.com.",
@@ -40,7 +40,7 @@ define({
 			500: "Ocorreu um erro desconhecido. Por favor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.",
 			600: "NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu superior direito.",
 			601: "O NIS já foi inicializado.",
-			699: 'Maximum number of harvesters allowed on server has been reached.',
+			699: 'O número de máximo de colheitadores no servidor foi atingido.',
 			700: "Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 XEMs.",
 			701: "O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.",
 			702: "O prazo final fornecido está no futuro. O prazo limite deve estar dentro do período de um dia.",
@@ -51,16 +51,16 @@ define({
 			707: "A data da ID de transação está muito no passado.",
 			708: "A data da ID de transação está muito no futuro.",
 			709: "Conta desconhecida, Por favor, faça uma transação para conseguir uma chave pública.",
-			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
-			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
-			740: 'Transaction is not allowed for multisig account.',
-			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
-			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
-			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
+			710: 'A transação foi rejeitada pois o cache está muito cheio. Aumentando a taxa de transação, aumenta a possibilidade dessa transação  ser aceita.',
+			730: 'Transação de transferencia de importância (Colheita segura) conflita com uma transação existente.',
+			731: 'A conta de colheita segura não possue saldo igual a zero e não pode ser utilizada.',
+			732: 'Transferencia de importância foi rejeitada. Já existe uma operação de transferencia de importancia em andamento.',
+			733: 'Colheita segura já está ativa.',
+			734: 'Colheita segura não está ativa. Não pode ser desativa.',
+			740: 'Não é permitido transação para contas Multisig.',
+			741: 'Assinatura Multisig rejeitada. A conta atual não é uma conta consignatária de uma conta tipo Multisig.',
+			742: 'Assinatura de transação de conta Multisig rejeitada. Transaçao Multisig associada não é reconhecida pela rede Nem.',
+			743: 'Modificação de conta do tipo Multisig foi rejeitada. Uma das contas adicionadas já é consignatária.',
 			901: "Erro na configuração do modo off-line.",
 			1000: "Chave privada e pública não combinam.",
 			1001: 'Chave publica e endereço não combinam.',
@@ -85,31 +85,29 @@ define({
 					many: "{{1}} dias"
 				},
 				synchronized: "NIS está sincronizado!!",
-				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+				noRemoteNisAvailable: 'Não foi encontrado servidor NIS na rede. Você está conectado à internet?'
 			},
-			addressBook: 'Address book',
+			addressBook: 'Arquivo de contatos',
 			password: "Senha",
-			passwordValidation: 'Password must not be blank',
+			passwordValidation: 'A senha não pode ser em branco ou vazia',
 			address: 'Endereço',
 			privateLabel: "Identificação",
-			publicLabel: 'Public label',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-
+			publicLabel: 'Identificação pública',
+			noCharge: 'A conta atual <b>NÃO</b> pode receber taxas de transações, uma conta do tipo Multisig a acoberta',
 		},
 		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'TRANSAÇÕES DE VALORES',
+			'ITRANSFERENCIAS DE IMPORTANCIA',
+			'MODIFICAÇÃO DE UMA CONTA MULTISIG',
+			'TRANSAÇÃO MULTISIG',
 		],
 		transactionDirections: {
 			pending: "Pendente",
 			outgoing: "Enviada",
 			incoming: "Recebida",
 			self: "Enviada para si mesmo",
-			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			importance: 'Transação de importância',
+			modification: 'Agregação de modificação Multisig'
 		},
 		modals: {
 			error: {
@@ -145,62 +143,60 @@ define({
 				saveSuccess: "As configurações foram salvas!"
 			},
 			multisig: {
-				title: 'Convert account to multisig',
-				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
+				title: 'Converter conta para Multisig',
+				multisigAccount: 'Conta Multisig',
+				cosignatories: "Endereços dos consignatários",
 				labelDesc: "Esta conta está identificada como {{1}}",
 				nullLabelDesc: "Esta conta não tem uma identificação",
-				addCosignatory: '+ Add Cosignatory',
+				addCosignatory: '+ Adicinar um consignatário',
 				cancel: 'Cancelar',
-				convert: 'Convert',
+				convert: 'Converter',
 				fee: "Taxa",
 				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
 				dueBy: 'Tempo de espera',
 				useMinimumFee: 'Usar taxa minima',
 				hours: 'hora(s)',
 				txConfirm: {
-					title: 'Confirm Conversion to Multisig Account',
+					title: 'Confirmar Conversão para conta Multisig',
 					total: 'Total',
-
 				},
 
 			},
 			signMultisig: {
-				title: 'Sign multisig transaction',
+				title: 'Assinar transação Multisig',
 				original: {
-					from: 'Multisig account',
+					from: 'Conta Multisig',
 					to: "Destinatário",
 					amount: "Quantidade",
 					fee: 'Inner Fee',
-					deadline: 'Deadline'
+					deadline: 'Prazo final'
 				},
-				multisigFees: 'Multisig Fees',
+				multisigFees: 'Taxas Multisig',
 				multisigTotal: 'Total',
-				sender: 'Cosignatory',
+				sender: 'Cosignatário',
 				fee: "Taxa",
 				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
 				dueBy: 'Tempo de espera',
 				useMinimumFee: 'Usar taxa minima',
 				hours: 'hora(s)',
 				password: "Senha",
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: 'A senha não deve ser vazia',
 				send: "Enviar",
 				cancel: 'Cancelar',
 				sending: 'Enviando...',
 				successMessage: "A transação foi enviada!",
 				txConfirm: {
-					title: 'Confirm Multisig Transaction',
+					title: 'Confirmar transação Multisig',
 					message: "Mensagem",
 					encrypted: "Mensagem criptografada",
 					noMessage: "Sem mensagem",
-
 				},
 
 			},
 			sendNem: {
 				title: "Enviar XEM",
 				sender: "Remetente",
-				thisAccount: 'This account',
+				thisAccount: 'Esta conta',
 				labelDesc: "Esta conta está identificada como {{1}}",
 				nullLabelDesc: "Esta conta não tem uma identificação",
 				amount: "Total",
@@ -209,13 +205,13 @@ define({
 				message: "Mensagem",
 				encrypt: "Criptografar mensagem",
 				fee: "Taxa",
-				multisigFee: 'Multisig fee',
+				multisigFee: 'Taxa Multisig',
 				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
 				dueBy: "Tempo de aquisicão",
 				useMinimumFee: 'Usar taxa minima',
 				hours: "horas",
 				password: "Senha",
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: 'A senha não deve ser vazia',
 				send: "Enviar",
 				cancel: 'Cancelar',
 				sending: "Enviando...",
@@ -260,17 +256,17 @@ define({
 				id: "ID",
 				hash: "Hash",
 				type: "Tipo de transação",
-				direction: 'Transaction Direction',
+				direction: 'Direção da transação',
 				pending: "Pendente",
 				outgoing: "Enviado",
 				incoming: "Recebido",
 				self: "Enviado para si mesmo",
 				sender: "Remetente",
-				multisigAccount: 'Multisig Account',
-				issuer: 'Issuer',
+				multisigAccount: 'Conta Multisig',
+				issuer: 'Emissor',
 				recipient: "Destinatário",
-				remote: 'Remote',
-				multisigMessage: 'Signatures present',
+				remote: 'Remoto',
+				multisigMessage: 'Assinatura atual',
 				message: "Mensagem",
 				noMessage: "Sem mensagem",
 				encrypted: "Mensagem Criptografada",
@@ -279,23 +275,23 @@ define({
 				confirmationsUnknown: 'Desconhecida(o)',
 				amount: "Quantidade",
 				fee: "Taxa",
-				innerFee: 'Inner Fee',
-				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
-				cosignatory: 'Cosignatory'
+				innerFee: 'Taxas internas',
+				multisigFees: 'Taxas Multisig',
+				issuer: 'Emissor',
+				cosignatory: 'Cosignatário'
 			},
 			accountDetails: {
 				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
+				address: "Endereço",
+				label: "Identificação",
+				noLabel: "Sem identificação",
+				add: "Adicionar ao arquivo de contatos",
+				remove: "Remover do arquivo de contatos",
+				balance: "Balanço",
+				importance: "Importancia",
+				publicKey: "Chave Publica",
+				noPublicKey: "Sem chave públida",
+				harvestedBlocks: "Blocos colheitados",
 				close: "Close"
 			},
 			bootLocalNode: {
@@ -342,7 +338,7 @@ define({
 						tryAgain: 'Tente inserí-la novamente',
 						seeOriginal: 'Veja os dados originais'
 					},
-					recheck: "Checar"
+					recheck: "Verificar novamente"
 				},
 				ok: "OK"
 			},
@@ -372,7 +368,6 @@ define({
 				password: "Senha",
 				successMessage: "Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!",
 				set: "Definir como conta primária",
-
 			},
 			changeWalletName: {
 				title: "Renomear Carteira",
@@ -452,16 +447,16 @@ define({
 
 			},
 			addContact: {
-				title: 'Add contact',
+				title: 'Adicionar contato',
 				add: "Criar"
 			},
 			editContact: {
-				title: 'Edit contact',
+				title: 'Editar contato',
 				saveChanges: "Salvar modificações",
 
 			},
 			removeContact: {
-				title: 'Remove contact',
+				title: 'Remover contato',
 				remove: "Remover",
 
 			}
@@ -479,9 +474,9 @@ define({
 				leftButton: "Criar nova carteira",
 				walletNamePlh: "Nome para a carteira",
 				passwordPlh: "Senha",
-				confirmPasswordPlh: 'Confirm password',
+				confirmPasswordPlh: 'Confirmar senha',
 				create: "Criar",
-				creating: 'Creating...',
+				creating: 'Criando...',
 				rightTitle: "Já possui uma carteira?",
 				rightButton: "Abrir carteira existente",
 				openButton: "Abrir",
@@ -556,12 +551,12 @@ define({
 				closeWallet: "Fechar carteira",
 				closeProgram: "Fechar programa",
 				copyClipboard: "Copiar para a área de transferência",
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Converter para Multisig'
 			},
 			nav: [
 				"Painel Administrativo",
 				"Mensagens",
-				'Address Book',
+				'Arquivo de contatos',
 				"Transações",
 				"Blocos colhidos",
 				"Exchange de ativos",
@@ -598,7 +593,7 @@ define({
 			transactions: {
 				title: "Transações recentes",
 				sendNem: "Enviar XEM",
-				signMultisig: 'SIGN',
+				signMultisig: 'ASSINAR',
 				balance: "Saldo atual",
 				syncStatus: "(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})",
 				unknown: "Desconhecido",
@@ -641,7 +636,6 @@ define({
 				unconfirmed: "Não confirmadas",
 				incoming: "Recebidas",
 				outgoing: "Enviadas",
-
 			},
 			table: {
 				columns: [
@@ -690,19 +684,19 @@ define({
 			}
 		},
 		addressBook: {
-			title: 'Address book',
-			addContact: 'Add contact',
+			title: 'Lista de contatos',
+			addContact: 'Adicinar contatos',
 			table: {
 				columns: [
-					'Account address',
-					'Private Label',
-					'Public Label'
+					'Endereço do contato',
+					'Identificação privada',
+					'Identificação pública'
 				],
-				noContacts: 'There is no contacts in your address book'
+				noContacts: 'Não existem contatos na sua lista de contatos...'
 			},
-			noLabel: 'No label',
+			noLabel: 'Sem identificação',
 			sendNem: "Enviar XEM",
-			edit: 'Edit',
+			edit: 'Editar',
 			remove: "Remover"
 		},
 		settings: {
