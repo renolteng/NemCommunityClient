@@ -175,6 +175,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                     if (recipient) {
                         m.set('formattedRecipient', Utils.format.address.format(recipient));
                     }
+                } else if (ncc.get('loadingDb')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.loadingWarning.title'), ncc.get('texts.faults.602'));
+
                 } else if (ncc.get('nodeBooting')) {
                     ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
                 } else {

@@ -155,6 +155,9 @@ define(function(require) {
                        }
                 }
             },
+            loadingDb: function() {
+                return this.get('nisStatus.code') === Utils.config.STATUS_LOADING;
+            },
             nodeBooting: function() {
                 return this.get('status.booting') || this.get('nisStatus.code') === Utils.config.STATUS_BOOTING;
             },

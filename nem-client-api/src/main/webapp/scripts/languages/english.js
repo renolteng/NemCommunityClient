@@ -239,7 +239,10 @@ define({
 				bootingWarning: {
 					title: 'Node is being booted',
 					message: 'Please wait until booting process is done to send your transaction.'
-				}
+				},
+                loadingWarning: {
+                    title: 'Loading db'
+                }
 			},
 			clientInfo: {
 				title: 'Client info',
