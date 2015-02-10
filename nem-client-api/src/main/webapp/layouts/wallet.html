@@ -784,12 +784,24 @@
 				{{#if (.type === TransactionType.Multisig_Transfer)}}
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigAccount}}</td>
 					<td class="table-cell table-cell--content">
-						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">{{.multisig.formattedFrom}}</a>
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">
+                            {{#if privateLabels[.inner.sender]}}
+                                {{privateLabels[.inner.sender]}}
+                            {{else}}
+                                {{.multisig.formattedFrom}}
+                            {{/if}}
+                        </a>
 					</td>
 				{{else}}
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
 				<td class="table-cell table-cell--content">
-					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                        {{#if privateLabels[.sender]}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{.formattedSender}}
+                        {{/if}}
+                    </a>
 				</td>
 				{{/if}}
 			</tr>
@@ -798,7 +810,13 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
 				<td class="table-cell table-cell--content">
-					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.formattedSender}}</a>
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                        {{#if privateLabels[.sender]}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{.formattedSender}}
+                        {{/if}}
+                    </a>
 				</td>
 			</tr>
 			{{/if}}
@@ -813,7 +831,13 @@
 					{{/if}}
 				</td>
 				<td class="table-cell table-cell--content">
-					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">{{.formattedRecipient}}</a>
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
+                        {{#if privateLabels[.recipient]}}
+                            {{privateLabels[.recipient]}}
+                        {{else}}
+                            {{.formattedRecipient}}
+                        {{/if}}
+                    </a>
 				</td>
 			</tr>
 			{{/if}}
@@ -887,7 +911,13 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
 				<td class="table-cell table-cell--content">
-					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">{{.address}}</a>
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                        {{#if privateLabels[.address]}}
+                            {{privateLabels[.address]}}
+                        {{else}}
+                            {{.address}}
+                        {{/if}}
+                    </a>
 				</td>
 			</tr>
 			{{/each}}
@@ -897,16 +927,26 @@
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
 					<td class="table-cell table-cell--content">
-						<span>{{privateLabels[.issuer]}}</span> -
-						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">{{.issuer}}</a>
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">
+                            {{#if privateLabels[.issuer]}}
+                                {{privateLabels[.issuer]}}
+                            {{else}}
+                                {{.issuer}}
+                            {{/if}}
+                        </a>
 					</td>
 				</tr>
 				<tr><td colspan="2">Signatures present:</td></tr>
 				{{#each .signatures}}
 					<tr>
 						<td colspan="2" class="table-cell table-cell--content">
-							<span>{{privateLabels[.sender]}}</span> -
-							<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">{{.sender}}</a>
+							<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                {{#if privateLabels[.sender]}}
+                                    {{privateLabels[.sender]}}
+                                {{else}}
+                                    {{.sender}}
+                                {{/if}}
+                            </a>
 						</td>
 					</tr>
 				{{/each}}

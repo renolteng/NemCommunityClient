@@ -333,15 +333,6 @@ define(['TransactionType'], function(TransactionType) {
                     var segments = address.substring(0, Utils.config.addressCharacters).match(/.{1,6}/g) || [];
                     return segments.join('-').toUpperCase();
                 },
-                formatWithLabel: function(address) {
-                    if (!address) return address;
-                    var label = Utils.addressBook.findByAddress(address);
-                    var formattedAddress = Utils.format.address.format(address);
-                    if (label)
-                        formattedAddress = label + ' ' + formattedAddress;
-
-                    return formattedAddress
-                },
                 restore: function(formattedAddress) {
                     if (!formattedAddress) return formattedAddress;
                     var address = formattedAddress.replace(/\-/g, '');
@@ -682,12 +673,12 @@ define(['TransactionType'], function(TransactionType) {
                 tx.mainType = tx.inner.type;
 
                 tx.multisig={};
-                tx.multisig.formattedFrom = Utils.format.address.formatWithLabel(tx.inner.sender);
+                tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
 
                 if (tx.type === TransactionType.Multisig_Transfer) {
-                    tx.multisig.formattedTo = Utils.format.address.formatWithLabel(tx.inner.recipient);
+                    tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
                     tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                     tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
 
@@ -732,14 +723,16 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = transferTransaction.direction === 3;
             }
 
-            tx.formattedSender = Utils.format.address.formatWithLabel(tx.sender);
+            tx.formattedSender = Utils.format.address.format(tx.sender);
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedRecipient = Utils.format.address.formatWithLabel(transferTransaction.recipient);
+            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
             tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
+
+            console.log('transaction', tx);
             return tx;
         },
         processTransactions: function(transactions) {
