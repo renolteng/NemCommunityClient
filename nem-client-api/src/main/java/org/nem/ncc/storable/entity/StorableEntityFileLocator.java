@@ -1,7 +1,7 @@
 package org.nem.ncc.storable.entity;
 
-import org.nem.core.function.QuadFunction;
 import org.nem.core.serialization.ObjectDeserializer;
+import org.nem.ncc.function.QuadFunction;
 import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
 
 import java.io.*;
@@ -24,11 +24,11 @@ public class StorableEntityFileLocator<
 	private final Function<String, TEntityName> nameActivator;
 	private final Function<String, TEntityFileExtension> fileExtensionActivator;
 	private final QuadFunction<
-				File,
-				ObjectDeserializer<TEntity>,
-				Function<String, TEntityName>,
-				Function<String, TEntityFileExtension>,
-				TEntityDescriptor> descriptorActivator;
+			File,
+			ObjectDeserializer<TEntity>,
+			Function<String, TEntityName>,
+			Function<String, TEntityFileExtension>,
+			TEntityDescriptor> descriptorActivator;
 
 	/**
 	 * Creates a new storable entity file locator.

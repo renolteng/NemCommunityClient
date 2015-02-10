@@ -1,7 +1,7 @@
 package org.nem.ncc.test.StorableEntity;
 
-import org.nem.core.function.QuadFunction;
 import org.nem.core.serialization.ObjectDeserializer;
+import org.nem.ncc.function.QuadFunction;
 import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.storable.entity.storage.StorableEntityFileDescriptorFactory;
 
@@ -23,11 +23,11 @@ public class DefaultStorableEntityFileDescriptorFactory
 			final Function<String, StorableEntityName> nameActivator,
 			final Function<String, StorableEntityFileExtension> fileExtensionActivator,
 			final QuadFunction<
-								File,
-								ObjectDeserializer<DefaultStorableEntity>,
-								Function<String, StorableEntityName>,
-								Function<String, StorableEntityFileExtension>,
-								DefaultStorableEntityFileDescriptor> descriptorActivator) {
+					File,
+					ObjectDeserializer<DefaultStorableEntity>,
+					Function<String, StorableEntityName>,
+					Function<String, StorableEntityFileExtension>,
+					DefaultStorableEntityFileDescriptor> descriptorActivator) {
 		super(
 				directory,
 				deserializer,
