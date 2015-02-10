@@ -731,8 +731,6 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
             tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
-
-            console.log('transaction', tx);
             return tx;
         },
         processTransactions: function(transactions) {
