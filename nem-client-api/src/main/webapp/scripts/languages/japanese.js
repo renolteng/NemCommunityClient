@@ -703,12 +703,12 @@ define({
 			table: {
 				columns: [
 					'NEMアドレス',
-					'非公開レベル',
-					'一般公開レベル'
+					'非公開ラベル',
+					'一般公開ラベル'
 				],
 				noContacts: '連絡先無し'
 			},
-			noLabel: 'レベル無し',
+			noLabel: 'ラベル無し',
 			sendNem: "XEMを送金する",
 			edit: '編集',
 			remove: "削除"
