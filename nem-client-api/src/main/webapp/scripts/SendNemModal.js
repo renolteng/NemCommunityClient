@@ -85,6 +85,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this.set('useMinimumFee', true);
             this.set('signatories', [{}]);
 
+            this.set('privateLabels', ncc.get('privateLabels'));
             this.set('cosignatories', ncc.get('activeAccount').multisigAccounts);
             this.set('recipientChanged', false);
             this.set('feeChanged', false);

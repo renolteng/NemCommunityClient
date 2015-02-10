@@ -346,7 +346,11 @@
 			<div class="form-dropdownbox">
 				<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
 					{{#if sender}}
-						{{sender}}
+                        {{#if (privateLabels[.sender])}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+						    {{sender}}
+                        {{/if}}
 					{{else}}
 						{{texts.modals.sendNem.thisAccount}}
 					{{/if}}
@@ -354,7 +358,13 @@
 				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
 					<li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.modals.sendNem.thisAccount}}</li>
 					{{#each cosignatories}}
-						<li class="form-dropdownbox-item" on-click="set('sender', .address)">{{.address}}</li>
+						<li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
+                            {{#if (privateLabels[.address])}}
+                                {{privateLabels[.address]}}
+                            {{else}}
+                                {{.address}}
+                            {{/if}}
+                        </li>
 					{{/each}}
 				</ul>
 			</div>

@@ -220,6 +220,7 @@ $form-input-hPadding: 12px;
 	color: $form-textColor;
 }
 
+
 .form-field {
 	margin-top: 16px;
 }
@@ -304,6 +305,10 @@ $form-input-hPadding: 12px;
 	position: relative;
 }
 
+.form-dropdownbox-black {
+    color: #000;
+}
+
 .form-dropdownbox-selection {
 	position: relative;
 	@include border-radius(4px);
@@ -360,7 +365,7 @@ $form-input-hPadding: 12px;
 	}
 
 	&:hover {
-		background-color: #f0f0f0;
+		background-color: #c0c0c0;
 	}
 }
 
