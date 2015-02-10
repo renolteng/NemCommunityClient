@@ -304,7 +304,8 @@ $account-actions-width: 33px;
 
 .account-info-line--darken {
 	margin-bottom: 3px;
-	color: #ccc;
+	color: #888;
+	font-size: 12px;
 }
 
 .account-id {
@@ -321,6 +322,7 @@ $account-actions-width: 33px;
 .account-label--blank {
 	color: #5a6479;
 	font-style: italic;
+	font-size: 12px;
 }
 
 .account-actionsButton {
