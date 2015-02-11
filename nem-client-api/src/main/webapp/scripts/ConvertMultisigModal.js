@@ -35,7 +35,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 return !this.get('passwordValid') && this.get('passwordChanged');
             },
             formValid: function() {
-                return this.get('feeValid') && this.get('passwordValid') && this.get('multisigAccount');
+                return this.get('feeValid') && this.get('passwordValid') && this.get('multisigAccount') && this.get('cosignatoriesValid');
             }
         },
         resetFee: function(options) {
@@ -98,6 +98,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         	$('.js-cosignatory').first().typeahead('val', activeFormattedAddress);
         	$('.js-cosignatory').last().typeahead('val', '');
 
+            this.set('cosignatoriesValid', false);
+            this.set('warningShown', false);
             this.set('multisigAccount', '');
             this.set('fee', 0);
             this.set('minimumFee', 0);
@@ -127,6 +129,26 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             txConfirm.set('requestData', requestData);
             txConfirm.open();
         },
+        doCosignatoryCheck: function() {
+            var multisigAccount = this.get('multisigAccount');
+            var cosignatories = this.get('cosignatories');
+            if (! multisigAccount) {
+                return;
+            }
+            this.set('cosignatoriesValid', true);
+            for (var i=0; i<cosignatories.length; ++i) {
+                if (cosignatories[i].address === multisigAccount) {
+                    this.set('cosignatoriesValid', false);
+                    this.set('cosignatories['+i+'].error', true);
+                } else {
+                    this.set('cosignatories['+i+'].error', false);
+                }
+            }
+            if (this.get('warningShown') === false && this.get('cosignatoriesValid') === false) {
+                ncc.showMessage(ncc.get('texts.modals.multisig.title'), ncc.get('texts.modals.multisig.warning'));
+                this.set('warningShown', true);
+            }
+        },
         onrender: function() {
             this._super();
             var self = this;
@@ -145,6 +167,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                         t = setTimeout(function() {
                             self.resetFee({ silent: true });
                         }, 500);
+
+                        self.doCosignatoryCheck();
                     }
                 })()
             },
@@ -169,6 +193,9 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 },
                 password: function() {
                     this.set('passwordChanged', true);
+                },
+                multisigAccount: function() {
+                    this.doCosignatoryCheck();
                 }
             },
             {
@@ -182,7 +209,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 },
                 modalOpened: function() {
                     $('.js-cosignatory').focus();
-                    // TODO G-Krysto: this should be here not in modalClosed, or not?
                     this.resetDefaultData();
                 },
                 modalClosed: function() {

@@ -164,6 +164,7 @@ define({
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
 				},
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
