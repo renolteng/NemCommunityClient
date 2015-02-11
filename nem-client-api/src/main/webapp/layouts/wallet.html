@@ -263,9 +263,33 @@
 	<div class="form multisig-form">
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.multisig.multisigAccount}}</p>
-			<input class="form-input form-input--textbox form-input--unimportant" readonly value="{{formattedMultisigAccount}}" />
+            <div class="form-dropdownbox">
+                <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-multisigAccount']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-multisigAccount')">
+                    {{#if multisigAccount}}
+                        {{#if (privateLabels[multisigAccount])}}
+                            {{privateLabels[multisigAccount]}}
+                        {{else}}
+                            {{multisigAccount}}
+                        {{/if}}
+                    {{else}}
+                    <span style="color:#c00">Choose account to convert</span>
+                    {{/if}}
+                </div>
+                <ul class="form-dropdownbox-dropdown {{^active['settingsModal-multisigAccount']}}hidden{{/}}">
+                    {{#allAccounts}}
+                    <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('multisigAccount', .address)">
+                        {{#if (privateLabels[.address])}}
+                            {{privateLabels[.address]}}
+                        {{else}}
+                            {{.address}}
+                        {{/if}}
+                    </li>
+                    {{/}}
+                </ul>
+            </div>
 		</div>
 		<div class="form-field">
+            <hr/>
 			<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
 			{{#each cosignatories : i}}
 				<div class="{{#i !== 0}}form-field{{/}}">
@@ -617,7 +641,15 @@
 	<div class="modificationConfirm-txInfo">
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{texts.modals.multisig.multisigAccount}}</span>
-			<span class="modificationConfirm-value"><span class="modificationConfirm-account">{{requestData.account}}</span></span>
+			<span class="modificationConfirm-value"><span class="modificationConfirm-account">
+                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(requestData.account)">
+                {{#if (privateLabels[requestData.account])}}
+                    {{privateLabels[requestData.account]}}
+                {{else}}
+                    {{requestData.account}}
+                {{/if}}
+                </a>
+            </span></span>
 		</div>
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{texts.modals.multisig.fee}}</span>
@@ -628,7 +660,15 @@
 		{{#each requestData.cosignatories : i}}
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{i}}</span>
-			<span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">{{.address}}</span></span>
+			<span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
+                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                    {{#if (privateLabels[.address])}}
+                    {{privateLabels[.address]}}
+                    {{else}}
+                    {{.address}}
+                    {{/if}}
+                </a>
+            </span></span>
 		</div>
 		{{/each}}
 		<hr>

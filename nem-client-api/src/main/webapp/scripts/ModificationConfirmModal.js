@@ -23,6 +23,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     self.unlockAction();
                 }
             });
-		}
+		},
+		onrender: function() {
+		    this.set('privateLabels', ncc.get('privateLabels'));
+		    this.viewAccount = ncc.viewAccount;
+        }
 	});
 });
