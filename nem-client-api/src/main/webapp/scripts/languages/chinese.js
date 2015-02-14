@@ -3,7 +3,7 @@ define({
 	name: '中文（简体）',
 	texts: {
 		preferences: {
-			thousandSeparator: ' ',
+			thousandSeparator: ',',
 			decimalSeparator: '.'
 		},
 		faults: {
@@ -486,13 +486,16 @@ define({
 				copyright: '由<em>Cas Cornelissen</em>摄制'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC 加密你的钱包',
-					description: '为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
-				}, {
-					title: 'NCC 加密你的钱包',
-					description: ' 为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
-				}]
+				items: [
+					{
+						title: 'NCC 加密你的钱包',
+						description: '为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
+					},
+					{
+						title: 'NCC 加密你的钱包',
+						description: ' 为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
+					}
+				]
 			},
 			about: {
 				sections: [
@@ -702,9 +705,11 @@ define({
 		},
 		settings: {
 			title: '设置',
-			settings: [{
-				name: '语言'
-			}],
+			settings: [
+				{
+					name: '语言'
+				}
+			],
 			save: '保存更改',
 			saveSuccess: '设置已保存成功'
 		}
