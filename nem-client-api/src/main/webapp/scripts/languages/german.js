@@ -103,7 +103,7 @@ define({
 			'XEM-Überweisung',
 			'Wichtigkeitsübertragung',
 			'Änderung eines Multisig-Kontos',
-			'Multisig-Überweisung',
+			'Multisig-Überweisung'
 		],
 		transactionDirections: {
 			pending: 'Ausstehende Transaktion',
@@ -163,6 +163,7 @@ define({
 				txConfirm: {
 					title: 'Umwandlung in Multisig-Konto bestätigen',
 					total: 'Insgesamt',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
@@ -194,7 +195,8 @@ define({
 					message: 'Nachricht',
 					encrypted: 'Nachricht ist verschlüsselt',
 					noMessage: 'Keine Nachricht',
-				},
+
+				}
 			},
 			sendNem: {
 				title: 'XEM senden',
@@ -294,7 +296,7 @@ define({
 				remove: 'Vom Adressbuch entfernen',
 				balance: 'Kontostand',
 				vested: 'Für Ernte verwendbarer Anteil',
-				importance: 'Wichtigkeit,'
+				importance: 'Wichtigkeit',
 				publicKey: 'Öffentlicher Schlüssel',
 				noPublicKey: 'öffentlicher Schlüssel unbekannt',
 				harvestedBlocks: 'Geerntete Böcke',
@@ -373,8 +375,7 @@ define({
 				wallet: 'Zugehörige Brieftasche',
 				password: 'Passwort der Brieftasche',
 				successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde als Hauptkonto festgelegt!',
-				set: 'Als Hauptkonto festlegen',
-
+				set: 'Als Hauptkonto festlegen'
 			},
 			changeWalletName: {
 				title: 'Namen der Brieftasche ändern',
@@ -450,7 +451,7 @@ define({
 				stop: 'Beenden'
 			},
 			logoutWarning: {
-				leavePage: 'Du bist dabei die Seite zu verlassen, ohne deine Brieftasche zu schließen. Dadurch könnten andere Zugang zu deiner Brieftasche erhalten.\n\nUm dies zu verhindern, solltest du den Menüpunkt \'Brieftasche schließen\' im Aufklappmenü anwählen, bevor du den Browser schließt oder zu einer anderen Seite navigierst.\n',
+				leavePage: 'Du bist dabei die Seite zu verlassen, ohne deine Brieftasche zu schließen. Dadurch könnten andere Zugang zu deiner Brieftasche erhalten.\n\nUm dies zu verhindern, solltest du den Menüpunkt \'Brieftasche schließen\' im Aufklappmenü anwählen, bevor du den Browser schließt oder zu einer anderen Seite navigierst.\n'
 			},
 			addContact: {
 				title: 'Kontakt hinzufügen',
@@ -458,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Kontakt bearbeiten',
-				saveChanges: 'Änderungen speichern',
-
+				saveChanges: 'Änderungen speichern'
 			},
 			removeContact: {
 				title: 'Kontakt entfernen',
-				remove: 'Entfernen',
-
+				remove: 'Entfernen'
 			}
 		},
 		landing: {
@@ -642,7 +641,7 @@ define({
 				confirmed: 'Bestätigt',
 				unconfirmed: 'Unbestätigt',
 				incoming: 'Eingehend',
-				outgoing: 'Ausgehend',
+				outgoing: 'Ausgehend'
 			},
 			table: {
 				columns: [

@@ -63,7 +63,7 @@ define({
 			741: 'Assinatura Multisig rejeitada. A conta atual não é uma conta consignatária de uma conta tipo Multisig.',
 			742: 'Assinatura de transação de conta Multisig rejeitada. Transaçao Multisig associada não é reconhecida pela rede Nem.',
 			743: 'Modificação de conta do tipo Multisig foi rejeitada. Uma das contas adicionadas já é consignatária.',
-n			901: 'Erro na configuração do modo off-line.',
+			901: 'Erro na configuração do modo off-line.',
 			1000: 'Chave privada e pública não combinam.',
 			1001: 'Chave publica e endereço não combinam.',
 			1002: 'O endereço não pertence a rede principal de peers.'
@@ -103,8 +103,7 @@ n			901: 'Erro na configuração do modo off-line.',
 			'TRANSAÇÕES DE VALORES',
 			'ITRANSFERENCIAS DE IMPORTANCIA',
 			'MODIFICAÇÃO DE UMA CONTA MULTISIG',
-			'TRANSAÇÃO MULTISIG',
-			
+			'TRANSAÇÃO MULTISIG'
 		],
 		transactionDirections: {
 			pending: 'Pendente',
@@ -197,8 +196,7 @@ n			901: 'Erro na configuração do modo off-line.',
 					encrypted: 'Mensagem criptografada',
 					noMessage: 'Sem mensagem',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Enviar XEM',
@@ -377,8 +375,7 @@ n			901: 'Erro na configuração do modo off-line.',
 				wallet: 'Carteira',
 				password: 'Senha',
 				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!',
-				set: 'Definir como conta primária',
-
+				set: 'Definir como conta primária'
 			},
 			changeWalletName: {
 				title: 'Renomear Carteira',
@@ -454,8 +451,7 @@ n			901: 'Erro na configuração do modo off-line.',
 				stop: 'Parar'
 			},
 			logoutWarning: {
-				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador\n\nPara fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.',
-
+				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador\n\nPara fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
 			},
 			addContact: {
 				title: 'Adicionar contato',
@@ -463,13 +459,11 @@ n			901: 'Erro na configuração do modo off-line.',
 			},
 			editContact: {
 				title: 'Editar contato',
-				saveChanges: 'Salvar modificações',
-
+				saveChanges: 'Salvar modificações'
 			},
 			removeContact: {
 				title: 'Remover contato',
-				remove: 'Remover',
-
+				remove: 'Remover'
 			}
 		},
 		landing: {
@@ -647,8 +641,7 @@ n			901: 'Erro na configuração do modo off-line.',
 				confirmed: 'Confirmadas',
 				unconfirmed: 'Não confirmadas',
 				incoming: 'Recebidas',
-				outgoing: 'Enviadas',
-
+				outgoing: 'Enviadas'
 			},
 			table: {
 				columns: [
