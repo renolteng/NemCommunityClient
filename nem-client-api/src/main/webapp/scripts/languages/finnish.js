@@ -162,7 +162,8 @@ define({
 				hours: 'Tunti(a)',
 				txConfirm: {
 					title: 'Vahvista multiig-tilin muunto',
-					total: 'Yhteensä'
+					total: 'Yhteensä',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
@@ -193,7 +194,8 @@ define({
 					title: 'Vahvista multisig-siirto',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
-					noMessage: 'Ei viestiä'
+					noMessage: 'Ei viestiä',
+
 				}
 			},
 			sendNem: {
@@ -243,7 +245,6 @@ define({
 				},
 				loadingWarning: {
 					title: 'Loading db'
-
 				}
 			},
 			clientInfo: {

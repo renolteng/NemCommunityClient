@@ -162,7 +162,8 @@ define({
 				hours: 'heures(s)',
 				txConfirm: {
 					title: 'Confirmez la conversion en compte Multisig',
-					total: 'Total'
+					total: 'Total',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
@@ -193,7 +194,8 @@ define({
 					title: 'Confirm la transaction Multisig ',
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
-					noMessage: 'Pas de message'
+					noMessage: 'Pas de message',
+
 				}
 			},
 			sendNem: {

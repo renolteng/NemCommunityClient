@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -196,8 +195,9 @@ define({
 					message: 'मेसेज',
 					encrypted: 'मेसेज एनक्रिपटेड है',
 					noMessage: 'नो मेसेज',
-                                },
-                        },
+
+				}
+			},
 			sendNem: {
 				title: 'XEM भेजें',
 				sender: 'सेनडर',
@@ -285,7 +285,6 @@ define({
 				fee: 'फ़ीस',
 				innerFee: 'इनर फ़ीस',
 				multisigFees: 'Multisig फ़ीस',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -376,8 +375,8 @@ define({
 				wallet: 'वॉलेट',
 				password: 'वॉलेट का पासवर्ड',
 				successMessage: 'अकाउंट {{1}} {{#2}}({{2}}){{/2}} प्राइमरी सेट हो चुका है!',
-				set: 'प्राइमरी सेट करें',
-                        },
+				set: 'प्राइमरी सेट करें'
+			},
 			changeWalletName: {
 				title: 'वॉलेट का नाम बदलें',
 				wallet: 'मौजूदा वॉलेट का नाम',
@@ -452,20 +451,20 @@ define({
 				stop: 'निष्क्रिय करें'
 			},
 			logoutWarning: {
-				leavePage: 'आप अपने वॉलेट छोड़ के जा रहें हैं. आप इस तरह अपने वॉलेट छोड़ देते हैं तो कोई दूसरा भी इस कंप्यूटर से आपके वॉलेट का उपयोग करने में सक्षम हो सकता है. \n\nइससे बचने के लिए आप ब्राउज़र टैब बंद या कहीं और नेविगेट करने से पहले \'Close wallet\' मेनू आइटम का उपयोग करें.',
-                        },
+				leavePage: 'आप अपने वॉलेट छोड़ के जा रहें हैं. आप इस तरह अपने वॉलेट छोड़ देते हैं तो कोई दूसरा भी इस कंप्यूटर से आपके वॉलेट का उपयोग करने में सक्षम हो सकता है. \n\nइससे बचने के लिए आप ब्राउज़र टैब बंद या कहीं और नेविगेट करने से पहले \'Close wallet\' मेनू आइटम का उपयोग करें.'
+			},
 			addContact: {
 				title: 'Add contact',
 				add: 'जोड़ें'
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Save changes',
-                        },
+				saveChanges: 'Save changes'
+			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'हटाएँ',
-                        }
+				remove: 'हटाएँ'
+			}
 		},
 		landing: {
 			logo: 'images/nem_logo.png',
@@ -642,8 +641,7 @@ define({
 				confirmed: 'Confirmed',
 				unconfirmed: 'Unconfirmed',
 				incoming: 'Incoming',
-				outgoing: 'Outgoing',
-
+				outgoing: 'Outgoing'
 			},
 			table: {
 				columns: [
@@ -709,7 +707,8 @@ define({
 		},
 		settings: {
 			title: 'सेटिंग्स',
-			settings: [{
+			settings: [
+				{
 					name: 'भाषा'
 				}
 			],

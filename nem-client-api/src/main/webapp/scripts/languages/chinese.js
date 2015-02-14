@@ -162,7 +162,8 @@ define({
 				hours: '小时数',
 				txConfirm: {
 					title: '确认转换至多重签名账户',
-					total: '总额'
+					total: '总额',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
@@ -193,7 +194,8 @@ define({
 					title: '确认多重签名交互',
 					message: '信息',
 					encrypted: '信息已加密',
-					noMessage: '无信息'
+					noMessage: '无信息',
+
 				}
 			},
 			sendNem: {
@@ -293,6 +295,7 @@ define({
 				add: '添加到地址簿',
 				remove: '从地址簿删除',
 				balance: '余额',
+				vested: "vested",
 				importance: '重要性',
 				publicKey: '公钥',
 				noPublicKey: '无公钥',
@@ -638,8 +641,7 @@ define({
 				confirmed: '已确认交易',
 				unconfirmed: '未确认交易',
 				incoming: '接受中',
-				outgoing: '发送中',
-
+				outgoing: '发送中'
 			},
 			table: {
 				columns: [

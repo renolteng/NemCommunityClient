@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Vykdoma transakcija',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Žinutė šifruota',
 					noMessage: 'Nėra žinutės',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Siųsti XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Mokestis',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Piniginė',
 				password: 'Piniginės slaptažodis',
 				successMessage: 'Sąskaita {{1}} {{#2}}({{2}}){{/2}} nustatyta kaip pagrindinė!',
-				set: 'Nustatyta kaip pagrindinė',
-
+				set: 'Nustatyta kaip pagrindinė'
 			},
 			changeWalletName: {
 				title: 'Pakeisti piniginės pavadinimą',
@@ -455,8 +451,7 @@ define({
 				stop: 'Stabdyti'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
-
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Išsaugoti pakeitimus',
-
+				saveChanges: 'Išsaugoti pakeitimus'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Panaikinti',
-
+				remove: 'Panaikinti'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Patvirtintos',
 				unconfirmed: 'Nepatvirtintos',
 				incoming: 'Įeinancios',
-				outgoing: 'Išeinancios',
-
+				outgoing: 'Išeinancios'
 			},
 			table: {
 				columns: [

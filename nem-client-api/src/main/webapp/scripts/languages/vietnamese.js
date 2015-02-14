@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Giao dịch đang chờ xác nhận',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Thông điệp được mã hoá',
 					noMessage: 'Không có',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Gửi XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Phí',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Ví',
 				password: "Mật khẩu ví",
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được đặt làm tài khoản chính!',
-				set: 'Đặt làm tài khoản chính',
-
+				set: 'Đặt làm tài khoản chính'
 			},
 			changeWalletName: {
 				title: 'Đổi tên ví',
@@ -455,8 +451,7 @@ define({
 				stop: 'Ngừng'
 			},
 			logoutWarning: {
-				leavePage: "Bạn đang rời khỏi ví của mình. Hãy nhớ rằng nếu bạn rời ví theo cách này, ai đó khác vẫn có thể truy cập vào ví của bạn từ máy tính này.\n\nĐể ngăn chặn điều đó xảy ra, hãy đăng xuất bằng cách chọn \"Đóng ví\" trong menu xổ xuống phía trên bên phải màn hình trước khi bạn đóng tab trình duyệt hoặc sang một trang web khác.",
-
+				leavePage: "Bạn đang rời khỏi ví của mình. Hãy nhớ rằng nếu bạn rời ví theo cách này, ai đó khác vẫn có thể truy cập vào ví của bạn từ máy tính này.\n\nĐể ngăn chặn điều đó xảy ra, hãy đăng xuất bằng cách chọn \"Đóng ví\" trong menu xổ xuống phía trên bên phải màn hình trước khi bạn đóng tab trình duyệt hoặc sang một trang web khác."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Lưu thay đổi',
-
+				saveChanges: 'Lưu thay đổi'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Xoá',
-
+				remove: 'Xoá'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Đã xác nhận',
 				unconfirmed: 'Chưa xác nhận',
 				incoming: 'Gửi đến',
-				outgoing: 'Gửi đi',
-
+				outgoing: 'Gửi đi'
 			},
 			table: {
 				columns: [

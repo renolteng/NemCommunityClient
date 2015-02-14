@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: '交易待處理中',
@@ -197,8 +196,7 @@ define({
 					encrypted: '消息被加密',
 					noMessage: '無留言',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: '發送 XEM',
@@ -287,7 +285,6 @@ define({
 				fee: '費',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: '錢包',
 				password: "錢包的密碼",
 				successMessage: '賬戶 {{1}} {{#2}}({{2}}){{/2}} 被設置為主賬戶!',
-				set: '設置為主賬戶',
-
+				set: '設置為主賬戶'
 			},
 			changeWalletName: {
 				title: '改錢包名',
@@ -455,8 +451,7 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: '保存更改',
-
+				saveChanges: '保存更改'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: '删除',
-
+				remove: '删除'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Confirmed',
 				unconfirmed: 'Unconfirmed',
 				incoming: '接受中',
-				outgoing: '發送中',
-
+				outgoing: '發送中'
 			},
 			table: {
 				columns: [

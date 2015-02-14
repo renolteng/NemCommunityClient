@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Transakcja oczekująca',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Wiadomość jest zaszyfrowana',
 					noMessage: 'Brak wiadomości',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Wyślij XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Opłata',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Portfel',
 				password: "Hasło Portfela",
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało ustawione jako podstawowe!',
-				set: 'Ustaw jako podstawowe',
-
+				set: 'Ustaw jako podstawowe'
 			},
 			changeWalletName: {
 				title: 'Zmień nazwę portfela',
@@ -455,8 +451,7 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Zapisz zmiany',
-
+				saveChanges: 'Zapisz zmiany'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Usuń',
-
+				remove: 'Usuń'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Potwierdzone',
 				unconfirmed: 'Niepotwierdzone',
 				incoming: 'Przychodzące',
-				outgoing: 'Wychodzące',
-
+				outgoing: 'Wychodzące'
 			},
 			table: {
 				columns: [

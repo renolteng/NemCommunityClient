@@ -287,7 +287,6 @@ n			901: 'Erro na configuração do modo off-line.',
 				fee: 'Taxa',
 				innerFee: 'Taxas internas',
 				multisigFees: 'Taxas Multisig',
-				issuer: 'Emissor',
 				cosignatory: 'Cosignatário'
 			},
 			accountDetails: {

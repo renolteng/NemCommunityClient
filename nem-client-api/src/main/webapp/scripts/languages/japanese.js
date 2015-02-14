@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: "未処理（未検証）の取引",
@@ -197,8 +196,7 @@ define({
 					encrypted: "メッセージを暗号させた",
 					noMessage: "メッセージなし",
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: "XEMを送信する",
@@ -287,7 +285,6 @@ define({
 				fee: "手数料",
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: "ウォレット",
 				password: "ウォレットのパスワード",
 				successMessage: "アカウント: {{1}} {{#2}}({{2}}){{/2}} はプライマリーに設定されました!",
-				set: "プライマリに設定",
-
+				set: "プライマリに設定"
 			},
 			changeWalletName: {
 				title: "ウォレットの名前の変更する",
@@ -455,8 +451,7 @@ define({
 				stop: "停止"
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: '新規連絡先',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: '連絡先を編集',
-				saveChanges: "変更を保存する",
-
+				saveChanges: "変更を保存する"
 			},
 			removeContact: {
 				title: '連絡先を削除',
-				remove: "削除",
-
+				remove: "削除"
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: "検証済",
 				unconfirmed: "未検証",
 				incoming: "入金",
-				outgoing: "出金",
-
+				outgoing: "出金"
 			},
 			table: {
 				columns: [

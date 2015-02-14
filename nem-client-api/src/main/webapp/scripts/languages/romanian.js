@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Tranzacție în așteptare',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Mesajul este encriptat',
 					noMessage: 'Fără mesaj',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Trimite XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Taxă',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Portofel',
 				password: 'Parola portofelului',
 				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost stabilit ca primar!',
-				set: 'Stabilește ca primar',
-
+				set: 'Stabilește ca primar'
 			},
 			changeWalletName: {
 				title: 'Schimbă numele portofelului',
@@ -455,8 +451,7 @@ define({
 				stop: 'Oprește'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
-
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Salvează schimbările',
-
+				saveChanges: 'Salvează schimbările'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Înlătură',
-
+				remove: 'Înlătură'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Confirmat',
 				unconfirmed: 'Neconfirmat',
 				incoming: 'De primit',
-				outgoing: 'De trimis',
-
+				outgoing: 'De trimis'
 			},
 			table: {
 				columns: [

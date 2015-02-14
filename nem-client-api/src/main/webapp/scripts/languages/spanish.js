@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Transacción pendiente',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Mensaje esta encriptado',
 					noMessage: 'Sin mensaje',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Enviar XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Tarifa',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Monedero',
 				password: "Contraseña de monedero",
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido definida como cuenta primaria!',
-				set: 'Definir como primaria',
-
+				set: 'Definir como primaria'
 			},
 			changeWalletName: {
 				title: 'Cambiar nombre de monedero',
@@ -455,8 +451,7 @@ define({
 				stop: 'Detener'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Guardar cambios',
-
+				saveChanges: 'Guardar cambios'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Remover',
-
+				remove: 'Remover'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Confirmadas',
 				unconfirmed: 'Sin confirmar',
 				incoming: 'Entrantes',
-				outgoing: 'Salientes',
-
+				outgoing: 'Salientes'
 			},
 			table: {
 				columns: [

@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Транзакции в ожидании',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Сообщение Зашифровано',
 					noMessage: 'Нет сообщения',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Послать XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Оплата',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Кошелёк',
 				password: "Пароль кошелька",
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был установлен как Главный!',
-				set: 'Установлен как главный',
-
+				set: 'Установлен как главный'
 			},
 			changeWalletName: {
 				title: 'Изменить имя кошелька',
@@ -455,8 +451,7 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. emember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: "You're leaving your wallet. emember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Сохранить настройки',
-
+				saveChanges: 'Сохранить настройки'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Удалить',
-
+				remove: 'Удалить'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Подтвержденные',
 				unconfirmed: 'Неподтверждённых',
 				incoming: 'Входящие',
-				outgoing: 'Исходящие',
-
+				outgoing: 'Исходящие'
 			},
 			table: {
 				columns: [

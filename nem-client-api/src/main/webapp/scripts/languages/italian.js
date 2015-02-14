@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Transazione in attesa',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Messaggio cifrato',
 					noMessage: 'Nessun messaggio',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Invia XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Commissioni',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Portafoglio',
 				password: 'Password del portafoglio',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è il principale',
-				set: 'Imposta come principale',
-
+				set: 'Imposta come principale'
 			},
 			changeWalletName: {
 				title: 'Modifica nome del portafoglio',
@@ -455,8 +451,7 @@ define({
 				stop: 'Ferma'
 			},
 			logoutWarning: {
-				leavePage: 'Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \'Chiudi portafoglio\' nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.',
-
+				leavePage: 'Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \'Chiudi portafoglio\' nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Salva modifiche',
-
+				saveChanges: 'Salva modifiche'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Elimina',
-
+				remove: 'Elimina'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Confermate',
 				unconfirmed: 'Non confermate',
 				incoming: 'In ingresso',
-				outgoing: 'In uscita',
-
+				outgoing: 'In uscita'
 			},
 			table: {
 				columns: [

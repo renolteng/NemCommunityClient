@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Wachtende transactie',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Bericht is versleuteld',
 					noMessage: 'Geen bericht',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'XEM versturen',
@@ -287,7 +285,6 @@ define({
 				fee: 'Toeslag',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Wallet',
 				password: "Wallet wachtwoord",
 				successMessage: 'Rekening {{1}} {{#2}}({{2}}){{/2}} als primair ingesteld!',
-				set: 'Stel primaire rekening in',
-
+				set: 'Stel primaire rekening in'
 			},
 			changeWalletName: {
 				title: 'Verander naam van wallet',
@@ -455,8 +451,7 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "Je gaat de wallet verlaten. Onthoud dat op deze manier andere gebruikers op deze computer hier toegang toe kunnen krijgen.\n\nLog uit met het \"Sluit Wallet\" menu item in het dropdown menu rechts-boven voordat je de browser sluit of naar een andere pagina navigeert.",
-
+				leavePage: "Je gaat de wallet verlaten. Onthoud dat op deze manier andere gebruikers op deze computer hier toegang toe kunnen krijgen.\n\nLog uit met het \"Sluit Wallet\" menu item in het dropdown menu rechts-boven voordat je de browser sluit of naar een andere pagina navigeert."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Opslaan',
-
+				saveChanges: 'Opslaan'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Verwijderen',
-
+				remove: 'Verwijderen'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Bevestigd',
 				unconfirmed: 'Onbevestigd',
 				incoming: 'Inkomend',
-				outgoing: 'Uitgaand',
-
+				outgoing: 'Uitgaand'
 			},
 			table: {
 				columns: [

@@ -103,8 +103,7 @@ define({
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'MULTISIG TRANSACTION'
 		],
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -197,8 +196,7 @@ define({
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
 
-				},
-
+				}
 			},
 			sendNem: {
 				title: 'Send XEM',
@@ -287,7 +285,6 @@ define({
 				fee: 'Fee',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
@@ -378,8 +375,7 @@ define({
 				wallet: 'Wallet',
 				password: "Wallet's password",
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been set as primary!',
-				set: 'Set as primary',
-
+				set: 'Set as primary'
 			},
 			changeWalletName: {
 				title: 'Change Wallet Name',
@@ -455,8 +451,7 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -464,13 +459,11 @@ define({
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: 'Save changes',
-
+				saveChanges: 'Save changes'
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: 'Remove',
-
+				remove: 'Remove'
 			}
 		},
 		landing: {
@@ -648,8 +641,7 @@ define({
 				confirmed: 'Confirmed',
 				unconfirmed: 'Unconfirmed',
 				incoming: 'Incoming',
-				outgoing: 'Outgoing',
-
+				outgoing: 'Outgoing'
 			},
 			table: {
 				columns: [

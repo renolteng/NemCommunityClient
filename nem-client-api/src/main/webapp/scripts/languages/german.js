@@ -164,6 +164,7 @@ define({
 					title: 'Umwandlung in Multisig-Konto bestätigen',
 					total: 'Insgesamt',
 				},
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Multisig-Transaktion signieren',
@@ -282,7 +283,6 @@ define({
 				fee: 'Gebühr',
 				innerFee: 'innere Gebühr',
 				multisigFees: 'Multisig-Gebühren',
-				issuer: 'Initiator',
 				cosignatory: 'Mitsignierer'
 			},
 			accountDetails: {
