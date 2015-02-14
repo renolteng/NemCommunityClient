@@ -8,6 +8,7 @@ import org.nem.ncc.services.*;
 
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -70,6 +71,11 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	@Override
 	public Account findByAddress(final Address id) {
 		return this.findFreshnessPairByAddress(id).account;
+	}
+
+	@Override
+	public Account findByAddress(final Address address, final Predicate<Address> predicate) {
+		throw new IllegalArgumentException("called findByAddress variant not supported in ncc");
 	}
 
 	@Override

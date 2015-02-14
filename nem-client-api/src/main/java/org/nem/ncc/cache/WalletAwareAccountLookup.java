@@ -7,6 +7,8 @@ import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.context.annotation.Primary;
 
+import java.util.function.Predicate;
+
 /**
  * An AccountLookup decorator that is aware of wallets and adds the private keys
  * of open wallet accounts to accounts returned by this implementation.
@@ -41,6 +43,11 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 		return null == walletAccount
 				? account
 				: new Account(new KeyPair(walletAccount.getPrivateKey()));
+	}
+
+	@Override
+	public Account findByAddress(final Address address, final Predicate<Address> predicate) {
+		throw new IllegalArgumentException("called findByAddress variant not supported in ncc");
 	}
 
 	@Override
