@@ -69,7 +69,7 @@ define({
 			1002: 'The address does not belong to the main network.'
 		},
 		common: {
-			success: 'Success', //title of the Success message modals
+			success: 'Success',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC is not available',
@@ -104,6 +104,7 @@ define({
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
 			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -163,6 +164,7 @@ define({
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
@@ -194,7 +196,9 @@ define({
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
+
 				},
+
 			},
 			sendNem: {
 				title: 'Send XEM',
@@ -375,6 +379,7 @@ define({
 				password: "Wallet's password",
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been set as primary!',
 				set: 'Set as primary',
+
 			},
 			changeWalletName: {
 				title: 'Change Wallet Name',
@@ -451,6 +456,7 @@ define({
 			},
 			logoutWarning: {
 				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+
 			},
 			addContact: {
 				title: 'Add contact',
@@ -459,10 +465,12 @@ define({
 			editContact: {
 				title: 'Edit contact',
 				saveChanges: 'Save changes',
+
 			},
 			removeContact: {
 				title: 'Remove contact',
 				remove: 'Remove',
+
 			}
 		},
 		landing: {
@@ -488,35 +496,41 @@ define({
 				copyright: 'Photography by <em>Cas Cornelissen</em>'
 			},
 			carousel: {
-				items: [{
-					title: 'NCC encrypts your wallet',
-					description: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
-				}, {
-					title: 'NCC encrypts your wallet',
-					description: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
-				}]
+				items: [
+					{
+						title: 'NCC encrypts your wallet',
+						description: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
+					},
+					{
+						title: 'NCC encrypts your wallet',
+						description: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
+					}
+				]
 			},
 			about: {
-				sections: [{
-					title: 'How does NCC work?',
-					paragraphs: [
-						'<strong>NCC</strong> provides access to your assets and XEM like a traditional wallet. You may',
-						'<strong>NCC</strong> requires access to a <strong>NIS</strong> server in order to operate. Standard is to have a local server active (it is installed together with the <strong>NCC</strong>)',
-						'You may also configure an access to a remote <strong>NIS</strong>.'
-					],
-					listItems: [
-						'Have multiple wallets',
-						'Define multiple accounts to be included in a wallet'
-					]
-				}, {
-					title: 'What is &#42;NIS?',
-					paragraphs: [
-						'This component is responsible for keeping the <strong>NEM</strong> cloud alive.',
-						'The more <strong>NIS</strong> the better the security.',
-						'<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud.'
-					],
-					legend: '<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>'
-				}]
+				sections: [
+					{
+						title: 'How does NCC work?',
+						paragraphs: [
+							'<strong>NCC</strong> provides access to your assets and XEM like a traditional wallet. You may',
+							'<strong>NCC</strong> requires access to a <strong>NIS</strong> server in order to operate. Standard is to have a local server active (it is installed together with the <strong>NCC</strong>)',
+							'You may also configure an access to a remote <strong>NIS</strong>.'
+						],
+						listItems: [
+							'Have multiple wallets',
+							'Define multiple accounts to be included in a wallet'
+						]
+					},
+					{
+						title: 'What is &#42;NIS?',
+						paragraphs: [
+							'This component is responsible for keeping the <strong>NEM</strong> cloud alive.',
+							'The more <strong>NIS</strong> the better the security.',
+							'<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud.'
+						],
+						legend: '<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>'
+					}
+				]
 			},
 			footer: {
 				copyright: '&copy; Copyright 2015. NEM Community Client.'
@@ -635,6 +649,7 @@ define({
 				unconfirmed: 'Unconfirmed',
 				incoming: 'Incoming',
 				outgoing: 'Outgoing',
+
 			},
 			table: {
 				columns: [
@@ -700,9 +715,11 @@ define({
 		},
 		settings: {
 			title: 'Settings',
-			settings: [{
-				name: 'Language'
-			}],
+			settings: [
+				{
+					name: 'Language'
+				}
+			],
 			save: 'Save changes',
 			saveSuccess: 'Settings have been saved successfully'
 		}
