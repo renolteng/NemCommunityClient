@@ -1,696 +1,686 @@
 define({
-	id: "fr",
-	name: "Français",
+	id: 'fr',
+	name: 'Français',
 	texts: {
 		preferences: {
-			thousandSeparator: " ",
-			decimalSeparator: "."
+			thousandSeparator: ' ',
+			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'The wallet file does not exist.',
-			102: "Le portefeuille a été créé.",
-			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
-			104: 'The provided password for the wallet is not correct.',
+			101: 'Fichier non trouvé.',
+			102: 'Le portefeuille a été créé.',
+			103: 'Le portefeuille est corrompu. S\'il vous plait, récupérez votre portefeuille à partir de la copie de sauvegarde que vous avez faite lors de la création de votre portefeuille or lorsque vous y avez ajouté un compte.',
+			104: 'Le mot de passe est incorrect. En espérant que vous pourrez vous en rappeler. Les mots de passe ne peuvent pas être récupérés s\'ils sont perdus!',
 			105: 'No password was provided for the wallet.',
-			106: "Avant de pouvoir utiliser un portefeuille, il doit être ouvert. Pour s'assurer que vous autoriser à accéder à ce portefeuille, vous devez fournir le mot de passe pour ce portefeuille.",
-			107: "Ce portefeuille ne contient pas ce compte.",
-			108: "Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 XEM ou s'il s'agit de votre compte primaire.",
-			109: "Un autre portefeuille avec le même nom existe déjà. S'il vous plait, veuillez choisir un nom différent.",
-			110: "Le portefeuille contient déjà ce compte.",
-			111: 'The wallet name is a directory.',
-			112: 'The extension of the wallet file is incorrect.',
-			113: 'The wallet could not be deleted.',
-			121: 'The address book file does not exist.',
-			122: 'Address book has not been created.',
-			123: 'Address book file is corrupt. Please recover your address book from a backup.',
-			124: 'The provided password for the address book is not correct.',
-			125: 'No password was provided for the address book.',
-			127: 'Address book does not contain this address.',
+			106: 'Avant de pouvoir utiliser un portefeuille, il doit être ouvert. Pour s\'assurer que vous autoriser à accéder à ce portefeuille, vous devez fournir le mot de passe pour ce portefeuille.',
+			107: 'Ce portefeuille ne contient pas ce compte.',
+			108: 'Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 NEMs ou s\'il s\'agit de votre compte primaire.',
+			109: 'Un autre portefeuille avec le même nom existe déjà. S\'il vous plait, veuillez choisir un nom différent.',
+			110: 'Le portefeuille contient déjà ce compte.',
+			111: 'Le nom du portefeuille est un répertoire.',
+			112: 'L\'extension du fichier de portefeuille est incorrecte.',
+			113: 'Le portefeuille n\'a pas pu être effacé.',
+			121: 'Le fichier de carnet d\'adresses n\'existe pas.',
+			122: 'Le carnet d\'adresses a été créé.',
+			123: 'Le fichier du carnet d\'adresses est corrompu. S\'il vous plait, récupérer votre carnet d\'adresses à partir d\'une copie de sauvegarde.',
+			124: 'Le mot de passe pour le carnet d\'adresses que vous avez fourni est incorrect.',
+			125: 'Vous n\'avez fourni aucun mot de passe pour le carnet d\'adresses.',
+			127: 'Le carnet d\'adresses ne contient pas cette adresse.',
 			128: 'The address provided is not valid.',
-			129: 'Another address book with the same name exists already. Please choose an other address book name.',
-			130: 'Address book already contains this address.',
-			131: 'The address book name is a directory.',
-			132: 'The extension of the address book file is incorrect.',
-			133: 'The address book could not be deleted.',
-			202: "Un message chiffré ne peut être envoyé si le destinataire n'a jamais effectué de transaction auparavant.",
-			305: "Le serveur d'infrastructure NEM n'est pas disponible.",
-			306: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
-			400: "Certains paramètres sont manquants ou invalides.",
-			401: "Cette opération ne peut être effectuée car elle pourrait divulguer votre clé privée en l'envoyant à un server NIS distant.",
-			404: "La ressource que vous avez demandé ne peut être trouvée.",
-			500: "Une erreur que l'équipe de développement n'avait pas anticipée s'est produite. Nous vous présentons nos excuses et nous espérons qu'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d'incident auprès de la communauté NIS/NCC de NEM.",
-			600: "NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S'il vous plait, utilisez le menu NCC pour démarrer le noeud local.",
-			601: "Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.",
+			129: 'Un autre carnet d\'adresses avec le même nom existe déjà. S\'il vous plait, utilisez un nom différent.',
+			130: 'Le carnet d\'adresses contient déjà cette adresse.',
+			131: 'Le nom du carnet d\'adresses est un répertoire.',
+			132: 'L\'extension du fichier de carnet d\'adresses est incorrecte.',
+			133: 'Le carnet d\'adresses n\'a pas pu être effacé.',
+			202: 'Un message chiffré ne peut être envoyé si le destinataire n\'a jamais effectué de transaction auparavant.',
+			305: 'Le serveur d\'infrastructure NEM n\'est pas disponible.',
+			306: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
+			400: 'Certains paramètres sont manquants ou invalides.',
+			401: 'Cette opération ne peut être effectuée car elle pourrait divulguer votre clé privée en l\'envoyant à un server NIS distant.',
+			404: 'La ressource que vous avez demandé ne peut être trouvée.',
+			500: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
+			600: 'NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S\'il vous plait, utilisez le menu NCC pour démarrer le noeud local.',
+			601: 'Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.',
 			602: 'Cannot perform any operations until db is fully loaded.',
-			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Le compte fourni ne satisfait pas les critères de base pour la récolte. C'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.",
-			701: "La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.",
-			702: "La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.",
-			703: "Votre compte n'a pas une balance suffisante pour envoyer le nombre nombre de XEM indiqué.",
-			704: "Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d'expédier.",
-			705: "Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.",
-			706: "La signature de la transaction n'a pas pu être vérifiée.",
-			707: "L'horodatage de la transaction trop loin dans le passé.",
-			708: "TL'horodatage de la transaction trop loin dans le futur.",
-			709: "Ce compte est inconnu. Un compte à besoin de faire partie d'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.",
-			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
-			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
-			740: 'Transaction is not allowed for multisig account.',
-			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
-			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
-			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
-			901: "Il y a une erreur lors de la mise en place du mode déconnecté.",
-			1000: "La clé privée et la clé publique que vous avez fournies ne correspondent pas.",
-			1001: "La clé publique et l'adresse que vous avez fourni ne correspondent pas.",
-			1002: "L'adresse ne fait pas partie du réseau principal."
+			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
+			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 NEM pour que la récolte débute.',
+			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
+			702: 'La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.',
+			703: 'Votre compte n\'a pas une balance suffisante pour envoyer le nombre nombre de NEMs indiqué.',
+			704: 'Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d\'expédier.',
+			705: 'Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.',
+			706: 'La signature de la transaction n\'a pas pu être vérifiée.',
+			707: 'L\'horodatage de la transaction trop loin dans le passé.',
+			708: 'TL\'horodatage de la transaction trop loin dans le futur.',
+			709: 'Ce compte est inconnu. Un compte à besoin de faire partie d\'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.',
+			710: 'La transaction a été rejetée parce que la mémoire tampon dédiée aux transactions est remplie. Des frais plus élevés augmentent les chances que la transaction soit acceptée.',
+			730: 'Une transaction de transfert d\'importance (récolte sécurisée) entre en conflit avec une transaction existante.',
+			731: 'Le compte de récolte sécurisé à une balance qui n\'est pas égale à zéro et ne peut donc pas être utilisée.',
+			732: 'Transaction de transfert d\'importance rejeté. Il y a déjà une transaction de transfert d\'importance en attente.',
+			733: 'La recolte sécuriaire est déjà activé.',
+			734: 'La récolte sécuritaire n\'est PAS activée. Impossible de la désactiver.',
+			740: 'Les transactions multisig ne sont pas permises sur ce compte.',
+			741: 'La transaction multisig a été rejetée. Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig.',
+			742: 'Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig. La transaction multisig associée n\'est pas connue du réseau NEM.',
+			743: 'Modification de compte multisig rejeté. Un des comptes ajoutés est déjà cosignataire.',
+			901: 'Il y a une erreur lors de la mise en place du mode déconnecté.',
+			1000: 'La clé privée et la clé publique que vous avez fournies ne correspondent pas.',
+			1001: 'La clé publique et l\'adresse que vous avez fourni ne correspondent pas.',
+			1002: 'L\'adresse ne fait pas partie du réseau principal.'
 		},
 		common: {
-			success: "Succès",
+			success: 'Succès',
 			appStatus: {
-				nccUnknown: "Le statut de NCC est incconnu",
-				nccUnavailable: "NCC est introuvable",
-				nccStarting: "NCC démarre...",
-				nisUnknown: "Le statut de NIS est incconnu",
-				nisUnavailable: "NIS est introuvable",
-				nisStarting: "NIS démarre...",
-				notBooted: "NIS à besoin d'être démarré. S'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.",
+				nccUnknown: 'Le statut de NCC est incconnu',
+				nccUnavailable: 'NCC est introuvable',
+				nccStarting: 'NCC démarre...',
+				nisUnknown: 'Le statut de NIS est incconnu',
+				nisUnavailable: 'NIS est introuvable',
+				nisStarting: 'NIS démarre...',
+				notBooted: 'NIS à besoin d\'être démarré. S\'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.',
 				loading: 'Loading blocks from db, at block: ',
-				booting: "Démarrage de NIS...",
-				nisInfoNotAvailable: "L'information sur NIS n'est pas encore disponible. Tentative de récupération de l'information sur NIS...",
-				synchronizing: "NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.",
+				booting: 'Démarrage de NIS...',
+				nisInfoNotAvailable: 'L\'information sur NIS n\'est pas encore disponible. Tentative de récupération de l\'information sur NIS...',
+				synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
 				daysBehind: {
-					0: "moins d'une journée",
-					1: "une journée",
-					many: "{{1}} jours"
+					0: 'moins d\'une journée',
+					1: 'une journée',
+					many: '{{1}} jours'
 				},
-				synchronized: "NIS est synchronisé!",
+				synchronized: 'NIS est synchronisé!',
 				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
-			addressBook: 'Address book',
-			password: "Mot de passe",
-			passwordValidation: 'Password must not be blank',
-			address: "Addresse",
-			privateLabel: "Étiquette privé",
-			publicLabel: 'Public label',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			addressBook: 'Carnet d\'adresses',
+			password: 'Mot de passe',
+			passwordValidation: 'Le mot de passe ne peut pas être vide',
+			address: 'Adresse',
+			privateLabel: 'Étiquette privée',
+			publicLabel: 'Étiquette publique',
+			noCharge: 'Le compte utilisé ne sera <b>PAS</b> chargé de frais pour cette transaction, il seront chargé au compte multisig.',
+			justUse: 'Utiliser seulement'
 		},
 		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			
+			'TRANSFERT DE TRANSACTION',
+			'TRANSFERT D\'IMPORTANCE ',
+			'MODIFICATION DE COMPTE MULTISIG',
+			'TRANSACTION MULTISIG '
 		],
 		transactionDirections: {
-			pending: "Transaction en attente",
-			outgoing: "Transaction sortante",
-			incoming: "Transaction entrante",
-			self: "Transaction vers sois même",
-			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			pending: 'Transaction en attente',
+			outgoing: 'Transaction sortante',
+			incoming: 'Transaction entrante',
+			self: 'Faire une transaction vers sois même.',
+			importance: 'Transaction d\'importance',
+			modification: 'Modification globale de Multisig'
 		},
 		modals: {
 			error: {
-				title: "Oops!",
-				caption: "ERREUR {{1}}"
+				title: 'Oops!',
+				caption: 'ERREUR {{1}}'
 			},
 			confirmDefault: {
-				yes: "Oui",
-				no: "Non"
+				yes: 'Oui',
+				no: 'Non'
 			},
 			settings: {
-				title: "Settings",
+				title: 'Paramètres',
 				language: {
-					label: "Language"
+					label: 'Language'
 				},
 				remoteServer: {
-					tabTitle: "Serveur Distant",
-					protocol: "Protocole",
+					tabTitle: 'Serveur Distant',
+					protocol: 'Protocole',
 					protocolOptions: {
-						http: "HTTP"
+						http: 'HTTP'
 					},
-					host: "Hôte",
-					port: "Port"
+					host: 'Hôte',
+					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: "Démarrage Automatique",
-					name: "Nom du noeud",
-					account: "Compte",
-					primaryAccount: "Compte primaire",
-					auto: "Démarrage automatiquement quand le portefeuille est ouvert"
+					tabTitle: 'Démarrage Automatique',
+					name: 'Nom du noeud',
+					account: 'Compte',
+					primaryAccount: 'Compte primaire',
+					auto: 'Démarrage automatiquement quand le portefeuille est ouvert'
 				},
-				save: "Enregistrer",
-				saveSuccess: "Les paramètres ont été enregistrés avec succès"
+				save: 'Enregistrer',
+				saveSuccess: 'Les paramètres ont été enregistrés avec succès'
 			},
 			multisig: {
-				title: 'Convert account to multisig',
-				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
-				labelDesc: "Ce compte est étiqueté comme {{1}}",
-				nullLabelDesc: "Ce compte n'est pas étiqueté",
-				addCosignatory: '+ Add Cosignatory',
-				cancel: "Annuler",
-				convert: 'Convert',
-				fee: "Honoraires",
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
+				title: 'Convertir ce compte en multisig',
+				multisigAccount: 'Compte multisig',
+				cosignatories: 'Adresses des cosignataires',
+				labelDesc: 'Ce compte est étiqueté comme {{1}}',
+				nullLabelDesc: 'Ce compte n\'a pas d\'étiquette.',
+				addCosignatory: '+ Ajouter un Cosignataires',
+				cancel: 'Annuler',
+				convert: 'Convertir',
+				fee: 'Frais',
+				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
+				dueBy: 'Heure dû',
+				useMinimumFee: 'Utiliser les frais minimums',
+				hours: 'heures(s)',
 				txConfirm: {
-					title: 'Confirm Conversion to Multisig Account',
-					total: 'Total',
-
+					title: 'Confirmez la conversion en compte Multisig',
+					total: 'Total'
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
-				title: 'Sign multisig transaction',
+				title: 'Signer la transaction multisig',
 				original: {
-					from: 'Multisig account',
-					to: "Destinataire",
-					amount: "Montant",
-					fee: 'Inner Fee',
-					deadline: 'Deadline'
+					from: 'Compte Multisig',
+					to: 'Destinataire',
+					amount: 'Montant',
+					fee: 'Frais interne',
+					deadline: 'Date Limite'
 				},
-				multisigFees: 'Multisig Fees',
+				multisigFees: 'Frais Multisig',
 				multisigTotal: 'Total',
-				sender: 'Cosignatory',
-				fee: "Honoraires",
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
-				password: "Mot de passe",
-				passwordValidation: 'Password must not be blank',
-				send: "Envoyez",
-				cancel: "Annuler",
-				sending: "Envoi...",
-				successMessage: "La transaction a été envoyé avec succès!",
+				sender: 'Cosignataire',
+				fee: 'Frais',
+				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
+				dueBy: 'Heure dû',
+				useMinimumFee: 'Utiliser les frais minimums',
+				hours: 'heure(s)',
+				password: 'Mot de passe',
+				passwordValidation: 'Le mot de passe ne peut pas être vide',
+				send: 'Envoyez',
+				cancel: 'Annuler',
+				sending: 'Envoi...',
+				successMessage: 'La transaction a été envoyé avec succès!',
 				txConfirm: {
-					title: 'Confirm Multisig Transaction',
-					message: "Message",
-					encrypted: "Le message est chiffé",
-					noMessage: "Pas de message",
-
-				},
-
+					title: 'Confirm la transaction Multisig ',
+					message: 'Message',
+					encrypted: 'Le message est chiffré',
+					noMessage: 'Pas de message'
+				}
 			},
 			sendNem: {
-				title: "Envoyez des XEM",
-				sender: "Expéditeur",
-				thisAccount: 'This account',
-				labelDesc: "Ce compte est étiqueté comme {{1}}",
-				nullLabelDesc: "Ce compte n'est pas étiqueté",
-				amount: "Montant",
-				recipient: "Compte du destinataire",
+				title: 'Envoyez des NEMs',
+				sender: 'Expéditeur',
+				thisAccount: 'Ce compte',
+				labelDesc: 'Ce compte est étiqueté comme {{1}}',
+				nullLabelDesc: 'Ce compte n\'est pas étiqueté',
+				amount: 'Montant',
+				recipient: 'Compte du destinataire',
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
-				message: "Message",
-				encrypt: "Chiffrez le message",
-				fee: "Frais",
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: "Expire dans",
-				useMinimumFee: 'Use minimum fee',
-				hours: "heures",
-				password: "Mot de passe",
-				passwordValidation: 'Password must not be blank',
-				send: "Envoyez",
-				cancel: 'Cancel',
-				sending: "Envoi...",
-				successMessage: "La transaction a été envoyé avec succès!",
+				message: 'Message',
+				encrypt: 'Chiffrez le message',
+				fee: 'Frais',
+				multisigFee: 'Frais Multisig',
+				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
+				dueBy: 'Heure dû',
+				useMinimumFee: 'Utiliser les frais minimums',
+				hours: 'heure(s)',
+				password: 'Mot de passe',
+				passwordValidation: 'Le mot de passe ne peut pas être vide',
+				send: 'Envoyez',
+				cancel: 'Annuler',
+				sending: 'Envoi...',
+				successMessage: 'La transaction a été envoyé avec succès!',
 				txConfirm: {
-					title: "Confirmez la transaction",
-					amount: 'Amount',
+					title: 'Confirmez la transaction',
+					amount: 'Montant',
 					to: 'À',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
+					dueBy: 'Heure dû',
+					hours: 'heures(s)',
 					total: 'Total',
-					message: "Message",
-					encrypted: "Le message est chiffré",
-					noMessage: "Pas de message",
-					cancel: "Annuler",
-					confirm: 'Confirm',
-					sending: "Envoi..."
+					message: 'Message',
+					encrypted: 'Le message est chiffré',
+					noMessage: 'Pas de message',
+					cancel: 'Annuler',
+					confirm: 'Confirmer',
+					sending: 'Envoi...'
 				},
 				notBootedWarning: {
-					title: "Le noeud n'a pas été démarré!",
-					message: "Un noeud local à besoin d'être démarré avant de pouvoir envoyer des XEM!"
+					title: 'Le noeud n\'a pas été démarré.',
+					message: 'Le noeud local doit être démarré avant de pouvoir envoyer des NEMs!'
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: 'Le noeud est en cours de démarrage',
+					message: 'S\'il vous plait, attendre que le processus de démarrage soit terminé avant d\'envoyer votre transaction.'
 				},
 				loadingWarning: {
 					title: 'Loading db'
 				}
 			},
 			clientInfo: {
-				title: "Information sur le Client",
-				ncc: "NEM Community Client - NCC",
-				signer: "Signataire",
-				remoteServer: "Serveur distant",
-				local: "Local",
-				nis: "NEM Infrastructure Server - NIS",
-				sync: "Synchronisé",
-				notSync: "Pas synchronisé",
-				notConnected: "Pas connecté au Nuage NEM",
-				loading: "Chargement..."
+				title: 'Information sur le Client',
+				ncc: 'NEM Community Client - NCC',
+				signer: 'Signataire',
+				remoteServer: 'Serveur distant',
+				local: 'Local',
+				nis: 'NEM Infrastructure Server - NIS',
+				sync: 'Synchronisé',
+				notSync: 'Pas synchronisé',
+				notConnected: 'Pas connecté au Nuage NEM',
+				loading: 'Chargement...'
 			},
 			transactionDetails: {
-				title: "Détails de la transaction",
-				id: "ID",
-				hash: "Hash",
-				type: "Type de transaction",
+				title: 'Détails de la transaction',
+				id: 'ID',
+				hash: 'Hachage',
+				type: 'Type de transaction',
 				direction: 'Transaction Direction',
-				pending: "En attente",
-				outgoing: "Sortant",
-				incoming: "Entrant",
-				self: "Sois même",
-				sender: "Expéditeur",
+				pending: 'En attente',
+				outgoing: 'Sortant',
+				incoming: 'Entrant',
+				self: 'Sois même',
+				sender: 'Expéditeur',
 				multisigAccount: 'Multisig Account',
-				issuer: 'Issuer',
-				recipient: "Destinataire",
-				remote: 'Remote',
-				multisigMessage: 'Signatures present',
-				message: "Message",
-				noMessage: "Aucun message",
-				encrypted: "Le Message est chiffré",
-				time: "Horodatage",
-				confirmations: "Confirmations",
-				confirmationsUnknown: 'Unknown',
-				amount: "Montant",
-				fee: "Frais",
-				innerFee: 'Inner Fee',
-				multisigFees: 'Multisig Fees',
-				issuer: 'Issuer',
-				cosignatory: 'Cosignatory'
+				issuer: 'Emetteur',
+				recipient: 'Destinataire',
+				remote: 'À Distance',
+				multisigMessage: 'Signatures présente',
+				message: 'Message',
+				noMessage: 'Aucun message',
+				encrypted: 'Le Message est chiffré',
+				time: 'Horodatage',
+				confirmations: 'Confirmations',
+				confirmationsUnknown: 'Inconnu',
+				amount: 'Montant',
+				fee: 'Frais',
+				innerFee: 'Frais interne',
+				multisigFees: 'Frais Multisig',
+				cosignatory: 'Cosignataire'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Détails du compte',
+				address: 'Adresse',
+				label: 'Étiquette',
+				noLabel: 'Pas d\'étiquette',
+				add: 'Ajouter au carnet d\'adresses',
+				remove: 'Retirer du carnet d\'adresses',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Clé publique',
+				noPublicKey: 'Pas de clé publique',
+				harvestedBlocks: 'Blocs récoltés',
+				close: 'Fermeture'
 			},
 			bootLocalNode: {
-				title: "Démarrage du noeud local",
-				account: "Compte pour démarrarer le noeud local",
-				noLabel: "<span class=\"null\">&lt;Aucune étiquette&gt;</span>",
-				wallet: "Portefeuille",
-				node: "Nom du noeud",
-				boot: "Démarrer",
-				booting: "Démarrage..."
+				title: 'Démarrage du noeud local',
+				account: 'Compte pour démarrarer le noeud local',
+				noLabel: '<span class=\'null\'>&lt;Aucune étiquette&gt;</span>',
+				wallet: 'Portefeuille',
+				node: 'Nom du noeud',
+				boot: 'Démarrer',
+				booting: 'Démarrage...'
 			},
 			closeWallet: {
-				title: "Fermeture de portefeuille",
-				message: "Êtes-vous sûr de vouloir fermer ce portefeuille et retourner à la page d'accueil?"
+				title: 'Fermeture de portefeuille',
+				message: 'Êtes-vous sûr de vouloir fermer ce portefeuille et retourner à la page d\'accueil?'
 			},
 			createAccount: {
-				title: "Créer un nouveau compte",
-				label: "Étiquette privé",
-				wallet: "Portefeuille",
-				password: "Mot de passe du portefeuille",
-				successMessage: "Le compte {{1}} {{#2}}({{2}}){{/2}} à été créé!",
-				create: "Créer"
+				title: 'Créer un nouveau compte',
+				label: 'Étiquette privé',
+				wallet: 'Portefeuille',
+				password: 'Mot de passe du portefeuille',
+				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été créé!',
+				create: 'Créer'
 			},
 			createRealAccountData: {
-				title: "Créer des données réelles de compte .",
-				message: "Les données ci-dessous sont pour votre compte réelles après le lancement de NEM. Enregistrez l'adresse, la clé publique et surtout la clé privée dans un endroit sûr. Si vous perdez la clé privée, votre compte et tous vos NEM seront perdus à jamais !",
-				address: "Adresse",
-				publicKey: "Clé publique",
-				privateKey: "Clé privée",
+				title: 'Créer des données réelles de compte .',
+				message: 'Les données ci-dessous sont pour votre compte réelles après le lancement de NEM. Enregistrez l\'adresse, la clé publique et surtout la clé privée dans un endroit sûr. Si vous perdez la clé privée, votre compte et tous vos NEM seront perdus à jamais !',
+				address: 'Adresse',
+				publicKey: 'Clé publique',
+				privateKey: 'Clé privée',
 				confirm: {
-					title: "Enregistrer la clé privée",
-					message: "Êtes-vous sûr que votre clé privée a été enregistré dans un endroit sûr ?"
+					title: 'Enregistrer la clé privée',
+					message: 'Êtes-vous sûr que votre clé privée a été enregistré dans un endroit sûr ?'
 				},
 				recheck: {
-					title: "Re-vérifier votre clé privée enregistrée",
-					message: "S'il vous plaît, entrer de nouveau votre clé privée que vous venez de recevoir afin de vérifier que vous avez sauvegardé la bonne. Si votre clé privée est déjà perdue , vous pouvez en créer une nouvelle.",
+					title: 'Re-vérifier votre clé privée enregistrée',
+					message: 'S\'il vous plaît, entrer de nouveau votre clé privée que vous venez de recevoir afin de vérifier que vous avez sauvegardé la bonne. Si votre clé privée est déjà perdue , vous pouvez en créer une nouvelle.',
 					correct: {
-						title: "Excellent!",
-						message: "Vous semblez avoir sauvegardé la bonne clé privée. S'il vous plaît, n'oubliez pas de toujours la garder en lieu sûr et sécuriser!"
+						title: 'Excellent!',
+						message: 'Vous semblez avoir sauvegardé la bonne clé privée. S\'il vous plaît, n\'oubliez pas de toujours la garder en lieu sûr et sécuriser!'
 					},
 					incorrect: {
-						title: "Hmm...",
-						message: "La clé privée que vous venez d'entrer n'est pas correcte ! S'il vous plaît, entrez votre clé privée de nouveau.",
-						tryAgain: "Essayez de l'entrer encore une fois",
-						seeOriginal: "Voir les données originales."
+						title: 'Hmm...',
+						message: 'La clé privée que vous venez d\'entrer n\'est pas correcte ! S\'il vous plaît, entrez votre clé privée de nouveau.',
+						tryAgain: 'Essayez de l\'entrer encore une fois',
+						seeOriginal: 'Voir les données originales.'
 					},
-					recheck: "Vérifier"
+					recheck: 'Vérifier'
 				},
-				ok: "Ok"
+				ok: 'Ok'
 			},
 			verifyRealAccountData: {
-				title: "Vérifier les données réelles de compte",
-				message: "Entrez l'adresse que vous avez enregistrée à nouveau ainsi que la clé publique et une clé privée pour vérifier si elles correspondent.",
-				address: "Addresse",
-				publicKey: "Clé publique",
-				privateKey: "Clé privée",
-				dataMatched: "Tout semble bon : l'adresse indiquée, la clé publique et clé privée correspondance .",
-				verify: "Vérifier"
+				title: 'Vérifier les données réelles de compte',
+				message: 'Entrez l\'adresse que vous avez enregistrée à nouveau ainsi que la clé publique et une clé privée pour vérifier si elles correspondent.',
+				address: 'Addresse',
+				publicKey: 'Clé publique',
+				privateKey: 'Clé privée',
+				dataMatched: 'Tout semble bon : l\'adresse indiquée, la clé publique et clé privée correspondance.',
+				verify: 'Vérifier'
 			},
 			addAccount: {
-				title: "Ajouter un compte existant",
-				privateKey: "Clé privé du compte",
-				wallet: "Portefeuille",
-				password: "Mot de passe du portefeuille",
-				successMessage: "Le compte {{1}} {{#2}}({{2}}){{/2}} à été ajouté à votre portefeuille!",
-				add: "Ajouter",
-				label: "Étiquette"
+				title: 'Ajouter un compte existant',
+				privateKey: 'Clé privé du compte',
+				wallet: 'Portefeuille',
+				password: 'Mot de passe du portefeuille',
+				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été ajouté à votre portefeuille!',
+				add: 'Ajouter',
+				label: 'Étiquette'
 			},
 			setPrimary: {
-				title: "Définir votre compte principal",
-				account: "Le compte a été défini comme votre compte principal",
-				noLabel: "<span class=\"null\">&lt;Aucune étiquette&gt;</span>",
-				wallet: "Portefeuille",
-				password: "Mot de passe du portefeuille",
-				successMessage: "Le compte {{1}} {{#2}}({{2}}){{/2}} a été défini comme votre compte principal!",
-				set: "Définir comme compte principal",
-
+				title: 'Définir votre compte principal',
+				account: 'Le compte a été défini comme votre compte principal',
+				noLabel: '<span class=\'null\'>&lt;Aucune étiquette&gt;</span>',
+				wallet: 'Portefeuille',
+				password: 'Mot de passe du portefeuille',
+				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} a été défini comme votre compte principal!',
+				set: 'Définir comme compte principal'
 			},
 			changeWalletName: {
-				title: "Changez le nom du portefeuille",
-				wallet: "Nom actuel du portefeuille",
-				newName: "Nouveau nom du portefeuille",
-				password: "Mot de passe du portefeuille",
-				successMessage: "Le nom du portefeuille a été changé avec succès de <em>{{1}}</em> à <em>{{2}}</em>",
-				change: "Changer"
+				title: 'Changez le nom du portefeuille',
+				wallet: 'Nom actuel du portefeuille',
+				newName: 'Nouveau nom du portefeuille',
+				password: 'Mot de passe du portefeuille',
+				successMessage: 'Le nom du portefeuille a été changé avec succès de <em>{{1}}</em> à <em>{{2}}</em>',
+				change: 'Changer'
 			},
 			changeWalletPassword: {
-				title: "Changer le mot de passe du portefeuille",
-				wallet: "Portefeuille",
-				password: "Mot de passe actuel du portefeuille",
-				newPassword: "Nouveau mot de passe",
-				confirmPassword: "Confirmer le nouveau mot de passe",
-				successMessage: "Le mot de passe du portefeuille a été changé avec succès",
-				change: "Changer",
-				passwordNotMatchTitle: "Oops!",
-				passwordNotMatchMessage: "Le mot de passe et le mot de passe de confirmation ne sont pas pareils. S'il vous plait, assurez-vous de taper votre nouveau mot de passe correctement."
+				title: 'Changer le mot de passe du portefeuille',
+				wallet: 'Portefeuille',
+				password: 'Mot de passe actuel du portefeuille',
+				newPassword: 'Nouveau mot de passe',
+				confirmPassword: 'Confirmer le nouveau mot de passe',
+				successMessage: 'Le mot de passe du portefeuille a été changé avec succès',
+				change: 'Changer',
+				passwordNotMatchTitle: 'Oops!',
+				passwordNotMatchMessage: 'Le mot de passe et le mot de passe de confirmation ne sont pas pareils. S\'il vous plait, assurez-vous de taper votre nouveau mot de passe correctement.'
 			},
 			changeAccountLabel: {
-				title: "Changer l'étiquette du compte",
-				label: "Étiquette du compte",
-				wallet: "Portefeuille",
-				password: "Mot de passe du portefeuille",
-				successMessage: "Le compte {{1}} est maintenant étiquetté comme {{2}}",
-				change: "Changer"
+				title: 'Changer l\'étiquette du compte',
+				label: 'Étiquette du compte',
+				wallet: 'Portefeuille',
+				password: 'Mot de passe du portefeuille',
+				successMessage: 'Le compte {{1}} est maintenant étiquetté comme {{2}}',
+				change: 'Changer'
 			},
 			removeAccount: {
-				title: "Retirer un compte",
-				wallet: "Portefeuille",
-				password: "Mot de passe du portefeuille",
-				warning: "S'il vous plait, assurez-vous que ce compte ne contient plus de XEM avant de le retirer, sinon les XEM qu'il contient seront perdus pour toujours.",
-				successMessage: "Le compte {{1}} {{#2}}({{2}}){{/2}} à été retiré!",
-				remove: "Retirer"
+				title: 'Retirer un compte',
+				wallet: 'Portefeuille',
+				password: 'Mot de passe du portefeuille',
+				warning: 'S\'il vous plait, assurez-vous que ce compte ne contient plus de NEMs avant de le retirer, sinon les NEMs qu\'il contient seront perdus pour toujours.',
+				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été retiré!',
+				remove: 'Retirer'
 			},
 			nisUnavailable: {
-				title: "NIS est non disponible",
-				message: "Déconnecté de NIS, en attente de connexion"
+				title: 'NIS est non disponible',
+				message: 'Déconnecté de NIS, en attente de connexion'
 			},
 			shutdown: {
-				title: "Fermeture de l'application",
-				message: "Êtes-vous certain de vouloir fermer l'application NEM Community Client?"
+				title: 'Fermeture de l\'application',
+				message: 'Êtes-vous certain de vouloir fermer l\'application NEM Community Client?'
 			},
 			activateRemote: {
-				title: "Activer la récolte à distance",
-				wallet: "Portefeuille",
-				account: "Compte",
-				hoursDue: "Heure dû",
-				password: "Mot de passe du portefeuille",
-				activate: "Activer"
+				title: 'Activer la récolte à distance',
+				wallet: 'Portefeuille',
+				account: 'Compte',
+				hoursDue: 'Heure dû',
+				password: 'Mot de passe du portefeuille',
+				activate: 'Activer'
 			},
 			deactivateRemote: {
-				title: "Désactiver la récolte à distance",
-				wallet: "Portefeuille",
-				account: "Compte",
-				hoursDue: "Heure dû",
-				password: "Mot de passe du portefeuille",
-				deactivate: "Désactiver"
+				title: 'Désactiver la récolte à distance',
+				wallet: 'Portefeuille',
+				account: 'Compte',
+				hoursDue: 'Heure dû',
+				password: 'Mot de passe du portefeuille',
+				deactivate: 'Désactiver'
 			},
 			startRemote: {
-				title: "Démarrer la récolte à distance",
-				wallet: "Portefeuille",
-				account: "Compte",
-				password: "Mot de passe du portefeuille",
-				start: "Démarrer"
+				title: 'Démarrer la récolte à distance',
+				wallet: 'Portefeuille',
+				account: 'Compte',
+				password: 'Mot de passe du portefeuille',
+				start: 'Démarrer'
 			},
 			stopRemote: {
-				title: "Arrêtez la récolte à distance",
-				wallet: "Portefeuille",
-				account: "Compte",
-				password: "Mot de passe du portefeuille",
-				stop: "Arrêtez"
+				title: 'Arrêtez la récolte à distance',
+				wallet: 'Portefeuille',
+				account: 'Compte',
+				password: 'Mot de passe du portefeuille',
+				stop: 'Arrêtez'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
-
+				leavePage: 'Vous laissez votre portefeuille ouvert. Rappelez-vous que si vous laissez votre portefeuille de cette façon , d\'autres pourraient potentiellement y accéder de cet ordinateur.Pour empêcher ceci d\'arriver, s\'il vous plaît vous connectez à l\'aide du menu \'Fermeture de portefeuille\' dans le menu déroulant en haut à droite avant de fermer l\'onglet de votre navigateur ou de naviguer ailleurs.'
 			},
 			addContact: {
-				title: 'Add contact',
-				add: "Ajouter"
+				title: 'Ajouter un contact',
+				add: 'Ajouter'
 			},
 			editContact: {
-				title: 'Edit contact',
-				saveChanges: "Enregistrer les modifications",
-
+				title: 'Modifier le contact',
+				saveChanges: 'Enregistrer les modifications'
 			},
 			removeContact: {
-				title: 'Remove contact',
-				remove: "Retirer",
-
+				title: 'Retirer le contact',
+				remove: 'Retirer'
 			}
 		},
 		landing: {
-			logo: "images/nem_logo.png",
-			importSuccess: "Le portefeuille a été importé avec succès!",
+			logo: 'images/nem_logo.png',
+			importSuccess: 'Le portefeuille a été importé avec succès!',
 			nav: {
-				start: "Commencer",
-				about: "À propos de NEM",
-				settings: "Paramètres"
+				start: 'Commencer',
+				about: 'À propos de NEM',
+				settings: 'Paramètres'
 			},
 			main: {
-				leftTitle: "Nouveau dans <em>NEM</em>?",
-				leftButton: "Créer un nouveau portefeuille ",
-				walletNamePlh: "Nom de votre portefeuille",
-				passwordPlh: "Mot de passe",
-				confirmPasswordPlh: 'Confirm password',
-				create: "Créer",
-				creating: 'Creating...',
-				rightTitle: "Déjà un <em>NEM</em>bre?",
-				rightButton: "Ouvrir votre portefeuille",
-				openButton: "Ouvrir",
-				walletsFound: "<strong>{{1}}</strong> <em>portefeuille(s) trouvé(s)</em>",
-				copyright: "Photographie par <em>Cas Cornelissen</em>"
+				leftTitle: 'Nouveau dans <em>NEM</em>?',
+				leftButton: 'Créer un nouveau portefeuille ',
+				walletNamePlh: 'Nom de votre portefeuille',
+				passwordPlh: 'Mot de passe',
+				confirmPasswordPlh: 'Confirmez le mot de passe',
+				create: 'Créer',
+				creating: 'Creation...',
+				rightTitle: 'Déjà un <em>NEM</em>bre?',
+				rightButton: 'Ouvrir votre portefeuille',
+				openButton: 'Ouvrir',
+				walletsFound: '<strong>{{1}}</strong> <em>portefeuille(s) trouvé(s)</em>',
+				copyright: 'Photographie par <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [
 					{
-						title: "NCC chiffre votre portefeuille",
-						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEM &amp; actifs."
+						title: 'NCC chiffre votre portefeuille',
+						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs.'
 					},
 					{
-						title: "NCC chiffre votre portefeuille",
-						description: "La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEM &amp; actifs."
+						title: 'NCC chiffre votre portefeuille',
+						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs.'
 					}
 				]
 			},
 			about: {
 				sections: [
 					{
-						title: "Comment NCC fonctionne?",
+						title: 'Comment NCC fonctionne?',
 						paragraphs: [
-							"<strong>NCC</strong>offre un accès à vos actifs et vos NEMs comme un portefeuille traditionnel le ferait.",
-							"<strong>NCC</strong> requiert l'accès à un serveur <strong>NIS</strong> pour pouvoir être fonctionnelle. Le standard est d'avoir un serveur local actif (est installé ensemble avec <strong>NCC</strong>)",
-							"Vous pouvez aussi configurer un accès à un serveur <strong>NIS</strong> distant."
+							'<strong>NCC</strong>offre un accès à vos actifs et vos NEMs comme un portefeuille traditionnel le ferait.',
+							'<strong>NCC</strong> requiert l\'accès à un serveur <strong>NIS</strong> pour pouvoir être fonctionnelle. Le standard est d\'avoir un serveur local actif (est installé ensemble avec <strong>NCC</strong>)',
+							'Vous pouvez aussi configurer un accès à un serveur <strong>NIS</strong> distant.'
 						],
 						listItems: [
-							"Multiples portefeuilles",
-							"Définir de multiple compte à être inclus dans votre portefeuille"
+							'Multiples portefeuilles',
+							'Définir de multiple compte à être inclus dans votre portefeuille'
 						]
 					},
 					{
-						title: "Qu'est-ce que le &#42;NIS?",
+						title: 'Qu\'est-ce que le &#42;NIS?',
 						paragraphs: [
-							"Cette composante est responsable de garder le nuage <strong>NEM</strong> vivant.",
-							"Plus il y a de <strong>NIS</strong> meilleure est la sécurité.",
-							"<strong>NIS</strong> est le point d'accès au nuage <strong>NEM</strong>."
+							'Cette composante est responsable de garder le nuage <strong>NEM</strong> vivant.',
+							'Plus il y a de <strong>NIS</strong> meilleure est la sécurité.',
+							'<strong>NIS</strong> est le point d\'accès au nuage <strong>NEM</strong>.'
 						],
-						legend: "<strong>&#42;NIS</strong> signifie <strong>Serveur d'infrastructure NEM (NEM Infrastructure Server)</strong>"
+						legend: '<strong>&#42;NIS</strong> signifie <strong>Serveur d\'infrastructure NEM (NEM Infrastructure Server)</strong>'
 					}
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2015. NEM Community Client."
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
-			logo: "images/nem_logo.png",
-			lastAccess: "Il y a approximativement {{1}} jours",
-			lastAccessJustNow: "Juste maintenant",
-			lastAccessTooltip: "Dernier accès {{1}}",
-			primary: "primaire",
-			primaryShort: "P",
-			noLabel: "<Pas d'étiquette>",
-			copiedToClipboard: "L'adresse a été copié dans le presse papier!",
+			logo: 'images/nem_logo.png',
+			lastAccess: 'Il y a approximativement {{1}} jours',
+			lastAccessJustNow: 'Juste maintenant',
+			lastAccessTooltip: 'Dernier accès {{1}}',
+			primary: 'primaire',
+			primaryShort: 'P',
+			noLabel: '<Pas d\'étiquette>',
+			copiedToClipboard: 'L\'adresse a été copié dans le presse papier!',
 			actions: {
-				refreshInfo: "Actualiser les informations",
-				bootLocalNode: "Démarré le noeud local",
-				changeWalletName: "Changer le nom du portefeuille",
-				changeWalletPassword: "Changer le mot de passe du portefeuille",
-				mergeWallets: "Fusionner des portefeuilles",
-				exportWallet: "Exporter un portefeuille",
-				createAccount: "Créer un nouveau compte",
-				createRealAccountData: "Create real account data",
-				verifyRealAccountData: "",
-				addAccount: "Ajouter un compte existant",
-				changeAccountLabel: "Modifier l'étiquette du compte",
-				setPrimary: "Définir comme compte primaire",
-				removeAccount: "Retirer le compte",
-				clientInfo: "Information sur le Client",
-				closeWallet: "Fermer le portefeuille",
-				closeProgram: "Fermer l'application",
-				copyClipboard: "Copier l'adresse dans le presse-papier",
+				refreshInfo: 'Actualiser les informations',
+				bootLocalNode: 'Démarré le noeud local',
+				changeWalletName: 'Changer le nom du portefeuille',
+				changeWalletPassword: 'Changer le mot de passe du portefeuille',
+				mergeWallets: 'Fusionner des portefeuilles',
+				exportWallet: 'Exporter un portefeuille',
+				createAccount: 'Créer un nouveau compte',
+				createRealAccountData: 'Créer les données réelles de compte',
+				verifyRealAccountData: 'Vérifier les données réelles de compte',
+				addAccount: 'Ajouter un compte existant',
+				changeAccountLabel: 'Modifier l\'étiquette du compte',
+				setPrimary: 'Définir comme compte primaire',
+				removeAccount: 'Retirer le compte',
+				clientInfo: 'Information sur le Client',
+				closeWallet: 'Fermer le portefeuille',
+				closeProgram: 'Fermer l\'application',
+				copyClipboard: 'Copier l\'adresse dans le presse-papier',
 				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
-				"Tableau de bord",
-				"Messages",
-				'Address Book',
-				"Transactions",
-				"Blocs récoltés",
-				"Bourse d'actif",
-				"Nouvelles",
-				"Applications",
-				"Comptes",
-				"Paramètres",
-				"Fermer l'application"
+				'Tableau de bord',
+				'Messages',
+				'Contacts',
+				'Transactions',
+				'Blocs récoltés',
+				'Bourse d\'actif',
+				'Nouvelles',
+				'Applications',
+				'Comptes',
+				'Paramètres',
+				'Fermer l\'application'
 			],
-			bootNodeWarning: "Un noeud local doit être démarré avant de pouvoir utiliser pleinement les fonctionnalités de NCC."
+			bootNodeWarning: 'Un noeud local doit être démarré avant de pouvoir utiliser pleinement les fonctionnalités de NCC.'
 		},
 		dashboard: {
 			assets: {
-				title: "Vos actifs"
+				title: 'Vos actifs'
 			},
 			importance: {
-				title: "Score d'importance",
-				unknown: "statut inconnu",
-				start: "Lancer la récolte locale",
-				harvesting: "Récolte",
-				stop: "Arrêter la récolte locale",
-				description: "importance de compte dans le nuage NEM",
+				title: 'Score d\'importance',
+				unknown: 'statut inconnu',
+				start: 'Lancer la récolte locale',
+				harvesting: 'Récolte',
+				stop: 'Arrêter la récolte locale',
+				description: 'importance de compte dans le nuage NEM',
 				remoteHarvest: {
-					activate: "Activer la récolte à distance",
-					activating: "Activation de la récolte à distance ...",
-					active: "La récolte à distance est active",
-					deactivate: "Désactiver la récolte à distance",
-					deactivating: "Désactivation de la récolte à distance...",
-					startRemoteHarvesting: "Démarrer la récolte à distance",
-					remotelyHarvesting: "Récolte à distance en cours",
-					stopRemoteHarvesting: "Arrêtez la récolte à distance"
+					activate: 'Activer la récolte à distance',
+					activating: 'Activation de la récolte à distance ...',
+					active: 'La récolte à distance est active',
+					deactivate: 'Désactiver la récolte à distance',
+					deactivating: 'Désactivation de la récolte à distance...',
+					startRemoteHarvesting: 'Démarrer la récolte à distance',
+					remotelyHarvesting: 'Récolte à distance en cours',
+					stopRemoteHarvesting: 'Arrêtez la récolte à distance'
 				}
 			},
 			transactions: {
-				title: "Transactions récentes",
-				sendNem: "Envoyer des XEM",
-				signMultisig: 'SIGN',
-				balance: "Balance courante",
+				title: 'Transactions récentes',
+				sendNem: 'Envoyer des NEMs',
+				signMultisig: 'SIGNER',
+				balance: 'Balance courante',
 				vestedBalance: 'Vested Balance',
-				syncStatus: "(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})",
-				unknown: "inconnu",
+				syncStatus: '(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})',
+				unknown: 'inconnu',
 				columns: [
-					"",
-					"Temps",
-					"Expéditeur/Destinataire",
-					"Message",
-					"",
-					"Détails",
-					"Confirmations",
-					"Frais",
-					"Montant"
+					'',
+					'Temps',
+					'Expéditeur/Destinataire',
+					'Message',
+					'',
+					'Détails',
+					'Confirmations',
+					'Frais',
+					'Montant'
 				],
-				noMessage: "Pas de message",
-				encrypted: "Le message est chiffé",
-				view: "Voir",
+				noMessage: 'Pas de message',
+				encrypted: 'Le message est chiffé',
+				view: 'Voir',
 				confirmationsUnknown: 'Unknown',
-				pending: "En attente",
-				seeAll: "Voir toutes les transactions",
-				noTransactions: "Aucune transaction n'a encore été effectuée"
+				pending: 'En attente',
+				seeAll: 'Voir toutes les transactions',
+				noTransactions: 'Aucune transaction n\'a encore été effectuée'
 			},
 			nemValue: {
-				title: "Statistiques sur la valeur de XEM"
+				title: 'Statistiques sur la valeur de NEM'
 			},
 			messages: {
-				titleTooltip: "Messages"
+				titleTooltip: 'Messages'
 			},
 			news: {
-				titleTooltip: "Nouvelles"
+				titleTooltip: 'Nouvelles'
 			},
-			notAvailable: "Pas encore disponible en version alpha"
+			notAvailable: 'Pas encore disponible en version alpha'
 		},
 		transactions: {
-			title: "Transactions",
-			sendNem: "Envoyer des XEM",
-			balance: "Balance courante",
+			title: 'Transactions',
+			sendNem: 'Envoyer des NEMs',
+			balance: 'Balance courante',
 			filters: {
-				confirmed: "Confirmé",
-				unconfirmed: "Non-confirmé",
-				incoming: "Entrante",
-				outgoing: "Sortante",
-
+				confirmed: 'Confirmé',
+				unconfirmed: 'Non-confirmé',
+				incoming: 'Entrante',
+				outgoing: 'Sortante'
 			},
 			table: {
 				columns: [
-					"",
-					"Temps",
-					"Expéditeur/Destinataire",
-					"Message",
-					"",
-					"Détails",
-					"Confirmations",
-					"Frais",
-					"Montant"
+					'',
+					'Temps',
+					'Expéditeur/Destinataire',
+					'Message',
+					'',
+					'Détails',
+					'Confirmations',
+					'Frais',
+					'Montant'
 				],
-				noMessage: "Pas de message",
-				encrypted: "Le message est chiffé",
-				view: "Voir",
-				confirmationsUnknown: 'Unknown',
-				pending: "En attente",
-				noTransactions: "Aucune transaction n'a encore été effectuée",
-				loading: "Chargement de transactions supplémentaire..."
+				noMessage: 'Pas de message',
+				encrypted: 'Le message est chiffé',
+				view: 'Voir',
+				confirmationsUnknown: 'Inconnu',
+				pending: 'En attente',
+				noTransactions: 'Aucune transaction n\'a encore été effectuée',
+				loading: 'Chargement de transactions supplémentaire...'
 			}
 		},
 		harvestedBlocks: {
-			title: "Blocs récoltés",
-			feeEarned: "Honoraires perçus pour les 25 derniers blocs récoltés",
-			unknown: 'Unknown',
+			title: 'Blocs récoltés',
+			feeEarned: 'Honoraires perçus pour les 25 derniers blocs récoltés',
+			unknown: 'Inconnu',
 			table: {
 				columns: [
-					"Hauteur",
-					"Temps",
-					"Hachage du bloc",
-					"Honoraires"
+					'Hauteur',
+					'Temps',
+					'Hachage du bloc',
+					'Frais'
 				],
-				noBlocks: "Aucun blocs récoltés ",
-				loading: "Chargement de blocs récoltées supplémentaire"
+				noBlocks: 'Aucun blocs récoltés ',
+				loading: 'Chargement de blocs récoltées supplémentaire'
 			},
 			harvesting: {
-				unknown: "Statut inconnu",
-				start: "Lancer la récolte locale",
-				harvesting: "Récolte",
-				stop: "Arrêter la récolte locale",
+				unknown: 'Statut inconnu',
+				start: 'Lancer la récolte locale',
+				harvesting: 'Récolte',
+				stop: 'Arrêter la récolte locale',
 				remoteHarvest: {
 					startRemoteHarvesting: 'Start remote harvesting',
 					stopRemoteHarvesting: 'Stop remote harvesting'
@@ -698,30 +688,30 @@ define({
 			}
 		},
 		addressBook: {
-			title: 'Address book',
-			addContact: 'Add contact',
+			title: 'Carnet d\'adresses',
+			addContact: 'Ajouter un contact',
 			table: {
 				columns: [
-					'Account address',
-					'Private Label',
-					'Public Label'
+					'Adresse de compte',
+					'Étiquette privée',
+					'Étiquette publique'
 				],
-				noContacts: 'There is no contacts in your address book'
+				noContacts: 'Il n\'y a pas de contact dans votre carnet d\'adresses.'
 			},
-			noLabel: 'No label',
-			sendNem: "Envoyer des XEM",
-			edit: 'Edit',
-			remove: "Retirer"
+			noLabel: 'Pas d\'étiquette',
+			sendNem: 'Evoyer des NEMs',
+			edit: 'Modifier',
+			remove: 'Supprimer'
 		},
 		settings: {
-			title: "Paramètres",
+			title: 'Paramètres',
 			settings: [
 				{
-					name: "Langue"
+					name: 'Langue'
 				}
 			],
-			save: "Enregistrer les modifications",
-			saveSuccess: "`Les paramètres ont été enregistrés avec succès"
+			save: 'Enregistrer les modifications',
+			saveSuccess: '`Les paramètres ont été enregistrés avec succès'
 		}
 	}
 });

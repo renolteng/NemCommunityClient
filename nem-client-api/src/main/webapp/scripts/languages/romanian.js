@@ -1,10 +1,10 @@
 define({
-	id: "ro",
-	name: "Română",
+	id: 'ro',
+	name: 'Română',
 	texts: {
 		preferences: {
-			thousandSeparator: " ",
-			decimalSeparator: "."
+			thousandSeparator: ' ',
+			decimalSeparator: '.'
 		},
 		faults: {
 			101: 'The wallet file does not exist.',
@@ -12,11 +12,11 @@ define({
 			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
 			104: 'The provided password for the wallet is not correct.',
 			105: 'No password was provided for the wallet.',
-			106: "Înainte să poți lucra cu portofelul trebuie să fie deschis. Pentru a fi sigur că esti eligibil de a accesa portofelul, trebuie să introduci parola portofelului.",
-			107: "Portofelul nu conține acest cont.",
-			108: "Contul nu poate fi înlăturat. Cel mai probabil fie pentru că acest cont are un sold mai mare decât 0 XEM sau contul pe care încerci să îl înlături este contul primar.",
-			109: "Un alt portofel cu același nume există deja. Te rog alegeți un alt nume pentru portofel.",
-			110: "Portofelul conține acest cont deja.",
+			106: 'Înainte să poți lucra cu portofelul trebuie să fie deschis. Pentru a fi sigur că esti eligibil de a accesa portofelul, trebuie să introduci parola portofelului.',
+			107: 'Portofelul nu conține acest cont.',
+			108: 'Contul nu poate fi înlăturat. Cel mai probabil fie pentru că acest cont are un sold mai mare decât 0 XEM sau contul pe care încerci să îl înlături este contul primar.',
+			109: 'Un alt portofel cu același nume există deja. Te rog alegeți un alt nume pentru portofel.',
+			110: 'Portofelul conține acest cont deja.',
 			111: 'The wallet name is a directory.',
 			112: 'The extension of the wallet file is incorrect.',
 			113: 'The wallet could not be deleted.',
@@ -32,27 +32,27 @@ define({
 			131: 'The address book name is a directory.',
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
-			202: "Mesajul encriptat nu poate fi trimis pentru că destinatarul nu are nici o tranzacție efectuată.",
-			305: "NEM Infrastructure Server nu este disponibil.",
-			306: "A apărut o eroare care nu a fost anticipată de echipa de dezvoltare. Ne cerem scuze, o reîncercare ar putea ajuta. În caz contrar, te rog raportează problema în comunitatea NEM NIS/NCC.",
-			400: "Un parametru lipsește sau este invalid.",
+			202: 'Mesajul encriptat nu poate fi trimis pentru că destinatarul nu are nici o tranzacție efectuată.',
+			305: 'NEM Infrastructure Server nu este disponibil.',
+			306: 'A apărut o eroare care nu a fost anticipată de echipa de dezvoltare. Ne cerem scuze, o reîncercare ar putea ajuta. În caz contrar, te rog raportează problema în comunitatea NEM NIS/NCC.',
+			400: 'Un parametru lipsește sau este invalid.',
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
-			404: "Resursele căutate nu au fost găsite.",
-			500: "Salvarea fișerului de configurație a eșuat.",
-			600: "NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.",
-			601: "Nodul NIS este deja pornit. O a doua încercare de a porni nodul NIS nu este posibilă.",
+			404: 'Resursele căutate nu au fost găsite.',
+			500: 'Salvarea fișerului de configurație a eșuat.',
+			600: 'NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.',
+			601: 'Nodul NIS este deja pornit. O a doua încercare de a porni nodul NIS nu este posibilă.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de NEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.",
-			701: "Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.",
-			702: "Data scadentă introdusă este prea îndepărtată în viitor. Scadența trebuie introdusă cu o perioadă de grație de o zi.",
-			703: "Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de NEM.",
-			704: "Textul din mesajul introdus este prea mare pentru a putea fi trimis prin NEM. Te rog încercă să reduci lungimea mesajului pe care dorești să îl trimiți.",
-			705: "Hashul tranzacției există deja în baza de date sau în lista de tranzacții neconfirmate.",
-			706: "Semnătura tranzacției nu a putut fi verificată.",
-			707: "Data si ora tranzacției sunt prea îndepărtate în trecut.",
-			708: "Data si ora tranzacției sunt prea îndepărtate în viitor.",
-			709: "Contul este necunoscut. Un cont trebuie să facă parte din măcar o tranzacție (expeditor sau destinatar) pentru a fi cunoscut în rețea.",
+			700: 'Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de NEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.',
+			701: 'Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
+			702: 'Data scadentă introdusă este prea îndepărtată în viitor. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
+			703: 'Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de NEM.',
+			704: 'Textul din mesajul introdus este prea mare pentru a putea fi trimis prin NEM. Te rog încercă să reduci lungimea mesajului pe care dorești să îl trimiți.',
+			705: 'Hashul tranzacției există deja în baza de date sau în lista de tranzacții neconfirmate.',
+			706: 'Semnătura tranzacției nu a putut fi verificată.',
+			707: 'Data si ora tranzacției sunt prea îndepărtate în trecut.',
+			708: 'Data si ora tranzacției sunt prea îndepărtate în viitor.',
+			709: 'Contul este necunoscut. Un cont trebuie să facă parte din măcar o tranzacție (expeditor sau destinatar) pentru a fi cunoscut în rețea.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
@@ -63,38 +63,38 @@ define({
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
-			901: "O eroare a apărut la setarea nodului offline.",
-			1000: "Cheia privată și cheia publică care au fost introduse nu se potrivesc.",
-			1001: "Cheia publică și adresa care au fost introduse nu se potrivesc.",
+			901: 'O eroare a apărut la setarea nodului offline.',
+			1000: 'Cheia privată și cheia publică care au fost introduse nu se potrivesc.',
+			1001: 'Cheia publică și adresa care au fost introduse nu se potrivesc.',
 			1002: 'The address does not belong to the main network.'
 		},
 		common: {
-			success: "Succes",
+			success: 'Succes',
 			appStatus: {
-				nccUnknown: "Statusul NCC este necunoscut",
-				nccUnavailable: "NCC nu este disponibil",
-				nccStarting: "NCC pornește...",
-				nisUnknown: "Statusul NIS este necunoscut",
-				nisUnavailable: "NIS nu este disponibil",
-				nisStarting: "NIS pornește...",
-				notBooted: "NIS are necesită să fie pornit. Te rog deschide portofelul și pornește un nod local prin fereastra care apare sau configurează setarea de auto-pornire.",
+				nccUnknown: 'Statusul NCC este necunoscut',
+				nccUnavailable: 'NCC nu este disponibil',
+				nccStarting: 'NCC pornește...',
+				nisUnknown: 'Statusul NIS este necunoscut',
+				nisUnavailable: 'NIS nu este disponibil',
+				nisStarting: 'NIS pornește...',
+				notBooted: 'NIS are necesită să fie pornit. Te rog deschide portofelul și pornește un nod local prin fereastra care apare sau configurează setarea de auto-pornire.',
 				loading: 'Loading blocks from db, at block: ',
-				booting: "NIS se pornește...",
-				nisInfoNotAvailable: "Informația NIS nu este disponibilă încă. Se încearcă a prelua informația NIS...",
-				synchronizing: "NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.",
+				booting: 'NIS se pornește...',
+				nisInfoNotAvailable: 'Informația NIS nu este disponibilă încă. Se încearcă a prelua informația NIS...',
+				synchronizing: 'NIS se sincronizează. La block-ul {{1}}, est. {{2}} zile în urmă.',
 				daysBehind: {
-					0: "Mai puțin de 1 zi în urmă",
-					1: "1 zi",
-					many: "{{1}} zile"
+					0: 'Mai puțin de 1 zi în urmă',
+					1: '1 zi',
+					many: '{{1}} zile'
 				},
-				synchronized: "NIS este sincronizat!",
+				synchronized: 'NIS este sincronizat!',
 				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
-			password: "Parola",
+			password: 'Parola',
 			passwordValidation: 'Password must not be blank',
-			address: "Adresa",
-			privateLabel: "Etichetă privată",
+			address: 'Adresa',
+			privateLabel: 'Etichetă privată',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			justUse: 'Just use'
@@ -107,56 +107,56 @@ define({
 			
 		],
 		transactionDirections: {
-			pending: "Tranzacție în așteptare",
-			outgoing: "Tranzacție de trimis",
-			incoming: "Tranzacție de primit",
-			self: "Tranzacție proprie",
+			pending: 'Tranzacție în așteptare',
+			outgoing: 'Tranzacție de trimis',
+			incoming: 'Tranzacție de primit',
+			self: 'Tranzacție proprie',
 			importance: 'Importance transaction',
 			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
-				title: "Oops!",
-				caption: "ERROARE {{1}}"
+				title: 'Oops!',
+				caption: 'ERROARE {{1}}'
 			},
 			confirmDefault: {
-				yes: "Da",
-				no: "Nu"
+				yes: 'Da',
+				no: 'Nu'
 			},
 			settings: {
-				title: "Setări",
+				title: 'Setări',
 				language: {
-					label: "Limbă"
+					label: 'Limbă'
 				},
 				remoteServer: {
-					tabTitle: "Remote Server",
-					protocol: "Protocol",
+					tabTitle: 'Remote Server',
+					protocol: 'Protocol',
 					protocolOptions: {
-						http: "HTTP"
+						http: 'HTTP'
 					},
-					host: "Gazdă",
-					port: "Port"
+					host: 'Gazdă',
+					port: 'Port'
 				},
 				autoBoot: {
-					tabTitle: "Auto-pornire",
-					name: "Numele nodului",
-					account: "Cont",
-					primaryAccount: "Primar Cont",
-					auto: "Pornește automat când un portofel a fost deschis"
+					tabTitle: 'Auto-pornire',
+					name: 'Numele nodului',
+					account: 'Cont',
+					primaryAccount: 'Primar Cont',
+					auto: 'Pornește automat când un portofel a fost deschis'
 				},
-				save: "Salvează",
-				saveSuccess: "Setările au fost salvate cu succes"
+				save: 'Salvează',
+				saveSuccess: 'Setările au fost salvate cu succes'
 			},
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
-				labelDesc: "Eticheta contului este <strong>{{1}}</strong>",
-				nullLabelDesc: "Acest cont nu are o etichetă",
+				cosignatories: 'Cosignatories' addresses',
+				labelDesc: 'Eticheta contului este <strong>{{1}}</strong>',
+				nullLabelDesc: 'Acest cont nu are o etichetă',
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Cancel',
 				convert: 'Convert',
-				fee: "Taxă",
+				fee: 'Taxă',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
@@ -172,57 +172,57 @@ define({
 				title: 'Sign multisig transaction',
 				original: {
 					from: 'Multisig account',
-					to: "Destinatar",
-					amount: "Sumă",
+					to: 'Destinatar',
+					amount: 'Sumă',
 					fee: 'Inner Fee',
 					deadline: 'Deadline'
 				},
 				multisigFees: 'Multisig Fees',
 				multisigTotal: 'Total',
 				sender: 'Cosignatory',
-				fee: "Taxă",
+				fee: 'Taxă',
 				feeValidation: 'Fee must not be less than the minimum fee',
 				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
 				hours: 'hour(s)',
-				password: "Parola",
+				password: 'Parola',
 				passwordValidation: 'Password must not be blank',
-				send: "Trimite",
+				send: 'Trimite',
 				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: "Tranzacția a fost efectuată cu succes!",
+				successMessage: 'Tranzacția a fost efectuată cu succes!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					message: "Mesaj",
-					encrypted: "Mesajul este encriptat",
-					noMessage: "Fără mesaj",
+					message: 'Mesaj',
+					encrypted: 'Mesajul este encriptat',
+					noMessage: 'Fără mesaj',
 
 				},
 
 			},
 			sendNem: {
-				title: "Trimite XEM",
-				sender: "Expeditor",
+				title: 'Trimite XEM',
+				sender: 'Expeditor',
 				thisAccount: 'This account',
-				labelDesc: "Eticheta contului este <strong>{{1}}</strong>",
-				nullLabelDesc: "Acest cont nu are o etichetă",
-				amount: "Sumă",
-				recipient: "Contul destinatarului",
+				labelDesc: 'Eticheta contului este <strong>{{1}}</strong>',
+				nullLabelDesc: 'Acest cont nu are o etichetă',
+				amount: 'Sumă',
+				recipient: 'Contul destinatarului',
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
-				message: "Mesaj",
-				encrypt: "Mesaj encriptat",
-				fee: "Taxă",
+				message: 'Mesaj',
+				encrypt: 'Mesaj encriptat',
+				fee: 'Taxă',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: "Expiră in",
+				dueBy: 'Expiră in',
 				useMinimumFee: 'Use minimum fee',
-				hours: "ore",
-				password: "Parola",
+				hours: 'ore',
+				password: 'Parola',
 				passwordValidation: 'Password must not be blank',
-				send: "Trimite",
+				send: 'Trimite',
 				cancel: 'Cancel',
-				sending: "Se trimite...",
-				successMessage: "Tranzacția a fost efectuată cu succes!",
+				sending: 'Se trimite...',
+				successMessage: 'Tranzacția a fost efectuată cu succes!',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
@@ -238,8 +238,8 @@ define({
 					sending: 'Sending...'
 				},
 				notBootedWarning: {
-					title: "Nodul nu a fost pornit!",
-					message: "Un nod local trebuie să fie pornit pentru a putea trimite NEM!"
+					title: 'Nodul nu a fost pornit!',
+					message: 'Un nod local trebuie să fie pornit pentru a putea trimite NEM!'
 				},
 				bootingWarning: {
 					title: 'Node is being booted',
@@ -250,447 +250,447 @@ define({
 				}
 			},
 			clientInfo: {
-				title: "Client info",
-				ncc: "NEM Community Client - NCC",
-				signer: "Semnat",
-				remoteServer: "Remote Server",
-				local: "Local",
-				nis: "NEM Infrastructure Server - NIS",
-				sync: "Sincronizat",
-				notSync: "Nesincronizat",
-				notConnected: "Neconectat la NEM Cloud",
-				loading: "Se încarcă..."
+				title: 'Client info',
+				ncc: 'NEM Community Client - NCC',
+				signer: 'Semnat',
+				remoteServer: 'Remote Server',
+				local: 'Local',
+				nis: 'NEM Infrastructure Server - NIS',
+				sync: 'Sincronizat',
+				notSync: 'Nesincronizat',
+				notConnected: 'Neconectat la NEM Cloud',
+				loading: 'Se încarcă...'
 			},
 			transactionDetails: {
-				title: "Detalii tranzacție",
-				id: "ID",
-				hash: "Hash",
-				type: "Tipul de tranzacție",
+				title: 'Detalii tranzacție',
+				id: 'ID',
+				hash: 'Hash',
+				type: 'Tipul de tranzacție',
 				direction: 'Transaction Direction',
-				pending: "În așteptare",
-				outgoing: "De trimis",
-				incoming: "De primit",
-				self: "Sine",
-				sender: "Expeditor",
+				pending: 'În așteptare',
+				outgoing: 'De trimis',
+				incoming: 'De primit',
+				self: 'Sine',
+				sender: 'Expeditor',
 				multisigAccount: 'Multisig Account',
 				issuer: 'Issuer',
-				recipient: "Destinatar",
+				recipient: 'Destinatar',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
-				message: "Mesaj",
-				noMessage: "Nici un mesaj",
-				encrypted: "Mesajul este encriptat",
-				time: "Data și ora",
-				confirmations: "Confirmări",
+				message: 'Mesaj',
+				noMessage: 'Nici un mesaj',
+				encrypted: 'Mesajul este encriptat',
+				time: 'Data și ora',
+				confirmations: 'Confirmări',
 				confirmationsUnknown: 'Unknown',
-				amount: "Sumă",
-				fee: "Taxă",
+				amount: 'Sumă',
+				fee: 'Taxă',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Account details',
+				address: 'Address',
+				label: 'Label',
+				noLabel: 'No label',
+				add: 'Add to address book',
+				remove: 'Remove from address book',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Public key',
+				noPublicKey: 'No public key',
+				harvestedBlocks: 'Harvested blocks',
+				close: 'Close'
 			},
 			bootLocalNode: {
-				title: "Pornește nodul local",
-				account: "Cont pentru a porni nodul local",
-				noLabel: "<span class=\"null\"><Fără etichetă></span>",
-				wallet: "Portofel",
-				node: "Numele nodului",
-				boot: "Pornește",
-				booting: "Se pornește..."
+				title: 'Pornește nodul local',
+				account: 'Cont pentru a porni nodul local',
+				noLabel: '<span class=\'null\'><Fără etichetă></span>',
+				wallet: 'Portofel',
+				node: 'Numele nodului',
+				boot: 'Pornește',
+				booting: 'Se pornește...'
 			},
 			closeWallet: {
-				title: "Închide portofelul",
-				message: "Ești sigur că dorești să închizi portofelul și să te intorci la pagina de început?"
+				title: 'Închide portofelul',
+				message: 'Ești sigur că dorești să închizi portofelul și să te intorci la pagina de început?'
 			},
 			createAccount: {
-				title: "Crează portofel nou",
-				label: "Etichetă privată",
-				wallet: "Portofel",
-				password: "Parola portofelului",
-				successMessage: "Contul {{1}} {{#2}}({{2}}){{/2}} a fost creat!",
-				create: "Crează"
+				title: 'Crează portofel nou',
+				label: 'Etichetă privată',
+				wallet: 'Portofel',
+				password: 'Parola portofelului',
+				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost creat!',
+				create: 'Crează'
 			},
 			createRealAccountData: {
-				title: "Crează date reale de cont",
-				message: "Datele de mai jos sunt pentru contul real de după lansarea NEM. Salvează adresa, cheia publică, si cel mai important, cheia privată intr-un loc sigur. Dacă pierzi cheia privată, contul tău împreună cu toți XEM reali vor fi pierduți pentru TOTDEAUNA!",
-				address: "Adresa",
-				publicKey: "Cheia publică",
-				privateKey: "Cheia privată",
+				title: 'Crează date reale de cont',
+				message: 'Datele de mai jos sunt pentru contul real de după lansarea NEM. Salvează adresa, cheia publică, si cel mai important, cheia privată intr-un loc sigur. Dacă pierzi cheia privată, contul tău împreună cu toți XEM reali vor fi pierduți pentru TOTDEAUNA!',
+				address: 'Adresa',
+				publicKey: 'Cheia publică',
+				privateKey: 'Cheia privată',
 				confirm: {
-					title: "Salvează cheia privată",
-					message: "Ești sigur că cheia ta privată a fost salvată într-un loc sigur?"
+					title: 'Salvează cheia privată',
+					message: 'Ești sigur că cheia ta privată a fost salvată într-un loc sigur?'
 				},
 				recheck: {
-					title: "Verifică cheia privată salvată din nou",
-					message: "Te rog introdu cheia privată pe care ai primit-o pentru a verifica daca ai salvat-o pe cea bună. Daca cheia ta privată este deja pierdută, probabil ca ar fi bine sa creezi una nouă.",
+					title: 'Verifică cheia privată salvată din nou',
+					message: 'Te rog introdu cheia privată pe care ai primit-o pentru a verifica daca ai salvat-o pe cea bună. Daca cheia ta privată este deja pierdută, probabil ca ar fi bine sa creezi una nouă.',
 					correct: {
-						title: "Foarte bine!",
-						message: "Se pare ca ai salvat cheia privată corectă. Te rog ai grije să o ți întotdeauna sigură și securizată."
+						title: 'Foarte bine!',
+						message: 'Se pare ca ai salvat cheia privată corectă. Te rog ai grije să o ți întotdeauna sigură și securizată.'
 					},
 					incorrect: {
-						title: "Hmm...",
-						message: "Cheia privată pe care ai introdus-o nu este corecta! Vrei să introduci din nou cheia privată sau să vizualizezi datele contului inițial?",
-						tryAgain: "Încearcă să introduci din nou",
-						seeOriginal: "Vizualizează datele contului inițial"
+						title: 'Hmm...',
+						message: 'Cheia privată pe care ai introdus-o nu este corecta! Vrei să introduci din nou cheia privată sau să vizualizezi datele contului inițial?',
+						tryAgain: 'Încearcă să introduci din nou',
+						seeOriginal: 'Vizualizează datele contului inițial'
 					},
-					recheck: "Verificat"
+					recheck: 'Verificat'
 				},
-				ok: "OK"
+				ok: 'OK'
 			},
 			verifyRealAccountData: {
-				title: "Verifică datele contului real",
-				message: "Reintrodu adresa salvată, cheia publică și cheia privată pentru a verifica daca se potrivesc",
-				address: "Adresa",
-				publicKey: "Cheia publică",
-				privateKey: "Cheia privată",
-				dataMatched: "Totul pare în ordine, adresa introdusă, cheia publică, și cheia privată se potrivesc.",
-				verify: "Verifică"
+				title: 'Verifică datele contului real',
+				message: 'Reintrodu adresa salvată, cheia publică și cheia privată pentru a verifica daca se potrivesc',
+				address: 'Adresa',
+				publicKey: 'Cheia publică',
+				privateKey: 'Cheia privată',
+				dataMatched: 'Totul pare în ordine, adresa introdusă, cheia publică, și cheia privată se potrivesc.',
+				verify: 'Verifică'
 			},
 			addAccount: {
-				title: "Adaugă un cont existent",
-				privateKey: "Cheia privată a contului",
-				wallet: "Portofel",
-				password: "Parola portofelului",
-				successMessage: "Contul {{1}} {{#2}}({{2}}){{/2}} a fost adăugat în portofel!",
-				add: "Adaugă",
-				label: "Etichetă"
+				title: 'Adaugă un cont existent',
+				privateKey: 'Cheia privată a contului',
+				wallet: 'Portofel',
+				password: 'Parola portofelului',
+				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost adăugat în portofel!',
+				add: 'Adaugă',
+				label: 'Etichetă'
 			},
 			setPrimary: {
-				title: "Stabilește cont primar",
-				account: "Cont pentru a fi stabilit ca primar",
-				noLabel: "<span class=\"null\"><Fără etichetă></span>",
-				wallet: "Portofel",
-				password: "Parola portofelului",
-				successMessage: "Contul {{1}} {{#2}}({{2}}){{/2}} a fost stabilit ca primar!",
-				set: "Stabilește ca primar",
+				title: 'Stabilește cont primar',
+				account: 'Cont pentru a fi stabilit ca primar',
+				noLabel: '<span class=\'null\'><Fără etichetă></span>',
+				wallet: 'Portofel',
+				password: 'Parola portofelului',
+				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost stabilit ca primar!',
+				set: 'Stabilește ca primar',
 
 			},
 			changeWalletName: {
-				title: "Schimbă numele portofelului",
-				wallet: "Numele actual al portofelului",
-				newName: "Numele nou al portofelului",
-				password: "Parola portofelului",
-				successMessage: "Numele portofelului a fost schimbat cu succes de la <em>{{1}}</em> la <em>{{2}}</em>",
-				change: "Schimbă"
+				title: 'Schimbă numele portofelului',
+				wallet: 'Numele actual al portofelului',
+				newName: 'Numele nou al portofelului',
+				password: 'Parola portofelului',
+				successMessage: 'Numele portofelului a fost schimbat cu succes de la <em>{{1}}</em> la <em>{{2}}</em>',
+				change: 'Schimbă'
 			},
 			changeWalletPassword: {
-				title: "Schimbă parola portofelului",
-				wallet: "Portofel",
-				password: "Parola actuală",
-				newPassword: "Parola nouă",
-				confirmPassword: "Confirmă parola nouă",
-				successMessage: "Parola portofelului a fost schimbată cu succes",
-				change: "Schimbă",
-				passwordNotMatchTitle: "Oops!",
-				passwordNotMatchMessage: "Parola introdusă si confirmarea parolei nu se potrivesc. Te rog asigură-te că introduci noua parolă corect."
+				title: 'Schimbă parola portofelului',
+				wallet: 'Portofel',
+				password: 'Parola actuală',
+				newPassword: 'Parola nouă',
+				confirmPassword: 'Confirmă parola nouă',
+				successMessage: 'Parola portofelului a fost schimbată cu succes',
+				change: 'Schimbă',
+				passwordNotMatchTitle: 'Oops!',
+				passwordNotMatchMessage: 'Parola introdusă si confirmarea parolei nu se potrivesc. Te rog asigură-te că introduci noua parolă corect.'
 			},
 			changeAccountLabel: {
-				title: "Schimbă eticheta contului",
-				label: "Eticheta contului",
-				wallet: "Portofel",
-				password: "Parola contului",
-				successMessage: "Contul {{1}} este etichetat {{2}}",
-				change: "Schimbă"
+				title: 'Schimbă eticheta contului',
+				label: 'Eticheta contului',
+				wallet: 'Portofel',
+				password: 'Parola contului',
+				successMessage: 'Contul {{1}} este etichetat {{2}}',
+				change: 'Schimbă'
 			},
 			removeAccount: {
-				title: "Înlătură contul",
-				wallet: "Portofel",
-				password: "Parola portofelului",
-				warning: "Te rog să asigură-te că contul tău nu mai are nici un XEM în el înainte să îl înlături, în caz contrar aceștia vor fi pierduți pentru totdeauna.",
-				successMessage: "Contul {{1}} {{#2}}({{2}}){{/2}} a fost înlăturat!",
-				remove: "Înlătură"
+				title: 'Înlătură contul',
+				wallet: 'Portofel',
+				password: 'Parola portofelului',
+				warning: 'Te rog să asigură-te că contul tău nu mai are nici un XEM în el înainte să îl înlături, în caz contrar aceștia vor fi pierduți pentru totdeauna.',
+				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost înlăturat!',
+				remove: 'Înlătură'
 			},
 			nisUnavailable: {
-				title: "NIS indisponibil",
-				message: "Deconectat de la NIS, se așteaptă conexiunea"
+				title: 'NIS indisponibil',
+				message: 'Deconectat de la NIS, se așteaptă conexiunea'
 			},
 			shutdown: {
-				title: "Închide programul",
-				message: "Ești sigur că dorești să închizi NEM Community Client?"
+				title: 'Închide programul',
+				message: 'Ești sigur că dorești să închizi NEM Community Client?'
 			},
 			activateRemote: {
-				title: "Activează recoltarea de la distanță",
-				wallet: "Portofel",
-				account: "Cont",
-				hoursDue: "Scadență",
-				password: "Parola portofelului",
-				activate: "Activează"
+				title: 'Activează recoltarea de la distanță',
+				wallet: 'Portofel',
+				account: 'Cont',
+				hoursDue: 'Scadență',
+				password: 'Parola portofelului',
+				activate: 'Activează'
 			},
 			deactivateRemote: {
-				title: "Dezactivează recoltarea de la distanță",
-				wallet: "Portofel",
-				account: "Cont",
-				hoursDue: "Scadență",
-				password: "Parola portofelului",
-				deactivate: "Dezactivează"
+				title: 'Dezactivează recoltarea de la distanță',
+				wallet: 'Portofel',
+				account: 'Cont',
+				hoursDue: 'Scadență',
+				password: 'Parola portofelului',
+				deactivate: 'Dezactivează'
 			},
 			startRemote: {
-				title: "Pornește recoltarea de la distanță",
-				wallet: "Portofel",
-				account: "Cont",
-				password: "Parola portofelului",
-				start: "Pornește"
+				title: 'Pornește recoltarea de la distanță',
+				wallet: 'Portofel',
+				account: 'Cont',
+				password: 'Parola portofelului',
+				start: 'Pornește'
 			},
 			stopRemote: {
-				title: "Oprește recoltarea de la distanță",
-				wallet: "Portofel",
-				account: "Cont",
-				password: "Parola portofelului",
-				stop: "Oprește"
+				title: 'Oprește recoltarea de la distanță',
+				wallet: 'Portofel',
+				account: 'Cont',
+				password: 'Parola portofelului',
+				stop: 'Oprește'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.",
+				leavePage: 'You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
 
 			},
 			addContact: {
 				title: 'Add contact',
-				add: "Adaugă"
+				add: 'Adaugă'
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: "Salvează schimbările",
+				saveChanges: 'Salvează schimbările',
 
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: "Înlătură",
+				remove: 'Înlătură',
 
 			}
 		},
 		landing: {
-			logo: "images/nem_logo.png",
-			importSuccess: "Portofelul a fost importat cu succes!",
+			logo: 'images/nem_logo.png',
+			importSuccess: 'Portofelul a fost importat cu succes!',
 			nav: {
-				start: "Primii<strong>Pași</strong>",
-				about: "Despre <strong>NEM</strong>",
-				settings: "<strong>Setări</strong>"
+				start: 'Primii<strong>Pași</strong>',
+				about: 'Despre <strong>NEM</strong>',
+				settings: '<strong>Setări</strong>'
 			},
 			main: {
-				leftTitle: "Nou în <em>NEM</em>?",
-				leftButton: "Crează portofel nou",
-				walletNamePlh: "Numele portofelului tău",
-				passwordPlh: "Parola",
+				leftTitle: 'Nou în <em>NEM</em>?',
+				leftButton: 'Crează portofel nou',
+				walletNamePlh: 'Numele portofelului tău',
+				passwordPlh: 'Parola',
 				confirmPasswordPlh: 'Confirm password',
-				create: "Crează",
+				create: 'Crează',
 				creating: 'Creating...',
-				rightTitle: "Ești deja un <em>NEM</em>bru?",
-				rightButton: "Deschide portofelul",
-				openButton: "Deschide",
-				walletsFound: "<strong>{{1}}</strong> <em>portofelul</em> a fost găsit",
-				copyright: "Fotografie de <em>Cas Cornelissen</em>"
+				rightTitle: 'Ești deja un <em>NEM</em>bru?',
+				rightButton: 'Deschide portofelul',
+				openButton: 'Deschide',
+				walletsFound: '<strong>{{1}}</strong> <em>portofelul</em> a fost găsit',
+				copyright: 'Fotografie de <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [
 					{
-						title: "NCC îți encripteaza portofelul",
-						description: "<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active."
+						title: 'NCC îți encripteaza portofelul',
+						description: '<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active.'
 					},
 					{
-						title: "NCC îți encripteaza portofelul",
-						description: "<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active."
+						title: 'NCC îți encripteaza portofelul',
+						description: '<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active.'
 					}
 				]
 			},
 			about: {
 				sections: [
 					{
-						title: "Cum funcționează NCC?",
+						title: 'Cum funcționează NCC?',
 						paragraphs: [
-							"<strong>NCC</strong> facilitează accesul către activele și monedele tale la fel ca portofelele tradiționale. Ai voie",
-							"<strong>NCC</strong> necesită acces către <strong>NIS</strong> server pentru a putea funcționa. Standardul este să ai un nod local activ (este instalat împreună cu <strong>NCC</strong>)",
-							"Poți deasemeni să configurezi accesul către un remote <strong>NIS</strong>."
+							'<strong>NCC</strong> facilitează accesul către activele și monedele tale la fel ca portofelele tradiționale. Ai voie',
+							'<strong>NCC</strong> necesită acces către <strong>NIS</strong> server pentru a putea funcționa. Standardul este să ai un nod local activ (este instalat împreună cu <strong>NCC</strong>)',
+							'Poți deasemeni să configurezi accesul către un remote <strong>NIS</strong>.'
 						],
 						listItems: [
-							"Ai multiple portofele",
-							"Definește multiple conturi pentru a fi introduse într-un portofel"
+							'Ai multiple portofele',
+							'Definește multiple conturi pentru a fi introduse într-un portofel'
 						]
 					},
 					{
-						title: "Ce este &#42;NIS?",
+						title: 'Ce este &#42;NIS?',
 						paragraphs: [
-							"Acest component este responsabil de a ține <strong>NEM</strong> cloud-ul activ.",
-							"Cu cât mai mult <strong>NIS</strong> cu atât mai bună securitate.",
-							"<strong>NIS</strong> este punctul de acces către <strong>NEM</strong> cloud."
+							'Acest component este responsabil de a ține <strong>NEM</strong> cloud-ul activ.',
+							'Cu cât mai mult <strong>NIS</strong> cu atât mai bună securitate.',
+							'<strong>NIS</strong> este punctul de acces către <strong>NEM</strong> cloud.'
 						],
-						legend: "<strong>&#42;NIS</strong> înseamnă <strong>NEM Infrastructure Server</strong>"
+						legend: '<strong>&#42;NIS</strong> înseamnă <strong>NEM Infrastructure Server</strong>'
 					}
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2015. NEM Community Client."
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
-			logo: "images/nem_logo.png",
-			lastAccess: "Aproximativ cu {{1}} zile în urmă",
-			lastAccessJustNow: "Chiar acum",
-			lastAccessTooltip: "Ultima accesare a fost {{1}}",
-			primary: "primar",
-			primaryShort: "P",
-			noLabel: "<Fără etichetă>",
-			copiedToClipboard: "Adresa a fost copiată în clipboard!",
+			logo: 'images/nem_logo.png',
+			lastAccess: 'Aproximativ cu {{1}} zile în urmă',
+			lastAccessJustNow: 'Chiar acum',
+			lastAccessTooltip: 'Ultima accesare a fost {{1}}',
+			primary: 'primar',
+			primaryShort: 'P',
+			noLabel: '<Fără etichetă>',
+			copiedToClipboard: 'Adresa a fost copiată în clipboard!',
 			actions: {
-				refreshInfo: "Actualizează informația",
-				bootLocalNode: "Pornește nodul local",
-				changeWalletName: "Schimbă numele portofelului",
-				changeWalletPassword: "Schimbă parola portofelului",
-				mergeWallets: "Unește portofele",
-				exportWallet: "Exportă portofelul",
-				createAccount: "Crează cont nou",
-				createRealAccountData: "Crează date reale de cont",
-				verifyRealAccountData: "Verifică datele contului real",
-				addAccount: "Adaugă un nou cont existent",
-				changeAccountLabel: "Schimbă eticheta contului",
-				setPrimary: "Stabilște ca cont primar",
-				removeAccount: "Înlătură cont",
-				clientInfo: "Client Info",
-				closeWallet: "Închide portofelul",
-				closeProgram: "Închide programul",
-				copyClipboard: "Copiază adresa în clipboard",
+				refreshInfo: 'Actualizează informația',
+				bootLocalNode: 'Pornește nodul local',
+				changeWalletName: 'Schimbă numele portofelului',
+				changeWalletPassword: 'Schimbă parola portofelului',
+				mergeWallets: 'Unește portofele',
+				exportWallet: 'Exportă portofelul',
+				createAccount: 'Crează cont nou',
+				createRealAccountData: 'Crează date reale de cont',
+				verifyRealAccountData: 'Verifică datele contului real',
+				addAccount: 'Adaugă un nou cont existent',
+				changeAccountLabel: 'Schimbă eticheta contului',
+				setPrimary: 'Stabilște ca cont primar',
+				removeAccount: 'Înlătură cont',
+				clientInfo: 'Client Info',
+				closeWallet: 'Închide portofelul',
+				closeProgram: 'Închide programul',
+				copyClipboard: 'Copiază adresa în clipboard',
 				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
-				"Panou principal",
-				"Mesaje",
+				'Panou principal',
+				'Mesaje',
 				'Address Book',
-				"Tranzacții",
-				"Blocuri recoltate",
-				"Bursă",
-				"Știri",
-				"Aplicații",
-				"Conturi",
-				"Setări",
-				"Închide program"
+				'Tranzacții',
+				'Blocuri recoltate',
+				'Bursă',
+				'Știri',
+				'Aplicații',
+				'Conturi',
+				'Setări',
+				'Închide program'
 			],
-			bootNodeWarning: "Un nod local trebuie să fie pornit pentru a putea folosi proprietățile NCC."
+			bootNodeWarning: 'Un nod local trebuie să fie pornit pentru a putea folosi proprietățile NCC.'
 		},
 		dashboard: {
 			assets: {
-				title: "Activele tale"
+				title: 'Activele tale'
 			},
 			importance: {
-				title: "Scorul importanței",
-				unknown: "Status necunoscut",
-				start: "Începe recoltarea",
-				harvesting: "Se recoltează",
-				stop: "Oprește recoltarea",
-				description: "Importanța contului pentru NEM cloud",
+				title: 'Scorul importanței',
+				unknown: 'Status necunoscut',
+				start: 'Începe recoltarea',
+				harvesting: 'Se recoltează',
+				stop: 'Oprește recoltarea',
+				description: 'Importanța contului pentru NEM cloud',
 				remoteHarvest: {
-					activate: "Activează recoltarea de la distanță",
-					activating: "Se activează recoltarea de la distanță...",
-					active: "Recoltarea de la distanță este activă",
-					deactivate: "Dezactivează recoltarea de la distanță",
-					deactivating: "Se dezactivează recoltarea de la distanță...",
-					startRemoteHarvesting: "Pornește recoltarea de la distanță",
-					remotelyHarvesting: "Se recoltează de la distanță",
-					stopRemoteHarvesting: "Oprește recoltarea de la distanță"
+					activate: 'Activează recoltarea de la distanță',
+					activating: 'Se activează recoltarea de la distanță...',
+					active: 'Recoltarea de la distanță este activă',
+					deactivate: 'Dezactivează recoltarea de la distanță',
+					deactivating: 'Se dezactivează recoltarea de la distanță...',
+					startRemoteHarvesting: 'Pornește recoltarea de la distanță',
+					remotelyHarvesting: 'Se recoltează de la distanță',
+					stopRemoteHarvesting: 'Oprește recoltarea de la distanță'
 				}
 			},
 			transactions: {
-				title: "Tranzacții recente",
-				sendNem: "Trimite XEM",
+				title: 'Tranzacții recente',
+				sendNem: 'Trimite XEM',
 				signMultisig: 'SIGN',
-				balance: "Sold actual",
+				balance: 'Sold actual',
 				vestedBalance: 'Vested Balance',
-				syncStatus: "(la block-ul {{1}}{{#2}} : est. {{3}} zile în urmă{{/2}})",
-				unknown: "necunoscut",
+				syncStatus: '(la block-ul {{1}}{{#2}} : est. {{3}} zile în urmă{{/2}})',
+				unknown: 'necunoscut',
 				columns: [
-					"",
-					"Timp",
-					"Expeditor/Destinatar",
-					"Mesaj",
-					"",
-					"Detalii",
-					"Confirmări",
-					"Taxă",
-					"Sumă"
+					'',
+					'Timp',
+					'Expeditor/Destinatar',
+					'Mesaj',
+					'',
+					'Detalii',
+					'Confirmări',
+					'Taxă',
+					'Sumă'
 				],
-				noMessage: "Fără mesaj",
-				encrypted: "Mesajul este encriptat",
-				view: "Vizualizează",
+				noMessage: 'Fără mesaj',
+				encrypted: 'Mesajul este encriptat',
+				view: 'Vizualizează',
 				confirmationsUnknown: 'Unknown',
-				pending: "În așteptare",
-				seeAll: "Vizualizează toate tranzacțiile",
-				noTransactions: "Nu a fost efectuată nici o tranzacție până acum"
+				pending: 'În așteptare',
+				seeAll: 'Vizualizează toate tranzacțiile',
+				noTransactions: 'Nu a fost efectuată nici o tranzacție până acum'
 			},
 			nemValue: {
-				title: "Statistici despre valoarea XEM"
+				title: 'Statistici despre valoarea XEM'
 			},
 			messages: {
-				titleTooltip: "Mesaje"
+				titleTooltip: 'Mesaje'
 			},
 			news: {
-				titleTooltip: "Știri"
+				titleTooltip: 'Știri'
 			},
-			notAvailable: "Nu este încă disponibil în versiunea beta"
+			notAvailable: 'Nu este încă disponibil în versiunea beta'
 		},
 		transactions: {
-			title: "Tranzacții",
-			sendNem: "Trimite XEM",
-			balance: "Sold actual",
+			title: 'Tranzacții',
+			sendNem: 'Trimite XEM',
+			balance: 'Sold actual',
 			filters: {
-				confirmed: "Confirmat",
-				unconfirmed: "Neconfirmat",
-				incoming: "De primit",
-				outgoing: "De trimis",
+				confirmed: 'Confirmat',
+				unconfirmed: 'Neconfirmat',
+				incoming: 'De primit',
+				outgoing: 'De trimis',
 
 			},
 			table: {
 				columns: [
-					"",
-					"Timp",
-					"Expeditor/Destinatar",
-					"Mesaj",
-					"",
-					"Detalii",
-					"Confirmări",
-					"Taxă",
-					"Sumă"
+					'',
+					'Timp',
+					'Expeditor/Destinatar',
+					'Mesaj',
+					'',
+					'Detalii',
+					'Confirmări',
+					'Taxă',
+					'Sumă'
 				],
-				noMessage: "Fără mesaj",
-				encrypted: "Mesajul este encriptat",
-				view: "Vizualizează",
+				noMessage: 'Fără mesaj',
+				encrypted: 'Mesajul este encriptat',
+				view: 'Vizualizează',
 				confirmationsUnknown: 'Unknown',
-				pending: "În așteptare",
-				noTransactions: "Nu a fost efectuată nici o tranzacție până acum",
-				loading: "Se încarcă mai multe tranzacții..."
+				pending: 'În așteptare',
+				noTransactions: 'Nu a fost efectuată nici o tranzacție până acum',
+				loading: 'Se încarcă mai multe tranzacții...'
 			}
 		},
 		harvestedBlocks: {
-			title: "Block-uri recoltate",
-			feeEarned: "Taxe câștigate din ultimele 25 de blockuri recoltate",
+			title: 'Block-uri recoltate',
+			feeEarned: 'Taxe câștigate din ultimele 25 de blockuri recoltate',
 			unknown: 'Unknown',
 			table: {
 				columns: [
-					"Block",
-					"Timp",
-					"Block hash",
-					"Taxă"
+					'Block',
+					'Timp',
+					'Block hash',
+					'Taxă'
 				],
-				noBlocks: "Niciun block nu a fost recoltat încă",
-				loading: "Se încarcă mai multe blocuri recoltate"
+				noBlocks: 'Niciun block nu a fost recoltat încă',
+				loading: 'Se încarcă mai multe blocuri recoltate'
 			},
 			harvesting: {
-				unknown: "Status necunoscut",
-				start: "Începe recoltarea",
-				harvesting: "Se recoltează",
-				stop: "Oprește recoltarea",
+				unknown: 'Status necunoscut',
+				start: 'Începe recoltarea',
+				harvesting: 'Se recoltează',
+				stop: 'Oprește recoltarea',
 				remoteHarvest: {
 					startRemoteHarvesting: 'Start remote harvesting',
 					stopRemoteHarvesting: 'Stop remote harvesting'
@@ -709,19 +709,19 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Trimite XEM",
+			sendNem: 'Trimite XEM',
 			edit: 'Edit',
-			remove: "Înlătură"
+			remove: 'Înlătură'
 		},
 		settings: {
-			title: "Setări",
+			title: 'Setări',
 			settings: [
 				{
-					name: "Limbă"
+					name: 'Limbă'
 				}
 			],
-			save: "Salvează schimbările",
-			saveSuccess: "Setările au fost salvate cu succes"
+			save: 'Salvează schimbările',
+			saveSuccess: 'Setările au fost salvate cu succes'
 		}
 	}
 });

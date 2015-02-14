@@ -1,22 +1,22 @@
 define({
-	id: "it",
-	name: "Italiano",
+	id: 'it',
+	name: 'Italiano',
 	texts: {
 		preferences: {
-			thousandSeparator: " ",
-			decimalSeparator: ","
+			thousandSeparator: ' ',
+			decimalSeparator: ','
 		},
 		faults: {
 			101: 'The wallet file does not exist.',
-			102: "Il portafoglio non è stato creato.",
-			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
-			104: 'The provided password for the wallet is not correct.',
+			102: 'Il portafoglio non è stato creato.',
+			103: 'Il file del portafoglio è corrotto. Ripristina il portafoglio dal backup che dovresti aver effettuato quando l\'hai creato o vi hai aggiunto un indirizzo.',
+			104: 'La password inserita non è corretta. Si spera tu riesca a ricordare la password corretta in quanto non c\'è modo di recuperarla!',
 			105: 'No password was provided for the wallet.',
-			106: "Per poter utilizzare un portafoglio è necessario aprirlo. Per accertarsi che l'utente sia autorizzato ad accedervi, è necessario fornire la password del portafoglio.",
-			107: "Il portafoglio non contiene questo indirizzo",
-			108: "L'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l'indirizzo principale.",
-			109: "Esiste già un portafoglio con questo nome. Scegli un nome differente.",
-			110: "Esiste già un portafoglio contenete questo indirizzo.",
+			106: 'Per poter utilizzare un portafoglio è necessario aprirlo. Per accertarsi che l\'utente sia autorizzato ad accedervi, è necessario fornire la password del portafoglio.',
+			107: 'Il portafoglio non contiene questo indirizzo',
+			108: 'L\'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l\'indirizzo principale.',
+			109: 'Esiste già un portafoglio con questo nome. Scegli un nome differente.',
+			110: 'Esiste già un portafoglio contenete questo indirizzo.',
 			111: 'The wallet name is a directory.',
 			112: 'The extension of the wallet file is incorrect.',
 			113: 'The wallet could not be deleted.',
@@ -32,27 +32,27 @@ define({
 			131: 'The address book name is a directory.',
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
-			202: "Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario",
-			305: "Il server NIS non è in esecuzione",
-			306: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
-			400: "Manca qualche parametro obbligatorio",
-			401: "L'operazione non può essere completata perché è insicuro trasmettere la chiave privata ad un server remoto",
-			404: "Strategia di avvio non valida",
-			500: "E' occorso un errore imprevisto; riprova ad effettuare l'operazione. Se il problema persiste chiedi supporto alla comunità NEM",
-			600: "NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \"Avvia il nodo locale\" nel menu di NCC.",
-			601: "Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.",
+			202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
+			305: 'Il server NIS non è in esecuzione',
+			306: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
+			400: 'Manca qualche parametro obbligatorio',
+			401: 'L\'operazione non può essere completata perché è insicuro trasmettere la chiave privata ad un server remoto',
+			404: 'Strategia di avvio non valida',
+			500: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
+			600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \'Avvia il nodo locale\' nel menu di NCC.',
+			601: 'Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: "L'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM",
-			701: "Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.",
-			702: "Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.",
-			703: "L'indirizzo non dispone di abbastanza fondi per inviare la quantità di NEM indicata.",
-			704: "Il messaggio inserito è troppo grande per essere spedito tramite la rete NEM. Riduci la dimensione del testo.",
-			705: "La firma della transazione è già presente nel database delle transazioni non ancora confermate.",
-			706: "Errore nella verifica della firma della transazione.",
-			707: "La marca temporale della transazione è troppo lontana nel passato.",
-			708: "La marca temporale della transazione è troppo lontana nel futuro.",
-			709: "Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.",
+			700: 'L\'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM',
+			701: 'Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.',
+			702: 'Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.',
+			703: 'L\'indirizzo non dispone di abbastanza fondi per inviare la quantità di NEM indicata.',
+			704: 'Il messaggio inserito è troppo grande per essere spedito tramite la rete NEM. Riduci la dimensione del testo.',
+			705: 'La firma della transazione è già presente nel database delle transazioni non ancora confermate.',
+			706: 'Errore nella verifica della firma della transazione.',
+			707: 'La marca temporale della transazione è troppo lontana nel passato.',
+			708: 'La marca temporale della transazione è troppo lontana nel futuro.',
+			709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
 			731: 'Secure harvesting account has non zero balance and cannot be used.',
@@ -63,38 +63,38 @@ define({
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
-			901: "Errore nella modalità fuori rete.",
-			1000: "Mancata corrispondenza tra chiave privata e chiave pubblica.",
-			1001: "Mancata corrispondenza tra chiave pubblica ed indirizzo.",
-			1002: "L'indirizzo non appartiene alla rete NEM principale."
+			901: 'Errore nella modalità fuori rete.',
+			1000: 'Mancata corrispondenza tra chiave privata e chiave pubblica.',
+			1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.',
+			1002: 'L\'indirizzo non appartiene alla rete NEM principale.'
 		},
 		common: {
-			success: "Operazione completata",
+			success: 'Operazione completata',
 			appStatus: {
-				nccUnknown: "Lo stato di NCC è ignoto",
-				nccUnavailable: "NCC non disponibile",
-				nccStarting: "NCC sta partendo...",
-				nisUnknown: "Lo stato di NIS è ignoto",
-				nisUnavailable: "NIS non disponibile",
-				nisStarting: "NIS sta partendo...",
-				notBooted: "NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l'auto-avvio.",
+				nccUnknown: 'Lo stato di NCC è ignoto',
+				nccUnavailable: 'NCC non disponibile',
+				nccStarting: 'NCC sta partendo...',
+				nisUnknown: 'Lo stato di NIS è ignoto',
+				nisUnavailable: 'NIS non disponibile',
+				nisStarting: 'NIS sta partendo...',
+				notBooted: 'NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l\'auto-avvio.',
 				loading: 'Loading blocks from db, at block: ',
-				booting: "Avvio di NIS in corso...",
-				nisInfoNotAvailable: "Verifica dello stato di NIS...",
-				synchronizing: "Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.",
+				booting: 'Avvio di NIS in corso...',
+				nisInfoNotAvailable: 'Verifica dello stato di NIS...',
+				synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
 				daysBehind: {
-					0: "meno di un giorno",
-					1: "un giorno",
-					many: "{{1}} giorni"
+					0: 'meno di un giorno',
+					1: 'un giorno',
+					many: '{{1}} giorni'
 				},
-				synchronized: "NIS è sincronizzato!",
+				synchronized: 'NIS è sincronizzato!',
 				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
 			},
 			addressBook: 'Address book',
-			password: "Password",
-			passwordValidation: "La password non può essere vuota",
-			address: "Indirizzo",
-			privateLabel: "Nome privato",
+			password: 'Password',
+			passwordValidation: 'La password non può essere vuota',
+			address: 'Indirizzo',
+			privateLabel: 'Nome privato',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			justUse: 'Just use'
@@ -107,63 +107,63 @@ define({
 			
 		],
 		transactionDirections: {
-			pending: "Transazione in attesa",
-			outgoing: "Transazione in uscita",
-			incoming: "Transazione in ingresso",
-			self: "Transazione verso te stesso",
+			pending: 'Transazione in attesa',
+			outgoing: 'Transazione in uscita',
+			incoming: 'Transazione in ingresso',
+			self: 'Transazione verso te stesso',
 			importance: 'Importance transaction',
 			modification: 'Aggregate Modification of Multisig'
 		},
 		modals: {
 			error: {
-				title: "Errore!",
-				caption: "ERRORE {{1}}"
+				title: 'Errore!',
+				caption: 'ERRORE {{1}}'
 			},
 			confirmDefault: {
-				yes: "Sì",
-				no: "No"
+				yes: 'Sì',
+				no: 'No'
 			},
 			settings: {
-				title: "Impostazioni",
+				title: 'Impostazioni',
 				language: {
-					label: "Lingua"
+					label: 'Lingua'
 				},
 				remoteServer: {
-					tabTitle: "Server remoto",
-					protocol: "Protocollo",
+					tabTitle: 'Server remoto',
+					protocol: 'Protocollo',
 					protocolOptions: {
-						http: "HTTP"
+						http: 'HTTP'
 					},
-					host: "Nome del server",
-					port: "Porta"
+					host: 'Nome del server',
+					port: 'Porta'
 				},
 				autoBoot: {
-					tabTitle: "Auto-avvio",
-					name: "Nome del nodo",
-					account: "Indirizzo",
-					primaryAccount: "Indirizzo principale",
-					auto: "Auto avvia quando il portafoglio viene aperto"
+					tabTitle: 'Auto-avvio',
+					name: 'Nome del nodo',
+					account: 'Indirizzo',
+					primaryAccount: 'Indirizzo principale',
+					auto: 'Auto avvia quando il portafoglio viene aperto'
 				},
-				save: "Salva",
-				saveSuccess: "Impostazioni salvate con successo"
+				save: 'Salva',
+				saveSuccess: 'Impostazioni salvate con successo'
 			},
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
-				labelDesc: "Questo indirizzo è denominato {{1}}",
-				nullLabelDesc: "Questo indirizzo non ha un nome associato",
+				cosignatories: 'Cosignatories\' addresses',
+				labelDesc: 'Questo indirizzo è denominato {{1}}',
+				nullLabelDesc: 'Questo indirizzo non ha un nome associato',
 				addCosignatory: '+ Add Cosignatory',
-				cancel: "Annulla",
+				cancel: 'Annulla',
 				convert: 'Convert',
-				fee: "Commissioni",
-				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
-				dueBy: "Tempo massimo",
-				useMinimumFee: "Usa commissioni minime",
-				hours: "ore",
+				fee: 'Commissioni',
+				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
+				dueBy: 'Tempo massimo',
+				useMinimumFee: 'Usa commissioni minime',
+				hours: 'ore',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
-					total: "Totale",
+					total: 'Totale',
 
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
@@ -172,528 +172,528 @@ define({
 				title: 'Sign multisig transaction',
 				original: {
 					from: 'Multisig account',
-					to: "Destinatario",
-					amount: "Importo",
+					to: 'Destinatario',
+					amount: 'Importo',
 					fee: 'Inner Fee',
 					deadline: 'Deadline'
 				},
 				multisigFees: 'Multisig Fees',
-				multisigTotal: "Totale",
+				multisigTotal: 'Totale',
 				sender: 'Cosignatory',
-				fee: "Commissioni",
-				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
-				dueBy: "Tempo massimo",
-				useMinimumFee: "Usa commissioni minime",
-				hours: "ore",
-				password: "Password",
-				passwordValidation: "La password non può essere vuota",
-				send: "Invia",
-				cancel: "Annulla",
-				sending: "Invio in corso...",
-				successMessage: "Transazione inserita con successo!",
+				fee: 'Commissioni',
+				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
+				dueBy: 'Tempo massimo',
+				useMinimumFee: 'Usa commissioni minime',
+				hours: 'ore',
+				password: 'Password',
+				passwordValidation: 'La password non può essere vuota',
+				send: 'Invia',
+				cancel: 'Annulla',
+				sending: 'Invio in corso...',
+				successMessage: 'Transazione inserita con successo!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
-					message: "Messaggio",
-					encrypted: "Messaggio cifrato",
-					noMessage: "Nessun messaggio",
+					message: 'Messaggio',
+					encrypted: 'Messaggio cifrato',
+					noMessage: 'Nessun messaggio',
 
 				},
 
 			},
 			sendNem: {
-				title: "Invia XEM",
-				sender: "Mittente",
+				title: 'Invia XEM',
+				sender: 'Mittente',
 				thisAccount: 'This account',
-				labelDesc: "Questo indirizzo è denominato {{1}}",
-				nullLabelDesc: "Questo indirizzo non ha un nome associato",
-				amount: "Importo",
-				recipient: "Indirizzo del destinatario",
-				recipientValidation: "L'indirizzo deve essere composto di 40 caratteri trattini esclusi",
-				message: "Messaggio",
-				encrypt: "Cifra il mesaggio",
-				fee: "Commissioni",
+				labelDesc: 'Questo indirizzo è denominato {{1}}',
+				nullLabelDesc: 'Questo indirizzo non ha un nome associato',
+				amount: 'Importo',
+				recipient: 'Indirizzo del destinatario',
+				recipientValidation: 'L\'indirizzo deve essere composto di 40 caratteri trattini esclusi',
+				message: 'Messaggio',
+				encrypt: 'Cifra il mesaggio',
+				fee: 'Commissioni',
 				multisigFee: 'Multisig fee',
-				feeValidation: "Le commissioni non possono essere inferiori al minimo previsto",
-				dueBy: "Termine massimo",
-				useMinimumFee: "Usa commissioni minime",
-				hours: "ore",
-				password: "Password",
-				passwordValidation: "La password non può essere vuota",
-				send: "Invia",
-				cancel: "Annulla",
-				sending: "Invio in corso...",
-				successMessage: "Transazione inserita con successo!",
+				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
+				dueBy: 'Termine massimo',
+				useMinimumFee: 'Usa commissioni minime',
+				hours: 'ore',
+				password: 'Password',
+				passwordValidation: 'La password non può essere vuota',
+				send: 'Invia',
+				cancel: 'Annulla',
+				sending: 'Invio in corso...',
+				successMessage: 'Transazione inserita con successo!',
 				txConfirm: {
-					title: "Conferma transazione",
-					amount: "Importo",
-					to: "A",
-					dueBy: "Tempo massimo",
-					hours: "ore",
-					total: "Totale",
-					message: "Messaggio",
-					encrypted: "Cifra messaggio",
-					noMessage: "Nessun messaggio",
-					cancel: "Annulla",
-					confirm: "Conferma",
-					sending: "Invio in corso..."
+					title: 'Conferma transazione',
+					amount: 'Importo',
+					to: 'A',
+					dueBy: 'Tempo massimo',
+					hours: 'ore',
+					total: 'Totale',
+					message: 'Messaggio',
+					encrypted: 'Cifra messaggio',
+					noMessage: 'Nessun messaggio',
+					cancel: 'Annulla',
+					confirm: 'Conferma',
+					sending: 'Invio in corso...'
 				},
 				notBootedWarning: {
-					title: "NIS non è stato avviato!",
-					message: "NIS deve essere avviato prima che tu passa inviare NEM!"
+					title: 'NIS non è stato avviato!',
+					message: 'NIS deve essere avviato prima che tu passa inviare NEM!'
 				},
 				bootingWarning: {
-					title: "Avvio NIS in corso",
-					message: "Attendi finché NIS non è avviato prima di effettuare una transazione"
+					title: 'Avvio NIS in corso',
+					message: 'Attendi finché NIS non è avviato prima di effettuare una transazione'
 				},
 				loadingWarning: {
 					title: 'Loading db'
 				}
 			},
 			clientInfo: {
-				title: "Informazioni sul programma",
-				ncc: "NEM Community Client - NCC",
-				signer: "Firmatario",
-				remoteServer: "Server remoto",
-				local: "Locale",
-				nis: "NEM Infrastructure Server - NIS",
-				sync: "Sincronizzato",
-				notSync: "Non sincronizzato",
-				notConnected: "Non connesso alla rete NEM",
-				loading: "Caricamento..."
+				title: 'Informazioni sul programma',
+				ncc: 'NEM Community Client - NCC',
+				signer: 'Firmatario',
+				remoteServer: 'Server remoto',
+				local: 'Locale',
+				nis: 'NEM Infrastructure Server - NIS',
+				sync: 'Sincronizzato',
+				notSync: 'Non sincronizzato',
+				notConnected: 'Non connesso alla rete NEM',
+				loading: 'Caricamento...'
 			},
 			transactionDetails: {
-				title: "Informazioni sulla transazione",
-				id: "Identificativo",
-				hash: "Firma",
-				type: "Tipo di transazione",
+				title: 'Informazioni sulla transazione',
+				id: 'Identificativo',
+				hash: 'Firma',
+				type: 'Tipo di transazione',
 				direction: 'Transaction Direction',
-				pending: "In attesa",
-				outgoing: "In uscita",
-				incoming: "In ingresso",
-				self: "A te stesso",
-				sender: "Mittente",
+				pending: 'In attesa',
+				outgoing: 'In uscita',
+				incoming: 'In ingresso',
+				self: 'A te stesso',
+				sender: 'Mittente',
 				multisigAccount: 'Multisig Account',
 				issuer: 'Issuer',
-				recipient: "Destinatario",
+				recipient: 'Destinatario',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
-				message: "Messaggio",
-				noMessage: "Nessun messaggio",
-				encrypted: "Il messaggio è cifrato",
-				time: "Marca temporale",
-				confirmations: "Conferme",
-				confirmationsUnknown: "Sconosciuto",
-				amount: "Importo",
-				fee: "Commissioni",
+				message: 'Messaggio',
+				noMessage: 'Nessun messaggio',
+				encrypted: 'Il messaggio è cifrato',
+				time: 'Marca temporale',
+				confirmations: 'Conferme',
+				confirmationsUnknown: 'Sconosciuto',
+				amount: 'Importo',
+				fee: 'Commissioni',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				issuer: 'Issuer',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Account details',
+				address: 'Address',
+				label: 'Label',
+				noLabel: 'No label',
+				add: 'Add to address book',
+				remove: 'Remove from address book',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Public key',
+				noPublicKey: 'No public key',
+				harvestedBlocks: 'Harvested blocks',
+				close: 'Close'
 			},
 			bootLocalNode: {
-				title: "Avvia nodo locale",
-				account: "Indirizzo con cui avviare il nodo",
-				noLabel: "<span class=\"null\">&lt;Senza nome&gt;</span>",
-				wallet: "Portafoglio",
-				node: "Nome del nodo",
-				boot: "Avvia",
-				booting: "Avvio in corso..."
+				title: 'Avvia nodo locale',
+				account: 'Indirizzo con cui avviare il nodo',
+				noLabel: '<span class=\'null\'>&lt;Senza nome&gt;</span>',
+				wallet: 'Portafoglio',
+				node: 'Nome del nodo',
+				boot: 'Avvia',
+				booting: 'Avvio in corso...'
 			},
 			closeWallet: {
-				title: "Chiudi portafoglio",
-				message: "Sicuro di voler chiudere il portafoglio e tornare alla pagina iniziale?"
+				title: 'Chiudi portafoglio',
+				message: 'Sicuro di voler chiudere il portafoglio e tornare alla pagina iniziale?'
 			},
 			createAccount: {
-				title: "Creazione nuovo indirizzo",
-				label: "Nome privato",
-				wallet: "Portafoglio",
-				password: "Password del portafoglio",
-				successMessage: "L'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato creato!",
-				create: "Crea"
+				title: 'Creazione nuovo indirizzo',
+				label: 'Nome privato',
+				wallet: 'Portafoglio',
+				password: 'Password del portafoglio',
+				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato creato!',
+				create: 'Crea'
 			},
 			createRealAccountData: {
-				title: "Crea indirizzo reale",
-				message: "I dati riportati qui sotto sono relativi al tuo indirizzo NEM reale da utilizzare solo dopo il lancio di NEM. Salvati l'indirizzo, la chiave pubblica e soprattuto la chiave privata in un posto sicuro. Se perdi la chiave privata i tuoi XEM saranno PERSI IRRIMEDIABILMENTE!",
-				address: "Indirizzo",
-				publicKey: "Chiave pubblica",
-				privateKey: "Chiave privata",
+				title: 'Crea indirizzo reale',
+				message: 'I dati riportati qui sotto sono relativi al tuo indirizzo NEM reale da utilizzare solo dopo il lancio di NEM. Salvati l\'indirizzo, la chiave pubblica e soprattuto la chiave privata in un posto sicuro. Se perdi la chiave privata i tuoi XEM saranno PERSI IRRIMEDIABILMENTE!',
+				address: 'Indirizzo',
+				publicKey: 'Chiave pubblica',
+				privateKey: 'Chiave privata',
 				confirm: {
-					title: "Salvataggio chiave privata",
-					message: "Sei certo di aver salvato la tua chiave privata in un posto sicuro?"
+					title: 'Salvataggio chiave privata',
+					message: 'Sei certo di aver salvato la tua chiave privata in un posto sicuro?'
 				},
 				recheck: {
-					title: "Verifica chiave privata",
-					message: "Riinserisci la chiave privata per verificare che sia corretta. Se l'hai già persa puoi crearne una nuova.",
+					title: 'Verifica chiave privata',
+					message: 'Riinserisci la chiave privata per verificare che sia corretta. Se l\'hai già persa puoi crearne una nuova.',
 					correct: {
-						title: "Ottimo!",
-						message: "La chiave privata inserita è corretta. Ricordati di conservarla sempre in un posto sicuro!"
+						title: 'Ottimo!',
+						message: 'La chiave privata inserita è corretta. Ricordati di conservarla sempre in un posto sicuro!'
 					},
 					incorrect: {
-						title: "Mmm...",
-						message: "La chiave privata inserita è errata! Vuoi provare a riinserirla oppure vuoi vedere nuovamente i dati originali?",
-						tryAgain: "Riprova",
-						seeOriginal: "Rivedi dati originali"
+						title: 'Mmm...',
+						message: 'La chiave privata inserita è errata! Vuoi provare a riinserirla oppure vuoi vedere nuovamente i dati originali?',
+						tryAgain: 'Riprova',
+						seeOriginal: 'Rivedi dati originali'
 					},
-					recheck: "Verifica"
+					recheck: 'Verifica'
 				},
-				ok: "OK"
+				ok: 'OK'
 			},
 			verifyRealAccountData: {
-				title: "Verifica dati indirizzo reale",
-				message: "Riinserisci l'indirizzo, la chiave pubblica e la chiave privata per verificarne la correttezza",
-				address: "Indirizzo",
-				publicKey: "Chiave pubblica",
-				privateKey: "Chiave privata",
-				dataMatched: "Ottimo! I dati corrispondono.",
-				verify: "Verifica"
+				title: 'Verifica dati indirizzo reale',
+				message: 'Riinserisci l\'indirizzo, la chiave pubblica e la chiave privata per verificarne la correttezza',
+				address: 'Indirizzo',
+				publicKey: 'Chiave pubblica',
+				privateKey: 'Chiave privata',
+				dataMatched: 'Ottimo! I dati corrispondono.',
+				verify: 'Verifica'
 			},
 			addAccount: {
-				title: "Aggiunta indirizzo esistente",
-				privateKey: "Chiave privata",
-				wallet: "Portafoglio",
-				password: "Password del portafoglio",
-				successMessage: "L'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato aggiunto al portafoglio!",
-				add: "Aggiungi",
-				label: "Nome"
+				title: 'Aggiunta indirizzo esistente',
+				privateKey: 'Chiave privata',
+				wallet: 'Portafoglio',
+				password: 'Password del portafoglio',
+				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato aggiunto al portafoglio!',
+				add: 'Aggiungi',
+				label: 'Nome'
 			},
 			setPrimary: {
-				title: "Selezione indirizzo principale",
-				account: "Indirizzo da rendere principale",
-				noLabel: "<span class=\"null\">&lt;Senza nome&gt;</span>",
-				wallet: "Portafoglio",
-				password: "Password del portafoglio",
-				successMessage: "L'indirizzo {{1}} {{#2}}({{2}}){{/2}} è il principale",
-				set: "Imposta come principale",
+				title: 'Selezione indirizzo principale',
+				account: 'Indirizzo da rendere principale',
+				noLabel: '<span class=\'null\'>&lt;Senza nome&gt;</span>',
+				wallet: 'Portafoglio',
+				password: 'Password del portafoglio',
+				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è il principale',
+				set: 'Imposta come principale',
 
 			},
 			changeWalletName: {
-				title: "Modifica nome del portafoglio",
-				wallet: "Nome attuale del portafoglio",
-				newName: "Nuovo nome del portafoglio",
-				password: "Password del portafoglio",
-				successMessage: "Il portafoglio è stato rinominato da <em>{{1}}</em> in <em>{{2}}</em>",
-				change: "Modifica"
+				title: 'Modifica nome del portafoglio',
+				wallet: 'Nome attuale del portafoglio',
+				newName: 'Nuovo nome del portafoglio',
+				password: 'Password del portafoglio',
+				successMessage: 'Il portafoglio è stato rinominato da <em>{{1}}</em> in <em>{{2}}</em>',
+				change: 'Modifica'
 			},
 			changeWalletPassword: {
-				title: "Modifica password del portafoglio",
-				wallet: "Portafoglio",
-				password: "Password attuale",
-				newPassword: "Nuova password",
-				confirmPassword: "Conferma nuova password",
-				successMessage: "La password del portafoglio è stata modificata con successo",
-				change: "Modifica",
-				passwordNotMatchTitle: "Errore!",
-				passwordNotMatchMessage: "Le password inserite non corrispondono. Assicurati di scriverle correttamente"
+				title: 'Modifica password del portafoglio',
+				wallet: 'Portafoglio',
+				password: 'Password attuale',
+				newPassword: 'Nuova password',
+				confirmPassword: 'Conferma nuova password',
+				successMessage: 'La password del portafoglio è stata modificata con successo',
+				change: 'Modifica',
+				passwordNotMatchTitle: 'Errore!',
+				passwordNotMatchMessage: 'Le password inserite non corrispondono. Assicurati di scriverle correttamente'
 			},
 			changeAccountLabel: {
-				title: "Modifica nome dell'indirizzo",
-				label: "Nome dell'indirizzo",
-				wallet: "Portafoglio",
-				password: "Password del portafoglio",
-				successMessage: "L'indirizzo {{1}} è ora denominato {{2}}",
-				change: "Modifica"
+				title: 'Modifica nome dell\'indirizzo',
+				label: 'Nome dell\'indirizzo',
+				wallet: 'Portafoglio',
+				password: 'Password del portafoglio',
+				successMessage: 'L\'indirizzo {{1}} è ora denominato {{2}}',
+				change: 'Modifica'
 			},
 			removeAccount: {
-				title: "Cancellazione indirizzo",
-				wallet: "Portafoglio",
-				password: "Password del portafoglio",
-				warning: "Assicurati che l'indirizzo non contenga alcun NEM prima di eliminarlo oppure questi saranno definitivamente persi.",
-				successMessage: "L'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato eliminato!",
-				remove: "Elimina"
+				title: 'Cancellazione indirizzo',
+				wallet: 'Portafoglio',
+				password: 'Password del portafoglio',
+				warning: 'Assicurati che l\'indirizzo non contenga alcun NEM prima di eliminarlo oppure questi saranno definitivamente persi.',
+				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato eliminato!',
+				remove: 'Elimina'
 			},
 			nisUnavailable: {
-				title: "NIS non disponibile",
-				message: "Disconnesso da NIS, in attesa di connessione"
+				title: 'NIS non disponibile',
+				message: 'Disconnesso da NIS, in attesa di connessione'
 			},
 			shutdown: {
-				title: "Arresto NCC",
-				message: "Sei sicuro di voler arrestare NEM Community Client?"
+				title: 'Arresto NCC',
+				message: 'Sei sicuro di voler arrestare NEM Community Client?'
 			},
 			activateRemote: {
-				title: "Abilita generazione blocchi sicura",
-				wallet: "Portafoglio",
-				account: "Indirizzo",
-				hoursDue: "Tempo massimo (ore)",
-				password: "Password del portafoglio",
-				activate: "Attiva"
+				title: 'Abilita generazione blocchi sicura',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: 'Password del portafoglio',
+				activate: 'Attiva'
 			},
 			deactivateRemote: {
-				title: "Disabilita generazione blocchi sicura",
-				wallet: "Portafoglio",
-				account: "Indirizzo",
-				hoursDue: "Tempo massimo (ore)",
-				password: "Password del portafoglio",
-				deactivate: "Disattiva"
+				title: 'Disabilita generazione blocchi sicura',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				hoursDue: 'Tempo massimo (ore)',
+				password: 'Password del portafoglio',
+				deactivate: 'Disattiva'
 			},
 			startRemote: {
-				title: "Avvia generazione blocchi sicura",
-				wallet: "Portafoglio",
-				account: "Indirizzo",
-				password: "Password del portafoglio",
-				start: "Avvia"
+				title: 'Avvia generazione blocchi sicura',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				password: 'Password del portafoglio',
+				start: 'Avvia'
 			},
 			stopRemote: {
-				title: "Ferma generazione blocchi sicura",
-				wallet: "Portafoglio",
-				account: "Indirizzo",
-				password: "Password del portafoglio",
-				stop: "Ferma"
+				title: 'Ferma generazione blocchi sicura',
+				wallet: 'Portafoglio',
+				account: 'Indirizzo',
+				password: 'Password del portafoglio',
+				stop: 'Ferma'
 			},
 			logoutWarning: {
-				leavePage: "Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \"Chiudi portafoglio\" nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.",
+				leavePage: 'Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \'Chiudi portafoglio\' nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.',
 
 			},
 			addContact: {
 				title: 'Add contact',
-				add: "Aggiungi"
+				add: 'Aggiungi'
 			},
 			editContact: {
 				title: 'Edit contact',
-				saveChanges: "Salva modifiche",
+				saveChanges: 'Salva modifiche',
 
 			},
 			removeContact: {
 				title: 'Remove contact',
-				remove: "Elimina",
+				remove: 'Elimina',
 
 			}
 		},
 		landing: {
-			logo: "images/nem_logo.png",
-			importSuccess: "Il portafoglio è stato importato!",
+			logo: 'images/nem_logo.png',
+			importSuccess: 'Il portafoglio è stato importato!',
 			nav: {
-				start: "Vai",
-				about: "Informazioni su NEM",
-				settings: "Impostazioni"
+				start: 'Vai',
+				about: 'Informazioni su NEM',
+				settings: 'Impostazioni'
 			},
 			main: {
-				leftTitle: "Nuovo utente <em>NEM</em>?",
-				leftButton: "Crea nuovo portafoglio",
-				walletNamePlh: "Nome del portafoglio",
-				passwordPlh: "Password",
+				leftTitle: 'Nuovo utente <em>NEM</em>?',
+				leftButton: 'Crea nuovo portafoglio',
+				walletNamePlh: 'Nome del portafoglio',
+				passwordPlh: 'Password',
 				confirmPasswordPlh: 'Confirm password',
-				create: "Crea",
+				create: 'Crea',
 				creating: 'Creating...',
-				rightTitle: "Già utente <em>NEM</em>?",
-				rightButton: "Apri il portafoglio",
-				openButton: "Apri",
-				walletsFound: "Trovati <strong>{{1}}</strong> <em>portafogli</em>",
-				copyright: "Grafica di <em>Cas Cornelissen</em>"
+				rightTitle: 'Già utente <em>NEM</em>?',
+				rightButton: 'Apri il portafoglio',
+				openButton: 'Apri',
+				walletsFound: 'Trovati <strong>{{1}}</strong> <em>portafogli</em>',
+				copyright: 'Grafica di <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [
 					{
-						title: "NCC protegge il tuo portafoglio",
-						description: "La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli."
+						title: 'NCC protegge il tuo portafoglio',
+						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
 					},
 					{
-						title: "NCC protegge il tuo portafoglio",
-						description: "La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli."
+						title: 'NCC protegge il tuo portafoglio',
+						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
 					}
 				]
 			},
 			about: {
 				sections: [
 					{
-						title: "Come funziona NCC?",
+						title: 'Come funziona NCC?',
 						paragraphs: [
-							"<strong>NCC</strong> gestisce l'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:",
-							"<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)",
-							"Puoi anche configurare l'accesso ad un server <strong>NIS</strong> remoto."
+							'<strong>NCC</strong> gestisce l\'accesso ai tuoi titoli e monete come un portafoglio tradizionale. Puoi:',
+							'<strong>NCC</strong> necessita di un server <strong>NIS</strong> per operare. La norma è averne uno locale (installato contestualmente ad <strong>NCC</strong>)',
+							'Puoi anche configurare l\'accesso ad un server <strong>NIS</strong> remoto.'
 						],
 						listItems: [
-							"Gestire diversi portafogli",
-							"Gestire diversi indirizzi per portafoglio"
+							'Gestire diversi portafogli',
+							'Gestire diversi indirizzi per portafoglio'
 						]
 					},
 					{
-						title: "Cos'è &#42;NIS?",
+						title: 'Cos\'è &#42;NIS?',
 						paragraphs: [
-							"Fa funzionare la rete <strong>NEM</strong>.",
-							"Più server <strong>NIS</strong> esistono più la rete è sicura",
-							"<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>."
+							'Fa funzionare la rete <strong>NEM</strong>.',
+							'Più server <strong>NIS</strong> esistono più la rete è sicura',
+							'<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>.'
 						],
-						legend: "<strong>&#42;NIS</strong> è l'acronimo di <strong>NEM Infrastructure Server</strong>"
+						legend: '<strong>&#42;NIS</strong> è l\'acronimo di <strong>NEM Infrastructure Server</strong>'
 					}
 				]
 			},
 			footer: {
-				copyright: "&copy; Copyright 2015. NEM Community Client."
+				copyright: '&copy; Copyright 2015. NEM Community Client.'
 			}
 		},
 		wallet: {
-			logo: "images/nem_logo.png",
-			lastAccess: "Circa {{1}} giorni fa",
-			lastAccessJustNow: "Proprio ora",
-			lastAccessTooltip: "L'ultimo accesso è stato {{1}}",
-			primary: "principale",
-			primaryShort: "P",
-			noLabel: "<Senza nome>",
-			copiedToClipboard: "Indirizzo copiato negli appunti!",
+			logo: 'images/nem_logo.png',
+			lastAccess: 'Circa {{1}} giorni fa',
+			lastAccessJustNow: 'Proprio ora',
+			lastAccessTooltip: 'L\'ultimo accesso è stato {{1}}',
+			primary: 'principale',
+			primaryShort: 'P',
+			noLabel: '<Senza nome>',
+			copiedToClipboard: 'Indirizzo copiato negli appunti!',
 			actions: {
-				refreshInfo: "Aggiorna informazioni",
-				bootLocalNode: "Avvia nodo locale",
-				changeWalletName: "Modifica nome del portafoglio",
-				changeWalletPassword: "Modifica password del portafoglio",
-				mergeWallets: "Unisci portafogli",
-				exportWallet: "Esporta portafoglio",
-				createAccount: "Crea nuovo indirizzo",
-				createRealAccountData: "Crea indirizzo reale",
-				verifyRealAccountData: "Verifica indirizzo reale",
-				addAccount: "Aggiungi indirizzo esistente",
-				changeAccountLabel: "Modifica nome dell'indirizzo",
-				setPrimary: "Seleziona indirizzo principale",
-				removeAccount: "Elimina indirizzo",
-				clientInfo: "Informazioni sul programma",
-				closeWallet: "Chiudi portafoglio",
-				closeProgram: "Arresta NCC",
-				copyClipboard: "Copia indirizzo negli appunti",
+				refreshInfo: 'Aggiorna informazioni',
+				bootLocalNode: 'Avvia nodo locale',
+				changeWalletName: 'Modifica nome del portafoglio',
+				changeWalletPassword: 'Modifica password del portafoglio',
+				mergeWallets: 'Unisci portafogli',
+				exportWallet: 'Esporta portafoglio',
+				createAccount: 'Crea nuovo indirizzo',
+				createRealAccountData: 'Crea indirizzo reale',
+				verifyRealAccountData: 'Verifica indirizzo reale',
+				addAccount: 'Aggiungi indirizzo esistente',
+				changeAccountLabel: 'Modifica nome dell\'indirizzo',
+				setPrimary: 'Seleziona indirizzo principale',
+				removeAccount: 'Elimina indirizzo',
+				clientInfo: 'Informazioni sul programma',
+				closeWallet: 'Chiudi portafoglio',
+				closeProgram: 'Arresta NCC',
+				copyClipboard: 'Copia indirizzo negli appunti',
 				convertMultisig: 'Convert to multisig'
 			},
 			nav: [
-				"Vista d'insieme",
-				"Messaggi",
+				'Vista d\'insieme',
+				'Messaggi',
 				'Address Book',
-				"Transazioni",
-				"Blocchi generati",
-				"Borsa",
-				"Notizie",
-				"Applicazioni",
-				"Indirizzi",
-				"Impostazioni",
-				"Arresta NCC"
+				'Transazioni',
+				'Blocchi generati',
+				'Borsa',
+				'Notizie',
+				'Applicazioni',
+				'Indirizzi',
+				'Impostazioni',
+				'Arresta NCC'
 			],
-			bootNodeWarning: "E' necessario avviare un nodo locale per poter utilizzare a pieno le funzionalità di NCC."
+			bootNodeWarning: 'E\' necessario avviare un nodo locale per poter utilizzare a pieno le funzionalità di NCC.'
 		},
 		dashboard: {
 			assets: {
-				title: "I tuoi titoli"
+				title: 'I tuoi titoli'
 			},
 			importance: {
-				title: "Livello di importanza",
-				unknown: "Stato sconosciuto",
-				start: "Avvia generazione blocchi",
-				harvesting: "Generazione blocchi in corso",
-				stop: "Ferma generazione blocchi",
-				description: "importanza dell'indirizzo nella rete NEM",
+				title: 'Livello di importanza',
+				unknown: 'Stato sconosciuto',
+				start: 'Avvia generazione blocchi',
+				harvesting: 'Generazione blocchi in corso',
+				stop: 'Ferma generazione blocchi',
+				description: 'importanza dell\'indirizzo nella rete NEM',
 				remoteHarvest: {
-					activate: "Abilita generazione blocchi sicura",
-					activating: "Abilitazione in corso...",
-					active: "Generazione blocchi sicura abilitata",
-					deactivate: "Disabilita generazione blocchi sicura",
-					deactivating: "Dibilitazione in corso...",
-					startRemoteHarvesting: "Avvia generazione blocchi sicura",
-					remotelyHarvesting: "Generazione blocchi sicura in corso",
-					stopRemoteHarvesting: "Ferma generazione blocchi sicura"
+					activate: 'Abilita generazione blocchi sicura',
+					activating: 'Abilitazione in corso...',
+					active: 'Generazione blocchi sicura abilitata',
+					deactivate: 'Disabilita generazione blocchi sicura',
+					deactivating: 'Dibilitazione in corso...',
+					startRemoteHarvesting: 'Avvia generazione blocchi sicura',
+					remotelyHarvesting: 'Generazione blocchi sicura in corso',
+					stopRemoteHarvesting: 'Ferma generazione blocchi sicura'
 				}
 			},
 			transactions: {
-				title: "Transazioni recenti",
-				sendNem: "Invia XEM",
+				title: 'Transazioni recenti',
+				sendNem: 'Invia XEM',
 				signMultisig: 'SIGN',
-				balance: "Bilancio attuale",
+				balance: 'Bilancio attuale',
 				vestedBalance: 'Vested Balance',
-				syncStatus: "(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})",
-				unknown: "sconosciuto",
+				syncStatus: '(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})',
+				unknown: 'sconosciuto',
 				columns: [
-					"",
-					"Orario",
-					"Mittente/destinatario",
-					"Messaggio",
-					"",
-					"Dettagli",
-					"Conferme",
-					"Commissioni",
-					"Importo"
+					'',
+					'Orario',
+					'Mittente/destinatario',
+					'Messaggio',
+					'',
+					'Dettagli',
+					'Conferme',
+					'Commissioni',
+					'Importo'
 				],
-				noMessage: "Nessun messaggio",
-				encrypted: "Messaggio cifrato",
-				view: "Visualizza",
-				confirmationsUnknown: "Sconosciuto",
-				pending: "In attesa",
-				seeAll: "Visualizza tutte le transazioni",
-				noTransactions: "Ancora nessuna transazione"
+				noMessage: 'Nessun messaggio',
+				encrypted: 'Messaggio cifrato',
+				view: 'Visualizza',
+				confirmationsUnknown: 'Sconosciuto',
+				pending: 'In attesa',
+				seeAll: 'Visualizza tutte le transazioni',
+				noTransactions: 'Ancora nessuna transazione'
 			},
 			nemValue: {
-				title: "Statistiche sul valore dei XEM"
+				title: 'Statistiche sul valore dei XEM'
 			},
 			messages: {
-				titleTooltip: "Messaggi"
+				titleTooltip: 'Messaggi'
 			},
 			news: {
-				titleTooltip: "Notizie"
+				titleTooltip: 'Notizie'
 			},
-			notAvailable: "Non disponibile nella versione beta"
+			notAvailable: 'Non disponibile nella versione beta'
 		},
 		transactions: {
-			title: "Transazioni",
-			sendNem: "Invia XEM",
-			balance: "Bilancio attuale",
+			title: 'Transazioni',
+			sendNem: 'Invia XEM',
+			balance: 'Bilancio attuale',
 			filters: {
-				confirmed: "Confermate",
-				unconfirmed: "Non confermate",
-				incoming: "In ingresso",
-				outgoing: "In uscita",
+				confirmed: 'Confermate',
+				unconfirmed: 'Non confermate',
+				incoming: 'In ingresso',
+				outgoing: 'In uscita',
 
 			},
 			table: {
 				columns: [
-					"",
-					"Orario",
-					"Mittente/destinatario",
-					"Messaggio",
-					"",
-					"Dettagli",
-					"Conferme",
-					"Commissioni",
-					"Importo"
+					'',
+					'Orario',
+					'Mittente/destinatario',
+					'Messaggio',
+					'',
+					'Dettagli',
+					'Conferme',
+					'Commissioni',
+					'Importo'
 				],
-				noMessage: "Nessun messaggio",
-				encrypted: "Messaggio cifrato",
-				view: "Visualizza",
-				confirmationsUnknown: "Sconoscito",
-				pending: "In attesa",
-				noTransactions: "Ancora nessuna transazione",
-				loading: "Caricamento ulteriori transazioni..."
+				noMessage: 'Nessun messaggio',
+				encrypted: 'Messaggio cifrato',
+				view: 'Visualizza',
+				confirmationsUnknown: 'Sconoscito',
+				pending: 'In attesa',
+				noTransactions: 'Ancora nessuna transazione',
+				loading: 'Caricamento ulteriori transazioni...'
 			}
 		},
 		harvestedBlocks: {
-			title: "Blocchi generati",
-			feeEarned: "Commissioni guadagnate nella generazione degli ultimi 25 blocchi",
-			unknown: "Sconosciuto",
+			title: 'Blocchi generati',
+			feeEarned: 'Commissioni guadagnate nella generazione degli ultimi 25 blocchi',
+			unknown: 'Sconosciuto',
 			table: {
 				columns: [
-					"Numero",
-					"Orario",
-					"Firma del blocco",
-					"Commissioni"
+					'Numero',
+					'Orario',
+					'Firma del blocco',
+					'Commissioni'
 				],
-				noBlocks: "Nessun blocco generato ",
-				loading: "Caricamento blocchi precedenti..."
+				noBlocks: 'Nessun blocco generato ',
+				loading: 'Caricamento blocchi precedenti...'
 			},
 			harvesting: {
-				unknown: "Stato sconosciuto",
-				start: "Avvia generazione blocchi",
-				harvesting: "Generazione blocchi in corso",
-				stop: "Ferma generazione blocchi",
+				unknown: 'Stato sconosciuto',
+				start: 'Avvia generazione blocchi',
+				harvesting: 'Generazione blocchi in corso',
+				stop: 'Ferma generazione blocchi',
 				remoteHarvest: {
-					startRemoteHarvesting: "Avvia generazione blocchi sicura",
-					stopRemoteHarvesting: "Ferma generazione blocchi sicura"
+					startRemoteHarvesting: 'Avvia generazione blocchi sicura',
+					stopRemoteHarvesting: 'Ferma generazione blocchi sicura'
 				}
 			}
 		},
@@ -709,19 +709,19 @@ define({
 				noContacts: 'There is no contacts in your address book'
 			},
 			noLabel: 'No label',
-			sendNem: "Invia XEM",
+			sendNem: 'Invia XEM',
 			edit: 'Edit',
-			remove: "Elimina"
+			remove: 'Elimina'
 		},
 		settings: {
-			title: "Impostazioni",
+			title: 'Impostazioni',
 			settings: [
 				{
-					name: "Lingua"
+					name: 'Lingua'
 				}
 			],
-			save: "Salva modifiche",
-			saveSuccess: "Le impostazioni sono state salvate"
+			save: 'Salva modifiche',
+			saveSuccess: 'Le impostazioni sono state salvate'
 		}
 	}
 });
