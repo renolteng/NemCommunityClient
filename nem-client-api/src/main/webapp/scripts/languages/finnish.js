@@ -14,7 +14,7 @@ define({
 			105: 'Et syöttänyt salasanaa.',
 			106: 'Ennenkuin voit käyttää lompakkoa, se pitää avata. Avataksesi lompakon, on sinulla oltava salasana.',
 			107: 'Lompakko ei sisällä tätä tiliä.',
-			108: 'Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 NEM, tai yrität poistaa ensisijaista tiliä.',
+			108: 'Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 XEM, tai yrität poistaa ensisijaista tiliä.',
 			109: 'Saman niminen lompakko on jo olemassa. Valitse toinen lompakon nimi.',
 			110: 'Lompakko sisältää jo tämän tilin.',
 			111: 'Lomakon nimi on hakemisto.',
@@ -43,7 +43,7 @@ define({
 			601: 'NIS on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Louhijoiden (harvesters) maksimimäärä palvelimella on saavutettu.',
-			700: 'Louhintaa (harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 NEM.',
+			700: 'Louhintaa (harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.',
 			701: 'Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.',
 			702: 'Valittu aikaraja on liian kaukana tulevaisuudessa. Aikaraja täytyy olla yhden päivän sisällä.',
 			703: 'Tililläsi ei ole siirrettävää summaa.',
@@ -197,7 +197,7 @@ define({
 				}
 			},
 			sendNem: {
-				title: 'Lähetä NEM',
+				title: 'Lähetä XEM',
 				sender: 'Lähettäjä',
 				thisAccount: 'Tämä tili',
 				labelDesc: 'Tämä tili on nimetty {{1}}',
@@ -235,7 +235,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Nodea ei ole käynnistetty uudelleen!',
-					message: 'Local node on käynnistettävä uudelleen, jotta NEM\nvoidaan lähettää!'
+					message: 'Local node on käynnistettävä uudelleen, jotta XEM\nvoidaan lähettää!'
 				},
 				bootingWarning: {
 					title: 'Node on käynnistymässä uudelleen',
@@ -324,7 +324,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Luo real account data',
-				message: 'Alla olevat tiedot ovat oikean lompakkosi tiedot (real account data), kun NEM on julkaistu. Tallenna osoite, public key ja tärkeimpänä private key, turvalliseen paikkaan. Jos private key hukkuu hävität samalla kaikki NEM kolikkosi!',
+				message: 'Alla olevat tiedot ovat oikean lompakkosi tiedot (real account data), kun NEM on julkaistu. Tallenna osoite, public key ja tärkeimpänä private key, turvalliseen paikkaan. Jos private key hukkuu hävität samalla kaikki XEM kolikkosi!',
 				address: 'Osoite',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -407,7 +407,7 @@ define({
 				title: 'Poista tili',
 				wallet: 'Lompakko',
 				password: 'Lompakon salasana',
-				warning: 'Varmista, että tilisi on tyhjä ennen kuin poistat sen, tai kaikki NEMit poistuvat tililtäsi myös.\n\n',
+				warning: 'Varmista, että tilisi on tyhjä ennen kuin poistat sen, tai kaikki XEMit poistuvat tililtäsi myös.\n\n',
 				successMessage: 'Tili {{1}} {{#2}}({{2}}){{/2}} on poistettu',
 				remove: 'Poista'
 			},
@@ -491,11 +491,11 @@ define({
 				items: [
 					{
 						title: 'NCC salaa lompakkosi',
-						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää,\nettä voit välttää NEM kolikkojen ja assettien varkaudet.'
+						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää,\nettä voit välttää XEM kolikkojen ja assettien varkaudet.'
 					},
 					{
 						title: 'NCC salaa lompakkosi',
-						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää,\nettä voit välttää NEM kolikkojen ja assettien varkaudet.'
+						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää,\nettä voit välttää XEM kolikkojen ja assettien varkaudet.'
 					}
 				]
 			},
@@ -504,7 +504,7 @@ define({
 					{
 						title: 'Miten NCC toimii?',
 						paragraphs: [
-							'<strong>NCC</strong> luo yhteyden assetteihisi ja NEM tilillesi, kuin perinteinen lompakko:',
+							'<strong>NCC</strong> luo yhteyden assetteihisi ja XEM tilillesi, kuin perinteinen lompakko:',
 							'<strong>NCC</strong> vaatii yhteyden <strong>NIS</strong> palvelimelle, ollakseen toimintavalmis. Normaalisti paikallinen palvelin on aktiivinen, kun se on asennettu <strong>NCC</strong>palvelun kanssa.',
 							'Voit myös konfiguroida pääsyn etäpalvelimelle <strong>NIS</strong>.'
 						],
@@ -596,7 +596,7 @@ define({
 			},
 			transactions: {
 				title: 'Viimeisimmät siirrot',
-				sendNem: 'Lähetä NEM',
+				sendNem: 'Lähetä XEM',
 				signMultisig: 'ALLEKIRJOITA',
 				balance: 'Tämänhetkinen saldo',
 				vestedBalance: 'Vested Balance',
@@ -700,7 +700,7 @@ define({
 				noContacts: 'Osoitekirjassasi ei ole yhteystietoja'
 			},
 			noLabel: 'Ei merkkiä',
-			sendNem: 'Lähetä NEM',
+			sendNem: 'Lähetä XEM',
 			edit: 'Muokkaa',
 			remove: 'Poista'
 		},

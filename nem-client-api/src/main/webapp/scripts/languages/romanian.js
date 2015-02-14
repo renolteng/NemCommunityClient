@@ -43,10 +43,10 @@ define({
 			601: 'Nodul NIS este deja pornit. O a doua încercare de a porni nodul NIS nu este posibilă.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de NEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.',
+			700: 'Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de XEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.',
 			701: 'Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
 			702: 'Data scadentă introdusă este prea îndepărtată în viitor. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
-			703: 'Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de NEM.',
+			703: 'Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de XEM.',
 			704: 'Textul din mesajul introdus este prea mare pentru a putea fi trimis prin NEM. Te rog încercă să reduci lungimea mesajului pe care dorești să îl trimiți.',
 			705: 'Hashul tranzacției există deja în baza de date sau în lista de tranzacții neconfirmate.',
 			706: 'Semnătura tranzacției nu a putut fi verificată.',
@@ -150,7 +150,7 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: 'Cosignatories' addresses',
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'Eticheta contului este <strong>{{1}}</strong>',
 				nullLabelDesc: 'Acest cont nu are o etichetă',
 				addCosignatory: '+ Add Cosignatory',
@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Nodul nu a fost pornit!',
-					message: 'Un nod local trebuie să fie pornit pentru a putea trimite NEM!'
+					message: 'Un nod local trebuie să fie pornit pentru a putea trimite XEM!'
 				},
 				bootingWarning: {
 					title: 'Node is being booted',
@@ -455,7 +455,7 @@ define({
 				stop: 'Oprește'
 			},
 			logoutWarning: {
-				leavePage: 'You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
 
 			},
 			addContact: {
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC îți encripteaza portofelul',
-						description: '<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active.'
+						description: '<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede XEM &amp; active.'
 					},
 					{
 						title: 'NCC îți encripteaza portofelul',
-						description: '<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede NEM &amp; active.'
+						description: '<em>Securitatea</em> este foarte importantă în NEM pentru a evita furtul de monede XEM &amp; active.'
 					}
 				]
 			},

@@ -46,7 +46,7 @@ define({
 			700: 'La cuenta especificada no satisface los criterios básicos para recolectar. Normalmente este problema está relacionado al balance de la cuenta. Al menos 1000 XEM son necesarios para participar en el proceso de recolecta.',
 			701: 'La fecha limite especificada esta en el pasado. La fecha limite especificada debe de estar dentro del periodo de un dia.',
 			702: 'La fecha limite especificada esta muy lejos en el futuro. La fecha limite especificada debe de estar dentro del periodo de un dia.',
-			703: 'La cuenta no tiene balance suficiente para enviar la cantidad especificada de NEMs.',
+			703: 'La cuenta no tiene balance suficiente para enviar la cantidad especificada de XEMs.',
 			704: 'El texto especificado es muy largo para ser enviado via NEM. Por favor, intente reducir el tamaño del mensaje que desea enviar.',
 			705: 'The transaction hash already exists in the database or the list of unconfirmed transactions.',
 			706: 'La firma de la transacción no pudo ser verificada.',
@@ -328,7 +328,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Crear datos de cuenta real',
-				message: 'Los datos en la parte inferior son de una cuenta real para despues del lanzamiento de NEM. Guarde la direccion, la clave publica, y la clave privada en un lugar seguro. Perder la llave privada implica perder acceso a la cuenta y al balance de NEMs PARA SIEMPRE!',
+				message: 'Los datos en la parte inferior son de una cuenta real para despues del lanzamiento de NEM. Guarde la direccion, la clave publica, y la clave privada en un lugar seguro. Perder la llave privada implica perder acceso a la cuenta y al balance de XEMs PARA SIEMPRE!',
 				address: 'Direccion',
 				publicKey: 'Clave publica',
 				privateKey: 'Clave privada',
@@ -412,7 +412,7 @@ define({
 				title: 'Remover cuenta',
 				wallet: 'Monedero',
 				password: "Contraseña de monedero",
-				warning: 'Por favor, asegúrese que la cuenta que desea remover no contiene NEMs, ya que estos se perderian para siempre al removerla.',
+				warning: 'Por favor, asegúrese que la cuenta que desea remover no contiene XEMs, ya que estos se perderian para siempre al removerla.',
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido removida!',
 				remove: 'Remover'
 			},
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC encripta su monedero',
-						description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas NEM y/o activos.'
+						description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas XEM y/o activos.'
 					},
 					{
 						title: 'NCC encripta su monedero',
-						description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas NEM y/o activos.'
+						description: 'La <em>seguridad</em> es bien importante para evitar robo de monedas XEM y/o activos.'
 					}
 				]
 			},
@@ -512,7 +512,7 @@ define({
 					{
 						title: 'Como funciona NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> te provee acceso a tus activos y NEMs como cualquier monedero tradicional. Usted puede',
+							'<strong>NCC</strong> te provee acceso a tus activos y XEMs como cualquier monedero tradicional. Usted puede',
 							'<strong>NCC</strong> requiere acceso a un servidor <strong>NIS</strong> para poder operar. La convención es tener un servidor NIS local activo (instalado junto a <strong>NCC</strong>)',
 							'Usted también puede configurar acceso a un servidor <strong>NIS</strong> remoto'
 						],

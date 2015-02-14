@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'NIS non è stato avviato!',
-					message: 'NIS deve essere avviato prima che tu passa inviare NEM!'
+					message: 'NIS deve essere avviato prima che tu passa inviare XEM!'
 				},
 				bootingWarning: {
 					title: 'Avvio NIS in corso',
@@ -412,7 +412,7 @@ define({
 				title: 'Cancellazione indirizzo',
 				wallet: 'Portafoglio',
 				password: 'Password del portafoglio',
-				warning: 'Assicurati che l\'indirizzo non contenga alcun NEM prima di eliminarlo oppure questi saranno definitivamente persi.',
+				warning: 'Assicurati che l\'indirizzo non contenga alcun XEM prima di eliminarlo oppure questi saranno definitivamente persi.',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato eliminato!',
 				remove: 'Elimina'
 			},
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC protegge il tuo portafoglio',
-						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
+						description: 'La <em>sicurezza</em> è molto importante per XEM per evitare il furto di monete e titoli.'
 					},
 					{
 						title: 'NCC protegge il tuo portafoglio',
-						description: 'La <em>sicurezza</em> è molto importante per NEM per evitare il furto di monete e titoli.'
+						description: 'La <em>sicurezza</em> è molto importante per XEM per evitare il furto di monete e titoli.'
 					}
 				]
 			},

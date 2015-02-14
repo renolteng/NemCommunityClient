@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Trước khi bạn có thể làm việc với một chiếc ví, nó phải được mở. Để chắc chắn rằng bạn có quyền truy cập vào ví, bạn phải cung cấp mật khẩu cho ví đó.',
 			107: 'Ví không chứa tài khoản này',
-			108: 'Tài khoản không thể bị xoá. Có vẻ bởi vì tài khoản vẫn còn số dư lón hơn 0 NEM hoặc tài khoản bạn đang cố gắng xoá là tài khoản chính.',
+			108: 'Tài khoản không thể bị xoá. Có vẻ bởi vì tài khoản vẫn còn số dư lón hơn 0 XEM hoặc tài khoản bạn đang cố gắng xoá là tài khoản chính.',
 			109: 'Một ví khác có cùng tên đã tồn tại. Hãy chọn một cái tên khác.',
 			110: 'Tài khoản này đã có trong ví rồi.',
 			111: 'The wallet name is a directory.',
@@ -43,10 +43,10 @@ define({
 			601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng NEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 NEM.',
+			700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng XEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 XEM.',
 			701: 'Deadline được cung cấp đã trôi qua.',
 			702: 'Deadline được cung cấp quá xa trong tương lai.',
-			703: 'Tài khoản của bạn không có số dư đủ để gửi số lượng NEM này.',
+			703: 'Tài khoản của bạn không có số dư đủ để gửi số lượng XEM này.',
 			704: 'Đoạn thông điệp được cung cấp quá lớn để gửi qua NEM. Hãy cố gắng giảm độ dài của thông điệp mà bạn gửi.',
 			705: 'Hash của giao dịch đã tồn tại trong cơ sở dữ liệu hoặc trong danh sách những giao dịch chưa được xác nhận.',
 			706: 'Không thể xác nhận chữ ký của giao dịch.',
@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Node chưa được boot!',
-					message: 'Node cục bộ cần phải được boot trước khi bạn có thể gửi NEM đi!'
+					message: 'Node cục bộ cần phải được boot trước khi bạn có thể gửi XEM đi!'
 				},
 				bootingWarning: {
 					title: 'Node đang được boot',
@@ -328,7 +328,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Tạo dữ liệu tài khoản thực',
-				message: 'Dữ liệu dưới đây là dành cho tài khoản thực của bạn sau khi NEM chính thức hoạt động. Hãy lưu lại địa chỉ, khoá công khai, và quan trọng nhất là khoá bí mật vào một nơi nào đó an toàn. Nếu bạn đánh mất khoá bí mật, tài khoản của bạn cùng tất cả số NEM thực trong đó sẽ bị mất VĨNH VIỄN!',
+				message: 'Dữ liệu dưới đây là dành cho tài khoản thực của bạn sau khi NEM chính thức hoạt động. Hãy lưu lại địa chỉ, khoá công khai, và quan trọng nhất là khoá bí mật vào một nơi nào đó an toàn. Nếu bạn đánh mất khoá bí mật, tài khoản của bạn cùng tất cả số XEM thực trong đó sẽ bị mất VĨNH VIỄN!',
 				address: 'Địa chỉ',
 				publicKey: 'Khoá công khai',
 				privateKey: 'Khoá bí mật',
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC mã hoá ví của bạn',
-						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
+						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp XEM &amp; tài sản.'
 					},
 					{
 						title: 'NCC mã hoá ví của bạn',
-						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp NEM &amp; tài sản.'
+						description: '<em>Bảo mật</em> là rất quan trọng với NEM để ngăn ngừa nạn trộm cắp XEM &amp; tài sản.'
 					}
 				]
 			},
@@ -512,7 +512,7 @@ define({
 					{
 						title: 'NCC hoạt động thế nào?',
 						paragraphs: [
-							'<strong>NCC</strong> cho phép bạn tiếp cận với tài sản và NEM của bạn như một chiếc ví thông thường vẫn làm. Bạn có thể',
+							'<strong>NCC</strong> cho phép bạn tiếp cận với tài sản và XEM của bạn như một chiếc ví thông thường vẫn làm. Bạn có thể',
 							'<strong>NCC</strong> yêu cầu truy cập tới một <strong>NIS</strong> server để có thể hoạt động. Thôgn thường là sẽ có một server chạy trên máy bạn (được cài đặt cùng với <strong>NCC</strong>)',
 							'Bạn cũng có thể cấu hình truy cập tới một máy chủ <strong>NIS</strong> từ xa.'
 						],

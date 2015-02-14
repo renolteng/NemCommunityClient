@@ -14,7 +14,7 @@ define({
 			105: 'Lozinka novčanika nije unešena.',
 			106: 'Novčanik mora biti otvoren da biste ga mogli koristiti. Morate unijeti lozinku za novčanik da biste bili sigurni da ste ovlašteni za korištenje istog.',
 			107: 'Novčanik ne sadrži taj račun.',
-			108: 'Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 NEM-ova ili jer pokušavate ukloniti primarni račun.',
+			108: 'Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 XEM-ova ili jer pokušavate ukloniti primarni račun.',
 			109: 'Drugi novčanik sa istim nazivom već postoji. Molim Vas izaberite drugi naziv za novčanik.',
 			110: 'Novčanik već sadrži taj račun.',
 			111: 'Naziv novčanika je direktorij',
@@ -40,13 +40,13 @@ define({
 			404: 'Zatraženi resurs nije mogao biti pronađen.',
 			500: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Ponovno pokretanje programa bi moglo pomoći u suprotnom molimo vas da grešku prijavite NEM NIS/NCC zajednicom.',
 			600: 'Prije slanja i primanje transakcija sa NEM oblaka, NIS poslužitelj mora biti pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.',
-			601: 'NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.',
+			601: 'The NEM Infrastructure Server (NIS) is already booted.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 NEM-ova.',
+			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 XEM-ova.',
 			701: 'Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.',
 			702: 'Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.',
-			703: 'Stanje na Vašem računu nije dovoljno za slanje određenog iznosa NEMa.',
+			703: 'Stanje na Vašem računu nije dovoljno za slanje određenog iznosa XEMa.',
 			704: 'Tekst u poruci je predugačak. Molim Vas, probajte smanjiti dužinu teksta u Vašoj poruci ako ju želite slati.',
 			705: 'Šifra transakcije već postoji u bazi podataka ili u listi nepotvrđenih transakcija.',
 			706: 'Potpis transakcije nije mogao biti provjeren.',
@@ -235,7 +235,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Čvor nije pokrenut',
-					message: 'Za slanje NEM-a lokalni čvor mora biti prije pokrenut. '
+					message: 'Za slanje XEM-a lokalni čvor mora biti prije pokrenut. '
 				},
 				bootingWarning: {
 					title: 'Čvor se pokreće',
@@ -323,7 +323,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Stvori stvarni račun',
-				message: 'Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni NEM-ovi bit će izgubljeni ZAUVIJEK!',
+				message: 'Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni XEM-ovi bit će izgubljeni ZAUVIJEK!',
 				address: 'Adresa',
 				publicKey: 'Javni ključ',
 				privateKey: 'Privatni ključ',
@@ -406,7 +406,7 @@ define({
 				title: 'Ukloni račun',
 				wallet: 'Novčanik',
 				password: 'Lozinka novčanika',
-				warning: 'Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži NEM ili će biti izgubljen zauvijek nakon uklanjanja računa.',
+				warning: 'Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži XEM ili će biti izgubljen zauvijek nakon uklanjanja računa.',
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno uklonjen!',
 				remove: 'Ukloni'
 			},
@@ -469,7 +469,7 @@ define({
 			importSuccess: 'Novčanik je uspješno uvezen!',
 			nav: {
 				start: 'Početak',
-				about: 'O XEM',
+				about: 'O NEM',
 				settings: 'Postavke'
 			},
 			main: {
@@ -490,11 +490,11 @@ define({
 				items: [
 					{
 						title: 'NCC šifrira vaš novčanik',
-						description: '<em>Sigurnost</em> je za NEM  jako važna za sprječavanje krađe NEM novčića &amp; udjela.'
+						description: '<em>Sigurnost</em> je za NEM  jako važna za sprječavanje krađe XEM novčića &amp; udjela.'
 					},
 					{
 						title: 'NCC šifrira vaš novčanik',
-						description: '<em>Sigurnost</em> je za NEM jako važna za sprječavanje krađe NEM novčića &amp; udjela.'
+						description: '<em>Sigurnost</em> je za NEM jako važna za sprječavanje krađe XEM novčića &amp; udjela.'
 					}
 				]
 			},
@@ -503,7 +503,7 @@ define({
 					{
 						title: 'Kako radi NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> pruža pristup Vašim udjelima i NEM novčićima kao što to čini tradicionalni novčanik. Možete',
+							'<strong>NCC</strong> pruža pristup Vašim udjelima i XEM novčićima kao što to čini tradicionalni novčanik. Možete',
 							'<strong>NCC</strong> zahtijeva pristup na <strong>NIS</strong> poslužitelj kako bi mogao funkcionirati. Standardno je imati aktivan lokalni poslužitelj (instalira se zajedno sa <strong>NCC</strong>-om)',
 							'Moguće je također podesiti pristup na udaljeni <strong>NIS</strong> poslužitelj.'
 						],

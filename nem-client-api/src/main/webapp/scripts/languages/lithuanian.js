@@ -46,7 +46,7 @@ define({
 			700: 'Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \'kasti\'. Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \'Kasimas\' prasideda tik turint ne mažiau 1,000 XEM.',
 			701: 'Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.',
 			702: 'Pateiktas galutinis terminas yra per toli ateityje. Galutinis terminas turi būti ne daugiau kaip viena diena.',
-			703: 'Jūsų sąskaitoje neužtenka lėšų, kad išsiųsti nurodytą NEM sumą.',
+			703: 'Jūsų sąskaitoje neužtenka lėšų, kad išsiųsti nurodytą XEM sumą.',
 			704: 'Pateikta žinutė yra per didelė, kad ją išsiųsti. Prašome sutrumpinti žinutę, kurią Jūs norite išsiųsti.',
 			705: 'Transakcijos \'hash\' jau yra duomenų bazėje arba nepatvirtintų transakcijų sąraše.',
 			706: 'Transakcijos parašas negali būti patikrintas.',
@@ -150,7 +150,7 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: 'Cosignatories' addresses',
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'Ši sąskaita pavadinta kaip {{1}}',
 				nullLabelDesc: 'Ši sąskaita neturi pavadinimo',
 				addCosignatory: '+ Add Cosignatory',
@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Prieigos taškas nepaleistas!',
-					message: 'Norint siųsti NEM, vietinis prieigos taškas turi būti paleistas!'
+					message: 'Norint siųsti XEM, vietinis prieigos taškas turi būti paleistas!'
 				},
 				bootingWarning: {
 					title: 'Node is being booted',
@@ -328,7 +328,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Sukurti realios sąskaitos duomenis',
-				message: 'Žemiau esantys duomenys yra skirti Jūsų realiai sąskaitai, kuri veiks, kai NEM pilnai startuos. Išsisaugokite adresą, viešąjį raktą ir svarbiausiai- privatų raktą. Jei Jūs prarasite privatų raktą, Jūs prarasite tikrąją sąskaitą ir visus joje esančius NEM VISAM LAIKUI!',
+				message: 'Žemiau esantys duomenys yra skirti Jūsų realiai sąskaitai, kuri veiks, kai NEM pilnai startuos. Išsisaugokite adresą, viešąjį raktą ir svarbiausiai- privatų raktą. Jei Jūs prarasite privatų raktą, Jūs prarasite tikrąją sąskaitą ir visus joje esančius XEM VISAM LAIKUI!',
 				address: 'Adresas',
 				publicKey: 'Viešasis raktas',
 				privateKey: 'Privatus raktas',
@@ -455,7 +455,7 @@ define({
 				stop: 'Stabdyti'
 			},
 			logoutWarning: {
-				leavePage: 'You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.',
 
 			},
 			addContact: {
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC šifruoja Jūsų piniginę',
-						description: '<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysčių &amp; assets.'
+						description: '<em>Saugumas</em> yra labai svarbus, tam kad išvengti XEM vagysčių &amp; assets.'
 					},
 					{
 						title: 'NCC šifruoja Jūsų piniginę',
-						description: '<em>Saugumas</em> yra labai svarbus, tam kad išvengti NEM vagysčių &amp; assets.'
+						description: '<em>Saugumas</em> yra labai svarbus, tam kad išvengti XEM vagysčių &amp; assets.'
 					}
 				]
 			},
@@ -512,7 +512,7 @@ define({
 					{
 						title: 'Kaip veikia NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> leidžia Jums prieiti prie savo NEM ir aktyvų. Jūs galite',
+							'<strong>NCC</strong> leidžia Jums prieiti prie savo XEM ir aktyvų. Jūs galite',
 							'<strong>NCC</strong> reikia prieigos prie <strong>NIS</strong> serverio, kad veiktų. Paprastai reikia, kad vietinis serveris būtų aktyvus (jis instaliuojamas kartu su <strong>NCC</strong>)',
 							'Jūs taip pat galite susikonfigūruoti prieigą prie nuotolinio <strong>NIS</strong> serverio.'
 						],

@@ -46,7 +46,7 @@ define({
 			700: 'De opgegeven rekening voldoet niet aan de basis criteria om te harvesten/oogsten. Waarschijnlijk heeft dat te maken met het aantal XEM wat zich in de rekening bevindt. Harvesten begint bij tenminste 1000 XEM.',
 			701: 'De termijn ligt in het verleden en kan alleen geldig zijn binnen een periode van 1 dag.',
 			702: 'De termijn ligt te ver in de toekomst en kan alleen geldig zijn binnen een periode van 1 dag.',
-			703: 'De rekening heeft niet genoeg saldo om het aangegeven aantal NEM te verzenden.',
+			703: 'De rekening heeft niet genoeg saldo om het aangegeven aantal XEM te verzenden.',
 			704: 'De tekst is te groot om het te verzenden via NEM. Reduceer de tekst en probeer opnieuw te verzenden.',
 			705: 'De hash van de transactie bestaat al in de database van onbevestigde transacties.',
 			706: 'De handtekening van de transactie kon niet worden geverifieerd.',
@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Node is niet gestart!',
-					message: 'Een lokale node moet eerst gestart worden om NEM te versturen!'
+					message: 'Een lokale node moet eerst gestart worden om XEM te versturen!'
 				},
 				bootingWarning: {
 					title: 'Node wordt opgestart',

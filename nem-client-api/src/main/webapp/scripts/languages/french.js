@@ -14,7 +14,7 @@ define({
 			105: 'No password was provided for the wallet.',
 			106: 'Avant de pouvoir utiliser un portefeuille, il doit être ouvert. Pour s\'assurer que vous autoriser à accéder à ce portefeuille, vous devez fournir le mot de passe pour ce portefeuille.',
 			107: 'Ce portefeuille ne contient pas ce compte.',
-			108: 'Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 NEMs ou s\'il s\'agit de votre compte primaire.',
+			108: 'Ce compte ne peut pas être retiré. Ce problème se produit généralement si vous tentez de retirer un compte avec une balance supérieure à 0 XEMs ou s\'il s\'agit de votre compte primaire.',
 			109: 'Un autre portefeuille avec le même nom existe déjà. S\'il vous plait, veuillez choisir un nom différent.',
 			110: 'Le portefeuille contient déjà ce compte.',
 			111: 'Le nom du portefeuille est un répertoire.',
@@ -43,10 +43,10 @@ define({
 			601: 'Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
-			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de NEM dans le compte. Le compte doit avoir au minimum 1000 NEM pour que la récolte débute.',
+			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.',
 			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
 			702: 'La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.',
-			703: 'Votre compte n\'a pas une balance suffisante pour envoyer le nombre nombre de NEMs indiqué.',
+			703: 'Votre compte n\'a pas une balance suffisante pour envoyer le nombre nombre de XEMs indiqué.',
 			704: 'Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d\'expédier.',
 			705: 'Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.',
 			706: 'La signature de la transaction n\'a pas pu être vérifiée.',
@@ -197,7 +197,7 @@ define({
 				}
 			},
 			sendNem: {
-				title: 'Envoyez des NEMs',
+				title: 'Envoyez des XEMs',
 				sender: 'Expéditeur',
 				thisAccount: 'Ce compte',
 				labelDesc: 'Ce compte est étiqueté comme {{1}}',
@@ -235,7 +235,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Le noeud n\'a pas été démarré.',
-					message: 'Le noeud local doit être démarré avant de pouvoir envoyer des NEMs!'
+					message: 'Le noeud local doit être démarré avant de pouvoir envoyer des XEMs!'
 				},
 				bootingWarning: {
 					title: 'Le noeud est en cours de démarrage',
@@ -323,7 +323,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Créer des données réelles de compte .',
-				message: 'Les données ci-dessous sont pour votre compte réelles après le lancement de NEM. Enregistrez l\'adresse, la clé publique et surtout la clé privée dans un endroit sûr. Si vous perdez la clé privée, votre compte et tous vos NEM seront perdus à jamais !',
+				message: 'Les données ci-dessous sont pour votre compte réelles après le lancement de NEM. Enregistrez l\'adresse, la clé publique et surtout la clé privée dans un endroit sûr. Si vous perdez la clé privée, votre compte et tous vos XEM seront perdus à jamais !',
 				address: 'Adresse',
 				publicKey: 'Clé publique',
 				privateKey: 'Clé privée',
@@ -406,7 +406,7 @@ define({
 				title: 'Retirer un compte',
 				wallet: 'Portefeuille',
 				password: 'Mot de passe du portefeuille',
-				warning: 'S\'il vous plait, assurez-vous que ce compte ne contient plus de NEMs avant de le retirer, sinon les NEMs qu\'il contient seront perdus pour toujours.',
+				warning: 'S\'il vous plait, assurez-vous que ce compte ne contient plus de XEMs avant de le retirer, sinon les XEMs qu\'il contient seront perdus pour toujours.',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été retiré!',
 				remove: 'Retirer'
 			},
@@ -490,11 +490,11 @@ define({
 				items: [
 					{
 						title: 'NCC chiffre votre portefeuille',
-						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs.'
+						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEMs &amp; actifs.'
 					},
 					{
 						title: 'NCC chiffre votre portefeuille',
-						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces NEMs &amp; actifs.'
+						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEMs &amp; actifs.'
 					}
 				]
 			},
@@ -503,7 +503,7 @@ define({
 					{
 						title: 'Comment NCC fonctionne?',
 						paragraphs: [
-							'<strong>NCC</strong>offre un accès à vos actifs et vos NEMs comme un portefeuille traditionnel le ferait.',
+							'<strong>NCC</strong>offre un accès à vos actifs et vos XEMs comme un portefeuille traditionnel le ferait.',
 							'<strong>NCC</strong> requiert l\'accès à un serveur <strong>NIS</strong> pour pouvoir être fonctionnelle. Le standard est d\'avoir un serveur local actif (est installé ensemble avec <strong>NCC</strong>)',
 							'Vous pouvez aussi configurer un accès à un serveur <strong>NIS</strong> distant.'
 						],
@@ -595,7 +595,7 @@ define({
 			},
 			transactions: {
 				title: 'Transactions récentes',
-				sendNem: 'Envoyer des NEMs',
+				sendNem: 'Envoyer des XEMs',
 				signMultisig: 'SIGNER',
 				balance: 'Balance courante',
 				vestedBalance: 'Vested Balance',
@@ -621,7 +621,7 @@ define({
 				noTransactions: 'Aucune transaction n\'a encore été effectuée'
 			},
 			nemValue: {
-				title: 'Statistiques sur la valeur de NEM'
+				title: 'Statistiques sur la valeur de XEM'
 			},
 			messages: {
 				titleTooltip: 'Messages'
@@ -633,7 +633,7 @@ define({
 		},
 		transactions: {
 			title: 'Transactions',
-			sendNem: 'Envoyer des NEMs',
+			sendNem: 'Envoyer des XEMs',
 			balance: 'Balance courante',
 			filters: {
 				confirmed: 'Confirmé',
@@ -699,7 +699,7 @@ define({
 				noContacts: 'Il n\'y a pas de contact dans votre carnet d\'adresses.'
 			},
 			noLabel: 'Pas d\'étiquette',
-			sendNem: 'Evoyer des NEMs',
+			sendNem: 'Evoyer des XEMs',
 			edit: 'Modifier',
 			remove: 'Supprimer'
 		},

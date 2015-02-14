@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: '節點尚未啟動!',
-					message: '請先啟動本地節點才能發送NEM!'
+					message: '請先啟動本地節點才能發送XEM!'
 				},
 				bootingWarning: {
 					title: 'Node is being booted',
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC 加密你的錢包',
-						description: '為避免NEM被盗 <em>安全</em> 是非常重要的 &amp;。'
+						description: '為避免XEM被盗 <em>安全</em> 是非常重要的 &amp;。'
 					},
 					{
 						title: 'NCC 加密你的錢包',
-						description: '為避免NEM被盗 <em>安全</em> 是非常重要的 &amp;。'
+						description: '為避免XEM被盗 <em>安全</em> 是非常重要的 &amp;。'
 					}
 				]
 			},
@@ -512,7 +512,7 @@ define({
 					{
 						title: 'NCC是如何工作的?',
 						paragraphs: [
-							'<strong>NCC</strong> 就如使用一般的錢包一樣使用NEMs。',
+							'<strong>NCC</strong> 就如使用一般的錢包一樣使用XEMs。',
 							'<strong>NCC</strong> 你可以使用一个<strong>NIS</strong> 伺服器。 一般是使用一个本地的伺服器 (和<strong>NCC</strong>一起安裝)',
 							'您也可以連接一个遠端<strong>NIS</strong>。'
 						],

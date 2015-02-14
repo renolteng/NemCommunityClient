@@ -12,7 +12,7 @@ define({
 			103: 'O arquivo da carteira está corrompido. Por favor, recupere-o de um back-up que você deveria ter feito.',
 			104: 'A senha fornecida para essa carteira não está correta.',
 			105: 'Não foi fornecido nenhuma senha para a carteira.',
-			106: "Antes de começar a usar a carteira NEM, é preciso logar-se. Por favor, forneça a senha da carteira ou crie outra.",
+			106: 'Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.',
 			107: "A carteira não contém essa conta.",
 			108: "A conta não pode ser removida. Provavelmente ela tem saldo maior que 0 XEMs ou é a conta primária.",
 			109: "Já existe uma conta com o mesmo nome. Por favor, escolha outro.",

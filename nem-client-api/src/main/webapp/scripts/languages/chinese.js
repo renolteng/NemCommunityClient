@@ -235,7 +235,7 @@ define({
 				},
 				notBootedWarning: {
 					title: '节点还没有启用!',
-					message: '本地节点需要被启用后才能发送NEM!'
+					message: '本地节点需要被启用后才能发送XEM!'
 				},
 				bootingWarning: {
 					title: '正在启用节点',
@@ -322,7 +322,7 @@ define({
 			},
 			createRealAccountData: {
 				title: '创建真实账户资料',
-				message: '以下数据是NEM正式发行后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的NEM币将永远消失!',
+				message: '以下数据是NEM正式发行后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的XEM币将永远消失!',
 				address: '地址',
 				publicKey: '公钥',
 				privateKey: '私钥',
@@ -488,10 +488,10 @@ define({
 			carousel: {
 				items: [{
 					title: 'NCC 加密你的钱包',
-					description: '为避免NEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
+					description: '为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
 				}, {
 					title: 'NCC 加密你的钱包',
-					description: ' 为避免NEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
+					description: ' 为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
 				}]
 			},
 			about: {
@@ -499,7 +499,7 @@ define({
 					{
 						title: 'NCC是如何工作的?',
 						paragraphs: [
-							'<strong>NCC</strong> 让您使用NEM时就如使用一个传统的钱包一样。',
+							'<strong>NCC</strong> 让您使用XEM时就如使用一个传统的钱包一样。',
 							'<strong>NCC</strong>打开使用前需要您连接到<strong>NIS</strong> 服务器。 您可以本地同时安装<strong>NCC</strong>服务和<strong>NIS</strong>服务。',
 							'也可以访问一个远程<strong>NIS</strong>。'
 						],

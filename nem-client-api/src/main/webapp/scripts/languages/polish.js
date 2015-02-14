@@ -43,7 +43,7 @@ define({
 			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością NEM na koncie. Zbieranie wymaga minimum 1000 XEM na koncie.',
+			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością XEM na koncie. Zbieranie wymaga minimum 1000 XEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
 			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
 			703: 'Nie masz wystarczających środków na koncie aby dokonać transakcji.',
@@ -239,7 +239,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Węzeł nie został uruchomiony!',
-					message: 'Lokalny węzeł musi być uruchomiony zanim będzie można wysyłać NEM!'
+					message: 'Lokalny węzeł musi być uruchomiony zanim będzie można wysyłać XEM!'
 				},
 				bootingWarning: {
 					title: 'Węzeł uruchamia się.',
@@ -328,7 +328,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Utwórz prawdziwe konto',
-				message: 'Poniższe dane są dla Twojego prawdziwego konta po premierze NEM. Zapisz adres, klucz publiczny, a co najważniejsze prywatny klucz w bezpiecznym miejscu. Jeśli stracisz klucz prywatny, Twoje konto i wszystkie monety NEM zostaną utracone NA ZAWSZE!',
+				message: 'Poniższe dane są dla Twojego prawdziwego konta po premierze NEM. Zapisz adres, klucz publiczny, a co najważniejsze prywatny klucz w bezpiecznym miejscu. Jeśli stracisz klucz prywatny, Twoje konto i wszystkie monety XEM zostaną utracone NA ZAWSZE!',
 				address: 'Adres',
 				publicKey: 'Klucz publiczny',
 				privateKey: 'Klucz prywatny',
@@ -412,7 +412,7 @@ define({
 				title: 'Usuń konto',
 				wallet: 'Portfel',
 				password: "Hasło portfela",
-				warning: 'Upewnij się, że Twoje konto nie zawiera już NEM, gdyż znikną na zawsze.',
+				warning: 'Upewnij się, że Twoje konto nie zawiera już XEM, gdyż znikną na zawsze.',
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało usunięte!',
 				remove: 'Usuń'
 			},
@@ -478,7 +478,7 @@ define({
 			importSuccess: 'Portfel został zaimportowany!',
 			nav: {
 				start: 'Getting Started',
-				about: 'O XEM',
+				about: 'O NEM',
 				settings: 'Ustawienia'
 			},
 			main: {
@@ -499,11 +499,11 @@ define({
 				items: [
 					{
 						title: 'NCC szyfruje Twój portfel',
-						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet NEM i aktywów.'
+						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet XEM i aktywów.'
 					},
 					{
 						title: 'NCC szyfruje Twój portfel',
-						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet NEM i aktywów..'
+						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet XEM i aktywów..'
 					}
 				]
 			},
