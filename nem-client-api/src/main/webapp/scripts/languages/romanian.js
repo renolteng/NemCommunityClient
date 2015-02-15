@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Închide portofelul',
 				closeProgram: 'Închide programul',
 				copyClipboard: 'Copiază adresa în clipboard',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Panou principal',

@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Chiudi portafoglio',
 				closeProgram: 'Arresta NCC',
 				copyClipboard: 'Copia indirizzo negli appunti',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Vista d\'insieme',

@@ -556,7 +556,7 @@ define({
 				closeWallet: '關閉錢包',
 				closeProgram: '關閉程序',
 				copyClipboard: 'Copy address to clipboard',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'儀表板',

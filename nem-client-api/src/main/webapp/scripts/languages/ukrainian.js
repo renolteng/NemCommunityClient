@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Закрити гаманець',
 				closeProgram: 'Закрити програму',
 				copyClipboard: 'Cкопіювати адресу в буфер обміну',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Головна сторiнка',

@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Sluit Wallet',
 				closeProgram: 'Programma Afsluiten',
 				copyClipboard: 'Kopieer rekeningnummer naar het clipboard.',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Dashboard',

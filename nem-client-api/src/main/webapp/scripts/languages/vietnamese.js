@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Đóng ví',
 				closeProgram: 'Đóng chương trình',
 				copyClipboard: 'Copy địa chỉ vào clipboard',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Bảng tin',

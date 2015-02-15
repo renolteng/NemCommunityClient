@@ -162,7 +162,8 @@ define({
 				hours: 'sati',
 				txConfirm: {
 					title: 'Potvrdi pretvaranje u Multisig račun',
-					total: 'Ukupno'
+					total: 'Ukupno',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
@@ -193,7 +194,8 @@ define({
 					title: 'Potvrdi Multisig transakciju',
 					message: 'Poruka',
 					encrypted: 'Poruak je šifrirana',
-					noMessage: 'Nema poruke'
+					noMessage: 'Nema poruke',
+
 				}
 			},
 			sendNem: {

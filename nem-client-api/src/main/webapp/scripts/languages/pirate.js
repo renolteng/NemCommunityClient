@@ -556,7 +556,7 @@ define({
 				closeWallet: "Close the Coffer",
 				closeProgram: "Abandon Ship",
 				copyClipboard: "Click to copy me hearties to clipboard",
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				"Port",

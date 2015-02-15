@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Zamknij Portfel',
 				closeProgram: 'Zamknij Program',
 				copyClipboard: 'Kopiuj adres do schowka',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Dashboard',

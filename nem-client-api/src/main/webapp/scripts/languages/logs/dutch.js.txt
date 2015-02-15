@@ -258,4 +258,9 @@ translated texts.modals.signMultisig.multisigTotal
 	      to: 'Totaal'
 	based on: texts.modals.sendNem.txConfirm.total
 
-----------
+----------changed texts.wallet.actions.convertMultisig
+	from: 'Convert to multisig'
+	  to: 'Convert other account to multisig'
+	 was: 'Convert to multisig'
+
+-----

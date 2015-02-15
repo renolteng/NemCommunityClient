@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Uždaryti piniginę',
 				closeProgram: 'Uždaryti programą',
 				copyClipboard: 'Kopijuoti adresą į laikinąją atmintį',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Skydelis',
