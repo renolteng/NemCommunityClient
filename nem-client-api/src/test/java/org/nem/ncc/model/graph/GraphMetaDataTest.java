@@ -37,7 +37,7 @@ public class GraphMetaDataTest {
 	@Test
 	public void canAddMultipleGraphNodeMetaData() {
 		// Assert:
-		assertAddMultiple((graphMetaData, nodeMetaDataList) -> graphMetaData.addAll(nodeMetaDataList));
+		assertAddMultiple(GraphMetaData::addAll);
 	}
 
 	private static void assertAddMultiple(final BiConsumer<GraphMetaData, Collection<GraphNodeMetaData>> consumer) {

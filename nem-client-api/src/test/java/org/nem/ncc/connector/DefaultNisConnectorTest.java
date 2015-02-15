@@ -114,7 +114,7 @@ public class DefaultNisConnectorTest {
 	@Test
 	public void forwardThrowsNisExceptionOnError() {
 		// Assert:
-		assertForwardThrowsNisExceptionOnError((connector, func) -> connector.forward(func));
+		assertForwardThrowsNisExceptionOnError(PrimaryNisConnector::forward);
 	}
 
 	@Test
@@ -143,7 +143,7 @@ public class DefaultNisConnectorTest {
 	@Test
 	public void forwardReturnsObjectOnSuccess() {
 		// Assert:
-		assertForwardReturnsObjectOnSuccess((connector, func) -> connector.forward(func));
+		assertForwardReturnsObjectOnSuccess(PrimaryNisConnector::forward);
 	}
 
 	@Test

@@ -36,7 +36,7 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 
 		final MultisigAggregateModificationTransaction transaction = (MultisigAggregateModificationTransaction)metaDataPair.getTransaction();
 		this.modifications = transaction.getModifications().stream()
-				.map(o -> new ModificationWrapper(o))
+				.map(ModificationWrapper::new)
 				.collect(Collectors.toList());
 	}
 

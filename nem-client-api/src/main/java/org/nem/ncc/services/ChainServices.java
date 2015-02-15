@@ -2,7 +2,7 @@ package org.nem.ncc.services;
 
 import org.nem.core.connect.client.*;
 import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.node.NodeEndpoint;
+import org.nem.core.node.*;
 import org.nem.ncc.model.NisNodeMetaData;
 
 import java.util.concurrent.CompletableFuture;
@@ -37,7 +37,7 @@ public class ChainServices {
 		final CompletableFuture<BlockHeight> maxHeightFuture = this.connector.getAsync(endpoint, NisApiId.NIS_REST_ACTIVE_PEERS_MAX_CHAIN_HEIGHT, null)
 				.thenApply(BlockHeight::new);
 		final CompletableFuture<Integer> numNodesFuture = this.networkServices.getNodePeerListAsync(endpoint)
-				.thenApply(nodes -> nodes.size());
+				.thenApply(NodeCollection::size);
 		return CompletableFuture.allOf(heightFuture, maxHeightFuture, numNodesFuture)
 				.thenApply(v -> new NisNodeMetaData(numNodesFuture.join(), maxHeightFuture.join(), heightFuture.join()));
 	}

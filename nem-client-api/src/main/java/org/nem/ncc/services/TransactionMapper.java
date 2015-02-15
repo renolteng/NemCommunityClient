@@ -122,7 +122,7 @@ public class TransactionMapper {
 		final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
 
 		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
-				.map(o -> this.accountLookup.findByAddress(o))
+				.map(this.accountLookup::findByAddress)
 				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
 				.collect(Collectors.toList());
 
@@ -218,7 +218,7 @@ public class TransactionMapper {
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
 		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
-				.map(o -> this.accountLookup.findByAddress(o))
+				.map(this.accountLookup::findByAddress)
 				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
 				.collect(Collectors.toList());
 

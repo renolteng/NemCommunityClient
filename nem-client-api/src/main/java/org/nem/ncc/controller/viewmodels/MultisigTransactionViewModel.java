@@ -68,7 +68,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 		// multisig account is on the list of accounts that relativeAccountAddress is eligible to sign
 		final Address multisigAddress = multisigTransaction.getOtherTransaction().getSigner().getAddress();
 		if (relativeAccoundData.getMetaData().getCosignatoryOf().stream()
-				.map(info -> info.getAddress())
+				.map(AccountInfo::getAddress)
 				.anyMatch(t -> t.equals(multisigAddress))) {
 			// TODO 20150131 J-G: does it make sense to add a hasSignature(Account) to MultisigTransaction?
 			return multisigTransaction.getSigner().getAddress().equals(relativeAccountAddress)
