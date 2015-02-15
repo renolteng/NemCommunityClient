@@ -3,7 +3,7 @@ package org.nem.monitor.launcher;
 import org.nem.monitor.node.NemNodeType;
 
 /**
- * A webstart based node launcher
+ * A webstart based node launcher.
  */
 public class WebStartNodeLauncher implements NodeLauncher {
 	private final WebStartLauncher launcher;

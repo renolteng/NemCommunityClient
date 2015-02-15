@@ -8,22 +8,19 @@ public class WebStartNodeLauncherTest {
 
 	@Test
 	public void canLaunchNisNode() {
-		// Arrange:
-		final WebStartLauncher webStartLauncher = Mockito.mock(WebStartLauncher.class);
-		final NodeLauncher launcher = new WebStartNodeLauncher(
-				webStartLauncher,
-				"nis-jnlp-url",
-				"ncc-jnlp-url");
-
-		// Act:
-		launcher.launch(NemNodeType.NIS);
-
 		// Assert:
-		Mockito.verify(webStartLauncher, Mockito.only()).launch("nis-jnlp-url");
+		assertCanLaunchNode(NemNodeType.NIS, "nis-jnlp-url");
 	}
 
 	@Test
 	public void canLaunchNccNode() {
+		// Assert:
+		assertCanLaunchNode(NemNodeType.NCC, "ncc-jnlp-url");
+	}
+
+	private static void assertCanLaunchNode(
+			final NemNodeType nodeType,
+			final String expectedJnlpUrl) {
 		// Arrange:
 		final WebStartLauncher webStartLauncher = Mockito.mock(WebStartLauncher.class);
 		final NodeLauncher launcher = new WebStartNodeLauncher(
@@ -32,9 +29,9 @@ public class WebStartNodeLauncherTest {
 				"ncc-jnlp-url");
 
 		// Act:
-		launcher.launch(NemNodeType.NCC);
+		launcher.launch(nodeType);
 
 		// Assert:
-		Mockito.verify(webStartLauncher, Mockito.only()).launch("ncc-jnlp-url");
+		Mockito.verify(webStartLauncher, Mockito.only()).launch(expectedJnlpUrl);
 	}
 }

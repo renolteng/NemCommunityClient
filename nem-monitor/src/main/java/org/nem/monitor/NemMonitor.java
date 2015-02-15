@@ -2,7 +2,7 @@ package org.nem.monitor;
 
 import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
-import org.nem.core.utils.LockFile;
+import org.nem.core.utils.*;
 import org.nem.monitor.config.*;
 import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
@@ -52,11 +52,7 @@ public class NemMonitor {
 			}
 
 			final SystemTray tray = SystemTray.getSystemTray();
-			final WebStartLauncher webStartlauncher = new WebStartLauncher(nemFolder);
-			final NodeLauncher launcher = new WebStartNodeLauncher(
-					webStartlauncher,
-					commandLine.getNisJnlpUrl(),
-					commandLine.getNccJnlpUrl());
+			final NodeLauncher launcher = createJarLauncher(commandLine);
 
 			final TrayIconBuilder builder = new TrayIconBuilder(
 					createHttpMethodClient(),
@@ -76,6 +72,21 @@ public class NemMonitor {
 				throw new SystemTrayException("Unable to add icon to system tray", e);
 			}
 		});
+	}
+
+	private static NodeLauncher createWebStartLauncher(final String nemFolder, final MonitorCommandLine commandLine) {
+		final WebStartLauncher webStartLauncher = new WebStartLauncher(nemFolder);
+		return new WebStartNodeLauncher(
+				webStartLauncher,
+				commandLine.getNisJnlpUrl(),
+				commandLine.getNccJnlpUrl());
+	}
+
+	private static NodeLauncher createJarLauncher(final MonitorCommandLine commandLine) {
+		return new JarNodeLauncher(
+				new JavaProcessLauncher(),
+				commandLine.getNisJnlpUrl(),
+				commandLine.getNccJnlpUrl());
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {
