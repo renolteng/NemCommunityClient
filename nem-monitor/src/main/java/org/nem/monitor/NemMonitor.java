@@ -34,11 +34,8 @@ public class NemMonitor {
 	 * @param args The command line arguments.
 	 */
 	public static void main(final String[] args) {
-		final MonitorCommandLine commandLine = MonitorCommandLine.parse(args);
-		LOGGER.info(String.format("NCC URI configured as: %s", commandLine.getNccUri()));
-		LOGGER.info(String.format("NIS URI configured as: %s", commandLine.getNisUri()));
-
-		final String nemFolder = new MonitorConfiguration().getNemFolder();
+		final MonitorConfiguration config = new MonitorConfiguration();
+		final String nemFolder = config.getNemFolder();
 		if (!canStart(nemFolder)) {
 			return;
 		}
@@ -52,7 +49,7 @@ public class NemMonitor {
 			}
 
 			final SystemTray tray = SystemTray.getSystemTray();
-			final NodeLauncher launcher = createJarLauncher(commandLine);
+			final NodeLauncher launcher = createJarLauncher(config);
 
 			final TrayIconBuilder builder = new TrayIconBuilder(
 					createHttpMethodClient(),
@@ -74,19 +71,19 @@ public class NemMonitor {
 		});
 	}
 
-	private static NodeLauncher createWebStartLauncher(final String nemFolder, final MonitorCommandLine commandLine) {
-		final WebStartLauncher webStartLauncher = new WebStartLauncher(nemFolder);
+	private static NodeLauncher createWebStartLauncher(final MonitorConfiguration config) {
+		final WebStartLauncher webStartLauncher = new WebStartLauncher(config.getNemFolder());
 		return new WebStartNodeLauncher(
 				webStartLauncher,
-				commandLine.getNisUri(),
-				commandLine.getNccUri());
+				config.getNisConfiguration().getJnlpUrl(),
+				config.getNccConfiguration().getJnlpUrl());
 	}
 
-	private static NodeLauncher createJarLauncher(final MonitorCommandLine commandLine) {
+	private static NodeLauncher createJarLauncher(final MonitorConfiguration config) {
 		return new JarNodeLauncher(
 				new JavaProcessLauncher(),
-				commandLine.getNisUri(),
-				commandLine.getNccUri());
+				config.getNisConfiguration().getUri(),
+				config.getNccConfiguration().getUri());
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {
