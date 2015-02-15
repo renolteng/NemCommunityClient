@@ -40,6 +40,8 @@ public class NemMonitor {
 			return;
 		}
 
+		logVersionInformation();
+
 		SwingUtilities.invokeLater(() -> {
 			LOGGER.info("setting up system tray");
 
@@ -84,6 +86,11 @@ public class NemMonitor {
 				new JavaProcessLauncher(),
 				config.getNisConfiguration(),
 				config.getNccConfiguration());
+	}
+
+	private static void logVersionInformation() {
+		LOGGER.info(String.format("Local version: '%s'", VersionUtils.getLocalVersion()));
+		LOGGER.info(String.format("Latest version: '%s'", VersionUtils.getLatestVersion()));
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {
