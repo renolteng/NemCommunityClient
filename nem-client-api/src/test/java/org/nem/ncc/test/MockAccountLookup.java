@@ -4,6 +4,7 @@ import org.nem.core.model.*;
 import org.nem.core.serialization.AccountLookup;
 
 import java.util.HashMap;
+import java.util.function.Predicate;
 
 /**
  * A mock AccountLookup implementation.
@@ -69,6 +70,11 @@ public class MockAccountLookup implements AccountLookup {
 			default:
 				return new Account(id);
 		}
+	}
+
+	@Override
+	public Account findByAddress(Address address, Predicate<Address> predicate) {
+		return null;
 	}
 
 	@Override
