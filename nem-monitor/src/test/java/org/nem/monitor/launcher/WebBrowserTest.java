@@ -1,4 +1,4 @@
-package org.nem.monitor;
+package org.nem.monitor.launcher;
 
 import org.junit.Test;
 import org.mockito.Mockito;

@@ -4,6 +4,7 @@ import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
+import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
 
@@ -51,15 +52,20 @@ public class NemMonitor {
 			}
 
 			final SystemTray tray = SystemTray.getSystemTray();
-			final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
+			final WebStartLauncher webStartlauncher = new WebStartLauncher(nemFolder);
+			final NodeLauncher launcher = new WebStartNodeLauncher(
+					webStartlauncher,
+					commandLine.getNisJnlpUrl(),
+					commandLine.getNccJnlpUrl());
+
 			final TrayIconBuilder builder = new TrayIconBuilder(
 					createHttpMethodClient(),
 					launcher,
 					new WebBrowser(),
 					isStartedViaWebStart());
-			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
+			builder.addStatusMenuItems(new NisNodePolicy(nemFolder));
 			builder.addSeparator();
-			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
+			builder.addStatusMenuItems(new NccNodePolicy(nemFolder));
 			builder.addSeparator();
 			builder.addExitMenuItem(tray);
 			builder.addExitAndShutdownMenuItem(tray);

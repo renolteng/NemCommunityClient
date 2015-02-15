@@ -4,7 +4,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.monitor.*;
-import org.nem.monitor.node.NemNodePolicy;
+import org.nem.monitor.launcher.*;
+import org.nem.monitor.node.*;
 
 public class NodeManagerTest {
 
@@ -29,7 +30,7 @@ public class NodeManagerTest {
 		context.manager.launch();
 
 		// Assert:
-		Mockito.verify(context.launcher, Mockito.times(1)).launch("foo.jnlp");
+		Mockito.verify(context.launcher, Mockito.times(1)).launch(NemNodeType.NCC);
 	}
 
 	@Test
@@ -58,7 +59,7 @@ public class NodeManagerTest {
 
 	private static class TestContext {
 		private final NemConnector connector = Mockito.mock(NemConnector.class);
-		private final WebStartLauncher launcher = Mockito.mock(WebStartLauncher.class);
+		private final NodeLauncher launcher = Mockito.mock(NodeLauncher.class);
 		private final WebBrowser browser = Mockito.mock(WebBrowser.class);
 		private final NodeManager manager;
 
@@ -70,8 +71,9 @@ public class NodeManagerTest {
 			final NemNodePolicy nodePolicy = Mockito.mock(NemNodePolicy.class);
 			Mockito.when(nodePolicy.getEndpoint()).thenReturn(NodeEndpoint.fromHost("10.0.0.12"));
 			Mockito.when(nodePolicy.hasBrowserGui()).thenReturn(hasBrowserGui);
+			Mockito.when(nodePolicy.getNodeType()).thenReturn(NemNodeType.NCC);
 
-			this.manager = new NodeManager(nodePolicy, "foo.jnlp", this.connector, this.launcher, this.browser);
+			this.manager = new NodeManager(nodePolicy, this.connector, this.launcher, this.browser);
 		}
 	}
 }

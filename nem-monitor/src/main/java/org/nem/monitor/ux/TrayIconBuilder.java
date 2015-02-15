@@ -5,6 +5,7 @@ import org.nem.core.connect.*;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.monitor.*;
 import org.nem.monitor.config.LanguageSupport;
+import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
@@ -26,7 +27,7 @@ public class TrayIconBuilder {
 	private static final Logger LOGGER = Logger.getLogger(TrayIconBuilder.class.getName());
 
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
-	private final WebStartLauncher webStartLauncher;
+	private final NodeLauncher nodeLauncher;
 	private final WebBrowser webBrowser;
 	private final boolean isStartedViaWebStart;
 	private final TrayIcon trayIcon;
@@ -39,17 +40,17 @@ public class TrayIconBuilder {
 	 * Creates a new builder.
 	 *
 	 * @param client The http method client.
-	 * @param webStartLauncher The web start launcher.
+	 * @param nodeLauncher The node launcher.
 	 * @param webBrowser The web browser.
 	 * @param isStartedViaWebStart true if the program was started via webstart.
 	 */
 	public TrayIconBuilder(
 			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
-			final WebStartLauncher webStartLauncher,
+			final NodeLauncher nodeLauncher,
 			final WebBrowser webBrowser,
 			final boolean isStartedViaWebStart) {
 		this.client = client;
-		this.webStartLauncher = webStartLauncher;
+		this.nodeLauncher = nodeLauncher;
 		this.webBrowser = webBrowser;
 		this.isStartedViaWebStart = isStartedViaWebStart;
 
@@ -75,15 +76,13 @@ public class TrayIconBuilder {
 	 * Adds status menu items for the specified node policy.
 	 *
 	 * @param nodePolicy The node policy.
-	 * @param jnlpUrl The webstart url.
 	 */
-	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String jnlpUrl) {
+	public void addStatusMenuItems(final NemNodePolicy nodePolicy) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
 		final NodeManager manager = new NodeManager(
 				nodePolicy,
-				jnlpUrl,
 				this.createConnector(nodePolicy),
-				this.webStartLauncher,
+				this.nodeLauncher,
 				this.webBrowser);
 		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
 
