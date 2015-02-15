@@ -2,7 +2,7 @@ package org.nem.ncc.services;
 
 import org.nem.core.model.Address;
 import org.nem.core.model.ncc.AccountMetaDataPair;
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.SimpleAccountLookup;
 
 /**
  * An interface for looking up account metadata pairs.

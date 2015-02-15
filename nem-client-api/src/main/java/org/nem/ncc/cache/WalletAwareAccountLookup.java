@@ -7,8 +7,6 @@ import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.WalletAccount;
 import org.springframework.context.annotation.Primary;
 
-import java.util.function.Predicate;
-
 /**
  * An AccountLookup decorator that is aware of wallets and adds the private keys
  * of open wallet accounts to accounts returned by this implementation.

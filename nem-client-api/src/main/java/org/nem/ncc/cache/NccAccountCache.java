@@ -8,7 +8,6 @@ import org.nem.ncc.services.*;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**

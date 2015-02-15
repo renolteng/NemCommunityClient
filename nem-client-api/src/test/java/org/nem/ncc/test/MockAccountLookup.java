@@ -1,7 +1,7 @@
 package org.nem.ncc.test;
 
 import org.nem.core.model.*;
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.SimpleAccountLookup;
 
 import java.util.HashMap;
 

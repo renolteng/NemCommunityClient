@@ -4,7 +4,7 @@ import org.nem.core.crypto.*;
 import org.nem.core.messages.*;
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.SimpleAccountLookup;
 import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
