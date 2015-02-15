@@ -26,9 +26,9 @@
 <!-- Progress Bar add download="progress" -->
 </resources>
 <application-desc main-class="$mainClass" progress-class="org.nem.client.download.SplashProgressBar">
-    <argument>-nccJnlpUrl</argument>
+    <argument>-nccUri</argument>
     <argument>${nem-code-base}/nem-client.jnlp</argument>
-    <argument>-nisJnlpUrl</argument>
+    <argument>-nisUri</argument>
     <argument>${nem-code-base}/nem-server.jnlp</argument>
 </application>
 </jnlp> 

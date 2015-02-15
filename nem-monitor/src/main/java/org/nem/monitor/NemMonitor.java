@@ -35,8 +35,8 @@ public class NemMonitor {
 	 */
 	public static void main(final String[] args) {
 		final MonitorCommandLine commandLine = MonitorCommandLine.parse(args);
-		LOGGER.info(String.format("NCC JNLP configured as: %s", commandLine.getNccJnlpUrl()));
-		LOGGER.info(String.format("NIS JNLP configured as: %s", commandLine.getNisJnlpUrl()));
+		LOGGER.info(String.format("NCC URI configured as: %s", commandLine.getNccUri()));
+		LOGGER.info(String.format("NIS URI configured as: %s", commandLine.getNisUri()));
 
 		final String nemFolder = new MonitorConfiguration().getNemFolder();
 		if (!canStart(nemFolder)) {
@@ -78,15 +78,15 @@ public class NemMonitor {
 		final WebStartLauncher webStartLauncher = new WebStartLauncher(nemFolder);
 		return new WebStartNodeLauncher(
 				webStartLauncher,
-				commandLine.getNisJnlpUrl(),
-				commandLine.getNccJnlpUrl());
+				commandLine.getNisUri(),
+				commandLine.getNccUri());
 	}
 
 	private static NodeLauncher createJarLauncher(final MonitorCommandLine commandLine) {
 		return new JarNodeLauncher(
 				new JavaProcessLauncher(),
-				commandLine.getNisJnlpUrl(),
-				commandLine.getNccJnlpUrl());
+				commandLine.getNisUri(),
+				commandLine.getNccUri());
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {

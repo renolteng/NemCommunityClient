@@ -5,36 +5,39 @@ import org.nem.core.deploy.NemCommandLine;
 
 import java.util.Arrays;
 
+/**
+ * Helper class for parsing the NEM monitor command line.
+ */
 public class MonitorCommandLine {
-	private static final String NCC_JNLP_URL = "nccJnlpUrl";
-	private static final String NCC_JNLP_URL_DESCRIPTION = "JNLP URL for starting NCC via WebStart.";
-	private static final String NIS_JNLP_URL = "nisJnlpUrl";
-	private static final String NIS_JNLP_URL_DESCRIPTION = "JNLP URL for starting NIS via WebStart.";
+	private static final String NCC_URI = "nccUri";
+	private static final String NCC_URI_DESCRIPTION = "URI for starting NCC.";
+	private static final String NIS_URI = "nisUri";
+	private static final String NIS_URI_DESCRIPTION = "URI for starting NIS.";
 
-	private final String nccJnlpUrl;
-	private final String nisJnlpUrl;
+	private final String nccUri;
+	private final String nisUri;
 
-	private MonitorCommandLine(final String nccJnlpUrl, final String nisJnlpUrl) {
-		this.nccJnlpUrl = nccJnlpUrl;
-		this.nisJnlpUrl = nisJnlpUrl;
+	private MonitorCommandLine(final String nccUri, final String nisUri) {
+		this.nccUri = nccUri;
+		this.nisUri = nisUri;
 	}
 
 	/**
-	 * Gets the NCC JNLP url as string.
+	 * Gets the NCC URI as a string.
 	 *
-	 * @return The NCC JNLP url as string.
+	 * @return The NCC URI as a string.
 	 */
-	public String getNccJnlpUrl() {
-		return this.nccJnlpUrl;
+	public String getNccUri() {
+		return this.nccUri;
 	}
 
 	/**
-	 * Gets the NIS JNLP url as string.
+	 * Gets the NIS URI as a string.
 	 *
-	 * @return The NIS JNLP url as string.
+	 * @return The NIS URI as a string.
 	 */
-	public String getNisJnlpUrl() {
-		return this.nisJnlpUrl;
+	public String getNisUri() {
+		return this.nisUri;
 	}
 
 	/**
@@ -45,14 +48,15 @@ public class MonitorCommandLine {
 	 */
 	public static MonitorCommandLine parse(final String[] args) {
 		final NemCommandLine commandLine = new NemCommandLine(Arrays.asList(
-				new Option(NCC_JNLP_URL, true, NCC_JNLP_URL_DESCRIPTION),
-				new Option(NIS_JNLP_URL, true, NIS_JNLP_URL_DESCRIPTION)));
+				new Option(NCC_URI, true, NCC_URI_DESCRIPTION),
+				new Option(NIS_URI, true, NIS_URI_DESCRIPTION)));
 
+		// TODO 20150215 J-J: shouldn't default to jnlp as that will not work
 		String nccJnlpUrl = "http://bob.nem.ninja/webstart/nem-client.jnlp";
 		String nisJnlpUrl = "http://bob.nem.ninja/webstart/nem-server.jnlp";
 		if (commandLine.parse(args)) {
-			nccJnlpUrl = getParameterOrDefault(commandLine, NCC_JNLP_URL, nccJnlpUrl);
-			nisJnlpUrl = getParameterOrDefault(commandLine, NIS_JNLP_URL, nisJnlpUrl);
+			nccJnlpUrl = getParameterOrDefault(commandLine, NCC_URI, nccJnlpUrl);
+			nisJnlpUrl = getParameterOrDefault(commandLine, NIS_URI, nisJnlpUrl);
 		}
 
 		return new MonitorCommandLine(nccJnlpUrl, nisJnlpUrl);
