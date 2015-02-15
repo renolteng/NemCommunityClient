@@ -4,6 +4,7 @@ import org.nem.core.utils.*;
 import org.nem.monitor.config.NodeConfiguration;
 import org.nem.monitor.node.NemNodeType;
 
+import java.io.File;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,11 +41,10 @@ public class JarNodeLauncher implements NodeLauncher {
 				.filter(arg -> !StringUtils.isNullOrWhitespace(arg))
 				.collect(Collectors.toList()));
 
-		final Path jarPath = Paths.get(config.getUri());
-		final Path directory = jarPath.getParent();
+		final Path directory = Paths.get(config.getUri());
 		arguments.addAll(Arrays.asList(
 				"-cp",
-				".:./*:../libs/*",
+				"." + File.pathSeparator + "./*" + File.pathSeparator + "../libs/*",
 				"org.nem.core.deploy.CommonStarter"));
 		ExceptionUtils.propagateVoid(() -> {
 			this.launcher.launch(arguments, directory.toFile());

@@ -29,6 +29,7 @@ public class JavaProcessLauncher {
 
 		final ProcessBuilder builder = new ProcessBuilder()
 				.command(argumentsWithExe)
+				.inheritIO()
 				.directory(workingDirectory);
 		builder.start();
 	}
