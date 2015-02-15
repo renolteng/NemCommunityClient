@@ -7,62 +7,90 @@ import org.nem.monitor.config.NodeConfiguration;
 import org.nem.monitor.node.NemNodeType;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 public class JarNodeLauncherTest {
 
 	@Test
-	public void canLaunchNisNode() throws IOException{
+	public void canLaunchNisNodeWithNoOptions() throws IOException {
+		// Arrange:
+		final TestContext testContext = new TestContext("", "-XNccOptions") ;
+
+		// Act:
+		testContext.launch(NemNodeType.NIS);
+
 		// Assert:
-		final List<String> expectedArguments = Arrays.asList(
-			"-Xms512M",
-			"-Xmx1G",
-			"-cp",
-			".:./*:../libs/*",
-			"org.nem.core.deploy.CommonStarter");
-		assertCanLaunchNode(
-				NemNodeType.NIS,
-				expectedArguments,
-				"nis-jar-path");
+		testContext.assertLaunched(Arrays.asList(), "nis-jar-path");
 	}
 
 	@Test
-	public void canLaunchNccNode() throws IOException{
-		// Assert:
-		final List<String> expectedArguments = Arrays.asList(
-				"-cp",
-				".:./*:../libs/*",
-				"org.nem.core.deploy.CommonStarter");
-		assertCanLaunchNode(
-				NemNodeType.NCC,
-				expectedArguments,
-				"ncc-jar-path");
-	}
-
-	@SuppressWarnings("unchecked")
-	private static void assertCanLaunchNode(
-			final NemNodeType nodeType,
-			final List<String> expectedArguments,
-			final String expectedWorkingDirectory) throws IOException {
+	public void canLaunchNisNodeWithOptions() throws IOException {
 		// Arrange:
-		final JavaProcessLauncher processLauncher = Mockito.mock(JavaProcessLauncher.class);
-		final NodeLauncher launcher = new JarNodeLauncher(
-				processLauncher,
-				new NodeConfiguration(Paths.get("nis-jar-path", "nis.jar").toString(), "-Xms512M -Xmx1G", ""),
-				new NodeConfiguration(Paths.get("ncc-jar-path", "nis.jar").toString(), "", ""));
+		final TestContext testContext = new TestContext("-Xms512M -Xmx1G -XNisOptions", "") ;
 
 		// Act:
-		launcher.launch(nodeType);
+		testContext.launch(NemNodeType.NIS);
 
 		// Assert:
-		final ArgumentCaptor<List<String>> argumentsCaptor = ArgumentCaptor.forClass((Class)List.class);
-		final ArgumentCaptor<File> workingDirectoryCaptor = ArgumentCaptor.forClass(File.class);
-		Mockito.verify(processLauncher, Mockito.only())
-				.launch(argumentsCaptor.capture(), workingDirectoryCaptor.capture());
+		testContext.assertLaunched(Arrays.asList("-Xms512M", "-Xmx1G", "-XNisOptions"), "nis-jar-path");
+	}
+
+	@Test
+	public void canLaunchNccNodeWithNoOptions() throws IOException {
+		// Arrange:
+		final TestContext testContext = new TestContext("-XNisOptions", "");
+
+		// Act:
+		testContext.launch(NemNodeType.NCC);
 
 		// Assert:
-		Assert.assertThat(argumentsCaptor.getValue(), IsEqual.equalTo(expectedArguments));
-		Assert.assertThat(workingDirectoryCaptor.getValue().toString(), IsEqual.equalTo(expectedWorkingDirectory));
+		testContext.assertLaunched(Arrays.asList(), "ncc-jar-path");
+	}
+
+	@Test
+	public void canLaunchNccNodeWithOptions() throws IOException {
+		// Arrange:
+		final TestContext testContext = new TestContext("", "-XNccOptions -Xms512M -Xmx1G") ;
+
+		// Act:
+		testContext.launch(NemNodeType.NCC);
+
+		// Assert:
+		testContext.assertLaunched(Arrays.asList("-XNccOptions", "-Xms512M", "-Xmx1G"), "ncc-jar-path");
+	}
+
+	private static class TestContext {
+		private final JavaProcessLauncher processLauncher = Mockito.mock(JavaProcessLauncher.class);
+		private final NodeLauncher launcher;
+
+		public TestContext(final String nisVmOptions, final String nccVmOptions) {
+			this.launcher = new JarNodeLauncher(
+					this.processLauncher,
+					new NodeConfiguration("nis-jar-path", nisVmOptions, ""),
+					new NodeConfiguration("ncc-jar-path", nccVmOptions, ""));
+		}
+
+		public void launch(final NemNodeType nodeType) {
+			this.launcher.launch(nodeType);
+		}
+
+		public void assertLaunched(
+				final List<String> expectedAdditionalArguments,
+				final String expectedWorkingDirectory) throws IOException{
+			@SuppressWarnings("unchecked")
+			final ArgumentCaptor<List<String>> argumentsCaptor = ArgumentCaptor.forClass((Class)List.class);
+			final ArgumentCaptor<File> workingDirectoryCaptor = ArgumentCaptor.forClass(File.class);
+			Mockito.verify(this.processLauncher, Mockito.only())
+					.launch(argumentsCaptor.capture(), workingDirectoryCaptor.capture());
+
+			// Assert:
+			final List<String> expectedArguments = new ArrayList<>(expectedAdditionalArguments);
+			expectedArguments.addAll(Arrays.asList(
+					"-cp",
+					"." + File.pathSeparator + "./*" + File.pathSeparator + "../libs/*",
+					"org.nem.core.deploy.CommonStarter"));
+			Assert.assertThat(argumentsCaptor.getValue(), IsEqual.equalTo(expectedArguments));
+			Assert.assertThat(workingDirectoryCaptor.getValue().toString(), IsEqual.equalTo(expectedWorkingDirectory));
+		}
 	}
 }

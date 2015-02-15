@@ -44,7 +44,7 @@ public class JarNodeLauncher implements NodeLauncher {
 		final Path directory = Paths.get(config.getUri());
 		arguments.addAll(Arrays.asList(
 				"-cp",
-				"." + File.pathSeparator + "./*" + File.pathSeparator + "../libs/*",
+				Arrays.asList(".", "./*", "../libs/*").stream().collect(Collectors.joining(File.pathSeparator)),
 				"org.nem.core.deploy.CommonStarter"));
 		ExceptionUtils.propagateVoid(() -> {
 			this.launcher.launch(arguments, directory.toFile());
