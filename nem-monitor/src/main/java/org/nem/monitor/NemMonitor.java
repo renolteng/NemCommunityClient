@@ -82,8 +82,8 @@ public class NemMonitor {
 	private static NodeLauncher createJarLauncher(final MonitorConfiguration config) {
 		return new JarNodeLauncher(
 				new JavaProcessLauncher(),
-				config.getNisConfiguration().getUri(),
-				config.getNccConfiguration().getUri());
+				config.getNisConfiguration(),
+				config.getNccConfiguration());
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {

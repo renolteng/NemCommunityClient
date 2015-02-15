@@ -3,6 +3,7 @@ package org.nem.monitor.launcher;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
+import org.nem.monitor.config.NodeConfiguration;
 import org.nem.monitor.node.NemNodeType;
 
 import java.io.*;
@@ -23,7 +24,8 @@ public class JarNodeLauncherTest {
 		assertCanLaunchNode(
 				NemNodeType.NIS,
 				expectedArguments,
-				"nis-jar-path");	}
+				"nis-jar-path");
+	}
 
 	@Test
 	public void canLaunchNccNode() throws IOException{
@@ -47,8 +49,8 @@ public class JarNodeLauncherTest {
 		final JavaProcessLauncher processLauncher = Mockito.mock(JavaProcessLauncher.class);
 		final NodeLauncher launcher = new JarNodeLauncher(
 				processLauncher,
-				Paths.get("nis-jar-path", "nis.jar").toString(),
-				Paths.get("ncc-jar-path", "nis.jar").toString());
+				new NodeConfiguration(Paths.get("nis-jar-path", "nis.jar").toString(), "-Xms512M -Xmx1G", ""),
+				new NodeConfiguration(Paths.get("ncc-jar-path", "nis.jar").toString(), "", ""));
 
 		// Act:
 		launcher.launch(nodeType);

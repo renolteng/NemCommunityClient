@@ -27,8 +27,8 @@ public class WebStartNodeLauncher implements NodeLauncher {
 	}
 
 	@Override
-	public void launch(final NemNodeType type) {
-		switch (type) {
+	public void launch(final NemNodeType nodeType) {
+		switch (nodeType) {
 			case NIS:
 				this.launcher.launch(this.nisJnlpUrl);
 				break;

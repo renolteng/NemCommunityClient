@@ -1,54 +1,46 @@
 package org.nem.monitor.launcher;
 
-import org.nem.core.utils.ExceptionUtils;
+import org.nem.core.utils.*;
+import org.nem.monitor.config.NodeConfiguration;
 import org.nem.monitor.node.NemNodeType;
 
 import java.nio.file.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A JAR based node launcher.
  */
 public class JarNodeLauncher implements NodeLauncher {
 	private final JavaProcessLauncher launcher;
-	private final String nisJarPath;
-	private final String nccJarPath;
+	private final NodeConfiguration nisConfig;
+	private final NodeConfiguration nccConfig;
 
 	/**
 	 * Creates a new node launcher.
 	 *
 	 * @param launcher The launcher for launching a java process.
-	 * @param nisJarPath The NIS jar path.
-	 * @param nccJarPath The NCC jar path.
+	 * @param nisConfig The NIS node configuration.
+	 * @param nccConfig The NCC node configuration.
 	 */
 	public JarNodeLauncher(
 			final JavaProcessLauncher launcher,
-			final String nisJarPath,
-			final String nccJarPath) {
+			final NodeConfiguration nisConfig,
+			final NodeConfiguration nccConfig) {
 		this.launcher = launcher;
-		this.nisJarPath = nisJarPath;
-		this.nccJarPath = nccJarPath;
+		this.nisConfig = nisConfig;
+		this.nccConfig = nccConfig;
 	}
 
 	@Override
-	public void launch(final NemNodeType type) {
-		final String jarPathString;
+	public void launch(final NemNodeType nodeType) {
+		final NodeConfiguration config = this.getNodeConfig(nodeType);
 		final List<String> arguments = new ArrayList<>();
-		switch (type) {
-			case NIS:
-				arguments.add("-Xms512M");
-				arguments.add("-Xmx1G");
+		arguments.addAll(Arrays.stream(config.getVmOptions().split(" "))
+				.filter(arg -> !StringUtils.isNullOrWhitespace(arg))
+				.collect(Collectors.toList()));
 
-				jarPathString = this.nisJarPath;
-				break;
-
-			case NCC:
-			default:
-				jarPathString = this.nccJarPath;
-				break;
-		}
-
-		final Path jarPath = Paths.get(jarPathString);
+		final Path jarPath = Paths.get(config.getUri());
 		final Path directory = jarPath.getParent();
 		arguments.addAll(Arrays.asList(
 				"-cp",
@@ -57,5 +49,16 @@ public class JarNodeLauncher implements NodeLauncher {
 		ExceptionUtils.propagateVoid(() -> {
 			this.launcher.launch(arguments, directory.toFile());
 		});
+	}
+
+	private NodeConfiguration getNodeConfig(final NemNodeType nodeType) {
+		switch (nodeType) {
+			case NIS:
+				return this.nisConfig;
+
+			case NCC:
+			default:
+				return this.nccConfig;
+		}
 	}
 }

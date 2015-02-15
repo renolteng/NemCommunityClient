@@ -10,7 +10,7 @@ public interface NodeLauncher {
 	/**
 	 * Launches a node of the specified type.
 	 *
-	 * @param type The node type.
+	 * @param nodeType The node type.
 	 */
-	public void launch(final NemNodeType type);
+	public void launch(final NemNodeType nodeType);
 }
