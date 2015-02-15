@@ -69,25 +69,6 @@ public class WalletAwareAccountLookupTest {
 
 	//endregion
 
-	//region isKnownAddress
-
-	@Test
-	public void isKnownAddressDelegatesToInnerAccountLookup() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		final Address address = Utils.generateRandomAddress();
-		Mockito.when(context.mockAccountLookup.isKnownAddress(address)).thenReturn(true);
-
-		// Act:
-		final boolean result = context.accountLookup.isKnownAddress(address);
-
-		// Assert:
-		Assert.assertThat(result, IsEqual.equalTo(true));
-		Mockito.verify(context.mockAccountLookup, Mockito.times(1)).isKnownAddress(address);
-	}
-
-	//endregion
-
 	//region findPairByAddress
 
 	@Test

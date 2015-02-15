@@ -1,15 +1,14 @@
 package org.nem.ncc.test;
 
 import org.nem.core.model.*;
-import org.nem.core.serialization.AccountLookup;
+import org.nem.core.serialization.*;
 
 import java.util.HashMap;
-import java.util.function.Predicate;
 
 /**
  * A mock AccountLookup implementation.
  */
-public class MockAccountLookup implements AccountLookup {
+public class MockAccountLookup implements SimpleAccountLookup {
 
 	private final UnknownAccountBehavior unknownAccountBehavior;
 	private int numFindByIdCalls;
@@ -70,16 +69,6 @@ public class MockAccountLookup implements AccountLookup {
 			default:
 				return new Account(id);
 		}
-	}
-
-	@Override
-	public Account findByAddress(Address address, Predicate<Address> predicate) {
-		return null;
-	}
-
-	@Override
-	public boolean isKnownAddress(final Address id) {
-		return this.accountMap.containsKey(id);
 	}
 
 	/**

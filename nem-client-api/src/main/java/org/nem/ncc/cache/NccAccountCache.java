@@ -74,16 +74,6 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	}
 
 	@Override
-	public Account findByAddress(final Address address, final Predicate<Address> predicate) {
-		throw new IllegalArgumentException("called findByAddress variant not supported in ncc");
-	}
-
-	@Override
-	public boolean isKnownAddress(final Address id) {
-		return this.cache.containsKey(id);
-	}
-
-	@Override
 	public AccountMetaDataPair findPairByAddress(final Address id) {
 		return this.findFreshnessPairByAddress(id).accountMetaDataPair;
 	}
@@ -95,6 +85,16 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 			this.cache.remove(address);
 			this.findFreshnessPairByAddress(address);
 		}
+	}
+
+	/**
+	 * Checks if an account is known.
+	 *
+	 * @param id The account id.
+	 * @return true if the account is known, false if unknown.
+	 */
+	public boolean isKnownAddress(final Address id) {
+		return this.cache.containsKey(id);
 	}
 
 	private FreshnessPair findFreshnessPairByAddress(final Address id) {

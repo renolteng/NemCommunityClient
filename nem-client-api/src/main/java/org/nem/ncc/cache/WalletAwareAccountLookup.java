@@ -46,16 +46,6 @@ public class WalletAwareAccountLookup implements AccountMetaDataPairLookup {
 	}
 
 	@Override
-	public Account findByAddress(final Address address, final Predicate<Address> predicate) {
-		throw new IllegalArgumentException("called findByAddress variant not supported in ncc");
-	}
-
-	@Override
-	public boolean isKnownAddress(final Address id) {
-		return this.accountLookup.isKnownAddress(id);
-	}
-
-	@Override
 	public AccountMetaDataPair findPairByAddress(final Address id) {
 		final AccountMetaDataPair pair = this.accountLookup.findPairByAddress(id);
 		if (null == pair || null != pair.getAccount().getKeyPair()) {

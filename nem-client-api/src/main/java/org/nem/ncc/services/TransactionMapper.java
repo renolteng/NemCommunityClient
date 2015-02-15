@@ -4,7 +4,7 @@ import org.nem.core.crypto.*;
 import org.nem.core.messages.*;
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
-import org.nem.core.serialization.AccountLookup;
+import org.nem.core.serialization.*;
 import org.nem.core.time.*;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class TransactionMapper {
 	private final WalletServices walletServices;
-	private final AccountLookup accountLookup;
+	private final SimpleAccountLookup accountLookup;
 	private final TimeProvider timeProvider;
 
 	/**
@@ -33,7 +33,7 @@ public class TransactionMapper {
 	 */
 	public TransactionMapper(
 			final WalletServices walletServices,
-			final AccountLookup accountLookup,
+			final SimpleAccountLookup accountLookup,
 			final TimeProvider timeProvider) {
 		this.walletServices = walletServices;
 		this.accountLookup = accountLookup;

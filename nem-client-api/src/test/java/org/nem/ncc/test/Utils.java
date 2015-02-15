@@ -264,7 +264,7 @@ public class Utils {
 	 */
 	public static <T extends VerifiableEntity> Deserializer roundtripVerifiableEntity(
 			final T originalEntity,
-			final AccountLookup accountLookup) {
+			final SimpleAccountLookup accountLookup) {
 		// Arrange:
 		originalEntity.sign();
 
