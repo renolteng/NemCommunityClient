@@ -40,7 +40,8 @@ public class NemMonitor {
 			return;
 		}
 
-		logVersionInformation();
+		final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient = createHttpMethodClient();
+		logVersionInformation(new VersionProvider(httpClient));
 
 		SwingUtilities.invokeLater(() -> {
 			LOGGER.info("setting up system tray");
@@ -54,7 +55,7 @@ public class NemMonitor {
 			final NodeLauncher launcher = createJarLauncher(config);
 
 			final TrayIconBuilder builder = new TrayIconBuilder(
-					createHttpMethodClient(),
+					httpClient,
 					launcher,
 					new WebBrowser(),
 					isStartedViaWebStart());
@@ -88,9 +89,9 @@ public class NemMonitor {
 				config.getNccConfiguration());
 	}
 
-	private static void logVersionInformation() {
-		LOGGER.info(String.format("Local version: '%s'", VersionUtils.getLocalVersion()));
-		LOGGER.info(String.format("Latest version: '%s'", VersionUtils.getLatestVersion()));
+	private static void logVersionInformation(final VersionProvider versionProvider) {
+		LOGGER.info(String.format("Local version: '%s'", versionProvider.getLocalVersion()));
+		LOGGER.info(String.format("Latest version: '%s'", versionProvider.getLatestVersion()));
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {
