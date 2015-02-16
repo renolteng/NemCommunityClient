@@ -50,15 +50,20 @@ public class MonitorConfiguration {
 		// otherwise, the default value (from resources) and the default value (in code) will not match on all OSs
 		this.nemFolder = expandPath(properties.getOptionalString("nem.folder", "%h/nem"));
 
-		this.nisNodeConfig = new NodeConfiguration(
-				expandPath(properties.getString("nis.uri")),
-				properties.getOptionalString("nis.vmOptions", "-Xms512M -Xmx1G"),
-				properties.getOptionalString("nis.jnlpUrl", ""));
+		this.nisNodeConfig = parseNodeConfiguration(properties, "nis", "-Xms512M -Xmx1G");
+		this.nccNodeConfig = parseNodeConfiguration(properties, "ncc", "");
+	}
 
-		this.nccNodeConfig = new NodeConfiguration(
-				expandPath(properties.getString("ncc.uri")),
-				properties.getOptionalString("ncc.vmOptions", ""),
-				properties.getOptionalString("ncc.jnlpUrl", ""));
+	private static NodeConfiguration parseNodeConfiguration(
+			final NemProperties properties,
+			final String prefix,
+			final String defaultVmOptions) {
+		return new NodeConfiguration(
+				expandPath(properties.getString(prefix + ".uri")),
+				properties.getOptionalString(prefix + ".vmOptions", defaultVmOptions),
+				properties.getOptionalString(prefix + ".jnlpUrl", ""),
+				properties.getOptionalBoolean(prefix + ".isMonitored", true),
+				properties.getOptionalBoolean(prefix + ".shouldAutoBoot", true));
 	}
 
 	private static String expandPath(final String path) {

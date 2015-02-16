@@ -7,6 +7,8 @@ public class NodeConfiguration {
 	private final String uri;
 	private final String vmOptions;
 	private final String jnlpUrl;
+	private final boolean isMonitored;
+	private final boolean shouldAutoBoot;
 
 	/**
 	 * Creates a new node configuration.
@@ -14,14 +16,20 @@ public class NodeConfiguration {
 	 * @param uri The uri for launching the (local) node.
 	 * @param vmOptions The vm options for launching the (local) node.
 	 * @param jnlpUrl The JNLP url.
+	 * @param isMonitored true if the node should be monitored.
+	 * @param shouldAutoBoot true if the node should be auto-booted.
 	 */
 	public NodeConfiguration(
 			final String uri,
 			final String vmOptions,
-			final String jnlpUrl) {
+			final String jnlpUrl,
+			final boolean isMonitored,
+			final boolean shouldAutoBoot) {
 		this.uri = uri;
 		this.vmOptions = vmOptions;
 		this.jnlpUrl = jnlpUrl;
+		this.isMonitored = isMonitored;
+		this.shouldAutoBoot = shouldAutoBoot;
 	}
 
 	/**
@@ -49,5 +57,23 @@ public class NodeConfiguration {
 	 */
 	public String getJnlpUrl() {
 		return this.jnlpUrl;
+	}
+
+	/**
+	 * Gets a value indicating whether or not the node should be monitored.
+	 *
+	 * @return true if the node should be monitored.
+	 */
+	public boolean isMonitored() {
+		return this.isMonitored;
+	}
+
+	/**
+	 * Gets a value indicating whether or not the node should be auto-booted.
+	 *
+	 * @return true if the node should be auto-booted.
+	 */
+	public boolean shouldAutoBoot() {
+		return this.shouldAutoBoot;
 	}
 }

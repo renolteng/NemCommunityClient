@@ -16,8 +16,12 @@ public class MonitorConfigurationTest {
 			"nem.folder",
 			"nis.vmOptions",
 			"nis.jnlpUrl",
+			"nis.isMonitored",
+			"nis.shouldAutoBoot",
 			"ncc.vmOptions",
-			"ncc.jnlpUrl");
+			"ncc.jnlpUrl",
+			"ncc.isMonitored",
+			"ncc.shouldAutoBoot");
 
 	//region basic construction
 
@@ -74,11 +78,17 @@ public class MonitorConfigurationTest {
 				config.getNemFolder(),
 				IsEqual.equalTo(Paths.get(System.getProperty("user.home"), "nem").toString()));
 
-		Assert.assertThat(config.getNisConfiguration().getVmOptions(), IsEqual.equalTo("-Xms512M -Xmx1G"));
-		Assert.assertThat(config.getNisConfiguration().getJnlpUrl(), IsEqual.equalTo(""));
+		final NodeConfiguration nisConfig = config.getNisConfiguration();
+		Assert.assertThat(nisConfig.getVmOptions(), IsEqual.equalTo("-Xms512M -Xmx1G"));
+		Assert.assertThat(nisConfig.getJnlpUrl(), IsEqual.equalTo(""));
+		Assert.assertThat(nisConfig.isMonitored(), IsEqual.equalTo(true));
+		Assert.assertThat(nisConfig.shouldAutoBoot(), IsEqual.equalTo(true));
 
-		Assert.assertThat(config.getNccConfiguration().getVmOptions(), IsEqual.equalTo(""));
-		Assert.assertThat(config.getNccConfiguration().getJnlpUrl(), IsEqual.equalTo(""));
+		final NodeConfiguration nccConfig = config.getNisConfiguration();
+		Assert.assertThat(nccConfig.getVmOptions(), IsEqual.equalTo(""));
+		Assert.assertThat(nccConfig.getJnlpUrl(), IsEqual.equalTo(""));
+		Assert.assertThat(nccConfig.isMonitored(), IsEqual.equalTo(true));
+		Assert.assertThat(nccConfig.shouldAutoBoot(), IsEqual.equalTo(true));
 	}
 
 	private static void assertCustomRequiredConfiguration(final MonitorConfiguration config) {
@@ -91,11 +101,17 @@ public class MonitorConfigurationTest {
 		// Assert:
 		Assert.assertThat(config.getNemFolder(), IsEqual.equalTo("folder"));
 
-		Assert.assertThat(config.getNisConfiguration().getVmOptions(), IsEqual.equalTo("-XNis"));
-		Assert.assertThat(config.getNisConfiguration().getJnlpUrl(), IsEqual.equalTo("nis-remote.jnlp"));
+		final NodeConfiguration nisConfig = config.getNisConfiguration();
+		Assert.assertThat(nisConfig.getVmOptions(), IsEqual.equalTo("-XNis"));
+		Assert.assertThat(nisConfig.getJnlpUrl(), IsEqual.equalTo("nis-remote.jnlp"));
+		Assert.assertThat(nisConfig.isMonitored(), IsEqual.equalTo(true));
+		Assert.assertThat(nisConfig.shouldAutoBoot(), IsEqual.equalTo(false));
 
-		Assert.assertThat(config.getNccConfiguration().getVmOptions(), IsEqual.equalTo("-XNcc"));
-		Assert.assertThat(config.getNccConfiguration().getJnlpUrl(), IsEqual.equalTo("ncc-remote.jnlp"));
+		final NodeConfiguration nccConfig = config.getNisConfiguration();
+		Assert.assertThat(nccConfig.getVmOptions(), IsEqual.equalTo("-XNcc"));
+		Assert.assertThat(nccConfig.getJnlpUrl(), IsEqual.equalTo("ncc-remote.jnlp"));
+		Assert.assertThat(nccConfig.isMonitored(), IsEqual.equalTo(false));
+		Assert.assertThat(nccConfig.shouldAutoBoot(), IsEqual.equalTo(true));
 	}
 
 	//endregion
@@ -131,12 +147,18 @@ public class MonitorConfigurationTest {
 	private static Properties getCustomProperties() {
 		final Properties properties = new Properties();
 		properties.setProperty("nem.folder", "folder");
+
 		properties.setProperty("nis.uri", "nis-local-uri");
 		properties.setProperty("nis.vmOptions", "-XNis");
 		properties.setProperty("nis.jnlpUrl", "nis-remote.jnlp");
+		properties.setProperty("nis.isMonitored", "true");
+		properties.setProperty("nis.shouldAutoBoot", "false");
+
 		properties.setProperty("ncc.uri", "ncc-local-uri");
 		properties.setProperty("ncc.vmOptions", "-XNcc");
 		properties.setProperty("ncc.jnlpUrl", "ncc-remote.jnlp");
+		properties.setProperty("ncc.isMonitored", "false");
+		properties.setProperty("ncc.shouldAutoBoot", "true");
 		return properties;
 	}
 }

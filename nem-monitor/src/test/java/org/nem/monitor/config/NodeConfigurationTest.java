@@ -11,11 +11,15 @@ public class NodeConfigurationTest {
 		final NodeConfiguration config = new NodeConfiguration(
 				"local-uri",
 				"-XDebug",
-				"remote.jnlp");
+				"remote.jnlp",
+				true,
+				false);
 
 		// Assert:
 		Assert.assertThat(config.getUri(), IsEqual.equalTo("local-uri"));
 		Assert.assertThat(config.getVmOptions(), IsEqual.equalTo("-XDebug"));
 		Assert.assertThat(config.getJnlpUrl(), IsEqual.equalTo("remote.jnlp"));
+		Assert.assertThat(config.isMonitored(), IsEqual.equalTo(true));
+		Assert.assertThat(config.shouldAutoBoot(), IsEqual.equalTo(false));
 	}
 }

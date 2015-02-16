@@ -66,8 +66,12 @@ public class JarNodeLauncherTest {
 		public TestContext(final String nisVmOptions, final String nccVmOptions) {
 			this.launcher = new JarNodeLauncher(
 					this.processLauncher,
-					new NodeConfiguration("nis-jar-path", nisVmOptions, ""),
-					new NodeConfiguration("ncc-jar-path", nccVmOptions, ""));
+					createNodeConfiguration("nis-jar-path", nisVmOptions),
+					createNodeConfiguration("ncc-jar-path", nccVmOptions));
+		}
+
+		private static NodeConfiguration createNodeConfiguration(final String uri, final String vmOptions) {
+			return new NodeConfiguration(uri, vmOptions, "", false, false);
 		}
 
 		public void launch(final NemNodeType nodeType) {
