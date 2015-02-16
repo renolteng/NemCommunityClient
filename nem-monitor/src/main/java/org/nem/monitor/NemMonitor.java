@@ -4,6 +4,7 @@ import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
 import org.nem.monitor.config.*;
+import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
 
@@ -12,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 /**
@@ -33,14 +35,14 @@ public class NemMonitor {
 	 * @param args The command line arguments.
 	 */
 	public static void main(final String[] args) {
-		final MonitorCommandLine commandLine = MonitorCommandLine.parse(args);
-		LOGGER.info(String.format("NCC JNLP configured as: %s", commandLine.getNccJnlpUrl()));
-		LOGGER.info(String.format("NIS JNLP configured as: %s", commandLine.getNisJnlpUrl()));
-
-		final String nemFolder = new MonitorConfiguration().getNemFolder();
+		final MonitorConfiguration config = new MonitorConfiguration();
+		final String nemFolder = config.getNemFolder();
 		if (!canStart(nemFolder)) {
 			return;
 		}
+
+		final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient = createHttpMethodClient();
+		logVersionInformation(new VersionProvider(httpClient));
 
 		SwingUtilities.invokeLater(() -> {
 			LOGGER.info("setting up system tray");
@@ -51,16 +53,11 @@ public class NemMonitor {
 			}
 
 			final SystemTray tray = SystemTray.getSystemTray();
-			final WebStartLauncher launcher = new WebStartLauncher(nemFolder);
-			final TrayIconBuilder builder = new TrayIconBuilder(
-					createHttpMethodClient(),
-					launcher,
-					new WebBrowser(),
-					isStartedViaWebStart());
-			builder.addStatusMenuItems(new NisNodePolicy(nemFolder), commandLine.getNisJnlpUrl());
-			builder.addSeparator();
-			builder.addStatusMenuItems(new NccNodePolicy(nemFolder), commandLine.getNccJnlpUrl());
-			builder.addSeparator();
+			final NodeLauncher launcher = createJarLauncher(config);
+
+			final TrayIconBuilder builder = new TrayIconBuilder(httpClient, launcher, new WebBrowser());
+			addMenuItems(builder, new NisNodePolicy(nemFolder), config.getNisConfiguration());
+			addMenuItems(builder, new NccNodePolicy(nemFolder), config.getNccConfiguration());
 			builder.addExitMenuItem(tray);
 			builder.addExitAndShutdownMenuItem(tray);
 
@@ -70,6 +67,42 @@ public class NemMonitor {
 				throw new SystemTrayException("Unable to add icon to system tray", e);
 			}
 		});
+	}
+
+	private static void addMenuItems(
+			final TrayIconBuilder builder,
+			final NemNodePolicy nodePolicy,
+			final NodeConfiguration nodeConfig) {
+		if (!nodeConfig.isMonitored()) {
+			return;
+		}
+
+		final Consumer<?> launchAction = builder.addStatusMenuItems(nodePolicy);
+		builder.addSeparator();
+
+		if (nodeConfig.shouldAutoBoot()) {
+			launchAction.accept(null);
+		}
+	}
+
+	private static NodeLauncher createWebStartLauncher(final MonitorConfiguration config) {
+		final WebStartLauncher webStartLauncher = new WebStartLauncher(config.getNemFolder());
+		return new WebStartNodeLauncher(
+				webStartLauncher,
+				config.getNisConfiguration().getJnlpUrl(),
+				config.getNccConfiguration().getJnlpUrl());
+	}
+
+	private static NodeLauncher createJarLauncher(final MonitorConfiguration config) {
+		return new JarNodeLauncher(
+				new JavaProcessLauncher(),
+				config.getNisConfiguration(),
+				config.getNccConfiguration());
+	}
+
+	private static void logVersionInformation(final VersionProvider versionProvider) {
+		LOGGER.info(String.format("Local version: '%s'", versionProvider.getLocalVersion()));
+		LOGGER.info(String.format("Latest version: '%s'", versionProvider.getLatestVersion()));
 	}
 
 	private static HttpMethodClient<ErrorResponseDeserializerUnion> createHttpMethodClient() {

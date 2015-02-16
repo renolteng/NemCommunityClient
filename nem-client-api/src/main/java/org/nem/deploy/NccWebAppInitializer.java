@@ -1,7 +1,7 @@
 package org.nem.deploy;
 
 import org.nem.core.deploy.*;
-import org.nem.core.serialization.AccountLookup;
+import org.nem.core.serialization.SimpleAccountLookup;
 import org.nem.ncc.controller.interceptors.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.concurrent.CompletionException;
 //@EnableWebMvc // this cannot be present, when using WebMvcConfigurationSupport
 public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 	@Autowired
-	private AccountLookup accountLookup;
+	private SimpleAccountLookup accountLookup;
 
 	@Autowired
 	private org.nem.ncc.model.Configuration configuration;

@@ -1,4 +1,4 @@
-package org.nem.monitor;
+package org.nem.monitor.launcher;
 
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.utils.ExceptionUtils;

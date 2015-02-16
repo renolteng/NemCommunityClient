@@ -5,6 +5,7 @@ import org.nem.core.connect.*;
 import org.nem.core.connect.client.DefaultAsyncNemConnector;
 import org.nem.monitor.*;
 import org.nem.monitor.config.LanguageSupport;
+import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.visitors.*;
 
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -26,9 +28,8 @@ public class TrayIconBuilder {
 	private static final Logger LOGGER = Logger.getLogger(TrayIconBuilder.class.getName());
 
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
-	private final WebStartLauncher webStartLauncher;
+	private final NodeLauncher nodeLauncher;
 	private final WebBrowser webBrowser;
-	private final boolean isStartedViaWebStart;
 	private final TrayIcon trayIcon;
 	private final Dimension dimension;
 	private final PopupMenu popup;
@@ -39,19 +40,16 @@ public class TrayIconBuilder {
 	 * Creates a new builder.
 	 *
 	 * @param client The http method client.
-	 * @param webStartLauncher The web start launcher.
+	 * @param nodeLauncher The node launcher.
 	 * @param webBrowser The web browser.
-	 * @param isStartedViaWebStart true if the program was started via webstart.
 	 */
 	public TrayIconBuilder(
 			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
-			final WebStartLauncher webStartLauncher,
-			final WebBrowser webBrowser,
-			final boolean isStartedViaWebStart) {
+			final NodeLauncher nodeLauncher,
+			final WebBrowser webBrowser) {
 		this.client = client;
-		this.webStartLauncher = webStartLauncher;
+		this.nodeLauncher = nodeLauncher;
 		this.webBrowser = webBrowser;
-		this.isStartedViaWebStart = isStartedViaWebStart;
 
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
@@ -75,15 +73,14 @@ public class TrayIconBuilder {
 	 * Adds status menu items for the specified node policy.
 	 *
 	 * @param nodePolicy The node policy.
-	 * @param jnlpUrl The webstart url.
+	 * @return A function that will trigger a node launch.
 	 */
-	public void addStatusMenuItems(final NemNodePolicy nodePolicy, final String jnlpUrl) {
+	public Consumer<Void> addStatusMenuItems(final NemNodePolicy nodePolicy) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
 		final NodeManager manager = new NodeManager(
 				nodePolicy,
-				jnlpUrl,
 				this.createConnector(nodePolicy),
-				this.webStartLauncher,
+				this.nodeLauncher,
 				this.webBrowser);
 		final NodeStatusToManagementActionAdapter actionAdapter = new NodeStatusToManagementActionAdapter(nodeType, manager);
 
@@ -103,14 +100,15 @@ public class TrayIconBuilder {
 		}
 
 		actionMenuItem.addActionListener(actionAdapter);
-		if (this.isStartedViaWebStart) {
-			// simulate a click, which will trigger a webstart launch
-			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
-		}
 
 		this.visitors.add(visitor);
 		this.visitors.add(actionAdapter);
 		this.nodePolicies.add(nodePolicy);
+
+		return v -> {
+			// simulate a click, which will trigger a node launch
+			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+		};
 	}
 
 	/**
