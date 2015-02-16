@@ -36,7 +36,7 @@ public class VersionProvider {
 	 * @return The local NEM version.
 	 */
 	public NodeVersion getLocalVersion() {
-		final String localVersion = MetaDataFactory.loadApplicationMetaData(HttpMethodClient.class, new SystemTimeProvider()).getVersion();
+		final String localVersion = MetaDataFactory.loadApplicationMetaData(VersionProvider.class, new SystemTimeProvider()).getVersion();
 		return NodeVersion.parse(localVersion);
 	}
 

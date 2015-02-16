@@ -8,7 +8,7 @@ import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
 
-import javax.jnlp.*;
+//import javax.jnlp.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -124,6 +124,7 @@ public class NemMonitor {
 		return true;
 	}
 
+	/*
 	public static boolean isStartedViaWebStart() {
 		try {
 			ServiceManager.lookup("javax.jnlp.DownloadService2");
@@ -133,4 +134,5 @@ public class NemMonitor {
 			return false;
 		}
 	}
+	*/
 }
