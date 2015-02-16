@@ -84,7 +84,7 @@ public class MonitorConfigurationTest {
 		Assert.assertThat(nisConfig.isMonitored(), IsEqual.equalTo(true));
 		Assert.assertThat(nisConfig.shouldAutoBoot(), IsEqual.equalTo(true));
 
-		final NodeConfiguration nccConfig = config.getNisConfiguration();
+		final NodeConfiguration nccConfig = config.getNccConfiguration();
 		Assert.assertThat(nccConfig.getVmOptions(), IsEqual.equalTo(""));
 		Assert.assertThat(nccConfig.getJnlpUrl(), IsEqual.equalTo(""));
 		Assert.assertThat(nccConfig.isMonitored(), IsEqual.equalTo(true));
@@ -107,7 +107,7 @@ public class MonitorConfigurationTest {
 		Assert.assertThat(nisConfig.isMonitored(), IsEqual.equalTo(true));
 		Assert.assertThat(nisConfig.shouldAutoBoot(), IsEqual.equalTo(false));
 
-		final NodeConfiguration nccConfig = config.getNisConfiguration();
+		final NodeConfiguration nccConfig = config.getNccConfiguration();
 		Assert.assertThat(nccConfig.getVmOptions(), IsEqual.equalTo("-XNcc"));
 		Assert.assertThat(nccConfig.getJnlpUrl(), IsEqual.equalTo("ncc-remote.jnlp"));
 		Assert.assertThat(nccConfig.isMonitored(), IsEqual.equalTo(false));
