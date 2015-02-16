@@ -3,7 +3,7 @@ package org.nem.monitor;
 import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
-import org.nem.monitor.config.MonitorConfiguration;
+import org.nem.monitor.config.*;
 import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 /**
@@ -54,15 +55,9 @@ public class NemMonitor {
 			final SystemTray tray = SystemTray.getSystemTray();
 			final NodeLauncher launcher = createJarLauncher(config);
 
-			final TrayIconBuilder builder = new TrayIconBuilder(
-					httpClient,
-					launcher,
-					new WebBrowser(),
-					isStartedViaWebStart());
-			builder.addStatusMenuItems(new NisNodePolicy(nemFolder));
-			builder.addSeparator();
-			builder.addStatusMenuItems(new NccNodePolicy(nemFolder));
-			builder.addSeparator();
+			final TrayIconBuilder builder = new TrayIconBuilder(httpClient, launcher, new WebBrowser());
+			addMenuItems(builder, new NisNodePolicy(nemFolder), config.getNisConfiguration());
+			addMenuItems(builder, new NccNodePolicy(nemFolder), config.getNccConfiguration());
 			builder.addExitMenuItem(tray);
 			builder.addExitAndShutdownMenuItem(tray);
 
@@ -72,6 +67,22 @@ public class NemMonitor {
 				throw new SystemTrayException("Unable to add icon to system tray", e);
 			}
 		});
+	}
+
+	private static void addMenuItems(
+			final TrayIconBuilder builder,
+			final NemNodePolicy nodePolicy,
+			final NodeConfiguration nodeConfig) {
+		if (!nodeConfig.isMonitored()) {
+			return;
+		}
+
+		final Consumer<?> launchAction = builder.addStatusMenuItems(nodePolicy);
+		builder.addSeparator();
+
+		if (nodeConfig.shouldAutoBoot()) {
+			launchAction.accept(null);
+		}
 	}
 
 	private static NodeLauncher createWebStartLauncher(final MonitorConfiguration config) {

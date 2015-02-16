@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,6 @@ public class TrayIconBuilder {
 	private final HttpMethodClient<ErrorResponseDeserializerUnion> client;
 	private final NodeLauncher nodeLauncher;
 	private final WebBrowser webBrowser;
-	private final boolean isStartedViaWebStart;
 	private final TrayIcon trayIcon;
 	private final Dimension dimension;
 	private final PopupMenu popup;
@@ -42,17 +42,14 @@ public class TrayIconBuilder {
 	 * @param client The http method client.
 	 * @param nodeLauncher The node launcher.
 	 * @param webBrowser The web browser.
-	 * @param isStartedViaWebStart true if the program was started via webstart.
 	 */
 	public TrayIconBuilder(
 			final HttpMethodClient<ErrorResponseDeserializerUnion> client,
 			final NodeLauncher nodeLauncher,
-			final WebBrowser webBrowser,
-			final boolean isStartedViaWebStart) {
+			final WebBrowser webBrowser) {
 		this.client = client;
 		this.nodeLauncher = nodeLauncher;
 		this.webBrowser = webBrowser;
-		this.isStartedViaWebStart = isStartedViaWebStart;
 
 		// initially create the tray icon around a 1x1 pixel image because it cannot be created around a null image
 		this.trayIcon = new TrayIcon(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB));
@@ -76,8 +73,9 @@ public class TrayIconBuilder {
 	 * Adds status menu items for the specified node policy.
 	 *
 	 * @param nodePolicy The node policy.
+	 * @return A function that will trigger a node launch.
 	 */
-	public void addStatusMenuItems(final NemNodePolicy nodePolicy) {
+	public Consumer<Void> addStatusMenuItems(final NemNodePolicy nodePolicy) {
 		final NemNodeType nodeType = nodePolicy.getNodeType();
 		final NodeManager manager = new NodeManager(
 				nodePolicy,
@@ -102,14 +100,15 @@ public class TrayIconBuilder {
 		}
 
 		actionMenuItem.addActionListener(actionAdapter);
-		if (this.isStartedViaWebStart) {
-			// simulate a click, which will trigger a webstart launch
-			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
-		}
 
 		this.visitors.add(visitor);
 		this.visitors.add(actionAdapter);
 		this.nodePolicies.add(nodePolicy);
+
+		return v -> {
+			// simulate a click, which will trigger a node launch
+			actionAdapter.actionPerformed(new ActionEvent(actionMenuItem, ActionEvent.ACTION_PERFORMED, actionMenuItem.getLabel()));
+		};
 	}
 
 	/**
