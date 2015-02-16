@@ -1,6 +1,6 @@
 package org.nem.monitor.visitors;
 
-import org.nem.monitor.*;
+import org.nem.monitor.NemConnector;
 import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.NemNodePolicy;
 

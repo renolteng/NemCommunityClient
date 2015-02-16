@@ -1,6 +1,6 @@
 package org.nem.monitor.launcher;
 
-import org.nem.monitor.node.*;
+import org.nem.monitor.node.NemNodeType;
 
 /**
  * Interface for launching external NEM nodes.

@@ -14,7 +14,7 @@ public class JarNodeLauncherTest {
 	@Test
 	public void canLaunchNisNodeWithNoOptions() throws IOException {
 		// Arrange:
-		final TestContext testContext = new TestContext("", "-XNccOptions") ;
+		final TestContext testContext = new TestContext("", "-XNccOptions");
 
 		// Act:
 		testContext.launch(NemNodeType.NIS);
@@ -26,7 +26,7 @@ public class JarNodeLauncherTest {
 	@Test
 	public void canLaunchNisNodeWithOptions() throws IOException {
 		// Arrange:
-		final TestContext testContext = new TestContext("-Xms512M -Xmx1G -XNisOptions", "") ;
+		final TestContext testContext = new TestContext("-Xms512M -Xmx1G -XNisOptions", "");
 
 		// Act:
 		testContext.launch(NemNodeType.NIS);
@@ -50,7 +50,7 @@ public class JarNodeLauncherTest {
 	@Test
 	public void canLaunchNccNodeWithOptions() throws IOException {
 		// Arrange:
-		final TestContext testContext = new TestContext("", "-XNccOptions -Xms512M -Xmx1G") ;
+		final TestContext testContext = new TestContext("", "-XNccOptions -Xms512M -Xmx1G");
 
 		// Act:
 		testContext.launch(NemNodeType.NCC);
@@ -76,7 +76,7 @@ public class JarNodeLauncherTest {
 
 		public void assertLaunched(
 				final List<String> expectedAdditionalArguments,
-				final String expectedWorkingDirectory) throws IOException{
+				final String expectedWorkingDirectory) throws IOException {
 			@SuppressWarnings("unchecked")
 			final ArgumentCaptor<List<String>> argumentsCaptor = ArgumentCaptor.forClass((Class)List.class);
 			final ArgumentCaptor<File> workingDirectoryCaptor = ArgumentCaptor.forClass(File.class);

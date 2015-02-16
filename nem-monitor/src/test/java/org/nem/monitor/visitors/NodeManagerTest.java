@@ -3,7 +3,7 @@ package org.nem.monitor.visitors;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.nem.core.node.NodeEndpoint;
-import org.nem.monitor.*;
+import org.nem.monitor.NemConnector;
 import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 

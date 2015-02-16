@@ -2,8 +2,8 @@ package org.nem.monitor;
 
 import org.nem.core.connect.*;
 import org.nem.core.deploy.LoggingBootstrapper;
-import org.nem.core.utils.*;
-import org.nem.monitor.config.*;
+import org.nem.core.utils.LockFile;
+import org.nem.monitor.config.MonitorConfiguration;
 import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
