@@ -5,10 +5,10 @@ import org.junit.*;
 import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
 import org.nem.ncc.test.ExceptionAssert;
 
-public class StorableEntityFileExtensionTest {
+public abstract class StorableEntityFileExtensionTest {
 
 	@Test
-	public void parameterlessConstructorUsesDefaultFileExtension() {
+	public void zeroParameterConstructorUsesDefaultFileExtension() {
 		// Act:
 		final StorableEntityFileExtension fileExtension = this.createEntityFileExtension();
 
@@ -88,23 +88,14 @@ public class StorableEntityFileExtensionTest {
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value()));
 	}
 
-	protected StorableEntityFileExtension getDefaultFileExtension() {
-		return StorableEntityFileExtension.getDefaultFileExtension();
-	}
 
-	protected StorableEntityFileExtension createEntityFileExtension() {
-		return new StorableEntityFileExtension();
-	}
+	protected abstract StorableEntityFileExtension getDefaultFileExtension();
 
-	protected StorableEntityFileExtension createEntityFileExtension(final String fileExtension) {
-		return new StorableEntityFileExtension(fileExtension);
-	}
+	protected abstract StorableEntityFileExtension createEntityFileExtension();
 
-	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
-		return StorableEntityStorageException.class;
-	}
+	protected abstract StorableEntityFileExtension createEntityFileExtension(final String fileExtension);
 
-	protected Integer getExceptionValue(final Integer originalValue) {
-		return originalValue;
-	}
+	protected abstract Class<? extends StorableEntityStorageException> getExceptionClass();
+
+	protected abstract Integer getExceptionValue(final Integer originalValue);
 }

@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storable.entity.StorableEntityPasswordTest;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.Utils;
 
 public class WalletPasswordTest extends StorableEntityPasswordTest {
@@ -13,6 +13,13 @@ public class WalletPasswordTest extends StorableEntityPasswordTest {
 	protected WalletPassword createEntityPassword(final String name) {
 		return new WalletPassword(name);
 	}
+
+	@Override
+	protected WalletPassword createEntityPassword(final Deserializer deserializer, final String label) {
+		return WalletPassword.readFrom(deserializer, label);
+	}
+
+	// TODO 20150216 J-B: seem to be missing a test that uses the ctor(Deserializer)
 
 	// TODO 20150115 J-B: any reason you don't want to test serialization / deserialization in the base classes?
 	// > applies to all serialization / deserialization tests not in test base classes

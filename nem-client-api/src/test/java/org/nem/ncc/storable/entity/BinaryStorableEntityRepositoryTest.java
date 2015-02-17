@@ -3,20 +3,22 @@ package org.nem.ncc.storable.entity;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.Mockito;
-import org.nem.core.serialization.BinarySerializer;
+import org.nem.core.serialization.*;
 import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.test.*;
-import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 
 import java.io.*;
 
-public class BinaryStorableEntityRepositoryTest {
+public abstract class BinaryStorableEntityRepositoryTest<
+		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
+		TEntityDescriptor extends StorableEntityDescriptor<TEntity, ?, ?>,
+		TBinaryEntityRepository extends BinaryStorableEntityRepository<TEntity, ?, ?, TEntityDescriptor>> {
 
 	@Test
 	public void canSaveBinaryStorableEntityToWriteStream() {
 		// Arrange:
-		final StorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
-		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final TEntity entity = this.createEntity("blah");
+		final TEntityDescriptor descriptor = this.createDescriptor();
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		Mockito.when(descriptor.openWrite()).thenReturn(outputStream);
 
@@ -30,8 +32,8 @@ public class BinaryStorableEntityRepositoryTest {
 	@Test
 	public void saveFailureIsMappedToAppropriateException() {
 		// Arrange:
-		final StorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
-		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final TEntity entity = this.createEntity("blah");
+		final TEntityDescriptor descriptor = this.createDescriptor();
 		Mockito.when(descriptor.openWrite()).thenReturn(CorruptStreams.createWrite());
 
 		// Assert:
@@ -44,25 +46,24 @@ public class BinaryStorableEntityRepositoryTest {
 	@Test
 	public void canLoadBinaryStorableEntityFromReadStream() {
 		// Arrange:
-		final DefaultStorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
-		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final TEntity originalEntity = this.createEntityWithEntries("blah", 5);
+		final TEntityDescriptor descriptor = this.createDescriptor();
 		final ByteArrayInputStream inputStream = new ByteArrayInputStream(BinarySerializer.serializeToBytes(originalEntity));
-		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
+		final TEntity entity = this.createEntity("blah");
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
 		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
 		// Act:
-		final StorableEntity loadedEntity = this.createRepository().load(descriptor);
+		final TEntity loadedEntity = this.createRepository().load(descriptor);
 
 		// Assert:
-		// TODO 20150101 BR: Any way to do this with IsEquivalent matcher?
-		Assert.assertThat(originalEntity.isEqual(loadedEntity), IsEqual.equalTo(true));
+		Assert.assertThat(this.areEquivalent(originalEntity, loadedEntity), IsEqual.equalTo(true));
 	}
 
 	@Test
 	public void loadFailureIsMappedToAppropriateException() {
 		// Arrange:
-		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final TEntityDescriptor descriptor = this.createDescriptor();
 		Mockito.when(descriptor.openRead()).thenReturn(CorruptStreams.createRead());
 
 		// Assert:
@@ -75,9 +76,9 @@ public class BinaryStorableEntityRepositoryTest {
 	@Test
 	public void loadSerializationFailureIsMappedToAppropriateException() {
 		// Arrange: (storable entity deserialization will fail because the binary stream contains no data)
-		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final TEntityDescriptor descriptor = this.createDescriptor();
 		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { });
-		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
+		final TEntity entity = this.createEntity("blah");
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
 		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
@@ -91,36 +92,37 @@ public class BinaryStorableEntityRepositoryTest {
 	@Test
 	public void binaryStorableEntityCanBeRoundTripped() {
 		// Arrange:
-		final StorableEntityRepository repository = this.createRepository();
+		final TBinaryEntityRepository repository = this.createRepository();
 
-		final DefaultStorableEntity originalEntity = StorableEntityUtils.createStorableEntityWithEntries(new StorableEntityName("blah"), 5);
-		final StorableEntityDescriptor descriptor = Mockito.mock(StorableEntityDescriptor.class);
+		final TEntity originalEntity = this.createEntityWithEntries("blah", 5);
+		final TEntityDescriptor descriptor = this.createDescriptor();
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		Mockito.when(descriptor.openWrite()).thenReturn(outputStream);
 
 		// Act:
 		repository.save(descriptor, originalEntity);
 
-		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity(new StorableEntityName("blah"));
+		final TEntity entity = this.createEntity("blah");
 		Mockito.when(descriptor.openRead()).thenReturn(new ByteArrayInputStream(outputStream.toByteArray()));
 		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);
 
-		final StorableEntity loadedEntity = repository.load(descriptor);
+		final TEntity loadedEntity = repository.load(descriptor);
 
 		// Assert:
-		// TODO 20150101 BR: Any way to do this with IsEquivalent matcher?
-		Assert.assertThat(originalEntity.isEqual(loadedEntity), IsEqual.equalTo(true));
+		Assert.assertThat(this.areEquivalent(originalEntity, loadedEntity), IsEqual.equalTo(true));
 	}
 
-	protected BinaryStorableEntityRepository createRepository() {
-		return new BinaryStorableEntityRepository();
-	}
+	protected abstract TEntity createEntity(final String name);
 
-	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
-		return StorableEntityStorageException.class;
-	}
+	protected abstract TEntity createEntityWithEntries(final String name, final int numEntries);
 
-	protected Integer getExceptionValue(final Integer originalValue) {
-		return originalValue;
-	}
+	protected abstract boolean areEquivalent(final TEntity lhs, final TEntity rhs);
+
+	protected abstract TEntityDescriptor createDescriptor();
+
+	protected abstract TBinaryEntityRepository createRepository();
+
+	protected abstract Class<? extends StorableEntityStorageException> getExceptionClass();
+
+	protected abstract Integer getExceptionValue(final Integer originalValue);
 }

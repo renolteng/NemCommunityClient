@@ -25,4 +25,9 @@ public class WalletFileExtensionTest extends StorableEntityFileExtensionTest {
 	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
 		return WalletStorageException.class;
 	}
+
+	@Override
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
+	}
 }

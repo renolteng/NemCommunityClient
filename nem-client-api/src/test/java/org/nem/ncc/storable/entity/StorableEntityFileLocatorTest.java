@@ -4,27 +4,22 @@ import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.nem.ncc.storable.entity.storage.StorableEntityDescriptor;
 import org.nem.ncc.test.IsEquivalent;
-import org.nem.ncc.test.StorableEntity.*;
 
 import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StorableEntityFileLocatorTest {
+public abstract class StorableEntityFileLocatorTest<
+		TEntityDescriptor extends StorableEntityDescriptor<?, ?, ?>,
+		TEntityFileLocator extends StorableEntityFileLocator<?, ?, ?, TEntityDescriptor>> {
 	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	protected static final File TEST_FILE_SUB_DIRECTORY = new File(TEST_FILE_DIRECTORY, "sub");
 	protected static final File TEST_FILE_MC_DIRECTORY = new File(TEST_FILE_DIRECTORY, "mixed_case");
 	protected static final File TEST_FILE_NN_DIRECTORY = new File(TEST_FILE_DIRECTORY, "no_name");
 	protected static final File TEST_FILE_ME_DIRECTORY = new File(TEST_FILE_DIRECTORY, "multi_ext");
-	protected static final String DEFAULT_EXTENSION = getDefaultFileExtension();
 
 	//region BeforeClass / AfterClass
-
-	@BeforeClass
-	public static void createTestFiles() throws IOException {
-		createTestFiles(DEFAULT_EXTENSION);
-	}
 
 	@AfterClass
 	public static void removeTestFiles() throws IOException {
@@ -120,10 +115,10 @@ public class StorableEntityFileLocatorTest {
 
 	private void assertLocatedStorableEntityNames(final File directory, final String[] expectedNames) {
 		// Arrange:
-		final StorableEntityFileLocator locator = this.createFileLocator(directory);
+		final TEntityFileLocator locator = this.createFileLocator(directory);
 
 		// Act:
-		final List<StorableEntityDescriptor> descriptors = locator.getAll();
+		final List<TEntityDescriptor> descriptors = locator.getAll();
 
 		// Assert:
 		Assert.assertThat(
@@ -139,17 +134,5 @@ public class StorableEntityFileLocatorTest {
 				fileExtension.substring(3));
 	}
 
-	protected static String getDefaultFileExtension() {
-		return StorableEntityFileExtension.getDefaultFileExtension().toString();
-	}
-
-	protected StorableEntityFileLocator createFileLocator(final File file) {
-		return new StorableEntityFileLocator<>(
-				file,
-				(dir, name) -> StorableEntityFileExtension.isValidAndHasDefaultExtension(name),
-				DefaultStorableEntity::new,
-				StorableEntityName::new,
-				StorableEntityFileExtension::new,
-				DefaultStorableEntityFileDescriptor::new);
-	}
+	protected abstract TEntityFileLocator createFileLocator(final File file);
 }

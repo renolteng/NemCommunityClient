@@ -6,7 +6,7 @@ import org.junit.*;
 import org.nem.core.serialization.*;
 import org.nem.ncc.test.*;
 
-public class StorableEntityNameTest {
+public abstract class StorableEntityNameTest {
 
 	@Test
 	public void nameCanBeCreatedAroundValidNonWhitespaceString() {
@@ -101,7 +101,7 @@ public class StorableEntityNameTest {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
 		StorableEntityName.writeTo(serializer, this.getEntityNameLabel(), this.createEntityName("foo"));
-		final StorableEntityName name = StorableEntityName.readFrom(Utils.createDeserializer(serializer.getObject()), this.getEntityNameLabel());
+		final StorableEntityName name = this.createEntityName(Utils.createDeserializer(serializer.getObject()));
 
 		// Assert:
 		Assert.assertThat(name, IsEqual.equalTo(this.createEntityName("foo")));
@@ -109,15 +109,9 @@ public class StorableEntityNameTest {
 
 	//endregion
 
-	protected StorableEntityName createEntityName(final String name) {
-		return new StorableEntityName(name);
-	}
+	protected abstract StorableEntityName createEntityName(final String name);
 
-	protected StorableEntityName createEntityName(final Deserializer deserializer) {
-		return new StorableEntityName<>(deserializer, this.getEntityNameLabel(), null);
-	}
+	protected abstract StorableEntityName createEntityName(final Deserializer deserializer);
 
-	protected String getEntityNameLabel() {
-		return "name";
-	}
+	protected abstract String getEntityNameLabel();
 }
