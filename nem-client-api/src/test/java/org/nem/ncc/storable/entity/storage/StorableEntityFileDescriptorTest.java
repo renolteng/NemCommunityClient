@@ -68,8 +68,8 @@ public class StorableEntityFileDescriptorTest {
 		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("foo")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(new StorableEntityFileExtension(".bar")));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("foo")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(this.createEntityFileExtension(".bar")));
 		Assert.assertThat(
 				descriptor.getStorableEntityLocation(),
 				IsEqual.equalTo(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah", "foo.bar").toString()));
@@ -84,8 +84,8 @@ public class StorableEntityFileDescriptorTest {
 		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("FoO")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(new StorableEntityFileExtension(".BaR")));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("FoO")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(this.createEntityFileExtension(".BaR")));
 		Assert.assertThat(
 				descriptor.getStorableEntityLocation(),
 				IsEqual.equalTo(Paths.get(TEST_FILE_DIRECTORY.toString(), "BlAh", "FoO.BaR").toString()));
@@ -100,8 +100,8 @@ public class StorableEntityFileDescriptorTest {
 		final StorableEntityFileDescriptor descriptor = this.createDescriptor(file);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("öäü@")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(new StorableEntityFileExtension(".bar")));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("öäü@")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(this.createEntityFileExtension(".bar")));
 		Assert.assertThat(
 				descriptor.getStorableEntityLocation(),
 				IsEqual.equalTo(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah", "%C3%B6%C3%A4%C3%BC%40.bar").toString()));
@@ -253,6 +253,14 @@ public class StorableEntityFileDescriptorTest {
 	}
 
 	//endregion
+
+	private StorableEntityName createEntityName(final String name) {
+		return createDescriptor(new File(name + ".xyz")).getName();
+	}
+
+	private StorableEntityFileExtension createEntityFileExtension(final String extension) {
+		return createDescriptor(new File("xyz." + extension)).getFileExtension();
+	}
 
 	protected StorableEntityFileDescriptor createDescriptor(final File file) {
 		final DefaultStorableEntity entity = StorableEntityUtils.createStorableEntity("foo", ".bar");

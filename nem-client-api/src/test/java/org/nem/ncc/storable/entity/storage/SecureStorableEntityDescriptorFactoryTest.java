@@ -36,9 +36,7 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	public void createNewFailsIfPasswordIsNull() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-create"),
-				null);
+		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test-create");
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -51,15 +49,17 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	public void openExistingFailsIfPasswordIsNull() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test"),
-				null);
+		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test");
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
 				v -> descriptorFactory.openExisting(pair, FILE_EXTENSION),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value()));
+	}
+
+	protected StorableEntityNamePasswordPair createEntityNamePasswordPair(final String name) {
+		return new StorableEntityNamePasswordPair<>(new StorableEntityName(name), null);
 	}
 
 	protected SecureStorableEntityDescriptorFactory createFactory(final File file) {

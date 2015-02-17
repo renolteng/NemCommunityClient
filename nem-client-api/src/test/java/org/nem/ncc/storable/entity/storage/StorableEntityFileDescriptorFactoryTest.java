@@ -38,16 +38,14 @@ public class StorableEntityFileDescriptorFactoryTest {
 	public void createNewSucceedsWithNullPasswordInPair() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-create"),
-				null);
+		final StorableEntityNamePasswordPair pair = createEntityNamePasswordPair("test-create");
 
 		// Act:
 		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, FILE_EXTENSION);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(createEntityName("test-create")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(getDefaultExtension()));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
@@ -55,9 +53,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 	public void createNewFailsIfFileAlreadyExists() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test"),
-				null);
+		final StorableEntityNamePasswordPair pair = createEntityNamePasswordPair("test");
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -70,16 +66,14 @@ public class StorableEntityFileDescriptorFactoryTest {
 	public void createNewSucceedsIfFileDoesNotExist() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-create"),
-				null);
+		final StorableEntityNamePasswordPair pair = createEntityNamePasswordPair("test-create");
 
 		// Act:
 		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, FILE_EXTENSION);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(createEntityName("test-create")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(getDefaultExtension()));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
@@ -87,9 +81,7 @@ public class StorableEntityFileDescriptorFactoryTest {
 	public void openExistingFailsIfFileDoesNotExist() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-open"),
-				null);
+		final StorableEntityNamePasswordPair pair = createEntityNamePasswordPair("test-open");
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -102,17 +94,27 @@ public class StorableEntityFileDescriptorFactoryTest {
 	public void openExistingSucceedsIfFileAlreadyExists() {
 		// Arrange:
 		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test"),
-				null);
+		final StorableEntityNamePasswordPair pair = createEntityNamePasswordPair("test");
 
 		// Act:
 		final StorableEntityDescriptor descriptor = descriptorFactory.openExisting(pair, FILE_EXTENSION);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("test")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(getDefaultExtension()));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
+	}
+
+	protected StorableEntityName createEntityName(final String name) {
+		return createEntityNamePasswordPair(name).getName();
+	}
+
+	protected StorableEntityNamePasswordPair createEntityNamePasswordPair(final String name) {
+		return new StorableEntityNamePasswordPair<>(new StorableEntityName(name), null);
+	}
+
+	protected StorableEntityFileExtension getDefaultExtension() {
+		return new StorableEntityFileExtension(DefaultStorableEntity.DEFAULT_FILE_EXTENSION);
 	}
 
 	protected StorableEntityFileDescriptorFactory createFactory(final File file) {

@@ -16,6 +16,7 @@ public class StorableEntityNamePasswordPairTest {
 	@Test
 	public void pairCanBeCreated() {
 		// Act:
+		// TODO 20150216 J-J: this test is broken!!!
 		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
 				new StorableEntityName("name"),
 				new StorableEntityPassword("password"));
@@ -31,8 +32,8 @@ public class StorableEntityNamePasswordPairTest {
 		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("name", "password");
 
 		// Assert:
-		Assert.assertThat(pair.getName(), IsEqual.equalTo(new StorableEntityName("name")));
-		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(new StorableEntityPassword("password")));
+		Assert.assertThat(pair.getName(), IsEqual.equalTo(this.createEntityName("name")));
+		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(this.createEntityPassword("password")));
 	}
 
 	//endregion
@@ -104,6 +105,14 @@ public class StorableEntityNamePasswordPairTest {
 	}
 
 	//endregion
+
+	private StorableEntityName createEntityName(final String name) {
+		return createEntityNamePasswordPair(name, "xyz").getName();
+	}
+
+	private StorableEntityPassword createEntityPassword(final String password) {
+		return createEntityNamePasswordPair("xyz", password).getPassword();
+	}
 
 	protected StorableEntityNamePasswordPair createEntityNamePasswordPair(final String name, final String password) {
 		return new StorableEntityNamePasswordPair<>(
