@@ -13,9 +13,13 @@ public class SecureAddressBookDescriptorFactoryTest extends SecureStorableEntity
 		SecureAddressBookDescriptorFactory> {
 
 	@Override
-	protected AddressBookNamePasswordPair createEntityNamePasswordPair(final String name) {
-		// TODO 20150216 J-J: don't like this!
-		return new AddressBookNamePasswordPair(new AddressBookName(name), null);
+	protected AddressBookName createEntityName(final String name) {
+		return new AddressBookName(name);
+	}
+
+	@Override
+	protected AddressBookNamePasswordPair createEntityNamePasswordPair(final AddressBookName name, final AddressBookPassword password) {
+		return new AddressBookNamePasswordPair(name, password);
 	}
 
 	@Override

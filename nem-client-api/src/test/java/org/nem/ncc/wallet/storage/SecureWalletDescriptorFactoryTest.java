@@ -13,8 +13,13 @@ public class SecureWalletDescriptorFactoryTest extends SecureStorableEntityDescr
 		SecureWalletDescriptorFactory> {
 
 	@Override
-	protected WalletNamePasswordPair createEntityNamePasswordPair(final String name) {
-		return new WalletNamePasswordPair(new WalletName(name), null);
+	protected WalletName createEntityName(final String name) {
+		return new WalletName(name);
+	}
+
+	@Override
+	protected WalletNamePasswordPair createEntityNamePasswordPair(final WalletName name, final WalletPassword password) {
+		return new WalletNamePasswordPair(name, password);
 	}
 
 	@Override

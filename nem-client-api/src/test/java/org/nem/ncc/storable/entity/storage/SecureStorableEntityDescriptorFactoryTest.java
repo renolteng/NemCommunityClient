@@ -40,7 +40,7 @@ public abstract class SecureStorableEntityDescriptorFactoryTest<
 	public void createNewFailsIfPasswordIsNull() {
 		// Arrange:
 		final TEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test-create");
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair(this.createEntityName("test-create"), null);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -53,7 +53,7 @@ public abstract class SecureStorableEntityDescriptorFactoryTest<
 	public void openExistingFailsIfPasswordIsNull() {
 		// Arrange:
 		final TEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test");
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair(this.createEntityName("test"), null);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
@@ -62,7 +62,9 @@ public abstract class SecureStorableEntityDescriptorFactoryTest<
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value()));
 	}
 
-	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final String name);
+	protected abstract TEntityName createEntityName(final String name);
+
+	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final TEntityName name, final TEntityPassword password);
 
 	protected abstract TEntityFileExtension createFileExtension(final String extension);
 
