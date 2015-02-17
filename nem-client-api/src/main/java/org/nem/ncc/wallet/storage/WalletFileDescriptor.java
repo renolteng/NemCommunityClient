@@ -18,7 +18,6 @@ public class WalletFileDescriptor extends StorableEntityFileDescriptor<StorableW
 	 * @param file The wallet location.
 	 */
 	public WalletFileDescriptor(final File file) {
-		// TODO 20150301 BR: any way to do it with an interface rather than having MemoryWallet here?
 		this(file, MemoryWallet::new, WalletName::new, WalletFileExtension::new);
 	}
 

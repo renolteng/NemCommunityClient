@@ -20,7 +20,6 @@ public class AddressBookFileDescriptor
 	 * @param file The address book location.
 	 */
 	public AddressBookFileDescriptor(final File file) {
-		// TODO 20150301 BR: any way to do it with an interface rather than having MemoryAddressBook here?
 		this(file, MemoryAddressBook::new, AddressBookName::new, AddressBookFileExtension::new);
 	}
 
