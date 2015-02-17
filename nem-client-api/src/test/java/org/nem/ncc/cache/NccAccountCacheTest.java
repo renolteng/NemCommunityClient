@@ -305,7 +305,7 @@ public class NccAccountCacheTest {
 		final List<SerializableAccountId> expectedRequests = accounts.stream()
 				.map(a -> new SerializableAccountId(a.getAddress()))
 				.collect(Collectors.toList());
-		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = ArgumentCaptor.forClass(ArrayList.class);
+		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = createAccountIdListCaptor();
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPairs(captor.capture());
 		Assert.assertThat(captor.getValue(), IsEquivalent.equivalentTo(expectedRequests));
 	}
@@ -332,7 +332,7 @@ public class NccAccountCacheTest {
 		final List<SerializableAccountId> expectedRequests = accounts.stream()
 				.map(a -> new SerializableAccountId(a.getAddress()))
 				.collect(Collectors.toList());
-		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = ArgumentCaptor.forClass(ArrayList.class);
+		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = createAccountIdListCaptor();
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPairs(captor.capture());
 		Assert.assertThat(captor.getValue(), IsEquivalent.equivalentTo(expectedRequests));
 	}
@@ -357,7 +357,7 @@ public class NccAccountCacheTest {
 		// Assert:
 		// - only the first account was updated because the second account hasn't expired
 		final List<SerializableAccountId> expectedRequests = Arrays.asList(new SerializableAccountId(accounts.get(0).getAddress()));
-		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = ArgumentCaptor.forClass(ArrayList.class);
+		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = createAccountIdListCaptor();
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPairs(captor.capture());
 		Assert.assertThat(captor.getValue(), IsEquivalent.equivalentTo(expectedRequests));
 	}
@@ -381,6 +381,11 @@ public class NccAccountCacheTest {
 	}
 
 	//endregion
+
+	@SuppressWarnings("unchecked")
+	private static ArgumentCaptor<? extends List<SerializableAccountId>> createAccountIdListCaptor() {
+		return ArgumentCaptor.forClass((Class)List.class);
+	}
 
 	private static void assertAreEqual(final AccountInfo expectedInfo, final Account actualAccount) {
 		// Assert:
