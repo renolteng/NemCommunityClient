@@ -45,7 +45,6 @@ public abstract class StorableEntityNamePasswordPairTest<
 	@Test
 	public void pairCanBeDeserializedWithAllParameters() {
 		// Act:
-		// TODO 20150216 J-J: this test is failing.
 		final StorableEntityNamePasswordPair pair = this.createPairFromJson("name", "password");
 
 		// Assert:
@@ -70,7 +69,7 @@ public abstract class StorableEntityNamePasswordPairTest<
 
 	private StorableEntityNamePasswordPair createPairFromJson(final String name, final String password) {
 		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("storableEntity", name);
+		jsonObject.put(this.getDefaultNameLabel(), name);
 		jsonObject.put("password", password);
 		return this.createEntityNamePasswordPair(Utils.createDeserializer(jsonObject));
 	}
@@ -105,6 +104,8 @@ public abstract class StorableEntityNamePasswordPairTest<
 	}
 
 	//endregion
+
+	protected abstract String getDefaultNameLabel();
 
 	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final TEntityName name, final TEntityPassword password);
 

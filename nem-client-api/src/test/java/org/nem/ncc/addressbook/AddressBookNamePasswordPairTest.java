@@ -9,6 +9,11 @@ public class AddressBookNamePasswordPairTest extends StorableEntityNamePasswordP
 		AddressBookNamePasswordPair> {
 
 	@Override
+	protected String getDefaultNameLabel() {
+		return "addressBook";
+	}
+
+	@Override
 	protected AddressBookNamePasswordPair createEntityNamePasswordPair(final AddressBookName name, final AddressBookPassword password) {
 		return new AddressBookNamePasswordPair(name, password);
 	}

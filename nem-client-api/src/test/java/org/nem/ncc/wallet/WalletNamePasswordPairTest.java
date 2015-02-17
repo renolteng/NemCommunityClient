@@ -9,6 +9,11 @@ public class WalletNamePasswordPairTest extends StorableEntityNamePasswordPairTe
 		WalletNamePasswordPair> {
 
 	@Override
+	protected String getDefaultNameLabel() {
+		return "wallet";
+	}
+
+	@Override
 	protected WalletNamePasswordPair createEntityNamePasswordPair(final WalletName name, final WalletPassword password) {
 		return new WalletNamePasswordPair(name, password);
 	}
