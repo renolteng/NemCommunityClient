@@ -4,7 +4,9 @@ import org.mockito.Mockito;
 import org.nem.ncc.addressbook.AddressBookPassword;
 import org.nem.ncc.storable.entity.storage.*;
 
-public class SecureAddressBookDescriptorTest extends SecureStorableEntityDescriptorTest {
+public class SecureAddressBookDescriptorTest extends SecureStorableEntityDescriptorTest<
+		AddressBookDescriptor,
+		SecureAddressBookDescriptor> {
 
 	@Override
 	protected AddressBookDescriptor createDescriptor() {
@@ -12,10 +14,8 @@ public class SecureAddressBookDescriptorTest extends SecureStorableEntityDescrip
 	}
 
 	@Override
-	protected void createSecureDescriptor(final TestContext context) {
-		final AddressBookDescriptor descriptor = this.createDescriptor();
-		context.setDescriptor(descriptor);
-		context.setSecureDescriptor(new SecureAddressBookDescriptor(descriptor, new AddressBookPassword(context.getPassword())));
+	protected SecureAddressBookDescriptor createSecureDescriptor(final AddressBookDescriptor descriptor, final String password) {
+		return new SecureAddressBookDescriptor(descriptor, new AddressBookPassword(password));
 	}
 
 	@Override

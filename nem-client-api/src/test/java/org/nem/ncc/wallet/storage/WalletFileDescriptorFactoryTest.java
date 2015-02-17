@@ -1,31 +1,39 @@
 package org.nem.ncc.wallet.storage;
 
-import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.storable.entity.storage.*;
-import org.nem.ncc.test.StorableEntity.DefaultStorableEntity;
 import org.nem.ncc.wallet.*;
 
 import java.io.File;
 
-public class WalletFileDescriptorFactoryTest extends StorableEntityFileDescriptorFactoryTest {
+public class WalletFileDescriptorFactoryTest extends StorableEntityFileDescriptorFactoryTest<
+		WalletName,
+		WalletPassword,
+		WalletFileExtension,
+		WalletNamePasswordPair,
+		WalletFileDescriptorFactory> {
 
 	@Override
-	protected StorableEntityNamePasswordPair createEntityNamePasswordPair(final String name) {
+	protected WalletNamePasswordPair createEntityNamePasswordPair(final String name) {
 		return new WalletNamePasswordPair(name, "xyz");
 	}
 
 	@Override
-	protected StorableEntityFileExtension getDefaultExtension() {
-		return new WalletFileExtension(DefaultStorableEntity.DEFAULT_FILE_EXTENSION);
+	protected WalletFileExtension createFileExtension(final String extension) {
+		return new WalletFileExtension(extension);
 	}
 
 	@Override
-	protected StorableEntityFileDescriptorFactory createFactory(final File file) {
+	protected WalletFileDescriptorFactory createFactory(final File file) {
 		return new WalletFileDescriptorFactory(file);
 	}
 
 	@Override
 	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
 		return WalletStorageException.class;
+	}
+
+	@Override
+	protected Integer getExceptionValue(final Integer originalValue) {
+		return originalValue;
 	}
 }
