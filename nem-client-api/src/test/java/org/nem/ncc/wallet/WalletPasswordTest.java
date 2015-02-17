@@ -15,11 +15,9 @@ public class WalletPasswordTest extends StorableEntityPasswordTest {
 	}
 
 	@Override
-	protected WalletPassword createEntityPassword(final Deserializer deserializer, final String label) {
-		return WalletPassword.readFrom(deserializer, label);
+	protected WalletPassword createEntityPassword(final Deserializer deserializer) {
+		return new WalletPassword(deserializer);
 	}
-
-	// TODO 20150216 J-B: seem to be missing a test that uses the ctor(Deserializer)
 
 	// TODO 20150115 J-B: any reason you don't want to test serialization / deserialization in the base classes?
 	// > applies to all serialization / deserialization tests not in test base classes

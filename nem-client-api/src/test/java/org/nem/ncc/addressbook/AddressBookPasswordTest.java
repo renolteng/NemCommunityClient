@@ -15,8 +15,8 @@ public class AddressBookPasswordTest extends StorableEntityPasswordTest {
 	}
 
 	@Override
-	protected StorableEntityPassword createEntityPassword(final Deserializer deserializer, final String label) {
-		return AddressBookPassword.readFrom(deserializer, label);
+	protected StorableEntityPassword createEntityPassword(final Deserializer deserializer) {
+		return new AddressBookPassword(deserializer);
 	}
 
 	@Test

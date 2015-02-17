@@ -75,8 +75,8 @@ public abstract class StorableEntityPasswordTest {
 	public void canRoundtripRequiredPassword() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		StorableEntityPassword.writeTo(serializer, "sep", this.createEntityPassword("foo"));
-		final StorableEntityPassword password = this.createEntityPassword(Utils.createDeserializer(serializer.getObject()), "sep");
+		StorableEntityPassword.writeTo(serializer, "password", this.createEntityPassword("foo"));
+		final StorableEntityPassword password = this.createEntityPassword(Utils.createDeserializer(serializer.getObject()));
 
 		// Assert:
 		Assert.assertThat(password, IsEqual.equalTo(this.createEntityPassword("foo")));
@@ -86,7 +86,5 @@ public abstract class StorableEntityPasswordTest {
 
 	protected abstract StorableEntityPassword createEntityPassword(final String password);
 
-	protected abstract StorableEntityPassword createEntityPassword(
-			final Deserializer deserializer,
-			final String label);
+	protected abstract StorableEntityPassword createEntityPassword(final Deserializer deserializer);
 }
