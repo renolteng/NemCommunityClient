@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * A StorableEntityDescriptor implementation that references files stored on disk.
  */
-public class StorableEntityFileDescriptor<
+public abstract class StorableEntityFileDescriptor<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TEntityName extends StorableEntityName,
 		TEntityFileExtension extends StorableEntityFileExtension>
@@ -108,7 +108,5 @@ public class StorableEntityFileDescriptor<
 		serializer.writeString("location", this.getStorableEntityLocation());
 	}
 
-	protected StorableEntityStorageException getException(final int value, final Exception ex) {
-		return null == ex ? new StorableEntityStorageException(value) : new StorableEntityStorageException(value, ex);
-	}
+	protected abstract StorableEntityStorageException getException(final int value, final Exception ex);
 }

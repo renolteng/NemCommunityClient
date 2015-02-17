@@ -13,14 +13,10 @@ import org.nem.ncc.storable.entity.*;
 
 import java.io.*;
 
-// TODO 20150115 J-B: why aren't the classes in this package abstract?
-// TODO 20150116 BR -> J: probably only because at first I wanted the wallet and address book classes to use the storable entity classes directly.
-// > I ended up making the storable entity classes generic and thus i guess it is indeed better to make the classes abstract.
-
 /**
  * StorableEntityDescriptor that automatically encrypts and decrypts data using a password.
  */
-public class SecureStorableEntityDescriptor<
+public abstract class SecureStorableEntityDescriptor<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TEntityName extends StorableEntityName,
 		TEntityFileExtension extends StorableEntityFileExtension,
@@ -38,7 +34,7 @@ public class SecureStorableEntityDescriptor<
 	 * @param descriptor The underlying descriptor.
 	 * @param password The password.
 	 */
-	public SecureStorableEntityDescriptor(
+	protected SecureStorableEntityDescriptor(
 			final TEntityDescriptor descriptor,
 			final TEntityPassword password) {
 		if (null == password) {
@@ -134,7 +130,5 @@ public class SecureStorableEntityDescriptor<
 		return resultCipher;
 	}
 
-	protected StorableEntityStorageException getException(final int value, final Exception ex) {
-		return null == ex ? new StorableEntityStorageException(value) : new StorableEntityStorageException(value, ex);
-	}
+	protected abstract StorableEntityStorageException getException(final int value, final Exception ex);
 }

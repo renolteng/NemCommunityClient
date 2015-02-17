@@ -10,7 +10,7 @@ import java.util.function.*;
 /**
  * Factory that creates secure, file-backed storable entity descriptors.
  */
-public class SecureStorableEntityDescriptorFactory<
+public abstract class SecureStorableEntityDescriptorFactory<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TEntityName extends StorableEntityName,
 		TEntityPassword extends StorableEntityPassword,
@@ -54,7 +54,7 @@ public class SecureStorableEntityDescriptorFactory<
 	 * @param secureDescriptorActivator The secure descriptor activator.
 	 * @param descriptorFactoryActivator The file descriptor factory activator.
 	 */
-	public SecureStorableEntityDescriptorFactory(
+	protected SecureStorableEntityDescriptorFactory(
 			final File directory,
 			final ObjectDeserializer<TEntity> deserializer,
 			final Function<String, TEntityName> nameActivator,
