@@ -44,6 +44,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 if (data.ok) {
                     ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.settings.saveSuccess'));
                     self.closeModal();
+                    ncc.refreshAccount();
                 }
             });
         },
