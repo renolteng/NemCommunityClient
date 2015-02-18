@@ -53,7 +53,20 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
         onrender: function() {
             this._super();
 
+            this.observe({
+                chkDefaultPort: function(chkDefaultPort) {
+                    if (chkDefaultPort) {
+                        this.set('portStr', '7890');
+                    }
+                },
+            },
+            {
+                init: false
+            });
             this.on({
+                modalOpened: function() {
+                    this.set('chkDefaultPort', (this.get('settings.remoteServer.port') == 7890));
+                },
                 modalClosed: function() {
                     // Refresh to the current settings
                     ncc.getRequest('configuration/get', function(data) {

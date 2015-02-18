@@ -63,8 +63,10 @@
 						</div>
 						<div class="form-field">
 							<p class="form-label">{{texts.modals.settings.remoteServer.port}}</p>
-							<input type="text" class="form-input form-input--textbox js-settingsModal-port-textbox" value="{{portStr}}" disabled />
-						</div>
+							<input type="checkbox" class="form-checkbox" id="settingModal-chkDefaultPort" checked="{{chkDefaultPort}}" />
+							<label class="form-label form-checkbox-label" for="settingModal-chkDefaultPort">Use default port</label>
+							<input type="text" class="form-input {{#if chkDefaultPort}}form-input--unimportant{{/if}} form-input--textbox js-settingsModal-port-textbox" value="{{portStr}}" readonly="{{chkDefaultPort}}" />
+                        </div>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^activeTab === 'autoBoot'}}hidden{{/}}">
 						<div class="form-field">
