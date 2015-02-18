@@ -231,3 +231,11 @@ input:checked + .listingPage-filterLabel {
 .addressBook-rightMost {
 	padding-right: 30px;
 }
+
+.listingPage-list--contacts table { table-layout: fixed; }
+.listingPage-list--contacts .txList-col--address { width: 450px; }
+.listingPage-list--contacts .txList-col--label {
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
