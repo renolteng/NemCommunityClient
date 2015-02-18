@@ -88,7 +88,7 @@ define({
 					many: '{{1}} jours'
 				},
 				synchronized: 'NIS est synchronisé!',
-				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+				noRemoteNisAvailable: 'Aucun server distant NIS n\'a été trouvé sur le réseau. Vérifier votre connection Internet.'
 			},
 			addressBook: 'Carnet d\'adresses',
 			password: 'Mot de passe',
@@ -165,7 +165,7 @@ define({
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.'
 			},
 			signMultisig: {
 				title: 'Signer la transaction multisig',
@@ -191,7 +191,7 @@ define({
 				sending: 'Envoi...',
 				successMessage: 'La transaction a été envoyé avec succès!',
 				txConfirm: {
-					title: 'Confirm la transaction Multisig ',
+					title: 'Confirmer la transaction Multisig ',
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
 					noMessage: 'Pas de message',
@@ -244,7 +244,7 @@ define({
 					message: 'S\'il vous plait, attendre que le processus de démarrage soit terminé avant d\'envoyer votre transaction.'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: 'Chargement de la base de donnée'
 				}
 			},
 			clientInfo: {
@@ -295,7 +295,7 @@ define({
 				add: 'Ajouter au carnet d\'adresses',
 				remove: 'Retirer du carnet d\'adresses',
 				balance: 'Balance',
-				vested: 'vested',
+				vested: 'Assigneé',
 				importance: 'Importance',
 				publicKey: 'Clé publique',
 				noPublicKey: 'Pas de clé publique',
@@ -556,7 +556,7 @@ define({
 				closeWallet: 'Fermer le portefeuille',
 				closeProgram: 'Fermer l\'application',
 				copyClipboard: 'Copier l\'adresse dans le presse-papier',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Convertir un autre compte en type multisig'
 			},
 			nav: [
 				'Tableau de bord',
@@ -684,8 +684,8 @@ define({
 				harvesting: 'Récolte',
 				stop: 'Arrêter la récolte locale',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Démarrer la récolte distante',
+					stopRemoteHarvesting: 'Arrêter la récolte distante'
 				}
 			}
 		},
