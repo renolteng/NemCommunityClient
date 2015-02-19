@@ -6,7 +6,7 @@ import org.nem.core.utils.StringUtils;
 /**
  * Represents a storable entity password.
  */
-public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
+public abstract class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 	private final String password;
 	private final Class<TDerived> derivedClass;
 
@@ -15,7 +15,7 @@ public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 	 *
 	 * @param password The password.
 	 */
-	public StorableEntityPassword(final String password) {
+	protected StorableEntityPassword(final String password) {
 		this(password, null);
 	}
 
@@ -25,7 +25,7 @@ public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 	 * @param password The password.
 	 * @param derivedClass The derived class.
 	 */
-	public StorableEntityPassword(final String password, final Class<TDerived> derivedClass) {
+	protected StorableEntityPassword(final String password, final Class<TDerived> derivedClass) {
 		if (StringUtils.isNullOrWhitespace(password)) {
 			throw new IllegalArgumentException("password must be non-whitespace");
 		}
@@ -41,7 +41,7 @@ public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 	 * @param label The label to read from.
 	 * @param derivedClass The derived class.
 	 */
-	public StorableEntityPassword(
+	protected StorableEntityPassword(
 			final Deserializer deserializer,
 			final String label,
 			final Class<TDerived> derivedClass) {
@@ -81,29 +81,6 @@ public class StorableEntityPassword<TDerived extends StorableEntityPassword> {
 	 */
 	public static void writeTo(final Serializer serializer, final String label, final StorableEntityPassword password) {
 		serializer.writeString(label, password.toString());
-	}
-
-	/**
-	 * Reads a storable entity password object.
-	 *
-	 * @param deserializer The deserializer to use.
-	 * @param label The optional label.
-	 * @return The read object.
-	 */
-	public static StorableEntityPassword readFrom(final Deserializer deserializer, final String label) {
-		return new StorableEntityPassword<>(deserializer.readString(label));
-	}
-
-	/**
-	 * Reads a storable entity password object that can be null.
-	 *
-	 * @param deserializer The deserializer to use.
-	 * @param label The optional label.
-	 * @return The read object.
-	 */
-	public static StorableEntityPassword readFromOptional(final Deserializer deserializer, final String label) {
-		final String password = deserializer.readOptionalString(label);
-		return null == password ? null : new StorableEntityPassword<>(password);
 	}
 
 	//endregion

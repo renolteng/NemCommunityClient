@@ -1,13 +1,34 @@
 package org.nem.ncc.addressbook.storage;
 
+import org.nem.ncc.addressbook.*;
 import org.nem.ncc.storable.entity.storage.*;
 
 import java.io.File;
 
-public class SecureAddressBookDescriptorFactoryTest extends SecureStorableEntityDescriptorFactoryTest {
+public class SecureAddressBookDescriptorFactoryTest extends SecureStorableEntityDescriptorFactoryTest<
+		AddressBookName,
+		AddressBookPassword,
+		AddressBookFileExtension,
+		AddressBookNamePasswordPair,
+		SecureAddressBookDescriptorFactory> {
 
 	@Override
-	protected SecureStorableEntityDescriptorFactory createFactory(final File file) {
+	protected AddressBookName createEntityName(final String name) {
+		return new AddressBookName(name);
+	}
+
+	@Override
+	protected AddressBookNamePasswordPair createEntityNamePasswordPair(final AddressBookName name, final AddressBookPassword password) {
+		return new AddressBookNamePasswordPair(name, password);
+	}
+
+	@Override
+	protected AddressBookFileExtension createFileExtension(final String extension) {
+		return new AddressBookFileExtension(extension);
+	}
+
+	@Override
+	protected SecureAddressBookDescriptorFactory createFactory(final File file) {
 		return new SecureAddressBookDescriptorFactory(file);
 	}
 

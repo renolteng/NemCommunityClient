@@ -11,7 +11,7 @@ import java.util.function.Function;
 /**
  * Factory that creates file-backed storable entity descriptors.
  */
-public class StorableEntityFileDescriptorFactory<
+public abstract class StorableEntityFileDescriptorFactory<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TEntityName extends StorableEntityName,
 		TEntityPassword extends StorableEntityPassword,
@@ -88,7 +88,5 @@ public class StorableEntityFileDescriptorFactory<
 		return UrlEncoded.encodeString(name.toString()) + fileExtension.toString();
 	}
 
-	protected StorableEntityStorageException getException(final int value) {
-		return new StorableEntityStorageException(value);
-	}
+	protected abstract StorableEntityStorageException getException(final int value);
 }

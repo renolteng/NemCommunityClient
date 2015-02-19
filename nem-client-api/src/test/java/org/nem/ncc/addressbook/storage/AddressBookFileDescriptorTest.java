@@ -1,13 +1,17 @@
 package org.nem.ncc.addressbook.storage;
 
+import org.nem.ncc.addressbook.*;
 import org.nem.ncc.storable.entity.storage.*;
 
 import java.io.File;
 
-public class AddressBookFileDescriptorTest extends StorableEntityFileDescriptorTest {
+public class AddressBookFileDescriptorTest extends StorableEntityFileDescriptorTest<
+		AddressBookName,
+		AddressBookFileExtension,
+		AddressBookFileDescriptor> {
 
 	@Override
-	protected StorableEntityFileDescriptor createDescriptor(final File file) {
+	protected AddressBookFileDescriptor createDescriptor(final File file) {
 		return new AddressBookFileDescriptor(file);
 	}
 

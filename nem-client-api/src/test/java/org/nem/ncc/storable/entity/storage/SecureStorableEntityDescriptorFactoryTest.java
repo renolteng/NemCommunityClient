@@ -4,15 +4,19 @@ import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.ExceptionAssert;
-import org.nem.ncc.test.StorableEntity.*;
 
 import java.io.*;
 
-public class SecureStorableEntityDescriptorFactoryTest {
+public abstract class SecureStorableEntityDescriptorFactoryTest<
+		TEntityName extends StorableEntityName,
+		TEntityPassword extends StorableEntityPassword,
+		TEntityFileExtension extends StorableEntityFileExtension,
+		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, ?> ,
+		TEntityDescriptorFactory extends StorableEntityDescriptorFactory<TEntityNamePasswordPair, TEntityFileExtension, ?>> {
 	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	protected static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	protected static final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+	protected static final String FILE_EXTENSION = ".bar";
 
 	//region BeforeClass / AfterClass
 
@@ -35,14 +39,12 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	@Test
 	public void createNewFailsIfPasswordIsNull() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-create"),
-				null);
+		final TEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair(this.createEntityName("test-create"), null);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
-				v -> descriptorFactory.createNew(pair, FILE_EXTENSION),
+				v -> descriptorFactory.createNew(pair, this.createFileExtension(FILE_EXTENSION)),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value()));
 	}
@@ -50,34 +52,25 @@ public class SecureStorableEntityDescriptorFactoryTest {
 	@Test
 	public void openExistingFailsIfPasswordIsNull() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test"),
-				null);
+		final TEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair(this.createEntityName("test"), null);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
-				v -> descriptorFactory.openExisting(pair, FILE_EXTENSION),
+				v -> descriptorFactory.openExisting(pair, this.createFileExtension(FILE_EXTENSION)),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_PASSWORD_CANNOT_BE_NULL.value()));
 	}
 
-	protected SecureStorableEntityDescriptorFactory createFactory(final File file) {
-		return new SecureStorableEntityDescriptorFactory<>(
-				file,
-				DefaultStorableEntity::new,
-				StorableEntityName::new,
-				StorableEntityFileExtension::new,
-				DefaultStorableEntityFileDescriptor::new,
-				DefaultSecureStorableEntityDescriptor::new,
-				DefaultStorableEntityFileDescriptorFactory::new);
-	}
+	protected abstract TEntityName createEntityName(final String name);
 
-	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
-		return StorableEntityStorageException.class;
-	}
+	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final TEntityName name, final TEntityPassword password);
 
-	protected Integer getExceptionValue(final Integer originalValue) {
-		return originalValue;
-	}
+	protected abstract TEntityFileExtension createFileExtension(final String extension);
+
+	protected abstract TEntityDescriptorFactory createFactory(final File file);
+
+	protected abstract Class<? extends StorableEntityStorageException> getExceptionClass();
+
+	protected abstract Integer getExceptionValue(final Integer originalValue);
 }

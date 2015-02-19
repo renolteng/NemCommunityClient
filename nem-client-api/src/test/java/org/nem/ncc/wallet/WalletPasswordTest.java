@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storable.entity.StorableEntityPasswordTest;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.Utils;
 
 public class WalletPasswordTest extends StorableEntityPasswordTest {
@@ -12,6 +12,11 @@ public class WalletPasswordTest extends StorableEntityPasswordTest {
 	@Override
 	protected WalletPassword createEntityPassword(final String name) {
 		return new WalletPassword(name);
+	}
+
+	@Override
+	protected WalletPassword createEntityPassword(final Deserializer deserializer) {
+		return new WalletPassword(deserializer);
 	}
 
 	// TODO 20150115 J-B: any reason you don't want to test serialization / deserialization in the base classes?

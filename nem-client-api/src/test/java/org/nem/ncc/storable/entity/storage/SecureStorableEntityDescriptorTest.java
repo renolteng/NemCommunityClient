@@ -6,12 +6,13 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.ExceptionUtils;
-import org.nem.ncc.storable.entity.StorableEntityPassword;
 import org.nem.ncc.test.*;
 
 import java.io.*;
 
-public class SecureStorableEntityDescriptorTest {
+public abstract class SecureStorableEntityDescriptorTest<
+		TEntityDescriptor extends StorableEntityDescriptor,
+		TSecureEntityDescriptor extends SecureStorableEntityDescriptor> {
 	protected static final byte[] WRITTEN_BYTES = new byte[] { 5, 7, 123, 56, 11, 2, 53, 99, 100 };
 
 	//region openRead
@@ -112,12 +113,11 @@ public class SecureStorableEntityDescriptorTest {
 
 	//endregion
 
-	@SuppressWarnings("unchecked")
 	private byte[] createEncryptedPayload(final String password) throws IOException {
 		final ByteArrayOutputStream memoryStream = new ByteArrayOutputStream();
-		final StorableEntityDescriptor wrappedDescriptor = this.createDescriptor();
+		final TEntityDescriptor wrappedDescriptor = this.createDescriptor();
 		Mockito.when(wrappedDescriptor.openWrite()).thenReturn(memoryStream);
-		final StorableEntityDescriptor descriptor = new SecureStorableEntityDescriptor(wrappedDescriptor, new StorableEntityPassword(password));
+		final StorableEntityDescriptor descriptor = this.createSecureDescriptor(wrappedDescriptor, password);
 
 		// Act:
 		try (final OutputStream os = descriptor.openWrite()) {
@@ -129,23 +129,18 @@ public class SecureStorableEntityDescriptorTest {
 		return memoryStream.toByteArray();
 	}
 
-	protected StorableEntityDescriptor createDescriptor() {
-		return Mockito.mock(StorableEntityDescriptor.class);
-	}
+	protected abstract TEntityDescriptor createDescriptor();
 
-	// TODO 20150106 BR: this code is ugly. Need to improve.
-	@SuppressWarnings("unchecked")
-	protected void createSecureDescriptor(final TestContext context) {
-		context.descriptor = this.createDescriptor();
-		context.secureDescriptor = new SecureStorableEntityDescriptor(context.descriptor, new StorableEntityPassword(context.password));
-	}
+	protected abstract TSecureEntityDescriptor createSecureDescriptor(final TEntityDescriptor descriptor, final String password);
 
-	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
-		return StorableEntityStorageException.class;
-	}
+	protected abstract Class<? extends StorableEntityStorageException> getExceptionClass();
 
-	protected Integer getExceptionValue(final Integer originalValue) {
-		return originalValue;
+	protected abstract Integer getExceptionValue(final Integer originalValue);
+
+	private void createSecureDescriptor(final TestContext context) {
+		final TEntityDescriptor descriptor = this.createDescriptor();
+		context.setDescriptor(descriptor);
+		context.setSecureDescriptor(this.createSecureDescriptor(descriptor, context.getPassword()));
 	}
 
 	protected class TestContext {

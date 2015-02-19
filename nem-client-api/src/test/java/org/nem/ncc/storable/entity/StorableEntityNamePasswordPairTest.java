@@ -4,25 +4,28 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.test.ExceptionAssert;
+import org.nem.ncc.test.*;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-public class StorableEntityNamePasswordPairTest {
+public abstract class StorableEntityNamePasswordPairTest<
+		TEntityName extends StorableEntityName,
+		TEntityPassword extends StorableEntityPassword,
+		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, ?>> {
 
 	//region construction
 
 	@Test
 	public void pairCanBeCreated() {
 		// Act:
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("name"),
-				new StorableEntityPassword("password"));
+		final TEntityName name = this.createEntityName("name");
+		final TEntityPassword password = this.createEntityPassword("password");
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair(name, password);
 
 		// Assert:
-		Assert.assertThat(pair.getName(), IsEqual.equalTo(new StorableEntityName("name")));
-		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(new StorableEntityPassword("password")));
+		Assert.assertThat(pair.getName(), IsEqual.equalTo(name));
+		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(password));
 	}
 
 	@Test
@@ -31,8 +34,8 @@ public class StorableEntityNamePasswordPairTest {
 		final StorableEntityNamePasswordPair pair = this.createEntityNamePasswordPair("name", "password");
 
 		// Assert:
-		Assert.assertThat(pair.getName(), IsEqual.equalTo(new StorableEntityName("name")));
-		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(new StorableEntityPassword("password")));
+		Assert.assertThat(pair.getName(), IsEqual.equalTo(this.createEntityName("name")));
+		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(this.createEntityPassword("password")));
 	}
 
 	//endregion
@@ -43,9 +46,10 @@ public class StorableEntityNamePasswordPairTest {
 	public void pairCanBeDeserializedWithAllParameters() {
 		// Act:
 		final StorableEntityNamePasswordPair pair = this.createPairFromJson("name", "password");
+
 		// Assert:
-		Assert.assertThat(pair.getName(), IsEqual.equalTo(new StorableEntityName("name")));
-		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(new StorableEntityPassword("password")));
+		Assert.assertThat(pair.getName(), IsEqual.equalTo(this.createEntityName("name")));
+		Assert.assertThat(pair.getPassword(), IsEqual.equalTo(this.createEntityPassword("password")));
 	}
 
 	@Test
@@ -65,13 +69,9 @@ public class StorableEntityNamePasswordPairTest {
 
 	private StorableEntityNamePasswordPair createPairFromJson(final String name, final String password) {
 		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("storableEntity", name);
+		jsonObject.put(this.getDefaultNameLabel(), name);
 		jsonObject.put("password", password);
-		return new StorableEntityNamePasswordPair<>(
-				new JsonDeserializer(jsonObject, null),
-				StorableEntityName::new,
-				StorableEntityPassword::new,
-				null);
+		return this.createEntityNamePasswordPair(Utils.createDeserializer(jsonObject));
 	}
 
 	//endregion
@@ -105,11 +105,19 @@ public class StorableEntityNamePasswordPairTest {
 
 	//endregion
 
-	protected StorableEntityNamePasswordPair createEntityNamePasswordPair(final String name, final String password) {
-		return new StorableEntityNamePasswordPair<>(
-				name,
-				password,
-				StorableEntityName::new,
-				StorableEntityPassword::new);
+	protected abstract String getDefaultNameLabel();
+
+	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final TEntityName name, final TEntityPassword password);
+
+	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final String name, final String password);
+
+	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final Deserializer deserializer);
+
+	private TEntityName createEntityName(final String name) {
+		return this.createEntityNamePasswordPair(name, "xyz").getName();
+	}
+
+	private TEntityPassword createEntityPassword(final String password) {
+		return this.createEntityNamePasswordPair("xyz", password).getPassword();
 	}
 }

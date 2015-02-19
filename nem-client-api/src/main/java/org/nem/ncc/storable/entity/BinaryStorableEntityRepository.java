@@ -10,7 +10,7 @@ import java.io.*;
 /**
  * A binary storable entity repository.
  */
-public class BinaryStorableEntityRepository<
+public abstract class BinaryStorableEntityRepository<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TEntityName extends StorableEntityName,
 		TEntityFileExtension extends StorableEntityFileExtension,
@@ -39,7 +39,5 @@ public class BinaryStorableEntityRepository<
 		}
 	}
 
-	protected StorableEntityStorageException getException(final int value, final Exception ex) {
-		return new StorableEntityStorageException(value, ex);
-	}
+	protected abstract StorableEntityStorageException getException(final int value, final Exception ex);
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * A file-based StorableEntityLocator implementation.
  */
-public class StorableEntityFileLocator<
+public abstract class StorableEntityFileLocator<
 		TEntity extends StorableEntity & ObjectDeserializer<TEntity>,
 		TEntityName extends StorableEntityName,
 		TEntityFileExtension extends StorableEntityFileExtension,

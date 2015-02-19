@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storable.entity.StorableEntityPasswordTest;
+import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.Utils;
 
 public class AddressBookPasswordTest extends StorableEntityPasswordTest {
@@ -12,6 +12,11 @@ public class AddressBookPasswordTest extends StorableEntityPasswordTest {
 	@Override
 	protected AddressBookPassword createEntityPassword(final String name) {
 		return new AddressBookPassword(name);
+	}
+
+	@Override
+	protected StorableEntityPassword createEntityPassword(final Deserializer deserializer) {
+		return new AddressBookPassword(deserializer);
 	}
 
 	@Test

@@ -6,7 +6,7 @@ import org.junit.*;
 import org.nem.core.serialization.*;
 import org.nem.ncc.test.*;
 
-public class StorableEntityPasswordTest {
+public abstract class StorableEntityPasswordTest {
 
 	@Test
 	public void passwordCanBeCreatedAroundValidNonWhitespaceString() {
@@ -75,43 +75,16 @@ public class StorableEntityPasswordTest {
 	public void canRoundtripRequiredPassword() {
 		// Arrange:
 		final JsonSerializer serializer = new JsonSerializer();
-		StorableEntityPassword.writeTo(serializer, "sep", this.createEntityPassword("foo"));
-		final StorableEntityPassword password = StorableEntityPassword.readFrom(Utils.createDeserializer(serializer.getObject()), "sep");
+		StorableEntityPassword.writeTo(serializer, "password", this.createEntityPassword("foo"));
+		final StorableEntityPassword password = this.createEntityPassword(Utils.createDeserializer(serializer.getObject()));
 
 		// Assert:
 		Assert.assertThat(password, IsEqual.equalTo(this.createEntityPassword("foo")));
-	}
-
-	@Test
-	public void canRoundtripOptionalPassword() {
-		// Arrange:
-		final JsonSerializer serializer = new JsonSerializer();
-		StorableEntityPassword.writeTo(serializer, "sep", this.createEntityPassword("foo"));
-		final StorableEntityPassword password = StorableEntityPassword.readFromOptional(
-				Utils.createDeserializer(serializer.getObject()), "sep");
-
-		// Assert:
-		Assert.assertThat(password, IsEqual.equalTo(this.createEntityPassword("foo")));
-	}
-
-	@Test
-	public void canDeserializeNullOptionalPassword() {
-		// Arrange:
-		final StorableEntityPassword password = StorableEntityPassword.readFromOptional(Utils.createDeserializer(new JSONObject()), "sep");
-
-		// Assert:
-		Assert.assertThat(password, IsNull.nullValue());
-	}
-
-	@Test(expected = MissingRequiredPropertyException.class)
-	public void cannotDeserializeNullRequiredPassword() {
-		// Act:
-		StorableEntityPassword.readFrom(Utils.createDeserializer(new JSONObject()), "sep");
 	}
 
 	//endregion
 
-	protected StorableEntityPassword createEntityPassword(final String name) {
-		return new StorableEntityPassword<>(name);
-	}
+	protected abstract StorableEntityPassword createEntityPassword(final String password);
+
+	protected abstract StorableEntityPassword createEntityPassword(final Deserializer deserializer);
 }

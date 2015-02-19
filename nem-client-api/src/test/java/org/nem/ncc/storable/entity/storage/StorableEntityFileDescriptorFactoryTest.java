@@ -5,15 +5,19 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.ncc.storable.entity.*;
 import org.nem.ncc.test.ExceptionAssert;
-import org.nem.ncc.test.StorableEntity.*;
 
 import java.io.*;
 
-public class StorableEntityFileDescriptorFactoryTest {
+public abstract class StorableEntityFileDescriptorFactoryTest<
+		TEntityName extends StorableEntityName,
+		TEntityPassword extends StorableEntityPassword,
+		TEntityFileExtension extends StorableEntityFileExtension,
+		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, TEntityNamePasswordPair>,
+		TEntityFileDescriptorFactory extends StorableEntityFileDescriptorFactory<?, TEntityName, TEntityPassword, TEntityFileExtension, TEntityNamePasswordPair, ?>> {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 	private static final File TEST_FILE = new File(TEST_FILE_DIRECTORY, "test.bar");
-	private static final StorableEntityFileExtension FILE_EXTENSION = new StorableEntityFileExtension(".bar");
+	private static final String FILE_EXTENSION = ".bar";
 
 	//region BeforeClass / AfterClass
 
@@ -37,31 +41,29 @@ public class StorableEntityFileDescriptorFactoryTest {
 	@Test
 	public void createNewSucceedsWithNullPasswordInPair() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-create"),
-				null);
+		final TEntityFileDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test-create");
+		final TEntityFileExtension extension = this.createFileExtension(FILE_EXTENSION);
 
 		// Act:
-		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, FILE_EXTENSION);
+		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, extension);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("test-create")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(extension));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
 	@Test
 	public void createNewFailsIfFileAlreadyExists() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test"),
-				null);
+		final TEntityFileDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test");
+		final TEntityFileExtension extension = this.createFileExtension(FILE_EXTENSION);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
-				v -> descriptorFactory.createNew(pair, FILE_EXTENSION),
+				v -> descriptorFactory.createNew(pair, extension),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_ALREADY_EXISTS.value()));
 	}
@@ -69,31 +71,29 @@ public class StorableEntityFileDescriptorFactoryTest {
 	@Test
 	public void createNewSucceedsIfFileDoesNotExist() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-create"),
-				null);
+		final TEntityFileDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test-create");
+		final TEntityFileExtension extension = this.createFileExtension(FILE_EXTENSION);
 
 		// Act:
-		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, FILE_EXTENSION);
+		final StorableEntityDescriptor descriptor = descriptorFactory.createNew(pair, extension);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test-create")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("test-create")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(extension));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
 	@Test
 	public void openExistingFailsIfFileDoesNotExist() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test-open"),
-				null);
+		final TEntityFileDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test-open");
+		final TEntityFileExtension extension = this.createFileExtension(FILE_EXTENSION);
 
 		// Act:
 		ExceptionAssert.assertThrowsStorageException(
-				v -> descriptorFactory.openExisting(pair, FILE_EXTENSION),
+				v -> descriptorFactory.openExisting(pair, extension),
 				this.getExceptionClass(),
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_DOES_NOT_EXIST.value()));
 	}
@@ -101,40 +101,30 @@ public class StorableEntityFileDescriptorFactoryTest {
 	@Test
 	public void openExistingSucceedsIfFileAlreadyExists() {
 		// Arrange:
-		final StorableEntityDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
-		final StorableEntityNamePasswordPair pair = new StorableEntityNamePasswordPair<>(
-				new StorableEntityName("test"),
-				null);
+		final TEntityFileDescriptorFactory descriptorFactory = this.createFactory(TEST_FILE_DIRECTORY);
+		final TEntityNamePasswordPair pair = this.createEntityNamePasswordPair("test");
+		final TEntityFileExtension extension = this.createFileExtension(FILE_EXTENSION);
 
 		// Act:
-		final StorableEntityDescriptor descriptor = descriptorFactory.openExisting(pair, FILE_EXTENSION);
+		final StorableEntityDescriptor descriptor = descriptorFactory.openExisting(pair, extension);
 
 		// Assert:
-		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(new StorableEntityName("test")));
-		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(DefaultStorableEntity.getDefaultFileExtension()));
+		Assert.assertThat(descriptor.getName(), IsEqual.equalTo(this.createEntityName("test")));
+		Assert.assertThat(descriptor.getFileExtension(), IsEqual.equalTo(extension));
 		Assert.assertThat(descriptor, IsInstanceOf.instanceOf(StorableEntityFileDescriptor.class));
 	}
 
-	protected StorableEntityFileDescriptorFactory createFactory(final File file) {
-		return new StorableEntityFileDescriptorFactory<
-				DefaultStorableEntity,
-				StorableEntityName,
-				StorableEntityPassword,
-				StorableEntityFileExtension,
-				DefaultStorableEntityNamePasswordPair,
-				DefaultStorableEntityFileDescriptor>(
-				file,
-				DefaultStorableEntity::new,
-				StorableEntityName::new,
-				StorableEntityFileExtension::new,
-				DefaultStorableEntityFileDescriptor::new);
-	}
+	protected abstract TEntityNamePasswordPair createEntityNamePasswordPair(final String name);
 
-	protected Class<? extends StorableEntityStorageException> getExceptionClass() {
-		return StorableEntityStorageException.class;
-	}
+	protected abstract TEntityFileExtension createFileExtension(final String extension);
 
-	protected Integer getExceptionValue(final Integer originalValue) {
-		return originalValue;
+	protected abstract TEntityFileDescriptorFactory createFactory(final File file);
+
+	protected abstract Class<? extends StorableEntityStorageException> getExceptionClass();
+
+	protected abstract Integer getExceptionValue(final Integer originalValue);
+
+	private TEntityName createEntityName(final String name) {
+		return this.createEntityNamePasswordPair(name).getName();
 	}
 }

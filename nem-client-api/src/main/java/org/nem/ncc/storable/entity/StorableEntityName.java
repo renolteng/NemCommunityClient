@@ -6,7 +6,7 @@ import org.nem.core.utils.StringUtils;
 /**
  * Represents a name for a storable entity.
  */
-public class StorableEntityName<TDerived extends StorableEntityName> {
+public abstract class StorableEntityName<TDerived extends StorableEntityName> {
 	protected final String name;
 	protected final String label;
 	private final Class<TDerived> derivedClass;
@@ -16,7 +16,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 *
 	 * @param name The name.
 	 */
-	public StorableEntityName(final String name) {
+	protected StorableEntityName(final String name) {
 		this(name, "name", null);
 	}
 
@@ -26,7 +26,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 * @param name The name.
 	 * @param label The label.
 	 */
-	public StorableEntityName(final String name, final String label) {
+	protected StorableEntityName(final String name, final String label) {
 		this(name, label, null);
 	}
 
@@ -37,7 +37,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 * @param label The label.
 	 * @param derivedClass The derived class.
 	 */
-	public StorableEntityName(
+	protected StorableEntityName(
 			final String name,
 			final String label,
 			final Class<TDerived> derivedClass) {
@@ -61,7 +61,7 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 * @param label The label to read from.
 	 * @param derivedClass The derived class.
 	 */
-	public StorableEntityName(
+	protected StorableEntityName(
 			final Deserializer deserializer,
 			final String label,
 			final Class<TDerived> derivedClass) {
@@ -115,17 +115,6 @@ public class StorableEntityName<TDerived extends StorableEntityName> {
 	 */
 	public static void writeTo(final Serializer serializer, final String label, final StorableEntityName name) {
 		serializer.writeString(label, name.toString());
-	}
-
-	/**
-	 * Reads a storable entity name object.
-	 *
-	 * @param deserializer The deserializer to use.
-	 * @param label The optional label.
-	 * @return The read object.
-	 */
-	public static StorableEntityName readFrom(final Deserializer deserializer, final String label) {
-		return new StorableEntityName<>(deserializer.readString(label), label);
 	}
 
 	//endregion
