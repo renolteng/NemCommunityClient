@@ -7,31 +7,31 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'The wallet file does not exist.',
+			101: 'Plik portfela nie istnieje.',
 			102: 'Portfel nie został utworzony.',
-			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
-			104: 'The provided password for the wallet is not correct.',
-			105: 'No password was provided for the wallet.',
+			103: 'Plik portfela jest uszkodzony. Proszę odzyskać portfel z kopii zapasowej.',
+			104: 'Podane hasło jest niepoprawne.',
+			105: 'Nie podano hasła.',
 			106: 'Zanim zaczniesz używać portfela, musisz go otworzyć. Aby go otworzyć, musisz podać hasło do tego portfela.',
 			107: 'Poftfel nie zawiera tego konta.',
 			108: 'Konto nie może zostać usunięte. Prawdopodobnie dlatego, że bilans konta jest większy niż 0 XEM lub jest to konto główne.',
 			109: 'Inny portfel z tą samą nazwą już istnieje. Proszę wybrać inną nazwę dla portfela.',
 			110: 'Portfel zawiera już to konto.',
 			111: 'The wallet name is a directory.',
-			112: 'The extension of the wallet file is incorrect.',
-			113: 'The wallet could not be deleted.',
-			121: 'The address book file does not exist.',
-			122: 'Address book has not been created.',
-			123: 'Address book file is corrupt. Please recover your address book from a backup.',
-			124: 'The provided password for the address book is not correct.',
-			125: 'No password was provided for the address book.',
-			127: 'Address book does not contain this address.',
-			128: 'The address provided is not valid.',
-			129: 'Another address book with the same name exists already. Please choose an other address book name.',
-			130: 'Address book already contains this address.',
+			112: 'Rozszerzenie pliku portfela jest niepoprawne.',
+			113: 'Portfel nie mógł zostać usunięty.',
+			121: 'Plik książki adresowej nie istnieje.',
+			122: 'Książka adresowa nie została utworzona.',
+			123: 'Plik książki adresowej jest uszkodzony. Proszę odzyskać plik z backupu.',
+			124: 'Podane hasło do książki adresowej nie jest poprawne.',
+			125: 'Nie podano hasła dla książki adresowej.',
+			127: 'Książka adresowa nie zawiera tego adresu.',
+			128: 'Podany adres nie jest ważny.',
+			129: 'Inna książka adresowa z taką samą nazwą już istnieje. Proszę wybrać inną nazwę.',
+			130: 'Książka adresowa zawiera już ten adres.',
 			131: 'The address book name is a directory.',
-			132: 'The extension of the address book file is incorrect.',
-			133: 'The address book could not be deleted.',
+			132: 'Rozszerzenie pliku książki adresowej jest niepoprawne.',
+			133: 'Książka adresowa nie mogła zostać usunięta.',
 			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
 			305: 'Serwer Infrastruktury NEM jest niedostępny.',
 			306: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
@@ -41,8 +41,8 @@ define({
 			500: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
 			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
-			602: 'Cannot perform any operations until db is fully loaded.',
-			699: 'Maximum number of harvesters allowed on server has been reached.',
+			602: 'Nie można wykonać żadnych operacji przed pełnym załadowaniem bazy danych.',
+			699: 'Maksymalna ilość zbieraczy dozwolona na serwerze została osiągnięta.',
 			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością XEM na koncie. Zbieranie wymaga minimum 1000 XEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
 			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
@@ -55,14 +55,14 @@ define({
 			709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
 			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
-			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
-			740: 'Transaction is not allowed for multisig account.',
-			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
-			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
-			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
+			731: 'Konto bezpiecznego zbierania ma niezerowe saldo i nie może być użyte.',
+			732: 'Przekazanie znaczenia odrzucone. Istnieje już oczekująca operacja przekazania znaczenia.',
+			733: 'Bezpieczne zbieranie jest już aktywne.',
+			734: 'Bezpieczne zbieranie NIE jest aktywne. Nie można wyłączyć.',
+			740: 'Transakcja nie jest dozwolona dla konta multisig.',
+			741: 'Podpis transkacji multisig odrzucony. Bieżące konto nie jest sygnatariuszem konta multisig.',
+			742: 'Podpis transkacji multisig odrzucony. Transakcja nie jest znana sieci NEM',
+			743: 'Modyfikacja konta multisig odrzucona. Jedno z dodanych kont jest juz sygnatariuszem.',
 			901: 'Wystąpił błąd podczas przechodzenia w tryb offline.',
 			1000: 'Klucz prywatny i klucz publiczny nie pasują do siebie.',
 			1001: 'Klucz publiczny i adres nie pasują do siebie..',
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: 'NIS jest niedostępny',
 				nisStarting: 'NIS uruchamia się...',
 				notBooted: 'NIS wymaga uruchomienia. Proszę otworzyć portfel i uruchomić lokalny węzeł poprzez okno dialogowe lub skonfigurować ustawienia automatycznego uruchamiania.',
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Ładowanie bloków z bazy danych, blok: ',
 				booting: 'Uruchamianie NIS...',
 				nisInfoNotAvailable: 'Info o NIS jest jeszcze niedostępne. Próba uzyskania info o NIS...',
 				synchronizing: 'NIS synchronizuje się. Blok {{1}}, ok. {{2}} opóźnienia.',
@@ -88,30 +88,30 @@ define({
 					many: '{{1}} dni'
 				},
 				synchronized: 'NIS jest zsynchronizowany!',
-				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+				noRemoteNisAvailable: 'Nie znaleziono zdalnego NIS w sieci, brak połączenia z internetem?'
 			},
-			addressBook: 'Address book',
+			addressBook: 'Książka adresowa',
 			password: 'Hasło',
-			passwordValidation: 'Password must not be blank',
+			passwordValidation: 'Hasło nie może być puste',
 			address: 'Adres',
 			privateLabel: 'Etykieta',
-			publicLabel: 'Public label',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			publicLabel: 'Oficjalna etykieta',
+			noCharge: 'Bieżące konto <b>NIE</b> będzie obciążone opłatami, konto multisig je opłaca.',
+			justUse: 'Wystarczy użyć'
 		},
 		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'TRANSFER TRANSAKCJI',
+			'TRANSFER ZNACZENIA',
+			'MODYFIKACJA KONTA MULTISIG',
+			'TRANSAKCJA MULTISIG'
 		],
 		transactionDirections: {
 			pending: 'Transakcja oczekująca',
 			outgoing: 'Transakcja wychodząca',
 			incoming: 'Transakcja przychodząca',
 			self: 'Transakcja wewnętrzna',
-			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			importance: 'Transakcja ważności',
+			modification: 'Zbiorcza Modyfikacja Multisig'
 		},
 		modals: {
 			error: {
@@ -147,51 +147,51 @@ define({
 				saveSuccess: 'Ustawienia zostały zapisane pomyślnie'
 			},
 			multisig: {
-				title: 'Convert account to multisig',
-				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
+				title: 'Konwertuj konto na multisig',
+				multisigAccount: 'Konto multisig',
+				cosignatories: "Adresy sygnatariuszy",
 				labelDesc: 'To konto jest oznaczone jako {{1}}',
 				nullLabelDesc: "To konto nie ma etykiety",
-				addCosignatory: '+ Add Cosignatory',
+				addCosignatory: '+ Dodaj sygnatariusza',
 				cancel: 'Anuluj',
-				convert: 'Convert',
+				convert: 'Konwertuj',
 				fee: 'Opłata',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
 				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
 				hours: 'godzin(y)',
 				txConfirm: {
-					title: 'Confirm Conversion to Multisig Account',
+					title: 'Potwierdź konwersję do Konta Multisig',
 					total: 'Suma',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Konto multisig jest na liście sygnatariuszy. To spowoduje zamknięcie konta i odcięcie dostępu do funduszy. Prawdopodobnie <b>NIE</b> chcesz tego zrobić.'
 			},
 			signMultisig: {
-				title: 'Sign multisig transaction',
+				title: 'Podpisz transakcję multisig',
 				original: {
-					from: 'Multisig account',
+					from: 'Konto multisig',
 					to: 'Odbiorca',
 					amount: 'Ilość',
-					fee: 'Inner Fee',
-					deadline: 'Deadline'
+					fee: 'Wewnętrzna opłata',
+					deadline: 'Ostateczny termin'
 				},
-				multisigFees: 'Multisig Fees',
+				multisigFees: 'Opłaty Multisig',
 				multisigTotal: 'Suma',
-				sender: 'Cosignatory',
+				sender: 'Sygnatariusz',
 				fee: 'Opłata',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
 				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
 				hours: 'godzin(y)',
 				password: 'Hasło',
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: 'Hasło nie może być puste',
 				send: 'Wyślij',
 				cancel: 'Anuluj',
 				sending: 'Wysyłanie...',
 				successMessage: 'Transakcja została zrealizowana!',
 				txConfirm: {
-					title: 'Confirm Multisig Transaction',
+					title: 'Potwierdź Transakcję Multisig',
 					message: 'Wiadomość',
 					encrypted: 'Wiadomość jest zaszyfrowana',
 					noMessage: 'Brak wiadomości',
@@ -201,7 +201,7 @@ define({
 			sendNem: {
 				title: 'Wyślij XEM',
 				sender: 'Nadawca',
-				thisAccount: 'This account',
+				thisAccount: 'To konto',
 				labelDesc: 'To konto jest oznaczone jako {{1}}',
 				nullLabelDesc: "To konto nie ma etykiety",
 				amount: 'Ilość',
@@ -210,13 +210,13 @@ define({
 				message: 'Wiadomość',
 				encrypt: 'Zaszyfruj wiadomość',
 				fee: 'Opłata',
-				multisigFee: 'Multisig fee',
+				multisigFee: 'Opłata multisig',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
 				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
 				hours: 'godzin',
 				password: 'Hasło',
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: 'Hasło nie może być puste',
 				send: 'Wyślij',
 				cancel: 'Anuluj',
 				sending: 'Wysyłanie...',
@@ -244,7 +244,7 @@ define({
 					message: 'Zaczekaj, aż proces uruchamiania zakończy się, aby wysłać transakcję.'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: 'Ładowanie bazy danych'
 				}
 			},
 			clientInfo: {
@@ -270,11 +270,11 @@ define({
 				incoming: 'Przychodzące',
 				self: 'Wewnętrzne',
 				sender: 'Nadawca',
-				multisigAccount: 'Multisig Account',
-				issuer: 'Issuer',
+				multisigAccount: 'Konto Multisig',
+				issuer: 'Emitent',
 				recipient: 'Odbiorca',
-				remote: 'Remote',
-				multisigMessage: 'Signatures present',
+				remote: 'Zdalny',
+				multisigMessage: 'Obecne podpisy',
 				message: 'Wiadomość',
 				noMessage: 'Brak wiadomości',
 				encrypted: 'Wiadomość jest zaszyfrowana',
@@ -283,24 +283,24 @@ define({
 				confirmationsUnknown: 'Nieznana',
 				amount: 'Ilość',
 				fee: 'Opłata',
-				innerFee: 'Inner Fee',
-				multisigFees: 'Multisig Fees',
-				cosignatory: 'Cosignatory'
+				innerFee: 'Wewnętrzne opłaty',
+				multisigFees: 'Opłaty Multisig',
+				cosignatory: 'Sygnatariusz'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: "Dane konta",
+				address: "Adres",
+				label: "Etykieta",
+				noLabel: "Brak etykiety",
+				add: "Dodaj do książki adresowej",
+				remove: "Usuń z książki adresowej",
+				balance: "Saldo",
+				vested: "usankcjonowane",
+				importance: "Znaczenie",
+				publicKey: "Klucz publiczny",
+				noPublicKey: "Brak klucza publicznego",
+				harvestedBlocks: "Zebrane bloki",
+				close: "Zamknij"
 			},
 			bootLocalNode: {
 				title: 'Uruchom lokalny węzeł',
@@ -451,18 +451,18 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: "Zostawiasz swój portfel. Pamiętaj, że kiedy zostawiasz swój portfel w ten sposób, ktoś inny może uzyskać dostęp do twojego porfela na tym komputerze.\n\nAby temu zapobiec, proszę się wylogować używając przycisku \"Zamknij portfel\" z menu w prawym, górym rogu, zanim opuścisz tą stronę."
 			},
 			addContact: {
-				title: 'Add contact',
+				title: 'Dodaj kontakt',
 				add: 'Dodaj'
 			},
 			editContact: {
-				title: 'Edit contact',
+				title: 'Edytuj kontakt',
 				saveChanges: 'Zapisz zmiany'
 			},
 			removeContact: {
-				title: 'Remove contact',
+				title: 'Usuń kontakt',
 				remove: 'Usuń'
 			}
 		},
@@ -479,9 +479,9 @@ define({
 				leftButton: 'Stwórz nowy portfel',
 				walletNamePlh: 'Nazwa Twojego portfela',
 				passwordPlh: 'Hasło',
-				confirmPasswordPlh: 'Confirm password',
+				confirmPasswordPlh: 'Potwierdź hasło',
 				create: 'Stwórz',
-				creating: 'Creating...',
+				creating: 'Tworzenie...',
 				rightTitle: 'Uczestnik <em>NEM</em>?',
 				rightButton: 'Otwórz swój portfel',
 				openButton: 'Otwórz',
@@ -544,7 +544,7 @@ define({
 				changeWalletName: 'Zmień Nazwę Portfela',
 				changeWalletPassword: 'Zmień Hasło Portfela',
 				mergeWallets: 'Połącz Portfele',
-				exportWallet: 'Exportuj Portfel',
+				exportWallet: 'Eksportuj Portfel',
 				createAccount: 'Stwórz Nowe Konto',
 				createRealAccountData: 'Utwórz prawdziwe konto',
 				verifyRealAccountData: 'Weryfikacja prawdziwego konta',
@@ -561,7 +561,7 @@ define({
 			nav: [
 				'Dashboard',
 				'Wiadomości',
-				'Address Book',
+				'Książka adresowa',
 				'Transakcje',
 				'Zebrane bloki',
 				'Giełda aktywów',
@@ -598,9 +598,9 @@ define({
 			transactions: {
 				title: 'Ostatnie Transakcje',
 				sendNem: 'Wyślij XEM',
-				signMultisig: 'SIGN',
+				signMultisig: 'PODPISZ',
 				balance: 'Stan Konta',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: 'Saldo usankcjonowane',
 				syncStatus: '(blok {{1}}{{#2}} : ok. {{3}} dni opóźnienia{{/2}})',
 				unknown: 'nieznany',
 				columns: [
@@ -690,19 +690,19 @@ define({
 			}
 		},
 		addressBook: {
-			title: 'Address book',
-			addContact: 'Add contact',
+			title: 'Książka adresowa',
+			addContact: 'Dodaj kontakt',
 			table: {
 				columns: [
-					'Account address',
-					'Private Label',
-					'Public Label'
+					'Adres konta',
+					'Etykieta prywatna',
+					'Etykieta publiczna'
 				],
-				noContacts: 'There is no contacts in your address book'
+				noContacts: 'Nie ma kontaktów w książce adresowej'
 			},
-			noLabel: 'No label',
+			noLabel: 'Brak etykiety',
 			sendNem: 'Wyślij XEM',
-			edit: 'Edit',
+			edit: 'Edytuj',
 			remove: 'Usuń'
 		},
 		settings: {
