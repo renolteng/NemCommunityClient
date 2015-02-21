@@ -181,10 +181,10 @@ public class AccountServicesTest {
 	@Test
 	public void getUnconfirmedTransactionsDelegatesToConnector() {
 		// Arrange:
-		final List<Transaction> originalTransactions = Arrays.asList(
-				createTransfer(Amount.fromNem(124)),
-				createTransfer(Amount.fromNem(572)),
-				createTransfer(Amount.fromNem(323)));
+		final List<UnconfirmedTransactionMetaDataPair> originalTransactions = Arrays.asList(
+				createUnconfirmedTransactionMetaDataPair(Amount.fromNem(124)),
+				createUnconfirmedTransactionMetaDataPair(Amount.fromNem(572)),
+				createUnconfirmedTransactionMetaDataPair(Amount.fromNem(323)));
 
 		// Assert:
 		final List<Amount> amounts = assertGetUnconfirmedTransactionsDelegation(originalTransactions);
@@ -196,10 +196,10 @@ public class AccountServicesTest {
 	@Test
 	public void getUnconfirmedTransactionsReturnsTransactionsSortedNewestFirst() {
 		// Arrange:
-		final List<Transaction> originalTransactions = Arrays.asList(
-				createTransfer(Amount.fromNem(124), new TimeInstant(200)),
-				createTransfer(Amount.fromNem(572), new TimeInstant(100)),
-				createTransfer(Amount.fromNem(323), new TimeInstant(300)));
+		final List<UnconfirmedTransactionMetaDataPair> originalTransactions = Arrays.asList(
+				createUnconfirmedTransactionMetaDataPair(Amount.fromNem(124), new TimeInstant(200)),
+				createUnconfirmedTransactionMetaDataPair(Amount.fromNem(572), new TimeInstant(100)),
+				createUnconfirmedTransactionMetaDataPair(Amount.fromNem(323), new TimeInstant(300)));
 
 		// Assert:
 		final List<Amount> amounts = assertGetUnconfirmedTransactionsDelegation(originalTransactions);
@@ -208,11 +208,11 @@ public class AccountServicesTest {
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(323), Amount.fromNem(124), Amount.fromNem(572))));
 	}
 
-	private static List<Amount> assertGetUnconfirmedTransactionsDelegation(final List<Transaction> originalTransactions) {
+	private static List<Amount> assertGetUnconfirmedTransactionsDelegation(final List<UnconfirmedTransactionMetaDataPair> originalPairs) {
 		// Arrange:
 		final TestContext context = new TestContext();
 		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_UNCONFIRMED, "address=FOO"))
-				.thenReturn(serialize(new SerializableList<>(originalTransactions)));
+				.thenReturn(serialize(new SerializableList<>(originalPairs)));
 
 		// Act:
 		final List<Transaction> transactions = context.services.getUnconfirmedTransactions(Address.fromEncoded("FOO"));
@@ -298,6 +298,14 @@ public class AccountServicesTest {
 		transaction.setFee(fee);
 		transaction.sign();
 		return transaction;
+	}
+
+	private static UnconfirmedTransactionMetaDataPair createUnconfirmedTransactionMetaDataPair(final Amount fee, final TimeInstant timeInstant) {
+		return new UnconfirmedTransactionMetaDataPair(createTransfer(fee, timeInstant), new UnconfirmedTransactionMetaData((Hash)null));
+	}
+
+	private static UnconfirmedTransactionMetaDataPair createUnconfirmedTransactionMetaDataPair(final Amount fee) {
+		return new UnconfirmedTransactionMetaDataPair(createTransfer(fee), new UnconfirmedTransactionMetaData((Hash)null));
 	}
 
 	private static class TestContext {
