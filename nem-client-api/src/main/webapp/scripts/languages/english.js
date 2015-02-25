@@ -33,7 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
-			305: 'NEM Infrastructure Server is not available.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			400: 'Some parameter is missing or invalid.',
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
@@ -64,7 +64,7 @@ define({
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'There was an error setting up offline mode.',
-			1000: "The private key and the public key you have provided mismatch.",
+			1000: 'The private key and the public key you have provided mismatch.',
 			1001: 'The public key and the address you have provided mismatch.',
 			1002: 'The address does not belong to the main network.'
 		},
@@ -165,7 +165,7 @@ define({
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
