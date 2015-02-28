@@ -46,6 +46,13 @@
 						},
 			    		function(data) {
 			        		setWalletData(data);
+							ncc.postRequest('addressbook/info', {
+								addressBook: wallet
+							},
+								function(data) {
+									ncc.set('contacts', Utils.processContacts(data.accountLabels));
+								}
+							);
 			        	},
 						{
 							complete: function() {
@@ -57,14 +64,6 @@
 		    		setWalletData(walletData);
 		    	}
 
-		    	ncc.postRequest('addressbook/open', {
-					addressBook: wallet,
-					password: password
-				},
-		    		function(data) {
-		        		ncc.set('contacts', Utils.processContacts(data.accountLabels));
-		        	}
-		    	);
 		    };
 
 		    ncc.openExistingWallet = function(wallet) {

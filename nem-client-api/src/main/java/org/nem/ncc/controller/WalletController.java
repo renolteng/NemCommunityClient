@@ -66,6 +66,7 @@ public class WalletController {
 	 */
 	@RequestMapping(value = "/wallet/open", method = RequestMethod.POST)
 	public WalletViewModel open(@RequestBody final WalletNamePasswordPair pair) {
+		this.openAddressBook(pair);
 		final Wallet wallet = this.walletServices.open(pair);
 		return this.walletMapper.toViewModel(wallet);
 	}
@@ -89,6 +90,7 @@ public class WalletController {
 	 */
 	@RequestMapping(value = "/wallet/close", method = RequestMethod.POST)
 	public void close(@RequestBody final WalletName name) {
+		this.closeAddressBook(name);
 		this.walletServices.close(name);
 	}
 
@@ -103,6 +105,7 @@ public class WalletController {
 	 */
 	@RequestMapping(value = "/wallet/password/change", method = RequestMethod.POST)
 	public void changePassword(@RequestBody final WalletNamePasswordBag bag) {
+		this.changeAddressBookPassword(bag);
 		this.walletServices.move(bag, new WalletNamePasswordPair(bag.getName(), bag.getNewPassword()));
 	}
 
@@ -113,12 +116,37 @@ public class WalletController {
 	 */
 	@RequestMapping(value = "/wallet/name/change", method = RequestMethod.POST)
 	public void changeName(@RequestBody final WalletNamePasswordBag bag) {
+		this.changeAddressBookName(bag);
 		this.walletServices.move(bag, new WalletNamePasswordPair(bag.getNewName(), bag.getPassword()));
 	}
 
 	//endregion
 
 	private AddressBook createAddressBook(final WalletNamePasswordPair pair) {
-		return this.addressBookServices.create(new AddressBookNamePasswordPair(pair.getName().toString(), pair.getPassword().toString()));
+		return this.addressBookServices.create(this.createAddressNamePasswordPair(pair));
+	}
+
+	private AddressBook openAddressBook(final WalletNamePasswordPair pair) {
+		return this.addressBookServices.open(this.createAddressNamePasswordPair(pair));
+	}
+
+	private void closeAddressBook(final WalletName name) {
+		this.addressBookServices.close(new AddressBookName(name.toString()));
+	}
+
+	private void changeAddressBookName(final WalletNamePasswordBag bag) {
+		this.addressBookServices.move(
+				this.createAddressNamePasswordPair(bag),
+				new AddressBookNamePasswordPair(bag.getNewName().toString(), bag.getPassword().toString()));
+	}
+
+	private void changeAddressBookPassword(final WalletNamePasswordBag bag) {
+		this.addressBookServices.move(
+				this.createAddressNamePasswordPair(bag),
+				new AddressBookNamePasswordPair(bag.getName().toString(), bag.getNewPassword().toString()));
+	}
+
+	private AddressBookNamePasswordPair createAddressNamePasswordPair(final WalletNamePasswordPair pair) {
+		return new AddressBookNamePasswordPair(pair.getName().toString(), pair.getPassword().toString());
 	}
 }
