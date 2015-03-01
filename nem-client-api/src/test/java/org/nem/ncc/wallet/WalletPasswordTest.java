@@ -4,7 +4,7 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.serialization.*;
-import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.StorableEntityPasswordTest;
 import org.nem.ncc.test.Utils;
 
 public class WalletPasswordTest extends StorableEntityPasswordTest {

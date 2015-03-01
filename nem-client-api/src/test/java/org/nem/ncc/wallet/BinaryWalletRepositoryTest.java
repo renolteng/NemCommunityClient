@@ -27,8 +27,7 @@ public class BinaryWalletRepositoryTest extends BinaryStorableEntityRepositoryTe
 
 	@Override
 	protected boolean areEquivalent(final StorableWallet lhs, final StorableWallet rhs) {
-		return
-				lhs.getPrimaryAccount().equals(rhs.getPrimaryAccount())
+		return lhs.getPrimaryAccount().equals(rhs.getPrimaryAccount())
 				&& lhs.getName().equals(rhs.getName())
 				&& lhs.getOtherAccounts().equals(rhs.getOtherAccounts());
 	}

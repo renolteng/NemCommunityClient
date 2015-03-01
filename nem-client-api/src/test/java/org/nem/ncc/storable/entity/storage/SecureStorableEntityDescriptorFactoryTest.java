@@ -11,7 +11,7 @@ public abstract class SecureStorableEntityDescriptorFactoryTest<
 		TEntityName extends StorableEntityName,
 		TEntityPassword extends StorableEntityPassword,
 		TEntityFileExtension extends StorableEntityFileExtension,
-		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, ?> ,
+		TEntityNamePasswordPair extends StorableEntityNamePasswordPair<TEntityName, TEntityPassword, ?>,
 		TEntityDescriptorFactory extends StorableEntityDescriptorFactory<TEntityNamePasswordPair, TEntityFileExtension, ?>> {
 	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
