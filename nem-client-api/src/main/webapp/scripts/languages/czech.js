@@ -149,9 +149,9 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: 'Cosignatories' addresses',
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'This account is labeled as {{1}}',
-				nullLabelDesc: 'This account doesn't have a label',
+				nullLabelDesc: 'This account doesn\'t have a label',
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Cancel',
 				convert: 'Convert',
@@ -333,14 +333,14 @@ define({
 				},
 				recheck: {
 					title: 'Re-check Your Saved Private Key',
-					message: 'Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.',
+					message: 'Please re-enter your private key you\'ve just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.',
 					correct: {
 						title: 'Nice!',
 						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: 'The private key you've just entered is not correct! Do you want to try to enter the private key again or come back to see the original account data?',
+						message: 'The private key you\'ve just entered is not correct! Do you want to try to enter the private key again or come back to see the original account data?',
 						tryAgain: 'Try to enter again',
 						seeOriginal: 'See the original data'
 					},
@@ -423,7 +423,7 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Due by (hours)',
-				password: 'Wallet's password',
+				password: 'Wallet\'s password',
 				activate: 'Activate'
 			},
 			deactivateRemote: {
@@ -431,25 +431,25 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Due by (hours)',
-				password: 'Wallet's password',
+				password: 'Wallet\'s password',
 				deactivate: 'Deactivate'
 			},
 			startRemote: {
 				title: 'Start Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: 'Wallet's password',
+				password: 'Wallet\'s password',
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: 'Wallet's password',
+				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: 'You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
 			},
 			addContact: {
 				title: 'Add contact',
