@@ -152,7 +152,7 @@ define({
 				cosignatories: "Handtekeninghouder' adressen",
 				labelDesc: 'Deze account is als {{1}} gelabeld',
 				nullLabelDesc: "Deze account heeft geen label",
-				addCosignatory: '+ Handtekeninghouder'toevoegen',
+				addCosignatory: '+ Handtekeninghouder\'toevoegen',
 				cancel: 'Annuleer',
 				convert: 'Converteer',
 				fee: 'Toeslag',

@@ -234,7 +234,7 @@ define({
 					sending: 'Siunčiama...'
 				},
 				notBootedWarning: {
-					message: 'Norint siųsti XEM, vietinis prieigos taškas turi būti paleistas!'
+					message: 'Norint siųsti XEM, vietinis prieigos taškas turi būti paleistas!',
 					title: 'Vietinis prieigos taškas neužkrautas',
 				},
 				bootingWarning: {
