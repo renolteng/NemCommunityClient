@@ -33,7 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Šifrovanou zprávu nelze doručit, protože příjemce ještě neuskutečnil žádný převod',
-			305: 'Server infrastruktury není dostupný.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Došlo k neočekávané chybě. Litujeme, opětovný pokus by mohl pomoci. V případě, že se problém nevyřešil, obratte se s ním na NEM NIS / NCC komunitu.',
 			400: 'Některá hodnota chybí, nebo je neplatná.',
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
@@ -162,9 +163,10 @@ define({
 				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
-					total: 'Total'
+					total: 'Total',
+
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -193,7 +195,8 @@ define({
 					title: 'Confirm Multisig Transaction',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
-					noMessage: 'No message'
+					noMessage: 'No message',
+
 				}
 			},
 			sendNem: {
@@ -554,7 +557,7 @@ define({
 				closeWallet: 'Zavřít peněženku',
 				closeProgram: 'Zavřít program',
 				copyClipboard: 'Copy Address to Clipboard',
-				convertMultisig: 'Convert to multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Nástěnka',

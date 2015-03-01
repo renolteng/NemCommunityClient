@@ -33,7 +33,7 @@ define({
 			132: 'Rozszerzenie pliku książki adresowej jest niepoprawne.',
 			133: 'Książka adresowa nie mogła zostać usunięta.',
 			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
-			305: 'Serwer Infrastruktury NEM jest niedostępny.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			400: 'Brakujący lub niewłaściwy parametr.',
 			401: 'Ta operacja nie może zostać wykonana ponieważ może to spowodować wyciek klucza prywatnego poprzez wysłanie go do zdalnego NIS.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-uruchamianie',

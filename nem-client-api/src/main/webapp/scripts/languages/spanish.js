@@ -33,7 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Enviar una transacción encriptada no es posible debido a que el destinatario nunca ha realizado una transacción.',
-			305: 'El Servidor de Infraestructura NEM no está disponible.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Un error imprevisto ha ocurrido. Pedimos disculpas por este problema. Tal vez re-intentar ayude a resolver el problema. De otra ma nera',
 			400: 'Algún parametro requerido no ha sido especificado o es inválido.',
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Dirección de Host',
-					port: 'Puerto'
+					port: 'Puerto',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-iniciación',
@@ -165,7 +166,7 @@ define({
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',

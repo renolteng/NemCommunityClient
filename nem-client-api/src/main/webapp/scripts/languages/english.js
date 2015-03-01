@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',

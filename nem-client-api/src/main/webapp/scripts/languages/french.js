@@ -33,7 +33,7 @@ define({
 			132: 'L\'extension du fichier de carnet d\'adresses est incorrecte.',
 			133: 'Le carnet d\'adresses n\'a pas pu être effacé.',
 			202: 'Un message chiffré ne peut être envoyé si le destinataire n\'a jamais effectué de transaction auparavant.',
-			305: 'Le serveur d\'infrastructure NEM n\'est pas disponible.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			400: 'Certains paramètres sont manquants ou invalides.',
 			401: 'Cette opération ne peut être effectuée car elle pourrait divulguer votre clé privée en l\'envoyant à un server NIS distant.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Hôte',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Démarrage Automatique',

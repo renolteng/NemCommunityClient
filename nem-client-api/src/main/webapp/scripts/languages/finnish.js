@@ -33,7 +33,7 @@ define({
 			132: 'Osoitekirjan laajennustiedosto on väärä.',
 			133: 'Osoitekirjaa ei voida poistaa.',
 			202: 'Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.',
-			305: 'NEM Infrastructure Server ei ole käytettävissä.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			400: 'Jotkut parametrit puuttuvat tai ovat viallisia.',
 			401: 'Tätä toimintoa ei voida saattaa loppuun, koska muutoin on mahdollista että \'private key\' näkyy ulkopuolisille, mikäli se lähetetään NIS-palveluun.\n',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
@@ -162,7 +163,8 @@ define({
 				hours: 'Tunti(a)',
 				txConfirm: {
 					title: 'Vahvista multiig-tilin muunto',
-					total: 'Yhteensä'
+					total: 'Yhteensä',
+
 				},
 				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä.'
 			},
@@ -193,7 +195,8 @@ define({
 					title: 'Vahvista multisig-siirto',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
-					noMessage: 'Ei viestiä'
+					noMessage: 'Ei viestiä',
+
 				}
 			},
 			sendNem: {
@@ -554,7 +557,7 @@ define({
 				closeWallet: 'Sulje lomakko',
 				closeProgram: 'Sulje ohjelma',
 				copyClipboard: 'Kopioi osoite työpöydälle',
-				convertMultisig: 'Muunna multisig-tiliksi'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Valikko',

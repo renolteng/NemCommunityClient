@@ -33,7 +33,7 @@ define({
 			132: 'De extensie van het adresboekbestand is niet correct.',
 			133: 'Het adresboek kon niet worden verwijderd.',
 			202: 'Een beveiligd bericht kan niet worden verstuurd naar de ontvanger omdat hij of zij nog nooit een transactie heeft gemaakt met dit accountnummer.',
-			305: 'NEM Infrastructure Server is niet beschikbaar.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
 			400: 'Een parameter is missend of niet goed.',
 			401: 'Deze actie is niet toegestaan, omdat er een privé sleutel naar een remote NIS kan worden verstuurd.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-start',
@@ -165,7 +166,7 @@ define({
 					total: 'Totaal',
 
 				},
-				warning: 'Multisig account is op de lijst van handtekeninghouders. Dit zal resulteren in het afsluiten van toegang tot de account. Waarschijnlijk wil je dit <b>NIET</b>.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Signeer multisig transactie',

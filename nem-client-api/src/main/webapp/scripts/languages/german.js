@@ -33,7 +33,7 @@ define({
 			132: 'Die Dateiendung des Adressbuchs ist falsch.',
 			133: 'Das Adressbuch konnte nicht gelöscht werden.',
 			202: 'Die verschlüsselte Nachricht kann nicht gesendet werden, da der Empfänger bisher noch keine Transaktion gesendet hat und deswegen der öffentliche Schlüssel des Empfängers unbekannt ist.',
-			305: 'Der NEM Infrastructure Server (NIS) ist nicht verfügbar.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
 			400: 'Einer der Parameter fehlt oder ist ungültig.',
 			401: 'Dieser Vorgang kann nicht durchgeführt werden, da der private Schlüssel gestohlen werden könnte, wenn er an das remote NIS gesendet wird.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
@@ -165,7 +166,7 @@ define({
 					total: 'Insgesamt',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Multisig-Transaktion signieren',
@@ -556,7 +557,7 @@ define({
 				closeWallet: 'Brieftasche schließen',
 				closeProgram: 'Programm beenden',
 				copyClipboard: 'Adresse in die Zwischenablage kopieren',
-				convertMultisig: 'In Multisig-Konto umwandeln'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Übersicht',

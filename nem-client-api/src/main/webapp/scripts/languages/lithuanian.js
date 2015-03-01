@@ -33,7 +33,7 @@ define({
 			132: 'Adresų knygos bylos plėtinys yra neteisingas.',
 			133: 'Adresų knyga negali būti ištrinta.',
 			202: 'Nėra viešojo rakto',
-			305: 'NEM Infrastruktūros serveris negalimas',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Įvyko klaida, kurios kūrėjai nenumatė. Atsiprašome, bet gal paleidimas iš naujo padės. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei',
 			400: 'Trūksta kai kurių parametrų',
 			401: 'Ši operacija negali būti atlikta, nes jos metu, Jūsų privatus raktas gali būti atskleistas, siunčian jį į NIS',
@@ -41,9 +41,9 @@ define({
 			500: 'Nepavyko užsaugoti konfigūracijos bylos',
 			600: 'NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.',
 			601: 'NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.',
-			700: 'Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \'kasti\'. Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \'Kasimas\' prasideda tik turint ne mažiau 1,000 XEM.',
 			602: 'Negalima atlikti jokių operacijų, kol duomenų bazė neužkrauta.',
 			699: 'Pasiektas maksimalus galimų \'kasėjų\' kiekis serveryje.',
+			700: 'Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \'kasti\'. Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \'Kasimas\' prasideda tik turint ne mažiau 1,000 XEM.',
 			701: 'Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.',
 			702: 'Pateiktas galutinis terminas yra per toli ateityje. Galutinis terminas turi būti ne daugiau kaip viena diena.',
 			703: 'Jūsų sąskaitoje neužtenka lėšų, kad išsiųsti nurodytą XEM sumą.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Portas'
+					port: 'Portas',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Automatinis užkrovimas',
@@ -162,7 +163,8 @@ define({
 				hours: 'valanda (-os)',
 				txConfirm: {
 					title: 'Patvirtinkita pavertimą į mulstisig sąskaitą',
-					total: 'Viso'
+					total: 'Viso',
+
 				},
 				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.'
 			},
@@ -193,7 +195,8 @@ define({
 					title: 'Patvirtinti multisig transakciją',
 					message: 'Žinutė',
 					encrypted: 'Žinutė šifruota',
-					noMessage: 'Žinutes nėra'
+					noMessage: 'Žinutes nėra',
+
 				}
 			},
 			sendNem: {
@@ -234,8 +237,8 @@ define({
 					sending: 'Siunčiama...'
 				},
 				notBootedWarning: {
-					message: 'Norint siųsti XEM, vietinis prieigos taškas turi būti paleistas!',
 					title: 'Vietinis prieigos taškas neužkrautas',
+					message: 'Norint siųsti XEM, vietinis prieigos taškas turi būti paleistas!'
 				},
 				bootingWarning: {
 					title: 'Vietinis prieigos taškas užkrautas',
@@ -554,7 +557,7 @@ define({
 				closeWallet: 'Uždaryti piniginę',
 				closeProgram: 'Uždaryti programą',
 				copyClipboard: 'Kopijuoti adresą į laikinąją atmintį',
-				convertMultisig: 'Paversti į multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Skydelis',

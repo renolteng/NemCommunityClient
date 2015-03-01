@@ -33,7 +33,7 @@ define({
 			132: 'L\'estensione del nome del file della rubrica non è corretta.',
 			133: 'La rubrica non può essere eliminata.',
 			202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
-			305: 'Il server NIS non è in esecuzione',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
 			400: 'Manca qualche parametro obbligatorio',
 			401: 'L\'operazione non può essere completata perché è insicuro trasmettere la chiave privata ad un server remoto',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Nome del server',
-					port: 'Porta'
+					port: 'Porta',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-avvio',
@@ -162,7 +163,8 @@ define({
 				hours: 'ore',
 				txConfirm: {
 					title: 'Conferma la trasformazione in indirizzo multifirma',
-					total: 'Totale'
+					total: 'Totale',
+
 				},
 				warning: 'L\'indirizzo multifirma è nella lista dei cofirmatari. Questo porterebbe all\'impossibilità di accesso ai fondi. Probabilmente <b>non è</b> questo quello che vuoi.'
 			},
@@ -193,7 +195,8 @@ define({
 					title: 'Conferma transazione multifirma',
 					message: 'Messaggio',
 					encrypted: 'Il messaggio è cifrato',
-					noMessage: 'Nessun messaggio'
+					noMessage: 'Nessun messaggio',
+
 				}
 			},
 			sendNem: {
@@ -554,7 +557,7 @@ define({
 				closeWallet: 'Chiudi portafoglio',
 				closeProgram: 'Arresta NCC',
 				copyClipboard: 'Copia indirizzo negli appunti',
-				convertMultisig: 'Trasforma in multifirma'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Vista d\'insieme',

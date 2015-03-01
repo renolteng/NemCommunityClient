@@ -33,7 +33,7 @@ define({
 			132: '地址簿插件文件错误。',
 			133: '此地址簿无法删除。',
 			202: '该公钥不存在。',
-			305: 'NEM 基础架构服务器(NIS)无法使用。',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: '对不起，一个开发团队没有预见到的错误发生了。请尝试重试，若问题未解决，请在NEM NIS/NCC社区内提交该问题。',
 			400: '缺失某些参数。',
 			401: '抱歉，不允许执行该操作，本能地钱包登陆远程NIS存在私钥丢失风险！',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: '主机名',
-					port: '端口'
+					port: '端口',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: '自动启用',
@@ -165,7 +166,7 @@ define({
 					total: '总额',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: '签署多重签名交互',
@@ -556,7 +557,7 @@ define({
 				closeWallet: '关闭钱包',
 				closeProgram: '关闭程序',
 				copyClipboard: '复制地址至剪贴板',
-				convertMultisig: '转换至多重签名账户'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'仪表板',

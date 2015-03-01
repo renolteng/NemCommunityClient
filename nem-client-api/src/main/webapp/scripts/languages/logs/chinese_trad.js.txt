@@ -263,4 +263,19 @@ translated texts.modals.signMultisig.multisigTotal
 	  to: 'Convert other account to multisig'
 	 was: 'Convert to multisig'
 
+-----changed texts.faults.305
+	from: 'NEM Infrastructure Server is not available.'
+	  to: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.'
+	 was: 'NEM 預設伺服器无法使用。'
+
+changed texts.modals.multisig.warning
+	from: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+	  to: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+	 was: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+
+changed texts.wallet.actions.convertMultisig
+	from: 'Convert to multisig'
+	  to: 'Convert other account to multisig'
+	 was: 'Convert other account to multisig'
+
 -----

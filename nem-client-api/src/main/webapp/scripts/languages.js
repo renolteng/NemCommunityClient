@@ -3,6 +3,7 @@ define([
 	'languages/chinese',
 	'languages/chinese_trad',
 	'languages/croatian',
+	'languages/czech',
 	'languages/dutch',
 	'languages/english',
 	'languages/finnish',
@@ -17,6 +18,7 @@ define([
 	'languages/portuguese_br',
 	'languages/vietnamese', 
 	'languages/russian', 
+	'languages/slovak', 
 	'languages/ukrainian',
 	'languages/romanian',
 	'languages/lithuanian'], function(
@@ -24,6 +26,7 @@ define([
 		chinese,
 		chinese_trad,
 		croatian,
+		czech,
 		dutch,
 		english,
 		finnish,
@@ -38,6 +41,7 @@ define([
 		portuguese_br,
 		vietnamese, 
 		russian, 
+		slovak,
 		ukrainian,
 		romanian,
 		lithuanian) {
@@ -46,6 +50,7 @@ define([
 		chinese,
 		chinese_trad,
 		croatian,
+		czech,
 		dutch,
 		english,
 		finnish,
@@ -60,6 +65,7 @@ define([
 		portuguese_br,
 		vietnamese, 
 		russian, 
+		slovak,
 		ukrainian,
 		romanian,
 		lithuanian

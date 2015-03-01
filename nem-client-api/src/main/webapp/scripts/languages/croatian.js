@@ -33,7 +33,7 @@ define({
 			132: 'Nastavak naziva datoteke adresara je netočan.',
 			133: 'Adresar nije mogao biti izbrisan.',
 			202: 'Šifrirana se poruka nije mogla poslati jer primatelj nije nikad napravio niti jednu transakciju.',
-			305: 'NEM infrastrukturni poslužitelj nije dostupan.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Novi pokušaj bi mogao pomoći, u suprotnom molim Vas pošaljite upit NEM NIS/NCC zajednici.',
 			400: 'Neki parametar nedostaje ili je nevažeći.',
 			401: 'Ova operacije nije mogla biti sprovedena zato što bi moglo doći do otkrivanja privatnog kluča slanjem na NIS.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Automatsko pokretanje',
@@ -162,9 +163,10 @@ define({
 				hours: 'sati',
 				txConfirm: {
 					title: 'Potvrdi pretvaranje u Multisig račun',
-					total: 'Ukupno'
+					total: 'Ukupno',
+
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Potpiši višepotpisničku transakciju',
@@ -193,7 +195,8 @@ define({
 					title: 'Potvrdi Multisig transakciju',
 					message: 'Poruka',
 					encrypted: 'Poruak je šifrirana',
-					noMessage: 'Nema poruke'
+					noMessage: 'Nema poruke',
+
 				}
 			},
 			sendNem: {

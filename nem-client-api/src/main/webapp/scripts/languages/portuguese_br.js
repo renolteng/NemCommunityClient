@@ -33,7 +33,7 @@ define({
 			132: 'A extensão do arquivo de contatos está incorreta.',
 			133: 'Não foi possível deletar o arquivo de contatos.',
 			202: 'Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.',
-			305: 'NIS inicializando.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Ocorreu um erro desconhecido. Talvez uma nova nova tentativa ou reiniciar o cliente/servidor dê certo; caso contrário, informe aos desenvolvedores do NEM no fórum oficial forum.nemcoin.com.',
 			400: 'Está faltando algum parâmetro ou os dados estão incorretos.',
 			401: 'Esta operação não pode ser completada, ela pode expor a chave privada enviando-a para um NIS remoto.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Endereço Host',
-					port: 'Porta'
+					port: 'Porta',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'Inicialização automática',
@@ -165,7 +166,7 @@ define({
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Assinar transação Multisig',
@@ -556,7 +557,7 @@ define({
 				closeWallet: 'Fechar carteira',
 				closeProgram: 'Fechar programa',
 				copyClipboard: 'Copiar para a área de transferência',
-				convertMultisig: 'Converter para Multisig'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Painel Administrativo',

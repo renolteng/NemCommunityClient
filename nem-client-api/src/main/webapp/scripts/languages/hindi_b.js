@@ -33,7 +33,7 @@ define({
 			132: 'अड्रेस बुक फाइल का एक्सटेंशन गलत है.',
 			133: 'अड्रेस बुक को हटाया नहीं जा सका है.',
 			202: 'एन्क्रिप्टेड मेसेज नहीं भेजा जा सकता हे क्योंकि रेसिपईयेंट ने अभी तक एक बार भी XEM का ट्रांजैक्शन नही किया है.',
-			305: 'NEM इंफ्रास्ट्रक्चर सर्वर उपलब्ध नहीं है.',
+			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'एक एरर आ गया हे जिसके बारे में विकास टीम ने नही सोचा था. इस बात के लिए हम माफी चाहते हें, शायद एक बार फिरसे प्रयास करने पर मदद मिल सकती है. अन्यथा, NEM NIS/NCC समुदाय के भीतर एक मुद्दे को खोलने का कष्ट करें.',
 			400: 'कुछ पैरामीटर गुम या अवैध है.',
 			401: 'यह ऑपरेशन पूरा नहीं किया जा सकता है क्योंकि इससे आपकी Private Key एक Remote NIS को भेजा जाता है(आपकी Private Key इस समय प्रकाशित हो सकती है) जिससे आपके अकाउंट पर खतरा हो सकता है.',
@@ -134,7 +134,8 @@ define({
 						http: 'HTTP'
 					},
 					host: 'Host',
-					port: 'Port'
+					port: 'Port',
+					defaultPort: 'Use default port.'
 				},
 				autoBoot: {
 					tabTitle: 'ऑटो-बूट',
@@ -165,7 +166,7 @@ define({
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -556,7 +557,7 @@ define({
 				closeWallet: 'क्लोज़ वॉलेट',
 				closeProgram: 'क्लोज़ प्रोग्राम',
 				copyClipboard: 'अड्रेस को क्लिपबोर्ड पर कॉपी करें',
-				convertMultisig: 'Multisig अकाउंट में परिवर्तन करें'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'डैशबोर्ड',
