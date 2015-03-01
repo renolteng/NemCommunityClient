@@ -16,6 +16,9 @@ public class WalletController {
 	private final WalletServices walletServices;
 	private final WalletMapper walletMapper;
 
+	// TODO 20150228 J-B: doesn't really matter, but i probably would have done this as a WalletServices decorator
+	// > if we ever consolidate the implementations of the two controllers, we would probably need to do it that way
+	// TODO 20150228 J-B: actually, with these changes, i guess we can prune the AddressBookController?
 	private final AddressBookServices addressBookServices;
 
 	/**
