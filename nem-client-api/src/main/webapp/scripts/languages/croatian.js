@@ -14,7 +14,7 @@ define({
 			105: 'Lozinka novčanika nije unešena.',
 			106: 'Novčanik mora biti otvoren da biste ga mogli koristiti. Morate unijeti lozinku za novčanik da biste bili sigurni da ste ovlašteni za korištenje istog.',
 			107: 'Novčanik ne sadrži taj račun.',
-			108: 'Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 XEM-ova ili jer pokušavate ukloniti primarni račun.',
+			108: 'Nemoguće je ukloniti račun jer je iznos na njemu veći od 0 XEM-a ili jer pokušavate ukloniti primarni račun.',
 			109: 'Drugi novčanik sa istim nazivom već postoji. Molim Vas izaberite drugi naziv za novčanik.',
 			110: 'Novčanik već sadrži taj račun.',
 			111: 'Naziv novčanika je direktorij',
@@ -26,7 +26,7 @@ define({
 			124: 'Unesena lozinka je neidpravna.',
 			125: 'Nije unesena lozinka adresara',
 			127: 'Adresa u adresaru nije pronađena.',
-			128: 'The address provided is not valid.',
+			128: 'Unešena adresa nije ispravna.',
 			129: 'Adresar s takvim nazivom već postoji. Molim vas izaberite drugi naziv adresara.',
 			130: 'Adresar već sadrži takvu adresu.',
 			131: 'Naziv adresara je datoteka',
@@ -40,13 +40,13 @@ define({
 			404: 'Zatraženi resurs nije mogao biti pronađen.',
 			500: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Ponovno pokretanje programa bi moglo pomoći u suprotnom molimo vas da grešku prijavite NEM NIS/NCC zajednicom.',
 			600: 'Prije slanja i primanje transakcija sa NEM oblaka, NIS poslužitelj mora biti pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.',
-			601: 'The NEM Infrastructure Server (NIS) is already booted.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			601: 'NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.',
+			602: 'Izvršavanje operacija nije moguće sve dok baza nije u potpunosti ispunjena.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje 1000 XEM-ova.',
+			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje iznos od 1000 XEM-a.',
 			701: 'Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.',
 			702: 'Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.',
-			703: 'Stanje na Vašem računu nije dovoljno za slanje određenog iznosa XEMa.',
+			703: 'Vaš račun nema dovoljan iznos XEM-a za slanje.',
 			704: 'Tekst u poruci je predugačak. Molim Vas, probajte smanjiti dužinu teksta u Vašoj poruci ako ju želite slati.',
 			705: 'Šifra transakcije već postoji u bazi podataka ili u listi nepotvrđenih transakcija.',
 			706: 'Potpis transakcije nije mogao biti provjeren.',
@@ -59,10 +59,10 @@ define({
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
 			733: 'Sigurno ubiranje je već aktivno.',
 			734: 'Sigurno ubiranje NIJE aktivno. Nemoguce deaktivirati.',
-			740: 'Transakcija nije dozvoljena u multisig računu.',
-			741: 'Multisig transakcija potpis je odbačena. Ovaj račun nije potpisnik multisig računa.',
-			742: 'Multisig transkacija je odbačena. Multisig nije prepoznata u NEM mreži',
-			743: 'Promjena multisig računa je odbačena. Jedan od dodanih računa je već potpisnik.',
+			740: 'Transakcija nije dozvoljena u višepotpisničkom računu.',
+			741: 'Transakcija potpisa je odbačena. Ovaj račun nije potpisnik višepotpisničkog računa.',
+			742: 'Višepotpisnička transkacija je odbačena. Transakcija nije prepoznata u NEM mreži',
+			743: 'Promjena višepotpisničkog računa je odbačena. Jedan od dodanih računa je već potpisnik.',
 			901: 'Došlo je do pogreške kod postavljanja u izvanmrežni način rada.',
 			1000: 'Privatni i javni ključ koji ste unijeli se ne poklapaju.',
 			1001: 'Javni ključ i adresa koju ste unijeli se ne poklapaju.',
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: 'NIS je nedostupan',
 				nisStarting: 'NIS se pokreće...',
 				notBooted: 'NIS mora biti pokrenut. Molim vas otvorite vaš novčanik i pokrenite lokalni čvor preko skočnog prozora ili podesite postavke automatsko pokretanje.',
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Učitavanje blokova iz baze, na bloku: ',
 				booting: 'Pokrećem NIS...',
 				nisInfoNotAvailable: 'NIS informacije nisu još dostupne. Pokušavam prikupiti informacije NIS-a...',
 				synchronizing: 'NIS sinkronizacija. Na bloku {{1}}, otprilike {{2}} u zaostatku.',
@@ -96,14 +96,14 @@ define({
 			address: 'Adresa',
 			privateLabel: 'Prvatna oznaka',
 			publicLabel: 'Javna oznaka',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			noCharge: 'Naknada <b>neće</b> biti naplaćena sa trenutnog računa. Višepotpisnički račun to pokriva.',
+			justUse: 'Samo u koristi'
 		},
 		transactionTypes: [
 			'TRANSAKCIJA PRIJENOSA',
 			'PRIJENOS VAŽNOSTI',
 			'PROMJENA MULTISIG RAČUNA',
-			'MULTISIG TRANSAKCIJA'
+			'VIŠEPOTPISNIČKA TRANSAKCIJA'
 		],
 		transactionDirections: {
 			pending: 'Transakcija na čekanju',
@@ -147,8 +147,8 @@ define({
 				saveSuccess: 'Postavke su uspješno spremljene'
 			},
 			multisig: {
-				title: 'Pretvori račun u multisig',
-				multisigAccount: 'Multisig račun',
+				title: 'Pretvori račun u višepotpisnički',
+				multisigAccount: 'Višepotpisnički račun',
 				cosignatories: 'Adrese supotpisnika',
 				labelDesc: 'Ovaj račun je označen kao {{1}}',
 				nullLabelDesc: 'Ovaj račun nema oznake',
@@ -162,22 +162,21 @@ define({
 				hours: 'sati',
 				txConfirm: {
 					title: 'Potvrdi pretvaranje u Multisig račun',
-					total: 'Ukupno',
-
+					total: 'Ukupno'
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
-				title: 'Potpiši multisig transakciju',
+				title: 'Potpiši višepotpisničku transakciju',
 				original: {
-					from: 'Multisig račun',
+					from: 'Višepotpisnički račun',
 					to: 'Primatelj',
 					amount: 'Količina',
 					fee: 'Interna naknada',
 					deadline: 'Rok'
 				},
-				multisigFees: 'Multisig naknade',
-				multisigTotal: 'Total',
+				multisigFees: 'Višepotpisničke naknade',
+				multisigTotal: 'Ukupno',
 				sender: 'Potpisnik',
 				fee: 'Naknada',
 				feeValidation: 'Naknade ne može biti manja od minimalne naknade',
@@ -194,12 +193,11 @@ define({
 					title: 'Potvrdi Multisig transakciju',
 					message: 'Poruka',
 					encrypted: 'Poruak je šifrirana',
-					noMessage: 'Nema poruke',
-
+					noMessage: 'Nema poruke'
 				}
 			},
 			sendNem: {
-				title: 'Slanje XEMa',
+				title: 'Slanje XEM-a',
 				sender: 'Pošiljatelj',
 				thisAccount: 'Ovaj račun',
 				labelDesc: 'Ovaj račun je označen kao {{1}}',
@@ -210,7 +208,7 @@ define({
 				message: 'Poruka',
 				encrypt: 'Šifriraj poruku',
 				fee: 'Naknada',
-				multisigFee: 'Multisig naknada',
+				multisigFee: 'Višepotpisnička naknada',
 				feeValidation: 'Naknada nemože biti manja od najniže naknade',
 				dueBy: 'zbog',
 				useMinimumFee: 'Koristi najmanju naknadu',
@@ -237,14 +235,14 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Čvor nije pokrenut',
-					message: 'Za slanje XEM-a lokalni čvor mora biti prije pokrenut. '
+					message: 'Za slanje XEM-a lokalni čvor mora biti pokrenut. '
 				},
 				bootingWarning: {
 					title: 'Čvor se pokreće',
 					message: 'Molimo vas pričekajte prije slanja transakcije da se proces pokretanja čvora završi.'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: 'Učitavanje baze'
 				}
 			},
 			clientInfo: {
@@ -270,7 +268,7 @@ define({
 				incoming: 'Dolazno',
 				self: 'Vlastito',
 				sender: 'Pošiljatelj',
-				multisigAccount: 'Multisig račun',
+				multisigAccount: 'Višepotpisnički račun',
 				issuer: 'Izdavatelj',
 				recipient: 'Primatelj',
 				remote: 'Udaljeno',
@@ -284,7 +282,7 @@ define({
 				amount: 'Iznos',
 				fee: 'Naknada',
 				innerFee: 'Interna naknada',
-				multisigFees: 'Multisig naknade',
+				multisigFees: 'Višepotpisničke naknade',
 				cosignatory: 'Potpisnik'
 			},
 			accountDetails: {
@@ -295,7 +293,7 @@ define({
 				add: 'Dodaj u adresar',
 				remove: 'Ukloni iz adresara',
 				balance: 'Stanje',
-				vested: 'vested',
+				vested: 'osiguran',
 				importance: 'Važnost',
 				publicKey: 'Javni ključ',
 				noPublicKey: 'Nema javnog ključa',
@@ -325,7 +323,7 @@ define({
 			},
 			createRealAccountData: {
 				title: 'Stvori stvarni račun',
-				message: 'Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni XEM-ovi bit će izgubljeni ZAUVIJEK!',
+				message: 'Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni XEM-ovi biti će izgubljeni ZAUVIJEK!',
 				address: 'Adresa',
 				publicKey: 'Javni ključ',
 				privateKey: 'Privatni ključ',
@@ -406,9 +404,9 @@ define({
 			},
 			removeAccount: {
 				title: 'Ukloni račun',
-				wallet: 'Novčanik',
+				wallet: 'Pridruženi novčanik',
 				password: 'Lozinka novčanika',
-				warning: 'Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži XEM ili će biti izgubljen zauvijek nakon uklanjanja računa.',
+				warning: 'Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži XEM ili će iznos biti izgubljen zauvijek nakon uklanjanja računa.',
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno uklonjen!',
 				remove: 'Ukloni'
 			},
@@ -505,7 +503,7 @@ define({
 					{
 						title: 'Kako radi NCC?',
 						paragraphs: [
-							'<strong>NCC</strong> pruža pristup Vašim udjelima i XEM novčićima kao što to čini tradicionalni novčanik. Možete',
+							'<strong>NCC</strong> pruža pristup Vašim udjelima i XEM novčićima kao što to čini običan novčanik. Možete',
 							'<strong>NCC</strong> zahtijeva pristup na <strong>NIS</strong> poslužitelj kako bi mogao funkcionirati. Standardno je imati aktivan lokalni poslužitelj (instalira se zajedno sa <strong>NCC</strong>-om)',
 							'Moguće je također podesiti pristup na udaljeni <strong>NIS</strong> poslužitelj.'
 						],
@@ -556,7 +554,7 @@ define({
 				closeWallet: 'Zatvori novčanik',
 				closeProgram: 'Zatvori  program',
 				copyClipboard: 'Kopiraj adresu u međuspremnik',
-				convertMultisig: 'Pretvori u multisig'
+				convertMultisig: 'Pretvori drugi račun u višepotpisnički'
 			},
 			nav: [
 				'Kontrolna ploča',
@@ -600,7 +598,7 @@ define({
 				sendNem: 'Šalji XEM',
 				signMultisig: 'POTPIŠI',
 				balance: 'Trenutno stanje',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: 'Osigurani iznos',
 				syncStatus: '(na bloku {{1}}{{#2}} : otprilike {{3}} dan(a) u zaostatku {{/2}})',
 				unknown: 'nepoznato',
 				columns: [

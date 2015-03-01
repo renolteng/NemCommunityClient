@@ -3,7 +3,7 @@ define({
 	name: "Български",
 	texts: {
 		preferences: {
-			thousandSeparator: "\u2009",
+			thousandSeparator: " ",
 			decimalSeparator: "."
 		},
 		faults: {

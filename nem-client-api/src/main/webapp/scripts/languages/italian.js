@@ -9,29 +9,29 @@ define({
 		faults: {
 			101: 'The wallet file does not exist.',
 			102: 'Il portafoglio non è stato creato.',
-			103: 'Il file del portafoglio è corrotto. Ripristina il portafoglio dal backup che dovresti aver effettuato quando l\'hai creato o vi hai aggiunto un indirizzo.',
-			104: 'La password inserita non è corretta. Si spera tu riesca a ricordare la password corretta in quanto non c\'è modo di recuperarla!',
-			105: 'No password was provided for the wallet.',
+			103: 'Il file del portafoglio è corrotto. Ripristina il portafoglio da un backup.',
+			104: 'La password inserita non è corretta per questo portafoglio.',
+			105: 'Non è stata inserita la password per il portafoglio.',
 			106: 'Per poter utilizzare un portafoglio è necessario aprirlo. Per accertarsi che l\'utente sia autorizzato ad accedervi, è necessario fornire la password del portafoglio.',
 			107: 'Il portafoglio non contiene questo indirizzo',
-			108: 'L\'indirizzo non può essere eliminato. Probabilmente perché contiene qualche NEM oppure perché è l\'indirizzo principale.',
+			108: 'L\'indirizzo non può essere eliminato. Probabilmente perché contiene qualche XEM oppure perché è l\'indirizzo principale.',
 			109: 'Esiste già un portafoglio con questo nome. Scegli un nome differente.',
 			110: 'Esiste già un portafoglio contenete questo indirizzo.',
-			111: 'The wallet name is a directory.',
-			112: 'The extension of the wallet file is incorrect.',
-			113: 'The wallet could not be deleted.',
-			121: 'The address book file does not exist.',
-			122: 'Address book has not been created.',
-			123: 'Address book file is corrupt. Please recover your address book from a backup.',
-			124: 'The provided password for the address book is not correct.',
-			125: 'No password was provided for the address book.',
-			127: 'Address book does not contain this address.',
-			128: 'The address provided is not valid.',
-			129: 'Another address book with the same name exists already. Please choose an other address book name.',
-			130: 'Address book already contains this address.',
-			131: 'The address book name is a directory.',
-			132: 'The extension of the address book file is incorrect.',
-			133: 'The address book could not be deleted.',
+			111: 'Esiste già una cartella con questo nome.',
+			112: 'L\'estensione del nome del file del portafoglio non è corretta.',
+			113: 'Il portafoglio non può essere eliminato.',
+			121: 'Il file della rubrica non esite.',
+			122: 'L\'indirizzo non è stato creato.',
+			123: 'Il file della rubrica è corrotto. Recuperalo da un backup.',
+			124: 'La password fornita per la rubrica non è corretta.',
+			125: 'Nessuna password fornita per la rubrica.',
+			127: 'La rubrica non contiene questo indirizzo.',
+			128: 'L\'indirizzo specificato non è valido.',
+			129: 'Esiste già una rubrica con lo stesso nome. Scegli un nuovo nome per la rubrica.',
+			130: 'La rubrica contiene già questo indirizzo.',
+			131: 'Esiste già una cartella con questo nome.',
+			132: 'L\'estensione del nome del file della rubrica non è corretta.',
+			133: 'La rubrica non può essere eliminata.',
 			202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
 			305: 'Il server NIS non è in esecuzione',
 			306: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
@@ -41,32 +41,32 @@ define({
 			500: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
 			600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \'Avvia il nodo locale\' nel menu di NCC.',
 			601: 'Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.',
-			602: 'Cannot perform any operations until db is fully loaded.',
-			699: 'Maximum number of harvesters allowed on server has been reached.',
+			602: 'Impossibile effettuare qualsiasi operazione finchè il database non è stato completamente caricato.',
+			699: 'E\' stato raggiunto il numero massimo di indirizzi che generano blocchi.',
 			700: 'L\'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM',
 			701: 'Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.',
 			702: 'Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.',
-			703: 'L\'indirizzo non dispone di abbastanza fondi per inviare la quantità di NEM indicata.',
-			704: 'Il messaggio inserito è troppo grande per essere spedito tramite la rete NEM. Riduci la dimensione del testo.',
+			703: 'L\'indirizzo non dispone di abbastanza fondi per inviare la quantità di XEM indicata.',
+			704: 'Il messaggio inserito è troppo grande. Riduci la dimensione del testo.',
 			705: 'La firma della transazione è già presente nel database delle transazioni non ancora confermate.',
 			706: 'Errore nella verifica della firma della transazione.',
 			707: 'La marca temporale della transazione è troppo lontana nel passato.',
 			708: 'La marca temporale della transazione è troppo lontana nel futuro.',
 			709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
-			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
-			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
-			740: 'Transaction is not allowed for multisig account.',
-			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
-			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
-			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
+			710: 'La transazione è stata annullata in quanto la lista delle transazioni in attesa è piena. Commissioni maggiori possono migliorare la probabilità che la transazione venga accettata.',
+			730: 'Il trasferimento di importanza (generazione blocchi sicura) è in conflitto con una transazione esistente.',
+			731: 'L\'indirizzo che vuoi utilizzare per la generazione blocchi sicura ha un bilancio diverso da zero, quindi non può essere utilizzato.',
+			732: 'Trasferimento di importanza annullato. C\'è già una transazione di questo tipo in corso.',
+			733: 'La generazione di blocchi sicura è già attiva.',
+			734: 'La generazione di blocchi sicura NON è attiva, quindi non può essere disattivata.',
+			740: 'Tipo di transazione non consentita per indirizzi a firma multipla.',
+			741: 'Transazione rifiutata. L\'indirizzo non è uno dei cofirmatari.',
+			742: 'Transazione rifiutata. La definizione dei cofirmatari non è nota alla rete NEM.',
+			743: 'Modifica rifiutata. Uno dei cofirmatari da aggiungere è già un cofirmatario.',
 			901: 'Errore nella modalità fuori rete.',
 			1000: 'Mancata corrispondenza tra chiave privata e chiave pubblica.',
 			1001: 'Mancata corrispondenza tra chiave pubblica ed indirizzo.',
-			1002: 'L\'indirizzo non appartiene alla rete NEM principale.'
+			1002: 'L\'indirizzo non appartiene alla rete NEM principale'
 		},
 		common: {
 			success: 'Operazione completata',
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: 'NIS non disponibile',
 				nisStarting: 'NIS sta partendo...',
 				notBooted: 'NIS deve essere avviato. Apri il tuo portafoglio ed avvia il nodo locale attraverso la finestra di dialogo oppure configura l\'auto-avvio.',
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Lettura dei blocchi dal database, al blocco:',
 				booting: 'Avvio di NIS in corso...',
 				nisInfoNotAvailable: 'Verifica dello stato di NIS...',
 				synchronizing: 'Sincronizzazione NIS in corso. Al blocco {{1}}, {{2}} indietro.',
@@ -88,30 +88,30 @@ define({
 					many: '{{1}} giorni'
 				},
 				synchronized: 'NIS è sincronizzato!',
-				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+				noRemoteNisAvailable: 'NIS remoto non trovato, forse sei disconnesso da Internet?'
 			},
-			addressBook: 'Address book',
+			addressBook: 'Rubrica',
 			password: 'Password',
 			passwordValidation: 'La password non può essere vuota',
 			address: 'Indirizzo',
 			privateLabel: 'Nome privato',
-			publicLabel: 'Public label',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+			publicLabel: 'Nome pubblico',
+			noCharge: 'L\'indirizzo <b>NON</b> deve pagare commissioni, verranno coperte dall\'indirizzo cointestato.',
 			justUse: 'Just use'
 		},
 		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'TRASFERIMENTO FONDI',
+			'TRASFERIMENTO IMPORTANZA',
+			'MODIFICA INDIRIZZO MULTIFIRMATO',
+			'TRANSAZIONE MULTIFIRMA'
 		],
 		transactionDirections: {
 			pending: 'Transazione in attesa',
 			outgoing: 'Transazione in uscita',
-			incoming: 'Transazione in ingresso',
-			self: 'Transazione verso te stesso',
-			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			incoming: 'Transazione in entrata',
+			self: 'Transazione a te stesso',
+			importance: 'Trasferimento di importanza',
+			modification: 'Modifica cofirmatari'
 		},
 		modals: {
 			error: {
@@ -147,42 +147,41 @@ define({
 				saveSuccess: 'Impostazioni salvate con successo'
 			},
 			multisig: {
-				title: 'Convert account to multisig',
-				multisigAccount: 'Multisig account',
-				cosignatories: 'Cosignatories\' addresses',
+				title: 'Trasforma indirizzo in indirizzo multifirma',
+				multisigAccount: 'Indirizzo multifirma',
+				cosignatories: 'Indirizzi dei cofirmatari',
 				labelDesc: 'Questo indirizzo è denominato {{1}}',
-				nullLabelDesc: 'Questo indirizzo non ha un nome associato',
-				addCosignatory: '+ Add Cosignatory',
+				nullLabelDesc: 'Questo indirizzo non ha un nome',
+				addCosignatory: '+ Aggiungi cofirmatario',
 				cancel: 'Annulla',
-				convert: 'Convert',
+				convert: 'Trasforma',
 				fee: 'Commissioni',
-				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
-				dueBy: 'Tempo massimo',
-				useMinimumFee: 'Usa commissioni minime',
+				feeValidation: 'Le commissioni non devono essere inferiori al minimo previsto',
+				dueBy: 'Tempo limite',
+				useMinimumFee: 'Utilizza commissioni minime',
 				hours: 'ore',
 				txConfirm: {
-					title: 'Confirm Conversion to Multisig Account',
-					total: 'Totale',
-
+					title: 'Conferma la trasformazione in indirizzo multifirma',
+					total: 'Totale'
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'L\'indirizzo multifirma è nella lista dei cofirmatari. Questo porterebbe all\'impossibilità di accesso ai fondi. Probabilmente <b>non è</b> questo quello che vuoi.'
 			},
 			signMultisig: {
-				title: 'Sign multisig transaction',
+				title: 'Aggiungi firma alla trasazione multifirma',
 				original: {
-					from: 'Multisig account',
+					from: 'Indirizzo multifirma',
 					to: 'Destinatario',
 					amount: 'Importo',
-					fee: 'Inner Fee',
-					deadline: 'Deadline'
+					fee: 'Commissioni interne',
+					deadline: 'Tempo massimo'
 				},
-				multisigFees: 'Multisig Fees',
+				multisigFees: 'Commissioni per multifirma',
 				multisigTotal: 'Totale',
-				sender: 'Cosignatory',
+				sender: 'Cofirmatario',
 				fee: 'Commissioni',
-				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
+				feeValidation: 'Le commissioni non devono essere inferiori al minimo previsto',
 				dueBy: 'Tempo massimo',
-				useMinimumFee: 'Usa commissioni minime',
+				useMinimumFee: 'Utilizza commissioni minime',
 				hours: 'ore',
 				password: 'Password',
 				passwordValidation: 'La password non può essere vuota',
@@ -191,17 +190,16 @@ define({
 				sending: 'Invio in corso...',
 				successMessage: 'Transazione inserita con successo!',
 				txConfirm: {
-					title: 'Confirm Multisig Transaction',
+					title: 'Conferma transazione multifirma',
 					message: 'Messaggio',
-					encrypted: 'Messaggio cifrato',
-					noMessage: 'Nessun messaggio',
-
+					encrypted: 'Il messaggio è cifrato',
+					noMessage: 'Nessun messaggio'
 				}
 			},
 			sendNem: {
 				title: 'Invia XEM',
 				sender: 'Mittente',
-				thisAccount: 'This account',
+				thisAccount: 'Questo indirizzo',
 				labelDesc: 'Questo indirizzo è denominato {{1}}',
 				nullLabelDesc: 'Questo indirizzo non ha un nome associato',
 				amount: 'Importo',
@@ -210,7 +208,7 @@ define({
 				message: 'Messaggio',
 				encrypt: 'Cifra il mesaggio',
 				fee: 'Commissioni',
-				multisigFee: 'Multisig fee',
+				multisigFee: 'Commissione multifirma',
 				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
 				dueBy: 'Termine massimo',
 				useMinimumFee: 'Usa commissioni minime',
@@ -237,14 +235,14 @@ define({
 				},
 				notBootedWarning: {
 					title: 'NIS non è stato avviato!',
-					message: 'NIS deve essere avviato prima che tu passa inviare XEM!'
+					message: 'NIS deve essere avviato prima che tu passa inviare NEM!'
 				},
 				bootingWarning: {
 					title: 'Avvio NIS in corso',
 					message: 'Attendi finché NIS non è avviato prima di effettuare una transazione'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: 'Caricamento dal database in corso'
 				}
 			},
 			clientInfo: {
@@ -264,17 +262,17 @@ define({
 				id: 'Identificativo',
 				hash: 'Firma',
 				type: 'Tipo di transazione',
-				direction: 'Transaction Direction',
+				direction: 'Direzione della transazione',
 				pending: 'In attesa',
 				outgoing: 'In uscita',
 				incoming: 'In ingresso',
 				self: 'A te stesso',
 				sender: 'Mittente',
-				multisigAccount: 'Multisig Account',
-				issuer: 'Issuer',
+				multisigAccount: 'Indirizzo multifirma',
+				issuer: 'Mittente',
 				recipient: 'Destinatario',
-				remote: 'Remote',
-				multisigMessage: 'Signatures present',
+				remote: 'Remoto',
+				multisigMessage: 'Firme presenti',
 				message: 'Messaggio',
 				noMessage: 'Nessun messaggio',
 				encrypted: 'Il messaggio è cifrato',
@@ -283,24 +281,24 @@ define({
 				confirmationsUnknown: 'Sconosciuto',
 				amount: 'Importo',
 				fee: 'Commissioni',
-				innerFee: 'Inner Fee',
-				multisigFees: 'Multisig Fees',
-				cosignatory: 'Cosignatory'
+				innerFee: 'Commissioni interne',
+				multisigFees: 'Commissioni multifirma',
+				cosignatory: 'Cofirmatario'
 			},
 			accountDetails: {
-				title: 'Account details',
-				address: 'Address',
-				label: 'Label',
-				noLabel: 'No label',
-				add: 'Add to address book',
-				remove: 'Remove from address book',
-				balance: 'Balance',
+				title: 'Informazioni sull\'indirizzo',
+				address: 'Indirizzo',
+				label: 'Nome',
+				noLabel: 'Nessun nome',
+				add: 'Aggiungi alla rubrica',
+				remove: 'Rimuovi dalla rubrica',
+				balance: 'Bilancio',
 				vested: 'vested',
-				importance: 'Importance',
-				publicKey: 'Public key',
-				noPublicKey: 'No public key',
-				harvestedBlocks: 'Harvested blocks',
-				close: 'Close'
+				importance: 'Importanza',
+				publicKey: 'Chiave pubblica',
+				noPublicKey: 'Nessuna chiave pubblica',
+				harvestedBlocks: 'Blocchi generati',
+				close: 'Chiudi'
 			},
 			bootLocalNode: {
 				title: 'Avvia nodo locale',
@@ -408,7 +406,7 @@ define({
 				title: 'Cancellazione indirizzo',
 				wallet: 'Portafoglio',
 				password: 'Password del portafoglio',
-				warning: 'Assicurati che l\'indirizzo non contenga alcun XEM prima di eliminarlo oppure questi saranno definitivamente persi.',
+				warning: 'Assicurati che l\'indirizzo non contenga alcun NEM prima di eliminarlo oppure questi saranno definitivamente persi.',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato eliminato!',
 				remove: 'Elimina'
 			},
@@ -454,15 +452,15 @@ define({
 				leavePage: 'Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \'Chiudi portafoglio\' nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.'
 			},
 			addContact: {
-				title: 'Add contact',
+				title: 'Aggiungi contatto',
 				add: 'Aggiungi'
 			},
 			editContact: {
-				title: 'Edit contact',
-				saveChanges: 'Salva modifiche'
+				title: 'Modifica contatto',
+				saveChanges: 'Salva le modifiche'
 			},
 			removeContact: {
-				title: 'Remove contact',
+				title: 'Elimina contatto',
 				remove: 'Elimina'
 			}
 		},
@@ -479,9 +477,9 @@ define({
 				leftButton: 'Crea nuovo portafoglio',
 				walletNamePlh: 'Nome del portafoglio',
 				passwordPlh: 'Password',
-				confirmPasswordPlh: 'Confirm password',
+				confirmPasswordPlh: 'Conferma password',
 				create: 'Crea',
-				creating: 'Creating...',
+				creating: 'Creazione in corso...',
 				rightTitle: 'Già utente <em>NEM</em>?',
 				rightButton: 'Apri il portafoglio',
 				openButton: 'Apri',
@@ -556,12 +554,12 @@ define({
 				closeWallet: 'Chiudi portafoglio',
 				closeProgram: 'Arresta NCC',
 				copyClipboard: 'Copia indirizzo negli appunti',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Trasforma in multifirma'
 			},
 			nav: [
 				'Vista d\'insieme',
 				'Messaggi',
-				'Address Book',
+				'Contatti',
 				'Transazioni',
 				'Blocchi generati',
 				'Borsa',
@@ -598,9 +596,9 @@ define({
 			transactions: {
 				title: 'Transazioni recenti',
 				sendNem: 'Invia XEM',
-				signMultisig: 'SIGN',
+				signMultisig: 'FIRMA',
 				balance: 'Bilancio attuale',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: 'Bilancio vested',
 				syncStatus: '(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})',
 				unknown: 'sconosciuto',
 				columns: [
@@ -690,19 +688,19 @@ define({
 			}
 		},
 		addressBook: {
-			title: 'Address book',
-			addContact: 'Add contact',
+			title: 'Contatti',
+			addContact: 'Aggiungi contatto',
 			table: {
 				columns: [
-					'Account address',
-					'Private Label',
-					'Public Label'
+					'Indirizzo',
+					'Nome privato',
+					'Nome pubblico'
 				],
-				noContacts: 'There is no contacts in your address book'
+				noContacts: 'Nessun contatto nella tua rubrica'
 			},
-			noLabel: 'No label',
+			noLabel: 'Nessun nome',
 			sendNem: 'Invia XEM',
-			edit: 'Edit',
+			edit: 'Modifica',
 			remove: 'Elimina'
 		},
 		settings: {

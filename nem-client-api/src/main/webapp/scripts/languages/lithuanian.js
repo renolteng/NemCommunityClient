@@ -9,41 +9,41 @@ define({
 		faults: {
 			101: 'The wallet file does not exist.',
 			102: 'Piniginė nesukurta.',
-			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
-			104: 'The provided password for the wallet is not correct.',
-			105: 'No password was provided for the wallet.',
+			103: 'Piniginės byla yra sugadinta. Prašome atstatyti Jūsų piniginę iš atsarginės kopijos, kurią Jūs turėjote susikurti, kai kūrėte naują piniginę arba pridėjote naują sąskaitą į ją.',
+			104: 'Pateiktas slaptažodis netinka. Tikėkimes Jūs galite atsiminti teisingą slaptažodį. Jei jį praradote, jis negali būti atkurtas!',
+			105: 'Piniginės slaptažodis nepateiktas.',
 			106: 'Prieš pradedant darbą su pinigine, ji turi būti atidaryta. Norint atidaryti piniginę, Jūs turite įvesti piniginės slaptažodį.',
 			107: 'Piniginėje nėra šios sąskaitos',
 			108: 'Sąskaita negali būti pašalinta. Panašu, kad sąskaitoje yra daugiau kaip 0 XEM arba ši sąskaita yra Jūsų pagrindinė sąskaita.',
 			109: 'Jau egzistuoja piniginė su tokiu pavadinimu. Prašome pasirinkti kitą piniginės pavadinimą.',
-			110: 'Pinigiėeje jau yra ši sąskaita.',
-			111: 'The wallet name is a directory.',
-			112: 'The extension of the wallet file is incorrect.',
-			113: 'The wallet could not be deleted.',
-			121: 'The address book file does not exist.',
-			122: 'Address book has not been created.',
-			123: 'Address book file is corrupt. Please recover your address book from a backup.',
-			124: 'The provided password for the address book is not correct.',
-			125: 'No password was provided for the address book.',
-			127: 'Address book does not contain this address.',
-			128: 'The address provided is not valid.',
-			129: 'Another address book with the same name exists already. Please choose an other address book name.',
-			130: 'Address book already contains this address.',
-			131: 'The address book name is a directory.',
-			132: 'The extension of the address book file is incorrect.',
-			133: 'The address book could not be deleted.',
+			110: 'Piniginėje jau yra ši sąskaita.',
+			111: 'Piniginės pavadinimas yra direktorija.',
+			112: 'Piniginės bylos plėtinys yra neteisingas.',
+			113: 'Piniginė negali būti pašalinta.',
+			121: 'Adresų knygos byla neegzistuoja.',
+			122: 'Adresų knyga nesukurta/',
+			123: 'Adresų knygos byla yra sugadinta. Prašome atstatyti ją iš atsarginės kopijos.',
+			124: 'Įvestas adresų knygos slaptažodis neteisingas.',
+			125: 'Neįvestas adresų knygos slaptažodis.',
+			127: 'Adresų knygoje nėrą šio adreso.',
+			128: 'Pateiktas adresas yra neteisingas.',
+			129: 'Kita adresų knyga su tokiu pavadinimu jau egzistuoja. Prašome pasirinkti kitą adresų knygos pavadinimą.',
+			130: 'Adresų knygoje jau yra šis adresas.',
+			131: 'Adresų knygos pavadinimas yra direktorija.',
+			132: 'Adresų knygos bylos plėtinys yra neteisingas.',
+			133: 'Adresų knyga negali būti ištrinta.',
 			202: 'Nėra viešojo rakto',
 			305: 'NEM Infrastruktūros serveris negalimas',
 			306: 'Įvyko klaida, kurios kūrėjai nenumatė. Atsiprašome, bet gal paleidimas iš naujo padės. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei',
 			400: 'Trūksta kai kurių parametrų',
-			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
-			404: 'Netinkama Boot strategy reikšmė',
+			401: 'Ši operacija negali būti atlikta, nes jos metu, Jūsų privatus raktas gali būti atskleistas, siunčian jį į NIS',
+			404: 'Užklausos duomenys nerasti.',
 			500: 'Nepavyko užsaugoti konfigūracijos bylos',
 			600: 'NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.',
 			601: 'NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.',
-			602: 'Cannot perform any operations until db is fully loaded.',
-			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \'kasti\'. Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \'Kasimas\' prasideda tik turint ne mažiau 1,000 XEM.',
+			602: 'Negalima atlikti jokių operacijų, kol duomenų bazė neužkrauta.',
+			699: 'Pasiektas maksimalus galimų \'kasėjų\' kiekis serveryje.',
 			701: 'Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.',
 			702: 'Pateiktas galutinis terminas yra per toli ateityje. Galutinis terminas turi būti ne daugiau kaip viena diena.',
 			703: 'Jūsų sąskaitoje neužtenka lėšų, kad išsiųsti nurodytą XEM sumą.',
@@ -53,20 +53,20 @@ define({
 			707: 'Transakcijos laiko žymė yra per toli praeityje.',
 			708: 'Transakcijos laiko žymė yra per toli ateityje.',
 			709: 'Sąskaita nežinoma. Sąskaita turi turėti bent vieną transakciją (siuntimo ar gavimo), kad būtų žinoma tinkle.',
-			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
-			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
-			740: 'Transaction is not allowed for multisig account.',
-			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
-			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
-			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
+			710: 'Transakcija buvo atmesta, nes transakcijų kiekis bloke viršijo leistiną kiekį. Didesnis transakcijos mokestis padidina šansus, kad transakcija būtų priimta.',
+			730: '\'Svarbumo\' perkėlimo transakcija (\'saugus kasimas\') konfliktuoja su egsistuojančia transakcija.',
+			731: 'Saugaus \'kasimo\' sąskaita yra ne tuščia, todėl toks \'kasimas\' negalimas.',
+			732: '\'Svarbumo\' perkėlimas atmestas. Jau yra atliekama \'svarbumo\' perkėlimo operacija.',
+			733: 'Saugus \'kasimas\' yra jau aktyvus.',
+			734: 'Saugus \'kasimas\' neaktyvus. Deaktyvuoti negalima.',
+			740: 'Transakcija neleidžiama multisig sąskaitai.',
+			741: 'Multisig parašo transakcija atmesta. Esama sąskaita neturi parašo teisės multisig sąskaitai. ',
+			742: 'Multisig parašo transakcija atmesta. Susijusi multisig transakcija yra nežinoma NEM tinklui.',
+			743: 'Multisig sąskaitos modifikacija atmesta. Viena iš pridėtų sąskaitų jau turi parašo teisę.',
 			901: 'Įvyko klaida nustatant offline režimą.',
 			1000: 'Jūsų pateikti privatus ir viešas raktai neatitinka.',
 			1001: 'Jūsų pateiktas viešas raktas ir adresas neatitinka.',
-			1002: 'The address does not belong to the main network.'
+			1002: 'Šis adresas neegzistuoja tinkle.'
 		},
 		common: {
 			success: 'Pavyko',
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: 'NIS nėra paleistas',
 				nisStarting: 'NIS startuoja...',
 				notBooted: 'NIS turi būti užkrautas. Prašome atsidaryti Jūsų piniginę ir paleisti vietinį prieigos tašką atsidariusiame dialogo lange arba sukonfigūruokite automatinį paleidimą nustatymuose.',
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Apdorojami blokai iš duomenų bazės, esama bloke:',
 				booting: 'NIS kraunasi...',
 				nisInfoNotAvailable: 'NIS informacijos kolkas nėra. Bandoma išgauti informaciją apie NIS...',
 				synchronizing: 'NIS sinchronizuojasi. Dabartinis blokas yra {{1}}, liko dar {{2}} .',
@@ -88,30 +88,30 @@ define({
 					many: '{{1}} dienos'
 				},
 				synchronized: 'NIS susisinchronizavęs!',
-				noRemoteNisAvailable: 'No remote NIS found in the network, disconnected from internet?'
+				noRemoteNisAvailable: 'Nuotolinis NIS nerastas tinkle, atsijungti nuo interneto?'
 			},
-			addressBook: 'Address book',
+			addressBook: 'Adresų knyga.',
 			password: 'Slaptažodis',
-			passwordValidation: 'Password must not be blank',
+			passwordValidation: 'Slaptažodis negali būti tuščias.',
 			address: 'Adresas',
-			privateLabel: 'Nuosavas pavadinimas',
-			publicLabel: 'Public label',
-			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+			privateLabel: 'Privati žymė',
+			publicLabel: 'Vieša žymė',
+			noCharge: 'Šiai sąskaitai <b>NEBUS</b> taikomi jokie mokesčiai, juos padengs multisig sąskaita',
 			justUse: 'Just use'
 		},
 		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'PERVEDIMO TRANSAKCIJA',
+			'\'SVARBUMO\' PERKĖLIMAS',
+			'MULTISIG SĄSKAITOS MODIFIKACIJA',
+			'MULTISIG TRANSAKCIJA'
 		],
 		transactionDirections: {
-			pending: 'Vykdoma transakcija',
+			pending: 'Atliekama transakcija',
 			outgoing: 'Išeinanti transakcija',
 			incoming: 'Įeinanti transakcija',
 			self: 'Transakcija sau',
-			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			importance: '\'Svarbumo\' perkėlimas',
+			modification: 'Multisig modifikacija'
 		},
 		modals: {
 			error: {
@@ -147,104 +147,102 @@ define({
 				saveSuccess: 'Nustatymai sėkmingai išsaugoti'
 			},
 			multisig: {
-				title: 'Convert account to multisig',
-				multisigAccount: 'Multisig account',
-				cosignatories: 'Cosignatories\' addresses',
+				title: 'Paversti sąskaitą į multisig',
+				multisigAccount: 'Multisig saskaita',
+				cosignatories: 'Parašų turėtojų adresai',
 				labelDesc: 'Ši sąskaita pavadinta kaip {{1}}',
 				nullLabelDesc: 'Ši sąskaita neturi pavadinimo',
-				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
-				convert: 'Convert',
+				addCosignatory: '+ Pridėti parašo teisų turėtoją',
+				cancel: 'Nutraukti',
+				convert: 'Paversti',
 				fee: 'Mokestis',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
+				feeValidation: 'Mokestis negali būti mažesnis už minimalų',
+				dueBy: 'Galioja iki',
+				useMinimumFee: 'Naudoti minimalų mokestį',
+				hours: 'valanda (-os)',
 				txConfirm: {
-					title: 'Confirm Conversion to Multisig Account',
-					total: 'Total',
-
+					title: 'Patvirtinkita pavertimą į mulstisig sąskaitą',
+					total: 'Viso'
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.'
 			},
 			signMultisig: {
-				title: 'Sign multisig transaction',
+				title: 'Pasirašyti multisig transakciją',
 				original: {
-					from: 'Multisig account',
+					from: 'Multisig sąskaita.',
 					to: 'Gavėjas',
 					amount: 'Suma',
-					fee: 'Inner Fee',
-					deadline: 'Deadline'
+					fee: 'Vidinis mokestis',
+					deadline: 'Termino pabaiga'
 				},
-				multisigFees: 'Multisig Fees',
-				multisigTotal: 'Total',
-				sender: 'Cosignatory',
+				multisigFees: 'Multisig mokesčiai',
+				multisigTotal: 'Iš viso',
+				sender: 'Parašo teisės turėtojas',
 				fee: 'Mokestis',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
-				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
+				feeValidation: 'Mokestis negali būti mažesnis negu minimalus.',
+				dueBy: 'Galio iki',
+				useMinimumFee: 'Naudoti minimalu mokestį',
+				hours: 'valanda (-os)',
 				password: 'Slaptažodis',
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: 'Slaptažodis negali būti tuščias',
 				send: 'Siųsti',
-				cancel: 'Cancel',
-				sending: 'Sending...',
-				successMessage: 'Transakcija išsiųsta sėkmingai!',
+				cancel: 'Nutraukti',
+				sending: 'Siunčiama...',
+				successMessage: 'Transakcija atlikta sėkmingai!',
 				txConfirm: {
-					title: 'Confirm Multisig Transaction',
+					title: 'Patvirtinti multisig transakciją',
 					message: 'Žinutė',
 					encrypted: 'Žinutė šifruota',
-					noMessage: 'Nėra žinutės',
-
+					noMessage: 'Žinutes nėra'
 				}
 			},
 			sendNem: {
 				title: 'Siųsti XEM',
 				sender: 'Siuntėjas',
-				thisAccount: 'This account',
+				thisAccount: 'Ši sąskaita',
 				labelDesc: 'Ši sąskaita pavadinta kaip {{1}}',
 				nullLabelDesc: 'Ši sąskaita neturi pavadinimo',
 				amount: 'Suma',
 				recipient: 'Gavėjo sąskaita',
-				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
+				recipientValidation: 'Sąskaitos adresas be brūkšnių turi būti iš 40 simbolių.',
 				message: 'Žinutė',
 				encrypt: 'Užšifruoti žinutę',
 				fee: 'Mokestis',
 				multisigFee: 'Multisig fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
+				feeValidation: 'Mokestis turi būti ne mažesnis kaip minimalus.',
 				dueBy: 'Galiojimo trukmė',
-				useMinimumFee: 'Use minimum fee',
+				useMinimumFee: 'Naudoti minimalų mokestį.',
 				hours: 'valandos',
 				password: 'Slaptažodis',
-				passwordValidation: 'Password must not be blank',
+				passwordValidation: 'Slaptažodis negali būti tuščias.',
 				send: 'Siųsti',
-				cancel: 'Cancel',
+				cancel: 'Nutraukti',
 				sending: 'Siunčiama...',
 				successMessage: 'Transakcija išsiųsta sėkmingai!',
 				txConfirm: {
-					title: 'Confirm Transaction',
-					amount: 'Amount',
-					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
-					total: 'Total',
-					message: 'Message',
-					encrypted: 'Message is encrypted',
-					noMessage: 'No message',
-					cancel: 'Cancel',
-					confirm: 'Confirm',
-					sending: 'Sending...'
+					title: 'Patvirtinti transakciją',
+					amount: 'Suma',
+					to: 'Į',
+					dueBy: 'Galioja',
+					hours: 'valandų',
+					total: 'Viso',
+					message: 'Žinutė',
+					encrypted: 'Žinutė šifruota',
+					noMessage: 'Žinutės nėra',
+					cancel: 'Nutraukti',
+					confirm: 'Patvirtinti',
+					sending: 'Siunčiama...'
 				},
 				notBootedWarning: {
-					title: 'Prieigos taškas nepaleistas!',
 					message: 'Norint siųsti XEM, vietinis prieigos taškas turi būti paleistas!'
+					title: 'Vietinis prieigos taškas neužkrautas',
 				},
 				bootingWarning: {
-					title: 'Node is being booted',
-					message: 'Please wait until booting process is done to send your transaction.'
+					title: 'Vietinis prieigos taškas užkrautas',
+					message: 'Norint atlikti transakciją palaukite kol tinklo taškas bus pilnai paleistas.'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: 'Apdorojama duomenų bazė'
 				}
 			},
 			clientInfo: {
@@ -264,43 +262,43 @@ define({
 				id: 'ID',
 				hash: 'Hash',
 				type: 'Transakcijos tipas',
-				direction: 'Transaction Direction',
+				direction: 'Transakcijos kryptis',
 				pending: 'Kol kas vyksta',
 				outgoing: 'Išeinanti',
 				incoming: 'Įeinanti',
 				self: 'Sau',
 				sender: 'Siuntėjas',
-				multisigAccount: 'Multisig Account',
-				issuer: 'Issuer',
+				multisigAccount: 'Multisig sąskaita',
+				issuer: 'Emitentas',
 				recipient: 'Gavėjas',
-				remote: 'Remote',
-				multisigMessage: 'Signatures present',
+				remote: 'Nuotolinis',
+				multisigMessage: 'Parašai yra',
 				message: 'Žinutė',
 				noMessage: 'Nėra žinutės',
 				encrypted: 'Žinutė yra užšifruota',
 				time: 'Laiko žymė',
 				confirmations: 'Patvirtinimai',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Nežinoma',
 				amount: 'Suma',
 				fee: 'Mokestis',
-				innerFee: 'Inner Fee',
-				multisigFees: 'Multisig Fees',
-				cosignatory: 'Cosignatory'
+				innerFee: 'Vidinis mokestis',
+				multisigFees: 'Multisig mokesčiai',
+				cosignatory: 'Paraso teisės turėtojas'
 			},
 			accountDetails: {
-				title: 'Account details',
-				address: 'Address',
-				label: 'Label',
-				noLabel: 'No label',
-				add: 'Add to address book',
-				remove: 'Remove from address book',
-				balance: 'Balance',
+				title: 'Sąskaitos informacija',
+				address: 'Adresas',
+				label: 'Pavadinimas',
+				noLabel: 'Nėra pavadinimo',
+				add: 'Pridėti į adresų knygą',
+				remove: 'Išimti iš adresų knygos',
+				balance: 'Balansas',
 				vested: 'vested',
-				importance: 'Importance',
-				publicKey: 'Public key',
-				noPublicKey: 'No public key',
-				harvestedBlocks: 'Harvested blocks',
-				close: 'Close'
+				importance: '\'Svarbumas\'',
+				publicKey: 'Viešasis raktas',
+				noPublicKey: 'Nėra viešojo rakto',
+				harvestedBlocks: '\'Iškasti\' blokai',
+				close: 'Uždaryti'
 			},
 			bootLocalNode: {
 				title: 'Užkrauti vietinį prieigos tašką',
@@ -451,19 +449,19 @@ define({
 				stop: 'Stabdyti'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+				leavePage: 'Jūs atsijungiate nuo savo sąskaitos. Atminkite, kad atisjungus nuo sąskaitos šiuo būdu, bet kas kitas gali prisijungti prie Jūsų sąskaitos iš šio kompiuterio.\n\nNorint to išvengti, atsijunkite nuo sąskaitos naudodamiesi \'Uždaryti piniginę\' meniu komanda.'
 			},
 			addContact: {
-				title: 'Add contact',
+				title: 'Pridėti kontaktą',
 				add: 'Pridėti'
 			},
 			editContact: {
-				title: 'Edit contact',
+				title: 'Redaguoti kontaktą',
 				saveChanges: 'Išsaugoti pakeitimus'
 			},
 			removeContact: {
-				title: 'Remove contact',
-				remove: 'Panaikinti'
+				title: 'Pašalinti kontaktą',
+				remove: 'Pašalinti'
 			}
 		},
 		landing: {
@@ -481,7 +479,7 @@ define({
 				passwordPlh: 'Slaptažodis',
 				confirmPasswordPlh: 'Confirm password',
 				create: 'Sukurti',
-				creating: 'Creating...',
+				creating: 'Kuriama...',
 				rightTitle: 'Esate <em>NEM</em>eris?',
 				rightButton: 'Atidaryti savo piniginę',
 				openButton: 'Atidaryti',
@@ -556,12 +554,12 @@ define({
 				closeWallet: 'Uždaryti piniginę',
 				closeProgram: 'Uždaryti programą',
 				copyClipboard: 'Kopijuoti adresą į laikinąją atmintį',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Paversti į multisig'
 			},
 			nav: [
 				'Skydelis',
 				'Žinutės',
-				'Address Book',
+				'Kontaktai',
 				'Transakcijos',
 				'\'Iškasti\' blokai',
 				'Aktyvų birža',
@@ -600,7 +598,7 @@ define({
 				sendNem: 'Siųsti XEM',
 				signMultisig: 'SIGN',
 				balance: 'Turimas balansas',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: '\'Kasantis\' balansas',
 				syncStatus: '(blokas {{1}}{{#2}} : po {{3}} dienu{{/2}})',
 				unknown: 'nežinomas',
 				columns: [
@@ -617,7 +615,7 @@ define({
 				noMessage: 'Žinutės nera',
 				encrypted: 'Žinutė šifruota',
 				view: 'Peržiūrėti',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Nežinoma',
 				pending: 'Atliekama',
 				seeAll: 'Peržiūreti visas transakcijas',
 				noTransactions: 'Nėra dar atlikta jokių transakcijų'
@@ -640,8 +638,8 @@ define({
 			filters: {
 				confirmed: 'Patvirtintos',
 				unconfirmed: 'Nepatvirtintos',
-				incoming: 'Įeinancios',
-				outgoing: 'Išeinancios'
+				incoming: 'Įeinančios',
+				outgoing: 'Išeinančios'
 			},
 			table: {
 				columns: [
@@ -658,7 +656,7 @@ define({
 				noMessage: 'Nėra žinutės',
 				encrypted: 'Žinutė šifruota',
 				view: 'Peržiūrėti',
-				confirmationsUnknown: 'Unknown',
+				confirmationsUnknown: 'Nežinoma',
 				pending: 'Vykdoma',
 				noTransactions: 'Nėra atliktų transakcijų',
 				loading: 'Krauna daugiau transakcijų...'
@@ -667,7 +665,7 @@ define({
 		harvestedBlocks: {
 			title: 'Iškasti blokai',
 			feeEarned: 'Iš paskutinių 25 \'iškastų\' blokų gauti mokesciai',
-			unknown: 'Unknown',
+			unknown: 'Nežinoma',
 			table: {
 				columns: [
 					'Bloko numeris',
@@ -684,26 +682,26 @@ define({
 				harvesting: '\'Kasimas\' vyksta',
 				stop: 'Stabdyti \'kasimą\'',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Pradėti nuotolinį \'kasimą\'',
+					stopRemoteHarvesting: 'Stabdyti nuotolinį \'kasimą\''
 				}
 			}
 		},
 		addressBook: {
-			title: 'Address book',
-			addContact: 'Add contact',
+			title: 'Adresų knyga',
+			addContact: 'Pridėti kontaktą',
 			table: {
 				columns: [
-					'Account address',
-					'Private Label',
-					'Public Label'
+					'Sąskaitos adresas',
+					'Privati žymė',
+					'Vieša žymė'
 				],
-				noContacts: 'There is no contacts in your address book'
+				noContacts: 'Nėra kontaktų adresų knygoje'
 			},
-			noLabel: 'No label',
+			noLabel: 'Nera žymės',
 			sendNem: 'Siųsti XEM',
-			edit: 'Edit',
-			remove: 'Panaikinti'
+			edit: 'Redaguoti',
+			remove: 'Pašalinti'
 		},
 		settings: {
 			title: 'Nustatymai',
