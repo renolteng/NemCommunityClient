@@ -53,7 +53,7 @@ public class WalletController {
 	@RequestMapping(value = "/wallet/create", method = RequestMethod.POST)
 	public WalletViewModel create(@RequestBody final WalletNamePasswordPair pair) {
 		final Wallet wallet = this.walletServices.create(pair);
-		AddressBook addressBook = this.createAddressBook(pair);
+		final AddressBook addressBook = this.createAddressBook(pair);
 		addressBook.addLabel(new AccountLabel(wallet.getPrimaryAccount().getAddress(), "", ""));
 		return this.walletMapper.toViewModel(wallet);
 	}
