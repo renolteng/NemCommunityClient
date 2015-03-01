@@ -8,13 +8,14 @@ import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;
 import org.nem.monitor.ux.TrayIconBuilder;
 
-//import javax.jnlp.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+
+//import javax.jnlp.*;
 
 /**
  * The nem monitor program.

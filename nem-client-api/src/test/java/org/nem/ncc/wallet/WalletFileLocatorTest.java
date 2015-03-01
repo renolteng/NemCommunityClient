@@ -1,8 +1,8 @@
 package org.nem.ncc.wallet;
 
 import org.junit.BeforeClass;
-import org.nem.ncc.storable.entity.*;
-import org.nem.ncc.wallet.storage.*;
+import org.nem.ncc.storable.entity.StorableEntityFileLocatorTest;
+import org.nem.ncc.wallet.storage.WalletDescriptor;
 
 import java.io.*;
 

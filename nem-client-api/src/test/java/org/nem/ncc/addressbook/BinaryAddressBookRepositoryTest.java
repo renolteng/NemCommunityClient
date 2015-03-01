@@ -28,8 +28,7 @@ public class BinaryAddressBookRepositoryTest extends BinaryStorableEntityReposit
 
 	@Override
 	protected boolean areEquivalent(final StorableAddressBook lhs, final StorableAddressBook rhs) {
-		return
-				lhs.getName().equals(rhs.getName())
+		return lhs.getName().equals(rhs.getName())
 				&& lhs.getAccountLabels().equals(rhs.getAccountLabels());
 	}
 

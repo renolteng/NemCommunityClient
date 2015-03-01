@@ -2,7 +2,7 @@ package org.nem.ncc.addressbook;
 
 import org.junit.BeforeClass;
 import org.nem.ncc.addressbook.storage.AddressBookDescriptor;
-import org.nem.ncc.storable.entity.*;
+import org.nem.ncc.storable.entity.StorableEntityFileLocatorTest;
 
 import java.io.*;
 

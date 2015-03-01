@@ -88,7 +88,6 @@ public abstract class StorableEntityFileExtensionTest {
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_HAS_INVALID_EXTENSION.value()));
 	}
 
-
 	protected abstract StorableEntityFileExtension getDefaultFileExtension();
 
 	protected abstract StorableEntityFileExtension createEntityFileExtension();

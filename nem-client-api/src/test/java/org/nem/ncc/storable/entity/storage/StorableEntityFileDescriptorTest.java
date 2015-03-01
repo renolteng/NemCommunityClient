@@ -7,7 +7,7 @@ import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.ncc.storable.entity.*;
-import org.nem.ncc.test.*;
+import org.nem.ncc.test.ExceptionAssert;
 
 import java.io.*;
 import java.nio.file.Paths;
