@@ -3,7 +3,7 @@ define({
 	name: 'Deutsch',
 	texts: {
 		preferences: {
-			thousandSeparator: ' .',
+			thousandSeparator: '.',
 			decimalSeparator: ','
 		},
 		faults: {
@@ -17,7 +17,7 @@ define({
 			108: 'Das Konto kann nicht entfernt werden. Der Grund ist meistens, dass der Kontostand größer als 0 XEM ist oder, dass Du versuchst, ein Hauptkonto zu entfernen.',
 			109: 'Es gibt bereits eine Brieftasche mit diesem Namen. Bitte wähle einen anderen Namen für die Brieftasche.',
 			110: 'Die Brieftasche enthält dieses Konto bereits.',
-			111: 'Der Name der Brieftasche darf kein Dateierzeichnis sein.',
+			111: 'Der Name der Brieftasche darf kein Dateiverzeichnis sein.',
 			112: 'Die Dateiendung der Brieftasche ist falsch.',
 			113: 'Die Brieftasche konnte nicht gelöscht werden.',
 			121: 'Das Adressbuch existiert nicht.',
@@ -26,19 +26,19 @@ define({
 			124: 'Das Passwort für das Adressbuch ist nicht korrekt.',
 			125: 'Es wurde kein Passwort für das Adressbuch eingegeben.',
 			127: 'Das Adressbuch enthält diese Adresse nicht.',
-			128: 'Die Adresse ist nicht gültig.',
+			128: 'Die Adresse ist ungültig.',
 			129: 'Es gibt bereits ein Adressbuch mit diesem Namen. Bitte wähle einen anderen Namen für das Adressbuch.',
 			130: 'Das Adressbuch enthält diese Adresse bereits.',
 			131: 'Der Name des Adressbuches darf kein Dateiverzeichnis sein.',
 			132: 'Die Dateiendung des Adressbuchs ist falsch.',
 			133: 'Das Adressbuch konnte nicht gelöscht werden.',
 			202: 'Die verschlüsselte Nachricht kann nicht gesendet werden, da der Empfänger bisher noch keine Transaktion gesendet hat und deswegen der öffentliche Schlüssel des Empfängers unbekannt ist.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
-			306: 'Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
+			305: 'Der NEM Infrastructure Server (NIS) ist nicht verfügbar.\n\nEin Neustart der NEM Software könnte dieses Problem beheben.\n\nFalls du einen Remote-NIS benutzt, überprüfe den eingestellten Host auf Tippfehler oder benutze einen anderen Remote-NIS.',
+			306: 'Es ist ein unvorhergesehener Fehler aufgetreten.\n\nSollte dieser Fehler wiederholt auftreten, könnte ein Neustart der NEM Software das Problem beheben. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
 			400: 'Einer der Parameter fehlt oder ist ungültig.',
 			401: 'Dieser Vorgang kann nicht durchgeführt werden, da der private Schlüssel gestohlen werden könnte, wenn er an das remote NIS gesendet wird.',
 			404: 'Die angeforderte Ressource wurde nicht gefunden.',
-			500: 'Entschuldigung! Es ist ein unvorhergesehener Fehler aufgetreten.\n\nMöglicherweise hilft ein Neustart. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
+			500: 'Es ist ein unvorhergesehener Fehler aufgetreten.\n\nSollte dieser Fehler wiederholt auftreten, könnte ein Neustart der NEM Software das Problem beheben. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
 			600: 'Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.',
 			601: 'Der NEM Infrastructure Server (NIS) ist bereits gebootet. Es ist nicht nötig, NIS ein weiteres Mal zu booten.',
 			602: 'Es können keine Aktionen ausgeführt werden, bevor die Blockkette vollständig geladen ist.',
@@ -46,15 +46,15 @@ define({
 			700: 'Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 XEM benötigt.',
 			701: 'Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
 			702: 'Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
-			703: 'Dein Kontoguthaben reicht nicht aus, um den angegebenen Betrag an NEM zu senden.',
+			703: 'Dein Kontoguthaben reicht nicht aus, um den angegebenen Betrag zu senden.',
 			704: 'Die eingegebene Nachricht ist zu lang. Bitte reduziere die Länge der Nachricht, um sie versenden zu können.',
 			705: 'Der Transaktionshash existiert bereits in der Datenbank oder in der Liste der unbestätigten Transaktionen.',
 			706: 'Die Signatur der Transaktion konnte nicht verifiziert werden.',
 			707: 'Der Zeitstempel der Transaktion liegt zu weit in der Vergangenheit.',
 			708: 'Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.',
 			709: 'Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Absender oder Empfänger in einer Transaktion auftreten, um dem Netzwerk bekannt zu sein.',
-			710: 'Die Transaktion wurde abgelehnt, weil der Cache zu voll ist. Eine höhere Gebühr erhöht die Chance, dass die Transaktion akzeptiert wird.',
-			730: 'Die Übertragung der Wichtigkeit (für die sichere Ernte) steht im Konfikt mit einer schon existierenden Übertragung.',
+			710: 'Die Transaktion wurde abgelehnt, weil gerade zu viele Transaktionen gesendet werden. Eine höhere Gebühr erhöht die Chance, dass die Transaktion akzeptiert wird.',
+			730: 'Die Übertragung der Wichtigkeit (für die sichere Ernte) steht im Konflikt mit einer schon existierenden Übertragung.',
 			731: 'Das Konto für die sichere Ernte ist nicht leer und kann daher nicht benutzt werden.',
 			732: 'Übertragung der Wichtigkeit abgelehnt, da es noch eine ausstehende Übertragung gibt.',
 			733: 'Sichere Ernte ist bereits aktiviert.',
@@ -88,7 +88,7 @@ define({
 					many: 'etwa {{1}} Tage'
 				},
 				synchronized: 'NIS ist synchron!',
-				noRemoteNisAvailable: 'Kein remote NIS gefunden. Ist die Internetverbindung unterbrochen?'
+				noRemoteNisAvailable: 'Kein Remote-NIS gefunden. Ist die Internetverbindung unterbrochen?'
 			},
 			addressBook: 'Adressbuch',
 			password: 'Passwort',
@@ -128,14 +128,14 @@ define({
 					label: 'Sprache'
 				},
 				remoteServer: {
-					tabTitle: 'Remote Server',
+					tabTitle: 'Remote-Server',
 					protocol: 'Protokoll',
 					protocolOptions: {
 						http: 'HTTP'
 					},
 					host: 'Host',
 					port: 'Port',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Standard Port benutzen.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
@@ -166,7 +166,7 @@ define({
 					total: 'Insgesamt',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Das Multisig-Konto ist selbst in der Liste der Mitsignierer. Das bedeutet, dass über das Vermögen auf diesem Konto nicht mehr verfügt werden kann. Es ist höchstwahrscheinlich, dass du das <b>NICHT</b> tun möchtest.'
 			},
 			signMultisig: {
 				title: 'Multisig-Transaktion signieren',
@@ -174,10 +174,10 @@ define({
 					from: 'Multisig-Konto',
 					to: 'Empfänger',
 					amount: 'Betrag',
-					fee: 'Innere Gebühr',
+					fee: 'Gebühr',
 					deadline: 'Frist'
 				},
-				multisigFees: 'Multisig-Gebühren',
+				multisigFees: 'Signierungs-Gebühr',
 				multisigTotal: 'Insgesamt',
 				sender: 'Mitsignierer',
 				fee: 'Gebühr',
@@ -211,7 +211,7 @@ define({
 				message: 'Nachricht',
 				encrypt: 'Nachricht verschlüsseln',
 				fee: 'Gebühr',
-				multisigFee: 'Multisig-Gebühr',
+				multisigFee: 'Signierungs-Gebühr',
 				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
 				dueBy: 'Verfällt in',
 				useMinimumFee: 'Benutze Mindestgebühr',
@@ -284,8 +284,8 @@ define({
 				confirmationsUnknown: 'Unbekannt',
 				amount: 'Betrag',
 				fee: 'Gebühr',
-				innerFee: 'innere Gebühr',
-				multisigFees: 'Multisig-Gebühren',
+				innerFee: 'Gebühr',
+				multisigFees: 'Signierungs-Gebühren',
 				cosignatory: 'Mitsignierer'
 			},
 			accountDetails: {
@@ -299,7 +299,7 @@ define({
 				vested: 'Für Ernte verwendbarer Anteil',
 				importance: 'Wichtigkeit',
 				publicKey: 'Öffentlicher Schlüssel',
-				noPublicKey: 'öffentlicher Schlüssel unbekannt',
+				noPublicKey: 'Öffentlicher Schlüssel unbekannt',
 				harvestedBlocks: 'Geerntete Böcke',
 				close: 'Schließen'
 			},
@@ -383,7 +383,7 @@ define({
 				wallet: 'Aktueller Name der Brieftasche',
 				newName: 'Neuer Name der Brieftasche',
 				password: 'Passwort der Brieftasche',
-				successMessage: 'Der Name der Brieftasche wurde erfolgreich von <em>{{1}}</em> in <em>{{2}}</em> geändert',
+				successMessage: 'Der Name der Brieftasche wurde erfolgreich von <em>{{1}}</em> in <em>{{2}}</em> geändert.',
 				change: 'Ändern'
 			},
 			changeWalletPassword: {
@@ -508,7 +508,7 @@ define({
 						paragraphs: [
 							'<strong>NCC</strong> ermöglicht Dir den Zugriff auf Anlagen und NEM genauso wie eine herkömmliche Brieftasche. Du kannst',
 							'<strong>NCC</strong> braucht Zugang zu einem <strong>NIS</strong> Server, um zu funktionieren. Normalerweise wird der Server lokal betrieben (wird zusammen mit dem <strong>NCC</strong> installiert)',
-							'Du kannst auch den Zugang zu einem remote <strong>NIS</strong> konfigurieren.'
+							'Du kannst auch den Zugang zu einem Remote-<strong>NIS</strong> konfigurieren.'
 						],
 						listItems: [
 							'mehrere Brieftaschen haben',
@@ -527,7 +527,7 @@ define({
 				]
 			},
 			footer: {
-				copyright: '© Copyright 2015. NEM Community Client.'
+				copyright: '© Copyright 2014-2015. NEM Community Client.'
 			}
 		},
 		wallet: {
@@ -557,7 +557,7 @@ define({
 				closeWallet: 'Brieftasche schließen',
 				closeProgram: 'Programm beenden',
 				copyClipboard: 'Adresse in die Zwischenablage kopieren',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Konvertiere anderes Konto in Multisig-Konto'
 			},
 			nav: [
 				'Übersicht',
@@ -588,7 +588,7 @@ define({
 				remoteHarvest: {
 					activate: 'Sichere Ernte aktivieren',
 					activating: 'Aktiviere sichere Ernte...',
-					active: 'Sichere Ernte ist aktiv',
+					active: 'Sichere Ernte ist aktiviert',
 					deactivate: 'Sichere Ernte deaktivieren',
 					deactivating: 'Deaktiviere sichere Ernte...',
 					startRemoteHarvesting: 'Sichere Ernte beginnen',
