@@ -321,9 +321,9 @@ public class AccountControllerTest {
 		final AccountDatabaseIdRequest request = createIdRequest(Utils.generateRandomAddress());
 		final TestContext context = new TestContext();
 		final List<HarvestInfo> originalHarvestInfos = Arrays.asList(
-				new HarvestInfo(0L, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(0L, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(0L, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO));
+				new HarvestInfo(0L, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO, 0L));
 
 		Mockito.when(context.accountServices.getAccountHarvests(request.getAddress(), request.getDatabaseId()))
 				.thenReturn(originalHarvestInfos);

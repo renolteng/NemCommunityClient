@@ -254,9 +254,9 @@ public class AccountServicesTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final SerializableList<HarvestInfo> originalHarvestInfos = new SerializableList<>(Arrays.asList(
-				new HarvestInfo(0L, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(0L, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(0L, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO)
+				new HarvestInfo(0L, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO, 0L)
 		));
 
 		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString))

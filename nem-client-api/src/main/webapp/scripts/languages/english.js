@@ -673,7 +673,7 @@ define({
 				columns: [
 					'Height',
 					'Time',
-					'Block hash',
+					'Block difficulty',
 					'Fee'
 				],
 				noBlocks: 'No blocks have been harvested yet',

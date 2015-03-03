@@ -13,6 +13,7 @@ public class HarvestInfoViewModel implements SerializableEntity {
 	private final BlockHeight height;
 	private final TimeInstant timeStamp;
 	private final Amount totalFee;
+	private final Long difficulty;
 
 	/**
 	 * Creates a new harvest info view model.
@@ -24,6 +25,7 @@ public class HarvestInfoViewModel implements SerializableEntity {
 		this.height = harvestInfo.getBlockHeight();
 		this.timeStamp = harvestInfo.getTimeStamp();
 		this.totalFee = harvestInfo.getTotalFee();
+		this.difficulty = harvestInfo.getDifficulty();
 	}
 
 	@Override
@@ -33,6 +35,7 @@ public class HarvestInfoViewModel implements SerializableEntity {
 		serializer.writeLong("timeStamp", UnixTime.fromTimeInstant(this.timeStamp).getMillis());
 		Amount.writeTo(serializer, "fee", this.totalFee);
 		BlockHeight.writeTo(serializer, "height", this.height);
+		serializer.writeLong("difficulty", this.difficulty);
 	}
 
 	/**
@@ -69,5 +72,14 @@ public class HarvestInfoViewModel implements SerializableEntity {
 	 */
 	public Amount getTotalFee() {
 		return this.totalFee;
+	}
+
+	/**
+	 * Gets the block difficulty.
+	 *
+	 * @return The block difficulty.
+	 */
+	public Long getDifficulty() {
+		return this.difficulty;
 	}
 }

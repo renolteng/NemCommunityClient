@@ -673,7 +673,7 @@ define({
 				columns: [
 					'Block',
 					'Zeitpunkt',
-					'Blockhash',
+					'Schwierigkeitsgrad',
 					'Gebühr'
 				],
 				noBlocks: 'Noch keine Blöcke geerntet',
