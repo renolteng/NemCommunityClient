@@ -7,7 +7,7 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 import org.nem.ncc.test.Utils;
 
-public class AccountTransactionIdRequestTest {
+public class AccountDatabaseIdRequestTest {
 	private static final Long TRANSACTION_ID = 123L;
 
 	//region constructor
@@ -16,22 +16,22 @@ public class AccountTransactionIdRequestTest {
 	public void requestCanBeCreated() {
 		// Act:
 		final Address address = Utils.generateRandomAddress();
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(address, TRANSACTION_ID);
+		final AccountDatabaseIdRequest request = new AccountDatabaseIdRequest(address, TRANSACTION_ID);
 
 		// Assert:
 		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
-		Assert.assertThat(request.getTransactionId(), IsEqual.equalTo(TRANSACTION_ID));
+		Assert.assertThat(request.getDatabaseId(), IsEqual.equalTo(TRANSACTION_ID));
 	}
 
 	@Test
-	public void requestCanBeCreatedWithoutTransactionId() {
+	public void requestCanBeCreatedWithoutDatabaseId() {
 		// Act:
 		final Address address = Utils.generateRandomAddress();
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(address, null);
+		final AccountDatabaseIdRequest request = new AccountDatabaseIdRequest(address, null);
 
 		// Assert:
 		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
-		Assert.assertThat(request.getTransactionId(), IsNull.nullValue());
+		Assert.assertThat(request.getDatabaseId(), IsNull.nullValue());
 	}
 
 	//endregion
@@ -44,24 +44,24 @@ public class AccountTransactionIdRequestTest {
 		final Address address = Utils.generateRandomAddress();
 
 		// Act:
-		final AccountTransactionIdRequest request = this.createRequestFromJson(address.getEncoded(), TRANSACTION_ID);
+		final AccountDatabaseIdRequest request = this.createRequestFromJson(address.getEncoded(), TRANSACTION_ID);
 
 		// Assert:
 		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
-		Assert.assertThat(request.getTransactionId(), IsEqual.equalTo(TRANSACTION_ID));
+		Assert.assertThat(request.getDatabaseId(), IsEqual.equalTo(TRANSACTION_ID));
 	}
 
 	@Test
-	public void requestCanBeDeserializedWithoutTransactionId() {
+	public void requestCanBeDeserializedWithoutDatabaseId() {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
 
 		// Act:
-		final AccountTransactionIdRequest request = this.createRequestFromJson(address.getEncoded(), null);
+		final AccountDatabaseIdRequest request = this.createRequestFromJson(address.getEncoded(), null);
 
 		// Assert:
 		Assert.assertThat(request.getAddress(), IsEqual.equalTo(address));
-		Assert.assertThat(request.getTransactionId(), IsNull.nullValue());
+		Assert.assertThat(request.getDatabaseId(), IsNull.nullValue());
 	}
 
 	//endregion
@@ -69,26 +69,26 @@ public class AccountTransactionIdRequestTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void requestCannotBeCreatedAroundInvalidAccountId() {
 		// Act:
-		new AccountTransactionIdRequest(Address.fromEncoded("FOO"), null);
+		new AccountDatabaseIdRequest(Address.fromEncoded("FOO"), null);
 	}
 
 	@Test(expected = TypeMismatchException.class)
-	public void requestCannotBeCreatedAroundInvalidTransactionId() {
+	public void requestCannotBeCreatedAroundInvalidDatabaseId() {
 		// Arrange:
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", Utils.generateRandomAddress().getEncoded());
 		jsonObject.put("id", "zzz");
 
 		// Act:
-		new AccountTransactionIdRequest(new JsonDeserializer(jsonObject, null));
+		new AccountDatabaseIdRequest(new JsonDeserializer(jsonObject, null));
 	}
 
-	private AccountTransactionIdRequest createRequestFromJson(
+	private AccountDatabaseIdRequest createRequestFromJson(
 			final String address,
-			final Long transactionId) {
+			final Long databaseId) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", address);
-		jsonObject.put("id", transactionId);
-		return new AccountTransactionIdRequest(new JsonDeserializer(jsonObject, null));
+		jsonObject.put("id", databaseId);
+		return new AccountDatabaseIdRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

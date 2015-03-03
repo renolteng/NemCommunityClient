@@ -743,7 +743,6 @@ define(['TransactionType'], function(TransactionType) {
         },
         processHarvestedBlock: function(block) {
             if (!block.message) block.message = 'Block #' + block.height;
-            if (!block.hash) block.hash = block.blockHash.data;
             if (!block.timeStamp && block.fee !== 0) block.timeStamp = block.timeStamp;
             if (!block.fee && block.fee !== 0) block.fee = block.totalFee;
 
