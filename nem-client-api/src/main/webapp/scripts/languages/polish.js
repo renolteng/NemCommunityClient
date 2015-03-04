@@ -8,7 +8,7 @@ define({
 		},
 		faults: {
 			101: 'Plik portfela nie istnieje.',
-			102: 'Portfel nie zdostał utworzony.',
+			102: 'Portfel nie został utworzony.',
 			103: 'Plik portfela jest uszkodzony. Proszę odzyskać portfel z kopii zapasowej.',
 			104: 'Podane hasło jest niepoprawne.',
 			105: 'Nie podano hasła.',
