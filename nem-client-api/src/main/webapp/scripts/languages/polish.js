@@ -8,7 +8,7 @@ define({
 		},
 		faults: {
 			101: 'Plik portfela nie istnieje.',
-			102: 'Portfel nie został utworzony.',
+			102: 'Portfel nie zdostał utworzony.',
 			103: 'Plik portfela jest uszkodzony. Proszę odzyskać portfel z kopii zapasowej.',
 			104: 'Podane hasło jest niepoprawne.',
 			105: 'Nie podano hasła.',
@@ -17,7 +17,7 @@ define({
 			108: 'Konto nie może zostać usunięte. Prawdopodobnie dlatego, że bilans konta jest większy niż 0 XEM lub jest to konto główne.',
 			109: 'Inny portfel z tą samą nazwą już istnieje. Proszę wybrać inną nazwę dla portfela.',
 			110: 'Portfel zawiera już to konto.',
-			111: 'The wallet name is a directory.',
+			111: 'Nazwa portfela jest katalogiem.',
 			112: 'Rozszerzenie pliku portfela jest niepoprawne.',
 			113: 'Portfel nie mógł zostać usunięty.',
 			121: 'Plik książki adresowej nie istnieje.',
@@ -29,11 +29,11 @@ define({
 			128: 'Podany adres nie jest ważny.',
 			129: 'Inna książka adresowa z taką samą nazwą już istnieje. Proszę wybrać inną nazwę.',
 			130: 'Książka adresowa zawiera już ten adres.',
-			131: 'The address book name is a directory.',
+			131: 'Nazwa książki adresowej jest katalogiem.',
 			132: 'Rozszerzenie pliku książki adresowej jest niepoprawne.',
 			133: 'Książka adresowa nie mogła zostać usunięta.',
 			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'Serwer infrastruktury NEM (NIS) jest niedostępny.\n\nSpróbuj zrestartować oprogramowanie NEM.\n\nJeśli korzystasz ze zdalnego NIS, sprawdź czy poprawnie wpisałeś numer hosta lub użyj innego zdalnego NIS.',
 			306: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			400: 'Brakujący lub niewłaściwy parametr.',
 			401: 'Ta operacja nie może zostać wykonana ponieważ może to spowodować wyciek klucza prywatnego poprzez wysłanie go do zdalnego NIS.',
@@ -53,8 +53,8 @@ define({
 			707: 'Sygnatura czasowa transakcji jest zbyt daleko w przeszłości.',
 			708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
 			709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
-			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
+			710: 'Transakcja została odrzucona ponieważ bufor jest przepełniony. Wyzsza opłata transakcyjna zwiększa szanse na zaakceptowanie transakcji.',
+			730: 'Transakcja transferu znaczenia (bezpieczne zbieranie) jest w konflikcie z istniejącą transkcją.',
 			731: 'Konto bezpiecznego zbierania ma niezerowe saldo i nie może być użyte.',
 			732: 'Przekazanie znaczenia odrzucone. Istnieje już oczekująca operacja przekazania znaczenia.',
 			733: 'Bezpieczne zbieranie jest już aktywne.',
@@ -94,8 +94,8 @@ define({
 			password: 'Hasło',
 			passwordValidation: 'Hasło nie może być puste',
 			address: 'Adres',
-			privateLabel: 'Etykieta',
-			publicLabel: 'Oficjalna etykieta',
+			privateLabel: 'Etykieta prywatna',
+			publicLabel: 'Etykieta publiczna',
 			noCharge: 'Bieżące konto <b>NIE</b> będzie obciążone opłatami, konto multisig je opłaca.',
 			justUse: 'Wystarczy użyć'
 		},
@@ -135,7 +135,7 @@ define({
 					},
 					host: 'Host',
 					port: 'Port',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Użyj domyślnego portu.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-uruchamianie',
@@ -174,8 +174,8 @@ define({
 					from: 'Konto multisig',
 					to: 'Odbiorca',
 					amount: 'Ilość',
-					fee: 'Wewnętrzna opłata',
-					deadline: 'Ostateczny termin'
+					fee: 'Wewn. opłata',
+					deadline: 'Ostateczna data'
 				},
 				multisigFees: 'Opłaty Multisig',
 				multisigTotal: 'Suma',
@@ -265,7 +265,7 @@ define({
 				id: 'ID',
 				hash: 'Skrót (hash)',
 				type: 'Typ transakcji',
-				direction: 'Transaction Direction',
+				direction: 'Rodzaj Transakcji',
 				pending: 'Oczekujące',
 				outgoing: 'Wychodzące',
 				incoming: 'Przychodzące',
@@ -399,7 +399,7 @@ define({
 			},
 			changeAccountLabel: {
 				title: 'Zmień etykietę konta',
-				label: 'Etykieta konta',
+				label: 'Etykieta',
 				wallet: 'Portfel',
 				password: "Hasło portfela",
 				successMessage: 'Konto {{1}} ma teraz etykietę {{2}}',
@@ -471,7 +471,7 @@ define({
 			logo: 'images/nem_logo.png',
 			importSuccess: 'Portfel został zaimportowany!',
 			nav: {
-				start: 'Getting Started',
+				start: 'Zaczynamy',
 				about: 'O NEM',
 				settings: 'Ustawienia'
 			},
@@ -557,7 +557,7 @@ define({
 				closeWallet: 'Zamknij Portfel',
 				closeProgram: 'Zamknij Program',
 				copyClipboard: 'Kopiuj adres do schowka',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Konwertuj inne konto na multisig'
 			},
 			nav: [
 				'Dashboard',
