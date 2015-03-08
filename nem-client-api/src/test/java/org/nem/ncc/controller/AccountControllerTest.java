@@ -64,7 +64,7 @@ public class AccountControllerTest {
 				.thenReturn(originalAccountViewModel);
 
 		// Act:
-		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
+		final AccountDatabaseIdRequest request = createIdRequest(account.getAddress());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final AccountViewModel accountViewModel = pair.getAccount();
 
@@ -89,7 +89,7 @@ public class AccountControllerTest {
 				.thenReturn(transactions);
 
 		// Act:
-		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
+		final AccountDatabaseIdRequest request = createIdRequest(account.getAddress());
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsAll(request);
 		final Collection<TransactionViewModel> transactionViewModels = pair.getTransactions();
 
@@ -115,12 +115,12 @@ public class AccountControllerTest {
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(27);
 
-		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
+		final AccountDatabaseIdRequest request = createIdRequest(account.getAddress());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19, 12L),
 				createTransferMetaDataPair(account, Amount.fromNem(572), 17, 23L),
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27, 34L));
-		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId()))
+		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getDatabaseId()))
 				.thenReturn(pairs);
 
 		// Act:
@@ -129,7 +129,7 @@ public class AccountControllerTest {
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId());
+				.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getDatabaseId());
 		Assert.assertThat(
 				transactionViewModels.stream().map(t -> ((TransferTransactionViewModel)t).getAmount()).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
@@ -155,10 +155,10 @@ public class AccountControllerTest {
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
 				.thenReturn(transactions);
 
-		final AccountTransactionIdRequest request = createIdRequest(account.getAddress());
+		final AccountDatabaseIdRequest request = createIdRequest(account.getAddress());
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 25, 34L));
-		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getTransactionId()))
+		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getDatabaseId()))
 				.thenReturn(pairs);
 
 		// Act:
@@ -278,19 +278,19 @@ public class AccountControllerTest {
 
 	private void assertGetTransactionsDelegateToAccountService(
 			final TransactionDirection direction,
-			final Function<TestContext, Function<AccountTransactionIdRequest, AccountTransactionsPair>> handlerFactory) {
+			final Function<TestContext, Function<AccountDatabaseIdRequest, AccountTransactionsPair>> handlerFactory) {
 		final Account account = Utils.generateRandomAccount();
 		final TestContext context = new TestContext();
 		Mockito.when(context.accountMapper.toViewModel(account.getAddress()))
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(34);
 
-		final AccountTransactionIdRequest request = new AccountTransactionIdRequest(account.getAddress(), null);
+		final AccountDatabaseIdRequest request = new AccountDatabaseIdRequest(account.getAddress(), null);
 		final List<TransactionMetaDataPair> pairs = Arrays.asList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(124), 19, 12L),
 				createTransferMetaDataPair(account, Amount.fromNem(572), 17, 23L),
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 27, 34L));
-		Mockito.when(context.accountServices.getTransactions(direction, account.getAddress(), request.getTransactionId()))
+		Mockito.when(context.accountServices.getTransactions(direction, account.getAddress(), request.getDatabaseId()))
 				.thenReturn(pairs);
 
 		// Act:
@@ -299,7 +299,7 @@ public class AccountControllerTest {
 
 		// Assert:
 		Mockito.verify(context.accountServices, Mockito.times(1))
-				.getTransactions(direction, account.getAddress(), request.getTransactionId());
+				.getTransactions(direction, account.getAddress(), request.getDatabaseId());
 		Assert.assertThat(
 				transactionViewModels.stream().map(t -> ((TransferTransactionViewModel)t).getAmount()).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(Amount.fromNem(124), Amount.fromNem(572), Amount.fromNem(323))));
@@ -318,21 +318,21 @@ public class AccountControllerTest {
 	@Test
 	public void getAccountHarvestsDelegatesToAccountServices() {
 		// Arrange:
-		final AccountHashRequest ahRequest = createHashRequest(Utils.generateRandomAddress(), Utils.generateRandomHash());
+		final AccountDatabaseIdRequest request = createIdRequest(Utils.generateRandomAddress());
 		final TestContext context = new TestContext();
 		final List<HarvestInfo> originalHarvestInfos = Arrays.asList(
-				new HarvestInfo(Hash.ZERO, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(Hash.ZERO, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(Hash.ZERO, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO));
+				new HarvestInfo(0L, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO, 0L));
 
-		Mockito.when(context.accountServices.getAccountHarvests(ahRequest.getAddress(), ahRequest.getHash()))
+		Mockito.when(context.accountServices.getAccountHarvests(request.getAddress(), request.getDatabaseId()))
 				.thenReturn(originalHarvestInfos);
 
 		// Act:
-		final SerializableList<HarvestInfoViewModel> harvestInfos = context.controller.getAccountHarvests(ahRequest);
+		final SerializableList<HarvestInfoViewModel> harvestInfos = context.controller.getAccountHarvests(request);
 
 		// Assert:
-		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountHarvests(ahRequest.getAddress(), ahRequest.getHash());
+		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountHarvests(request.getAddress(), request.getDatabaseId());
 		Assert.assertThat(
 				harvestInfos.asCollection().stream().map(HarvestInfoViewModel::getBlockHeight).collect(Collectors.toList()),
 				IsEqual.equalTo(Arrays.asList(new BlockHeight(7), new BlockHeight(5), new BlockHeight(9))));
@@ -426,8 +426,8 @@ public class AccountControllerTest {
 		return Utils.createAccountViewModelFromAddress(account.getAddress());
 	}
 
-	private static AccountTransactionIdRequest createIdRequest(final Address address) {
-		return new AccountTransactionIdRequest(address, random.nextLong());
+	private static AccountDatabaseIdRequest createIdRequest(final Address address) {
+		return new AccountDatabaseIdRequest(address, random.nextLong());
 	}
 
 	private static AccountHashRequest createHashRequest(final Address address, final Hash hash) {

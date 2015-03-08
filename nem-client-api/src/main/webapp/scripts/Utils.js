@@ -743,12 +743,12 @@ define(['TransactionType'], function(TransactionType) {
         },
         processHarvestedBlock: function(block) {
             if (!block.message) block.message = 'Block #' + block.height;
-            if (!block.hash) block.hash = block.blockHash.data;
             if (!block.timeStamp && block.fee !== 0) block.timeStamp = block.timeStamp;
             if (!block.fee && block.fee !== 0) block.fee = block.totalFee;
 
             block.formattedTime = Utils.format.date.format(block.timeStamp, 'M dd, yyyy hh:mm:ss');
             block.formattedFee = Utils.format.nem.formatNemAmount(block.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            block.formattedDifficulty = ((100 * block.difficulty) / 50000000000000).toFixed(2) + '%';
             return block;
         },
         processHarvestedBlocks: function(blocks) {

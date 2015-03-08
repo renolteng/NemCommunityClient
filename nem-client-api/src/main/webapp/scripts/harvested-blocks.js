@@ -18,7 +18,7 @@
         		var requestData = { account: currAccount };
         		var currBlocks = ncc.get('harvestedBlocks.list');
         		if (type === 'append') {
-					requestData.hash = (currBlocks && currBlocks.length) ? currBlocks[currBlocks.length - 1].hash : undefined;
+					requestData.id = (currBlocks && currBlocks.length) ? currBlocks[currBlocks.length - 1].id : undefined;
                     ncc.set('status.loadingOlderBlocks', true);
 				}
 
@@ -28,7 +28,7 @@
 					if (type === 'append' && currBlocks && currBlocks.concat) {
 						all = currBlocks.concat(updatedBlocks);
 					} else if (type === 'update') {
-                        var result = Utils.updateNewer(updatedBlocks, currBlocks, 'hash');
+                        var result = Utils.updateNewer(updatedBlocks, currBlocks, 'id');
                         all = result.updatedArray;
                         if (result.noConnection) {
                             ncc.set('harvestedBlocks.gotAll', false);

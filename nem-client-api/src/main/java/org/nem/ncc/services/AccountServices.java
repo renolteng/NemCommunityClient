@@ -2,7 +2,6 @@ package org.nem.ncc.services;
 
 import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
-import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.*;
@@ -101,33 +100,13 @@ public class AccountServices {
 	 * Gets account harvests for the specified account.
 	 *
 	 * @param address The account address.
-	 * @param endHash The hash of top-most harvest.
+	 * @param id The id of top-most harvest.
 	 * @return The account information.
 	 */
-	public List<HarvestInfo> getAccountHarvests(final Address address, final Hash endHash) {
-		final String queryString = formatHashQueryString(address, endHash);
+	public List<HarvestInfo> getAccountHarvests(final Address address, final Long id) {
+		final String queryString = formatIdQueryString(address, id);
 		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
 		return deserializer.readObjectArray("data", HarvestInfo::new);
-	}
-
-	/**
-	 * Formats a string containing address and hash information.
-	 *
-	 * @param address The address.
-	 * @param hash The hash.
-	 * @return The formatted string.
-	 */
-	private static String formatHashQueryString(final Address address, final Hash hash) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("address=");
-		builder.append(address.getEncoded());
-
-		if (null != hash) {
-			builder.append("&hash=");
-			builder.append(hash);
-		}
-
-		return builder.toString();
 	}
 
 	/**

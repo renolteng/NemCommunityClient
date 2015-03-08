@@ -110,7 +110,7 @@ public class AccountController {
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/all", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountTransactionIdRequest request) {
+	public AccountTransactionsPair getAccountTransactionsAll(@RequestBody final AccountDatabaseIdRequest request) {
 		final AccountViewModel account = this.getAccountInfo(request);
 		final List<TransactionViewModel> allTransfers = new ArrayList<>();
 		allTransfers.addAll(this.getUnconfirmedTransactions(new AccountHashRequest(request.getAddress(), null)));
@@ -125,7 +125,7 @@ public class AccountController {
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/confirmed", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsConfirmed(@RequestBody final AccountTransactionIdRequest request) {
+	public AccountTransactionsPair getAccountTransactionsConfirmed(@RequestBody final AccountDatabaseIdRequest request) {
 		return this.getAccountTransactions(TransactionDirection.ALL, request);
 	}
 
@@ -136,7 +136,7 @@ public class AccountController {
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/incoming", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsIncoming(@RequestBody final AccountTransactionIdRequest request) {
+	public AccountTransactionsPair getAccountTransactionsIncoming(@RequestBody final AccountDatabaseIdRequest request) {
 		return this.getAccountTransactions(TransactionDirection.INCOMING, request);
 	}
 
@@ -147,19 +147,19 @@ public class AccountController {
 	 * @return The account and transactions information.
 	 */
 	@RequestMapping(value = "/account/transactions/outgoing", method = RequestMethod.POST)
-	public AccountTransactionsPair getAccountTransactionsOutgoing(@RequestBody final AccountTransactionIdRequest request) {
+	public AccountTransactionsPair getAccountTransactionsOutgoing(@RequestBody final AccountDatabaseIdRequest request) {
 		return this.getAccountTransactions(TransactionDirection.OUTGOING, request);
 	}
 
-	private AccountTransactionsPair getAccountTransactions(final TransactionDirection direction, final AccountTransactionIdRequest request) {
+	private AccountTransactionsPair getAccountTransactions(final TransactionDirection direction, final AccountDatabaseIdRequest request) {
 		final AccountViewModel account = this.getAccountInfo(request);
 		return new AccountTransactionsPair(account, this.getConfirmedTransactions(direction, request));
 	}
 
-	private Collection<TransactionViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountTransactionIdRequest ahRequest) {
+	private Collection<TransactionViewModel> getConfirmedTransactions(final TransactionDirection direction, final AccountDatabaseIdRequest ahRequest) {
 		final Address address = ahRequest.getAddress();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
-		return this.accountServices.getTransactions(direction, address, ahRequest.getTransactionId()).stream()
+		return this.accountServices.getTransactions(direction, address, ahRequest.getDatabaseId()).stream()
 				.map(p -> TransactionToViewModelMapper.map(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}
@@ -171,12 +171,12 @@ public class AccountController {
 	/**
 	 * Retrieves a list of infos on harvested blocks for an account.
 	 *
-	 * @param ahRequest The account identifier.
+	 * @param request The account identifier.
 	 * @return The list of harvest infos.
 	 */
 	@RequestMapping(value = "/account/harvests", method = RequestMethod.POST)
-	public SerializableList<HarvestInfoViewModel> getAccountHarvests(@RequestBody final AccountHashRequest ahRequest) {
-		final List<HarvestInfo> harvestInfos = this.accountServices.getAccountHarvests(ahRequest.getAddress(), ahRequest.getHash());
+	public SerializableList<HarvestInfoViewModel> getAccountHarvests(@RequestBody final AccountDatabaseIdRequest request) {
+		final List<HarvestInfo> harvestInfos = this.accountServices.getAccountHarvests(request.getAddress(), request.getDatabaseId());
 		return new SerializableList<>(harvestInfos.stream().map(HarvestInfoViewModel::new).collect(Collectors.toList()));
 	}
 

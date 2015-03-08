@@ -227,7 +227,7 @@ public class AccountServicesTest {
 	//region getAccountHarvests
 
 	@Test
-	public void getAccountHarvestsWithoutTimeStampFilterDelegatesToNisConnector() {
+	public void getAccountHarvestsWithoutIdDelegatesToNisConnector() {
 		// Assert:
 		final Address address = Address.fromEncoded("TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5");
 		assertHarvestConnectorRequest(
@@ -237,33 +237,33 @@ public class AccountServicesTest {
 	}
 
 	@Test
-	public void getAccountHarvestsWithTimeStampFilterDelegatesToNisConnector() {
+	public void getAccountHarvestsWithIdDelegatesToNisConnector() {
 		// Assert:
 		final Address address = Address.fromEncoded("TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5");
-		final Hash hash = Hash.fromHexString("ffeeddccbbaa99887766554433221100");
+		final Long id = 123L;
 		assertHarvestConnectorRequest(
 				address,
-				hash,
-				"address=TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5&hash=ffeeddccbbaa99887766554433221100");
+				id,
+				"address=TB2IF4HDMCIMVCT6WYUDXONSUCVMUL4AM373VPR5&id=123");
 	}
 
 	private static void assertHarvestConnectorRequest(
 			final Address address,
-			final Hash hash,
+			final Long id,
 			final String queryString) {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final SerializableList<HarvestInfo> originalHarvestInfos = new SerializableList<>(Arrays.asList(
-				new HarvestInfo(Hash.ZERO, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(Hash.ZERO, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO),
-				new HarvestInfo(Hash.ZERO, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO)
+				new HarvestInfo(0L, new BlockHeight(7), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(5), TimeInstant.ZERO, Amount.ZERO, 0L),
+				new HarvestInfo(0L, new BlockHeight(9), TimeInstant.ZERO, Amount.ZERO, 0L)
 		));
 
 		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString))
 				.thenReturn(new JsonDeserializer(JsonSerializer.serializeToJson(originalHarvestInfos), null));
 
 		// Act:
-		final List<HarvestInfo> harvestInfos = context.services.getAccountHarvests(address, hash);
+		final List<HarvestInfo> harvestInfos = context.services.getAccountHarvests(address, id);
 
 		// Assert:
 		Mockito.verify(context.connector, Mockito.times(1)).get(NisApiId.NIS_REST_ACCOUNT_HARVESTS, queryString);
