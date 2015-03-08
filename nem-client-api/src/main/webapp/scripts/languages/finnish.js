@@ -17,7 +17,7 @@ define({
 			108: 'Tiliä ei voida poistaa.Tämä johtuu todenäköisesti siitä, että tilin saldo on enemmän, kuin 0 XEM, tai yrität poistaa ensisijaista tiliä.',
 			109: 'Saman niminen lompakko on jo olemassa. Valitse toinen lompakon nimi.',
 			110: 'Lompakko sisältää jo tämän tilin.',
-			111: 'Lomakon nimi on hakemisto.',
+			111: 'Lompakon nimi on hakemisto.',
 			112: 'Lompakkotiedoston laajennus on väärä.',
 			113: 'Lompakkoa ei voitu poistaa.',
 			121: 'Osoitekijatiedostoa ei ole.',
@@ -26,42 +26,42 @@ define({
 			124: 'Syöttämäsi osoitekirjan salasana on väärä.',
 			125: 'Et syöttänyt osoitekirjan salasanaa.',
 			127: 'Osoitekirja ei sisällä tätä osoitetta.',
-			128: 'Osoite ei ole oikea',
+			128: 'Osoite ei ole oikea.',
 			129: 'Samalla nimellä oleva osoitekija on jo olemassa. Valitse toinen osoitekirjan nimi.',
 			130: 'Osoitekirja sisältää jo antamasi osoitteen.',
 			131: 'Osoitekirjan nimi on hakemisto.',
 			132: 'Osoitekirjan laajennustiedosto on väärä.',
 			133: 'Osoitekirjaa ei voida poistaa.',
 			202: 'Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'NIS ei ole käytettävissä. Yritä käynnistää NEM- sovellus uudelleen. Mikäli yrität käyttää NIS-palvelua etänä, tarkista kirjoitusvirheet (host),\ntai käytä toista etä-NIS palvelua.\n\n\n',
 			306: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			400: 'Jotkut parametrit puuttuvat tai ovat viallisia.',
 			401: 'Tätä toimintoa ei voida saattaa loppuun, koska muutoin on mahdollista että \'private key\' näkyy ulkopuolisille, mikäli se lähetetään NIS-palveluun.\n',
 			404: 'Lähdettä ei löydy.',
 			500: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			600: 'NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.',
-			601: 'NIS on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.',
+			601: 'NIS on jo käynnistetty uudelleen.',
 			602: 'Mitään toimintoa ei voida suorittaa, ennen kuin tietokanta on täysin latautunut.',
-			699: 'Louhijoiden (harvesters) maksimimäärä palvelimella on saavutettu.',
-			700: 'Louhintaa (harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.',
+			699: 'Louhijoiden maksimimäärä palvelimella on saavutettu.',
+			700: 'Louhintaa ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.',
 			701: 'Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.',
 			702: 'Valittu aikaraja on liian kaukana tulevaisuudessa. Aikaraja täytyy olla yhden päivän sisällä.',
 			703: 'Tililläsi ei ole siirrettävää summaa.',
 			704: 'Teksti on liian pitkä lähetettäväksi siirron mukana. Yritä lyhentää viestiä.',
-			705: 'Hash-koodi on jo tietokannassa tai siirtoja on vahvistamatta.',
+			705: 'Hash on jo tietokannassa tai siirtoja on vahvistamatta.',
 			706: 'Siirron allekirjoitusta ei voida varmistaa.',
 			707: 'Siirron aikamerkintä on liian kaukana menneisyydessä.',
 			708: 'Siirron aikamerkintä on liian kaukana tulevaisuudessa.',
-			709: 'Tili on tuntematon. Tilillä on oltava yksi siirto tai vastaanotto, jotta se voidaan tunnistaa verkossa.',
+			709: 'Tili on tuntematon. Tilillä on oltava yksi lähetys tai vastaanotto, jotta se voidaan tunnistaa verkossa.',
 			710: 'Siirtoa ei hyväksytty, koska siirtojen välimuisti on täynnä. Korkeampi palkkio parantaaa siirron hyväksymistä.',
-			730: 'Turvatun louhinnan siirto (secure harvesting) on ristiriidassa olemassaolevan siirron kanssa.',
-			731: 'Turvatun louhinnan (Secure harvesting)tilin saldo on nolla, eikä sitä voida käyttää.',
+			730: 'Turvatun louhinnan siirto on ristiriidassa olemassaolevan siirron kanssa.',
+			731: 'Turvatun louhinnan tilin saldo on nolla, eikä sitä voida käyttää.',
 			732: 'Siirtoa ei hyväksytty, viivästynyt siirto on vielä käynnissä.',
-			733: 'Turvattu louhinta (Secure harvesting)on jo aktiivinen.',
-			734: 'Turvattu louhinta (secure harvesting) ei ole aktiivinen,\njoten sitä ei voida pysäyttää.',
+			733: 'Turvattu louhinta on jo aktiivinen.',
+			734: 'Turvattu louhinta ei ole aktiivinen,\njoten sitä ei voida pysäyttää.',
 			740: 'Siirtoa ei ole mahdollinen multisig-tilille.',
-			741: 'Multisig-allekirjoitus hylättiin. Käytössä oleva tili ei ole multisig tili.',
-			742: 'Multisig-allekirjoitus hylättiin. Multisig-siirtoa ei tunneta NEM verkossa.',
+			741: 'Multisig allekirjoitettu siirto hylättiin. Nykyinen tili ei ole allekirjoittaja multisig tilillä.',
+			742: 'Multisig allekirjoitettu siirto hylättiin. Allekirjoittajakumppania ei tunneta NEM-verkossa.',
 			743: 'Multisig-tilin muutos hylätty.Yksi lisätty tili on jo allekirjoittaja.',
 			901: 'Tapahtui virhe määritettäessä offline node.',
 			1000: 'Private key ja public key, eivät vastaa toisiaan.',
@@ -109,7 +109,7 @@ define({
 			pending: 'Viivästynyt siirto ',
 			outgoing: 'Lähtevä siirto',
 			incoming: 'Tuleva siirto',
-			self: 'Itsesiirto',
+			self: 'Siirto itselle',
 			importance: 'Importance siirto',
 			modification: 'Multisig-tilin muokkaus'
 		},
@@ -135,7 +135,7 @@ define({
 					},
 					host: 'Host',
 					port: 'Port',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Käytä oletusporttia.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
@@ -163,8 +163,7 @@ define({
 				hours: 'Tunti(a)',
 				txConfirm: {
 					title: 'Vahvista multiig-tilin muunto',
-					total: 'Yhteensä',
-
+					total: 'Yhteensä'
 				},
 				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä.'
 			},
@@ -187,7 +186,7 @@ define({
 				hours: 'Tunti(a)',
 				password: 'Salasana',
 				passwordValidation: 'Salasanakenttä ei voi olla tyhjä',
-				send: 'Lähetys',
+				send: 'Lähetä',
 				cancel: 'Peruuta',
 				sending: 'Lähetetään...',
 				successMessage: 'Siirto on suoritettu onnistuneesti!',
@@ -195,8 +194,7 @@ define({
 					title: 'Vahvista multisig-siirto',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
-					noMessage: 'Ei viestiä',
-
+					noMessage: 'Ei viestiä'
 				}
 			},
 			sendNem: {
@@ -263,7 +261,7 @@ define({
 			transactionDetails: {
 				title: 'Siirron tiedot',
 				id: 'ID',
-				hash: 'Varmennekoodi (hash)',
+				hash: 'Hash',
 				type: 'Siiron tyyppi',
 				direction: 'Siirron suunta',
 				pending: 'Viivästynyt',
@@ -300,7 +298,7 @@ define({
 				importance: 'Merkitys',
 				publicKey: 'Julkinen avain',
 				noPublicKey: 'Ei julkista avainta',
-				harvestedBlocks: 'Louhitut lohkot (Harvested blocks)',
+				harvestedBlocks: 'Louhitut lohkot',
 				close: 'Sulje'
 			},
 			bootLocalNode: {
@@ -308,7 +306,7 @@ define({
 				account: 'Tili, jolta local node käynnistetään uudelleen',
 				noLabel: '<span class=\'null\'>&lt;Ei nimeä&gt;</span>',
 				wallet: 'Lompakko',
-				node: 'Node nimi',
+				node: 'Noden nimi',
 				boot: 'Käynnistä uudelleen',
 				booting: 'Käynnistymässä uudelleen...'
 			},
@@ -357,7 +355,7 @@ define({
 				address: 'Osoite',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
-				dataMatched: 'Kaikki näyttää hyvältä, syöttämäsi osoite, public key ja private key sopivat yhteen.',
+				dataMatched: 'Kaikki näyttää hyvältä, syöttämäsi osoite, public key ja private key ovat yhteensopivia.',
 				verify: 'Varmista'
 			},
 			addAccount: {
@@ -422,7 +420,7 @@ define({
 				message: 'Haluatko sulkea NEM Community Client sovelluksen?'
 			},
 			activateRemote: {
-				title: 'Aktivoi etälouhinta (Remote harvesting)',
+				title: 'Aktivoi etälouhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				hoursDue: 'Maksettavaksi (tunnit)',
@@ -430,7 +428,7 @@ define({
 				activate: 'Aktivoi'
 			},
 			deactivateRemote: {
-				title: 'Lopeta etälouhinta (Remote harvesting)',
+				title: 'Lopeta etälouhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				hoursDue: 'Maksettavaksi (tunnit)',
@@ -438,14 +436,14 @@ define({
 				deactivate: 'Katkaise yhteys'
 			},
 			startRemote: {
-				title: 'Aloita etälouhinta (Remote harvesting)',
+				title: 'Aloita etälouhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				password: 'Lompakon salasana',
 				start: 'Käynnistä'
 			},
 			stopRemote: {
-				title: 'Lopeta etälouhinta (Remote harvesting)',
+				title: 'Lopeta etälouhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				password: 'Lompakon salasana',
@@ -538,7 +536,7 @@ define({
 			primary: 'Ensisijainen',
 			primaryShort: 'E',
 			noLabel: '<Ei merkkiä>',
-			copiedToClipboard: 'Osoite on kopioitu työpöydälle',
+			copiedToClipboard: 'Osoite on kopioitu työpöydälle!',
 			actions: {
 				refreshInfo: 'Päivitä Info',
 				bootLocalNode: 'Käynnistä Local Node uudelleen',
@@ -557,15 +555,15 @@ define({
 				closeWallet: 'Sulje lomakko',
 				closeProgram: 'Sulje ohjelma',
 				copyClipboard: 'Kopioi osoite työpöydälle',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Muunna toinen tili multisig-tiliksi'
 			},
 			nav: [
 				'Valikko',
 				'Viesti',
 				'Osoitekirja',
 				'Siirrot',
-				'Louhitut lohkot (harvested blocks)',
-				'Asset kaupankäynti (Asset Exchange)',
+				'Louhitut lohkot',
+				'Asset kaupankäynti',
 				'Uutiset',
 				'Sovellukset',
 				'Tilit',
@@ -581,26 +579,26 @@ define({
 			importance: {
 				title: 'Merkittävä määrä',
 				unknown: 'Tuntematon tila',
-				start: 'Aloita paikallinen lohinta (local harvesting)',
-				harvesting: 'Louhinta (harvesting)',
-				stop: 'Lopeta paikallinen louhinta (local harvesting)',
+				start: 'Aloita paikallinen lohinta ',
+				harvesting: 'Louhinta ',
+				stop: 'Lopeta paikallinen louhinta ',
 				description: 'Tilin merkitys NEM cloud palvelussa',
 				remoteHarvest: {
-					activate: 'Aktivoi etälouhinta (remote harvesting)',
-					activating: 'Aktivoidaan etälouhinta (remote harvesting)...',
-					active: 'Etälouhinta (remote harvesting) on aktiivinen',
-					deactivate: 'Lopeta etälouhinta (remote harvesting)',
-					deactivating: 'Lopetetaan etälouhinta (remote harvesting)...',
-					startRemoteHarvesting: 'Käynnistä etälouhinta (remote harvesting)',
-					remotelyHarvesting: 'Etälouhinta (Remotely harvesting)',
-					stopRemoteHarvesting: 'Pysäytä etälouhinta (remote harvesting)'
+					activate: 'Aktivoi etälouhinta ',
+					activating: 'Aktivoidaan etälouhinta...',
+					active: 'Etälouhinta on aktiivinen',
+					deactivate: 'Lopeta etälouhinta ',
+					deactivating: 'Lopetetaan etälouhinta...',
+					startRemoteHarvesting: 'Käynnistä etälouhinta ',
+					remotelyHarvesting: 'Etälouhinta ',
+					stopRemoteHarvesting: 'Pysäytä etälouhinta '
 				}
 			},
 			transactions: {
 				title: 'Viimeisimmät siirrot',
 				sendNem: 'Lähetä XEM',
 				signMultisig: 'ALLEKIRJOITA',
-				balance: 'Tämänhetkinen saldo',
+				balance: 'Saldo',
 				vestedBalance: 'Louhitut palkkiot',
 				syncStatus: '(lohko {{1}}{{#2}} : {{3}} päivää takana{{/2}})',
 				unknown: 'Tuntematon',
@@ -632,12 +630,12 @@ define({
 			news: {
 				titleTooltip: 'Uutiset'
 			},
-			notAvailable: 'Ei ole saatavilla beta versiossa'
+			notAvailable: 'Ei ole vielä saatavilla beta versiossa'
 		},
 		transactions: {
 			title: 'Siirrot',
 			sendNem: 'Lähetä XEM',
-			balance: 'Tämänhetkinen saldo',
+			balance: 'Saldo',
 			filters: {
 				confirmed: 'Vahvistettu',
 				unconfirmed: 'Vahvistamaton',
@@ -666,27 +664,27 @@ define({
 			}
 		},
 		harvestedBlocks: {
-			title: 'Louhitut lohkot (harvested blocks)',
-			feeEarned: 'Ansaittuja palkkioita 25 viimeisestä louhitusta lohkosta\n(harvested blocks)',
+			title: 'Louhitut lohkot ',
+			feeEarned: 'Ansaittuja palkkioita 25 viimeisestä louhitusta lohkosta\n',
 			unknown: 'Tuntematon',
 			table: {
 				columns: [
 					'Korkeus',
 					'Aika',
-					'Lohkon koodi (hash)',
+					'Lohkon hash',
 					'Palkkio'
 				],
-				noBlocks: 'Yhtään lohkoa ei ole vielä louhittu (harvested)',
-				loading: 'Ladataan lisää lohkoja (harvested blocks)'
+				noBlocks: 'Yhtään lohkoa ei ole vielä louhittu',
+				loading: 'Ladataan lisää lohkoja '
 			},
 			harvesting: {
 				unknown: 'Tuntematon tila',
-				start: 'Aloita paikallinen louhinta (local harvesting)',
-				harvesting: 'Louhinta (Harvesting)',
-				stop: 'Lopeta paikallinen louhinta (local harvesting)',
+				start: 'Aloita paikallinen louhinta',
+				harvesting: 'Louhinta ',
+				stop: 'Lopeta paikallinen louhinta ',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Käynnistä etälouhinta (remote harvesting)',
-					stopRemoteHarvesting: 'Lopeta etälouhinta (remote harvesting)'
+					startRemoteHarvesting: 'Käynnistä etälouhinta ',
+					stopRemoteHarvesting: 'Lopeta etälouhinta '
 				}
 			}
 		},
