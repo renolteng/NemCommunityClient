@@ -41,7 +41,7 @@ define({
 			500: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			600: 'NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.',
 			601: 'NIS on jo käynnistetty uudelleen, toinen yritys ei ole mahdollinen.',
-			602: 'Mitään toimintoa ei voida suorittaa, ennen kuin tietokanta on täysin latautunut.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Louhijoiden (harvesters) maksimimäärä palvelimella on saavutettu.',
 			700: 'Louhintaa (harvesting) ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.',
 			701: 'Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.',
@@ -118,6 +118,10 @@ define({
 				title: 'Hups!',
 				caption: 'Virhe {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Kyllä',
 				no: 'Ei'
@@ -166,7 +170,7 @@ define({
 					total: 'Yhteensä',
 
 				},
-				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Allekirjoita multisig-siirto',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Lompakko',
 				node: 'Node nimi',
 				boot: 'Käynnistä uudelleen',
-				booting: 'Käynnistymässä uudelleen...'
+				booting: 'Käynnistymässä uudelleen...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Sulje lompakko',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Korkeus',
 					'Aika',
-					'Lohkon koodi (hash)',
+					'Block difficulty',
 					'Palkkio'
 				],
 				noBlocks: 'Yhtään lohkoa ei ole vielä louhittu (harvested)',
