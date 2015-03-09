@@ -41,7 +41,7 @@ define({
 			500: 'एक एरर आ गया हे जिसके बारे में विकास टीम ने नही सोचा था. इस बात के लिए हम माफी चाहते हें, शायद एक बार फिरसे प्रयास करने पर मदद मिल सकती है. अन्यथा, NEM NIS/NCC समुदाय के भीतर एक मुद्दे को खोलने का कष्ट करें.',
 			600: 'NCC मे XEM की लेनदेन करने के लिए NIS सर्वर को बूट करने की आवश्यकता हे. लोकल नोड बूट करने के लिए NCC मेनू एंट्री का उपयोग करें.',
 			601: 'NIS नोड पहले से बूट हो चुकी हे. NIS बूट करने के लिए एक दूसरा प्रयास संभव नहीं है.',
-			602: 'डेटाबेस के पूरी तरह लोड होने तक कोई भी ऑपरेशन नही किया जा सकता है.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'सर्वर पर अनुमति हारवेस्टर्स की अधिकतम संख्या तक पहुंच गया है.',
 			700: 'प्रदान किया गया अकाउंट हार्वेस्टिंग के लिए बुनियादी मानदंडों को पूरा नहीं करता है. मुख्य रूप से यह अकाउंट के अंदर XEM की राशि से संबंधित है. हार्वेस्टिंग के लिए कम से कम 1000 XEM की ज़रूरत हे और पहले ट्रांजैक्शन के बाद एक दिन की प्रतीक्षा करनी पड़ती है.',
 			701: 'प्रदान की गई समय सीमा अतीत में है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: 'Oops!',
 				caption: 'एरर {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'हाँ',
@@ -310,7 +314,10 @@ define({
 				wallet: 'वॉलेट',
 				node: 'नोड नाम',
 				boot: 'बूट',
-				booting: 'बूट हो रहा है...'
+				booting: 'बूट हो रहा है...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'वॉलेट बंद करें',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Height',
 					'Time',
-					'Block hash',
+					'Block difficulty',
 					'Fee'
 				],
 				noBlocks: 'नो हारवेस्टेड ब्लॉक्स ',

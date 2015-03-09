@@ -41,7 +41,7 @@ define({
 			500: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			600: 'NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S\'il vous plait, utilisez le menu NCC pour démarrer le noeud local.',
 			601: 'Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
 			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.',
 			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: 'Oops!',
 				caption: 'ERREUR {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Oui',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Portefeuille',
 				node: 'Nom du noeud',
 				boot: 'Démarrer',
-				booting: 'Démarrage...'
+				booting: 'Démarrage...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Fermeture de portefeuille',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Hauteur',
 					'Temps',
-					'Hachage du bloc',
+					'Block difficulty',
 					'Frais'
 				],
 				noBlocks: 'Aucun blocs récoltés ',

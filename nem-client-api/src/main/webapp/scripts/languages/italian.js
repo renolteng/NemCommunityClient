@@ -41,7 +41,7 @@ define({
 			500: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
 			600: 'NCC richiede che il server NIS sia avviato per poter inviare e ricevere transazioni nella rete NEM. Usa la voce \'Avvia il nodo locale\' nel menu di NCC.',
 			601: 'Il nodo NIS locale è già avviato; non è possibile avviarlo nuovamente.',
-			602: 'Impossibile effettuare qualsiasi operazione finchè il database non è stato completamente caricato.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'E\' stato raggiunto il numero massimo di indirizzi che generano blocchi.',
 			700: 'L\'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM',
 			701: 'Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: 'Errore!',
 				caption: 'ERRORE {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Sì',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Portafoglio',
 				node: 'Nome del nodo',
 				boot: 'Avvia',
-				booting: 'Avvio in corso...'
+				booting: 'Avvio in corso...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Chiudi portafoglio',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Numero',
 					'Orario',
-					'Firma del blocco',
+					'Block difficulty',
 					'Commissioni'
 				],
 				noBlocks: 'Nessun blocco generato ',
