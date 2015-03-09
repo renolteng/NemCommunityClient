@@ -8,7 +8,7 @@ define({
 		},
 		faults: {
 			101: 'The wallet file does not exist.',
-			102: "Portofelul nu a fost creat.",
+			102: 'Portofelul nu a fost creat.',
 			103: 'Wallet file is corrupt. Please recover your wallet from a backup.',
 			104: 'The provided password for the wallet is not correct.',
 			105: 'No password was provided for the wallet.',
@@ -41,7 +41,7 @@ define({
 			500: 'Salvarea fișerului de configurație a eșuat.',
 			600: 'NCC necesită ca serverul NIS să fie pornit pentru trimiterea și primirea tranzacțiilor din NEM cloud. Te rog folosește opțiunea din meniul NCC pentru pornirea nodului local.',
 			601: 'Nodul NIS este deja pornit. O a doua încercare de a porni nodul NIS nu este posibilă.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de XEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.',
 			701: 'Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: 'Oops!',
 				caption: 'ERROARE {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Da',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Portofel',
 				node: 'Numele nodului',
 				boot: 'Pornește',
-				booting: 'Se pornește...'
+				booting: 'Se pornește...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Închide portofelul',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Block',
 					'Timp',
-					'Block hash',
+					'Block difficulty',
 					'Taxă'
 				],
 				noBlocks: 'Niciun block nu a fost recoltat încă',

@@ -41,7 +41,7 @@ define({
 			500: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
 			600: "NCC requires NIS server to be booted for sending and receiving transactions from the NEM cloud. Please use the NCC menu entry for booting the local node.",
 			601: "The nis node is already booted. A second attempt to boot nis is not possible.",
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: "The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 1000 XEM.",
 			701: "The provided deadline is in the past. The deadline must be provided within a 1 day period.",
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: "Blimey!",
 				caption: "Shiver me timbers {{1}}"
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: "Aye",
@@ -310,7 +314,10 @@ define({
 				wallet: "Coffer",
 				node: "Ship's name",
 				boot: "Row",
-				booting: "Settig sails..."
+				booting: "Settig sails...",
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: "Close the coffer",
@@ -673,7 +680,7 @@ define({
 				columns: [
 					"Height",
 					"Time",
-					"Block hash",
+					'Block difficulty',
 					"Bounty"
 				],
 				noBlocks: "No bounties",

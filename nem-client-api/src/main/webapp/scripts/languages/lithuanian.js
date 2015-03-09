@@ -41,7 +41,7 @@ define({
 			500: 'Nepavyko užsaugoti konfigūracijos bylos',
 			600: 'NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.',
 			601: 'NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.',
-			602: 'Negalima atlikti jokių operacijų, kol duomenų bazė neužkrauta.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Pasiektas maksimalus galimų \'kasėjų\' kiekis serveryje.',
 			700: 'Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \'kasti\'. Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \'Kasimas\' prasideda tik turint ne mažiau 1,000 XEM.',
 			701: 'Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: 'Oops!',
 				caption: 'KLAIDA {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Taip',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Piniginė',
 				node: 'Prieigos taško pavadinimas',
 				boot: 'Užkrauti',
-				booting: 'Kraunasi...'
+				booting: 'Kraunasi...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Uždaryti piniginę',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Bloko numeris',
 					'Laikas',
-					'Bloko \'hash\'',
+					'Block difficulty',
 					'Mokestis'
 				],
 				noBlocks: 'Nėra \'iškastų\' blokų ',

@@ -41,7 +41,7 @@ define({
 			500: 'Ocorreu um erro desconhecido. Por favor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.',
 			600: 'NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu superior direito.',
 			601: 'O NIS já foi inicializado.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'O número de máximo de colheitadores no servidor foi atingido.',
 			700: 'Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 XEMs.',
 			701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: 'Oopa!',
 				caption: 'ERRO {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Sim',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Nome da Carteira',
 				node: 'Nome para o nó',
 				boot: 'Inicializar',
-				booting: 'Inicializando...'
+				booting: 'Inicializando...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Fechar carteira',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Altura do bloco',
 					'Hora',
-					'Hash do bloco',
+					'Block difficulty',
 					'Taxa'
 				],
 				noBlocks: 'Não há blocos colhidos',
