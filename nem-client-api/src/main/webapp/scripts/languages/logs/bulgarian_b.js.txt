@@ -249,3 +249,4 @@ changed texts.wallet.actions.convertMultisig
 	 was: "Преобразувай друг акаунт в мултисигнатурен"
 
 -----
+-----

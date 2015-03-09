@@ -41,7 +41,7 @@ define({
 			500: "Възникна грешка, която не е предвидена от разработчиците. Извиняваме се за това, може би повторен опит може да помогне. В противен случай се обърнете за помощ към NEM NIS/NCC community.",
 			600: "За получаване и изпращане на транзакции NEM Infrastructure Server (NIS) сървъра трябва да бъде рестартиран.Моля използвайте менюто на NCC за рестартиране на локалния възел.",
 			601: "NEM Infrastructure Server (NIS) възела е вече стартиран.",
-			602: "Не могат да се извършват никакви операции докато db не бъде напълно заредена.",
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: "Максималния брой на генериращите адреси позволени от сървъра беше превишен.",
 			700: "Предоставения акаунт не удовлетворява основните критерии за генерация.Основно това е свързано с количеството XEM в сметката.Генерацията започва поне с 1000 XEM.",
 			701: "Предоставеният срок е в миналото. Срокът трябва да бъде предоставен в рамките на 1-дневен период.",
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: "Oops!",
 				caption: "Грешка {{1}}"
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: "Да",
@@ -310,7 +314,10 @@ define({
 				wallet: "Портфейл",
 				node: "Име на локалния възел",
 				boot: "Старт",
-				booting: "Стартиране..."
+				booting: "Стартиране...",
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: "Затваряне на портфейла",
