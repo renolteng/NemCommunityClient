@@ -41,7 +41,7 @@ define({
 			500: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
 			600: 'Voor de NCC (Nem Community Client) is het vereist om de NIS (Network Infrastructure Server) het starten voor het verzenden en ontvangen van transacties van de NEM cloud. Gebruik de NCC menu optie om lokaal te starten.',
 			601: 'De NIS node is al gestart. Een tweede poging om te starten is niet mogelijk.',
-			602: 'Geen acties mogelijk tot de database volledig is opgestart.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximaal aantal harvesters toegestaan op deze server is reeds bereikt.',
 			700: 'De opgegeven account voldoet niet aan de basis criteria om te harvesten/oogsten. Waarschijnlijk heeft dat te maken met het aantal XEM wat zich in de account bevindt. Harvesten begint bij tenminste 1000 XEM.',
 			701: 'De termijn ligt in het verleden en kan alleen geldig zijn binnen een periode van 1 dag.',
@@ -118,6 +118,10 @@ define({
 				title: 'Oeps!',
 				caption: 'ERROR {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Ja',
 				no: 'Nee'
@@ -150,9 +154,9 @@ define({
 			multisig: {
 				title: 'Converteer een account naar een multisig account',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Handtekeninghouder' adressen",
+				cosignatories: 'Handtekeninghouder\' adressen',
 				labelDesc: 'Deze account is als {{1}} gelabeld',
-				nullLabelDesc: "Deze account heeft geen label",
+				nullLabelDesc: 'Deze account heeft geen label',
 				addCosignatory: '+ Handtekeninghouder\'toevoegen',
 				cancel: 'Annuleer',
 				convert: 'Converteer',
@@ -204,9 +208,9 @@ define({
 				sender: 'Afzender',
 				thisAccount: 'Deze account',
 				labelDesc: 'Deze account is als {{1}} gelabeld',
-				nullLabelDesc: "Deze account heeft geen label",
+				nullLabelDesc: 'Deze account heeft geen label',
 				amount: 'Bedrag',
-				recipient: "Account van ontvanger",
+				recipient: 'Account van ontvanger',
 				recipientValidation: 'Accounten moeten een lengte hebben van 40 karakters en/of spaties',
 				message: 'Bericht',
 				encrypt: 'Beveilig bericht',
@@ -289,19 +293,19 @@ define({
 				cosignatory: 'Handtekeninghouder'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Adres",
-				label: "Label",
-				noLabel: "Geen label",
-				add: "Toevoegen to het adresboek",
-				remove: "Verwijderen van adresboek",
-				balance: "Balans",
-				vested: "vested",
-				importance: "Belangrijks waardering",
-				publicKey: "Publieke sleutel",
-				noPublicKey: "Geen publieke sleutel",
-				harvestedBlocks: "Geharvestede blocks",
-				close: "Sluiten"
+				title: 'Account details',
+				address: 'Adres',
+				label: 'Label',
+				noLabel: 'Geen label',
+				add: 'Toevoegen to het adresboek',
+				remove: 'Verwijderen van adresboek',
+				balance: 'Balans',
+				vested: 'vested',
+				importance: 'Belangrijks waardering',
+				publicKey: 'Publieke sleutel',
+				noPublicKey: 'Geen publieke sleutel',
+				harvestedBlocks: 'Geharvestede blocks',
+				close: 'Sluiten'
 			},
 			bootLocalNode: {
 				title: 'Start lokale node',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Wallet',
 				node: 'Node naam',
 				boot: 'Start',
-				booting: 'Starten...'
+				booting: 'Starten...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Wallet sluiten',
@@ -320,7 +327,7 @@ define({
 				title: 'Nieuwe account aanmaken',
 				label: 'Privé label',
 				wallet: 'Wallet',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} is aangemaakt.!',
 				create: 'Aanmaken'
 			},
@@ -336,14 +343,14 @@ define({
 				},
 				recheck: {
 					title: 'Controleer je opgeslagen privé sleutel',
-					message: "Voer de privé sleutel nogmaals voor controle. Als dit niet lukt is het misschien beter om een nieuwe te maken.",
+					message: 'Voer de privé sleutel nogmaals voor controle. Als dit niet lukt is het misschien beter om een nieuwe te maken.',
 					correct: {
 						title: 'Gelukt!',
 						message: 'Je hebt de correcte privé sleutel met succes opgeslagen. Vergeet niet om de sleutel altijd veilig te bewaren!'
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "Helaas, de privé sleutel die je hebt ingevoerd is niet correct! Controleer dit goed en voer het nogmaals in.",
+						message: 'Helaas, de privé sleutel die je hebt ingevoerd is niet correct! Controleer dit goed en voer het nogmaals in.',
 						tryAgain: 'Probeer het nog eens.',
 						seeOriginal: 'Bekijk de originele invoer'
 					},
@@ -362,9 +369,9 @@ define({
 			},
 			addAccount: {
 				title: 'Voeg een bestaande account toe',
-				privateKey: "Privésleutel van account",
+				privateKey: 'Privésleutel van account',
 				wallet: 'Wallet',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} is toegevoegd aan wallet!',
 				add: 'Voeg toe',
 				label: 'Label'
@@ -374,7 +381,7 @@ define({
 				account: 'Account die primair wordt ingesteld.',
 				noLabel: '<span class="null">&lt;Geen label&gt;</span>',
 				wallet: 'Wallet',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} als primair ingesteld!',
 				set: 'Stel primaire account in'
 			},
@@ -382,7 +389,7 @@ define({
 				title: 'Verander naam van wallet',
 				wallet: 'Huidige wallet naam',
 				newName: 'Nieuwe wallet naam',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				successMessage: 'Naam van wallet is gewijzigd van <em>{{1}}</em> naar <em>{{2}}</em>',
 				change: 'Change'
 			},
@@ -401,14 +408,14 @@ define({
 				title: 'Verander het label van de account',
 				label: 'Account label',
 				wallet: 'Wallet',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} is gelabeld als {{2}}',
 				change: 'Aanpassen'
 			},
 			removeAccount: {
 				title: 'Account verwijderen',
 				wallet: 'Wallet',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				warning: 'Let op! Wees er zeker van dat er geen XEM saldo opstaat. Eventueel saldo wordt voor altijd verwijderd.',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} is verwijderd!',
 				remove: 'Verwijderen'
@@ -426,7 +433,7 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Binnen (uren)',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				activate: 'Activeren'
 			},
 			deactivateRemote: {
@@ -434,25 +441,25 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Binnen (uren)',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				deactivate: 'Deactiveer'
 			},
 			startRemote: {
 				title: 'Start Remote harvesten',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet wachtwoord",
+				password: 'Wallet wachtwoord',
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "Je gaat de wallet verlaten. Onthoud dat op deze manier andere gebruikers op deze computer hier toegang toe kunnen krijgen.\n\nLog uit met het \"Sluit Wallet\" menu item in het dropdown menu rechts-boven voordat je de browser sluit of naar een andere pagina navigeert."
+				leavePage: 'Je gaat de wallet verlaten. Onthoud dat op deze manier andere gebruikers op deze computer hier toegang toe kunnen krijgen.\n\nLog uit met het \"Sluit Wallet\" menu item in het dropdown menu rechts-boven voordat je de browser sluit of naar een andere pagina navigeert.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -572,7 +579,7 @@ define({
 				'Instellingen',
 				'Afsluiten'
 			],
-			bootNodeWarning: "Een lokale node moet gestart zijn om alle functionaliteiten van NCC te gebruiken."
+			bootNodeWarning: 'Een lokale node moet gestart zijn om alle functionaliteiten van NCC te gebruiken.'
 		},
 		dashboard: {
 			assets: {
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Blockhoogte',
 					'Tijd',
-					'Block hash',
+					'Block difficulty',
 					'Toeslag'
 				],
 				noBlocks: 'Geen geharveste blocks ',

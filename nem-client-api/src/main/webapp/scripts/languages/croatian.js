@@ -7,7 +7,7 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'Datoteka nije pronađena.',
+			101: 'Datoteka ne postoji.',
 			102: 'Novčanik nije stvoren.',
 			103: 'Datoteka novčanika je oštećena. Molim Vas povratite novčanik iz sigurnosne kopije.',
 			104: 'Unešena lozinka je netočna. Nadam se da se možete sjetiti točne lozinke jer izgubljenu lozinku je nemoguće povratiti!',
@@ -33,7 +33,7 @@ define({
 			132: 'Nastavak naziva datoteke adresara je netočan.',
 			133: 'Adresar nije mogao biti izbrisan.',
 			202: 'Šifrirana se poruka nije mogla poslati jer primatelj nije nikad napravio niti jednu transakciju.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'NEM infrastrukturni poslužitelj (NIS) nije dostupan.\n\nPokušajte ponovo pokrenuti NEM program.\n\nAko koristite udaljeni NIS, provjerite postavke poslužitelja za ispis grešaka ili koristite drugi udaljeni NIS.',
 			306: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Novi pokušaj bi mogao pomoći, u suprotnom molim Vas pošaljite upit NEM NIS/NCC zajednici.',
 			400: 'Neki parametar nedostaje ili je nevažeći.',
 			401: 'Ova operacije nije mogla biti sprovedena zato što bi moglo doći do otkrivanja privatnog kluča slanjem na NIS.',
@@ -41,8 +41,8 @@ define({
 			500: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Ponovno pokretanje programa bi moglo pomoći u suprotnom molimo vas da grešku prijavite NEM NIS/NCC zajednicom.',
 			600: 'Prije slanja i primanje transakcija sa NEM oblaka, NIS poslužitelj mora biti pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.',
 			601: 'NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.',
-			602: 'Izvršavanje operacija nije moguće sve dok baza nije u potpunosti ispunjena.',
-			699: 'Maximum number of harvesters allowed on server has been reached.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			699: 'Dostignut je najveći dopušteni broj žetveoca na poslužitelju.',
 			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje iznos od 1000 XEM-a.',
 			701: 'Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.',
 			702: 'Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.',
@@ -55,8 +55,8 @@ define({
 			709: 'Račun je nepoznat. Račun se mora pojaviti barem u jednoj transakciji (pošiljatelja ili primatelja) da bi bio prepoznat u mreži.',
 			710: 'Transakcija je odbačena. Veća naknada povećava šansu za prihvaćanje transakcije.',
 			730: 'Transakcija prijenos važnosti (sigurno ubiranje) je u kofliktu sa postojećom transakcijom.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
-			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
+			731: 'Saldo na računu sigurnog ubiranja je veći od nule i ne može se koristiti',
+			732: 'Prijenos važnosti odbijen. Operacija prijenosa važnosti se već nalazi na čekanju.',
 			733: 'Sigurno ubiranje je već aktivno.',
 			734: 'Sigurno ubiranje NIJE aktivno. Nemoguce deaktivirati.',
 			740: 'Transakcija nije dozvoljena u višepotpisničkom računu.',
@@ -94,7 +94,7 @@ define({
 			password: 'Lozinka',
 			passwordValidation: 'Lozinka ne smije biti prazna',
 			address: 'Adresa',
-			privateLabel: 'Prvatna oznaka',
+			privateLabel: 'Privatna oznaka',
 			publicLabel: 'Javna oznaka',
 			noCharge: 'Naknada <b>neće</b> biti naplaćena sa trenutnog računa. Višepotpisnički račun to pokriva.',
 			justUse: 'Samo u koristi'
@@ -109,14 +109,18 @@ define({
 			pending: 'Transakcija na čekanju',
 			outgoing: 'Odlazna transakcija',
 			incoming: 'Dolazna transakcija',
-			self: 'Self transaction',
+			self: 'Vlastita transakcija',
 			importance: 'Transakcija važnosti',
-			modification: 'Aggregate Modification of Multisig'
+			modification: 'Skupne izmjene više potpisa'
 		},
 		modals: {
 			error: {
 				title: 'Oops!',
 				caption: 'GREŠKA {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Da',
@@ -135,7 +139,7 @@ define({
 					},
 					host: 'Host',
 					port: 'Port',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Koristi zadani port'
 				},
 				autoBoot: {
 					tabTitle: 'Automatsko pokretanje',
@@ -166,7 +170,7 @@ define({
 					total: 'Ukupno',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Višepotpisnički račun se nalazi u listi supotpisnika što može imati za posljedicu zaključavanje računa i zabranu pristupa sredstvima na istom. Vjerojatno <b>NE</b> želite to učiniti.'
 			},
 			signMultisig: {
 				title: 'Potpiši višepotpisničku transakciju',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Novčanik',
 				node: 'Naziv čvora',
 				boot: 'Pokreni',
-				booting: 'Pokretanje...'
+				booting: 'Pokretanje...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Zatvori novčanik',
@@ -433,7 +440,7 @@ define({
 				title: 'Deaktiviraj udaljeno ubiranje',
 				wallet: 'Novčanik',
 				account: 'Račun',
-				hoursDue: 'Hours due',
+				hoursDue: 'Vremensko razdoblje (sati)',
 				password: 'Lozinka novčanika',
 				deactivate: 'Deaktiviraj'
 			},
@@ -557,7 +564,7 @@ define({
 				closeWallet: 'Zatvori novčanik',
 				closeProgram: 'Zatvori  program',
 				copyClipboard: 'Kopiraj adresu u međuspremnik',
-				convertMultisig: 'Pretvori drugi račun u višepotpisnički'
+				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
 				'Kontrolna ploča',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Visina',
 					'Vrijeme',
-					'Šifra bloka',
+					'Block difficulty',
 					'Naknada'
 				],
 				noBlocks: 'Nema ubranih blokova',

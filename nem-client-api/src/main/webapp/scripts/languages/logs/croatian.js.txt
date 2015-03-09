@@ -273,4 +273,15 @@ changed texts.wallet.actions.convertMultisig
 	  to: 'Convert other account to multisig'
 	 was: 'Pretvori drugi račun u višepotpisnički'
 
+-----changed texts.faults.305
+changed texts.faults.602
+	from: 'Cannot perform any operations until db is fully loaded.'
+	  to: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.'
+	 was: 'Izvršavanje operacija nije moguće sve dok baza nije u potpunosti učitana.'
+
+changed texts.harvestedBlocks.table.columns.[2]
+	from: 'Block hash'
+	  to: 'Block difficulty'
+	 was: 'Šifra bloka'
+
 -----
