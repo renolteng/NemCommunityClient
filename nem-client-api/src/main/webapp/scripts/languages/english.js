@@ -119,9 +119,9 @@ define({
 				caption: 'ERROR {{1}}'
 			},
 			yikes: {
-                title: 'Yikes!',
-                caption: 'info code {{1}}'
-            },
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Yes',
 				no: 'No'
