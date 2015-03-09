@@ -41,7 +41,7 @@ define({
 			500: 'Невозможно сохранить файл конфигурации',
 			600: 'Для отсылки и приёма транзакций, NCC требует перезагрузку NIS сервера. Пожалуйста, используйте меню NCC для перезагрузки в локальный узел.',
 			601: 'NIS узел уже запущен. Повторная попытка перезагрузки NIS невозможна.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Предоставленный аккаунт не соответствует базовым требованиям для Генерации . В основном, это связанно с количеством XEM на счету.  Генерация начинается хотя бы с 1,000 XEM.',
 			701: 'Предоставленный срок завершения в прошлом. Срок должен быть предоставлен в течении 1-дневного периода.',
@@ -64,7 +64,7 @@ define({
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'Произошла ошибка в настройках offline mode.',
-			1000: "Введённые Вами private key и  public key не соответствуют.",
+			1000: 'Введённые Вами private key и  public key не соответствуют.',
 			1001: 'Введённые Вами  public key и адрес  не соответствуют.',
 			1002: 'Адрес не принадлежит главной сети.'
 		},
@@ -118,6 +118,10 @@ define({
 				title: 'Oops!',
 				caption: 'ОШИБКА {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Да',
 				no: 'Нет'
@@ -150,9 +154,9 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'Этот аккаунт маркирован как {{1}}',
-				nullLabelDesc: "Этот аккаунт не имеет маркировки",
+				nullLabelDesc: 'Этот аккаунт не имеет маркировки',
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Cancel',
 				convert: 'Convert',
@@ -204,9 +208,9 @@ define({
 				sender: 'Отправитель',
 				thisAccount: 'This account',
 				labelDesc: 'Этот аккаунт маркирован как {{1}}',
-				nullLabelDesc: "Этот аккаунт не имеет маркировки",
+				nullLabelDesc: 'Этот аккаунт не имеет маркировки',
 				amount: 'Сумма',
-				recipient: "Аккаунт получателя",
+				recipient: 'Аккаунт получателя',
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: 'Сообщение',
 				encrypt: 'Зашифрованное сообщение',
@@ -289,19 +293,19 @@ define({
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Account details',
+				address: 'Address',
+				label: 'Label',
+				noLabel: 'No label',
+				add: 'Add to address book',
+				remove: 'Remove from address book',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Public key',
+				noPublicKey: 'No public key',
+				harvestedBlocks: 'Harvested blocks',
+				close: 'Close'
 			},
 			bootLocalNode: {
 				title: 'Загрузить как локальный узел',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Кошелёк',
 				node: 'Имя узла',
 				boot: 'Загрузить',
-				booting: 'Загрузка...'
+				booting: 'Загрузка...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Закрыть кошелёк',
@@ -320,7 +327,7 @@ define({
 				title: 'Создать аккаунт',
 				label: 'Приватная маркировка',
 				wallet: 'Кошелёк',
-				password: "Пароль кошелька",
+				password: 'Пароль кошелька',
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был создан!',
 				create: 'Создать'
 			},
@@ -336,14 +343,14 @@ define({
 				},
 				recheck: {
 					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					message: 'Please re-enter your private key you\'ve just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.',
 					correct: {
 						title: 'Nice!',
 						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						message: 'The private key you\'ve just entered is not correct! Please double check and enter it once again.',
 						tryAgain: 'Try to enter again',
 						seeOriginal: 'See the original data'
 					},
@@ -362,9 +369,9 @@ define({
 			},
 			addAccount: {
 				title: 'Добавить Существующий Аккаунт',
-				privateKey: "Частный Ключ Аккаунта ",
+				privateKey: 'Частный Ключ Аккаунта ',
 				wallet: 'Кошелёк',
-				password: "Пароль Аккаунта",
+				password: 'Пароль Аккаунта',
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был добавлен кошелёк!',
 				add: 'Добавить',
 				label: 'Маркировка'
@@ -374,7 +381,7 @@ define({
 				account: 'Установить аккаунт как Главный',
 				noLabel: '<span class="null">&lt;нет маркировки&gt;</span>',
 				wallet: 'Кошелёк',
-				password: "Пароль кошелька",
+				password: 'Пароль кошелька',
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был установлен как Главный!',
 				set: 'Установлен как главный'
 			},
@@ -382,7 +389,7 @@ define({
 				title: 'Изменить имя кошелька',
 				wallet: 'Текущее имя кошелька',
 				newName: 'Новое имя кошелька',
-				password: "Пароль кошелька",
+				password: 'Пароль кошелька',
 				successMessage: 'Имя кошелька было успешно изменено с <em>{{1}}</em> на <em>{{2}}</em>',
 				change: 'Изменить'
 			},
@@ -401,14 +408,14 @@ define({
 				title: 'Изменить маркировку аккаунта',
 				label: 'Маркировка аккаунта',
 				wallet: 'Кошелёк',
-				password: "Пароль от кошелька",
+				password: 'Пароль от кошелька',
 				successMessage: 'Аккаунт {{1}} теперь маркирован как {{2}}',
 				change: 'Изменить'
 			},
 			removeAccount: {
 				title: 'Удалить аккаунт',
 				wallet: 'Кошелёк',
-				password: "Пароль от кошелька",
+				password: 'Пароль от кошелька',
 				warning: 'Пожалуйста  убедитесь, что Ваш аккаунт не имеет XEM монет, прежде чем Вы удалите его, или они будут потеряны навсегда.',
 				successMessage: 'Аккаунт {{1}} {{#2}}({{2}}){{/2}} был удалён!',
 				remove: 'Удалить'
@@ -426,7 +433,7 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Hours due',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				activate: 'Activate'
 			},
 			deactivateRemote: {
@@ -434,25 +441,25 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Hours due',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				deactivate: 'Deactivate'
 			},
 			startRemote: {
 				title: 'Start Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. emember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: 'You\'re leaving your wallet. emember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -572,7 +579,7 @@ define({
 				'Настройки',
 				'Закрыть Программу'
 			],
-			bootNodeWarning: "Для полного функционирования NCC  нужно загрузить локальный узел."
+			bootNodeWarning: 'Для полного функционирования NCC  нужно загрузить локальный узел.'
 		},
 		dashboard: {
 			assets: {
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Блок',
 					'Время',
-					'Хэш  Блока',
+					'Block difficulty',
 					'Оплата'
 				],
 				noBlocks: 'Нет Сгенерированных Блоков ',

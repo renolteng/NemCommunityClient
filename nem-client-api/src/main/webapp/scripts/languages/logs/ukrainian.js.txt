@@ -278,4 +278,29 @@ changed texts.wallet.actions.convertMultisig
 	  to: 'Convert other account to multisig'
 	 was: 'Convert other account to multisig'
 
+-----changed texts.faults.305
+	from: 'NEM Infrastructure Server is not available.'
+	  to: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.'
+	 was: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.'
+
+changed texts.faults.602
+	from: 'Cannot perform any operations until db is fully loaded.'
+	  to: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.'
+	 was: 'Cannot perform any operations until db is fully loaded.'
+
+changed texts.modals.multisig.warning
+	from: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. most likely you <b>DO NOT</b> want to do that.'
+	  to: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+	 was: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+
+changed texts.wallet.actions.convertMultisig
+	from: 'Convert to multisig'
+	  to: 'Convert other account to multisig'
+	 was: 'Convert other account to multisig'
+
+changed texts.harvestedBlocks.table.columns.[2]
+	from: 'Block hash'
+	  to: 'Block difficulty'
+	 was: 'Хеш блоку'
+
 -----

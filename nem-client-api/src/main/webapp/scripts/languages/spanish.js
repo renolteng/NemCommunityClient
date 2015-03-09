@@ -41,7 +41,7 @@ define({
 			500: 'Error al guardar archivo de configuración.',
 			600: 'NCC requiere la iniciación de un servidor NIS para enviar y recibir transacciones de la nube NEM. Por favor, use las opciones de menu NCC para iniciar un servidor NIS local.',
 			601: 'El nodo NIS ya ha sido iniciado. No es válido intentar iniciar el nodo NIS ya estando iniciado.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'La cuenta especificada no satisface los criterios básicos para recolectar. Normalmente este problema está relacionado al balance de la cuenta. Al menos 1000 XEM son necesarios para participar en el proceso de recolecta.',
 			701: 'La fecha limite especificada esta en el pasado. La fecha limite especificada debe de estar dentro del periodo de un dia.',
@@ -118,6 +118,10 @@ define({
 				title: 'Oops!',
 				caption: 'ERROR {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Si',
 				no: 'No'
@@ -150,9 +154,9 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'Esta cuenta está etiquetada como {{1}}',
-				nullLabelDesc: "Esta cuenta no está etiquetada.",
+				nullLabelDesc: 'Esta cuenta no está etiquetada.',
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Cancelar',
 				convert: 'Convert',
@@ -172,7 +176,7 @@ define({
 				title: 'Sign multisig transaction',
 				original: {
 					from: 'Multisig account',
-					to: "Cuenta de destinatario",
+					to: 'Cuenta de destinatario',
 					amount: 'Cantidad',
 					fee: 'Inner Fee',
 					deadline: 'Deadline'
@@ -204,9 +208,9 @@ define({
 				sender: 'Emisor',
 				thisAccount: 'This account',
 				labelDesc: 'Esta cuenta está etiquetada como {{1}}',
-				nullLabelDesc: "Esta cuenta no está etiquetada.",
+				nullLabelDesc: 'Esta cuenta no está etiquetada.',
 				amount: 'Cantidad',
-				recipient: "Cuenta de destinatario",
+				recipient: 'Cuenta de destinatario',
 				recipientValidation: 'Direcciones de cuentas son de 40 caracteres de largo, excluyendo guiones.',
 				message: 'Mensaje',
 				encrypt: 'Encriptar mensaje',
@@ -273,7 +277,7 @@ define({
 				sender: 'Emisor',
 				multisigAccount: 'Multisig Account',
 				issuer: 'Issuer',
-				recipient: "Cuenta de destinatario",
+				recipient: 'Cuenta de destinatario',
 				remote: 'Remote',
 				multisigMessage: 'Signatures present',
 				message: 'Mensaje',
@@ -289,19 +293,19 @@ define({
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Account details',
+				address: 'Address',
+				label: 'Label',
+				noLabel: 'No label',
+				add: 'Add to address book',
+				remove: 'Remove from address book',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Public key',
+				noPublicKey: 'No public key',
+				harvestedBlocks: 'Harvested blocks',
+				close: 'Close'
 			},
 			bootLocalNode: {
 				title: 'Iniciar nodo local',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Monedero',
 				node: 'Nombre de nodo',
 				boot: 'Iniciar',
-				booting: 'Iniciando...'
+				booting: 'Iniciando...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Cerrar monedero',
@@ -320,7 +327,7 @@ define({
 				title: 'Crear cuenta nueva',
 				label: 'Etiqueta privada',
 				wallet: 'Monedero',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido creada!',
 				create: 'Crear'
 			},
@@ -343,7 +350,7 @@ define({
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "La clave privada que introdujo no es correcta! Verifique e introduscala nuevamente.",
+						message: 'La clave privada que introdujo no es correcta! Verifique e introduscala nuevamente.',
 						tryAgain: 'Intente introducirla de nuevo',
 						seeOriginal: 'Ver los datos originales'
 					},
@@ -362,9 +369,9 @@ define({
 			},
 			addAccount: {
 				title: 'Añadir cuenta existente',
-				privateKey: "Clave privada de la cuenta",
+				privateKey: 'Clave privada de la cuenta',
 				wallet: 'Monedero',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido añadida al monedero!',
 				add: 'Añadir',
 				label: 'Etiqueta'
@@ -374,7 +381,7 @@ define({
 				account: 'Cuenta a ser definida como primaria',
 				noLabel: '<span class="null">&lt;Sin etiqueta&gt;</span>',
 				wallet: 'Monedero',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido definida como cuenta primaria!',
 				set: 'Definir como primaria'
 			},
@@ -382,7 +389,7 @@ define({
 				title: 'Cambiar nombre de monedero',
 				wallet: 'Nombre actual de monedero',
 				newName: 'Nuevo nombre de monedero',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				successMessage: 'El nombre de monedero ha sido cambiado con exito de <em>{{1}}</em> a <em>{{2}}</em>',
 				change: 'Cambiar'
 			},
@@ -401,14 +408,14 @@ define({
 				title: 'Cambiar etiqueta de cuenta',
 				label: 'Etiqueta de cuenta',
 				wallet: 'Monedero',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				successMessage: 'Cuenta {{1}} ahora esta etiquetada como {{2}}',
 				change: 'Cambiar'
 			},
 			removeAccount: {
 				title: 'Remover cuenta',
 				wallet: 'Monedero',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				warning: 'Por favor, asegúrese que la cuenta que desea remover no contiene XEMs, ya que estos se perderian para siempre al removerla.',
 				successMessage: 'Cuenta {{1}} {{#2}}({{2}}){{/2}} ha sido removida!',
 				remove: 'Remover'
@@ -426,7 +433,7 @@ define({
 				wallet: 'Monedero',
 				account: 'Cuenta',
 				hoursDue: 'Debido por',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				activate: 'Activar'
 			},
 			deactivateRemote: {
@@ -434,25 +441,25 @@ define({
 				wallet: 'Monedero',
 				account: 'Cuenta',
 				hoursDue: 'Debido por',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				deactivate: 'Desactivar'
 			},
 			startRemote: {
 				title: 'Comenzar recolecta remota',
 				wallet: 'Monedero',
 				account: 'Cuenta',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				start: 'Comenzar'
 			},
 			stopRemote: {
 				title: 'Detener recolecta remota',
 				wallet: 'Monedero',
 				account: 'Cuenta',
-				password: "Contraseña de monedero",
+				password: 'Contraseña de monedero',
 				stop: 'Detener'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -572,7 +579,7 @@ define({
 				'Configuración',
 				'Cerrar programa'
 			],
-			bootNodeWarning: "Se necesita iniciar un nodo local antes de poder utilizar todas las características de NCC."
+			bootNodeWarning: 'Se necesita iniciar un nodo local antes de poder utilizar todas las características de NCC.'
 		},
 		dashboard: {
 			assets: {
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Altura',
 					'Tiempo',
-					'Hash de Bloque',
+					'Block difficulty',
 					'Tarifa'
 				],
 				noBlocks: 'No hay bloques recolectados',

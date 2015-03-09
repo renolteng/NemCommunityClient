@@ -15,7 +15,7 @@ define({
 			106: 'Перш ніж ви зможете працювати з гаманцем, він повинен бути відкритий. Щоб переконатися, що ви авторизованi на доступ до файлу гаманця, ви повинні ввести пароль гаманця.',
 			107: 'Гаманець не містить цей акаунт.',
 			108: 'Акаунт не може бути видалений. Швидше за все тому, що баланс рахунку все ще перевищує 0 XEM, або акаунт, який ви намагаєтеся видалити є основним.',
-			109: "Гаманець з таким ім'ям вже існує. Будь ласка, виберіть інше ім'я гаманця.",
+			109: 'Гаманець з таким ім\'ям вже існує. Будь ласка, виберіть інше ім\'я гаманця.',
 			110: 'Гаманець вже містить цей акаунт.',
 			111: 'The wallet name is a directory.',
 			112: 'The extension of the wallet file is incorrect.',
@@ -41,7 +41,7 @@ define({
 			500: 'Не вдалося зберегти файл налаштувань.',
 			600: 'NCC вимагає запущений сервер NIS для надсилання та отримання транзакцiй з NEM cloud. Будь ласка скористайтеся меню NCC для запуску локального вузла.',
 			601: 'Сервер NIS вже запущено. Завантажити NIS вдруге неможливо.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 XEM.',
 			701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
@@ -64,7 +64,7 @@ define({
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'При переході в автономний режим сталася помилка.',
-			1000: "The private key and the public key you have provided mismatch.",
+			1000: 'The private key and the public key you have provided mismatch.',
 			1001: 'The public key and the address you have provided mismatch.',
 			1002: 'The address does not belong to the main network.'
 		},
@@ -118,6 +118,10 @@ define({
 				title: 'От халепа!',
 				caption: 'Помилка {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Так',
 				no: 'Нi'
@@ -150,9 +154,9 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'Цей акаунт позначений як {{1}}',
-				nullLabelDesc: "Цей акаунт не має позначки",
+				nullLabelDesc: 'Цей акаунт не має позначки',
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Cancel',
 				convert: 'Convert',
@@ -204,9 +208,9 @@ define({
 				sender: 'Вiдправник',
 				thisAccount: 'This account',
 				labelDesc: 'Цей акаунт позначений як {{1}}',
-				nullLabelDesc: "Цей акаунт не має позначки",
+				nullLabelDesc: 'Цей акаунт не має позначки',
 				amount: 'Кiлькiсть',
-				recipient: "Акаунт одержувача",
+				recipient: 'Акаунт одержувача',
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: 'Повiдомлення',
 				encrypt: 'Зашифрованне повiдомлення',
@@ -289,28 +293,31 @@ define({
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Account details',
+				address: 'Address',
+				label: 'Label',
+				noLabel: 'No label',
+				add: 'Add to address book',
+				remove: 'Remove from address book',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Public key',
+				noPublicKey: 'No public key',
+				harvestedBlocks: 'Harvested blocks',
+				close: 'Close'
 			},
 			bootLocalNode: {
 				title: 'Завантажити локальний вузол',
 				account: 'Акаунт, з якого буде завантажено локальний вузол',
-				noLabel: '<span class="null">&lt;Без позначки&gt;</span>',
+				noLabel: '<span class=\"null\">&lt;Без позначки&gt;</span>',
 				wallet: 'Гаманець',
-				node: "Iм'я локального вузла",
+				node: 'Iм\'я локального вузла',
 				boot: 'Завантажити',
-				booting: 'Завантаження...'
+				booting: 'Завантаження...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Закрити гаманець',
@@ -320,7 +327,7 @@ define({
 				title: 'Створити новий акаунт',
 				label: 'Приватна позначка',
 				wallet: 'Гаманець',
-				password: "Пароль файлу гаманця",
+				password: 'Пароль файлу гаманця',
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} був успiшно створений!',
 				create: 'Створити'
 			},
@@ -336,14 +343,14 @@ define({
 				},
 				recheck: {
 					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
+					message: 'Please re-enter your private key you\'ve just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.',
 					correct: {
 						title: 'Nice!',
 						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
 					},
 					incorrect: {
 						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Please double check and enter it once again.",
+						message: 'The private key you\'ve just entered is not correct! Please double check and enter it once again.',
 						tryAgain: 'Try to enter again',
 						seeOriginal: 'See the original data'
 					},
@@ -362,9 +369,9 @@ define({
 			},
 			addAccount: {
 				title: 'Додати існуючій акаунт',
-				privateKey: "Приватний ключ акаунта",
+				privateKey: 'Приватний ключ акаунта',
 				wallet: 'Гаманець',
-				password: "Пароль файлу гаманця",
+				password: 'Пароль файлу гаманця',
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} було успiшно додано до гаманця!',
 				add: 'Додати',
 				label: 'Позначка'
@@ -372,18 +379,18 @@ define({
 			setPrimary: {
 				title: 'Встановити основний акаунт',
 				account: 'Акаунт буде встановлено як основний',
-				noLabel: '<span class="null">&lt;Без позначки&gt;</span>',
+				noLabel: '<span class=\"null\">&lt;Без позначки&gt;</span>',
 				wallet: 'Гаманець',
-				password: "Пароль файлу гаманця",
+				password: 'Пароль файлу гаманця',
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} був встановлений як основний!',
 				set: 'Встановити як основний'
 			},
 			changeWalletName: {
-				title: "Змiнити iм'я гаманця",
-				wallet: "Поточне iм'я гаманця",
-				newName: "Нове iм'я гаманця",
-				password: "Пароль файлу гаманця",
-				successMessage: "Iм'я гаманця було успiшно змiнено з <em>{{1}}</em> на <em>{{2}}</em>",
+				title: 'Змiнити iм\'я гаманця',
+				wallet: 'Поточне iм\'я гаманця',
+				newName: 'Нове iм\'я гаманця',
+				password: 'Пароль файлу гаманця',
+				successMessage: 'Iм\'я гаманця було успiшно змiнено з <em>{{1}}</em> на <em>{{2}}</em>',
 				change: 'Змiнити'
 			},
 			changeWalletPassword: {
@@ -401,21 +408,21 @@ define({
 				title: 'Змiнити позначку акаунта',
 				label: 'Позначка акаунта',
 				wallet: 'Гаманець',
-				password: "Пароль файлу гаманця",
+				password: 'Пароль файлу гаманця',
 				successMessage: 'Акаунт {{1}} тепер позначений як {{2}}',
 				change: 'Змiнити'
 			},
 			removeAccount: {
 				title: 'Видалити акаунт',
 				wallet: 'Гаманець',
-				password: "Пароль файлу гаманця",
+				password: 'Пароль файлу гаманця',
 				warning: 'Будь ласка переконайтеся, що на вашому рахунку не залишилося коштiв. В іншому випадку вони будуть втраченi назавжди.',
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} видалено!',
 				remove: 'Видалити'
 			},
 			nisUnavailable: {
 				title: 'NIS недосяжний',
-				message: "Від'єднаний вiд NIS, очікування з'єднання"
+				message: 'Від\'єднаний вiд NIS, очікування з\'єднання'
 			},
 			shutdown: {
 				title: 'Закрити програму',
@@ -426,7 +433,7 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Hours due',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				activate: 'Activate'
 			},
 			deactivateRemote: {
@@ -434,25 +441,25 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				hoursDue: 'Hours due',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				deactivate: 'Deactivate'
 			},
 			startRemote: {
 				title: 'Start Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
+				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -478,7 +485,7 @@ define({
 			main: {
 				leftTitle: 'Новий у мережi <em>NEM</em>?',
 				leftButton: 'Створити новий гаманець',
-				walletNamePlh: "Iм'я гаманця",
+				walletNamePlh: 'Iм\'я гаманця',
 				passwordPlh: 'Пароль',
 				confirmPasswordPlh: 'Confirm password',
 				create: 'Створити',
@@ -542,9 +549,9 @@ define({
 			actions: {
 				refreshInfo: 'Оновити iнформацiю',
 				bootLocalNode: 'Завантажити локальний вузол',
-				changeWalletName: "Змiнити iм'я гаманця",
+				changeWalletName: 'Змiнити iм\'я гаманця',
 				changeWalletPassword: 'Змiнити пароль гаманця',
-				mergeWallets: "Об'єднати гаманцi",
+				mergeWallets: 'Об\'єднати гаманцi',
 				exportWallet: 'Експортувати гаманець',
 				createAccount: 'Створити новий акаунт',
 				createRealAccountData: 'Create real account data',
@@ -572,7 +579,7 @@ define({
 				'Налаштування',
 				'Закрити програму'
 			],
-			bootNodeWarning: "Локальний вузол повинен бути завантажений, перш ніж ви можете повною мірою використовувати можливості NCC."
+			bootNodeWarning: 'Локальний вузол повинен бути завантажений, перш ніж ви можете повною мірою використовувати можливості NCC.'
 		},
 		dashboard: {
 			assets: {
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Порядковий номер',
 					'Час',
-					'Хеш блоку',
+					'Block difficulty',
 					'Комiсiя'
 				],
 				noBlocks: 'Немає сгенерованих блокiв ',

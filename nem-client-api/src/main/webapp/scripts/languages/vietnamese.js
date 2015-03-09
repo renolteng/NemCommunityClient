@@ -41,7 +41,7 @@ define({
 			500: 'Lưu file cấu hình thất bại.',
 			600: 'NCC yêu cầu máy chủ NIS phải được boot để gửi và nhận các giao dịch từ NEM cloud. Hãy dùng thực đơn của NCC để boot node cục bộ.',
 			601: 'NIS node đã được boot rồi. Không thể boot NIS thêm một lần nữa.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'Tài khoản được cung cấp không thoả mãn các tiêu chí cơ bản để được thu hoạch. Phần lớn liên quan tới lượng XEM có trong tài khoản. Việc thu hoạch có thể bắt đầu với ít nhất 1000 XEM.',
 			701: 'Deadline được cung cấp đã trôi qua.',
@@ -64,7 +64,7 @@ define({
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			743: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
 			901: 'Đã xảy ra lỗi trong lúc cài đặt chế độ offline.',
-			1000: "Khoá bí mật và khoá công khai mà bạn vừa cung cấp không khớp với nhau.",
+			1000: 'Khoá bí mật và khoá công khai mà bạn vừa cung cấp không khớp với nhau.',
 			1001: 'Khoá công khai và địa chỉ mà bạn vừa cung cấp không khớp với nhau.',
 			1002: 'Địa chỉ không thuộc về mạng lưới chính.'
 		},
@@ -118,6 +118,10 @@ define({
 				title: 'Ui chà!',
 				caption: 'LỖI {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Có',
 				no: 'Không'
@@ -150,9 +154,9 @@ define({
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',
-				cosignatories: "Cosignatories' addresses",
+				cosignatories: 'Cosignatories\' addresses',
 				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
-				nullLabelDesc: "Tài khoản này không được dán nhãn",
+				nullLabelDesc: 'Tài khoản này không được dán nhãn',
 				addCosignatory: '+ Add Cosignatory',
 				cancel: 'Huỷ',
 				convert: 'Convert',
@@ -204,9 +208,9 @@ define({
 				sender: 'Người gửi',
 				thisAccount: 'This account',
 				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
-				nullLabelDesc: "Tài khoản này không được dán nhãn",
+				nullLabelDesc: 'Tài khoản này không được dán nhãn',
 				amount: 'Số lượng',
-				recipient: "Người nhận",
+				recipient: 'Người nhận',
 				recipientValidation: 'Địa chỉ tài khoản phải có đúng 40 ký tự trừ các dấu gạch ngang',
 				message: 'Thông điệp',
 				encrypt: 'Mã hoá thông điệp',
@@ -289,28 +293,31 @@ define({
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
-				title: "Account details",
-				address: "Address",
-				label: "Label",
-				noLabel: "No label",
-				add: "Add to address book",
-				remove: "Remove from address book",
-				balance: "Balance",
-				vested: "vested",
-				importance: "Importance",
-				publicKey: "Public key",
-				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				title: 'Account details',
+				address: 'Address',
+				label: 'Label',
+				noLabel: 'No label',
+				add: 'Add to address book',
+				remove: 'Remove from address book',
+				balance: 'Balance',
+				vested: 'vested',
+				importance: 'Importance',
+				publicKey: 'Public key',
+				noPublicKey: 'No public key',
+				harvestedBlocks: 'Harvested blocks',
+				close: 'Close'
 			},
 			bootLocalNode: {
 				title: 'Boot node cục bộ',
 				account: 'Tài khoản để boot node cục bộ',
-				noLabel: '<span class="null">&lt;Không có nhãn&gt;</span>',
+				noLabel: '<span class=\"null\">&lt;Không có nhãn&gt;</span>',
 				wallet: 'Ví',
 				node: 'Tên node',
 				boot: 'Boot',
-				booting: 'Đang boot...'
+				booting: 'Đang boot...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Đóng ví',
@@ -320,7 +327,7 @@ define({
 				title: 'Tạo tài khoản mới',
 				label: 'Nhãn cá nhân',
 				wallet: 'Ví',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được tạo!',
 				create: 'Tạo'
 			},
@@ -336,14 +343,14 @@ define({
 				},
 				recheck: {
 					title: 'Kiếm tra lại khoá bí mật bạn đã lưu',
-					message: "Hãy nhập lại khoá bí mật mà bạn vừa được cung cấp để kiểm tra xem bạn có lưu chính xác hay không. Nếu khoá bí mật của bạn đã bị mất, bạn có lẽ sẽ muốn tạo lại một cái mới.",
+					message: 'Hãy nhập lại khoá bí mật mà bạn vừa được cung cấp để kiểm tra xem bạn có lưu chính xác hay không. Nếu khoá bí mật của bạn đã bị mất, bạn có lẽ sẽ muốn tạo lại một cái mới.',
 					correct: {
 						title: 'Tốt quá!',
 						message: 'Có vẻ là bạn đã lưu đúng khoá bí mật của mình. Hãy nhớ luôn luôn giữ nó an toàn và bí mật!'
 					},
 					incorrect: {
 						title: 'Hừmm...',
-						message: "Khoá bí mật mà bạn vừa nhập là không chính xác! Bạn có muốn thử điền lại khoá bí mật không hay quay lại xem thông tin gốc tài khoản của bạn một lần nữa?",
+						message: 'Khoá bí mật mà bạn vừa nhập là không chính xác! Bạn có muốn thử điền lại khoá bí mật không hay quay lại xem thông tin gốc tài khoản của bạn một lần nữa?',
 						tryAgain: 'Thử điền lại',
 						seeOriginal: 'Xem lại thông tin tài khoản'
 					},
@@ -362,9 +369,9 @@ define({
 			},
 			addAccount: {
 				title: 'Thêm tài khoản đã tồn tại',
-				privateKey: "Khoá bí mật",
+				privateKey: 'Khoá bí mật',
 				wallet: 'Ví',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được thêm vào ví!',
 				add: 'Thêm',
 				label: 'Nhãn'
@@ -372,9 +379,9 @@ define({
 			setPrimary: {
 				title: 'Đặt tài khoản chính',
 				account: 'Tài khoản được đặt làm tài khoản chính',
-				noLabel: '<span class="null">&lt;Không có nhãn&gt;</span>',
+				noLabel: '<span class=\"null\">&lt;Không có nhãn&gt;</span>',
 				wallet: 'Ví',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được đặt làm tài khoản chính!',
 				set: 'Đặt làm tài khoản chính'
 			},
@@ -382,7 +389,7 @@ define({
 				title: 'Đổi tên ví',
 				wallet: 'Tên ví hiện tại',
 				newName: 'Tên ví mới',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				successMessage: 'Tên ví đã được đổi thành công từ <em>{{1}}</em> sang <em>{{2}}</em>',
 				change: 'Thay đổi'
 			},
@@ -401,14 +408,14 @@ define({
 				title: 'Đổi nhãn tài khoản',
 				label: 'Nhãn tài khoản',
 				wallet: 'Ví',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} giờ đây được dán nhãn là {{2}}',
 				change: 'Thay đổi'
 			},
 			removeAccount: {
 				title: 'Xoá tài khoản',
 				wallet: 'Ví',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được xoá!',
 				remove: 'Xoá'
@@ -426,7 +433,7 @@ define({
 				wallet: 'Ví',
 				account: 'Tài khoản',
 				hoursDue: 'Hết hạn sau (giờ)',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				activate: 'Kích hoạt'
 			},
 			deactivateRemote: {
@@ -434,25 +441,25 @@ define({
 				wallet: 'Ví',
 				account: 'Tài khoản',
 				hoursDue: 'Hết hạn sau (giờ)',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				deactivate: 'Vô hiệu hoá'
 			},
 			startRemote: {
 				title: 'Bắt đầu thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				start: 'Bắt đầu'
 			},
 			stopRemote: {
 				title: 'Ngừng thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				password: "Mật khẩu ví",
+				password: 'Mật khẩu ví',
 				stop: 'Ngừng'
 			},
 			logoutWarning: {
-				leavePage: "Bạn đang rời khỏi ví của mình. Hãy nhớ rằng nếu bạn rời ví theo cách này, ai đó khác vẫn có thể truy cập vào ví của bạn từ máy tính này.\n\nĐể ngăn chặn điều đó xảy ra, hãy đăng xuất bằng cách chọn \"Đóng ví\" trong menu xổ xuống phía trên bên phải màn hình trước khi bạn đóng tab trình duyệt hoặc sang một trang web khác."
+				leavePage: 'Bạn đang rời khỏi ví của mình. Hãy nhớ rằng nếu bạn rời ví theo cách này, ai đó khác vẫn có thể truy cập vào ví của bạn từ máy tính này.\n\nĐể ngăn chặn điều đó xảy ra, hãy đăng xuất bằng cách chọn \"Đóng ví\" trong menu xổ xuống phía trên bên phải màn hình trước khi bạn đóng tab trình duyệt hoặc sang một trang web khác.'
 			},
 			addContact: {
 				title: 'Add contact',
@@ -572,7 +579,7 @@ define({
 				'Thiết lập',
 				'Đóng chương trình'
 			],
-			bootNodeWarning: "Node cần phải được boot trước khi bạn có thể sử dụng đầy đủ các tính năng của NCC"
+			bootNodeWarning: 'Node cần phải được boot trước khi bạn có thể sử dụng đầy đủ các tính năng của NCC'
 		},
 		dashboard: {
 			assets: {
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Chiều cao',
 					'Thời điểm',
-					'Block hash',
+					'Block difficulty',
 					'Phí'
 				],
 				noBlocks: 'Chưa có block nào được thu hoạch',

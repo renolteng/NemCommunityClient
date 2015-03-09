@@ -41,7 +41,7 @@ define({
 			500: "Uloženie konfiguračného súboru zlyhalo.",
 			600: "Na posielanie a prijímanie prevodov potrebuje NCC server NIS. Ten sa musí nabútovať z cloudu NEM. Prosím, použite vstupné menu NCC na bútovanie lokálneho uzla.",
 			601: "Tento uzol je už nabútovaný. Ďalší pokus bútovať NIS nieje možný.",
-			602: "Cannot perform any operations until db is fully loaded.",
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: "Maximum number of harvesters allowed on server has been reached.",
 			700: "Daný účet nespĺňa základné kritériá na začatie žatvy. Vačšinou sa tento problém vzťahuje na nedostatočné množstvo NEMov na účte. Žatva začína s minimálnou hodnotou 1000 NEM.",
 			701: "Zadaný konečný termín sa nachádza v minulosti. Konečný termín musí byť zadaný do obdobia 1 deň.",
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: "Oops!",
 				caption: "CHYBA {{1}}"
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: "Áno",
@@ -310,7 +314,10 @@ define({
 				wallet: "Peňaženka",
 				node: "Názov uzla",
 				boot: "Bútovať",
-				booting: "Bútovanie..."
+				booting: "Bútovanie...",
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: "Zatvoriť peňaženku",
@@ -673,7 +680,7 @@ define({
 				columns: [
 					"Blok",
 					"Čas",
-					"Hash bloku",
+					'Block difficulty',
 					"Poplatok"
 				],
 				noBlocks: "Žiadne zožaté bloky ",
