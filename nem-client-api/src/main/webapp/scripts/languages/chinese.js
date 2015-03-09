@@ -41,7 +41,7 @@ define({
 			500: '保存配置文件失败。',
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: '此服务器已达最大收货人数。',
 			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有1000 XEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
@@ -117,6 +117,10 @@ define({
 			error: {
 				title: '哎呀!',
 				caption: '错误 {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: '是',
@@ -310,7 +314,10 @@ define({
 				wallet: '钱包',
 				node: '节点名称',
 				boot: '启用',
-				booting: '正在启用...'
+				booting: '正在启用...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: '关闭钱包',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'高',
 					'时间',
-					'区块hash值',
+					'Block difficulty',
 					'费用'
 				],
 				noBlocks: '不存在已收获区块',
