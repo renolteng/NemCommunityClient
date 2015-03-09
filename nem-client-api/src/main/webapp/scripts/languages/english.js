@@ -41,7 +41,7 @@ define({
 			500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			600: 'Before sending and receiving transactions, the NEM Infrastructure Server (NIS) needs to be booted. Please use the NCC menu entry for booting the local node.',
 			601: 'The NEM Infrastructure Server (NIS) is already booted.',
-			602: 'Cannot perform any operations until db is fully loaded.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 1000 XEM.',
 			701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
@@ -118,6 +118,10 @@ define({
 				title: 'Oops!',
 				caption: 'ERROR {{1}}'
 			},
+			yikes: {
+                title: 'Yikes!',
+                caption: 'info code {{1}}'
+            },
 			confirmDefault: {
 				yes: 'Yes',
 				no: 'No'

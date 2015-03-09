@@ -25,6 +25,7 @@ define(function(require) {
         template: '#template',
         components: {
             errorModal: NccModal,
+            yikesModal: NccModal,
             messageModal: NccModal,
             confirmModal: ConfirmModal,
             inputModal: InputModal,
@@ -312,9 +313,12 @@ define(function(require) {
             if (!message && typeof errorId === 'number') {
                 message = this.get('texts.faults.' + errorId);
             }
+            if (errorId == 602) {
+                modal = this.getModal('yikes');
+            }
             modal.set({
                 errorId: errorId,
-                message: message || 'Unknown error'
+                message: message || 'Unknown error',
             });
             modal.open();
         },

@@ -755,7 +755,7 @@ $modal-transitionDuration: .3s;
 
 /** Error Modal **/
 
-.errorModal {
+.errorModal,.yikesModal {
 	width: 340px;
 	font-size: 13px;
 
@@ -780,6 +780,19 @@ $modal-transitionDuration: .3s;
 
 .errorModal-caption,
 .errorModal-message {
+	margin-top: .2em;
+}
+
+.yikesModal-title {
+	margin-top: 12px;
+	margin-bottom: 20px;
+	font-size: 35px;
+	font-weight: $fontWeight-medium;
+	color: #41ce7d;
+}
+
+.yikesModal-caption,
+.yikesModal-message {
 	margin-top: .2em;
 }
 
