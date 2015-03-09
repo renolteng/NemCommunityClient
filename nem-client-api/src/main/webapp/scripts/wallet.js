@@ -96,42 +96,70 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 var account = ncc.get('activeAccount.address');
                 var accountLabel = ncc.get('privateLabels')[account];
                 var wallet = ncc.get('wallet.wallet');
-                ncc.showInputForm(ncc.get('texts.modals.bootLocalNode.title'), message,
-                    [
+                var accountBalance = ncc.get('activeAccount.balance');
+
+                var fields = [
+                    {
+                        name: 'account',
+                        type: 'text',
+                        readonly: true,
+                        unimportant: true,
+                        label: {
+                            content: ncc.get('texts.modals.bootLocalNode.account')
+                        },
+                        sublabel: accountLabel ?
                         {
-                            name: 'account',
-                            type: 'text',
+                            content: accountLabel
+                        } :
+                        {
+                            content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                            nullContent: true
+                        }
+                    },
+                    {
+                        name: 'wallet',
+                        type: 'text',
+                        readonly: true,
+                        unimportant: true,
+                        label: {
+                            content: ncc.get('texts.modals.bootLocalNode.wallet')
+                        }
+                    },
+                    {
+                        name: 'nodeName',
+                        type: 'text',
+                        label: {
+                            content: ncc.get('texts.modals.bootLocalNode.node')
+                        }
+                    }
+                ];
+
+                //if (accountBalance !== 0) {
+                    fields.splice(1, 0,
+                        {
+                            name: 'warning',
+                            type: 'none',
                             readonly: true,
                             unimportant: true,
                             label: {
-                                content: ncc.get('texts.modals.bootLocalNode.account')
+                                content: ncc.get('texts.modals.bootLocalNode.warning')
                             },
-                            sublabel: accountLabel ?
-                                {
-                                    content: accountLabel
-                                } :
-                                {
-                                    content: ncc.get('texts.modals.bootLocalNode.noLabel'),
-                                    nullContent: true
-                                }
-                        }, 
-                        {
-                            name: 'wallet',
-                            type: 'text',
-                            readonly: true,
-                            unimportant: true,
-                            label: {
-                                content: ncc.get('texts.modals.bootLocalNode.wallet')
-                            }
-                        }, 
-                        {
-                            name: 'nodeName',
-                            type: 'text',
-                            label: {
-                                content: ncc.get('texts.modals.bootLocalNode.node')
+                            sublabel: {
+                                content: "<span class='sublabelWarning'>" +
+                                    ncc.fill(
+                                        ncc.get('texts.modals.bootLocalNode.warningText'),
+                                        ncc.get('activeAccount.formattedBalance'),
+                                        ncc.get('settings.remoteServer.host'))
+                                    + "</span>",
+                                // using nullContent is a hack to force processing of html tags in content
+                                nullContent: true
                             }
                         }
-                    ],
+                    );
+                //}
+
+                ncc.showInputForm(ncc.get('texts.modals.bootLocalNode.title'), message,
+                    fields,
                     {
                         account: Utils.format.address.format(account),
                         wallet: wallet
@@ -1167,33 +1195,46 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
             ncc.refreshAppStatus(function() {
                 if (!ncc.get('nodeBooted')) {
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
-                        // default the node name to a substring of the account name so that auto-boot works out-of-box
-                        var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
-                        var bootData = {
-                            nodeName: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
-                            wallet: ncc.get('wallet.wallet'),
-                            account: accountName
-                        };
+                        var account = ncc.get('activeAccount.address');
+                        var accountLabel = ncc.get('privateLabels')[account];
+                        var warningQuestion = ncc.fill(
+                            ncc.get('texts.modals.bootLocalNode.warningQuestion'),
+                            accountLabel ? accountLabel : ncc.get('activeAccount.address'),
+                            ncc.get('activeAccount.formattedBalance'),
+                            ncc.get('settings.remoteServer.host'));
 
-                        ncc.set('status.booting', true);
-                        ncc.postRequest('node/boot', bootData, 
-                            function(data) {
-                                // NIS info will be automatically retrieved when NIS status becomes BOOTED
-                                // so no need to manually call refreshNisInfo()
-                                ncc.refreshAppStatus();
-                            },
-                            {
-                                altFailCb: function(faultId) {
-                                    if (601 === faultId) {
+                        ncc.showConfirmation(ncc.get('texts.modals.bootLocalNode.warning'), warningQuestion, {
+                            yes: function() {
+                                // default the node name to a substring of the account name so that auto-boot works out-of-box
+                                var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
+                                var bootData = {
+                                    nodeName: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
+                                    wallet: ncc.get('wallet.wallet'),
+                                    account: accountName
+                                };
+
+                                ncc.set('status.booting', true);
+                                ncc.postRequest('node/boot', bootData,
+                                    function(data) {
+                                        // NIS info will be automatically retrieved when NIS status becomes BOOTED
+                                        // so no need to manually call refreshNisInfo()
                                         ncc.refreshAppStatus();
-                                    }
-                                },
-                                complete: function() {
-                                    ncc.set('status.booting', false);
-                                }
-                            },
-                            true
-                        );
+                                    },
+                                    {
+                                        altFailCb: function(faultId) {
+                                            if (601 === faultId) {
+                                                ncc.refreshAppStatus();
+                                            }
+                                        },
+                                        complete: function() {
+                                            ncc.set('status.booting', false);
+                                        }
+                                    },
+                                    true
+                                );
+                            }
+                        });
+
                     } else {
                         ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
                     }

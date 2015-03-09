@@ -130,7 +130,7 @@
 			</inputModal>
 
 			<confirmModal modalClass="confirmModal" disableEasyClose="true">
-				<p><em>{{message}}</em></p>
+				<p><em>{{{message}}}</em></p>
 				<div class="modal-actions">
 					{{#actions}}
 						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm(.action)">{{.label}}</button>
