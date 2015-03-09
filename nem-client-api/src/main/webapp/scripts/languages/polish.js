@@ -41,7 +41,7 @@ define({
 			500: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
 			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
-			602: 'Nie można wykonać żadnych operacji przed pełnym załadowaniem bazy danych.',
+			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Maksymalna ilość zbieraczy dozwolona na serwerze została osiągnięta.',
 			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością XEM na koncie. Zbieranie wymaga minimum 1000 XEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
@@ -118,6 +118,10 @@ define({
 				title: 'Oops!',
 				caption: 'BŁĄD {{1}}'
 			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
+			},
 			confirmDefault: {
 				yes: 'Tak',
 				no: 'Nie'
@@ -166,7 +170,7 @@ define({
 					total: 'Suma',
 
 				},
-				warning: 'Konto multisig jest na liście sygnatariuszy. To spowoduje zamknięcie konta i odcięcie dostępu do funduszy. Prawdopodobnie <b>NIE</b> chcesz tego zrobić.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
 			},
 			signMultisig: {
 				title: 'Podpisz transakcję multisig',
@@ -310,7 +314,10 @@ define({
 				wallet: 'Portfel',
 				node: 'Nazwa węzła',
 				boot: 'Uruchom',
-				booting: 'Uruchamianie...'
+				booting: 'Uruchamianie...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Zamknij portfel',
@@ -673,7 +680,7 @@ define({
 				columns: [
 					'Wysokość',
 					'Czas',
-					'Hash bloku',
+					'Block difficulty',
 					'Opłata'
 				],
 				noBlocks: 'Brak zebranych bloków',
