@@ -94,7 +94,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
 
             ncc.showBootModal = function(message) {
                 var account = ncc.get('activeAccount.address');
-                var accountLabel = ncc.get('activeAccount.label');
+                var accountLabel = ncc.get('privateLabels')[account];
                 var wallet = ncc.get('wallet.wallet');
                 ncc.showInputForm(ncc.get('texts.modals.bootLocalNode.title'), message,
                     [
@@ -106,7 +106,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                             label: {
                                 content: ncc.get('texts.modals.bootLocalNode.account')
                             },
-                            sublabel: accountLabel?
+                            sublabel: accountLabel ?
                                 {
                                     content: accountLabel
                                 } :
@@ -774,7 +774,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 },
                 setCurrentAccountAsPrimary: function() {
                     var account = ncc.get('activeAccount.address');
-                    var accountLabel = ncc.get('activeAccount.label');
+                    var accountLabel = ncc.get('privateLabels')[account];
                     var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.setPrimary.title'), '',
                         [
@@ -929,7 +929,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 changeAccountLabel: function() {
                     var wallet = ncc.get('wallet.wallet');
                     var address = ncc.get('activeAccount.address');
-                    var label = ncc.get('activeAccount.label');
+                    var accountLabel = ncc.get('privateLabels')[address];
                     ncc.showInputForm(ncc.get('texts.modals.changeAccountLabel.title'), '',
                         [
                             {
@@ -959,11 +959,11 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         {
                             addressBook: wallet,
                             address: address,
-                            privateLabel: label
+                            privateLabel: accountLabel
                         },
                         function(values, closeModal) {
                             ncc.postRequest('addressbook/accountlabel/change', values, function(data) {
-                                var label = values.label;
+                                var label = values.privateLabel;
                                 ncc.showMessage(
                                     ncc.get('texts.common.success'), 
                                     ncc.fill(ncc.get('texts.modals.changeAccountLabel.successMessage'), Utils.format.address.format(address), label)
@@ -978,7 +978,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 removeAccount: function() {
                     var wallet = ncc.get('wallet.wallet');
                     var account = ncc.get('activeAccount.address');
-                    var accountLabel = ncc.get('activeAccount.label');
+                    var accountLabel = ncc.get('privateLabels')[account];
                     ncc.showInputForm(ncc.get('texts.modals.removeAccount.title'), 
                         ncc.get('texts.modals.removeAccount.warning'),
                         [
