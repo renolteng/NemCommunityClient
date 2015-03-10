@@ -92,6 +92,10 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                 }, duration);
             };
 
+            ncc.isLocalNode = function(hostName) {
+                return hostName === "localhost" || hostName === "127.0.0.1" || hostName === "::1";
+            };
+
             ncc.showBootModal = function(message) {
                 var account = ncc.get('activeAccount.address');
                 var accountLabel = ncc.get('privateLabels')[account];
@@ -134,7 +138,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                     }
                 ];
 
-                //if (accountBalance !== 0) {
+                var hostName = ncc.get('settings.remoteServer.host');
+                if (!ncc.isLocalNode(hostName)) {
                     fields.splice(1, 0,
                         {
                             name: 'warning',
@@ -149,14 +154,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                                     ncc.fill(
                                         ncc.get('texts.modals.bootLocalNode.warningText'),
                                         ncc.get('activeAccount.formattedBalance'),
-                                        ncc.get('settings.remoteServer.host'))
+                                        hostName)
                                     + "</span>",
                                 // using nullContent is a hack to force processing of html tags in content
                                 nullContent: true
                             }
                         }
                     );
-                //}
+                }
 
                 ncc.showInputForm(ncc.get('texts.modals.bootLocalNode.title'), message,
                     fields,
@@ -1197,43 +1202,50 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
                         var account = ncc.get('activeAccount.address');
                         var accountLabel = ncc.get('privateLabels')[account];
+                        var hostName = ncc.get('settings.remoteServer.host');
                         var warningQuestion = ncc.fill(
                             ncc.get('texts.modals.bootLocalNode.warningQuestion'),
                             accountLabel ? accountLabel : ncc.get('activeAccount.address'),
                             ncc.get('activeAccount.formattedBalance'),
-                            ncc.get('settings.remoteServer.host'));
+                            hostName);
 
-                        ncc.showConfirmation(ncc.get('texts.modals.bootLocalNode.warning'), warningQuestion, {
-                            yes: function() {
-                                // default the node name to a substring of the account name so that auto-boot works out-of-box
-                                var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
-                                var bootData = {
-                                    nodeName: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
-                                    wallet: ncc.get('wallet.wallet'),
-                                    account: accountName
-                                };
+                        var doBootNodeRequest = function() {
+                            // default the node name to a substring of the account name so that auto-boot works out-of-box
+                            var accountName = ncc.get('settings.nisBootInfo.account') || ncc.get('wallet.primaryAccount.address');
+                            var bootData = {
+                                nodeName: ncc.get('settings.nisBootInfo.nodeName') || accountName.substring(0, 10),
+                                wallet: ncc.get('wallet.wallet'),
+                                account: accountName
+                            };
 
-                                ncc.set('status.booting', true);
-                                ncc.postRequest('node/boot', bootData,
-                                    function(data) {
-                                        // NIS info will be automatically retrieved when NIS status becomes BOOTED
-                                        // so no need to manually call refreshNisInfo()
-                                        ncc.refreshAppStatus();
-                                    },
-                                    {
-                                        altFailCb: function(faultId) {
-                                            if (601 === faultId) {
-                                                ncc.refreshAppStatus();
-                                            }
-                                        },
-                                        complete: function() {
-                                            ncc.set('status.booting', false);
+                            ncc.set('status.booting', true);
+                            ncc.postRequest('node/boot', bootData,
+                                function(data) {
+                                    // NIS info will be automatically retrieved when NIS status becomes BOOTED
+                                    // so no need to manually call refreshNisInfo()
+                                    ncc.refreshAppStatus();
+                                },
+                                {
+                                    altFailCb: function(faultId) {
+                                        if (601 === faultId) {
+                                            ncc.refreshAppStatus();
                                         }
                                     },
-                                    true
-                                );
-                            }
-                        });
+                                    complete: function() {
+                                        ncc.set('status.booting', false);
+                                    }
+                                },
+                                true
+                            );
+                        };
+
+                        if (ncc.isLocalNode(hostName)) {
+                            doBootNodeRequest();
+                        } else {
+                            ncc.showConfirmation(ncc.get('texts.modals.bootLocalNode.warning'), warningQuestion, {
+                                yes: doBootNodeRequest
+                            });
+                        }
 
                     } else {
                         ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
