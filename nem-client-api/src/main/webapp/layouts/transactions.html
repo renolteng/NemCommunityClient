@@ -142,7 +142,7 @@
 									<td class="txList-cell txList-col--confirmations">
 										{{#if .confirmed}}											
 											{{#if blockchainHeight}}
-												{{blockchainHeight - .blockHeight}}
+												{{blockchainHeight - .blockHeight + 1}}
 											{{else}}
 												{{texts.transactions.table.confirmationsUnknown}}
 											{{/if}}

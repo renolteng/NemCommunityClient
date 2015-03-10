@@ -926,7 +926,7 @@
 				<td class="table-cell table-cell--content">
 					{{#if .confirmed}}
 						{{#if blockchainHeight}}
-							{{blockchainHeight - .blockHeight}}
+							{{blockchainHeight - .blockHeight + 1}}
 						{{else}}
 							{{texts.modals.transactionDetails.confirmationsUnknown}}
 						{{/if}}
