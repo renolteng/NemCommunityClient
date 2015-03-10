@@ -39,7 +39,7 @@ define({
 			401: 'Dieser Vorgang kann nicht durchgeführt werden, da der private Schlüssel gestohlen werden könnte, wenn er an das remote NIS gesendet wird.',
 			404: 'Die angeforderte Ressource wurde nicht gefunden.',
 			500: 'Es ist ein unvorhergesehener Fehler aufgetreten.\n\nSollte dieser Fehler wiederholt auftreten, könnte ein Neustart der NEM Software das Problem beheben. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
-			600: 'Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote Deinen lokalen Knotenpunkt mit Hilfe des NCC Boot-Menüpunkts.',
+			600: 'Der NEM Infrastructure Server (NIS) muss gebootet sein, damit Transaktionen gesendet und empfangen werden können. Bitte boote NIS mit Hilfe des NCC Boot-Menüpunkts.',
 			601: 'Der NEM Infrastructure Server (NIS) ist bereits gebootet. Es ist nicht nötig, NIS ein weiteres Mal zu booten.',
 			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
 			699: 'Die maximale Anzahl an Harvestern, die auf diesem Server erlaubt ist, ist erreicht.',
@@ -48,7 +48,7 @@ define({
 			702: 'Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
 			703: 'Dein Kontoguthaben reicht nicht aus, um den angegebenen Betrag zu senden.',
 			704: 'Die eingegebene Nachricht ist zu lang. Bitte reduziere die Länge der Nachricht, um sie versenden zu können.',
-			705: 'Der Transaktionshash existiert bereits in der Datenbank oder in der Liste der unbestätigten Transaktionen.',
+			705: 'Der Transaktionshash existiert bereits in der Datenbank oder in der Liste der ausstehenden Transaktionen.',
 			706: 'Die Signatur der Transaktion konnte nicht verifiziert werden.',
 			707: 'Der Zeitstempel der Transaktion liegt zu weit in der Vergangenheit.',
 			708: 'Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.',
@@ -77,7 +77,7 @@ define({
 				nisUnknown: 'NIS-Status ist unbekannt',
 				nisUnavailable: 'NIS ist nicht verfügbar',
 				nisStarting: 'NIS wird gestartet...',
-				notBooted: 'NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote den lokalen Knotenpunkt mit Hilfe des Popup-Dialoges.',
+				notBooted: 'NIS muss gebootet werden. Bitte öffne eine Brieftasche und boote NIS mit Hilfe des Popup-Dialoges.',
 				loading: 'Lade Blöcke aus der Datenbank, im Moment bei Block: ',
 				booting: 'NIS wird gebootet...',
 				nisInfoNotAvailable: 'NIS-Status wird abgefragt...',
@@ -102,7 +102,7 @@ define({
 		transactionTypes: [
 			'XEM-Überweisung',
 			'Wichtigkeitsübertragung',
-			'Änderung eines Multisig-Kontos',
+			'Multisig-Konto-Modifikation',
 			'Multisig-Überweisung'
 		],
 		transactionDirections: {
@@ -111,7 +111,7 @@ define({
 			incoming: 'Eingehende Transaktion',
 			self: 'Transaktion zu sich selbst',
 			importance: 'Wichtigkeitsübertragung',
-			modification: 'Anderungen der Multisignatur'
+			modification: 'Multisig-Konto-Modifikation'
 		},
 		modals: {
 			error: {
@@ -139,11 +139,11 @@ define({
 					},
 					host: 'Host',
 					port: 'Port',
-					defaultPort: 'Standard Port benutzen.'
+					defaultPort: 'Standard-Port benutzen.'
 				},
 				autoBoot: {
 					tabTitle: 'Auto-boot',
-					name: 'Name des Knotenpunkts',
+					name: 'Name des NIS',
 					account: 'Konto',
 					primaryAccount: 'Hauptkonto',
 					auto: 'Automatisch booten beim Öffnen der Brieftasche'
@@ -241,11 +241,11 @@ define({
 					sending: 'Sende...'
 				},
 				notBootedWarning: {
-					title: 'Der Knotenpunkt wurde noch nicht gebootet!',
-					message: 'Der lokale Knotenpunkt muss gebootet werden, bevor Transaktionen gesendet werden können!'
+					title: 'NIS wurde noch nicht gebootet!',
+					message: 'NIS muss gebootet werden, bevor Transaktionen gesendet werden können!'
 				},
 				bootingWarning: {
-					title: 'Der Knotenpunkt wird gebootet',
+					title: 'NIS wird gebootet',
 					message: 'Bitte warte bis der Bootprozess abgeschlossen ist, bevor Du eine Transaktion sendest.'
 				},
 				loadingWarning: {
@@ -308,11 +308,11 @@ define({
 				close: 'Schließen'
 			},
 			bootLocalNode: {
-				title: 'Lokalen Knotenpunkt booten',
-				account: 'Adresse des Kontos, mit dem der lokale Knotenpunkt gebootet werden soll',
+				title: 'NIS booten',
+				account: 'Adresse des Kontos, mit dem der NIS gebootet werden soll',
 				noLabel: '<span class=\'null\'><Keine Bezeichnung></span>',
 				wallet: 'Zugehörige Brieftasche',
-				node: 'Name des Knotenpunkts',
+				node: 'Name des NIS',
 				boot: 'Booten',
 				booting: 'Wird gebootet...',
 				warning: 'Boot node warning',
@@ -494,7 +494,7 @@ define({
 				rightButton: 'Öffne Deine Brieftasche',
 				openButton: 'Öffnen',
 				walletsFound: '<strong>{{1}}</strong> <em>Brieftasche(n)</em> gefunden',
-				copyright: 'Photografie von <em>Cas Cornelissen</em>'
+				copyright: 'Fotografie von <em>Cas Cornelissen</em>'
 			},
 			carousel: {
 				items: [
@@ -548,7 +548,7 @@ define({
 			copiedToClipboard: 'Die Adresse wurde in die Zwischenablage kopiert!',
 			actions: {
 				refreshInfo: 'Informationen aktualisieren',
-				bootLocalNode: 'Lokalen Knotenpunkt booten',
+				bootLocalNode: 'NIS booten',
 				changeWalletName: 'Namen der Brieftasche ändern',
 				changeWalletPassword: 'Passwort der Brieftasche ändern',
 				mergeWallets: 'Brieftaschen zusammenführen',
@@ -579,7 +579,7 @@ define({
 				'Einstellungen',
 				'Programm beenden'
 			],
-			bootNodeWarning: 'Der lokale Knotenpunkt muss gebootet werden, bevor du alle NCC Features verwenden kannst.'
+			bootNodeWarning: 'NIS muss gebootet werden, bevor du alle NCC Features verwenden kannst.'
 		},
 		dashboard: {
 			assets: {
@@ -647,7 +647,7 @@ define({
 			balance: 'Kontostand',
 			filters: {
 				confirmed: 'Bestätigt',
-				unconfirmed: 'Unbestätigt',
+				unconfirmed: 'Ausstehend',
 				incoming: 'Eingehend',
 				outgoing: 'Ausgehend'
 			},
