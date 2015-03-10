@@ -272,6 +272,7 @@ $form-input-hPadding: 12px;
 	margin-left: 10px;
 	font-size: 11px;
 	color: $color;
+	word-break: break-word;
 
 	&.form-sublabel--nullContent {
 		font-style: italic;
