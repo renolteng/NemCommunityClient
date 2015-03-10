@@ -73,6 +73,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             return true;
         },
         resetDefaultData: function() {
+            this.set('sender', null);
             this.set('formattedAmount', '0');
             this.set('formattedRecipient', '');
             this.set('rawMessage', '');

@@ -46,12 +46,12 @@ public class TransactionMapperTest {
 
 		// Act:
 		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p");
-		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferTransaction.Mode.Activate);
+		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferMode.Activate);
 
 		// Assert:
 		Assert.assertThat(model.getRemote().hasPrivateKey(), IsEqual.equalTo(true));
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
-		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferTransaction.Mode.Activate));
+		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferMode.Activate));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
 		Assert.assertThat(model.getDeadline(), IsEqual.equalTo(new TimeInstant(124 + 7 * 60 * 60)));
 	}

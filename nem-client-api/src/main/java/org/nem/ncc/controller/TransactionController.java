@@ -117,7 +117,7 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/activate", method = RequestMethod.POST)
 	public void remoteUnlock(@RequestBody final TransferImportanceRequest request) {
-		this.remoteHarvest(request, ImportanceTransferTransaction.Mode.Activate);
+		this.remoteHarvest(request, ImportanceTransferMode.Activate);
 	}
 
 	/**
@@ -127,10 +127,10 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/deactivate", method = RequestMethod.POST)
 	public void remoteLock(@RequestBody final TransferImportanceRequest request) {
-		this.remoteHarvest(request, ImportanceTransferTransaction.Mode.Deactivate);
+		this.remoteHarvest(request, ImportanceTransferMode.Deactivate);
 	}
 
-	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferTransaction.Mode mode) {
+	private void remoteHarvest(final TransferImportanceRequest request, final ImportanceTransferMode mode) {
 		final Transaction transaction = this.transactionMapper.toModel(request, mode);
 		this.announceTransaction(transaction);
 	}
