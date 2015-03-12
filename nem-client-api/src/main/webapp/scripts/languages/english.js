@@ -97,6 +97,7 @@ define({
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
+			fee: 'Fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
 			hours: 'hour(s)',
@@ -429,14 +430,18 @@ define({
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 3 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+                warningText: 'Deactivation will take 3 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote Harvesting',
