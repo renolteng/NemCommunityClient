@@ -765,6 +765,7 @@ define(['TransactionType'], function(TransactionType) {
             account.balanceInt = parseInt(balanceObj.intPart, 10);
             account.balanceDec = parseInt(balanceObj.decimalPart, 10);
 
+            account.formattedBalanceInt = Utils.format.nem.formatNem({intPart: balanceObj.intPart, decimalPart: ''}, {fixedDecimalPlaces: false});
             if (account.transactions) {
                 account.transactions = Utils.processTransactions(account.transactions);
             }
