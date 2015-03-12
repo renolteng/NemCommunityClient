@@ -1,12 +1,21 @@
 package org.nem.ncc.controller;
 
+import org.nem.core.serialization.BinarySerializer;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.WalletViewModel;
 import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Handles requests related to the REST resource "wallet".
@@ -86,6 +95,34 @@ public class WalletController {
 		return this.walletMapper.toViewModel(wallet);
 	}
 
+	@RequestMapping(value = "/wallet/export", method = RequestMethod.GET)
+	public byte[] foo(@RequestBody final WalletName name) {
+		final Wallet wallet = this.walletServices.get(name);
+		final AddressBook addressBook = this.addressBookServices.get(new AddressBookName(name.toString()));
+
+		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
+			final ZipEntry wltEntry = new ZipEntry(name.toString() + ".wlt");
+			final ZipEntry adbEntry = new ZipEntry(name.toString() + ".adb");
+
+			final BinarySerializer wltData = new BinarySerializer();
+			wallet.serialize(wltData);
+			zipOutputStream.putNextEntry(wltEntry);
+			zipOutputStream.write(wltData.getBytes());
+			zipOutputStream.closeEntry();
+
+			final BinarySerializer adbData = new BinarySerializer();
+			addressBook.serialize(adbData);
+			zipOutputStream.putNextEntry(adbEntry);
+			zipOutputStream.write(adbData.getBytes());
+			zipOutputStream.closeEntry();
+
+		} catch(final IOException exception) {
+			exception.printStackTrace(); //?
+		}
+
+		return byteArrayOutputStream.toByteArray();
+	}
 	/**
 	 * Closes a wallet by removing it from the list of opened wallets.
 	 *

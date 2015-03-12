@@ -906,6 +906,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         ncc.get('texts.modals.changeWalletName.change')
                     );
                 },
+                exportWalletZip: function() {
+                    window.open("/ncc/api/wallet/export");
+                },
                 changeWalletPassword: function() {
                     var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.changeWalletPassword.title'), '',
