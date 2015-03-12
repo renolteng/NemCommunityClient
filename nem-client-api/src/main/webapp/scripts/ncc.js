@@ -40,9 +40,28 @@ define(function(require) {
             accountDetailsModal: AccountDetailsModal,
             convertMultisigModal: ConvertMultisigModal
         },
+        sortAccounts: function(accounts) {
+            var contactsRef = this.get('privateLabels');
+
+            accounts.sort(function(a,b){
+                var cA = (a.address in contactsRef) ? contactsRef[a.address] : null;
+                var cB = (b.address in contactsRef) ? contactsRef[b.address] : null;
+                if (cA !== null && cB !== null) {
+                    return cA.localeCompare(cB);
+                }
+                if (cA !== null && cB === null) {
+                    return -11;
+                }
+                if (cA === null && cB !== null) {
+                    return 1;
+                }
+                return a.address.localeCompare(b.address);
+            });
+            return accounts;
+        },
         computed: {
             allAccounts: function() {
-                return [this.get('wallet.primaryAccount')].concat(this.get('wallet.otherAccounts'));
+                return [this.get('wallet.primaryAccount')].concat(this.sortAccounts(this.get('wallet.otherAccounts')));
             },
             appStatus: function() {
                 switch (this.get('nccStatus.code')) {
