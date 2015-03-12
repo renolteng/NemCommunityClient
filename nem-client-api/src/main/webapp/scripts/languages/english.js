@@ -97,7 +97,11 @@ define({
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Due by (hours)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +166,7 @@ define({
 				convert: 'Convert',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +188,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Password',
 				passwordValidation: 'Password must not be blank',
 				send: 'Send',
@@ -217,9 +217,7 @@ define({
 				fee: 'Fee',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Password',
 				passwordValidation: 'Password must not be blank',
 				send: 'Send',
@@ -230,8 +228,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -432,7 +428,6 @@ define({
 				title: 'Activate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
 				activate: 'Activate'
 			},
@@ -440,7 +435,6 @@ define({
 				title: 'Deactivate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
 				deactivate: 'Deactivate'
 			},

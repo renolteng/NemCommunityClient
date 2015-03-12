@@ -109,7 +109,7 @@
                                 name: 'hoursDue',
                                 type: 'text',
                                 label: {
-                                    content: ncc.get('texts.modals.activateRemote.hoursDue')
+                                    content: ncc.get('texts.common.hoursDue')
                                 }
                             }
                         ],
@@ -163,7 +163,7 @@
                                 name: 'hoursDue',
                                 type: 'text',
                                 label: {
-                                    content: ncc.get('texts.modals.deactivateRemote.hoursDue')
+                                    content: ncc.get('texts.common.hoursDue')
                                 }
                             }
                         ],

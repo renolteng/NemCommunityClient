@@ -338,9 +338,9 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.modals.multisig.dueBy}}</p>
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
-						<span class="form-input-end unit">{{texts.modals.multisig.hours}}</span>
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-multisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
@@ -445,9 +445,9 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.modals.sendNem.dueBy}}</p>
+					<p class="form-label">{{texts.common.hoursDue}} <span class="help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
-						<span class="form-input-end unit">{{texts.modals.sendNem.hours}}</span>
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
@@ -609,9 +609,9 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.modals.signMultisig.dueBy}}</p>
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
-						<span class="form-input-end unit">{{texts.modals.signMultisig.hours}}</span>
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-signMultisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
@@ -673,8 +673,8 @@
 		{{/each}}
 		<hr>
 		<div class="modificationConfirm-line">
-			<span class="modificationConfirm-label">{{texts.modals.multisig.dueBy}}</span>
-			<span class="modificationConfirm-value">{{requestData.hoursDue}} {{texts.modals.multisig.hours}}</span>
+			<span class="modificationConfirm-label">{{texts.common.dueBy}}</span>
+			<span class="modificationConfirm-value">{{requestData.hoursDue}} {{texts.common.hours}}</span>
 		</div>
 	</div>
 	<div class="modificationConfirm-actions">
@@ -716,8 +716,8 @@
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.formattedFee}}} XEM</span></span>
 		</div>
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.dueBy}}</span>
-			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.modals.signMultisig.hours}}</span>
+            <span class="modificationConfirm-label">{{texts.common.dueBy}}</span>
+			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.common.hours}}</span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.sender}}</span>
@@ -761,8 +761,8 @@
 		</div>
 		{{/if}}
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.dueBy}}</span>
-			<span class="txConfirm-value">{{txData.dueBy}} {{texts.modals.sendNem.txConfirm.hours}}</span>
+			<span class="txConfirm-label">{{texts.common.dueBy}}</span>
+			<span class="txConfirm-value">{{txData.dueBy}} {{texts.common.hours}}</span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-totalLabel">{{texts.modals.sendNem.txConfirm.total}}</span></span>
