@@ -68,7 +68,7 @@
             require(['gridster'], function() {
                 local.$dashboard.gridster({
                     widget_margins: [10, 9],
-                    widget_base_dimensions: [294, 177],
+                    widget_base_dimensions: [294, 187],
                     max_cols: 3,
                     /*draggable: {
                         handle: 'div.dragger'
