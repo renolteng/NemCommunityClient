@@ -6,6 +6,7 @@ require.config({
         'layout': '../layouts',
         'jquery': 'plugins/jquery-2.1.0.min',
         'expand': 'plugins/expand',
+        'filesaver': 'plugins/FileSaver.min',
         'modernizr': 'plugins/modernizr.custom.00846',
         'ractive': 'plugins/ractive',
          'ractive-events-tap': 'plugins/ractive-events-tap',

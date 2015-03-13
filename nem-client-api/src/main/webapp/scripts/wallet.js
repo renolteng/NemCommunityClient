@@ -1,6 +1,6 @@
 "use strict";
 
-define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, ncc, NccLayout, Utils, TransactionType) {
+define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], function($, ncc, NccLayout, Utils, TransactionType, FileSaver) {
     return $.extend(true, {}, NccLayout, {
         name: 'wallet',
         template: 'rv!layout/wallet',
@@ -907,7 +907,11 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                     );
                 },
                 exportWalletZip: function() {
-                    window.open("/ncc/api/wallet/export");
+                    var values = {wallet: ncc.get('wallet.wallet')};
+                    ncc.postRawRequest('wallet/export', values, function(data) {
+                        var blob = new Blob([data], {type: 'application/octet-binary'});
+                        saveAs(blob, ncc.get('wallet.wallet') + '.zip');
+                    });
                 },
                 changeWalletPassword: function() {
                     var wallet = ncc.get('wallet.wallet');

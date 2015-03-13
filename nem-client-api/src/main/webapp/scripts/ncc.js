@@ -278,7 +278,7 @@ define(function(require) {
          * @param {object} requestData
          * @param {string} success
          */
-        _ajaxRequest: function(type, api, requestData, successCb, settings, silent) {
+        _ajaxRequest: function(type, api, requestData, successCb, settings, silent, dataType) {
             var self = this;
             successCb = successCb || function() {};
 
@@ -286,7 +286,7 @@ define(function(require) {
             // from void functions, but JQuery treats this as invalid JSON
             var s = {
                 contentType: 'application/json',
-                dataType: 'text',
+                dataType: dataType || 'text',
                 type: type,
                 data: requestData ? JSON.stringify(requestData) : undefined,
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -298,17 +298,23 @@ define(function(require) {
                     // since we are in an error callback, handle the error as an unknown ajax error
                     return silent ? [] : self.ajaxError(jqXHR, textStatus, errorThrown);
                 },
-                success: function(data) {
+                success: function(data, textStatus, request) {
                     // if the data is an empty string, emulate original NCC behavior by returning { ok: 1 }
                     if (!data) {
                         successCb({ ok: 1 });
                         return;
                     }
 
-                    // otherwise, parse the json check the success (for legacy API handling)
-                    var parsedData = $.parseJSON(data);
-                    if (self.checkSuccess(parsedData, silent, settings)) {
-                        successCb(parsedData);
+                    var contentType = request.getResponseHeader("content-type") || "";
+                    if (contentType.indexOf('application/octet-stream') > -1) {
+                        successCb(data);
+
+                    } else {
+                        // otherwise, parse the json check the success (for legacy API handling)
+                        var parsedData = $.parseJSON(data);
+                        if (self.checkSuccess(parsedData, silent, settings)) {
+                            successCb(parsedData);
+                        }
                     }
                 }
             };
@@ -318,8 +324,22 @@ define(function(require) {
         getRequest: function(api, successCb, settings, silent) {
             return this._ajaxRequest('get', api, undefined, successCb, settings, silent);
         },
-        postRequest: function(api, requestData, successCb, settings, silent) {
-            return this._ajaxRequest('post', api, requestData, successCb, settings, silent);
+        postRequest: function(api, requestData, successCb, settings, silent, dataType) {
+            return this._ajaxRequest('post', api, requestData, successCb, settings, silent, dataType);
+        },
+        postRawRequest: function(api, requestData, successCb) {
+            // ugly but has to do the trick for now,
+            // TODO: handle errors, to be compatible with other calls
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    successCb(this.response);
+                }
+            }
+            xhr.open('POST', this.apiPath(api));
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.responseType = 'blob';
+            xhr.send(JSON.stringify(requestData));
         },
         getModal: function(modalName) {
             return this.findComponent(modalName + 'Modal');
