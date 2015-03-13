@@ -1019,6 +1019,24 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         ncc.get('texts.modals.removeAccount.warning'),
                         [
                             {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.modals.removeAccount.account')
+                                }
+                            },
+                            {
+                                name: 'accountLabel',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.modals.removeAccount.label')
+                                }
+                            },
+                            {
                                 name: 'wallet',
                                 type: 'text',
                                 readonly: true,
@@ -1037,7 +1055,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType'], function($, n
                         ],
                         {
                             wallet: wallet,
-                            account: account
+                            account: account,
+                            accountLabel: accountLabel
                         },
                         function(values, closeModal) {
                             ncc.postRequest('wallet/account/remove', values, function(data) {

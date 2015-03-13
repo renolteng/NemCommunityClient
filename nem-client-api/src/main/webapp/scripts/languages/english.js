@@ -411,6 +411,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Remove Account',
+				account: 'Account',
+				label: 'Account label',
 				wallet: 'Associated wallet',
 				password: "Wallet's password",
 				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
