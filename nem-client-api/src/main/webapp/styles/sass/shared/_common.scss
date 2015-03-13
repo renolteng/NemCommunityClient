@@ -230,6 +230,11 @@ $form-input-hPadding: 12px;
 	font-weight: $fontWeight-bold;
 }
 
+.form-help {
+    font-weight: $fontWeight-regular;
+    color: #666;
+}
+
 .form-input {
 	display: block;
 	padding: 0 $form-input-hPadding;

@@ -88,6 +88,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
 
             this.set('privateLabels', ncc.get('privateLabels'));
             this.set('cosignatories', ncc.get('activeAccount').multisigAccounts);
+            this.set('fullBalance', Utils.format.nem.formatNemAmount(ncc.get('activeAccount').balance, {keepTrailingZeroes:true}));
             this.set('recipientChanged', false);
             this.set('feeChanged', false);
             this.set('passwordChanged', false);
