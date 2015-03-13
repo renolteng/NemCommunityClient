@@ -1,6 +1,8 @@
 package org.nem.ncc.controller;
 
-import org.nem.core.serialization.BinarySerializer;
+import org.nem.core.serialization.*;
+import org.nem.core.utils.ExceptionUtils;
+import org.nem.deploy.OctetStream;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.WalletViewModel;
@@ -92,34 +94,42 @@ public class WalletController {
 		return this.walletMapper.toViewModel(wallet);
 	}
 
-	@RequestMapping(value = "/wallet/export", method = RequestMethod.GET)
-	public byte[] foo(@RequestBody final WalletName name) {
+	/**
+	 * Exports a wallet as a zip file.
+	 *
+	 * @param name The wallet name.
+	 * @return The raw bytes.
+	 */
+	@RequestMapping(value = "/wallet/export", method = RequestMethod.POST)
+	public OctetStream exportWallet(@RequestBody final WalletName name) {
+		// TODO 20150312 J-G: a test would be nice, but i'm not expecting it ;)
 		final Wallet wallet = this.walletServices.get(name);
 		final AddressBook addressBook = this.addressBookServices.get(new AddressBookName(name.toString()));
 
-		final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-			final ZipEntry wltEntry = new ZipEntry(name.toString() + ".wlt");
-			final ZipEntry adbEntry = new ZipEntry(name.toString() + ".adb");
+		return ExceptionUtils.propagate(() -> {
+			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
+				addToZip(zipOutputStream, name, ".wlt", wallet);
+				addToZip(zipOutputStream, name, ".adb", addressBook);
+			}
 
-			final BinarySerializer wltData = new BinarySerializer();
-			wallet.serialize(wltData);
-			zipOutputStream.putNextEntry(wltEntry);
-			zipOutputStream.write(wltData.getBytes());
-			zipOutputStream.closeEntry();
-
-			final BinarySerializer adbData = new BinarySerializer();
-			addressBook.serialize(adbData);
-			zipOutputStream.putNextEntry(adbEntry);
-			zipOutputStream.write(adbData.getBytes());
-			zipOutputStream.closeEntry();
-
-		} catch(final IOException exception) {
-			exception.printStackTrace(); //?
-		}
-
-		return byteArrayOutputStream.toByteArray();
+			return new OctetStream(byteArrayOutputStream.toByteArray());
+		});
 	}
+
+	private static void addToZip(
+			final ZipOutputStream zipOutputStream,
+			final WalletName name,
+			final String extension,
+			final SerializableEntity entity) throws IOException {
+		final ZipEntry zipEntry = new ZipEntry(name.toString() + extension);
+
+		final byte[] entityBytes = BinarySerializer.serializeToBytes(entity);
+		zipOutputStream.putNextEntry(zipEntry);
+		zipOutputStream.write(entityBytes);
+		zipOutputStream.closeEntry();
+	}
+
 	/**
 	 * Closes a wallet by removing it from the list of opened wallets.
 	 *

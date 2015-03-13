@@ -51,6 +51,8 @@ public class NccWebAppInitializer extends WebMvcConfigurationSupport {
 
 	@Override
 	protected void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
+		converters.add(new OctetStreamMessageConverter());
+
 		// NCC should only support JSON APIs
 		addConvertersForPolicy(converters, new JsonSerializationPolicy(this.accountLookup));
 		// addConvertersForPolicy(converters, new BinarySerializationPolicy(this.accountLookup));
