@@ -33,7 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
-			203: 'The account cannot be converted into a multisig account because the public key for at least one cosignatory is not known.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			400: 'Some parameter is missing or invalid.',

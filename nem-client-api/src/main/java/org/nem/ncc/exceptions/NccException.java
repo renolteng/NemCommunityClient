@@ -24,7 +24,7 @@ public class NccException extends RuntimeException {
 		NO_PUBLIC_KEY(202),
 
 		/**
-		 * The recipient public key is unknown.
+		 * The cosignatory's public key is unknown.
 		 */
 		COSIGNATORY_NO_PUBLIC_KEY(203),
 
