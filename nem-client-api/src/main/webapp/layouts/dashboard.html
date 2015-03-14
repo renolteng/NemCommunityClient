@@ -81,7 +81,7 @@
 								{{activeAccount.formattedBalance}} 
 								<span class="unit">XEM</span>
 							</span>
-                            <span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
+                            <span class="transactionsTile-balanceAccurate">{{#appStatus.type === 'warning'}}({{texts.dashboard.transactions.notSynced}}){{/}}</span>
 						</p>
                         <p>
                             <span>{{texts.dashboard.transactions.vestedBalance}} {{activeAccount.formattedVestedBalance}}</span>

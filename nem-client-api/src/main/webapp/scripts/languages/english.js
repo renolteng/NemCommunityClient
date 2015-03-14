@@ -612,6 +612,7 @@ define({
 				balance: 'Current Balance',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'unknown',
 				columns: [
 					'',
