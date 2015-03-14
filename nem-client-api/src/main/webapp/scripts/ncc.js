@@ -385,14 +385,14 @@ define(function(require) {
                 callbacks: callbacks,
                 actions: actions || [
                     {
-                        action: 'no',
-                        label: ncc.get('texts.modals.confirmDefault.no'),
-                        actionType: 'secondary'
-                    },
-                    {
                         action: 'yes',
                         label: ncc.get('texts.modals.confirmDefault.yes'),
                         actionType: 'primary'
+                    },
+                    {
+                        action: 'no',
+                        label: ncc.get('texts.modals.confirmDefault.no'),
+                        actionType: 'secondary'
                     }
                 ]
             });
