@@ -527,10 +527,12 @@ define(['TransactionType'], function(TransactionType) {
                 },
                 address: '-'
             },
-            reformatTextbox: function(target, type, text, ractive) {
-                var reformat = this.reformat[type];
-                if (typeof reformat === 'function') {
-                    text = reformat(text);
+            reformatTextbox: function(target, type, text, ractive, dontReformat) {
+                if (! dontReformat) {
+                    var reformat = this.reformat[type];
+                    if (typeof reformat === 'function') {
+                        text = reformat(text);
+                    }
                 }
                 target.value = text;
                 if (ractive) ractive.updateModel();
@@ -600,7 +602,13 @@ define(['TransactionType'], function(TransactionType) {
                         var deletedPos = oldText.substring(tokenStart, caret) === token ? tokenStart : caret;
                         var newText = oldText.substring(0, deletedPos - 1) + oldText.substring(deletedPos, oldText.length); // remove the character before thousand separator instead of the thousand separator
 
-                        newText = this.reformatTextbox(target, type, newText, ractive);
+                        // TODO this is hack for removal of first digit, this is not a proper solution,
+                        // this might cause some weird problems
+                        var dontReformat = false;
+                        if (type === 'nem' && deletedPos == 1 && oldText.length != 1) {
+                            dontReformat = true;
+                        }
+                        newText = this.reformatTextbox(target, type, newText, ractive, dontReformat);
 
                         var caretStickToRight = this.caretStickToRight[type] || this.caretStickToRight['default'];
                         if (typeof caretStickToRight === 'function') {
@@ -618,7 +626,14 @@ define(['TransactionType'], function(TransactionType) {
                         var deletedPos = oldText.substring(caret, tokenEnd) === token ? tokenEnd : caret;
                         var newText = oldText.substring(0, deletedPos) + oldText.substring(deletedPos + 1, oldText.length); // remove the character after thousand separator instead of the thousand separator
 
-                        newText = this.reformatTextbox(target, type, newText, ractive);
+                        // TODO this is hack for removal of first digit, this is not a proper solution,
+                        // this might cause some weird problems
+                        var dontReformat = false;
+                        console.log("delete input: ", deletedPos, oldText, newText);
+                        if (type === 'nem' && deletedPos === 0 && oldText.length != 1) {
+                            dontReformat = true;
+                        }
+                        newText = this.reformatTextbox(target, type, newText, ractive, dontReformat);
 
                         var caretStickToLeft = this.caretStickToLeft[type] || this.caretStickToLeft['default'];
                         if (typeof caretStickToLeft === 'function') {
