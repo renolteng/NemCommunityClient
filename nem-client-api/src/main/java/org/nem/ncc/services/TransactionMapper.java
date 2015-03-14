@@ -219,8 +219,13 @@ public class TransactionMapper {
 
 		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
 				.map(this.accountLookup::findByAddress)
+				.filter(a -> null != a.getAddress().getPublicKey())
 				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
 				.collect(Collectors.toList());
+
+		if (modifications.size() != request.getCosignatoriesAddresses().size()) {
+			throw new NccException(NccException.Code.COSIGNATORY_NO_PUBLIC_KEY);
+		}
 
 		final MultisigAggregateModificationTransaction multisigTransaction = new MultisigAggregateModificationTransaction(
 				timeStamp,

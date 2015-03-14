@@ -24,6 +24,11 @@ public class NccException extends RuntimeException {
 		NO_PUBLIC_KEY(202),
 
 		/**
+		 * The recipient public key is unknown.
+		 */
+		COSIGNATORY_NO_PUBLIC_KEY(203),
+
+		/**
 		 * There was a problem with the account cache.
 		 */
 		ACCOUNT_CACHE_ERROR(901),
