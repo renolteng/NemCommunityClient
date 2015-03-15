@@ -209,7 +209,7 @@ define(function(require) {
                 return this.get('lcwNameValid') && this.get('lcwPasswordValid') && this.get('lcwConfirmPasswordValid');
             },
             privateLabels: function() {
-                var contacts = this.get('contacts');
+                var contacts = this.get('contacts') || {};
                 var result = {};
                 var contact;
                 for (var i = 0; i < contacts.length; i++) {
