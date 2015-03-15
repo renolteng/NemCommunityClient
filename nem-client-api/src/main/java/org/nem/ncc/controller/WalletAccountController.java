@@ -1,9 +1,7 @@
 package org.nem.ncc.controller;
 
-import org.nem.core.crypto.KeyPair;
-import org.nem.core.crypto.PrivateKey;
-import org.nem.core.model.Address;
-import org.nem.core.model.NetworkInfo;
+import org.nem.core.crypto.*;
+import org.nem.core.model.*;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
