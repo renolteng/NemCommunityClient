@@ -422,10 +422,17 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             require(['zeroClipboard'], function(ZeroClipboard) {
                 local.client = new ZeroClipboard($('#addressClipboard'));
 
+                ncc.set('walletPage.copyDisabled', false);
                 local.client.on('ready', function() {
+                    ncc.set('walletPage.copyDisabled', true);
                     local.client.on('aftercopy', function() {
                         ncc.showTempMessage(ncc.get('texts.wallet.copiedToClipboard'));
                     });
+                });
+
+                local.client.on('error', function() {
+                    local.client.destroy();
+                    ncc.set('walletPage.copyDisabled', true);
                 });
             });
 

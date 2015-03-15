@@ -566,6 +566,7 @@ define({
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
 				copyClipboard: 'Copy Address to Clipboard',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [

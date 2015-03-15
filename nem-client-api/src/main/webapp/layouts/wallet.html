@@ -152,8 +152,12 @@
 					<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
 				</button>
 				<ul class="account-actionsDropdown dropdownMenu {{^active.accountActions}}hidden{{/}}">
-					<li class="dropdownMenu-item" id="addressClipboard" data-clipboard-target="activeAccountAddress">
+					<li class="dropdownMenu-item {{#walletPage.copyDisabled}}disabled{{/}}" id="addressClipboard" data-clipboard-target="activeAccountAddress">
+                        {{#if (walletPage.copyDisabled)}}
+                        {{texts.wallet.actions.copyDisabled}}
+                        {{else}}
 						{{texts.wallet.actions.copyClipboard}}
+                        {{/if}}
 					</li>
 					<li class="dropdownMenu-item" on-click="changeAccountLabel">
 						{{texts.wallet.actions.changeAccountLabel}}
