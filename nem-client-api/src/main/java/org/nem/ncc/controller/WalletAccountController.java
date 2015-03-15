@@ -87,10 +87,18 @@ public class WalletAccountController {
 		return this.walletMapper.toViewModel(wallet);
 	}
 
+	/**
+	 * Reveals details about an account including the private key.
+	 *
+	 * @param bag The request parameters.
+	 * @return Details about the account.
+	 */
 	@RequestMapping(value = "/wallet/account/reveal", method = RequestMethod.POST)
 	public KeyPairViewModel revealAccount(@RequestBody final WalletNamePasswordBag bag) {
 		final Wallet wallet = this.walletServices.open(bag);
 		final PrivateKey privateKey = wallet.getAccountPrivateKey(bag.getAccountAddress());
+		// TODO 20150315 J-G: shouldn't this be getDefault?
+		// > also, should add test for this
 		return new KeyPairViewModel(new KeyPair(privateKey), NetworkInfo.getMainNetworkInfo().getVersion());
 	}
 

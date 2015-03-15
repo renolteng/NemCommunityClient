@@ -353,7 +353,7 @@ public class TransactionMapperTest {
 		final MultisigModificationRequest request = createModificationRequest(context);
 
 		// Act + Assert:
-		ExceptionAssert.assertThrowsNccException(v -> context.mapper.toModel(request), (NccException.Code.COSIGNATORY_NO_PUBLIC_KEY));
+		ExceptionAssert.assertThrowsNccException(v -> context.mapper.toModel(request), NccException.Code.COSIGNATORY_NO_PUBLIC_KEY);
 	}
 
 	//endregion
@@ -392,7 +392,7 @@ public class TransactionMapperTest {
 
 	private static TransferImportanceRequest createRemoteHarvestRequest(final TestContext context, final String password) {
 		return new TransferImportanceRequest(
-				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
+				context.signer.getAddress(), // must be a valid address
 				new WalletName("w"),
 				null == password ? null : new WalletPassword(password),
 				7);
@@ -402,7 +402,7 @@ public class TransactionMapperTest {
 		return new MultisigModificationRequest(
 				new WalletName("w"),
 				new WalletPassword("p"),
-				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
+				context.signer.getAddress(), // must be a valid address
 				context.cosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
 				1,
 				Amount.fromNem(7));
