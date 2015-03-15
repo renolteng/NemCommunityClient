@@ -610,6 +610,7 @@ define({
 				sendNem: 'Send XEM',
 				signMultisig: 'SIGN',
 				balance: 'Current Balance',
+				loading: 'Loading balance',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				notSynced: 'might be inaccurate, NIS not synchronized yet',

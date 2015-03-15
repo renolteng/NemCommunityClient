@@ -401,6 +401,11 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 return true;
             } else {
                 if (!ncc.get('activeAccount') || ncc.get('activeAccount.address') != account) {
+                    ncc.set('activeAccount.formattedBalance', ncc.get('texts.dashboard.transactions.loading'));
+                    ncc.set('activeAccount.transactions', {});
+                    ncc.set('activeAccount.remoteStatus', null);
+                    ncc.set('activeAccount.status', 'UNKNOWN');
+                    ncc.set('activeAccount.importance', 0);
                     ncc.set('activeAccount.address', account);
                     ncc.refreshAccount(wallet, account);
                 }
