@@ -407,6 +407,10 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     ncc.set('activeAccount.status', 'UNKNOWN');
                     ncc.set('activeAccount.importance', 0);
                     ncc.set('activeAccount.address', account);
+                    ncc.set('harvestedBlocks.feeEarned', 0);
+                    ncc.set('harvestedBlocks.formattedFeeEarned', ncc.get('texts.dashboard.transactions.loading'));
+                    ncc.set('harvestedBlocks.feeEarnedInt', 0);
+                    ncc.set('harvestedBlocks.feeEarnedDec', 0);
                     ncc.refreshAccount(wallet, account);
                 }
             }
