@@ -103,7 +103,8 @@ define({
 			dueBy: 'Due by',
 			hours: 'hour(s)',
 			hoursDue: 'Due by (hours)',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.'
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -365,6 +366,11 @@ define({
 				dataMatched: 'Everything seems good. Your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
+			showPrivateKey: {
+			    title: 'Show Account\'s PRIVATE Key',
+			    message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+			    show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Add an Existing Account',
 				privateKey: "Account's Private Key",
@@ -558,6 +564,7 @@ define({
 				createAccount: 'Create New Account',
 				createRealAccountData: 'Create Real Account Data',
 				verifyRealAccountData: 'Verify Real Account Data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Add an Existing Account',
 				changeAccountLabel: 'Change Account Label',
 				setPrimary: 'Set as Primary Account',

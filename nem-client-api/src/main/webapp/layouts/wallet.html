@@ -180,9 +180,12 @@
 					<li class="dropdownMenu-item" on-click="createRealAccountData">
 						{{texts.wallet.actions.createRealAccountData}}
 					</li>
-					<li class="dropdownMenu-item" on-click="verifyRealAccountData">
+					<li class="dropdownMenu-item dropdownMenu-item--separator" on-click="verifyRealAccountData">
 						{{texts.wallet.actions.verifyRealAccountData}}
-					</li>					
+					</li>
+                    <li class="dropdownMenu-item" on-click="showPrivateKey">
+                        {{texts.wallet.actions.showPrivateKey}}
+                    </li>
 				</ul>
 			</div>
 			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}}" id="accountSelect">

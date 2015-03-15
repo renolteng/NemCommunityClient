@@ -728,6 +728,111 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                         ncc.get('texts.modals.verifyRealAccountData.verify')
                     );
                 },
+                showPrivateKey: function() {
+                    var self = this;
+                    var wallet = ncc.get('wallet.wallet');
+                    var account = ncc.get('activeAccount.address');
+                    var accountLabel = ncc.get('privateLabels')[account];
+
+                    // 1st modal
+                    ncc.showInputForm(ncc.get('texts.modals.showPrivateKey.title'), ncc.get('texts.modals.showPrivateKey.message'),
+                        [
+                            {
+                                name: 'wallet',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    // reuse string
+                                    content: ncc.get('texts.modals.createAccount.wallet')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.common.address')
+                                },
+                                sublabel: accountLabel ?
+                                {
+                                    content: accountLabel
+                                } :
+                                {
+                                    // reuse string
+                                    content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                    nullContent: true
+                                }
+                            },
+                            {
+                                name: 'password',
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.common.password')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: wallet,
+                            account: Utils.format.address.format(account),
+                        },
+                        function(values, closeModal) {
+                            var values = {
+                                wallet: values.wallet,
+                                account: account,
+                                password: values.password
+                            };
+                            ncc.postRequest('wallet/account/reveal', values, function(data) {
+                                console.log(data);
+
+                                // 2st modal - call results
+                                ncc.showInputForm(
+                                    ncc.get('texts.modals.showPrivateKey.title'),
+                                    ncc.get('texts.modals.showPrivateKey.message'),
+                                    [
+                                        {
+                                            name: 'address',
+                                            type: 'text',
+                                            readonly: true,
+                                            label: {
+                                                content: ncc.get('texts.common.address')
+                                            }
+                                        },
+                                        {
+                                            name: 'publicKey',
+                                            type: 'textarea',
+                                            readonly: true,
+                                            label: {
+                                                // reuse string
+                                                content: ncc.get('texts.modals.createRealAccountData.publicKey')
+                                            }
+                                        },
+                                        {
+                                            name: 'privateKey',
+                                            type: 'textarea',
+                                            readonly: true,
+                                            label: {
+                                                // reuse string
+                                                content: ncc.get('texts.modals.createRealAccountData.privateKey')
+                                            }
+                                        }
+                                    ],
+                                    {
+                                        address: Utils.format.address.format(data.address),
+                                        publicKey: data.publicKey,
+                                        privateKey: data.privateKey
+                                    },
+                                    function(values, closeModal) {
+                                        closeModal();
+                                    },
+                                    ncc.get('texts.common.closeButton')
+                                );
+                            });
+                        },
+                        ncc.get('texts.modals.showPrivateKey.show')
+                    );
+                },
                 addAccount: function() {
                     var wallet = ncc.get('wallet.wallet');
                     ncc.showInputForm(ncc.get('texts.modals.addAccount.title'), '',

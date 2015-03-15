@@ -1,7 +1,9 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.crypto.KeyPair;
+import org.nem.core.crypto.PrivateKey;
 import org.nem.core.model.Address;
+import org.nem.core.model.NetworkInfo;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
@@ -83,6 +85,13 @@ public class WalletAccountController {
 		final Wallet wallet = this.walletServices.open(bag);
 		wallet.removeAccount(bag.getAccountAddress());
 		return this.walletMapper.toViewModel(wallet);
+	}
+
+	@RequestMapping(value = "/wallet/account/reveal", method = RequestMethod.POST)
+	public KeyPairViewModel revealAccount(@RequestBody final WalletNamePasswordBag bag) {
+		final Wallet wallet = this.walletServices.open(bag);
+		final PrivateKey privateKey = wallet.getAccountPrivateKey(bag.getAccountAddress());
+		return new KeyPairViewModel(new KeyPair(privateKey), NetworkInfo.getMainNetworkInfo().getVersion());
 	}
 
 	private void addToAddressBook(
