@@ -619,6 +619,8 @@ define({
 				signMultisig: 'SIGN',
 				balance: 'Current Balance',
 				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
 				notSynced: 'might be inaccurate, NIS not synchronized yet',

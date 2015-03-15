@@ -63,7 +63,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 		// > not sure how to fix that
 		// TODO 20150207 BR -> G: updating now every 3 seconds and all seeded accounts are marked for update.
 		return new FreshnessPair(
-				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE, Arrays.asList())),
+				new AccountMetaDataPair(info, new AccountMetaData(AccountStatus.UNKNOWN, AccountRemoteStatus.INACTIVE, Arrays.asList(), Arrays.asList())),
 				this.timeProvider.getCurrentTime().addSeconds(-this.refreshInSeconds));
 	}
 

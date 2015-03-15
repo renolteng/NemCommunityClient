@@ -50,6 +50,6 @@ public class AccountMapperTest {
 	private static AccountMetaDataPair createMetaDataPair(final Address address) {
 		return new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null, null));
 	}
 }

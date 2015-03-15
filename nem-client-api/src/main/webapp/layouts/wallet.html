@@ -385,7 +385,7 @@
 				</div>
 				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
 					<li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.modals.sendNem.thisAccount}}</li>
-					{{#each cosignatories}}
+					{{#each multisigAccounts}}
 						<li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
                             {{#if (privateLabels[.address])}}
                                 {{privateLabels[.address]}}
@@ -1050,6 +1050,24 @@
 				<td class="table-cell table-cell--content">{{.harvestedBlocks}}</td>
 			</tr>
 		</table>
+        {{#if .cosignatories.length}}
+            <hr>
+            <p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
+            {{#each .cosignatories : i}}
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-label">{{i}}</span>
+                    <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
+                        <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                            {{#if (privateLabels[.address])}}
+                            {{privateLabels[.address]}}
+                            {{else}}
+                            {{.address}}
+                            {{/if}}
+                        </a>
+                    </span></span>
+            </div>
+            {{/each}}
+        {{/if}}
 	{{/}}
 	<div class="modal-buttons">
 		<button type="button" class="modal-button modal-button--primary" on-click="closeModal()">{{texts.modals.accountDetails.close}}</button>

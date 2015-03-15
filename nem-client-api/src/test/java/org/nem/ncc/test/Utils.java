@@ -137,6 +137,7 @@ public class Utils {
 				createAccountInfoFromAddress(address),
 				AccountStatus.LOCKED,
 				AccountRemoteStatus.INACTIVE,
+				null,
 				null);
 	}
 

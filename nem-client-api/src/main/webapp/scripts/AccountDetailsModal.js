@@ -18,6 +18,10 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
 		},
 		removeContact: function(address) {
 			ncc.removeContact(address);
-		}
+		},
+		onrender: function() {
+            this.set('privateLabels', ncc.get('privateLabels'));
+            this.viewAccount = ncc.viewAccount;
+        }
 	});
 });

@@ -75,7 +75,14 @@
 					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
 					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
 					<div class="transactionsTile-overview">
-						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}</h1>
+						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}
+                            {{#activeAccount.isMultisig}}
+                            <span class="transactionsTile-multisig">
+                                ({{texts.dashboard.transactions.accountCosignatories}}
+                                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(activeAccount.address)">{{texts.dashboard.transactions.accountCosignatoriesView}}</a>)
+                            </span>
+                            {{/}}
+                        </h1>
 						<p>
 							<span class="transactionsTile-balance" title="{{activeAccount.formattedBalanceInt}} XEM {{activeAccount.balanceDec}} µXEM" on-mouseover="registerToolTip">
 								{{activeAccount.formattedBalance}} 

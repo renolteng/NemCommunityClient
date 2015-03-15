@@ -779,6 +779,7 @@ define(['TransactionType'], function(TransactionType) {
             account.formattedVestedBalance = Utils.format.nem.formatNem(Utils.format.nem.uNemToNem(account.vestedBalance), {fixedDecimalPlaces: true});
             account.balanceInt = parseInt(balanceObj.intPart, 10);
             account.balanceDec = parseInt(balanceObj.decimalPart, 10);
+            account.isMultisig = account.cosignatories.length > 0;
 
             account.formattedBalanceInt = Utils.format.nem.formatNem({intPart: balanceObj.intPart, decimalPart: ''}, {fixedDecimalPlaces: false});
             if (account.transactions) {
