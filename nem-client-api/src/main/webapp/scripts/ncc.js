@@ -188,6 +188,9 @@ define(function(require) {
             nisUnavailable: function() {
                 return this.get('nisStatus.code') === Utils.config.STATUS_STOPPED;
             },
+            sendNemDisabled: function() {
+                return this.get('nisUnavailable') || ncc.get('activeAccount').isMultisig;
+            },
             enableManualBoot: function() {
                 return !(this.get('nisUnavailable') || this.get('nodeBooting') || this.get('nodeBooted'));
             },
