@@ -45,36 +45,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 );
             };
 
-            ncc.refreshAccount = function(wallet, account, silent) {
-                if (!wallet) wallet = ncc.get('wallet.wallet');
-                if (!account) account = ncc.get('activeAccount.address');
-
-                var success = false;
-                ncc.postRequest('account/transactions/all', 
-                    { 
-                        wallet: wallet, 
-                        account: account 
-                    }, 
-                    function(data) {
-                        success = true;
-                        ncc.set('activeAccount', Utils.processAccount(data));
-                        ncc.set('status.lostConnection', false);
-                    }, 
-                    {
-                        complete: function() {
-                            if (!success) {
-                                ncc.set('status.lostConnection', true);
-                            }
-                        }
-                    }, 
-                    silent
-                );
-
-                ncc.refreshRemoteHarvestingStatus(wallet, account, silent);
-
-                ncc.fire('refreshAccount');
-            };
-
             ncc.refreshInfo = function(wallet, account, silent) {
                 ncc.refreshWallet(wallet, silent);
                 ncc.refreshAccount(wallet, account, silent);

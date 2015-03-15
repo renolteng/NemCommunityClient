@@ -435,6 +435,36 @@ define(function(require) {
                 return Mustache.render(template, arguments);
             }
         },
+
+        refreshAccount : function(wallet, account, silent) {
+            if (!wallet) wallet = ncc.get('wallet.wallet');
+            if (!account) account = ncc.get('activeAccount.address');
+
+            var success = false;
+            ncc.postRequest('account/transactions/all',
+                {
+                    wallet: wallet,
+                    account: account
+                },
+                function(data) {
+                    success = true;
+                    ncc.set('activeAccount', Utils.processAccount(data));
+                    ncc.set('status.lostConnection', false);
+                },
+                {
+                    complete: function() {
+                        if (!success) {
+                            ncc.set('status.lostConnection', true);
+                        }
+                    }
+                },
+                silent
+            );
+
+            ncc.refreshRemoteHarvestingStatus(wallet, account, silent);
+
+            ncc.fire('refreshAccount');
+        },
         
         globalSetup: function() {
             require(['draggable'], function() {
