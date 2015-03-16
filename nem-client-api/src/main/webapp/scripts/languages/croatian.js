@@ -41,7 +41,7 @@ define({
 			500: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Ponovno pokretanje programa bi moglo pomoći u suprotnom molimo vas da grešku prijavite NEM NIS/NCC zajednicom.',
 			600: 'Prije slanja i primanje transakcija sa NEM oblaka, NIS poslužitelj mora biti pokrenut. Molim Vas da u NCC izborniku koristite stavku za pokretanje lokalnog čvora.',
 			601: 'NIS čvor je već pokrenut. Sljedeći pokušaj za pokretanje NIS čvora nije moguć.',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			602: 'Skoro spreman. NEM infrastrukturni poslužitelj trenutno učitava blokove. Novčanik će biti funkcionalan nakon što se baza u potpunosti učita.',
 			699: 'Dostignut je najveći dopušteni broj žetveoca na poslužitelju.',
 			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje iznos od 1000 XEM-a.',
 			701: 'Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.',
@@ -119,8 +119,8 @@ define({
 				caption: 'GREŠKA {{1}}'
 			},
 			yikes: {
-				title: 'Yikes!',
-				caption: 'info code {{1}}'
+				title: 'Greška!',
+				caption: 'info kod {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Da',
@@ -167,8 +167,7 @@ define({
 				hours: 'sati',
 				txConfirm: {
 					title: 'Potvrdi pretvaranje u Multisig račun',
-					total: 'Ukupno',
-
+					total: 'Ukupno'
 				},
 				warning: 'Višepotpisnički račun se nalazi u listi supotpisnika što može imati za posljedicu zaključavanje računa i zabranu pristupa sredstvima na istom. Vjerojatno <b>NE</b> želite to učiniti.'
 			},
@@ -199,8 +198,7 @@ define({
 					title: 'Potvrdi Multisig transakciju',
 					message: 'Poruka',
 					encrypted: 'Poruak je šifrirana',
-					noMessage: 'Nema poruke',
-
+					noMessage: 'Nema poruke'
 				}
 			},
 			sendNem: {
@@ -315,9 +313,9 @@ define({
 				node: 'Naziv čvora',
 				boot: 'Pokreni',
 				booting: 'Pokretanje...',
-				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warning: 'Upozorenje o pokretanju čvora',
+				warningText: 'Pokušavate pokrenuti čvor računom koji ima saldo od: ({{{1}}} XEM). To će otkriti privatni ključ tog računa čvoru: <u>{{2}}</u>',
+				warningQuestion: 'Jeste li sigurni da želite pokrenuti čvor <u>{{3}}</u> korištenjem privatnog ključa računa {{1}} ({{2}} XEM)?<br><br>To će otkriti <span class=\"sublabelWarning\">privatni ključ</span> tog računa čvoru: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Zatvori novčanik',
@@ -680,7 +678,7 @@ define({
 				columns: [
 					'Visina',
 					'Vrijeme',
-					'Block difficulty',
+					'Težina bloka',
 					'Naknada'
 				],
 				noBlocks: 'Nema ubranih blokova',
