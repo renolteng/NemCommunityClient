@@ -12,7 +12,7 @@ define({
 			103: 'O arquivo da carteira está corrompido. Por favor, recupere-o de um back-up que você deveria ter feito.',
 			104: 'A senha fornecida para essa carteira não está correta.',
 			105: 'Não foi fornecido nenhuma senha para a carteira.',
-			106: 'Before you can work with a wallet, it has to be opened. To ensure that you are eligible for accessing the wallet, you have to provide the password for that wallet.',
+			106: 'Antes que você possa utilizar essa carteira, você terá que abri-lá. Para assegurar que você tem acesso a essa carteira, você terá que fornecer a senha dessa carteira.',
 			107: 'A carteira não contém essa conta.',
 			108: 'A conta não pode ser removida. Provavelmente ela tem saldo maior que 0 XEMs ou é a conta primária.',
 			109: 'Já existe uma conta com o mesmo nome. Por favor, escolha outro.',
@@ -26,14 +26,14 @@ define({
 			124: 'A senha para o arquivo de contatos não incorreta.',
 			125: 'Não foi fornecido nenhuma senha para o arquivo de contatos.',
 			127: 'Não existe esse endereço nos arquivos.',
-			128: 'The address provided is not valid.',
+			128: 'O endereço fornecido não é válido.',
 			129: 'Outro arquivo de contatos já existe com esse nome. Por favor, escolha outro nome para esse arquivo.',
 			130: 'Já existe esse contato nos arquivos.',
 			131: 'O nome do arquivo de contatos é um diretório.',
 			132: 'A extensão do arquivo de contatos está incorreta.',
 			133: 'Não foi possível deletar o arquivo de contatos.',
 			202: 'Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'O NIS não está disponível. Tente reiniciar o cliente Nem. Se você estiver utilizando um NIS remoto, verifique se a configuração do hospedeiro e procure por erros de digitação ou utiliize outro NIS remoto.',
 			306: 'Ocorreu um erro desconhecido. Talvez uma nova nova tentativa ou reiniciar o cliente/servidor dê certo; caso contrário, informe aos desenvolvedores do NEM no fórum oficial forum.nemcoin.com.',
 			400: 'Está faltando algum parâmetro ou os dados estão incorretos.',
 			401: 'Esta operação não pode ser completada, ela pode expor a chave privada enviando-a para um NIS remoto.',
@@ -41,7 +41,7 @@ define({
 			500: 'Ocorreu um erro desconhecido. Por favor, reinicie o programa, caso não resolva, contate os desenvolvedores através do fórum forum.nemcoin.com.',
 			600: 'NCC requer que o NIS seja inicializado. Por favor, vá em cliente NCC para inicializar o nó local via menu superior direito.',
 			601: 'O NIS já foi inicializado.',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			602: 'Quase pronto. O cliente NEM está carregando os blocos. A carteira se tornará funcional quando tiver o banco de dados completamente carregado.',
 			699: 'O número de máximo de colheitadores no servidor foi atingido.',
 			700: 'Falha na colheita. Geralmente esse problema está relacionado com o saldo de NEMs na conta. Para colheitar são necessários,  pelo menos, 1000 XEMs.',
 			701: 'O prazo final fornecido está no passado. O prazo limite deve estar dentro do período de um dia.',
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: 'NIS não inicializado',
 				nisStarting: 'NIS está inicializando...',
 				notBooted: 'NIS requere inicialização. Por favor, abra a carteira para ativar o auto-boot ou inicialize o nó manualmente.',
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Carregando blocos do banco de dados, no bloco: ',
 				booting: 'NIS inicializando...',
 				nisInfoNotAvailable: 'Informações do NIS não disponível. Recuperando informações...',
 				synchronizing: 'NIS está sincronizando com o bloco {{1}}, encontrado {{2}} atrás.',
@@ -120,7 +120,7 @@ define({
 			},
 			yikes: {
 				title: 'Yikes!',
-				caption: 'info code {{1}}'
+				caption: 'Codigo de informação {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Sim',
@@ -139,7 +139,7 @@ define({
 					},
 					host: 'Endereço Host',
 					port: 'Porta',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Usar a porta padrão.'
 				},
 				autoBoot: {
 					tabTitle: 'Inicialização automática',
@@ -170,7 +170,7 @@ define({
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'A conta do tipo Multisig está na lista dos consignatários. Isso resultará no corte de acesso ao dinheiro da conta. Muito provavelmente você <b>NÃO QUER</b> fazer isso.'
 			},
 			signMultisig: {
 				title: 'Assinar transação Multisig',
@@ -315,9 +315,9 @@ define({
 				node: 'Nome para o nó',
 				boot: 'Inicializar',
 				booting: 'Inicializando...',
-				warning: 'Boot node warning',
+				warning: 'Aviso de inicialização',
 				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warningQuestion: 'Você tem certeza que quer inicializar o nó <u>{{3}}</u> usando a chave privada da conta  {{1}} ({{2}} XEM)?<br><br> Isto revelará essa conta <span class="sublabelWarning">private key</span> para o nó: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Fechar carteira',
@@ -459,7 +459,7 @@ define({
 				stop: 'Parar'
 			},
 			logoutWarning: {
-				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador\n\nPara fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
+				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador Para fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
 			},
 			addContact: {
 				title: 'Adicionar contato',
@@ -564,7 +564,7 @@ define({
 				closeWallet: 'Fechar carteira',
 				closeProgram: 'Fechar programa',
 				copyClipboard: 'Copiar para a área de transferência',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Converter outra conta para o tipo Multisig'
 			},
 			nav: [
 				'Painel Administrativo',
@@ -608,7 +608,7 @@ define({
 				sendNem: 'Enviar XEM',
 				signMultisig: 'ASSINAR',
 				balance: 'Saldo atual',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: 'Quantidade investida',
 				syncStatus: '(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})',
 				unknown: 'Desconhecido',
 				columns: [
@@ -680,7 +680,7 @@ define({
 				columns: [
 					'Altura do bloco',
 					'Hora',
-					'Block difficulty',
+					'Dificuldade do bloco',
 					'Taxa'
 				],
 				noBlocks: 'Não há blocos colhidos',
