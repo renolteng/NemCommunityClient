@@ -26,14 +26,14 @@ define({
 			124: 'Le mot de passe pour le carnet d\'adresses que vous avez fourni est incorrect.',
 			125: 'Vous n\'avez fourni aucun mot de passe pour le carnet d\'adresses.',
 			127: 'Le carnet d\'adresses ne contient pas cette adresse.',
-			128: 'The address provided is not valid.',
+			128: 'L\'adresse fournie n\'est pas valide.',
 			129: 'Un autre carnet d\'adresses avec le même nom existe déjà. S\'il vous plait, utilisez un nom différent.',
 			130: 'Le carnet d\'adresses contient déjà cette adresse.',
 			131: 'Le nom du carnet d\'adresses est un répertoire.',
 			132: 'L\'extension du fichier de carnet d\'adresses est incorrecte.',
 			133: 'Le carnet d\'adresses n\'a pas pu être effacé.',
 			202: 'Un message chiffré ne peut être envoyé si le destinataire n\'a jamais effectué de transaction auparavant.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'Le serveur d\'infrastructure NEM (NIS) n\'est pas disponible. Essayez de redémarrer le logiciel NEM. Si vous utilisez un serveur NIS distant, vérifier l\'hôte configuré pour vous assurer qu\'il n\'y a pas d\'erreur sinon utiliser un autre serveur NIS distant.',
 			306: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			400: 'Certains paramètres sont manquants ou invalides.',
 			401: 'Cette opération ne peut être effectuée car elle pourrait divulguer votre clé privée en l\'envoyant à un server NIS distant.',
@@ -41,7 +41,7 @@ define({
 			500: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			600: 'NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S\'il vous plait, utilisez le menu NCC pour démarrer le noeud local.',
 			601: 'Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			602: 'Presque disponible. Le serveur d\'infrastructure NEM charge présentement les blocs. Le portefeuille sera fonctionnel dès que la base de données sera complètement chargée.',
 			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
 			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.',
 			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
@@ -78,7 +78,7 @@ define({
 				nisUnavailable: 'NIS est introuvable',
 				nisStarting: 'NIS démarre...',
 				notBooted: 'NIS à besoin d\'être démarré. S\'il vous plaît, ouvrez votre portefeuille et démarrer le noeud local via la boîte de dialogue ou configuré le paramètre de démarrage automatique.',
-				loading: 'Loading blocks from db, at block: ',
+				loading: 'Chargement des blocs de la base de donnée, présentement au bloc:',
 				booting: 'Démarrage de NIS...',
 				nisInfoNotAvailable: 'L\'information sur NIS n\'est pas encore disponible. Tentative de récupération de l\'information sur NIS...',
 				synchronizing: 'NIS est en cours de synchronisation. Présentement au bloc {{1}}, est. {{2}} en retard.',
@@ -139,7 +139,7 @@ define({
 					},
 					host: 'Hôte',
 					port: 'Port',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Utiliser le port par défaut.'
 				},
 				autoBoot: {
 					tabTitle: 'Démarrage Automatique',
@@ -167,8 +167,7 @@ define({
 				hours: 'heures(s)',
 				txConfirm: {
 					title: 'Confirmez la conversion en compte Multisig',
-					total: 'Total',
-
+					total: 'Total'
 				},
 				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.'
 			},
@@ -199,8 +198,7 @@ define({
 					title: 'Confirmer la transaction Multisig ',
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
-					noMessage: 'Pas de message',
-
+					noMessage: 'Pas de message'
 				}
 			},
 			sendNem: {
@@ -315,9 +313,9 @@ define({
 				node: 'Nom du noeud',
 				boot: 'Démarrer',
 				booting: 'Démarrage...',
-				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warning: 'Avertissement du noeud de démarrage',
+				warningText: 'Vous essayez de démarrer un noeud en utilisant un compte ayant une balance de: ({{{1}}} XEM) . Ceci va révéler la clef privée de ce compte au noeud: {{2}}',
+				warningQuestion: 'Êtes-vous certain de vouloir démarrer le noeud<u>{{3}}</u> en utilisant la clé privée du compte {{1}} ({{2}} XEM)?<br><br>Ceci va révéler la <span class=\"sublabelWarning\">clé privée</span> de ce compte au noeud: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Fermeture de portefeuille',
@@ -608,7 +606,7 @@ define({
 				sendNem: 'Envoyer des XEMs',
 				signMultisig: 'SIGNER',
 				balance: 'Balance courante',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: 'Balance assignée',
 				syncStatus: '(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})',
 				unknown: 'inconnu',
 				columns: [
@@ -680,7 +678,7 @@ define({
 				columns: [
 					'Hauteur',
 					'Temps',
-					'Block difficulty',
+					'Difficulté du bloc',
 					'Frais'
 				],
 				noBlocks: 'Aucun blocs récoltés ',
