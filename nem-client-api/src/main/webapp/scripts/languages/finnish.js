@@ -33,15 +33,15 @@ define({
 			132: 'Osoitekirjan laajennustiedosto on väärä.',
 			133: 'Osoitekirjaa ei voida poistaa.',
 			202: 'Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.',
-			305: 'NIS ei ole käytettävissä. Yritä käynnistää NEM- sovellus uudelleen. Mikäli yrität käyttää NIS-palvelua etänä, tarkista kirjoitusvirheet (host),\ntai käytä toista etä-NIS palvelua.\n\n\n',
+			305: 'NIS ei ole käytettävissä. Yritä käynnistää NEM sovellus uudelleen. Mikäli yrität käyttää NIS palvelua etänä, tarkista kirjoitusvirheet (host), tai käytä toista etä NIS palvelua.',
 			306: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			400: 'Jotkut parametrit puuttuvat tai ovat viallisia.',
-			401: 'Tätä toimintoa ei voida saattaa loppuun, koska muutoin on mahdollista että \'private key\' näkyy ulkopuolisille, mikäli se lähetetään NIS-palveluun.\n',
+			401: 'Tätä toimintoa ei voida saattaa loppuun, koska muutoin on mahdollista että \'private key\' näkyy ulkopuolisille, mikäli se lähetetään etä NIS palveluun.',
 			404: 'Lähdettä ei löydy.',
 			500: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			600: 'NCC vaatii NIS palvelimen uudelleenkäynnistyksen, jotta siirtoja voidaan suorittaa NEM cloud palvelusta. Käytä NCC menua näynnistääksesi uudelleen Local node.',
 			601: 'NIS on jo käynnistetty uudelleen.',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			602: 'Melkein valmista. NIS on lataamassa lohkoja. Lompakko on käytettävissä, kun tietokanta on täysin ladattu.',
 			699: 'Louhijoiden maksimimäärä palvelimella on saavutettu.',
 			700: 'Louhintaa ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.',
 			701: 'Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.',
@@ -55,11 +55,11 @@ define({
 			709: 'Tili on tuntematon. Tilillä on oltava yksi lähetys tai vastaanotto, jotta se voidaan tunnistaa verkossa.',
 			710: 'Siirtoa ei hyväksytty, koska siirtojen välimuisti on täynnä. Korkeampi palkkio parantaaa siirron hyväksymistä.',
 			730: 'Turvatun louhinnan siirto on ristiriidassa olemassaolevan siirron kanssa.',
-			731: 'Turvatun louhinnan tilin saldo on nolla, eikä sitä voida käyttää.',
+			731: 'Turvatun louhinnan tilin saldo ei ole nolla, eikä sitä voida käyttää.',
 			732: 'Siirtoa ei hyväksytty, viivästynyt siirto on vielä käynnissä.',
 			733: 'Turvattu louhinta on jo aktiivinen.',
-			734: 'Turvattu louhinta ei ole aktiivinen,\njoten sitä ei voida pysäyttää.',
-			740: 'Siirtoa ei ole mahdollinen multisig-tilille.',
+			734: 'Turvattu louhinta ei ole aktiivinen, joten sitä ei voida pysäyttää.',
+			740: 'Siirtoa ei ole mahdollinen multisig tilille.',
 			741: 'Multisig allekirjoitettu siirto hylättiin. Nykyinen tili ei ole allekirjoittaja multisig tilillä.',
 			742: 'Multisig allekirjoitettu siirto hylättiin. Allekirjoittajakumppania ei tunneta NEM-verkossa.',
 			743: 'Multisig-tilin muutos hylätty.Yksi lisätty tili on jo allekirjoittaja.',
@@ -77,11 +77,11 @@ define({
 				nisUnknown: 'NIS tila on tuntematon',
 				nisUnavailable: 'NIS ei ole käytettävissä',
 				nisStarting: 'NIS on käynnistymässä...',
-				notBooted: 'NIS on käynnistettävä uudelleen. Avaa lompakkosi ja käynnistä local node uudelleen popup valikosta, jotta\nvoit muuttaa auto-boot asetuksia. ',
+				notBooted: 'NIS on käynnistettävä uudelleen. Avaa lompakkosi ja käynnistä local node uudelleen popup valikosta, jotta voit muuttaa auto-boot asetuksia. ',
 				loading: 'Ladataan lohkoja tietokannasta, lohkossa:',
 				booting: 'NIS on käynnistymässä uudelleen...',
-				nisInfoNotAvailable: 'NIS info ei ole vielä käytettävissä. Yritetään hakea\nNIS infoa...',
-				synchronizing: 'NIS synkronointi on käynnissä. Lohko {{1}},  {{2}} takana.',
+				nisInfoNotAvailable: 'NIS info ei ole vielä käytettävissä. Yritetään hakea NIS infoa...',
+				synchronizing: 'NIS synkronointi on käynnissä. Lohko {{1}}, {{2}} takana.',
 				daysBehind: {
 					0: 'Vähemmän, kuin yksi päivä.',
 					1: 'Yksi päivä',
@@ -96,13 +96,13 @@ define({
 			address: 'Osoite',
 			privateLabel: 'Yksityinen merkintä',
 			publicLabel: 'Julkinen merkintä',
-			noCharge: 'Olemassaolevaa tiliä <b>ei</b> veliteta, se katetaan\nmultisig-tililtä.',
+			noCharge: 'Olemassa olevaa tiliä <b>ei</b> veliteta, se katetaan multisig-tililtä.',
 			justUse: 'Käytä'
 		},
 		transactionTypes: [
 			'SIIRTO LÄHETYS',
 			'IMPORTANCE LÄHETYS',
-			'MULTISIG-TILIN MUOKKAUS',
+			'MULTISIG TILIN MUOKKAUS',
 			'MULTISIG SIIRTO'
 		],
 		transactionDirections: {
@@ -111,7 +111,7 @@ define({
 			incoming: 'Tuleva siirto',
 			self: 'Siirto itselle',
 			importance: 'Importance siirto',
-			modification: 'Multisig-tilin muokkaus'
+			modification: 'Multisig tilin muokkaus'
 		},
 		modals: {
 			error: {
@@ -119,8 +119,8 @@ define({
 				caption: 'Virhe {{1}}'
 			},
 			yikes: {
-				title: 'Yikes!',
-				caption: 'info code {{1}}'
+				title: 'Ou nou!',
+				caption: 'info koodi {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Kyllä',
@@ -152,8 +152,8 @@ define({
 				saveSuccess: 'Asetukset on tallennettu onnistuneesti'
 			},
 			multisig: {
-				title: 'Muunna tili multisig-tiliksi',
-				multisigAccount: 'Multisig-tili',
+				title: 'Muunna tili multisig tiliksi',
+				multisigAccount: 'Multisig tili',
 				cosignatories: 'Allekijoittajien osoitteet',
 				labelDesc: 'Tämä tili on nimetty {{1}}',
 				nullLabelDesc: 'Tällä tilillä ei ole nimeä',
@@ -161,23 +161,23 @@ define({
 				cancel: 'Peruuta',
 				convert: 'Muunna',
 				fee: 'Palkkio',
-				feeValidation: 'Palkkio ei voi olla vähempää, kuin minimipalkkio',
+				feeValidation: 'Palkkio ei voi olla vähempää, kuin minimiveloitus',
 				dueBy: 'Maksettava',
 				useMinimumFee: 'Käytä minimipalkkiota',
 				hours: 'Tunti(a)',
 				txConfirm: {
-					title: 'Vahvista multiig-tilin muunto',
+					title: 'Vahvista multiig tilin muunto',
 					total: 'Yhteensä'
 				},
-				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä.'
+				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä!'
 			},
 			signMultisig: {
-				title: 'Allekirjoita multisig-siirto',
+				title: 'Allekirjoita multisig siirto',
 				original: {
 					from: 'Multisig tili',
 					to: 'Vastaanottaja',
 					amount: 'Summa',
-					fee: 'Sisäinen palkkio',
+					fee: 'Sisäinen veloitus',
 					deadline: 'Määräaika'
 				},
 				multisigFees: 'Multisig palkkiot',
@@ -195,7 +195,7 @@ define({
 				sending: 'Lähetetään...',
 				successMessage: 'Siirto on suoritettu onnistuneesti!',
 				txConfirm: {
-					title: 'Vahvista multisig-siirto',
+					title: 'Vahvista multisig siirto',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
 					noMessage: 'Ei viestiä'
@@ -209,11 +209,11 @@ define({
 				nullLabelDesc: 'Tällä tilillä ei ole nimeä',
 				amount: 'Summa',
 				recipient: 'Vastaanottajan tili',
-				recipientValidation: 'Tilin osoite on oltava 40 merkkiä pitkä, ilman\nviivoja',
+				recipientValidation: 'Tilin osoite on oltava 40 merkkiä pitkä, ilman viivoja',
 				message: 'Viesti',
 				encrypt: 'Salaa viesti',
 				fee: 'Palkkio',
-				multisigFee: 'Multisig-palkkio',
+				multisigFee: 'Multisig palkkio',
 				feeValidation: 'Palkkio ei voi olla vähempää, kuin minimipalkkio.',
 				dueBy: 'Maksettava',
 				useMinimumFee: 'Käytä minimipalkkiota',
@@ -240,7 +240,7 @@ define({
 				},
 				notBootedWarning: {
 					title: 'Nodea ei ole käynnistetty uudelleen!',
-					message: 'Local node on käynnistettävä uudelleen, jotta XEM\nvoidaan lähettää!'
+					message: 'Local node on käynnistettävä uudelleen, jotta XEM voidaan lähettää!'
 				},
 				bootingWarning: {
 					title: 'Node on käynnistymässä uudelleen',
@@ -273,7 +273,7 @@ define({
 				incoming: 'Saapuva',
 				self: 'Itse',
 				sender: 'Lähettäjä',
-				multisigAccount: 'Multisig-tili',
+				multisigAccount: 'Multisig tili',
 				issuer: 'Myöntäjä',
 				recipient: 'Vastaanottaja',
 				remote: 'Etä',
@@ -287,7 +287,7 @@ define({
 				amount: 'Summa',
 				fee: 'Palkkio',
 				innerFee: 'Sisäinen palkkio',
-				multisigFees: 'Multisig-palkkio',
+				multisigFees: 'Multisig palkkio',
 				cosignatory: 'Allekirjoittaja'
 			},
 			accountDetails: {
@@ -313,13 +313,13 @@ define({
 				node: 'Noden nimi',
 				boot: 'Käynnistä uudelleen',
 				booting: 'Käynnistymässä uudelleen...',
-				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warning: 'Boot node varoitus',
+				warningText: 'Yrität käynnistää nodea uudelleen tilissä, jonka saldo on: ({{{1}}} XEM). Tämä paljastaa tilisi private keyn nodelle:<u>{{2}}</u>',
+				warningQuestion: 'Oletko varma, että haluat käynnistää uudelleen noden <u>{{3}}</u> käyttämällä private keytä tlille {{1}} ({{2}} XEM)?<br><br>tämä paljastaa<span class=\"varoitus\">private keyn</span>  nodelle: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Sulje lompakko',
-				message: 'Oletko varma, että haluat sulkea lompakon ja palata\naloitussivulle?'
+				message: 'Oletko varma, että haluat sulkea lompakon ja palata aloitussivulle?'
 			},
 			createAccount: {
 				title: 'Luo uusi lompakko',
@@ -341,7 +341,7 @@ define({
 				},
 				recheck: {
 					title: 'Tarkista tallennettu private key uudellen',
-					message: 'Syötä juuri luomasi private key uudelleen tarkistaaksesi, että sinulla on oikea private key.\nJos sinulla ei ole sitä, niin haluat ehkä luoda uuden.',
+					message: 'Syötä juuri luomasi private key uudelleen tarkistaaksesi, että sinulla on oikea private key. Jos sinulla ei ole sitä, niin haluat ehkä luoda uuden.',
 					correct: {
 						title: 'Hienoa!',
 						message: 'Näyttäisi siltä, että oikea private key on tallennettu. Muista säilyttää se aina varmassa ja turvallisessa paikassa.'
@@ -358,7 +358,7 @@ define({
 			},
 			verifyRealAccountData: {
 				title: 'Varmista real account data',
-				message: 'Syötä tallennettu osoitteesi, public key ja private key\nuudelleen, jotta voita tarkistaa niiden yhteensopivuuden.',
+				message: 'Syötä tallennettu osoitteesi, public key ja private key uudelleen, jotta voita tarkistaa niiden yhteensopivuuden.',
 				address: 'Osoite',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
@@ -414,7 +414,7 @@ define({
 				title: 'Poista tili',
 				wallet: 'Lompakko',
 				password: 'Lompakon salasana',
-				warning: 'Varmista, että tilisi on tyhjä ennen kuin poistat sen, tai kaikki XEMit poistuvat tililtäsi myös.\n\n',
+				warning: 'Varmista, että tilisi on tyhjä ennen kuin poistat sen, tai kaikki XEMit poistuvat tililtäsi myös.',
 				successMessage: 'Tili {{1}} {{#2}}({{2}}){{/2}} on poistettu',
 				remove: 'Poista'
 			},
@@ -457,7 +457,7 @@ define({
 				stop: 'Pysäytä'
 			},
 			logoutWarning: {
-				leavePage: 'Olet poistumassa lompakostasi. Jos poistut näin, on toisilla tämän tietokoneen käyttäjillä mahdollisuus käyttää lompakkoasi. Poistu lompakosta \'close wallet\'\ntoiminnolla menu pudotusvalikosta, joka sijaitsee ruudun oikeassa yläkulmassa, ennen kuin suljet selaimen.'
+				leavePage: 'Olet poistumassa lompakostasi. Jos poistut näin, on toisilla tämän tietokoneen käyttäjillä mahdollisuus käyttää lompakkoasi. Poistu lompakosta \'sulje lompakko\'toiminnolla menun pudotusvalikosta, joka sijaitsee ruudun oikeassa yläkulmassa, ennen kuin suljet selaimen.'
 			},
 			addContact: {
 				title: 'Lisää yhteystieto',
@@ -498,11 +498,11 @@ define({
 				items: [
 					{
 						title: 'NCC salaa lompakkosi',
-						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää,\nettä voit välttää XEM kolikkojen ja assettien varkaudet.'
+						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää varkauksien välttämiseksi.'
 					},
 					{
 						title: 'NCC salaa lompakkosi',
-						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää,\nettä voit välttää XEM kolikkojen ja assettien varkaudet.'
+						description: '<em>Lompakon turvallisuus</em> on erittäin tärkeää varkauksien välttämiseksi.'
 					}
 				]
 			},
@@ -516,14 +516,14 @@ define({
 							'Voit myös konfiguroida pääsyn etäpalvelimelle <strong>NIS</strong>.'
 						],
 						listItems: [
-							'Useita lompakoita',
-							'Määritä useita tilejä lompakkoosi'
+							'Sinulla voi olla useita lompakoita',
+							'Voit määrittää useita tilejä lompakkoosi'
 						]
 					},
 					{
 						title: 'Mikä on &#42;NIS?',
 						paragraphs: [
-							'Tämä komponentti pitää cloud-palvelun <strong>NEM</strong> käynnissä.',
+							'Tämä komponentti pitää <strong>NEM</strong> cloud-palvelun käynnissä.',
 							' <strong>NIS</strong> lisää turvallisuutta.',
 							'<strong>NIS</strong> on yhdyspiste <strong>NEM</strong> cloudiin.'
 						],
@@ -562,7 +562,7 @@ define({
 				closeWallet: 'Sulje lomakko',
 				closeProgram: 'Sulje ohjelma',
 				copyClipboard: 'Kopioi osoite työpöydälle',
-				convertMultisig: 'Muunna toinen tili multisig-tiliksi'
+				convertMultisig: 'Muunna toinen tili multisig tiliksi'
 			},
 			nav: [
 				'Valikko',
@@ -577,14 +577,14 @@ define({
 				'Asetukset',
 				'Sulje ohjelma'
 			],
-			bootNodeWarning: 'Local node täytyy käynnistää uudelleen, että saat kaikki\nNCC:n ominaisuudet käyttöön.'
+			bootNodeWarning: 'Local node täytyy käynnistää uudelleen, että saat kaikki NCC:n ominaisuudet käyttöön.'
 		},
 		dashboard: {
 			assets: {
 				title: 'Assettisi'
 			},
 			importance: {
-				title: 'Merkittävä määrä',
+				title: 'Merkitys',
 				unknown: 'Tuntematon tila',
 				start: 'Aloita paikallinen lohinta ',
 				harvesting: 'Louhinta ',
@@ -606,7 +606,7 @@ define({
 				sendNem: 'Lähetä XEM',
 				signMultisig: 'ALLEKIRJOITA',
 				balance: 'Saldo',
-				vestedBalance: 'Louhitut palkkiot',
+				vestedBalance: 'Louhittu saldo',
 				syncStatus: '(lohko {{1}}{{#2}} : {{3}} päivää takana{{/2}})',
 				unknown: 'Tuntematon',
 				columns: [
@@ -637,7 +637,7 @@ define({
 			news: {
 				titleTooltip: 'Uutiset'
 			},
-			notAvailable: 'Ei ole vielä saatavilla beta versiossa'
+			notAvailable: 'Ei vielä saatavilla beta versiossa'
 		},
 		transactions: {
 			title: 'Siirrot',
@@ -672,17 +672,17 @@ define({
 		},
 		harvestedBlocks: {
 			title: 'Louhitut lohkot ',
-			feeEarned: 'Ansaittuja palkkioita 25 viimeisestä louhitusta lohkosta\n',
+			feeEarned: 'Ansaittuja palkkioita 25 viimeisestä louhitusta lohkosta',
 			unknown: 'Tuntematon',
 			table: {
 				columns: [
 					'Korkeus',
 					'Aika',
-					'Lohkon hash',
+					'Lohkon vaikeus',
 					'Palkkio'
 				],
 				noBlocks: 'Yhtään lohkoa ei ole vielä louhittu',
-				loading: 'Ladataan lisää lohkoja '
+				loading: 'Ladataan lisää louhittuja lohkoja '
 			},
 			harvesting: {
 				unknown: 'Tuntematon tila',
