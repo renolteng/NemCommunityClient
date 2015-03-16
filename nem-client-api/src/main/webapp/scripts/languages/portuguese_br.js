@@ -33,7 +33,7 @@ define({
 			132: 'A extensão do arquivo de contatos está incorreta.',
 			133: 'Não foi possível deletar o arquivo de contatos.',
 			202: 'Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.',
-			305: 'O NIS não está disponível.\n\nTente reiniciar o cliente Nem.\n\nSe você estiver utilizando um NIS remoto, verifique se a configuração do hospedeiro e procure por erros de digitação ou utiliize outro NIS remoto.',
+			305: 'O NIS não está disponível. Tente reiniciar o cliente Nem. Se você estiver utilizando um NIS remoto, verifique se a configuração do hospedeiro e procure por erros de digitação ou utiliize outro NIS remoto.',
 			306: 'Ocorreu um erro desconhecido. Talvez uma nova nova tentativa ou reiniciar o cliente/servidor dê certo; caso contrário, informe aos desenvolvedores do NEM no fórum oficial forum.nemcoin.com.',
 			400: 'Está faltando algum parâmetro ou os dados estão incorretos.',
 			401: 'Esta operação não pode ser completada, ela pode expor a chave privada enviando-a para um NIS remoto.',
@@ -459,7 +459,7 @@ define({
 				stop: 'Parar'
 			},
 			logoutWarning: {
-				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador\n\nPara fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
+				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador Para fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
 			},
 			addContact: {
 				title: 'Adicionar contato',
