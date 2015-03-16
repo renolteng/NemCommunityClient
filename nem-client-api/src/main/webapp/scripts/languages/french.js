@@ -33,7 +33,7 @@ define({
 			132: 'L\'extension du fichier de carnet d\'adresses est incorrecte.',
 			133: 'Le carnet d\'adresses n\'a pas pu être effacé.',
 			202: 'Un message chiffré ne peut être envoyé si le destinataire n\'a jamais effectué de transaction auparavant.',
-			305: 'Le serveur d\'infrastructure NEM (NIS) n\'est pas disponible.\n\nEssayez de redémarrer le logiciel NEM.\n\nSi vous utilisez un serveur NIS distant, vérifier l\'hôte configuré pour vous assurer qu\'il n\'y a pas d\'erreur sinon utiliser un autre serveur NIS distant.\n',
+			305: 'Le serveur d\'infrastructure NEM (NIS) n\'est pas disponible. Essayez de redémarrer le logiciel NEM. Si vous utilisez un serveur NIS distant, vérifier l\'hôte configuré pour vous assurer qu\'il n\'y a pas d\'erreur sinon utiliser un autre serveur NIS distant.',
 			306: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			400: 'Certains paramètres sont manquants ou invalides.',
 			401: 'Cette opération ne peut être effectuée car elle pourrait divulguer votre clé privée en l\'envoyant à un server NIS distant.',
@@ -41,7 +41,7 @@ define({
 			500: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			600: 'NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S\'il vous plait, utilisez le menu NCC pour démarrer le noeud local.',
 			601: 'Le noeud NIS est déjà démarré. Une deuxième tentative de démarrage du noeud est impossible.',
-			602: 'Presque disponible. Le serveur d\'infrastructure NEM charge présentement les blocs. Le portefeuille sera fonctionnel dès que la base de données sera complètement chargée.\n',
+			602: 'Presque disponible. Le serveur d\'infrastructure NEM charge présentement les blocs. Le portefeuille sera fonctionnel dès que la base de données sera complètement chargée.',
 			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
 			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.',
 			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
@@ -314,7 +314,7 @@ define({
 				boot: 'Démarrer',
 				booting: 'Démarrage...',
 				warning: 'Avertissement du noeud de démarrage',
-				warningText: 'Vous essayez de démarrer un noeud en utilisant un compte ayant une balance de: ({{{1}}} XEM) . Ceci va révéler la clef privée de ce compte au noeud: {{2}}\n',
+				warningText: 'Vous essayez de démarrer un noeud en utilisant un compte ayant une balance de: ({{{1}}} XEM) . Ceci va révéler la clef privée de ce compte au noeud: {{2}}',
 				warningQuestion: 'Êtes-vous certain de vouloir démarrer le noeud<u>{{3}}</u> en utilisant la clé privée du compte {{1}} ({{2}} XEM)?<br><br>Ceci va révéler la <span class=\"sublabelWarning\">clé privée</span> de ce compte au noeud: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -606,7 +606,7 @@ define({
 				sendNem: 'Envoyer des XEMs',
 				signMultisig: 'SIGNER',
 				balance: 'Balance courante',
-				vestedBalance: 'Balance assignée\n',
+				vestedBalance: 'Balance assignée',
 				syncStatus: '(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})',
 				unknown: 'inconnu',
 				columns: [
