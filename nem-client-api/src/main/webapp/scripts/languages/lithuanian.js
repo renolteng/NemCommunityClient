@@ -7,7 +7,7 @@ define({
 			decimalSeparator: '.'
 		},
 		faults: {
-			101: 'The wallet file does not exist.',
+			101: 'Piniginės byla neegzistuoja.',
 			102: 'Piniginė nesukurta.',
 			103: 'Piniginės byla yra sugadinta. Prašome atstatyti Jūsų piniginę iš atsarginės kopijos, kurią Jūs turėjote susikurti, kai kūrėte naują piniginę arba pridėjote naują sąskaitą į ją.',
 			104: 'Pateiktas slaptažodis netinka. Tikėkimes Jūs galite atsiminti teisingą slaptažodį. Jei jį praradote, jis negali būti atkurtas!',
@@ -33,7 +33,7 @@ define({
 			132: 'Adresų knygos bylos plėtinys yra neteisingas.',
 			133: 'Adresų knyga negali būti ištrinta.',
 			202: 'Nėra viešojo rakto',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'NEM Infrastruktūros serveris (NIS) nepaleistas.\n\nBandykite paleisti iš naujo NEM programą.\n\nJei Jūs naudojate nuotolinį NIS, pasitikrinkite ar nepadarėte rašybos klaidų arba naudokite kitą nuotolinį NIS.',
 			306: 'Įvyko klaida, kurios kūrėjai nenumatė. Atsiprašome, bet gal paleidimas iš naujo padės. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei',
 			400: 'Trūksta kai kurių parametrų',
 			401: 'Ši operacija negali būti atlikta, nes jos metu, Jūsų privatus raktas gali būti atskleistas, siunčian jį į NIS',
@@ -41,7 +41,7 @@ define({
 			500: 'Nepavyko užsaugoti konfigūracijos bylos',
 			600: 'NCC reikia, kad NIS serveris būtų paleistas, norint atlikti siuntimo ir gavimo transakcijas. Prašome naudoti NCC meniu ir paleisti vietinį prieigos tašką.',
 			601: 'NIS prieigos taškas jau paleistas. Antrą kartą jį paleisti neįmanoma.',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			602: 'Beceik pasiruošta. NEM Infrastruktūros serveris šiuo metu apdoroja blokus. Piniginė pilnai funkcionuos, kai duomenų bazė bus pilnai užkrauta.',
 			699: 'Pasiektas maksimalus galimų \'kasėjų\' kiekis serveryje.',
 			700: 'Pateikta sąskaita neatitinka pagrindinių kriterijų, norint \'kasti\'. Pagrinde, tai susiję su XEM kiekiu Jūsų sąskaitoje. \'Kasimas\' prasideda tik turint ne mažiau 1,000 XEM.',
 			701: 'Pateiktas galutinis terminas yra praeityje. Galutinis terminas turi būti 1 dienos bėgyje.',
@@ -97,7 +97,7 @@ define({
 			privateLabel: 'Privati žymė',
 			publicLabel: 'Vieša žymė',
 			noCharge: 'Šiai sąskaitai <b>NEBUS</b> taikomi jokie mokesčiai, juos padengs multisig sąskaita',
-			justUse: 'Just use'
+			justUse: 'Tik naudokite.'
 		},
 		transactionTypes: [
 			'PERVEDIMO TRANSAKCIJA',
@@ -139,7 +139,7 @@ define({
 					},
 					host: 'Host',
 					port: 'Portas',
-					defaultPort: 'Use default port.'
+					defaultPort: 'Naudokite portą pagal nutylėjimą.'
 				},
 				autoBoot: {
 					tabTitle: 'Automatinis užkrovimas',
@@ -167,8 +167,7 @@ define({
 				hours: 'valanda (-os)',
 				txConfirm: {
 					title: 'Patvirtinkita pavertimą į mulstisig sąskaitą',
-					total: 'Viso',
-
+					total: 'Viso'
 				},
 				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.'
 			},
@@ -199,8 +198,7 @@ define({
 					title: 'Patvirtinti multisig transakciją',
 					message: 'Žinutė',
 					encrypted: 'Žinutė šifruota',
-					noMessage: 'Žinutes nėra',
-
+					noMessage: 'Žinutes nėra'
 				}
 			},
 			sendNem: {
@@ -290,7 +288,7 @@ define({
 				fee: 'Mokestis',
 				innerFee: 'Vidinis mokestis',
 				multisigFees: 'Multisig mokesčiai',
-				cosignatory: 'Paraso teisės turėtojas'
+				cosignatory: 'Parašo teisės turėtojas'
 			},
 			accountDetails: {
 				title: 'Sąskaitos informacija',
@@ -300,7 +298,7 @@ define({
 				add: 'Pridėti į adresų knygą',
 				remove: 'Išimti iš adresų knygos',
 				balance: 'Balansas',
-				vested: 'vested',
+				vested: 'Efektyvus',
 				importance: '\'Svarbumas\'',
 				publicKey: 'Viešasis raktas',
 				noPublicKey: 'Nėra viešojo rakto',
@@ -315,9 +313,9 @@ define({
 				node: 'Prieigos taško pavadinimas',
 				boot: 'Užkrauti',
 				booting: 'Kraunasi...',
-				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warning: 'Prieigos taško pranešimas',
+				warningText: 'Jūs bandote paleisti prieigos tašką naudodami sąskaitą, kurioje yra: ({{{1}}} XEM). Šiuo atveju Jūs atskleisite šios sąskaitos privatųjį raktą prieigos taškui: {{2}}',
+				warningQuestion: 'Ar esate tikras, kad norite paleisti prieigos tašką <u>{{3}}</u> naudodami privatųjį raktą, priklausantį sąskaitai {{1}} ({{2}} XEM)?<br><br>Šiuo atveju, Jūs atskleisite sąskaitos <span class=\"sublabelWarning\">private key</span> prieigos taškui: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Uždaryti piniginę',
@@ -487,7 +485,7 @@ define({
 				leftButton: 'Sukurti nauja piniginę',
 				walletNamePlh: 'Sukurkite piniginės pavadinimą',
 				passwordPlh: 'Slaptažodis',
-				confirmPasswordPlh: 'Confirm password',
+				confirmPasswordPlh: 'Patvirtinti slaptažodį',
 				create: 'Sukurti',
 				creating: 'Kuriama...',
 				rightTitle: 'Esate <em>NEM</em>eris?',
@@ -564,7 +562,7 @@ define({
 				closeWallet: 'Uždaryti piniginę',
 				closeProgram: 'Uždaryti programą',
 				copyClipboard: 'Kopijuoti adresą į laikinąją atmintį',
-				convertMultisig: 'Convert other account to multisig'
+				convertMultisig: 'Paversti kitą sąskaitą į multisig'
 			},
 			nav: [
 				'Skydelis',
@@ -680,7 +678,7 @@ define({
 				columns: [
 					'Bloko numeris',
 					'Laikas',
-					'Block difficulty',
+					'Bloko sudėtingumas',
 					'Mokestis'
 				],
 				noBlocks: 'Nėra \'iškastų\' blokų ',
