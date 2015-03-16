@@ -33,6 +33,7 @@ define({
 			132: 'Die Dateiendung des Adressbuchs ist falsch.',
 			133: 'Das Adressbuch konnte nicht gelöscht werden.',
 			202: 'Die verschlüsselte Nachricht kann nicht gesendet werden, da der Empfänger bisher noch keine Transaktion gesendet hat und deswegen der öffentliche Schlüssel des Empfängers unbekannt ist.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'Der NEM Infrastructure Server (NIS) ist nicht verfügbar.\n\nEin Neustart der NEM Software könnte dieses Problem beheben.\n\nFalls du einen Remote-NIS benutzt, überprüfe den eingestellten Host auf Tippfehler oder benutze einen anderen Remote-NIS.',
 			306: 'Es ist ein unvorhergesehener Fehler aufgetreten.\n\nSollte dieser Fehler wiederholt auftreten, könnte ein Neustart der NEM Software das Problem beheben. Falls nicht, eröffne bitte einen Thread in der NEM NIS/NCC Community.',
 			400: 'Einer der Parameter fehlt oder ist ungültig.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Eigene Bezeichnung',
 			publicLabel: 'Öffentliche Bezeichnung',
 			noCharge: 'Das Konto wird <b>NICHT</b> mit Gebühren belastet. Das Multisig-Konto zahlt die Gebühren.',
-			justUse: 'Just use'
+			fee: 'Gebühr',
+			justUse: 'Just use',
+			dueBy: 'Verfällt in',
+			hours: 'Stunde(n)',
+			hoursDue: 'Deaktivierung verwerfen, wenn sie nicht akzeptiert wird innerhalb (Stunden)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'XEM-Überweisung',
@@ -162,9 +169,7 @@ define({
 				convert: 'Umwandeln',
 				fee: 'Gebühr',
 				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
-				dueBy: 'Verfällt in',
 				useMinimumFee: 'Benutze Mindestgebühr',
-				hours: 'Stunde(n)',
 				txConfirm: {
 					title: 'Umwandlung in Multisig-Konto bestätigen',
 					total: 'Insgesamt',
@@ -186,9 +191,7 @@ define({
 				sender: 'Mitsignierer',
 				fee: 'Gebühr',
 				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
-				dueBy: 'Verfällt in',
 				useMinimumFee: 'Benutze Mindestgebühr',
-				hours: 'Stunde(n)',
 				password: 'Passwort',
 				passwordValidation: 'Das Passwort darf nicht leer sein',
 				send: 'Senden',
@@ -217,9 +220,7 @@ define({
 				fee: 'Gebühr',
 				multisigFee: 'Signierungs-Gebühr',
 				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
-				dueBy: 'Verfällt in',
 				useMinimumFee: 'Benutze Mindestgebühr',
-				hours: 'Stunden',
 				password: 'Passwort',
 				passwordValidation: 'Das Passwort darf nicht leer sein',
 				send: 'Senden',
@@ -230,8 +231,6 @@ define({
 					title: 'Transaktion bestätigen',
 					amount: 'Betrag',
 					to: 'An',
-					dueBy: 'Verfällt in',
-					hours: 'Stunde(n)',
 					total: 'Insgesamt',
 					message: 'Nachricht',
 					encrypted: 'Nachricht ist verschlüsselt',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Es ist alles in Ordnung! Die Addresse, der öffentliche und private Schlüssel passen zusammen.',
 				verify: 'Überprüfen'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Ein existierendes Konto hinzufügen',
 				privateKey: 'Privater Schlüssel des Kontos',
@@ -434,17 +438,19 @@ define({
 				title: 'Sichere Ernte aktivieren',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
-				hoursDue: 'Aktivierung verwerfen, wenn sie nicht akzeptiert wird innerhalb (Stunden)',
 				password: 'Passwort der Bieftasche',
-				activate: 'Aktivieren'
+				activate: 'Aktivieren',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Sichere Ernte deaktivieren',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
-				hoursDue: 'Deaktivierung verwerfen, wenn sie nicht akzeptiert wird innerhalb (Stunden)',
 				password: 'Passwort der Bieftasche',
-				deactivate: 'Deaktivieren'
+				deactivate: 'Deaktivieren',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Sichere Ernte starten',
@@ -558,6 +564,7 @@ define({
 				createAccount: 'Neues Konto anlegen',
 				createRealAccountData: 'Daten für ein echtes Konto erzeugen',
 				verifyRealAccountData: 'Daten eines echten Kontos verifizieren',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Existierendes Konto hinzufügen',
 				changeAccountLabel: 'Bezeichnung des Kontos ändern',
 				setPrimary: 'Als Hauptkonto festlegen',
@@ -566,6 +573,7 @@ define({
 				closeWallet: 'Brieftasche schließen',
 				closeProgram: 'Programm beenden',
 				copyClipboard: 'Adresse in die Zwischenablage kopieren',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Konvertiere anderes Konto in Multisig-Konto'
 			},
 			nav: [
@@ -610,8 +618,12 @@ define({
 				sendNem: 'XEM senden',
 				signMultisig: 'Signieren',
 				balance: 'Kontostand',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig-Konto',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Für Ernte verwendbarer Anteil',
 				syncStatus: '(Block {{1}}{{#2}} : etwa {{3}} Tage im Rückstand{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'unbekannt',
 				columns: [
 					'',

@@ -293,4 +293,39 @@ changed texts.wallet.actions.convertMultisig
 	  to: 'Convert other account to multisig'
 	 was: 'Convert other account to multisig'
 
+-----translated texts.common.fee
+	    from: 'Fee'
+	      to: 'Gebühr'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.common.dueBy
+	    from: 'Due by'
+	      to: 'Verfällt in'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.common.hours
+	    from: 'hour(s)'
+	      to: 'Stunde(n)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.common.hoursDue
+	    from: 'Due by (hours)'
+	      to: 'Deaktivierung verwerfen, wenn sie nicht akzeptiert wird innerhalb (Stunden)'
+	based on: texts.modals.deactivateRemote.hoursDue
+
+translated texts.modals.removeAccount.account
+	    from: 'Account'
+	      to: 'Adresse des Kontos'
+	based on: texts.modals.stopRemote.account
+
+translated texts.modals.removeAccount.label
+	    from: 'Account label'
+	      to: 'Neue Bezeichnung des Kontos'
+	based on: texts.modals.changeAccountLabel.label
+
+translated texts.dashboard.transactions.accountCosignatories
+	    from: 'Multisig account'
+	      to: 'Multisig-Konto'
+	based on: texts.modals.signMultisig.original.from
+
 -----
