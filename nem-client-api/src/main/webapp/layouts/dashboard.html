@@ -64,7 +64,7 @@
 					</div>
 
 					<div class="importanceTile-content">
-						<p class="importanceTile-importanceScore">{{Math.round(activeAccount.importance * 100000) / 100}}&permil;</p>
+						<p class="importanceTile-importanceScore">{{Math.round(activeAccount.importance * 1000000) / 100}} &#8241;</p>
 						<p class="importanceTile-description">{{texts.dashboard.importance.description}}</p>
 					</div>
 				</article>
@@ -73,15 +73,22 @@
 			<li class="tile tile--transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
 				<article>
 					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
-					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
+					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{sendNemDisabled}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
 					<div class="transactionsTile-overview">
-						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}</h1>
+						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}
+                            {{#activeAccount.isMultisig}}
+                            <span class="transactionsTile-multisig">
+                                ({{texts.dashboard.transactions.accountCosignatories}}
+                                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(activeAccount.address)">{{texts.dashboard.transactions.accountCosignatoriesView}}</a>)
+                            </span>
+                            {{/}}
+                        </h1>
 						<p>
-							<span class="transactionsTile-balance" title="{{activeAccount.balanceInt}} XEM {{activeAccount.balanceDec}} µXEM" on-mouseover="registerToolTip">
+							<span class="transactionsTile-balance" title="{{activeAccount.formattedBalanceInt}} XEM {{activeAccount.balanceDec}} µXEM" on-mouseover="registerToolTip">
 								{{activeAccount.formattedBalance}} 
 								<span class="unit">XEM</span>
 							</span>
-                            <span class="transactionsTile-currentBlock">{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
+                            <span class="transactionsTile-balanceAccurate">{{#appStatus.type === 'warning'}}({{texts.dashboard.transactions.notSynced}}){{/}}</span>
 						</p>
                         <p>
                             <span>{{texts.dashboard.transactions.vestedBalance}} {{activeAccount.formattedVestedBalance}}</span>

@@ -1,11 +1,14 @@
 package org.nem.ncc.controller.viewmodels;
 
+import org.nem.core.crypto.KeyPair;
 import org.nem.core.crypto.PublicKey;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +24,7 @@ public class AccountViewModel implements SerializableEntity {
 	private final Double importance;
 	private final AccountStatus status;
 	private final List<AccountInfo> multisigAccounts;
+	private final List<AccountInfo> cosignatories;
 
 	/**
 	 * Creates a new account view model around an account metadata pair.
@@ -32,7 +36,8 @@ public class AccountViewModel implements SerializableEntity {
 				accountMetaDataPair.getAccount(),
 				accountMetaDataPair.getMetaData().getStatus(),
 				accountMetaDataPair.getMetaData().getRemoteStatus(),
-				accountMetaDataPair.getMetaData().getCosignatoryOf());
+				accountMetaDataPair.getMetaData().getCosignatoryOf(),
+				accountMetaDataPair.getMetaData().getCosignatories());
 	}
 
 	/**
@@ -47,7 +52,8 @@ public class AccountViewModel implements SerializableEntity {
 			final AccountInfo info,
 			final AccountStatus status,
 			final AccountRemoteStatus remoteStatus,
-			final List<AccountInfo> multisigAccounts) {
+			final List<AccountInfo> multisigAccounts,
+			final List<AccountInfo> cosignatories) {
 		this.address = info.getAddress();
 		this.remoteStatus = remoteStatus;
 
@@ -61,6 +67,7 @@ public class AccountViewModel implements SerializableEntity {
 		this.importance = info.getImportance();
 		this.status = status;
 		this.multisigAccounts = multisigAccounts;
+		this.cosignatories = cosignatories;
 	}
 
 	/**
@@ -136,13 +143,23 @@ public class AccountViewModel implements SerializableEntity {
 	}
 
 	/**
-	 * Gets the list of accounts (infos) that this account is cosignatory of.
+	 * Gets the list of accounts (info) that this account is cosignatory of.
 	 *
-	 * @return The list of accounts (infos).
+	 * @return The list of accounts info.
 	 */
 	public List<AccountInfo> getMultisigAccounts() {
 		return this.multisigAccounts;
 	}
+
+	/**
+	 * Gets the list of accounts (info) that are cosignatories of this account.
+	 *
+	 * @return The list of accounts info.
+	 */
+	public List<AccountInfo> getCosignatories() {
+		return this.cosignatories;
+	}
+
 
 	@Override
 	public void serialize(final Serializer serializer) {
@@ -155,5 +172,6 @@ public class AccountViewModel implements SerializableEntity {
 		BlockAmount.writeTo(serializer, "harvestedBlocks", this.harvestedBlocks);
 		AccountStatus.writeTo(serializer, "status", this.status);
 		serializer.writeObjectArray("multisigAccounts", this.multisigAccounts);
+		serializer.writeObjectArray("cosignatories", this.cosignatories);
 	}
 }

@@ -167,13 +167,20 @@
 	color: #736086;
 }
 
+.transactionsTile-multisig {
+    padding-left:30px;
+    font-weight: $fontWeight-regular;
+    font-size: 16px;
+}
+
 .transactionsTile-balance {
 	font-size: 36px;
 	font-weight: $fontWeight-light;
 	vertical-align: middle;
 }
 
-.transactionsTile-currentBlock {
+.transactionsTile-balanceAccurate {
+    padding-left: 10px;
 	font-size: 20px;
 	vertical-align: middle;
 }

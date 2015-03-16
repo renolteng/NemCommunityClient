@@ -414,6 +414,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Konto entfernen',
+				account: 'Konto',
+				label: 'Bezeichnung des Kontos',
 				wallet: 'Zugehörige Brieftasche',
 				password: 'Passwort der Brieftasche',
 				warning: 'Stelle bitte sicher, dass das Konto leer ist, bevor du es entfernst. Ohne Backup des privaten Schlüssels ist der Betrag sonst unwiederbringlich verloren.',

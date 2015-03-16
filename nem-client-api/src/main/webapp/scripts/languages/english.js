@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			400: 'Some parameter is missing or invalid.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: 'Fee',
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Due by (hours)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Password',
 				passwordValidation: 'Password must not be blank',
 				send: 'Send',
@@ -217,9 +220,7 @@ define({
 				fee: 'Fee',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Password',
 				passwordValidation: 'Password must not be blank',
 				send: 'Send',
@@ -230,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Everything seems good. Your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
+			showPrivateKey: {
+			    title: 'Show Account\'s PRIVATE Key',
+			    message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+			    show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Add an Existing Account',
 				privateKey: "Account's Private Key",
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Remove Account',
+				account: 'Account',
+				label: 'Account label',
 				wallet: 'Associated wallet',
 				password: "Wallet's password",
 				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
@@ -432,17 +438,19 @@ define({
 				title: 'Activate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 3 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+                warningText: 'Deactivation will take 3 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote Harvesting',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Create New Account',
 				createRealAccountData: 'Create Real Account Data',
 				verifyRealAccountData: 'Verify Real Account Data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Add an Existing Account',
 				changeAccountLabel: 'Change Account Label',
 				setPrimary: 'Set as Primary Account',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Close Wallet',
 				closeProgram: 'Close Program',
 				copyClipboard: 'Copy Address to Clipboard',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Send XEM',
 				signMultisig: 'SIGN',
 				balance: 'Current Balance',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'unknown',
 				columns: [
 					'',

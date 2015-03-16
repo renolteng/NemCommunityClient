@@ -1,7 +1,4 @@
-cd ../../../ncc/nem-client-download
-mvn clean compile install -Duser.name=$3 -DskipTests=true  
-
-cd ../nem-client-api
+cd ../../../ncc/nem-client-api
 rm target/nem-*
 rm site/jars/nem-*
 mvn clean compile install -Duser.name=$3 -DproGuard=$4 -DskipTests=true -Dnem-certificate-store=$1 -Dnem-certificate-password=$2

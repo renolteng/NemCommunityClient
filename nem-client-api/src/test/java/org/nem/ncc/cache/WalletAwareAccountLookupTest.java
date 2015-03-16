@@ -129,7 +129,7 @@ public class WalletAwareAccountLookupTest {
 		final Address addressWithoutPublicKey = Address.fromEncoded(address.getEncoded());
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				new AccountInfo(addressWithoutPublicKey, Amount.fromNem(17), Amount.fromNem(14), new BlockAmount(12), "foo", 1.5),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, null));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, null, null));
 		Mockito.when(context.mockAccountLookup.findPairByAddress(address)).thenReturn(pair);
 		Mockito.when(context.walletServices.tryFindOpenAccount(addressWithoutPublicKey)).thenReturn(new WalletAccount(keyPair.getPrivateKey()));
 
@@ -156,7 +156,7 @@ public class WalletAwareAccountLookupTest {
 	private static AccountMetaDataPair createAccountMetaDataPair(final Address address) {
 		return new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(address),
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, null, null));
 	}
 
 	private static class TestContext {

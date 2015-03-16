@@ -1,5 +1,8 @@
 package org.nem.ncc.controller;
 
+import org.nem.core.serialization.*;
+import org.nem.core.utils.ExceptionUtils;
+import org.nem.deploy.OctetStream;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.WalletViewModel;
@@ -7,6 +10,11 @@ import org.nem.ncc.services.*;
 import org.nem.ncc.wallet.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Handles requests related to the REST resource "wallet".
@@ -84,6 +92,42 @@ public class WalletController {
 	public WalletViewModel info(@RequestBody final WalletName name) {
 		final Wallet wallet = this.walletServices.get(name);
 		return this.walletMapper.toViewModel(wallet);
+	}
+
+	/**
+	 * Exports a wallet as a zip file.
+	 *
+	 * @param name The wallet name.
+	 * @return The raw bytes.
+	 */
+	@RequestMapping(value = "/wallet/export", method = RequestMethod.POST)
+	public OctetStream exportWallet(@RequestBody final WalletName name) {
+		// TODO 20150312 J-G: a test would be nice, but i'm not expecting it ;)
+		final Wallet wallet = this.walletServices.get(name);
+		final AddressBook addressBook = this.addressBookServices.get(new AddressBookName(name.toString()));
+
+		return ExceptionUtils.propagate(() -> {
+			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
+				addToZip(zipOutputStream, name, ".wlt", wallet);
+				addToZip(zipOutputStream, name, ".adb", addressBook);
+			}
+
+			return new OctetStream(byteArrayOutputStream.toByteArray());
+		});
+	}
+
+	private static void addToZip(
+			final ZipOutputStream zipOutputStream,
+			final WalletName name,
+			final String extension,
+			final SerializableEntity entity) throws IOException {
+		final ZipEntry zipEntry = new ZipEntry(name.toString() + extension);
+
+		final byte[] entityBytes = BinarySerializer.serializeToBytes(entity);
+		zipOutputStream.putNextEntry(zipEntry);
+		zipOutputStream.write(entityBytes);
+		zipOutputStream.closeEntry();
 	}
 
 	/**

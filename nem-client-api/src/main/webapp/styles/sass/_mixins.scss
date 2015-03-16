@@ -14,6 +14,14 @@
     }
 }
 
+@mixin stroke-text($color : #c00) {
+    text-shadow:
+        -1px -1px 0 $color,
+         1px -1px 0 $color,
+        -1px 1px 0 $color,
+         1px 1px 0 $color;
+}
+
 @mixin ellipsis-overflow($width: none) {
 	@include inline-block();
     @if $width != none {

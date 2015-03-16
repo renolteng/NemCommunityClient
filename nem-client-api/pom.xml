@@ -43,23 +43,7 @@
             <version>${nemcore.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.nem.ncc</groupId>
-            <artifactId>nem-client-download</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!-- various -->
-        <!--
-        <dependency>
-            <groupId>javax.jnlp</groupId>
-            <artifactId>jnlp-api</artifactId>
-            <version>1.8</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/lib/javaws.jar</systemPath>
-        </dependency>
-        -->
-
         <dependency>
             <groupId>net.minidev</groupId>
             <artifactId>json-smart</artifactId>
@@ -551,30 +535,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <!-- ************************************************** -->
-                <!-- Adjust JNLP progress entry -->
-                <!-- ************************************************** -->
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>replacer</artifactId>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <file>site/nem-client.jnlp</file>
-                    <replacements>
-                        <replacement>
-                            <token>nem-client-download.jar" version="${project.version}"</token>
-                            <value>nem-client-download.jar" version="${project.version}" download="progress"</value>
-                        </replacement>
-                    </replacements>
-                </configuration>
             </plugin>
             <!-- ************************************************** -->
             <!-- List the license information of all dependencies -->

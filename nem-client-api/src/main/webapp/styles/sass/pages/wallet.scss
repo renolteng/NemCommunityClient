@@ -379,7 +379,11 @@ $account-actions-width: 33px;
 .account-actionsDropdown {
 	position: absolute;
 	top: 100%;
-	right: 0;
+	left: 30%;
+
+	border-width: 1px;
+    border-style: solid dotted;
+    border-color: black;
 }
 
 .account-select {
@@ -446,6 +450,9 @@ $account-actions-width: 33px;
 			top: $account-height;
 			right: auto;
 			left: 100%;
+            border-width: 1px;
+            border-style: solid dotted;
+            border-color: black;
 		}
 
 		.account-select {

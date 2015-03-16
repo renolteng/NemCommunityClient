@@ -36,12 +36,6 @@
             <version>${nemcore.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.nem.ncc</groupId>
-            <artifactId>nem-client-download</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!--
         <dependency>
             <groupId>javax.jnlp</groupId>

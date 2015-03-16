@@ -223,11 +223,17 @@ $form-input-hPadding: 12px;
 
 .form-field {
 	margin-top: 16px;
+	text-align: left;
 }
 
 .form-label {
 	margin-bottom: 6px;
 	font-weight: $fontWeight-bold;
+}
+
+.form-help {
+    font-weight: $fontWeight-regular;
+    color: #666;
 }
 
 .form-input {
@@ -688,6 +694,7 @@ $modal-transitionDuration: .3s;
 .modal-body {
 	color: #444444;
 	padding: 34px 50px 26px;
+	text-align: center;
 }
 
 .modal-closeBtn {
@@ -700,6 +707,7 @@ $modal-transitionDuration: .3s;
 
 .modal-actions {
 	margin-top: 26px;
+	display: inline-block;
 }
 
 .modal-buttons {
@@ -741,6 +749,7 @@ $modal-transitionDuration: .3s;
 .modal-button--secondary {
 	$bgColor: #8e8e8e;
 	background-color: $bgColor;
+	margin-left: 10px;
 
 	&:hover {
 		background-color: lighten($bgColor, 15%);
@@ -750,6 +759,7 @@ $modal-transitionDuration: .3s;
 .modal-button--primary {
 	$bgColor: #41ce7d;
 	background-color: $bgColor;
+	margin-right: 10px;
 
 	&:hover {
 		background-color: lighten($bgColor, 15%);
@@ -943,4 +953,8 @@ $settingModal-bgColor: #fff;
 	.tt-cursor & {
 		color: #fff;
 	}
+}
+
+.help-question {
+    font-size: 16px;
 }

@@ -68,7 +68,7 @@
             require(['gridster'], function() {
                 local.$dashboard.gridster({
                     widget_margins: [10, 9],
-                    widget_base_dimensions: [294, 177],
+                    widget_base_dimensions: [294, 187],
                     max_cols: 3,
                     /*draggable: {
                         handle: 'div.dragger'
@@ -78,45 +78,72 @@
 
             local.listeners.push(ncc.on({
                 activateRemoteHarvesting: function() {
-                    ncc.showInputForm(ncc.get('texts.modals.activateRemote.title'), '',
-                        [   
-                            {
-                                name: 'wallet',
-                                type: 'text',
-                                readonly: true,
-                                unimportant: true,
-                                label: {
-                                    content: ncc.get('texts.modals.activateRemote.wallet')
-                                }
-                            },
-                            {
-                                name: 'password', 
-                                type: 'password',
-                                label: {
-                                    content: ncc.get('texts.modals.activateRemote.password')
-                                }
-                            },
-                            {
-                                name: 'account',
-                                type: 'text',
-                                readonly: true,
-                                unimportant: true,
-                                label: {
-                                    content: ncc.get('texts.modals.activateRemote.account')
-                                }
-                            },
-                            {
-                                name: 'hoursDue',
-                                type: 'text',
-                                label: {
-                                    content: ncc.get('texts.modals.activateRemote.hoursDue')
-                                }
+                    var fields = [
+                        {
+                            name: 'wallet',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.modals.activateRemote.wallet')
                             }
-                        ],
+                        },
+                        {
+                            name: 'account',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.modals.activateRemote.account')
+                            }
+                        },
+                        {
+                            name: 'warning',
+                            type: 'none',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.modals.activateRemote.warning')
+                            },
+                            sublabel: {
+                                content: "<span class='sublabelWarning'>" +
+                                    ncc.get('texts.modals.activateRemote.warningText')
+                                    + "</span>",
+                                // using nullContent is a hack to force processing of html tags in content
+                                nullContent: true
+                            }
+                        },
+                        {
+                            name: 'fee',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.common.fee')
+                            }
+                        },
+                        {
+                            name: 'hoursDue',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.hoursDue')
+                            }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.modals.activateRemote.password')
+                            }
+                        }
+                        ];
+                    ncc.showInputForm(ncc.get('texts.modals.activateRemote.title'), '',
+                        fields,
                         {
                             wallet: ncc.get('wallet.wallet'),
                             account: ncc.get('activeAccount.address'),
-                            hoursDue: 1
+                            hoursDue: 1,
+                            fee: 6
                         },
                         function(values, closeModal) {
                             values.hoursDue = parseInt(values.hoursDue, 10);
@@ -132,44 +159,72 @@
                     );
                 },
                 deactivateRemoteHarvesting: function() {
-                    ncc.showInputForm(ncc.get('texts.modals.deactivateRemote.title'), '',
-                        [   
-                            {
-                                name: 'wallet',
-                                type: 'text',
-                                readonly: true,
-                                unimportant: true,
-                                label: {
-                                    content: ncc.get('texts.modals.deactivateRemote.wallet')
-                                }
-                            },
-                            {
-                                name: 'password', 
-                                type: 'password',
-                                label: {
-                                    content: ncc.get('texts.modals.deactivateRemote.password')
-                                }
-                            },
-                            {
-                                name: 'account',
-                                type: 'text',
-                                readonly: true,
-                                unimportant: true,
-                                label: {
-                                    content: ncc.get('texts.modals.deactivateRemote.account')
-                                }
-                            },
-                            {
-                                name: 'hoursDue',
-                                type: 'text',
-                                label: {
-                                    content: ncc.get('texts.modals.deactivateRemote.hoursDue')
-                                }
+                    var fields = [
+                        {
+                            name: 'wallet',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.modals.deactivateRemote.wallet')
                             }
-                        ],
+                        },
+                        {
+                            name: 'account',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.modals.deactivateRemote.account')
+                            }
+                        },
+                        {
+                            name: 'fee',
+                            type: 'text',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.common.fee')
+                            }
+                        },
+                        {
+                            name: 'hoursDue',
+                            type: 'text',
+                            label: {
+                                content: ncc.get('texts.common.hoursDue')
+                            }
+                        },
+                        {
+                            name: 'warning',
+                            type: 'none',
+                            readonly: true,
+                            unimportant: true,
+                            label: {
+                                content: ncc.get('texts.modals.deactivateRemote.warning')
+                            },
+                            sublabel: {
+                                content: "<span class='sublabelWarning'>" +
+                                    ncc.get('texts.modals.deactivateRemote.warningText')
+                                    + "</span>",
+                                // using nullContent is a hack to force processing of html tags in content
+                                nullContent: true
+                            }
+                        },
+                        {
+                            name: 'password',
+                            type: 'password',
+                            label: {
+                                content: ncc.get('texts.modals.deactivateRemote.password')
+                            }
+                        },
+                    ];
+                    ncc.showInputForm(ncc.get('texts.modals.deactivateRemote.title'), '',
+                        fields,
                         {
                             wallet: ncc.get('wallet.wallet'),
-                            account: ncc.get('activeAccount.address')
+                            account: ncc.get('activeAccount.address'),
+                            hoursDue: 1,
+                            fee: 6
                         },
                         function(values, closeModal) {
                             values.hoursDue = parseInt(values.hoursDue, 10);

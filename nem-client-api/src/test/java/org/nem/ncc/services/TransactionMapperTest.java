@@ -15,6 +15,9 @@ import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 
+import java.util.*;
+import java.util.stream.*;
+
 public class TransactionMapperTest {
 
 	//region toModel
@@ -310,6 +313,51 @@ public class TransactionMapperTest {
 
 	//endregion
 
+	//region MultisigModificationRequest
+
+	@Test
+	public void canMapFromMultisigModificationRequestToModel() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		context.addCosignatoriesWithPubKey(3);
+		context.cosignatories.stream()
+				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
+
+		// Act:
+		final MultisigModificationRequest request = createModificationRequest(context);
+		final MultisigAggregateModificationTransaction model
+				= (MultisigAggregateModificationTransaction)context.mapper.toModel(request);
+		final List<Address> expectedAddresses = context.cosignatories.stream()
+				.map(Account::getAddress)
+				.collect(Collectors.toList());
+		final List<Address> addresses = model.getModifications().stream()
+				.map(m -> m.getCosignatory().getAddress())
+				.collect(Collectors.toList());
+
+		// Assert:
+		model.getModifications().stream().forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.Add)));
+		model.getModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
+		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
+		Assert.assertThat(model.getSigner().getAddress(), IsEqual.equalTo(context.signer.getAddress()));
+		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(7)));
+	}
+
+	@Test
+	public void mappingFromMultisigModificationRequestToModelFailsIfAtLeastOneCosignatoryHasNoPublicKey() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		context.addCosignatoriesWithPubKey(3);
+		context.addCosignatoryWithoutPubKey();
+		context.cosignatories.stream()
+				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
+		final MultisigModificationRequest request = createModificationRequest(context);
+
+		// Act + Assert:
+		ExceptionAssert.assertThrowsNccException(v -> context.mapper.toModel(request), NccException.Code.COSIGNATORY_NO_PUBLIC_KEY);
+	}
+
+	//endregion
+
 	private static TransferSendRequest createSendRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
 		return new TransferSendRequest(
 				new WalletName("w"),
@@ -344,10 +392,20 @@ public class TransactionMapperTest {
 
 	private static TransferImportanceRequest createRemoteHarvestRequest(final TestContext context, final String password) {
 		return new TransferImportanceRequest(
-				context.signer.getAddress(), // must be a valid address: Address.fromEncoded("a"),
+				context.signer.getAddress(), // must be a valid address
 				new WalletName("w"),
 				null == password ? null : new WalletPassword(password),
 				7);
+	}
+
+	private static MultisigModificationRequest createModificationRequest(final TestContext context) {
+		return new MultisigModificationRequest(
+				new WalletName("w"),
+				new WalletPassword("p"),
+				context.signer.getAddress(), // must be a valid address
+				context.cosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				1,
+				Amount.fromNem(7));
 	}
 
 	private static class TestContext {
@@ -364,6 +422,7 @@ public class TransactionMapperTest {
 		private final Account signer = new Account(this.signerKeyPair);
 		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;
+		private final List<Account> cosignatories = new ArrayList<>();
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 
 		public TestContext() {
@@ -382,6 +441,14 @@ public class TransactionMapperTest {
 
 			final WalletNamePasswordPair pair = new WalletNamePasswordPair("w", "p");
 			Mockito.when(this.walletServices.open(pair)).thenReturn(this.wallet);
+		}
+
+		private void addCosignatoriesWithPubKey(final int count) {
+			IntStream.range(0, count).forEach(i -> this.cosignatories.add(Utils.generateRandomAccount()));
+		}
+
+		private void addCosignatoryWithoutPubKey() {
+			this.cosignatories.add(new Account(Utils.generateRandomAddress()));
 		}
 	}
 }

@@ -12,7 +12,7 @@
 	<body>
 		<script type="text/ractive" id="template">
 			<div class="statusIndicator {{^appStatus}}hide{{/}} {{#appStatus.type === 'critical'}}statusIndicator--critical{{/}} {{#appStatus.type === 'warning'}}statusIndicator--warning{{/}} {{#appStatus.type === 'message'}}statusIndicator--message{{/}}">
-				<span>{{appStatus.message}}</span>
+				<span>{{appStatus.message}} {{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}</span>
 			</div>
 			{{#layout.0.name}}
 				{{>0}}

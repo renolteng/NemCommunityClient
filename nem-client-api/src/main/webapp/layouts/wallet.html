@@ -91,10 +91,7 @@
 							<li class="dropdownMenu-item" on-click="changeWalletPassword">
 								{{texts.wallet.actions.changeWalletPassword}}
 							</li>
-							<li class="dropdownMenu-item disabled">
-								{{texts.wallet.actions.mergeWallets}}
-							</li>
-							<li class="dropdownMenu-item disabled">
+							<li class="dropdownMenu-item" on-click="exportWalletZip">
 								{{texts.wallet.actions.exportWallet}}
 							</li>
 							<li class="dropdownMenu-item {{^enableManualBoot}}disabled{{/}} dropdownMenu-item--separator" on-click="bootLocalNode">
@@ -155,8 +152,12 @@
 					<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
 				</button>
 				<ul class="account-actionsDropdown dropdownMenu {{^active.accountActions}}hidden{{/}}">
-					<li class="dropdownMenu-item" id="addressClipboard" data-clipboard-target="activeAccountAddress">
+					<li class="dropdownMenu-item {{#walletPage.copyDisabled}}disabled{{/}}" id="addressClipboard" data-clipboard-target="activeAccountAddress">
+                        {{#if (walletPage.copyDisabled)}}
+                        {{texts.wallet.actions.copyDisabled}}
+                        {{else}}
 						{{texts.wallet.actions.copyClipboard}}
+                        {{/if}}
 					</li>
 					<li class="dropdownMenu-item" on-click="changeAccountLabel">
 						{{texts.wallet.actions.changeAccountLabel}}
@@ -179,9 +180,12 @@
 					<li class="dropdownMenu-item" on-click="createRealAccountData">
 						{{texts.wallet.actions.createRealAccountData}}
 					</li>
-					<li class="dropdownMenu-item" on-click="verifyRealAccountData">
+					<li class="dropdownMenu-item dropdownMenu-item--separator" on-click="verifyRealAccountData">
 						{{texts.wallet.actions.verifyRealAccountData}}
-					</li>					
+					</li>
+                    <li class="dropdownMenu-item" on-click="showPrivateKey">
+                        {{texts.wallet.actions.showPrivateKey}}
+                    </li>
 				</ul>
 			</div>
 			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}}" id="accountSelect">
@@ -338,9 +342,9 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.modals.multisig.dueBy}}</p>
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
-						<span class="form-input-end unit">{{texts.modals.multisig.hours}}</span>
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-multisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
@@ -381,7 +385,7 @@
 				</div>
 				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
 					<li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.modals.sendNem.thisAccount}}</li>
-					{{#each cosignatories}}
+					{{#each multisigAccounts}}
 						<li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
                             {{#if (privateLabels[.address])}}
                                 {{privateLabels[.address]}}
@@ -411,7 +415,7 @@
 			</p>
 		</div>
 		<div class="form-field">
-			<p class="form-label">{{texts.modals.sendNem.amount}}</p>
+			<p class="form-label">{{texts.modals.sendNem.amount}} <span class="form-help">({{texts.dashboard.transactions.balance}} {{fullBalance}})</span></p>
 			<div class="form-input">
 				<span class="form-input-end unit">XEM</span>
 				<div class="restOfWidth">
@@ -445,9 +449,9 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.modals.sendNem.dueBy}}</p>
+					<p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
-						<span class="form-input-end unit">{{texts.modals.sendNem.hours}}</span>
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
@@ -609,9 +613,9 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.modals.signMultisig.dueBy}}</p>
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
-						<span class="form-input-end unit">{{texts.modals.signMultisig.hours}}</span>
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
 							<input class="form-input-inner js-signMultisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
 						</div>
@@ -673,8 +677,8 @@
 		{{/each}}
 		<hr>
 		<div class="modificationConfirm-line">
-			<span class="modificationConfirm-label">{{texts.modals.multisig.dueBy}}</span>
-			<span class="modificationConfirm-value">{{requestData.hoursDue}} {{texts.modals.multisig.hours}}</span>
+			<span class="modificationConfirm-label">{{texts.common.dueBy}}</span>
+			<span class="modificationConfirm-value">{{requestData.hoursDue}} {{texts.common.hours}}</span>
 		</div>
 	</div>
 	<div class="modificationConfirm-actions">
@@ -716,8 +720,8 @@
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.formattedFee}}} XEM</span></span>
 		</div>
 		<div class="sigConfirm-line">
-			<span class="sigConfirm-label">{{texts.modals.signMultisig.dueBy}}</span>
-			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.modals.signMultisig.hours}}</span>
+            <span class="modificationConfirm-label">{{texts.common.dueBy}}</span>
+			<span class="sigConfirm-value">{{txData.dueBy}} {{texts.common.hours}}</span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.sender}}</span>
@@ -761,8 +765,8 @@
 		</div>
 		{{/if}}
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.sendNem.txConfirm.dueBy}}</span>
-			<span class="txConfirm-value">{{txData.dueBy}} {{texts.modals.sendNem.txConfirm.hours}}</span>
+			<span class="txConfirm-label">{{texts.common.dueBy}}</span>
+			<span class="txConfirm-value">{{txData.dueBy}} {{texts.common.hours}}</span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-totalLabel">{{texts.modals.sendNem.txConfirm.total}}</span></span>
@@ -1029,7 +1033,7 @@
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.importance}}</td>
-				<td class="table-cell table-cell--content">{{Math.round(.importance * 10000) / 100}}%</td>
+				<td class="table-cell table-cell--content">{{Math.round(.importance * 1000000) / 100}} &#8241;</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
@@ -1046,6 +1050,24 @@
 				<td class="table-cell table-cell--content">{{.harvestedBlocks}}</td>
 			</tr>
 		</table>
+        {{#if .cosignatories.length}}
+            <hr>
+            <p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
+            {{#each .cosignatories : i}}
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-label">{{i}}</span>
+                    <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
+                        <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                            {{#if (privateLabels[.address])}}
+                            {{privateLabels[.address]}}
+                            {{else}}
+                            {{.address}}
+                            {{/if}}
+                        </a>
+                    </span></span>
+            </div>
+            {{/each}}
+        {{/if}}
 	{{/}}
 	<div class="modal-buttons">
 		<button type="button" class="modal-button modal-button--primary" on-click="closeModal()">{{texts.modals.accountDetails.close}}</button>

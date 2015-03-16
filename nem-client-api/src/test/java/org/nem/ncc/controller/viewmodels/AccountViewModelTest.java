@@ -54,9 +54,10 @@ public class AccountViewModelTest {
 		// Arrange:
 		final AccountInfo account = createAccountInfo(null, Address.fromEncoded("xyz"));
 		final List<AccountInfo> multisigAccounts = createAccountInfos();
+		final List<AccountInfo> cosignatories = null;
 		final AccountMetaDataPair pair = new AccountMetaDataPair(
 				account,
-				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, multisigAccounts));
+				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, multisigAccounts, cosignatories));
 
 		// Act:
 		final AccountViewModel viewModel = new AccountViewModel(pair);
@@ -145,7 +146,8 @@ public class AccountViewModelTest {
 				account,
 				AccountStatus.LOCKED,
 				AccountRemoteStatus.INACTIVE,
-				multisigAccounts);
+				multisigAccounts,
+				null);
 	}
 
 	private static AccountInfo createAccountInfo(final String label, final Address address) {

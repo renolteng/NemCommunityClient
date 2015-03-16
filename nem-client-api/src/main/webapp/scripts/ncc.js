@@ -40,9 +40,28 @@ define(function(require) {
             accountDetailsModal: AccountDetailsModal,
             convertMultisigModal: ConvertMultisigModal
         },
+        sortAccounts: function(accounts) {
+            var contactsRef = this.get('privateLabels');
+
+            accounts.sort(function(a,b){
+                var cA = (a.address in contactsRef) ? contactsRef[a.address] : null;
+                var cB = (b.address in contactsRef) ? contactsRef[b.address] : null;
+                if (cA !== null && cB !== null) {
+                    return cA.localeCompare(cB);
+                }
+                if (cA !== null && cB === null) {
+                    return -11;
+                }
+                if (cA === null && cB !== null) {
+                    return 1;
+                }
+                return a.address.localeCompare(b.address);
+            });
+            return accounts;
+        },
         computed: {
             allAccounts: function() {
-                return [this.get('wallet.primaryAccount')].concat(this.get('wallet.otherAccounts'));
+                return [this.get('wallet.primaryAccount')].concat(this.sortAccounts(this.get('wallet.otherAccounts')));
             },
             appStatus: function() {
                 switch (this.get('nccStatus.code')) {
@@ -169,6 +188,9 @@ define(function(require) {
             nisUnavailable: function() {
                 return this.get('nisStatus.code') === Utils.config.STATUS_STOPPED;
             },
+            sendNemDisabled: function() {
+                return this.get('nisUnavailable') || ncc.get('activeAccount').isMultisig;
+            },
             enableManualBoot: function() {
                 return !(this.get('nisUnavailable') || this.get('nodeBooting') || this.get('nodeBooted'));
             },
@@ -190,7 +212,7 @@ define(function(require) {
                 return this.get('lcwNameValid') && this.get('lcwPasswordValid') && this.get('lcwConfirmPasswordValid');
             },
             privateLabels: function() {
-                var contacts = this.get('contacts');
+                var contacts = this.get('contacts') || {};
                 var result = {};
                 var contact;
                 for (var i = 0; i < contacts.length; i++) {
@@ -259,7 +281,7 @@ define(function(require) {
          * @param {object} requestData
          * @param {string} success
          */
-        _ajaxRequest: function(type, api, requestData, successCb, settings, silent) {
+        _ajaxRequest: function(type, api, requestData, successCb, settings, silent, dataType) {
             var self = this;
             successCb = successCb || function() {};
 
@@ -267,7 +289,7 @@ define(function(require) {
             // from void functions, but JQuery treats this as invalid JSON
             var s = {
                 contentType: 'application/json',
-                dataType: 'text',
+                dataType: dataType || 'text',
                 type: type,
                 data: requestData ? JSON.stringify(requestData) : undefined,
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -279,17 +301,23 @@ define(function(require) {
                     // since we are in an error callback, handle the error as an unknown ajax error
                     return silent ? [] : self.ajaxError(jqXHR, textStatus, errorThrown);
                 },
-                success: function(data) {
+                success: function(data, textStatus, request) {
                     // if the data is an empty string, emulate original NCC behavior by returning { ok: 1 }
                     if (!data) {
                         successCb({ ok: 1 });
                         return;
                     }
 
-                    // otherwise, parse the json check the success (for legacy API handling)
-                    var parsedData = $.parseJSON(data);
-                    if (self.checkSuccess(parsedData, silent, settings)) {
-                        successCb(parsedData);
+                    var contentType = request.getResponseHeader("content-type") || "";
+                    if (contentType.indexOf('application/octet-stream') > -1) {
+                        successCb(data);
+
+                    } else {
+                        // otherwise, parse the json check the success (for legacy API handling)
+                        var parsedData = $.parseJSON(data);
+                        if (self.checkSuccess(parsedData, silent, settings)) {
+                            successCb(parsedData);
+                        }
                     }
                 }
             };
@@ -299,8 +327,22 @@ define(function(require) {
         getRequest: function(api, successCb, settings, silent) {
             return this._ajaxRequest('get', api, undefined, successCb, settings, silent);
         },
-        postRequest: function(api, requestData, successCb, settings, silent) {
-            return this._ajaxRequest('post', api, requestData, successCb, settings, silent);
+        postRequest: function(api, requestData, successCb, settings, silent, dataType) {
+            return this._ajaxRequest('post', api, requestData, successCb, settings, silent, dataType);
+        },
+        postRawRequest: function(api, requestData, successCb) {
+            // ugly but has to do the trick for now,
+            // TODO: handle errors, to be compatible with other calls
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if (this.readyState == 4 && this.status == 200){
+                    successCb(this.response);
+                }
+            }
+            xhr.open('POST', this.apiPath(api));
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.responseType = 'blob';
+            xhr.send(JSON.stringify(requestData));
         },
         getModal: function(modalName) {
             return this.findComponent(modalName + 'Modal');
@@ -346,14 +388,14 @@ define(function(require) {
                 callbacks: callbacks,
                 actions: actions || [
                     {
-                        action: 'no',
-                        label: ncc.get('texts.modals.confirmDefault.no'),
-                        actionType: 'secondary'
-                    },
-                    {
                         action: 'yes',
                         label: ncc.get('texts.modals.confirmDefault.yes'),
                         actionType: 'primary'
+                    },
+                    {
+                        action: 'no',
+                        label: ncc.get('texts.modals.confirmDefault.no'),
+                        actionType: 'secondary'
                     }
                 ]
             });
@@ -395,6 +437,36 @@ define(function(require) {
             } else {
                 return Mustache.render(template, arguments);
             }
+        },
+
+        refreshAccount : function(wallet, account, silent) {
+            if (!wallet) wallet = ncc.get('wallet.wallet');
+            if (!account) account = ncc.get('activeAccount.address');
+
+            var success = false;
+            ncc.postRequest('account/transactions/all',
+                {
+                    wallet: wallet,
+                    account: account
+                },
+                function(data) {
+                    success = true;
+                    ncc.set('activeAccount', Utils.processAccount(data));
+                    ncc.set('status.lostConnection', false);
+                },
+                {
+                    complete: function() {
+                        if (!success) {
+                            ncc.set('status.lostConnection', true);
+                        }
+                    }
+                },
+                silent
+            );
+
+            ncc.refreshRemoteHarvestingStatus(wallet, account, silent);
+
+            ncc.fire('refreshAccount');
         },
         
         globalSetup: function() {

@@ -95,7 +95,6 @@ em {
 	left: 0;
 	right: 0;
 	height: $statusIndicator-height;
-	color: #ecf0f1;
 	font-size: 13px;
 	font-weight: $fontWeight-bold;
 	text-align: center;
@@ -112,14 +111,19 @@ em {
 
 .statusIndicator--critical {
 	background-color: #e74c3c;
+	color: #ecf0f1;
+	@include stroke-text(#333);
 }
 
 .statusIndicator--warning {
 	background-color: #f1c40f;
+	color: #333;
 }
 
 .statusIndicator--message {
 	background-color: #2ecc71;
+	color: #ecf0f1;
+	@include stroke-text(#333);
 }
 
 /** Loading Square **/
