@@ -33,6 +33,7 @@ define({
 			132: 'अड्रेस बुक फाइल का एक्सटेंशन गलत है.',
 			133: 'अड्रेस बुक को हटाया नहीं जा सका है.',
 			202: 'एन्क्रिप्टेड मेसेज नहीं भेजा जा सकता हे क्योंकि रेसिपईयेंट ने अभी तक एक बार भी XEM का ट्रांजैक्शन नही किया है.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'NEM इन्फ्रास्ट्रक्चर सर्वर ( NIS ) उपलब्ध नहीं है. NEM सॉफ्टवेयर पुनरारंभ करने का प्रयास करें. यदि आप एक Remote NIS का उपयोग कर रहे हैं, तो अपने configured host  में टाइपिंग में हुई त्रुटियों को खोजें, या दूसरे Remote NIS का प्रयोग करें.',
 			306: 'एक एरर आ गया हे जिसके बारे में विकास टीम ने नही सोचा था. इस बात के लिए हम माफी चाहते हें, शायद एक बार फिरसे प्रयास करने पर मदद मिल सकती है. अन्यथा, NEM NIS/NCC समुदाय के भीतर एक मुद्दे को खोलने का कष्ट करें.',
 			400: 'कुछ पैरामीटर गुम या अवैध है.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'प्राइवेट लेबल',
 			publicLabel: 'Public label',
 			noCharge: 'करेंट अकाउंट से कोई फ़ीस <b> नहीं </ b > लिया जाएगा. Multisig अकाउंट में उन्हें शामिल किया गया है.',
-			justUse: 'महज प्रयोग करें'
+			fee: 'Fee',
+			justUse: 'महज प्रयोग करें',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Hours due',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'ट्रान्सफर ट्रांजैक्शन',
@@ -162,9 +169,7 @@ define({
 				convert: 'परिवर्तित करें',
 				fee: 'फ़ीस',
 				feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
-				dueBy: 'Due by',
 				useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Multisig अकाउंट में परिवर्तन की पुष्टि करें.',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'फ़ीस',
 				feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
-				dueBy: 'Due by',
 				useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें.',
-				hours: 'hour(s)',
 				password: 'पासवर्ड',
 				passwordValidation: 'पासवर्ड खाली नहीं होना चाहिए.',
 				send: 'भेजें',
@@ -217,9 +220,7 @@ define({
 				fee: 'फ़ीस',
 				multisigFee: 'Multisig फ़ीस',
 				feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
-				dueBy: 'चुकाने का समय',
 				useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें.',
-				hours: 'घंटे',
 				password: 'पासवर्ड',
 				passwordValidation: 'पासवर्ड खाली नहीं होना चाहिए.',
 				send: 'भेजें',
@@ -230,8 +231,6 @@ define({
 					title: 'ट्रांजैक्शन की पुष्टि करें',
 					amount: 'अमाउंट',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'मेसेज',
 					encrypted: 'मेसेज एन्क्रिप्टेड है',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'सब कुछ ठीक लग रहा है. Address, Public Key और Private key मैच कर रहें हैं.',
 				verify: 'जाँचे'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'कोई मौजूदा अकाउंट जोड़ें',
 				privateKey: 'अकाउंट का Private Key',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Remove account',
+				account: 'अकाउंट',
+				label: 'अकाउंट लेबल',
 				wallet: 'वॉलेट',
 				password: 'वॉलेट का पासवर्ड',
 				warning: 'कृपया हटाने से पहले यह सुनिश्चित करें कि अकाउंट में कोई भी XEM ना हो, अथवा वे हमेशा के लिए खो जाएँगे.',
@@ -432,17 +438,19 @@ define({
 				title: 'रीमोट हार्वेस्टिंग को सक्रिय करें',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
-				hoursDue: 'Hours due',
 				password: 'वॉलेट का पासवर्ड',
-				activate: 'सक्रिय करें'
+				activate: 'सक्रिय करें',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'रीमोट हार्वेस्टिंग को निष्क्रिय करें',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
-				hoursDue: 'Hours due',
 				password: 'वॉलेट का पासवर्ड',
-				deactivate: 'निष्क्रिय करें'
+				deactivate: 'निष्क्रिय करें',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'रीमोट हार्वेस्टिंग को शुरु करें',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'नया अकाउंट बनाएँ',
 				createRealAccountData: 'नया असली NEM अकाउंट बनाएँ.',
 				verifyRealAccountData: 'असली NEM अकाउंट जाँचे.',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'किसी मौजूदा अकाउंट को जोड़ें',
 				changeAccountLabel: 'अकाउंट लेबल बदलें',
 				setPrimary: 'प्राइमरी अकाउंट के रूप में सेट करें',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'क्लोज़ वॉलेट',
 				closeProgram: 'क्लोज़ प्रोग्राम',
 				copyClipboard: 'अड्रेस को क्लिपबोर्ड पर कॉपी करें',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'XEM भेजें',
 				signMultisig: 'SIGN',
 				balance: 'मौजूदा XEM राशि',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig अकाउंट',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'अज्ञात',
 				columns: [
 					'',

@@ -33,6 +33,7 @@ define({
 			132: '地址簿插件文件错误。',
 			133: '此地址簿无法删除。',
 			202: '该公钥不存在。',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: '对不起，一个开发团队没有预见到的错误发生了。请尝试重试，若问题未解决，请在NEM NIS/NCC社区内提交该问题。',
 			400: '缺失某些参数。',
@@ -97,7 +98,13 @@ define({
 			privateLabel: '个人标签',
 			publicLabel: '公共标签',
 			noCharge: '当前账号<b>不会</b>支付相关费用，费用由多重签名账号支付。',
-			justUse: 'Just use'
+			fee: '费用',
+			justUse: 'Just use',
+			dueBy: '限期',
+			hours: '小时数',
+			hoursDue: '到期小时数',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'传输交互',
@@ -162,9 +169,7 @@ define({
 				convert: '转换',
 				fee: '费用',
 				feeValidation: '必须支付比最小值高的费用',
-				dueBy: '到期时',
 				useMinimumFee: '使用最小费用',
-				hours: '小时数',
 				txConfirm: {
 					title: '确认转换至多重签名账户',
 					total: '总额',
@@ -186,9 +191,7 @@ define({
 				sender: '共同签署人',
 				fee: '费用',
 				feeValidation: '费用必须高于最小费用',
-				dueBy: '到期时',
 				useMinimumFee: '使用最小费用',
-				hours: '小时数',
 				password: '密码',
 				passwordValidation: '密码不可为空',
 				send: '发送',
@@ -217,9 +220,7 @@ define({
 				fee: '费用',
 				multisigFee: '多重签名费用',
 				feeValidation: '无效费用值，必须填入等于或高于最小费用的值。',
-				dueBy: '限期（小时）',
 				useMinimumFee: '支付最小费用',
-				hours: '小时',
 				password: '密码',
 				passwordValidation: '密码不可为空',
 				send: '发送',
@@ -230,8 +231,6 @@ define({
 					title: '确认交易',
 					amount: '金额',
 					to: '收件人',
-					dueBy: '限期',
-					hours: '小时数',
 					total: '总价',
 					message: '信息',
 					encrypted: '信息已加密',
@@ -367,6 +366,11 @@ define({
 				dataMatched: '经确认，地址、公钥、私钥匹配正确。',
 				verify: '确认'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: '添加一个现有帐户',
 				privateKey: '帐户的私钥',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: '删除帐户',
+				account: '帐户',
+				label: '帐户标识',
 				wallet: '钱包',
 				password: '钱包密码',
 				warning: '在你删除帐户前请确保您的帐户无剩余MEM，一经删除余额将无法恢复',
@@ -432,17 +438,19 @@ define({
 				title: '激活远程收获',
 				wallet: '钱包',
 				account: '帐户',
-				hoursDue: '到期小时数',
 				password: '钱包密码',
-				activate: '激活'
+				activate: '激活',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: '停止激活远程收获',
 				wallet: '钱包',
 				account: '帐户',
-				hoursDue: '到期小时数',
 				password: '钱包密码',
-				deactivate: '停止激活'
+				deactivate: '停止激活',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: '开始远程收获',
@@ -556,6 +564,7 @@ define({
 				createAccount: '创建新帐号',
 				createRealAccountData: '创建真实账户信息',
 				verifyRealAccountData: '确认真实账户信息',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: '添加一个现有帐户',
 				changeAccountLabel: '更改帐户标识',
 				setPrimary: '设为主帐户',
@@ -564,6 +573,7 @@ define({
 				closeWallet: '关闭钱包',
 				closeProgram: '关闭程序',
 				copyClipboard: '复制地址至剪贴板',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: '发送XEM',
 				signMultisig: '签署',
 				balance: '目前余额',
+				loading: 'Loading balance',
+				accountCosignatories: '多重签名账户',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后{{/2}}天)',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: '未知',
 				columns: [
 					'',

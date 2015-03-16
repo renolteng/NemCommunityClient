@@ -33,6 +33,7 @@ define({
 			132: 'Adresų knygos bylos plėtinys yra neteisingas.',
 			133: 'Adresų knyga negali būti ištrinta.',
 			202: 'Nėra viešojo rakto',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'NEM Infrastruktūros serveris (NIS) nepaleistas.\n\nBandykite paleisti iš naujo NEM programą.\n\nJei Jūs naudojate nuotolinį NIS, pasitikrinkite ar nepadarėte rašybos klaidų arba naudokite kitą nuotolinį NIS.',
 			306: 'Įvyko klaida, kurios kūrėjai nenumatė. Atsiprašome, bet gal paleidimas iš naujo padės. Kitu atveju, praneškite apie tai NEM NIS/NCC bendruomenei',
 			400: 'Trūksta kai kurių parametrų',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Privati žymė',
 			publicLabel: 'Vieša žymė',
 			noCharge: 'Šiai sąskaitai <b>NEBUS</b> taikomi jokie mokesčiai, juos padengs multisig sąskaita',
-			justUse: 'Tik naudokite.'
+			fee: 'Mokestis',
+			justUse: 'Tik naudokite.',
+			dueBy: 'Galioja',
+			hours: 'valandų',
+			hoursDue: 'Liko valandų',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'PERVEDIMO TRANSAKCIJA',
@@ -162,12 +169,11 @@ define({
 				convert: 'Paversti',
 				fee: 'Mokestis',
 				feeValidation: 'Mokestis negali būti mažesnis už minimalų',
-				dueBy: 'Galioja iki',
 				useMinimumFee: 'Naudoti minimalų mokestį',
-				hours: 'valanda (-os)',
 				txConfirm: {
 					title: 'Patvirtinkita pavertimą į mulstisig sąskaitą',
-					total: 'Viso'
+					total: 'Viso',
+
 				},
 				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.'
 			},
@@ -185,9 +191,7 @@ define({
 				sender: 'Parašo teisės turėtojas',
 				fee: 'Mokestis',
 				feeValidation: 'Mokestis negali būti mažesnis negu minimalus.',
-				dueBy: 'Galio iki',
 				useMinimumFee: 'Naudoti minimalu mokestį',
-				hours: 'valanda (-os)',
 				password: 'Slaptažodis',
 				passwordValidation: 'Slaptažodis negali būti tuščias',
 				send: 'Siųsti',
@@ -198,7 +202,8 @@ define({
 					title: 'Patvirtinti multisig transakciją',
 					message: 'Žinutė',
 					encrypted: 'Žinutė šifruota',
-					noMessage: 'Žinutes nėra'
+					noMessage: 'Žinutes nėra',
+
 				}
 			},
 			sendNem: {
@@ -215,9 +220,7 @@ define({
 				fee: 'Mokestis',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Mokestis turi būti ne mažesnis kaip minimalus.',
-				dueBy: 'Galiojimo trukmė',
 				useMinimumFee: 'Naudoti minimalų mokestį.',
-				hours: 'valandos',
 				password: 'Slaptažodis',
 				passwordValidation: 'Slaptažodis negali būti tuščias.',
 				send: 'Siųsti',
@@ -228,8 +231,6 @@ define({
 					title: 'Patvirtinti transakciją',
 					amount: 'Suma',
 					to: 'Į',
-					dueBy: 'Galioja',
-					hours: 'valandų',
 					total: 'Viso',
 					message: 'Žinutė',
 					encrypted: 'Žinutė šifruota',
@@ -365,6 +366,11 @@ define({
 				dataMatched: 'Viskas atrodo gerai, Jūsų įvesti adresas, viešasis raktas ir privatus raktas teisingi.',
 				verify: 'Tikrinti'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Pridėti egzistuojančią sąskaitą',
 				privateKey: 'Sąskaitos privatus raktas',
@@ -412,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Panaikinti sąskaitą',
+				account: 'Sąskaita',
+				label: 'Sąskaitos pavadinimas',
 				wallet: 'Piniginė',
 				password: 'Piniginės slaptažodis',
 				warning: 'Prašome įsitikinti, kad Jūsų sąskaitoje nėra NEM prieš ją panaikinant. Panaikinus sąskaitą, Jūs prarasite joje turėtus XEM visam laikui.',
@@ -430,17 +438,19 @@ define({
 				title: 'Aktyvuoti nuotolinį \'kasimą\'',
 				wallet: 'Piniginė',
 				account: 'Sąskaita',
-				hoursDue: 'Liko valandų',
 				password: 'Piniginės slaptažodis',
-				activate: 'Aktyvuoti'
+				activate: 'Aktyvuoti',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deaktyvuoti nuotolinį \'kasimą\'',
 				wallet: 'Piniginė',
 				account: 'Sąskaita',
-				hoursDue: 'Liko valandų',
 				password: 'Piniginės slaptažodis',
-				deactivate: 'Deaktyvuoti'
+				deactivate: 'Deaktyvuoti',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Pradėti nuotolinį \'kasimą\'',
@@ -554,6 +564,7 @@ define({
 				createAccount: 'Sukurti naują sąskaitą',
 				createRealAccountData: 'Sukurti realios sąskaitos duomenis',
 				verifyRealAccountData: 'Tikrinti realios sąskaitos duomenis',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Pridėti egzistuojančią sąskaitą',
 				changeAccountLabel: 'Pakeisti sąskaitos pavadinimą',
 				setPrimary: 'Nustatyti kaip pagrindinę sąskaitą',
@@ -562,6 +573,7 @@ define({
 				closeWallet: 'Uždaryti piniginę',
 				closeProgram: 'Uždaryti programą',
 				copyClipboard: 'Kopijuoti adresą į laikinąją atmintį',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Paversti kitą sąskaitą į multisig'
 			},
 			nav: [
@@ -606,8 +618,12 @@ define({
 				sendNem: 'Siųsti XEM',
 				signMultisig: 'SIGN',
 				balance: 'Turimas balansas',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig sąskaita.',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: '\'Kasantis\' balansas',
 				syncStatus: '(blokas {{1}}{{#2}} : po {{3}} dienu{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'nežinomas',
 				columns: [
 					'',

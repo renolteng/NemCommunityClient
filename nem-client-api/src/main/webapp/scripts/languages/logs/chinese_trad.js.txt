@@ -278,4 +278,39 @@ changed texts.wallet.actions.convertMultisig
 	  to: 'Convert other account to multisig'
 	 was: 'Convert other account to multisig'
 
+-----translated texts.common.fee
+	    from: 'Fee'
+	      to: '費'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.common.dueBy
+	    from: 'Due by'
+	      to: 'Due by'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.common.hours
+	    from: 'hour(s)'
+	      to: 'hour(s)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.common.hoursDue
+	    from: 'Due by (hours)'
+	      to: 'Due by (hours)'
+	based on: texts.modals.deactivateRemote.hoursDue
+
+translated texts.modals.removeAccount.account
+	    from: 'Account'
+	      to: 'Account'
+	based on: texts.modals.stopRemote.account
+
+translated texts.modals.removeAccount.label
+	    from: 'Account label'
+	      to: '賬戶標識'
+	based on: texts.modals.changeAccountLabel.label
+
+translated texts.dashboard.transactions.accountCosignatories
+	    from: 'Multisig account'
+	      to: 'Multisig account'
+	based on: texts.modals.signMultisig.original.from
+
 -----

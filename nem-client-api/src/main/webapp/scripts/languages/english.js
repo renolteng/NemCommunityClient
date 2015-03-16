@@ -441,7 +441,7 @@ define({
 				password: "Wallet's password",
 				activate: 'Activate',
 				warning: 'Warning',
-				warningText: 'Activation will take 3 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote Harvesting',
@@ -450,7 +450,7 @@ define({
 				password: "Wallet's password",
 				deactivate: 'Deactivate',
 				warning: 'Warning',
-                warningText: 'Deactivation will take 3 hours (360 blocks).'
+                warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote Harvesting',

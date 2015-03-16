@@ -298,4 +298,39 @@ changed texts.harvestedBlocks.table.columns.[2]
 	  to: 'Block difficulty'
 	 was: 'Hash do bloco'
 
+-----translated texts.common.fee
+	    from: 'Fee'
+	      to: 'Taxa'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.common.dueBy
+	    from: 'Due by'
+	      to: 'Tempo de espera'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.common.hours
+	    from: 'hour(s)'
+	      to: 'hora(s)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.common.hoursDue
+	    from: 'Due by (hours)'
+	      to: 'Tempo para desativar'
+	based on: texts.modals.deactivateRemote.hoursDue
+
+translated texts.modals.removeAccount.account
+	    from: 'Account'
+	      to: 'Conta'
+	based on: texts.modals.stopRemote.account
+
+translated texts.modals.removeAccount.label
+	    from: 'Account label'
+	      to: 'Nova identificação'
+	based on: texts.modals.changeAccountLabel.label
+
+translated texts.dashboard.transactions.accountCosignatories
+	    from: 'Multisig account'
+	      to: 'Conta Multisig'
+	based on: texts.modals.signMultisig.original.from
+
 -----

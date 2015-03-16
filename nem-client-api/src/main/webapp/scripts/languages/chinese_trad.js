@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: '没有公鑰。',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: '对不起，發生一个未知的錯誤，請重試。否則，請在NEM NIS/NCC社區內提交您的問題。',
 			400: '遺失某些参數。',
@@ -97,7 +98,13 @@ define({
 			privateLabel: '私人標識',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: '費',
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Due by (hours)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -117,6 +124,10 @@ define({
 			error: {
 				title: '哎呀!',
 				caption: '錯誤 {{1}}'
+			},
+			yikes: {
+				title: 'Yikes!',
+				caption: 'info code {{1}}'
 			},
 			confirmDefault: {
 				yes: '是',
@@ -158,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: '費',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -182,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: '費',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: '密碼',
 				passwordValidation: 'Password must not be blank',
 				send: '發送',
@@ -213,9 +220,7 @@ define({
 				fee: '費',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: '限期（小時）',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hours',
 				password: '密碼',
 				passwordValidation: 'Password must not be blank',
 				send: '發送',
@@ -226,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -310,7 +313,10 @@ define({
 				wallet: '錢包',
 				node: '節點名稱',
 				boot: '啟動',
-				booting: '啟動...'
+				booting: '啟動...',
+				warning: 'Boot node warning',
+				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: <u>{{2}}</u>',
+				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: '關閉錢包',
@@ -360,6 +366,11 @@ define({
 				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: '添加一个現有賬號',
 				privateKey: '賬號的私鑰',
@@ -407,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: '删除賬戶',
+				account: 'Account',
+				label: '賬戶標識',
 				wallet: '钱包',
 				password: "錢包密碼",
 				warning: '在你删除賬戶前請確認您的賬戶的MEM為零，否則会被永遠失去了',
@@ -425,17 +438,19 @@ define({
 				title: 'Activate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote harvesting',
@@ -549,6 +564,7 @@ define({
 				createAccount: '建立新賬號',
 				createRealAccountData: 'Create real account data',
 				verifyRealAccountData: 'Verify real account data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: '匯入一个現有賬號',
 				changeAccountLabel: '更改賬戶標識',
 				setPrimary: '設為主賬戶',
@@ -557,6 +573,7 @@ define({
 				closeWallet: '關閉錢包',
 				closeProgram: '關閉程序',
 				copyClipboard: 'Copy address to clipboard',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -601,8 +618,12 @@ define({
 				sendNem: '發送XEM',
 				signMultisig: 'SIGN',
 				balance: '目前余額',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(礦塊{{1}}{{#2}} : 估計{{3}}落後{{/2}}天)',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'unknown',
 				columns: [
 					'',

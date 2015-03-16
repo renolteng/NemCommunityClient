@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: "An encrypted message cannot be sent because the recipient has never made a transaction before.",
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: "An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.",
 			400: "Some parameter is missing or invalid.",
@@ -97,7 +98,13 @@ define({
 			privateLabel: "Private label",
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: "Bounty",
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Hours due',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: "Bounty",
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: "Bounty",
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: "Pick",
 				passwordValidation: 'Password must not be blank',
 				send: "Deliver",
@@ -217,9 +220,7 @@ define({
 				fee: "Bounty",
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: "Due by",
 				useMinimumFee: 'Use minimum fee',
-				hours: "hours",
 				password: "Coffer's pick",
 				passwordValidation: 'Password must not be blank',
 				send: "Deliver",
@@ -230,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: "Add an Existing Log",
 				privateKey: "Log's Private Key",
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: "Drop log",
+				account: 'Account',
+				label: "Log label",
 				wallet: "Coffer",
 				password: "Coffer's pick",
 				warning: "Bury yer all loot before you drop the log, or abandon ya'll hope.",
@@ -432,17 +438,19 @@ define({
 				title: 'Activate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Hours due',
 				password: "Wallet's password",
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Hours due',
 				password: "Wallet's password",
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote harvesting',
@@ -556,6 +564,7 @@ define({
 				createAccount: "Create new Logbook",
 				createRealAccountData: 'Create real account data',
 				verifyRealAccountData: 'Verify real account data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: "Add an Existing Logbook",
 				changeAccountLabel: "Title'er Logbook",
 				setPrimary: "Set as Primary Logbook",
@@ -564,6 +573,7 @@ define({
 				closeWallet: "Close the Coffer",
 				closeProgram: "Abandon Ship",
 				copyClipboard: "Click to copy me hearties to clipboard",
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: "Send Booty",
 				signMultisig: 'SIGN',
 				balance: "Pieces of Eight",
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: "(at block {{1}}{{#2}} : est. {{3}} days behind{{/2}})",
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: "unknown",
 				columns: [
 					"",

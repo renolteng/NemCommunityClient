@@ -33,6 +33,7 @@ define({
 			132: 'L\'extension du fichier de carnet d\'adresses est incorrecte.',
 			133: 'Le carnet d\'adresses n\'a pas pu être effacé.',
 			202: 'Un message chiffré ne peut être envoyé si le destinataire n\'a jamais effectué de transaction auparavant.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'Le serveur d\'infrastructure NEM (NIS) n\'est pas disponible. Essayez de redémarrer le logiciel NEM. Si vous utilisez un serveur NIS distant, vérifier l\'hôte configuré pour vous assurer qu\'il n\'y a pas d\'erreur sinon utiliser un autre serveur NIS distant.',
 			306: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
 			400: 'Certains paramètres sont manquants ou invalides.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Étiquette privée',
 			publicLabel: 'Étiquette publique',
 			noCharge: 'Le compte utilisé ne sera <b>PAS</b> chargé de frais pour cette transaction, il seront chargé au compte multisig.',
-			justUse: 'Utiliser seulement'
+			fee: 'Frais',
+			justUse: 'Utiliser seulement',
+			dueBy: 'Heure dû',
+			hours: 'heures(s)',
+			hoursDue: 'Heure dû',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFERT DE TRANSACTION',
@@ -162,12 +169,11 @@ define({
 				convert: 'Convertir',
 				fee: 'Frais',
 				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				dueBy: 'Heure dû',
 				useMinimumFee: 'Utiliser les frais minimums',
-				hours: 'heures(s)',
 				txConfirm: {
 					title: 'Confirmez la conversion en compte Multisig',
-					total: 'Total'
+					total: 'Total',
+
 				},
 				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.'
 			},
@@ -185,9 +191,7 @@ define({
 				sender: 'Cosignataire',
 				fee: 'Frais',
 				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				dueBy: 'Heure dû',
 				useMinimumFee: 'Utiliser les frais minimums',
-				hours: 'heure(s)',
 				password: 'Mot de passe',
 				passwordValidation: 'Le mot de passe ne peut pas être vide',
 				send: 'Envoyez',
@@ -198,7 +202,8 @@ define({
 					title: 'Confirmer la transaction Multisig ',
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
-					noMessage: 'Pas de message'
+					noMessage: 'Pas de message',
+
 				}
 			},
 			sendNem: {
@@ -215,9 +220,7 @@ define({
 				fee: 'Frais',
 				multisigFee: 'Frais Multisig',
 				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				dueBy: 'Heure dû',
 				useMinimumFee: 'Utiliser les frais minimums',
-				hours: 'heure(s)',
 				password: 'Mot de passe',
 				passwordValidation: 'Le mot de passe ne peut pas être vide',
 				send: 'Envoyez',
@@ -228,8 +231,6 @@ define({
 					title: 'Confirmez la transaction',
 					amount: 'Montant',
 					to: 'À',
-					dueBy: 'Heure dû',
-					hours: 'heures(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
@@ -365,6 +366,11 @@ define({
 				dataMatched: 'Tout semble bon : l\'adresse indiquée, la clé publique et clé privée correspondance.',
 				verify: 'Vérifier'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Ajouter un compte existant',
 				privateKey: 'Clé privé du compte',
@@ -412,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Retirer un compte',
+				account: 'Compte',
+				label: 'Étiquette du compte',
 				wallet: 'Portefeuille',
 				password: 'Mot de passe du portefeuille',
 				warning: 'S\'il vous plait, assurez-vous que ce compte ne contient plus de XEMs avant de le retirer, sinon les XEMs qu\'il contient seront perdus pour toujours.',
@@ -430,17 +438,19 @@ define({
 				title: 'Activer la récolte à distance',
 				wallet: 'Portefeuille',
 				account: 'Compte',
-				hoursDue: 'Heure dû',
 				password: 'Mot de passe du portefeuille',
-				activate: 'Activer'
+				activate: 'Activer',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Désactiver la récolte à distance',
 				wallet: 'Portefeuille',
 				account: 'Compte',
-				hoursDue: 'Heure dû',
 				password: 'Mot de passe du portefeuille',
-				deactivate: 'Désactiver'
+				deactivate: 'Désactiver',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Démarrer la récolte à distance',
@@ -554,6 +564,7 @@ define({
 				createAccount: 'Créer un nouveau compte',
 				createRealAccountData: 'Créer les données réelles de compte',
 				verifyRealAccountData: 'Vérifier les données réelles de compte',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Ajouter un compte existant',
 				changeAccountLabel: 'Modifier l\'étiquette du compte',
 				setPrimary: 'Définir comme compte primaire',
@@ -562,6 +573,7 @@ define({
 				closeWallet: 'Fermer le portefeuille',
 				closeProgram: 'Fermer l\'application',
 				copyClipboard: 'Copier l\'adresse dans le presse-papier',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convertir un autre compte en type multisig'
 			},
 			nav: [
@@ -606,8 +618,12 @@ define({
 				sendNem: 'Envoyer des XEMs',
 				signMultisig: 'SIGNER',
 				balance: 'Balance courante',
+				loading: 'Loading balance',
+				accountCosignatories: 'Compte Multisig',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Balance assignée',
 				syncStatus: '(au blocs {{1}}{{#2}} : est. {{3}} jours en retard{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'inconnu',
 				columns: [
 					'',

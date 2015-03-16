@@ -33,6 +33,7 @@ define({
 			132: 'Типът на адрес бук файла е некоректен.',
 			133: 'Адрес букът не може да бъде изтрит.',
 			202: 'Криптирано съобщение не може да бъде изпратено понеже получателя до сега не е извършил нито една транзакция и няма публичен ключ.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'NEM Infrastructure Server е недостъпен\n\nОпитайте да рестартирате NEM програмата.\n\nАко ползвате отдалечен NIS,проверете вашият конфигуриран хост за правописни грешки или ползвайте друг отдалечен NIS.',
 			306: 'Възникна непредвидена грешка.Извиняваме се за това ,опитайте отново може това да помогне.В противен случай се обърнете за помощ към NEM NIS/NCC community.',
 			400: 'Някой параметри липсват или са некоректни.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Частна маркировка',
 			publicLabel: 'Публична маркировка',
 			noCharge: 'Този акаунт <b>Няма</b> да бъде обложен с никакви такси, мултисигнатурният акаунт ги покрива.',
-			justUse: 'Просто използвайте'
+			fee: 'Такса',
+			justUse: 'Просто използвайте',
+			dueBy: 'Време до края',
+			hours: 'час(а)',
+			hoursDue: 'Време до края (часове)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'ПРЕХВЪРЛИ ТРАНЗАКЦИЯТА',
@@ -162,12 +169,11 @@ define({
 				convert: 'Конвертирай',
 				fee: 'Такса',
 				feeValidation: 'Таксата трябва да бъде не по малка от минималната',
-				dueBy: 'Време до края',
 				useMinimumFee: 'Ползвай минимална такса',
-				hours: 'час(а)',
 				txConfirm: {
 					title: 'Потвърди Преобразуването в Мултисигнатурен Акаунт',
-					total: 'Общо'
+					total: 'Общо',
+
 				},
 				warning: 'Мултисигнатурния акаунт е в списъка на косигнатурите.Това ще предизвика блокиране на акаунта и прекъсване досъпа до фонда му.Вие навярно <b>НЕ ИСКАТЕ </b> да направите това.'
 			},
@@ -185,9 +191,7 @@ define({
 				sender: 'Косигнатура',
 				fee: 'Такса',
 				feeValidation: 'Таксата не трябва да бъде по малка от минималната',
-				dueBy: 'Време до края',
 				useMinimumFee: 'Ползвай минимална такса',
-				hours: 'час(а)',
 				password: 'Парола',
 				passwordValidation: 'Паролата не може да бъде празна',
 				send: 'Изпрати',
@@ -198,7 +202,8 @@ define({
 					title: 'Потвърди Мултисигнатурната Транзакция',
 					message: 'Съобщение',
 					encrypted: 'Съобщението е криптирано',
-					noMessage: 'Няма съобщение'
+					noMessage: 'Няма съобщение',
+
 				}
 			},
 			sendNem: {
@@ -215,9 +220,7 @@ define({
 				fee: 'Такса',
 				multisigFee: 'Мултисигнатурна такса',
 				feeValidation: 'Таксата не трябва да бъде по малка от минималната такса',
-				dueBy: 'Време до края',
 				useMinimumFee: 'Ползвай минималната такса',
-				hours: 'Час(а)',
 				password: 'Парола',
 				passwordValidation: 'Паролата не трябва да е празна',
 				send: 'Изпрати',
@@ -228,8 +231,6 @@ define({
 					title: 'Потвърдете транзакцията',
 					amount: 'Сума',
 					to: 'До',
-					dueBy: 'Време до края',
-					hours: 'час(а)',
 					total: 'Общо',
 					message: 'Съобщение',
 					encrypted: 'Съобщението е криптирано',
@@ -365,6 +366,11 @@ define({
 				dataMatched: 'Всичко изглежда добре вие въведохте адрес,публичен ключ и частен ключ които съвпадат.',
 				verify: 'Провери'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Добавете съществуващ акаунт',
 				privateKey: 'Частен ключ на акаунта',
@@ -412,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Премахнете акаунта',
+				account: 'Акаунт',
+				label: 'Маркировка на акаунта',
 				wallet: 'Свързан портфейл',
 				password: 'Парола на портфейла',
 				warning: 'Моля уверете се че нямате XEM в акаунта преди да го премахнете иначе те ще бъдат изгубени завинаги.',
@@ -430,17 +438,19 @@ define({
 				title: 'Активирайте отдалеченото генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
-				hoursDue: 'Време до края (часове)',
 				password: 'Парола на портфейла',
-				activate: 'Активирай'
+				activate: 'Активирай',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Деактивирайте отдалеченото генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
-				hoursDue: 'Време до края (часове)',
 				password: 'Парола на портфейла',
-				deactivate: 'Деактивирай'
+				deactivate: 'Деактивирай',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Старт на отдалеченото генериране',
@@ -554,6 +564,7 @@ define({
 				createAccount: 'Създаване на нов акаунт',
 				createRealAccountData: 'Създайте данните на реалния акаунт',
 				verifyRealAccountData: 'Проверете данните на реалния акаунт',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Добавяне на съществуващ акаунт',
 				changeAccountLabel: 'Промяна на маркировката на акаунта',
 				setPrimary: 'Задай като главен акаунт',
@@ -562,6 +573,7 @@ define({
 				closeWallet: 'Затвори портфейла',
 				closeProgram: 'Затвори програмата',
 				copyClipboard: 'Копирай адреса в клипборда',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Превърни друг акаунт в мултисигнатурен'
 			},
 			nav: [
@@ -606,8 +618,12 @@ define({
 				sendNem: 'Изпрати XEM',
 				signMultisig: 'Подпиши',
 				balance: 'Текущ баланс',
+				loading: 'Loading balance',
+				accountCosignatories: 'Мултисигнатурен акаунт',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Утвърден Баланс',
 				syncStatus: '( Блок {{1}}{{#2}} : около {{3}} дена на зад {{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'неизвестно',
 				columns: [
 					'',

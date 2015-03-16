@@ -33,6 +33,7 @@ define({
 			132: 'Rozszerzenie pliku książki adresowej jest niepoprawne.',
 			133: 'Książka adresowa nie mogła zostać usunięta.',
 			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'Serwer infrastruktury NEM (NIS) jest niedostępny.\n\nSpróbuj zrestartować oprogramowanie NEM.\n\nJeśli korzystasz ze zdalnego NIS, sprawdź czy poprawnie wpisałeś numer hosta lub użyj innego zdalnego NIS.',
 			306: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			400: 'Brakujący lub niewłaściwy parametr.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Etykieta prywatna',
 			publicLabel: 'Etykieta publiczna',
 			noCharge: 'Bieżące konto <b>NIE</b> będzie obciążone opłatami, konto multisig je opłaca.',
-			justUse: 'Wystarczy użyć'
+			fee: 'Opłata',
+			justUse: 'Wystarczy użyć',
+			dueBy: 'Ważne przez',
+			hours: 'godzin(y)',
+			hoursDue: 'Wykonaj w ciągu (godziny)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSAKCJI',
@@ -162,9 +169,7 @@ define({
 				convert: 'Konwertuj',
 				fee: 'Opłata',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
-				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
-				hours: 'godzin(y)',
 				txConfirm: {
 					title: 'Potwierdź konwersję do Konta Multisig',
 					total: 'Suma',
@@ -186,9 +191,7 @@ define({
 				sender: 'Sygnatariusz',
 				fee: 'Opłata',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
-				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
-				hours: 'godzin(y)',
 				password: 'Hasło',
 				passwordValidation: 'Hasło nie może być puste',
 				send: 'Wyślij',
@@ -217,9 +220,7 @@ define({
 				fee: 'Opłata',
 				multisigFee: 'Opłata multisig',
 				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
-				dueBy: 'Ważne przez',
 				useMinimumFee: 'Użyj minimalnej opłaty',
-				hours: 'godzin',
 				password: 'Hasło',
 				passwordValidation: 'Hasło nie może być puste',
 				send: 'Wyślij',
@@ -230,8 +231,6 @@ define({
 					title: 'Potwierdź transakcję',
 					amount: 'Ilość',
 					to: 'Do',
-					dueBy: 'Ważne przez',
-					hours: 'godzin(y)',
 					total: 'Suma',
 					message: 'Wiadomość',
 					encrypted: 'Wiadomość jest zaszyfrowana',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Wszystko w porządku, adres, klucz puliczny i prywatny pasują do siebie.',
 				verify: 'Weryfikacja'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Dodaj istniejące konto',
 				privateKey: "Klucz Prywatny Konta",
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Usuń konto',
+				account: 'Konto',
+				label: 'Etykieta',
 				wallet: 'Portfel',
 				password: "Hasło portfela",
 				warning: 'Upewnij się, że Twoje konto nie zawiera już XEM, gdyż znikną na zawsze.',
@@ -432,17 +438,19 @@ define({
 				title: 'Aktywuj zdalne zbieranie bloków',
 				wallet: 'Portfel',
 				account: 'Konto',
-				hoursDue: 'Wykonaj w ciągu (godziny)',
 				password: "Hasło portfela",
-				activate: 'Aktywuj'
+				activate: 'Aktywuj',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deaktywuj zdalne zbieranie bloków',
 				wallet: 'Portfel',
 				account: 'Konto',
-				hoursDue: 'Wykonaj w ciągu (godziny)',
 				password: "Hasło portfela",
-				deactivate: 'Deaktywuj'
+				deactivate: 'Deaktywuj',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Rozpocznij zdalne zbieranie bloków',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Stwórz Nowe Konto',
 				createRealAccountData: 'Utwórz prawdziwe konto',
 				verifyRealAccountData: 'Weryfikacja prawdziwego konta',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Dodaj Istniejące Konto',
 				changeAccountLabel: 'Zmień Etykietę Konta',
 				setPrimary: 'Ustaw jako Konto Podstawowe',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Zamknij Portfel',
 				closeProgram: 'Zamknij Program',
 				copyClipboard: 'Kopiuj adres do schowka',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Konwertuj inne konto na multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Wyślij XEM',
 				signMultisig: 'PODPISZ',
 				balance: 'Stan Konta',
+				loading: 'Loading balance',
+				accountCosignatories: 'Konto multisig',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Saldo usankcjonowane',
 				syncStatus: '(blok {{1}}{{#2}} : ok. {{3}} dni opóźnienia{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'nieznany',
 				columns: [
 					'',

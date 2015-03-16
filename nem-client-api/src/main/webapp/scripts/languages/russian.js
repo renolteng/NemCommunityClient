@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Отсутствует public key.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Произошла непредвиденная ошибка . Приносим свои извинения, повторите попытку снова. В противном случае, обратитесь за поддержкой в NEM NIS/NCC Community.',
 			400: 'Некоторые параметры отсутствуют',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Приватная маркировка',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: 'Оплата',
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Hours due',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: 'Оплата',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Оплата',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Пароль',
 				passwordValidation: 'Password must not be blank',
 				send: 'Послать',
@@ -217,9 +220,7 @@ define({
 				fee: 'Оплата',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'В течение',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'часов',
 				password: 'Пароль',
 				passwordValidation: 'Password must not be blank',
 				send: 'Послать',
@@ -230,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Добавить Существующий Аккаунт',
 				privateKey: 'Частный Ключ Аккаунта ',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Удалить аккаунт',
+				account: 'Account',
+				label: 'Маркировка аккаунта',
 				wallet: 'Кошелёк',
 				password: 'Пароль от кошелька',
 				warning: 'Пожалуйста  убедитесь, что Ваш аккаунт не имеет XEM монет, прежде чем Вы удалите его, или они будут потеряны навсегда.',
@@ -432,17 +438,19 @@ define({
 				title: 'Activate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Hours due',
 				password: 'Wallet\'s password',
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Hours due',
 				password: 'Wallet\'s password',
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote harvesting',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Создать Новый Аккаунт',
 				createRealAccountData: 'Create real account data',
 				verifyRealAccountData: 'Verify real account data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Добавить Существующий Аккаунт',
 				changeAccountLabel: 'Изменить Маркировку Аккаунта',
 				setPrimary: 'Установить как Главный Аккаунт',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Закрыть Кошелёк',
 				closeProgram: 'Закрыть Программу',
 				copyClipboard: 'Скопируйте адрес в буфер обмена',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Послать XEM',
 				signMultisig: 'SIGN',
 				balance: 'Текущий Баланс',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(Блок {{1}}{{#2}} : примерно {{3}} дней{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'неизвестно',
 				columns: [
 					'',

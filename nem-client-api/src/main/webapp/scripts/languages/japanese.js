@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: '相手が送金及びメッセージを送信されていない為、このメッセージを暗号化して送れない。',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: '開発者が考えられなかったエラーが発生しまして、申し訳ありません。もう一度実行して、問題が再び発生したら場合、NIS/NCCのサイトにエラーリポートを書いてください。',
 			400: 'パラメーターがないか間違っている。',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'プライベートラベル',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: '手数料',
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Due by (hours)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: '手数料',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: '手数料',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'パスワード',
 				passwordValidation: 'Password must not be blank',
 				send: '送る',
@@ -217,9 +220,7 @@ define({
 				fee: '手数料',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: '期限',
 				useMinimumFee: 'Use minimum fee',
-				hours: '時間単位',
 				password: 'パスワード',
 				passwordValidation: 'Password must not be blank',
 				send: '送る',
@@ -230,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -367,6 +366,11 @@ define({
 				dataMatched: '入力したNEMアドレス、パブリックキー、プライベートキーはすべて正常に確認されました。',
 				verify: '確認'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: '既存のアカウントを追加します。',
 				privateKey: 'アカウントのプライベートキー',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'アカウントを削除',
+				account: 'アカウント',
+				label: 'アカウントラベル',
 				wallet: 'ウォレット',
 				password: 'ウォレットのパスワード',
 				warning: 'アカウントを削除する前にXEMが残っていないか確認してください。削除が完了したら、一旦削除したXEMは復元できません。',
@@ -432,17 +438,19 @@ define({
 				title: 'リモートハーベストを開始する',
 				wallet: 'ウォレット',
 				account: 'アカウント',
-				hoursDue: 'Due by (hours)',
 				password: 'ウォレットのパスワード',
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'リモートハーベストを停止する',
 				wallet: 'ウォレット',
 				account: 'アカウント',
-				hoursDue: 'Due by (hours)',
 				password: 'ウォレットのパスワード',
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'リモートハーベストを開始する',
@@ -556,6 +564,7 @@ define({
 				createAccount: '新しいアカウントを作成する',
 				createRealAccountData: '実際のアカウントデータを作成する',
 				verifyRealAccountData: '実際のアカウントデータを確認する',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: '既存のアカウントを追加する',
 				changeAccountLabel: 'アカウントラベルを変更する',
 				setPrimary: 'プライマリーアカウントに設定する',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'ウォレットを閉じる',
 				closeProgram: '終了する',
 				copyClipboard: 'アドレスをクリップボードにコピーする',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'XEMの送金',
 				signMultisig: '調印する',
 				balance: '現在の残高',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(現在同期しているブロック: {{1}}{{#2}} 推定で {{3}} 日前の取引{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: '不明',
 				columns: [
 					'',

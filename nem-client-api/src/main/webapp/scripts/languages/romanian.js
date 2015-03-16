@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Mesajul encriptat nu poate fi trimis pentru că destinatarul nu are nici o tranzacție efectuată.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'A apărut o eroare care nu a fost anticipată de echipa de dezvoltare. Ne cerem scuze, o reîncercare ar putea ajuta. În caz contrar, te rog raportează problema în comunitatea NEM NIS/NCC.',
 			400: 'Un parametru lipsește sau este invalid.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Etichetă privată',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: 'Taxă',
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Scadență',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: 'Taxă',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Taxă',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Parola',
 				passwordValidation: 'Password must not be blank',
 				send: 'Trimite',
@@ -217,9 +220,7 @@ define({
 				fee: 'Taxă',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Expiră in',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'ore',
 				password: 'Parola',
 				passwordValidation: 'Password must not be blank',
 				send: 'Trimite',
@@ -230,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Totul pare în ordine, adresa introdusă, cheia publică, și cheia privată se potrivesc.',
 				verify: 'Verifică'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Adaugă un cont existent',
 				privateKey: 'Cheia privată a contului',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Înlătură contul',
+				account: 'Cont',
+				label: 'Eticheta contului',
 				wallet: 'Portofel',
 				password: 'Parola portofelului',
 				warning: 'Te rog să asigură-te că contul tău nu mai are nici un XEM în el înainte să îl înlături, în caz contrar aceștia vor fi pierduți pentru totdeauna.',
@@ -432,17 +438,19 @@ define({
 				title: 'Activează recoltarea de la distanță',
 				wallet: 'Portofel',
 				account: 'Cont',
-				hoursDue: 'Scadență',
 				password: 'Parola portofelului',
-				activate: 'Activează'
+				activate: 'Activează',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Dezactivează recoltarea de la distanță',
 				wallet: 'Portofel',
 				account: 'Cont',
-				hoursDue: 'Scadență',
 				password: 'Parola portofelului',
-				deactivate: 'Dezactivează'
+				deactivate: 'Dezactivează',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Pornește recoltarea de la distanță',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Crează cont nou',
 				createRealAccountData: 'Crează date reale de cont',
 				verifyRealAccountData: 'Verifică datele contului real',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Adaugă un nou cont existent',
 				changeAccountLabel: 'Schimbă eticheta contului',
 				setPrimary: 'Stabilște ca cont primar',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Închide portofelul',
 				closeProgram: 'Închide programul',
 				copyClipboard: 'Copiază adresa în clipboard',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Trimite XEM',
 				signMultisig: 'SIGN',
 				balance: 'Sold actual',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(la block-ul {{1}}{{#2}} : est. {{3}} zile în urmă{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'necunoscut',
 				columns: [
 					'',

@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Enviar una transacción encriptada no es posible debido a que el destinatario nunca ha realizado una transacción.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Un error imprevisto ha ocurrido. Pedimos disculpas por este problema. Tal vez re-intentar ayude a resolver el problema. De otra ma nera',
 			400: 'Algún parametro requerido no ha sido especificado o es inválido.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Etiqueta privada',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: 'Tarifa',
+			justUse: 'Just use',
+			dueBy: 'Debido por',
+			hours: 'hora(s)',
+			hoursDue: 'Debido por',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: 'Tarifa',
 				feeValidation: 'Tarifa no debe ser inferior a la tarifa mínima',
-				dueBy: 'Debido por',
 				useMinimumFee: 'Usar tarifa mínima',
-				hours: 'hora(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Tarifa',
 				feeValidation: 'Tarifa no debe ser inferior a la tarifa mínima',
-				dueBy: 'Debido por',
 				useMinimumFee: 'Usar tarifa mínima',
-				hours: 'hora(s)',
 				password: 'Contraseña',
 				passwordValidation: 'La contraseña no debe ser vacía',
 				send: 'Enviar',
@@ -217,9 +220,7 @@ define({
 				fee: 'Tarifa',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Tarifa no debe ser inferior a la tarifa mínima',
-				dueBy: 'Debido por',
 				useMinimumFee: 'Usar tarifa mínima',
-				hours: 'horas',
 				password: 'Contraseña',
 				passwordValidation: 'La contraseña no debe ser vacía',
 				send: 'Enviar',
@@ -230,8 +231,6 @@ define({
 					title: 'Confirmar Transacción',
 					amount: 'Cantidad',
 					to: 'Para',
-					dueBy: 'Debido por',
-					hours: 'hora(s)',
 					total: 'Total',
 					message: 'Mensaje',
 					encrypted: 'Mensaje está encriptado',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Todo parece estar bien. La dirección, clave publica y clave privada especificadas son validas.',
 				verify: 'Verificar'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Añadir cuenta existente',
 				privateKey: 'Clave privada de la cuenta',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Remover cuenta',
+				account: 'Cuenta',
+				label: 'Etiqueta de cuenta',
 				wallet: 'Monedero',
 				password: 'Contraseña de monedero',
 				warning: 'Por favor, asegúrese que la cuenta que desea remover no contiene XEMs, ya que estos se perderian para siempre al removerla.',
@@ -432,17 +438,19 @@ define({
 				title: 'Activar recolecta remota',
 				wallet: 'Monedero',
 				account: 'Cuenta',
-				hoursDue: 'Debido por',
 				password: 'Contraseña de monedero',
-				activate: 'Activar'
+				activate: 'Activar',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Desactivar recolecta remota',
 				wallet: 'Monedero',
 				account: 'Cuenta',
-				hoursDue: 'Debido por',
 				password: 'Contraseña de monedero',
-				deactivate: 'Desactivar'
+				deactivate: 'Desactivar',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Comenzar recolecta remota',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Crear cuenta nueva',
 				createRealAccountData: 'Crear datos de cuenta real',
 				verifyRealAccountData: 'Verificar datos de cuenta real',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Añadir cuenta existente',
 				changeAccountLabel: 'Cambiar etiqueta de cuenta',
 				setPrimary: 'Definir como cuenta primaria',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Cerrar monedero',
 				closeProgram: 'Cerrar programa',
 				copyClipboard: 'Copiar dirección al portapapeles',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Enviar XEM',
 				signMultisig: 'SIGN',
 				balance: 'Saldo actual',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(En el bloque {{1}}{{#2}}: aproximadamente {{3}} dia(s) atras{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'desconocido',
 				columns: [
 					'',

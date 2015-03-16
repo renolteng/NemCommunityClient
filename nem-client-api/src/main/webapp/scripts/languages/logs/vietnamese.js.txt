@@ -303,4 +303,39 @@ changed texts.harvestedBlocks.table.columns.[2]
 	  to: 'Block difficulty'
 	 was: 'Block hash'
 
+-----translated texts.common.fee
+	    from: 'Fee'
+	      to: 'Phí'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.common.dueBy
+	    from: 'Due by'
+	      to: 'Hết hạn'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.common.hours
+	    from: 'hour(s)'
+	      to: 'giờ'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.common.hoursDue
+	    from: 'Due by (hours)'
+	      to: 'Hết hạn sau (giờ)'
+	based on: texts.modals.deactivateRemote.hoursDue
+
+translated texts.modals.removeAccount.account
+	    from: 'Account'
+	      to: 'Tài khoản'
+	based on: texts.modals.stopRemote.account
+
+translated texts.modals.removeAccount.label
+	    from: 'Account label'
+	      to: 'Nhãn tài khoản'
+	based on: texts.modals.changeAccountLabel.label
+
+translated texts.dashboard.transactions.accountCosignatories
+	    from: 'Multisig account'
+	      to: 'Multisig account'
+	based on: texts.modals.signMultisig.original.from
+
 -----

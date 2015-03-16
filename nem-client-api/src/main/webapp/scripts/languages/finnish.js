@@ -33,6 +33,7 @@ define({
 			132: 'Osoitekirjan laajennustiedosto on väärä.',
 			133: 'Osoitekirjaa ei voida poistaa.',
 			202: 'Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'NIS ei ole käytettävissä. Yritä käynnistää NEM sovellus uudelleen. Mikäli yrität käyttää NIS palvelua etänä, tarkista kirjoitusvirheet (host), tai käytä toista etä NIS palvelua.',
 			306: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			400: 'Jotkut parametrit puuttuvat tai ovat viallisia.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Yksityinen merkintä',
 			publicLabel: 'Julkinen merkintä',
 			noCharge: 'Olemassa olevaa tiliä <b>ei</b> veliteta, se katetaan multisig-tililtä.',
-			justUse: 'Käytä'
+			fee: 'Palkkio',
+			justUse: 'Käytä',
+			dueBy: 'Maksettava',
+			hours: 'Tunnit',
+			hoursDue: 'Maksettavaksi (tunnit)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'SIIRTO LÄHETYS',
@@ -162,12 +169,11 @@ define({
 				convert: 'Muunna',
 				fee: 'Palkkio',
 				feeValidation: 'Palkkio ei voi olla vähempää, kuin minimiveloitus',
-				dueBy: 'Maksettava',
 				useMinimumFee: 'Käytä minimipalkkiota',
-				hours: 'Tunti(a)',
 				txConfirm: {
 					title: 'Vahvista multiig tilin muunto',
-					total: 'Yhteensä'
+					total: 'Yhteensä',
+
 				},
 				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä!'
 			},
@@ -185,9 +191,7 @@ define({
 				sender: 'Allekirjoittaja',
 				fee: 'Palkkio',
 				feeValidation: 'Palkkio ei voi olla vähempää, kuin minimipalkkio',
-				dueBy: 'Maksettava',
 				useMinimumFee: 'Käytä minimipalkkiota',
-				hours: 'Tunti(a)',
 				password: 'Salasana',
 				passwordValidation: 'Salasanakenttä ei voi olla tyhjä',
 				send: 'Lähetä',
@@ -198,7 +202,8 @@ define({
 					title: 'Vahvista multisig siirto',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
-					noMessage: 'Ei viestiä'
+					noMessage: 'Ei viestiä',
+
 				}
 			},
 			sendNem: {
@@ -215,9 +220,7 @@ define({
 				fee: 'Palkkio',
 				multisigFee: 'Multisig palkkio',
 				feeValidation: 'Palkkio ei voi olla vähempää, kuin minimipalkkio.',
-				dueBy: 'Maksettava',
 				useMinimumFee: 'Käytä minimipalkkiota',
-				hours: 'Tunnit',
 				password: 'Salasana',
 				passwordValidation: 'Salasanakenttä ei voi olla tyhjä',
 				send: 'Lähetä',
@@ -228,8 +231,6 @@ define({
 					title: 'Vahvista siirto',
 					amount: 'Summa',
 					to: 'Minne',
-					dueBy: 'Maksettava',
-					hours: 'Tunnit',
 					total: 'Kokonaissumma',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
@@ -365,6 +366,11 @@ define({
 				dataMatched: 'Kaikki näyttää hyvältä, syöttämäsi osoite, public key ja private key ovat yhteensopivia.',
 				verify: 'Varmista'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Lisää olemassaoleva tili',
 				privateKey: 'Tilin Private Key',
@@ -412,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Poista tili',
+				account: 'Tili',
+				label: 'Tilin nimi',
 				wallet: 'Lompakko',
 				password: 'Lompakon salasana',
 				warning: 'Varmista, että tilisi on tyhjä ennen kuin poistat sen, tai kaikki XEMit poistuvat tililtäsi myös.',
@@ -430,17 +438,19 @@ define({
 				title: 'Aktivoi etälouhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
-				hoursDue: 'Maksettavaksi (tunnit)',
 				password: 'Lompakon salasana',
-				activate: 'Aktivoi'
+				activate: 'Aktivoi',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Lopeta etälouhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
-				hoursDue: 'Maksettavaksi (tunnit)',
 				password: 'Lompakon salasana',
-				deactivate: 'Katkaise yhteys'
+				deactivate: 'Katkaise yhteys',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Aloita etälouhinta',
@@ -554,6 +564,7 @@ define({
 				createAccount: 'Luo uusi lompakko',
 				createRealAccountData: 'Luo real account data',
 				verifyRealAccountData: 'Tarkista real account data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Lisää olemassaoleva tili',
 				changeAccountLabel: 'Vahda tilin nimi',
 				setPrimary: 'Aseta ensisijainen tili',
@@ -562,6 +573,7 @@ define({
 				closeWallet: 'Sulje lomakko',
 				closeProgram: 'Sulje ohjelma',
 				copyClipboard: 'Kopioi osoite työpöydälle',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Muunna toinen tili multisig tiliksi'
 			},
 			nav: [
@@ -606,8 +618,12 @@ define({
 				sendNem: 'Lähetä XEM',
 				signMultisig: 'ALLEKIRJOITA',
 				balance: 'Saldo',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig tili',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Louhittu saldo',
 				syncStatus: '(lohko {{1}}{{#2}} : {{3}} päivää takana{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'Tuntematon',
 				columns: [
 					'',

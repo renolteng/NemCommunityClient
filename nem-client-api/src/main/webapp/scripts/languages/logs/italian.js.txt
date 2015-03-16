@@ -294,4 +294,39 @@ changed texts.harvestedBlocks.table.columns.[2]
 	  to: 'Block difficulty'
 	 was: 'Firma del blocco'
 
+-----translated texts.common.fee
+	    from: 'Fee'
+	      to: 'Commissioni'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.common.dueBy
+	    from: 'Due by'
+	      to: 'Tempo massimo'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.common.hours
+	    from: 'hour(s)'
+	      to: 'ore'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.common.hoursDue
+	    from: 'Due by (hours)'
+	      to: 'Tempo massimo (ore)'
+	based on: texts.modals.deactivateRemote.hoursDue
+
+translated texts.modals.removeAccount.account
+	    from: 'Account'
+	      to: 'Indirizzo'
+	based on: texts.modals.stopRemote.account
+
+translated texts.modals.removeAccount.label
+	    from: 'Account label'
+	      to: 'Nome dell\'indirizzo'
+	based on: texts.modals.changeAccountLabel.label
+
+translated texts.dashboard.transactions.accountCosignatories
+	    from: 'Multisig account'
+	      to: 'Indirizzo multifirma'
+	based on: texts.modals.signMultisig.original.from
+
 -----

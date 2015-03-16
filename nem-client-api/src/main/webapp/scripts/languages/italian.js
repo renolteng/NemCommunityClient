@@ -33,6 +33,7 @@ define({
 			132: 'L\'estensione del nome del file della rubrica non è corretta.',
 			133: 'La rubrica non può essere eliminata.',
 			202: 'Impossibile cifrare il testo: non è nota la chiave pubblica del destinatario',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'E\' occorso un errore imprevisto; riprova ad effettuare l\'operazione. Se il problema persiste chiedi supporto alla comunità NEM',
 			400: 'Manca qualche parametro obbligatorio',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Nome privato',
 			publicLabel: 'Nome pubblico',
 			noCharge: 'L\'indirizzo <b>NON</b> deve pagare commissioni, verranno coperte dall\'indirizzo cointestato.',
-			justUse: 'Just use'
+			fee: 'Commissioni',
+			justUse: 'Just use',
+			dueBy: 'Tempo massimo',
+			hours: 'ore',
+			hoursDue: 'Tempo massimo (ore)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRASFERIMENTO FONDI',
@@ -162,9 +169,7 @@ define({
 				convert: 'Trasforma',
 				fee: 'Commissioni',
 				feeValidation: 'Le commissioni non devono essere inferiori al minimo previsto',
-				dueBy: 'Tempo limite',
 				useMinimumFee: 'Utilizza commissioni minime',
-				hours: 'ore',
 				txConfirm: {
 					title: 'Conferma la trasformazione in indirizzo multifirma',
 					total: 'Totale',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cofirmatario',
 				fee: 'Commissioni',
 				feeValidation: 'Le commissioni non devono essere inferiori al minimo previsto',
-				dueBy: 'Tempo massimo',
 				useMinimumFee: 'Utilizza commissioni minime',
-				hours: 'ore',
 				password: 'Password',
 				passwordValidation: 'La password non può essere vuota',
 				send: 'Invia',
@@ -217,9 +220,7 @@ define({
 				fee: 'Commissioni',
 				multisigFee: 'Commissione multifirma',
 				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
-				dueBy: 'Termine massimo',
 				useMinimumFee: 'Usa commissioni minime',
-				hours: 'ore',
 				password: 'Password',
 				passwordValidation: 'La password non può essere vuota',
 				send: 'Invia',
@@ -230,8 +231,6 @@ define({
 					title: 'Conferma transazione',
 					amount: 'Importo',
 					to: 'A',
-					dueBy: 'Tempo massimo',
-					hours: 'ore',
 					total: 'Totale',
 					message: 'Messaggio',
 					encrypted: 'Cifra messaggio',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Ottimo! I dati corrispondono.',
 				verify: 'Verifica'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Aggiunta indirizzo esistente',
 				privateKey: 'Chiave privata',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Cancellazione indirizzo',
+				account: 'Indirizzo',
+				label: 'Nome dell\'indirizzo',
 				wallet: 'Portafoglio',
 				password: 'Password del portafoglio',
 				warning: 'Assicurati che l\'indirizzo non contenga alcun NEM prima di eliminarlo oppure questi saranno definitivamente persi.',
@@ -432,17 +438,19 @@ define({
 				title: 'Abilita generazione blocchi sicura',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
-				hoursDue: 'Tempo massimo (ore)',
 				password: 'Password del portafoglio',
-				activate: 'Attiva'
+				activate: 'Attiva',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Disabilita generazione blocchi sicura',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
-				hoursDue: 'Tempo massimo (ore)',
 				password: 'Password del portafoglio',
-				deactivate: 'Disattiva'
+				deactivate: 'Disattiva',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Avvia generazione blocchi sicura',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Crea nuovo indirizzo',
 				createRealAccountData: 'Crea indirizzo reale',
 				verifyRealAccountData: 'Verifica indirizzo reale',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Aggiungi indirizzo esistente',
 				changeAccountLabel: 'Modifica nome dell\'indirizzo',
 				setPrimary: 'Seleziona indirizzo principale',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Chiudi portafoglio',
 				closeProgram: 'Arresta NCC',
 				copyClipboard: 'Copia indirizzo negli appunti',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Invia XEM',
 				signMultisig: 'FIRMA',
 				balance: 'Bilancio attuale',
+				loading: 'Loading balance',
+				accountCosignatories: 'Indirizzo multifirma',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Bilancio vested',
 				syncStatus: '(al blocco {{1}}{{#2}} : circa {{3}} giorni indietro{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'sconosciuto',
 				columns: [
 					'',

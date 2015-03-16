@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Šifrovanou zprávu nelze doručit, protože příjemce ještě neuskutečnil žádný převod',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Došlo k neočekávané chybě. Litujeme, opětovný pokus by mohl pomoci. V případě, že se problém nevyřešil, obratte se s ním na NEM NIS / NCC komunitu.',
 			400: 'Některá hodnota chybí, nebo je neplatná.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: 'Poplatek',
+			justUse: 'Just use',
+			dueBy: 'Due by',
+			hours: 'hour(s)',
+			hoursDue: 'Due by (hours)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Due by',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'hour(s)',
 				password: 'Password',
 				passwordValidation: 'Password must not be blank',
 				send: 'Send',
@@ -217,9 +220,7 @@ define({
 				fee: 'Poplatek',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Fee must not be less than the minimum fee',
-				dueBy: 'Vyprší za',
 				useMinimumFee: 'Use minimum fee',
-				hours: 'Hodin',
 				password: 'Heslo',
 				passwordValidation: 'Password must not be blank',
 				send: 'Odeslat',
@@ -230,8 +231,6 @@ define({
 					title: 'Confirm Transaction',
 					amount: 'Amount',
 					to: 'To',
-					dueBy: 'Due by',
-					hours: 'hour(s)',
 					total: 'Total',
 					message: 'Message',
 					encrypted: 'Message is encrypted',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Everything seems good. Your entered address, public key, and private key match.',
 				verify: 'Verify'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Přidat již existujíci účet',
 				privateKey: 'Soukromý klíč k účtu',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Odstranit účet',
+				account: 'Account',
+				label: 'Název účtu',
 				wallet: 'Peněženka',
 				password: 'Heslo peněženky',
 				warning: 'Prosím ujistěte se, že na vašem účtu již nejsou žádné NEMů, jinak budou ztraceny navždy.',
@@ -432,17 +438,19 @@ define({
 				title: 'Activate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: 'Wallet\'s password',
-				activate: 'Activate'
+				activate: 'Activate',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactivate Remote Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Due by (hours)',
 				password: 'Wallet\'s password',
-				deactivate: 'Deactivate'
+				deactivate: 'Deactivate',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote Harvesting',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Vytvořit nový účet',
 				createRealAccountData: 'Create Real Account Data',
 				verifyRealAccountData: 'Verify Real Account Data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Přidat již existujíci účet',
 				changeAccountLabel: 'Změnit název účtu',
 				setPrimary: 'Nastavit jako hlavní účet',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Zavřít peněženku',
 				closeProgram: 'Zavřít program',
 				copyClipboard: 'Copy Address to Clipboard',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Odeslat NEM',
 				signMultisig: 'SIGN',
 				balance: 'Současný zostatek',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(Blok {{1}}{{#2}} : asi {{3}} dny pozadu{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'Neznámy',
 				columns: [
 					'',

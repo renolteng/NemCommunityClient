@@ -33,6 +33,7 @@ define({
 			132: 'De extensie van het adresboekbestand is niet correct.',
 			133: 'Het adresboek kon niet worden verwijderd.',
 			202: 'Een beveiligd bericht kan niet worden verstuurd naar de ontvanger omdat hij of zij nog nooit een transactie heeft gemaakt met dit accountnummer.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Een fout is opgetreden wat het ontwikkelteam niet heeft voorzien. Onze verontschuldiging hiervoor, misschien helpt het om nog een keer te proberen. Als dat ook niet lukt is het wijs om een ticket te openen binnen de NEM NIS/NCC community.',
 			400: 'Een parameter is missend of niet goed.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Privé label',
 			publicLabel: 'Public label',
 			noCharge: 'Over de Huidige account zullen <b>GEEN</b> toeslagkosten komen, dit wordt afgehandeld met multisig accounts',
-			justUse: 'Gewoon gebruiken'
+			fee: 'Toeslag',
+			justUse: 'Gewoon gebruiken',
+			dueBy: 'Verzenden voor',
+			hours: 'uur',
+			hoursDue: 'Binnen (uren)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'NORMALE TRANSACTIE',
@@ -162,9 +169,7 @@ define({
 				convert: 'Converteer',
 				fee: 'Toeslag',
 				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
-				dueBy: 'Verzenden voor',
 				useMinimumFee: 'Gebruik minimale toeslag',
-				hours: 'uur',
 				txConfirm: {
 					title: 'Bevestig Conversie naar Multisig Account',
 					total: 'Totaal',
@@ -186,9 +191,7 @@ define({
 				sender: 'Handtekeninghouder',
 				fee: 'Toeslag',
 				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
-				dueBy: 'Verzenden voor',
 				useMinimumFee: 'Gebruik minimale toeslag',
-				hours: 'uur',
 				password: 'Wachtwoord',
 				passwordValidation: 'Wachwoord moet worden ingevuld',
 				send: 'Verstuur',
@@ -217,9 +220,7 @@ define({
 				fee: 'Toeslag',
 				multisigFee: 'Multisig toeslag',
 				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
-				dueBy: 'Overmaken voor',
 				useMinimumFee: 'Gebruik minimale toeslag',
-				hours: 'Uur',
 				password: 'Wachtwoord',
 				passwordValidation: 'Wachtwoord moet worden ingevuld',
 				send: 'Verstuur',
@@ -230,8 +231,6 @@ define({
 					title: 'Bevestig transactie',
 					amount: 'Hoeveelheid',
 					to: 'Naar',
-					dueBy: 'Verzenden voor',
-					hours: 'uur',
 					total: 'Totaal',
 					message: 'Bericht',
 					encrypted: 'Bericht is geencrypt',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Alles lijkt goed. Het ingevoerde adres en de sleutels komen overeen!',
 				verify: 'Verifieer'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Voeg een bestaande account toe',
 				privateKey: 'Privésleutel van account',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Account verwijderen',
+				account: 'Account',
+				label: 'Account label',
 				wallet: 'Wallet',
 				password: 'Wallet wachtwoord',
 				warning: 'Let op! Wees er zeker van dat er geen XEM saldo opstaat. Eventueel saldo wordt voor altijd verwijderd.',
@@ -432,17 +438,19 @@ define({
 				title: 'Activeer Remote harvesten',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Binnen (uren)',
 				password: 'Wallet wachtwoord',
-				activate: 'Activeren'
+				activate: 'Activeren',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deactiveer Remote harvesten',
 				wallet: 'Wallet',
 				account: 'Account',
-				hoursDue: 'Binnen (uren)',
 				password: 'Wallet wachtwoord',
-				deactivate: 'Deactiveer'
+				deactivate: 'Deactiveer',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Remote harvesten',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Maak een nieuwe Account',
 				createRealAccountData: 'Maak echte Account (wanneer NEM live is!)',
 				verifyRealAccountData: 'Verify real account data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Voor een Bestaande Account toe',
 				changeAccountLabel: 'Verander het label van de Account',
 				setPrimary: 'Stel in als Primaire Account',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Sluit Wallet',
 				closeProgram: 'Programma Afsluiten',
 				copyClipboard: 'Kopieer accountnummer naar het clipboard.',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Converteer andere account naar multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Verstuur XEM',
 				signMultisig: 'SIGN',
 				balance: 'Huidige balans',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(bij block {{1}}{{#2}} : ong. {{3}} dagen achter{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'onbekend',
 				columns: [
 					'',

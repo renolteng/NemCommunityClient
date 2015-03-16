@@ -33,6 +33,7 @@ define({
 			132: 'Nastavak naziva datoteke adresara je netočan.',
 			133: 'Adresar nije mogao biti izbrisan.',
 			202: 'Šifrirana se poruka nije mogla poslati jer primatelj nije nikad napravio niti jednu transakciju.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'NEM infrastrukturni poslužitelj (NIS) nije dostupan.\n\nPokušajte ponovo pokrenuti NEM program.\n\nAko koristite udaljeni NIS, provjerite postavke poslužitelja za ispis grešaka ili koristite drugi udaljeni NIS.',
 			306: 'Došlo je do pogreške koju razvojni tim nije predvidio. Ispričavamo se zbog toga. Novi pokušaj bi mogao pomoći, u suprotnom molim Vas pošaljite upit NEM NIS/NCC zajednici.',
 			400: 'Neki parametar nedostaje ili je nevažeći.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Privatna oznaka',
 			publicLabel: 'Javna oznaka',
 			noCharge: 'Naknada <b>neće</b> biti naplaćena sa trenutnog računa. Višepotpisnički račun to pokriva.',
-			justUse: 'Samo u koristi'
+			fee: 'Naknada',
+			justUse: 'Samo u koristi',
+			dueBy: 'Trajanje',
+			hours: 'sat(i)',
+			hoursDue: 'Vremensko razdoblje (sati)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSAKCIJA PRIJENOSA',
@@ -162,12 +169,11 @@ define({
 				convert: 'Pretvori',
 				fee: 'Naknada',
 				feeValidation: 'Naknade ne može biti manja od minimalne naknade',
-				dueBy: 'Vremenski rok',
 				useMinimumFee: 'Koristi minimalnu naknadu',
-				hours: 'sati',
 				txConfirm: {
 					title: 'Potvrdi pretvaranje u Multisig račun',
-					total: 'Ukupno'
+					total: 'Ukupno',
+
 				},
 				warning: 'Višepotpisnički račun se nalazi u listi supotpisnika što može imati za posljedicu zaključavanje računa i zabranu pristupa sredstvima na istom. Vjerojatno <b>NE</b> želite to učiniti.'
 			},
@@ -185,9 +191,7 @@ define({
 				sender: 'Potpisnik',
 				fee: 'Naknada',
 				feeValidation: 'Naknade ne može biti manja od minimalne naknade',
-				dueBy: 'Vremenski rok',
 				useMinimumFee: 'Koristi najmanju naknadu',
-				hours: 'sati',
 				password: 'Lozinka',
 				passwordValidation: 'Lozinka ne smije biti prazna',
 				send: 'Šalji',
@@ -198,7 +202,8 @@ define({
 					title: 'Potvrdi Multisig transakciju',
 					message: 'Poruka',
 					encrypted: 'Poruak je šifrirana',
-					noMessage: 'Nema poruke'
+					noMessage: 'Nema poruke',
+
 				}
 			},
 			sendNem: {
@@ -215,9 +220,7 @@ define({
 				fee: 'Naknada',
 				multisigFee: 'Višepotpisnička naknada',
 				feeValidation: 'Naknada nemože biti manja od najniže naknade',
-				dueBy: 'zbog',
 				useMinimumFee: 'Koristi najmanju naknadu',
-				hours: 'sati',
 				password: 'Lozinka',
 				passwordValidation: 'Lozinka mora biti unešena',
 				send: 'Šalji',
@@ -228,8 +231,6 @@ define({
 					title: 'Potvrdi transakciju',
 					amount: 'Iznos',
 					to: 'Na',
-					dueBy: 'Trajanje',
-					hours: 'sat(i)',
 					total: 'Ukupno',
 					message: 'Poruka',
 					encrypted: 'Poruka je šifrirana',
@@ -365,6 +366,11 @@ define({
 				dataMatched: 'Sve izgleda uredu, adresa, javni i privatni ključ koji ste unijeli se poklapaju.',
 				verify: 'Provjeri'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Dodaj postojeći račun',
 				privateKey: 'Privatni ključ računa',
@@ -412,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Ukloni račun',
+				account: 'Račun',
+				label: 'Oznaka računa',
 				wallet: 'Pridruženi novčanik',
 				password: 'Lozinka novčanika',
 				warning: 'Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži XEM ili će iznos biti izgubljen zauvijek nakon uklanjanja računa.',
@@ -430,17 +438,19 @@ define({
 				title: 'Aktiviraj udaljeno ubiranje',
 				wallet: 'Novčanik',
 				account: 'Račun',
-				hoursDue: 'Vrijedi (sati)',
 				password: 'Lozinka novčanika',
-				activate: 'Pokreni'
+				activate: 'Pokreni',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Deaktiviraj udaljeno ubiranje',
 				wallet: 'Novčanik',
 				account: 'Račun',
-				hoursDue: 'Vremensko razdoblje (sati)',
 				password: 'Lozinka novčanika',
-				deactivate: 'Deaktiviraj'
+				deactivate: 'Deaktiviraj',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Pokreni udaljeno ubiranje',
@@ -554,6 +564,7 @@ define({
 				createAccount: 'Stvori novi račun',
 				createRealAccountData: 'Stvori podatke za stvarni račun',
 				verifyRealAccountData: 'Provjeri podatke za stvarnog računa',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Dodaj postojeći račun',
 				changeAccountLabel: 'Izmijeni oznaku računa',
 				setPrimary: 'Postavi kao primarni račun',
@@ -562,6 +573,7 @@ define({
 				closeWallet: 'Zatvori novčanik',
 				closeProgram: 'Zatvori  program',
 				copyClipboard: 'Kopiraj adresu u međuspremnik',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -606,8 +618,12 @@ define({
 				sendNem: 'Šalji XEM',
 				signMultisig: 'POTPIŠI',
 				balance: 'Trenutno stanje',
+				loading: 'Loading balance',
+				accountCosignatories: 'Višepotpisnički račun',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Osigurani iznos',
 				syncStatus: '(na bloku {{1}}{{#2}} : otprilike {{3}} dan(a) u zaostatku {{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'nepoznato',
 				columns: [
 					'',

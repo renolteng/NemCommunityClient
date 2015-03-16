@@ -33,6 +33,7 @@ define({
 			132: 'The extension of the address book file is incorrect.',
 			133: 'The address book could not be deleted.',
 			202: 'Không thể gửi thông điệp mã hoá bởi vì người nhận chưa từng thực hiện một giao dịch trước đây.',
+			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
 			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'Một lỗi nằm ngoài dự tính của nhóm phát triển đã xảy ra. Xin lỗi bạn vì điều này, có thể thử lại sẽ có tác dụng. Nếu không, hãy tạo một issue trong cộng đồng NIS/NCC của NEM.',
 			400: 'Một tham số nào đó bị thiếu hoặc không hợp lệ.',
@@ -97,7 +98,13 @@ define({
 			privateLabel: 'Nhãn cá nhân',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
-			justUse: 'Just use'
+			fee: 'Phí',
+			justUse: 'Just use',
+			dueBy: 'Hết hạn',
+			hours: 'giờ',
+			hoursDue: 'Hết hạn sau (giờ)',
+			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			closeButton: 'Close'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -162,9 +169,7 @@ define({
 				convert: 'Convert',
 				fee: 'Phí',
 				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
-				dueBy: 'Hết hạn',
 				useMinimumFee: 'Sử dụng phí tối thiểu',
-				hours: 'giờ',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Tổng cộng',
@@ -186,9 +191,7 @@ define({
 				sender: 'Cosignatory',
 				fee: 'Phí',
 				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
-				dueBy: 'Hết hạn',
 				useMinimumFee: 'Sử dụng phí tối thiểu',
-				hours: 'giờ',
 				password: 'Mật khẩu',
 				passwordValidation: 'Mật khẩu không được để trống',
 				send: 'Gửi',
@@ -217,9 +220,7 @@ define({
 				fee: 'Phí',
 				multisigFee: 'Multisig fee',
 				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
-				dueBy: 'Hết hạn',
 				useMinimumFee: 'Sử dụng phí tối thiểu',
-				hours: 'giờ',
 				password: 'Mật khẩu',
 				passwordValidation: 'Mật khẩu không được để trống',
 				send: 'Gửi',
@@ -230,8 +231,6 @@ define({
 					title: 'Xác nhận giao dịch',
 					amount: 'Số lượng',
 					to: 'Tới',
-					dueBy: 'Hết hạn',
-					hours: 'giờ',
 					total: 'Tổng cộng',
 					message: 'Thông điệp',
 					encrypted: 'Thông điệp được mã hoá',
@@ -367,6 +366,11 @@ define({
 				dataMatched: 'Mọi thứ có vẻ tốt, địa chỉ, khoá công khai và khoá bí mật của bạn đều khớp với nhau.',
 				verify: 'Xác thực'
 			},
+			showPrivateKey: {
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				show: 'Show the key'
+			},
 			addAccount: {
 				title: 'Thêm tài khoản đã tồn tại',
 				privateKey: 'Khoá bí mật',
@@ -414,6 +418,8 @@ define({
 			},
 			removeAccount: {
 				title: 'Xoá tài khoản',
+				account: 'Tài khoản',
+				label: 'Nhãn tài khoản',
 				wallet: 'Ví',
 				password: 'Mật khẩu ví',
 				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
@@ -432,17 +438,19 @@ define({
 				title: 'Kích hoạt thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				hoursDue: 'Hết hạn sau (giờ)',
 				password: 'Mật khẩu ví',
-				activate: 'Kích hoạt'
+				activate: 'Kích hoạt',
+				warning: 'Warning',
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
 				title: 'Vô hiệu hoá thu hoạch từ xa',
 				wallet: 'Ví',
 				account: 'Tài khoản',
-				hoursDue: 'Hết hạn sau (giờ)',
 				password: 'Mật khẩu ví',
-				deactivate: 'Vô hiệu hoá'
+				deactivate: 'Vô hiệu hoá',
+				warning: 'Warning',
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Bắt đầu thu hoạch từ xa',
@@ -556,6 +564,7 @@ define({
 				createAccount: 'Tạo tài khoản mới',
 				createRealAccountData: 'Tạo dữ liệu tài khoản thực',
 				verifyRealAccountData: 'Verify real account data',
+				showPrivateKey: 'Show Account\'s PRIVATE key',
 				addAccount: 'Thêm tài khoản đã tồn tại',
 				changeAccountLabel: 'Đổi nhãn tài khoản',
 				setPrimary: 'Đặt làm tài khoản chính',
@@ -564,6 +573,7 @@ define({
 				closeWallet: 'Đóng ví',
 				closeProgram: 'Đóng chương trình',
 				copyClipboard: 'Copy địa chỉ vào clipboard',
+				copyDisabled: 'Copying an address requires flash',
 				convertMultisig: 'Convert other account to multisig'
 			},
 			nav: [
@@ -608,8 +618,12 @@ define({
 				sendNem: 'Gửi XEM',
 				signMultisig: 'SIGN',
 				balance: 'Số dư hiện tại',
+				loading: 'Loading balance',
+				accountCosignatories: 'Multisig account',
+				accountCosignatoriesView: 'view cosignatories',
 				vestedBalance: 'Vested Balance',
 				syncStatus: '(tại block {{1}}{{#2}} : chậm khoảng {{3}} ngày{{/2}})',
+				notSynced: 'might be inaccurate, NIS not synchronized yet',
 				unknown: 'không xác định',
 				columns: [
 					'',

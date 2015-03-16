@@ -249,4 +249,39 @@ changed texts.wallet.actions.convertMultisig
 	 was: "Преобразувай друг акаунт в мултисигнатурен"
 
 -----
+-----translated texts.common.fee
+	    from: 'Fee'
+	      to: 'Такса'
+	based on: texts.harvestedBlocks.table.columns.[3]
+
+translated texts.common.dueBy
+	    from: 'Due by'
+	      to: 'Време до края'
+	based on: texts.modals.sendNem.txConfirm.dueBy
+
+translated texts.common.hours
+	    from: 'hour(s)'
+	      to: 'час(а)'
+	based on: texts.modals.sendNem.txConfirm.hours
+
+translated texts.common.hoursDue
+	    from: 'Due by (hours)'
+	      to: 'Време до края (часове)'
+	based on: texts.modals.deactivateRemote.hoursDue
+
+translated texts.modals.removeAccount.account
+	    from: 'Account'
+	      to: 'Акаунт'
+	based on: texts.modals.stopRemote.account
+
+translated texts.modals.removeAccount.label
+	    from: 'Account label'
+	      to: 'Маркировка на акаунта'
+	based on: texts.modals.changeAccountLabel.label
+
+translated texts.dashboard.transactions.accountCosignatories
+	    from: 'Multisig account'
+	      to: 'Мултисигнатурен акаунт'
+	based on: texts.modals.signMultisig.original.from
+
 -----
