@@ -534,7 +534,7 @@ define({
 						title: 'What is &#42;NIS?',
 						paragraphs: [
 							'This component is responsible for keeping the <strong>NEM</strong> cloud alive.',
-							'The more <strong>NIS</strong> the better the security.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,'
 							'<strong>NIS</strong> is the access point into the <strong>NEM</strong> cloud.'
 						],
 						legend: '<strong>&#42;NIS</strong> stands for <strong>NEM Infrastructure Server</strong>'
