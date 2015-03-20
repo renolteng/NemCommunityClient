@@ -34,7 +34,7 @@ define({
 			133: 'The address book could not be deleted.',
 			202: 'An encrypted message cannot be sent because the recipient has never made a transaction before.',
 			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			305: 'The NEM Infrastructure Server (NIS) is not available. Try to restart the NEM software. If you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
 			306: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
 			400: 'Some parameter is missing or invalid.',
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
@@ -437,7 +437,7 @@ define({
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
