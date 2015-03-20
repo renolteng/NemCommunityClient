@@ -443,6 +443,7 @@ define(function(require) {
             if (!wallet) wallet = ncc.get('wallet.wallet');
             if (!account) account = ncc.get('activeAccount.address');
 
+            if (wallet === undefined || account === undefined) { return; }
             var success = false;
             ncc.postRequest('account/transactions/all',
                 {
