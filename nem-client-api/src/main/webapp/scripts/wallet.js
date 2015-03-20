@@ -561,6 +561,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     );
 
                     modal.set('loadingNis', true);
+                    ncc.set('nis', null);
                     ncc.getRequest('info/nis',
                         function(data) {
                             var blockchainHeight = ncc.get('blockchainHeight') || data.nodeMetaData.nodeBlockChainHeight;
@@ -572,7 +573,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                             complete: function() {
                                 modal.set('loadingNis', false);
                             }
-                        }
+                        },
+                        true // silent
                     );
                 },
                 closeWallet: function() {
