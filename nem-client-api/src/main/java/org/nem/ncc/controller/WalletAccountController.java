@@ -97,7 +97,7 @@ public class WalletAccountController {
 		final PrivateKey privateKey = wallet.getAccountPrivateKey(bag.getAccountAddress());
 		// TODO 20150315 J-G: shouldn't this be getDefault?
 		// > also, should add test for this
-		return new KeyPairViewModel(new KeyPair(privateKey), NetworkInfo.getMainNetworkInfo().getVersion());
+		return new KeyPairViewModel(new KeyPair(privateKey), NetworkInfos.getMainNetworkInfo().getVersion());
 	}
 
 	private void addToAddressBook(

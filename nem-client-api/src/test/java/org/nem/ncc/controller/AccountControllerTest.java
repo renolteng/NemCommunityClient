@@ -1,7 +1,7 @@
 package org.nem.ncc.controller;
 
 import net.minidev.json.*;
-import org.hamcrest.core.*;
+import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
@@ -16,7 +16,6 @@ import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
@@ -377,47 +376,6 @@ public class AccountControllerTest {
 		Assert.assertThat(
 				jsonRequest.get("value"),
 				IsEqual.equalTo(keyPair.getPrivateKey().toString()));
-	}
-
-	//endregion
-
-	//region createRealAccountData / verifyRealAccountData
-
-	@Test
-	public void createRealAccountDataReturnsKeyPairViewModelWithMainNetworkVersion() {
-		// Arrange:
-		final TestContext context = new TestContext();
-
-		// Act:
-		final KeyPairViewModel viewModel = context.controller.createRealAccountData();
-
-		// Assert:
-		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());
-		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(NetworkInfo.getMainNetworkInfo().getVersion()));
-	}
-
-	@Test
-	public void verifyRealAccountDataSucceedsWhenPassedMainNetKeyPair() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		final KeyPairViewModel viewModel = createKeyPairViewModel(new KeyPair(), NetworkInfo.getMainNetworkInfo().getVersion());
-
-		// Act:
-		context.controller.verifyRealAccountData(viewModel);
-
-		// Assert: (no exceptions)
-	}
-
-	@Test
-	public void verifyRealAccountDataFailsWhenPassedTestNetKeyPair() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		final KeyPairViewModel viewModel = createKeyPairViewModel(new KeyPair(), NetworkInfo.getTestNetworkInfo().getVersion());
-
-		// Act:
-		ExceptionAssert.assertThrowsNccException(
-				v -> context.controller.verifyRealAccountData(viewModel),
-				NccException.Code.NOT_MAIN_NETWORK_ADDRESS);
 	}
 
 	//endregion

@@ -330,45 +330,11 @@ define({
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been created!',
 				create: 'Create'
 			},
-			createRealAccountData: {
-				title: 'Create Real Account Data',
-				message: 'The below data is for your real account after NEM launches. Save the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEM will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				confirm: {
-					title: 'Save the Private Key',
-					message: 'Are you sure your private key has been saved into a safe place?'
-				},
-				recheck: {
-					title: 'Re-check Your Saved Private Key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
-					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Do you want to try to enter the private key again or come back to see the original account data?",
-						tryAgain: 'Try to enter again',
-						seeOriginal: 'See the original data'
-					},
-					recheck: 'Check'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verify Real Account Data',
-				message: 'Re-enter your saved address, public key and private key below to check if they match',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				dataMatched: 'Everything seems good. Your entered address, public key, and private key match.',
-				verify: 'Verify'
-			},
 			showPrivateKey: {
 			    title: 'Show Account\'s PRIVATE Key',
 			    message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
 			    show: 'Show the key'
 			},
 			addAccount: {
