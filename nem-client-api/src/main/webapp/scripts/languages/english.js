@@ -337,6 +337,10 @@ define({
 				privateKey: 'Private key',
 			    show: 'Show the key'
 			},
+			showRemotePrivateKey: {
+			    title: 'Show Remote Account\'s PRIVATE Key',
+			    message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+			},
 			addAccount: {
 				title: 'Add an Existing Account',
 				privateKey: "Account's Private Key",
@@ -531,6 +535,7 @@ define({
 				createRealAccountData: 'Create Real Account Data',
 				verifyRealAccountData: 'Verify Real Account Data',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
 				addAccount: 'Add an Existing Account',
 				changeAccountLabel: 'Change Account Label',
 				setPrimary: 'Set as Primary Account',

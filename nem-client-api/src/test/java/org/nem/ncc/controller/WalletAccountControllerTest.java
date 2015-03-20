@@ -4,15 +4,17 @@ import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
-import org.nem.core.crypto.PrivateKey;
-import org.nem.core.model.Address;
+import org.nem.core.crypto.*;
+import org.nem.core.model.*;
 import org.nem.core.serialization.MissingRequiredPropertyException;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.services.*;
-import org.nem.ncc.test.Utils;
+import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
+
+import java.util.function.*;
 
 public class WalletAccountControllerTest {
 
@@ -180,17 +182,74 @@ public class WalletAccountControllerTest {
 
 	//endregion
 
+	//region reveal (remote) private key
+
+	@Test
+	public void revealAccountReturnsViewModelOfPrivateKeyPair() {
+		assertKeyPairViewModel(WalletAccountController::revealAccount, WalletAccount::getPrivateKey);
+	}
+
+	@Test
+	public void revealAccountFailsIfAddressIsUnknown() {
+		assertKeyPairViewModelFails(WalletAccountController::revealAccount, Utils.generateRandomAddress());
+	}
+
+	@Test
+	public void revealRemoteAccountReturnsViewModelOfPrivateKeyPair() {
+		assertKeyPairViewModel(WalletAccountController::revealRemoteAccount, WalletAccount::getRemoteHarvestingPrivateKey);
+	}
+
+	@Test
+	public void revealRemoteAccountFailsIfAddressIsUnknown() {
+		assertKeyPairViewModelFails(WalletAccountController::revealRemoteAccount, Utils.generateRandomAddress());
+	}
+
+	private void assertKeyPairViewModelFails(
+			final BiFunction<WalletAccountController, WalletNamePasswordBag, KeyPairViewModel> revealAccount,
+			final Address address) {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(createJsonObjectWithAddress(address)));
+
+		// Assert:
+		ExceptionAssert.assertThrows(v -> revealAccount.apply(context.controller, bag),	WalletException.class);
+	}
+
+	private void assertKeyPairViewModel(
+			final BiFunction<WalletAccountController, WalletNamePasswordBag, KeyPairViewModel> revealAccount,
+			final Function<WalletAccount, PrivateKey> getPrivateKey) {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final KeyPair keyPair = new KeyPair(getPrivateKey.apply(context.walletAccount));
+
+		// Act:
+		final KeyPairViewModel viewModel = revealAccount.apply(context.controller, context.bag);
+
+		// Assert:
+		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(NetworkInfos.getDefault().getVersion()));
+		Assert.assertThat(viewModel.getKeyPair().getPrivateKey(), IsEqual.equalTo(keyPair.getPrivateKey()));
+		Assert.assertThat(viewModel.getKeyPair().getPublicKey(), IsEqual.equalTo(keyPair.getPublicKey()));
+	}
+
+	//endregion
+
 	private static JSONObject createJsonObjectWithAddress(final Address address) {
+		final JSONObject jsonObject = createJsonObject();
+		jsonObject.put("account", address.getEncoded());
+		return jsonObject;
+	}
+
+	private static JSONObject createJsonObject() {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", "n");
 		jsonObject.put("password", "p");
-		jsonObject.put("account", address.getEncoded());
 		jsonObject.put("label", "l");
 		return jsonObject;
 	}
 
 	private static class TestContext {
 		private final WalletServices walletServices = Mockito.mock(WalletServices.class);
+		private final WalletAccount walletAccount = new WalletAccount(new KeyPair().getPrivateKey(), new KeyPair().getPrivateKey());
 		private final WalletMapper walletMapper = Mockito.mock(WalletMapper.class);
 		private final AccountMapper accountMapper = Mockito.mock(AccountMapper.class);
 		private final AddressBookServices addressBookServices = Mockito.mock(AddressBookServices.class);
@@ -204,11 +263,22 @@ public class WalletAccountControllerTest {
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 		private final WalletNamePasswordBag bag;
 
+		private TestContext() {
+			final JSONObject jsonObject = createJsonObject();
+			jsonObject.put("account", walletAccount.getAddress().getEncoded());
+			this.bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
+			this.setupMocks();
+		}
+
 		private TestContext(final JSONObject jsonObject) {
 			this.bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
+			this.setupMocks();
+		}
 
+		private void setupMocks() {
 			Mockito.when(this.walletServices.open(this.bag)).thenReturn(this.wallet);
 			Mockito.when(this.addressBookServices.open(Mockito.any())).thenReturn(this.addressBook);
+			Mockito.when(this.wallet.tryGetWalletAccount(this.walletAccount.getAddress())).thenReturn(this.walletAccount);
 		}
 	}
 }
