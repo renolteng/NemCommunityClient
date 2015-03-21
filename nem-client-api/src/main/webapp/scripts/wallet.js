@@ -1110,13 +1110,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 label: {
                                     content: ncc.get('texts.modals.stopRemote.account')
                                 }
-                            },
-                            {
-                                name: 'host',
-                                type: 'text',
-                                label: {
-                                    content: ncc.get('texts.modals.stopRemote.host')
-                                }
                             }
                         ],
                         {
