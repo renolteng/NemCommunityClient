@@ -884,6 +884,10 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                         ncc.get('texts.modals.changeWalletPassword.change')
                     );
                 },
+                viewCurrentAccount: function() {
+                    var address = ncc.get('activeAccount.address');
+                    ncc.viewAccount(address);
+                },
                 changeAccountLabel: function() {
                     var wallet = ncc.get('wallet.wallet');
                     var address = ncc.get('activeAccount.address');

@@ -537,6 +537,7 @@ define({
 				verifyRealAccountData: 'Verify Real Account Data',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
 				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Add an Existing Account',
 				changeAccountLabel: 'Change Account Label',
 				setPrimary: 'Set as Primary Account',
