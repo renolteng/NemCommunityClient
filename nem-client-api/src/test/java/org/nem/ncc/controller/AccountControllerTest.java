@@ -396,10 +396,6 @@ public class AccountControllerTest {
 		return new AccountWalletRequest(address, walletName);
 	}
 
-	private static KeyPairViewModel createKeyPairViewModel(final KeyPair keyPair, final Byte version) {
-		return new KeyPairViewModel(keyPair, version);
-	}
-
 	private static class TestContext {
 		private final NodeEndpoint nisEndpoint = NodeEndpoint.fromHost("10.0.0.99");
 		private final AccountServices accountServices = Mockito.mock(AccountServices.class);

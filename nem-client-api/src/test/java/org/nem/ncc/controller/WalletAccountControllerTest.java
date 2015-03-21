@@ -1,7 +1,7 @@
 package org.nem.ncc.controller;
 
 import net.minidev.json.JSONObject;
-import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.crypto.*;
@@ -186,36 +186,39 @@ public class WalletAccountControllerTest {
 
 	@Test
 	public void revealAccountReturnsViewModelOfPrivateKeyPair() {
-		assertKeyPairViewModel(WalletAccountController::revealAccount, WalletAccount::getPrivateKey);
+		// Assert:
+		assertCanRevealKnownAccount(WalletAccountController::revealAccount, WalletAccount::getPrivateKey);
 	}
 
 	@Test
 	public void revealAccountFailsIfAddressIsUnknown() {
-		assertKeyPairViewModelFails(WalletAccountController::revealAccount, Utils.generateRandomAddress());
+		// Assert:
+		assertCannotRevealUnknownAccount(WalletAccountController::revealAccount);
 	}
 
 	@Test
 	public void revealRemoteAccountReturnsViewModelOfPrivateKeyPair() {
-		assertKeyPairViewModel(WalletAccountController::revealRemoteAccount, WalletAccount::getRemoteHarvestingPrivateKey);
+		// Assert:
+		assertCanRevealKnownAccount(WalletAccountController::revealRemoteAccount, WalletAccount::getRemoteHarvestingPrivateKey);
 	}
 
 	@Test
 	public void revealRemoteAccountFailsIfAddressIsUnknown() {
-		assertKeyPairViewModelFails(WalletAccountController::revealRemoteAccount, Utils.generateRandomAddress());
+		// Assert:
+		assertCannotRevealUnknownAccount(WalletAccountController::revealRemoteAccount);
 	}
 
-	private void assertKeyPairViewModelFails(
-			final BiFunction<WalletAccountController, WalletNamePasswordBag, KeyPairViewModel> revealAccount,
-			final Address address) {
+	private static void assertCannotRevealUnknownAccount(
+			final BiFunction<WalletAccountController, WalletNamePasswordBag, KeyPairViewModel> revealAccount) {
 		// Arrange:
 		final TestContext context = new TestContext();
-		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(createJsonObjectWithAddress(address)));
+		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(createJsonObjectWithAddress(Utils.generateRandomAddress())));
 
 		// Assert:
 		ExceptionAssert.assertThrows(v -> revealAccount.apply(context.controller, bag),	WalletException.class);
 	}
 
-	private void assertKeyPairViewModel(
+	private static void assertCanRevealKnownAccount(
 			final BiFunction<WalletAccountController, WalletNamePasswordBag, KeyPairViewModel> revealAccount,
 			final Function<WalletAccount, PrivateKey> getPrivateKey) {
 		// Arrange:
@@ -227,7 +230,9 @@ public class WalletAccountControllerTest {
 
 		// Assert:
 		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(NetworkInfos.getDefault().getVersion()));
+		Assert.assertThat(viewModel.getKeyPair().getPrivateKey(), IsNull.notNullValue());
 		Assert.assertThat(viewModel.getKeyPair().getPrivateKey(), IsEqual.equalTo(keyPair.getPrivateKey()));
+		Assert.assertThat(viewModel.getKeyPair().getPublicKey(), IsNull.notNullValue());
 		Assert.assertThat(viewModel.getKeyPair().getPublicKey(), IsEqual.equalTo(keyPair.getPublicKey()));
 	}
 

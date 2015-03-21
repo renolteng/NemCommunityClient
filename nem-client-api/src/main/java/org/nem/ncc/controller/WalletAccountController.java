@@ -94,8 +94,6 @@ public class WalletAccountController {
 	@RequestMapping(value = "/wallet/account/reveal", method = RequestMethod.POST)
 	public KeyPairViewModel revealAccount(@RequestBody final WalletNamePasswordBag bag) {
 		final WalletAccount account = this.getAccount(bag);
-		// TODO 20150315 J-G: shouldn't this be getDefault?
-		// > also, should add test for this
 		return new KeyPairViewModel(new KeyPair(account.getPrivateKey()), NetworkInfos.getDefault().getVersion());
 	}
 
@@ -107,6 +105,7 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/reveal", method = RequestMethod.POST)
 	public KeyPairViewModel revealRemoteAccount(@RequestBody final WalletNamePasswordBag bag) {
+		// TODO 20150321 J-G: should we handle this gracefully if getRemoteHarvestingPrivateKey is null?
 		final WalletAccount account = this.getAccount(bag);
 		return new KeyPairViewModel(new KeyPair(account.getRemoteHarvestingPrivateKey()), NetworkInfos.getDefault().getVersion());
 	}
