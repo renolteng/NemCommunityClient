@@ -75,7 +75,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransferTransactionViewModel viewModel = map(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
+				new TransactionMetaDataPair(transaction, createMetaData(7, 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(12));
 
@@ -154,7 +154,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransactionViewModel viewModel = map(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
+				new TransactionMetaDataPair(transaction, createMetaData(7, 14L)),
 				sender.getAddress(),
 				new BlockHeight(12));
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
@@ -387,7 +387,7 @@ public class TransferTransactionViewModelTest {
 
 		// Act:
 		final TransactionViewModel viewModel = map(
-				new TransactionMetaDataPair(transaction, new TransactionMetaData(new BlockHeight(7), 14L)),
+				new TransactionMetaDataPair(transaction, createMetaData(7, 14L)),
 				Address.fromEncoded("foo"),
 				new BlockHeight(7));
 
@@ -399,6 +399,10 @@ public class TransferTransactionViewModelTest {
 	}
 
 	//endregion
+
+	private static TransactionMetaData createMetaData(final int height, final long id) {
+		return new TransactionMetaData(new BlockHeight(height), id, Hash.ZERO);
+	}
 
 	private static TransferTransactionViewModel map(final Transaction transaction, final Address address) {
 		return (TransferTransactionViewModel)TransactionToViewModelMapper.map(transaction, address);
