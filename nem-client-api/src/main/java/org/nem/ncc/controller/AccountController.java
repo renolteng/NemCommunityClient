@@ -191,9 +191,7 @@ public class AccountController {
 	@RequestMapping(value = "/wallet/account/unlock", method = RequestMethod.POST)
 	@RequiresTrustedNis
 	public void unlock(@RequestBody final AccountWalletRequest awRequest) {
-		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
-		// TODO 20150131 J-G: did you add refreshAccount just for unlock/lock?
-		this.accountMapper.refreshAccount(awRequest.getAddress());
+		this.lockUnlock(NisApiId.NIS_REST_ACCOUNT_UNLOCK, awRequest);
 	}
 
 	/**
@@ -204,25 +202,17 @@ public class AccountController {
 	@RequestMapping(value = "/wallet/account/lock", method = RequestMethod.POST)
 	@RequiresTrustedNis
 	public void lock(@RequestBody final AccountWalletRequest awRequest) {
-		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(this.getPrivateKey(awRequest)));
+		this.lockUnlock(NisApiId.NIS_REST_ACCOUNT_LOCK, awRequest);
+	}
+
+	private void lockUnlock(final NisApiId apiId, final AccountWalletRequest awRequest) {
+		final PrivateKey privateKey = this.walletServices.get(awRequest.getWalletName()).getAccountPrivateKey(awRequest.getAddress());
+		this.nisConnector.voidPost(apiId, new HttpJsonPostRequest(privateKey));
+		// TODO 20150131 J-G: did you add refreshAccount just for unlock/lock?
 		this.accountMapper.refreshAccount(awRequest.getAddress());
 	}
 
-	private PrivateKey getPrivateKey(final AccountWalletRequest request) {
-		return this.walletServices.get(request.getWalletName())
-				.getAccountPrivateKey(request.getAddress());
-	}
-
-	// TODO 20141005 J-G i guess we need tests for these
-	// > in all seriousness, it seems like remote[un]lock can just delegate to un[lock]
-	// > the only difference is that the remote* functions are assumed to be passed a remote account
-	// > if it's not remote we might want to fail
-	//
-	// 20141006, G-J, now looking at it, I'm starting to think /lock and /unlock are wrong :/
-	//   they were supposed to send "remote account", and from what I see they send account address
-	//   I've fixed that
-	//
-	// TODO 20141010 J-G really remoteUnlock/Lock are the same except for the id
+	// TODO 20150321 J-G: for the remote/ functions, you're not actually using the wallet parameter (only the address)
 
 	/**
 	 * Unlock the account on a remote NIS server (start foraging).
@@ -232,16 +222,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/unlock", method = RequestMethod.POST)
 	public void remoteUnlock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAddress());
-		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_UNLOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
-	}
-
-	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
-	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletRequest awRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(awRequest.getAddress());
-		final Address remoteAddress = Address.fromPublicKey((new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey());
-		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, "address=" + remoteAddress.getEncoded());
-		return new AccountStatusViewModel(deserializer);
+		this.remoteLockUnlock(NisApiId.NIS_REST_ACCOUNT_UNLOCK, awpRequest);
 	}
 
 	/**
@@ -251,9 +232,30 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/lock", method = RequestMethod.POST)
 	public void remoteLock(@RequestBody final AccountWalletPasswordRequest awpRequest) {
-		final WalletAccount account = this.walletServices.tryFindOpenAccount(awpRequest.getAddress());
-		this.nisConnector.voidPost(NisApiId.NIS_REST_ACCOUNT_LOCK, new HttpJsonPostRequest(account.getRemoteHarvestingPrivateKey()));
+		this.remoteLockUnlock(NisApiId.NIS_REST_ACCOUNT_LOCK, awpRequest);
+	}
+
+	private void remoteLockUnlock(final NisApiId apiId, final AccountWalletPasswordRequest awpRequest) {
+		final PrivateKey privateKey = this.getRemoteHarvestingPrivateKey(awpRequest.getAddress());
+		this.nisConnector.voidPost(apiId, new HttpJsonPostRequest(privateKey));
 	}
 
 	//endregion
+
+	//region remoteStatus
+
+	@RequestMapping(value = "/wallet/account/remote/status", method = RequestMethod.POST)
+	public AccountStatusViewModel remoteStatus(@RequestBody final AccountWalletRequest awRequest) {
+		final PrivateKey privateKey = this.getRemoteHarvestingPrivateKey(awRequest.getAddress());
+		final Address remoteAddress = Address.fromPublicKey(new KeyPair(privateKey).getPublicKey());
+		final Deserializer deserializer = this.nisConnector.get(NisApiId.NIS_REST_ACCOUNT_STATUS, "address=" + remoteAddress.getEncoded());
+		return new AccountStatusViewModel(deserializer);
+	}
+
+	//endregion
+
+	private PrivateKey getRemoteHarvestingPrivateKey(final Address address) {
+		final WalletAccount account = this.walletServices.tryFindOpenAccount(address);
+		return account.getRemoteHarvestingPrivateKey();
+	}
 }

@@ -11,7 +11,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.node.NodeEndpoint;
-import org.nem.core.serialization.SerializableList;
+import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
@@ -368,7 +368,7 @@ public class AccountControllerTest {
 		action.accept(context.controller, createWalletRequest(account.getAddress(), new WalletName("wallet")));
 
 		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
-		Mockito.verify(context.connector, Mockito.times(1)).voidPost(Mockito.eq(apiId), requestCaptor.capture());
+		Mockito.verify(context.connector, Mockito.only()).voidPost(Mockito.eq(apiId), requestCaptor.capture());
 		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
 
 		// Assert:
@@ -376,6 +376,68 @@ public class AccountControllerTest {
 		Assert.assertThat(
 				jsonRequest.get("value"),
 				IsEqual.equalTo(keyPair.getPrivateKey().toString()));
+	}
+
+	@Test
+	public void remoteUnlockDelegatesToNisConnector() {
+		// Assert:
+		assertRemotePrivateKeyConnectorRequest(AccountController::remoteUnlock, NisApiId.NIS_REST_ACCOUNT_UNLOCK);
+	}
+
+	@Test
+	public void remoteLockDelegatesToNisConnector() {
+		// Assert:
+		assertRemotePrivateKeyConnectorRequest(AccountController::remoteLock, NisApiId.NIS_REST_ACCOUNT_LOCK);
+	}
+
+	private static void assertRemotePrivateKeyConnectorRequest(
+			final BiConsumer<AccountController, AccountWalletPasswordRequest> action,
+			final NisApiId apiId) {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final KeyPair keyPair = new KeyPair();
+		final Account account = new Account(new KeyPair(keyPair.getPublicKey()));
+		final WalletAccount walletAccount = new WalletAccount();
+		Mockito.when(context.walletServices.tryFindOpenAccount(account.getAddress())).thenReturn(walletAccount);
+
+		// Act:
+		action.accept(context.controller, createWalletPasswordRequest(account.getAddress(), new WalletName("wallet"), new WalletPassword("pass")));
+
+		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
+		Mockito.verify(context.connector, Mockito.only()).voidPost(Mockito.eq(apiId), requestCaptor.capture());
+		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
+
+		// Assert:
+		Assert.assertThat(jsonRequest.size(), IsEqual.equalTo(1));
+		Assert.assertThat(
+				jsonRequest.get("value"),
+				IsEqual.equalTo(walletAccount.getRemoteHarvestingPrivateKey().toString()));
+	}
+
+	//endregion
+
+	//region remoteStatus
+
+	@Test
+	public void remoteStatusDelegatesToConnector() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final KeyPair keyPair = new KeyPair();
+		final Account account = new Account(new KeyPair(keyPair.getPublicKey()));
+		final WalletAccount walletAccount = new WalletAccount();
+		final Address remoteAddress = Address.fromPublicKey(new KeyPair(walletAccount.getRemoteHarvestingPrivateKey()).getPublicKey());
+		Mockito.when(context.walletServices.tryFindOpenAccount(account.getAddress())).thenReturn(walletAccount);
+		Mockito.when(context.connector.get(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_STATUS), Mockito.any()))
+				.thenReturn(Utils.roundtripSerializableEntity(new AccountStatusViewModel(AccountStatus.LOCKED), null));
+
+		// Act:
+		final AccountStatusViewModel viewModel = context.controller.remoteStatus(createWalletRequest(account.getAddress(), new WalletName("wallet")));
+
+		// Assert:
+		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
+
+		final String expectedQueryString = "address=" + remoteAddress.getEncoded();
+		Mockito.verify(context.connector, Mockito.only()).get(NisApiId.NIS_REST_ACCOUNT_STATUS, expectedQueryString);
 	}
 
 	//endregion
@@ -394,6 +456,10 @@ public class AccountControllerTest {
 
 	private static AccountWalletRequest createWalletRequest(final Address address, final WalletName walletName) {
 		return new AccountWalletRequest(address, walletName);
+	}
+
+	private static AccountWalletPasswordRequest createWalletPasswordRequest(final Address address, final WalletName walletName, final WalletPassword walletPassword) {
+		return new AccountWalletPasswordRequest(address, walletName, walletPassword);
 	}
 
 	private static class TestContext {
