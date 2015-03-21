@@ -47,7 +47,7 @@ define({
 			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 1000 XEM.',
 			701: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
 			702: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
-			703: 'Your account does not have the right balance to send the provided amount of XEM.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'The provided message text is too large to be sent. Please try to reduce the length of the message.',
 			705: 'The transaction hash already exists in the database or in the list of unconfirmed transactions.',
 			706: 'The signature of the transaction could not be verified.',
