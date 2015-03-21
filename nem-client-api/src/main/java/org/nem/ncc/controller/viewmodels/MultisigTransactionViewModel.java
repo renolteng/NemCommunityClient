@@ -32,7 +32,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 		final Address relativeAccountAddress = relativeAccoundData.getAccount().getAddress();
 		final TransactionMetaData innerMetaData = metaDataPair.getMetaData() == null
 				? null
-				: new TransactionMetaData(metaDataPair.getMetaData().getHeight(), 0L);
+				: new TransactionMetaData(metaDataPair.getMetaData().getHeight(), 0L, Hash.ZERO);
 
 		this.issuer = multisigTransaction.getSigner().getAddress();
 

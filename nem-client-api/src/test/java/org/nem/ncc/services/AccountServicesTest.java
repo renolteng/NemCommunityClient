@@ -281,7 +281,7 @@ public class AccountServicesTest {
 	private static TransactionMetaDataPair createTransferMetaDataPair(final Amount fee, final int blockHeight, final long transactionId) {
 		return new TransactionMetaDataPair(
 				createTransfer(fee),
-				new TransactionMetaData(new BlockHeight(blockHeight), transactionId));
+				new TransactionMetaData(new BlockHeight(blockHeight), transactionId, Hash.ZERO));
 	}
 
 	private static Transaction createTransfer(final Amount fee) {

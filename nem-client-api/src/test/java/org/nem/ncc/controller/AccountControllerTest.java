@@ -183,7 +183,7 @@ public class AccountControllerTest {
 			final Long transactionId) {
 		return new TransactionMetaDataPair(
 				createTransfer(sender, amount),
-				new TransactionMetaData(new BlockHeight(blockHeight), transactionId));
+				new TransactionMetaData(new BlockHeight(blockHeight), transactionId, Hash.ZERO));
 	}
 
 	private static Transaction createTransfer(final Account sender, final Amount amount) {
