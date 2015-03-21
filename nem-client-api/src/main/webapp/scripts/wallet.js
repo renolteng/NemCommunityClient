@@ -171,6 +171,22 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             };
 
             ncc.showBootModal = function(message) {
+                var hostName = ncc.get('settings.remoteServer.host');
+                if (!ncc.isLocalNode(hostName)) {
+                    var warningText = "<span class='sublabelWarning'>" +
+                        ncc.fill(
+                          ncc.get('texts.modals.bootLocalNode.warningText'),
+                          ncc.get('activeAccount.formattedBalance'),
+                          hostName)
+                        + "</span>";
+
+                    ncc.showMessage(
+                        ncc.get('texts.modals.bootLocalNode.warning'),
+                        warningText
+                    );
+                    return;
+                }
+
                 var account = ncc.get('activeAccount.address');
                 var accountLabel = ncc.get('privateLabels')[account];
                 var wallet = ncc.get('wallet.wallet');
@@ -211,31 +227,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                         }
                     }
                 ];
-
-                var hostName = ncc.get('settings.remoteServer.host');
-                if (!ncc.isLocalNode(hostName)) {
-                    fields.splice(1, 0,
-                        {
-                            name: 'warning',
-                            type: 'none',
-                            readonly: true,
-                            unimportant: true,
-                            label: {
-                                content: ncc.get('texts.modals.bootLocalNode.warning')
-                            },
-                            sublabel: {
-                                content: "<span class='sublabelWarning'>" +
-                                    ncc.fill(
-                                        ncc.get('texts.modals.bootLocalNode.warningText'),
-                                        ncc.get('activeAccount.formattedBalance'),
-                                        hostName)
-                                    + "</span>",
-                                // using nullContent is a hack to force processing of html tags in content
-                                nullContent: true
-                            }
-                        }
-                    );
-                }
 
                 ncc.showInputForm(ncc.get('texts.modals.bootLocalNode.title'), message,
                     fields,
@@ -1152,12 +1143,13 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
 
             ncc.refreshAppStatus(function() {
                 if (!ncc.get('nodeBooted')) {
+                    console.log("BOOTNIS: ", ncc.get('settings.nisBootInfo.bootNis'));
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
                         var account = ncc.get('activeAccount.address');
                         var accountLabel = ncc.get('privateLabels')[account];
                         var hostName = ncc.get('settings.remoteServer.host');
-                        var warningQuestion = ncc.fill(
-                            ncc.get('texts.modals.bootLocalNode.warningQuestion'),
+                        var warningText = ncc.fill(
+                            ncc.get('texts.modals.bootLocalNode.warningStatement'),
                             accountLabel ? accountLabel : ncc.get('activeAccount.address'),
                             ncc.get('activeAccount.formattedBalance'),
                             hostName);
@@ -1188,20 +1180,29 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                         ncc.set('status.booting', false);
                                     }
                                 },
-                                true
+                                false
                             );
                         };
 
                         if (ncc.isLocalNode(hostName)) {
                             doBootNodeRequest();
                         } else {
+                            ncc.showMessage(
+                                ncc.get('texts.modals.bootLocalNode.warning'),
+                                warningText
+                            );
+                            /*
                             ncc.showConfirmation(ncc.get('texts.modals.bootLocalNode.warning'), warningQuestion, {
                                 yes: doBootNodeRequest
                             });
+                            */
                         }
 
                     } else {
-                        ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
+                        var hostName = ncc.get('settings.remoteServer.host');
+                        if (ncc.isLocalNode(hostName)) {
+                            ncc.showBootModal(ncc.get('texts.wallet.bootNodeWarning'));
+                        }
                     }
                 }
             });
