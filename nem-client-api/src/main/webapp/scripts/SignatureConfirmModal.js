@@ -6,7 +6,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.lockAction();
 
             var self = this;
+            var success = false;
             ncc.postRequest('wallet/account/signature/send', this.get('requestData'), function(data) {
+                success = true;
                 self.closeModal();
             	ncc.getModal('signMultisig').closeModal();
 
@@ -15,6 +17,13 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             },
             {
                 complete: function() {
+                    if (! success) {
+                        self.closeModal();
+                        ncc.getModal('signMultisig').closeModal();
+
+                        ncc.showMessage(ncc.get('texts.modals.common.unknown'), ncc.get('texts.modals.common.unknownMessage'));
+                    }
+
                     self.unlockAction();
                 }
             });
