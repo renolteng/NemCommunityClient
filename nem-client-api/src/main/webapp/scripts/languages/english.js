@@ -72,7 +72,7 @@ define({
 		common: {
 			success: 'Success',
 			unknown: 'Unknown status',
-			unknownMessage: 'Ncc did not get response in a timely manner. Transaction could be send to the network.<br /><br />Please, check transactions before attempting to make it again.',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC is not available',
