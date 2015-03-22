@@ -33,7 +33,7 @@ define({
 			132: 'A extensão do arquivo de contatos está incorreta.',
 			133: 'Não foi possível deletar o arquivo de contatos.',
 			202: 'Não é possível enviar mensagem, porque o destinatário ainda não possui chave pública.',
-			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
+			203: 'A conta não pode ser convertida em MultiSig, pois nem todos os consignatários são conhecidos. Eles ainda precisarão estarem na mesma carteira ou terem realizado pelo menos uma transação.',
 			305: 'O NIS não está disponível. Tente reiniciar o cliente Nem. Se você estiver utilizando um NIS remoto, verifique se a configuração do hospedeiro e procure por erros de digitação ou utiliize outro NIS remoto.',
 			306: 'Ocorreu um erro desconhecido. Talvez uma nova nova tentativa ou reiniciar o cliente/servidor dê certo; caso contrário, informe aos desenvolvedores do NEM no fórum oficial forum.nemcoin.com.',
 			400: 'Está faltando algum parâmetro ou os dados estão incorretos.',
@@ -103,7 +103,7 @@ define({
 			dueBy: 'Tempo de espera',
 			hours: 'hora(s)',
 			hoursDue: 'Tempo para desativar',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
+			hoursDueExplanation: 'Se a transação não estiver incluida até a data limite, ela será rejeitada.',
 			closeButton: 'Close'
 		},
 		transactionTypes: [
@@ -169,7 +169,9 @@ define({
 				convert: 'Converter',
 				fee: 'Taxa',
 				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
+
 				useMinimumFee: 'Usar taxa minima',
+
 				txConfirm: {
 					title: 'Confirmar Conversão para conta Multisig',
 					total: 'Total',
@@ -191,7 +193,9 @@ define({
 				sender: 'Cosignatário',
 				fee: 'Taxa',
 				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
+
 				useMinimumFee: 'Usar taxa minima',
+
 				password: 'Senha',
 				passwordValidation: 'A senha não deve ser vazia',
 				send: 'Enviar',
@@ -220,7 +224,9 @@ define({
 				fee: 'Taxa',
 				multisigFee: 'Taxa Multisig',
 				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
+
 				useMinimumFee: 'Usar taxa minima',
+
 				password: 'Senha',
 				passwordValidation: 'A senha não deve ser vazia',
 				send: 'Enviar',
@@ -231,6 +237,8 @@ define({
 					title: 'Confirmar Transação',
 					amount: 'Quantidade',
 					to: 'Para',
+
+
 					total: 'Total',
 					message: 'Mensagem',
 					encrypted: 'Mensagem está criptografada',
@@ -367,8 +375,8 @@ define({
 				verify: 'Verificar'
 			},
 			showPrivateKey: {
-				title: 'Show Account\'s PRIVATE Key',
-				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Mostrar a chave PRIVADA da conta',
+				message: 'Será exibido a chave privada dessa conta na tela, como texto. \nNo caso do seu sistema ter algum tipo de Malware, essa operação pode ser muito perigosa. \nVocê realmente tem certeza que quer exibir a chave privada?',
 				show: 'Show the key'
 			},
 			addAccount: {
@@ -438,19 +446,21 @@ define({
 				title: 'Ativar colheita remota',
 				wallet: 'Carteira',
 				account: 'Conta',
+
 				password: 'Senha',
 				activate: 'Ativar',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warning: 'Aviso',
+				warningText: 'A ativação leverá 6 houras (360 blocos). A ativação não vaiiniciar automaticamente a colheita.'
 			},
 			deactivateRemote: {
 				title: 'Desativar colheita remota',
 				wallet: 'Carteira',
 				account: 'Conta',
+
 				password: 'Senha',
 				deactivate: 'Desativar',
-				warning: 'Warning',
-				warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warning: 'Aviso',
+				warningText: 'A Desativação levará 6 houras (360 blocos).'
 			},
 			startRemote: {
 				title: 'Iniciar colheita remota',
@@ -467,7 +477,7 @@ define({
 				stop: 'Parar'
 			},
 			logoutWarning: {
-				leavePage: 'Você está saindo da carteira. Ela permanecerá aberta neste computador Para fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
+				leavePage: 'Você está saindo da carteira. \nEla permanecerá aberta neste computador Para fazer Logout, por favor, clique em \'Fechar carteira\' no menu superior direito.'
 			},
 			addContact: {
 				title: 'Adicionar contato',
@@ -564,7 +574,7 @@ define({
 				createAccount: 'Criar uma nova Conta',
 				createRealAccountData: 'Criar dados da conta real',
 				verifyRealAccountData: 'Verificar dados da conta Verdadeira',
-				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showPrivateKey: 'Mostrar a chave PRIVADA da conta',
 				addAccount: 'Adicionar uma conta existente',
 				changeAccountLabel: 'Renomear carteira',
 				setPrimary: 'Definir como conta primária',
@@ -573,7 +583,7 @@ define({
 				closeWallet: 'Fechar carteira',
 				closeProgram: 'Fechar programa',
 				copyClipboard: 'Copiar para a área de transferência',
-				copyDisabled: 'Copying an address requires flash',
+				copyDisabled: 'Para copiar um endereço, é necessári oter o Adobre Flash instalado.',
 				convertMultisig: 'Converter outra conta para o tipo Multisig'
 			},
 			nav: [
@@ -618,12 +628,12 @@ define({
 				sendNem: 'Enviar XEM',
 				signMultisig: 'ASSINAR',
 				balance: 'Saldo atual',
-				loading: 'Loading balance',
+				loading: 'Carregando balanço',
 				accountCosignatories: 'Conta Multisig',
-				accountCosignatoriesView: 'view cosignatories',
+				accountCosignatoriesView: 'ver cosignatários',
 				vestedBalance: 'Quantidade investida',
 				syncStatus: '(no bloco {{1}}{{#2}} : encontrado a {{3}} dias atrás{{/2}})',
-				notSynced: 'might be inaccurate, NIS not synchronized yet',
+				notSynced: 'Pode estar impreciso, NIS aind não está sincronizado',
 				unknown: 'Desconhecido',
 				columns: [
 					'',
