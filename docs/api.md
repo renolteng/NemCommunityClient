@@ -270,7 +270,7 @@ Lock the account on the connected NIS server (stop harvesting).
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/activate
-Announces activation of remote harvesting account to the network (FEE: 1)
+Announces activation of delegated harvesting account to the network (FEE: 1)
 
 * Request Method: _POST_
 * Request: [TransferImportanceRequest](viewModel.md#transferimportancerequest)
@@ -278,7 +278,7 @@ Announces activation of remote harvesting account to the network (FEE: 1)
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/deactivate
-Announces deactivation of remote harvesting account to the network (FEE: 1)
+Announces deactivation of delegated harvesting account to the network (FEE: 1)
 
 * Request Method: _POST_
 * Request: [TransferImportanceRequest](viewModel.md#transferimportancerequest)
@@ -294,7 +294,7 @@ Checks if account is unlocked on remote server, will return an error if
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/unlock
-Unlock the account on the remote NIS server (start secure harvesting).
+Unlock the account on the remote NIS server (start delegated harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)
@@ -302,7 +302,7 @@ Unlock the account on the remote NIS server (start secure harvesting).
 * Dependent from NIS: _Yes_
 
 ### /wallet/account/remote/lock
-Lock the account on the remote NIS server (stop secure harvesting).
+Lock the account on the remote NIS server (stop delegated harvesting).
 
 * Request Method: _POST_
 * Request: [AccountWalletPasswordRequest](viewModel.md#accountwalletpasswordrequest)

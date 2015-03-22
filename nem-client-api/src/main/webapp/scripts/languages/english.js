@@ -55,11 +55,11 @@ define({
 			708: 'The time stamp of the transaction is too far in the future.',
 			709: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaction is not allowed for multisig account.',
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
@@ -406,7 +406,7 @@ define({
 				message: 'Are you sure you want to close NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activate Remote Harvesting',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
@@ -415,7 +415,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote Harvesting',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
@@ -424,14 +424,14 @@ define({
                 warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Start Remote Harvesting',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Stop Remote Harvesting',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
@@ -576,14 +576,14 @@ define({
 				stop: 'Stop local harvesting',
 				description: 'Importance of account to the NEM cloud',
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating remote harvesting...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating remote harvesting...',
-					startRemoteHarvesting: 'Start remote harvesting',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -679,8 +679,8 @@ define({
 				harvesting: 'Harvesting',
 				stop: 'Stop local harvesting',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},
