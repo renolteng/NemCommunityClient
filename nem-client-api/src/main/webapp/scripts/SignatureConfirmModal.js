@@ -21,7 +21,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                         self.closeModal();
                         ncc.getModal('signMultisig').closeModal();
 
-                        ncc.showMessage(ncc.get('texts.modals.common.unknown'), ncc.get('texts.modals.common.unknownMessage'));
+                        ncc.showMessage(ncc.get('texts.common.unknown'), ncc.get('texts.common.unknownMessage'));
                     }
 
                     self.unlockAction();

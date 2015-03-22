@@ -20,7 +20,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                 self.closeModal();
                 ncc.getModal('sendNem').closeModal();
 
-                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
+                ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
                 ncc.refreshInfo();
             },
             {
@@ -28,8 +28,7 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
                     if (! success) {
                         self.closeModal();
                         ncc.getModal('sendNem').closeModal();
-
-                        ncc.showMessage(ncc.get('texts.modals.common.unknown'), ncc.get('texts.modals.common.unknownMessage'));
+                        ncc.showMessage(ncc.get('texts.common.unknown'), ncc.get('texts.common.unknownMessage'));
                     }
 
                     self.unlockAction();
