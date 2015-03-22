@@ -33,8 +33,8 @@ define({
 			132: '地址簿插件文件错误。',
 			133: '此地址簿无法删除。',
 			202: '该公钥不存在。',
-			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			203: '账户无法转换，可能存在未激活的共同签署人账号。需要完成一笔交互以激活账户。',
+			305: 'NEM基础设施服务 (NIS)不可用。\n\n请尝试重启NEM软件。\n\n如果您在使用远程NIS，请确认NIS端口开放，连接未受局域网限制。',
 			306: '对不起，一个开发团队没有预见到的错误发生了。请尝试重试，若问题未解决，请在NEM NIS/NCC社区内提交该问题。',
 			400: '缺失某些参数。',
 			401: '抱歉，不允许执行该操作，本能地钱包登陆远程NIS存在私钥丢失风险！',
@@ -42,8 +42,8 @@ define({
 			500: '保存配置文件失败。',
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
-			699: '此服务器已达最大收货人数。',
+			602: 'NEM基础设施服务（NIS）当前正在加载数据，数据完全加载后钱包将可用。',
+			699: '此服务器已达最大收获人数。',
 			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有1000 XEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
 			702: '所提供的截止日期过晚。必须输入1天以内的日期作为截止日期。',
@@ -79,7 +79,7 @@ define({
 				nisUnavailable: 'NIS 不可用',
 				nisStarting: 'NIS 开始启用…',
 				notBooted: '需要启用NIS。请打开你的钱包，通过弹出的对话框启用一个本地节点，或设置自动启用。',
-				loading: 'Loading blocks from db, at block: ',
+				loading: '正在数据库中加载区块, 现区块号: ',
 				booting: '正在启用 NIS...',
 				nisInfoNotAvailable: '收不到NIS信息，正尝试接收NIS信息...',
 				synchronizing: 'NIS 在和服务器执行同步. 现位于 {{1}}, 大约落后 {{2}} 。',
@@ -103,8 +103,8 @@ define({
 			dueBy: '限期',
 			hours: '小时数',
 			hoursDue: '到期小时数',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			hoursDueExplanation: '如果交互未在截止时间之前完成，它会被拒绝。',
+			closeButton: '关闭'
 		},
 		transactionTypes: [
 			'传输交互',
@@ -146,7 +146,7 @@ define({
 					},
 					host: '主机名',
 					port: '端口',
-					defaultPort: 'Use default port.'
+					defaultPort: '使用默认端口'
 				},
 				autoBoot: {
 					tabTitle: '自动启用',
@@ -248,7 +248,7 @@ define({
 					message: '请等待节点启用完成后再发起交互。'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: '正在加载数据库'
 				}
 			},
 			clientInfo: {
@@ -315,8 +315,8 @@ define({
 				boot: '启用',
 				booting: '正在启用...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warningText: '您正在使用余额为: ({{{1}}} XEM)的账号启用节点，这会使私钥对节点 {{2}}暴露',
+				warningQuestion: '您确定要使用账户{{1}} ({{2}}） XEM 的私钥启用节点<u>{{3}}</u>?<br><br>这会对 <u>{{3}}</u>这台NIS暴露您的 <span class="sublabelWarning">私钥</span>。'
 			},
 			closeWallet: {
 				title: '关闭钱包',
@@ -367,9 +367,9 @@ define({
 				verify: '确认'
 			},
 			showPrivateKey: {
-				title: 'Show Account\'s PRIVATE Key',
-				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
-				show: 'Show the key'
+				title: '显示账户私钥',
+				message: '该操作会将账户私钥明文显示在屏幕中，请谨慎操作。如果您的电脑中有病毒软件，私钥将有可能被盗。您确认这么做吗?',
+				show: '显示私钥'
 			},
 			addAccount: {
 				title: '添加一个现有帐户',
@@ -441,7 +441,7 @@ define({
 				password: '钱包密码',
 				activate: '激活',
 				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: '激活会花费6小时的时间 (360块)。激活操作并不会开启收获。'
 			},
 			deactivateRemote: {
 				title: '停止激活远程收获',
@@ -449,8 +449,8 @@ define({
 				account: '帐户',
 				password: '钱包密码',
 				deactivate: '停止激活',
-				warning: 'Warning',
-				warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warning: '警告',
+				warningText: '解除激活会花费6小时的时间 (360块)。'
 			},
 			startRemote: {
 				title: '开始远程收获',
@@ -618,12 +618,12 @@ define({
 				sendNem: '发送XEM',
 				signMultisig: '签署',
 				balance: '目前余额',
-				loading: 'Loading balance',
+				loading: '加载中的余额',
 				accountCosignatories: '多重签名账户',
 				accountCosignatoriesView: 'view cosignatories',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: '账户当前余额',
 				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后{{/2}}天)',
-				notSynced: 'might be inaccurate, NIS not synchronized yet',
+				notSynced: 'NIS可能尚未完成同步。',
 				unknown: '未知',
 				columns: [
 					'',
@@ -694,7 +694,7 @@ define({
 				columns: [
 					'高',
 					'时间',
-					'Block difficulty',
+					'块难度',
 					'费用'
 				],
 				noBlocks: '不存在已收获区块',
