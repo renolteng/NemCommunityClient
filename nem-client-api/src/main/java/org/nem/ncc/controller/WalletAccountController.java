@@ -106,6 +106,7 @@ public class WalletAccountController {
 	@RequestMapping(value = "/wallet/account/remote/reveal", method = RequestMethod.POST)
 	public KeyPairViewModel revealRemoteAccount(@RequestBody final WalletNamePasswordBag bag) {
 		// TODO 20150321 J-G: should we handle this gracefully if getRemoteHarvestingPrivateKey is null?
+		// TODO 20150322 BR -> J: the way the WalletAccount implementation is now, the remote key is never null.
 		final WalletAccount account = this.getAccount(bag);
 		return new KeyPairViewModel(new KeyPair(account.getRemoteHarvestingPrivateKey()), NetworkInfos.getDefault().getVersion());
 	}

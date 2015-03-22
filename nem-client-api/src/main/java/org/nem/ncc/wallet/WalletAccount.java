@@ -16,6 +16,7 @@ public class WalletAccount implements SerializableEntity {
 	// > the link is in the block chain and can change over time
 	// > i'd really prefer to keep the wallet format as simple as possible
 	// > if we really want to treat accounts heterogenously, i would suggest adding a bit-flags field
+	// TODO 20150322 BR -> J, G: what is the reason to have a non deterministic remote key? why should it change over time?
 
 	// Will only be filled if the account is used for remote harvesting.
 	private PrivateKey remoteHarvestingPrivateKey;
