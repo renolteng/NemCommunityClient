@@ -166,7 +166,7 @@ public class NccAppConfig {
 
 	@Bean
 	public AccountsFileRepository accountsFileRepository() {
-		final File file = new File(this.getNemFolder(), "accounts_cache.json");
+		final File file = new File(this.getNemFolder(), String.format("accounts_cache_%s.json", this.nccConfiguration().getNetworkName()));
 		final AccountsFileDescriptor descriptor = new AccountsFileDescriptor(file);
 		return new AccountsFileRepository(descriptor);
 	}

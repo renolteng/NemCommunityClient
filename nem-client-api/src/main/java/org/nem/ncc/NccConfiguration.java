@@ -97,4 +97,13 @@ public class NccConfiguration {
 	public NetworkInfo getNetworkInfo() {
 		return COMMON_CONFIGURATION.getNetworkInfo();
 	}
+
+	/**
+	 * Gets the network name.
+	 *
+	 * @return The network name.
+	 */
+	public String getNetworkName() {
+		return COMMON_CONFIGURATION.getNetworkName();
+	}
 }
