@@ -11,6 +11,14 @@ public class Main {
 			new TransferCommand()
 	};
 
+
+	// TODO: few notes: I think it'd be nicer to split generator into generator and vanitygen
+	// generator itself, would only generate random key(s) and associate it with some alias(es) (i.e. cosig1,cosig2,cosig3... etc)
+	// vanitygen would generate only a single address, but the one that .contains() searched string (and associate it with some alias (i.e. gimreMain)
+	//
+	// next step is ofc aggregate transaction, where I can pass --time=... --multisig=gimreMain --cosignatories=cosig1,cosig2,cosig3 as cosignatories
+	// and multisig-transfer, where I can pass --time=... --multisig=gimreMain --cosignatory=cosig1 --recipient=xxxxx --amount=xxxxx
+	// (or maybe even allow --cosignatories and then it would be capable of generating multisig tx along with appropriate signatures)
 	public static void main(final String[] args) throws ParseException {
 //		realMain(new String[] { "generate", "--pass=foo bar", "--prefixes=TA,TB,TC", "--output=sec.dat" });
 		realMain(new String[] { "dump", "--pass=foo bar", "--input=sec.dat" });
