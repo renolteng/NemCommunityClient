@@ -21,3 +21,4 @@ nem-client-api/building/copy-ws.bat
 nem-client-api/building/copy-ws.sh
 node_modules
 .DS_Store
+*.dat
