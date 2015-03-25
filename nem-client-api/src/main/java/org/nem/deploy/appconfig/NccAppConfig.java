@@ -59,6 +59,7 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
+		// TODO 20150325 J-B: it's probably safer to move this into this.nccConfiguration()
 		NetworkInfos.setDefault(this.nccConfiguration().getNetworkInfo());
 		return new NccMain(this.nccConfiguration(), this.nccScheduler());
 	}

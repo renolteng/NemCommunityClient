@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class NccConfiguration {
 	private static final Logger LOGGER = Logger.getLogger(NccConfiguration.class.getName());
 	private static final String CONFIG_FILE_NAME = "ncc.cfg";
+	// TODO 20150325 J-J: there might be a reason for this but it seems like CommonConfiguration should be injected
 	private static final CommonConfiguration COMMON_CONFIGURATION = new CommonConfiguration();
 	private final org.nem.ncc.model.Configuration configuration;
 
