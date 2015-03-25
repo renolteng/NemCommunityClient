@@ -22,6 +22,8 @@
 
     <properties>
         <nemcore.version>0.5.19-BETA</nemcore.version>
+        <nem-code-base>http://bob.nem.ninja/webstart</nem-code-base>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -47,6 +49,29 @@
         <defaultGoal>install</defaultGoal>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <Permissions>all-permissions</Permissions>
+                                <Codebase>${nem-code-base}</Codebase>
+                                <Application-Name>${project.name}</Application-Name>
+                                <Trusted-Only>true</Trusted-Only>
+                                <Implementation-Build>${project.version}</Implementation-Build>
+                                <Implementation-Vendor>NEM - New Economy Movement</Implementation-Vendor>
+                                <Main-Class>org.nem.console.Main</Main-Class>
+                            </manifestEntries>
+                            <addMavenDescriptor>false</addMavenDescriptor>
+                        </archive>
+                    </configuration>
+                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
