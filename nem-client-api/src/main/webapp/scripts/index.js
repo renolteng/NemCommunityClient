@@ -78,6 +78,16 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
         ncc.loadPage(event.state.page, event.state.params, true, false);
     };
 
+    ncc.refreshVersionStatus = function(complete) {
+        ncc.jsonpRequest('http://bob.nem.ninja/version_p.json', function(d){
+            if (('stable' in d) && d['stable'].match(/\d+\.\d+\.\d+/)) {
+                ncc.set('latestVersion', d['stable']);
+            }
+        });
+    };
+    ncc.refreshVersionStatus();
+    setInterval(ncc.refreshVersionStatus, 10000);
+
     ncc.refreshNccStatus = function(complete) {
         var success = false;
         ncc.getRequest('status',
