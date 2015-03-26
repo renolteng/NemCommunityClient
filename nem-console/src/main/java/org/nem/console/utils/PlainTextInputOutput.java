@@ -11,6 +11,7 @@ class PlainTextInputOutput {
 	}
 
 	public void writeToInternal(final String fileName, final byte[] data) throws IOException {
+		FileMust.notExist(fileName);
 		try (final OutputStream outputStream = new FileOutputStream(fileName)) {
 			outputStream.write(data);
 		}

@@ -30,7 +30,9 @@ class EncryptedInputOutput {
 		ExceptionUtils.propagateVoid(() -> this.writeToInternal(fileName, data));
 	}
 
-	public void writeToInternal(final String fileName, final byte[] data) throws IOException{
+	private void writeToInternal(final String fileName, final byte[] data) throws IOException {
+		FileMust.notExist(fileName);
+
 		try (final OutputStream outputStream = new FileOutputStream(fileName)) {
 			final PaddedBufferedBlockCipher cipher = this.getCipher(true);
 			try (final CipherOutputStream cos = new CipherOutputStream(outputStream, cipher)) {
@@ -44,6 +46,8 @@ class EncryptedInputOutput {
 	}
 
 	private byte[] readFromInternal(final String fileName) throws IOException {
+		FileMust.exist(fileName);
+
 		final PaddedBufferedBlockCipher cipher = this.getCipher(false);
 		try (final InputStream inputStream = new FileInputStream(fileName)) {
 			try (final CipherInputStream cis = new CipherInputStream(inputStream, cipher)) {
