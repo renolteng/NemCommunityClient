@@ -6,7 +6,7 @@ import org.bouncycastle.crypto.io.*;
 import org.bouncycastle.crypto.modes.CBCBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.*;
-import org.nem.core.crypto.Hashes;
+import org.nem.core.crypto.*;
 import org.nem.core.utils.*;
 
 import java.io.*;
@@ -15,9 +15,15 @@ class EncryptedInputOutput {
 	private static final int BLOCK_SIZE = 16;
 
 	private final String password;
+	private final int numHashes;
 
-	public EncryptedInputOutput(final String password) {
+	public EncryptedInputOutput(final String password, final int numHashes) {
 		this.password = password;
+		this.numHashes = numHashes;
+
+		if (this.numHashes < 1) {
+			throw new IllegalArgumentException("password must be hashed at least once");
+		}
 	}
 
 	public void writeTo(final String fileName, final byte[] data) {
@@ -47,7 +53,12 @@ class EncryptedInputOutput {
 	}
 
 	private PaddedBufferedBlockCipher getCipher(final boolean encrypt) {
-		final KeyParameter key = new KeyParameter(Hashes.sha3_256(StringEncoder.getBytes(this.password)));
+		byte[] hash = Hashes.sha3_256(StringEncoder.getBytes(this.password));
+		for (int i = 0; i < this.numHashes - 1; ++i) {
+			hash = Hashes.sha3_256(StringEncoder.getBytes(this.password));
+		}
+
+		final KeyParameter key = new KeyParameter(hash);
 
 		// create and initialize the cipher
 		final PaddedBufferedBlockCipher resultCipher = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()));

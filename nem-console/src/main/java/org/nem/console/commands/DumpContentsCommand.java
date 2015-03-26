@@ -15,17 +15,29 @@ public class DumpContentsCommand implements Command {
 	@Override
 	public void handle(final CommandLine commandLine) {
 		final List<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
+		final boolean showPrivate = Boolean.parseBoolean(commandLine.getOptionValue("show-private", "false"));
+		final String filter = commandLine.getOptionValue("filter", "");
 
 		for (final AliasedKeyPair keyPair : keyPairs) {
-			System.out.println(String.format("'%s' -> '%s'", keyPair.alias(), keyPair.address()));
+			if (!keyPair.alias().contains(filter)) {
+				continue;
+			}
+
+			System.out.println(String.format("[%s]", keyPair.alias()));
+			System.out.println(String.format("  address: %s", keyPair.address()));
+			System.out.println(String.format("   public: %s", keyPair.keyPair().getPublicKey()));
+			if (showPrivate) {
+				System.out.println(String.format("  private: %s", keyPair.keyPair().getPrivateKey()));
+			}
 		}
 	}
 
 	@Override
 	public Options getOptions() {
 		final Options options = new Options();
-		options.addOption("pass", true, "The password");
-		options.addOption("input", true, "The input file");
+		OptionsUtils.addReadOptions(options);
+		options.addOption("showPrivate", false, "The password");
+		options.addOption("filter", false, "A filter that will only show details for matching aliases.");
 		return options;
 	}
 }

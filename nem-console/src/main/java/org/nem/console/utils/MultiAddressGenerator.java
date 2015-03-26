@@ -1,12 +1,13 @@
 package org.nem.console.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class MultiAddressGenerator {
 	private final KeyGenerator generator = CryptoEngines.defaultEngine().createKeyGenerator();
@@ -15,7 +16,19 @@ public class MultiAddressGenerator {
 	private final Object lock = new Object();
 
 	public MultiAddressGenerator(final String[] prefixes) {
+		final Address dummyAddress = Address.fromPublicKey(new KeyPair().getPublicKey());
+		final int expectedAddressLength = dummyAddress.getEncoded().length();
+
 		for (final String prefix : prefixes) {
+			final Address address = Address.fromEncoded(StringUtils.rightPad(prefix, expectedAddressLength, 'A'));
+			if (!address.isValid()) {
+				throw new IllegalArgumentException(String.format("address prefix '%s' is invalid", prefix));
+			}
+
+			if (this.generatedKeys.containsKey(prefix)) {
+				throw new IllegalArgumentException(String.format("address prefix '%s' was not unique", prefix));
+			}
+
 			this.generatedKeys.put(prefix, null);
 		}
 	}
@@ -25,13 +38,13 @@ public class MultiAddressGenerator {
 
 		final KeyPair keyPair = this.generator.generateKeyPair();
 		final String address = Address.fromPublicKey(keyPair.getPublicKey()).getEncoded();
-		for (final String prefix : this.generatedKeys.keySet()) {
-			if (address.startsWith(prefix)) {
-				synchronized (this.lock) {
-					this.generatedKeys.put(prefix, keyPair);
-				}
-			}
-		}
+		this.generatedKeys.keySet().stream()
+				.filter(address::startsWith)
+				.forEach(prefix -> {
+					synchronized (this.lock) {
+						this.generatedKeys.put(prefix, keyPair);
+					}
+				});
 	}
 
 	public int numIterations() {
@@ -52,11 +65,8 @@ public class MultiAddressGenerator {
 	}
 
 	public List<AliasedKeyPair> keyPairs() {
-		final List<AliasedKeyPair> keyPairs = new ArrayList<>();
-		for (final Map.Entry<String, KeyPair> entry : this.generatedKeys.entrySet()) {
-			keyPairs.add(new AliasedKeyPair(entry.getKey(), entry.getValue()));
-		}
-
-		return keyPairs;
+		return this.generatedKeys.entrySet().stream()
+				.map(entry -> new AliasedKeyPair(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList());
 	}
 }

@@ -4,7 +4,6 @@ import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
-import org.nem.core.serialization.*;
 
 import java.util.*;
 
@@ -26,9 +25,9 @@ public class GenerateCommand implements Command {
 	@Override
 	public Options getOptions() {
 		final Options options = new Options();
+		OptionsUtils.addWriteOptions(options);
 		options.addOption("prefixes", true, "Comma-separated list of address prefixes to generate");
 		options.addOption("pass", true, "The password of the output file");
-		options.addOption("output", true, "The output file");
 		return options;
 	}
 }
