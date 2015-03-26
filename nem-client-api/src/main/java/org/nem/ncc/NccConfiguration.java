@@ -2,7 +2,7 @@ package org.nem.ncc;
 
 import org.apache.commons.io.IOUtils;
 import org.nem.core.deploy.CommonConfiguration;
-import org.nem.core.model.NetworkInfo;
+import org.nem.core.model.*;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.utils.ExceptionUtils;
@@ -23,6 +23,7 @@ public class NccConfiguration {
 	private final org.nem.ncc.model.Configuration configuration;
 
 	public NccConfiguration() {
+		NetworkInfos.setDefault(COMMON_CONFIGURATION.getNetworkInfo());
 		final String nccFolder = Paths.get(COMMON_CONFIGURATION.getNemFolder(), "ncc").toString();
 		verifyDirectory(new File(nccFolder));
 
