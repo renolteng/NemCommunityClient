@@ -16,6 +16,6 @@ public class OptionsUtils {
 
 	private static void addEncryptionDecryptionOptions(final Options options) {
 		options.addOption("pass", true, "The cold wallet password");
-		options.addOption("numHashes", false, "The number of password hashes");
+		options.addOption("numHashes", true, "The number of password hashes");
 	}
 }

@@ -59,7 +59,7 @@ class EncryptedInputOutput {
 	private PaddedBufferedBlockCipher getCipher(final boolean encrypt) {
 		byte[] hash = Hashes.sha3_256(StringEncoder.getBytes(this.password));
 		for (int i = 0; i < this.numHashes - 1; ++i) {
-			hash = Hashes.sha3_256(StringEncoder.getBytes(this.password));
+			hash = Hashes.sha3_256(hash);
 		}
 
 		final KeyParameter key = new KeyParameter(hash);

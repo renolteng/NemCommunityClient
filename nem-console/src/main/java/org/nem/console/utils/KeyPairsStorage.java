@@ -13,7 +13,7 @@ public class KeyPairsStorage {
 				keyPairs,
 				commandLine.getOptionValue("output"),
 				commandLine.getOptionValue("pass"),
-				Integer.parseInt(commandLine.getOptionValue("num-hashes", "1")));
+				Integer.parseInt(commandLine.getOptionValue("numHashes", "1")));
 	}
 
 	public static void save(final List<AliasedKeyPair> keyPairs, final String outputFileName, final String password, final int numHashes) {
@@ -28,7 +28,7 @@ public class KeyPairsStorage {
 		return load(
 				commandLine.getOptionValue("input"),
 				commandLine.getOptionValue("pass"),
-				Integer.parseInt(commandLine.getOptionValue("num-hashes", "1")));
+				Integer.parseInt(commandLine.getOptionValue("numHashes", "1")));
 	}
 
 	public static List<AliasedKeyPair> load(final String inputFileName, final String password, final int numHashes) {

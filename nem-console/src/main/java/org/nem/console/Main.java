@@ -21,8 +21,8 @@ public class Main {
 	// (or maybe even allow --cosignatories and then it would be capable of generating multisig tx along with appropriate signatures)
 	public static void main(final String[] args) throws ParseException {
 		NetworkInfos.setDefault(NetworkInfos.getMainNetworkInfo());
-		realMain(new String[] { "generate", "--pass=foo bar", "--prefixes=NA,NB,NC", "--output=sec.dat" });
-		realMain(new String[] { "dump", "--pass=foo bar", "--input=sec.dat" });
+		realMain(new String[] { "generate", "--pass=foo bar", "--prefixes=NA,NA2,NB,NC", "--output=sec.dat" });
+		realMain(new String[] { "dump", "--pass=foo bar", "--input=sec.dat", "--showPrivate=true", "--filter=NA" });
 		realMain(new String[] { "transfer", "--pass=foo bar", "--input=sec.dat", "--output=transfer.dat", "--time=4417373", "--sender=NA", "--recipient=NB", "--amount=1000000" });
 		realMain(new String[] { "importance", "--pass=foo bar", "--input=sec.dat", "--output=importance.dat", "--time=4417373", "--sender=NA", "--remote=NC" });
 	}

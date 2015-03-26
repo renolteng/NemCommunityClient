@@ -15,7 +15,7 @@ public class DumpContentsCommand implements Command {
 	@Override
 	public void handle(final CommandLine commandLine) {
 		final List<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
-		final boolean showPrivate = Boolean.parseBoolean(commandLine.getOptionValue("show-private", "false"));
+		final boolean showPrivate = Boolean.parseBoolean(commandLine.getOptionValue("showPrivate", "false"));
 		final String filter = commandLine.getOptionValue("filter", "");
 
 		for (final AliasedKeyPair keyPair : keyPairs) {
@@ -36,8 +36,8 @@ public class DumpContentsCommand implements Command {
 	public Options getOptions() {
 		final Options options = new Options();
 		OptionsUtils.addReadOptions(options);
-		options.addOption("showPrivate", false, "The password");
-		options.addOption("filter", false, "A filter that will only show details for matching aliases.");
+		options.addOption("showPrivate", true, "The password");
+		options.addOption("filter", true, "A filter that will only show details for matching aliases.");
 		return options;
 	}
 }
