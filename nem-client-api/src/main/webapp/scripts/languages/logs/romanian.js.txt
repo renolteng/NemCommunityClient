@@ -338,4 +338,124 @@ translated texts.dashboard.transactions.accountCosignatories
 	      to: 'Multisig account'
 	based on: texts.modals.signMultisig.original.from
 
+-----changed texts.faults.703
+	from: 'Your account does not have the right balance to send the provided amount of XEM.'
+	  to: 'Your account does not have the right balance to make this transaction.'
+	 was: 'Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de XEM.'
+
+changed texts.faults.730
+	from: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.'
+	  to: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.'
+	 was: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.'
+
+changed texts.faults.731
+	from: 'Secure harvesting account has non zero balance and cannot be used.'
+	  to: 'Delegated harvesting account has non zero balance and cannot be used.'
+	 was: 'Secure harvesting account has non zero balance and cannot be used.'
+
+changed texts.faults.733
+	from: 'Secure harvesting is already active.'
+	  to: 'Delegated harvesting is already active.'
+	 was: 'Secure harvesting is already active.'
+
+changed texts.faults.734
+	from: 'Secure harvesting is NOT active. Cannot deactivate.'
+	  to: 'Delegated harvesting is NOT active. Cannot deactivate.'
+	 was: 'Secure harvesting is NOT active. Cannot deactivate.'
+
+changed texts.modals.bootLocalNode.warningText
+	from: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: <u>{{2}}</u>'
+	  to: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.'
+	 was: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}'
+
+changed texts.modals.activateRemote.title
+	from: 'Activate Remote Harvesting'
+	  to: 'Activate Delegated Harvesting'
+	 was: 'Activează recoltarea de la distanță'
+
+changed texts.modals.deactivateRemote.title
+	from: 'Deactivate Remote Harvesting'
+	  to: 'Deactivate Delegated Harvesting'
+	 was: 'Dezactivează recoltarea de la distanță'
+
+changed texts.modals.startRemote.title
+	from: 'Start Remote Harvesting'
+	  to: 'Start Delegated Harvesting'
+	 was: 'Pornește recoltarea de la distanță'
+
+changed texts.modals.stopRemote.title
+	from: 'Stop Remote Harvesting'
+	  to: 'Stop Delegated Harvesting'
+	 was: 'Oprește recoltarea de la distanță'
+
+changed texts.modals.logoutWarning.leavePage
+	from: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+	  to: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+	 was: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+
+changed texts.landing.about.sections.[1].paragraphs.[1]
+	from: 'The more <strong>NIS</strong> the better the security.'
+	  to: 'The more <strong>NIS</strong> there are in the network, the better the security.,'
+	 was: 'Cu cât mai mult <strong>NIS</strong> cu atât mai bună securitate.'
+
+changed texts.dashboard.importance.remoteHarvest.activate
+	from: 'Activate remote harvesting'
+	  to: 'Activate delegated harvesting'
+	 was: 'Activează recoltarea de la distanță'
+
+changed texts.dashboard.importance.remoteHarvest.activating
+	from: 'Activating remote harvesting...'
+	  to: 'Activating delegated harvesting...'
+	 was: 'Se activează recoltarea de la distanță...'
+
+changed texts.dashboard.importance.remoteHarvest.active
+	from: 'Remote harvesting is active'
+	  to: 'Delegated harvesting is active'
+	 was: 'Recoltarea de la distanță este activă'
+
+changed texts.dashboard.importance.remoteHarvest.deactivate
+	from: 'Deactivate remote harvesting'
+	  to: 'Deactivate delegated harvesting'
+	 was: 'Dezactivează recoltarea de la distanță'
+
+changed texts.dashboard.importance.remoteHarvest.deactivating
+	from: 'Deactivating remote harvesting...'
+	  to: 'Deactivating delegated harvesting...'
+	 was: 'Se dezactivează recoltarea de la distanță...'
+
+changed texts.dashboard.importance.remoteHarvest.startRemoteHarvesting
+	from: 'Start remote harvesting'
+	  to: 'Start delegated harvesting'
+	 was: 'Pornește recoltarea de la distanță'
+
+changed texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting
+	from: 'Stop remote harvesting'
+	  to: 'Stop delegated harvesting'
+	 was: 'Oprește recoltarea de la distanță'
+
+changed texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting
+	from: 'Start remote harvesting'
+	  to: 'Start delegated harvesting'
+	 was: 'Start remote harvesting'
+
+changed texts.harvestedBlocks.harvesting.remoteHarvest.stopRemoteHarvesting
+	from: 'Stop remote harvesting'
+	  to: 'Stop delegated harvesting'
+	 was: 'Stop remote harvesting'
+
+translated texts.common.unknown
+	    from: 'Unknown status'
+	      to: 'Status necunoscut'
+	based on: texts.harvestedBlocks.harvesting.unknown
+
+translated texts.modals.showPrivateKey.publicKey
+	    from: 'Public key'
+	      to: 'Cheia publică'
+	based on: texts.modals.verifyRealAccountData.publicKey
+
+translated texts.modals.showPrivateKey.privateKey
+	    from: 'Private key'
+	      to: 'Cheia privată'
+	based on: texts.modals.verifyRealAccountData.privateKey
+
 -----

@@ -47,7 +47,7 @@ define({
 			700: 'Das angegebene Konto erfüllt nicht die Grundkriterien, um Blöcke zu erzeugen. Um Blöcke erzeugen zu können, wird ein Kontostand von mindestens 1.000 XEM benötigt.',
 			701: 'Das angegebene Verfallsdatum liegt in der Vergangenheit. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
 			702: 'Das angegebene Verfallsdatum liegt zu weit in der Zukunft. Das Verfallsdatum muss in einem Zeitraum von einem Tag liegen.',
-			703: 'Dein Kontoguthaben reicht nicht aus, um den angegebenen Betrag zu senden.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Die eingegebene Nachricht ist zu lang. Bitte reduziere die Länge der Nachricht, um sie versenden zu können.',
 			705: 'Der Transaktionshash existiert bereits in der Datenbank oder in der Liste der ausstehenden Transaktionen.',
 			706: 'Die Signatur der Transaktion konnte nicht verifiziert werden.',
@@ -55,11 +55,11 @@ define({
 			708: 'Der Zeitstempel der Transaktion liegt zu weit in der Zukunft.',
 			709: 'Das Konto ist unbekannt. Ein Konto muss mindestens einmal als Absender oder Empfänger in einer Transaktion auftreten, um dem Netzwerk bekannt zu sein.',
 			710: 'Die Transaktion wurde abgelehnt, weil gerade zu viele Transaktionen gesendet werden. Eine höhere Gebühr erhöht die Chance, dass die Transaktion akzeptiert wird.',
-			730: 'Die Übertragung der Wichtigkeit (für die sichere Ernte) steht im Konflikt mit einer schon existierenden Übertragung.',
-			731: 'Das Konto für die sichere Ernte ist nicht leer und kann daher nicht benutzt werden.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Übertragung der Wichtigkeit abgelehnt, da es noch eine ausstehende Übertragung gibt.',
-			733: 'Sichere Ernte ist bereits aktiviert.',
-			734: 'Sichere Ernte ist nicht aktiviert und kann daher nicht deaktiviert werden.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaktion ist für ein Multisig-Konto nicht erlaubt.',
 			741: 'Multisig-Signierung abgelehnt. Das aktuelle Konto ist kein Mitsignierer eines Multisig-Kontos.',
 			742: 'Multisig-Signierung abgelehnt. Die zu signierende Multisig-Transaktion existiert nicht.',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Erfolg',
+			unknown: 'Unbekannter Status',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC-Status ist unbekannt',
 				nccUnavailable: 'NCC ist nicht verfügbar',
@@ -315,7 +317,8 @@ define({
 				boot: 'Booten',
 				booting: 'Wird gebootet...',
 				warning: 'Boot node warning',
-				warningText: 'Du versuchst, NIS mit einem Konto zu booten, das nicht leer ist: ({{{1}}} XEM). Der private Schlüssel des Kontos wird an diesen NIS übertragen: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Bist du sicher, dass du den NIS <u>{{3}}</u> mit dem privaten Schlüssel des Kontos {{1}} ({{2}} XEM) booten möchtest?<br><br>Dadurch wird der <span class="sublabelWarning">private Schlüssel</span> des Kontos an diesen NIS übertragen: <u>{{3}}</u>. Es wird empfohlen, NIS nur mit leeren Konten zu booten.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde angelegt!',
 				create: 'Anlegen'
 			},
-			createRealAccountData: {
-				title: 'Daten für ein echtes Konto erzeugen',
-				message: 'Die nachstehend angezeigten Daten sind für ein echtes Konto nach dem offiziellen Start von NEM. Bitte speichere den privaten Schlüssel, den öffentlichen Schlüssel und die Adresse an einem sicheren Ort. Wenn Du den privaten Schlüssel verlierst, sind Deine Kontodaten und damit all Deine NEM für IMMER verloren.',
-				address: 'Adresse',
-				publicKey: 'Öffentlicher Schlüssel',
-				privateKey: 'Privater Schlüssel',
-				confirm: {
-					title: 'Sicherung des privaten Schlüssels',
-					message: 'Bist Du sicher, dass Du den privaten Schlüssel an einem sicheren Ort gespeichert hast?'
-				},
-				recheck: {
-					title: 'Überprüfung des privaten Schlüssels',
-					message: 'Bitte gib den privaten Schlüssel erneut ein, um zu überprüfen, ob er korrekt ist. Wenn Du vergessen hast den Schlüsel zu speichern, musst Du einen Neuen erzeugen.',
-					correct: {
-						title: 'Sehr gut!',
-						message: 'Du hast den richtigen Schlüssel gespeichert. Bewahre ihn an einem sicheren Ort auf!'
-					},
-					incorrect: {
-						title: 'Fehler',
-						message: 'Der private Schlüssel, den Du eingegeben hast, ist nicht korrekt. Bitte gebe ihn erneut ein.',
-						tryAgain: 'Bitte erneut eingeben.',
-						seeOriginal: 'Originaldaten anschauen.'
-					},
-					recheck: 'Überprüfung'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Reale Kontodaten verifizieren',
-				message: 'Bitte gib die gespeicherte Addresse, den öffentlichen und privaten Schlüssel ein, um zu überprüfen, ob sie zusammen passen.',
-				address: 'Adresse',
-				publicKey: 'Öffentlicher Schlüssel',
-				privateKey: 'Privater Schlüssel',
-				dataMatched: 'Es ist alles in Ordnung! Die Addresse, der öffentliche und private Schlüssel passen zusammen.',
-				verify: 'Überprüfen'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Öffentlicher Schlüssel',
+				privateKey: 'Privater Schlüssel',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Ein existierendes Konto hinzufügen',
@@ -435,7 +409,7 @@ define({
 				message: 'Bist Du sicher, dass Du den NEM Community Client schließen möchtest?'
 			},
 			activateRemote: {
-				title: 'Sichere Ernte aktivieren',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
 				password: 'Passwort der Bieftasche',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Sichere Ernte deaktivieren',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
 				password: 'Passwort der Bieftasche',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Sichere Ernte starten',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
 				password: 'Passwort der Brieftasche',
 				start: 'Starten'
 			},
 			stopRemote: {
-				title: 'Sichere Ernte beenden',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
 				password: 'Passwort der Brieftasche',
 				stop: 'Beenden'
 			},
 			logoutWarning: {
-				leavePage: 'Du bist dabei die Seite zu verlassen, ohne deine Brieftasche zu schließen. Dadurch könnten andere Zugang zu deiner Brieftasche erhalten.\n\nUm dies zu verhindern, solltest du den Menüpunkt \'Brieftasche schließen\' im Aufklappmenü anwählen, bevor du den Browser schließt oder zu einer anderen Seite navigierst.\n'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Kontakt hinzufügen',
@@ -534,7 +508,7 @@ define({
 						title: 'Was ist &#42;NIS?',
 						paragraphs: [
 							'Diese Komponente ist dafür zuständig, die <strong>NEM</strong> Cloud am Leben zu halten.',
-							'Je mehr <strong>NIS</strong> Server, desto höher die Sicherheit.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> ist der Zugangspunkt zur <strong>NEM</strong> Cloud.'
 						],
 						legend: '<strong>&#42;NIS</strong> steht für <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Daten für ein echtes Konto erzeugen',
 				verifyRealAccountData: 'Daten eines echten Kontos verifizieren',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Existierendes Konto hinzufügen',
 				changeAccountLabel: 'Bezeichnung des Kontos ändern',
 				setPrimary: 'Als Hauptkonto festlegen',
@@ -603,14 +579,14 @@ define({
 				stop: 'Ernte beenden',
 				description: 'Wichtigkeit des Kontos für die NEM Cloud',
 				remoteHarvest: {
-					activate: 'Sichere Ernte aktivieren',
-					activating: 'Aktiviere sichere Ernte...',
-					active: 'Sichere Ernte ist aktiviert',
-					deactivate: 'Sichere Ernte deaktivieren',
-					deactivating: 'Deaktiviere sichere Ernte...',
-					startRemoteHarvesting: 'Sichere Ernte beginnen',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Sichere Ernte',
-					stopRemoteHarvesting: 'Sichere Ernte beenden'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Ernte',
 				stop: 'Ernte beenden',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Sichere Ernte beginnen',
-					stopRemoteHarvesting: 'Sichere Ernte beenden'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

@@ -47,7 +47,7 @@ define({
 			700: ' Акаунт не відповідає основним критеріям для початку харвестiнгу. Для початку генерації блоків на рахунку має бути щонайменьше 1000 XEM.',
 			701: 'Встановленний крайній термін вже в минулому. Термін повинен бути в рамках 1-денного періоду.',
 			702: 'Встановленний крайній термін занадто далеко в майбутньому. Термін повинен бути в рамках 1-денного періоду.',
-			703: 'Баланс вашого рахунку не дозволяє вiдправити вказану кiлькiсть XEM.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Вказане текстове повiдомлення занадто велике, щоб бути вiдправленим через мережу NEM. Будь ласка, спробуйте зменшити довжину повідомлення, яке потрібно відправити.',
 			705: 'Хеш тразакції вже існує в базі даних або в списку непідтверджених операцій.',
 			706: 'Підпис тразакції не може бути перевірений.',
@@ -55,11 +55,11 @@ define({
 			708: 'Мітка часу транзакції занадто далеко в майбутньому.',
 			709: 'Рахунок невідомий мережi. Рахунок повинен бути частиною щонайменше однієї угоди (відправником або одержувачєм), щоб стати відомим в мережі.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaction is not allowed for multisig account.',
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Успiшно',
+			unknown: 'Статус невiдомий',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC не досяжний',
@@ -315,7 +317,8 @@ define({
 				boot: 'Завантажити',
 				booting: 'Завантаження...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Акаунт {{1}} {{#2}}({{2}}){{/2}} був успiшно створений!',
 				create: 'Створити'
 			},
-			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEMs will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				confirm: {
-					title: 'Save the private key',
-					message: 'Are you sure your private key has been saved into a safe place?'
-				},
-				recheck: {
-					title: 'Re-check your saved private key',
-					message: 'Please re-enter your private key you\'ve just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.',
-					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: 'The private key you\'ve just entered is not correct! Please double check and enter it once again.',
-						tryAgain: 'Try to enter again',
-						seeOriginal: 'See the original data'
-					},
-					recheck: 'Check'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verify real account data',
-				message: 'Re-enter your saved address, public key and private key below to check if they match',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
-				verify: 'Verify'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Додати існуючій акаунт',
@@ -435,7 +409,7 @@ define({
 				message: 'Ви впевнені, що хочете закрити клiент NEM?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -534,7 +508,7 @@ define({
 						title: 'Що таке &#42;NIS?',
 						paragraphs: [
 							'Цей компонент вiдповiдає за підтримання працездатностi <strong>NEM</strong> cloud.',
-							'Чим бiльша кiлькiсть <strong>NIS</strong>, тим краща безпека мережi.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> є точкою доступу до <strong>NEM</strong> cloud.'
 						],
 						legend: '<strong>&#42;NIS</strong> розшифровується як <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Create real account data',
 				verifyRealAccountData: 'Verify real account data',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Додати існуючий акаунт',
 				changeAccountLabel: 'Змiнити позначку акаунта',
 				setPrimary: 'Встановити основний акаунт',
@@ -603,14 +579,14 @@ define({
 				stop: 'Зупинити харвестiнг',
 				description: 'Важливість акаунта для NEM cloud',
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating...',
-					startRemoteHarvesting: 'Start remote harvesting',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Харвестiнг',
 				stop: 'Зупинити харвестiнг',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

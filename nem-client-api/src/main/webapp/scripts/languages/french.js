@@ -47,7 +47,7 @@ define({
 			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 1000 XEM pour que la récolte débute.',
 			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
 			702: 'La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.',
-			703: 'Votre compte n\'a pas une balance suffisante pour envoyer le nombre nombre de XEMs indiqué.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d\'expédier.',
 			705: 'Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.',
 			706: 'La signature de la transaction n\'a pas pu être vérifiée.',
@@ -55,11 +55,11 @@ define({
 			708: 'TL\'horodatage de la transaction trop loin dans le futur.',
 			709: 'Ce compte est inconnu. Un compte à besoin de faire partie d\'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.',
 			710: 'La transaction a été rejetée parce que la mémoire tampon dédiée aux transactions est remplie. Des frais plus élevés augmentent les chances que la transaction soit acceptée.',
-			730: 'Une transaction de transfert d\'importance (récolte sécurisée) entre en conflit avec une transaction existante.',
-			731: 'Le compte de récolte sécurisé à une balance qui n\'est pas égale à zéro et ne peut donc pas être utilisée.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Transaction de transfert d\'importance rejeté. Il y a déjà une transaction de transfert d\'importance en attente.',
-			733: 'La recolte sécuriaire est déjà activé.',
-			734: 'La récolte sécuritaire n\'est PAS activée. Impossible de la désactiver.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Les transactions multisig ne sont pas permises sur ce compte.',
 			741: 'La transaction multisig a été rejetée. Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig.',
 			742: 'Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig. La transaction multisig associée n\'est pas connue du réseau NEM.',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Succès',
+			unknown: 'Statut inconnu',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'Le statut de NCC est incconnu',
 				nccUnavailable: 'NCC est introuvable',
@@ -315,7 +317,8 @@ define({
 				boot: 'Démarrer',
 				booting: 'Démarrage...',
 				warning: 'Avertissement du noeud de démarrage',
-				warningText: 'Vous essayez de démarrer un noeud en utilisant un compte ayant une balance de: ({{{1}}} XEM) . Ceci va révéler la clef privée de ce compte au noeud: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Êtes-vous certain de vouloir démarrer le noeud<u>{{3}}</u> en utilisant la clé privée du compte {{1}} ({{2}} XEM)?<br><br>Ceci va révéler la <span class=\"sublabelWarning\">clé privée</span> de ce compte au noeud: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été créé!',
 				create: 'Créer'
 			},
-			createRealAccountData: {
-				title: 'Créer des données réelles de compte .',
-				message: 'Les données ci-dessous sont pour votre compte réelles après le lancement de NEM. Enregistrez l\'adresse, la clé publique et surtout la clé privée dans un endroit sûr. Si vous perdez la clé privée, votre compte et tous vos XEM seront perdus à jamais !',
-				address: 'Adresse',
-				publicKey: 'Clé publique',
-				privateKey: 'Clé privée',
-				confirm: {
-					title: 'Enregistrer la clé privée',
-					message: 'Êtes-vous sûr que votre clé privée a été enregistré dans un endroit sûr ?'
-				},
-				recheck: {
-					title: 'Re-vérifier votre clé privée enregistrée',
-					message: 'S\'il vous plaît, entrer de nouveau votre clé privée que vous venez de recevoir afin de vérifier que vous avez sauvegardé la bonne. Si votre clé privée est déjà perdue , vous pouvez en créer une nouvelle.',
-					correct: {
-						title: 'Excellent!',
-						message: 'Vous semblez avoir sauvegardé la bonne clé privée. S\'il vous plaît, n\'oubliez pas de toujours la garder en lieu sûr et sécuriser!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: 'La clé privée que vous venez d\'entrer n\'est pas correcte ! S\'il vous plaît, entrez votre clé privée de nouveau.',
-						tryAgain: 'Essayez de l\'entrer encore une fois',
-						seeOriginal: 'Voir les données originales.'
-					},
-					recheck: 'Vérifier'
-				},
-				ok: 'Ok'
-			},
-			verifyRealAccountData: {
-				title: 'Vérifier les données réelles de compte',
-				message: 'Entrez l\'adresse que vous avez enregistrée à nouveau ainsi que la clé publique et une clé privée pour vérifier si elles correspondent.',
-				address: 'Addresse',
-				publicKey: 'Clé publique',
-				privateKey: 'Clé privée',
-				dataMatched: 'Tout semble bon : l\'adresse indiquée, la clé publique et clé privée correspondance.',
-				verify: 'Vérifier'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Clé publique',
+				privateKey: 'Clé privée',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Ajouter un compte existant',
@@ -435,7 +409,7 @@ define({
 				message: 'Êtes-vous certain de vouloir fermer l\'application NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activer la récolte à distance',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Portefeuille',
 				account: 'Compte',
 				password: 'Mot de passe du portefeuille',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Désactiver la récolte à distance',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portefeuille',
 				account: 'Compte',
 				password: 'Mot de passe du portefeuille',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Démarrer la récolte à distance',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Portefeuille',
 				account: 'Compte',
 				password: 'Mot de passe du portefeuille',
 				start: 'Démarrer'
 			},
 			stopRemote: {
-				title: 'Arrêtez la récolte à distance',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Portefeuille',
 				account: 'Compte',
 				password: 'Mot de passe du portefeuille',
 				stop: 'Arrêtez'
 			},
 			logoutWarning: {
-				leavePage: 'Vous laissez votre portefeuille ouvert. Rappelez-vous que si vous laissez votre portefeuille de cette façon , d\'autres pourraient potentiellement y accéder de cet ordinateur.Pour empêcher ceci d\'arriver, s\'il vous plaît vous connectez à l\'aide du menu \'Fermeture de portefeuille\' dans le menu déroulant en haut à droite avant de fermer l\'onglet de votre navigateur ou de naviguer ailleurs.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Ajouter un contact',
@@ -534,7 +508,7 @@ define({
 						title: 'Qu\'est-ce que le &#42;NIS?',
 						paragraphs: [
 							'Cette composante est responsable de garder le nuage <strong>NEM</strong> vivant.',
-							'Plus il y a de <strong>NIS</strong> meilleure est la sécurité.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> est le point d\'accès au nuage <strong>NEM</strong>.'
 						],
 						legend: '<strong>&#42;NIS</strong> signifie <strong>Serveur d\'infrastructure NEM (NEM Infrastructure Server)</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Créer les données réelles de compte',
 				verifyRealAccountData: 'Vérifier les données réelles de compte',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Ajouter un compte existant',
 				changeAccountLabel: 'Modifier l\'étiquette du compte',
 				setPrimary: 'Définir comme compte primaire',
@@ -603,14 +579,14 @@ define({
 				stop: 'Arrêter la récolte locale',
 				description: 'importance de compte dans le nuage NEM',
 				remoteHarvest: {
-					activate: 'Activer la récolte à distance',
-					activating: 'Activation de la récolte à distance ...',
-					active: 'La récolte à distance est active',
-					deactivate: 'Désactiver la récolte à distance',
-					deactivating: 'Désactivation de la récolte à distance...',
-					startRemoteHarvesting: 'Démarrer la récolte à distance',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Récolte à distance en cours',
-					stopRemoteHarvesting: 'Arrêtez la récolte à distance'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Récolte',
 				stop: 'Arrêter la récolte locale',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Démarrer la récolte distante',
-					stopRemoteHarvesting: 'Arrêter la récolte distante'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

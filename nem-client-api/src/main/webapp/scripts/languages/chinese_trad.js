@@ -47,7 +47,7 @@ define({
 			700: '所提供的賬戶無法满足收割的（條件）基本標準。必須至少有10.000 XEM才能開始收割。',
 			701: '所提供的截止日期已过期。截止日期必須在1天之内提供。',
 			702: '所提供的截止日期超過有效期限。截止時間必須在一天之內。',
-			703: '您的賬戶没有正确的金額以提供您要發送的NEM額。',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: '提供的消息文本超過容許上限，無法通过NEM發送。請减少要發送消息的內容。',
 			705: '資料庫，或未確認交易列表，已經存在此交易的散列值。',
 			706: '無法驗證本次交易的簽名。',
@@ -55,11 +55,11 @@ define({
 			708: '此交易的ID時間戳超過有效期限。',
 			709: '未知的賬戶。一个賬戶需要至少執行一个交易（作為發件人或收件人）才能在網路公開。',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaction is not allowed for multisig account.',
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: '成功',
+			unknown: '未知狀態',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC is not available',
@@ -315,7 +317,8 @@ define({
 				boot: '啟動',
 				booting: '啟動...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: <u>{{2}}</u>',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: '賬號 {{1}} {{#2}}({{2}}){{/2}} 已創建!',
 				create: '創建'
 			},
-			createRealAccountData: {
-				title: 'Create real account data',
-				message: 'The below data is for your real account after NEM launches. Save the the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real XEM will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				confirm: {
-					title: 'Save the private key',
-					message: 'Are you sure your private key has been saved into a safe place?'
-				},
-				recheck: {
-					title: 'Re-check your saved private key',
-					message: "Please re-enter your private key you've just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.",
-					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: "The private key you've just entered is not correct! Do you want to try to enter private key again or come back to see the original account data?",
-						tryAgain: 'Try to enter again',
-						seeOriginal: 'See the original data'
-					},
-					recheck: 'Check'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verify real account data',
-				message: 'Re-enter your saved address, public key and private key below to check if they match',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				dataMatched: 'Everything seems good, your entered address, public key, and private key match.',
-				verify: 'Verify'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: '添加一个現有賬號',
@@ -435,7 +409,7 @@ define({
 				message: '您確定要關閉NEM社區客戶端?'
 			},
 			activateRemote: {
-				title: 'Activate Remote harvesting',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote harvesting',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Start Remote harvesting',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Stop Remote harvesting',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: "Wallet's password",
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -534,7 +508,7 @@ define({
 						title: '什么是&#42;NIS?',
 						paragraphs: [
 							'負責保持<strong>NEM</strong>雲活着.',
-							'越多<strong>NIS</strong>服务器安全性越好。',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> 是進入 <strong>NEM</strong> 雲的入口。'
 						],
 						legend: '<strong>&#42;NIS</strong> 是 <strong>NEM Infrastructure Server</strong>的縮寫'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Create real account data',
 				verifyRealAccountData: 'Verify real account data',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: '匯入一个現有賬號',
 				changeAccountLabel: '更改賬戶標識',
 				setPrimary: '設為主賬戶',
@@ -603,14 +579,14 @@ define({
 				stop: '停止收割',
 				description: 'NEM雲賬戶的重要',
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating remote harvesting...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating remote harvesting...',
-					startRemoteHarvesting: 'Start remote harvesting',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: '正在收割',
 				stop: '停止收割',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

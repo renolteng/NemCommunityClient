@@ -47,7 +47,7 @@ define({
 			700: 'L\'indirizzo indicato non soddisfa i criteri minimi per generare blocchi. Per poter generare blocchi è necessario disporre di almeno 1000 XEM',
 			701: 'Il termine massimo indicato è nel passato. Dovrebbe invece essere nelle prossime 24 ore.',
 			702: 'Il termine massimo indicato è troppo lontano nel futuro. Dovrebbe invece essere nelle prossime 24 ore.',
-			703: 'L\'indirizzo non dispone di abbastanza fondi per inviare la quantità di XEM indicata.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Il messaggio inserito è troppo grande. Riduci la dimensione del testo.',
 			705: 'La firma della transazione è già presente nel database delle transazioni non ancora confermate.',
 			706: 'Errore nella verifica della firma della transazione.',
@@ -55,11 +55,11 @@ define({
 			708: 'La marca temporale della transazione è troppo lontana nel futuro.',
 			709: 'Indirizzo sconosciuto. Un indirizzo deve comparire in almeno una transazione (come mittente o come destinatario) per essere noto alla rete.',
 			710: 'La transazione è stata annullata in quanto la lista delle transazioni in attesa è piena. Commissioni maggiori possono migliorare la probabilità che la transazione venga accettata.',
-			730: 'Il trasferimento di importanza (generazione blocchi sicura) è in conflitto con una transazione esistente.',
-			731: 'L\'indirizzo che vuoi utilizzare per la generazione blocchi sicura ha un bilancio diverso da zero, quindi non può essere utilizzato.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Trasferimento di importanza annullato. C\'è già una transazione di questo tipo in corso.',
-			733: 'La generazione di blocchi sicura è già attiva.',
-			734: 'La generazione di blocchi sicura NON è attiva, quindi non può essere disattivata.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Tipo di transazione non consentita per indirizzi a firma multipla.',
 			741: 'Transazione rifiutata. L\'indirizzo non è uno dei cofirmatari.',
 			742: 'Transazione rifiutata. La definizione dei cofirmatari non è nota alla rete NEM.',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Operazione completata',
+			unknown: 'Stato sconosciuto',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'Lo stato di NCC è ignoto',
 				nccUnavailable: 'NCC non disponibile',
@@ -315,7 +317,8 @@ define({
 				boot: 'Avvia',
 				booting: 'Avvio in corso...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato creato!',
 				create: 'Crea'
 			},
-			createRealAccountData: {
-				title: 'Crea indirizzo reale',
-				message: 'I dati riportati qui sotto sono relativi al tuo indirizzo NEM reale da utilizzare solo dopo il lancio di NEM. Salvati l\'indirizzo, la chiave pubblica e soprattuto la chiave privata in un posto sicuro. Se perdi la chiave privata i tuoi XEM saranno PERSI IRRIMEDIABILMENTE!',
-				address: 'Indirizzo',
-				publicKey: 'Chiave pubblica',
-				privateKey: 'Chiave privata',
-				confirm: {
-					title: 'Salvataggio chiave privata',
-					message: 'Sei certo di aver salvato la tua chiave privata in un posto sicuro?'
-				},
-				recheck: {
-					title: 'Verifica chiave privata',
-					message: 'Riinserisci la chiave privata per verificare che sia corretta. Se l\'hai già persa puoi crearne una nuova.',
-					correct: {
-						title: 'Ottimo!',
-						message: 'La chiave privata inserita è corretta. Ricordati di conservarla sempre in un posto sicuro!'
-					},
-					incorrect: {
-						title: 'Mmm...',
-						message: 'La chiave privata inserita è errata! Vuoi provare a riinserirla oppure vuoi vedere nuovamente i dati originali?',
-						tryAgain: 'Riprova',
-						seeOriginal: 'Rivedi dati originali'
-					},
-					recheck: 'Verifica'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verifica dati indirizzo reale',
-				message: 'Riinserisci l\'indirizzo, la chiave pubblica e la chiave privata per verificarne la correttezza',
-				address: 'Indirizzo',
-				publicKey: 'Chiave pubblica',
-				privateKey: 'Chiave privata',
-				dataMatched: 'Ottimo! I dati corrispondono.',
-				verify: 'Verifica'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Chiave pubblica',
+				privateKey: 'Chiave privata',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Aggiunta indirizzo esistente',
@@ -435,7 +409,7 @@ define({
 				message: 'Sei sicuro di voler arrestare NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Abilita generazione blocchi sicura',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				password: 'Password del portafoglio',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Disabilita generazione blocchi sicura',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				password: 'Password del portafoglio',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Avvia generazione blocchi sicura',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				password: 'Password del portafoglio',
 				start: 'Avvia'
 			},
 			stopRemote: {
-				title: 'Ferma generazione blocchi sicura',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
 				password: 'Password del portafoglio',
 				stop: 'Ferma'
 			},
 			logoutWarning: {
-				leavePage: 'Se lasci il portafoglio aperto qualcun altro potrebbe accedervi da questo computer.\n\nPer evitare che ciò accada, utilizza la voce \'Chiudi portafoglio\' nel menu in alto a destra prima di chiudere la linguetta del browser o navigare verso un altro sito.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Aggiungi contatto',
@@ -534,7 +508,7 @@ define({
 						title: 'Cos\'è &#42;NIS?',
 						paragraphs: [
 							'Fa funzionare la rete <strong>NEM</strong>.',
-							'Più server <strong>NIS</strong> esistono più la rete è sicura',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> è il punto di accesso alla rete <strong>NEM</strong>.'
 						],
 						legend: '<strong>&#42;NIS</strong> è l\'acronimo di <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Crea indirizzo reale',
 				verifyRealAccountData: 'Verifica indirizzo reale',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Aggiungi indirizzo esistente',
 				changeAccountLabel: 'Modifica nome dell\'indirizzo',
 				setPrimary: 'Seleziona indirizzo principale',
@@ -603,14 +579,14 @@ define({
 				stop: 'Ferma generazione blocchi',
 				description: 'importanza dell\'indirizzo nella rete NEM',
 				remoteHarvest: {
-					activate: 'Abilita generazione blocchi sicura',
-					activating: 'Abilitazione in corso...',
-					active: 'Generazione blocchi sicura abilitata',
-					deactivate: 'Disabilita generazione blocchi sicura',
-					deactivating: 'Dibilitazione in corso...',
-					startRemoteHarvesting: 'Avvia generazione blocchi sicura',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Generazione blocchi sicura in corso',
-					stopRemoteHarvesting: 'Ferma generazione blocchi sicura'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Generazione blocchi in corso',
 				stop: 'Ferma generazione blocchi',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Avvia generazione blocchi sicura',
-					stopRemoteHarvesting: 'Ferma generazione blocchi sicura'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

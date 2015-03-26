@@ -47,7 +47,7 @@ define({
 			700: 'Daný účet nesplňuje základní kritéria pro zahájení sklizně. Většinou se tento problém týká nedostatečního množství Nemů na účtu. Sklizeň začíná s minimální hodnotou 1000 NEM.',
 			701: 'Zadaný termín se nachází v minulosti. Termín musí být zadán do období 1 den.',
 			702: 'Zadaný termín se nachází v příliš daleké budoucnosti. Termín musí být zadán do období 1 den.',
-			703: 'Zůstatek na vašem účtu neumožňuje poslat zadané množství Nemů.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Množství textu vaší zprávy převyšuje limit zpráv posílaných přes NEM. Prosím, pokuste se snížit množství textu ve zprávě, kterou chcete odeslat.',
 			705: 'Hash převodu již existuje v databáze, alebo v zozname nepotvrzených převodů.',
 			706: 'Podpis převodu nemůže být ověřen.',
@@ -55,11 +55,11 @@ define({
 			708: 'Časový údaj převodu se nachází v příliš daleké budoucnosti.',
 			709: 'Účet je neznámý. Účet musí být součástí alespoň jednoho převodu (odesílatel nebo příjemce), aby mohl být rozpoznán síťov.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaction is not allowed for multisig account.',
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Úspěch',
+			unknown: 'Neznámý status',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC status is unknown',
 				nccUnavailable: 'NCC is not available',
@@ -315,7 +317,8 @@ define({
 				boot: 'Bútovat',
 				booting: 'Bútování...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Účet {{1}} {{#2}}({{2}}){{/2}} byl vytvořen!',
 				create: 'Vytvořit'
 			},
-			createRealAccountData: {
-				title: 'Create Real Account Data',
-				message: 'The below data is for your real account after NEM launches. Save the address, the public key, and most importantly the private key somewhere safe. If you lose the private key, your account and all your real NEM will be lost FOREVER!',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				confirm: {
-					title: 'Save the Private Key',
-					message: 'Are you sure your private key has been saved into a safe place?'
-				},
-				recheck: {
-					title: 'Re-check Your Saved Private Key',
-					message: 'Please re-enter your private key you\'ve just been provided to check if you have the correct one saved. If your private key is already lost, you may want to create a new one.',
-					correct: {
-						title: 'Nice!',
-						message: 'You seem to have your correct private key saved. Please remember to always keep it safe and secured!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: 'The private key you\'ve just entered is not correct! Do you want to try to enter the private key again or come back to see the original account data?',
-						tryAgain: 'Try to enter again',
-						seeOriginal: 'See the original data'
-					},
-					recheck: 'Check'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verify Real Account Data',
-				message: 'Re-enter your saved address, public key and private key below to check if they match',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				dataMatched: 'Everything seems good. Your entered address, public key, and private key match.',
-				verify: 'Verify'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Přidat již existujíci účet',
@@ -435,7 +409,7 @@ define({
 				message: 'Opravdu chcete zavřít NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activate Remote Harvesting',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Remote Harvesting',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Start Remote Harvesting',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Stop Remote Harvesting',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
 				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -534,7 +508,7 @@ define({
 						title: 'Co je &#42;NIS?',
 						paragraphs: [
 							'Tato součást je zodpovědná za udržování cloudu <strong> NEM </ strong> živého.',
-							'Čím silnější je <strong>NIS</strong> tím vyšší je bezpečnost.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> je přístupová brána do <strong>NEM</strong> cloudu.'
 						],
 						legend: '<strong>&#42;NIS</strong> je skratka <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Create Real Account Data',
 				verifyRealAccountData: 'Verify Real Account Data',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Přidat již existujíci účet',
 				changeAccountLabel: 'Změnit název účtu',
 				setPrimary: 'Nastavit jako hlavní účet',
@@ -603,14 +579,14 @@ define({
 				stop: 'Zastavit žatvu',
 				description: 'Význam účtu pro cloud NEMu',
 				remoteHarvest: {
-					activate: 'Activate remote harvesting',
-					activating: 'Activating remote harvesting...',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating remote harvesting...',
-					startRemoteHarvesting: 'Start remote harvesting',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Sklizeň',
 				stop: 'Zastavit sklizeň',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},
