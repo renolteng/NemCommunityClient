@@ -20,13 +20,13 @@ public class TransferCommand extends TransactionCommand {
 			final Account sender,
 			final Function<String, Account> accountLookup,
 			final CommandLine commandLine) {
-		final String recipientAlias = commandLine.getOptionValue("recipient");
+		final Account recipient = accountLookup.apply(commandLine.getOptionValue("recipient"));
 		final long amount = Long.parseLong(commandLine.getOptionValue("amount"));
-		System.out.println(String.format("transfer (%s) '%s' -> '%s'", amount, sender, recipientAlias));
+		System.out.println(String.format("transfer (%s) '%s' -> '%s'", amount, sender, recipient));
 		return new TransferTransaction(
 				timeStamp,
 				sender,
-				accountLookup.apply(recipientAlias),
+				recipient,
 				Amount.fromMicroNem(amount),
 				null);
 	}

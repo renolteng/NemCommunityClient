@@ -1,9 +1,9 @@
 package org.nem.console.utils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.core.crypto.*;
-import org.nem.core.model.Address;
+import org.nem.core.model.*;
+import org.nem.core.utils.Base32Encoder;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,12 +16,8 @@ public class MultiAddressGenerator {
 	private final Object lock = new Object();
 
 	public MultiAddressGenerator(final String[] prefixes) {
-		final Address dummyAddress = Address.fromPublicKey(new KeyPair().getPublicKey());
-		final int expectedAddressLength = dummyAddress.getEncoded().length();
-
 		for (final String prefix : prefixes) {
-			final Address address = Address.fromEncoded(StringUtils.rightPad(prefix, expectedAddressLength, 'A'));
-			if (!address.isValid()) {
+			if (!isValidAddressPrefix(prefix)) {
 				throw new IllegalArgumentException(String.format("address prefix '%s' is invalid", prefix));
 			}
 
@@ -31,6 +27,18 @@ public class MultiAddressGenerator {
 
 			this.generatedKeys.put(prefix, null);
 		}
+	}
+
+	private static boolean isValidAddressPrefix(final String prefix) {
+		final byte[] encodedBytes;
+
+		try {
+			encodedBytes = Base32Encoder.getBytes(prefix);
+		} catch (final IllegalArgumentException e) {
+			return false;
+		}
+
+		return NetworkInfos.getDefault().getVersion() == encodedBytes[0];
 	}
 
 	public void generate() {

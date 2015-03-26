@@ -2,6 +2,7 @@ package org.nem.console;
 
 import org.apache.commons.cli.*;
 import org.nem.console.commands.*;
+import org.nem.core.model.NetworkInfos;
 
 public class Main {
 	private static final Command[] COMMANDS = new Command[] {
@@ -19,10 +20,11 @@ public class Main {
 	// and multisig-transfer, where I can pass --time=... --multisig=gimreMain --cosignatory=cosig1 --recipient=xxxxx --amount=xxxxx
 	// (or maybe even allow --cosignatories and then it would be capable of generating multisig tx along with appropriate signatures)
 	public static void main(final String[] args) throws ParseException {
-		realMain(new String[] { "generate", "--pass=foo bar", "--prefixes=TA,TB,TC", "--output=sec.dat" });
+		NetworkInfos.setDefault(NetworkInfos.getMainNetworkInfo());
+		realMain(new String[] { "generate", "--pass=foo bar", "--prefixes=NA,NB,NC", "--output=sec.dat" });
 		realMain(new String[] { "dump", "--pass=foo bar", "--input=sec.dat" });
-		realMain(new String[] { "transfer", "--pass=foo bar", "--input=sec.dat", "--output=transfer.dat", "--time=4417373", "--sender=TA", "--recipient=TB", "--amount=1000000" });
-		realMain(new String[] { "importance", "--pass=foo bar", "--input=sec.dat", "--output=importance.dat", "--time=4417373", "--sender=TA", "--remote=TC" });
+		realMain(new String[] { "transfer", "--pass=foo bar", "--input=sec.dat", "--output=transfer.dat", "--time=4417373", "--sender=NA", "--recipient=NB", "--amount=1000000" });
+		realMain(new String[] { "importance", "--pass=foo bar", "--input=sec.dat", "--output=importance.dat", "--time=4417373", "--sender=NA", "--remote=NC" });
 	}
 
 	public static void realMain(final String[] args) throws ParseException {

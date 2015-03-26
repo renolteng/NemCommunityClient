@@ -18,13 +18,13 @@ public class ImportanceTransferCommand extends TransactionCommand {
 			final Account sender,
 			final Function<String, Account> accountLookup,
 			final CommandLine commandLine) {
-		final String remoteAlias = commandLine.getOptionValue("remote");
-		System.out.println(String.format("importance '%s' -> '%s'", sender, remoteAlias));
+		final Account remote = accountLookup.apply(commandLine.getOptionValue("remote"));
+		System.out.println(String.format("importance '%s' -> '%s'", sender, remote));
 		return new ImportanceTransferTransaction(
 				timeStamp,
 				sender,
 				ImportanceTransferMode.Activate,
-				accountLookup.apply(remoteAlias));
+				remote);
 	}
 
 	@Override
