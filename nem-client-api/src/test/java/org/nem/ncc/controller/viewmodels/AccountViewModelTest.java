@@ -51,9 +51,6 @@ public class AccountViewModelTest {
 		Assert.assertThat(viewModel.getPublicKey(), IsEqual.equalTo(address.getPublicKey()));
 	}
 
-	// TODO 20150316 J-B: should update tests to check cosignatories too
-	// TODO 20150318 BR -> J: sure
-
 	@Test
 	public void viewModelCanBeCreatedAroundAccountMetaDataPair() {
 		// Arrange:

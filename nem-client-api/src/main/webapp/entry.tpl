@@ -12,7 +12,7 @@
 	<body>
 		<script type="text/ractive" id="template">
 			<div class="statusIndicator {{^appStatus}}hide{{/}} {{#appStatus.type === 'critical'}}statusIndicator--critical{{/}} {{#appStatus.type === 'warning'}}statusIndicator--warning{{/}} {{#appStatus.type === 'message'}}statusIndicator--message{{/}}">
-				<span>{{appStatus.message}}</span>
+				<span>{{appStatus.message}} {{^appStatus.type === 'critical'}}{{fill(texts.dashboard.transactions.syncStatus, blockchainHeight || texts.dashboard.transactions.unknown)}}{{/}}</span>
 			</div>
 			{{#layout.0.name}}
 				{{>0}}
@@ -63,7 +63,9 @@
 						</div>
 						<div class="form-field">
 							<p class="form-label">{{texts.modals.settings.remoteServer.port}}</p>
-							<input type="text" class="form-input form-input--textbox js-settingsModal-port-textbox" value="{{portStr}}" disabled />
+							<input type="checkbox" class="form-checkbox" id="settingModal-chkDefaultPort" checked="{{chkDefaultPort}}" />
+							<label class="form-label form-checkbox-label" for="settingModal-chkDefaultPort">{{texts.modals.settings.remoteServer.defaultPort}}</label>
+							<input type="text" class="form-input {{#if chkDefaultPort}}form-input--unimportant{{/if}} form-input--textbox js-settingsModal-port-textbox" value="{{portStr}}" readonly="{{chkDefaultPort}}" />
 						</div>
 					</div>
 					<div class="settingsModal-panel settingsModal-panel--autoBoot {{^activeTab === 'autoBoot'}}hidden{{/}}">
@@ -109,7 +111,8 @@
 							{{/}}
 							{{#.sublabel}}
 								<p class="form-sublabel {{#nullContent}}form-sublabel-nullContent{{/}}">
-									{{.content}}
+									{{#nullContent}}{{{.content}}}{{/}}
+									{{^nullContent}}{{.content}}{{/}}
 								</p>
 							{{/}}
 						</div>
@@ -127,7 +130,7 @@
 			</inputModal>
 
 			<confirmModal modalClass="confirmModal" disableEasyClose="true">
-				<p><em>{{message}}</em></p>
+				<p><em>{{{message}}}</em></p>
 				<div class="modal-actions">
 					{{#actions}}
 						<button type="button" class="modal-button {{#.actionType === 'primary'}}modal-button--primary{{/}} {{#.actionType === 'secondary'}}modal-button--secondary{{/}} {{#.actionType === 'neutral'}}modal-button--neutral{{/}}" on-click="confirm(.action)">{{.label}}</button>
@@ -150,6 +153,15 @@
 				<p class="errorModal-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
 				<p class="errorModal-message">{{message}}</p>
 			</errorModal>
+
+			<yikesModal modalClass="yikesModal" texts="{{texts}}" fill="{{fill}}">
+				<div>
+					<img src="images/happy-face.png" alt="Happy"/>
+				</div>
+				<h1 class="yikesModal-title">{{texts.modals.yikes.title}}</h1>
+				<p class="yikesModal-caption"><em>{{fill(texts.modals.yikes.caption, errorId)}}</em></p>
+				<p class="yikesModal-message">{{message}}</p>
+			</yikesModal>
 		</script>
 
 		<script type="text/ractive" id="modal-template">

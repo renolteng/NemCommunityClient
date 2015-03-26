@@ -93,11 +93,32 @@ public class WalletAccountController {
 	 */
 	@RequestMapping(value = "/wallet/account/reveal", method = RequestMethod.POST)
 	public KeyPairViewModel revealAccount(@RequestBody final WalletNamePasswordBag bag) {
+		final WalletAccount account = this.getAccount(bag);
+		return new KeyPairViewModel(new KeyPair(account.getPrivateKey()), NetworkInfos.getDefault().getVersion());
+	}
+
+	/**
+	 * Reveals details about an account including the remote key.
+	 *
+	 * @param bag The request parameters.
+	 * @return Details about the account.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/reveal", method = RequestMethod.POST)
+	public KeyPairViewModel revealRemoteAccount(@RequestBody final WalletNamePasswordBag bag) {
+		// TODO 20150321 J-G: should we handle this gracefully if getRemoteHarvestingPrivateKey is null?
+		// TODO 20150322 BR -> J: the way the WalletAccount implementation is now, the remote key is never null.
+		final WalletAccount account = this.getAccount(bag);
+		return new KeyPairViewModel(new KeyPair(account.getRemoteHarvestingPrivateKey()), NetworkInfos.getDefault().getVersion());
+	}
+
+	private WalletAccount getAccount(final WalletNamePasswordBag bag) {
 		final Wallet wallet = this.walletServices.open(bag);
-		final PrivateKey privateKey = wallet.getAccountPrivateKey(bag.getAccountAddress());
-		// TODO 20150315 J-G: shouldn't this be getDefault?
-		// > also, should add test for this
-		return new KeyPairViewModel(new KeyPair(privateKey), NetworkInfo.getMainNetworkInfo().getVersion());
+		final WalletAccount account = wallet.tryGetWalletAccount(bag.getAccountAddress());
+		if (null == account) {
+			throw new WalletException(WalletException.Code.WALLET_ACCOUNT_NOT_IN_WALLET);
+		}
+
+		return account;
 	}
 
 	private void addToAddressBook(

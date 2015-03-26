@@ -14,15 +14,23 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.lockAction();
 
             var self = this;
+            var success = false;
             ncc.postRequest('wallet/account/transaction/send', this.get('requestData'), function(data) {
+                success = true;
                 self.closeModal();
-            	ncc.getModal('sendNem').closeModal();
+                ncc.getModal('sendNem').closeModal();
 
-                ncc.showMessage(ncc.get('texts.modals.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
+                ncc.showMessage(ncc.get('texts.common.success'), ncc.get('texts.modals.sendNem.successMessage'));
                 ncc.refreshInfo();
             },
             {
                 complete: function() {
+                    if (! success) {
+                        self.closeModal();
+                        ncc.getModal('sendNem').closeModal();
+                        ncc.showMessage(ncc.get('texts.common.unknown'), ncc.get('texts.common.unknownMessage'));
+                    }
+
                     self.unlockAction();
                 }
             });

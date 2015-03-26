@@ -257,7 +257,7 @@
 					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
 				</article>
 			</li>
-			<li class="tile tile-messages" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
+			<li class="tile tile-messages" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
 					<h1 class="icon-envelope tile-title" title="{{texts.dashboard.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>
 					<!--/*<div class="message-preview">
@@ -366,39 +366,31 @@
 					<p class="notAvailableMessage notAvailableMessage--whole">{{.notAvailable}}</p>
 				</article>
 			</li>*/-->
-			<li class="tile tile-news" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
+			<li class="tile tile-news" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
 					<h1 class="icon-sound tile-title" title="{{texts.dashboard.news.titleTooltip}}" on-mouseover="registerToolTip"></h1>
-					<!--/*<div class="news-preview">
+					<div class="news-preview">
 						<div class="viewport">
+                            <!--
 							<ul class="overview">
 								<li>
 									<article class="news-article">
-										<h1>Beta release 1</h1>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porttitor urna ut justo sagittis ornare. Aliquam ... <a class="read-more" href="javascripts:;">Read more</a></p>
-									</article>
-								</li>
-								<li>
-									<article class="news-article">
-										<h1>Some News 2</h1>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porttitor urna</p>
-									</article>
-								</li>
-								<li>
-									<article class="news-article">
-										<h1>Count to 3</h1>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porttitor urna ut justo sagittis ornare. Aliquam... <a class="read-more" href="javascripts:;">Read more</a></p>
-									</article>
-								</li>
-							</ul>
+									-->
+										<h2>Latest stable release:</h2>
+										<h1>{{latestVersion}}</h1>
+                                <!--
+                                    </article>
+                                </li>
+                            </ul>
+                            -->
 						</div>
 						<ul class="bullets">
 							<li><a href="javascript:;" class="bullet" data-slide="0"></a></li>
-							<li><a href="javascript:;" class="bullet" data-slide="1"></a></li>
+							<!-- <li><a href="javascript:;" class="bullet" data-slide="1"></a></li>
 							<li><a href="javascript:;" class="bullet" data-slide="2"></a></li>
+							-->
 						</ul>
-					</div>*/-->
-					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
+					</div>
 				</article>
 			</li>
 			<!--/*<li class="tile send" data-row="3" data-col="1" data-sizex="1" data-sizey="3">

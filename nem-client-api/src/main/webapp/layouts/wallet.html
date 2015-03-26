@@ -159,6 +159,9 @@
 						{{texts.wallet.actions.copyClipboard}}
                         {{/if}}
 					</li>
+                    <li class="dropdownMenu-item" on-click="viewCurrentAccount">
+                        {{texts.wallet.actions.viewDetails}}
+                    </li>
 					<li class="dropdownMenu-item" on-click="changeAccountLabel">
 						{{texts.wallet.actions.changeAccountLabel}}
 					</li>
@@ -177,14 +180,11 @@
 					<li class="dropdownMenu-item" on-click="addAccount">
 						{{texts.wallet.actions.addAccount}}
 					</li>
-					<li class="dropdownMenu-item" on-click="createRealAccountData">
-						{{texts.wallet.actions.createRealAccountData}}
-					</li>
-					<li class="dropdownMenu-item dropdownMenu-item--separator" on-click="verifyRealAccountData">
-						{{texts.wallet.actions.verifyRealAccountData}}
-					</li>
                     <li class="dropdownMenu-item" on-click="showPrivateKey">
                         {{texts.wallet.actions.showPrivateKey}}
+                    </li>
+                    <li class="dropdownMenu-item" on-click="showRemotePrivateKey">
+                        {{texts.wallet.actions.showRemotePrivateKey}}
                     </li>
 				</ul>
 			</div>

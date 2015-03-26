@@ -95,10 +95,10 @@ The transaction id parameter is optional.
 possible remoteStatus values:
 
 * REMOTE - shouldn't normally occur, both buttons should be disabled
-* INACTIVE - "activate" button should be enabled, "start remote harvesting" - disabled
-* ACTIVATING - "activate" button should be disabled, "start remote harvesting" - enabled
-* ACTIVE - "DEactivate" button should be enabled, "start remote harvesting" - enabled
-* DEACTIVATING - "DEactivate" button should be disabled,  "start remote harvesting" - disabled
+* INACTIVE - "activate" button should be enabled, "start delegated harvesting" - disabled
+* ACTIVATING - "activate" button should be disabled, "start delegated harvesting" - enabled
+* ACTIVE - "Deactivate" button should be enabled, "start delegated harvesting" - enabled
+* DEACTIVATING - "Deactivate" button should be disabled,  "start delegated harvesting" - disabled
 
 ### AccountStatusViewModel
 

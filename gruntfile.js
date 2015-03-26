@@ -2,6 +2,8 @@ var srcPath = 'nem-client-api/src/main/webapp/';
 var destPath = 'nem-client-api/target/classes/';
 
 module.exports = function(grunt) {
+	grunt.util.linefeed = '\n';
+
 	grunt.initConfig({
 		copy: {
 			all: {

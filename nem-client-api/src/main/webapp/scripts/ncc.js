@@ -268,6 +268,17 @@ define(function(require) {
 
             return true;
         },
+        jsonpRequest: function(url, successCb) {
+            return $.ajax(url, {
+                jsonp: false,
+                jsonpCallback: "callback",
+                async: true,
+                dataType: "jsonp",
+                type: 'GET',
+                error: this.ajaxError,
+                success: successCb
+            });
+        },
         syncRequest: function(url) {
             return $.ajax(url, {
                 async: false,
@@ -443,6 +454,7 @@ define(function(require) {
             if (!wallet) wallet = ncc.get('wallet.wallet');
             if (!account) account = ncc.get('activeAccount.address');
 
+            if (wallet === undefined || account === undefined) { return; }
             var success = false;
             ncc.postRequest('account/transactions/all',
                 {

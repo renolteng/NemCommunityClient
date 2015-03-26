@@ -1,7 +1,7 @@
 package org.nem.ncc.controller;
 
 import net.minidev.json.*;
-import org.hamcrest.core.*;
+import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.mockito.*;
 import org.nem.core.connect.HttpPostRequest;
@@ -11,12 +11,11 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.node.NodeEndpoint;
-import org.nem.core.serialization.SerializableList;
+import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
-import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.services.*;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
@@ -369,7 +368,7 @@ public class AccountControllerTest {
 		action.accept(context.controller, createWalletRequest(account.getAddress(), new WalletName("wallet")));
 
 		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
-		Mockito.verify(context.connector, Mockito.times(1)).voidPost(Mockito.eq(apiId), requestCaptor.capture());
+		Mockito.verify(context.connector, Mockito.only()).voidPost(Mockito.eq(apiId), requestCaptor.capture());
 		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
 
 		// Assert:
@@ -379,45 +378,66 @@ public class AccountControllerTest {
 				IsEqual.equalTo(keyPair.getPrivateKey().toString()));
 	}
 
-	//endregion
-
-	//region createRealAccountData / verifyRealAccountData
+	@Test
+	public void remoteUnlockDelegatesToNisConnector() {
+		// Assert:
+		assertRemotePrivateKeyConnectorRequest(AccountController::remoteUnlock, NisApiId.NIS_REST_ACCOUNT_UNLOCK);
+	}
 
 	@Test
-	public void createRealAccountDataReturnsKeyPairViewModelWithMainNetworkVersion() {
+	public void remoteLockDelegatesToNisConnector() {
+		// Assert:
+		assertRemotePrivateKeyConnectorRequest(AccountController::remoteLock, NisApiId.NIS_REST_ACCOUNT_LOCK);
+	}
+
+	private static void assertRemotePrivateKeyConnectorRequest(
+			final BiConsumer<AccountController, AccountWalletPasswordRequest> action,
+			final NisApiId apiId) {
 		// Arrange:
 		final TestContext context = new TestContext();
+		final KeyPair keyPair = new KeyPair();
+		final Account account = new Account(new KeyPair(keyPair.getPublicKey()));
+		final WalletAccount walletAccount = new WalletAccount();
+		Mockito.when(context.walletServices.tryFindOpenAccount(account.getAddress())).thenReturn(walletAccount);
 
 		// Act:
-		final KeyPairViewModel viewModel = context.controller.createRealAccountData();
+		action.accept(context.controller, createWalletPasswordRequest(account.getAddress(), new WalletName("wallet"), new WalletPassword("pass")));
+
+		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
+		Mockito.verify(context.connector, Mockito.only()).voidPost(Mockito.eq(apiId), requestCaptor.capture());
+		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
 
 		// Assert:
-		Assert.assertThat(viewModel.getKeyPair(), IsNull.notNullValue());
-		Assert.assertThat(viewModel.getNetworkVersion(), IsEqual.equalTo(NetworkInfo.getMainNetworkInfo().getVersion()));
+		Assert.assertThat(jsonRequest.size(), IsEqual.equalTo(1));
+		Assert.assertThat(
+				jsonRequest.get("value"),
+				IsEqual.equalTo(walletAccount.getRemoteHarvestingPrivateKey().toString()));
 	}
 
-	@Test
-	public void verifyRealAccountDataSucceedsWhenPassedMainNetKeyPair() {
-		// Arrange:
-		final TestContext context = new TestContext();
-		final KeyPairViewModel viewModel = createKeyPairViewModel(new KeyPair(), NetworkInfo.getMainNetworkInfo().getVersion());
+	//endregion
 
-		// Act:
-		context.controller.verifyRealAccountData(viewModel);
-
-		// Assert: (no exceptions)
-	}
+	//region remoteStatus
 
 	@Test
-	public void verifyRealAccountDataFailsWhenPassedTestNetKeyPair() {
+	public void remoteStatusDelegatesToConnector() {
 		// Arrange:
 		final TestContext context = new TestContext();
-		final KeyPairViewModel viewModel = createKeyPairViewModel(new KeyPair(), NetworkInfo.getTestNetworkInfo().getVersion());
+		final KeyPair keyPair = new KeyPair();
+		final Account account = new Account(new KeyPair(keyPair.getPublicKey()));
+		final WalletAccount walletAccount = new WalletAccount();
+		final Address remoteAddress = Address.fromPublicKey(new KeyPair(walletAccount.getRemoteHarvestingPrivateKey()).getPublicKey());
+		Mockito.when(context.walletServices.tryFindOpenAccount(account.getAddress())).thenReturn(walletAccount);
+		Mockito.when(context.connector.get(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_STATUS), Mockito.any()))
+				.thenReturn(Utils.roundtripSerializableEntity(new AccountStatusViewModel(AccountStatus.LOCKED), null));
 
 		// Act:
-		ExceptionAssert.assertThrowsNccException(
-				v -> context.controller.verifyRealAccountData(viewModel),
-				NccException.Code.NOT_MAIN_NETWORK_ADDRESS);
+		final AccountStatusViewModel viewModel = context.controller.remoteStatus(createWalletRequest(account.getAddress(), new WalletName("wallet")));
+
+		// Assert:
+		Assert.assertThat(viewModel.getStatus(), IsEqual.equalTo(AccountStatus.LOCKED));
+
+		final String expectedQueryString = "address=" + remoteAddress.getEncoded();
+		Mockito.verify(context.connector, Mockito.only()).get(NisApiId.NIS_REST_ACCOUNT_STATUS, expectedQueryString);
 	}
 
 	//endregion
@@ -438,8 +458,8 @@ public class AccountControllerTest {
 		return new AccountWalletRequest(address, walletName);
 	}
 
-	private static KeyPairViewModel createKeyPairViewModel(final KeyPair keyPair, final Byte version) {
-		return new KeyPairViewModel(keyPair, version);
+	private static AccountWalletPasswordRequest createWalletPasswordRequest(final Address address, final WalletName walletName, final WalletPassword walletPassword) {
+		return new AccountWalletPasswordRequest(address, walletName, walletPassword);
 	}
 
 	private static class TestContext {
