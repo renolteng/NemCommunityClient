@@ -10,12 +10,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class MultiAddressGenerator {
+	private final MultiAddressGeneratorObserver observer;
 	private final KeyGenerator generator = CryptoEngines.defaultEngine().createKeyGenerator();
 	private final Map<String, KeyPair> generatedKeys = new HashMap<>();
 	private final AtomicInteger iterations = new AtomicInteger(0);
 	private final Object lock = new Object();
 
-	public MultiAddressGenerator(final String[] prefixes) {
+	public MultiAddressGenerator(final MultiAddressGeneratorObserver observer, final String[] prefixes) {
+		this.observer = observer;
 		for (final String prefix : prefixes) {
 			if (!isValidAddressPrefix(prefix)) {
 				throw new IllegalArgumentException(String.format("address prefix '%s' is invalid", prefix));
@@ -42,7 +44,7 @@ public class MultiAddressGenerator {
 	}
 
 	public void generate() {
-		this.iterations.incrementAndGet();
+		this.observer.notifyIteration(this, this.iterations.incrementAndGet());
 
 		final KeyPair keyPair = this.generator.generateKeyPair();
 		final String address = Address.fromPublicKey(keyPair.getPublicKey()).getEncoded();
@@ -51,6 +53,7 @@ public class MultiAddressGenerator {
 				.forEach(prefix -> {
 					synchronized (this.lock) {
 						this.generatedKeys.put(prefix, keyPair);
+						this.observer.notifyAddressFound(this, prefix);
 					}
 				});
 	}
