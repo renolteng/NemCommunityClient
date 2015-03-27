@@ -48,6 +48,8 @@ public class AccountsFileRepository implements AccountsRepository {
 		try {
 			// TODO 20150323 BR -> J: is it wanted that we do not create the file if it doesn't exist yet?
 			// > if ncc is not shut down via /shutdown request the file will never be saved too.
+			// TODO 20150325 J-B: i think it's ok; when it doesn't exist openRead will return an empty stream;
+			// > 'if ncc is not shut down via /shutdown request the file will never be saved too' - we could put it on a timer if that's what you're suggesting
 			try (final InputStream is = this.descriptor.openRead()) {
 				final byte[] contents = IOUtils.toByteArray(is);
 				if (0 == contents.length) {

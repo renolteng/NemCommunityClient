@@ -47,7 +47,7 @@ define({
 			700: '入力されたアカウントがハーベストのための基準を満たしていません。その基準はそのアカウントにあるXEMの量が関係しています。ハーベストは少なくとも1000XEMから始めることができます。',
 			701: '提供期限が過ぎています。期限は1日の間です。',
 			702: '提供期限はまだ先です。期間は1日の間です。',
-			703: '送金しようとしているXEMがあなたの残高を超えています。送金する金額を減らしてください。',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: '入力されたメッセージテキストは、NEMを経由して送信するには長すぎます。メッセージを短くしてください。',
 			705: 'その取引のハッシュはすでにデータベースの未検証取引の中に存在しています。',
 			706: 'トランザクション(取引)の電子署名の正当性を確認できませんでした。',
@@ -55,11 +55,11 @@ define({
 			708: 'トランザクション(取引)のタイムスタンプが先すぎます',
 			709: '不明なアカウントです。アカウントはNEMクラウド内で共有されている少なくとも1つのトランザクション(取引)に記載されている必要がある。(送信側、受信側どちらでも良い)',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaction is not allowed for multisig account.',
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: '成功!',
+			unknown: '不明な状態',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCCは状態不明',
 				nccUnavailable: 'NCCは無効',
@@ -315,7 +317,8 @@ define({
 				boot: '起動',
 				booting: '起動中…',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'アカウント: {{1}} {{#2}}({{2}}){{/2}} が作成されました。',
 				create: '作成'
 			},
-			createRealAccountData: {
-				title: '実際のアカウントデータの生成',
-				message: '下記のアカウントデータがNEMのリリース後の実際のアカウント情報となります。アドレス、パブリックキー、そして特にプライベートキーを安全な場所に保存・保管して下さい。万が一プライベートキーをなくした場合、アカウントと共にそのアカウントのXEM全てが失われますのでご注意下さい！',
-				address: 'アドレス',
-				publicKey: 'パブリックキー',
-				privateKey: 'プライベートキー',
-				confirm: {
-					title: 'プライベートキーの保存',
-					message: 'プライベートキーを本当に安全な場所に保存しましたか？'
-				},
-				recheck: {
-					title: 'プライベートキーの再確認',
-					message: '提供されたプライベートキーをもう一度入力して、正しく保存されたかを確認して下さい。プライベートキーをもう既になくされた場合はもう一度生成して下さい。',
-					correct: {
-						title: 'OKです！',
-						message: 'プライベートキーが正しく保存されているみたいです。気をつけて安全な場所に保管して下さい！'
-					},
-					incorrect: {
-						title: 'おっとっと・・・',
-						message: '入力されたプライベートキーが正しくありません。もう一度入力して下さい。',
-						tryAgain: 'もう一度入力して下さい。',
-						seeOriginal: '元のデータを確認'
-					},
-					recheck: '確認'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: '実際のアカウントデータの確認',
-				message: '保存したNEMアドレス、パブリックキー、プラベートキーを入力して正しいかどうかを確認して下さい。',
-				address: 'アドレス',
-				publicKey: 'パブリックキー',
-				privateKey: 'プライベートキー',
-				dataMatched: '入力したNEMアドレス、パブリックキー、プライベートキーはすべて正常に確認されました。',
-				verify: '確認'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'パブリックキー',
+				privateKey: 'プライベートキー',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: '既存のアカウントを追加します。',
@@ -435,7 +409,7 @@ define({
 				message: 'NEM Community Clientを閉じますか。'
 			},
 			activateRemote: {
-				title: 'リモートハーベストを開始する',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'ウォレット',
 				account: 'アカウント',
 				password: 'ウォレットのパスワード',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'リモートハーベストを停止する',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'ウォレット',
 				account: 'アカウント',
 				password: 'ウォレットのパスワード',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'リモートハーベストを開始する',
+				title: 'Start Delegated Harvesting',
 				wallet: 'ウォレット',
 				account: 'アカウント',
 				password: 'ウォレットのパスワード',
 				start: '開始'
 			},
 			stopRemote: {
-				title: 'リモートハーベストを停止する',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'ウォレット',
 				account: 'アカウント',
 				password: 'ウォレットのパスワード',
 				stop: '停止'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: '新規連絡先',
@@ -534,7 +508,7 @@ define({
 						title: '&#42;NISとは?',
 						paragraphs: [
 							'このコンポーネント(NEMの部品の1つ) は<strong>NEM</strong> クラウドを維持するものです。',
-							' より強い<strong>NIS</strong> はより強力なセキュリティとなります。',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> は <strong>NEM</strong> クラウドにアクセスする際の中継所となります。'
 						],
 						legend: '<strong>&#42;NIS</strong> は <strong>NEM のインフラとして機能しています。</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: '実際のアカウントデータを作成する',
 				verifyRealAccountData: '実際のアカウントデータを確認する',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: '既存のアカウントを追加する',
 				changeAccountLabel: 'アカウントラベルを変更する',
 				setPrimary: 'プライマリーアカウントに設定する',
@@ -603,14 +579,14 @@ define({
 				stop: 'ハーベスティングを中断する',
 				description: 'NEMクラウドのアカウントの重要性',
 				remoteHarvest: {
-					activate: 'リモートハーベストを開始する',
-					activating: 'リモートハーベスト開始中・・・',
-					active: 'Remote harvesting is active',
-					deactivate: 'Deactivate remote harvesting',
-					deactivating: 'Deactivating remote harvesting...',
-					startRemoteHarvesting: 'Start remote harvesting',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'ハーベスティング',
 				stop: 'ハーベスティングを停止する',
 				remoteHarvest: {
-					startRemoteHarvesting: 'リモートハーベスティングを開始する',
-					stopRemoteHarvesting: 'リモートハーベスティングを停止する'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

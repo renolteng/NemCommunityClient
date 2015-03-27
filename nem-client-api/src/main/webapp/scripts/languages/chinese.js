@@ -33,8 +33,8 @@ define({
 			132: '地址簿插件文件错误。',
 			133: '此地址簿无法删除。',
 			202: '该公钥不存在。',
-			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
-			305: 'The NEM Infrastructure Server (NIS) is not available.\n\nTry to restart the NEM software.\n\nIf you are using a remote NIS, check your configured host for typing errors or use another remote NIS.',
+			203: '账户无法转换，可能存在未激活的共同签署人账号。需要完成一笔交互以激活账户。',
+			305: 'NEM基础设施服务 (NIS)不可用。\n\n请尝试重启NEM软件。\n\n如果您在使用远程NIS，请确认NIS端口开放，连接未受局域网限制。',
 			306: '对不起，一个开发团队没有预见到的错误发生了。请尝试重试，若问题未解决，请在NEM NIS/NCC社区内提交该问题。',
 			400: '缺失某些参数。',
 			401: '抱歉，不允许执行该操作，本能地钱包登陆远程NIS存在私钥丢失风险！',
@@ -42,12 +42,12 @@ define({
 			500: '保存配置文件失败。',
 			600: 'NCC需要连接至已启用的NIS服务启动以从NEM云发送和接收交易数据，请使用NCC菜单项启动本地节点。',
 			601: 'NIS节点已启用，无法重复启用。',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
-			699: '此服务器已达最大收货人数。',
+			602: 'NEM基础设施服务（NIS）当前正在加载数据，数据完全加载后钱包将可用。',
+			699: '此服务器已达最大收获人数。',
 			700: '所提供的帐户不满足收获的基本要求。主要原因可能是金额不足，账户中至少有1000 XEM才能开始收获。',
 			701: '所提供的截止日期过早。必须输入1天以内的日期作为截止日期。',
 			702: '所提供的截止日期过晚。必须输入1天以内的日期作为截止日期。',
-			703: '您的帐户余额不足，请查证后重试。',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: '提供消息的文本太大，无法通过XEM发送。请减少消息的长度。',
 			705: '数据库或交易清单中已经存在此交易的hash值。',
 			706: '无法验证本次交易的签名。',
@@ -55,11 +55,11 @@ define({
 			708: '此交易ID的时间戳不合法，时间过晚。',
 			709: '该帐户未知。一个帐户需要至少完成一个交易（作为发件人或收件人）才能被网络公知。',
 			710: '交互缓存耗尽，交互被拒绝。网络繁忙时高手续费优先处理。 ',
-			730: '重要性传输交互 (安全远程收获) 与现有交互冲突。',
-			731: '发起安全收获的账户余额不为0，不可发起。',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: '重要性传输被拒绝，已有等待中重要性传输操作。 ',
-			733: '安全收获已启用。',
-			734: '安全收获未启用，无法停用。',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: '多重签名账号不可发起交互。',
 			741: '多重签名签名交互被拒绝。当前账户不是此多重签名交互的合法共同签署人账号。',
 			742: '多重签名签名交互被拒绝。相关多重签名交互在NEM网络中未公知。',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: '成功',
+			unknown: '未知状态',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC 状态未知',
 				nccUnavailable: 'NCC 不可用',
@@ -79,7 +81,7 @@ define({
 				nisUnavailable: 'NIS 不可用',
 				nisStarting: 'NIS 开始启用…',
 				notBooted: '需要启用NIS。请打开你的钱包，通过弹出的对话框启用一个本地节点，或设置自动启用。',
-				loading: 'Loading blocks from db, at block: ',
+				loading: '正在数据库中加载区块, 现区块号: ',
 				booting: '正在启用 NIS...',
 				nisInfoNotAvailable: '收不到NIS信息，正尝试接收NIS信息...',
 				synchronizing: 'NIS 在和服务器执行同步. 现位于 {{1}}, 大约落后 {{2}} 。',
@@ -103,8 +105,8 @@ define({
 			dueBy: '限期',
 			hours: '小时数',
 			hoursDue: '到期小时数',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			hoursDueExplanation: '如果交互未在截止时间之前完成，它会被拒绝。',
+			closeButton: '关闭'
 		},
 		transactionTypes: [
 			'传输交互',
@@ -146,7 +148,7 @@ define({
 					},
 					host: '主机名',
 					port: '端口',
-					defaultPort: 'Use default port.'
+					defaultPort: '使用默认端口'
 				},
 				autoBoot: {
 					tabTitle: '自动启用',
@@ -248,7 +250,7 @@ define({
 					message: '请等待节点启用完成后再发起交互。'
 				},
 				loadingWarning: {
-					title: 'Loading db'
+					title: '正在加载数据库'
 				}
 			},
 			clientInfo: {
@@ -315,8 +317,9 @@ define({
 				boot: '启用',
 				booting: '正在启用...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
+				warningQuestion: '您确定要使用账户{{1}} ({{2}}） XEM 的私钥启用节点<u>{{3}}</u>?<br><br>这会对 <u>{{3}}</u>这台NIS暴露您的 <span class="sublabelWarning">私钥</span>。'
 			},
 			closeWallet: {
 				title: '关闭钱包',
@@ -330,46 +333,17 @@ define({
 				successMessage: '帐号 {{1}} {{#2}}({{2}}){{/2}} 已创建!',
 				create: '创建'
 			},
-			createRealAccountData: {
-				title: '创建真实账户资料',
-				message: '以下数据是NEM正式发行后你的真实账户。保请妥善保管账户号和公钥，尤其重视私钥的保护。如果丢失了私钥，您的帐户和账户中的XEM币将永远消失!',
-				address: '地址',
-				publicKey: '公钥',
-				privateKey: '私钥',
-				confirm: {
-					title: '保存私钥',
-					message: '你确定你的私钥被保存到一个安全的地方了吗?'
-				},
-				recheck: {
-					title: '重新检查您所保存的私钥',
-					message: '请重新输入您的私钥以确认您所保存的私钥是正确的。如果您的私钥已经丢失，您需要重新创建。',
-					correct: {
-						title: '没问题!',
-						message: '您保存的私钥正确，请妥善保管！'
-					},
-					incorrect: {
-						title: '啊哦...',
-						message: '您输入的私钥有误！请仔细检查并再次输入。',
-						tryAgain: '尝试重新输入',
-						seeOriginal: '查看原始数据'
-					},
-					recheck: '检查'
-				},
-				ok: '好'
-			},
-			verifyRealAccountData: {
-				title: '确认真实账户信息',
-				message: '重新输入您保存的地址、公钥和私钥以检查是否匹配',
-				address: '地址',
-				publicKey: '公钥',
-				privateKey: '私钥',
-				dataMatched: '经确认，地址、公钥、私钥匹配正确。',
-				verify: '确认'
-			},
 			showPrivateKey: {
-				title: 'Show Account\'s PRIVATE Key',
-				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
-				show: 'Show the key'
+				title: '显示账户私钥',
+				message: '该操作会将账户私钥明文显示在屏幕中，请谨慎操作。如果您的电脑中有病毒软件，私钥将有可能被盗。您确认这么做吗?',
+				publicKey: '公钥',
+				privateKey: '私钥',
+				show: '显示私钥'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: '添加一个现有帐户',
@@ -435,39 +409,39 @@ define({
 				message: '您确定要关闭NEM社区客户端?'
 			},
 			activateRemote: {
-				title: '激活远程收获',
+				title: 'Activate Delegated Harvesting',
 				wallet: '钱包',
 				account: '帐户',
 				password: '钱包密码',
 				activate: '激活',
 				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: '激活会花费6小时的时间 (360块)。激活操作并不会开启收获。'
 			},
 			deactivateRemote: {
-				title: '停止激活远程收获',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: '钱包',
 				account: '帐户',
 				password: '钱包密码',
 				deactivate: '停止激活',
-				warning: 'Warning',
-				warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warning: '警告',
+				warningText: '解除激活会花费6小时的时间 (360块)。'
 			},
 			startRemote: {
-				title: '开始远程收获',
+				title: 'Start Delegated Harvesting',
 				wallet: '钱包',
 				account: '帐户',
 				password: '钱包密码',
 				start: '开始'
 			},
 			stopRemote: {
-				title: '停止远程收获',
+				title: 'Stop Delegated Harvesting',
 				wallet: '钱包',
 				account: '帐户',
 				password: '钱包密码',
 				stop: '停止'
 			},
 			logoutWarning: {
-				leavePage: '你正在离开你的钱包。请知晓如果你用此方式离开钱包，其他人仍然能够从本机访问你的钱包。\n为避免安全问题，建议您在离开或关闭页面前使用右上方的下拉菜单中的关闭钱包按钮。'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: '新增联系人',
@@ -534,7 +508,7 @@ define({
 						title: '什么是&#42;NIS?',
 						paragraphs: [
 							'负责保持<strong>NEM</strong>云存活.',
-							'<strong>NIS</strong>服务器越多，NEM的整体安全性越好。',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> 是 <strong>NEM</strong> 云的接入点。'
 						],
 						legend: '<strong>&#42;NIS</strong> 是 <strong>NEM基础架构服务</strong>的缩写'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: '创建真实账户信息',
 				verifyRealAccountData: '确认真实账户信息',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: '添加一个现有帐户',
 				changeAccountLabel: '更改帐户标识',
 				setPrimary: '设为主帐户',
@@ -603,14 +579,14 @@ define({
 				stop: '停止收获',
 				description: 'NEM帐户重要性(PoI)',
 				remoteHarvest: {
-					activate: '激活远程收获',
-					activating: '激活...',
-					active: '远程收获进行中',
-					deactivate: '停止激活远程收获',
-					deactivating: '停止激活...',
-					startRemoteHarvesting: '开始远程收获',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: '远程收获',
-					stopRemoteHarvesting: '停止远程收获'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -618,12 +594,12 @@ define({
 				sendNem: '发送XEM',
 				signMultisig: '签署',
 				balance: '目前余额',
-				loading: 'Loading balance',
+				loading: '加载中的余额',
 				accountCosignatories: '多重签名账户',
 				accountCosignatoriesView: 'view cosignatories',
-				vestedBalance: 'Vested Balance',
+				vestedBalance: '账户当前余额',
 				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后{{/2}}天)',
-				notSynced: 'might be inaccurate, NIS not synchronized yet',
+				notSynced: 'NIS可能尚未完成同步。',
 				unknown: '未知',
 				columns: [
 					'',
@@ -694,7 +670,7 @@ define({
 				columns: [
 					'高',
 					'时间',
-					'Block difficulty',
+					'块难度',
 					'费用'
 				],
 				noBlocks: '不存在已收获区块',
@@ -706,8 +682,8 @@ define({
 				harvesting: '正在收获',
 				stop: '停止收获',
 				remoteHarvest: {
-					startRemoteHarvesting: '开启远程收获',
-					stopRemoteHarvesting: '停止远程收获'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

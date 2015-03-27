@@ -4,7 +4,6 @@ import org.nem.core.connect.*;
 import org.nem.core.connect.client.AsyncNisConnector;
 import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
-import org.nem.core.model.NetworkInfos;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
 import org.nem.ncc.*;
@@ -59,7 +58,6 @@ public class NccAppConfig {
 
 	@Bean
 	public NccMain nccMain() {
-		NetworkInfos.setDefault(this.nccConfiguration().getNetworkInfo());
 		return new NccMain(this.nccConfiguration(), this.nccScheduler());
 	}
 

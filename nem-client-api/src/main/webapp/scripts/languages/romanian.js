@@ -47,7 +47,7 @@ define({
 			700: 'Contul furnizat nu satisface criteriul de bază pentru recoltare. În mod special, problema are legatură cu suma de XEM disponibilă în cont. Recoltarea poate începe cu minim 1000 XEM.',
 			701: 'Data scadentă furnizată este din trecut. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
 			702: 'Data scadentă introdusă este prea îndepărtată în viitor. Scadența trebuie introdusă cu o perioadă de grație de o zi.',
-			703: 'Contul tău nu dispune de soldul necesar pentru a putea trimite suma introdusă de XEM.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Textul din mesajul introdus este prea mare pentru a putea fi trimis prin NEM. Te rog încercă să reduci lungimea mesajului pe care dorești să îl trimiți.',
 			705: 'Hashul tranzacției există deja în baza de date sau în lista de tranzacții neconfirmate.',
 			706: 'Semnătura tranzacției nu a putut fi verificată.',
@@ -55,11 +55,11 @@ define({
 			708: 'Data si ora tranzacției sunt prea îndepărtate în viitor.',
 			709: 'Contul este necunoscut. Un cont trebuie să facă parte din măcar o tranzacție (expeditor sau destinatar) pentru a fi cunoscut în rețea.',
 			710: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-			730: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.',
-			731: 'Secure harvesting account has non zero balance and cannot be used.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Importance transfer rejected. There is already pending importance transfer operation.',
-			733: 'Secure harvesting is already active.',
-			734: 'Secure harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transaction is not allowed for multisig account.',
 			741: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			742: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Succes',
+			unknown: 'Status necunoscut',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'Statusul NCC este necunoscut',
 				nccUnavailable: 'NCC nu este disponibil',
@@ -315,7 +317,8 @@ define({
 				boot: 'Pornește',
 				booting: 'Se pornește...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost creat!',
 				create: 'Crează'
 			},
-			createRealAccountData: {
-				title: 'Crează date reale de cont',
-				message: 'Datele de mai jos sunt pentru contul real de după lansarea NEM. Salvează adresa, cheia publică, si cel mai important, cheia privată intr-un loc sigur. Dacă pierzi cheia privată, contul tău împreună cu toți XEM reali vor fi pierduți pentru TOTDEAUNA!',
-				address: 'Adresa',
-				publicKey: 'Cheia publică',
-				privateKey: 'Cheia privată',
-				confirm: {
-					title: 'Salvează cheia privată',
-					message: 'Ești sigur că cheia ta privată a fost salvată într-un loc sigur?'
-				},
-				recheck: {
-					title: 'Verifică cheia privată salvată din nou',
-					message: 'Te rog introdu cheia privată pe care ai primit-o pentru a verifica daca ai salvat-o pe cea bună. Daca cheia ta privată este deja pierdută, probabil ca ar fi bine sa creezi una nouă.',
-					correct: {
-						title: 'Foarte bine!',
-						message: 'Se pare ca ai salvat cheia privată corectă. Te rog ai grije să o ți întotdeauna sigură și securizată.'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: 'Cheia privată pe care ai introdus-o nu este corecta! Vrei să introduci din nou cheia privată sau să vizualizezi datele contului inițial?',
-						tryAgain: 'Încearcă să introduci din nou',
-						seeOriginal: 'Vizualizează datele contului inițial'
-					},
-					recheck: 'Verificat'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Verifică datele contului real',
-				message: 'Reintrodu adresa salvată, cheia publică și cheia privată pentru a verifica daca se potrivesc',
-				address: 'Adresa',
-				publicKey: 'Cheia publică',
-				privateKey: 'Cheia privată',
-				dataMatched: 'Totul pare în ordine, adresa introdusă, cheia publică, și cheia privată se potrivesc.',
-				verify: 'Verifică'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Cheia publică',
+				privateKey: 'Cheia privată',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Adaugă un cont existent',
@@ -435,7 +409,7 @@ define({
 				message: 'Ești sigur că dorești să închizi NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activează recoltarea de la distanță',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Portofel',
 				account: 'Cont',
 				password: 'Parola portofelului',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Dezactivează recoltarea de la distanță',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portofel',
 				account: 'Cont',
 				password: 'Parola portofelului',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Pornește recoltarea de la distanță',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Portofel',
 				account: 'Cont',
 				password: 'Parola portofelului',
 				start: 'Pornește'
 			},
 			stopRemote: {
-				title: 'Oprește recoltarea de la distanță',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Portofel',
 				account: 'Cont',
 				password: 'Parola portofelului',
 				stop: 'Oprește'
 			},
 			logoutWarning: {
-				leavePage: 'You\'re leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \'Close wallet\' menu item in the top-right dropdown menu before you close the browser tab or navigate away.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -534,7 +508,7 @@ define({
 						title: 'Ce este &#42;NIS?',
 						paragraphs: [
 							'Acest component este responsabil de a ține <strong>NEM</strong> cloud-ul activ.',
-							'Cu cât mai mult <strong>NIS</strong> cu atât mai bună securitate.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> este punctul de acces către <strong>NEM</strong> cloud.'
 						],
 						legend: '<strong>&#42;NIS</strong> înseamnă <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Crează date reale de cont',
 				verifyRealAccountData: 'Verifică datele contului real',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Adaugă un nou cont existent',
 				changeAccountLabel: 'Schimbă eticheta contului',
 				setPrimary: 'Stabilște ca cont primar',
@@ -603,14 +579,14 @@ define({
 				stop: 'Oprește recoltarea',
 				description: 'Importanța contului pentru NEM cloud',
 				remoteHarvest: {
-					activate: 'Activează recoltarea de la distanță',
-					activating: 'Se activează recoltarea de la distanță...',
-					active: 'Recoltarea de la distanță este activă',
-					deactivate: 'Dezactivează recoltarea de la distanță',
-					deactivating: 'Se dezactivează recoltarea de la distanță...',
-					startRemoteHarvesting: 'Pornește recoltarea de la distanță',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Se recoltează de la distanță',
-					stopRemoteHarvesting: 'Oprește recoltarea de la distanță'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Se recoltează',
 				stop: 'Oprește recoltarea',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start remote harvesting',
-					stopRemoteHarvesting: 'Stop remote harvesting'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

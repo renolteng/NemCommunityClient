@@ -47,7 +47,7 @@ define({
 			700: 'प्रदान किया गया अकाउंट हार्वेस्टिंग के लिए बुनियादी मानदंडों को पूरा नहीं करता है. मुख्य रूप से यह अकाउंट के अंदर XEM की राशि से संबंधित है. हार्वेस्टिंग के लिए कम से कम 1000 XEM की ज़रूरत हे और पहले ट्रांजैक्शन के बाद एक दिन की प्रतीक्षा करनी पड़ती है.',
 			701: 'प्रदान की गई समय सीमा अतीत में है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
 			702: 'प्रदान की गई समय सीमा भविष्य में बहुत दूर है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.',
-			703: 'आपके अकाउंट में पर्याप्त XEM बैलेंस नही हे.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'प्रदान की गई मेसेज टेक्स्ट NEM के माध्यम से भेजने के लिए बहुत बड़ी है. कृपया अपने मेसेज की लंबाई कम करने का प्रयास करें.',
 			705: 'ट्रांजैक्शन हैश पहले से ही डेटाबेस या अपुष्ट ट्रांजैक्शन सूची में मौजूद है.',
 			706: 'ट्रांजैक्शन हस्ताक्षर का जांच नही किया जा सका है.',
@@ -55,11 +55,11 @@ define({
 			708: 'ट्रांजैक्शन ID का समय बहुत दूर भविष्य में हे.',
 			709: 'यह अकाउंट अज्ञात है. नेटवर्क को अकाउंट को पहचानने के लिए अकाउंट में कम से कम एक ट्रांजैक्शन (सेनडर/रेसिपईयेंट) का शामिल होना ज़रूरी होता है.',
 			710: 'ट्रांजैक्शन को अस्वीकार कर दिया गया है क्योंकि ट्रांजैक्शन कैश अनुमति से ज़्यादा भर गया है. एक उच्च फ़ीस ट्रांजैक्शन के स्वीकार होने के मौके बेहतर बनाता है.',
-			730: 'मौजूदा ट्रांजैक्शन की वजह से इंपॉर्टेन्स ट्रान्सफर ट्रांजैक्शन(सुरक्षित हार्वेस्टिंग) में दिक्कत आ रही है.',
-			731: 'सुरक्षित हार्वेस्टिंग अकाउंट में गैर शून्य बैलेंस है, इसलिए इसका उपयोग नहीं किया जा सकता है.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'इंपॉर्टेन्स ट्रान्सफर खारिज कर दिया गया है. एक अपूर्ण इंपॉर्टेन्स ट्रान्सफर ऑपरेशन पहले से ही है.',
-			733: 'सुरक्षित हार्वेस्टिंग पहले से ही सक्रिय है.',
-			734: 'सुरक्षित हार्वेस्टिंग सक्रिय नहीं है.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Multisig अकाउंट के लिए ट्रांजैक्शन की अनुमति नहीं है.',
 			741: 'Multisig हस्ताक्षर ट्रांजैक्शन को अस्वीकार कर दिया गया है. यह अकाउंट Multisig अकाउंट की cosignatory नहीं है.',
 			742: 'Multisig हस्ताक्षर ट्रांजैक्शन को अस्वीकार कर दिया गया है. एसोसिएटेड Multisig ट्रांजैक्शन NEM नेटवर्क के लिए अज्ञात है.',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'सफलता',
+			unknown: 'अज्ञात स्थिति',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC की स्तिति अग्यात है',
 				nccUnavailable: 'NCC उपलब्ध नहीं है',
@@ -315,7 +317,8 @@ define({
 				boot: 'बूट',
 				booting: 'बूट हो रहा है...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'अकाउंट {{1}} {{#2}}({{2}}){{/2}} बना दिया गया है!',
 				create: 'बनाएँ'
 			},
-			createRealAccountData: {
-				title: 'असली NEM खाते के लिए डेटा बनाएं',
-				message: 'नीचे दिए गए डेटा NEM लॉंच के बाद आपके असली खाते के लिए है. Address, Public key और सबसे महत्वपूर्ण बात यह है कि अपना Private Key कहीं सुरक्षित सहेजें. अगर आप अपना Private Key खो देते हैं, तो आप अपने अकाउंट ओर सभी असली XEM हमेशा के लिए खो देंगे.',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				confirm: {
-					title: 'Save the private key',
-					message: 'आप सुनिश्चित करें कि आपकी Private Key एक सुरक्षित जगह में सहेज लिया गया है!'
-				},
-				recheck: {
-					title: 'अपने saved Private Key को दोबारा चेक करें',
-					message: 'कृपया अपने saved Private Key को प्रदान करें ताक़ि हम यह चेक कर सकें की आपने सही Private Key को save किया है. अगर आपने अपना Private Key खो दिया है, तो आप एक नया बना सकते हैं.',
-					correct: {
-						title: 'बढ़िया!',
-						message: 'ऐसा लगता है की आपने सही Private Key को save किया है. हमेशा अपने Private Key को सुरक्षित रखें!!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: 'आपने जो Private Key प्रदान किया है वो सही नही है!! कृपया दोबारा जाँचे और दर्ज करें या फिर असली अकाउंट डेटा जाँचे.',
-						tryAgain: 'कृपया दोबारा दर्ज करें.',
-						seeOriginal: 'असली अकाउंट डेटा जाँचे.'
-					},
-					recheck: 'Check'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'असली NEM अकाउंट जाँचे.',
-				message: 'सेव किए गये Address, Public Key और Private key को एंटर कीजिए ताकि उन्हें मैच किया जा सके.',
-				address: 'Address',
-				publicKey: 'Public key',
-				privateKey: 'Private key',
-				dataMatched: 'सब कुछ ठीक लग रहा है. Address, Public Key और Private key मैच कर रहें हैं.',
-				verify: 'जाँचे'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Public key',
+				privateKey: 'Private key',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'कोई मौजूदा अकाउंट जोड़ें',
@@ -435,7 +409,7 @@ define({
 				message: 'क्या आप NEM समुदाय क्लाइंट को बंद करना चाहते हैं?'
 			},
 			activateRemote: {
-				title: 'रीमोट हार्वेस्टिंग को सक्रिय करें',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
 				password: 'वॉलेट का पासवर्ड',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'रीमोट हार्वेस्टिंग को निष्क्रिय करें',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
 				password: 'वॉलेट का पासवर्ड',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'रीमोट हार्वेस्टिंग को शुरु करें',
+				title: 'Start Delegated Harvesting',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
 				password: 'वॉलेट का पासवर्ड',
 				start: 'सक्रिय करें'
 			},
 			stopRemote: {
-				title: 'रीमोट हार्वेस्टिंग को निष्क्रिय करें',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
 				password: 'वॉलेट का पासवर्ड',
 				stop: 'निष्क्रिय करें'
 			},
 			logoutWarning: {
-				leavePage: 'आप अपने वॉलेट छोड़ के जा रहें हैं. आप इस तरह अपने वॉलेट छोड़ देते हैं तो कोई दूसरा भी इस कंप्यूटर से आपके वॉलेट का उपयोग करने में सक्षम हो सकता है. इससे बचने के लिए आप ब्राउज़र टैब बंद या कहीं और नेविगेट करने से पहले \'Close wallet\' मेनू आइटम का उपयोग करें.'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Add contact',
@@ -534,7 +508,7 @@ define({
 						title: '&#42;NIS क्या है?',
 						paragraphs: [
 							'यह कॉंपोनेंट <strong>NEM</strong> क्लाउड को जिंदा रखने के लिए जिम्मेदार है.',
-							'जितने अधिक <strong>NIS</strong> उतनी बेहतर सुरक्षा.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NEM</strong> क्लाउड की पहुँच बिंदु <strong>NIS</strong> है.'
 						],
 						legend: '<strong>&#42;NIS</strong> का मतलब <strong>NEM Infrastructure Server</strong> है'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'नया असली NEM अकाउंट बनाएँ.',
 				verifyRealAccountData: 'असली NEM अकाउंट जाँचे.',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'किसी मौजूदा अकाउंट को जोड़ें',
 				changeAccountLabel: 'अकाउंट लेबल बदलें',
 				setPrimary: 'प्राइमरी अकाउंट के रूप में सेट करें',
@@ -603,14 +579,14 @@ define({
 				stop: 'स्टॉप हार्वेस्टिंग',
 				description: 'NEM क्लाउड के लिए अकाउंट का महत्व',
 				remoteHarvest: {
-					activate: 'रीमोट हार्वेस्टिंग को सक्रिय करें',
-					activating: 'सक्रिय हो रहा है...',
-					active: 'रीमोट हार्वेस्टिंग सक्रिय है',
-					deactivate: 'रीमोट हार्वेस्टिंग को निष्क्रिय करें',
-					deactivating: 'निष्क्रिय हो रहा है...',
-					startRemoteHarvesting: 'रीमोट हार्वेस्टिंग को शुरु करें',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'रीमोट हार्वेस्टिंग चल रही है',
-					stopRemoteHarvesting: 'रीमोट हार्वेस्टिंग को निष्क्रिय करें'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'हार्वेस्टिंग',
 				stop: 'स्टॉप लोकल हार्वेस्टिंग',
 				remoteHarvest: {
-					startRemoteHarvesting: 'स्टार्ट रीमोट हार्वेस्टिंग',
-					stopRemoteHarvesting: 'स्टॉप रीमोट हार्वेस्टिंग'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

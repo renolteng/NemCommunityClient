@@ -47,7 +47,7 @@ define({
 			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością XEM na koncie. Zbieranie wymaga minimum 1000 XEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
 			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
-			703: 'Nie masz wystarczających środków na koncie aby dokonać transakcji.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Wiadomość jest zbyt długa. Spróbuj ją skrócić.',
 			705: 'Skrót (hash) transakcji istnieje już w bazie danych lub na liście niepotwierdzonych transakcji.',
 			706: 'Sygnatura transakcji nie mogła zostać zweryfikowana.',
@@ -55,11 +55,11 @@ define({
 			708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
 			709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
 			710: 'Transakcja została odrzucona ponieważ bufor jest przepełniony. Wyzsza opłata transakcyjna zwiększa szanse na zaakceptowanie transakcji.',
-			730: 'Transakcja transferu znaczenia (bezpieczne zbieranie) jest w konflikcie z istniejącą transkcją.',
-			731: 'Konto bezpiecznego zbierania ma niezerowe saldo i nie może być użyte.',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Przekazanie znaczenia odrzucone. Istnieje już oczekująca operacja przekazania znaczenia.',
-			733: 'Bezpieczne zbieranie jest już aktywne.',
-			734: 'Bezpieczne zbieranie NIE jest aktywne. Nie można wyłączyć.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transakcja nie jest dozwolona dla konta multisig.',
 			741: 'Podpis transkacji multisig odrzucony. Bieżące konto nie jest sygnatariuszem konta multisig.',
 			742: 'Podpis transkacji multisig odrzucony. Transakcja nie jest znana sieci NEM',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Sukces',
+			unknown: 'Status nieznany',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'Status NCC jest nieznany',
 				nccUnavailable: 'NCC jest niedostępny',
@@ -315,7 +317,8 @@ define({
 				boot: 'Uruchom',
 				booting: 'Uruchamianie...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało utworzone!',
 				create: 'Utwórz'
 			},
-			createRealAccountData: {
-				title: 'Utwórz prawdziwe konto',
-				message: 'Poniższe dane są dla Twojego prawdziwego konta po premierze NEM. Zapisz adres, klucz publiczny, a co najważniejsze prywatny klucz w bezpiecznym miejscu. Jeśli stracisz klucz prywatny, Twoje konto i wszystkie monety XEM zostaną utracone NA ZAWSZE!',
-				address: 'Adres',
-				publicKey: 'Klucz publiczny',
-				privateKey: 'Klucz prywatny',
-				confirm: {
-					title: 'Zapisz klucz prywatny',
-					message: 'Czy na pewno twój klucz prywatny został zapisany w bezpiecznym miejscu?'
-				},
-				recheck: {
-					title: 'Sprawdź ponownie swój zapisany  klucz prywatny',
-					message: "Proszę wprowadź ponownie swój klucz prywatny, który właśnie otrzymałeś aby sprawdzić, czy jest poprawny. Jeśli klucz prywatny jest błędny, możesz utworzyć nowy.",
-					correct: {
-						title: 'Świetnie!',
-						message: 'Zdaje się, że Twój klucz prywatny jest prawidłowy. Trzymaj go w bezpiecznym miejscu!'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: "Klucz prywatny, który właśnie wpisałeś jest nieprawidłowy! Proszę, sprawdź go i wpisz ponownie.",
-						tryAgain: 'Spróbuj wpisać ponownie',
-						seeOriginal: 'Zobacz oryginalne dane'
-					},
-					recheck: 'Sprawdź'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Sprawdzenie poprawności prawdziwego konta',
-				message: 'Wpisz ponownie zapisany adres, klucz publiczny i prywatny poniżej, by sprawdzić, czy pasują do siebie.',
-				address: 'Adres',
-				publicKey: 'Klucz publiczny',
-				privateKey: 'Klucz prywatny',
-				dataMatched: 'Wszystko w porządku, adres, klucz puliczny i prywatny pasują do siebie.',
-				verify: 'Weryfikacja'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Klucz publiczny',
+				privateKey: 'Klucz prywatny',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Dodaj istniejące konto',
@@ -435,7 +409,7 @@ define({
 				message: 'Czy na pewno chcesz zamknąć Klient Społeczności NEM?'
 			},
 			activateRemote: {
-				title: 'Aktywuj zdalne zbieranie bloków',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Deaktywuj zdalne zbieranie bloków',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Rozpocznij zdalne zbieranie bloków',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Zatrzymaj zdalne zbieranie bloków',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: "Zostawiasz swój portfel. Pamiętaj, że kiedy zostawiasz swój portfel w ten sposób, ktoś inny może uzyskać dostęp do twojego porfela na tym komputerze.\n\nAby temu zapobiec, proszę się wylogować używając przycisku \"Zamknij portfel\" z menu w prawym, górym rogu, zanim opuścisz tą stronę."
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Dodaj kontakt',
@@ -534,7 +508,7 @@ define({
 						title: 'Czym jest &#42;NIS?',
 						paragraphs: [
 							'Ten komponent jest odpowiedzialny za podtrzymywanie chmury <strong>NEM</strong> .',
-							'Im więcej uruchomionych <strong>NIS</strong> tym większe bezpieczeństwo.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> jest punktem dostępu do chmury <strong>NEM</strong> .'
 						],
 						legend: '<strong>&#42;NIS</strong> to skrót od <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Utwórz prawdziwe konto',
 				verifyRealAccountData: 'Weryfikacja prawdziwego konta',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Dodaj Istniejące Konto',
 				changeAccountLabel: 'Zmień Etykietę Konta',
 				setPrimary: 'Ustaw jako Konto Podstawowe',
@@ -603,14 +579,14 @@ define({
 				stop: 'Zakończ zbieranie bloków',
 				description: 'Znaczenie konta dla chmury NEM',
 				remoteHarvest: {
-					activate: 'Aktywuj zdalne zbieranie bloków',
-					activating: 'Aktywowanie zdalnego zbierania bloków...',
-					active: 'Zdalne zbieranie jest aktywne',
-					deactivate: 'Wyłącz zdalne zbieranie bloków',
-					deactivating: 'Wyłączanie zdalnego zbierania bloków...',
-					startRemoteHarvesting: 'Rozpocznij zdalne zbieranie bloków',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Zdalne zbieranie bloków',
-					stopRemoteHarvesting: 'Zatrzymaj zdalne zbieranie bloków'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Zbieranie',
 				stop: 'Zakończ zbieranie bloków',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Zacznij zdalne zbieranie',
-					stopRemoteHarvesting: 'Zakończ zdalne zbieranie'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

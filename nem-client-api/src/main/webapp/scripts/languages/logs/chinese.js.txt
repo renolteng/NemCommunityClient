@@ -313,4 +313,124 @@ translated texts.dashboard.transactions.accountCosignatories
 	      to: '多重签名账户'
 	based on: texts.modals.signMultisig.original.from
 
+-----changed texts.faults.703
+	from: 'Your account does not have the right balance to send the provided amount of XEM.'
+	  to: 'Your account does not have the right balance to make this transaction.'
+	 was: '您的帐户余额不足，请查证后重试。'
+
+changed texts.faults.730
+	from: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.'
+	  to: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.'
+	 was: '重要性传输交互 (安全远程收获) 与现有交互冲突。'
+
+changed texts.faults.731
+	from: 'Secure harvesting account has non zero balance and cannot be used.'
+	  to: 'Delegated harvesting account has non zero balance and cannot be used.'
+	 was: '发起安全收获的账户余额不为0，不可发起。'
+
+changed texts.faults.733
+	from: 'Secure harvesting is already active.'
+	  to: 'Delegated harvesting is already active.'
+	 was: '安全收获已启用。'
+
+changed texts.faults.734
+	from: 'Secure harvesting is NOT active. Cannot deactivate.'
+	  to: 'Delegated harvesting is NOT active. Cannot deactivate.'
+	 was: '安全收获未启用，无法停用。'
+
+changed texts.modals.bootLocalNode.warningText
+	from: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: <u>{{2}}</u>'
+	  to: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.'
+	 was: '您正在使用余额为: ({{{1}}} XEM)的账号启用节点，这会使私钥对节点 {{2}}暴露'
+
+changed texts.modals.activateRemote.title
+	from: 'Activate Remote Harvesting'
+	  to: 'Activate Delegated Harvesting'
+	 was: '激活远程收获'
+
+changed texts.modals.deactivateRemote.title
+	from: 'Deactivate Remote Harvesting'
+	  to: 'Deactivate Delegated Harvesting'
+	 was: '停止激活远程收获'
+
+changed texts.modals.startRemote.title
+	from: 'Start Remote Harvesting'
+	  to: 'Start Delegated Harvesting'
+	 was: '开始远程收获'
+
+changed texts.modals.stopRemote.title
+	from: 'Stop Remote Harvesting'
+	  to: 'Stop Delegated Harvesting'
+	 was: '停止远程收获'
+
+changed texts.modals.logoutWarning.leavePage
+	from: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+	  to: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+	 was: '你正在离开你的钱包。请知晓如果你用此方式离开钱包，其他人仍然能够从本机访问你的钱包。\n为避免安全问题，建议您在离开或关闭页面前使用右上方的下拉菜单中的关闭钱包按钮。'
+
+changed texts.landing.about.sections.[1].paragraphs.[1]
+	from: 'The more <strong>NIS</strong> the better the security.'
+	  to: 'The more <strong>NIS</strong> there are in the network, the better the security.,'
+	 was: '<strong>NIS</strong>服务器越多，NEM的整体安全性越好。'
+
+changed texts.dashboard.importance.remoteHarvest.activate
+	from: 'Activate remote harvesting'
+	  to: 'Activate delegated harvesting'
+	 was: '激活远程收获'
+
+changed texts.dashboard.importance.remoteHarvest.activating
+	from: 'Activating remote harvesting...'
+	  to: 'Activating delegated harvesting...'
+	 was: '激活...'
+
+changed texts.dashboard.importance.remoteHarvest.active
+	from: 'Remote harvesting is active'
+	  to: 'Delegated harvesting is active'
+	 was: '远程收获进行中'
+
+changed texts.dashboard.importance.remoteHarvest.deactivate
+	from: 'Deactivate remote harvesting'
+	  to: 'Deactivate delegated harvesting'
+	 was: '停止激活远程收获'
+
+changed texts.dashboard.importance.remoteHarvest.deactivating
+	from: 'Deactivating remote harvesting...'
+	  to: 'Deactivating delegated harvesting...'
+	 was: '停止激活...'
+
+changed texts.dashboard.importance.remoteHarvest.startRemoteHarvesting
+	from: 'Start remote harvesting'
+	  to: 'Start delegated harvesting'
+	 was: '开始远程收获'
+
+changed texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting
+	from: 'Stop remote harvesting'
+	  to: 'Stop delegated harvesting'
+	 was: '停止远程收获'
+
+changed texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting
+	from: 'Start remote harvesting'
+	  to: 'Start delegated harvesting'
+	 was: '开启远程收获'
+
+changed texts.harvestedBlocks.harvesting.remoteHarvest.stopRemoteHarvesting
+	from: 'Stop remote harvesting'
+	  to: 'Stop delegated harvesting'
+	 was: '停止远程收获'
+
+translated texts.common.unknown
+	    from: 'Unknown status'
+	      to: '未知状态'
+	based on: texts.harvestedBlocks.harvesting.unknown
+
+translated texts.modals.showPrivateKey.publicKey
+	    from: 'Public key'
+	      to: '公钥'
+	based on: texts.modals.verifyRealAccountData.publicKey
+
+translated texts.modals.showPrivateKey.privateKey
+	    from: 'Private key'
+	      to: '私钥'
+	based on: texts.modals.verifyRealAccountData.privateKey
+
 -----

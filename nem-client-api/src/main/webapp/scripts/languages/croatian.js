@@ -47,7 +47,7 @@ define({
 			700: 'Navedeni račun ne ispunjava osnovne kriterije za ubiranje blokova. Za ubiranje blokova račun mora sadržavati najmanje iznos od 1000 XEM-a.',
 			701: 'Datum isteka je u prošlosti. Datum isteka mora biti u roku od jednog dana.',
 			702: 'Datum isteka je predaleko u budućnosti. Datum isteka mora biti u roku od jednog dana.',
-			703: 'Vaš račun nema dovoljan iznos XEM-a za slanje.',
+			703: 'Your account does not have the right balance to make this transaction.',
 			704: 'Tekst u poruci je predugačak. Molim Vas, probajte smanjiti dužinu teksta u Vašoj poruci ako ju želite slati.',
 			705: 'Šifra transakcije već postoji u bazi podataka ili u listi nepotvrđenih transakcija.',
 			706: 'Potpis transakcije nije mogao biti provjeren.',
@@ -55,11 +55,11 @@ define({
 			708: 'Vremenska oznaka transakcije je predaleko u budućnosti.',
 			709: 'Račun je nepoznat. Račun se mora pojaviti barem u jednoj transakciji (pošiljatelja ili primatelja) da bi bio prepoznat u mreži.',
 			710: 'Transakcija je odbačena. Veća naknada povećava šansu za prihvaćanje transakcije.',
-			730: 'Transakcija prijenos važnosti (sigurno ubiranje) je u kofliktu sa postojećom transakcijom.',
-			731: 'Saldo na računu sigurnog ubiranja je veći od nule i ne može se koristiti',
+			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
+			731: 'Delegated harvesting account has non zero balance and cannot be used.',
 			732: 'Prijenos važnosti odbijen. Operacija prijenosa važnosti se već nalazi na čekanju.',
-			733: 'Sigurno ubiranje je već aktivno.',
-			734: 'Sigurno ubiranje NIJE aktivno. Nemoguce deaktivirati.',
+			733: 'Delegated harvesting is already active.',
+			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			740: 'Transakcija nije dozvoljena u višepotpisničkom računu.',
 			741: 'Transakcija potpisa je odbačena. Ovaj račun nije potpisnik višepotpisničkog računa.',
 			742: 'Višepotpisnička transkacija je odbačena. Transakcija nije prepoznata u NEM mreži',
@@ -71,6 +71,8 @@ define({
 		},
 		common: {
 			success: 'Uspjeh',
+			unknown: 'Nepoznat status',
+			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
 			appStatus: {
 				nccUnknown: 'NCC status je nepoznat',
 				nccUnavailable: 'NCC je nedostupan',
@@ -315,7 +317,8 @@ define({
 				boot: 'Pokreni',
 				booting: 'Pokretanje...',
 				warning: 'Upozorenje o pokretanju čvora',
-				warningText: 'Pokušavate pokrenuti čvor računom koji ima saldo od: ({{{1}}} XEM). To će otkriti privatni ključ tog računa čvoru: <u>{{2}}</u>',
+				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
+				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Jeste li sigurni da želite pokrenuti čvor <u>{{3}}</u> korištenjem privatnog ključa računa {{1}} ({{2}} XEM)?<br><br>To će otkriti <span class=\"sublabelWarning\">privatni ključ</span> tog računa čvoru: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -330,46 +333,17 @@ define({
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno stvoren!',
 				create: 'Stvori'
 			},
-			createRealAccountData: {
-				title: 'Stvori stvarni račun',
-				message: 'Dolje navedeni podaci su za vaš stvarni račun nakon što se NEM pokrene. Spremite adresu javni i privatni ključ negdje na sigurno. Ako izgubite privatni ključ vaš račun i svi stvarni XEM-ovi biti će izgubljeni ZAUVIJEK!',
-				address: 'Adresa',
-				publicKey: 'Javni ključ',
-				privateKey: 'Privatni ključ',
-				confirm: {
-					title: 'Spremi privatni ključ',
-					message: 'Jeste li sigurni da je vaš privatni ključ spremljen na sigurno mjesto?'
-				},
-				recheck: {
-					title: 'Ponovno provjerite vaš spremljeni privatni ključ',
-					message: 'Molim vas unesite privatni ključ koji vam je nedavno dodijeljen kako bi provjerili da ste ga ispravno premili. Ako ste već izgubili privatni ključ, možda želite stvoriti novi?',
-					correct: {
-						title: 'Lijepo!',
-						message: 'Čini se da imate spremljen ispravan privatni ključ. Molimo zapamtite da privatni ključ uvijek čuvate na sigurnom.'
-					},
-					incorrect: {
-						title: 'Hmm...',
-						message: 'Privatni ključ koji ste unijeli nije ispravan. Da li želite ponovo pokušati unijeti privatni ključ ili pregledati originalne podatke računa?',
-						tryAgain: 'Pokušajte ponoviti unos',
-						seeOriginal: 'Pogledaj originalne podatke'
-					},
-					recheck: 'Provjeri'
-				},
-				ok: 'OK'
-			},
-			verifyRealAccountData: {
-				title: 'Provjeri stvarne podatke računa',
-				message: 'Ponovno unesite spremljenu adresu, javni i privatnji ključ radi provjere ispravnosti',
-				address: 'Adresa',
-				publicKey: 'Javni ključ',
-				privateKey: 'Privatni ključ',
-				dataMatched: 'Sve izgleda uredu, adresa, javni i privatni ključ koji ste unijeli se poklapaju.',
-				verify: 'Provjeri'
-			},
 			showPrivateKey: {
 				title: 'Show Account\'s PRIVATE Key',
 				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				publicKey: 'Javni ključ',
+				privateKey: 'Privatni ključ',
 				show: 'Show the key'
+			},
+			showRemotePrivateKey: {
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Dodaj postojeći račun',
@@ -435,7 +409,7 @@ define({
 				message: 'Jeste li sigurni za želite zatvoriti NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Aktiviraj udaljeno ubiranje',
+				title: 'Activate Delegated Harvesting',
 				wallet: 'Novčanik',
 				account: 'Račun',
 				password: 'Lozinka novčanika',
@@ -444,7 +418,7 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
 			deactivateRemote: {
-				title: 'Deaktiviraj udaljeno ubiranje',
+				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Novčanik',
 				account: 'Račun',
 				password: 'Lozinka novčanika',
@@ -453,21 +427,21 @@ define({
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
-				title: 'Pokreni udaljeno ubiranje',
+				title: 'Start Delegated Harvesting',
 				wallet: 'Novčanik',
 				account: 'Račun',
 				password: 'Lozinka novčanika',
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Prekini udaljeno ubiranje',
+				title: 'Stop Delegated Harvesting',
 				wallet: 'Novčanik',
 				account: 'Račun',
 				password: 'Lozinka novčanika',
 				stop: 'Stop'
 			},
 			logoutWarning: {
-				leavePage: 'Napuštate vaš novčanik. Ako napustite vaš novčanik na takav način netko drugi će još uvijek moći pristupiti vašem novčaniku s tog računala.\n\nMolimo vas da se prije zatvaranje kartice ili nastavka surfanje odjavite koristeći stavku \'Zatvori novčanik\' u padajućem izborniku gore desno.\n'
+				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
 			},
 			addContact: {
 				title: 'Dodaj kontakt',
@@ -534,7 +508,7 @@ define({
 						title: 'Što je to &#42;NIS?',
 						paragraphs: [
 							'Ova komponenta je odgovorna za održavanje <strong>NEM</strong> oblaka.',
-							'Što je više <strong>NIS</strong> poslužitelja to je bolja sigurnost.',
+							'The more <strong>NIS</strong> there are in the network, the better the security.,',
 							'<strong>NIS</strong> je pristupna točka <strong>NEM</strong> oblaku.'
 						],
 						legend: '<strong>&#42;NIS</strong> je oznaka za <strong>NEM Infrastructure Server</strong>'
@@ -565,6 +539,8 @@ define({
 				createRealAccountData: 'Stvori podatke za stvarni račun',
 				verifyRealAccountData: 'Provjeri podatke za stvarnog računa',
 				showPrivateKey: 'Show Account\'s PRIVATE key',
+				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
+				viewDetails: 'View Account Details',
 				addAccount: 'Dodaj postojeći račun',
 				changeAccountLabel: 'Izmijeni oznaku računa',
 				setPrimary: 'Postavi kao primarni račun',
@@ -603,14 +579,14 @@ define({
 				stop: 'Prekini ubiranje',
 				description: 'Važnost računa u NEM oblaku',
 				remoteHarvest: {
-					activate: 'Aktiviraj udaljeno ubiranje',
-					activating: 'Aktivacija udaljenog ubiranja...',
-					active: 'Udaljeno ubiranje je aktivno',
-					deactivate: 'Deaktiviraj udaljeno ubiranje',
-					deactivating: 'Deaktivacija udaljenog biranja...',
-					startRemoteHarvesting: 'Započni udaljeno ubiranje',
+					activate: 'Activate delegated harvesting',
+					activating: 'Activating delegated harvesting...',
+					active: 'Delegated harvesting is active',
+					deactivate: 'Deactivate delegated harvesting',
+					deactivating: 'Deactivating delegated harvesting...',
+					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Udaljeno ubiranje',
-					stopRemoteHarvesting: 'Prekini udaljeno ubiranje'
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			},
 			transactions: {
@@ -706,8 +682,8 @@ define({
 				harvesting: 'Ubiranje',
 				stop: 'Prekini ubiranje',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Pokreni udaljeno ubiranje',
-					stopRemoteHarvesting: 'Prekini udaljeno ubiranje'
+					startRemoteHarvesting: 'Start delegated harvesting',
+					stopRemoteHarvesting: 'Stop delegated harvesting'
 				}
 			}
 		},

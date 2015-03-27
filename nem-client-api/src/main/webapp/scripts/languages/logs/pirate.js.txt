@@ -338,4 +338,124 @@ translated texts.dashboard.transactions.accountCosignatories
 	      to: 'Multisig account'
 	based on: texts.modals.signMultisig.original.from
 
+-----changed texts.faults.703
+	from: 'Your account does not have the right balance to send the provided amount of XEM.'
+	  to: 'Your account does not have the right balance to make this transaction.'
+	 was: "Your account does not have the right balance to send the provided amount of XEM."
+
+changed texts.faults.730
+	from: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.'
+	  to: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.'
+	 was: 'Importance transfer transaction (secure harvesting) conflicts with existing transaction.'
+
+changed texts.faults.731
+	from: 'Secure harvesting account has non zero balance and cannot be used.'
+	  to: 'Delegated harvesting account has non zero balance and cannot be used.'
+	 was: 'Secure harvesting account has non zero balance and cannot be used.'
+
+changed texts.faults.733
+	from: 'Secure harvesting is already active.'
+	  to: 'Delegated harvesting is already active.'
+	 was: 'Secure harvesting is already active.'
+
+changed texts.faults.734
+	from: 'Secure harvesting is NOT active. Cannot deactivate.'
+	  to: 'Delegated harvesting is NOT active. Cannot deactivate.'
+	 was: 'Secure harvesting is NOT active. Cannot deactivate.'
+
+changed texts.modals.bootLocalNode.warningText
+	from: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: <u>{{2}}</u>'
+	  to: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.'
+	 was: 'You\'re trying to boot a node using account with balance: ({{{1}}} XEM). This will reveal this account\'s private key to node: {{2}}'
+
+changed texts.modals.activateRemote.title
+	from: 'Activate Remote Harvesting'
+	  to: 'Activate Delegated Harvesting'
+	 was: 'Activate Remote harvesting'
+
+changed texts.modals.deactivateRemote.title
+	from: 'Deactivate Remote Harvesting'
+	  to: 'Deactivate Delegated Harvesting'
+	 was: 'Deactivate Remote harvesting'
+
+changed texts.modals.startRemote.title
+	from: 'Start Remote Harvesting'
+	  to: 'Start Delegated Harvesting'
+	 was: 'Start Remote harvesting'
+
+changed texts.modals.stopRemote.title
+	from: 'Stop Remote Harvesting'
+	  to: 'Stop Delegated Harvesting'
+	 was: 'Stop Remote harvesting'
+
+changed texts.modals.logoutWarning.leavePage
+	from: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+	  to: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+	 was: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer.\n\nTo prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+
+changed texts.landing.about.sections.[1].paragraphs.[1]
+	from: 'The more <strong>NIS</strong> the better the security.'
+	  to: 'The more <strong>NIS</strong> there are in the network, the better the security.,'
+	 was: "The more <strong>NIS</strong> the better the security."
+
+changed texts.dashboard.importance.remoteHarvest.activate
+	from: 'Activate remote harvesting'
+	  to: 'Activate delegated harvesting'
+	 was: 'Activate remote harvesting'
+
+changed texts.dashboard.importance.remoteHarvest.activating
+	from: 'Activating remote harvesting...'
+	  to: 'Activating delegated harvesting...'
+	 was: 'Activating...'
+
+changed texts.dashboard.importance.remoteHarvest.active
+	from: 'Remote harvesting is active'
+	  to: 'Delegated harvesting is active'
+	 was: 'Remote harvesting is active'
+
+changed texts.dashboard.importance.remoteHarvest.deactivate
+	from: 'Deactivate remote harvesting'
+	  to: 'Deactivate delegated harvesting'
+	 was: 'Deactivate remote harvesting'
+
+changed texts.dashboard.importance.remoteHarvest.deactivating
+	from: 'Deactivating remote harvesting...'
+	  to: 'Deactivating delegated harvesting...'
+	 was: 'Deactivating...'
+
+changed texts.dashboard.importance.remoteHarvest.startRemoteHarvesting
+	from: 'Start remote harvesting'
+	  to: 'Start delegated harvesting'
+	 was: 'Start remote harvesting'
+
+changed texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting
+	from: 'Stop remote harvesting'
+	  to: 'Stop delegated harvesting'
+	 was: 'Stop remote harvesting'
+
+changed texts.harvestedBlocks.harvesting.remoteHarvest.startRemoteHarvesting
+	from: 'Start remote harvesting'
+	  to: 'Start delegated harvesting'
+	 was: 'Start remote harvesting'
+
+changed texts.harvestedBlocks.harvesting.remoteHarvest.stopRemoteHarvesting
+	from: 'Stop remote harvesting'
+	  to: 'Stop delegated harvesting'
+	 was: 'Stop remote harvesting'
+
+translated texts.common.unknown
+	    from: 'Unknown status'
+	      to: "Marooned"
+	based on: texts.harvestedBlocks.harvesting.unknown
+
+translated texts.modals.showPrivateKey.publicKey
+	    from: 'Public key'
+	      to: 'Public key'
+	based on: texts.modals.verifyRealAccountData.publicKey
+
+translated texts.modals.showPrivateKey.privateKey
+	    from: 'Private key'
+	      to: 'Private key'
+	based on: texts.modals.verifyRealAccountData.privateKey
+
 -----
