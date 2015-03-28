@@ -33,8 +33,8 @@ define({
 			132: 'Типът на адрес бук файла е некоректен.',
 			133: 'Адрес букът не може да бъде изтрит.',
 			202: 'Криптирано съобщение не може да бъде изпратено понеже получателя до сега не е извършил нито една транзакция и няма публичен ключ.',
-			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
-			305: 'NEM Infrastructure Server е недостъпен\n\nОпитайте да рестартирате NEM програмата.\n\nАко ползвате отдалечен NIS,проверете вашият конфигуриран хост за правописни грешки или ползвайте друг отдалечен NIS.',
+			203: 'Акаунта не може да бъде преобразуван защото не са известни всички косигнатури.Те трябва да са или в същия портфейл или да са направили поне една транзакция.',
+			305: 'NEM Infrastructure Server е недостъпен.Опитайте да рестартирате NEM програмата.Ако ползвате отдалечен NIS,проверете вашият конфигуриран хост за правописни грешки или ползвайте друг отдалечен NIS.',
 			306: 'Възникна непредвидена грешка.Извиняваме се за това ,опитайте отново може това да помогне.В противен случай се обърнете за помощ към NEM NIS/NCC community.',
 			400: 'Някой параметри липсват или са некоректни.',
 			401: 'Тази операция не може да бъде завършена защото може да компрометира частният ви ключ като го изпрати до отдалечения NIS',
@@ -42,12 +42,12 @@ define({
 			500: 'Възникна грешка, която не е предвидена от разработчиците. Извиняваме се за това, може би повторен опит може да помогне. В противен случай се обърнете за помощ към NEM NIS/NCC community.',
 			600: 'За получаване и изпращане на транзакции NEM Infrastructure Server (NIS) сървъра трябва да бъде рестартиран.Моля използвайте менюто на NCC за рестартиране на локалния възел.',
 			601: 'NEM Infrastructure Server (NIS) възела е вече стартиран.',
-			602: 'Почти е готово. NEM Infrastructure Server понастоящем зарежда блоковете.\nПортфейлаще функционира когато db се зареди напълно.',
+			602: 'Почти е готово. NEM Infrastructure Server понастоящем зарежда блоковете.\nПортфейла ще функционира когато db се зареди напълно.',
 			699: 'Максималния брой на генериращите адреси позволени от сървъра беше превишен.',
 			700: 'Предоставения акаунт не удовлетворява основните критерии за генерация.Основно това е свързано с количеството XEM в сметката.Генерацията започва поне с 1000 XEM.',
 			701: 'Предоставеният срок е в миналото. Срокът трябва да бъде предоставен в рамките на 1-дневен период.',
 			702: 'Предоставеният срок е твърде далеч в бъдещето. Срокът трябва да бъде в рамките на еднодневен период от време.',
-			703: 'Your account does not have the right balance to make this transaction.',
+			703: 'Вашият акаунт няма правилния баланс за да се извърши тази транзакция. ',
 			704: 'Предоставеното съобщение е прекалено голямо за да бъде изпратено.Моля опитайте да съкратите дължината на съобщението ,което искате да изпратите.',
 			705: 'Транзакцията вече съществува в базата данни или в листа на непотвърдените транзакции.',
 			706: 'Подписът на сделката не може да бъде проверен.',
@@ -55,11 +55,11 @@ define({
 			708: 'Времевата отметка на транзакцията е много далеч в бъдещето.',
 			709: 'Неизвестен акаунт. Акаунта трябва да е част от поне една транзакция (входяща или изходяща) за да бъде разпознат от мрежата.',
 			710: 'Транзакцията беше отхвърлена защото кеша на транзакциите е препълнен.По голямата такса увеличава шанса транзакцията да бъде приета.',
-			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
-			731: 'Delegated harvesting account has non zero balance and cannot be used.',
+			730: 'Важната трансфер транзакция (делегирано генериране)е в конфликт със съществуващата транзакция.',
+			731: 'Делегирания генериращ акаунт няма нулев баланс и не може да бъде използван.',
 			732: 'Важният трансфер е отхвърлен.Вече съществува чакаща важна трансфер операция.',
-			733: 'Delegated harvesting is already active.',
-			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
+			733: 'Делегираното генериране е вече активно.',
+			734: 'Делегираното генериране НЕ е активно.Не може да се деактивира.',
 			740: 'Транзакцията не е позволена за мултисигнатурен акаунт.',
 			741: 'Мултисигнатурния подпис на транзакцията е отхвърлен.Този акаунт не е косигнатурен на мултисигнатурния акаунт.',
 			742: 'Мултисигнатурния подпис на транзакцията е отхвърлен.Асоциираната мултисигнатурна транзакция е неизвестна за NEM мрежата.',
@@ -72,7 +72,7 @@ define({
 		common: {
 			success: 'Успешно',
 			unknown: 'Неизвестен статус',
-			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
+			unknownMessage: 'Ncc не може да получи отговор по временни причини. Транзакцията може да е изпратена в мрежата.<br /><br />Моля проверете транзакцията преди да опитате да я извършите отново.',
 			appStatus: {
 				nccUnknown: 'NCC статуса е неизвестен',
 				nccUnavailable: 'NCC е недостъпен',
@@ -105,8 +105,8 @@ define({
 			dueBy: 'Време до края',
 			hours: 'час(а)',
 			hoursDue: 'Време до края (часове)',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			hoursDueExplanation: 'Ако транзакцията не се включи до времето оставащо до края и тя ще бъде отхвърлена.',
+			closeButton: 'Затвори'
 		},
 		transactionTypes: [
 			'ПРЕХВЪРЛИ ТРАНЗАКЦИЯТА',
@@ -174,8 +174,7 @@ define({
 				useMinimumFee: 'Ползвай минимална такса',
 				txConfirm: {
 					title: 'Потвърди Преобразуването в Мултисигнатурен Акаунт',
-					total: 'Общо',
-
+					total: 'Общо'
 				},
 				warning: 'Мултисигнатурния акаунт е в списъка на косигнатурите.Това ще предизвика блокиране на акаунта и прекъсване досъпа до фонда му.Вие навярно <b>НЕ ИСКАТЕ </b> да направите това.'
 			},
@@ -204,8 +203,7 @@ define({
 					title: 'Потвърди Мултисигнатурната Транзакция',
 					message: 'Съобщение',
 					encrypted: 'Съобщението е криптирано',
-					noMessage: 'Няма съобщение',
-
+					noMessage: 'Няма съобщение'
 				}
 			},
 			sendNem: {
@@ -311,15 +309,15 @@ define({
 			bootLocalNode: {
 				title: 'Стартирайте локалния възел.',
 				account: 'Акаунт за стартиране на локалния възел.',
-				noLabel: '<span class="null">&lt;Не маркиран&gt;</span>',
+				noLabel: '<span class=\"null\">&lt;Не маркиран&gt;</span>',
 				wallet: 'Портфейл',
 				node: 'Име на локалния възел',
 				boot: 'Старт',
 				booting: 'Стартиране...',
 				warning: 'Предупреждение за зареждането на възела',
-				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
-				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
-				warningQuestion: 'Сигурни ли сте ,че искате да заредите възела <u>{{3}}</u> ползвайки частния ключ на акаунта {{1}} ({{2}} XEM)?<br><br>Това ще разкрие на този акаунт <span class="sublabelWarning">частния ключ</span> във възела: <u>{{3}}</u>.'
+				warningText: 'Вие се опитвате да рестартирате възела <u>{{2}}</u><br/><br/>Рестартирането на отдалечен възел е по принцип невъзможно от NCC.',
+				warningStatement: 'Вие имате аутостартиране зададено ,като истина ,а ползвате отдалечен възел {{3}}.<br/><br/>Рестартирането на отдалечен възел е по принцип невъзможно от NCC.',
+				warningQuestion: 'Сигурни ли сте ,че искате да заредите възела <u>{{3}}</u> ползвайки частния ключ на акаунта {{1}} ({{2}} XEM)?<br><br>Това ще разкрие на този акаунт <span class=\"sublabelWarning\">частния ключ</span> във възела: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Затваряне на портфейла',
@@ -334,16 +332,15 @@ define({
 				create: 'Създай'
 			},
 			showPrivateKey: {
-				title: 'Show Account\'s PRIVATE Key',
-				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Покажи ЧАСТНИЯТ Ключ на акаунта',
+				message: 'Това ще покаже частният ключ на акаунта на екрана ,като текст.В предвид ,че може да имате някъкъв малуер в системата това може да бъде опасна операция.Сигурни ли сте че искате да го направите?',
 				publicKey: 'Публичен ключ',
 				privateKey: 'Частен ключ',
-				show: 'Show the key'
+				show: 'Покажи ключа'
 			},
 			showRemotePrivateKey: {
-				title: 'Show Remote Account\'s PRIVATE Key',
-				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
-
+				title: 'Покажи ЧАСТНИЯТ Ключ на Отдалечения Акаунт',
+				message: 'Това ще покаже частният ключ на отдалечения акаунт на екрана ,като текст.В предвид ,че може да имате някъкъв малуер в системата това може да бъде опасна операция.Сигурни ли сте че искате да го направите?'
 			},
 			addAccount: {
 				title: 'Добавете съществуващ акаунт',
@@ -357,7 +354,7 @@ define({
 			setPrimary: {
 				title: 'Задаване като главен акаунт',
 				account: 'Задайте като главен акаунт',
-				noLabel: '<span class="null">&lt;Без маркировка&gt;</span>',
+				noLabel: '<span class=\"null\">&lt;Без маркировка&gt;</span>',
 				wallet: 'Портфейл',
 				password: 'Парола на портфейла',
 				successMessage: 'Акаунтът {{1}} {{#2}}({{2}}){{/2}} беше зададен като главен!',
@@ -409,39 +406,39 @@ define({
 				message: 'Сигурни ли сте че искате да затворите NEM Community Client?'
 			},
 			activateRemote: {
-				title: 'Activate Delegated Harvesting',
+				title: 'Активирайте Делегираното Генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
 				password: 'Парола на портфейла',
 				activate: 'Активирай',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warning: 'Предупреждение',
+				warningText: 'Активирането ще отнеме 6 часа (360 блока). Активирането НЯМА да стартира генерирането автоматично.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Delegated Harvesting',
+				title: 'Деактивирай Делегираното Генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
 				password: 'Парола на портфейла',
 				deactivate: 'Деактивирай',
-				warning: 'Warning',
-				warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warning: 'Предупреждение',
+				warningText: 'Деактивирането ще отнеме 6 часа (360 блока).'
 			},
 			startRemote: {
-				title: 'Start Delegated Harvesting',
+				title: 'Старт на Делегираното Генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
 				password: 'Парола на портфейла',
 				start: 'Старт'
 			},
 			stopRemote: {
-				title: 'Stop Delegated Harvesting',
+				title: 'Стоп на Делегираното Генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
 				password: 'Парола на портфейла',
 				stop: 'Стоп'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: 'Вие напускате вашия портфейл.Запомнете ,че напускайки вашият портфейл по този начин ,някой друг може да има досъп до вашия портфейл от този компютър.За да не се случи това моля излезте от портфейла си ползвайки \"Затвори портфейла\" от падащото меню в горния десен ъгъл преди да затворите таба на браузъра или да станете от компютъра.'
 			},
 			addContact: {
 				title: 'Добави контакт',
@@ -508,7 +505,7 @@ define({
 						title: 'Какво е &#42;NIS?',
 						paragraphs: [
 							'Този компонент отговаря за функционирането на <strong>NEM</strong> облака.',
-							'The more <strong>NIS</strong> there are in the network, the better the security.,',
+							'Колкото повече <strong>NIS</strong> има в мрежата толкова по добра е сигурността и.,',
 							'<strong>NIS</strong> това е точката за достъп за <strong>NEM</strong> облака.'
 						],
 						legend: '<strong>&#42;NIS</strong> се разшифрова <strong>NEM Infrastructure Server</strong>'
@@ -538,9 +535,9 @@ define({
 				createAccount: 'Създаване на нов акаунт',
 				createRealAccountData: 'Създайте данните на реалния акаунт',
 				verifyRealAccountData: 'Проверете данните на реалния акаунт',
-				showPrivateKey: 'Show Account\'s PRIVATE key',
-				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
-				viewDetails: 'View Account Details',
+				showPrivateKey: 'Покажи ЧАСТНИЯТ ключ на акаунта',
+				showRemotePrivateKey: 'Покажи ЧАСТНИЯТ ключ на отдалечения акаунт',
+				viewDetails: 'Виж Детайлите на Акаунта',
 				addAccount: 'Добавяне на съществуващ акаунт',
 				changeAccountLabel: 'Промяна на маркировката на акаунта',
 				setPrimary: 'Задай като главен акаунт',
@@ -549,7 +546,7 @@ define({
 				closeWallet: 'Затвори портфейла',
 				closeProgram: 'Затвори програмата',
 				copyClipboard: 'Копирай адреса в клипборда',
-				copyDisabled: 'Copying an address requires flash',
+				copyDisabled: 'Копирането на аддрес изисква флаш',
 				convertMultisig: 'Превърни друг акаунт в мултисигнатурен'
 			},
 			nav: [
@@ -579,14 +576,14 @@ define({
 				stop: 'Стоп на локалното генериране',
 				description: 'Важност на акаунта за NEM облака',
 				remoteHarvest: {
-					activate: 'Activate delegated harvesting',
-					activating: 'Activating delegated harvesting...',
-					active: 'Delegated harvesting is active',
-					deactivate: 'Deactivate delegated harvesting',
-					deactivating: 'Deactivating delegated harvesting...',
-					startRemoteHarvesting: 'Start delegated harvesting',
+					activate: 'Активирайте делегираното генериране',
+					activating: 'Активиране делегираното генериране...',
+					active: 'Делегираното генериране е активно',
+					deactivate: 'Деактивирайте делегираното генериране',
+					deactivating: 'Деактивиране делегираното генериране...',
+					startRemoteHarvesting: 'Старт на делегираното генериране',
 					remotelyHarvesting: 'Отдалечено генериране',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Стоп на делегираното генериране'
 				}
 			},
 			transactions: {
@@ -594,12 +591,12 @@ define({
 				sendNem: 'Изпрати XEM',
 				signMultisig: 'Подпиши',
 				balance: 'Текущ баланс',
-				loading: 'Loading balance',
+				loading: 'Зареждане баланса',
 				accountCosignatories: 'Мултисигнатурен акаунт',
-				accountCosignatoriesView: 'view cosignatories',
+				accountCosignatoriesView: 'виж косигнатурите',
 				vestedBalance: 'Утвърден Баланс',
 				syncStatus: '( Блок {{1}}{{#2}} : около {{3}} дена на зад {{/2}})',
-				notSynced: 'might be inaccurate, NIS not synchronized yet',
+				notSynced: 'може да е неточен, NIS не е синхронизиран все още',
 				unknown: 'неизвестно',
 				columns: [
 					'',
@@ -682,8 +679,8 @@ define({
 				harvesting: 'Генериране',
 				stop: 'Стоп на локалното генериране',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start delegated harvesting',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					startRemoteHarvesting: 'Старт на делегираното генериране',
+					stopRemoteHarvesting: 'Стоп на делегираното генериране'
 				}
 			}
 		},
