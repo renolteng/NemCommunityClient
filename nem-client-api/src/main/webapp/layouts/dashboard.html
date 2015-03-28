@@ -64,7 +64,11 @@
 					</div>
 
 					<div class="importanceTile-content">
-						<p class="importanceTile-importanceScore">{{Math.round(activeAccount.importance * 1000000) / 100}} &#8241;</p>
+						<p class="importanceTile-importanceScore">
+                            {{#if status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}&hellip;&nbsp;
+                            {{else}}{{Math.round(activeAccount.importance * 1000000) / 100}} &#8241;
+                            {{/if}}
+                        </p>
 						<p class="importanceTile-description">{{texts.dashboard.importance.description}}</p>
 					</div>
 				</article>
