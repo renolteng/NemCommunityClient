@@ -7,9 +7,7 @@ import org.nem.core.serialization.*;
  * Configuration that is persisted across sessions.
  */
 public class Configuration implements SerializableEntity {
-	private String language;
-	private NodeEndpoint nisEndpoint;
-	private NisBootInfo nisBootInfo;
+	private final ConfigurationPatch patch = new ConfigurationPatch();
 	private final String nemFolder;
 
 	/**
@@ -24,10 +22,11 @@ public class Configuration implements SerializableEntity {
 			final NodeEndpoint nisEndpoint,
 			final NisBootInfo nisBootInfo,
 			final String nemFolder) {
-		this.language = language;
-		this.nisEndpoint = nisEndpoint;
-		this.nisBootInfo = nisBootInfo;
+
 		this.nemFolder = nemFolder;
+		this.patch.setLanguage(language);
+		this.patch.setNisEndpoint(nisEndpoint);
+		this.patch.setNisBootInfo(nisBootInfo);
 	}
 
 	/**
@@ -42,13 +41,11 @@ public class Configuration implements SerializableEntity {
 		}
 
 		this.nemFolder = nemFolder;
-		this.language = deserializer.readString("language");
-		this.nisEndpoint = deserializer.readOptionalObject("remoteServer", NodeEndpoint::new);
-		if (null == this.nisEndpoint) {
-			this.nisEndpoint = NodeEndpoint.fromHost("localhost");
-		}
 
-		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
+		this.patch.deserialize(deserializer, true);
+		if (null == this.patch.getNisEndpoint()) {
+			this.patch.setNisEndpoint(NodeEndpoint.fromHost("localhost"));
+		}
 	}
 
 	/**
@@ -57,7 +54,7 @@ public class Configuration implements SerializableEntity {
 	 * @return The language.
 	 */
 	public String getLanguage() {
-		return this.language;
+		return this.patch.getLanguage();
 	}
 
 	/**
@@ -66,7 +63,7 @@ public class Configuration implements SerializableEntity {
 	 * @return The NIS server's endpoint.
 	 */
 	public NodeEndpoint getNisEndpoint() {
-		return this.nisEndpoint;
+		return this.patch.getNisEndpoint();
 	}
 
 	/**
@@ -75,7 +72,7 @@ public class Configuration implements SerializableEntity {
 	 * @return The NIS boot info.
 	 */
 	public NisBootInfo getNisBootInfo() {
-		return this.nisBootInfo;
+		return this.patch.getNisBootInfo();
 	}
 
 	/**
@@ -93,12 +90,12 @@ public class Configuration implements SerializableEntity {
 	 * @return true if NIS is local.
 	 */
 	public boolean isNisLocal() {
-		if (null == this.nisEndpoint) {
+		if (null == this.getNisEndpoint()) {
 			return true;
 		}
 
 		// TODO J-B: i think we should add a getNormalizedHost to the endpoint and compare that
-		final String host = this.nisEndpoint.getBaseUrl().getHost();
+		final String host = this.getNisEndpoint().getBaseUrl().getHost();
 		return NodeEndpoint.fromHost("localhost").getBaseUrl().getHost().equals(host) ||
 				NodeEndpoint.fromHost("127.0.0.1").getBaseUrl().getHost().equals(host);
 	}
@@ -109,11 +106,7 @@ public class Configuration implements SerializableEntity {
 	 * @return The configuration patch.
 	 */
 	public ConfigurationPatch getPatch() {
-		final ConfigurationPatch patch = new ConfigurationPatch();
-		patch.setLanguage(this.language);
-		patch.setNisEndpoint(this.nisEndpoint);
-		patch.setNisBootInfo(this.nisBootInfo);
-		return patch;
+		return this.patch;
 	}
 
 	/**
@@ -122,15 +115,11 @@ public class Configuration implements SerializableEntity {
 	 * @param patch The configuration patch.
 	 */
 	public void update(final ConfigurationPatch patch) {
-		this.language = patch.getLanguage();
-		this.nisEndpoint = patch.getNisEndpoint();
-		this.nisBootInfo = patch.getNisBootInfo();
+		this.patch.update(patch);
 	}
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		serializer.writeString("language", this.language);
-		serializer.writeObject("remoteServer", this.nisEndpoint);
-		serializer.writeObject("nisBootInfo", this.nisBootInfo);
+		this.patch.serialize(serializer);
 	}
 }

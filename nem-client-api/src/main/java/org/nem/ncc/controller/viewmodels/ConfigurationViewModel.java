@@ -27,9 +27,8 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 * @param deserializer The deserializer.
 	 */
 	public ConfigurationViewModel(final Deserializer deserializer) {
-		this.patch.setLanguage(deserializer.readString("language"));
-		this.patch.setNisEndpoint(deserializer.readObject("remoteServer", NodeEndpoint::new));
-		this.patch.setNisBootInfo(deserializer.readObject("nisBootInfo", NisBootInfo::new));
+		// do NOT call readObject
+		this.patch.deserialize(deserializer, false);
 	}
 
 	/**
@@ -43,8 +42,7 @@ public class ConfigurationViewModel implements SerializableEntity {
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		serializer.writeString("language", this.patch.getLanguage());
-		serializer.writeObject("remoteServer", this.patch.getNisEndpoint());
-		serializer.writeObject("nisBootInfo", this.patch.getNisBootInfo());
+		// do NOT call writeObject
+		this.patch.serialize(serializer);
 	}
 }

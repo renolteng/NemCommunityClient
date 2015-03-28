@@ -1,6 +1,8 @@
 package org.nem.ncc.model;
 
 import org.nem.core.node.NodeEndpoint;
+import org.nem.core.serialization.Deserializer;
+import org.nem.core.serialization.Serializer;
 
 /**
  * A small class that holds updatable configuration.
@@ -9,6 +11,13 @@ public class ConfigurationPatch {
 	private String language;
 	private NodeEndpoint nisEndpoint;
 	private NisBootInfo nisBootInfo;
+
+
+	public void update(final ConfigurationPatch patch) {
+		this.language = patch.getLanguage();
+		this.nisEndpoint = patch.getNisEndpoint();
+		this.nisBootInfo = patch.getNisBootInfo();
+	}
 
 	/**
 	 * Gets the configured language.
@@ -62,5 +71,26 @@ public class ConfigurationPatch {
 	 */
 	public void setNisBootInfo(final NisBootInfo nisBootInfo) {
 		this.nisBootInfo = nisBootInfo;
+	}
+
+	/**
+	 * Sets the fields based on deserializer.
+	 *
+	 * @param deserializer The deserializer.
+	 */
+	public void deserialize(final Deserializer deserializer, boolean remoteIsOptional) {
+		this.setLanguage(deserializer.readString("language"));
+		if (remoteIsOptional) {
+			this.setNisEndpoint(deserializer.readOptionalObject("remoteServer", NodeEndpoint::new));
+		} else {
+			this.setNisEndpoint(deserializer.readObject("remoteServer", NodeEndpoint::new));
+		}
+		this.setNisBootInfo(deserializer.readObject("nisBootInfo", NisBootInfo::new));
+	}
+
+	public void serialize(final Serializer serializer) {
+		serializer.writeString("language", this.getLanguage());
+		serializer.writeObject("remoteServer", this.getNisEndpoint());
+		serializer.writeObject("nisBootInfo", this.getNisBootInfo());
 	}
 }
