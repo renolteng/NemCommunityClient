@@ -304,6 +304,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 var m = ncc.getModal('transactionDetails');
                 m.set('TransactionType', TransactionType);
                 m.set('transaction', transaction);
+                m.set('privateLabels', ncc.get('privateLabels'));
                 m.open();
             };
 
@@ -932,6 +933,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 );
                                 ncc.refreshInfo();
                                 closeModal();
+                                ncc.refreshAddressBook();
                             });
                         }, 
                         ncc.get('texts.modals.changeAccountLabel.change')

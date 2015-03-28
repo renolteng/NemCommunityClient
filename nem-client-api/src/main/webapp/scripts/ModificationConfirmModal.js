@@ -6,6 +6,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             total: function() {
                 return this.get('requestData.amount') + this.get('requestData.fee');
             },
+            privateLabels: function() {
+                return ncc.get('privateLabels');
+            }
         },
 		confirm: function() {
             this.lockAction();
@@ -34,7 +37,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             });
 		},
 		onrender: function() {
-		    this.set('privateLabels', ncc.get('privateLabels'));
 		    this.viewAccount = ncc.viewAccount;
         }
 	});

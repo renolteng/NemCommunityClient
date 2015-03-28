@@ -2,6 +2,11 @@
 
 define(['NccModal', 'Utils'], function(NccModal, Utils) {
 	return NccModal.extend({
+	    computed: {
+	        privateLabels: function() {
+                return ncc.get('privateLabels');
+            }
+	    },
 		confirm: function() {
             this.lockAction();
 
