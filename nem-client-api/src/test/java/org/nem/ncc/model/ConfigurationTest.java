@@ -156,14 +156,34 @@ public class ConfigurationTest {
 	public void configurationCanBeUpdated() {
 		// Arrange:
 		final Configuration config = createDefaultConfiguration();
+		final ConfigurationPatch patch = new ConfigurationPatch();
+		patch.setLanguage("en-CA");
+		patch.setNisEndpoint(NodeEndpoint.fromHost("127.0.0.1"));
+		patch.setNisBootInfo(new NisBootInfo(12, "A", "C"));
 
 		// Act:
-		config.update("en-CA", NodeEndpoint.fromHost("127.0.0.1"), new NisBootInfo(12, "A", "C"));
+		config.update(patch);
 
 		// Assert:
 		Assert.assertThat(config.getLanguage(), IsEqual.equalTo("en-CA"));
 		Assert.assertThat(config.getNisEndpoint(), IsEqual.equalTo(NodeEndpoint.fromHost("127.0.0.1")));
 		Assert.assertThat(config.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(12));
+	}
+
+	//endregion
+
+	//region patch
+
+	@Test
+	public void canBeConvertedToPatch() {
+		// Act:
+		final Configuration config = new Configuration("de-DE", ENDPOINT, BOOT_INFO, "sp");
+		final ConfigurationPatch patch = config.getPatch();
+
+		// Assert:
+		Assert.assertThat(patch.getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(patch.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(patch.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 	}
 
 	//endregion

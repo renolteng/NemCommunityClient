@@ -18,13 +18,12 @@ import java.util.logging.Logger;
 public class NccConfiguration {
 	private static final Logger LOGGER = Logger.getLogger(NccConfiguration.class.getName());
 	private static final String CONFIG_FILE_NAME = "ncc.cfg";
-	// TODO 20150325 J-J: there might be a reason for this but it seems like CommonConfiguration should be injected
-	private static final CommonConfiguration COMMON_CONFIGURATION = new CommonConfiguration();
+	private final CommonConfiguration commonConfiguration;
 	private final org.nem.ncc.model.Configuration configuration;
 
-	public NccConfiguration() {
-		NetworkInfos.setDefault(COMMON_CONFIGURATION.getNetworkInfo());
-		final String nccFolder = Paths.get(COMMON_CONFIGURATION.getNemFolder(), "ncc").toString();
+	public NccConfiguration(final CommonConfiguration commonConfiguration) {
+		this.commonConfiguration = commonConfiguration;
+		final String nccFolder = Paths.get(commonConfiguration.getNemFolder(), "ncc").toString();
 		verifyDirectory(new File(nccFolder));
 
 		final String qualifiedConfigFileName = Paths.get(nccFolder, CONFIG_FILE_NAME).toString();
@@ -69,8 +68,8 @@ public class NccConfiguration {
 	 *
 	 * @return The web context string.
 	 */
-	public static String getWebContext() {
-		return COMMON_CONFIGURATION.getWebContext();
+	public String getWebContext() {
+		return this.commonConfiguration.getWebContext();
 	}
 
 	/**
@@ -78,8 +77,8 @@ public class NccConfiguration {
 	 *
 	 * @return The home url as string.
 	 */
-	public static String getHomeUrl() {
-		return COMMON_CONFIGURATION.getHomeUrl();
+	public String getHomeUrl() {
+		return this.commonConfiguration.getHomeUrl();
 	}
 
 	/**
@@ -97,7 +96,7 @@ public class NccConfiguration {
 	 * @return The network information.
 	 */
 	public NetworkInfo getNetworkInfo() {
-		return COMMON_CONFIGURATION.getNetworkInfo();
+		return this.commonConfiguration.getNetworkInfo();
 	}
 
 	/**
@@ -106,6 +105,6 @@ public class NccConfiguration {
 	 * @return The network name.
 	 */
 	public String getNetworkName() {
-		return COMMON_CONFIGURATION.getNetworkName();
+		return this.commonConfiguration.getNetworkName();
 	}
 }

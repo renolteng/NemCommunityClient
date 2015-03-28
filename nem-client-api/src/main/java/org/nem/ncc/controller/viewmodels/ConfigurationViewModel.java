@@ -2,30 +2,23 @@ package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
-import org.nem.ncc.model.NisBootInfo;
+import org.nem.ncc.model.*;
 
 /**
  * A view model containing configuration information.
  */
 public class ConfigurationViewModel implements SerializableEntity {
-	private final String language;
-	private final NodeEndpoint nisEndpoint;
-	private final NisBootInfo nisBootInfo;
+	private final ConfigurationPatch patch = new ConfigurationPatch();
 
 	/**
 	 * Creates a configuration view model.
 	 *
-	 * @param language The language.
-	 * @param nisEndpoint The NIS server's endpoint.
-	 * @param nisBootInfo The NIS boot info.
+	 * @param patch The configuration patch.
 	 */
-	public ConfigurationViewModel(
-			final String language,
-			final NodeEndpoint nisEndpoint,
-			final NisBootInfo nisBootInfo) {
-		this.language = language;
-		this.nisEndpoint = nisEndpoint;
-		this.nisBootInfo = nisBootInfo;
+	public ConfigurationViewModel(final ConfigurationPatch patch) {
+		this.patch.setLanguage(patch.getLanguage());
+		this.patch.setNisEndpoint(patch.getNisEndpoint());
+		this.patch.setNisBootInfo(patch.getNisBootInfo());
 	}
 
 	/**
@@ -34,42 +27,24 @@ public class ConfigurationViewModel implements SerializableEntity {
 	 * @param deserializer The deserializer.
 	 */
 	public ConfigurationViewModel(final Deserializer deserializer) {
-		this.language = deserializer.readString("language");
-		this.nisEndpoint = deserializer.readObject("remoteServer", NodeEndpoint::new);
-		this.nisBootInfo = deserializer.readObject("nisBootInfo", NisBootInfo::new);
+		this.patch.setLanguage(deserializer.readString("language"));
+		this.patch.setNisEndpoint(deserializer.readObject("remoteServer", NodeEndpoint::new));
+		this.patch.setNisBootInfo(deserializer.readObject("nisBootInfo", NisBootInfo::new));
 	}
 
 	/**
-	 * Gets the language.
+	 * Gets the configuration patch.
 	 *
-	 * @return The language.
+	 * @return The configuration patch.
 	 */
-	public String getLanguage() {
-		return this.language;
-	}
-
-	/**
-	 * Gets the NIS server's endpoint.
-	 *
-	 * @return The NIS server's endpoint.
-	 */
-	public NodeEndpoint getNisEndpoint() {
-		return this.nisEndpoint;
-	}
-
-	/**
-	 * Gets the NIS boot info.
-	 *
-	 * @return The NIS boot info.
-	 */
-	public NisBootInfo getNisBootInfo() {
-		return this.nisBootInfo;
+	public ConfigurationPatch getPatch() {
+		return this.patch;
 	}
 
 	@Override
 	public void serialize(final Serializer serializer) {
-		serializer.writeString("language", this.language);
-		serializer.writeObject("remoteServer", this.nisEndpoint);
-		serializer.writeObject("nisBootInfo", this.nisBootInfo);
+		serializer.writeString("language", this.patch.getLanguage());
+		serializer.writeObject("remoteServer", this.patch.getNisEndpoint());
+		serializer.writeObject("nisBootInfo", this.patch.getNisBootInfo());
 	}
 }

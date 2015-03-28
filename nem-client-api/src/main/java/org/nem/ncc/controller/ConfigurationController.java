@@ -26,10 +26,7 @@ public class ConfigurationController {
 	 */
 	@RequestMapping(value = "/configuration/get", method = RequestMethod.GET)
 	public ConfigurationViewModel getConfiguration() {
-		return new ConfigurationViewModel(
-				this.configuration.getLanguage(),
-				this.configuration.getNisEndpoint(),
-				this.configuration.getNisBootInfo());
+		return new ConfigurationViewModel(this.configuration.getPatch());
 	}
 
 	/**
@@ -39,9 +36,6 @@ public class ConfigurationController {
 	 */
 	@RequestMapping(value = "/configuration/update", method = RequestMethod.POST)
 	public void updateConfiguration(@RequestBody final ConfigurationViewModel configurationViewModel) {
-		this.configuration.update(
-				configurationViewModel.getLanguage(),
-				configurationViewModel.getNisEndpoint(),
-				configurationViewModel.getNisBootInfo());
+		this.configuration.update(configurationViewModel.getPatch());
 	}
 }

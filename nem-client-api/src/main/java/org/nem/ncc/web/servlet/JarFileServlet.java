@@ -14,6 +14,8 @@ import java.util.logging.*;
 public class JarFileServlet extends DefaultServlet {
 	private static final Logger LOGGER = Logger.getLogger(JarFileServlet.class.getName());
 
+	private final NccConfiguration configuration = ServletUtils.getNccConfiguration();
+
 	/**
 	 * get Resource to serve. Map a path to a resource. The default implementation calls HttpContext.getResource but derived servlets may provide their own
 	 * mapping.
@@ -23,7 +25,7 @@ public class JarFileServlet extends DefaultServlet {
 	 */
 	@Override
 	public Resource getResource(final String pathInContext) {
-		final String contextStr = String.format("%s%s", NccConfiguration.getWebContext(), "/");
+		final String contextStr = String.format("%s%s", this.configuration.getWebContext(), "/");
 		if (contextStr.length() > pathInContext.length()) {
 			LOGGER.severe(String.format("Resource not found: <%s>, mapping to welcome page.", pathInContext));
 			return null;

@@ -38,7 +38,7 @@ public class StreamBackedConfigurationTest {
 				() -> outputStream);
 
 		// Act:
-		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.15"), new NisBootInfo(11, "5", "4"));
+		config.update(createPatch());
 		final Configuration reloadedConfig = new StreamBackedConfiguration(
 				"sp2",
 				new ByteArrayInputStream(outputStream.toByteArray()),
@@ -62,7 +62,7 @@ public class StreamBackedConfigurationTest {
 				});
 
 		// Act:
-		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.15"), new NisBootInfo(11, "5", "4"));
+		config.update(createPatch());
 
 		// Assert:
 		Assert.assertThat(numSupplierCalls[0], IsEqual.equalTo(1));
@@ -78,7 +78,15 @@ public class StreamBackedConfigurationTest {
 				() -> outputStream);
 
 		// Act:
-		config.update("en-CA", NodeEndpoint.fromHost("10.10.10.15"), new NisBootInfo(11, "5", "4"));
+		config.update(createPatch());
+	}
+
+	private static ConfigurationPatch createPatch() {
+		final ConfigurationPatch patch = new ConfigurationPatch();
+		patch.setLanguage("en-CA");
+		patch.setNisEndpoint(NodeEndpoint.fromHost("10.10.10.15"));
+		patch.setNisBootInfo(new NisBootInfo(11, "5", "4"));
+		return patch;
 	}
 
 	private static Configuration deserializeStreamBackedConfig(

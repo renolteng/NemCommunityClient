@@ -4,6 +4,7 @@ import org.nem.core.connect.*;
 import org.nem.core.connect.client.AsyncNisConnector;
 import org.nem.core.deploy.*;
 import org.nem.core.metadata.ApplicationMetaData;
+import org.nem.core.model.NetworkInfos;
 import org.nem.core.time.TimeProvider;
 import org.nem.deploy.NccConfigurationPolicy;
 import org.nem.ncc.*;
@@ -204,11 +205,13 @@ public class NccAppConfig {
 
 	@Bean
 	public CommonConfiguration commonConfiguration() {
-		return new CommonConfiguration();
+		final CommonConfiguration commonConfiguration = new CommonConfiguration();
+		NetworkInfos.setDefault(commonConfiguration.getNetworkInfo());
+		return commonConfiguration;
 	}
 
 	@Bean
 	public NccConfiguration nccConfiguration() {
-		return new NccConfiguration();
+		return new NccConfiguration(this.commonConfiguration());
 	}
 }
