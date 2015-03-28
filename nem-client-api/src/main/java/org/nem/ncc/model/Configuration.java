@@ -70,22 +70,6 @@ public class Configuration implements SerializableEntity {
 	}
 
 	/**
-	 * Gets a value indicating whether or not NIS is local.
-	 *
-	 * @return true if NIS is local.
-	 */
-	public boolean isNisLocal() {
-		if (null == this.nisEndpoint) {
-			return true;
-		}
-
-		// TODO J-B: i think we should add a getNormalizedHost to the endpoint and compare that
-		final String host = this.nisEndpoint.getBaseUrl().getHost();
-		return NodeEndpoint.fromHost("localhost").getBaseUrl().getHost().equals(host) ||
-				NodeEndpoint.fromHost("127.0.0.1").getBaseUrl().getHost().equals(host);
-	}
-
-	/**
 	 * Gets the configured NIS boot info.
 	 *
 	 * @return The NIS boot info.
@@ -104,16 +88,43 @@ public class Configuration implements SerializableEntity {
 	}
 
 	/**
+	 * Gets a value indicating whether or not NIS is local.
+	 *
+	 * @return true if NIS is local.
+	 */
+	public boolean isNisLocal() {
+		if (null == this.nisEndpoint) {
+			return true;
+		}
+
+		// TODO J-B: i think we should add a getNormalizedHost to the endpoint and compare that
+		final String host = this.nisEndpoint.getBaseUrl().getHost();
+		return NodeEndpoint.fromHost("localhost").getBaseUrl().getHost().equals(host) ||
+				NodeEndpoint.fromHost("127.0.0.1").getBaseUrl().getHost().equals(host);
+	}
+
+	/**
+	 * Gets the configuration patch.
+	 *
+	 * @return The configuration patch.
+	 */
+	public ConfigurationPatch getPatch() {
+		final ConfigurationPatch patch = new ConfigurationPatch();
+		patch.setLanguage(this.language);
+		patch.setNisEndpoint(this.nisEndpoint);
+		patch.setNisBootInfo(this.nisBootInfo);
+		return patch;
+	}
+
+	/**
 	 * Updates the persistent configuration based with the supplied parameters.
 	 *
-	 * @param language The language.
-	 * @param nisEndpoint The NIS server's endpoint.
-	 * @param nisBootInfo The NIS boot info.
+	 * @param patch The configuration patch.
 	 */
-	public void update(final String language, final NodeEndpoint nisEndpoint, final NisBootInfo nisBootInfo) {
-		this.language = language;
-		this.nisEndpoint = nisEndpoint;
-		this.nisBootInfo = nisBootInfo;
+	public void update(final ConfigurationPatch patch) {
+		this.language = patch.getLanguage();
+		this.nisEndpoint = patch.getNisEndpoint();
+		this.nisBootInfo = patch.getNisBootInfo();
 	}
 
 	@Override

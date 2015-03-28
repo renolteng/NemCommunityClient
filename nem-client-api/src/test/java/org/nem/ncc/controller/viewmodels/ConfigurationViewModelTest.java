@@ -4,7 +4,7 @@ import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.SerializationException;
-import org.nem.ncc.model.NisBootInfo;
+import org.nem.ncc.model.*;
 import org.nem.ncc.test.*;
 
 import java.util.*;
@@ -16,35 +16,35 @@ public class ConfigurationViewModelTest {
 	@Test
 	public void viewModelCanBeCreated() {
 		// Act:
-		final ConfigurationViewModel viewModel = new ConfigurationViewModel("de-DE", ENDPOINT, BOOT_INFO);
+		final ConfigurationViewModel viewModel = createViewModel("de-DE", ENDPOINT, BOOT_INFO);
 
 		// Assert:
-		Assert.assertThat(viewModel.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(viewModel.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
-		Assert.assertThat(viewModel.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
+		Assert.assertThat(viewModel.getPatch().getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(viewModel.getPatch().getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(viewModel.getPatch().getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 	}
 
 	@Test
 	public void viewModelCanBeRoundTripped() {
 		// Arrange:
-		final ConfigurationViewModel originalViewModel = new ConfigurationViewModel("de-DE", ENDPOINT, BOOT_INFO);
+		final ConfigurationViewModel originalViewModel = createViewModel("de-DE", ENDPOINT, BOOT_INFO);
 
 		// Act:
 		final ConfigurationViewModel viewModel = new ConfigurationViewModel(Utils.roundtripSerializableEntity(originalViewModel, null));
 
 		// Assert:
-		Assert.assertThat(viewModel.getLanguage(), IsEqual.equalTo("de-DE"));
-		Assert.assertThat(viewModel.getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
-		Assert.assertThat(viewModel.getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
+		Assert.assertThat(viewModel.getPatch().getLanguage(), IsEqual.equalTo("de-DE"));
+		Assert.assertThat(viewModel.getPatch().getNisEndpoint(), IsEqual.equalTo(ENDPOINT));
+		Assert.assertThat(viewModel.getPatch().getNisBootInfo().getBootStrategy(), IsEqual.equalTo(7));
 	}
 
 	@Test
 	public void viewModelCannotBeDeserializedWithMissingParameters() {
 		// Arrange:
 		final List<ConfigurationViewModel> illegalViewModels = Arrays.asList(
-				new ConfigurationViewModel(null, ENDPOINT, BOOT_INFO),
-				new ConfigurationViewModel("de-DE", null, BOOT_INFO),
-				new ConfigurationViewModel("de-DE", ENDPOINT, null));
+				createViewModel(null, ENDPOINT, BOOT_INFO),
+				createViewModel("de-DE", null, BOOT_INFO),
+				createViewModel("de-DE", ENDPOINT, null));
 
 		// Assert:
 		for (final ConfigurationViewModel viewModel : illegalViewModels) {
@@ -52,5 +52,13 @@ public class ConfigurationViewModelTest {
 					v -> new ConfigurationViewModel(Utils.roundtripSerializableEntity(viewModel, null)),
 					SerializationException.class);
 		}
+	}
+
+	private static ConfigurationViewModel createViewModel(final String language, final NodeEndpoint nisEndpoint, final NisBootInfo nisBootInfo) {
+		final ConfigurationPatch patch = new ConfigurationPatch();
+		patch.setLanguage(language);
+		patch.setNisEndpoint(nisEndpoint);
+		patch.setNisBootInfo(nisBootInfo);
+		return new ConfigurationViewModel(patch);
 	}
 }

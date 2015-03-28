@@ -36,8 +36,8 @@ public class StreamBackedConfiguration extends Configuration {
 	}
 
 	@Override
-	public void update(final String language, final NodeEndpoint remoteServer, final NisBootInfo nisBootInfo) {
-		super.update(language, remoteServer, nisBootInfo);
+	public void update(final ConfigurationPatch patch) {
+		super.update(patch);
 		this.save();
 	}
 
