@@ -375,11 +375,12 @@ define(function(require) {
             });
             modal.open();
         },
-        showMessage: function(title, message, closeCallback) {
+        showMessage: function(title, message, closeCallback, extraModalClass) {
             var modal = this.getModal('message');
             modal.set({
                 modalTitle: title,
-                message: message
+                message: message,
+                extraModalClass: extraModalClass
             });
             modal.open();
             if (closeCallback) {

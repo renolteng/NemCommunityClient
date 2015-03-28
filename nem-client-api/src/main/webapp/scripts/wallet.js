@@ -1142,22 +1142,23 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 if (ncc.get('settings.firstStart') === 0) {
                     ncc.showMessage(
                         ncc.get('texts.modals.initialTy.title'),
-                        ncc.get('texts.modals.initialTy.content'),
+                        ncc.get('texts.modals.initialTy.content').replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}),
                         function() {
                             ncc.showMessage(
                                 ncc.get('texts.modals.initialBackup.title'),
                                 ncc.get('texts.modals.initialBackup.content'),
                                 function() {
                                     var settings = ncc.get('settings');
-                                    settings['firstRun'] = 0;
+                                    settings['firstStart'] = 1;
                                     ncc.postRequest('configuration/update', settings);
+                                    ncc.set('settings', settings);
                                 }
                             );
-                        }
+                        },
+                        'modal--wide'
                     );
                 }
                 if (!ncc.get('nodeBooted')) {
-                    console.log("BOOTNIS: ", ncc.get('settings.nisBootInfo.bootNis'));
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
                         var account = ncc.get('activeAccount.address');
                         var accountLabel = ncc.get('privateLabels')[account];
