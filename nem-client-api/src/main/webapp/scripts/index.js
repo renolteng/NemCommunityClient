@@ -79,7 +79,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
     };
 
     ncc.refreshVersionStatus = function(complete) {
-        ncc.jsonpRequest('http://bob.nem.ninja/version_p.json', function(d){
+        ncc.jsonpRequest('http://bob.nem.ninja/version_p.js', function(d){
             if (('stable' in d) && d['stable'].match(/\d+\.\d+\.\d+/)) {
                 ncc.set('latestVersion', d['stable']);
             }
