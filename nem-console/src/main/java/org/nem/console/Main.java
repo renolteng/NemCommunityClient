@@ -7,6 +7,8 @@ import org.nem.core.model.NetworkInfos;
 public class Main {
 	private static final Command[] COMMANDS = new Command[] {
 			new GenerateCommand(),
+			new ReEncryptCommand(),
+
 			new DumpContentsCommand(),
 			new ImportanceTransferCommand(),
 			new TransferCommand()
@@ -21,6 +23,11 @@ public class Main {
 	// (or maybe even allow --cosignatories and then it would be capable of generating multisig tx along with appropriate signatures)
 	public static void main(final String[] args) throws ParseException {
 		NetworkInfos.setDefault(NetworkInfos.getMainNetworkInfo());
+//		RunDebugScenario();
+		mainImpl(args);
+	}
+
+	private static void mainImpl(final String[] args) throws ParseException {
 		if (0 == args.length) {
 			OutputUsage();
 			return;
@@ -42,10 +49,11 @@ public class Main {
 	}
 
 	private static void RunDebugScenario() throws ParseException {
-		main(new String[] { "generate", "--pass=foo bar", "--prefixes=NA,NA2,NB,NC", "--output=sec.dat" });
-		main(new String[] { "dump", "--pass=foo bar", "--input=sec.dat", "--showPrivate=true", "--filter=NA" });
-		main(new String[] { "transfer", "--pass=foo bar", "--input=sec.dat", "--output=transfer.dat", "--time=4590033", "--sender=NA", "--recipient=NB", "--amount=1000000" });
-		main(new String[] { "importance", "--pass=foo bar", "--input=sec.dat", "--output=importance.dat", "--time=4590033", "--sender=NA", "--remote=NC" });
+		mainImpl(new String[] { "generate", "--pass=foo bar", "--prefixes=NA,NA2,NB,NC", "--output=sec_orig.dat" });
+		mainImpl(new String[] { "reencrypt", "--input=sec_orig.dat", "--pass=foo bar", "--newPass=bar foo", "--output=sec.dat" });
+		mainImpl(new String[] { "dump", "--pass=bar foo", "--input=sec.dat", "--showPrivate=true", "--filter=NA" });
+		mainImpl(new String[] { "transfer", "--pass=bar foo", "--input=sec.dat", "--output=transfer.dat", "--time=4590033", "--sender=NA", "--recipient=NB", "--amount=1000000" });
+		mainImpl(new String[] { "importance", "--pass=bar foo", "--input=sec.dat", "--output=importance.dat", "--time=4590033", "--sender=NA", "--remote=NC" });
 	}
 
 	private static void OutputUsage(final Command command) {
