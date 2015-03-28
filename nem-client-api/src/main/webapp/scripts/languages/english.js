@@ -501,7 +501,7 @@ define({
                     },
                     {
                         title: 'Got any questions or feedback ?',
-                        description: '<a href="http://forum.nemcoin.com">forum.nemcoin.com</a> | #ournem on freenode.org | Telegram',
+                        description: '<a href="http://forum.nem.io">forum.nem.io</a> | #ournem on freenode.org | Telegram',
                     }
 				]
 			},
