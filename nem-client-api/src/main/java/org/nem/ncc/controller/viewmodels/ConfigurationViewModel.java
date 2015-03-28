@@ -1,6 +1,5 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.ncc.model.*;
 
@@ -19,6 +18,7 @@ public class ConfigurationViewModel implements SerializableEntity {
 		this.patch.setLanguage(patch.getLanguage());
 		this.patch.setNisEndpoint(patch.getNisEndpoint());
 		this.patch.setNisBootInfo(patch.getNisBootInfo());
+		this.patch.setFirstStart(patch.getFirstStart());
 	}
 
 	/**

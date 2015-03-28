@@ -43,8 +43,13 @@ public class Configuration implements SerializableEntity {
 		this.nemFolder = nemFolder;
 
 		this.patch.deserialize(deserializer, true);
+
+		// fix default values
 		if (null == this.patch.getNisEndpoint()) {
 			this.patch.setNisEndpoint(NodeEndpoint.fromHost("localhost"));
+		}
+		if (null == this.patch.getFirstStart()) {
+			this.patch.setFirstStart(0);
 		}
 	}
 

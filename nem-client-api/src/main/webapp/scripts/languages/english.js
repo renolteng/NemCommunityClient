@@ -135,6 +135,14 @@ define({
 				yes: 'Yes',
 				no: 'No'
 			},
+			initialTy: {
+			    title: "ty",
+			    content: "TY!"
+			},
+			initialBackup: {
+			    title: "Welcome to NEM",
+			    content: "You can create wallet backup from menu in upper right corner."
+			},
 			settings: {
 				title: 'Settings',
 				language: {

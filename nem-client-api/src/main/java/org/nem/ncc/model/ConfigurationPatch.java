@@ -11,12 +11,14 @@ public class ConfigurationPatch {
 	private String language;
 	private NodeEndpoint nisEndpoint;
 	private NisBootInfo nisBootInfo;
+	private Integer firstStart;
 
 
 	public void update(final ConfigurationPatch patch) {
 		this.language = patch.getLanguage();
 		this.nisEndpoint = patch.getNisEndpoint();
 		this.nisBootInfo = patch.getNisBootInfo();
+		this.firstStart = patch.getFirstStart();
 	}
 
 	/**
@@ -47,6 +49,15 @@ public class ConfigurationPatch {
 	}
 
 	/**
+	 * Gets the variable telling if it's first start or not.
+	 *
+	 * @return The first start variable.
+	 */
+	public Integer getFirstStart() {
+		return firstStart;
+	}
+
+	/**
 	 * Sets the configured language.
 	 *
 	 * @param language The language.
@@ -74,6 +85,15 @@ public class ConfigurationPatch {
 	}
 
 	/**
+	 * Sets variable telling if it's a first start or not.
+	 *
+	 * @param firstStart The first start value.
+	 */
+	public void setFirstStart(final Integer firstStart) {
+		this.firstStart = firstStart;
+	}
+
+	/**
 	 * Sets the fields based on deserializer.
 	 *
 	 * @param deserializer The deserializer.
@@ -86,11 +106,14 @@ public class ConfigurationPatch {
 			this.setNisEndpoint(deserializer.readObject("remoteServer", NodeEndpoint::new));
 		}
 		this.setNisBootInfo(deserializer.readObject("nisBootInfo", NisBootInfo::new));
+
+		this.setFirstStart(deserializer.readOptionalInt("firstStart"));
 	}
 
 	public void serialize(final Serializer serializer) {
 		serializer.writeString("language", this.getLanguage());
 		serializer.writeObject("remoteServer", this.getNisEndpoint());
 		serializer.writeObject("nisBootInfo", this.getNisBootInfo());
+		serializer.writeInt("firstStart", this.getFirstStart());
 	}
 }
