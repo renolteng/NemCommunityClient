@@ -3,7 +3,6 @@ package org.nem.ncc.web.servlet;
 import org.eclipse.jetty.http.HttpContent;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.util.resource.Resource;
-import org.nem.core.deploy.CommonConfiguration;
 import org.nem.ncc.NccConfiguration;
 
 import javax.servlet.http.*;
@@ -15,7 +14,7 @@ import java.util.logging.*;
 public class JarFileServlet extends DefaultServlet {
 	private static final Logger LOGGER = Logger.getLogger(JarFileServlet.class.getName());
 
-	private final NccConfiguration configuration = new NccConfiguration(new CommonConfiguration());
+	private final NccConfiguration configuration = ServletUtils.getNccConfiguration();
 
 	/**
 	 * get Resource to serve. Map a path to a resource. The default implementation calls HttpContext.getResource but derived servlets may provide their own
