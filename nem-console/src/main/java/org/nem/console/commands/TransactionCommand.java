@@ -3,9 +3,11 @@ package org.nem.console.commands;
 import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
+import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.time.TimeInstant;
+import org.nem.core.utils.HexEncoder;
 
 import java.util.Collection;
 import java.util.function.Function;
@@ -53,6 +55,14 @@ public abstract class TransactionCommand implements Command {
 			if (keyPair.alias().equals(alias)) {
 				return new Account(keyPair.keyPair());
 			}
+		}
+
+		try {
+			final PublicKey publicKey = new PublicKey(HexEncoder.getBytes(alias));
+			return new Account(new KeyPair(publicKey));
+		} catch (final Exception ex) {
+			// ignore for now
+			// TODO this is a hack
 		}
 
 		final Address address = Address.fromEncoded(alias);
