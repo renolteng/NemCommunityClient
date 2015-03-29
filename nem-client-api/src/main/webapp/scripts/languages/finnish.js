@@ -33,7 +33,7 @@ define({
 			132: 'Osoitekirjan laajennustiedosto on väärä.',
 			133: 'Osoitekirjaa ei voida poistaa.',
 			202: 'Salattua viestiä ei voida lähettää, koska vastaanottaja ei ole tehnyt koskaan tilisiirtoa.',
-			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
+			203: 'Tiliä ei voida muuntaa, koska kaikki allekirjoituskumppanit eivät ole tunnettuja. Heidän täytyy kuulua samaan lompakkoon tai vähintään yksi siirto täytyy olla tehtynä.',
 			305: 'NIS ei ole käytettävissä. Yritä käynnistää NEM sovellus uudelleen. Mikäli yrität käyttää NIS palvelua etänä, tarkista kirjoitusvirheet (host), tai käytä toista etä NIS palvelua.',
 			306: 'Esiintyi ongelma, jota kehitystiimi ei ole tavannut aikaisemmin. Pahoittelemme tilannetta, yritä uudelleen. Muussa tapauksessa avaa uusi keskustelu NEM NIS/NCC foorumissa.',
 			400: 'Jotkut parametrit puuttuvat tai ovat viallisia.',
@@ -47,7 +47,7 @@ define({
 			700: 'Louhintaa ei voida aloittaa. Toiminto on mahdollista, kun tilisi saldo on vähintään 1000 XEM.',
 			701: 'Aikaraja on ylitetty. Aikaraja on oltava yhden päivän sisällä.',
 			702: 'Valittu aikaraja on liian kaukana tulevaisuudessa. Aikaraja täytyy olla yhden päivän sisällä.',
-			703: 'Your account does not have the right balance to make this transaction.',
+			703: 'Tilisi saldo ei ole oikea tälle siirrolle.',
 			704: 'Teksti on liian pitkä lähetettäväksi siirron mukana. Yritä lyhentää viestiä.',
 			705: 'Hash on jo tietokannassa tai siirtoja on vahvistamatta.',
 			706: 'Siirron allekirjoitusta ei voida varmistaa.',
@@ -55,15 +55,15 @@ define({
 			708: 'Siirron aikamerkintä on liian kaukana tulevaisuudessa.',
 			709: 'Tili on tuntematon. Tilillä on oltava yksi lähetys tai vastaanotto, jotta se voidaan tunnistaa verkossa.',
 			710: 'Siirtoa ei hyväksytty, koska siirtojen välimuisti on täynnä. Korkeampi palkkio parantaaa siirron hyväksymistä.',
-			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
-			731: 'Delegated harvesting account has non zero balance and cannot be used.',
+			730: 'Importance siirto (valtuutettu louhinta) on ristiriidassa nykyisen siirron kanssa.',
+			731: 'Tilin saldo, jossa on tarkoitus aloittaa valtuutettu louhinta, ei ole nolla, joten sitä ei voida käyttää.',
 			732: 'Siirtoa ei hyväksytty, viivästynyt siirto on vielä käynnissä.',
-			733: 'Delegated harvesting is already active.',
-			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
+			733: 'Valtuutettu louhinta on jo aktiivinen.',
+			734: 'Valtuutettu louhinta ei ole aktiivinen. Aktivointi ei ole mahdollista.',
 			740: 'Siirtoa ei ole mahdollinen multisig tilille.',
 			741: 'Multisig allekirjoitettu siirto hylättiin. Nykyinen tili ei ole allekirjoittaja multisig tilillä.',
-			742: 'Multisig allekirjoitettu siirto hylättiin. Allekirjoittajakumppania ei tunneta NEM-verkossa.',
-			743: 'Multisig-tilin muutos hylätty.Yksi lisätty tili on jo allekirjoittaja.',
+			742: 'Multisig allekirjoitettu siirto hylättiin. Allekirjoittajakumppania ei tunneta NEM verkossa.',
+			743: 'Multisig tilin muutos hylätty.Yksi lisätty tili on jo allekirjoittaja.',
 			901: 'Tapahtui virhe määritettäessä offline node.',
 			1000: 'Private key ja public key, eivät vastaa toisiaan.',
 			1001: 'Public key ja osoite eivät vastaa toisiaan.',
@@ -72,7 +72,7 @@ define({
 		common: {
 			success: 'Onnistui',
 			unknown: 'Tuntematon tila',
-			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
+			unknownMessage: 'Ncc ei saanut vastausta asetetun aikarajan sisällä. Siirto on ehkä kuitenkin lähetetty verkkoon.<br /><br />Tarkista siirrot, ennen kuin yrität uudelleen.',
 			appStatus: {
 				nccUnknown: 'NCC tila tuntematon.',
 				nccUnavailable: 'NCC ei ole käytettävissä.',
@@ -105,8 +105,8 @@ define({
 			dueBy: 'Maksettava',
 			hours: 'Tunnit',
 			hoursDue: 'Maksettavaksi (tunnit)',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			hoursDueExplanation: 'Jos siirtoa ei ole tehty asetetun aikarajan sisällä, se hylätään.',
+			closeButton: 'Sulje'
 		},
 		transactionTypes: [
 			'SIIRTO LÄHETYS',
@@ -129,7 +129,7 @@ define({
 			},
 			yikes: {
 				title: 'Ou nou!',
-				caption: 'info koodi {{1}}'
+				caption: 'Koodin tieto {{1}}'
 			},
 			confirmDefault: {
 				yes: 'Kyllä',
@@ -155,7 +155,7 @@ define({
 					name: 'Node nimi',
 					account: 'Tili',
 					primaryAccount: 'Ensisijainen tili',
-					auto: 'Auto boot, kun lompakko on avattu'
+					auto: 'Automaattinen uudelleenkäynnistys, kun lompakko on avattu'
 				},
 				save: 'Tallenna',
 				saveSuccess: 'Asetukset on tallennettu onnistuneesti'
@@ -174,8 +174,7 @@ define({
 				useMinimumFee: 'Käytä minimipalkkiota',
 				txConfirm: {
 					title: 'Vahvista multiig tilin muunto',
-					total: 'Yhteensä',
-
+					total: 'Yhteensä'
 				},
 				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukittumisen ja estää pääsyn varoihin.Todennäköisesti sinä <b>ET</b> halua tehdä sitä!'
 			},
@@ -204,8 +203,7 @@ define({
 					title: 'Vahvista multisig siirto',
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
-					noMessage: 'Ei viestiä',
-
+					noMessage: 'Ei viestiä'
 				}
 			},
 			sendNem: {
@@ -317,8 +315,8 @@ define({
 				boot: 'Käynnistä uudelleen',
 				booting: 'Käynnistymässä uudelleen...',
 				warning: 'Boot node varoitus',
-				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
-				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
+				warningText: 'Yrität käynnistää uudelleen nodea <u>{{2}}</u><br/><br/>Etä noden käynnistäminen uudelleen on mahdotonta\nNCC:n avulla.',
+				warningStatement: 'Olet asettanut automaattisen uudelleenkäynnistämisen valintaan totta ja käytät etä nodea {{3}}.<br/><br/>Etä noden uudelleenkäynnistäminen ei ole mahdollista NCC:n avulla.',
 				warningQuestion: 'Oletko varma, että haluat käynnistää uudelleen noden <u>{{3}}</u> käyttämällä private keytä tlille {{1}} ({{2}} XEM)?<br><br>tämä paljastaa<span class=\"varoitus\">private keyn</span>  nodelle: <u>{{3}}</u>.'
 			},
 			closeWallet: {
@@ -334,16 +332,15 @@ define({
 				create: 'Luo'
 			},
 			showPrivateKey: {
-				title: 'Show Account\'s PRIVATE Key',
-				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Näytä tilin PPRIVATE key.',
+				message: 'Tämä toiminto näyttää private keyn ruudulla tekstinä.Jos tietokoneellasi on haittaohjelma, on tämä toiminta vaarallista. Oletko varma, että haluat toimia näin?',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
-				show: 'Show the key'
+				show: 'Näytä key'
 			},
 			showRemotePrivateKey: {
-				title: 'Show Remote Account\'s PRIVATE Key',
-				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
-
+				title: 'Näytä etä tilin PRIVATE Key',
+				message: 'Tämä toiminto näyttää private keyn ruudulla tekstinä.Jos tietokoneellasi on haittaohjelma, on tämä toiminta vaarallista. Oletko varma, että haluat toimia näin?'
 			},
 			addAccount: {
 				title: 'Lisää olemassaoleva tili',
@@ -409,39 +406,39 @@ define({
 				message: 'Haluatko sulkea NEM Community Client sovelluksen?'
 			},
 			activateRemote: {
-				title: 'Activate Delegated Harvesting',
+				title: 'Aktivoi valtuutettu louhinta.',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				password: 'Lompakon salasana',
 				activate: 'Aktivoi',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warning: 'Varoitus',
+				warningText: 'Aktivointi kestää 6 tuntia(360 lohkoa). Aktivointi ei käynnistä louhintaa automaattisesti.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Delegated Harvesting',
+				title: 'Lopeta valtuutettu louhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				password: 'Lompakon salasana',
 				deactivate: 'Katkaise yhteys',
-				warning: 'Warning',
-				warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warning: 'Varoitus',
+				warningText: 'Lopetus kestää 6 tuntia (360 lohkoa).'
 			},
 			startRemote: {
-				title: 'Start Delegated Harvesting',
+				title: 'Aloita valtuutettu louhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				password: 'Lompakon salasana',
 				start: 'Käynnistä'
 			},
 			stopRemote: {
-				title: 'Stop Delegated Harvesting',
+				title: 'Lopeta valtuutettu louhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
 				password: 'Lompakon salasana',
 				stop: 'Pysäytä'
 			},
 			logoutWarning: {
-				leavePage: "You're leaving your wallet. Remember that if you leave your wallet this way, some others may still be able to access your wallet from this computer. To prevent that from happening, please log out using the \"Close wallet\" menu item in the top-right dropdown menu before you close the browser tab or navigate away."
+				leavePage: 'Olet poistumassa lompakostasi. Jos poistut näin, saattaa muilla tämän tietokoneen käyttäjillä mahdollisuus päästä lompakkoosi. Käytä \"sulje lompakko\" menua pudotusvalikosta, joka sijaitsee oikeassa yläreunassa, ennen kuin suljet selaimen tai jätä tämä toiminto tekemättä.'
 			},
 			addContact: {
 				title: 'Lisää yhteystieto',
@@ -538,9 +535,9 @@ define({
 				createAccount: 'Luo uusi lompakko',
 				createRealAccountData: 'Luo real account data',
 				verifyRealAccountData: 'Tarkista real account data',
-				showPrivateKey: 'Show Account\'s PRIVATE key',
-				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
-				viewDetails: 'View Account Details',
+				showPrivateKey: 'Näytä tilin PRIVATE key',
+				showRemotePrivateKey: 'Näytä etätilin PRIVATE key',
+				viewDetails: 'Näytä tilin tiedot',
 				addAccount: 'Lisää olemassaoleva tili',
 				changeAccountLabel: 'Vahda tilin nimi',
 				setPrimary: 'Aseta ensisijainen tili',
@@ -549,7 +546,7 @@ define({
 				closeWallet: 'Sulje lomakko',
 				closeProgram: 'Sulje ohjelma',
 				copyClipboard: 'Kopioi osoite työpöydälle',
-				copyDisabled: 'Copying an address requires flash',
+				copyDisabled: 'Osoitteen kopiointi edellyttää toimintoa, joka ei ole käytössä.',
 				convertMultisig: 'Muunna toinen tili multisig tiliksi'
 			},
 			nav: [
@@ -579,14 +576,14 @@ define({
 				stop: 'Lopeta paikallinen louhinta ',
 				description: 'Tilin merkitys NEM cloud palvelussa',
 				remoteHarvest: {
-					activate: 'Activate delegated harvesting',
-					activating: 'Activating delegated harvesting...',
-					active: 'Delegated harvesting is active',
-					deactivate: 'Deactivate delegated harvesting',
-					deactivating: 'Deactivating delegated harvesting...',
-					startRemoteHarvesting: 'Start delegated harvesting',
+					activate: 'Aktivoi valtuutettu louhinta',
+					activating: 'Aktivoidaan valtuutettu louhinta...',
+					active: 'Valttuutettu louhinta on aktiivinen',
+					deactivate: 'Lopeta valtuutettu louhinta',
+					deactivating: 'lopetetaan valtuutettu louhinta...',
+					startRemoteHarvesting: 'Aloita valtuutettu louhinta',
 					remotelyHarvesting: 'Etälouhinta ',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Lopeta valtuutettu louhinta'
 				}
 			},
 			transactions: {
@@ -594,12 +591,12 @@ define({
 				sendNem: 'Lähetä XEM',
 				signMultisig: 'ALLEKIRJOITA',
 				balance: 'Saldo',
-				loading: 'Loading balance',
+				loading: 'Ladataan saldoa',
 				accountCosignatories: 'Multisig tili',
-				accountCosignatoriesView: 'view cosignatories',
+				accountCosignatoriesView: 'Näytä allekirjoittajakumpanit',
 				vestedBalance: 'Louhittu saldo',
 				syncStatus: '(lohko {{1}}{{#2}} : {{3}} päivää takana{{/2}})',
-				notSynced: 'might be inaccurate, NIS not synchronized yet',
+				notSynced: 'Voi olla epätarkka, NIS ei ole vielä synkronoitu',
 				unknown: 'Tuntematon',
 				columns: [
 					'',
@@ -682,8 +679,8 @@ define({
 				harvesting: 'Louhinta ',
 				stop: 'Lopeta paikallinen louhinta ',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start delegated harvesting',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					startRemoteHarvesting: 'Aloita valtuuttu louhinta',
+					stopRemoteHarvesting: 'Lopeta valtuutettu louhinta'
 				}
 			}
 		},
