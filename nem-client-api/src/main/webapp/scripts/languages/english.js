@@ -484,9 +484,25 @@ define({
 						description: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
 					},
 					{
-						title: 'NCC encrypts your wallet',
-						description: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
-					}
+						title: 'Remote NEM Infrastructure Server',
+						description: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.',
+					},
+                    {
+                        title: 'Delegated harvesting',
+                        description: 'With delegated harvesting you can harvest on remote NIS nodes!',
+                    },
+                    {
+                        title: 'Multisignature transactions',
+                        description: 'Secure your XEM and assets via in-blockchain multi-signature transactions.',
+                    },
+                    {
+                        title: 'Native language support',
+                        description: 'NEM user interface supports multiple languages. See "Settings".'
+                    },
+                    {
+                        title: 'Got any questions or feedback ?',
+                        description: '<a href="http://forum.nem.io">forum.nem.io</a> | #ournem on freenode.org | Telegram',
+                    }
 				]
 			},
 			about: {
