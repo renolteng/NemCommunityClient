@@ -22,7 +22,6 @@ public class Configuration implements SerializableEntity {
 			final NodeEndpoint nisEndpoint,
 			final NisBootInfo nisBootInfo,
 			final String nemFolder) {
-
 		this.nemFolder = nemFolder;
 		this.patch.setLanguage(language);
 		this.patch.setNisEndpoint(nisEndpoint);
@@ -44,6 +43,7 @@ public class Configuration implements SerializableEntity {
 
 		this.patch.deserialize(deserializer, true);
 
+		// TODO 20150329 J-G,J: add a test for default values
 		// fix default values
 		if (null == this.patch.getNisEndpoint()) {
 			this.patch.setNisEndpoint(NodeEndpoint.fromHost("localhost"));
@@ -52,6 +52,8 @@ public class Configuration implements SerializableEntity {
 			this.patch.setFirstStart(0);
 		}
 	}
+
+	// TODO 20150329 J-G,J: add tests for firstStart
 
 	/**
 	 * Gets the configured language.

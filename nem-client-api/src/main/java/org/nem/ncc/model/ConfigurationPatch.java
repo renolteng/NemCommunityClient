@@ -13,7 +13,8 @@ public class ConfigurationPatch {
 	private NisBootInfo nisBootInfo;
 	private Integer firstStart;
 
-
+	// TODO 20150329 J-G,J: add a test for first start
+	// TODO 20150329 J-G,J: remove update
 	public void update(final ConfigurationPatch patch) {
 		this.language = patch.getLanguage();
 		this.nisEndpoint = patch.getNisEndpoint();
@@ -93,6 +94,7 @@ public class ConfigurationPatch {
 		this.firstStart = firstStart;
 	}
 
+	// TODO 20150329 J-G,J: (de)serialization tests
 	/**
 	 * Sets the fields based on deserializer.
 	 *
