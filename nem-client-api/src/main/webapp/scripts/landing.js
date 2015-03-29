@@ -47,8 +47,8 @@
 			    		function(data) {
 			        		setWalletData(data);
 							ncc.postRequest('addressbook/info', {
-								addressBook: wallet
-							},
+								    addressBook: wallet
+							    },
 								function(data) {
 									ncc.set('contacts', Utils.processContacts(data.accountLabels));
 								}

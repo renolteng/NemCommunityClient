@@ -506,19 +506,21 @@
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.from}}</span>
 			<span class="txConfirm-value">
-				<span class="txConfirm-recipient">{{txData.multisig.formattedFrom}}</span>
-				{{#txData.multisig.senderLabel}}
-					(<span class="txConfirm-recipientLabel">{{txData.multisig.senderLabel}}</span>)
-				{{/}}
+                {{#if (privateLabels[txData.inner.sender])}}
+                    <span class="txConfirm-recipientLabel">{{privateLabels[txData.inner.sender]}}</span>
+                {{else}}
+                    <span class="txConfirm-recipient">{{txData.multisig.formattedFrom}}</span>
+                {{/if}}
 			</span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.to}}</span>
 			<span class="txConfirm-value">
-				<span class="txConfirm-recipient">{{txData.multisig.formattedTo}}</span>
-				{{#txData.multisig.recipientLabel}}
-					(<span class="txConfirm-recipientLabel">{{txData.multisig.recipientLabel}}</span>)
-				{{/}}
+                {{#if (privateLabels[txData.inner.recipient])}}
+                    <span class="txConfirm-recipientLabel">{{privateLabels[txData.inner.recipient]}}</span>
+                {{else}}
+                    <span class="txConfirm-recipient">{{txData.multisig.formattedTo}}</span>
+				{{/if}}
 			</span>
 		</div>
 		<div class="txConfirm-line">
@@ -560,7 +562,7 @@
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.transactionDetails.issuer}}</span>
 			<span class="txConfirm-value">
-				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[txData.issuer] ? privateLabels[txData.issuer] : texts.wallet.noLabel}}</p>
+				<p class="">{{privateLabels[txData.issuer] ? privateLabels[txData.issuer] : texts.wallet.noLabel}}</p>
 				- {{txData.issuer}}
 			</span>
 		</div>
@@ -585,7 +587,7 @@
 		</div>
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.signMultisig.sender}}</p>
-			{{sender}}
+            {{privateLabels[activeAccount.address] ? privateLabels[activeAccount.address] : sender}}
 		</div>
 		<div class="form-field">
 			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
@@ -696,11 +698,23 @@
 	<div class="sigConfirm-txInfo">
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.from}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-sender">{{txData.txData.multisig.formattedFrom}}</span></span>
+			<span class="sigConfirm-value">
+                {{#if (privateLabels[txData.txData.inner.sender])}}
+                    <span class="sigConfirm-sender">{{privateLabels[txData.txData.inner.sender]}}</span>
+                {{else}}
+                    <span class="sigConfirm-sender">{{txData.txData.multisig.formattedFrom}}</span>
+                {{/if}}
+            </span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.to}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-recipient">{{txData.txData.multisig.formattedTo}}</span></span>
+			<span class="sigConfirm-value">
+                {{#if (privateLabels[txData.txData.inner.recipient])}}
+                    <span class="txConfirm-recipientLabel">{{privateLabels[txData.txData.inner.recipient]}}</span>
+                {{else}}
+                    <span class="txConfirm-recipient">{{txData.txData.multisig.formattedTo}}</span>
+				{{/if}}
+            </span>
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
@@ -725,7 +739,9 @@
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.sender}}</span>
-			<span class="sigConfirm-value">{{txData.sender}}</span>
+			<span class="sigConfirm-value">
+                {{privateLabels[requestData.account] ? privateLabels[requestData.account] : txData.sender}}
+            </span>
 		</div>
 	</div>
 	<div class="sigConfirm-actions">

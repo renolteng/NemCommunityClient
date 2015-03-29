@@ -304,6 +304,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 var m = ncc.getModal('transactionDetails');
                 m.set('TransactionType', TransactionType);
                 m.set('transaction', transaction);
+                m.set('privateLabels', ncc.get('privateLabels'));
                 m.open();
             };
 
@@ -932,6 +933,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 );
                                 ncc.refreshInfo();
                                 closeModal();
+                                ncc.refreshAddressBook();
                             });
                         }, 
                         ncc.get('texts.modals.changeAccountLabel.change')
@@ -1139,8 +1141,26 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             ncc.refreshAppStatus(function() {
+                if (ncc.get('settings.firstStart') === 0) {
+                    ncc.showMessage(
+                        ncc.get('texts.modals.initialTy.title'),
+                        ncc.get('texts.modals.initialTy.content').replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}),
+                        function() {
+                            ncc.showMessage(
+                                ncc.get('texts.modals.initialBackup.title'),
+                                ncc.get('texts.modals.initialBackup.content'),
+                                function() {
+                                    var settings = ncc.get('settings');
+                                    settings['firstStart'] = 1;
+                                    ncc.postRequest('configuration/update', settings);
+                                    ncc.set('settings', settings);
+                                }
+                            );
+                        },
+                        'modal--wide'
+                    );
+                }
                 if (!ncc.get('nodeBooted')) {
-                    console.log("BOOTNIS: ", ncc.get('settings.nisBootInfo.bootNis'));
                     if (ncc.get('settings.nisBootInfo.bootNis')) {
                         var account = ncc.get('activeAccount.address');
                         var accountLabel = ncc.get('privateLabels')[account];
