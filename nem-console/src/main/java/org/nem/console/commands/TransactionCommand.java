@@ -1,7 +1,10 @@
 package org.nem.console.commands;
 
+import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
+import org.nem.core.model.*;
+import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.time.TimeInstant;
 
 import java.util.Collection;

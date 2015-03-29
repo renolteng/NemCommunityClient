@@ -1,5 +1,6 @@
 package org.nem.console;
 
+import org.apache.commons.cli.*;
 import org.nem.console.commands.*;
 import org.nem.core.model.NetworkInfos;
 

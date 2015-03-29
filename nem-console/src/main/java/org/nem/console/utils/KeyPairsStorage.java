@@ -2,6 +2,7 @@ package org.nem.console.utils;
 
 import org.apache.commons.cli.CommandLine;
 import org.nem.console.models.AliasedKeyPair;
+import org.nem.core.serialization.*;
 
 import java.util.List;
 
