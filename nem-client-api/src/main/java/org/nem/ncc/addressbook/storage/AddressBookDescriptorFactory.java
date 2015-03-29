@@ -14,7 +14,7 @@ public interface AddressBookDescriptorFactory {
 	 * @param fileExtension The address book file extension.
 	 * @return The descriptor.
 	 */
-	public AddressBookDescriptor createNew(final AddressBookNamePasswordPair pair, final AddressBookFileExtension fileExtension);
+	AddressBookDescriptor createNew(final AddressBookNamePasswordPair pair, final AddressBookFileExtension fileExtension);
 
 	/**
 	 * Opens an address book descriptor corresponding to an existing address book.
@@ -23,5 +23,5 @@ public interface AddressBookDescriptorFactory {
 	 * @param fileExtension The address book file extension.
 	 * @return The descriptor.
 	 */
-	public AddressBookDescriptor openExisting(final AddressBookNamePasswordPair pair, final AddressBookFileExtension fileExtension);
+	AddressBookDescriptor openExisting(final AddressBookNamePasswordPair pair, final AddressBookFileExtension fileExtension);
 }

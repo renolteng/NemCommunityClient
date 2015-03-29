@@ -14,5 +14,5 @@ public interface NodeStatusVisitor {
 	 * @param type The node type.
 	 * @param status The node status.
 	 */
-	public void notifyStatus(final NemNodeType type, NemStatus status);
+	void notifyStatus(final NemNodeType type, NemStatus status);
 }

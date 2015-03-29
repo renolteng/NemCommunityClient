@@ -13,5 +13,5 @@ public interface AddressBookDescriptor extends StorableEntityDescriptor<Storable
 	 *
 	 * @return The address book name.
 	 */
-	public AddressBookName getAddressBookName();
+	AddressBookName getAddressBookName();
 }

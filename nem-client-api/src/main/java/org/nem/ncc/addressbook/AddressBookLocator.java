@@ -14,5 +14,5 @@ public interface AddressBookLocator {
 	 *
 	 * @return A list of all address book descriptors.
 	 */
-	public List<AddressBookDescriptor> getAllAddressBooks();
+	List<AddressBookDescriptor> getAllAddressBooks();
 }

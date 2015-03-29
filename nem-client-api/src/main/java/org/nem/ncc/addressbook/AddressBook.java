@@ -13,19 +13,19 @@ public interface AddressBook extends SerializableEntity, AccountLabels {
 	 *
 	 * @return The size of the address book.
 	 */
-	public int size();
+	int size();
 
 	/**
 	 * Gets the name of the address book.
 	 *
 	 * @return The name of the address book.
 	 */
-	public AddressBookName getName();
+	AddressBookName getName();
 
 	/**
 	 * Gets the account label collection.
 	 *
 	 * @return The account label collection.
 	 */
-	public Collection<AccountLabel> getAccountLabels();
+	Collection<AccountLabel> getAccountLabels();
 }
