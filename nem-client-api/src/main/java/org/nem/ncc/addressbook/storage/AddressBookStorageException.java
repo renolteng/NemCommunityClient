@@ -15,7 +15,7 @@ public class AddressBookStorageException extends StorableEntityStorageException 
 	/**
 	 * AddressBook storage exception codes.
 	 */
-	public static enum Code implements ValueBasedEnum {
+	public enum Code implements ValueBasedEnum {
 		/**
 		 * The specified address book file does not exist.
 		 */
@@ -71,7 +71,7 @@ public class AddressBookStorageException extends StorableEntityStorageException 
 
 		private final int value;
 
-		private Code(final int value) {
+		Code(final int value) {
 			this.value = value;
 		}
 

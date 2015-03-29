@@ -13,7 +13,7 @@ public class NisException extends NccException {
 	/**
 	 * General NIS error codes.
 	 */
-	public static enum Code implements ValueBasedEnum {
+	public enum Code implements ValueBasedEnum {
 		/**
 		 * An unexpected NIS error occurred.
 		 */
@@ -142,7 +142,7 @@ public class NisException extends NccException {
 
 		private final int value;
 
-		private Code(final int value) {
+		Code(final int value) {
 			this.value = value;
 		}
 

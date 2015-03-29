@@ -9,7 +9,7 @@ public class AddressBookException extends NccException {
 	/**
 	 * Address book storage exception codes.
 	 */
-	public static enum Code implements ValueBasedEnum {
+	public enum Code implements ValueBasedEnum {
 		/**
 		 * An address can not be added to the address book multiple times.
 		 */
@@ -27,7 +27,7 @@ public class AddressBookException extends NccException {
 
 		private final int value;
 
-		private Code(final int value) {
+		Code(final int value) {
 			this.value = value;
 		}
 
