@@ -10,9 +10,10 @@ public class MultiAddressGeneratorHost {
 	public static List<AliasedKeyPair> generate(final String[] prefixes) {
 		final MultiAddressGenerator generator = createGenerator(prefixes);
 
-		final int numThreads = Thread.activeCount();
+		final int numThreads = Runtime.getRuntime().availableProcessors();
 		final CompletableFuture[] futures = new CompletableFuture[numThreads];
 
+		System.out.println(String.format("Generating addresses on %d threads", numThreads));
 		for (int i = 0; i < numThreads; ++i) {
 			futures[i] = CompletableFuture.runAsync(() -> {
 				while (generator.numPrefixes() > generator.numPrefixesFound()) {
