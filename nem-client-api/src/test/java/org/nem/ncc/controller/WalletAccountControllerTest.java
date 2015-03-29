@@ -270,7 +270,7 @@ public class WalletAccountControllerTest {
 
 		private TestContext() {
 			final JSONObject jsonObject = createJsonObject();
-			jsonObject.put("account", walletAccount.getAddress().getEncoded());
+			jsonObject.put("account", this.walletAccount.getAddress().getEncoded());
 			this.bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
 			this.setupMocks();
 		}
