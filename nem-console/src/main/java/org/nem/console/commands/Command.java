@@ -4,9 +4,9 @@ import org.apache.commons.cli.*;
 
 public interface Command {
 
-	public String getName();
+	String getName();
 
-	public void handle(final CommandLine commandLine);
+	void handle(final CommandLine commandLine);
 
-	public Options getOptions();
+	Options getOptions();
 }
