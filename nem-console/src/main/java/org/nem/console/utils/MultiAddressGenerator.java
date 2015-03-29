@@ -1,8 +1,6 @@
 package org.nem.console.utils;
 
 import org.nem.console.models.AliasedKeyPair;
-import org.nem.core.crypto.*;
-import org.nem.core.model.*;
 import org.nem.core.utils.Base32Encoder;
 
 import java.util.*;

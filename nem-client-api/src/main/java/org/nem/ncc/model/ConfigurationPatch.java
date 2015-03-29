@@ -1,8 +1,7 @@
 package org.nem.ncc.model;
 
 import org.nem.core.node.NodeEndpoint;
-import org.nem.core.serialization.Deserializer;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 
 /**
  * A small class that holds updatable configuration.
@@ -95,6 +94,7 @@ public class ConfigurationPatch {
 	}
 
 	// TODO 20150329 J-G,J: (de)serialization tests
+
 	/**
 	 * Sets the fields based on deserializer.
 	 *

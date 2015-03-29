@@ -53,7 +53,7 @@ public class NccConfigurationPolicyTest {
 		final NccConfigurationPolicy policy = createPolicy();
 
 		// Act:
-		final CommonConfiguration configuration = policy.loadConfig(new String[] { });
+		final CommonConfiguration configuration = policy.loadConfig(new String[] {});
 
 		// Assert:
 		Assert.assertThat(configuration, IsNull.notNullValue());

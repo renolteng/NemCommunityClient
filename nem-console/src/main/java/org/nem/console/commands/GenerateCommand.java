@@ -1,11 +1,10 @@
 package org.nem.console.commands;
 
-import org.apache.commons.cli.*;
 import org.apache.commons.lang3.StringUtils;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
 
-import java.util.*;
+import java.util.List;
 
 public class GenerateCommand implements Command {
 

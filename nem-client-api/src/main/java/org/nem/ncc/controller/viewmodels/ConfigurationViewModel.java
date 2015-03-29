@@ -1,7 +1,7 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.serialization.*;
-import org.nem.ncc.model.*;
+import org.nem.ncc.model.ConfigurationPatch;
 
 /**
  * A view model containing configuration information.

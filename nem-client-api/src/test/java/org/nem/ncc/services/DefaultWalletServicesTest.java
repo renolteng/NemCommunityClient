@@ -210,7 +210,7 @@ public class DefaultWalletServicesTest {
 		// Assert:
 		Assert.assertThat(
 				context.walletServices.getOpenWalletNames(),
-				IsEquivalent.equivalentTo(new WalletName[] { }));
+				IsEquivalent.equivalentTo(new WalletName[] {}));
 		Mockito.verify(context.descriptorFactory, Mockito.times(1)).openExisting(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(1)).load(context.descriptor);
 	}

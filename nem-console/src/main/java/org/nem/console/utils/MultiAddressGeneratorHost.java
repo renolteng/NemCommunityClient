@@ -3,7 +3,7 @@ package org.nem.console.utils;
 import org.nem.console.models.AliasedKeyPair;
 
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
 
 public class MultiAddressGeneratorHost {
 

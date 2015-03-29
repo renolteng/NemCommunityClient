@@ -1,7 +1,5 @@
 package org.nem.console.utils;
 
-import org.nem.core.utils.*;
-
 import java.io.*;
 
 class PlainTextInputOutput {

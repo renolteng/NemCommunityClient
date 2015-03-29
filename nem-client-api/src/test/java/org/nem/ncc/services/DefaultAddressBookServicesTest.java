@@ -176,7 +176,7 @@ public class DefaultAddressBookServicesTest {
 		// Assert:
 		Assert.assertThat(
 				context.addressBookServices.getOpenAddressBookNames(),
-				IsEquivalent.equivalentTo(new AddressBookName[] { }));
+				IsEquivalent.equivalentTo(new AddressBookName[] {}));
 		Mockito.verify(context.descriptorFactory, Mockito.times(1)).openExisting(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(1)).load(context.descriptor);
 	}
