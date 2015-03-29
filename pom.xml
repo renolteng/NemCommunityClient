@@ -28,6 +28,7 @@
     <modules>
         <module>nem-client-api</module>
         <module>nem-monitor</module>
+        <module>nem-console</module>
     </modules>
     <dependencies>
     </dependencies>
