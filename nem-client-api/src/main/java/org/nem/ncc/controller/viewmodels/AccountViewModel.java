@@ -1,14 +1,11 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.crypto.KeyPair;
 import org.nem.core.crypto.PublicKey;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -159,7 +156,6 @@ public class AccountViewModel implements SerializableEntity {
 	public List<AccountInfo> getCosignatories() {
 		return this.cosignatories;
 	}
-
 
 	@Override
 	public void serialize(final Serializer serializer) {

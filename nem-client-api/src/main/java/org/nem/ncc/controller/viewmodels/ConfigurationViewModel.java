@@ -1,10 +1,12 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.serialization.*;
-import org.nem.ncc.model.*;
+import org.nem.ncc.model.ConfigurationPatch;
 
 /**
  * A view model containing configuration information.
+ * TODO 20150329 J-G,J: we should probably just replace this with ConfigurationPatch
+ * TODO 20150329 J-G,J: update tests for setFirstStart
  */
 public class ConfigurationViewModel implements SerializableEntity {
 	private final ConfigurationPatch patch = new ConfigurationPatch();

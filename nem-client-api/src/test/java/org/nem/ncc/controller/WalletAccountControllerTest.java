@@ -215,7 +215,7 @@ public class WalletAccountControllerTest {
 		final WalletNamePasswordBag bag = new WalletNamePasswordBag(Utils.createDeserializer(createJsonObjectWithAddress(Utils.generateRandomAddress())));
 
 		// Assert:
-		ExceptionAssert.assertThrows(v -> revealAccount.apply(context.controller, bag),	WalletException.class);
+		ExceptionAssert.assertThrows(v -> revealAccount.apply(context.controller, bag), WalletException.class);
 	}
 
 	private static void assertCanRevealKnownAccount(
@@ -270,7 +270,7 @@ public class WalletAccountControllerTest {
 
 		private TestContext() {
 			final JSONObject jsonObject = createJsonObject();
-			jsonObject.put("account", walletAccount.getAddress().getEncoded());
+			jsonObject.put("account", this.walletAccount.getAddress().getEncoded());
 			this.bag = new WalletNamePasswordBag(Utils.createDeserializer(jsonObject));
 			this.setupMocks();
 		}

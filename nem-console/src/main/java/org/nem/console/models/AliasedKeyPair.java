@@ -1,8 +1,6 @@
 package org.nem.console.models;
 
-import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
-import org.nem.core.serialization.*;
 
 public class AliasedKeyPair implements SerializableEntity {
 	private final String alias;

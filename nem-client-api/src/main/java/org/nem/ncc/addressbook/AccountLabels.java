@@ -13,7 +13,7 @@ public interface AccountLabels {
 	 * @param address The address.
 	 * @return The label.
 	 */
-	public AccountLabel getLabel(final Address address);
+	AccountLabel getLabel(final Address address);
 
 	/**
 	 * Changes an existing label associated with the specified address.
@@ -25,21 +25,21 @@ public interface AccountLabels {
 	 * @param label The public label.
 	 * @param privateLabel The private label.
 	 */
-	public void setLabel(final Address address, final String label, final String privateLabel);
+	void setLabel(final Address address, final String label, final String privateLabel);
 
 	/**
 	 * Adds a new account label.
 	 *
 	 * @param accountLabel The account label.
 	 */
-	public void addLabel(final AccountLabel accountLabel);
+	void addLabel(final AccountLabel accountLabel);
 
 	/**
 	 * Removes the label associate with the specified address.
 	 *
 	 * @param address The address.
 	 */
-	public void removeLabel(final Address address);
+	void removeLabel(final Address address);
 
 	/**
 	 * Gets a value indicating whether or not a label is associated with the specified address.
@@ -47,5 +47,5 @@ public interface AccountLabels {
 	 * @param address The address.
 	 * @return True if a label exists, false otherwise.
 	 */
-	public boolean contains(final Address address);
+	boolean contains(final Address address);
 }

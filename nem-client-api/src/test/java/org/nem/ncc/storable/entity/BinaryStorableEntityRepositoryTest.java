@@ -77,7 +77,7 @@ public abstract class BinaryStorableEntityRepositoryTest<
 	public void loadSerializationFailureIsMappedToAppropriateException() {
 		// Arrange: (storable entity deserialization will fail because the binary stream contains no data)
 		final TEntityDescriptor descriptor = this.createDescriptor();
-		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { });
+		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] {});
 		final TEntity entity = this.createEntity("blah");
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
 		Mockito.when(descriptor.getDeserializer()).thenReturn(entity);

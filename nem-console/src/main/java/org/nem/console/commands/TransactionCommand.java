@@ -1,10 +1,7 @@
 package org.nem.console.commands;
 
-import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
-import org.nem.core.model.*;
-import org.nem.core.model.primitive.*;
 import org.nem.core.time.TimeInstant;
 
 import java.util.Collection;
@@ -63,7 +60,7 @@ public abstract class TransactionCommand implements Command {
 		return new Account(address);
 	}
 
-	private  static void prepareAndSign(final Transaction transaction) {
+	private static void prepareAndSign(final Transaction transaction) {
 		transaction.setFee(TransactionFeeCalculator.calculateMinimumFee(transaction, BlockHeight.MAX));
 		transaction.setDeadline(transaction.getTimeStamp().addHours(12));
 		transaction.sign();

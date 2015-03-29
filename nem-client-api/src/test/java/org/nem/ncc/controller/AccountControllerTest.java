@@ -11,7 +11,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.node.NodeEndpoint;
-import org.nem.core.serialization.*;
+import org.nem.core.serialization.SerializableList;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;

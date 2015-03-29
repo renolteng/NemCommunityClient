@@ -2,7 +2,7 @@ package org.nem.ncc.web.servlet;
 
 import org.nem.ncc.NccConfiguration;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
 

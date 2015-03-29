@@ -27,7 +27,7 @@ public class AccountsFileDescriptor {
 	 */
 	public InputStream openRead() {
 		return ExceptionUtils.propagate(
-				() -> this.file.exists() ? new FileInputStream(this.file) : new ByteArrayInputStream(new byte[] { }),
+				() -> this.file.exists() ? new FileInputStream(this.file) : new ByteArrayInputStream(new byte[] {}),
 				ex -> new NccException(NccException.Code.ACCOUNT_CACHE_ERROR));
 	}
 

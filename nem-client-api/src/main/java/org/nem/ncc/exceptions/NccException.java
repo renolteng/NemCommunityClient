@@ -7,7 +7,7 @@ public class NccException extends RuntimeException {
 	/**
 	 * General NIS error codes.
 	 */
-	public static enum Code implements ValueBasedEnum {
+	public enum Code implements ValueBasedEnum {
 		/**
 		 * The specified wallet is not open.
 		 */
@@ -55,7 +55,7 @@ public class NccException extends RuntimeException {
 
 		private final int value;
 
-		private Code(final int value) {
+		Code(final int value) {
 			this.value = value;
 		}
 

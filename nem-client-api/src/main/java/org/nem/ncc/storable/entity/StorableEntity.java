@@ -13,12 +13,12 @@ public interface StorableEntity<TEntityName extends StorableEntityName, TEntityF
 	 *
 	 * @return The name.
 	 */
-	public TEntityName getName();
+	TEntityName getName();
 
 	/**
 	 * Gets the file extension of the storable entity.
 	 *
 	 * @return The file extension.
 	 */
-	public TEntityFileExtension getFileExtension();
+	TEntityFileExtension getFileExtension();
 }

@@ -1,9 +1,6 @@
 package org.nem.console.commands;
 
-import org.apache.commons.cli.*;
 import org.apache.commons.cli.CommandLine;
-import org.nem.core.model.*;
-import org.nem.core.model.primitive.*;
 import org.nem.core.time.TimeInstant;
 
 import java.util.function.Function;

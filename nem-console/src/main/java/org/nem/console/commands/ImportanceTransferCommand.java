@@ -1,7 +1,5 @@
 package org.nem.console.commands;
 
-import org.apache.commons.cli.*;
-import org.nem.core.model.*;
 import org.nem.core.time.TimeInstant;
 
 import java.util.function.Function;

@@ -12,5 +12,5 @@ public interface NodeLauncher {
 	 *
 	 * @param nodeType The node type.
 	 */
-	public void launch(final NemNodeType nodeType);
+	void launch(final NemNodeType nodeType);
 }

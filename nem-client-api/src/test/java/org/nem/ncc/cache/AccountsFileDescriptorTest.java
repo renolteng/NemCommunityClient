@@ -66,7 +66,7 @@ public class AccountsFileDescriptorTest {
 		// Act:
 		try (final InputStream is = descriptor.openRead()) {
 			// Assert:
-			Assert.assertThat(IOUtils.toByteArray(is), IsEqual.equalTo(new byte[] { }));
+			Assert.assertThat(IOUtils.toByteArray(is), IsEqual.equalTo(new byte[] {}));
 		}
 	}
 

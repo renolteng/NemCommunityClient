@@ -2,12 +2,8 @@ package org.nem.console.utils;
 
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.crypto.engines.AESEngine;
-import org.bouncycastle.crypto.io.*;
 import org.bouncycastle.crypto.modes.CBCBlockCipher;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
-import org.bouncycastle.crypto.params.*;
-import org.nem.core.crypto.*;
-import org.nem.core.utils.*;
 
 import java.io.*;
 

@@ -1,6 +1,5 @@
 package org.nem.console;
 
-import org.apache.commons.cli.*;
 import org.nem.console.commands.*;
 import org.nem.core.model.NetworkInfos;
 
@@ -23,7 +22,7 @@ public class Main {
 	// (or maybe even allow --cosignatories and then it would be capable of generating multisig tx along with appropriate signatures)
 	public static void main(final String[] args) throws ParseException {
 		NetworkInfos.setDefault(NetworkInfos.getMainNetworkInfo());
-//		RunDebugScenario();
+		// RunDebugScenario();
 		mainImpl(args);
 	}
 

@@ -3,7 +3,6 @@ package org.nem.console.utils;
 import org.apache.commons.cli.CommandLine;
 import org.nem.core.crypto.Signer;
 import org.nem.core.model.Transaction;
-import org.nem.core.model.ncc.*;
 import org.nem.core.serialization.BinarySerializer;
 
 public class TransactionStorage {

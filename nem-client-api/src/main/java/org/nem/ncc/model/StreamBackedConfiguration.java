@@ -1,7 +1,6 @@
 package org.nem.ncc.model;
 
 import net.minidev.json.*;
-import org.nem.core.node.NodeEndpoint;
 import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
 

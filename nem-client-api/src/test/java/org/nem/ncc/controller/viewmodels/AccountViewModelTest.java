@@ -101,7 +101,7 @@ public class AccountViewModelTest {
 		assertCanBeSerialized(null, null, 8);
 	}
 
-	private void assertCanBeSerialized(
+	private static void assertCanBeSerialized(
 			final List<AccountInfo> multisigAccounts,
 			final List<AccountInfo> cosignatoryAccounts,
 			final int expectedSize) {

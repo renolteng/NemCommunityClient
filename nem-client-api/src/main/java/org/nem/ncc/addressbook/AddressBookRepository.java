@@ -13,7 +13,7 @@ public interface AddressBookRepository {
 	 * @param descriptor The output descriptor.
 	 * @param addressBook The address book.
 	 */
-	public void save(final AddressBookDescriptor descriptor, final StorableAddressBook addressBook);
+	void save(final AddressBookDescriptor descriptor, final StorableAddressBook addressBook);
 
 	/**
 	 * Loads a address book from the specified descriptor.
@@ -21,5 +21,5 @@ public interface AddressBookRepository {
 	 * @param descriptor The input descriptor.
 	 * @return The address book.
 	 */
-	public StorableAddressBook load(final AddressBookDescriptor descriptor);
+	StorableAddressBook load(final AddressBookDescriptor descriptor);
 }

@@ -11,10 +11,8 @@ import org.nem.ncc.wallet.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.io.*;
+import java.util.zip.*;
 
 /**
  * Handles requests related to the REST resource "wallet".

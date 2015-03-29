@@ -90,7 +90,7 @@ public class AccountsFileRepositoryTest {
 	public void canLoadAccountsFromEmptyReadStream() {
 		// Arrange:
 		final AccountsFileDescriptor descriptor = Mockito.mock(AccountsFileDescriptor.class);
-		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] { });
+		final ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[] {});
 		Mockito.when(descriptor.openRead()).thenReturn(inputStream);
 
 		// Act:
