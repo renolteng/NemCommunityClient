@@ -376,7 +376,6 @@
                 <version>2.9.1</version>
             </plugin>
 
-			<!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>webstart-maven-plugin</artifactId>
@@ -423,7 +422,7 @@
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
-			-->
+
             <plugin>
                 <groupId>com.googlecode.velocity-maven-plugin</groupId>
                 <artifactId>velocity-maven-plugin</artifactId>
