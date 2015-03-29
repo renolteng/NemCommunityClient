@@ -10,7 +10,7 @@ public class ConfigurationPatch {
 	private String language;
 	private NodeEndpoint nisEndpoint;
 	private NisBootInfo nisBootInfo;
-	private Integer firstStart;
+	private Integer firstStart = 0;
 
 	// TODO 20150329 J-G,J: add a test for first start
 	// TODO 20150329 J-G,J: remove update
