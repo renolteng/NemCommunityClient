@@ -26,6 +26,7 @@ public class Configuration implements SerializableEntity {
 		this.patch.setLanguage(language);
 		this.patch.setNisEndpoint(nisEndpoint);
 		this.patch.setNisBootInfo(nisBootInfo);
+		this.patch.setFirstStart(0);
 	}
 
 	/**
