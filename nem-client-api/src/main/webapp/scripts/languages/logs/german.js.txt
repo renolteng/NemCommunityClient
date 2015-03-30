@@ -448,4 +448,14 @@ translated texts.modals.showPrivateKey.privateKey
 	      to: 'Privater Schlüssel'
 	based on: texts.modals.verifyRealAccountData.privateKey
 
+-----changed texts.landing.carousel.items.[1].title
+	from: 'NCC encrypts your wallet'
+	  to: 'Remote NEM Infrastructure Server'
+	 was: 'NCC verschlüsselt Deine Brieftasche'
+
+changed texts.landing.carousel.items.[1].description
+	from: '<em>Wallet security</em> is very important to avoid the theft of XEM &amp; assets.'
+	  to: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.'
+	 was: '<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern.'
+
 -----
