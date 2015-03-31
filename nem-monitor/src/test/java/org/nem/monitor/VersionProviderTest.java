@@ -22,7 +22,7 @@ public class VersionProviderTest {
 		final NodeVersion version = context.provider.getLocalVersion();
 
 		// Assert:
-		Assert.assertThat(version, IsEqual.equalTo(new NodeVersion(0, 5, 0, "DEVELOPER BUILD")));
+		Assert.assertThat(version, IsEqual.equalTo(new NodeVersion(0, 6, 0, "DEVELOPER BUILD")));
 	}
 
 	@Test
