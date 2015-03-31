@@ -10,8 +10,8 @@ import java.io.*;
 import java.nio.file.Files;
 
 public class EncryptedInputOutputTest {
-	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
-	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
+	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
+	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
 
 	//region BeforeClass / AfterClass
 

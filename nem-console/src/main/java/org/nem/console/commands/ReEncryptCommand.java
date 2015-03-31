@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
 
-import java.util.List;
+import java.util.*;
 
 public class ReEncryptCommand implements Command {
 	@Override
@@ -15,7 +15,7 @@ public class ReEncryptCommand implements Command {
 	@Override
 	public void handle(final CommandLine commandLine) {
 		System.out.println("Loading key pairs...");
-		final List<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
+		final Collection<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
 
 		System.out.println("Saving key pairs...");
 		KeyPairsStorage.save(

@@ -7,10 +7,10 @@ import org.nem.console.test.ExceptionAssert;
 import java.io.*;
 
 public class FileMustTest {
-	protected static final String WORKING_DIRECTORY = System.getProperty("user.dir");
-	protected static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
-	protected static final File REAL_FILE = new File(TEST_FILE_DIRECTORY, "real");
-	protected static final File FAKE_FILE = new File(TEST_FILE_DIRECTORY, "fake");
+	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
+	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");
+	private static final File REAL_FILE = new File(TEST_FILE_DIRECTORY, "real");
+	private static final File FAKE_FILE = new File(TEST_FILE_DIRECTORY, "fake");
 
 	//region BeforeClass / AfterClass
 

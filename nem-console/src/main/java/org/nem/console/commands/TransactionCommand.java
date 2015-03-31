@@ -36,7 +36,7 @@ public abstract class TransactionCommand implements Command {
 				commandLine);
 
 		prepareAndSign(transaction);
-		TransactionStorage.save(transaction, commandLine.getOptionValue("output"));
+		TransactionStorage.save(transaction, commandLine);
 		System.out.println("Created transaction: ");
 		System.out.println(String.format("     type: %d", transaction.getType()));
 		System.out.println(String.format("  version: %d", transaction.getVersion()));

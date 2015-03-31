@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
 
-import java.util.List;
+import java.util.*;
 
 public class DumpContentsCommand implements Command {
 	@Override
@@ -14,7 +14,7 @@ public class DumpContentsCommand implements Command {
 
 	@Override
 	public void handle(final CommandLine commandLine) {
-		final List<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
+		final Collection<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
 		final boolean showPrivate = Boolean.parseBoolean(commandLine.getOptionValue("showPrivate", "false"));
 		final String filter = commandLine.getOptionValue("filter", "");
 
