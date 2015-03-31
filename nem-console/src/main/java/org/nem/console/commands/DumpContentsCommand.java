@@ -6,9 +6,13 @@ import org.nem.console.utils.*;
 
 import java.util.*;
 
+/**
+ * A command for dumping the contents of a key pairs file.
+ */
 public class DumpContentsCommand implements Command {
+
 	@Override
-	public String getName() {
+	public String name() {
 		return "dump";
 	}
 
@@ -33,7 +37,7 @@ public class DumpContentsCommand implements Command {
 	}
 
 	@Override
-	public Options getOptions() {
+	public Options options() {
 		final Options options = new Options();
 		OptionsUtils.addReadOptions(options);
 		options.addOption("showPrivate", true, "The password");

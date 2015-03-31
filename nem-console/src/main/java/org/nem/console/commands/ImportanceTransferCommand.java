@@ -6,8 +6,14 @@ import org.nem.core.time.TimeInstant;
 
 import java.util.function.Function;
 
+/**
+ * A command for generating an importance transfer.
+ */
 public class ImportanceTransferCommand extends TransactionCommand {
 
+	/**
+	 * Creates an importance transfer command.
+	 */
 	public ImportanceTransferCommand() {
 		super("importance");
 	}

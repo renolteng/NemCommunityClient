@@ -7,8 +7,14 @@ import org.nem.core.time.TimeInstant;
 
 import java.util.function.Function;
 
+/**
+ * A command for generating a transfer.
+ */
 public class TransferCommand extends TransactionCommand {
 
+	/**
+	 * Creates a transfer command.
+	 */
 	public TransferCommand() {
 		super("transfer");
 	}

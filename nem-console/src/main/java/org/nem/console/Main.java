@@ -35,12 +35,12 @@ public class Main {
 
 		final String mode = args[0].toLowerCase();
 		for (final Command command : COMMANDS) {
-			if (!command.getName().equals(mode)) {
+			if (!command.name().equals(mode)) {
 				continue;
 			}
 
 			final CommandLineParser parser = new PosixParser();
-			final CommandLine commandLine = parser.parse(command.getOptions(), args);
+			final CommandLine commandLine = parser.parse(command.options(), args);
 			command.handle(commandLine);
 			return;
 		}
@@ -57,9 +57,9 @@ public class Main {
 	}
 
 	private static void OutputUsage(final Command command) {
-		System.out.println(String.format("*** %s ***", command.getName()));
+		System.out.println(String.format("*** %s ***", command.name()));
 		final HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp(command.getName(), command.getOptions());
+		formatter.printHelp(command.name(), command.options());
 	}
 
 	private static void OutputUsage() {

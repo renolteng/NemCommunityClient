@@ -6,9 +6,13 @@ import org.nem.console.utils.*;
 
 import java.util.*;
 
+/**
+ * A command for re-encrypting a key pairs file.
+ */
 public class ReEncryptCommand implements Command {
+
 	@Override
-	public String getName() {
+	public String name() {
 		return "reencrypt";
 	}
 
@@ -26,7 +30,7 @@ public class ReEncryptCommand implements Command {
 	}
 
 	@Override
-	public Options getOptions() {
+	public Options options() {
 		final Options options = new Options();
 		OptionsUtils.addReadOptions(options);
 		options.addOption("output", true, "The output cold wallet file");
