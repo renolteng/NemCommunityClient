@@ -9,6 +9,9 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * A class that is used for generating multiple vanity addresses.
+ */
 public class MultiAddressGenerator {
 	private final MultiAddressGeneratorObserver observer;
 	private final KeyGenerator generator = CryptoEngines.defaultEngine().createKeyGenerator();
@@ -16,6 +19,12 @@ public class MultiAddressGenerator {
 	private final AtomicInteger iterations = new AtomicInteger(0);
 	private final Object lock = new Object();
 
+	/**
+	 * Creates a new generator.
+	 *
+	 * @param observer The generator observer.
+	 * @param prefixes The desired address prefixes.
+	 */
 	public MultiAddressGenerator(final MultiAddressGeneratorObserver observer, final String[] prefixes) {
 		this.observer = observer;
 		for (final String prefix : prefixes) {
@@ -43,6 +52,9 @@ public class MultiAddressGenerator {
 		return NetworkInfos.getDefault().getVersion() == encodedBytes[0];
 	}
 
+	/**
+	 * Runs a single generation iteration.
+	 */
 	public void generate() {
 		this.observer.notifyIteration(this, this.iterations.incrementAndGet());
 
@@ -58,14 +70,29 @@ public class MultiAddressGenerator {
 				});
 	}
 
+	/**
+	 * Gets the total number of iterations.
+	 *
+	 * @return The number of iterations.
+	 */
 	public int numIterations() {
 		return this.iterations.intValue();
 	}
 
+	/**
+	 * Gets the total number of desired prefixes.
+	 *
+	 * @return The number of desired prefixes.
+	 */
 	public int numPrefixes() {
 		return this.generatedKeys.size();
 	}
 
+	/**
+	 * Gets the total number of desired prefixes found.
+	 *
+	 * @return The number of desired prefixes found.
+	 */
 	public int numPrefixesFound() {
 		int numFound = 0;
 		for (final KeyPair keyPair : this.generatedKeys.values()) {
@@ -75,6 +102,11 @@ public class MultiAddressGenerator {
 		return numFound;
 	}
 
+	/**
+	 * Gets all the generated key pairs.
+	 *
+	 * @return The generated key pairs.
+	 */
 	public List<AliasedKeyPair> keyPairs() {
 		return this.generatedKeys.entrySet().stream()
 				.map(entry -> new AliasedKeyPair(entry.getKey(), entry.getValue()))
