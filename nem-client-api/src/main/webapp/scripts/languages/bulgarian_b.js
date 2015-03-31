@@ -135,6 +135,14 @@ define({
 				yes: 'Да',
 				no: 'Не'
 			},
+			initialTy: {
+				title: "WELCOME to NEM",
+				content: "<c>Sbhaqrq ba gur fgebat cevapvcyrf bs rtnyvgnevna naq rdhnyvgl va qvfgevohgvba, gur Arj Rpbabzl Zbirzrag, ARZ, unf abj svanyyl pbzr gb sehvgvba nsgre pybfr gb 14 zbaguf bs vagrafvir qrirybczrag. Va nqqvgvba gb 5 pber qrirybcref naq 7 pber znexrgref, jr unir n ubfg bs pbzzhavgl zrzoref jub unir urycrq hf va bar jnl be nabgure, jvgubhg jubz, guvf jbhyq arire unir pbzr gbtrgure fb jryy nf orvat bar bs gur srj pelcgb vavgvngvirf jvgu fhpu n ovt grnz. Fcrpvny zragvba vf tvira gb gur sbyybjvat:</c><ue/><c><o>Grpuavpny naq Znexrgvat vachg:</o><oe/> Nzl, naqzr, nirentrwbr, OenvaBsZnffrf, qmnezhfpu, RSSI, Rynan82, rexxv, servtrvfg, unccl4209, vafgnpnfu, wnqrqwnpx, XrivaYv, XxbgArz, xbbernz, Xelfgb, Ybv Gena, ylxn, zvkznfgre, ZeCbegZna, arzovg, akxbvy, bjba, Cnagure03, curebzbar, erabgrat.yv, evtry, FnhyTenl, funjayrnel, fbyvk, fgbar, guvyba, haibvqcy, munaxnvjra, mbngn87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</c><ue/><c><o>APP Hfre Vagresnpr genafyngvba:</o><oe/>ncrk, obrfgva, Punbf514, QVZXNMQF, svypurs, servtrvfg, Thyvire, vnzvavgabj06, Wnarn4cqn, xhccnynugv, Ypuneyrf, znegvfznegvf, zrff-yrybhpu, Cnenan, evtry, Funja, Fcvqre, 楊 輝彦</c><c><oe/>Va nqqvgvba gb gur nobir 67 grnz zrzoref, jr nyfb unir bgure zrzoref jub  pbagevohgrq, jurgure va grpuavpny, znexrgvat be fgerff grfgvat gur flfgrz qhevat gur nycun naq orgn cunfr. Jr jbhyq yvxr gb nqqvgvbanyyl gunax nyy gubfr vaqvivqhnyf abg yvfgrq urer naq gur terngre ARZ pbzzhavgl orpnhfr jvgubhg gurz, jr jbhyq unir abg rire pbzr fb sne.</c><ue/><c>Naq zbfg vzcbegnagyl<oe/><o>Gunax LBH!</o><oe/><oe/>Arj Rpbabzl fgnegf jvgu LBH!</c>"
+			},
+			initialBackup: {
+				title: "Welcome to NEM",
+				content: "You can create wallet backup from menu in upper right corner."
+			},
 			settings: {
 				title: 'Настройки',
 				language: {
@@ -174,7 +182,8 @@ define({
 				useMinimumFee: 'Ползвай минимална такса',
 				txConfirm: {
 					title: 'Потвърди Преобразуването в Мултисигнатурен Акаунт',
-					total: 'Общо'
+					total: 'Общо',
+
 				},
 				warning: 'Мултисигнатурния акаунт е в списъка на косигнатурите.Това ще предизвика блокиране на акаунта и прекъсване досъпа до фонда му.Вие навярно <b>НЕ ИСКАТЕ </b> да направите това.'
 			},
@@ -203,7 +212,8 @@ define({
 					title: 'Потвърди Мултисигнатурната Транзакция',
 					message: 'Съобщение',
 					encrypted: 'Съобщението е криптирано',
-					noMessage: 'Няма съобщение'
+					noMessage: 'Няма съобщение',
+
 				}
 			},
 			sendNem: {
@@ -340,7 +350,8 @@ define({
 			},
 			showRemotePrivateKey: {
 				title: 'Покажи ЧАСТНИЯТ Ключ на Отдалечения Акаунт',
-				message: 'Това ще покаже частният ключ на отдалечения акаунт на екрана ,като текст.В предвид ,че може да имате някъкъв малуер в системата това може да бъде опасна операция.Сигурни ли сте че искате да го направите?'
+				message: 'Това ще покаже частният ключ на отдалечения акаунт на екрана ,като текст.В предвид ,че може да имате някъкъв малуер в системата това може да бъде опасна операция.Сигурни ли сте че искате да го направите?',
+
 			},
 			addAccount: {
 				title: 'Добавете съществуващ акаунт',
@@ -482,8 +493,28 @@ define({
 						description: '<em>Сигурността на портфейла </em> е най важна за предотвратяването на кражба на XEM монети и активи.'
 					},
 					{
-						title: 'NCC криптира твоя портфейл',
-						description: '<em>Сигурността на портфейла </em> е най важна за предотвратяването на кражба на XEM монети и активи.'
+						title: 'Remote NEM Infrastructure Server',
+						description: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.',
+
+					},
+					{
+						title: 'Delegated harvesting',
+						description: 'With delegated harvesting you can harvest on remote NIS nodes!',
+
+					},
+					{
+						title: 'Multisignature transactions',
+						description: 'Secure your XEM and assets via in-blockchain multi-signature transactions.',
+
+					},
+					{
+						title: 'Native language support',
+						description: 'NEM user interface supports multiple languages. See "Settings".'
+					},
+					{
+						title: 'Got any questions or feedback ?',
+						description: '<a href="http://forum.ournem.com">forum.ournem.com</a> | #ournem on freenode.org | Telegram',
+
 					}
 				]
 			},
