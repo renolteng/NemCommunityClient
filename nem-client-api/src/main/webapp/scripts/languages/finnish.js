@@ -1,6 +1,6 @@
 define({
 	id: 'fi',
-	name: 'Suomi',
+	name: 'suomi',
 	texts: {
 		preferences: {
 			thousandSeparator: ' ',
