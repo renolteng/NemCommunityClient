@@ -81,15 +81,15 @@ public class Utils {
 //	public static Account createPublicOnlyKeyAccount(final Account account) {
 //		return new Account(new KeyPair(account.getAddress().getPublicKey()));
 //	}
-//
-//	/**
-//	 * Generates a random account.
-//	 *
-//	 * @return A random account.
-//	 */
-//	public static Account generateRandomAccount() {
-//		return new Account(new KeyPair());
-//	}
+
+	/**
+	 * Generates a random account.
+	 *
+	 * @return A random account.
+	 */
+	public static Account generateRandomAccount() {
+		return new Account(new KeyPair());
+	}
 //
 //	/**
 //	 * Generates a random account info.
