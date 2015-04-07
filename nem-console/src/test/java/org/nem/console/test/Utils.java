@@ -1,6 +1,7 @@
 package org.nem.console.test;
 
 import net.minidev.json.*;
+import org.apache.commons.cli.*;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.model.ncc.AccountInfo;
@@ -369,4 +370,20 @@ public class Utils {
 //		final Deserializer deserializer = Utils.createDeserializer(JsonSerializer.serializeToJson(entity));
 //		return CompletableFuture.completedFuture(deserializer);
 //	}
+
+	/**
+	 * Creates a command line comprised of the specified arguments.
+	 *
+	 * @param args The arguments.
+	 * @return The command line.
+	 */
+	public static CommandLine createCommandLine(final String... args) {
+		final CommandLineParser parser = new PosixParser();
+		final Options options = new Options();
+		for (final String arg : args) {
+			options.addOption(arg.substring(2, arg.indexOf('=')), true, "");
+		}
+
+		return ExceptionUtils.propagate(() -> parser.parse(options, args));
+	}
 }

@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.console.models.AliasedKeyPair;
+import org.nem.console.test.Utils;
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.utils.ExceptionUtils;
 
@@ -34,14 +35,15 @@ public class KeyPairsStorageTest {
 	@Test
 	public void canRoundTripKeyPairs() {
 		// Arrange:
+		final String fileName = new File(TEST_FILE_DIRECTORY, "default.kp").toString();
 		final Collection<AliasedKeyPair> originalKeyPairs = Arrays.asList(
 				new AliasedKeyPair("ALPHA", new KeyPair()),
 				new AliasedKeyPair("BETA", new KeyPair()),
 				new AliasedKeyPair("GAMMA", new KeyPair()));
 
 		// Act:
-		KeyPairsStorage.save(originalKeyPairs, "default.kp", "pass", 12);
-		final Collection<AliasedKeyPair> keyPairs = KeyPairsStorage.load("default.kp", "pass", 12);
+		KeyPairsStorage.save(originalKeyPairs, fileName, "pass", 12);
+		final Collection<AliasedKeyPair> keyPairs = KeyPairsStorage.load(fileName, "pass", 12);
 
 		// Assert:
 		assertKeyPairsAreEqual(keyPairs, originalKeyPairs);
@@ -50,20 +52,19 @@ public class KeyPairsStorageTest {
 	@Test
 	public void canRoundTripKeyPairsUsingCommandLineOverloads() {
 		// Arrange:
+		final String fileName = new File(TEST_FILE_DIRECTORY, "commandline.kp").toString();
 		final Collection<AliasedKeyPair> originalKeyPairs = Arrays.asList(
 				new AliasedKeyPair("ALPHA", new KeyPair()),
 				new AliasedKeyPair("BETA", new KeyPair()),
 				new AliasedKeyPair("GAMMA", new KeyPair()));
-		final CommandLine saveOptions = getCommandLine(new String[] {
-				"--output=commandline.kp",
-				"--password=pass",
-				"--numHashes=12"
-		});
-		final CommandLine loadOptions = getCommandLine(new String[] {
-				"--input=commandline.kp",
-				"--password=pass",
-				"--numHashes=12"
-		});
+		final CommandLine saveOptions = Utils.createCommandLine(
+				String.format("--output=%s", fileName),
+				"--pass=pwd",
+				"--numHashes=12");
+		final CommandLine loadOptions = Utils.createCommandLine(
+				String.format("--input=%s", fileName),
+				"--pass=pwd",
+				"--numHashes=12");
 
 		// Act:
 		KeyPairsStorage.save(originalKeyPairs, saveOptions);
@@ -71,11 +72,6 @@ public class KeyPairsStorageTest {
 
 		// Assert:
 		assertKeyPairsAreEqual(keyPairs, originalKeyPairs);
-	}
-
-	private static CommandLine getCommandLine(final String[] args) {
-		final CommandLineParser parser = new PosixParser();
-		return ExceptionUtils.propagate(() -> parser.parse(new Options(), args));
 	}
 
 	private static void assertKeyPairsAreEqual(final Collection<AliasedKeyPair> actual, final Collection<AliasedKeyPair> expected) {
