@@ -1,13 +1,12 @@
 package org.nem.console.utils;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.test.Utils;
 import org.nem.core.crypto.KeyPair;
-import org.nem.core.utils.ExceptionUtils;
 
 import java.io.*;
 import java.util.*;

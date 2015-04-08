@@ -16,8 +16,6 @@ import org.nem.core.utils.ExceptionUtils;
 import java.io.*;
 import java.util.function.BiConsumer;
 
-import static org.junit.Assert.*;
-
 public class TransactionStorageTest {
 	private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
 	private static final File TEST_FILE_DIRECTORY = new File(WORKING_DIRECTORY, "test_files");

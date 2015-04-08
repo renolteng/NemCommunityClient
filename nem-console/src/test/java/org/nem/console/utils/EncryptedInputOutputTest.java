@@ -1,6 +1,6 @@
 package org.nem.console.utils;
 
-import org.apache.commons.io.*;
+import org.apache.commons.io.FileUtils;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.console.test.*;

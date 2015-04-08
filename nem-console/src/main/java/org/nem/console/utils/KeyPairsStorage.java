@@ -4,7 +4,7 @@ import org.apache.commons.cli.CommandLine;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.core.serialization.*;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  * Helper class for loading and saving key pairs.

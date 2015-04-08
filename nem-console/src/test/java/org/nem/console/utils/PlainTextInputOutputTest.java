@@ -1,7 +1,7 @@
 package org.nem.console.utils;
 
 import org.apache.commons.io.FileUtils;
-import org.hamcrest.core.*;
+import org.hamcrest.core.IsEqual;
 import org.junit.*;
 import org.nem.console.test.*;
 import org.nem.core.utils.ExceptionUtils;

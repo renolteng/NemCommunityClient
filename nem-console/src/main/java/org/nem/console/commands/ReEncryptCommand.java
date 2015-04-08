@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
 
-import java.util.*;
+import java.util.Collection;
 
 /**
  * A command for re-encrypting a key pairs file.
