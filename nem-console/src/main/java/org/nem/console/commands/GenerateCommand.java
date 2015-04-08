@@ -7,10 +7,13 @@ import org.nem.console.utils.*;
 
 import java.util.List;
 
+/**
+ * A command for generating vanity addresses.
+ */
 public class GenerateCommand implements Command {
 
 	@Override
-	public String getName() {
+	public String name() {
 		return "generate";
 	}
 
@@ -23,7 +26,7 @@ public class GenerateCommand implements Command {
 	}
 
 	@Override
-	public Options getOptions() {
+	public Options options() {
 		final Options options = new Options();
 		OptionsUtils.addWriteOptions(options);
 		options.addOption("prefixes", true, "Comma-separated list of address prefixes to generate");

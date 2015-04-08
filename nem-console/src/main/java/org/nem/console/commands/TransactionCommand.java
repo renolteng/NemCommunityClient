@@ -12,15 +12,23 @@ import org.nem.core.utils.HexEncoder;
 import java.util.Collection;
 import java.util.function.Function;
 
+/**
+ * A base class for all transaction commands.
+ */
 public abstract class TransactionCommand implements Command {
 	private final String name;
 
+	/**
+	 * Creates a transaction command.
+	 *
+	 * @param name The command name.
+	 */
 	protected TransactionCommand(final String name) {
 		this.name = name;
 	}
 
 	@Override
-	public final String getName() {
+	public final String name() {
 		return this.name;
 	}
 
@@ -36,7 +44,7 @@ public abstract class TransactionCommand implements Command {
 				commandLine);
 
 		prepareAndSign(transaction);
-		TransactionStorage.save(transaction, commandLine.getOptionValue("output"));
+		TransactionStorage.save(transaction, commandLine);
 		System.out.println("Created transaction: ");
 		System.out.println(String.format("     type: %d", transaction.getType()));
 		System.out.println(String.format("  version: %d", transaction.getVersion()));
@@ -44,6 +52,15 @@ public abstract class TransactionCommand implements Command {
 		System.out.println(String.format("      fee: %s", transaction.getFee()));
 	}
 
+	/**
+	 * Creates a transaction.
+	 *
+	 * @param timeStamp The transaction timestamp.
+	 * @param sender The transaction sender
+	 * @param accountLookup A function that can be used to get an account given an address.
+	 * @param commandLine The user-supplied command line.
+	 * @return The transaction
+	 */
 	protected abstract Transaction createTransaction(
 			final TimeInstant timeStamp,
 			final Account sender,
@@ -80,7 +97,7 @@ public abstract class TransactionCommand implements Command {
 	}
 
 	@Override
-	public final Options getOptions() {
+	public final Options options() {
 		final Options options = new Options();
 		OptionsUtils.addReadOptions(options);
 		options.addOption("sender", true, "The sender alias");
@@ -90,5 +107,10 @@ public abstract class TransactionCommand implements Command {
 		return options;
 	}
 
+	/**
+	 * Adds custom transaction-specific options to the specified options.
+	 *
+	 * @param options The options to update.
+	 */
 	protected abstract void addCustomOptions(Options options);
 }
