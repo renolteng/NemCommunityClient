@@ -38,8 +38,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.nem.core</groupId>
-            <artifactId>nem-core</artifactId>
+            <groupId>org.nem.deploy</groupId>
+            <artifactId>nem-deploy</artifactId>
             <version>${nemcore.version}</version>
         </dependency>
 
@@ -355,7 +355,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.nem.core.deploy.CommonStarter</mainClass>
+                    <mainClass>org.nem.deploy.CommonStarter</mainClass>
                 </configuration>
             </plugin>
 
@@ -391,7 +391,7 @@
                     <jnlp>
                         <inputTemplate>nem-gui-client.vm</inputTemplate>
                         <outputFile>nem-client.jnlp</outputFile>
-                        <mainClass>org.nem.core.deploy.CommonStarter</mainClass>
+                        <mainClass>org.nem.deploy.CommonStarter</mainClass>
                         <allPermissions/>
                     </jnlp>
                     <libPath>jars</libPath>

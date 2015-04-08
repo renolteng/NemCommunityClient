@@ -31,8 +31,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.nem.core</groupId>
-            <artifactId>nem-core</artifactId>
+            <groupId>org.nem.deploy</groupId>
+            <artifactId>nem-deploy</artifactId>
             <version>${nemcore.version}</version>
         </dependency>
 

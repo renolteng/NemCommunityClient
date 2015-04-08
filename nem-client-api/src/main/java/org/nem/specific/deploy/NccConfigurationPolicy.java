@@ -1,6 +1,6 @@
 package org.nem.specific.deploy;
 
-import org.nem.core.deploy.*;
+import org.nem.deploy.*;
 import org.nem.specific.deploy.appconfig.NccAppConfig;
 import org.nem.ncc.web.servlet.*;
 
