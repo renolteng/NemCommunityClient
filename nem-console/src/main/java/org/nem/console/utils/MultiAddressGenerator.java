@@ -49,7 +49,7 @@ public class MultiAddressGenerator {
 			return false;
 		}
 
-		return NetworkInfos.getDefault().getVersion() == encodedBytes[0];
+		return prefix.indexOf(' ') < 0 && NetworkInfos.getDefault().getVersion() == encodedBytes[0];
 	}
 
 	/**
@@ -109,6 +109,7 @@ public class MultiAddressGenerator {
 	 */
 	public List<AliasedKeyPair> keyPairs() {
 		return this.generatedKeys.entrySet().stream()
+				.filter(entry -> null != entry.getValue())
 				.map(entry -> new AliasedKeyPair(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList());
 	}
