@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 
 /**
  * Static class containing test utilities.
+ * TODO 20150407 J-J clean up this class
  */
 public class Utils {
 
