@@ -13,5 +13,5 @@ public interface WalletDescriptor extends StorableEntityDescriptor<StorableWalle
 	 *
 	 * @return The wallet name.
 	 */
-	public WalletName getWalletName();
+	WalletName getWalletName();
 }

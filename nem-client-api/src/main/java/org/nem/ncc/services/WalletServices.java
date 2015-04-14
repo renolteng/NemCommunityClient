@@ -14,7 +14,7 @@ public interface WalletServices {
 	 * @param name The name of the wallet.
 	 * @return The wallet.
 	 */
-	public Wallet get(final WalletName name);
+	Wallet get(final WalletName name);
 
 	/**
 	 * Searches all open wallets for a wallet account with the specified address.
@@ -22,7 +22,7 @@ public interface WalletServices {
 	 * @param address The address.
 	 * @return The wallet account or null if no matches were found.
 	 */
-	public WalletAccount tryFindOpenAccount(final Address address);
+	WalletAccount tryFindOpenAccount(final Address address);
 
 	/**
 	 * Opens and returns the specified wallet.
@@ -30,7 +30,7 @@ public interface WalletServices {
 	 * @param pair The wallet name and password pair.
 	 * @return The wallet.
 	 */
-	public Wallet open(final WalletNamePasswordPair pair);
+	Wallet open(final WalletNamePasswordPair pair);
 
 	/**
 	 * Creates and returns the specified wallet.
@@ -38,14 +38,14 @@ public interface WalletServices {
 	 * @param pair The wallet name and password pair.
 	 * @return The wallet.
 	 */
-	public Wallet create(final WalletNamePasswordPair pair);
+	Wallet create(final WalletNamePasswordPair pair);
 
 	/**
 	 * Closes the specified wallet.
 	 *
 	 * @param name The name of the wallet.
 	 */
-	public void close(final WalletName name);
+	void close(final WalletName name);
 
 	/**
 	 * Renames the specified wallet.
@@ -53,5 +53,5 @@ public interface WalletServices {
 	 * @param originalPair The original wallet name and password pair.
 	 * @param desiredPair The desired wallet name and password pair.
 	 */
-	public void move(final WalletNamePasswordPair originalPair, final WalletNamePasswordPair desiredPair);
+	void move(final WalletNamePasswordPair originalPair, final WalletNamePasswordPair desiredPair);
 }
