@@ -4,17 +4,21 @@ import org.apache.commons.cli.*;
 import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
 
-import java.util.List;
+import java.util.Collection;
 
+/**
+ * A command for dumping the contents of a key pairs file.
+ */
 public class DumpContentsCommand implements Command {
+
 	@Override
-	public String getName() {
+	public String name() {
 		return "dump";
 	}
 
 	@Override
 	public void handle(final CommandLine commandLine) {
-		final List<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
+		final Collection<AliasedKeyPair> keyPairs = KeyPairsStorage.load(commandLine);
 		final boolean showPrivate = Boolean.parseBoolean(commandLine.getOptionValue("showPrivate", "false"));
 		final String filter = commandLine.getOptionValue("filter", "");
 
@@ -33,7 +37,7 @@ public class DumpContentsCommand implements Command {
 	}
 
 	@Override
-	public Options getOptions() {
+	public Options options() {
 		final Options options = new Options();
 		OptionsUtils.addReadOptions(options);
 		options.addOption("showPrivate", true, "The password");

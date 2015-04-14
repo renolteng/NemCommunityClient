@@ -5,8 +5,18 @@ import org.nem.console.models.AliasedKeyPair;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Helper class for generating multiple vanity addresses that uses all cores.
+ */
 public class MultiAddressGeneratorHost {
 
+	/**
+	 * Generates a collection of key pairs such that each address in the returned list
+	 * has a prefix in prefixes.
+	 *
+	 * @param prefixes The desired address prefixes.
+	 * @return The key pairs.
+	 */
 	public static List<AliasedKeyPair> generate(final String[] prefixes) {
 		final MultiAddressGenerator generator = createGenerator(prefixes);
 

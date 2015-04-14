@@ -14,6 +14,9 @@ public class Main {
 			new TransferCommand()
 	};
 
+	// TODO 20150407 J-J add tests for the command package
+	// TODO 20150407 J-J add secure password entry
+
 	// TODO: few notes: I think it'd be nicer to split generator into generator and vanitygen
 	// generator itself, would only generate random key(s) and associate it with some alias(es) (i.e. cosig1,cosig2,cosig3... etc)
 	// vanitygen would generate only a single address, but the one that .contains() searched string (and associate it with some alias (i.e. gimreMain)
@@ -35,12 +38,12 @@ public class Main {
 
 		final String mode = args[0].toLowerCase();
 		for (final Command command : COMMANDS) {
-			if (!command.getName().equals(mode)) {
+			if (!command.name().equals(mode)) {
 				continue;
 			}
 
 			final CommandLineParser parser = new PosixParser();
-			final CommandLine commandLine = parser.parse(command.getOptions(), args);
+			final CommandLine commandLine = parser.parse(command.options(), args);
 			command.handle(commandLine);
 			return;
 		}
@@ -57,9 +60,9 @@ public class Main {
 	}
 
 	private static void OutputUsage(final Command command) {
-		System.out.println(String.format("*** %s ***", command.getName()));
+		System.out.println(String.format("*** %s ***", command.name()));
 		final HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp(command.getName(), command.getOptions());
+		formatter.printHelp(command.name(), command.options());
 	}
 
 	private static void OutputUsage() {
