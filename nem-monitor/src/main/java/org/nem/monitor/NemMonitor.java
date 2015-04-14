@@ -1,8 +1,8 @@
 package org.nem.monitor;
 
 import org.nem.core.connect.*;
-import org.nem.deploy.LoggingBootstrapper;
 import org.nem.core.utils.LockFile;
+import org.nem.deploy.LoggingBootstrapper;
 import org.nem.monitor.config.*;
 import org.nem.monitor.launcher.*;
 import org.nem.monitor.node.*;

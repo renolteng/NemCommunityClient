@@ -8,7 +8,7 @@ import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.*;
 
-import java.util.*;
+import java.util.Collections;
 
 public class DefaultWalletServicesTest {
 	private static final WalletFileExtension FILE_EXTENSION = new WalletFileExtension();
