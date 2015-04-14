@@ -47,8 +47,7 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferSendRequest request) {
-		final Transaction transaction = this.toModel(request, request.getPassword());
-		return transaction;
+		return this.toModel(request, request.getPassword());
 	}
 
 	/**
@@ -58,8 +57,7 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final MultisigSignatureRequest request) {
-		final Transaction transaction = this.toModel(request, request.getPassword());
-		return transaction;
+		return this.toModel(request, request.getPassword());
 	}
 
 	/**
@@ -69,8 +67,7 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final MultisigModificationRequest request) {
-		final Transaction transaction = this.toModel(request, request.getPassword());
-		return transaction;
+		return this.toModel(request, request.getPassword());
 	}
 
 	/**
