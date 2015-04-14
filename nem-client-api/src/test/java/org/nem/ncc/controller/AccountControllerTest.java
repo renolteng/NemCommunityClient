@@ -149,13 +149,13 @@ public class AccountControllerTest {
 				.thenReturn(createViewModel(account));
 		context.setLastBlockHeight(27);
 
-		final List<Transaction> transactions = Arrays.asList(
+		final List<Transaction> transactions = Collections.singletonList(
 				createTransfer(account, Amount.fromNem(124)));
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
 				.thenReturn(transactions);
 
 		final AccountDatabaseIdRequest request = createIdRequest(account.getAddress());
-		final List<TransactionMetaDataPair> pairs = Arrays.asList(
+		final List<TransactionMetaDataPair> pairs = Collections.singletonList(
 				createTransferMetaDataPair(Utils.generateRandomAccount(), Amount.fromNem(323), 25, 34L));
 		Mockito.when(context.accountServices.getTransactions(TransactionDirection.ALL, account.getAddress(), request.getDatabaseId()))
 				.thenReturn(pairs);
@@ -240,7 +240,7 @@ public class AccountControllerTest {
 
 		final AccountHashRequest request = createHashRequest(account.getAddress(), Utils.generateRandomHash());
 		Mockito.when(context.accountServices.getUnconfirmedTransactions(account.getAddress()))
-				.thenReturn(Arrays.asList(createTransfer(account, Amount.fromNem(572))));
+				.thenReturn(Collections.singletonList(createTransfer(account, Amount.fromNem(572))));
 
 		// Act:
 		final AccountTransactionsPair pair = context.controller.getAccountTransactionsUnconfirmed(request);

@@ -24,7 +24,7 @@ public class AccountServicesTest {
 		final TestContext context = new TestContext();
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(Address.fromEncoded("FOO")),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList(), Arrays.asList()));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Collections.emptyList(), Collections.emptyList()));
 
 		Mockito.when(context.connector.get(NisApiId.NIS_REST_ACCOUNT_LOOK_UP, "address=FOO"))
 				.thenReturn(serialize(originalPair));
@@ -71,11 +71,11 @@ public class AccountServicesTest {
 		// Arrange:
 		final AccountMetaDataPair originalPair = new AccountMetaDataPair(
 				Utils.createAccountInfoFromAddress(requestAddress),
-				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Arrays.asList(), Arrays.asList()));
-		final Collection<SerializableAccountId> requests = Arrays.asList(new SerializableAccountId(requestAddress));
+				new AccountMetaData(AccountStatus.UNLOCKED, AccountRemoteStatus.INACTIVE, Collections.emptyList(), Collections.emptyList()));
+		final Collection<SerializableAccountId> requests = Collections.singletonList(new SerializableAccountId(requestAddress));
 
 		Mockito.when(context.connector.post(Mockito.eq(NisApiId.NIS_REST_ACCOUNT_BATCH_LOOK_UP), Mockito.any()))
-				.thenReturn(serialize(new SerializableList<>(Arrays.asList(originalPair))));
+				.thenReturn(serialize(new SerializableList<>(Collections.singletonList(originalPair))));
 
 		// Act:
 		return context.services.getAccountMetaDataPairs(requests).stream().collect(Collectors.toList());

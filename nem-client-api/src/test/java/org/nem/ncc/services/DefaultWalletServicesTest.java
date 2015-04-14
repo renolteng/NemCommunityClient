@@ -8,7 +8,7 @@ import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.*;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class DefaultWalletServicesTest {
 	private static final WalletFileExtension FILE_EXTENSION = new WalletFileExtension();
@@ -94,7 +94,7 @@ public class DefaultWalletServicesTest {
 		Assert.assertThat(wallet.getName(), IsEqual.equalTo(context.originalWallet.getName()));
 		Assert.assertThat(
 				context.walletServices.getOpenWalletNames(),
-				IsEquivalent.equivalentTo(Arrays.asList(context.originalWallet.getName())));
+				IsEquivalent.equivalentTo(Collections.singletonList(context.originalWallet.getName())));
 		Mockito.verify(context.descriptorFactory, Mockito.times(1)).openExisting(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(1)).load(context.descriptor);
 	}
@@ -111,7 +111,7 @@ public class DefaultWalletServicesTest {
 		// Assert:
 		Assert.assertThat(
 				context.walletServices.getOpenWalletNames(),
-				IsEquivalent.equivalentTo(Arrays.asList(context.originalWallet.getName())));
+				IsEquivalent.equivalentTo(Collections.singletonList(context.originalWallet.getName())));
 		Assert.assertThat(wallet.getName(), IsEqual.equalTo(context.originalWallet.getName()));
 		Mockito.verify(context.descriptorFactory, Mockito.times(2)).openExisting(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(2)).load(context.descriptor);
@@ -159,7 +159,7 @@ public class DefaultWalletServicesTest {
 		// Assert:
 		Assert.assertThat(
 				context.walletServices.getOpenWalletNames(),
-				IsEquivalent.equivalentTo(Arrays.asList(context.originalWallet.getName())));
+				IsEquivalent.equivalentTo(Collections.singletonList(context.originalWallet.getName())));
 		Assert.assertThat(wallet.getName(), IsEqual.equalTo(context.originalWallet.getName()));
 		Mockito.verify(context.descriptorFactory, Mockito.times(1)).createNew(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(0)).load(context.descriptor);

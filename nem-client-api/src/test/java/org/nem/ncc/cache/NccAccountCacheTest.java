@@ -295,7 +295,7 @@ public class NccAccountCacheTest {
 				REFRESH_INTERVAL.addSeconds(130)); // the time at which the update should happen
 		context.cache.seedAccounts(accounts);
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(Mockito.any()))
-				.thenReturn(Arrays.asList(context.pair1));
+				.thenReturn(Collections.singletonList(context.pair1));
 
 		// Act:
 		context.cache.updateCache().join();
@@ -349,14 +349,14 @@ public class NccAccountCacheTest {
 				REFRESH_INTERVAL.addSeconds(130)); // the time at which the update should happen
 		context.addAccountsToCache(accounts);
 		Mockito.when(context.accountServices.getAccountMetaDataPairs(Mockito.any()))
-				.thenReturn(Arrays.asList(context.pair1));
+				.thenReturn(Collections.singletonList(context.pair1));
 
 		// Act:
 		context.cache.updateCache().join();
 
 		// Assert:
 		// - only the first account was updated because the second account hasn't expired
-		final List<SerializableAccountId> expectedRequests = Arrays.asList(new SerializableAccountId(accounts.get(0).getAddress()));
+		final List<SerializableAccountId> expectedRequests = Collections.singletonList(new SerializableAccountId(accounts.get(0).getAddress()));
 		final ArgumentCaptor<? extends List<SerializableAccountId>> captor = createAccountIdListCaptor();
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPairs(captor.capture());
 		Assert.assertThat(captor.getValue(), IsEquivalent.equivalentTo(expectedRequests));

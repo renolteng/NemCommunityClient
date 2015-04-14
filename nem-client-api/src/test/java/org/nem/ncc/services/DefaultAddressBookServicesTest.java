@@ -60,7 +60,7 @@ public class DefaultAddressBookServicesTest {
 		Assert.assertThat(addressBook.getName(), IsEqual.equalTo(context.originalAddressBook.getName()));
 		Assert.assertThat(
 				context.addressBookServices.getOpenAddressBookNames(),
-				IsEquivalent.equivalentTo(Arrays.asList(context.originalAddressBook.getName())));
+				IsEquivalent.equivalentTo(Collections.singletonList(context.originalAddressBook.getName())));
 		Mockito.verify(context.descriptorFactory, Mockito.times(1)).openExisting(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(1)).load(context.descriptor);
 	}
@@ -77,7 +77,7 @@ public class DefaultAddressBookServicesTest {
 		// Assert:
 		Assert.assertThat(
 				context.addressBookServices.getOpenAddressBookNames(),
-				IsEquivalent.equivalentTo(Arrays.asList(context.originalAddressBook.getName())));
+				IsEquivalent.equivalentTo(Collections.singletonList(context.originalAddressBook.getName())));
 		Assert.assertThat(addressBook.getName(), IsEqual.equalTo(context.originalAddressBook.getName()));
 		Mockito.verify(context.descriptorFactory, Mockito.times(2)).openExisting(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(2)).load(context.descriptor);
@@ -125,7 +125,7 @@ public class DefaultAddressBookServicesTest {
 		// Assert:
 		Assert.assertThat(
 				context.addressBookServices.getOpenAddressBookNames(),
-				IsEquivalent.equivalentTo(Arrays.asList(context.originalAddressBook.getName())));
+				IsEquivalent.equivalentTo(Collections.singletonList(context.originalAddressBook.getName())));
 		Assert.assertThat(addressBook.getName(), IsEqual.equalTo(context.originalAddressBook.getName()));
 		Mockito.verify(context.descriptorFactory, Mockito.times(1)).createNew(context.pair, FILE_EXTENSION);
 		Mockito.verify(context.repository, Mockito.times(0)).load(context.descriptor);

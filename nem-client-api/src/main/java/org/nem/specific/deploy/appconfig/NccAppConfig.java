@@ -20,7 +20,7 @@ import org.nem.ncc.wallet.storage.SecureWalletDescriptorFactory;
 import org.springframework.context.annotation.*;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Class supplying Spring beans.
@@ -172,8 +172,7 @@ public class NccAppConfig {
 
 	@Bean
 	public WalletServices walletServices() {
-		final WalletRepository walletRepository = new AutoFallbackRepository(Arrays.asList(
-				new BinaryWalletRepository()));
+		final WalletRepository walletRepository = new AutoFallbackRepository(Collections.singletonList(new BinaryWalletRepository()));
 
 		return new DefaultWalletServices(
 				walletRepository,
