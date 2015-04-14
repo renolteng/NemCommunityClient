@@ -23,7 +23,7 @@ public class TransactionViewModel implements SerializableEntity {
 
 		private final int value;
 
-		private Type(final int value) {
+		Type(final int value) {
 			this.value = value;
 		}
 
