@@ -265,7 +265,7 @@ $zIndex-sidebar:	10;
 // ================================================================================
 
 $account-height: 80px;
-$account-actions-width: 33px;
+$account-actions-width: 30px;
 
 .account {
 	position: relative;
@@ -296,14 +296,33 @@ $account-actions-width: 33px;
 	width: calc(100% - #{$account-actions-width});
 	padding: 10px 5px 6px 21px;
 	@include transition(background-color .3s);
+	position:relative;
+	
+	& > .account-dropdownButton{
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    width: #{$account-actions-width};
+	    height: 80px;
+	    line-height: 80px;
+	    text-align: center;
+	    font-size: 14px;
+	    
+		& > .account-actionsButton--arrow {
+			display: initial;
+		}
+	}
 }
 
 .account-info-line {
 	margin-bottom: 3px;
+	margin-right: #{$account-actions-width};
+	font-size: 12px;
 }
 
 .account-info-line--darken {
 	margin-bottom: 3px;
+	margin-right: #{$account-actions-width};
 	color: #888;
 	font-size: 12px;
 }
@@ -347,23 +366,10 @@ $account-actions-width: 33px;
 		& > .account-actionsButton--gear {
 			display: initial;
 		}
-
-		& > .account-actionsButton--arrow {
-			display: none;
-		}
 	}
 
-	.account-info:hover + &,
 	.account--selecting &:not(:hover) {
 		background-color: #272e38;
-
-		& > .account-actionsButton--gear {
-			display: none;
-		}
-
-		& > .account-actionsButton--arrow {
-			display: initial;
-		}
 	}
 }
 
@@ -437,7 +443,16 @@ $account-actions-width: 33px;
 				text-align: center;
 			}
 		}
+		
+		.account-info-line,
+		.account-info-line--darken {
+			margin-right: 0px;
+		}
 
+		.account-dropdownButton{
+			display:none;
+		}
+		
 		.account-actionsButton {
 			position: static;
 			width: 100%;
