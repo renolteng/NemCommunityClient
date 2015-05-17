@@ -4,5 +4,16 @@ jdk:
   - oraclejdk8
 
 install:
- - wget http://bob.nem.ninja/nem-core-0.6.28-BETA.jar
- - mvn install:install-file -Dfile=nem-core-0.6.28-BETA.jar -DgroupId=org.nem.core -DartifactId=nem-core -Dversion=0.6.28-BETA -Dpackaging=jar
+  - pushd .
+  - mkdir .nemdeps
+  - cd .nemdeps
+  -
+  - git clone https://github.com/NewEconomyMovement/nem.core.git
+  - cd nem.core
+  - mvn install -DskipTests=true
+  -
+  - git clone https://github.com/NewEconomyMovement/nem.deploy.git
+  - cd nem.deploy
+  - mvn install -DskipTests=true
+  -
+  - popd
