@@ -129,13 +129,6 @@ $zIndex-sidebar:	10;
 	width: calc(100% - #{$sidebar-width});
 }
 
-.walletHeader-search-wrapper {
-	float: left;
-	font-size: 14px;
-	color: #afafaf; //#252a34;
-	pointer-events: none;
-}
-
 .walletHeader-searchButton {
 	padding: 0;
 	font-size: 21px;
