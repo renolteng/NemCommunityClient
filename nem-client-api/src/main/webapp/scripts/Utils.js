@@ -763,7 +763,7 @@ define(['TransactionType'], function(TransactionType) {
 
             block.formattedTime = Utils.format.date.format(block.timeStamp, 'M dd, yyyy hh:mm:ss');
             block.formattedFee = Utils.format.nem.formatNemAmount(block.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            block.formattedDifficulty = ((100 * block.difficulty) / 50000000000000).toFixed(2) + '%';
+            block.formattedDifficulty = ((100 * block.difficulty) / 100000000000000).toFixed(2) + '%';
             return block;
         },
         processHarvestedBlocks: function(blocks) {
