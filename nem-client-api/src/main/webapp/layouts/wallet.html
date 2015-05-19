@@ -523,11 +523,11 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFee}}} XEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedInnerFee}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFees}}} XEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedTotalMultisigFees}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigTotal}}</span>
@@ -716,11 +716,11 @@
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedFee}}} XEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedInnerFee}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedFees}}} XEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedTotalMultisigFees}}} XEM</span></span>
 		</div>
 		<hr>
 		<div class="txConfirm-line">
@@ -964,11 +964,11 @@
 			{{#if (.type === TransactionType.Multisig_Transfer)}}
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
-					<td class="table-cell table-cell--content">{{{.multisig.formattedFee}}} XEM</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedInnerFee}}} XEM</td>
 				</tr>
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigFees}}</td>
-					<td class="table-cell table-cell--content">{{{.multisig.formattedFees}}} XEM</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedTotalMultisigFees}}} XEM</td>
 				</tr>
 			{{else}}
 				<tr>
