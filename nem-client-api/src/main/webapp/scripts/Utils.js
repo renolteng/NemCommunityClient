@@ -690,12 +690,10 @@ define(['TransactionType'], function(TransactionType) {
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
                 tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
 
                 if (tx.type === TransactionType.Multisig_Transfer) {
                     tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
                     tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                    tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
 
                     transferTransaction = tx.inner;
                     tx.recipient = transferTransaction.recipient
@@ -707,11 +705,9 @@ define(['TransactionType'], function(TransactionType) {
                     .reduce(function(p,c){return p+c}, 0);
 
                 tx.multisig.formattedFees = Utils.format.nem.formatNemAmount(fees, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullFees = Utils.format.nem.formatNemAmount(fees);
 
                 var total = fees + tx.inner.fee + tx.inner.amount;
                 tx.multisig.formattedTotal = Utils.format.nem.formatNemAmount(total, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullTotal = Utils.format.nem.formatNemAmount(total);
 
                 tx.multisig.formattedDeadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
 
