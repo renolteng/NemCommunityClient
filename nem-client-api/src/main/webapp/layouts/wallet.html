@@ -535,7 +535,7 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.deadline}}</span>
-			<span class="txConfirm-value">{{txData.multisig.deadline}}</span>
+			<span class="txConfirm-value">{{txData.multisig.formattedDeadline}}</span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-messageLabel">{{texts.modals.signMultisig.txConfirm.message}}</span></span>
@@ -935,6 +935,12 @@
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
 				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
 			</tr>
+            {{#if (.type === TransactionType.Multisig_Transfer)}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.common.dueBy}}</td>
+                <td class="table-cell table-cell--content">{{multisig.validMinutes}} {{texts.common.minutes}} <span class="dimmed">({{.multisig.formattedDeadline}})</span></td>
+            </tr>
+            {{/if}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
 				<td class="table-cell table-cell--content">

@@ -103,6 +103,7 @@ define({
 			fee: 'Fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
+			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Due by (hours)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',

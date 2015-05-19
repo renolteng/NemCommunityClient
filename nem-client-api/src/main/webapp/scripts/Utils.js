@@ -713,7 +713,9 @@ define(['TransactionType'], function(TransactionType) {
                 tx.multisig.formattedTotal = Utils.format.nem.formatNemAmount(total, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.multisig.formattedFullTotal = Utils.format.nem.formatNemAmount(total);
 
-                tx.multisig.deadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
+                tx.multisig.formattedDeadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
+
+                tx.multisig.validMinutes = (tx.inner.deadline - tx.inner.timeStamp) / 1000 / 60;
 
                 currentFee = 0;
             }
