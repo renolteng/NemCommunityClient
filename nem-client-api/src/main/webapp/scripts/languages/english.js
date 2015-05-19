@@ -208,7 +208,6 @@ define({
 				send: 'Send',
 				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
 					message: 'Message',
@@ -237,7 +236,7 @@ define({
 				send: 'Send',
 				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!',
+				successMessage: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
