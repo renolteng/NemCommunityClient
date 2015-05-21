@@ -129,20 +129,6 @@ $zIndex-sidebar:	10;
 	width: calc(100% - #{$sidebar-width});
 }
 
-.walletHeader-searchButton {
-	padding: 0;
-	font-size: 21px;
-	vertical-align: text-bottom;
-
-	&:before {
-		display: block;
-	}
-}
-
-.walletHeader-search {
-	border-bottom: 1px solid #afafaf;//#5f636a;
-}
-
 // ================================================================================
 // SIDEBAR HEAD
 // ================================================================================
@@ -251,6 +237,11 @@ $zIndex-sidebar:	10;
 	position: absolute;
 	right: 0;
 	top: calc(100% + 20px);
+}
+
+.walletBox-closer {
+	display: inline-block;
+	font-size: 24px;
 }
 
 // ================================================================================

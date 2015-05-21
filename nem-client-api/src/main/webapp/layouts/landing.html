@@ -18,7 +18,7 @@
 							{{.name}}
 						{{/}}
 					{{/}}
-					<span class="icon-arrow-down-thin"></span>
+					<span class="icon-down-open"></span>
 				</a>
 				<ul class="scrollHeader-languageDropdown {{# active['landing-languageDropdown'] && landingPage.scrollHeader}}active{{/}}">
 					{{#languages}}
@@ -146,7 +146,7 @@
 										{{.name}}
 									{{/}}
 								{{/}}
-								<span class="icon-arrow-down-thin"></span>
+								<span class="icon-down-open"></span>
 							</a>
 							<ul class="staticHeader-languageDropdown {{# active['landing-languageDropdown'] && !landingPage.scrollHeader}}active{{/}}">
 								{{#languages}}
@@ -162,7 +162,7 @@
 	</div>
 	<div id="tipsCarousel">
 		<div class="tipsCarousel-container container">
-			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--prev icon-arrow-left buttons prev"></a>
+			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--prev icon-left-dir buttons prev"></a>
 			<div class="tipsCarousel-viewport viewport">
 				{{#texts.landing.carousel}}
 					<ul class="tipsCarousel-overview overview">
@@ -177,7 +177,7 @@
 					</ul>
 				{{/}}
 			</div>
-			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--next icon-arrow-right buttons next"></a>
+			<a href="javascript:;" class="tipsCarousel-button tipsCarousel-button--next icon-right-dir buttons next"></a>
 		</div>
 	</div>
 	<section id="landingAbout">
@@ -221,10 +221,21 @@
 		<div class="landing-footer-social">
 			<div class="vmiddle-container">
 				<div class="landing-socialLinks vmiddle">
-					<a href="https://plus.google.com/111473125648226690421/about" class="landing-socialLinks-icon landing-socialLinks-googlePlus"></a>
-					<a href="https://www.facebook.com/ourNEM" class="landing-socialLinks-icon landing-socialLinks-facebook"></a>
-					<a href="https://twitter.com/NEMofficial" class="landing-socialLinks-icon landing-socialLinks-twitter"></a>
-					<a href="http://www.reddit.com/r/nem/" class="landing-socialLinks-icon landing-socialLinks-reddit"></a>
+					<a href="https://plus.google.com/111473125648226690421/about" class="landing-socialLinks-icon">
+                        <i class="icon-gplus-squared"></i>
+                    </a>
+					<a href="https://www.facebook.com/ourNEM" class="landing-socialLinks-icon">
+                        <i class="icon-facebook-squared"></i>
+                    </a>
+					<a href="https://twitter.com/NEMofficial" class="landing-socialLinks-icon">
+                        <i class="icon-twitter-squared"></i>
+                    </a>
+					<a href="http://www.reddit.com/r/ournem/" class="landing-socialLinks-icon">
+                        <i class="icon-reddit-squared"></i>
+                    </a>
+                    <a href="https://github.com/NewEconomyMovement/" class="landing-socialLinks-icon">
+                        <i class="icon-github-squared"></i>
+                    </a>
 				</div>
 			</div>
 		</div>
