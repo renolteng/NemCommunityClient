@@ -10,7 +10,8 @@ import org.nem.specific.deploy.OctetStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
+import java.io.*;
+import java.util.function.*;
 import java.util.zip.*;
 
 /**
@@ -104,17 +105,35 @@ public class WalletController {
 		return ExceptionUtils.propagate(() -> {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-				final ZipEntry zipEntry = new ZipEntry(name.toString() + WalletFileExtension.DEFAULT_FILE_EXTENSION);
-				zipOutputStream.putNextEntry(zipEntry);
-				WalletNamePasswordPair pair = new WalletNamePasswordPair(name, new WalletPassword("???"));
-				this.walletServices.copyTo(pair, zipOutputStream);
-				zipOutputStream.closeEntry();
+				addToZip(
+						zipOutputStream,
+						name.toString(),
+						WalletFileExtension.DEFAULT_FILE_EXTENSION,
+						this.walletServices::copyTo,
+						n -> new WalletNamePasswordPair(n, "???"));
 
-				this.addressBookServices.addToZip(zipOutputStream, new AddressBookName(name.toString()));
+				addToZip(
+						zipOutputStream,
+						name.toString(),
+						AddressBookFileExtension.DEFAULT_FILE_EXTENSION,
+						this.addressBookServices::copyTo,
+						n -> new AddressBookNamePasswordPair(n, "???"));
 			}
 
 			return new OctetStream(byteArrayOutputStream.toByteArray());
 		});
+	}
+
+	private <TEntityNamePasswordPair> void addToZip(
+			final ZipOutputStream zipOutputStream,
+			final String name,
+			final String extension,
+			final BiConsumer<TEntityNamePasswordPair, OutputStream> copyTo,
+			final Function<String, TEntityNamePasswordPair> nameToPair) throws IOException {
+		final ZipEntry zipEntry = new ZipEntry(name + extension);
+		zipOutputStream.putNextEntry(zipEntry);
+		copyTo.accept(nameToPair.apply(name), zipOutputStream);
+		zipOutputStream.closeEntry();
 	}
 
 	/**

@@ -1,15 +1,15 @@
 package org.nem.ncc.services;
 
+import org.apache.commons.io.IOUtils;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.addressbook.storage.*;
 import org.nem.ncc.exceptions.NccException;
 
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.zip.*;
 
 // TODO 20150115 J-B: can you share some of the logic between this class and walletservices?
 // > maybe some of the controller logic too (not sure)?
@@ -110,23 +110,13 @@ public class DefaultAddressBookServices implements AddressBookServices {
 	}
 
 	@Override
-	public void addToZip(final ZipOutputStream zipOutputStream, final AddressBookName name) {
-		final AddressBookNamePasswordPair pair = new AddressBookNamePasswordPair(name, new AddressBookPassword("not relevant"));
+	public void copyTo(final AddressBookNamePasswordPair pair, final OutputStream outputStream) {
 		final AddressBookDescriptor descriptor = this.descriptorFactory.openExisting(pair, new AddressBookFileExtension());
 
 		ExceptionUtils.propagateVoid(() -> {
-			FileInputStream inputStream = new FileInputStream(descriptor.getAddressBookLocation());
-			final ZipEntry zipEntry = new ZipEntry(name.toString() + AddressBookFileExtension.DEFAULT_FILE_EXTENSION);
-			zipOutputStream.putNextEntry(zipEntry);
-			final byte[] byteBuffer = new byte[1024];
-			int bytesRead = -1;
-			while ((bytesRead = inputStream.read(byteBuffer)) != -1) {
-				zipOutputStream.write(byteBuffer, 0, bytesRead);
+			try (InputStream inputStream = descriptor.openRead()) {
+				IOUtils.copy(inputStream, outputStream);
 			}
-
-			inputStream.close();
-			zipOutputStream.flush();
-			zipOutputStream.closeEntry();
 		});
 	}
 }
