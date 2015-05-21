@@ -174,7 +174,7 @@
 						{{>content}}
 					</div>
 					{{^noCloseButton}}
-						<button type="button" class="modal-closeBtn icon-close-plain" on-click="closeModal()"></button>
+						<button type="button" class="modal-closeBtn icon-cancel-circled" on-click="closeModal()"></button>
 					{{/}}
 				</article>
 			</div>

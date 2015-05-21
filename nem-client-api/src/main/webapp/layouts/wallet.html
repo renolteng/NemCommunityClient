@@ -75,7 +75,7 @@
 					</div>
 					<img class="walletBox-avatar" src="images/default-avatar.png" alt="{{wallet.wallet}}" />
 					<div class="walletBox-menu">
-						<a href="javascript:;" class="walletBox-menu-button icon-arrow-down-medium" on-click="toggleOn('walletActions')"></a>
+						<a href="javascript:;" class="walletBox-menu-button icon-down-open" on-click="toggleOn('walletActions')"></a>
 						<ul class="walletBox-menu-dropdown dropdownMenu {{^active.walletActions}}hidden{{/}}" id="walletActions">
 							<li class="dropdownMenu-item" on-click="changeWalletName">
 								{{texts.wallet.actions.changeWalletName}}
@@ -139,11 +139,11 @@
 						{{/if}}
 					{{/}}
 					<button class="account-dropdownButton">
-						<span class="account-actionsButton--arrow icon-arrow-down-medium"></span>
+						<span class="account-actionsButton--arrow icon-down-open"></span>
 					</button>
 				</div>
 				<button class="account-actionsButton {{#active.accountActions}}active{{/}}" on-click="toggleOn('accountActions')">
-					<span class="account-actionsButton--gear icon-gear"></span>
+					<span class="account-actionsButton--gear icon-cog"></span>
 				</button>
 				<ul class="account-actionsDropdown dropdownMenu {{^active.accountActions}}hidden{{/}}">
 					<li class="dropdownMenu-item {{#walletPage.copyDisabled}}disabled{{/}}" id="addressClipboard" data-clipboard-target="activeAccountAddress">
@@ -219,38 +219,35 @@
 					<span class="sidebar-nav-item-title icon-home"><span class="fullSidebarOnly">{{texts.wallet.nav.0}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'messages'}}active{{/}}"><a href="javascript:;" on-click="redirect:'messages', {{params}}">
-					<span class="sidebar-nav-item-title icon-envelope"><span class="fullSidebarOnly">{{texts.wallet.nav.1}}</span></span>
+					<span class="sidebar-nav-item-title icon-mail"><span class="fullSidebarOnly">{{texts.wallet.nav.1}}</span></span>
 					<!--/*</span><span class="noti-box messages">4</span>*/-->
 				</a></li>
 				<li class="sidebar-nav-item {{#layout.1.name === 'address-book'}}active{{/}}"><a href="javascript:;" on-click="redirect:'address-book', {{params}}">
-					<span class="sidebar-nav-item-title icon-users"><span class="fullSidebarOnly">{{texts.wallet.nav.2}}</span></span>
+					<span class="sidebar-nav-item-title icon-book"><span class="fullSidebarOnly">{{texts.wallet.nav.2}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item {{#layout.1.name === 'transactions'}}active{{/}}"><a href="javascript:;" on-click="redirect:'transactions', {{params}}">
-					<span class="sidebar-nav-item-title icon-transaction"><span class="fullSidebarOnly">{{texts.wallet.nav.3}}</span></span>
+					<span class="sidebar-nav-item-title icon-exchange"><span class="fullSidebarOnly">{{texts.wallet.nav.3}}</span></span>
 					<!--/*</span><span class="noti-box transactions">2</span>*/-->
 				</a></li>
 				<li class="sidebar-nav-item {{#layout.1.name === 'harvested-blocks'}}active{{/}}"><a href="javascript:;" on-click="redirect:'harvested-blocks', {{params}}">
-					<span class="sidebar-nav-item-title icon-harvest"><span class="fullSidebarOnly">{{texts.wallet.nav.4}}</span></span>
+					<span class="sidebar-nav-item-title icon-food"><span class="fullSidebarOnly">{{texts.wallet.nav.4}}</span></span>
 					<!--/*</span><span class="noti-box transactions">2</span>*/-->
 				</a></li>
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'assetExchange'}}active{{/}}"><a href="javascript:;" on-click="redirect:'assetExchange', {{params}}">
-					<span class="sidebar-nav-item-title icon-portfolio"><span class="fullSidebarOnly">{{texts.wallet.nav.5}}</span></span>
+					<span class="sidebar-nav-item-title icon-briefcase"><span class="fullSidebarOnly">{{texts.wallet.nav.5}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'news'}}active{{/}}"><a href="javascript:;" on-click="redirect:'news', {{params}}">
-					<span class="sidebar-nav-item-title icon-sound"><span class="fullSidebarOnly">{{texts.wallet.nav.6}}</span></span>
+					<span class="sidebar-nav-item-title icon-megaphone"><span class="fullSidebarOnly">{{texts.wallet.nav.6}}</span></span>
 					<!--/*</span><span class="noti-box news">6</span>*/-->
-				</a></li>
-				<li class="sidebar-nav-item disabled {{#layout.1.name === 'applications'}}active{{/}}"><a href="javascript:;" on-click="redirect:'applications', {{params}}">
-					<span class="sidebar-nav-item-title icon-grid-alt"><span class="fullSidebarOnly">{{texts.wallet.nav.7}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
 					<span class="sidebar-nav-item-title icon-user"><span class="fullSidebarOnly">{{texts.wallet.nav.8}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item {{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="openModal('settings')">
-					<span class="sidebar-nav-item-title icon-gear"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
+					<span class="sidebar-nav-item-title icon-cog-alt"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item"><a href="javascript:;" on-click="shutdown">
-					<span class="sidebar-nav-item-title icon-close"><span class="fullSidebarOnly">{{texts.wallet.nav.10}}</span></span>
+					<span class="sidebar-nav-item-title icon-off"><span class="fullSidebarOnly">{{texts.wallet.nav.10}}</span></span>
 				</a></li>
 			</ul>
 		</nav>
@@ -293,7 +290,7 @@
 				<div class="{{#i !== 0}}form-field{{/}}">
 					<div class="form-row multisig-cosignatory">
 						<div class="form-input-end form-input-remove">
-							{{#i !== 0}}<button type="button" class="icon-cross" on-click="removeCosignatory(i)"></button>{{/}}
+							{{#i !== 0}}<button type="button" class="icon-cancel" on-click="removeCosignatory(i)"></button>{{/}}
 						</div>
 						<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
 					</div>
@@ -325,7 +322,7 @@
 					<p class="form-label">
 						{{texts.modals.multisig.fee}}
 						{{#if feeError}}
-							<span class="convertMultisig-errorIcon icon-exclamation" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+							<span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -336,7 +333,7 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
 						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
@@ -350,7 +347,7 @@
 			<p class="form-label">
 				{{texts.common.password}}
 				{{#if passwordError}}
-				<span class="convertMultisig-errorIcon icon-exclamation" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				<span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
 				{{/if}}
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
@@ -395,7 +392,7 @@
 			<p class="form-label">
 				{{texts.modals.sendNem.recipient}}
 				{{#if recipientError}}
-					<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.recipientValidation}}" on-mouseover="registerToolTip"></span>
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.recipientValidation}}" on-mouseover="registerToolTip"></span>
 				{{/if}}
 			</p>
 			<input type="text" class="form-input form-input--textbox {{#if recipientError}}form-input--error{{/if}} js-sendNem-recipient-textbox" on-keypress="sendFormKeypress" value="{{formattedRecipient}}" />
@@ -432,7 +429,7 @@
 					<p class="form-label">
 						{{texts.modals.sendNem.fee}}
 						{{#if feeError}}
-							<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
+							<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -443,7 +440,7 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-					<p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+					<p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
 						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
@@ -457,7 +454,7 @@
 				<p class="form-label">
 					{{texts.modals.sendNem.multisigFee}}
 					{{#if multisigFeeError}}
-					<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
 					{{/if}}
 				</p>
 				<div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
@@ -484,7 +481,7 @@
 			<p class="form-label">
 				{{texts.modals.sendNem.password}}
 				{{#if passwordError}}
-					<span class="sendNem-errorIcon icon-exclamation" title="{{texts.modals.sendNem.passwordValidation}}" on-mouseover="registerToolTip"></span>
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.passwordValidation}}" on-mouseover="registerToolTip"></span>
 				{{/if}}
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
@@ -598,7 +595,7 @@
 					<p class="form-label">
 						{{texts.modals.signMultisig.fee}}
 						{{#if feeError}}
-						<span class="signMultisig-errorIcon icon-exclamation" title="{{texts.modals.signMultisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+						<span class="signMultisig-errorIcon icon-attention-circled" title="{{texts.modals.signMultisig.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -609,7 +606,7 @@
 					</div>
 				</div>
 				<div class="form-half form-half--right">
-                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-question-circle" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
 					<div class="form-input">
 						<span class="form-input-end unit">{{texts.common.hours}}</span>
 						<div class="restOfWidth">
@@ -626,7 +623,7 @@
 			<p class="form-label">
 				{{texts.modals.signMultisig.password}}
 				{{#if passwordError}}
-				<span class="signMultisig-errorIcon icon-exclamation" title="{{texts.modals.signMultisig.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				<span class="signMultisig-errorIcon icon-attention-circled" title="{{texts.modals.signMultisig.passwordValidation}}" on-mouseover="registerToolTip"></span>
 				{{/if}}
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />

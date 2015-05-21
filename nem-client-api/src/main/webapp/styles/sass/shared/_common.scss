@@ -46,6 +46,9 @@
 .dimmed {
 	color: #d1d1d1;
 }
+.sort-inactive:before {
+	color: #d1d1d1;
+}
 
 .variation {
 	@include inline-block();
