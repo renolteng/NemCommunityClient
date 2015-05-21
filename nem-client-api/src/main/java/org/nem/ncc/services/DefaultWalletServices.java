@@ -1,16 +1,16 @@
 package org.nem.ncc.services;
 
+import org.apache.commons.io.IOUtils;
 import org.nem.core.model.Address;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.*;
 
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-import java.util.zip.*;
 
 /**
  * Implements default wallet services.
@@ -118,23 +118,13 @@ public class DefaultWalletServices implements WalletServices {
 	}
 
 	@Override
-	public void addToZip(final ZipOutputStream zipOutputStream, final WalletName name) {
-		final WalletNamePasswordPair pair = new WalletNamePasswordPair(name, new WalletPassword("not relevant"));
+	public void copyTo(final WalletNamePasswordPair pair, final OutputStream outputStream) {
 		final WalletDescriptor descriptor = this.descriptorFactory.openExisting(pair, new WalletFileExtension());
 
 		ExceptionUtils.propagateVoid(() -> {
-			FileInputStream inputStream = new FileInputStream(descriptor.getWalletLocation());
-			final ZipEntry zipEntry = new ZipEntry(name.toString() + WalletFileExtension.DEFAULT_FILE_EXTENSION);
-			zipOutputStream.putNextEntry(zipEntry);
-			final byte[] byteBuffer = new byte[1024];
-			int bytesRead = -1;
-			while ((bytesRead = inputStream.read(byteBuffer)) != -1) {
-				zipOutputStream.write(byteBuffer, 0, bytesRead);
+			try (InputStream inputStream = descriptor.openRead()) {
+				IOUtils.copy(inputStream, outputStream);
 			}
-
-			inputStream.close();
-			zipOutputStream.flush();
-			zipOutputStream.closeEntry();
 		});
 	}
 }

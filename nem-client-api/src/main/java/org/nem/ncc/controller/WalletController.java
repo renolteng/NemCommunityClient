@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
-import java.util.zip.ZipOutputStream;
+import java.util.zip.*;
 
 /**
  * Handles requests related to the REST resource "wallet".
@@ -100,13 +100,19 @@ public class WalletController {
 	@RequestMapping(value = "/wallet/export", method = RequestMethod.POST)
 	public OctetStream exportWallet(@RequestBody final WalletName name) {
 		// TODO 20150312 J-G: a test would be nice, but i'm not expecting it ;)
+		// TODO 20150312 J-B: i think this needs to accept a WalletNamePasswordPair
 		return ExceptionUtils.propagate(() -> {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
-			this.walletServices.addToZip(zipOutputStream, name);
-			this.addressBookServices.addToZip(zipOutputStream, new AddressBookName(name.toString()));
-			zipOutputStream.flush();
-			zipOutputStream.close();
+			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
+				final ZipEntry zipEntry = new ZipEntry(name.toString() + WalletFileExtension.DEFAULT_FILE_EXTENSION);
+				zipOutputStream.putNextEntry(zipEntry);
+				WalletNamePasswordPair pair = new WalletNamePasswordPair(name, new WalletPassword("???"));
+				this.walletServices.copyTo(pair, zipOutputStream);
+				zipOutputStream.closeEntry();
+
+				this.addressBookServices.addToZip(zipOutputStream, new AddressBookName(name.toString()));
+			}
+
 			return new OctetStream(byteArrayOutputStream.toByteArray());
 		});
 	}

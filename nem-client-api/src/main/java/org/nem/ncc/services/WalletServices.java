@@ -3,7 +3,7 @@ package org.nem.ncc.services;
 import org.nem.core.model.Address;
 import org.nem.ncc.wallet.*;
 
-import java.util.zip.ZipOutputStream;
+import java.io.OutputStream;
 
 /**
  * A set of services for interacting with wallets.
@@ -60,8 +60,8 @@ public interface WalletServices {
 	/**
 	 * Writes the wallet file contents to the given output stream.
 	 *
-	 * @param zipOutputStream The output stream to write into.
-	 * @param name The wallet name.
+	 * @param pair The wallet name and password pair.
+	 * @param outputStream The output stream to write into.
 	 */
-	void addToZip(final ZipOutputStream zipOutputStream, final WalletName name);
+	void copyTo(final WalletNamePasswordPair pair, final OutputStream outputStream);
 }
