@@ -2,6 +2,8 @@ package org.nem.ncc.services;
 
 import org.nem.ncc.addressbook.*;
 
+import java.util.zip.ZipOutputStream;
+
 /**
  * A set of services for interacting with address books.
  */
@@ -45,4 +47,12 @@ public interface AddressBookServices {
 	 * @param desiredPair The desired address book name and password pair.
 	 */
 	void move(final AddressBookNamePasswordPair originalPair, final AddressBookNamePasswordPair desiredPair);
+
+	/**
+	 * Writes the address book file contents to the given output stream.
+	 *
+	 * @param zipOutputStream The output stream to write into.
+	 * @param name The address book name.
+	 */
+	void addToZip(final ZipOutputStream zipOutputStream, final AddressBookName name);
 }

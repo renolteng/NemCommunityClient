@@ -1,6 +1,5 @@
 package org.nem.ncc.controller;
 
-import org.nem.core.serialization.*;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
@@ -11,8 +10,8 @@ import org.nem.specific.deploy.OctetStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.*;
-import java.util.zip.*;
+import java.io.ByteArrayOutputStream;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Handles requests related to the REST resource "wallet".
@@ -101,31 +100,15 @@ public class WalletController {
 	@RequestMapping(value = "/wallet/export", method = RequestMethod.POST)
 	public OctetStream exportWallet(@RequestBody final WalletName name) {
 		// TODO 20150312 J-G: a test would be nice, but i'm not expecting it ;)
-		final Wallet wallet = this.walletServices.get(name);
-		final AddressBook addressBook = this.addressBookServices.get(new AddressBookName(name.toString()));
-
 		return ExceptionUtils.propagate(() -> {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-				addToZip(zipOutputStream, name, ".wlt", wallet);
-				addToZip(zipOutputStream, name, ".adb", addressBook);
-			}
-
+			final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
+			this.walletServices.addToZip(zipOutputStream, name);
+			this.addressBookServices.addToZip(zipOutputStream, new AddressBookName(name.toString()));
+			zipOutputStream.flush();
+			zipOutputStream.close();
 			return new OctetStream(byteArrayOutputStream.toByteArray());
 		});
-	}
-
-	private static void addToZip(
-			final ZipOutputStream zipOutputStream,
-			final WalletName name,
-			final String extension,
-			final SerializableEntity entity) throws IOException {
-		final ZipEntry zipEntry = new ZipEntry(name.toString() + extension);
-
-		final byte[] entityBytes = BinarySerializer.serializeToBytes(entity);
-		zipOutputStream.putNextEntry(zipEntry);
-		zipOutputStream.write(entityBytes);
-		zipOutputStream.closeEntry();
 	}
 
 	/**
