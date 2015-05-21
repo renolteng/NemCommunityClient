@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: 'nccfontpack';
-  src: url('../../fons/nccfontpack.eot?78115785');
-  src: url('../../fonts/nccfontpack.eot?78115785#iefix') format('embedded-opentype'),
-       url('../../fonts/nccfontpack.woff?78115785') format('woff'),
-       url('../../fonts/nccfontpack.ttf?78115785') format('truetype'),
-       url('../../fonts/nccfontpack.svg?78115785#nccfontpack') format('svg');
+  src: url('../../fons/nccfontpack.eot?6031231');
+  src: url('../../fonts/nccfontpack.eot?6031231#iefix') format('embedded-opentype'),
+       url('../../fonts/nccfontpack.woff?6031231') format('woff'),
+       url('../../fonts/nccfontpack.ttf?6031231') format('truetype'),
+       url('../../fonts/nccfontpack.svg?6031231#nccfontpack') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -109,4 +109,6 @@
 .icon-cancel-circled:before { content: '\e832'; } /* '' */
 .icon-cancel:before { content: '\e833'; } /* '' */
 .icon-cancel-circled2:before { content: '\e834'; } /* '' */
-
+.icon-attention-circled:before { content: '\e835'; } /* '' */
+.icon-lock-open:before { content: '\e836'; } /* '' */
+.icon-lock-open-alt:before { content: '\e837'; } /* '' */
