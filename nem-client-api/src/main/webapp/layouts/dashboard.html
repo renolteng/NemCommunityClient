@@ -211,7 +211,11 @@
 									</td>
                                     <td class="txList-cell txList-col--fee">
 										{{#if .isMultisig}}
-											n/a
+                                            {{#if .confirmed}}
+                                                {{{multisig.formattedTotalFees}}}
+                                            {{else}}
+                                                n/a
+                                            {{/if}}
 										{{else}}
 											{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
 										{{/if}}
@@ -221,7 +225,11 @@
 											{{#if .requiresSignature}}
 												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 											{{else}}
-												see details
+                                                {{#if (.type === TransactionType.Multisig_Transfer)}}
+                                                    {{{multisig.formattedAmount}}}
+												{{else}}
+                                                    n/a
+                                                {{/if}}
 											{{/if}}
 										{{else}}
 											{{#.isSelf}}&plusmn;{{/}}

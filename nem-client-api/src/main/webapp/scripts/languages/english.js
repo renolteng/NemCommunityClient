@@ -103,6 +103,7 @@ define({
 			fee: 'Fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
+			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Due by (hours)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
@@ -137,7 +138,7 @@ define({
 			},
 			initialTy: {
 			    title: "WELCOME to NEM",
-			    content: "<c>Sbhaqrq ba gur fgebat cevapvcyrf bs rtnyvgnevna naq rdhnyvgl va qvfgevohgvba, gur Arj Rpbabzl Zbirzrag, ARZ, unf abj svanyyl pbzr gb sehvgvba nsgre pybfr gb 14 zbaguf bs vagrafvir qrirybczrag. Va nqqvgvba gb 5 pber qrirybcref naq 7 pber znexrgref, jr unir n ubfg bs pbzzhavgl zrzoref jub unir urycrq hf va bar jnl be nabgure, jvgubhg jubz, guvf jbhyq arire unir pbzr gbtrgure fb jryy nf orvat bar bs gur srj pelcgb vavgvngvirf jvgu fhpu n ovt grnz. Fcrpvny zragvba vf tvira gb gur sbyybjvat:</c><ue/><c><o>Grpuavpny naq Znexrgvat vachg:</o><oe/> Nzl, naqzr, nirentrwbr, OenvaBsZnffrf, qmnezhfpu, RSSI, Rynan82, rexxv, servtrvfg, unccl4209, vafgnpnfu, wnqrqwnpx, XrivaYv, XxbgArz, xbbernz, Xelfgb, Ybv Gena, ylxn, zvkznfgre, ZeCbegZna, arzovg, akxbvy, bjba, Cnagure03, curebzbar, erabgrat.yv, evtry, FnhyTenl, funjayrnel, fbyvk, fgbar, guvyba, haibvqcy, munaxnvjra, mbngn87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</c><ue/><c><o>APP Hfre Vagresnpr genafyngvba:</o><oe/>ncrk, obrfgva, Punbf514, QVZXNMQF, svypurs, servtrvfg, Thyvire, vnzvavgabj06, Wnarn4cqn, xhccnynugv, Ypuneyrf, znegvfznegvf, zrff-yrybhpu, Cnenan, evtry, Funja, Fcvqre, 楊 輝彦</c><c><oe/>Va nqqvgvba gb gur nobir 67 grnz zrzoref, jr nyfb unir bgure zrzoref jub  pbagevohgrq, jurgure va grpuavpny, znexrgvat be fgerff grfgvat gur flfgrz qhevat gur nycun naq orgn cunfr. Jr jbhyq yvxr gb nqqvgvbanyyl gunax nyy gubfr vaqvivqhnyf abg yvfgrq urer naq gur terngre ARZ pbzzhavgl orpnhfr jvgubhg gurz, jr jbhyq unir abg rire pbzr fb sne.</c><ue/><c>Naq zbfg vzcbegnagyl<oe/><o>Gunax LBH!</o><oe/><oe/>Arj Rpbabzl fgnegf jvgu LBH!</c>"
+			    content: "<p>Founded on the strong principles of egalitarian and equality in distribution, the New Economy Movement, NEM, has now finally come to fruition after close to 14 months of intensive development. In addition to 5 core developers and 7 core marketers, we have a host of community members who have helped us in one way or another, without whom, this would never have come together so well as being one of the few crypto initiatives with such a big team. Special mention is given to the following:</p><hr/><p><b>Technical and Marketing input:</b><br/> Amy, andme, averagejoe, BrainOfMasses, dzarmusch, EFFV, Elana82, erkki, freigeist, happy4209, instacash, jadedjack, KevinLi, KkotNem, kooream, Krysto, Loi Tran, lyka, mixmaster, MrPortMan, nembit, nxkoil, owon, Panther03, pheromone, renoteng.li, rigel, SaulGray, shawnleary, solix, stone, thilon, unvoidpl, zhankaiwen, zoata87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</p><hr/><p><b>NCC User Interface translation:</b><br/>apex, boestin, Chaos514, DIMKAZDS, filchef, freigeist, Guliver, iaminitnow06, Janea4pda, kuppalahti, Lcharles, martismartis, mess-lelouch, Parana, rigel, Shawn, Spider, 楊 輝彦</p><p><br/>In addition to the above 67 team members, we also have other members who  contributed, whether in technical, marketing or stress testing the system during the alpha and beta phase. We would like to additionally thank all those individuals not listed here and the greater NEM community because without them, we would have not ever come so far.</p><hr/><p>And most importantly<br/><b>Thank YOU!</b><br/><br/>New Economy starts with YOU!</p>"
 			},
 			initialBackup: {
 			    title: "Welcome to NEM",
@@ -207,7 +208,6 @@ define({
 				send: 'Send',
 				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
 					message: 'Message',
@@ -236,7 +236,7 @@ define({
 				send: 'Send',
 				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully!',
+				successMessage: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',

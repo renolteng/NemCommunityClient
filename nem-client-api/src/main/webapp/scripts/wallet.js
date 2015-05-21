@@ -1144,7 +1144,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 if (ncc.get('settings.firstStart') === 0) {
                     ncc.showMessage(
                         ncc.get('texts.modals.initialTy.title'),
-                        ncc.get('texts.modals.initialTy.content').replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}),
+                        ncc.get('texts.modals.initialTy.content'),
                         function() {
                             ncc.showMessage(
                                 ncc.get('texts.modals.initialBackup.title'),

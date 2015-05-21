@@ -11,14 +11,6 @@
 	</div>
 	<div class="walletHeader-body">
 		<div class="container">
-			<div class="walletHeader-search-wrapper vmiddle-container">
-				<div class="vmiddle">
-					<div class="walletHeader-search">
-						<button type="submit" class="walletHeader-searchButton icon-magnifying-glass"></button>
-						<input type="text" />
-					</div>
-				</div>
-			</div>
 			<div class="tempMessage vmiddle-container {{#tempMessage.visible}}tempMessage--shown{{/}}">
 				<div class="vmiddle">
 					<p class="tempMessage-body">{{tempMessage.message}}</p>
@@ -531,11 +523,11 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFee}}} XEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedInnerFee}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedFees}}} XEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedTotalMultisigFees}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigTotal}}</span>
@@ -543,7 +535,7 @@
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.deadline}}</span>
-			<span class="txConfirm-value">{{txData.multisig.deadline}}</span>
+			<span class="txConfirm-value">{{txData.multisig.formattedDeadline}}</span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label"><span class="txConfirm-messageLabel">{{texts.modals.signMultisig.txConfirm.message}}</span></span>
@@ -724,11 +716,11 @@
 		</div>
 		<div class="sigConfirm-line">
 			<span class="sigConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
-			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedFee}}} XEM</span></span>
+			<span class="sigConfirm-value"><span class="sigConfirm-fee">{{{txData.txData.multisig.formattedInnerFee}}} XEM</span></span>
 		</div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.multisigFees}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedFees}}} XEM</span></span>
+			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.txData.multisig.formattedTotalMultisigFees}}} XEM</span></span>
 		</div>
 		<hr>
 		<div class="txConfirm-line">
@@ -943,6 +935,12 @@
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
 				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
 			</tr>
+            {{#if (.type === TransactionType.Multisig_Transfer)}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.common.dueBy}}</td>
+                <td class="table-cell table-cell--content">{{multisig.validMinutes}} {{texts.common.minutes}} <span class="dimmed">({{.multisig.formattedDeadline}})</span></td>
+            </tr>
+            {{/if}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
 				<td class="table-cell table-cell--content">
@@ -966,11 +964,11 @@
 			{{#if (.type === TransactionType.Multisig_Transfer)}}
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
-					<td class="table-cell table-cell--content">{{{.multisig.formattedFee}}} XEM</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedInnerFee}}} XEM</td>
 				</tr>
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigFees}}</td>
-					<td class="table-cell table-cell--content">{{{.multisig.formattedFees}}} XEM</td>
+					<td class="table-cell table-cell--content">{{{.multisig.formattedTotalMultisigFees}}} XEM</td>
 				</tr>
 			{{else}}
 				<tr>
