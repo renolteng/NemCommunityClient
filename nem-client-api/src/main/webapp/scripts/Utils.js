@@ -399,8 +399,9 @@ define(['TransactionType'], function(TransactionType) {
                 nem: function() {
                     return new RegExp('^[0-9' + Utils.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')) + ']$');
                 },
-                address: /^[0-9a-zA-Z]$/,
-                number: /^[0-9]$/
+                address: /^[2-7a-zA-Z]$/,
+                number: /^[0-9]$/,
+                privateKey: /^[0-9a-fA-F]$/,
             },
             transform: {
                 address: function(char) {
@@ -629,7 +630,6 @@ define(['TransactionType'], function(TransactionType) {
                         // TODO this is hack for removal of first digit, this is not a proper solution,
                         // this might cause some weird problems
                         var dontReformat = false;
-                        console.log("delete input: ", deletedPos, oldText, newText);
                         if (type === 'nem' && deletedPos === 0 && oldText.length != 1) {
                             dontReformat = true;
                         }
