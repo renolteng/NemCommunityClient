@@ -71,13 +71,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 templates: {
                     suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
                 }
-            }, {
-                name: 'format-address',
-                source: Utils.typeahead.justFormatAddress,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
-                }
             });
             $('.js-cosignatory').last().focus();
 
@@ -250,13 +243,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 displayKey: 'formattedAddress',
                 templates: {
                     suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
-                }
-            }, {
-                name: 'format-address',
-                source: Utils.typeahead.justFormatAddress,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
                 }
             });
         }
