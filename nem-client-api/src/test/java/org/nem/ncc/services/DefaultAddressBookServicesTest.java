@@ -11,7 +11,6 @@ import org.nem.ncc.test.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.zip.ZipOutputStream;
 
 public class DefaultAddressBookServicesTest {
 	private static final AddressBookFileExtension FILE_EXTENSION = new AddressBookFileExtension();
@@ -359,7 +358,7 @@ public class DefaultAddressBookServicesTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final AddressBookNamePasswordPair pair = createPair("n", "p");
-		final ZipOutputStream outputStream = Mockito.mock(ZipOutputStream.class);
+		final OutputStream outputStream = Mockito.mock(OutputStream.class);
 		Mockito.when(context.descriptor.openRead()).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:
