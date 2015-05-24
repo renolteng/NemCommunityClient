@@ -117,7 +117,6 @@ public class TransactionMapperTest {
 				IsEqual.equalTo(StringEncoder.getBytes("nem rules!")));
 	}
 
-
 	@Test
 	public void canMapTransactionWithHexMessage() {
 		// Arrange:

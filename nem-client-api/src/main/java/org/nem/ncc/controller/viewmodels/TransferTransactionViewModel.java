@@ -4,7 +4,6 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
-import org.nem.core.utils.ArrayUtils;
 import org.nem.core.utils.HexEncoder;
 import org.nem.core.utils.StringEncoder;
 
@@ -24,7 +23,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	private final Amount amount;
 	private final String message;
 	private final boolean isEncrypted;
-	private final boolean hexMessage;
+	private final boolean hexMessage; // TODO 20150524 J-G: you don't appear to be using this, not sure if it's for this release or not
 	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
 
 	/**

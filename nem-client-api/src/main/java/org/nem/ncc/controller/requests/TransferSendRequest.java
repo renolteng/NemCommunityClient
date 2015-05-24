@@ -7,8 +7,7 @@ import org.nem.ncc.wallet.*;
 
 /**
  * A request containing all information necessary to create a transfer.
- * TODO 20150131 J-G: why does this class need to know about multisig?
- * TODO 20150524 G-J: cause UI uses same request for transfer and multisig transfer?
+ * The UX uses this request for both transfer and multisig transfer requests.
  */
 public class TransferSendRequest {
 	private final WalletName walletName;
