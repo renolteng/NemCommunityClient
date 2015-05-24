@@ -256,6 +256,19 @@ public abstract class StorableEntityFileDescriptorTest<
 
 	//endregion
 
+	@Test
+	public void getStorableEntityLocationReturnsAbsolutePathToStorableEntity() {
+		// Arrange:
+		final File file = new File(Paths.get(TEST_FILE_DIRECTORY.toString(), "blah").toString(), "foo.bar");
+		final TEntityFileDescriptor descriptor = this.createDescriptor(file);
+
+		// Act:
+		final String path = descriptor.getStorableEntityLocation();
+
+		// Assert:
+		Assert.assertThat(path, IsEqual.equalTo(file.getAbsolutePath()));
+	}
+
 	protected abstract TEntityFileDescriptor createDescriptor(final File file);
 
 	protected abstract Class<? extends StorableEntityStorageException> getExceptionClass();
