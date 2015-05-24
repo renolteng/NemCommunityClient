@@ -201,7 +201,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     if (isHex) {
                         var s = this.get('message');
                         console.log(s);
-                        if (s.match(/^[0-9a-fA-F]*$/)) {}
+                        if (s.match(/^[0-9a-fA-F]*$/) && s.length % 2 == 0) {}
                         else {
                             this.set('messageValid', false);
                         }
