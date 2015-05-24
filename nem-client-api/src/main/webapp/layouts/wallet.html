@@ -469,8 +469,14 @@
 		</div>
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.sendNem.message}}</p>
-			<textarea class="form-input form-input--textarea sendNem-message" value="{{rawMessage}}" maxlength="256"></textarea>
+            {{^messageValid}}
+            <span class="sendNem-errorIcon icon-attention-circled" title="Hex message can consist only of hexadecimal characters" on-mouseover="registerToolTip"></span>
+            {{/}}
+			<textarea class="form-input form-input--textarea sendNem-message {{^messageValid}}form-input--error{{/}}" value="{{rawMessage}}" maxlength="256"></textarea>
 			<div class="form-subfield">
+                <input class="form-checkbox" type="checkbox" checked="{{messageHexBased}}" id="chk-hex-message"/>
+                <label class="form-checkbox-label" for="chk-hex-message">Hex</label>
+
 				<input class="form-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
 				<label class="form-checkbox-label{{^encryptionPossible}} disabled{{/}}" for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
 			</div>

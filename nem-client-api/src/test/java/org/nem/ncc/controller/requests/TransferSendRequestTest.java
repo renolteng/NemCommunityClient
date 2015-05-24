@@ -27,6 +27,7 @@ public class TransferSendRequestTest {
 				Amount.fromMicroNem(7),
 				"m",
 				true,
+				true,
 				5,
 				new WalletPassword("p"),
 				Amount.fromMicroNem(2),
@@ -40,6 +41,7 @@ public class TransferSendRequestTest {
 		Assert.assertThat(request.getRecipientAddress(), IsEqual.equalTo(Address.fromEncoded("r")));
 		Assert.assertThat(request.getAmount(), IsEqual.equalTo(Amount.fromMicroNem(7L)));
 		Assert.assertThat(request.getMessage(), IsEqual.equalTo("m"));
+		Assert.assertThat(request.isHexMessage(), IsEqual.equalTo(true));
 		Assert.assertThat(request.shouldEncrypt(), IsEqual.equalTo(true));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(5));
 		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
@@ -49,7 +51,7 @@ public class TransferSendRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 3, 5, "p", 2L);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -57,6 +59,7 @@ public class TransferSendRequestTest {
 		Assert.assertThat(request.getRecipientAddress(), IsEqual.equalTo(Address.fromEncoded("r")));
 		Assert.assertThat(request.getAmount(), IsEqual.equalTo(Amount.fromMicroNem(7L)));
 		Assert.assertThat(request.getMessage(), IsEqual.equalTo("m"));
+		Assert.assertThat(request.isHexMessage(), IsEqual.equalTo(true));
 		Assert.assertThat(request.shouldEncrypt(), IsEqual.equalTo(true));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(5));
 		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
@@ -66,10 +69,11 @@ public class TransferSendRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithoutMessage() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 5, "p", 2L);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 0, 5, "p", 2L);
 
 		// Assert:
 		Assert.assertThat(request.getMessage(), IsNull.nullValue());
+		Assert.assertThat(request.isHexMessage(), IsEqual.equalTo(false));
 		Assert.assertThat(request.shouldEncrypt(), IsEqual.equalTo(false));
 	}
 
@@ -77,14 +81,15 @@ public class TransferSendRequestTest {
 	public void requestCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", null, "m", 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 3, null, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 3, 5, null, 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 3, 5, "p", null));
+				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 1, 3, 5, "p", 2L),
+				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 1, 3, 5, "p", 2L),
+				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 1, 3, 5, "p", 2L),
+				v -> this.createRequestFromJson("w", "a", "r", null, "m", 1, 3, 5, "p", 2L),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 3, 5, "p", 2L),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, null, 5, "p", 2L),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, null, "p", 2L),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, null, 2L),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", null));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
@@ -98,6 +103,7 @@ public class TransferSendRequestTest {
 			final String recipientId,
 			final Long amount,
 			final String message,
+			final Integer isHexMessage,
 			final Integer shouldEncrypt,
 			final Integer hoursDue,
 			final String password,
@@ -108,6 +114,7 @@ public class TransferSendRequestTest {
 		jsonObject.put("recipient", recipientId);
 		jsonObject.put("amount", amount);
 		jsonObject.put("message", message);
+		jsonObject.put("hexMessage", isHexMessage);
 		jsonObject.put("encrypt", shouldEncrypt);
 		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("password", password);
