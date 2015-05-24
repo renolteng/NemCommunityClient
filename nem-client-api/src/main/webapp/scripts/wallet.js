@@ -663,6 +663,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 },
                 addAccount: function() {
                     var wallet = ncc.get('wallet.wallet');
+
                     ncc.showInputForm(ncc.get('texts.modals.addAccount.title'), '',
                         [
                             {
@@ -723,6 +724,12 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                         },
                         ncc.get('texts.modals.addAccount.add')
                     );
+
+                    var $acctKey = $('#accountKey');
+                    $acctKey.on('keypress', function(e) { Utils.mask.keypress(e, 'privateKey', self); });
+                    $acctKey.on('paste', function(e) { Utils.mask.paste(e, 'privateKey', self); });
+                    $acctKey.on('keydown', function(e) { Utils.mask.keydown(e, 'privateKey', self); });
+
                 },
                 setCurrentAccountAsPrimary: function() {
                     var account = ncc.get('activeAccount.address');
