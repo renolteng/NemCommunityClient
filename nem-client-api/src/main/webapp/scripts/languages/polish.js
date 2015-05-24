@@ -33,7 +33,7 @@ define({
 			132: 'Rozszerzenie pliku książki adresowej jest niepoprawne.',
 			133: 'Książka adresowa nie mogła zostać usunięta.',
 			202: 'Zaszyfrowana wiadomość nie może zostać wysłana ponieważ odbiorca nie wykonał jeszcze żadnej transakcji.',
-			203: 'The account cannot be converted because not all cosignatories are known. They either need to be in the same wallet or have made at least one transaction.',
+			203: 'Konto nie może być przekształcone, ponieważ nie wszyscy sygnatariusze są znani. Muszą oni być w tym samym portfelu lub dokonać przynajmniej jednej transakcji.',
 			305: 'Serwer infrastruktury NEM (NIS) jest niedostępny.\n\nSpróbuj zrestartować oprogramowanie NEM.\n\nJeśli korzystasz ze zdalnego NIS, sprawdź czy poprawnie wpisałeś numer hosta lub użyj innego zdalnego NIS.',
 			306: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			400: 'Brakujący lub niewłaściwy parametr.',
@@ -42,12 +42,12 @@ define({
 			500: 'Wystąpił błąd, którego deweloperzy nie przewidzieli. Przepraszamy, ponowna próba może rozwiązać problem. W innym wypadku proszę zwrócić się o pomoc do deweloperów NEM NIS/NCC.',
 			600: 'NCC wymaga uruchomienia serwera NIS aby wysyłać i przyjmować transakcje z chmury NEM. Użyj menu NCC aby uruchomić lokalny węzeł.',
 			601: 'Węzeł NIS jest już uruchomiony. Nie można uruchomić go po raz drugi.',
-			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
+			602: 'Prawie gotowe. Serwer Infrastruktury NEM laduje bloki. Portfel będzie działać, gdy baza danych sie zaladuje.',
 			699: 'Maksymalna ilość zbieraczy dozwolona na serwerze została osiągnięta.',
 			700: 'Konto nie spełnia podstawowych wymagań do zbierania bloków. Głównie jest to związane z ilością XEM na koncie. Zbieranie wymaga minimum 10000 usankcjonowane XEM na koncie.',
 			701: 'Podany termin jest w przeszłości. Termin musi się zawierać w okresie jednego dnia.',
 			702: 'Podany termin jest zbyt daleko w przyszłości. Termin musi się zawierać w okresie jednego dnia.',
-			703: 'Your account does not have the right balance to make this transaction.',
+			703: 'Twoje konto nie ma wystarczajacych srodkow aby wykonac ta transakcje.',
 			704: 'Wiadomość jest zbyt długa. Spróbuj ją skrócić.',
 			705: 'Skrót (hash) transakcji istnieje już w bazie danych lub na liście niepotwierdzonych transakcji.',
 			706: 'Sygnatura transakcji nie mogła zostać zweryfikowana.',
@@ -55,11 +55,11 @@ define({
 			708: 'Sygnatura czasowa transakcji jest zbyt daleko w przyszłości.',
 			709: 'Konto nieznane. Konto musi wziąć udział w przynajmniej jednej transakcji (wychodzącej lub przychodzącej) aby było znane sieci.',
 			710: 'Transakcja została odrzucona ponieważ bufor jest przepełniony. Wyzsza opłata transakcyjna zwiększa szanse na zaakceptowanie transakcji.',
-			730: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
-			731: 'Delegated harvesting account has non zero balance and cannot be used.',
+			730: 'Transakcja transferu waznosci (delegowane zbieranie) jest w konflikcie z istniejaca transakcja.',
+			731: 'Konto delegowanego zbierania ma niezerowe saldo i nie moze byc uzyte.',
 			732: 'Przekazanie znaczenia odrzucone. Istnieje już oczekująca operacja przekazania znaczenia.',
-			733: 'Delegated harvesting is already active.',
-			734: 'Delegated harvesting is NOT active. Cannot deactivate.',
+			733: 'Delegowane zbieranie jest juz aktywne.',
+			734: 'Delegowane zbieranie NIE jest aktywne. Nie mozna deaktywowac.',
 			740: 'Transakcja nie jest dozwolona dla konta multisig.',
 			741: 'Podpis transkacji multisig odrzucony. Bieżące konto nie jest sygnatariuszem konta multisig.',
 			742: 'Podpis transkacji multisig odrzucony. Transakcja nie jest znana sieci NEM',
@@ -72,7 +72,7 @@ define({
 		common: {
 			success: 'Sukces',
 			unknown: 'Status nieznany',
-			unknownMessage: 'Ncc did not get response in a timely manner. Transaction might have been sent to the network.<br /><br />Please, check transactions before attempting to make it again.',
+			unknownMessage: 'Ncc nie dostał odpowiedzi w odpowiednim czasie. Transakcja mogla zostac wyslana do sieci.<br /><br />Prosze, sprawdz transakcje zanim sprobujesz wyslac ponownie.',
 			appStatus: {
 				nccUnknown: 'Status NCC jest nieznany',
 				nccUnavailable: 'NCC jest niedostępny',
@@ -105,8 +105,8 @@ define({
 			dueBy: 'Ważne przez',
 			hours: 'godzin(y)',
 			hoursDue: 'Wykonaj w ciągu (godziny)',
-			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			hoursDueExplanation: 'Jesli transakcja nie zostanie zalaczona w terminie, zostanie odrzucona.',
+			closeButton: 'Zamknij'
 		},
 		transactionTypes: [
 			'TRANSFER TRANSAKCJI',
@@ -136,12 +136,12 @@ define({
 				no: 'Nie'
 			},
 			initialTy: {
-				title: "WELCOME to NEM",
+				title: "WITAJ w NEM",
 				content: "<c>Sbhaqrq ba gur fgebat cevapvcyrf bs rtnyvgnevna naq rdhnyvgl va qvfgevohgvba, gur Arj Rpbabzl Zbirzrag, ARZ, unf abj svanyyl pbzr gb sehvgvba nsgre pybfr gb 14 zbaguf bs vagrafvir qrirybczrag. Va nqqvgvba gb 5 pber qrirybcref naq 7 pber znexrgref, jr unir n ubfg bs pbzzhavgl zrzoref jub unir urycrq hf va bar jnl be nabgure, jvgubhg jubz, guvf jbhyq arire unir pbzr gbtrgure fb jryy nf orvat bar bs gur srj pelcgb vavgvngvirf jvgu fhpu n ovt grnz. Fcrpvny zragvba vf tvira gb gur sbyybjvat:</c><ue/><c><o>Grpuavpny naq Znexrgvat vachg:</o><oe/> Nzl, naqzr, nirentrwbr, OenvaBsZnffrf, qmnezhfpu, RSSI, Rynan82, rexxv, servtrvfg, unccl4209, vafgnpnfu, wnqrqwnpx, XrivaYv, XxbgArz, xbbernz, Xelfgb, Ybv Gena, ylxn, zvkznfgre, ZeCbegZna, arzovg, akxbvy, bjba, Cnagure03, curebzbar, erabgrat.yv, evtry, FnhyTenl, funjayrnel, fbyvk, fgbar, guvyba, haibvqcy, munaxnvjra, mbngn87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</c><ue/><c><o>APP Hfre Vagresnpr genafyngvba:</o><oe/>ncrk, obrfgva, Punbf514, QVZXNMQF, svypurs, servtrvfg, Thyvire, vnzvavgabj06, Wnarn4cqn, xhccnynugv, Ypuneyrf, znegvfznegvf, zrff-yrybhpu, Cnenan, evtry, Funja, Fcvqre, 楊 輝彦</c><c><oe/>Va nqqvgvba gb gur nobir 67 grnz zrzoref, jr nyfb unir bgure zrzoref jub  pbagevohgrq, jurgure va grpuavpny, znexrgvat be fgerff grfgvat gur flfgrz qhevat gur nycun naq orgn cunfr. Jr jbhyq yvxr gb nqqvgvbanyyl gunax nyy gubfr vaqvivqhnyf abg yvfgrq urer naq gur terngre ARZ pbzzhavgl orpnhfr jvgubhg gurz, jr jbhyq unir abg rire pbzr fb sne.</c><ue/><c>Naq zbfg vzcbegnagyl<oe/><o>Gunax LBH!</o><oe/><oe/>Arj Rpbabzl fgnegf jvgu LBH!</c>"
 			},
 			initialBackup: {
-				title: "Welcome to NEM",
-				content: "You can create wallet backup from menu in upper right corner."
+				title: "Witaj w NEM",
+				content: "Możesz utworzyć kopię zapasową portfela w menu w prawym, górnym rogu."
 			},
 			settings: {
 				title: 'Ustawienia',
@@ -185,7 +185,7 @@ define({
 					total: 'Suma',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Konto Multisig jest na liscie sygnatariuszy. To spowoduje zablokowanie konta odcinając dostęp do funduszy. Prawdopodobnie <b>NIE CHCESZ</b> tego zrobic.'
 			},
 			signMultisig: {
 				title: 'Podpisz transakcję multisig',
@@ -325,9 +325,9 @@ define({
 				boot: 'Uruchom',
 				booting: 'Uruchamianie...',
 				warning: 'Boot node warning',
-				warningText: 'You\'re trying to boot a node <u>{{2}}</u><br/><br/>Booting remote node is currently impossible from within NCC.',
-				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
-				warningQuestion: 'Are you sure you want to boot node <u>{{3}}</u> using private key of account {{1}} ({{2}} XEM)?<br><br>This will reveal this account\'s <span class="sublabelWarning">private key</span> to node: <u>{{3}}</u>.'
+				warningText: 'Probujesz uruchomic wezel <u>{{2}}</u><br/><br/>Uruchomienie zdalnego węzła jest obecnie niemożliwe z wewnątrz NCC.',
+				warningStatement: 'Masz auto-bootowanie ustawione na true i uzywasz zdalnego wezla {{3}}.<br/><br/>Uruchomienie zdalnego węzła jest obecnie niemożliwe z wewnątrz NCC',
+				warningQuestion: 'Czy jestes pewny, ze chcesz uruchomic wezel <u>{{3}}</u> uzywajac klucza prywatnego konta {{1}} ({{2}} XEM)?<br><br>To ujawni <span class="sublabelWarning">klucz prywatny</span> tego konta wezlowi: <u>{{3}}</u>.'
 			},
 			closeWallet: {
 				title: 'Zamknij portfel',
@@ -342,15 +342,15 @@ define({
 				create: 'Utwórz'
 			},
 			showPrivateKey: {
-				title: 'Show Account\'s PRIVATE Key',
-				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Pokaz klucz PRYWATNY konta',
+				message: 'Spowoduje to wyświetlenie klucza prywatnego konta na ekranie, jako tekst. W przypadku jakiegokolwiek szkodliwego oprogramowania obecnego w systemie, może to być niebezpieczne. Czy na pewno chcesz to zrobić?',
 				publicKey: 'Klucz publiczny',
 				privateKey: 'Klucz prywatny',
-				show: 'Show the key'
+				show: 'Pokaz klucz'
 			},
 			showRemotePrivateKey: {
-				title: 'Show Remote Account\'s PRIVATE Key',
-				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Pokaz klucz PRYWATNY Zdalnego Konta',
+				message: 'Spowoduje to wyświetlenie klucza prywatnego zdalnego konta na ekranie, jako tekst. W przypadku jakiegokolwiek szkodliwego oprogramowania obecnego w systemie, może to być niebezpieczne. Czy na pewno chcesz to zrobić?',
 
 			},
 			addAccount: {
@@ -417,32 +417,32 @@ define({
 				message: 'Czy na pewno chcesz zamknąć Klient Społeczności NEM?'
 			},
 			activateRemote: {
-				title: 'Activate Delegated Harvesting',
+				title: 'Aktywuj Delegowane Zbieranie',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
 				activate: 'Aktywuj',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warning: 'Ostrzezenie',
+				warningText: 'Aktywacja potrwa 6 godzin (360 blokow). Aktywacja NIE rozpocznie zbierania automatycznie.'
 			},
 			deactivateRemote: {
-				title: 'Deactivate Delegated Harvesting',
+				title: 'Deaktywuj Delegowane Zbieranie',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
 				deactivate: 'Deaktywuj',
-				warning: 'Warning',
-				warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warning: 'Ostrzezenie',
+				warningText: 'Deaktywacja potrwa 6 godzin (360 blokow).'
 			},
 			startRemote: {
-				title: 'Start Delegated Harvesting',
+				title: 'Rozpocznij Delegowane Zbieranie',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
 				start: 'Start'
 			},
 			stopRemote: {
-				title: 'Stop Delegated Harvesting',
+				title: 'Zakoncz Delegowane Zbieranie',
 				wallet: 'Portfel',
 				account: 'Konto',
 				password: "Hasło portfela",
@@ -493,26 +493,26 @@ define({
 						description: '<em>Bezpieczeństwo</em> jest bardzo ważne aby uniknąć kradzieży monet XEM i aktywów.'
 					},
 					{
-						title: 'Remote NEM Infrastructure Server',
-						description: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.',
+						title: 'Zdalny Serwer Infrastruktury NEM',
+						description: 'Uzywajac zdalnego NIS nie musisz synchronizowac lancucha blokow przy starcie.',
 
 					},
 					{
-						title: 'Delegated harvesting',
-						description: 'With delegated harvesting you can harvest on remote NIS nodes!',
+						title: 'Delegowane zbieranie',
+						description: 'Uzywajac delegowanego zbierania mozesz korzystac ze zdalnego wezla NIS!',
 
 					},
 					{
 						title: 'Multisignature transactions',
-						description: 'Secure your XEM and assets via in-blockchain multi-signature transactions.',
+						description: 'Zabezpiecz swoje XEM i aktywa poprzez wbudowane w blockchain transakcje multi-podpisu.',
 
 					},
 					{
-						title: 'Native language support',
-						description: 'NEM user interface supports multiple languages. See "Settings".'
+						title: 'Obsluga jezyka ojczystego',
+						description: 'Interfejs użytkownika NEM obsługuje wiele języków. Zobacz "Ustawienia".'
 					},
 					{
-						title: 'Got any questions or feedback ?',
+						title: 'Masz pytania lub uwagi?',
 						description: '<a href="http://forum.ournem.com">forum.ournem.com</a> | #ournem on freenode.org | Telegram',
 
 					}
@@ -536,7 +536,7 @@ define({
 						title: 'Czym jest &#42;NIS?',
 						paragraphs: [
 							'Ten komponent jest odpowiedzialny za podtrzymywanie chmury <strong>NEM</strong> .',
-							'The more <strong>NIS</strong> there are in the network, the better the security.,',
+							'Im wiecej <strong>NIS</strong> w sieci, tym wieksze bezpieczenstwo.,',
 							'<strong>NIS</strong> jest punktem dostępu do chmury <strong>NEM</strong> .'
 						],
 						legend: '<strong>&#42;NIS</strong> to skrót od <strong>NEM Infrastructure Server</strong>'
@@ -566,9 +566,9 @@ define({
 				createAccount: 'Stwórz Nowe Konto',
 				createRealAccountData: 'Utwórz prawdziwe konto',
 				verifyRealAccountData: 'Weryfikacja prawdziwego konta',
-				showPrivateKey: 'Show Account\'s PRIVATE key',
-				showRemotePrivateKey: 'Show Remote Account\'s PRIVATE key',
-				viewDetails: 'View Account Details',
+				showPrivateKey: 'Pokaż klucz PRYWATNY konta',
+				showRemotePrivateKey: 'Pokaz klucz PRYWATNY zdalnego konta',
+				viewDetails: 'Zobacz szczegoly konta',
 				addAccount: 'Dodaj Istniejące Konto',
 				changeAccountLabel: 'Zmień Etykietę Konta',
 				setPrimary: 'Ustaw jako Konto Podstawowe',
@@ -577,7 +577,7 @@ define({
 				closeWallet: 'Zamknij Portfel',
 				closeProgram: 'Zamknij Program',
 				copyClipboard: 'Kopiuj adres do schowka',
-				copyDisabled: 'Copying an address requires flash',
+				copyDisabled: 'Kopiowanie adresu wymaga flasha',
 				convertMultisig: 'Konwertuj inne konto na multisig'
 			},
 			nav: [
@@ -607,14 +607,14 @@ define({
 				stop: 'Zakończ zbieranie bloków',
 				description: 'Znaczenie konta dla chmury NEM',
 				remoteHarvest: {
-					activate: 'Activate delegated harvesting',
-					activating: 'Activating delegated harvesting...',
-					active: 'Delegated harvesting is active',
-					deactivate: 'Deactivate delegated harvesting',
-					deactivating: 'Deactivating delegated harvesting...',
-					startRemoteHarvesting: 'Start delegated harvesting',
+					activate: 'Aktywuj delegowane zbieranie',
+					activating: 'Aktywowanie delegowanego zbierania...',
+					active: 'Delegowane zbieranie jest aktywne',
+					deactivate: 'Deaktywuj delegowane zbieranie',
+					deactivating: 'Deaktywowanie delegowanego zbierania...',
+					startRemoteHarvesting: 'Rozpocznij delegowane zbieranie',
 					remotelyHarvesting: 'Zdalne zbieranie bloków',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Zatrzymaj delegowane zbieranie'
 				}
 			},
 			transactions: {
@@ -622,12 +622,12 @@ define({
 				sendNem: 'Wyślij XEM',
 				signMultisig: 'PODPISZ',
 				balance: 'Stan Konta',
-				loading: 'Loading balance',
+				loading: 'Ladowanie salda',
 				accountCosignatories: 'Konto multisig',
-				accountCosignatoriesView: 'view cosignatories',
+				accountCosignatoriesView: 'zobacz sygnatariuszy',
 				vestedBalance: 'Saldo usankcjonowane',
 				syncStatus: '(blok {{1}}{{#2}} : ok. {{3}} dni opóźnienia{{/2}})',
-				notSynced: 'might be inaccurate, NIS not synchronized yet',
+				notSynced: 'może być niedokładny, NIS nie jest jeszcze zsynchronizowany',
 				unknown: 'nieznany',
 				columns: [
 					'',
@@ -693,12 +693,12 @@ define({
 		harvestedBlocks: {
 			title: 'Zebrane bloki',
 			feeEarned: 'Opłaty otrzymane z ostatnich 25 zebranych bloków',
-			unknown: 'Unknown',
+			unknown: 'Nieznany',
 			table: {
 				columns: [
 					'Wysokość',
 					'Czas',
-					'Block difficulty',
+					'Trudnosc bloku',
 					'Opłata'
 				],
 				noBlocks: 'Brak zebranych bloków',
@@ -710,8 +710,8 @@ define({
 				harvesting: 'Zbieranie',
 				stop: 'Zakończ zbieranie bloków',
 				remoteHarvest: {
-					startRemoteHarvesting: 'Start delegated harvesting',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					startRemoteHarvesting: 'Rozpocznij delegowane zbieranie',
+					stopRemoteHarvesting: 'Zatrzymaj delegowane zbieranie'
 				}
 			}
 		},
