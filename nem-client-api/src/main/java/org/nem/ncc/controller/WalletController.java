@@ -102,6 +102,8 @@ public class WalletController {
 	public OctetStream exportWallet(@RequestBody final WalletName name) {
 		// TODO 20150312 J-G: a test would be nice, but i'm not expecting it ;)
 		// TODO 20150312 J-B: i think this needs to accept a WalletNamePasswordPair
+		// TODO 20150525 G-J: actually it was supposed NOT to take password
+		// and simply put encrypted files in a zipfile
 		return ExceptionUtils.propagate(() -> {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
