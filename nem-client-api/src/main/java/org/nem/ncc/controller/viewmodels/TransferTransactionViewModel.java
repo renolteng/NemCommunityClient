@@ -23,7 +23,10 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	private final Amount amount;
 	private final String message;
 	private final boolean isEncrypted;
-	private final boolean hexMessage; // TODO 20150524 J-G: you don't appear to be using this, not sure if it's for this release or not
+	private final boolean hexMessage;
+	// TODO 20150524 J-G: you don't appear to be using this, not sure if it's for this release or not
+	// TODO 20150525 G-J: it is used in isHexMessage, not sure why idea shows it as unused,
+	// anyway, you're right that it's currently not used, but I've added it in case we'd like to use it in UI
 	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
 
 	/**
