@@ -359,7 +359,7 @@ public class DefaultAddressBookServicesTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final AddressBookNamePasswordPair pair = createPair("n", "p");
-		final ZipOutputStream outputStream = Mockito.mock(ZipOutputStream.class);
+		final OutputStream outputStream = Mockito.mock(OutputStream.class);
 		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:

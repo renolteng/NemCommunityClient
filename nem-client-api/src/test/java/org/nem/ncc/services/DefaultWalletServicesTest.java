@@ -11,7 +11,6 @@ import org.nem.ncc.wallet.storage.*;
 
 import java.io.*;
 import java.util.Collections;
-import java.util.zip.ZipOutputStream;
 
 public class DefaultWalletServicesTest {
 	private static final WalletFileExtension FILE_EXTENSION = new WalletFileExtension();
@@ -391,7 +390,7 @@ public class DefaultWalletServicesTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final WalletNamePasswordPair pair = createPair("n", "p");
-		final ZipOutputStream outputStream = Mockito.mock(ZipOutputStream.class);
+		final OutputStream outputStream = Mockito.mock(OutputStream.class);
 		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:
