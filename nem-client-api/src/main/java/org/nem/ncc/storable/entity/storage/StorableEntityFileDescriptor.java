@@ -87,6 +87,15 @@ public abstract class StorableEntityFileDescriptor<
 	}
 
 	@Override
+	public InputStream openRead(final StorableEntityReadMode mode) {
+		if (!StorableEntityReadMode.Raw.equals(mode)) {
+			throw new IllegalArgumentException("file descriptor cannot decode the stream");
+		}
+
+		return openRead();
+	}
+
+	@Override
 	public OutputStream openWrite() {
 		LOGGER.info(String.format("Opening storable entity for writing located at <%s>", this.getStorableEntityLocation()));
 		return ExceptionUtils.propagate(

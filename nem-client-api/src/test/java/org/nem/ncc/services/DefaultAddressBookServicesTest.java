@@ -6,11 +6,12 @@ import org.mockito.Mockito;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.addressbook.storage.*;
 import org.nem.ncc.exceptions.NccException;
-import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.test.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.zip.ZipOutputStream;
 
 public class DefaultAddressBookServicesTest {
 	private static final AddressBookFileExtension FILE_EXTENSION = new AddressBookFileExtension();
@@ -359,14 +360,14 @@ public class DefaultAddressBookServicesTest {
 		final TestContext context = new TestContext();
 		final AddressBookNamePasswordPair pair = createPair("n", "p");
 		final OutputStream outputStream = Mockito.mock(OutputStream.class);
-		Mockito.when(context.descriptor.openRead()).thenReturn(new ByteArrayInputStream("test".getBytes()));
+		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:
 		context.addressBookServices.copyTo(pair, outputStream);
 
 		// Assert:
 		Mockito.verify(context.descriptorFactory, Mockito.only()).openExisting(pair, new AddressBookFileExtension());
-		Mockito.verify(context.descriptor, Mockito.only()).openRead();
+		Mockito.verify(context.descriptor, Mockito.only()).openRead(StorableEntityReadMode.Raw);
 	}
 
 	@Test
@@ -375,7 +376,7 @@ public class DefaultAddressBookServicesTest {
 		final TestContext context = new TestContext();
 		final AddressBookNamePasswordPair pair = createPair("n", "p");
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		Mockito.when(context.descriptor.openRead()).thenReturn(new ByteArrayInputStream("test".getBytes()));
+		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:
 		context.addressBookServices.copyTo(pair, outputStream);
