@@ -4,6 +4,7 @@ import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
 import org.nem.ncc.exceptions.NccException;
+import org.nem.ncc.storable.entity.storage.StorableEntityReadMode;
 import org.nem.ncc.test.*;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.*;
@@ -391,14 +392,14 @@ public class DefaultWalletServicesTest {
 		final TestContext context = new TestContext();
 		final WalletNamePasswordPair pair = createPair("n", "p");
 		final ZipOutputStream outputStream = Mockito.mock(ZipOutputStream.class);
-		Mockito.when(context.descriptor.openRead()).thenReturn(new ByteArrayInputStream("test".getBytes()));
+		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:
 		context.walletServices.copyTo(pair, outputStream);
 
 		// Assert:
 		Mockito.verify(context.descriptorFactory, Mockito.only()).openExisting(pair, new WalletFileExtension());
-		Mockito.verify(context.descriptor, Mockito.only()).openRead();
+		Mockito.verify(context.descriptor, Mockito.only()).openRead(StorableEntityReadMode.Raw);
 	}
 
 	@Test
@@ -407,7 +408,7 @@ public class DefaultWalletServicesTest {
 		final TestContext context = new TestContext();
 		final WalletNamePasswordPair pair = createPair("n", "p");
 		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		Mockito.when(context.descriptor.openRead()).thenReturn(new ByteArrayInputStream("test".getBytes()));
+		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
 
 		// Act:
 		context.walletServices.copyTo(pair, outputStream);

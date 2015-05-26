@@ -5,6 +5,7 @@ import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.addressbook.storage.*;
 import org.nem.ncc.exceptions.NccException;
+import org.nem.ncc.storable.entity.storage.StorableEntityReadMode;
 
 import java.io.*;
 import java.util.*;
@@ -114,7 +115,7 @@ public class DefaultAddressBookServices implements AddressBookServices {
 		final AddressBookDescriptor descriptor = this.descriptorFactory.openExisting(pair, new AddressBookFileExtension());
 
 		ExceptionUtils.propagateVoid(() -> {
-			try (InputStream inputStream = descriptor.openRead()) {
+			try (InputStream inputStream = descriptor.openRead(StorableEntityReadMode.Raw)) {
 				IOUtils.copy(inputStream, outputStream);
 			}
 		});

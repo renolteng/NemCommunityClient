@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.nem.core.model.Address;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.exceptions.NccException;
+import org.nem.ncc.storable.entity.storage.StorableEntityReadMode;
 import org.nem.ncc.wallet.*;
 import org.nem.ncc.wallet.storage.*;
 
@@ -122,7 +123,7 @@ public class DefaultWalletServices implements WalletServices {
 		final WalletDescriptor descriptor = this.descriptorFactory.openExisting(pair, new WalletFileExtension());
 
 		ExceptionUtils.propagateVoid(() -> {
-			try (InputStream inputStream = descriptor.openRead()) {
+			try (InputStream inputStream = descriptor.openRead(StorableEntityReadMode.Raw)) {
 				IOUtils.copy(inputStream, outputStream);
 			}
 		});

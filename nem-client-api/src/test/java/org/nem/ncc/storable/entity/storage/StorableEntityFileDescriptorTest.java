@@ -154,6 +154,27 @@ public abstract class StorableEntityFileDescriptorTest<
 				this.getExceptionValue(StorableEntityStorageException.Code.STORABLE_ENTITY_COULD_NOT_BE_READ.value()));
 	}
 
+	@Test
+	public void openReadThrowsIfModeIsNotRaw() {
+		// Arrange:
+		final TEntityFileDescriptor descriptor = this.createDescriptor(TEST_FILE);
+
+		// Act + Assert:
+		ExceptionAssert.assertThrows(v -> descriptor.openRead(StorableEntityReadMode.Decode), IllegalArgumentException.class);
+	}
+
+	// TODO: BR -> J: i think you once mentioned it is not a good habit to test delegation within one class. What was the reason?
+	@Test
+	public void openReadWithReadModeDelegatesToOpenRead() throws IOException {
+		// Arrange:
+		final TEntityFileDescriptor descriptor = Mockito.spy(this.createDescriptor(TEST_FILE));
+
+		// Act + Assert:
+		try (final InputStream is = descriptor.openRead(StorableEntityReadMode.Raw)) {
+			Mockito.verify(descriptor, Mockito.times(1)).openRead();
+		}
+	}
+
 	//endregion
 
 	//region openWrite

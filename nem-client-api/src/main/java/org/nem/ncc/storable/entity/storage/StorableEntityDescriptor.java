@@ -44,6 +44,14 @@ public interface StorableEntityDescriptor<
 	InputStream openRead();
 
 	/**
+	 * Opens a read stream that can be used to read the contents of the referenced storable entity.
+	 *
+	 * @param mode The read mode.
+	 * @return The input stream.
+	 */
+	InputStream openRead(final StorableEntityReadMode mode);
+
+	/**
 	 * Opens a write stream that can be used to modify the contents of the referenced storable entity.
 	 *
 	 * @return The output stream.
