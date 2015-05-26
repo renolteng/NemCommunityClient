@@ -14,6 +14,10 @@ $mainContent-topPadding: $statusIndicator-height + $header-height;
 
 $small-screen: $sidebar-width + $mainContent-leftPadding + $mainContent-width;
 
+$nemOrange: #dfa82f;
+$nemGray: #8e8e8e;
+$nemGreen: #41ce7b;
+
 // ================================================================================
 // Z-INDEX STACKING CONTEXT TREE
 // ================================================================================
@@ -129,27 +133,6 @@ $zIndex-sidebar:	10;
 	width: calc(100% - #{$sidebar-width});
 }
 
-.walletHeader-search-wrapper {
-	float: left;
-	font-size: 14px;
-	color: #afafaf; //#252a34;
-	pointer-events: none;
-}
-
-.walletHeader-searchButton {
-	padding: 0;
-	font-size: 21px;
-	vertical-align: text-bottom;
-
-	&:before {
-		display: block;
-	}
-}
-
-.walletHeader-search {
-	border-bottom: 1px solid #afafaf;//#5f636a;
-}
-
 // ================================================================================
 // SIDEBAR HEAD
 // ================================================================================
@@ -260,6 +243,11 @@ $zIndex-sidebar:	10;
 	top: calc(100% + 20px);
 }
 
+.walletBox-closer {
+	display: inline-block;
+	font-size: 24px;
+}
+
 // ================================================================================
 // ACCOUNT
 // ================================================================================
@@ -279,7 +267,7 @@ $account-actions-width: 30px;
 
 	.account-info:hover, 
 	&.account--selecting .account-info {
-		background-color: #272e38;
+		background-color: #252a34;
 	}
 }
 
@@ -287,7 +275,7 @@ $account-actions-width: 30px;
 	background-color: #1b1f27;
 	
 	&:hover {
-		background-color: #161a20;
+		background-color: #2e3541;
 	}
 }
 
@@ -297,21 +285,6 @@ $account-actions-width: 30px;
 	padding: 10px 5px 6px 21px;
 	@include transition(background-color .3s);
 	position:relative;
-	
-	& > .account-dropdownButton{
-		position: absolute;
-	    top: 0;
-	    right: 0;
-	    width: #{$account-actions-width};
-	    height: 80px;
-	    line-height: 80px;
-	    text-align: center;
-	    font-size: 14px;
-	    
-		& > .account-actionsButton--arrow {
-			display: initial;
-		}
-	}
 }
 
 .account-info-line {
@@ -357,7 +330,8 @@ $account-actions-width: 30px;
 
 	&:hover, 
 	&.active {
-		background-color: #272e38;
+	    color: $nemOrange;
+		background-color: #252a34;
 	}
 
 	&, 
@@ -367,11 +341,28 @@ $account-actions-width: 30px;
 			display: initial;
 		}
 	}
-
-	.account--selecting &:not(:hover) {
-		background-color: #272e38;
-	}
 }
+
+.account-dropdownButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: #{$account-actions-width};
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 14px;
+
+    &:hover,
+    &.active {
+        color: $nemOrange;
+    }
+
+    .account--selecting &:not(:hover) {
+        color: $nemOrange;
+    }
+}
+
 
 .account-primary {
 	display: inline-block;
@@ -448,12 +439,16 @@ $account-actions-width: 30px;
 		.account-info-line--darken {
 			margin-right: 0px;
 		}
-
-		.account-dropdownButton{
-			display:none;
-		}
 		
 		.account-actionsButton {
+			position: static;
+			width: 100%;
+			height: auto;
+			line-height: normal;
+			background-color: transparent;
+		}
+
+        .account-dropdownButton {
 			position: static;
 			width: 100%;
 			height: auto;

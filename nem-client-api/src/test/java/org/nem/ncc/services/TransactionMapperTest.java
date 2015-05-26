@@ -8,6 +8,8 @@ import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.*;
+import org.nem.core.utils.ArrayUtils;
+import org.nem.core.utils.HexEncoder;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
@@ -103,7 +105,7 @@ public class TransactionMapperTest {
 		final TestContext context = new TestContext();
 
 		// Act:
-		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", false);
+		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", false, false);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -116,12 +118,32 @@ public class TransactionMapperTest {
 	}
 
 	@Test
+	public void canMapTransactionWithHexMessage() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final String message = "00112233445500";
+		final byte[] expected = ArrayUtils.concat(new byte[]{(byte)0xfe}, HexEncoder.getBytes(message));
+
+		// Act:
+		final TransferSendRequest request = createSendRequestWithMessage(context, message, false, true);
+		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
+
+		// Assert:
+		Assert.assertThat(
+				model.getMessage().getDecodedPayload(),
+				IsEqual.equalTo(expected));
+		Assert.assertThat(
+				model.getMessage().getEncodedPayload(),
+				IsEqual.equalTo(expected));
+	}
+
+	@Test
 	public void canMapTransactionWithSecureMessage() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
 		// Act:
-		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", true);
+		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", true, false);
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
@@ -139,7 +161,7 @@ public class TransactionMapperTest {
 		final TestContext context = new TestContext(new Account(Address.fromEncoded("foo")));
 
 		// Act:
-		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", true);
+		final TransferSendRequest request = createSendRequestWithMessage(context, "nem rules!", true, false);
 		ExceptionAssert.assertThrowsNccException(
 				v -> context.mapper.toModel(request),
 				NccException.Code.NO_PUBLIC_KEY);
@@ -179,7 +201,7 @@ public class TransactionMapperTest {
 			final boolean isEncryptionSupported) {
 		// Arrange:
 		final TestContext context = new TestContext(recipient);
-		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), null, false);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(recipientAddress, Amount.fromNem(10), null, false, false);
 
 		// Act:
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
@@ -262,6 +284,7 @@ public class TransactionMapperTest {
 				recipientAddress,
 				Amount.fromNem(10),
 				"hi nem",
+				false,
 				isSecure);
 
 		// Act:
@@ -284,7 +307,7 @@ public class TransactionMapperTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Address address = context.recipient.getAddress();
-		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(address, null, null, false);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(address, null, null, false, false);
 
 		// Act:
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
@@ -299,7 +322,7 @@ public class TransactionMapperTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final Address address = context.recipient.getAddress();
-		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(address, null, "hi nem", false);
+		final PartialTransferInformationRequest request = new PartialTransferInformationRequest(address, null, "hi nem", false, false);
 
 		// Act:
 		final PartialTransferInformationViewModel viewModel = context.mapper.toViewModel(request);
@@ -358,7 +381,7 @@ public class TransactionMapperTest {
 
 	//endregion
 
-	private static TransferSendRequest createSendRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt) {
+	private static TransferSendRequest createSendRequestWithMessage(final TestContext context, final String message, final boolean shouldEncrypt, final boolean hexMessage) {
 		return new TransferSendRequest(
 				new WalletName("w"),
 				null,
@@ -366,6 +389,7 @@ public class TransactionMapperTest {
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
 				message,
+				hexMessage,
 				shouldEncrypt,
 				5,
 				new WalletPassword("p"),
@@ -382,6 +406,7 @@ public class TransactionMapperTest {
 				context.recipient.getAddress(), // Address.fromEncoded("r"),
 				Amount.fromNem(7),
 				null,
+				false,
 				false,
 				5,
 				null == password ? null : new WalletPassword(password),

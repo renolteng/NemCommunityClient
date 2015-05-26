@@ -44,7 +44,7 @@ define({
 			601: 'NIS節點已啟動。無法啟動第二个NIS節點。',
 			602: 'Cannot perform any operations until db is fully loaded.',
 			699: 'Maximum number of harvesters allowed on server has been reached.',
-			700: '所提供的賬戶無法满足收割的（條件）基本標準。必須至少有10.000 XEM才能開始收割。',
+			700: '所提供的賬戶無法满足收割的（條件）基本標準。必須至少有10.000 vested XEM才能開始收割。',
 			701: '所提供的截止日期已过期。截止日期必須在1天之内提供。',
 			702: '所提供的截止日期超過有效期限。截止時間必須在一天之內。',
 			703: 'Your account does not have the right balance to make this transaction.',

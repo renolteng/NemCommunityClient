@@ -6,6 +6,8 @@ import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.SimpleAccountLookup;
 import org.nem.core.time.*;
+import org.nem.core.utils.ArrayUtils;
+import org.nem.core.utils.HexEncoder;
 import org.nem.core.utils.StringEncoder;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
@@ -80,7 +82,7 @@ public class TransactionMapper {
 	public PartialTransferInformationViewModel toViewModel(final PartialTransferInformationRequest request) {
 		// use a fake accounts so that encryption and signing are always possible
 		final Account dummyAccount = new Account(new KeyPair());
-		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), dummyAccount, dummyAccount);
+		final Message message = this.createMessage(request.getMessage(), request.isHexMessage(), request.shouldEncrypt(), dummyAccount, dummyAccount);
 
 		// if the amount isn't provided, assume a zero amount
 		final Amount amount = null == request.getAmount() ? Amount.ZERO : request.getAmount();
@@ -161,7 +163,7 @@ public class TransactionMapper {
 		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Transfer.getValue();
 		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final Account recipient = this.accountLookup.findByAddress(request.getRecipientAddress());
-		final Message message = this.createMessage(request.getMessage(), request.shouldEncrypt(), signer, recipient);
+		final Message message = this.createMessage(request.getMessage(), request.isHexMessage(), request.shouldEncrypt(), signer, recipient);
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
@@ -256,6 +258,7 @@ public class TransactionMapper {
 
 	private Message createMessage(
 			final String message,
+			final boolean hexMessage,
 			final boolean shouldEncrypt,
 			final Account sender,
 			final Account recipient) {
@@ -263,7 +266,9 @@ public class TransactionMapper {
 			return null;
 		}
 
-		final byte[] messageBytes = StringEncoder.getBytes(message);
+		final byte[] messageBytes = hexMessage ?
+				ArrayUtils.concat(new byte[]{(byte)0xFE}, HexEncoder.getBytes(message)) :
+				StringEncoder.getBytes(message);
 		if (!shouldEncrypt) {
 			return new PlainMessage(messageBytes);
 		}

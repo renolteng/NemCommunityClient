@@ -65,7 +65,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 return !this.get('passwordValid') && this.get('passwordChanged');
             },
             formValid: function() {
-                return this.get('recipientValid') && this.get('feeValid') && this.get('passwordValid');
+                return this.get('recipientValid') && this.get('feeValid') && this.get('passwordValid') && this.get('messageValid');
             }
         },
         validateTx: function() {
@@ -77,6 +77,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this.set('formattedAmount', '0');
             this.set('formattedRecipient', '');
             this.set('rawMessage', '');
+            this.set('messageValid', true);
+            this.set('messageHexBased', false);
             this.set('encrypted', false);
             this.set('fee', 0);
             this.set('multisigFee', 0);
@@ -139,6 +141,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
                     message: this.get('message') || undefined,
+                    hexMessage: this.get('messageHexBased') ? 1 : 0,
                     fee: this.get('fee'),
                     multisigFee: 0,
                     encrypt: this.get('encrypt'),
@@ -154,6 +157,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     amount: this.get('amount'),
                     recipient: this.get('recipient'),
                     message: this.get('message') || undefined,
+                    hexMessage: this.get('messageHexBased') ? 1 : 0,
                     fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
                     encrypt: this.get('encrypt'),
@@ -187,6 +191,20 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 minimumFee: function(minimumFee) {
                     if (this.get('useMinimumFee')) {
                         this.set('fee', minimumFee);
+                    }
+                }
+            });
+            this.observe({
+                'messageHexBased message': function() {
+                    var isHex = this.get('messageHexBased');
+                    this.set('messageValid', true);
+                    if (isHex) {
+                        var s = this.get('message');
+                        console.log(s);
+                        if (s.match(/^[0-9a-fA-F]*$/) && s.length % 2 == 0) {}
+                        else {
+                            this.set('messageValid', false);
+                        }
                     }
                 }
             });

@@ -91,7 +91,7 @@ public class NccAppConfig {
 	public NccScheduler nccScheduler() {
 		final NccScheduler scheduler = new NccScheduler(this.timeProvider());
 		scheduler.addTimeSynchronizationTask(new NccTimeSynchronizer(this.timeSynchronizationServices(), this.timeProvider(), this.primaryNisConnector()));
-		scheduler.addAccountCacheUpdateTask(this.accountCache());
+		scheduler.addAccountCacheUpdateTask(this.accountCache(), this.accountsFileRepository());
 		return scheduler;
 	}
 

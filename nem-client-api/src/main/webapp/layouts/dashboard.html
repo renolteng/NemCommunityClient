@@ -15,13 +15,13 @@
 				<article>
 					<h1 class="tile-title">{{texts.dashboard.importance.title}}</h1>
 					{{#activeAccount.remoteStatus === 'INACTIVE'}}
-						<button type="button" class="importanceTile-activateButton" on-click="activateRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
+						<button type="button" class="importanceTile-activateButton icon-link" on-click="activateRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVATING'}}
-						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
+						<button type="button" disabled class="importanceTile-activateButton icon-clock">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVE'}}
-						<button class="importanceTile-activateButton hoverTarget" on-click="deactivateRemoteHarvesting">
+						<button class="importanceTile-activateButton hoverTarget icon-unlink" on-click="deactivateRemoteHarvesting">
 							<span class="hideOnHover">
 								{{texts.dashboard.importance.remoteHarvest.active}}
 							</span>
@@ -37,25 +37,25 @@
 					<div class="importanceTile-harvest">
 						{{#if activeAccount.remoteStatus === 'ACTIVE'}}
 							{{#if walletPage.remoteUnlocked}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause-circled" on-click="stopRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 									{{texts.dashboard.importance.remoteHarvest.stopRemoteHarvesting}}
 								</button>
 							{{else}}
-								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
+								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play-circled" on-click="startRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">{{texts.dashboard.importance.remoteHarvest.startRemoteHarvesting}}</button>
 							{{/if}}
 						{{else}}
 							{{#if status.lostConnection || nisUnavailable || activeAccount.status === 'UNKNOWN'}}
-								<button type="button" class="importanceTile-harvestButton icon-question-circle" disabled>
+								<button type="button" class="importanceTile-harvestButton icon-help-circled" disabled>
 									<span>{{texts.dashboard.importance.unknown}}</span>
 								</button>
 							{{else}}
 								{{#if activeAccount.status === 'LOCKED'}}
-									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play" on-click="startHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--notHarvesting icon-play-circled" on-click="startHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 										<span>{{texts.dashboard.importance.start}}</span>
 									</button>
 								{{/if}}
 								{{#if activeAccount.status === 'UNLOCKED'}}
-									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause" on-click="stopHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
+									<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause-circled" on-click="stopHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">
 										{{texts.dashboard.importance.stop}}
 									</button>
 								{{/if}}
@@ -77,7 +77,7 @@
 			<li class="tile tile--transactions" data-row="2" data-col="1" data-sizex="3" data-sizey="2">
 				<article>
 					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
-					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane" disabled="{{sendNemDisabled}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
+					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane-empty" disabled="{{sendNemDisabled}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
 					<div class="transactionsTile-overview">
 						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}
                             {{#activeAccount.isMultisig}}
@@ -116,20 +116,20 @@
 									{{#if .confirmed}}
 										{{#if (.mainType === TransactionType.Importance_Transfer || .mainType === TransactionType.Aggregate_Modification)}}
 											{{#if (.mainType === TransactionType.Importance_Transfer)}}
-												<td class="txList-cell txList-col--type txList-col--type--incoming icon-out" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+												<td class="txList-cell txList-col--type txList-col--type--incoming icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 											{{else}}
-												<td class="txList-cell txList-col--type encryptedIcon icon-attachment" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+												<td class="txList-cell txList-col--type encryptedIcon icon-magic" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 											{{/if}}
 										{{else}}
                                             {{#if (.isSelf || .isOutgoing || .isIncoming)}}
                                                 {{#.isSelf}}
-                                                    <td class="txList-cell txList-col--type icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type icon-ccw" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                                 {{/}}
                                                 {{#.isOutgoing}}
-                                                    <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type txList-col--type--outgoing icon-minus-circled" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                                 {{/}}
                                                 {{#.isIncoming}}
-                                                    <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type txList-col--type--incoming icon-plus-circled" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                                 {{/}}
                                             {{else}}
                                                 {{! NOTE: mind it's a .type not .mainType }}
@@ -211,7 +211,11 @@
 									</td>
                                     <td class="txList-cell txList-col--fee">
 										{{#if .isMultisig}}
-											n/a
+                                            {{#if .confirmed}}
+                                                {{{multisig.formattedTotalFees}}}
+                                            {{else}}
+                                                n/a
+                                            {{/if}}
 										{{else}}
 											{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
 										{{/if}}
@@ -219,9 +223,13 @@
                                     <td class="txList-cell txList-col--amount">
 										{{#if .isMultisig}}
 											{{#if .requiresSignature}}
-												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
+												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 											{{else}}
-												see details
+                                                {{#if (.type === TransactionType.Multisig_Transfer)}}
+                                                    {{{multisig.formattedAmount}}}
+												{{else}}
+                                                    n/a
+                                                {{/if}}
 											{{/if}}
 										{{else}}
 											{{#.isSelf}}&plusmn;{{/}}
@@ -235,7 +243,7 @@
 						{{/each}}
 					</table>
 					{{#if activeAccount.transactions.length > 4 }}
-						<p class="txList-seeAll"><a href="javascript:;" on-click="redirect:'transactions'">{{texts.dashboard.transactions.seeAll}} <span class="txList-seeAll-arrow icon-arrow-right"></span></a></p>
+						<p class="txList-seeAll"><a href="javascript:;" on-click="redirect:'transactions'">{{texts.dashboard.transactions.seeAll}} <span class="txList-seeAll-arrow icon-right-dir"></span></a></p>
 					{{/if}}
 					{{^activeAccount.transactions}}
 						<p class="txList-noRecords">{{texts.dashboard.transactions.noTransactions}}</p>
@@ -263,7 +271,7 @@
 			</li>
 			<li class="tile tile-messages" data-row="5" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="icon-envelope tile-title" title="{{texts.dashboard.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>
+					<h1 class="icon-mail tile-title" title="{{texts.dashboard.messages.titleTooltip}}" on-mouseover="registerToolTip"></h1>
 					<!--/*<div class="message-preview">
 						<div class="viewport">
 							<ul class="overview">
@@ -372,7 +380,7 @@
 			</li>*/-->
 			<li class="tile tile-news" data-row="4" data-col="3" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="icon-sound tile-title" title="{{texts.dashboard.news.titleTooltip}}" on-mouseover="registerToolTip"></h1>
+					<h1 class="icon-megaphone tile-title" title="{{texts.dashboard.news.titleTooltip}}" on-mouseover="registerToolTip"></h1>
 					<div class="news-preview">
 						<div class="viewport">
                             <!--

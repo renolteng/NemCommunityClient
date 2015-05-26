@@ -2,6 +2,8 @@ package org.nem.ncc.services;
 
 import org.nem.ncc.addressbook.*;
 
+import java.io.OutputStream;
+
 /**
  * A set of services for interacting with address books.
  */
@@ -45,4 +47,12 @@ public interface AddressBookServices {
 	 * @param desiredPair The desired address book name and password pair.
 	 */
 	void move(final AddressBookNamePasswordPair originalPair, final AddressBookNamePasswordPair desiredPair);
+
+	/**
+	 * Writes the address book file contents to the given output stream.
+	 *
+	 * @param pair The address book name and password pair.
+	 * @param outputStream The output stream to write into.
+	 */
+	void copyTo(final AddressBookNamePasswordPair pair, final OutputStream outputStream);
 }

@@ -3,6 +3,8 @@ package org.nem.ncc.services;
 import org.nem.core.model.Address;
 import org.nem.ncc.wallet.*;
 
+import java.io.OutputStream;
+
 /**
  * A set of services for interacting with wallets.
  */
@@ -54,4 +56,12 @@ public interface WalletServices {
 	 * @param desiredPair The desired wallet name and password pair.
 	 */
 	void move(final WalletNamePasswordPair originalPair, final WalletNamePasswordPair desiredPair);
+
+	/**
+	 * Writes the wallet file contents to the given output stream.
+	 *
+	 * @param pair The wallet name and password pair.
+	 * @param outputStream The output stream to write into.
+	 */
+	void copyTo(final WalletNamePasswordPair pair, final OutputStream outputStream);
 }

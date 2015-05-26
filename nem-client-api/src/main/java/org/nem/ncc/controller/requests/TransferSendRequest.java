@@ -7,7 +7,7 @@ import org.nem.ncc.wallet.*;
 
 /**
  * A request containing all information necessary to create a transfer.
- * TODO 20150131 J-G: why does this class need to know about multisig?
+ * The UX uses this request for both transfer and multisig transfer requests.
  */
 public class TransferSendRequest {
 	private final WalletName walletName;
@@ -16,6 +16,7 @@ public class TransferSendRequest {
 	private final Address recipientAddress;
 	private final Amount amount;
 	private final String message;
+	private final boolean hexMessage;
 	private final boolean shouldEncrypt;
 	private final int hoursDue;
 	private final WalletPassword password;
@@ -33,6 +34,7 @@ public class TransferSendRequest {
 			final Address recipientAddress,
 			final Amount amount,
 			final String message,
+			final boolean hexMessage,
 			final boolean shouldEncrypt,
 			final int hoursDue,
 			final WalletPassword password,
@@ -45,6 +47,7 @@ public class TransferSendRequest {
 		this.recipientAddress = recipientAddress;
 		this.amount = amount;
 		this.message = message;
+		this.hexMessage = hexMessage;
 		this.shouldEncrypt = shouldEncrypt;
 		this.hoursDue = hoursDue;
 		this.password = password;
@@ -66,6 +69,7 @@ public class TransferSendRequest {
 		this.recipientAddress = Address.readFrom(deserializer, "recipient");
 		this.amount = Amount.readFrom(deserializer, "amount");
 		this.message = deserializer.readOptionalString("message");
+		this.hexMessage = 0 != deserializer.readInt("hexMessage");
 		this.shouldEncrypt = 0 != deserializer.readInt("encrypt");
 		this.hoursDue = deserializer.readInt("hoursDue");
 		this.password = WalletPassword.readFrom(deserializer, "password");
@@ -134,6 +138,15 @@ public class TransferSendRequest {
 	 */
 	public Amount getAmount() {
 		return this.amount;
+	}
+
+	/**
+	 * Gets a value indicating whether message is in hex or not.
+	 *
+	 * @return true if the payload is in hex.
+	 */
+	public boolean isHexMessage() {
+		return this.hexMessage;
 	}
 
 	/**

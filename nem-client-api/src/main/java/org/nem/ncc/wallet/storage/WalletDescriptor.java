@@ -14,4 +14,11 @@ public interface WalletDescriptor extends StorableEntityDescriptor<StorableWalle
 	 * @return The wallet name.
 	 */
 	WalletName getWalletName();
+
+	/**
+	 * Gets the wallet's location.
+	 *
+	 * @return The wallet's location.
+	 */
+	String getWalletLocation();
 }

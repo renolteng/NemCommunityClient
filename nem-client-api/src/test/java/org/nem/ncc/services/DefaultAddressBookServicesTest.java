@@ -6,10 +6,12 @@ import org.mockito.Mockito;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.addressbook.storage.*;
 import org.nem.ncc.exceptions.NccException;
-import org.nem.ncc.storable.entity.storage.StorableEntityStorageException;
+import org.nem.ncc.storable.entity.storage.*;
 import org.nem.ncc.test.*;
 
+import java.io.*;
 import java.util.*;
+import java.util.zip.ZipOutputStream;
 
 public class DefaultAddressBookServicesTest {
 	private static final AddressBookFileExtension FILE_EXTENSION = new AddressBookFileExtension();
@@ -346,6 +348,42 @@ public class DefaultAddressBookServicesTest {
 		// Assert:
 		final AddressBook updatedAddressBook = context.addressBookServices.get(new AddressBookName("n2"));
 		Assert.assertThat(updatedAddressBook.getAccountLabels(), IsEquivalent.equivalentTo(context.originalAddressBook.getAccountLabels()));
+	}
+
+	//endregion
+
+	//region copyTo
+
+	@Test
+	public void copyToDelegatesToDescriptorFactoryAndUsesReturnedDescriptor() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final AddressBookNamePasswordPair pair = createPair("n", "p");
+		final OutputStream outputStream = Mockito.mock(OutputStream.class);
+		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
+
+		// Act:
+		context.addressBookServices.copyTo(pair, outputStream);
+
+		// Assert:
+		Mockito.verify(context.descriptorFactory, Mockito.only()).openExisting(pair, new AddressBookFileExtension());
+		Mockito.verify(context.descriptor, Mockito.only()).openRead(StorableEntityReadMode.Raw);
+	}
+
+	@Test
+	public void copyToCopiesBytesToGivenOutputStream() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final AddressBookNamePasswordPair pair = createPair("n", "p");
+		final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		Mockito.when(context.descriptor.openRead(StorableEntityReadMode.Raw)).thenReturn(new ByteArrayInputStream("test".getBytes()));
+
+		// Act:
+		context.addressBookServices.copyTo(pair, outputStream);
+
+		// Assert:
+		Assert.assertThat(outputStream.size(), IsEqual.equalTo(4));
+		Assert.assertThat(outputStream.toString(), IsEqual.equalTo("test"));
 	}
 
 	//endregion

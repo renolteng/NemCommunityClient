@@ -3,7 +3,7 @@
 		<section class="listingPage">
 			<div class="listingPage-head">
 				<h1 class="listingPage-title">{{texts.transactions.title}}</h1>
-				<button type="button" class="listingPage-mainButton transactionsPage-sendNemButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSendNem()">{{texts.transactions.sendNem}}</button>
+				<button type="button" class="listingPage-mainButton transactionsPage-sendNemButton icon-paper-plane-empty" disabled="{{sendNemDisabled}}"  on-click="openSendNem()">{{texts.transactions.sendNem}}</button>
 				<div class="listingPage-searchArea">
 					<div class="listingPage-search">
 						<input class="listingPage-searchTextbox" type="text" />
@@ -57,20 +57,20 @@
 									{{#if .confirmed}}
 										{{#if (.mainType === TransactionType.Importance_Transfer || .mainType === TransactionType.Aggregate_Modification)}}
                                             {{#if (.mainType === TransactionType.Importance_Transfer)}}
-                                                <td class="txList-cell txList-col--type transactionsPage-leftMost txList-col--type--incoming icon-out" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                <td class="txList-cell txList-col--type transactionsPage-leftMost txList-col--type--incoming icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                             {{else}}
-                                                <td class="txList-cell txList-col--type transactionsPage-leftMost encryptedIcon icon-attachment" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                <td class="txList-cell txList-col--type transactionsPage-leftMost encryptedIcon icon-magic" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                             {{/if}}
 										{{else}}
                                             {{#if (.isSelf || .isOutgoing || .isIncoming)}}
                                                 {{#.isSelf}}
-                                                    <td class="txList-cell txList-col--type transactionsPage-leftMost icon-self" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type transactionsPage-leftMost icon-ccw" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                                 {{/}}
                                                 {{#.isOutgoing}}
-                                                    <td class="txList-cell txList-col--type txList-col--type--outgoing transactionsPage-leftMost icon-minus" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type txList-col--type--outgoing transactionsPage-leftMost icon-minus-circled" title="{{texts.transactionDirections.outgoing}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                                 {{/}}
                                                 {{#.isIncoming}}
-                                                    <td class="txList-cell txList-col--type txList-col--type--incoming transactionsPage-leftMost icon-plus" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type txList-col--type--incoming transactionsPage-leftMost icon-plus-circled" title="{{texts.transactionDirections.incoming}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                                 {{/}}
                                             {{else}}
                                                 {{! NOTE: mind it's a .type not .mainType }}
@@ -160,7 +160,7 @@
                                     <td class="txList-cell txList-col--amount transactionsPage-rightMost">
 										{{#if .isMultisig}}
 											{{#if .requiresSignature}}
-												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
+												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 											{{else}}
 												see details
 											{{/if}}

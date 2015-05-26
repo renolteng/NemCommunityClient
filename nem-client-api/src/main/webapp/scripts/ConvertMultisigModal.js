@@ -71,13 +71,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 templates: {
                     suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
                 }
-            }, {
-                name: 'format-address',
-                source: Utils.typeahead.justFormatAddress,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
-                }
             });
             $('.js-cosignatory').last().focus();
 
@@ -132,21 +125,34 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         doCosignatoryCheck: function() {
             var multisigAccount = this.get('multisigAccount');
             var cosignatories = this.get('cosignatories');
-            if (! multisigAccount) {
-                return;
-            }
+            //if (! multisigAccount) {
+            //    return;
+            //}
             this.set('cosignatoriesValid', true);
             for (var i=0; i<cosignatories.length; ++i) {
-                if (cosignatories[i].address === multisigAccount) {
+                if (cosignatories[i].address.length !== 40) {
                     this.set('cosignatoriesValid', false);
                     this.set('cosignatories['+i+'].error', true);
                 } else {
                     this.set('cosignatories['+i+'].error', false);
                 }
             }
-            if (this.get('warningShown') === false && this.get('cosignatoriesValid') === false) {
-                ncc.showMessage(ncc.get('texts.modals.multisig.title'), ncc.get('texts.modals.multisig.warning'));
-                this.set('warningShown', true);
+            //if (! multisigAccount) {
+            //    return;
+            //}
+            if (this.get('cosignatoriesValid') === true) {
+                for (var i=0; i<cosignatories.length; ++i) {
+                    if ((cosignatories[i].address === multisigAccount)) {
+                        this.set('cosignatoriesValid', false);
+                        this.set('cosignatories['+i+'].error', true);
+                    } else {
+                        this.set('cosignatories['+i+'].error', false);
+                    }
+                }
+                if (this.get('warningShown') === false && this.get('cosignatoriesValid') === false) {
+                    ncc.showMessage(ncc.get('texts.modals.multisig.title'), ncc.get('texts.modals.multisig.warning'));
+                    this.set('warningShown', true);
+                }
             }
         },
         onrender: function() {
@@ -250,13 +256,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 displayKey: 'formattedAddress',
                 templates: {
                     suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
-                }
-            }, {
-                name: 'format-address',
-                source: Utils.typeahead.justFormatAddress,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-justFormat">{{text}} &quot;{{formattedAddress}}&quot;</span>')
                 }
             });
         }

@@ -399,8 +399,9 @@ define(['TransactionType'], function(TransactionType) {
                 nem: function() {
                     return new RegExp('^[0-9' + Utils.escapeRegExp(ncc.get('texts.preferences.decimalSeparator')) + ']$');
                 },
-                address: /^[0-9a-zA-Z]$/,
-                number: /^[0-9]$/
+                address: /^[2-7a-zA-Z]$/,
+                number: /^[0-9]$/,
+                privateKey: /^[0-9a-fA-F]$/,
             },
             transform: {
                 address: function(char) {
@@ -629,7 +630,6 @@ define(['TransactionType'], function(TransactionType) {
                         // TODO this is hack for removal of first digit, this is not a proper solution,
                         // this might cause some weird problems
                         var dontReformat = false;
-                        console.log("delete input: ", deletedPos, oldText, newText);
                         if (type === 'nem' && deletedPos === 0 && oldText.length != 1) {
                             dontReformat = true;
                         }
@@ -689,31 +689,30 @@ define(['TransactionType'], function(TransactionType) {
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
-                tx.multisig.formattedFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullFee = Utils.format.nem.formatNemAmount(tx.inner.fee);
+                tx.multisig.formattedInnerFee = Utils.format.nem.formatNemAmount(tx.inner.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
 
                 if (tx.type === TransactionType.Multisig_Transfer) {
                     tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
                     tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                    tx.multisig.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.inner.amount);
 
                     transferTransaction = tx.inner;
                     tx.recipient = transferTransaction.recipient
                     tx.message = tx.inner.message;
                 }
 
-                var fees = tx.fee + tx.signatures
+                var mutltisigFees = tx.fee + tx.signatures
                     .map(function(d){return d.fee})
                     .reduce(function(p,c){return p+c}, 0);
+                var totalFees = mutltisigFees + tx.inner.fee;
 
-                tx.multisig.formattedFees = Utils.format.nem.formatNemAmount(fees, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullFees = Utils.format.nem.formatNemAmount(fees);
+                tx.multisig.formattedTotalMultisigFees = Utils.format.nem.formatNemAmount(mutltisigFees, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.multisig.formattedTotalFees = Utils.format.nem.formatNemAmount(totalFees, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
 
-                var total = fees + tx.inner.fee + tx.inner.amount;
-                tx.multisig.formattedTotal = Utils.format.nem.formatNemAmount(total, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-                tx.multisig.formattedFullTotal = Utils.format.nem.formatNemAmount(total);
+                var totalCost = totalFees + tx.inner.amount;
+                tx.multisig.formattedTotal = Utils.format.nem.formatNemAmount(totalCost, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
 
-                tx.multisig.deadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
+                tx.multisig.formattedDeadline = Utils.format.date.format(tx.deadline, 'M dd, yyyy hh:mm:ss');
+                tx.multisig.validMinutes = (tx.inner.deadline - tx.inner.timeStamp) / 1000 / 60;
 
                 currentFee = 0;
             }
@@ -763,7 +762,7 @@ define(['TransactionType'], function(TransactionType) {
 
             block.formattedTime = Utils.format.date.format(block.timeStamp, 'M dd, yyyy hh:mm:ss');
             block.formattedFee = Utils.format.nem.formatNemAmount(block.fee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            block.formattedDifficulty = ((100 * block.difficulty) / 50000000000000).toFixed(2) + '%';
+            block.formattedDifficulty = ((100 * block.difficulty) / 100000000000000).toFixed(2) + '%';
             return block;
         },
         processHarvestedBlocks: function(blocks) {
