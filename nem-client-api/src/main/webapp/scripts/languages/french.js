@@ -40,8 +40,8 @@ define({
 			401: 'Cette opération ne peut être effectuée car elle pourrait divulguer votre clé privée en l\'envoyant à un server NIS distant.',
 			404: 'La ressource que vous avez demandé ne peut être trouvée.',
 			500: 'Une erreur que l\'équipe de développement n\'avait pas anticipée s\'est produite. Nous vous présentons nos excuses et nous espérons qu\'un nouvel essai va régler ce problème. Sinon, ouvrez un billet d\'incident auprès de la communauté NIS/NCC de NEM.',
-			600: 'NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S\'il vous plait, utilisez le menu NCC pour démarrer le nœud local.',			601: '
-+			601: 'Le nœud NIS est déjà démarré. Une deuxième tentative de démarrage du nœud est impossible.',
+			600: 'NCC requiert que le serveur NIS soit démarré pour pouvoir envoyer et recevoir des transactions vers le nuage NEM. S\'il vous plait, utilisez le menu NCC pour démarrer le nœud local.',
+			601: 'Le nœud NIS est déjà démarré. Une deuxième tentative de démarrage du nœud est impossible.',
 			602: 'Presque disponible. Le serveur d\'infrastructure NEM charge présentement les blocs. Le portefeuille sera fonctionnel dès que la base de données sera complètement chargée.',
 			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
 			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 10000 assigneé XEM pour que la récolte débute.',
@@ -50,7 +50,7 @@ define({
 			703: 'Votre compte n\'a pas les fonds nécessaires pour effectuer cette transaction.',
 			704: 'Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d\'expédier.',
 			705: 'Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.',
-			706: 'La signature de la transaction n\'a pas pu être vérifiée.`,
+			706: 'La signature de la transaction n\'a pas pu être vérifiée.',
 			707: 'L\'horodatage de la transaction trop loin dans le passé.',
 			708: 'TL\'horodatage de la transaction trop loin dans le futur.',
 			709: 'Ce compte est inconnu. Un compte à besoin de faire partie d\'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.',
@@ -325,7 +325,6 @@ define({
 				boot: 'Démarrer',
 				booting: 'Démarrage...',
 				warning: 'Avertissement du nœud de démarrage',
-				warningText: '
 				warningText: 'Vous essayez de démarrer le nœud <u>{{2}}</u><br/><br/>Démarrer un nœud à distance est présentement impossible à partir de NCC.',
 				warningStatement: 'You have auto-boot set to true and you\'re using remote node {{3}}.<br/><br/>Booting remote node is currently impossible from within NCC',
 				warningQuestion: 'Êtes-vous certain de vouloir démarrer le nœud<u>{{3}}</u> en utilisant la clé privée du compte {{1}} ({{2}} XEM)?<br><br>Ceci va révéler la <span class=\"sublabelWarning\">clé privée</span> de ce compte au nœud: <u>{{3}}</u>.'
@@ -494,8 +493,8 @@ define({
 						description: 'La <em>sécurité</em> est très importante pour éviter le vols de vos pièces XEMs &amp; actifs.'
 					},
 					{
-						title: 'Server d'infrastructure NEM distant',
-						description: 'En utilisant un serveur NIS distant, vous n'avez pas besoin de synchroniser la chaine de bloc au démarrage.',
+						title: 'Server d\'infrastructure NEM distant',
+						description: 'En utilisant un serveur NIS distant, vous n\'avez pas besoin de synchroniser la chaine de bloc au démarrage.',
 
 					},
 					{
@@ -510,7 +509,7 @@ define({
 					},
 					{
 						title: 'Support Mutlilangague Natif',
-						description: 'L'interface usagée de NEM supporte de multiples langages. Voir "Paramêtres".'
+						description: 'L\'interface usagée de NEM supporte de multiples langages. Voir "Paramêtres".'
 					},
 					{
 						title: 'Vous avez des questions ou commentaires?',
