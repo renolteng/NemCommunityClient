@@ -5,12 +5,12 @@ package org.nem.ncc.storable.entity.storage;
  */
 public enum StorableEntityReadMode {
 	/**
-	 * Open the entity for reading without decoding the stream.
+	 * Open the entity for reading of the raw (encoded) stream.
 	 */
 	Raw,
 
 	/**
-	 * Open the entity for reading with prior decoding the stream.
+	 * Open the entity for reading of the decoded stream.
 	 */
 	Decode
 }
