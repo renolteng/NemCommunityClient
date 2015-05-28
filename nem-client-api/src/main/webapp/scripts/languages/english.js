@@ -169,6 +169,12 @@ define({
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
 			},
+			signToken: {
+			    title: "Sign a token using account",
+			    label: "Token (url, string, anything)",
+			    signature: "Signed token",
+			    sign: "Sign"
+			},
 			multisig: {
 				title: 'Convert account to multisig',
 				multisigAccount: 'Multisig account',

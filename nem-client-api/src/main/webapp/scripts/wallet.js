@@ -896,6 +896,111 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     var address = ncc.get('activeAccount.address');
                     ncc.viewAccount(address);
                 },
+                signToken: function() {
+                    var wallet = ncc.get('wallet.wallet');
+                    var address = ncc.get('activeAccount.address');
+                    var accountLabel = ncc.get('privateLabels')[address];
+                    ncc.showInputForm(ncc.get('texts.modals.signToken.title'), '',
+                        [
+                            {
+                                name: 'token',
+                                type: 'text',
+                                label: {
+                                    content: ncc.get('texts.modals.signToken.label')
+                                }
+                            },
+                            {
+                                name: 'account',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.common.address')
+                                },
+                                sublabel: accountLabel ?
+                                {
+                                    content: accountLabel
+                                } :
+                                {
+                                    // reuse string
+                                    content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                    nullContent: true
+                                }
+                            },
+                            {
+                                name: 'password',
+                                type: 'password',
+                                label: {
+                                    content: ncc.get('texts.modals.changeAccountLabel.password')
+                                }
+                            }
+                        ],
+                        {
+                            wallet: wallet,
+                            account: address,
+                            privateLabel: accountLabel
+                        },
+                        function(values, closeModal) {
+                            var a2h = function(y) { return y.split('').map(function(x){ var t=encodeURIComponent(x); return (t.length === 1) ? t.charCodeAt(0).toString(16) : t.replace(/%/g, ''); }).join(''); };
+                            values['origToken'] = values['token'];
+                            values['token'] = a2h(values['origToken']);
+                            ncc.postRequest('wallet/account/signToken', values, function(data) {
+                                ncc.showInputForm(ncc.get('texts.modals.signToken.title'), '',
+                                    [
+                                        {
+                                            name: 'token',
+                                            type: 'text',
+                                            readonly: true,
+                                            unimportant: true,
+                                            label: {
+                                                content: ncc.get('texts.modals.signToken.label')
+                                            }
+                                        },
+                                        {
+                                            name: 'account',
+                                            type: 'text',
+                                            readonly: true,
+                                            unimportant: true,
+                                            label: {
+                                                content: ncc.get('texts.common.address')
+                                            },
+                                            sublabel: accountLabel ?
+                                            {
+                                                content: accountLabel
+                                            } :
+                                            {
+                                                // reuse string
+                                                content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                                nullContent: true
+                                            }
+                                        },
+                                        {
+                                            name: 'signedToken',
+                                            type: 'textarea',
+                                            readonly: true,
+                                            label: {
+                                                content: ncc.get('texts.modals.signToken.signature')
+                                            }
+                                        }
+                                    ],
+                                    {
+                                        wallet: wallet,
+                                        account: address,
+                                        privateLabel: accountLabel,
+                                        token: values['origToken'],
+                                        signedToken: data['signature']
+                                    },
+                                    function(values, closeModal) {
+                                        $('#signedToken').focus();
+                                        closeModal();
+                                    },
+                                    ncc.get('texts.common.closeButton')
+                                );
+                            });
+                        },
+                        ncc.get('texts.modals.signToken.sign')
+                    );
+                },
                 changeAccountLabel: function() {
                     var wallet = ncc.get('wallet.wallet');
                     var address = ncc.get('activeAccount.address');

@@ -1,7 +1,10 @@
 package org.nem.ncc.controller;
 
 import org.nem.core.crypto.KeyPair;
+import org.nem.core.crypto.Signature;
+import org.nem.core.crypto.Signer;
 import org.nem.core.model.*;
+import org.nem.core.utils.HexEncoder;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
 import org.nem.ncc.controller.viewmodels.*;
@@ -85,6 +88,19 @@ public class WalletAccountController {
 		return this.walletMapper.toViewModel(wallet);
 	}
 
+	/**
+	 *
+	 *
+	 * @param bag The request parameters.
+	 * @return Details about the account.
+	 */
+	@RequestMapping(value = "/wallet/account/signToken", method = RequestMethod.POST)
+	public SignatureViewModel signToken(@RequestBody final WalletNamePasswordBag bag) {
+		final WalletAccount account = this.getAccount(bag);
+		final Signer signer = new Signer(new KeyPair(account.getPrivateKey()));
+		final Signature signature = signer.sign(HexEncoder.getBytes(bag.getToken()));
+		return new SignatureViewModel(signature);
+	}
 	/**
 	 * Reveals details about an account including the private key.
 	 *

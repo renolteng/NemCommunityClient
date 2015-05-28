@@ -107,7 +107,7 @@
 								<input type="{{.type}}" id="{{.name}}" class="form-input form-input--textbox {{#unimportant}}form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
 							{{/}}
 							{{#.type === 'textarea'}}
-								<textarea class="form-input {{#unimportant}}form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}"></textarea>
+								<textarea id="{{.name}}" class="form-input form-input--textarea {{#unimportant}}form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}"></textarea>
 							{{/}}
 							{{#.sublabel}}
 								<p class="form-sublabel {{#nullContent}}form-sublabel-nullContent{{/}}">
