@@ -163,7 +163,6 @@ public abstract class StorableEntityFileDescriptorTest<
 		ExceptionAssert.assertThrows(v -> descriptor.openRead(StorableEntityReadMode.Decode), IllegalArgumentException.class);
 	}
 
-	// TODO: BR -> J: i think you once mentioned it is not a good habit to test delegation within one class. What was the reason?
 	@Test
 	public void openReadWithReadModeDelegatesToOpenRead() throws IOException {
 		// Arrange:
