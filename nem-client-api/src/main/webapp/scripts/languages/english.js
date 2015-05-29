@@ -236,7 +236,7 @@ define({
 				send: 'Send',
 				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
