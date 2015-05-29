@@ -16,6 +16,11 @@ public class SignatureViewModel implements SerializableEntity {
 		this.signature = signature;
 	}
 
+	/**
+	 * Gets the signature.
+	 *
+	 * @return The signature.
+	 */
 	public Signature getSignature() {
 		return this.signature;
 	}

@@ -89,7 +89,7 @@ public class WalletAccountController {
 	}
 
 	/**
-	 *
+	 * Signs the token specified by the request.
 	 *
 	 * @param bag The request parameters.
 	 * @return Details about the account.
@@ -98,9 +98,12 @@ public class WalletAccountController {
 	public SignatureViewModel signToken(@RequestBody final WalletNamePasswordBag bag) {
 		final WalletAccount account = this.getAccount(bag);
 		final Signer signer = new Signer(new KeyPair(account.getPrivateKey()));
+		// TODO 20150528 J-G: i think you forgot to checkin getToken
+		// > also you might want to use StringEncoder instead of HexEncoder ?
 		final Signature signature = signer.sign(HexEncoder.getBytes(bag.getToken()));
 		return new SignatureViewModel(signature);
 	}
+
 	/**
 	 * Reveals details about an account including the private key.
 	 *
