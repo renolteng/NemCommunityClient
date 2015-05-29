@@ -35,7 +35,11 @@ The monitor programm is started via org.nem.monitor.NemMonitor
 NCC REST API
 ------------
 
-The original version of the NCC REST API can be found [here](docs/api.md).
+The NCC API is available as a swagger.json file [here](docs/ncc-api-swagger.json). 
+
+A rendered version is available [here](http://nem.pucchiwerk.eu/ncc/api/). 
+
+(The deprecated version of the NCC REST API can be found [here](docs/api.md)).
 
 Generating JavaDoc Documentation
 --------------------------------

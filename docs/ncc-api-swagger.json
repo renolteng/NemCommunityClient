@@ -253,7 +253,7 @@
       "post": {
         "description": "Returns information about an address book that is already open.",
         "tags": [
-          "Configuration"
+          "Address Book"
         ],
         "consumes": [
           "application/json"
@@ -373,7 +373,7 @@
       "post": {
         "description": "Changes the name of an address book.",
         "tags": [
-          "Configuration"
+          "Address Book"
         ],
         "consumes": [
           "application/json"
@@ -657,7 +657,7 @@
       "post": {
         "description": "Open a wallet. The wallet is defined by the wallet name. The wallet has to be located in the wallet storage location. The password must match the password of the given wallet. For opening a wallet at a different location the function importWallet has to be used.",
         "tags": [
-          "Configuration"
+          "Wallet"
         ],
         "consumes": [
           "application/json"
@@ -1073,7 +1073,7 @@
       "post": {
         "description": "Reveals details about an account including the private key.",
         "tags": [
-          "Wallet"
+          "Wallet", "Account", "Information"
         ],
         "consumes": [
           "application/json"
@@ -1115,7 +1115,7 @@
       "post": {
         "description": "Reveals details about an account including the remote key.",
         "tags": [
-          "Wallet"
+          "Wallet", "Account", "Information"
         ],
         "consumes": [
           "application/json"
@@ -1461,7 +1461,8 @@
         "description": "Unlock the account on the connected NIS server (start harvesting).",
         "tags": [
           "Wallet",
-          "Account"
+          "Account",
+          "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1501,7 +1502,8 @@
         "description": "Lock the account on the connected NIS server (stop harvesting).",
         "tags": [
           "Wallet",
-          "Account"
+          "Account",
+          "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1541,7 +1543,8 @@
         "description": "Unlock the account on the remote NIS server (start delegated harvesting). Remote address being used has to be announced previously.",
         "tags": [
           "Wallet",
-          "Account"
+          "Account",
+          "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1581,7 +1584,8 @@
         "description": "Lock the account on the remote NIS server (stop delegated harvesting).",
         "tags": [
           "Wallet",
-          "Account"
+          "Account",
+          "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1621,7 +1625,7 @@
         "description": "Checks if account is unlocked on remote server.",
         "tags": [
           "Wallet",
-          "Account"
+          "Account", "Information"
         ],
         "consumes": [
           "application/json"
@@ -1703,7 +1707,7 @@
         "description": "ends a new multisig signature.",
         "tags": [
           "Wallet",
-          "Account"
+          "Account", "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1743,7 +1747,7 @@
         "description": "Sends a new multisig modification",
         "tags": [
           "Wallet",
-          "Account"
+          "Account", "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1821,55 +1825,12 @@
         }
       }
     },
-    "/wallet/account/transaction/validate": {
-      "post": {
-        "description": "Requests inspecting the transaction for validation purposes. The returned result will include:\n* The minimum fee for sending the transaction.\n* A value indicating whether or not the recipient can receive encrypted messages.",
-        "tags": [
-          "Wallet",
-          "Account"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "transaction",
-            "in": "body",
-            "description": "The transaction information.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PartialTransferInformationRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Modification was successfull.",
-            "schema": {
-              "$ref": "#/definitions/PartialTransferInformationViewModel"
-            }
-          },
-          "400": {
-            "description": "A bad request was sent.",
-            "schema": {
-              "$ref": "#/responses/BadRequest"
-            }
-          },
-          "default": {
-            "description": "Any other exception occured.",
-            "schema": {
-              "$ref": "#/responses/Error"
-            }
-          }
-        }
-      }
-    },
     "/wallet/account/signature/validate": {
       "post": {
         "description": "Request inspecting the multisig signature transaction for validation purposes. The returned result will include:\n* A minimum fee for creating the transaction.",
         "tags": [
           "Wallet",
-          "Account"
+          "Account", "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1912,7 +1873,7 @@
         "description": "Request inspecting the multisig modification transaction for validation purposes. The returned result will include:\n* A minimum fee for creating modification transaction.",
         "tags": [
           "Wallet",
-          "Account"
+          "Account", "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1954,7 +1915,7 @@
       "post": {
         "description": "Announces activation of delegated harvesting account to the network (FEE: 1)",
         "tags": [
-          "Wallet"
+          "Wallet", "Account", "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1993,7 +1954,7 @@
       "post": {
         "description": "Announces deactivation of delegated harvesting account to the network (FEE: 1)",
         "tags": [
-          "Wallet"
+          "Wallet", "Account", "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -2694,7 +2655,7 @@
         },
         "remoteStatus": {
           "type": "string",
-          "description": "The remote status of the account.\n*	REMOTE -  The account is remote one, and therefore RemoteStatus is not applicable for it.\n* REMOTE - The account has activated remote harvesting (but not yet active).\n* ACTIVE - The account has activated remote harvesting and remote harvesting is active.\n* DEACTIVATING - The account has deactivated remote harvesting (but remote harvesting is still active).\n* INACTIVE - The account has inactive remote harvesting, or it has deactivated remote harvesting and deactivation is operational."
+          "description": "The remote status of the account.\n* REMOTE - The account is remote one, and therefore RemoteStatus is not applicable for it.\n* REMOTE - The account has activated remote harvesting (but not yet active).\n* ACTIVE - The account has activated remote harvesting and remote harvesting is active.\n* DEACTIVATING - The account has deactivated remote harvesting (but remote harvesting is still active).\n* INACTIVE - The account has inactive remote harvesting, or it has deactivated remote harvesting and deactivation is operational."
         },
         "publicKey": {
           "type": "string",
