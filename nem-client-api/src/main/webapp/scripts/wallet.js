@@ -896,6 +896,31 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     var address = ncc.get('activeAccount.address');
                     ncc.viewAccount(address);
                 },
+                copyClipboardHtml: function(e,address)
+                {
+                    ncc.showInputForm(ncc.get('texts.wallet.actions.copyClipboard'), 'Press Ctrl+C/⌘+C to copy',
+                        [
+                            {
+                                name: 'copyAddress',
+                                type: 'text',
+                                readonly: true,
+                                unimportant: true,
+                                label: {
+                                    content: ncc.get('texts.common.address')
+                                }
+                            }
+                        ],
+                        {
+                            copyAddress: address
+                        },
+                        function(values, closeModal) {
+                            closeModal();
+                        },
+                        ncc.get('texts.common.closeButton')
+                    );
+                    $('#copyAddress').focus();
+                    $('#copyAddress').select();
+                },
                 signToken: function() {
                     var wallet = ncc.get('wallet.wallet');
                     var address = ncc.get('activeAccount.address');
