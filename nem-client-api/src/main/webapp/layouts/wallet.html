@@ -501,6 +501,236 @@
 		</div>
 	</div>
 </sendNemModal>
+<activateDelegatedModal disableEasyClose="true" modalClass="activateDelegatedModal modal--medium" modalTitle="{{texts.modals.activateDelegated.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+    <div class="form activateDelegated-form">
+        <div class="form-field">
+            <p class="form-label">{{texts.common.account}}</p>
+            <div class="form-dropdownbox">
+                <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
+                    {{#if sender}}
+                    {{#if (privateLabels[.sender])}}
+                    {{privateLabels[.sender]}}
+                    {{else}}
+                    {{sender}}
+                    {{/if}}
+                    {{else}}
+                    {{texts.common.thisAccount}}
+                    {{/if}}
+                </div>
+                <ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
+                    <li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.common.thisAccount}}</li>
+                    {{#each multisigAccounts}}
+                    <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
+                        {{#if (privateLabels[.address])}}
+                        {{privateLabels[.address]}}
+                        {{else}}
+                        {{.address}}
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="form-field">
+            <div class="form-label">{{texts.common.warning}}</div>
+            <p>
+                <span class='sublabelWarning'>{{texts.modals.activateDelegated.warningText}}</span>
+            </p>
+        </div>
+        <div class="form-field">
+            <p class="form-label">
+                {{texts.modals.activateDelegated.delegatedAccount}}
+                {{^sender}}
+                ({{texts.modals.activateDelegated.builtIn}})
+                {{/sender}}
+            </p>
+            <input type="text" class="form-input  form-input--textbox {{^sender}}form-input--unimportant{{/}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{^sender}}disabled{{/}}" {{^sender}}readonly{{/}} on-keypress="sendFormKeypress" value="{{remote.publicKey.value}}" />
+            {{^sender}}
+            <p class="form-sublabel">
+                {{#if (privateLabels[remote.address])}}
+                {{privateLabels[remote.address]}}
+                {{else}}
+                {{remote.formattedAddress}}
+                {{/if}}
+            </p>
+            {{/}}
+        </div>
+        <div class="form-field">
+            <input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+            <label class="form-checkbox-label" for="chk-useMinimumFee">
+                {{texts.common.useMinimumFee}}
+                {{#if !useMinimumFee}}
+                ({{formattedMinimumFee}} XEM)
+                {{/if}}
+            </label>
+        </div>
+        <div class="form-field">
+            <div class="form-row">
+                <div class="form-half form-half--left">
+                    <p class="form-label">
+                        {{texts.common.fee}}
+                        {{#if feeError}}
+                        <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
+                    </p>
+                    <div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+                        <span class="form-input-end unit">XEM</span>
+                        <div class="restOfWidth">
+                            <input class="form-input-inner js-activateDelegated-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-half form-half--right">
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+                    <div class="form-input">
+                        <span class="form-input-end unit">{{texts.common.hours}}</span>
+                        <div class="restOfWidth">
+                            <input class="form-input-inner js-activateDelegated-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{#if sender}}
+            <div class="form-row">
+                <p class="form-label">
+                    {{texts.common.multisigFee}}
+                    {{#if multisigFeeError}}
+                    <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+                    {{/if}}
+                </p>
+                <div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
+                    <span class="form-input-end unit">XEM</span>
+                    <div class="restOfWidth">
+                        <input class="form-input-inner js-activateDelegated-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <p>{{{texts.common.noCharge}}}</p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="form-field">
+            <p class="form-label">
+                {{texts.common.walletsPassword}}
+                {{#if passwordError}}
+                <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
+                {{/if}}
+            </p>
+            <input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+        </div>
+        <div class="modal-buttons activateDelegated-buttons">
+            <button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
+            <button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.common.sendButton}}</button>
+        </div>
+    </div>
+</activateDelegatedModal>
+<deactivateDelegatedModal disableEasyClose="true" modalClass="deactivateDelegatedModal modal--medium" modalTitle="{{texts.modals.deactivateDelegated.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+    <div class="form deactivateDelegated-form">
+        <div class="form-field">
+            <p class="form-label">{{texts.common.account}}</p>
+            <div class="form-dropdownbox">
+                <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
+                    {{#if sender}}
+                    {{#if (privateLabels[.sender])}}
+                    {{privateLabels[.sender]}}
+                    {{else}}
+                    {{sender}}
+                    {{/if}}
+                    {{else}}
+                    {{texts.common.thisAccount}}
+                    {{/if}}
+                </div>
+                <ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
+                    <li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.common.thisAccount}}</li>
+                    {{#each multisigAccounts}}
+                    <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
+                        {{#if (privateLabels[.address])}}
+                        {{privateLabels[.address]}}
+                        {{else}}
+                        {{.address}}
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="form-field">
+            <div class="form-label">{{texts.common.warning}}</div>
+            <p>
+                <span class='sublabelWarning'>{{texts.modals.deactivateDelegated.warningText}}</span>
+            </p>
+        </div>
+        <div class="form-field">
+            <input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+            <label class="form-checkbox-label" for="chk-useMinimumFee">
+                {{texts.common.useMinimumFee}}
+                {{#if !useMinimumFee}}
+                ({{formattedMinimumFee}} XEM)
+                {{/if}}
+            </label>
+        </div>
+        <div class="form-field">
+            <div class="form-row">
+                <div class="form-half form-half--left">
+                    <p class="form-label">
+                        {{texts.common.fee}}
+                        {{#if feeError}}
+                        <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
+                    </p>
+                    <div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+                        <span class="form-input-end unit">XEM</span>
+                        <div class="restOfWidth">
+                            <input class="form-input-inner js-deactivateDelegated-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-half form-half--right">
+                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+                    <div class="form-input">
+                        <span class="form-input-end unit">{{texts.common.hours}}</span>
+                        <div class="restOfWidth">
+                            <input class="form-input-inner js-deactivateDelegated-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{#if sender}}
+            <div class="form-row">
+                <p class="form-label">
+                    {{texts.common.multisigFee}}
+                    {{#if multisigFeeError}}
+                    <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+                    {{/if}}
+                </p>
+                <div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
+                    <span class="form-input-end unit">XEM</span>
+                    <div class="restOfWidth">
+                        <input class="form-input-inner js-deactivateDelegated-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <p>{{{texts.common.noCharge}}}</p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="form-field">
+            <p class="form-label">
+                {{texts.common.walletsPassword}}
+                {{#if passwordError}}
+                <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
+                {{/if}}
+            </p>
+            <input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+        </div>
+        <div class="modal-buttons deactivateDelegated-buttons">
+            <button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
+            <button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.common.sendButton}}</button>
+        </div>
+    </div>
+</deactivateDelegatedModal>
 <signMultisigModal disableEasyClose="true" modalClass="signMultisigModal modal--wide" modalTitle="{{texts.modals.signMultisig.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
 	<div class="txConfirm-txInfo">
 		<div class="txConfirm-line">
@@ -755,6 +985,46 @@
 		</button>
 	</div>
 </signatureConfirmModal>
+<genericDelegatedConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
+    <div class="txConfirm-txInfo">
+        {{#txData.activation}}
+        <div class="txConfirm-line">
+            <div class="txConfirm-label">{{texts.modals.activateDelegated.delegatedAccount}}</div>
+			<div class="txConfirm-value">
+				<span class="txConfirm-recipient">{{requestData.publicKey.value}}</span>
+			</div>
+        </div>
+        {{/}}
+        <div class="txConfirm-line">
+            <span class="txConfirm-label">{{texts.common.fee}}</span>
+            <span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} XEM</span></span>
+        </div>
+        {{#if (requestData.type === TransactionType.Multisig_Transfer)}}
+        <div class="txConfirm-line">
+            <span class="txConfirm-label">{{texts.modals.sendNem.multisigFee}}</span>
+            <span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} XEM</span></span>
+        </div>
+        {{/if}}
+        <div class="txConfirm-line">
+            <span class="txConfirm-label">{{texts.common.dueBy}}</span>
+            <span class="txConfirm-value">{{txData.dueBy}} {{texts.common.hours}}</span>
+        </div>
+        <div class="txConfirm-line">
+            <span class="txConfirm-label"><span class="txConfirm-totalLabel">{{texts.modals.sendNem.txConfirm.total}}</span></span>
+            <span class="txConfirm-value"><span class="txConfirm-total">{{formattedTotal}} XEM</span></span>
+        </div>
+    </div>
+    <div class="txConfirm-actions">
+        <button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+        <button type="button" class="modal-button modal-button--primary" disabled="{{processing}}" on-click="confirm()">
+            {{#if processing}}
+            {{texts.modals.sendNem.txConfirm.sending}}
+            {{else}}
+            {{texts.modals.sendNem.txConfirm.confirm}}
+            {{/if}}
+        </button>
+    </div>
+</genericDelegatedConfirmModal>
 <transactionConfirmModal modalClass="txConfirmModal modal--wide" modalTitle="{{texts.modals.sendNem.txConfirm.title}}" texts="{{texts}}" on-registerToolTip="registerToolTip">
 	<div class="txConfirm-txInfo">
 		<div class="txConfirm-line">

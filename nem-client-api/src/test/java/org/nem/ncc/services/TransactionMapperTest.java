@@ -420,7 +420,11 @@ public class TransactionMapperTest {
 				context.signer.getAddress(), // must be a valid address
 				new WalletName("w"),
 				null == password ? null : new WalletPassword(password),
-				7);
+				TransactionViewModel.Type.Importance_Transfer.getValue(),
+				7,
+				Amount.fromNem(10),
+				(new KeyPair()).getPublicKey()
+				);
 	}
 
 	private static MultisigModificationRequest createModificationRequest(final TestContext context) {

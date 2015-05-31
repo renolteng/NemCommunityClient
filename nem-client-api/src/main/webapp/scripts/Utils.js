@@ -773,6 +773,7 @@ define(['TransactionType'], function(TransactionType) {
         },
         processAccount: function(account) {
             account.formattedAddress = Utils.format.address.format(account.address);
+            account.formattedRemoteAddress = Utils.format.address.format(account.remoteAddress);
             var balanceObj = Utils.format.nem.uNemToNem(account.balance);
             account.formattedBalance = Utils.format.nem.formatNem(balanceObj, {fixedDecimalPlaces: true});
             account.formattedVestedBalance = Utils.format.nem.formatNem(Utils.format.nem.uNemToNem(account.vestedBalance), {fixedDecimalPlaces: true});

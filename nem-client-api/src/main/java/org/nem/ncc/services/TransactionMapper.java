@@ -105,6 +105,27 @@ public class TransactionMapper {
 				isEncryptionSupported);
 	}
 
+	// currently empty used for Importance Transfer, as it's not providing any data...
+	public PartialTransferInformationViewModel toViewModel() {
+		final Account dummyAccount = new Account(new KeyPair());
+
+		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				ImportanceTransferMode.Activate,
+				dummyAccount);
+
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				transaction);
+
+		return new PartialTransferInformationViewModel(
+				transaction.getFee(),
+				multisigTransaction.getFee(),
+				false);
+	}
+
 	public PartialFeeInformationViewModel toViewModel(final PartialSignatureInformationRequest request) {
 		final Account cosignatory = this.accountLookup.findByAddress(request.getCosignatoryAddress());
 		final MultisigSignatureTransaction transaction = new MultisigSignatureTransaction(
@@ -145,8 +166,10 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferMode mode) {
+		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Importance_Transfer.getValue();
+
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAddress(), request.getPassword());
-		final Account remoteAccount = this.getRemoteAccount(request.getWalletName(), request.getAddress(), request.getPassword());
+		final Account remoteAccount = new Account(new KeyPair(request.getPublicKey()));
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
@@ -156,6 +179,7 @@ public class TransactionMapper {
 				remoteAccount);
 
 		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+		transaction.setFee(request.getFee());
 		return transaction;
 	}
 
@@ -237,13 +261,6 @@ public class TransactionMapper {
 
 	private Account getSenderAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {
 		final PrivateKey privateKey = this.getSenderWallet(walletName, password).getAccountPrivateKey(accountId);
-		return new Account(new KeyPair(privateKey));
-	}
-
-	private Account getRemoteAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {
-		final Wallet wallet = this.getSenderWallet(walletName, password);
-		final WalletAccount account = wallet.tryGetWalletAccount(accountId);
-		final PrivateKey privateKey = account.getRemoteHarvestingPrivateKey();
 		return new Account(new KeyPair(privateKey));
 	}
 

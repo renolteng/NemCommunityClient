@@ -62,7 +62,7 @@ public class AccountViewModelTest {
 				new AccountMetaData(AccountStatus.LOCKED, AccountRemoteStatus.INACTIVE, multisigAccounts, cosignatories));
 
 		// Act:
-		final AccountViewModel viewModel = new AccountViewModel(pair);
+		final AccountViewModel viewModel = new AccountViewModel(pair, null);
 
 		// Assert:
 		Assert.assertThat(viewModel.getAddress(), IsEqual.equalTo(Address.fromEncoded("xyz")));
@@ -160,7 +160,8 @@ public class AccountViewModelTest {
 				AccountStatus.LOCKED,
 				AccountRemoteStatus.INACTIVE,
 				multisigAccounts,
-				cosignatories);
+				cosignatories,
+				null);
 	}
 
 	private static AccountInfo createAccountInfo(final String label, final Address address) {

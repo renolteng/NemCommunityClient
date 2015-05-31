@@ -15,13 +15,13 @@
 				<article>
 					<h1 class="tile-title">{{texts.dashboard.importance.title}}</h1>
 					{{#activeAccount.remoteStatus === 'INACTIVE'}}
-						<button type="button" class="importanceTile-activateButton icon-link" on-click="activateRemoteHarvesting">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
+						<button type="button" class="importanceTile-activateButton icon-link" on-click="openActivateDelegated('activate')">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVATING'}}
 						<button type="button" disabled class="importanceTile-activateButton icon-clock">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
 					{{/}}
 					{{#activeAccount.remoteStatus === 'ACTIVE'}}
-						<button class="importanceTile-activateButton hoverTarget icon-unlink" on-click="deactivateRemoteHarvesting">
+						<button class="importanceTile-activateButton hoverTarget icon-unlink" on-click="openActivateDelegated('deactivate')">
 							<span class="hideOnHover">
 								{{texts.dashboard.importance.remoteHarvest.active}}
 							</span>

@@ -79,12 +79,23 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
 	public PartialTransferInformationViewModel validateTransferData(@RequestBody final PartialTransferInformationRequest request) {
-		// TODO 20141005 J-G: should we update this function / add a new function that is able to validate importance transfer transactions?
 		return this.transactionMapper.toViewModel(request);
 	}
 
-	// TODO 20150131 J-G: do we need a validate for importance transfer transactions too?
+	/**
+	 * Requests inspecting the importance transfer transaction for validation purposes. The returned result will include:
+	 * - The minimum fee for sending the transaction.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/validate", method = RequestMethod.POST)
+	public PartialTransferInformationViewModel validateImportanceTransferData(@RequestBody final PartialTransferInformationRequest request) {
+		return this.transactionMapper.toViewModel();
+	}
+
 	// TODO 20150131 J-G: why don't we want to try consolidating into a single transaction/send transaction/validate?
+	// TODO 20150530: G-J: can you describe on trello, how do you imagine that?
 
 	/**
 	 * Request inspecting the multisig signature transaction for validation purposes. The returned result will include:
