@@ -134,10 +134,11 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                 var requestData = {
                     wallet: ncc.get('wallet.wallet'),
                     type: TransactionType.Multisig_Importance_Transfer,
-                    multisigAccount: this.get('sender'),
                     account: ncc.get('activeAccount.address'),
                     password: this.get('password'),
+                    multisigAddress: this.get('sender'),
                     publicKey: this.get('remote.publicKey'),
+                    fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
                     hoursDue: this.get('hoursDue')
                 };

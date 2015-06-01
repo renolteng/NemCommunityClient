@@ -22,6 +22,7 @@ public class TransferImportanceRequestTest {
 	private final int TEST_TYPE = TransactionViewModel.Type.Importance_Transfer.getValue();
 	private final int TEST_HOURS_DUE = 8;
 	private final Amount TEST_FEE = Amount.fromNem(10);
+	private final Amount TEST_MULTISIG_FEE = Amount.fromNem(123);
 	private final KeyPair TEST_KEY_PAIR = new KeyPair();
 
 	@Test
@@ -85,9 +86,11 @@ public class TransferImportanceRequestTest {
 				this.TEST_ADDRESS,
 				this.TEST_WALLET_NAME,
 				this.TEST_WALLET_PASS,
+				null,
 				this.TEST_TYPE,
 				this.TEST_HOURS_DUE,
 				this.TEST_FEE,
+				this.TEST_MULTISIG_FEE,
 				this.TEST_KEY_PAIR.getPublicKey());
 	}
 

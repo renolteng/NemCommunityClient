@@ -127,7 +127,7 @@ public class TransactionController {
 	 * @param request The request parameters.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/activate", method = RequestMethod.POST)
-	public void remoteUnlock(@RequestBody final TransferImportanceRequest request) {
+	public void delegatedActivate(@RequestBody final TransferImportanceRequest request) {
 		this.remoteHarvest(request, ImportanceTransferMode.Activate);
 	}
 
@@ -137,7 +137,7 @@ public class TransactionController {
 	 * @param request The request parameters.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/deactivate", method = RequestMethod.POST)
-	public void remoteLock(@RequestBody final TransferImportanceRequest request) {
+	public void delegatedDeactivate(@RequestBody final TransferImportanceRequest request) {
 		this.remoteHarvest(request, ImportanceTransferMode.Deactivate);
 	}
 

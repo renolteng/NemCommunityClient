@@ -172,15 +172,33 @@ public class TransactionMapper {
 		final Account remoteAccount = new Account(new KeyPair(request.getPublicKey()));
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
-		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
-				timeStamp,
-				sender,
-				mode,
-				remoteAccount);
 
-		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
-		transaction.setFee(request.getFee());
-		return transaction;
+		if (isMultisig) {
+			final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
+			final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+					timeStamp,
+					multisig,
+					mode,
+					remoteAccount);
+			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			transaction.setFee(request.getFee());
+
+			final MultisigTransaction multisigTransaction = new MultisigTransaction(timeStamp,
+					sender,
+					transaction);
+			multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			multisigTransaction.setFee(request.getMultisigFee());
+			return multisigTransaction;
+		} else {
+			final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+					timeStamp,
+					sender,
+					mode,
+					remoteAccount);
+			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			transaction.setFee(request.getFee());
+			return transaction;
+		}
 	}
 
 	private Transaction toModel(final TransferSendRequest request, final WalletPassword password) {

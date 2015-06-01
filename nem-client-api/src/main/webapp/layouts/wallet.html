@@ -999,9 +999,9 @@
             <span class="txConfirm-label">{{texts.common.fee}}</span>
             <span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} XEM</span></span>
         </div>
-        {{#if (requestData.type === TransactionType.Multisig_Transfer)}}
+        {{#if (requestData.type === TransactionType.Multisig_Importance_Transfer)}}
         <div class="txConfirm-line">
-            <span class="txConfirm-label">{{texts.modals.sendNem.multisigFee}}</span>
+            <span class="txConfirm-label">{{texts.common.multisigFee}}</span>
             <span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} XEM</span></span>
         </div>
         {{/if}}
