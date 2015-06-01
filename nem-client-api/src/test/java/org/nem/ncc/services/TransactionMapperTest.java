@@ -3,7 +3,7 @@ package org.nem.ncc.services;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.mockito.Mockito;
-import org.nem.core.crypto.KeyPair;
+import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.AccountLookup;
@@ -45,16 +45,35 @@ public class TransactionMapperTest {
 	}
 
 	@Test
-	public void canMapFromRemoteHarvestRequestToModel() {
+	public void canMapFromRemoteHarvestRequestToModelWithAutoRemotePublicKey() {
 		// Arrange:
 		final TestContext context = new TestContext();
 
 		// Act:
-		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p");
+		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p", null);
 		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferMode.Activate);
 
 		// Assert:
 		Assert.assertThat(model.getRemote().hasPrivateKey(), IsEqual.equalTo(true));
+		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
+		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferMode.Activate));
+		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
+		Assert.assertThat(model.getDeadline(), IsEqual.equalTo(new TimeInstant(124 + 7 * 60 * 60)));
+	}
+
+	@Test
+	public void canMapFromRemoteHarvestRequestToModelWithExplicitRemotePublicKey() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final PublicKey remotePublicKey = Utils.generateRandomPublicKey();
+
+		// Act:
+		final TransferImportanceRequest request = createRemoteHarvestRequest(context, "p", remotePublicKey);
+		final ImportanceTransferTransaction model = (ImportanceTransferTransaction)context.mapper.toModel(request, ImportanceTransferMode.Activate);
+
+		// Assert:
+		Assert.assertThat(model.getRemote().hasPrivateKey(), IsEqual.equalTo(false));
+		Assert.assertThat(model.getRemote().getAddress().getPublicKey(), IsEqual.equalTo(remotePublicKey));
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
 		Assert.assertThat(model.getMode(), IsEqual.equalTo(ImportanceTransferMode.Activate));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
@@ -415,7 +434,10 @@ public class TransactionMapperTest {
 				TransactionViewModel.Type.Transfer.getValue());
 	}
 
-	private static TransferImportanceRequest createRemoteHarvestRequest(final TestContext context, final String password) {
+	private static TransferImportanceRequest createRemoteHarvestRequest(
+			final TestContext context,
+			final String password,
+			final PublicKey remotePublicKey) {
 		return new TransferImportanceRequest(
 				context.signer.getAddress(), // must be a valid address
 				new WalletName("w"),
@@ -425,8 +447,7 @@ public class TransactionMapperTest {
 				7,
 				Amount.fromNem(10),
 				Amount.fromNem(0), // multisig fee
-				(new KeyPair()).getPublicKey()
-				);
+				remotePublicKey);
 	}
 
 	private static MultisigModificationRequest createModificationRequest(final TestContext context) {

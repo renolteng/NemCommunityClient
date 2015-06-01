@@ -167,11 +167,12 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferMode mode) {
-		// TODO 20150601 J-G: not using isMultisig
 		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Importance_Transfer.getValue();
 
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAddress(), request.getPassword());
-		final Account remoteAccount = new Account(new KeyPair(request.getPublicKey()));
+		final Account remoteAccount = null == request.getPublicKey()
+				? this.getRemoteAccount(request.getWalletName(), request.getAddress(), request.getPassword())
+				: new Account(new KeyPair(request.getPublicKey()));
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
@@ -281,6 +282,13 @@ public class TransactionMapper {
 
 	private Account getSenderAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {
 		final PrivateKey privateKey = this.getSenderWallet(walletName, password).getAccountPrivateKey(accountId);
+		return new Account(new KeyPair(privateKey));
+	}
+
+	private Account getRemoteAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {
+		final Wallet wallet = this.getSenderWallet(walletName, password);
+		final WalletAccount account = wallet.tryGetWalletAccount(accountId);
+		final PrivateKey privateKey = account.getRemoteHarvestingPrivateKey();
 		return new Account(new KeyPair(privateKey));
 	}
 
