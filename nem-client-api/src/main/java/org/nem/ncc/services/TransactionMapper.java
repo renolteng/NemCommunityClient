@@ -106,6 +106,7 @@ public class TransactionMapper {
 	}
 
 	// currently empty used for Importance Transfer, as it's not providing any data...
+	// TODO 20150601 J-G: i guess you need to finish this?
 	public PartialTransferInformationViewModel toViewModel() {
 		final Account dummyAccount = new Account(new KeyPair());
 
@@ -166,6 +167,7 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferMode mode) {
+		// TODO 20150601 J-G: not using isMultisig
 		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Importance_Transfer.getValue();
 
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAddress(), request.getPassword());

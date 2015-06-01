@@ -1,7 +1,7 @@
 package org.nem.ncc.controller.requests;
 
 import net.minidev.json.JSONObject;
-import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.crypto.KeyPair;
 import org.nem.core.crypto.PublicKey;
@@ -38,7 +38,29 @@ public class TransferImportanceRequestTest {
 	}
 
 	@Test
-	public void requestCanBeDeserialized() {
+	public void requestCanBeDeserializedWithoutPublicKey() {
+		// Act:
+		final TransferImportanceRequest request = this.createRequestFromJson(
+				this.TEST_ADDRESS.getEncoded(),
+				this.TEST_WALLET_NAME.toString(),
+				this.TEST_WALLET_PASS.toString(),
+				this.TEST_TYPE,
+				this.TEST_HOURS_DUE,
+				this.TEST_FEE.getNumMicroNem(),
+				null);
+
+		// Assert:
+		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
+		Assert.assertThat(request.getWalletPassword(), IsEqual.equalTo(this.TEST_WALLET_PASS));
+		Assert.assertThat(request.getType(), IsEqual.equalTo(this.TEST_TYPE));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(this.TEST_FEE));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(this.TEST_HOURS_DUE));
+		Assert.assertThat(request.getPublicKey(), IsNull.nullValue());
+	}
+
+	@Test
+	public void requestCanBeDeserializedWithPublicKey() {
 		// Act:
 		final TransferImportanceRequest request = this.createRequestFromJson(
 				this.TEST_ADDRESS.getEncoded(),
@@ -54,6 +76,7 @@ public class TransferImportanceRequestTest {
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(this.TEST_WALLET_NAME));
 		Assert.assertThat(request.getWalletPassword(), IsEqual.equalTo(this.TEST_WALLET_PASS));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(this.TEST_TYPE));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(this.TEST_FEE));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(this.TEST_HOURS_DUE));
 		Assert.assertThat(request.getPublicKey(), IsEqual.equalTo(this.TEST_KEY_PAIR.getPublicKey()));
 	}

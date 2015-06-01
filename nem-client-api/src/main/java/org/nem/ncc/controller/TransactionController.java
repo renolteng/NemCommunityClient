@@ -91,11 +91,14 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/remote/validate", method = RequestMethod.POST)
 	public PartialTransferInformationViewModel validateImportanceTransferData(@RequestBody final PartialTransferInformationRequest request) {
-		return this.transactionMapper.toViewModel();
+		return this.transactionMapper.toViewModel(request);
 	}
 
 	// TODO 20150131 J-G: why don't we want to try consolidating into a single transaction/send transaction/validate?
 	// TODO 20150530: G-J: can you describe on trello, how do you imagine that?
+	// TODO 20150601: J-G: not sure if this is a good idea, but this is what i was thinking:
+	// > (1) action methods are passed deserializer and we deserialize that (like the way we deserialze transactions in NIS)
+	// > (2) and then you would dispatch to the appropriate toViewModel / toModel based on type (which would need to be specified in the request)
 
 	/**
 	 * Request inspecting the multisig signature transaction for validation purposes. The returned result will include:

@@ -28,8 +28,8 @@ public class AccountMapper {
 	 * @return The view model.
 	 */
 	public AccountViewModel toViewModel(final WalletAccount account) {
-		final PublicKey publicKey = (new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey();
-		return this.toViewModel(account.getAddress(), publicKey);
+		// the remote harvesting public key is stored in the view model because it is displayed in the ux
+		return this.toViewModel(account.getAddress(), getRemotePublicKey(account));
 	}
 
 	/**
@@ -40,6 +40,10 @@ public class AccountMapper {
 	 */
 	public AccountViewModel toViewModel(final Address address) {
 		return this.toViewModel(address, null);
+	}
+
+	private static PublicKey getRemotePublicKey(final WalletAccount account) {
+		return (new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey();
 	}
 
 	private AccountViewModel toViewModel(final Address address, final PublicKey remotePublicKey) {
