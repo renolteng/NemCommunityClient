@@ -17,6 +17,7 @@ import java.util.function.Consumer;
 
 public class TransferImportanceRequestTest {
 	private final Address TEST_ADDRESS = Utils.generateRandomAddress();
+	private final Address TEST_MULTISIG_ADDRESS = Utils.generateRandomAddress();
 	private final WalletName TEST_WALLET_NAME = new WalletName("wal");
 	private final WalletPassword TEST_WALLET_PASS = new WalletPassword("From forth the fatal loins");
 	private final int TEST_TYPE = TransactionViewModel.Type.Importance_Transfer.getValue();
@@ -47,7 +48,9 @@ public class TransferImportanceRequestTest {
 				this.TEST_TYPE,
 				this.TEST_HOURS_DUE,
 				this.TEST_FEE.getNumMicroNem(),
-				null);
+				null,
+				this.TEST_MULTISIG_ADDRESS.toString(),
+				this.TEST_MULTISIG_FEE.getNumMicroNem());
 
 		// Assert:
 		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
@@ -57,6 +60,8 @@ public class TransferImportanceRequestTest {
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(this.TEST_FEE));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(this.TEST_HOURS_DUE));
 		Assert.assertThat(request.getPublicKey(), IsNull.nullValue());
+		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(this.TEST_MULTISIG_ADDRESS));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(this.TEST_MULTISIG_FEE));
 	}
 
 	@Test
@@ -69,7 +74,9 @@ public class TransferImportanceRequestTest {
 				this.TEST_TYPE,
 				this.TEST_HOURS_DUE,
 				this.TEST_FEE.getNumMicroNem(),
-				this.TEST_KEY_PAIR.getPublicKey());
+				this.TEST_KEY_PAIR.getPublicKey(),
+				this.TEST_MULTISIG_ADDRESS.toString(),
+				this.TEST_MULTISIG_FEE.getNumMicroNem());
 
 		// Assert:
 		Assert.assertThat(request.getAddress(), IsEqual.equalTo(this.TEST_ADDRESS));
@@ -79,6 +86,8 @@ public class TransferImportanceRequestTest {
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(this.TEST_FEE));
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(this.TEST_HOURS_DUE));
 		Assert.assertThat(request.getPublicKey(), IsEqual.equalTo(this.TEST_KEY_PAIR.getPublicKey()));
+		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(this.TEST_MULTISIG_ADDRESS));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(this.TEST_MULTISIG_FEE));
 	}
 
 	@Test
@@ -86,9 +95,9 @@ public class TransferImportanceRequestTest {
 		// Arrange:
 		final Address address = Utils.generateRandomAddress();
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createRequestFromJson(address.getEncoded(), null, null, 2, 0, 123, null),
-				v -> this.createRequestFromJson(null, "wal", null, 2, 0, 123, null),
-				v -> this.createRequestFromJson(address.getEncoded(), "wal", null, 2, 0, 123, null));
+				v -> this.createRequestFromJson(address.getEncoded(), null, null, 2, 0, 123, null, "", 0),
+				v -> this.createRequestFromJson(null, "wal", null, 2, 0, 123, null, "", 0),
+				v -> this.createRequestFromJson(address.getEncoded(), "wal", null, 2, 0, 123, null, "", 0));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
@@ -109,7 +118,7 @@ public class TransferImportanceRequestTest {
 				this.TEST_ADDRESS,
 				this.TEST_WALLET_NAME,
 				this.TEST_WALLET_PASS,
-				null,
+				this.TEST_MULTISIG_ADDRESS,
 				this.TEST_TYPE,
 				this.TEST_HOURS_DUE,
 				this.TEST_FEE,
@@ -124,7 +133,9 @@ public class TransferImportanceRequestTest {
 			final int type,
 			final int hoursDue,
 			final long fee,
-			final PublicKey publicKey) {
+			final PublicKey publicKey,
+			final String multisigAddress,
+			final long multisigFee) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("account", address);
 		jsonObject.put("wallet", walletName);
@@ -132,6 +143,8 @@ public class TransferImportanceRequestTest {
 		jsonObject.put("type", type);
 		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("fee", fee);
+		jsonObject.put("multisigAddress", multisigAddress);
+		jsonObject.put("multisigFee", multisigFee);
 
 		if (publicKey != null) {
 			final JSONObject key = new JSONObject();
