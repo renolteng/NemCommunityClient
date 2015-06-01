@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], function(NccModal, Utils, TransactionType, Handlebars) {
+define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal, Utils, TransactionType, Handlebars) {
 	return NccModal.extend({
         data: {
             isFeeAutofilled: true,
@@ -47,26 +47,38 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 return this.get('feeValid') && this.get('passwordValid');
             }
         },
-        resetDefaultData: function() {
-            var activeAddress = ncc.get('activeAccount').address;
-            var wallet = ncc.get('wallet');
-            var walletAccount = null;
-            if (wallet.primaryAccount.address === activeAddress) {
-                walletAccount = wallet.primaryAccount;
-            } else {
-                for (var i = 0; i < wallet.otherAccounts.length; ++i) {
-                    if (wallet.otherAccounts[i].address == activeAddress) {
-                        walletAccount = wallet.otherAccounts[i];
-                        break;
+        resetRemote: function() {
+            if (this.get('sender') === null) {
+                var activeAddress = ncc.get('activeAccount').address;
+                var wallet = ncc.get('wallet');
+                var walletAccount = null;
+                if (wallet.primaryAccount.address === activeAddress) {
+                    walletAccount = wallet.primaryAccount;
+                } else {
+                    for (var i = 0; i < wallet.otherAccounts.length; ++i) {
+                        if (wallet.otherAccounts[i].address == activeAddress) {
+                            walletAccount = wallet.otherAccounts[i];
+                            break;
+                        }
                     }
                 }
+                this.set('remote', {
+                    publicKey: walletAccount.remotePublicKey,
+                    address: walletAccount.remoteAddress,
+                    formattedAddress: walletAccount.formattedRemoteAddress,
+                });
+            } else {
+                this.set('remote', {
+                    publicKey: {'value':''},
+                    address: '',
+                    formattedAddress: '',
+                });
             }
+        },
+        resetDefaultData: function() {
             this.set('sender', null);
-            this.set('remote', {
-                publicKey: walletAccount.remotePublicKey,
-                address: walletAccount.remoteAddress,
-                formattedAddress: walletAccount.formattedRemoteAddress,
-            });
+            this.resetRemote();
+
             this.set('fee', 0);
             this.set('multisigFee', 0);
             this.set('minimumFee', 0);
@@ -139,6 +151,11 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this.resetDefaultData();
 
             this.observe({
+                sender: function(senderAddress) {
+                    self.resetRemote();
+                }
+            });
+            this.observe({
                 useMinimumFee: function(useMinimumFee) {
                     if (useMinimumFee) {
                         this.set('fee', this.get('minimumFee'));
@@ -170,7 +187,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     }
                 },
                 modalOpened: function() {
-                    $('.js-sendNem-recipient-textbox').focus();
+                    //$(":password")[0].focus();
                     this.resetDefaultData();
                 },
                 modalClosed: function() {
@@ -178,14 +195,49 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 }
             });
 
-            var $dueBy = $('.js-sendNem-dueBy-textbox');
-            $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            // Because this modal is reused by both activate and deactivate
+            // we must take care not to register handlers twice
+            // (by using event namespaces, and trying to turn them off, before adding)
+            var $aDueBy = $('.js-activateDelegated-dueBy-textbox');
+            $aDueBy.off('keypress.activateDelegated');
+            $aDueBy.on('keypress.activateDelegated', function(e) { Utils.mask.keypress(e, 'number', self) });
 
-            var $fee = $('.js-sendNem-fee-textbox');
-            var feeTxb = $fee[0];
-            $fee.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
-            $fee.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
-            $fee.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
+            var $aFee = $('.js-activateDelegated-fee-textbox');
+            $aFee.off('keypress.activateDelegated');
+            $aFee.off('paste.activateDelegated');
+            $aFee.off('keydown.activateDelegated');
+            $aFee.on('keypress.activateDelegated', function(e) { Utils.mask.keypress(e, 'nem', self); });
+            $aFee.on('paste.activateDelegated', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $aFee.on('keydown.activateDelegated', function(e) { Utils.mask.keydown(e, 'nem', self); });
+
+            var $aPublicKey = $('.js-activateDelegated-remote-textbox');
+            $aPublicKey.off('keypress.activateDelegated');
+            $aPublicKey.off('paste.activateDelegated');
+            $aPublicKey.off('keydown.activateDelegated');
+            $aPublicKey.on('keypress.activateDelegated', function(e) { Utils.mask.keypress(e, 'privateKey', self); });
+            $aPublicKey.on('paste.activateDelegated', function(e) { Utils.mask.paste(e, 'privateKey', self); });
+            $aPublicKey.on('keydown.activateDelegated', function(e) { Utils.mask.keydown(e, 'privateKey', self); });
+
+
+            var $bDueBy = $('.js-deactivateDelegated-dueBy-textbox');
+            $bDueBy.off('keypress.deactivateDelegated');
+            $bDueBy.on('keypress.deactivateDelegated', function(e) { Utils.mask.keypress(e, 'number', self) });
+
+            var $bFee = $('.js-deactivateDelegated-fee-textbox');
+            $bFee.off('keypress.deactivateDelegated');
+            $bFee.off('paste.deactivateDelegated');
+            $bFee.off('keydown.deactivateDelegated');
+            $bFee.on('keypress.deactivateDelegated', function(e) { Utils.mask.keypress(e, 'nem', self); });
+            $bFee.on('paste.deactivateDelegated', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $bFee.on('keydown.deactivateDelegated', function(e) { Utils.mask.keydown(e, 'nem', self); });
+
+            var $bPublicKey = $('.js-deactivateDelegated-remote-textbox');
+            $bPublicKey.off('keypress.deactivateDelegated');
+            $bPublicKey.off('paste.deactivateDelegated');
+            $bPublicKey.off('keydown.deactivateDelegated');
+            $bPublicKey.on('keypress.deactivateDelegated', function(e) { Utils.mask.keypress(e, 'privateKey', self); });
+            $bPublicKey.on('paste.deactivateDelegated', function(e) { Utils.mask.paste(e, 'privateKey', self); });
+            $bPublicKey.on('keydown.deactivateDelegated', function(e) { Utils.mask.keydown(e, 'privateKey', self); });
         }
     });
 });

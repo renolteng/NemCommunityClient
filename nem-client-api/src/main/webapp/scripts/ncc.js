@@ -20,8 +20,7 @@ define(function(require) {
     var AccountDetailsModal = require('AccountDetailsModal');
     var ConvertMultisigModal = require('ConvertMultisigModal');
 
-    var ActivateDelegatedModal = require('GenericDelegatedModal');
-    var DectivateDelegatedModal = require('GenericDelegatedModal');
+    var GenericDelegatedModal = require('GenericDelegatedModal');
     var GenericDelegatedConfirmModal = require('GenericDelegatedConfirmModal');
 
     var NccRactive = Ractive.extend({
@@ -43,8 +42,8 @@ define(function(require) {
             transactionConfirmModal: TransactionConfirmModal,
             accountDetailsModal: AccountDetailsModal,
             convertMultisigModal: ConvertMultisigModal,
-            activateDelegatedModal: ActivateDelegatedModal,
-            deactivateDelegatedModal: DectivateDelegatedModal,
+            activateDelegatedModal: GenericDelegatedModal,
+            deactivateDelegatedModal: GenericDelegatedModal,
             genericDelegatedConfirmModal: GenericDelegatedConfirmModal
         },
         sortAccounts: function(accounts) {
