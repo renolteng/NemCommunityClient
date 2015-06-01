@@ -28,6 +28,10 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                     this.update('multisigFee'); // so that stupid Ractive trigger fee observers
                 }
             },
+            remoteError: function() {
+                var remotePublicKey = this.get('remote.publicKey.value');
+                return !remotePublicKey || ((remotePublicKey.length % 2) !== 0);
+            },
             feeValid: function() {
                 return this.get('fee') >= this.get('minimumFee');
             },
@@ -44,7 +48,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                 return !this.get('passwordValid') && this.get('passwordChanged');
             },
             formValid: function() {
-                return this.get('feeValid') && this.get('passwordValid');
+                return !this.get('remoteError') && this.get('feeValid') && this.get('passwordValid');
             }
         },
         resetRemote: function() {
