@@ -133,7 +133,8 @@ public class TransactionMapper {
 		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
 				TimeInstant.ZERO,
 				multisig,
-				modifications);
+				modifications,
+				request.getMinCosignatoriesModification());
 
 		return new PartialFeeInformationViewModel(transaction.getFee());
 	}
@@ -229,7 +230,8 @@ public class TransactionMapper {
 		final MultisigAggregateModificationTransaction multisigTransaction = new MultisigAggregateModificationTransaction(
 				timeStamp,
 				signer,
-				modifications);
+				modifications,
+				request.getMinCosignatoriesModification());
 		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 		multisigTransaction.setFee(request.getFee());
 		return multisigTransaction;

@@ -17,9 +17,14 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 		final MultisigModificationType modificationType;
 		final Address address;
 
-		public ModificationWrapper(final MultisigCosignatoryModification multisigModification) {
-			this.modificationType = multisigModification.getModificationType();
-			this.address = multisigModification.getCosignatory().getAddress();
+		/**
+		 * Creates a new modification wrapper around a cosignatory modification.
+		 *
+		 * @param multisigCosignatoryModification The cosignatory modification.
+		 */
+		public ModificationWrapper(final MultisigCosignatoryModification multisigCosignatoryModification) {
+			this.modificationType = multisigCosignatoryModification.getModificationType();
+			this.address = multisigCosignatoryModification.getCosignatory().getAddress();
 		}
 
 		@Override
