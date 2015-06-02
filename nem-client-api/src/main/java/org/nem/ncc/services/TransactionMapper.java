@@ -120,9 +120,9 @@ public class TransactionMapper {
 	public PartialFeeInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
 		final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
 
-		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
+		final List<MultisigCosignatoryModification> modifications = request.getCosignatoriesAddresses().stream()
 				.map(this.accountLookup::findByAddress)
-				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
+				.map(o -> new MultisigCosignatoryModification(MultisigModificationType.AddCosignatory, o))
 				.collect(Collectors.toList());
 
 		// TODO 20150201 J-G: quick and bit dirty hack for UI...
@@ -216,10 +216,10 @@ public class TransactionMapper {
 		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
-		final List<MultisigModification> modifications = request.getCosignatoriesAddresses().stream()
+		final List<MultisigCosignatoryModification> modifications = request.getCosignatoriesAddresses().stream()
 				.map(this.accountLookup::findByAddress)
 				.filter(a -> null != a.getAddress().getPublicKey())
-				.map(o -> new MultisigModification(MultisigModificationType.Add, o))
+				.map(o -> new MultisigCosignatoryModification(MultisigModificationType.AddCosignatory, o))
 				.collect(Collectors.toList());
 
 		if (modifications.size() != request.getCosignatoriesAddresses().size()) {

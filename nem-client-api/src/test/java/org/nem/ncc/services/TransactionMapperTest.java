@@ -353,13 +353,13 @@ public class TransactionMapperTest {
 		final List<Address> expectedAddresses = context.cosignatories.stream()
 				.map(Account::getAddress)
 				.collect(Collectors.toList());
-		final List<Address> addresses = model.getModifications().stream()
+		final List<Address> addresses = model.getCosignatoryModifications().stream()
 				.map(m -> m.getCosignatory().getAddress())
 				.collect(Collectors.toList());
 
 		// Assert:
-		model.getModifications().stream().forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.Add)));
-		model.getModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
+		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.AddCosignatory)));
+		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
 		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
 		Assert.assertThat(model.getSigner().getAddress(), IsEqual.equalTo(context.signer.getAddress()));
 		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(7)));
