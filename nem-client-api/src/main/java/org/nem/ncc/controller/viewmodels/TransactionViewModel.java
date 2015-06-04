@@ -19,7 +19,8 @@ public class TransactionViewModel implements SerializableEntity {
 		Multisig_Modification(3),
 		Multisig_Transfer(4),
 		Multisig_Signature(5),
-		Multisig_Multisig_Modification(6);
+		Multisig_Multisig_Modification(6),
+		Multisig_Importance_Transfer(7);
 
 		private final int value;
 

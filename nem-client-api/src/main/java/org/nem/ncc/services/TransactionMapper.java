@@ -105,6 +105,28 @@ public class TransactionMapper {
 				isEncryptionSupported);
 	}
 
+	// currently empty used for Importance Transfer, as it's not providing any data...
+	// TODO 20150601 J-G: i guess you need to finish this?
+	public PartialTransferInformationViewModel toViewModel() {
+		final Account dummyAccount = new Account(new KeyPair());
+
+		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				ImportanceTransferMode.Activate,
+				dummyAccount);
+
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				transaction);
+
+		return new PartialTransferInformationViewModel(
+				transaction.getFee(),
+				multisigTransaction.getFee(),
+				false);
+	}
+
 	public PartialFeeInformationViewModel toViewModel(final PartialSignatureInformationRequest request) {
 		final Account cosignatory = this.accountLookup.findByAddress(request.getCosignatoryAddress());
 		final MultisigSignatureTransaction transaction = new MultisigSignatureTransaction(
@@ -146,18 +168,41 @@ public class TransactionMapper {
 	 * @return The model.
 	 */
 	public Transaction toModel(final TransferImportanceRequest request, final ImportanceTransferMode mode) {
+		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Importance_Transfer.getValue();
+
 		final Account sender = this.getSenderAccount(request.getWalletName(), request.getAddress(), request.getPassword());
-		final Account remoteAccount = this.getRemoteAccount(request.getWalletName(), request.getAddress(), request.getPassword());
+		final Account remoteAccount = null == request.getPublicKey()
+				? this.getRemoteAccount(request.getWalletName(), request.getAddress(), request.getPassword())
+				: new Account(new KeyPair(request.getPublicKey()));
 
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
-		final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
-				timeStamp,
-				sender,
-				mode,
-				remoteAccount);
 
-		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
-		return transaction;
+		if (isMultisig) {
+			final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
+			final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+					timeStamp,
+					multisig,
+					mode,
+					remoteAccount);
+			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			transaction.setFee(request.getFee());
+
+			final MultisigTransaction multisigTransaction = new MultisigTransaction(timeStamp,
+					sender,
+					transaction);
+			multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			multisigTransaction.setFee(request.getMultisigFee());
+			return multisigTransaction;
+		} else {
+			final ImportanceTransferTransaction transaction = new ImportanceTransferTransaction(
+					timeStamp,
+					sender,
+					mode,
+					remoteAccount);
+			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+			transaction.setFee(request.getFee());
+			return transaction;
+		}
 	}
 
 	private Transaction toModel(final TransferSendRequest request, final WalletPassword password) {

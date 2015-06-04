@@ -20,7 +20,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	private final Hash innerTransactionHash;
 	private final Address issuer;
 
-	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccoundData, final BlockHeight lastBlockHeight) {
+	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccountData, final BlockHeight lastBlockHeight) {
 
 		super(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION ?
 						Type.Multisig_Multisig_Modification :
@@ -29,7 +29,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				lastBlockHeight);
 		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
 		final Transaction other = multisigTransaction.getOtherTransaction();
-		final Address relativeAccountAddress = relativeAccoundData.getAccount().getAddress();
+		final Address relativeAccountAddress = relativeAccountData.getAccount().getAddress();
 		final TransactionMetaData innerMetaData = metaDataPair.getMetaData() == null
 				? null
 				: new TransactionMetaData(metaDataPair.getMetaData().getHeight(), 0L, Hash.ZERO);
@@ -42,8 +42,11 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 		} else if (other.getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION) {
 			this.otherTransactionViewModel = new MultisigAggregateViewModel(
 					new TransactionMetaDataPair(other, innerMetaData), lastBlockHeight);
+		} else if (other.getType() == TransactionTypes.IMPORTANCE_TRANSFER) {
+			this.otherTransactionViewModel = new ImportanceTransferTransactionViewModel(
+					new TransactionMetaDataPair(other, innerMetaData), lastBlockHeight);
 		} else {
-			throw new IllegalArgumentException("MultisigTransactionViewModel can handle only Transfers at the moment");
+			throw new IllegalArgumentException("MultisigTransactionViewModel can't handle that transaction at the moment");
 		}
 
 		this.innerTransactionHash = multisigTransaction.getOtherTransactionHash();
@@ -51,8 +54,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				.map(t -> new MultisigSignatureViewModel(new TransactionMetaDataPair(t, innerMetaData), lastBlockHeight))
 				.collect(Collectors.toList());
 
-		// TODO 20150131 J-G: accound -> account
-		this.requiresSignature = this.requiresSignature(metaDataPair, relativeAccountAddress, relativeAccoundData);
+		this.requiresSignature = this.requiresSignature(metaDataPair, relativeAccountAddress, relativeAccountData);
 	}
 
 	private int requiresSignature(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final AccountMetaDataPair relativeAccoundData) {

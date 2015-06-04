@@ -95,19 +95,28 @@ define({
 			},
 			addressBook: 'Address book',
 			password: 'Password',
+			walletsPassword: "Wallet's password",
 			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: 'Private label',
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			fee: 'Fee',
+			multisigFee: 'Multisig fee',
+			useMinimumFee: 'Use minimum fee',
+			feeValidation: 'Fee must not be less than the minimum fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
 			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Due by (hours)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Cancel',
+			sendButton: 'Send',
+			account: 'Account',
+			thisAccount: 'This account',
+			warning: 'Warning',
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
@@ -168,6 +177,12 @@ define({
 				},
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
+			},
+			signToken: {
+			    title: "Sign a token using account",
+			    label: "Token (url, string, anything)",
+			    signature: "Signed token",
+			    sign: "Sign"
 			},
 			multisig: {
 				title: 'Convert account to multisig',
@@ -415,22 +430,20 @@ define({
 				title: 'Close Program',
 				message: 'Are you sure you want to close NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
 				activate: 'Activate',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
 				account: 'Account',
-				password: "Wallet's password",
 				deactivate: 'Deactivate',
-				warning: 'Warning',
                 warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {

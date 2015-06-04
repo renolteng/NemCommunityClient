@@ -263,6 +263,10 @@ $form-input-hPadding: 12px;
 	}
 }
 
+#signedToken.form-input--textarea {
+    height: 6em;
+}
+
 .form-input-end {
 	float: right;
 	line-height: $form-input-height;

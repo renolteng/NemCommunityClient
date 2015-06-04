@@ -1,5 +1,7 @@
 package org.nem.ncc.services;
 
+import org.nem.core.crypto.KeyPair;
+import org.nem.core.crypto.PublicKey;
 import org.nem.core.model.Address;
 import org.nem.ncc.controller.viewmodels.AccountViewModel;
 import org.nem.ncc.wallet.WalletAccount;
@@ -26,7 +28,8 @@ public class AccountMapper {
 	 * @return The view model.
 	 */
 	public AccountViewModel toViewModel(final WalletAccount account) {
-		return this.toViewModel(account.getAddress());
+		// the remote harvesting public key is stored in the view model because it is displayed in the ux
+		return this.toViewModel(account.getAddress(), getRemotePublicKey(account));
 	}
 
 	/**
@@ -36,7 +39,15 @@ public class AccountMapper {
 	 * @return The view model.
 	 */
 	public AccountViewModel toViewModel(final Address address) {
-		return new AccountViewModel(this.accountLookup.findPairByAddress(address));
+		return this.toViewModel(address, null);
+	}
+
+	private static PublicKey getRemotePublicKey(final WalletAccount account) {
+		return (new KeyPair(account.getRemoteHarvestingPrivateKey())).getPublicKey();
+	}
+
+	private AccountViewModel toViewModel(final Address address, final PublicKey remotePublicKey) {
+		return new AccountViewModel(this.accountLookup.findPairByAddress(address), remotePublicKey);
 	}
 
 	// TODO 20150131 J-G: not sure if this should be here (in this class).
