@@ -645,7 +645,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.createAccount.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -715,7 +715,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.addAccount.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -789,7 +789,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.setPrimary.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -835,7 +835,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.changeWalletName.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -978,7 +978,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password',
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.changeAccountLabel.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -1074,7 +1074,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.changeAccountLabel.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -1111,7 +1111,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 readonly: true,
                                 unimportant: true,
                                 label: {
-                                    content: ncc.get('texts.modals.removeAccount.account')
+                                    content: ncc.get('texts.common.account')
                                 }
                             },
                             {
@@ -1136,7 +1136,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.removeAccount.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             }
                         ],
@@ -1217,7 +1217,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.startRemote.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             },
                             {
@@ -1226,7 +1226,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 readonly: true,
                                 unimportant: true,
                                 label: {
-                                    content: ncc.get('texts.modals.startRemote.account')
+                                    content: ncc.get('texts.common.account')
                                 }
                             }
                         ],
@@ -1264,7 +1264,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 name: 'password', 
                                 type: 'password',
                                 label: {
-                                    content: ncc.get('texts.modals.stopRemote.password')
+                                    content: ncc.get('texts.common.password')
                                 }
                             },
                             {
@@ -1273,7 +1273,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                 readonly: true,
                                 unimportant: true,
                                 label: {
-                                    content: ncc.get('texts.modals.stopRemote.account')
+                                    content: ncc.get('texts.common.account')
                                 }
                             }
                         ],

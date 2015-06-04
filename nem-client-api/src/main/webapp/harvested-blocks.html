@@ -74,7 +74,7 @@
 							<input type="text" class="form-input form-input--textbox" value="{{settings.nisBootInfo.nodeName}}" />
 						</div>
 						<div class="form-field">
-							<p class="form-label">{{texts.modals.settings.autoBoot.account}}</p>
+							<p class="form-label">{{texts.common.account}}</p>
 							<div class="form-dropdownbox">
 								<input class="form-input form-input--textbox form-dropdownbox-textbox {{#bootAccountDropdownActive}}form-dropdownbox-textbox--selecting{{/}} js-settingsModal-account-textbox" on-focus="set('bootAccountDropdownActive', true)" on-blur="set('bootAccountDropdownActive', false)" value="{{displayedAccount}}" />
 								<ul class="form-dropdownbox-dropdown {{^bootAccountDropdownActive}}hidden{{/}}">
