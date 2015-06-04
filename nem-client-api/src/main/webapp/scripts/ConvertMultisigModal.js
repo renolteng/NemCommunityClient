@@ -45,7 +45,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
-                minCosignatories: {'relativeChange': this.get('minCosignatories')},
+                // TODO: this needs to be changed
+                minCosignatories: {'relativeChange': parseInt(this.get('minCosignatories'), 10) },
                 hoursDue: this.get('hoursDue')
             };
             var self = this;
@@ -118,7 +119,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
-                minCosignatories: {'relativeChange': this.get('minCosignatories')},
+                // TODO: this needs to be changed
+                minCosignatories: {'relativeChange': parseInt(this.get('minCosignatories'), 10) },
                 password: this.get('password'),
                 fee: this.get('fee'),
                 hoursDue: this.get('hoursDue')
