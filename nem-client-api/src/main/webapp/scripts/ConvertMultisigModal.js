@@ -99,6 +99,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.set('dueBy', '1');
             this.set('password', '');
             this.set('useMinimumFee', true);
+            this.set('useDefaultMinCosignatories', true);
+            this.set('minCosignatories', this.get('cosignatories').length);
 
             this.set('feeChanged', false);
             this.set('passwordChanged', true);
@@ -162,6 +164,11 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.resetDefaultData();
 
             this.observe({
+                useDefaultMinCosignatories: function(value) {
+                    if (value) {
+                        this.set('minCosignatories', this.get('cosignatories').length);
+                    }
+                },
                 'cosignatories': (function() {
                     var t;
                     return function(objs) {

@@ -310,6 +310,29 @@
 				<button type="button" class="multisig-addCosignatory" on-click="addCosignatory()">{{texts.modals.multisig.addCosignatory}}</button>
 			</div>
 		</div>
+        <div class="form-field">
+        </div>
+        <div class="form-field">
+            <div class="form-row">
+                <div class="form-half form-half--left">
+                    <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
+                    <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
+                        Use default cosignatories number
+                    </label>
+                </div>
+                <div class="form-half form-half--right">
+                    <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
+                        Min cosignatories (relative)
+                        {{#if minCosignatoriesZero}}
+                        <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
+                    </p>
+                    <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
+                        <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<div class="form-field">
 			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
