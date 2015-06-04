@@ -17,33 +17,47 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 		final MultisigModificationType modificationType;
 		final Address address;
 
-		public ModificationWrapper(final MultisigModification multisigModification) {
-			this.modificationType = multisigModification.getModificationType();
-			this.address = multisigModification.getCosignatory().getAddress();
+		/**
+		 * Creates a new modification wrapper around a cosignatory modification.
+		 *
+		 * @param multisigCosignatoryModification The cosignatory modification.
+		 */
+		public ModificationWrapper(final MultisigCosignatoryModification multisigCosignatoryModification) {
+			this.modificationType = multisigCosignatoryModification.getModificationType();
+			this.address = multisigCosignatoryModification.getCosignatory().getAddress();
 		}
 
 		@Override
 		public void serialize(final Serializer serializer) {
 			Address.writeTo(serializer, "address", this.address);
-			serializer.writeString("type", this.modificationType == MultisigModificationType.Add ? "add" : "del");
+			serializer.writeString("type", this.modificationType == MultisigModificationType.AddCosignatory ? "add" : "del");
 		}
 	}
 
-	final List<ModificationWrapper> modifications;
+	final List<ModificationWrapper> cosignatoryModifications;
+	final MultisigMinCosignatoriesModification minCosignatoriesModification;
 
+	/**
+	 * Creates a new multisig aggregate view model around a multisig aggregate modification transaction.
+	 *
+	 * @param metaDataPair The meta data pair.
+	 * @param blockHeight The last block height (for calculating confirmations).
+	 */
 	public MultisigAggregateViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight blockHeight) {
 		super(Type.Multisig_Modification, metaDataPair, blockHeight);
 
 		final MultisigAggregateModificationTransaction transaction = (MultisigAggregateModificationTransaction)metaDataPair.getTransaction();
-		this.modifications = transaction.getModifications().stream()
+		this.cosignatoryModifications = transaction.getCosignatoryModifications().stream()
 				.map(ModificationWrapper::new)
 				.collect(Collectors.toList());
+		this.minCosignatoriesModification = transaction.getMinCosignatoriesModification();
 	}
 
 	@Override
 	protected void serializeImpl(final Serializer serializer) {
 		super.serializeImpl(serializer);
 
-		serializer.writeObjectArray("modifications", this.modifications);
+		serializer.writeObjectArray("modifications", this.cosignatoryModifications);
+		serializer.writeObject("minCosignatories", this.minCosignatoriesModification);
 	}
 }

@@ -339,12 +339,22 @@ public class TransactionMapperTest {
 	//region MultisigModificationRequest
 
 	@Test
-	public void canMapFromMultisigModificationRequestToModel() {
+	public void canMapFromMultisigModificationRequestToModelWithNullMinCosignatoriesModification() {
+		assertCanBeMappedFromMultisigModificationRequestToModel(null);
+	}
+
+	@Test
+	public void canMapFromMultisigModificationRequestToModelWithNonNullMinCosignatoriesModification() {
+		assertCanBeMappedFromMultisigModificationRequestToModel(new MultisigMinCosignatoriesModification(3));
+	}
+
+	private void assertCanBeMappedFromMultisigModificationRequestToModel(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
 		// Arrange:
 		final TestContext context = new TestContext();
 		context.addCosignatoriesWithPubKey(3);
 		context.cosignatories.stream()
 				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
+		context.addMinCosignatoriesModification(minCosignatoriesModification);
 
 		// Act:
 		final MultisigModificationRequest request = createModificationRequest(context);
@@ -353,14 +363,17 @@ public class TransactionMapperTest {
 		final List<Address> expectedAddresses = context.cosignatories.stream()
 				.map(Account::getAddress)
 				.collect(Collectors.toList());
-		final List<Address> addresses = model.getModifications().stream()
+		final List<Address> addresses = model.getCosignatoryModifications().stream()
 				.map(m -> m.getCosignatory().getAddress())
 				.collect(Collectors.toList());
 
 		// Assert:
-		model.getModifications().stream().forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.Add)));
-		model.getModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
+		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.AddCosignatory)));
+		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
 		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
+		Assert.assertThat(
+				model.getMinCosignatoriesModification(),
+				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
 		Assert.assertThat(model.getSigner().getAddress(), IsEqual.equalTo(context.signer.getAddress()));
 		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(7)));
 	}
@@ -429,6 +442,7 @@ public class TransactionMapperTest {
 				new WalletPassword("p"),
 				context.signer.getAddress(), // must be a valid address
 				context.cosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				context.minCosignatoriesModification,
 				1,
 				Amount.fromNem(7));
 	}
@@ -448,6 +462,7 @@ public class TransactionMapperTest {
 		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;
 		private final List<Account> cosignatories = new ArrayList<>();
+		private MultisigMinCosignatoriesModification minCosignatoriesModification = null;
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 
 		public TestContext() {
@@ -474,6 +489,10 @@ public class TransactionMapperTest {
 
 		private void addCosignatoryWithoutPubKey() {
 			this.cosignatories.add(new Account(Utils.generateRandomAddress()));
+		}
+
+		private void addMinCosignatoriesModification(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
+			this.minCosignatoriesModification = minCosignatoriesModification;
 		}
 	}
 }
