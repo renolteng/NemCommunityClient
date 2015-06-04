@@ -45,6 +45,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
+                minCosignatories: {'relativeChange': this.get('minCosignatories')},
                 hoursDue: this.get('hoursDue')
             };
             var self = this;
@@ -73,6 +74,9 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }
             });
             $('.js-cosignatory').last().focus();
+
+            // tis won't do the trick
+            //this.update('useDefaultMinCosignatories');
 
 //            var self = this;
 //            var $cosignatory = $('.js-cosignatory').last();
@@ -114,6 +118,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
+                minCosignatories: {'relativeChange': this.get('minCosignatories')},
                 password: this.get('password'),
                 fee: this.get('fee'),
                 hoursDue: this.get('hoursDue')
@@ -231,6 +236,13 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
 
             var $dueBy = $('.js-multisig-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            $dueBy.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $dueBy.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
+
+            var $minCosignatories = $('js-multisig-mincosignatories-textbox');
+            $minCosignatories.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            $minCosignatories.on('paste', function(e) { Utils.mask.paste(e, 'nem', self); });
+            $minCosignatories.on('keydown', function(e) { Utils.mask.keydown(e, 'nem', self); });
 
 //            var $cosignatory = $('.js-cosignatory');
 //            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
