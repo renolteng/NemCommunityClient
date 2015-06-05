@@ -24,6 +24,14 @@ public class MultisigModificationRequest {
 
 	/**
 	 * Creates a new multisig modification request.
+	 *
+	 * @param walletName The wallet name.
+	 * @param password The wallet password.
+	 * @param senderAddress The sender address.
+	 * @param cosignatoriesAddresses The list of cosignatory addresses.
+	 * @param minCosignatoriesModification The minimum cosignatories modification.
+	 * @param hoursDue The number of hours for the transaction to be valid.
+	 * @param fee The fee.
 	 */
 	public MultisigModificationRequest(
 			final WalletName walletName,
