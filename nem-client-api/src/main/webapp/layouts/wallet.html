@@ -317,17 +317,20 @@
                 <div class="form-half form-half--left">
                     <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
                     <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
-                        Use default cosignatories number
+                        {{texts.modals.multisig.minCosignatoriesDefaultLabel}}
                     </label>
                 </div>
                 <div class="form-half form-half--right">
                     <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
-                        Min cosignatories (relative)
+                        {{texts.modals.multisig.minCosignatoriesLabel}}
                         {{#if minCosignatoriesZero}}
                         <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
                         {{/if}}
+                        {{#if minCosignatoriesOverflow}}
+                        <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesOverflow}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
                     </p>
-                    <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
+                    <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}} {{#if minCosignatoriesError}}form-input--error{{/if}}">
                         <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
                     </div>
                 </div>
