@@ -310,10 +310,36 @@
 				<button type="button" class="multisig-addCosignatory" on-click="addCosignatory()">{{texts.modals.multisig.addCosignatory}}</button>
 			</div>
 		</div>
+        <div class="form-field">
+        </div>
+        <div class="form-field">
+            <div class="form-row">
+                <div class="form-half form-half--left">
+                    <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
+                    <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
+                        {{texts.modals.multisig.minCosignatoriesDefaultLabel}}
+                    </label>
+                </div>
+                <div class="form-half form-half--right">
+                    <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
+                        {{texts.modals.multisig.minCosignatoriesLabel}}
+                        {{#if minCosignatoriesZero}}
+                        <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
+                        {{#if minCosignatoriesOverflow}}
+                        <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesOverflow}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
+                    </p>
+                    <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}} {{#if minCosignatoriesError}}form-input--error{{/if}}">
+                        <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<div class="form-field">
 			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
-				{{texts.modals.multisig.useMinimumFee}}
+				{{texts.common.useMinimumFee}}
 				{{#if !useMinimumFee}}
 					({{formattedMinimumFee}} XEM)
 				{{/if}}
@@ -323,9 +349,9 @@
 			<div class="form-row">
 				<div class="form-half form-half--left">
 					<p class="form-label">
-						{{texts.modals.multisig.fee}}
+						{{texts.common.fee}}
 						{{#if feeError}}
-							<span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+							<span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -357,7 +383,7 @@
 		</div>
 	</div>
 	<div class="modal-buttons sendNem-buttons">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.multisig.cancel}}</button>
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
 		<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.multisig.convert}}</button>
 	</div>
 </convertMultisigModal>
@@ -420,7 +446,7 @@
 		<div class="form-field">
 			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
-				{{texts.modals.sendNem.useMinimumFee}}
+                {{texts.common.useMinimumFee}}
 				{{#if !useMinimumFee}}
 					({{formattedMinimumFee}} XEM)
 				{{/if}}
@@ -430,9 +456,9 @@
 			<div class="form-row">
 				<div class="form-half form-half--left">
 					<p class="form-label">
-						{{texts.modals.sendNem.fee}}
+                        {{texts.common.fee}}
 						{{#if feeError}}
-							<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
+							<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -455,9 +481,9 @@
 			{{#if sender}}
 			<div class="form-row">
 				<p class="form-label">
-					{{texts.modals.sendNem.multisigFee}}
+					{{texts.common.multisigFee}}
 					{{#if multisigFeeError}}
-					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.feeValidation}}" on-mouseover="registerToolTip"></span>
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
 					{{/if}}
 				</p>
 				<div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
@@ -488,16 +514,16 @@
 		</div>
 		<div class="form-field">
 			<p class="form-label">
-				{{texts.modals.sendNem.password}}
+                {{texts.common.password}}
 				{{#if passwordError}}
-					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.passwordValidation}}" on-mouseover="registerToolTip"></span>
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
 				{{/if}}
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
 		</div>
 		<div class="modal-buttons sendNem-buttons">
-			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.cancel}}</button>
-			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.sendNem.send}}</button>
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.common.sendButton}}</button>
 		</div>
 	</div>
 </sendNemModal>
@@ -612,7 +638,7 @@
         </div>
         <div class="form-field">
             <p class="form-label">
-                {{texts.common.walletsPassword}}
+                {{texts.common.password}}
                 {{#if passwordError}}
                 <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
                 {{/if}}
@@ -718,7 +744,7 @@
         </div>
         <div class="form-field">
             <p class="form-label">
-                {{texts.common.walletsPassword}}
+                {{texts.common.password}}
                 {{#if passwordError}}
                 <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
                 {{/if}}
@@ -822,7 +848,7 @@
 		<div class="form-field">
 			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
 			<label class="form-checkbox-label" for="chk-useMinimumFee">
-				{{texts.modals.signMultisig.useMinimumFee}}
+                {{texts.common.useMinimumFee}}
 				{{#if !useMinimumFee}}
 				({{formattedMinimumFee}} XEM)
 				{{/if}}
@@ -832,9 +858,9 @@
 			<div class="form-row">
 				<div class="form-half form-half--left">
 					<p class="form-label">
-						{{texts.modals.signMultisig.fee}}
+                        {{texts.common.fee}}
 						{{#if feeError}}
-						<span class="signMultisig-errorIcon icon-attention-circled" title="{{texts.modals.signMultisig.feeValidation}}" on-mouseover="registerToolTip"></span>
+						<span class="signMultisig-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
 						{{/if}}
 					</p>
 					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
@@ -860,16 +886,16 @@
 		</div>
 		<div class="form-field">
 			<p class="form-label">
-				{{texts.modals.signMultisig.password}}
+                {{texts.common.password}}
 				{{#if passwordError}}
-				<span class="signMultisig-errorIcon icon-attention-circled" title="{{texts.modals.signMultisig.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				<span class="signMultisig-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
 				{{/if}}
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
 		</div>
 		<div class="modal-buttons signMultisig-buttons">
-			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.signMultisig.cancel}}</button>
-			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.signMultisig.send}}</button>
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.common.sendButton}}</button>
 		</div>
 	</div>
 </signMultisigModal>
@@ -888,9 +914,16 @@
             </span></span>
 		</div>
 		<div class="modificationConfirm-line">
-			<span class="modificationConfirm-label">{{texts.modals.multisig.fee}}</span>
-			<span class="modificationConfirm-value"><span class="modificationConfirm-fee">{{txData.formattedFee}} XEM</span></span>
+			<span class="modificationConfirm-label">{{texts.common.fee}}</span>
+			<span class="modificationConfirm-value modificationConfirm-fee">{{txData.formattedFee}} XEM</span>
 		</div>
+        <div class="modificationConfirm-line">
+            <span class="modificationConfirm-value">{{texts.modals.multisig.minCosignatoriesLabel}}:</span>
+        </div>
+        <div class="modificationConfirm-line">
+            <span class="modificationConfirm-label">&nbsp;</span>
+            <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{requestData.minCosignatories.relativeChange}}</span>
+        </div>
 		<hr>
 		<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
 		{{#each requestData.cosignatories : i}}
@@ -914,7 +947,7 @@
 		</div>
 	</div>
 	<div class="modificationConfirm-actions">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
 		<button type="button" class="modal-button modal-button--primary" disabled="{{processing}}" on-click="confirm()">
 			{{#if processing}}
 			{{texts.modals.sendNem.txConfirm.sending}}
@@ -960,7 +993,7 @@
 		</div>
 		<hr>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.fee}}</span>
+			<span class="txConfirm-label">{{texts.common.fee}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.formattedFee}}} XEM</span></span>
 		</div>
 		<div class="sigConfirm-line">
@@ -975,7 +1008,7 @@
 		</div>
 	</div>
 	<div class="sigConfirm-actions">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
 		<button type="button" class="modal-button modal-button--primary" disabled="{{processing}}" on-click="confirm()">
 			{{#if processing}}
 			{{texts.modals.sendNem.txConfirm.sending}}
@@ -1015,7 +1048,7 @@
         </div>
     </div>
     <div class="txConfirm-actions">
-        <button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+        <button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
         <button type="button" class="modal-button modal-button--primary" disabled="{{processing}}" on-click="confirm()">
             {{#if processing}}
             {{texts.modals.sendNem.txConfirm.sending}}
@@ -1041,12 +1074,12 @@
 			</span>
 		</div>
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.sendNem.fee}}</span>
+			<span class="txConfirm-label">{{texts.common.fee}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedFee}} XEM</span></span>
 		</div>
 		{{#if (requestData.type === TransactionType.Multisig_Transfer)}}
 		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.sendNem.multisigFee}}</span>
+			<span class="txConfirm-label">{{texts.common.multisigFee}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} XEM</span></span>
 		</div>
 		{{/if}}
@@ -1073,7 +1106,7 @@
 		</div>
 	</div>
 	<div class="txConfirm-actions">
-		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.modals.sendNem.txConfirm.cancel}}</button>
+		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
 		<button type="button" class="modal-button modal-button--primary" disabled="{{processing}}" on-click="confirm()">
 			{{#if processing}}
 				{{texts.modals.sendNem.txConfirm.sending}}
@@ -1248,11 +1281,15 @@
 				</tr>
 			{{else}}
 				<tr>
-					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.fee}}</td>
+					<td class="table-cell table-cell--label">{{texts.common.fee}}</td>
 					<td class="table-cell table-cell--content">{{{.formattedFee}}} XEM</td>
 				</tr>
 			{{/if}}
 			{{#if (.type === TransactionType.Aggregate_Modification)}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
+                <td class="table-cell table-cell--content">{{.minCosignatories.relativeChange}}</td>
+            </tr>
 			{{#each .modifications}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
@@ -1304,7 +1341,7 @@
 	{{#account}}
 		<table>
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.address}}</td>
+				<td class="table-cell table-cell--label">{{texts.common.address}}</td>
 				<td class="table-cell table-cell--content">{{formattedAddress}}</td>
 			</tr>
 			<tr>
@@ -1362,7 +1399,7 @@
         {{/if}}
 	{{/}}
 	<div class="modal-buttons">
-		<button type="button" class="modal-button modal-button--primary" on-click="closeModal()">{{texts.modals.accountDetails.close}}</button>
+		<button type="button" class="modal-button modal-button--primary" on-click="closeModal()">{{texts.common.closeButton}}</button>
 	</div>
 </accountDetailsModal>
 <clientInfoModal modalClass="clientInfoModal modal--wide" modalTitle="{{texts.modals.clientInfo.title}}" closeOnEnter="true" texts="{{texts}}" ncc="{{ncc}}" nis="{{nis}}" nisSynchronized="{{nisSynchronized}}">

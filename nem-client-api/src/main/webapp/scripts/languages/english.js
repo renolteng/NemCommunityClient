@@ -95,7 +95,6 @@ define({
 			},
 			addressBook: 'Address book',
 			password: 'Password',
-			walletsPassword: "Wallet's password",
 			passwordValidation: 'Password must not be blank',
 			address: 'Address',
 			privateLabel: 'Private label',
@@ -171,7 +170,6 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-boot',
 					name: 'Node name',
-					account: 'Account',
 					primaryAccount: 'Primary account',
 					auto: 'Auto boot when a wallet is opened'
 				},
@@ -191,17 +189,16 @@ define({
 				labelDesc: 'This account is labeled as {{1}}',
 				nullLabelDesc: "This account doesn't have a label",
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
 				convert: 'Convert',
-				fee: 'Fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
-
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -215,13 +212,7 @@ define({
 				multisigFees: 'Multisig Fees',
 				multisigTotal: 'Total',
 				sender: 'Cosignatory',
-				fee: 'Fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: 'Password',
 				passwordValidation: 'Password must not be blank',
-				send: 'Send',
-				cancel: 'Cancel',
 				sending: 'Sending...',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
@@ -242,14 +233,6 @@ define({
 				recipientValidation: 'Account addresses must be 40 characters long excluding dashes',
 				message: 'Message',
 				encrypt: 'Encrypt message',
-				fee: 'Fee',
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: 'Password',
-				passwordValidation: 'Password must not be blank',
-				send: 'Send',
-				cancel: 'Cancel',
 				sending: 'Sending...',
 				successMessage: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>',
 				txConfirm: {
@@ -260,7 +243,6 @@ define({
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
-					cancel: 'Cancel',
 					confirm: 'Confirm',
 					sending: 'Sending...'
 				},
@@ -311,14 +293,12 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
-				fee: 'Fee',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",
-				address: "Address",
 				label: "Label",
 				noLabel: "No label",
 				add: "Add to address book",
@@ -328,8 +308,7 @@ define({
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				harvestedBlocks: "Harvested blocks"
 			},
 			bootLocalNode: {
 				title: 'Boot local node',
@@ -352,7 +331,6 @@ define({
 				title: 'Create New Account',
 				label: 'Private label',
 				wallet: 'Wallet',
-				password: "Wallet's password",
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been created!',
 				create: 'Create'
 			},
@@ -371,7 +349,6 @@ define({
 				title: 'Add an Existing Account',
 				privateKey: "Account's Private Key",
 				wallet: 'Wallet',
-				password: "Wallet's password",
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been added to wallet!',
 				add: 'Add',
 				label: 'Label'
@@ -381,7 +358,6 @@ define({
 				account: 'Account to be set as primary',
 				noLabel: '<span class="null">&lt;No label&gt;</span>',
 				wallet: 'Wallet',
-				password: "Wallet's password",
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been set as primary!',
 				set: 'Set as primary'
 			},
@@ -389,7 +365,6 @@ define({
 				title: 'Change Wallet Name',
 				wallet: 'Current wallet name',
 				newName: 'New wallet name',
-				password: "Wallet's password",
 				successMessage: 'Wallet name has been successfully changed from <em>{{1}}</em> to <em>{{2}}</em>',
 				change: 'Change'
 			},
@@ -408,16 +383,13 @@ define({
 				title: 'Change Account Label',
 				label: 'Account label',
 				wallet: 'Wallet',
-				password: "Wallet's password",
 				successMessage: 'Account {{1}} is now labeled as {{2}}',
 				change: 'Change'
 			},
 			removeAccount: {
 				title: 'Remove Account',
-				account: 'Account',
 				label: 'Account label',
 				wallet: 'Associated wallet',
-				password: "Wallet's password",
 				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} has been removed!',
 				remove: 'Remove'
@@ -433,7 +405,6 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
 				activate: 'Activate',
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
 				delegatedAccount: 'Delegated account public key',
@@ -442,22 +413,17 @@ define({
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
 				deactivate: 'Deactivate',
                 warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
 				stop: 'Stop'
 			},
 			logoutWarning: {

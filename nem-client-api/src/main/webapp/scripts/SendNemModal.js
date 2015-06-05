@@ -256,6 +256,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
 
             var $dueBy = $('.js-sendNem-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            $dueBy.on('paste', function(e) { Utils.mask.paste(e, 'number', self); });
+            $dueBy.on('keydown', function(e) { Utils.mask.keydown(e, 'number', self); });
 
             var $recipient = $('.js-sendNem-recipient-textbox');
             $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });

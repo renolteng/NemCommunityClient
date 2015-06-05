@@ -19,6 +19,11 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                     this.update('fee'); // so that stupid Ractive trigger fee observers
                 }
             },
+            minCosignatoriesNumber: {
+                get: function() {
+                    return parseInt(this.get('minCosignatories'), 10);
+                }
+            },
             feeValid: function() {
                 return this.get('fee') >= this.get('minimumFee');
             },
@@ -34,8 +39,11 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             passwordError: function() {
                 return !this.get('passwordValid') && this.get('passwordChanged');
             },
+            minCosignatoriesError: function() {
+                return this.get('minCosignatoriesOverflow') || this.get('minCosignatoriesZero');
+            },
             formValid: function() {
-                return this.get('feeValid') && this.get('passwordValid') && this.get('multisigAccount') && this.get('cosignatoriesValid');
+                return this.get('feeValid') && this.get('passwordValid') && this.get('multisigAccount') && this.get('cosignatoriesValid') && !this.get('minCosignatoriesError');
             }
         },
         resetFee: function(options) {
@@ -45,6 +53,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
+                minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
                 hoursDue: this.get('hoursDue')
             };
             var self = this;
@@ -74,6 +83,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             });
             $('.js-cosignatory').last().focus();
 
+            this.resetMinCosignatories();
+
 //            var self = this;
 //            var $cosignatory = $('.js-cosignatory').last();
 //            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
@@ -82,6 +93,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         },
         removeCosignatory: function(index) {
             this.get('cosignatories').splice(index, 1);
+            this.resetMinCosignatories();
         },
         resetDefaultData: function() {
             this.set('allAccounts', ncc.get('allAccounts'));
@@ -99,6 +111,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.set('dueBy', '1');
             this.set('password', '');
             this.set('useMinimumFee', true);
+            this.set('useDefaultMinCosignatories', true);
+            this.set('minCosignatories', this.get('cosignatories').length);
 
             this.set('feeChanged', false);
             this.set('passwordChanged', true);
@@ -112,6 +126,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
                     .map(function(e){ return {'address':e.address}}),
+                minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
                 password: this.get('password'),
                 fee: this.get('fee'),
                 hoursDue: this.get('hoursDue')
@@ -155,6 +170,11 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }
             }
         },
+        resetMinCosignatories: function() {
+            if (this.get('useDefaultMinCosignatories')) {
+                this.set('minCosignatories', this.get('cosignatories').length);
+            }
+        },
         onrender: function() {
             this._super();
             var self = this;
@@ -182,6 +202,21 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 init: false
             });
             this.observe({
+                minCosignatories: function() {
+                    if (this.get('minCosignatories')==null || this.get('minCosignatories')==='' || parseInt(this.get('minCosignatories'),10)===0) {
+                        this.set('minCosignatoriesZero', true);
+                    } else {
+                        this.set('minCosignatoriesZero', false);
+                    }
+                    if (parseInt(this.get('minCosignatories'), 10) > this.get('cosignatories').length) {
+                        this.set('minCosignatoriesOverflow', true);
+                    } else {
+                         this.set('minCosignatoriesOverflow', false);
+                     }
+                },
+                useDefaultMinCosignatories: function() {
+                    self.resetMinCosignatories();
+                },
                 useMinimumFee: function(useMinimumFee) {
                     if (useMinimumFee) {
                         this.set('fee', this.get('minimumFee'));
@@ -224,6 +259,13 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
 
             var $dueBy = $('.js-multisig-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            $dueBy.on('paste', function(e) { Utils.mask.paste(e, 'number', self); });
+            $dueBy.on('keydown', function(e) { Utils.mask.keydown(e, 'number', self); });
+
+            var $minCosignatories = $('.js-multisig-mincosignatories-textbox');
+            $minCosignatories.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            $minCosignatories.on('paste', function(e) { Utils.mask.paste(e, 'number', self); });
+            $minCosignatories.on('keydown', function(e) { Utils.mask.keydown(e, 'number', self); });
 
 //            var $cosignatory = $('.js-cosignatory');
 //            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
