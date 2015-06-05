@@ -80,8 +80,28 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
 
     ncc.refreshVersionStatus = function(complete) {
         ncc.jsonpRequest('http://bob.nem.ninja/version_p.js', function(d){
-            if (('stable' in d) && d['stable'].match(/\d+\.\d+\.\d+/)) {
-                ncc.set('latestVersion', d['stable']);
+            var nisData = ncc.get('nis');
+            var currentVersion = ('nodeInfo' in nisData) ? nisData.nodeInfo.nisInfo.version.match(/(\d+)\.(\d+)\.(\d+)/) : null;
+            if ('stable' in d) {
+                var remoteVersion = d['stable'].match(/(\d+)\.(\d+)\.(\d+)/);
+                if (remoteVersion) {
+                    ncc.set('latestVersion', d['stable']);
+                    if (currentVersion != null) {
+                        var r = remoteVersion;
+                        var c = currentVersion;
+                        if (!ncc.get('displayed.newBuildMessage')) {
+                            if (r[1] > c[1] || (r[1] === c[1] && r[2] > c[2]) || (r[1] === c[1] && r[2] === c[2] && r[3] > c[3])) {
+                                ncc.showMessage(
+                                    ncc.get('texts.common.newBuild'),
+                                    ncc.fill(ncc.get('texts.common.newBuildNumber'), remoteVersion[0]),
+                                    null,
+                                    'modal--wide'
+                                );
+                                ncc.set('displayed.newBuildMessage', true);
+                            }
+                        }
+                    }
+                }
             }
         });
     };
