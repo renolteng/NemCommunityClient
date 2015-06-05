@@ -29,7 +29,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                 }
             },
             remoteError: function() {
-                var remotePublicKey = this.get('remote.publicKey.value');
+                var remotePublicKey = this.get('remote.publicKey');
                 return !remotePublicKey || ((remotePublicKey.length % 2) !== 0);
             },
             feeValid: function() {
@@ -73,7 +73,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                 });
             } else {
                 this.set('remote', {
-                    publicKey: {'value':''},
+                    publicKey: '',
                     address: '',
                     formattedAddress: '',
                 });

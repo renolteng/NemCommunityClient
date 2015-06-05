@@ -570,7 +570,7 @@
                 ({{texts.modals.activateDelegated.builtIn}})
                 {{/sender}}
             </p>
-            <input type="text" class="form-input  form-input--textbox {{^sender}}form-input--unimportant{{/}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{^sender}}disabled{{/}}" {{^sender}}readonly{{/}} on-keypress="sendFormKeypress" value="{{remote.publicKey.value}}" />
+            <input type="text" class="form-input  form-input--textbox {{^sender}}form-input--unimportant{{/}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{^sender}}disabled{{/}}" {{^sender}}readonly{{/}} on-keypress="sendFormKeypress" value="{{remote.publicKey}}" />
             {{^sender}}
             <p class="form-sublabel">
                 {{#if (privateLabels[remote.address])}}
@@ -1024,7 +1024,7 @@
         <div class="txConfirm-line">
             <div class="txConfirm-label">{{texts.modals.activateDelegated.delegatedAccount}}</div>
 			<div class="txConfirm-value">
-				<span class="txConfirm-recipient">{{requestData.publicKey.value}}</span>
+				<span class="txConfirm-recipient">{{requestData.publicKey}}</span>
 			</div>
         </div>
         {{/}}
