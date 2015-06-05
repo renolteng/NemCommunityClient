@@ -12,6 +12,7 @@ import org.nem.ncc.wallet.*;
 import java.util.*;
 
 public class MultisigModificationRequestTest {
+
 	//region constructor
 
 	@Test
