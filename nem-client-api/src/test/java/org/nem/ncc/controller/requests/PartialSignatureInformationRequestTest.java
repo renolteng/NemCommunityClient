@@ -88,8 +88,14 @@ public class PartialSignatureInformationRequestTest {
 			final Address multisigAddress,
 			final Address cosignatoryAddress) {
 		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("multisig", null == multisigAddress ? null : multisigAddress.toString());
-		jsonObject.put("cosignatory",  null == cosignatoryAddress ? null : cosignatoryAddress.toString());
+		if (null != multisigAddress) {
+			jsonObject.put("multisig", multisigAddress.toString());
+		}
+
+		if (null != cosignatoryAddress) {
+			jsonObject.put("cosignatory", cosignatoryAddress.toString());
+		}
+
 		return new JsonDeserializer(jsonObject, null);
 	}
 }

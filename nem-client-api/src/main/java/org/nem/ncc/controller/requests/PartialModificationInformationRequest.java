@@ -36,7 +36,7 @@ public class PartialModificationInformationRequest {
 	}
 
 	/**
-	 * Gets the multsig address.
+	 * Gets the multisig address.
 	 *
 	 * @return The multisig address.
 	 */

@@ -484,7 +484,6 @@ public class TransactionMapperTest {
 				this.timeProvider);
 
 		private final KeyPair signerKeyPair = new KeyPair();
-		private final Address multisigAddress = Utils.generateRandomAddress();
 		private final Account signer = new Account(this.signerKeyPair);
 		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;

@@ -4,10 +4,6 @@ import org.nem.core.model.Address;
 import org.nem.core.serialization.*;
 
 /**
- * TODO 20150131 J-G: fix empty comments
- * TODO 20150131 J-G: a few basic tests
- * TODO 20150605 BR -> J: done
- *
  * Helper class to pass partial signature transaction data to NCC.
  */
 public class PartialSignatureInformationRequest {
@@ -26,7 +22,7 @@ public class PartialSignatureInformationRequest {
 	}
 
 	/**
-	 * Desrializes partial signature information request.
+	 * Deserializes a partial signature information request.
 	 *
 	 * @param deserializer The deserializer.
 	 */
