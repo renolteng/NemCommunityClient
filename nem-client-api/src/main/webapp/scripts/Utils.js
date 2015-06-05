@@ -681,7 +681,7 @@ define(['TransactionType'], function(TransactionType) {
             tx.mainType = tx.type;
 
             // multisig
-            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification) {
+            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification || tx.type === TransactionType.Multisig_Importance_Transfer) {
                 tx.isMultisig = true;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.innerType = tx.inner.type;
@@ -698,6 +698,11 @@ define(['TransactionType'], function(TransactionType) {
                     transferTransaction = tx.inner;
                     tx.recipient = transferTransaction.recipient
                     tx.message = tx.inner.message;
+
+                } else if (tx.type === TransactionType.Multisig_Importance_Transfer) {
+                    tx.remote = tx.inner.remote;
+                } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
+                    tx.modifications = tx.inner.modifications;
                 }
 
                 var mutltisigFees = tx.fee + tx.signatures
@@ -723,7 +728,7 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             // importance transfer
-            if (tx.type == TransactionType.Importance_Transfer) {
+            if (tx.type == TransactionType.Importance_Transfer || tx.type == TransactionType.Multisig_Importance_Transfer) {
                 tx.recipient = tx.remote;
                 tx.isIncoming = false;
                 tx.isOutgoing = false;

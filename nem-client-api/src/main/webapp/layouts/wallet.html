@@ -1154,7 +1154,7 @@
                     {{/}}
 			</tr>
 			<tr>
-				{{#if (.type === TransactionType.Multisig_Transfer)}}
+				{{#if (.isMultisig)}}
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigAccount}}</td>
 					<td class="table-cell table-cell--content">
 						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">
@@ -1179,7 +1179,7 @@
 				{{/if}}
 			</tr>
 
-			{{#if (.type === TransactionType.Multisig_Transfer)}}
+			{{#if (.isMultisig)}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
 				<td class="table-cell table-cell--content">
@@ -1194,10 +1194,10 @@
 			</tr>
 			{{/if}}
 
-			{{#if (.type !== TransactionType.Aggregate_Modification)}}
+			{{#if (.type !== TransactionType.Aggregate_Modification && .type !== TransactionType.Multisig_Aggregate_Modification)}}
 			<tr>
 				<td class="table-cell table-cell--label">
-					{{#if (.type === TransactionType.Importance_Transfer)}}
+					{{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Multisig_Importance_Transfer)}}
 					{{texts.modals.transactionDetails.remote}}
 					{{else}}
 					{{texts.modals.transactionDetails.recipient}}
@@ -1244,7 +1244,7 @@
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
 				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
 			</tr>
-            {{#if (.type === TransactionType.Multisig_Transfer)}}
+            {{#if (.isMultisig)}}
             <tr>
                 <td class="table-cell table-cell--label">{{texts.common.dueBy}}</td>
                 <td class="table-cell table-cell--content">{{multisig.validMinutes}} {{texts.common.minutes}} <span class="dimmed">({{.multisig.formattedDeadline}})</span></td>
@@ -1264,13 +1264,13 @@
 					{{/if}}
 				</td>
 			</tr>
-			{{#if (.type !== TransactionType.Aggregate_Modification && .type !== TransactionType.Importance_Transfer)}}
+			{{#if (.type === TransactionType.Transfer || .type === TransactionType.Multisig_Transfer)}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
 				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} XEM</td>
 			</tr>
 			{{/if}}
-			{{#if (.type === TransactionType.Multisig_Transfer)}}
+			{{#if (.isMultisig)}}
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
 					<td class="table-cell table-cell--content">{{{.multisig.formattedInnerFee}}} XEM</td>
@@ -1285,14 +1285,22 @@
 					<td class="table-cell table-cell--content">{{{.formattedFee}}} XEM</td>
 				</tr>
 			{{/if}}
-			{{#if (.type === TransactionType.Aggregate_Modification)}}
+			{{#if (.type === TransactionType.Aggregate_Modification || .type === TransactionType.Multisig_Aggregate_Modification)}}
             <tr>
                 <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
-                <td class="table-cell table-cell--content">{{.minCosignatories.relativeChange}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .type === TransactionType.Aggregate_Modification}}
+                        {{.minCosignatories.relativeChange}}
+                    {{else}}
+                        {{.inner.minCosignatories.relativeChange}}
+                    {{/if}}
+                </td>
             </tr>
 			{{#each .modifications}}
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}}
+                    {{.type}}
+                </td>
 				<td class="table-cell table-cell--content">
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
                         {{#if privateLabels[.address]}}
