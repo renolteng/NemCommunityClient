@@ -90,7 +90,7 @@ define(['ncc', 'Utils'], function(ncc, Utils) {
                         var r = remoteVersion;
                         var c = currentVersion;
                         if (!ncc.get('displayed.newBuildMessage')) {
-                            if (r[1] > c[1] || (r[1] === c[1] && r[2] > c[2]) || (r[1] === c[1] && r[2] === c[2] && r[3] > c[3]) || true) {
+                            if (r[1] > c[1] || (r[1] === c[1] && r[2] > c[2]) || (r[1] === c[1] && r[2] === c[2] && r[3] > c[3])) {
                                 ncc.showMessage(
                                     ncc.get('texts.common.newBuild'),
                                     ncc.fill(ncc.get('texts.common.newBuildNumber'), remoteVersion[0]),
