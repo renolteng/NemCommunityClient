@@ -915,11 +915,14 @@
 		</div>
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{texts.common.fee}}</span>
-			<span class="modificationConfirm-value"><span class="modificationConfirm-fee">{{txData.formattedFee}} XEM</span></span>
+			<span class="modificationConfirm-value modificationConfirm-fee">{{txData.formattedFee}} XEM</span>
 		</div>
         <div class="modificationConfirm-line">
-            <span class="modificationConfirm-label">Minimum cosignatories required</span>
-            <span class="modificationConfirm-value">{{txData.minCosignatories.relativeChange}}</span>
+            <span class="modificationConfirm-value">{{texts.modals.multisig.minCosignatoriesLabel}}:</span>
+        </div>
+        <div class="modificationConfirm-line">
+            <span class="modificationConfirm-label">&nbsp;</span>
+            <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{requestData.minCosignatories.relativeChange}}</span>
         </div>
 		<hr>
 		<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
@@ -1283,6 +1286,10 @@
 				</tr>
 			{{/if}}
 			{{#if (.type === TransactionType.Aggregate_Modification)}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
+                <td class="table-cell table-cell--content">{{.minCosignatories.relativeChange}}</td>
+            </tr>
 			{{#each .modifications}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>

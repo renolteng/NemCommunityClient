@@ -848,7 +848,8 @@ $modificationConfirm-label-width: 130px;
 
 .modificationConfirm-account,
 .modificationConfirm-fee,
-.modificationConfirm-cosignatory {
+.modificationConfirm-cosignatory,
+.modificationConfirm-minCosignatories {
 	font-weight: $fontWeight-bold;
 }
 
