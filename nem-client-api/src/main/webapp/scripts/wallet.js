@@ -270,20 +270,25 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     if (account.isMultisig) {
                         ncc.showMessage(ncc.get('texts.common.warning'), ncc.get('texts.dashboard.importance.remoteHarvest.multisigInfo'));
                     } else {
+                        var modifiableAccounts = {};
+                        account.multisigAccounts.forEach(function (e){ modifiableAccounts[e.address] = true; });
+                        modifiableAccounts[account.address] = true;
 
                         var wallet = ncc.get('wallet');
                         var walletAccounts = wallet.otherAccounts.concat(wallet.primaryAccount);
-                        var accountsToActivate = walletAccounts.filter(function (a){ return a.remoteStatus === 'INACTIVE';});
-                        var accountsToDeactivate = walletAccounts.filter(function (a){ return a.remoteStatus === 'ACTIVE';});
+                        var accountsToActivate = walletAccounts.filter(function (a){ return (a.address in modifiableAccounts) && (a.remoteStatus === 'INACTIVE');});
+                        var accountsToDeactivate = walletAccounts.filter(function (a){ return (a.address in modifiableAccounts) && (a.remoteStatus === 'ACTIVE');});
 
                         var showDeactivateDialog = function() {
                             var m = ncc.getModal('deactivateDelegated');
                             m.set('activation', false);
+                            m.set('availAccounts', accountsToDeactivate);
                             m.open();
                         };
                         var showActivateDialog = function() {
                             var m = ncc.getModal('activateDelegated');
                             m.set('activation', true);
+                            m.set('availAccounts', accountsToActivate);
                             m.open();
                         };
 
@@ -314,7 +319,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                         } else if (accountsToActivate.length != 0) {
                             showActivateDialog();
 
-                        } else if (accountsToActivate.length != 0) {
+                        } else if (accountsToDeactivate.length != 0) {
                             showDeactivateDialog();
                         }
                     }

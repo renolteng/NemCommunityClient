@@ -82,14 +82,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
         },
         resetDefaultData: function() {
             var activation = this.get('activation');
-            var wallet = ncc.get('wallet');
-            var walletAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
-            var availAccounts = activation ?
-                walletAccounts.filter(function (a){ return a.remoteStatus === 'INACTIVE';}) :
-                walletAccounts.filter(function (a){ return a.remoteStatus === 'ACTIVE';});
-
-            this.set('availAccounts', availAccounts);
-            this.set('sender', availAccounts[0].address);
+            var firstAcc = this.get('availAccounts') ? this.get('availAccounts')[0].address : null;
+            this.set('sender', firstAcc);
             this.resetRemote();
 
             this.set('fee', 0);
