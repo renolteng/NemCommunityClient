@@ -204,9 +204,9 @@ public class WalletControllerTest {
 		final String[] contents = new String[2];
 		ExceptionUtils.propagateVoid(() -> {
 			entries[0] = zipInputStream.getNextEntry();
-			contents[0] = readString(zipInputStream);
+			contents[0] = this.readString(zipInputStream);
 			entries[1] = zipInputStream.getNextEntry();
-			contents[1] = readString(zipInputStream);
+			contents[1] = this.readString(zipInputStream);
 			entries[2] = zipInputStream.getNextEntry();
 		});
 

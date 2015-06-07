@@ -103,14 +103,14 @@ public class WalletController {
 		return ExceptionUtils.propagate(() -> {
 			final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			try (final ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream)) {
-				addToZip(
+				this.addToZip(
 						zipOutputStream,
 						name.toString(),
 						WalletFileExtension.DEFAULT_FILE_EXTENSION,
 						this.walletServices::copyTo,
 						n -> new WalletNamePasswordPair(n, "???"));
 
-				addToZip(
+				this.addToZip(
 						zipOutputStream,
 						name.toString(),
 						AddressBookFileExtension.DEFAULT_FILE_EXTENSION,

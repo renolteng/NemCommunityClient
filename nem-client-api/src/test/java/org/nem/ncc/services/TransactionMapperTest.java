@@ -359,12 +359,12 @@ public class TransactionMapperTest {
 
 	@Test
 	public void canMapFromMultisigModificationRequestToModelWithNullMinCosignatoriesModification() {
-		assertCanBeMappedFromMultisigModificationRequestToModel(null);
+		this.assertCanBeMappedFromMultisigModificationRequestToModel(null);
 	}
 
 	@Test
 	public void canMapFromMultisigModificationRequestToModelWithNonNullMinCosignatoriesModification() {
-		assertCanBeMappedFromMultisigModificationRequestToModel(new MultisigMinCosignatoriesModification(3));
+		this.assertCanBeMappedFromMultisigModificationRequestToModel(new MultisigMinCosignatoriesModification(3));
 	}
 
 	private void assertCanBeMappedFromMultisigModificationRequestToModel(final MultisigMinCosignatoriesModification minCosignatoriesModification) {

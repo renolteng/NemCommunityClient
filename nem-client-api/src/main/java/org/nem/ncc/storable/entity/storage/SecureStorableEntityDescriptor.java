@@ -94,7 +94,7 @@ public abstract class SecureStorableEntityDescriptor<
 	public InputStream openRead(final StorableEntityReadMode mode) {
 		switch (mode) {
 			case Raw: return this.descriptor.openRead();
-			case Decode: return openRead();
+			case Decode: return this.openRead();
 			default: throw new IllegalArgumentException(String.format("unknown read mode: %s", mode.toString()));
 		}
 	}
