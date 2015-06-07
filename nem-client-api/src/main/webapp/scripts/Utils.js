@@ -9,16 +9,7 @@ define(['TransactionType'], function(TransactionType) {
             nemDivisibility: 1000000,
             txesPerPage: 25,
             blocksPerPage: 25,
-            defaultLanguage: 'en',
-            STATUS_UNKNOWN: 0,
-            STATUS_STOPPED: 1,
-            STATUS_STARTING: 2,
-            STATUS_RUNNING: 3,
-            STATUS_BOOTING: 4,
-            STATUS_BOOTED: 5,
-            STATUS_SYNCHRONIZED: 6,
-            STATUS_NO_REMOTE_NIS_AVAILABLE: 7,
-            STATUS_LOADING: 8
+            defaultLanguage: 'en'
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);

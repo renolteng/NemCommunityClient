@@ -46,6 +46,18 @@ define(function(require) {
             deactivateDelegatedModal: GenericDelegatedModal,
             genericDelegatedConfirmModal: GenericDelegatedConfirmModal
         },
+        Status:
+        {
+                STATUS_UNKNOWN: 0,
+                STATUS_STOPPED: 1,
+                STATUS_STARTING: 2,
+                STATUS_RUNNING: 3,
+                STATUS_BOOTING: 4,
+                STATUS_BOOTED: 5,
+                STATUS_SYNCHRONIZED: 6,
+                STATUS_NO_REMOTE_NIS_AVAILABLE: 7,
+                STATUS_LOADING: 8
+        },
         sortAccounts: function(accounts) {
             var contactsRef = this.get('privateLabels');
 
@@ -73,17 +85,17 @@ define(function(require) {
                 switch (this.get('nccStatus.code')) {
                     case null:
                     case undefined:
-                    case Utils.config.STATUS_UNKNOWN:
+                    case this.Status.STATUS_UNKNOWN:
                         return {
                             type: 'critical',
                             message: this.get('texts.common.appStatus.nccUnknown')
                         };
-                    case  Utils.config.STATUS_STOPPED:
+                    case  this.Status.STATUS_STOPPED:
                         return {
                             type: 'critical',
                             message: this.get('texts.common.appStatus.nccUnavailable')
                         };
-                    case  Utils.config.STATUS_STARTING:
+                    case  this.Status.STATUS_STARTING:
                         return {
                             type: 'warning',
                             message: this.get('texts.common.appStatus.nccStarting')
@@ -97,22 +109,22 @@ define(function(require) {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnknown')
                                 };
-                            case Utils.config.STATUS_STOPPED:
+                            case this.Status.STATUS_STOPPED:
                                 return {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnavailable')
                                 };
-                            case Utils.config.STATUS_STARTING:
+                            case this.Status.STATUS_STARTING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.nisStarting')
                                 };
-                            case Utils.config.STATUS_LOADING:
+                            case this.Status.STATUS_LOADING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.loading') + this.get('blockchainHeight')
                                 };
-                            case Utils.config.STATUS_RUNNING:
+                            case this.Status.STATUS_RUNNING:
                                 if (this.get('status.booting')) {
                                     return {
                                         type: 'warning',
@@ -124,12 +136,12 @@ define(function(require) {
                                         message: this.get('texts.common.appStatus.notBooted')
                                     };
                                 }
-                            case Utils.config.STATUS_BOOTING:
+                            case this.Status.STATUS_BOOTING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.booting')
                                 };
-                            case Utils.config.STATUS_BOOTED:
+                            case this.Status.STATUS_BOOTED:
                                 var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
                                 if (lastBlockBehind !== 0) {
                                     if (!lastBlockBehind) {
@@ -168,12 +180,12 @@ define(function(require) {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.synchronizing')
                                 };
-                            case Utils.config.STATUS_SYNCHRONIZED:
+                            case this.Status.STATUS_SYNCHRONIZED:
                                 return {
                                     type: 'message',
                                     message: this.get('texts.common.appStatus.synchronized')
                                 };
-                            case Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE:
+                            case this.Status.STATUS_NO_REMOTE_NIS_AVAILABLE:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.noRemoteNisAvailable')
@@ -192,7 +204,7 @@ define(function(require) {
                 return nisStatus === Utils.config.STATUS_BOOTED || nisStatus === Utils.config.STATUS_SYNCHRONIZED || nisStatus == Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE;
             },
             nisUnavailable: function() {
-                return this.get('nisStatus.code') === Utils.config.STATUS_STOPPED;
+                return this.get('nisStatus.code') === this.Status.STATUS_STOPPED;
             },
             sendNemDisabled: function() {
                 return this.get('nisUnavailable') || ncc.get('activeAccount').isMultisig;
@@ -597,7 +609,6 @@ define(function(require) {
         },
         onrender: function(options) {
             var self = this;
-
             require(['languages'], function(languages) {
                 self.set('languages', languages);
                 self.observe('settings.language', function(newValue) {
