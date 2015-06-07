@@ -1,27 +1,17 @@
 "use strict";
 
-define(function(require) {
-    var TransactionType = require('TransactionType');
-    var $ = require('jquery');
-    var Ractive = require('ractive');
-    var Mustache = require('mustache');
-    var tooltipster = require('tooltipster');
-    var Utils = require('Utils');
-    var NccModal = require('NccModal');
-    var ConfirmModal = require('ConfirmModal');
-    var InputModal = require('InputModal');
-    var SettingsModal = require('SettingsModal');
-    var SendNemModal = require('SendNemModal');
-    var SignMultisigModal = require('SignMultisigModal');
-    var ModificationConfirmModal = require('ModificationConfirmModal');
-    var SignatureConfirmModal = require('SignatureConfirmModal');
-    var TransactionConfirmModal = require('TransactionConfirmModal');
-    var TransactionDetailsModal = require('TransactionDetailsModal');
-    var AccountDetailsModal = require('AccountDetailsModal');
-    var ConvertMultisigModal = require('ConvertMultisigModal');
-
-    var GenericDelegatedModal = require('GenericDelegatedModal');
-    var GenericDelegatedConfirmModal = require('GenericDelegatedConfirmModal');
+define([
+    'languages',
+    'TransactionType', 'jquery', 'ractive', 'mustache', 'tooltipster', 'Utils', 'NccModal',
+    'ConfirmModal', 'InputModal', 'SettingsModal', 'SendNemModal', 'SignMultisigModal',
+    'ModificationConfirmModal', 'SignatureConfirmModal', 'TransactionConfirmModal', 'TransactionDetailsModal', 'AccountDetailsModal', 'ConvertMultisigModal',
+    'GenericDelegatedModal', 'GenericDelegatedConfirmModal'
+],
+function(languages,
+    TransactionType, $, Ractive, Mustache, tooltipster, Utils, NccModal,
+    ConfirmModal, InputModal, SettingsModal, SendNemModal, SignMultisigModal,
+    ModificationConfirmModal, SignatureConfirmModal, TransactionConfirmModal, TransactionDetailsModal, AccountDetailsModal, ConvertMultisigModal,
+    GenericDelegatedModal, GenericDelegatedConfirmModal) {
 
     var NccRactive = Ractive.extend({
         el: document.body,
