@@ -586,6 +586,7 @@ define({
 				stop: 'Stop local harvesting',
 				description: 'Importance of account to the NEM cloud',
 				remoteHarvest: {
+				    title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',

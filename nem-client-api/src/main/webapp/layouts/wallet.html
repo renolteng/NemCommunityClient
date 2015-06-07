@@ -533,24 +533,27 @@
             <p class="form-label">{{texts.common.account}}</p>
             <div class="form-dropdownbox">
                 <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
-                    {{#if sender}}
-                    {{#if (privateLabels[.sender])}}
-                    {{privateLabels[.sender]}}
+                    {{#if sender === activeAccount.address}}
+                        {{texts.common.thisAccount}}
                     {{else}}
-                    {{sender}}
-                    {{/if}}
-                    {{else}}
-                    {{texts.common.thisAccount}}
+                        {{#if (privateLabels[.sender])}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{sender}}
+                        {{/if}}
                     {{/if}}
                 </div>
                 <ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
-                    <li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.common.thisAccount}}</li>
-                    {{#each multisigAccounts}}
+                    {{#each availAccounts}}
                     <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
-                        {{#if (privateLabels[.address])}}
-                        {{privateLabels[.address]}}
+                        {{#if .address === activeAccount.address}}
+                            {{texts.common.thisAccount}}
                         {{else}}
-                        {{.address}}
+                            {{#if (privateLabels[.address])}}
+                                {{privateLabels[.address]}}
+                            {{else}}
+                                {{.address}}
+                            {{/if}}
                         {{/if}}
                     </li>
                     {{/each}}
@@ -566,12 +569,12 @@
         <div class="form-field">
             <p class="form-label">
                 {{texts.modals.activateDelegated.delegatedAccount}}
-                {{^sender}}
+                {{#if sender === activeAccount.address}}
                 ({{texts.modals.activateDelegated.builtIn}})
-                {{/sender}}
+                {{/if}}
             </p>
-            <input type="text" class="form-input  form-input--textbox {{^sender}}form-input--unimportant{{/}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{^sender}}disabled{{/}}" {{^sender}}readonly{{/}} on-keypress="sendFormKeypress" value="{{remote.publicKey}}" />
-            {{^sender}}
+            <input type="text" class="form-input  form-input--textbox {{#if sender === activeAccount.address}}form-input--unimportant{{/if}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{#if sender === activeAccount.address}}disabled{{/if}}" {{#if sender === activeAccount.address}}readonly{{/if}} on-keypress="sendFormKeypress" value="{{remote.publicKey}}" />
+            {{#if sender === activeAccount.address}}
             <p class="form-sublabel">
                 {{#if (privateLabels[remote.address])}}
                 {{privateLabels[remote.address]}}
@@ -579,7 +582,7 @@
                 {{remote.formattedAddress}}
                 {{/if}}
             </p>
-            {{/}}
+            {{/if}}
         </div>
         <div class="form-field">
             <input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
@@ -616,7 +619,7 @@
                     </div>
                 </div>
             </div>
-            {{#if sender}}
+            {{#if sender !== activeAccount.address}}
             <div class="form-row">
                 <p class="form-label">
                     {{texts.common.multisigFee}}
@@ -657,24 +660,27 @@
             <p class="form-label">{{texts.common.account}}</p>
             <div class="form-dropdownbox">
                 <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
-                    {{#if sender}}
-                    {{#if (privateLabels[.sender])}}
-                    {{privateLabels[.sender]}}
+                    {{#if sender === activeAccount.address}}
+                        {{texts.common.thisAccount}}
                     {{else}}
-                    {{sender}}
-                    {{/if}}
-                    {{else}}
-                    {{texts.common.thisAccount}}
+                        {{#if (privateLabels[.sender])}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{sender}}
+                        {{/if}}
                     {{/if}}
                 </div>
                 <ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
-                    <li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.common.thisAccount}}</li>
-                    {{#each multisigAccounts}}
+                    {{#each availAccounts}}
                     <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
-                        {{#if (privateLabels[.address])}}
-                        {{privateLabels[.address]}}
+                        {{#if .address === activeAccount.address}}
+                            {{texts.common.thisAccount}}
                         {{else}}
-                        {{.address}}
+                            {{#if (privateLabels[.address])}}
+                            {{privateLabels[.address]}}
+                            {{else}}
+                            {{.address}}
+                            {{/if}}
                         {{/if}}
                     </li>
                     {{/each}}
@@ -722,7 +728,7 @@
                     </div>
                 </div>
             </div>
-            {{#if sender}}
+            {{#if sender !== activeAccount.address}}
             <div class="form-row">
                 <p class="form-label">
                     {{texts.common.multisigFee}}

@@ -400,7 +400,7 @@ function(languages,
                 });
             }
         },
-        showConfirmation: function(title, message, callbacks, actions) {
+        showConfirmation: function(title, message, callbacks, actions, extraModalClass) {
             var modal = this.getModal('confirm');
             modal.set({
                 modalTitle: title,
@@ -417,7 +417,8 @@ function(languages,
                         label: ncc.get('texts.modals.confirmDefault.no'),
                         actionType: 'secondary'
                     }
-                ]
+                ],
+                extraModalClass: extraModalClass
             });
             modal.open();
         },
