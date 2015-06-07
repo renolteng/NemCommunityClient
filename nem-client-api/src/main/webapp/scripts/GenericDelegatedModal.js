@@ -147,8 +147,6 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                 };
             }
 
-            console.log("request: ", requestData);
-
             var txConfirm = ncc.getModal('genericDelegatedConfirm');
             txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
