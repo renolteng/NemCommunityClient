@@ -265,20 +265,23 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             };
 
             ncc.openActivateDelegated = function(activate) {
+                var account = ncc.get('activeAccount');
                 if (ncc.get('nodeBooted')) {
-                    if (activate === 'activate') {
-                        var m = ncc.getModal('activateDelegated');
-                        m.open();
-                        m.set('activation', true);
+                    if (account.isMultisig) {
+                        ncc.showMessage(ncc.get('texts.common.warning'), ncc.get('texts.dashboard.importance.remoteHarvest.multisigInfo'));
                     } else {
-                        var m = ncc.getModal('deactivateDelegated');
-                        m.open();
-                        m.set('activation', false);
+                        if (activate === 'activate') {
+                            var m = ncc.getModal('activateDelegated');
+                            m.open();
+                            m.set('activation', true);
+                        } else {
+                            var m = ncc.getModal('deactivateDelegated');
+                            m.open();
+                            m.set('activation', false);
+                        }
                     }
-
                 } else if (ncc.get('loadingDb')) {
                     ncc.showMessage(ncc.get('texts.modals.sendNem.loadingWarning.title'), ncc.get('texts.faults.602'));
-
                 } else if (ncc.get('nodeBooting')) {
                     ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
                 } else {
