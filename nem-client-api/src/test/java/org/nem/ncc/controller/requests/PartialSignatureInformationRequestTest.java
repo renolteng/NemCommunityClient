@@ -81,7 +81,9 @@ public class PartialSignatureInformationRequestTest {
 
 		// Assert:
 		Assert.assertThat(request.getMultisigAddress(), null == expectedMultisigAddress ? IsNull.nullValue() : IsEqual.equalTo(expectedMultisigAddress));
-		Assert.assertThat(request.getCosignatoryAddress(), null == expectedCosignatoryAddress ? IsNull.nullValue() : IsEqual.equalTo(expectedCosignatoryAddress));
+		Assert.assertThat(
+				request.getCosignatoryAddress(),
+				null == expectedCosignatoryAddress ? IsNull.nullValue() : IsEqual.equalTo(expectedCosignatoryAddress));
 	}
 
 	private static Deserializer createDeserializer(

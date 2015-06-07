@@ -8,9 +8,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.AccountLookup;
 import org.nem.core.time.*;
-import org.nem.core.utils.ArrayUtils;
-import org.nem.core.utils.HexEncoder;
-import org.nem.core.utils.StringEncoder;
+import org.nem.core.utils.*;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
@@ -141,7 +139,7 @@ public class TransactionMapperTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		final String message = "00112233445500";
-		final byte[] expected = ArrayUtils.concat(new byte[]{(byte)0xfe}, HexEncoder.getBytes(message));
+		final byte[] expected = ArrayUtils.concat(new byte[] { (byte)0xfe }, HexEncoder.getBytes(message));
 
 		// Act:
 		final TransferSendRequest request = createSendRequestWithMessage(context, message, false, true);
@@ -387,7 +385,8 @@ public class TransactionMapperTest {
 				.collect(Collectors.toList());
 
 		// Assert:
-		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.AddCosignatory)));
+		model.getCosignatoryModifications().stream()
+				.forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.AddCosignatory)));
 		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
 		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
 		Assert.assertThat(

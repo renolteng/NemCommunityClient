@@ -6,9 +6,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.serialization.SimpleAccountLookup;
 import org.nem.core.time.*;
-import org.nem.core.utils.ArrayUtils;
-import org.nem.core.utils.HexEncoder;
-import org.nem.core.utils.StringEncoder;
+import org.nem.core.utils.*;
 import org.nem.ncc.controller.requests.*;
 import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
@@ -314,7 +312,7 @@ public class TransactionMapper {
 		}
 
 		final byte[] messageBytes = hexMessage ?
-				ArrayUtils.concat(new byte[]{(byte)0xFE}, HexEncoder.getBytes(message)) :
+				ArrayUtils.concat(new byte[] { (byte)0xFE }, HexEncoder.getBytes(message)) :
 				StringEncoder.getBytes(message);
 		if (!shouldEncrypt) {
 			return new PlainMessage(messageBytes);

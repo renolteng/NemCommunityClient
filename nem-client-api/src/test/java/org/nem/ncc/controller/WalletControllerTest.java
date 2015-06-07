@@ -181,20 +181,20 @@ public class WalletControllerTest {
 		final TestContext context = new TestContext();
 
 		Mockito.doAnswer(invocationOnMock -> {
-				final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
-				return ExceptionUtils.propagate(() -> {
-					IOUtils.copy(new ByteArrayInputStream("wallet".getBytes()), outputStream);
-					return null;
-				});
-			}).when(context.walletServices).copyTo(Mockito.any(), Mockito.any());
+			final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
+			return ExceptionUtils.propagate(() -> {
+				IOUtils.copy(new ByteArrayInputStream("wallet".getBytes()), outputStream);
+				return null;
+			});
+		}).when(context.walletServices).copyTo(Mockito.any(), Mockito.any());
 
 		Mockito.doAnswer(invocationOnMock -> {
-				final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
-				return ExceptionUtils.propagate(() -> {
-					IOUtils.copy(new ByteArrayInputStream("addressBook".getBytes()), outputStream);
-					return null;
-				});
-			}).when(context.addressBookServices).copyTo(Mockito.any(), Mockito.any());
+			final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
+			return ExceptionUtils.propagate(() -> {
+				IOUtils.copy(new ByteArrayInputStream("addressBook".getBytes()), outputStream);
+				return null;
+			});
+		}).when(context.addressBookServices).copyTo(Mockito.any(), Mockito.any());
 
 		// Act:
 		final OctetStream octetStream = context.controller.exportWallet(request);

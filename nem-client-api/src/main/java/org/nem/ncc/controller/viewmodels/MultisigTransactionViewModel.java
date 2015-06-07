@@ -32,6 +32,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				return Type.Unknown;
 		}
 	}
+
 	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccountData, final BlockHeight lastBlockHeight) {
 
 		super(innerTypeToViewModelType(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType()),
