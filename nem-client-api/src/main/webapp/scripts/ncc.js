@@ -94,7 +94,7 @@ function(languages,
                         switch (this.get('nisStatus.code')) {
                             case null:
                             case undefined:
-                            case Utils.config.STATUS_UNKNOWN:
+                            case this.Status.STATUS_UNKNOWN:
                                 return {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnknown')
@@ -184,14 +184,14 @@ function(languages,
                 }
             },
             loadingDb: function() {
-                return this.get('nisStatus.code') === Utils.config.STATUS_LOADING;
+                return this.get('nisStatus.code') === this.Status.STATUS_LOADING;
             },
             nodeBooting: function() {
-                return this.get('status.booting') || this.get('nisStatus.code') === Utils.config.STATUS_BOOTING;
+                return this.get('status.booting') || this.get('nisStatus.code') === this.Status.STATUS_BOOTING;
             },
             nodeBooted: function() {
                 var nisStatus = this.get('nisStatus.code');
-                return nisStatus === Utils.config.STATUS_BOOTED || nisStatus === Utils.config.STATUS_SYNCHRONIZED || nisStatus == Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE;
+                return nisStatus === this.Status.STATUS_BOOTED || nisStatus === this.Status.STATUS_SYNCHRONIZED || nisStatus == this.Status.STATUS_NO_REMOTE_NIS_AVAILABLE;
             },
             nisUnavailable: function() {
                 return this.get('nisStatus.code') === this.Status.STATUS_STOPPED;
@@ -205,7 +205,7 @@ function(languages,
             nisSynchronized: function() {
                 // 5 status code is not implemented yet
                 // so we cannot completely rely on NIS status code
-                return this.get('nisStatus.code') === Utils.config.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
+                return this.get('nisStatus.code') === this.Status.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             },
             lcwNameValid: function() {
                 return !!this.get('landingPage.createWalletForm.wallet');
