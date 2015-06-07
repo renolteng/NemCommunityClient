@@ -1,27 +1,17 @@
 "use strict";
 
-define(function(require) {
-    var TransactionType = require('TransactionType');
-    var $ = require('jquery');
-    var Ractive = require('ractive');
-    var Mustache = require('mustache');
-    var tooltipster = require('tooltipster');
-    var Utils = require('Utils');
-    var NccModal = require('NccModal');
-    var ConfirmModal = require('ConfirmModal');
-    var InputModal = require('InputModal');
-    var SettingsModal = require('SettingsModal');
-    var SendNemModal = require('SendNemModal');
-    var SignMultisigModal = require('SignMultisigModal');
-    var ModificationConfirmModal = require('ModificationConfirmModal');
-    var SignatureConfirmModal = require('SignatureConfirmModal');
-    var TransactionConfirmModal = require('TransactionConfirmModal');
-    var TransactionDetailsModal = require('TransactionDetailsModal');
-    var AccountDetailsModal = require('AccountDetailsModal');
-    var ConvertMultisigModal = require('ConvertMultisigModal');
-
-    var GenericDelegatedModal = require('GenericDelegatedModal');
-    var GenericDelegatedConfirmModal = require('GenericDelegatedConfirmModal');
+define([
+    'languages',
+    'TransactionType', 'jquery', 'ractive', 'mustache', 'tooltipster', 'Utils', 'NccModal',
+    'ConfirmModal', 'InputModal', 'SettingsModal', 'SendNemModal', 'SignMultisigModal',
+    'ModificationConfirmModal', 'SignatureConfirmModal', 'TransactionConfirmModal', 'TransactionDetailsModal', 'AccountDetailsModal', 'ConvertMultisigModal',
+    'GenericDelegatedModal', 'GenericDelegatedConfirmModal'
+],
+function(languages,
+    TransactionType, $, Ractive, Mustache, tooltipster, Utils, NccModal,
+    ConfirmModal, InputModal, SettingsModal, SendNemModal, SignMultisigModal,
+    ModificationConfirmModal, SignatureConfirmModal, TransactionConfirmModal, TransactionDetailsModal, AccountDetailsModal, ConvertMultisigModal,
+    GenericDelegatedModal, GenericDelegatedConfirmModal) {
 
     var NccRactive = Ractive.extend({
         el: document.body,
@@ -45,6 +35,18 @@ define(function(require) {
             activateDelegatedModal: GenericDelegatedModal,
             deactivateDelegatedModal: GenericDelegatedModal,
             genericDelegatedConfirmModal: GenericDelegatedConfirmModal
+        },
+        Status:
+        {
+                STATUS_UNKNOWN: 0,
+                STATUS_STOPPED: 1,
+                STATUS_STARTING: 2,
+                STATUS_RUNNING: 3,
+                STATUS_BOOTING: 4,
+                STATUS_BOOTED: 5,
+                STATUS_SYNCHRONIZED: 6,
+                STATUS_NO_REMOTE_NIS_AVAILABLE: 7,
+                STATUS_LOADING: 8
         },
         sortAccounts: function(accounts) {
             var contactsRef = this.get('privateLabels');
@@ -73,17 +75,17 @@ define(function(require) {
                 switch (this.get('nccStatus.code')) {
                     case null:
                     case undefined:
-                    case Utils.config.STATUS_UNKNOWN:
+                    case this.Status.STATUS_UNKNOWN:
                         return {
                             type: 'critical',
                             message: this.get('texts.common.appStatus.nccUnknown')
                         };
-                    case  Utils.config.STATUS_STOPPED:
+                    case  this.Status.STATUS_STOPPED:
                         return {
                             type: 'critical',
                             message: this.get('texts.common.appStatus.nccUnavailable')
                         };
-                    case  Utils.config.STATUS_STARTING:
+                    case  this.Status.STATUS_STARTING:
                         return {
                             type: 'warning',
                             message: this.get('texts.common.appStatus.nccStarting')
@@ -92,27 +94,27 @@ define(function(require) {
                         switch (this.get('nisStatus.code')) {
                             case null:
                             case undefined:
-                            case Utils.config.STATUS_UNKNOWN:
+                            case this.Status.STATUS_UNKNOWN:
                                 return {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnknown')
                                 };
-                            case Utils.config.STATUS_STOPPED:
+                            case this.Status.STATUS_STOPPED:
                                 return {
                                     type: 'critical',
                                     message: this.get('texts.common.appStatus.nisUnavailable')
                                 };
-                            case Utils.config.STATUS_STARTING:
+                            case this.Status.STATUS_STARTING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.nisStarting')
                                 };
-                            case Utils.config.STATUS_LOADING:
+                            case this.Status.STATUS_LOADING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.loading') + this.get('blockchainHeight')
                                 };
-                            case Utils.config.STATUS_RUNNING:
+                            case this.Status.STATUS_RUNNING:
                                 if (this.get('status.booting')) {
                                     return {
                                         type: 'warning',
@@ -124,12 +126,12 @@ define(function(require) {
                                         message: this.get('texts.common.appStatus.notBooted')
                                     };
                                 }
-                            case Utils.config.STATUS_BOOTING:
+                            case this.Status.STATUS_BOOTING:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.booting')
                                 };
-                            case Utils.config.STATUS_BOOTED:
+                            case this.Status.STATUS_BOOTED:
                                 var lastBlockBehind = this.get('nis.nodeMetaData.lastBlockBehind');
                                 if (lastBlockBehind !== 0) {
                                     if (!lastBlockBehind) {
@@ -168,12 +170,12 @@ define(function(require) {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.synchronizing')
                                 };
-                            case Utils.config.STATUS_SYNCHRONIZED:
+                            case this.Status.STATUS_SYNCHRONIZED:
                                 return {
                                     type: 'message',
                                     message: this.get('texts.common.appStatus.synchronized')
                                 };
-                            case Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE:
+                            case this.Status.STATUS_NO_REMOTE_NIS_AVAILABLE:
                                 return {
                                     type: 'warning',
                                     message: this.get('texts.common.appStatus.noRemoteNisAvailable')
@@ -182,17 +184,17 @@ define(function(require) {
                 }
             },
             loadingDb: function() {
-                return this.get('nisStatus.code') === Utils.config.STATUS_LOADING;
+                return this.get('nisStatus.code') === this.Status.STATUS_LOADING;
             },
             nodeBooting: function() {
-                return this.get('status.booting') || this.get('nisStatus.code') === Utils.config.STATUS_BOOTING;
+                return this.get('status.booting') || this.get('nisStatus.code') === this.Status.STATUS_BOOTING;
             },
             nodeBooted: function() {
                 var nisStatus = this.get('nisStatus.code');
-                return nisStatus === Utils.config.STATUS_BOOTED || nisStatus === Utils.config.STATUS_SYNCHRONIZED || nisStatus == Utils.config.STATUS_NO_REMOTE_NIS_AVAILABLE;
+                return nisStatus === this.Status.STATUS_BOOTED || nisStatus === this.Status.STATUS_SYNCHRONIZED || nisStatus == this.Status.STATUS_NO_REMOTE_NIS_AVAILABLE;
             },
             nisUnavailable: function() {
-                return this.get('nisStatus.code') === Utils.config.STATUS_STOPPED;
+                return this.get('nisStatus.code') === this.Status.STATUS_STOPPED;
             },
             sendNemDisabled: function() {
                 return this.get('nisUnavailable') || ncc.get('activeAccount').isMultisig;
@@ -203,7 +205,7 @@ define(function(require) {
             nisSynchronized: function() {
                 // 5 status code is not implemented yet
                 // so we cannot completely rely on NIS status code
-                return this.get('nisStatus.code') === Utils.config.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
+                return this.get('nisStatus.code') === this.Status.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             },
             lcwNameValid: function() {
                 return !!this.get('landingPage.createWalletForm.wallet');
@@ -398,7 +400,7 @@ define(function(require) {
                 });
             }
         },
-        showConfirmation: function(title, message, callbacks, actions) {
+        showConfirmation: function(title, message, callbacks, actions, extraModalClass) {
             var modal = this.getModal('confirm');
             modal.set({
                 modalTitle: title,
@@ -415,7 +417,8 @@ define(function(require) {
                         label: ncc.get('texts.modals.confirmDefault.no'),
                         actionType: 'secondary'
                     }
-                ]
+                ],
+                extraModalClass: extraModalClass
             });
             modal.open();
         },
@@ -597,7 +600,6 @@ define(function(require) {
         },
         onrender: function(options) {
             var self = this;
-
             require(['languages'], function(languages) {
                 self.set('languages', languages);
                 self.observe('settings.language', function(newValue) {

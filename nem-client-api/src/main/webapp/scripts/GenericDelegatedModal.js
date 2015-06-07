@@ -52,10 +52,11 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
             }
         },
         resetRemote: function() {
-            if (this.get('sender') === null) {
+            var wallet = ncc.get('wallet');
+            if (this.get('sender') === ncc.get('activeAccount.address')) {
                 var activeAddress = ncc.get('activeAccount').address;
-                var wallet = ncc.get('wallet');
                 var walletAccount = null;
+
                 if (wallet.primaryAccount.address === activeAddress) {
                     walletAccount = wallet.primaryAccount;
                 } else {
@@ -80,7 +81,15 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
             }
         },
         resetDefaultData: function() {
-            this.set('sender', null);
+            var activation = this.get('activation');
+            var wallet = ncc.get('wallet');
+            var walletAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var availAccounts = activation ?
+                walletAccounts.filter(function (a){ return a.remoteStatus === 'INACTIVE';}) :
+                walletAccounts.filter(function (a){ return a.remoteStatus === 'ACTIVE';});
+
+            this.set('availAccounts', availAccounts);
+            this.set('sender', availAccounts[0].address);
             this.resetRemote();
 
             this.set('fee', 0);
@@ -119,13 +128,13 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
             );
         },
         sendTransaction: function() {
-            if (this.get('sender') == null) {
+            if (this.get('sender') === ncc.get('activeAccount.address')) {
                 var requestData = {
                     wallet: ncc.get('wallet.wallet'),
                     type: TransactionType.Importance_Transfer,
                     account: ncc.get('activeAccount.address'),
                     password: this.get('password'),
-                    publicKey: this.get('remote.publicKey'),
+                    publicKey: {'value': this.get('remote.publicKey')},
                     fee: this.get('fee'),
                     multisigFee: 0,
                     hoursDue: this.get('hoursDue')
@@ -137,12 +146,15 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                     account: ncc.get('activeAccount.address'),
                     password: this.get('password'),
                     multisigAddress: this.get('sender'),
-                    publicKey: this.get('remote.publicKey'),
+                    publicKey: {'value': this.get('remote.publicKey')},
                     fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
                     hoursDue: this.get('hoursDue')
                 };
             }
+
+            console.log("request: ", requestData);
+
             var txConfirm = ncc.getModal('genericDelegatedConfirm');
             txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
