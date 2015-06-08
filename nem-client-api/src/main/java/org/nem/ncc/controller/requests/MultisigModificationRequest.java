@@ -12,6 +12,7 @@ import java.util.List;
  * TODO 20150131 J-G: probably makes sense to have a base class for these
  * TODO 20150131 J-G: fix comments referring to transfer [send request]
  * TODO 20150131 J-G: a few basic tests
+ * TODO 20150605 BR -> J: done
  */
 public class MultisigModificationRequest {
 	private final WalletName walletName;
@@ -24,6 +25,14 @@ public class MultisigModificationRequest {
 
 	/**
 	 * Creates a new multisig modification request.
+	 *
+	 * @param walletName The wallet name.
+	 * @param password The wallet password.
+	 * @param senderAddress The sender address.
+	 * @param cosignatoriesAddresses The list of cosignatory addresses.
+	 * @param minCosignatoriesModification The minimum cosignatories modification.
+	 * @param hoursDue The number of hours for the transaction to be valid.
+	 * @param fee The fee.
 	 */
 	public MultisigModificationRequest(
 			final WalletName walletName,

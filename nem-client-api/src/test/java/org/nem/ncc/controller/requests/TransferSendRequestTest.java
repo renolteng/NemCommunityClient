@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 public class TransferSendRequestTest {
 
 	// TODO 20150131 J-G: should check all new fields in create and deserialize tests
+	// TODO 20150606 BR -> J: done
 	@Test
 	public void requestCanBeCreated() {
 		// Act:
@@ -46,12 +47,14 @@ public class TransferSendRequestTest {
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(5));
 		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(2L)));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.ZERO));
+		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
 	}
 
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L, 3L, 1);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -64,12 +67,14 @@ public class TransferSendRequestTest {
 		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(5));
 		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(2L)));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(3L)));
+		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
 	}
 
 	@Test
 	public void requestCanBeDeserializedWithoutMessage() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 0, 5, "p", 2L);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 0, 5, "p", 2L, 3L, 1);
 
 		// Assert:
 		Assert.assertThat(request.getMessage(), IsNull.nullValue());
@@ -81,15 +86,17 @@ public class TransferSendRequestTest {
 	public void requestCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 1, 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 1, 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 1, 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", null, "m", 1, 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 3, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, null, 5, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, null, "p", 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, null, 2L),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", null));
+				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 1, 3, 5, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", null, "m", 1, 3, 5, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 3, 5, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, null, 5, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, null, "p", 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, null, 2L, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", null, 3L, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, null, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, null));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
@@ -107,7 +114,9 @@ public class TransferSendRequestTest {
 			final Integer shouldEncrypt,
 			final Integer hoursDue,
 			final String password,
-			final Long fee) {
+			final Long fee,
+			final Long multisigFee,
+			final Integer type) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", walletName);
 		jsonObject.put("account", accountId);
@@ -119,8 +128,8 @@ public class TransferSendRequestTest {
 		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("password", password);
 		jsonObject.put("fee", fee);
-		jsonObject.put("multisigFee", fee);
-		jsonObject.put("type", TransactionViewModel.Type.Transfer.getValue());
+		jsonObject.put("multisigFee", multisigFee);
+		jsonObject.put("type", type);
 		return new TransferSendRequest(new JsonDeserializer(jsonObject, null));
 	}
 }
