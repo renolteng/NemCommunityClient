@@ -416,7 +416,7 @@ define({
 				title: 'Uždaryti programą',
 				message: 'Ar tikrai norite uždaryti NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Piniginė',
 				account: 'Sąskaita',
@@ -425,7 +425,7 @@ define({
 				warning: 'Warning',
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Piniginė',
 				account: 'Sąskaita',

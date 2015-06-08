@@ -416,7 +416,7 @@ define({
 				title: 'ウォレットを終了',
 				message: 'NEM Community Clientを閉じますか。'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'ウォレット',
 				account: 'アカウント',
@@ -425,7 +425,7 @@ define({
 				warning: 'Warning',
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'ウォレット',
 				account: 'アカウント',

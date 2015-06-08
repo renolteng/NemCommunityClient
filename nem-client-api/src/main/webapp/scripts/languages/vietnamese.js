@@ -416,7 +416,7 @@ define({
 				title: 'Đóng chương trình',
 				message: 'Bạn có chắc rằng bạn muốn đóng NEM Community Client không?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Ví',
 				account: 'Tài khoản',
@@ -425,7 +425,7 @@ define({
 				warning: 'Warning',
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Ví',
 				account: 'Tài khoản',

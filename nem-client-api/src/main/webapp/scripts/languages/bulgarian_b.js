@@ -416,7 +416,7 @@ define({
 				title: 'Затворете програмата',
 				message: 'Сигурни ли сте че искате да затворите NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Активирайте Делегираното Генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',
@@ -425,7 +425,7 @@ define({
 				warning: 'Предупреждение',
 				warningText: 'Активирането ще отнеме 6 часа (360 блока). Активирането НЯМА да стартира генерирането автоматично.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Деактивирай Делегираното Генериране',
 				wallet: 'Портфейл',
 				account: 'Акаунт',

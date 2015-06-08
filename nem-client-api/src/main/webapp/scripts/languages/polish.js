@@ -416,7 +416,7 @@ define({
 				title: 'Zamknij program',
 				message: 'Czy na pewno chcesz zamknąć Klient Społeczności NEM?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Aktywuj Delegowane Zbieranie',
 				wallet: 'Portfel',
 				account: 'Konto',
@@ -425,7 +425,7 @@ define({
 				warning: 'Ostrzezenie',
 				warningText: 'Aktywacja potrwa 6 godzin (360 blokow). Aktywacja NIE rozpocznie zbierania automatycznie.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deaktywuj Delegowane Zbieranie',
 				wallet: 'Portfel',
 				account: 'Konto',

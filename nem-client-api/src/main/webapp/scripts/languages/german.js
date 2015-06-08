@@ -416,7 +416,7 @@ define({
 				title: 'Programm schließen',
 				message: 'Bist Du sicher, dass Du den NEM Community Client schließen möchtest?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Delegierte Ernte freischalten',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',
@@ -425,7 +425,7 @@ define({
 				warning: 'Achtung',
 				warningText: 'Das Freischalten der delegierten Ernte dauert ca. 6 Stunden (360 Blöcke) und kostet eine Gebühr. Nachdem die delegierte Ernte freigeschaltet ist, wird sie nicht automatisch gestartet!'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Delegierte Ernte deaktivieren',
 				wallet: 'Zugehörige Brieftasche',
 				account: 'Adresse des Kontos',

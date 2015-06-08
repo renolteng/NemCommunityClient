@@ -416,7 +416,7 @@ define({
 				title: 'Fechar programa',
 				message: 'Tem certeza que quer fechar o programa (NCC)?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Ativar colheita delegada',
 				wallet: 'Carteira',
 				account: 'Conta',
@@ -425,7 +425,7 @@ define({
 				warning: 'Aviso',
 				warningText: 'A ativação leverá 6 houras (360 blocos). A ativação não vaiiniciar automaticamente a colheita.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Desativar colheita delegada',
 				wallet: 'Carteira',
 				account: 'Conta',

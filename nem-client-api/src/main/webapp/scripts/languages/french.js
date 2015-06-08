@@ -416,7 +416,7 @@ define({
 				title: 'Fermeture de l\'application',
 				message: 'Êtes-vous certain de vouloir fermer l\'application NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activer la récolte distante',
 				wallet: 'Portefeuille',
 				account: 'Compte',
@@ -425,7 +425,7 @@ define({
 				warning: 'Warning',
 				warningText: 'L\'activation va prendre 6 heures (360 blocs). L\'activation ne va PAS démarrer automatiquement la récolte.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Désactiver la récolte distante',
 				wallet: 'Portefeuille',
 				account: 'Compte',

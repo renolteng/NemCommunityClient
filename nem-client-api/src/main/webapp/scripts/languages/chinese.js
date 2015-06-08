@@ -416,7 +416,7 @@ define({
 				title: '关闭程序',
 				message: '您确定要关闭NEM社区客户端?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: '钱包',
 				account: '帐户',
@@ -425,7 +425,7 @@ define({
 				warning: '警告',
 				warningText: '激活会花费6小时的时间 (360块)。激活操作并不会开启收获。'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: '取消激活委托收获',
 				wallet: '钱包',
 				account: '帐户',

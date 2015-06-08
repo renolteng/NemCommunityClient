@@ -416,7 +416,7 @@ define({
 				title: 'Sulje ohjelma',
 				message: 'Haluatko varmasti sulkea NEM Community Client -sovelluksen?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Aktivoi valtuutettu louhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',
@@ -425,7 +425,7 @@ define({
 				warning: 'Varoitus',
 				warningText: 'Aktivointi kestää 6 tuntia (360 lohkoa). Aktivointi EI aloita louhintaa automaattisesti.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deaktivoi valtuutettu louhinta',
 				wallet: 'Lompakko',
 				account: 'Tili',

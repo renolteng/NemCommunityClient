@@ -416,7 +416,7 @@ define({
 				title: 'Arresto NCC',
 				message: 'Sei sicuro di voler arrestare NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',
@@ -425,7 +425,7 @@ define({
 				warning: 'Warning',
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portafoglio',
 				account: 'Indirizzo',

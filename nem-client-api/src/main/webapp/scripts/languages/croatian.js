@@ -416,7 +416,7 @@ define({
 				title: 'Zatvori program',
 				message: 'Jeste li sigurni za želite zatvoriti NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Aktiviraj povjereno ubiranje',
 				wallet: 'Novčanik',
 				account: 'Račun',
@@ -425,7 +425,7 @@ define({
 				warning: 'Upozoranje',
 				warningText: 'Za aktivaciju je potrebno 6 sati (360 blokova). Aktivacija neće automatski započeti ubiranje.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Prekini povjereno ubiranje',
 				wallet: 'Novčanik',
 				account: 'Račun',

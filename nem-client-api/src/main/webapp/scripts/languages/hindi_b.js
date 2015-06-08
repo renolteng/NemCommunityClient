@@ -416,7 +416,7 @@ define({
 				title: 'Close program',
 				message: 'क्या आप NEM समुदाय क्लाइंट को बंद करना चाहते हैं?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
@@ -425,7 +425,7 @@ define({
 				warning: 'Warning',
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'वॉलेट',
 				account: 'अकाउंट',
