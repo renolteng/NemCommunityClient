@@ -10,9 +10,6 @@ import java.util.List;
 /**
  * A request containing all information necessary to create a multisig aggregate modification transaction.
  * TODO 20150131 J-G: probably makes sense to have a base class for these
- * TODO 20150131 J-G: fix comments referring to transfer [send request]
- * TODO 20150131 J-G: a few basic tests
- * TODO 20150605 BR -> J: done
  */
 public class MultisigModificationRequest {
 	private final WalletName walletName;

@@ -8,9 +8,6 @@ import org.nem.ncc.wallet.*;
 
 /**
  * A request containing all information necessary to create a signature transaction.
- * TODO 20150131 J-G: fix comments referring to transfer [send request]
- * TODO 20150131 J-G: a few basic tests
- * TODO 20150605 BR -> J: done
  */
 public class MultisigSignatureRequest {
 	private final WalletName walletName;
@@ -22,7 +19,7 @@ public class MultisigSignatureRequest {
 	private final Amount fee;
 
 	/**
-	 * Creates a new mutlisig signature request.
+	 * Creates a new multisig signature request.
 	 *
 	 * @param walletName The wallet name.
 	 * @param password The wallet password.
@@ -50,7 +47,7 @@ public class MultisigSignatureRequest {
 	}
 
 	/**
-	 * Deserializes a mutlisig signature request.
+	 * Deserializes a multisig signature request.
 	 *
 	 * @param deserializer The deserializer.
 	 */

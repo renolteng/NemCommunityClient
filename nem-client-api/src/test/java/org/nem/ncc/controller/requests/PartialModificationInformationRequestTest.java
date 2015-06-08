@@ -139,7 +139,8 @@ public class PartialModificationInformationRequestTest {
 			final MultisigMinCosignatoriesModification expectedMinCosignatoriesModification) {
 		// Act:
 		final Deserializer deserializer = createDeserializer(
-				expectedMultisigAddress, expectedCosignatoryAddresses,
+				expectedMultisigAddress,
+				expectedCosignatoryAddresses,
 				expectedMinCosignatoriesModification);
 		final PartialModificationInformationRequest request = new PartialModificationInformationRequest(deserializer);
 
@@ -155,7 +156,8 @@ public class PartialModificationInformationRequestTest {
 			final MultisigMinCosignatoriesModification expectedMinCosignatoriesModification) {
 		// Act:
 		final Deserializer deserializer = createDeserializer(
-				expectedMultisigAddress, expectedCosignatoryAddresses,
+				expectedMultisigAddress,
+				expectedCosignatoryAddresses,
 				expectedMinCosignatoriesModification);
 		ExceptionAssert.assertThrows(
 				v -> new PartialModificationInformationRequest(deserializer),
