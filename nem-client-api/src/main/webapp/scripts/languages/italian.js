@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Nome pubblico',
 			noCharge: 'L\'indirizzo <b>NON</b> deve pagare commissioni, verranno coperte dall\'indirizzo cointestato.',
 			fee: 'Commissioni',
+			multisigFee: 'Commissione multifirma',
+			useMinimumFee: 'Usa commissioni minime',
+			feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
 			justUse: 'Just use',
 			dueBy: 'Tempo massimo',
+			minutes: 'minute(s)',
 			hours: 'ore',
 			hoursDue: 'Tempo massimo (ore)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Annulla',
+			sendButton: 'Invia',
+			account: 'Indirizzo',
+			thisAccount: 'Questo indirizzo',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRASFERIMENTO FONDI',
 			'TRASFERIMENTO IMPORTANZA',
 			'MODIFICA INDIRIZZO MULTIFIRMATO',
-			'TRANSAZIONE MULTIFIRMA'
+			'TRANSAZIONE MULTIFIRMA',
+			'MULTISIG SIGNATURE',
+			'TRANSAZIONE MULTIFIRMA',
+			'TRANSAZIONE MULTIFIRMA',
+			
 		],
 		transactionDirections: {
 			pending: 'Transazione in attesa',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-avvio',
 					name: 'Nome del nodo',
-					account: 'Indirizzo',
 					primaryAccount: 'Indirizzo principale',
 					auto: 'Auto avvia quando il portafoglio viene aperto'
 				},
 				save: 'Salva',
 				saveSuccess: 'Impostazioni salvate con successo'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Trasforma indirizzo in indirizzo multifirma',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Questo indirizzo è denominato {{1}}',
 				nullLabelDesc: 'Questo indirizzo non ha un nome',
 				addCosignatory: '+ Aggiungi cofirmatario',
-				cancel: 'Annulla',
 				convert: 'Trasforma',
-				fee: 'Commissioni',
-				feeValidation: 'Le commissioni non devono essere inferiori al minimo previsto',
-				useMinimumFee: 'Utilizza commissioni minime',
 				txConfirm: {
 					title: 'Conferma la trasformazione in indirizzo multifirma',
 					total: 'Totale',
 
 				},
-				warning: 'L\'indirizzo multifirma è nella lista dei cofirmatari. Questo porterebbe all\'impossibilità di accesso ai fondi. Probabilmente <b>non è</b> questo quello che vuoi.'
+				warning: 'L\'indirizzo multifirma è nella lista dei cofirmatari. Questo porterebbe all\'impossibilità di accesso ai fondi. Probabilmente <b>non è</b> questo quello che vuoi.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Aggiungi firma alla trasazione multifirma',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Commissioni per multifirma',
 				multisigTotal: 'Totale',
 				sender: 'Cofirmatario',
-				fee: 'Commissioni',
-				feeValidation: 'Le commissioni non devono essere inferiori al minimo previsto',
-				useMinimumFee: 'Utilizza commissioni minime',
-				password: 'Password',
 				passwordValidation: 'La password non può essere vuota',
-				send: 'Invia',
-				cancel: 'Annulla',
 				sending: 'Invio in corso...',
-				successMessage: 'Transazione inserita con successo!',
 				txConfirm: {
 					title: 'Conferma transazione multifirma',
 					message: 'Messaggio',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'L\'indirizzo deve essere composto di 40 caratteri trattini esclusi',
 				message: 'Messaggio',
 				encrypt: 'Cifra il mesaggio',
-				fee: 'Commissioni',
-				multisigFee: 'Commissione multifirma',
-				feeValidation: 'Le commissioni non possono essere inferiori al minimo previsto',
-				useMinimumFee: 'Usa commissioni minime',
-				password: 'Password',
-				passwordValidation: 'La password non può essere vuota',
-				send: 'Invia',
-				cancel: 'Annulla',
 				sending: 'Invio in corso...',
-				successMessage: 'Transazione inserita con successo!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Conferma transazione',
 					amount: 'Importo',
@@ -245,7 +251,6 @@ define({
 					message: 'Messaggio',
 					encrypted: 'Cifra messaggio',
 					noMessage: 'Nessun messaggio',
-					cancel: 'Annulla',
 					confirm: 'Conferma',
 					sending: 'Invio in corso...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Conferme',
 				confirmationsUnknown: 'Sconosciuto',
 				amount: 'Importo',
-				fee: 'Commissioni',
 				innerFee: 'Commissioni interne',
 				multisigFees: 'Commissioni multifirma',
 				cosignatory: 'Cofirmatario'
 			},
 			accountDetails: {
 				title: 'Informazioni sull\'indirizzo',
-				address: 'Indirizzo',
 				label: 'Nome',
 				noLabel: 'Nessun nome',
 				add: 'Aggiungi alla rubrica',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importanza',
 				publicKey: 'Chiave pubblica',
 				noPublicKey: 'Nessuna chiave pubblica',
-				harvestedBlocks: 'Blocchi generati',
-				close: 'Chiudi'
+				harvestedBlocks: 'Blocchi generati'
 			},
 			bootLocalNode: {
 				title: 'Avvia nodo locale',
@@ -337,7 +339,6 @@ define({
 				title: 'Creazione nuovo indirizzo',
 				label: 'Nome privato',
 				wallet: 'Portafoglio',
-				password: 'Password del portafoglio',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato creato!',
 				create: 'Crea'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Aggiunta indirizzo esistente',
 				privateKey: 'Chiave privata',
 				wallet: 'Portafoglio',
-				password: 'Password del portafoglio',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato aggiunto al portafoglio!',
 				add: 'Aggiungi',
 				label: 'Nome'
@@ -367,7 +367,6 @@ define({
 				account: 'Indirizzo da rendere principale',
 				noLabel: '<span class=\'null\'>&lt;Senza nome&gt;</span>',
 				wallet: 'Portafoglio',
-				password: 'Password del portafoglio',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è il principale',
 				set: 'Imposta come principale'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Modifica nome del portafoglio',
 				wallet: 'Nome attuale del portafoglio',
 				newName: 'Nuovo nome del portafoglio',
-				password: 'Password del portafoglio',
 				successMessage: 'Il portafoglio è stato rinominato da <em>{{1}}</em> in <em>{{2}}</em>',
 				change: 'Modifica'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Modifica nome dell\'indirizzo',
 				label: 'Nome dell\'indirizzo',
 				wallet: 'Portafoglio',
-				password: 'Password del portafoglio',
 				successMessage: 'L\'indirizzo {{1}} è ora denominato {{2}}',
 				change: 'Modifica'
 			},
 			removeAccount: {
 				title: 'Cancellazione indirizzo',
-				account: 'Indirizzo',
 				label: 'Nome dell\'indirizzo',
 				wallet: 'Portafoglio',
-				password: 'Password del portafoglio',
 				warning: 'Assicurati che l\'indirizzo non contenga alcun NEM prima di eliminarlo oppure questi saranno definitivamente persi.',
 				successMessage: 'L\'indirizzo {{1}} {{#2}}({{2}}){{/2}} è stato eliminato!',
 				remove: 'Elimina'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Portafoglio',
-				account: 'Indirizzo',
-				password: 'Password del portafoglio',
 				activate: 'Attiva',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portafoglio',
-				account: 'Indirizzo',
-				password: 'Password del portafoglio',
 				deactivate: 'Disattiva',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Portafoglio',
-				account: 'Indirizzo',
-				password: 'Password del portafoglio',
 				start: 'Avvia'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Portafoglio',
-				account: 'Indirizzo',
-				password: 'Password del portafoglio',
 				stop: 'Ferma'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Ferma generazione blocchi',
 				description: 'importanza dell\'indirizzo nella rete NEM',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Generazione blocchi sicura in corso',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

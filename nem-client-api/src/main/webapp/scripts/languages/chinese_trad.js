@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			fee: '費',
+			multisigFee: 'Multisig fee',
+			useMinimumFee: 'Use minimum fee',
+			feeValidation: 'Fee must not be less than the minimum fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
+			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Due by (hours)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Cancel',
+			sendButton: '發送',
+			account: 'Account',
+			thisAccount: 'This account',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'MULTISIG TRANSACTION',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSACTION',
+			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: '交易待處理中',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-boot',
 					name: 'Node name',
-					account: 'Account',
 					primaryAccount: 'Primary Account',
 					auto: 'Auto boot when a wallet is opened'
 				},
 				save: 'Save',
 				saveSuccess: 'Settings have been saved successfully'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convert account to multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: '此賬戶被標記為 <strong>{{1}}</strong>',
 				nullLabelDesc: "此賬戶没有標記",
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
 				convert: 'Convert',
-				fee: '費',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig Fees',
 				multisigTotal: 'Total',
 				sender: 'Cosignatory',
-				fee: '費',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: '密碼',
 				passwordValidation: 'Password must not be blank',
-				send: '發送',
-				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: '交易成功!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
 					message: '留言',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: '信息',
 				encrypt: '加密信息',
-				fee: '費',
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: '密碼',
-				passwordValidation: 'Password must not be blank',
-				send: '發送',
-				cancel: 'Cancel',
 				sending: '發送...',
-				successMessage: '交易成功!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
@@ -245,7 +251,6 @@ define({
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
-					cancel: 'Cancel',
 					confirm: 'Confirm',
 					sending: 'Sending...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: '確認',
 				confirmationsUnknown: 'Unknown',
 				amount: '金額',
-				fee: '費',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: "Account details",
-				address: "Address",
 				label: "Label",
 				noLabel: "No label",
 				add: "Add to address book",
@@ -313,8 +316,7 @@ define({
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				harvestedBlocks: "Harvested blocks"
 			},
 			bootLocalNode: {
 				title: '啟動本地節點',
@@ -337,7 +339,6 @@ define({
 				title: '創建新賬號',
 				label: '私人標識',
 				wallet: '錢包',
-				password: '錢包的密碼',
 				successMessage: '賬號 {{1}} {{#2}}({{2}}){{/2}} 已創建!',
 				create: '創建'
 			},
@@ -357,7 +358,6 @@ define({
 				title: '添加一个現有賬號',
 				privateKey: '賬號的私鑰',
 				wallet: '錢包',
-				password: "錢包的密碼",
 				successMessage: '賬號 {{1}} {{#2}}({{2}}){{/2}} 已被添加到錢包!',
 				add: '添加',
 				label: '標識'
@@ -367,7 +367,6 @@ define({
 				account: '賬號被設置為主賬戶',
 				noLabel: '<span class="null">&lt;物標識&gt;</span>',
 				wallet: '錢包',
-				password: "錢包的密碼",
 				successMessage: '賬戶 {{1}} {{#2}}({{2}}){{/2}} 被設置為主賬戶!',
 				set: '設置為主賬戶'
 			},
@@ -375,7 +374,6 @@ define({
 				title: '改錢包名',
 				wallet: '当前錢包名',
 				newName: '新錢包名',
-				password: "錢包密碼",
 				successMessage: '錢包名称已變更成功從<em>{{1}}</em>到<em>{{2}}</em>',
 				change: '改'
 			},
@@ -394,16 +392,13 @@ define({
 				title: '更改賬戶標識',
 				label: '賬戶標識',
 				wallet: '賬戶',
-				password: "錢包密碼",
 				successMessage: '賬戶{{1}}現在的標識是{{2}}',
 				change: '改'
 			},
 			removeAccount: {
 				title: '删除賬戶',
-				account: 'Account',
 				label: '賬戶標識',
 				wallet: '钱包',
-				password: "錢包密碼",
 				warning: '在你删除賬戶前請確認您的賬戶的MEM為零，否則会被永遠失去了',
 				successMessage: '賬戶 {{1}} {{#2}}({{2}}){{/2}} 被删除了!',
 				remove: '删除'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
 				activate: 'Activate',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
 				deactivate: 'Deactivate',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: "Wallet's password",
 				stop: 'Stop'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: '停止收割',
 				description: 'NEM雲賬戶的重要',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

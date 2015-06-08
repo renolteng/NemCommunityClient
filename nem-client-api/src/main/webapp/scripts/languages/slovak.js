@@ -101,18 +101,34 @@ define({
 			publicLabel: "Public label",
 			noCharge: "Current account will <b>NOT</b> be charged any fees, multisig account covers them",
 			fee: "Poplatok",
+			multisigFee: "Multisig fee",
+			useMinimumFee: "Use minimum fee",
+			feeValidation: "Fee must not be less than the minimum fee",
 			justUse: "Just use",
 			dueBy: "Due by",
+			minutes: 'minute(s)',
 			hours: "hour(s)",
 			hoursDue: "Due by (hours)",
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: "Cancel",
+			sendButton: "Poslať",
+			account: "Account",
+			thisAccount: "This account",
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			"TRANSFER TRANSACTION",
 			"IMPORTANCE TRANSFER",
 			"MODIFICATION OF MULTISIG ACCOUNT",
-			"MULTISIG TRANSACTION"
+			"MULTISIG TRANSACTION",
+			'MULTISIG SIGNATURE',
+			"MULTISIG TRANSACTION",
+			"MULTISIG TRANSACTION",
+			
 		],
 		transactionDirections: {
 			pending: "Pending transaction",
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: "Auto-boot",
 					name: "Node name",
-					account: "Account",
 					primaryAccount: "Primary account",
 					auto: "Auto boot when a wallet is opened"
 				},
 				save: "Save",
 				saveSuccess: "Settings have been saved successfully"
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: "Convert account to multisig",
@@ -175,17 +196,17 @@ define({
 				labelDesc: "This account is labeled as {{1}}",
 				nullLabelDesc: "This account doesn't have a label",
 				addCosignatory: "+ Add Cosignatory",
-				cancel: "Cancel",
 				convert: "Convert",
-				fee: "Fee",
-				feeValidation: "Fee must not be less than the minimum fee",
-				useMinimumFee: "Use minimum fee",
 				txConfirm: {
 					title: "Confirm Conversion to Multisig Account",
 					total: "Total",
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: "Sign multisig transaction",
@@ -199,15 +220,8 @@ define({
 				multisigFees: "Multisig Fees",
 				multisigTotal: "Total",
 				sender: "Cosignatory",
-				fee: "Fee",
-				feeValidation: "Fee must not be less than the minimum fee",
-				useMinimumFee: "Use minimum fee",
-				password: "Password",
 				passwordValidation: "Password must not be blank",
-				send: "Send",
-				cancel: "Cancel",
 				sending: "Sending...",
-				successMessage: "Transaction has been sent successfully!",
 				txConfirm: {
 					title: "Confirm Multisig Transaction",
 					message: "Message",
@@ -227,16 +241,8 @@ define({
 				recipientValidation: "Account addresses must be 40 characters long excluding dashes",
 				message: "Správa",
 				encrypt: "Šifrovaná správa",
-				fee: "Poplatok",
-				multisigFee: "Multisig fee",
-				feeValidation: "Fee must not be less than the minimum fee",
-				useMinimumFee: "Use minimum fee",
-				password: "Heslo",
-				passwordValidation: "Password must not be blank",
-				send: "Poslať",
-				cancel: "Cancel",
 				sending: "Posielanie...",
-				successMessage: "Prevod bol úspešne vykonaný!",
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: "Confirm Transaction",
 					amount: "Amount",
@@ -245,7 +251,6 @@ define({
 					message: "Message",
 					encrypted: "Message is encrypted",
 					noMessage: "No message",
-					cancel: "Cancel",
 					confirm: "Confirm",
 					sending: "Sending..."
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: "Potvrdenia",
 				confirmationsUnknown: "Unknown",
 				amount: "Množstvo",
-				fee: "Poplatok",
 				innerFee: "Inner Fee",
 				multisigFees: "Multisig Fees",
 				cosignatory: "Cosignatory"
 			},
 			accountDetails: {
 				title: "Account details",
-				address: "Address",
 				label: "Label",
 				noLabel: "No label",
 				add: "Add to address book",
@@ -313,8 +316,7 @@ define({
 				importance: "Importance",
 				publicKey: "Public key",
 				noPublicKey: "No public key",
-				harvestedBlocks: "Harvested blocks",
-				close: "Close"
+				harvestedBlocks: "Harvested blocks"
 			},
 			bootLocalNode: {
 				title: "Bútovať lokálny uzol",
@@ -337,7 +339,6 @@ define({
 				title: "Vytvoriť nový účet",
 				label: "Súkromný názov",
 				wallet: "Peňaženka",
-				password: "Heslo peňaženky",
 				successMessage: "Účet {{1}} {{#2}}({{2}}){{/2}} bol vytvorený!",
 				create: "Vytvoriť"
 			},
@@ -357,7 +358,6 @@ define({
 				title: "Pridať už existujúci účet",
 				privateKey: "Súkromný kľúč k účtu",
 				wallet: "Peňaženka",
-				password: "Heslo peňaženky",
 				successMessage: "Účet {{1}} {{#2}}({{2}}){{/2}} bol pridaný!",
 				add: "Pridať",
 				label: "Názov"
@@ -367,7 +367,6 @@ define({
 				account: "Vybrať účet ako hlavný",
 				noLabel: "<span class=\"null\">&lt;Žiadny názov&gt;</span>",
 				wallet: "Peňaženka",
-				password: "Heslo peňaženky",
 				successMessage: "Účet {{1}} {{#2}}({{2}}){{/2}} bol nastavený ako hlavný!",
 				set: "Nastaviť ako hlavný"
 			},
@@ -375,7 +374,6 @@ define({
 				title: "Zmena názvu peňaženky",
 				wallet: "Súčasný názov peňaženky",
 				newName: "Nový názov peňaženky",
-				password: "Heslo peňaženky",
 				successMessage: "Názov peňaženky bol úspešne zmenený z <em>{{1}}</em> na <em>{{2}}</em>",
 				change: "Zmeniť"
 			},
@@ -394,16 +392,13 @@ define({
 				title: "Zmeniť názov účtu ",
 				label: "Názov účtu",
 				wallet: "Peňaženka",
-				password: "Heslo peňaženky",
 				successMessage: "Účet {{1}} sa teraz volá {{2}}",
 				change: "Zmeniť"
 			},
 			removeAccount: {
 				title: "Odstrániť účet",
-				account: "Account",
 				label: "Názov účtu",
 				wallet: "Peňaženka",
-				password: "Heslo peňaženky",
 				warning: "Prosím, uistite sa, že na vašom účte už nie sú žiadne NEMy, inak budú stratené navždy.",
 				successMessage: "Účet {{1}} {{#2}}({{2}}){{/2}} bol odstránený!",
 				remove: "Odstrániť"
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: "Wallet",
-				account: "Account",
-				password: "Wallet's password",
 				activate: "Activate",
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: "Wallet",
-				account: "Account",
-				password: "Wallet's password",
 				deactivate: "Deactivate",
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: "Wallet",
-				account: "Account",
-				password: "Wallet's password",
 				start: "Start"
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: "Wallet",
-				account: "Account",
-				password: "Wallet's password",
 				stop: "Stop"
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: "Zastaviť žatvu",
 				description: "Význam účtu pre cloud NEMu",
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: "Remotely harvesting",
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

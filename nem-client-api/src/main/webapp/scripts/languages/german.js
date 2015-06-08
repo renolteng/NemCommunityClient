@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Öffentliche Bezeichnung',
 			noCharge: 'Das Konto wird <b>NICHT</b> mit Gebühren belastet. Das Multisig-Konto zahlt die Gebühren.',
 			fee: 'Gebühr',
+			multisigFee: 'Signierungs-Gebühr',
+			useMinimumFee: 'Benutze Mindestgebühr',
+			feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
 			justUse: 'Just use',
 			dueBy: 'Verfällt in',
+			minutes: 'minute(s)',
 			hours: 'Stunde(n)',
 			hoursDue: 'Verfällt in (Stunden)',
 			hoursDueExplanation: 'Falls die Transaktion von der NEM Cloud nicht innerhalb der hier eingestellten Zeit akzeptiert wird, wird sie endgültig abgelehnt.',
-			closeButton: 'Schließen'
+			closeButton: 'Schließen',
+			cancelButton: 'Abbrechen',
+			sendButton: 'Senden',
+			account: 'Adresse des Kontos',
+			thisAccount: 'Dieses Konto',
+			warning: 'Achtung',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'XEM-Überweisung',
 			'Wichtigkeitsübertragung',
 			'Multisig-Konto-Modifikation',
-			'Multisig-Überweisung'
+			'Multisig-Überweisung',
+			'MULTISIG SIGNATURE',
+			'Multisig-Überweisung',
+			'Multisig-Überweisung',
+			
 		],
 		transactionDirections: {
 			pending: 'Ausstehende Transaktion',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-boot',
 					name: 'Name des NIS',
-					account: 'Konto',
 					primaryAccount: 'Hauptkonto',
 					auto: 'Automatisch booten beim Öffnen der Brieftasche'
 				},
 				save: 'Speichern',
 				saveSuccess: 'Die Einstellungen wurden erfolgreich gespeichert'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'In Multisig-Konto umwandeln',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Die Bezeichnung des Kontos ist {{1}}',
 				nullLabelDesc: 'Dieses Konto hat keine Bezeichnung',
 				addCosignatory: '+ Mitsignierer hinzufügen',
-				cancel: 'Abbrechen',
 				convert: 'Umwandeln',
-				fee: 'Gebühr',
-				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
-				useMinimumFee: 'Benutze Mindestgebühr',
 				txConfirm: {
 					title: 'Umwandlung in Multisig-Konto bestätigen',
 					total: 'Insgesamt',
 
 				},
-				warning: 'Das Multisig-Konto ist selbst in der Liste der Mitsignierer. Das bedeutet, dass über das Vermögen auf diesem Konto nicht mehr verfügt werden kann. Es ist höchstwahrscheinlich, dass du das <b>NICHT</b> tun möchtest.'
+				warning: 'Das Multisig-Konto ist selbst in der Liste der Mitsignierer. Das bedeutet, dass über das Vermögen auf diesem Konto nicht mehr verfügt werden kann. Es ist höchstwahrscheinlich, dass du das <b>NICHT</b> tun möchtest.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Multisig-Transaktion signieren',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Signierungs-Gebühr',
 				multisigTotal: 'Insgesamt',
 				sender: 'Mitsignierer',
-				fee: 'Gebühr',
-				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
-				useMinimumFee: 'Benutze Mindestgebühr',
-				password: 'Passwort der Brieftasche',
 				passwordValidation: 'Das Passwort darf nicht leer sein',
-				send: 'Senden',
-				cancel: 'Abbrechen',
 				sending: 'Sende...',
-				successMessage: 'Die Transaktion wurde erfolgreich gesendet!',
 				txConfirm: {
 					title: 'Multisig-Transaktion bestätigen',
 					message: 'Nachricht',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Adressen müssen eine Länge von 40 Zeichen (ohne Bindestriche) haben',
 				message: 'Nachricht',
 				encrypt: 'Nachricht verschlüsseln',
-				fee: 'Gebühr',
-				multisigFee: 'Signierungs-Gebühr',
-				feeValidation: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten',
-				useMinimumFee: 'Benutze Mindestgebühr',
-				password: 'Passwort der Brieftasche',
-				passwordValidation: 'Das Passwort darf nicht leer sein',
-				send: 'Senden',
-				cancel: 'Abbrechen',
 				sending: 'Sende...',
-				successMessage: 'Die Transaktion wurde erfolgreich gesendet!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Transaktion bestätigen',
 					amount: 'Betrag',
@@ -245,7 +251,6 @@ define({
 					message: 'Nachricht',
 					encrypted: 'Nachricht ist verschlüsselt',
 					noMessage: 'Keine Nachricht',
-					cancel: 'Abbrechen',
 					confirm: 'Bestätigen',
 					sending: 'Sende...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Bestätigungen',
 				confirmationsUnknown: 'Unbekannt',
 				amount: 'Betrag',
-				fee: 'Gebühr',
 				innerFee: 'Gebühr',
 				multisigFees: 'Signierungs-Gebühren',
 				cosignatory: 'Mitsignierer'
 			},
 			accountDetails: {
 				title: 'Kontodetails',
-				address: 'Adresse',
 				label: 'Eigene Bezeichnung',
 				noLabel: 'Keine Bezeichnung',
 				add: 'Zum Adressbuch hinzufügen',
@@ -313,8 +316,7 @@ define({
 				importance: 'Wichtigkeit',
 				publicKey: 'Öffentlicher Schlüssel',
 				noPublicKey: 'Öffentlicher Schlüssel unbekannt',
-				harvestedBlocks: 'Geerntete Böcke',
-				close: 'Schließen'
+				harvestedBlocks: 'Geerntete Böcke'
 			},
 			bootLocalNode: {
 				title: 'NIS booten',
@@ -337,7 +339,6 @@ define({
 				title: 'Neues Konto anlegen',
 				label: 'Eigene Bezeichnung',
 				wallet: 'Zugehörige Brieftasche',
-				password: 'Passwort der Brieftasche',
 				successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde angelegt!',
 				create: 'Anlegen'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Ein existierendes Konto hinzufügen',
 				privateKey: 'Privater Schlüssel des Kontos',
 				wallet: 'Zugehörige Brieftasche',
-				password: 'Passwort der Brieftasche',
 				successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde zur Brieftasche hinzugefügt!',
 				add: 'Hinzufügen',
 				label: 'Eigene Bezeichnung'
@@ -367,7 +367,6 @@ define({
 				account: 'Adresse des Kontos, welches das Hauptkonto werden soll',
 				noLabel: '<span class=\'null\'><Keine Bezeichnung></span>',
 				wallet: 'Zugehörige Brieftasche',
-				password: 'Passwort der Brieftasche',
 				successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde als Hauptkonto festgelegt!',
 				set: 'Als Hauptkonto festlegen'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Namen der Brieftasche ändern',
 				wallet: 'Aktueller Name der Brieftasche',
 				newName: 'Neuer Name der Brieftasche',
-				password: 'Passwort der Brieftasche',
 				successMessage: 'Der Name der Brieftasche wurde erfolgreich von <em>{{1}}</em> in <em>{{2}}</em> geändert.',
 				change: 'Ändern'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Bezeichnung des Kontos ändern',
 				label: 'Neue Bezeichnung des Kontos',
 				wallet: 'Zugehörige Brieftasche',
-				password: 'Passwort der Brieftasche',
 				successMessage: 'Das Konto {{1}} hat jetzt die Bezeichnung {{2}}',
 				change: 'Ändern'
 			},
 			removeAccount: {
 				title: 'Konto entfernen',
-				account: 'Konto',
 				label: 'Bezeichnung des Kontos',
 				wallet: 'Zugehörige Brieftasche',
-				password: 'Passwort der Brieftasche',
 				warning: 'Stelle bitte sicher, dass das Konto leer ist, bevor du es entfernst. Ohne Backup des privaten Schlüssels ist der Betrag sonst unwiederbringlich verloren.',
 				successMessage: 'Das Konto {{1}} {{#2}}({{2}}){{/2}} wurde entfernt!',
 				remove: 'Entfernen'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Delegierte Ernte freischalten',
 				wallet: 'Zugehörige Brieftasche',
-				account: 'Adresse des Kontos',
-				password: 'Passwort der Bieftasche',
 				activate: 'Freischalten',
-				warning: 'Achtung',
-				warningText: 'Das Freischalten der delegierten Ernte dauert ca. 6 Stunden (360 Blöcke) und kostet eine Gebühr. Nachdem die delegierte Ernte freigeschaltet ist, wird sie nicht automatisch gestartet!'
+				warningText: 'Das Freischalten der delegierten Ernte dauert ca. 6 Stunden (360 Blöcke) und kostet eine Gebühr. Nachdem die delegierte Ernte freigeschaltet ist, wird sie nicht automatisch gestartet!',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Delegierte Ernte deaktivieren',
 				wallet: 'Zugehörige Brieftasche',
-				account: 'Adresse des Kontos',
-				password: 'Passwort der Bieftasche',
 				deactivate: 'Deaktivieren',
-				warning: 'Achtung',
 				warningText: 'Die Deaktivierung der delegierten Ernte dauert ca. 6 Stunden (360 Blöcke) und kostet eine Gebühr.'
 			},
 			startRemote: {
 				title: 'Delegierte Ernte starten',
 				wallet: 'Zugehörige Brieftasche',
-				account: 'Adresse des Kontos',
-				password: 'Passwort der Brieftasche',
 				start: 'Starten'
 			},
 			stopRemote: {
 				title: 'Delegierte Ernte beenden',
 				wallet: 'Zugehörige Brieftasche',
-				account: 'Adresse des Kontos',
-				password: 'Passwort der Brieftasche',
 				stop: 'Beenden'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Ernte beenden',
 				description: 'Wichtigkeit des Kontos für die NEM Cloud',
 				remoteHarvest: {
+					title: 'Delegierte Ernte',
 					activate: 'Delegierte Ernte freischalten',
 					activating: 'Delegierte Ernte wird freigeschaltet...',
 					active: 'Delegierte Ernte ist freigeschaltet',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Delegierte Ernte wird deaktiviert...',
 					startRemoteHarvesting: 'Delegierte Ernte starten',
 					remotelyHarvesting: 'Delegierte Ernte',
-					stopRemoteHarvesting: 'Delegierte Ernte beenden'
+					stopRemoteHarvesting: 'Delegierte Ernte beenden',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Identificação pública',
 			noCharge: 'A conta atual <b>NÃO</b> pode receber taxas de transações, uma conta do tipo Multisig a acoberta',
 			fee: 'Taxa',
+			multisigFee: 'Taxa Multisig',
+			useMinimumFee: 'Usar taxa minima',
+			feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
 			justUse: 'Usar apenas',
 			dueBy: 'Tempo de espera',
+			minutes: 'minute(s)',
 			hours: 'hora(s)',
 			hoursDue: 'Tempo para desativar',
 			hoursDueExplanation: 'Se a transação não estiver incluida até a data limite, ela será rejeitada.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Cancelar',
+			sendButton: 'Enviar',
+			account: 'Conta',
+			thisAccount: 'Esta conta',
+			warning: 'Aviso',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSAÇÕES DE VALORES',
 			'ITRANSFERENCIAS DE IMPORTANCIA',
 			'MODIFICAÇÃO DE UMA CONTA MULTISIG',
-			'TRANSAÇÃO MULTISIG'
+			'TRANSAÇÃO MULTISIG',
+			'MULTISIG SIGNATURE',
+			'TRANSAÇÃO MULTISIG',
+			'TRANSAÇÃO MULTISIG',
+			
 		],
 		transactionDirections: {
 			pending: 'Pendente',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Inicialização automática',
 					name: 'Nome do nó',
-					account: 'Carteira',
 					primaryAccount: 'Conta primária',
 					auto: 'Inicialização automática quando abrir a carteira'
 				},
 				save: 'Salvar',
 				saveSuccess: 'As configurações foram salvas!'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Converter conta para Multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Esta conta está identificada como {{1}}',
 				nullLabelDesc: 'Esta conta não tem uma identificação',
 				addCosignatory: '+ Adicinar um consignatário',
-				cancel: 'Cancelar',
 				convert: 'Converter',
-				fee: 'Taxa',
-				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
-				useMinimumFee: 'Usar taxa minima',
 				txConfirm: {
 					title: 'Confirmar Conversão para conta Multisig',
 					total: 'Total',
 
 				},
-				warning: 'A conta do tipo Multisig está na lista dos consignatários. Isso resultará no corte de acesso ao dinheiro da conta. Muito provavelmente você <b>NÃO QUER</b> fazer isso.'
+				warning: 'A conta do tipo Multisig está na lista dos consignatários. Isso resultará no corte de acesso ao dinheiro da conta. Muito provavelmente você <b>NÃO QUER</b> fazer isso.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Assinar transação Multisig',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Taxas Multisig',
 				multisigTotal: 'Total',
 				sender: 'Cosignatário',
-				fee: 'Taxa',
-				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
-				useMinimumFee: 'Usar taxa minima',
-				password: 'Senha',
 				passwordValidation: 'A senha não deve ser vazia',
-				send: 'Enviar',
-				cancel: 'Cancelar',
 				sending: 'Enviando...',
-				successMessage: 'A transação foi enviada!',
 				txConfirm: {
 					title: 'Confirmar transação Multisig',
 					message: 'Mensagem',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Endereços de contas devem ter pelo menos 40 caracteres, excluindo o caractere - .',
 				message: 'Mensagem',
 				encrypt: 'Criptografar mensagem',
-				fee: 'Taxa',
-				multisigFee: 'Taxa Multisig',
-				feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
-				useMinimumFee: 'Usar taxa minima',
-				password: 'Senha',
-				passwordValidation: 'A senha não deve ser vazia',
-				send: 'Enviar',
-				cancel: 'Cancelar',
 				sending: 'Enviando...',
-				successMessage: 'A transação foi enviada!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirmar Transação',
 					amount: 'Quantidade',
@@ -245,7 +251,6 @@ define({
 					message: 'Mensagem',
 					encrypted: 'Mensagem está criptografada',
 					noMessage: 'Sem mensagem',
-					cancel: 'Cancelar',
 					confirm: 'Confirmar',
 					sending: 'Enviando...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Confirmações',
 				confirmationsUnknown: 'Desconhecida(o)',
 				amount: 'Quantidade',
-				fee: 'Taxa',
 				innerFee: 'Taxas internas',
 				multisigFees: 'Taxas Multisig',
 				cosignatory: 'Cosignatário'
 			},
 			accountDetails: {
 				title: 'Account details',
-				address: 'Endereço',
 				label: 'Identificação',
 				noLabel: 'Sem identificação',
 				add: 'Adicionar ao arquivo de contatos',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importancia',
 				publicKey: 'Chave Publica',
 				noPublicKey: 'Sem chave públida',
-				harvestedBlocks: 'Blocos colheitados',
-				close: 'Fechar'
+				harvestedBlocks: 'Blocos colheitados'
 			},
 			bootLocalNode: {
 				title: 'Inicializar nó local',
@@ -337,7 +339,6 @@ define({
 				title: 'Criar nova conta',
 				label: 'Identificação',
 				wallet: 'Carteira',
-				password: 'Senha',
 				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, guarde uma cópia em um local seguro.',
 				create: 'Criar'
 			},
@@ -350,14 +351,13 @@ define({
 			},
 			showRemotePrivateKey: {
 				title: 'Mostrar a chave PRIVADA da conta remota',
-			message: 'Será exibido a chave privada da conta remota na tela, como texto. No caso de qualquer tipo de infecção digital presente no sistema, essa ação poderá  ser perigosa. Você tem certeza que você quer mesmo fazer isso?',
+				message: 'Será exibido a chave privada da conta remota na tela, como texto. No caso de qualquer tipo de infecção digital presente no sistema, essa ação poderá  ser perigosa. Você tem certeza que você quer mesmo fazer isso?',
 
 			},
 			addAccount: {
 				title: 'Adicionar uma Carteira existente',
 				privateKey: 'Chave privada',
 				wallet: 'Carteira',
-				password: 'Senha',
 				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi criada! Por favor, realize um backup e guarde-o em local seguro!',
 				add: 'Criar',
 				label: 'Identificação'
@@ -367,7 +367,6 @@ define({
 				account: 'Conta que será definida como primária',
 				noLabel: '<span class=\'null\'>&lt;Sem identificação&gt;</span>',
 				wallet: 'Carteira',
-				password: 'Senha',
 				successMessage: 'Conta {{1}} {{#2}}({{2}}){{/2}} foi definida como primária!',
 				set: 'Definir como conta primária'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Renomear Carteira',
 				wallet: 'Nome atual',
 				newName: 'Novo nome',
-				password: 'Senha',
 				successMessage: 'O nome <em>{{1}}</em> foi alterado para <em>{{2}}</em>',
 				change: 'Renomear'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Trocar identificação da conta',
 				label: 'Nova identificação',
 				wallet: 'Carteira',
-				password: 'Senha',
 				successMessage: 'A Identificação {{1}} foi alterada para {{2}}',
 				change: 'Trocar'
 			},
 			removeAccount: {
 				title: 'Remover conta',
-				account: 'Conta',
 				label: 'Nova identificação',
 				wallet: 'Carteira',
-				password: 'Senha',
 				warning: 'Esta operacao não pode ser desfeita.',
 				successMessage: 'A conta {{1}} {{#2}}({{2}}){{/2}} foi removida!',
 				remove: 'Remover'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Ativar colheita delegada',
 				wallet: 'Carteira',
-				account: 'Conta',
-				password: 'Senha',
 				activate: 'Ativar',
-				warning: 'Aviso',
-				warningText: 'A ativação leverá 6 houras (360 blocos). A ativação não vaiiniciar automaticamente a colheita.'
+				warningText: 'A ativação leverá 6 houras (360 blocos). A ativação não vaiiniciar automaticamente a colheita.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Desativar colheita delegada',
 				wallet: 'Carteira',
-				account: 'Conta',
-				password: 'Senha',
 				deactivate: 'Desativar',
-				warning: 'Aviso',
 				warningText: 'A Desativação levará 6 houras (360 blocos).'
 			},
 			startRemote: {
 				title: 'Começar colheita delegada',
 				wallet: 'Carteira',
-				account: 'Conta',
-				password: 'Senha',
 				start: 'Iniciar'
 			},
 			stopRemote: {
 				title: 'Parar colheita delegada',
 				wallet: 'Carteira',
-				account: 'Conta',
-				password: 'Senha',
 				stop: 'Parar'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Parar colheita local',
 				description: 'Importância para a nuvem de peers',
 				remoteHarvest: {
+					title: 'Colheita Delegada',
 					activate: 'Ativar colheita delegada',
 					activating: 'Ativando a colheita delegada...',
 					active: 'A colheita delegada está ativa',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Desativando a colheita delegada...',
 					startRemoteHarvesting: 'Iniciar a colheita delegada',
 					remotelyHarvesting: 'Colheitando remotamente!',
-					stopRemoteHarvesting: 'Parar a colheita delegada'
+					stopRemoteHarvesting: 'Parar a colheita delegada',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

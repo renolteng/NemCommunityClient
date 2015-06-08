@@ -463,4 +463,64 @@ changed texts.landing.carousel.items.[1].description
 	  to: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.'
 	 was: '<em>Veiligheid</em> is heel belangrijk voor NEM om diefstal van XEM&amp; assets te voorkomen.'
 
+-----changed texts.modals.sendNem.successMessage
+	from: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>'
+	  to: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}'
+	 was: 'Transactie is verzonden!'
+
+translated texts.common.multisigFee
+	    from: 'Multisig fee'
+	      to: 'Multisig toeslag'
+	based on: texts.modals.sendNem.multisigFee
+
+translated texts.common.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Gebruik minimale toeslag'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.common.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Toeslag mag niet lager zijn dan het minimum'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.common.cancelButton
+	    from: 'Cancel'
+	      to: 'Annuleer'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.common.sendButton
+	    from: 'Send'
+	      to: 'Verstuur'
+	based on: texts.modals.sendNem.send
+
+translated texts.common.account
+	    from: 'Account'
+	      to: 'Account'
+	based on: texts.modals.stopRemote.account
+
+translated texts.common.thisAccount
+	    from: 'This account'
+	      to: 'Deze account'
+	based on: texts.modals.sendNem.thisAccount
+
+translated texts.common.warning
+	    from: 'Warning'
+	      to: 'Warning'
+	based on: texts.modals.deactivateDelegated.warning
+
+translated texts.transactionTypes.[5]
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[3]
+
+translated texts.transactionTypes.[6]
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[3]
+
+translated texts.dashboard.importance.remoteHarvest.title
+	    from: 'Delegated harvesting'
+	      to: 'Delegated harvesting'
+	based on: texts.landing.carousel.items.[2].title
+
 -----

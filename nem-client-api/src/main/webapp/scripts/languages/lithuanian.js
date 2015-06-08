@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Vieša žymė',
 			noCharge: 'Šiai sąskaitai <b>NEBUS</b> taikomi jokie mokesčiai, juos padengs multisig sąskaita',
 			fee: 'Mokestis',
+			multisigFee: 'Multisig fee',
+			useMinimumFee: 'Naudoti minimalų mokestį.',
+			feeValidation: 'Mokestis turi būti ne mažesnis kaip minimalus.',
 			justUse: 'Tik naudokite.',
 			dueBy: 'Galioja',
+			minutes: 'minute(s)',
 			hours: 'valandų',
 			hoursDue: 'Liko valandų',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Nutraukti',
+			sendButton: 'Siųsti',
+			account: 'Sąskaita',
+			thisAccount: 'Ši sąskaita',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'PERVEDIMO TRANSAKCIJA',
 			'\'SVARBUMO\' PERKĖLIMAS',
 			'MULTISIG SĄSKAITOS MODIFIKACIJA',
-			'MULTISIG TRANSAKCIJA'
+			'MULTISIG TRANSAKCIJA',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSAKCIJA',
+			'MULTISIG TRANSAKCIJA',
+			
 		],
 		transactionDirections: {
 			pending: 'Atliekama transakcija',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Automatinis užkrovimas',
 					name: 'Prieigos taško pavadinimas',
-					account: 'Sąskaita',
 					primaryAccount: 'Pagrindinė sąskaita',
 					auto: 'Automatiškai užkrauti, kai piniginė atidaryta'
 				},
 				save: 'Išsaugoti',
 				saveSuccess: 'Nustatymai sėkmingai išsaugoti'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Paversti sąskaitą į multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Ši sąskaita pavadinta kaip {{1}}',
 				nullLabelDesc: 'Ši sąskaita neturi pavadinimo',
 				addCosignatory: '+ Pridėti parašo teisų turėtoją',
-				cancel: 'Nutraukti',
 				convert: 'Paversti',
-				fee: 'Mokestis',
-				feeValidation: 'Mokestis negali būti mažesnis už minimalų',
-				useMinimumFee: 'Naudoti minimalų mokestį',
 				txConfirm: {
 					title: 'Patvirtinkita pavertimą į mulstisig sąskaitą',
 					total: 'Viso',
 
 				},
-				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.'
+				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Pasirašyti multisig transakciją',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig mokesčiai',
 				multisigTotal: 'Iš viso',
 				sender: 'Parašo teisės turėtojas',
-				fee: 'Mokestis',
-				feeValidation: 'Mokestis negali būti mažesnis negu minimalus.',
-				useMinimumFee: 'Naudoti minimalu mokestį',
-				password: 'Slaptažodis',
 				passwordValidation: 'Slaptažodis negali būti tuščias',
-				send: 'Siųsti',
-				cancel: 'Nutraukti',
 				sending: 'Siunčiama...',
-				successMessage: 'Transakcija atlikta sėkmingai!',
 				txConfirm: {
 					title: 'Patvirtinti multisig transakciją',
 					message: 'Žinutė',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Sąskaitos adresas be brūkšnių turi būti iš 40 simbolių.',
 				message: 'Žinutė',
 				encrypt: 'Užšifruoti žinutę',
-				fee: 'Mokestis',
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Mokestis turi būti ne mažesnis kaip minimalus.',
-				useMinimumFee: 'Naudoti minimalų mokestį.',
-				password: 'Slaptažodis',
-				passwordValidation: 'Slaptažodis negali būti tuščias.',
-				send: 'Siųsti',
-				cancel: 'Nutraukti',
 				sending: 'Siunčiama...',
-				successMessage: 'Transakcija išsiųsta sėkmingai!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Patvirtinti transakciją',
 					amount: 'Suma',
@@ -245,7 +251,6 @@ define({
 					message: 'Žinutė',
 					encrypted: 'Žinutė šifruota',
 					noMessage: 'Žinutės nėra',
-					cancel: 'Nutraukti',
 					confirm: 'Patvirtinti',
 					sending: 'Siunčiama...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Patvirtinimai',
 				confirmationsUnknown: 'Nežinoma',
 				amount: 'Suma',
-				fee: 'Mokestis',
 				innerFee: 'Vidinis mokestis',
 				multisigFees: 'Multisig mokesčiai',
 				cosignatory: 'Parašo teisės turėtojas'
 			},
 			accountDetails: {
 				title: 'Sąskaitos informacija',
-				address: 'Adresas',
 				label: 'Pavadinimas',
 				noLabel: 'Nėra pavadinimo',
 				add: 'Pridėti į adresų knygą',
@@ -313,8 +316,7 @@ define({
 				importance: '\'Svarbumas\'',
 				publicKey: 'Viešasis raktas',
 				noPublicKey: 'Nėra viešojo rakto',
-				harvestedBlocks: '\'Iškasti\' blokai',
-				close: 'Uždaryti'
+				harvestedBlocks: '\'Iškasti\' blokai'
 			},
 			bootLocalNode: {
 				title: 'Užkrauti vietinį prieigos tašką',
@@ -337,7 +339,6 @@ define({
 				title: 'Sukurti naują sąskaitą',
 				label: 'Nuosavas pavadinimas',
 				wallet: 'Piniginė',
-				password: 'Piniginės slaptažodis',
 				successMessage: 'Sąskaita {{1}} {{#2}}({{2}}){{/2}} sukurta!',
 				create: 'Sukurti'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Pridėti egzistuojančią sąskaitą',
 				privateKey: 'Sąskaitos privatus raktas',
 				wallet: 'Piniginė',
-				password: 'Piniginės slaptažodis',
 				successMessage: 'Sąskaita {{1}} {{#2}}({{2}}){{/2}} įtraukta į piniginę!',
 				add: 'Pridėti',
 				label: 'Pavadinimas'
@@ -367,7 +367,6 @@ define({
 				account: 'Sąskaita, kuri turi būti nustatyta kaip pagrindinė',
 				noLabel: '<span class=\'null\'>&lt;Nėra pavadinimo&gt;</span>',
 				wallet: 'Piniginė',
-				password: 'Piniginės slaptažodis',
 				successMessage: 'Sąskaita {{1}} {{#2}}({{2}}){{/2}} nustatyta kaip pagrindinė!',
 				set: 'Nustatyta kaip pagrindinė'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Pakeisti piniginės pavadinimą',
 				wallet: 'Dabartinis piniginės pavadinimas',
 				newName: 'Naujas piniginės pavadinimas',
-				password: 'Piniginės slaptažodis',
 				successMessage: 'Piniginės pavadinimas pakeistas sėkmingai iš <em>{{1}}</em> į <em>{{2}}</em>',
 				change: 'Pakeisti'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Pakeisti sąskaitos pavadinimą',
 				label: 'Sąskaitos pavadinimas',
 				wallet: 'Piniginė',
-				password: 'Piniginės slaptažodis',
 				successMessage: 'Sąskaita {{1}} dabar pavadinta kaip {{2}}',
 				change: 'Pakeisti'
 			},
 			removeAccount: {
 				title: 'Panaikinti sąskaitą',
-				account: 'Sąskaita',
 				label: 'Sąskaitos pavadinimas',
 				wallet: 'Piniginė',
-				password: 'Piniginės slaptažodis',
 				warning: 'Prašome įsitikinti, kad Jūsų sąskaitoje nėra NEM prieš ją panaikinant. Panaikinus sąskaitą, Jūs prarasite joje turėtus XEM visam laikui.',
 				successMessage: 'Sąskaita {{1}} {{#2}}({{2}}){{/2}} panaikinta!',
 				remove: 'Panaikinti'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Piniginė',
-				account: 'Sąskaita',
-				password: 'Piniginės slaptažodis',
 				activate: 'Aktyvuoti',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Piniginė',
-				account: 'Sąskaita',
-				password: 'Piniginės slaptažodis',
 				deactivate: 'Deaktyvuoti',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Piniginė',
-				account: 'Sąskaita',
-				password: 'Piniginės slaptažodis',
 				start: 'Pradėti'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Piniginė',
-				account: 'Sąskaita',
-				password: 'Piniginės slaptažodis',
 				stop: 'Stabdyti'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Nutraukti \'kasimą\'',
 				description: 'Sąskaitos svarbumas NEM \'debesyje\'',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Nuotolinis \'kasimas\' vyksta',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

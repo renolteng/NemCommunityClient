@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Étiquette publique',
 			noCharge: 'Le compte utilisé ne sera <b>PAS</b> chargé de frais pour cette transaction, il seront chargé au compte multisig.',
 			fee: 'Frais',
+			multisigFee: 'Frais Multisig',
+			useMinimumFee: 'Utiliser les frais minimums',
+			feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
 			justUse: 'Utiliser seulement',
 			dueBy: 'Heure dû',
+			minutes: 'minute(s)',
 			hours: 'heures(s)',
 			hoursDue: 'Heure dû',
 			hoursDueExplanation: 'Si cette transaction n\'est pas incluse avant la date limite elle sera rejetée.',
-			closeButton: 'Fermer'
+			closeButton: 'Fermer',
+			cancelButton: 'Annuler',
+			sendButton: 'Envoyez',
+			account: 'Compte',
+			thisAccount: 'Ce compte',
+			warning: 'Attention',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSFERT DE TRANSACTION',
 			'TRANSFERT D\'IMPORTANCE ',
 			'MODIFICATION DE COMPTE MULTISIG',
-			'TRANSACTION MULTISIG '
+			'TRANSACTION MULTISIG ',
+			'MULTISIG SIGNATURE',
+			'TRANSACTION MULTISIG ',
+			'TRANSACTION MULTISIG ',
+			
 		],
 		transactionDirections: {
 			pending: 'Transaction en attente',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Démarrage Automatique',
 					name: 'Nom du nœud',
-					account: 'Compte',
 					primaryAccount: 'Compte primaire',
 					auto: 'Démarrage automatiquement quand le portefeuille est ouvert'
 				},
 				save: 'Enregistrer',
 				saveSuccess: 'Les paramètres ont été enregistrés avec succès'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convertir ce compte en multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Ce compte est étiqueté comme {{1}}',
 				nullLabelDesc: 'Ce compte n\'a pas d\'étiquette.',
 				addCosignatory: '+ Ajouter un Cosignataires',
-				cancel: 'Annuler',
 				convert: 'Convertir',
-				fee: 'Frais',
-				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				useMinimumFee: 'Utiliser les frais minimums',
 				txConfirm: {
 					title: 'Confirmez la conversion en compte Multisig',
 					total: 'Total',
 
 				},
-				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.'
+				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Signer la transaction multisig',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Frais Multisig',
 				multisigTotal: 'Total',
 				sender: 'Cosignataire',
-				fee: 'Frais',
-				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				useMinimumFee: 'Utiliser les frais minimums',
-				password: 'Mot de passe',
 				passwordValidation: 'Le mot de passe ne peut pas être vide',
-				send: 'Envoyez',
-				cancel: 'Annuler',
 				sending: 'Envoi...',
-				successMessage: 'La transaction a été envoyé avec succès!',
 				txConfirm: {
 					title: 'Confirmer la transaction Multisig ',
 					message: 'Message',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: 'Message',
 				encrypt: 'Chiffrez le message',
-				fee: 'Frais',
-				multisigFee: 'Frais Multisig',
-				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				useMinimumFee: 'Utiliser les frais minimums',
-				password: 'Mot de passe',
-				passwordValidation: 'Le mot de passe ne peut pas être vide',
-				send: 'Envoyez',
-				cancel: 'Annuler',
 				sending: 'Envoi...',
-				successMessage: 'La transaction a été envoyé avec succès!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirmez la transaction',
 					amount: 'Montant',
@@ -245,7 +251,6 @@ define({
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
 					noMessage: 'Pas de message',
-					cancel: 'Annuler',
 					confirm: 'Confirmer',
 					sending: 'Envoi...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Inconnu',
 				amount: 'Montant',
-				fee: 'Frais',
 				innerFee: 'Frais interne',
 				multisigFees: 'Frais Multisig',
 				cosignatory: 'Cosignataire'
 			},
 			accountDetails: {
 				title: 'Détails du compte',
-				address: 'Adresse',
 				label: 'Étiquette',
 				noLabel: 'Pas d\'étiquette',
 				add: 'Ajouter au carnet d\'adresses',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importance',
 				publicKey: 'Clé publique',
 				noPublicKey: 'Pas de clé publique',
-				harvestedBlocks: 'Blocs récoltés',
-				close: 'Fermeture'
+				harvestedBlocks: 'Blocs récoltés'
 			},
 			bootLocalNode: {
 				title: 'Démarrage du nœud local',
@@ -337,7 +339,6 @@ define({
 				title: 'Créer un nouveau compte',
 				label: 'Étiquette privé',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été créé!',
 				create: 'Créer'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Ajouter un compte existant',
 				privateKey: 'Clé privé du compte',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été ajouté à votre portefeuille!',
 				add: 'Ajouter',
 				label: 'Étiquette'
@@ -367,7 +367,6 @@ define({
 				account: 'Le compte a été défini comme votre compte principal',
 				noLabel: '<span class=\'null\'>&lt;Aucune étiquette&gt;</span>',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} a été défini comme votre compte principal!',
 				set: 'Définir comme compte principal'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Changez le nom du portefeuille',
 				wallet: 'Nom actuel du portefeuille',
 				newName: 'Nouveau nom du portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le nom du portefeuille a été changé avec succès de <em>{{1}}</em> à <em>{{2}}</em>',
 				change: 'Changer'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Changer l\'étiquette du compte',
 				label: 'Étiquette du compte',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} est maintenant étiquetté comme {{2}}',
 				change: 'Changer'
 			},
 			removeAccount: {
 				title: 'Retirer un compte',
-				account: 'Compte',
 				label: 'Étiquette du compte',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				warning: 'S\'il vous plait, assurez-vous que ce compte ne contient plus de XEMs avant de le retirer, sinon les XEMs qu\'il contient seront perdus pour toujours.',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été retiré!',
 				remove: 'Retirer'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activer la récolte distante',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				activate: 'Activer',
-				warning: 'Warning',
-				warningText: 'L\'activation va prendre 6 heures (360 blocs). L\'activation ne va PAS démarrer automatiquement la récolte.'
+				warningText: 'L\'activation va prendre 6 heures (360 blocs). L\'activation ne va PAS démarrer automatiquement la récolte.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Désactiver la récolte distante',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				deactivate: 'Désactiver',
-				warning: 'Attention',
 				warningText: 'La désactivation va prendre 6 heures (360 blocs).'
 			},
 			startRemote: {
 				title: 'Démarrer la récolte distante',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				start: 'Démarrer'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				stop: 'Arrêtez'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Arrêter la récolte locale',
 				description: 'importance de compte dans le nuage NEM',
 				remoteHarvest: {
+					title: 'Récolte Distante',
 					activate: 'Activer la récolte distante',
 					activating: 'Activation de la récolte distante...',
 					active: 'La récolte distante est active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Désactivation de la récolte distante...',
 					startRemoteHarvesting: 'Démarrer la récolte distante',
 					remotelyHarvesting: 'Récolte à distance en cours',
-					stopRemoteHarvesting: 'Arrêter la récolte distante'
+					stopRemoteHarvesting: 'Arrêter la récolte distante',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			fee: 'Phí',
+			multisigFee: 'Multisig fee',
+			useMinimumFee: 'Sử dụng phí tối thiểu',
+			feeValidation: 'Phí không được thấp hơn phí tối thiểu',
 			justUse: 'Just use',
 			dueBy: 'Hết hạn',
+			minutes: 'minute(s)',
 			hours: 'giờ',
 			hoursDue: 'Hết hạn sau (giờ)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Huỷ',
+			sendButton: 'Gửi',
+			account: 'Tài khoản',
+			thisAccount: 'This account',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'MULTISIG TRANSACTION',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSACTION',
+			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: 'Giao dịch đang chờ xác nhận',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Tự boot node',
 					name: 'Tên node',
-					account: 'Tài khoản',
 					primaryAccount: 'Tài khoản chính',
 					auto: 'Tự động boot node khi ví được mở'
 				},
 				save: 'Lưu',
 				saveSuccess: 'Thiết lập đã được lưu thành công'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convert account to multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Tài khoản này được dán nhãn là {{1}}',
 				nullLabelDesc: 'Tài khoản này không được dán nhãn',
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Huỷ',
 				convert: 'Convert',
-				fee: 'Phí',
-				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
-				useMinimumFee: 'Sử dụng phí tối thiểu',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Tổng cộng',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig Fees',
 				multisigTotal: 'Tổng cộng',
 				sender: 'Cosignatory',
-				fee: 'Phí',
-				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
-				useMinimumFee: 'Sử dụng phí tối thiểu',
-				password: 'Mật khẩu',
 				passwordValidation: 'Mật khẩu không được để trống',
-				send: 'Gửi',
-				cancel: 'Huỷ',
 				sending: 'Đang gửi...',
-				successMessage: 'Giao dịch đã được gửi đi thành công!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
 					message: 'Thông điệp',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Địa chỉ tài khoản phải có đúng 40 ký tự trừ các dấu gạch ngang',
 				message: 'Thông điệp',
 				encrypt: 'Mã hoá thông điệp',
-				fee: 'Phí',
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Phí không được thấp hơn phí tối thiểu',
-				useMinimumFee: 'Sử dụng phí tối thiểu',
-				password: 'Mật khẩu',
-				passwordValidation: 'Mật khẩu không được để trống',
-				send: 'Gửi',
-				cancel: 'Huỷ',
 				sending: 'Đang gửi...',
-				successMessage: 'Giao dịch đã được gửi đi thành công!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Xác nhận giao dịch',
 					amount: 'Số lượng',
@@ -245,7 +251,6 @@ define({
 					message: 'Thông điệp',
 					encrypted: 'Thông điệp được mã hoá',
 					noMessage: 'Không có thông điệp',
-					cancel: 'Huỷ',
 					confirm: 'Xác nhận',
 					sending: 'Đang gửi...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Số xác nhận',
 				confirmationsUnknown: 'Không rõ',
 				amount: 'Số lượng',
-				fee: 'Phí',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: 'Account details',
-				address: 'Address',
 				label: 'Label',
 				noLabel: 'No label',
 				add: 'Add to address book',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importance',
 				publicKey: 'Public key',
 				noPublicKey: 'No public key',
-				harvestedBlocks: 'Harvested blocks',
-				close: 'Close'
+				harvestedBlocks: 'Harvested blocks'
 			},
 			bootLocalNode: {
 				title: 'Boot node cục bộ',
@@ -337,7 +339,6 @@ define({
 				title: 'Tạo tài khoản mới',
 				label: 'Nhãn cá nhân',
 				wallet: 'Ví',
-				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được tạo!',
 				create: 'Tạo'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Thêm tài khoản đã tồn tại',
 				privateKey: 'Khoá bí mật',
 				wallet: 'Ví',
-				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được thêm vào ví!',
 				add: 'Thêm',
 				label: 'Nhãn'
@@ -367,7 +367,6 @@ define({
 				account: 'Tài khoản được đặt làm tài khoản chính',
 				noLabel: '<span class=\"null\">&lt;Không có nhãn&gt;</span>',
 				wallet: 'Ví',
-				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được đặt làm tài khoản chính!',
 				set: 'Đặt làm tài khoản chính'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Đổi tên ví',
 				wallet: 'Tên ví hiện tại',
 				newName: 'Tên ví mới',
-				password: 'Mật khẩu ví',
 				successMessage: 'Tên ví đã được đổi thành công từ <em>{{1}}</em> sang <em>{{2}}</em>',
 				change: 'Thay đổi'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Đổi nhãn tài khoản',
 				label: 'Nhãn tài khoản',
 				wallet: 'Ví',
-				password: 'Mật khẩu ví',
 				successMessage: 'Tài khoản {{1}} giờ đây được dán nhãn là {{2}}',
 				change: 'Thay đổi'
 			},
 			removeAccount: {
 				title: 'Xoá tài khoản',
-				account: 'Tài khoản',
 				label: 'Nhãn tài khoản',
 				wallet: 'Ví',
-				password: 'Mật khẩu ví',
 				warning: 'Please ensure that your account has no XEM left before you remove it, or they would be lost forever.',
 				successMessage: 'Tài khoản {{1}} {{#2}}({{2}}){{/2}} đã được xoá!',
 				remove: 'Xoá'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Ví',
-				account: 'Tài khoản',
-				password: 'Mật khẩu ví',
 				activate: 'Kích hoạt',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Ví',
-				account: 'Tài khoản',
-				password: 'Mật khẩu ví',
 				deactivate: 'Vô hiệu hoá',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Ví',
-				account: 'Tài khoản',
-				password: 'Mật khẩu ví',
 				start: 'Bắt đầu'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Ví',
-				account: 'Tài khoản',
-				password: 'Mật khẩu ví',
 				stop: 'Ngừng'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Ngừng thu hoạch cục bộ',
 				description: 'tầm quan trọng của tài khoản với NEM cloud',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Đang thu hoạch từ xa',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

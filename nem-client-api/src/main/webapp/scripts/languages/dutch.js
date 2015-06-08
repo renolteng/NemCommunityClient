@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Public label',
 			noCharge: 'Over de Huidige account zullen <b>GEEN</b> toeslagkosten komen, dit wordt afgehandeld met multisig accounts',
 			fee: 'Toeslag',
+			multisigFee: 'Multisig toeslag',
+			useMinimumFee: 'Gebruik minimale toeslag',
+			feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
 			justUse: 'Gewoon gebruiken',
 			dueBy: 'Verzenden voor',
+			minutes: 'minute(s)',
 			hours: 'uur',
 			hoursDue: 'Binnen (uren)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Annuleer',
+			sendButton: 'Verstuur',
+			account: 'Account',
+			thisAccount: 'Deze account',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'NORMALE TRANSACTIE',
 			'IMPORTANCE TRANSACTIER',
 			'AANPASSING VAN EEN MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTIE'
+			'MULTISIG TRANSACTIE',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSACTIE',
+			'MULTISIG TRANSACTIE',
+			
 		],
 		transactionDirections: {
 			pending: 'Wachtende transactie',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-start',
 					name: 'Node naam',
-					account: 'Account',
 					primaryAccount: 'Primaire account',
 					auto: 'Auto starten als een wallet is geopend'
 				},
 				save: 'Opslaan',
 				saveSuccess: 'Instelling zijn met succes opgeslagen'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Converteer een account naar een multisig account',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Deze account is als {{1}} gelabeld',
 				nullLabelDesc: 'Deze account heeft geen label',
 				addCosignatory: '+ Handtekeninghouder\'toevoegen',
-				cancel: 'Annuleer',
 				convert: 'Converteer',
-				fee: 'Toeslag',
-				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
-				useMinimumFee: 'Gebruik minimale toeslag',
 				txConfirm: {
 					title: 'Bevestig Conversie naar Multisig Account',
 					total: 'Totaal',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Signeer multisig transactie',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig toeslagen',
 				multisigTotal: 'Totaal',
 				sender: 'Handtekeninghouder',
-				fee: 'Toeslag',
-				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
-				useMinimumFee: 'Gebruik minimale toeslag',
-				password: 'Wachtwoord',
 				passwordValidation: 'Wachwoord moet worden ingevuld',
-				send: 'Verstuur',
-				cancel: 'Annuleer',
 				sending: 'Verzenden...',
-				successMessage: 'Transactie is verzonden!',
 				txConfirm: {
 					title: 'Bevestig Multisig Transactie',
 					message: 'Bericht',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Accounten moeten een lengte hebben van 40 karakters en/of spaties',
 				message: 'Bericht',
 				encrypt: 'Beveilig bericht',
-				fee: 'Toeslag',
-				multisigFee: 'Multisig toeslag',
-				feeValidation: 'Toeslag mag niet lager zijn dan het minimum',
-				useMinimumFee: 'Gebruik minimale toeslag',
-				password: 'Wachtwoord',
-				passwordValidation: 'Wachtwoord moet worden ingevuld',
-				send: 'Verstuur',
-				cancel: 'Afbreken',
 				sending: 'Versturen...',
-				successMessage: 'Transactie is verzonden!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Bevestig transactie',
 					amount: 'Hoeveelheid',
@@ -245,7 +251,6 @@ define({
 					message: 'Bericht',
 					encrypted: 'Bericht is geencrypt',
 					noMessage: 'Geen bericht',
-					cancel: 'Annuleer',
 					confirm: 'Bevestig',
 					sending: 'Verzenden...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Confirmaties',
 				confirmationsUnknown: 'Onbekend',
 				amount: 'Bedrag',
-				fee: 'Toeslag',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig toeslagen',
 				cosignatory: 'Handtekeninghouder'
 			},
 			accountDetails: {
 				title: 'Account details',
-				address: 'Adres',
 				label: 'Label',
 				noLabel: 'Geen label',
 				add: 'Toevoegen to het adresboek',
@@ -313,8 +316,7 @@ define({
 				importance: 'Belangrijks waardering',
 				publicKey: 'Publieke sleutel',
 				noPublicKey: 'Geen publieke sleutel',
-				harvestedBlocks: 'Geharvestede blocks',
-				close: 'Sluiten'
+				harvestedBlocks: 'Geharvestede blocks'
 			},
 			bootLocalNode: {
 				title: 'Start lokale node',
@@ -337,7 +339,6 @@ define({
 				title: 'Nieuwe account aanmaken',
 				label: 'Privé label',
 				wallet: 'Wallet',
-				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} is aangemaakt.!',
 				create: 'Aanmaken'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Voeg een bestaande account toe',
 				privateKey: 'Privésleutel van account',
 				wallet: 'Wallet',
-				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} is toegevoegd aan wallet!',
 				add: 'Voeg toe',
 				label: 'Label'
@@ -367,7 +367,6 @@ define({
 				account: 'Account die primair wordt ingesteld.',
 				noLabel: '<span class="null">&lt;Geen label&gt;</span>',
 				wallet: 'Wallet',
-				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} als primair ingesteld!',
 				set: 'Stel primaire account in'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Verander naam van wallet',
 				wallet: 'Huidige wallet naam',
 				newName: 'Nieuwe wallet naam',
-				password: 'Wallet wachtwoord',
 				successMessage: 'Naam van wallet is gewijzigd van <em>{{1}}</em> naar <em>{{2}}</em>',
 				change: 'Change'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Verander het label van de account',
 				label: 'Account label',
 				wallet: 'Wallet',
-				password: 'Wallet wachtwoord',
 				successMessage: 'Account {{1}} is gelabeld als {{2}}',
 				change: 'Aanpassen'
 			},
 			removeAccount: {
 				title: 'Account verwijderen',
-				account: 'Account',
 				label: 'Account label',
 				wallet: 'Wallet',
-				password: 'Wallet wachtwoord',
 				warning: 'Let op! Wees er zeker van dat er geen XEM saldo opstaat. Eventueel saldo wordt voor altijd verwijderd.',
 				successMessage: 'Account {{1}} {{#2}}({{2}}){{/2}} is verwijderd!',
 				remove: 'Verwijderen'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: 'Wallet wachtwoord',
 				activate: 'Activeren',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: 'Wallet wachtwoord',
 				deactivate: 'Deactiveer',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: 'Wallet wachtwoord',
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Wallet',
-				account: 'Account',
-				password: 'Wallet\'s password',
 				stop: 'Stop'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Stop harvesten',
 				description: 'Status-score van deze account op  to the NEM cloud',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Harvesten op afstand',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

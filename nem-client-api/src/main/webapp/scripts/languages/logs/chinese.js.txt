@@ -443,4 +443,64 @@ changed texts.landing.carousel.items.[1].description
 	  to: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.'
 	 was: ' 为避免XEM被盗，加密是<em>安全</em>的有效保证 &amp;。'
 
+-----changed texts.modals.sendNem.successMessage
+	from: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>'
+	  to: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}'
+	 was: '交易发送成功!'
+
+translated texts.common.multisigFee
+	    from: 'Multisig fee'
+	      to: '多重签名费用'
+	based on: texts.modals.sendNem.multisigFee
+
+translated texts.common.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: '支付最小费用'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.common.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: '无效费用值，必须填入等于或高于最小费用的值。'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.common.cancelButton
+	    from: 'Cancel'
+	      to: '取消'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.common.sendButton
+	    from: 'Send'
+	      to: '发送'
+	based on: texts.modals.sendNem.send
+
+translated texts.common.account
+	    from: 'Account'
+	      to: '帐户'
+	based on: texts.modals.stopRemote.account
+
+translated texts.common.thisAccount
+	    from: 'This account'
+	      to: '本账户'
+	based on: texts.modals.sendNem.thisAccount
+
+translated texts.common.warning
+	    from: 'Warning'
+	      to: '警告'
+	based on: texts.modals.deactivateDelegated.warning
+
+translated texts.transactionTypes.[5]
+	    from: 'MULTISIG TRANSACTION'
+	      to: '多重签名交互'
+	based on: texts.transactionTypes.[3]
+
+translated texts.transactionTypes.[6]
+	    from: 'MULTISIG TRANSACTION'
+	      to: '多重签名交互'
+	based on: texts.transactionTypes.[3]
+
+translated texts.dashboard.importance.remoteHarvest.title
+	    from: 'Delegated harvesting'
+	      to: '委托收获'
+	based on: texts.landing.carousel.items.[2].title
+
 -----

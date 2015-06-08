@@ -458,4 +458,64 @@ changed texts.landing.carousel.items.[1].description
 	  to: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.'
 	 was: '<em>Sicherheit</em> ist sehr wichtig, um den Raub von Münzen &amp; Anlagen zu verhindern.'
 
+-----changed texts.modals.sendNem.successMessage
+	from: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>'
+	  to: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}'
+	 was: 'Die Transaktion wurde erfolgreich gesendet!'
+
+translated texts.common.multisigFee
+	    from: 'Multisig fee'
+	      to: 'Signierungs-Gebühr'
+	based on: texts.modals.sendNem.multisigFee
+
+translated texts.common.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Benutze Mindestgebühr'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.common.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Die Gebühr darf die Mindestgebühr nicht unterschreiten'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.common.cancelButton
+	    from: 'Cancel'
+	      to: 'Abbrechen'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.common.sendButton
+	    from: 'Send'
+	      to: 'Senden'
+	based on: texts.modals.sendNem.send
+
+translated texts.common.account
+	    from: 'Account'
+	      to: 'Adresse des Kontos'
+	based on: texts.modals.stopRemote.account
+
+translated texts.common.thisAccount
+	    from: 'This account'
+	      to: 'Dieses Konto'
+	based on: texts.modals.sendNem.thisAccount
+
+translated texts.common.warning
+	    from: 'Warning'
+	      to: 'Achtung'
+	based on: texts.modals.deactivateDelegated.warning
+
+translated texts.transactionTypes.[5]
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'Multisig-Überweisung'
+	based on: texts.transactionTypes.[3]
+
+translated texts.transactionTypes.[6]
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'Multisig-Überweisung'
+	based on: texts.transactionTypes.[3]
+
+translated texts.dashboard.importance.remoteHarvest.title
+	    from: 'Delegated harvesting'
+	      to: 'Delegierte Ernte'
+	based on: texts.landing.carousel.items.[2].title
+
 -----

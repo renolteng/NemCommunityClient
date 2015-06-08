@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Etykieta publiczna',
 			noCharge: 'Bieżące konto <b>NIE</b> będzie obciążone opłatami, konto multisig je opłaca.',
 			fee: 'Opłata',
+			multisigFee: 'Opłata multisig',
+			useMinimumFee: 'Użyj minimalnej opłaty',
+			feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
 			justUse: 'Wystarczy użyć',
 			dueBy: 'Ważne przez',
+			minutes: 'minute(s)',
 			hours: 'godzin(y)',
 			hoursDue: 'Wykonaj w ciągu (godziny)',
 			hoursDueExplanation: 'Jesli transakcja nie zostanie zalaczona w terminie, zostanie odrzucona.',
-			closeButton: 'Zamknij'
+			closeButton: 'Zamknij',
+			cancelButton: 'Anuluj',
+			sendButton: 'Wyślij',
+			account: 'Konto',
+			thisAccount: 'To konto',
+			warning: 'Ostrzezenie',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSAKCJI',
 			'TRANSFER ZNACZENIA',
 			'MODYFIKACJA KONTA MULTISIG',
-			'TRANSAKCJA MULTISIG'
+			'TRANSAKCJA MULTISIG',
+			'MULTISIG SIGNATURE',
+			'TRANSAKCJA MULTISIG',
+			'TRANSAKCJA MULTISIG',
+			
 		],
 		transactionDirections: {
 			pending: 'Transakcja oczekująca',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-uruchamianie',
 					name: 'Nazwa węzła',
-					account: 'Konto',
 					primaryAccount: 'Konto podstawowe',
 					auto: 'Uruchom automatycznie przy otwarciu portfela'
 				},
 				save: 'Zapisz',
 				saveSuccess: 'Ustawienia zostały zapisane pomyślnie'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Konwertuj konto na multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'To konto jest oznaczone jako {{1}}',
 				nullLabelDesc: "To konto nie ma etykiety",
 				addCosignatory: '+ Dodaj sygnatariusza',
-				cancel: 'Anuluj',
 				convert: 'Konwertuj',
-				fee: 'Opłata',
-				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
-				useMinimumFee: 'Użyj minimalnej opłaty',
 				txConfirm: {
 					title: 'Potwierdź konwersję do Konta Multisig',
 					total: 'Suma',
 
 				},
-				warning: 'Konto Multisig jest na liscie sygnatariuszy. To spowoduje zablokowanie konta odcinając dostęp do funduszy. Prawdopodobnie <b>NIE CHCESZ</b> tego zrobic.'
+				warning: 'Konto Multisig jest na liscie sygnatariuszy. To spowoduje zablokowanie konta odcinając dostęp do funduszy. Prawdopodobnie <b>NIE CHCESZ</b> tego zrobic.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Podpisz transakcję multisig',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Opłaty Multisig',
 				multisigTotal: 'Suma',
 				sender: 'Sygnatariusz',
-				fee: 'Opłata',
-				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
-				useMinimumFee: 'Użyj minimalnej opłaty',
-				password: 'Hasło',
 				passwordValidation: 'Hasło nie może być puste',
-				send: 'Wyślij',
-				cancel: 'Anuluj',
 				sending: 'Wysyłanie...',
-				successMessage: 'Transakcja została zrealizowana!',
 				txConfirm: {
 					title: 'Potwierdź Transakcję Multisig',
 					message: 'Wiadomość',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Adresy kont muszą mieć 40 znaków (nie licząc myślników)',
 				message: 'Wiadomość',
 				encrypt: 'Zaszyfruj wiadomość',
-				fee: 'Opłata',
-				multisigFee: 'Opłata multisig',
-				feeValidation: 'Opłata nie może być niższa, niż minimalna opłata',
-				useMinimumFee: 'Użyj minimalnej opłaty',
-				password: 'Hasło',
-				passwordValidation: 'Hasło nie może być puste',
-				send: 'Wyślij',
-				cancel: 'Anuluj',
 				sending: 'Wysyłanie...',
-				successMessage: 'Transakcja została zrealizowana!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Potwierdź transakcję',
 					amount: 'Ilość',
@@ -245,7 +251,6 @@ define({
 					message: 'Wiadomość',
 					encrypted: 'Wiadomość jest zaszyfrowana',
 					noMessage: 'Brak wiadomości',
-					cancel: 'Anuluj',
 					confirm: 'Potwierdź',
 					sending: 'Wysyłanie...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Potwierdzenia',
 				confirmationsUnknown: 'Nieznana',
 				amount: 'Ilość',
-				fee: 'Opłata',
 				innerFee: 'Wewnętrzne opłaty',
 				multisigFees: 'Opłaty Multisig',
 				cosignatory: 'Sygnatariusz'
 			},
 			accountDetails: {
 				title: "Dane konta",
-				address: "Adres",
 				label: "Etykieta",
 				noLabel: "Brak etykiety",
 				add: "Dodaj do książki adresowej",
@@ -313,8 +316,7 @@ define({
 				importance: "Znaczenie",
 				publicKey: "Klucz publiczny",
 				noPublicKey: "Brak klucza publicznego",
-				harvestedBlocks: "Zebrane bloki",
-				close: "Zamknij"
+				harvestedBlocks: "Zebrane bloki"
 			},
 			bootLocalNode: {
 				title: 'Uruchom lokalny węzeł',
@@ -337,7 +339,6 @@ define({
 				title: 'Stwórz nowe konto',
 				label: 'Etykieta',
 				wallet: 'Portfel',
-				password: "Hasło portfela",
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało utworzone!',
 				create: 'Utwórz'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Dodaj istniejące konto',
 				privateKey: "Klucz Prywatny Konta",
 				wallet: 'Portfel',
-				password: "Hasło portfela",
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało dodane do portfela!',
 				add: 'Dodaj',
 				label: 'Etykieta'
@@ -367,7 +367,6 @@ define({
 				account: 'Konto, które będzie ustawione jako Podstawowe',
 				noLabel: '<span class="null">&lt;Brak etykiety&gt;</span>',
 				wallet: 'Portfel',
-				password: "Hasło Portfela",
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało ustawione jako podstawowe!',
 				set: 'Ustaw jako podstawowe'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Zmień nazwę portfela',
 				wallet: 'Bieżąca nazwa portfela',
 				newName: 'Nowa nazwa portfela',
-				password: "Hasło portfela",
 				successMessage: 'Nazwa portfela została pomyślnie zmieniona z <em>{{1}}</em> na <em>{{2}}</em>',
 				change: 'Zmień'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Zmień etykietę konta',
 				label: 'Etykieta',
 				wallet: 'Portfel',
-				password: "Hasło portfela",
 				successMessage: 'Konto {{1}} ma teraz etykietę {{2}}',
 				change: 'Zmień'
 			},
 			removeAccount: {
 				title: 'Usuń konto',
-				account: 'Konto',
 				label: 'Etykieta',
 				wallet: 'Portfel',
-				password: "Hasło portfela",
 				warning: 'Upewnij się, że Twoje konto nie zawiera już XEM, gdyż znikną na zawsze.',
 				successMessage: 'Konto {{1}} {{#2}}({{2}}){{/2}} zostało usunięte!',
 				remove: 'Usuń'
@@ -419,33 +414,26 @@ define({
 			activateDelegated: {
 				title: 'Aktywuj Delegowane Zbieranie',
 				wallet: 'Portfel',
-				account: 'Konto',
-				password: "Hasło portfela",
 				activate: 'Aktywuj',
-				warning: 'Ostrzezenie',
-				warningText: 'Aktywacja potrwa 6 godzin (360 blokow). Aktywacja NIE rozpocznie zbierania automatycznie.'
+				warningText: 'Aktywacja potrwa 6 godzin (360 blokow). Aktywacja NIE rozpocznie zbierania automatycznie.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deaktywuj Delegowane Zbieranie',
 				wallet: 'Portfel',
-				account: 'Konto',
-				password: "Hasło portfela",
 				deactivate: 'Deaktywuj',
-				warning: 'Ostrzezenie',
 				warningText: 'Deaktywacja potrwa 6 godzin (360 blokow).'
 			},
 			startRemote: {
 				title: 'Rozpocznij Delegowane Zbieranie',
 				wallet: 'Portfel',
-				account: 'Konto',
-				password: "Hasło portfela",
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Zakoncz Delegowane Zbieranie',
 				wallet: 'Portfel',
-				account: 'Konto',
-				password: "Hasło portfela",
 				stop: 'Stop'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Zakończ zbieranie bloków',
 				description: 'Znaczenie konta dla chmury NEM',
 				remoteHarvest: {
+					title: 'Delegowane zbieranie',
 					activate: 'Aktywuj delegowane zbieranie',
 					activating: 'Aktywowanie delegowanego zbierania...',
 					active: 'Delegowane zbieranie jest aktywne',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deaktywowanie delegowanego zbierania...',
 					startRemoteHarvesting: 'Rozpocznij delegowane zbieranie',
 					remotelyHarvesting: 'Zdalne zbieranie bloków',
-					stopRemoteHarvesting: 'Zatrzymaj delegowane zbieranie'
+					stopRemoteHarvesting: 'Zatrzymaj delegowane zbieranie',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {
