@@ -490,7 +490,212 @@ function(languages,
 
             ncc.fire('refreshAccount');
         },
-        
+
+        signToken: function(address) {
+            var wallet = ncc.get('wallet.wallet');
+            var accountLabel = ncc.get('privateLabels')[address];
+            ncc.showInputForm(ncc.get('texts.modals.signToken.title'), '',
+                [
+                    {
+                        name: 'token',
+                        type: 'text',
+                        label: {
+                            content: ncc.get('texts.modals.signToken.label')
+                        }
+                    },
+                    {
+                        name: 'account',
+                        type: 'text',
+                        readonly: true,
+                        unimportant: true,
+                        label: {
+                            content: ncc.get('texts.common.address')
+                        },
+                        sublabel: accountLabel ?
+                        {
+                            content: accountLabel
+                        } :
+                        {
+                            // reuse string
+                            content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                            nullContent: true
+                        }
+                    },
+                    {
+                        name: 'password',
+                        type: 'password',
+                        label: {
+                            content: ncc.get('texts.common.password')
+                        }
+                    }
+                ],
+                {
+                    wallet: wallet,
+                    account: address,
+                    privateLabel: accountLabel
+                },
+                function(values, closeModal) {
+                    var a2h = function(y) { return y.split('').map(function(x){ var t=encodeURIComponent(x); return (t.length === 1) ? t.charCodeAt(0).toString(16) : t.replace(/%/g, ''); }).join(''); };
+                    values['origToken'] = values['token'];
+                    values['token'] = a2h(values['origToken']);
+                    ncc.postRequest('wallet/account/signToken', values, function(data) {
+                        ncc.showInputForm(ncc.get('texts.modals.signToken.title'), '',
+                            [
+                                {
+                                    name: 'token',
+                                    type: 'text',
+                                    readonly: true,
+                                    unimportant: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.signToken.label')
+                                    }
+                                },
+                                {
+                                    name: 'account',
+                                    type: 'text',
+                                    readonly: true,
+                                    unimportant: true,
+                                    label: {
+                                        content: ncc.get('texts.common.address')
+                                    },
+                                    sublabel: accountLabel ?
+                                    {
+                                        content: accountLabel
+                                    } :
+                                    {
+                                        // reuse string
+                                        content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                                        nullContent: true
+                                    }
+                                },
+                                {
+                                    name: 'signedToken',
+                                    type: 'textarea',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.signToken.signature')
+                                    }
+                                }
+                            ],
+                            {
+                                wallet: wallet,
+                                account: address,
+                                privateLabel: accountLabel,
+                                token: values['origToken'],
+                                signedToken: data['signature']
+                            },
+                            function(values, closeModal) {
+                                $('#signedToken').focus();
+                                closeModal();
+                            },
+                            ncc.get('texts.common.closeButton')
+                        );
+                    });
+                },
+                ncc.get('texts.modals.signToken.sign')
+            );
+        },
+        showKey: function(address, title, message, requestPath) {
+            var self = this;
+            var wallet = ncc.get('wallet.wallet');
+            var account = address;
+            var accountLabel = ncc.get('privateLabels')[account];
+
+            // 1st modal
+            ncc.showInputForm(ncc.get(title), ncc.get(message),
+                [
+                    {
+                        name: 'wallet',
+                        type: 'text',
+                        readonly: true,
+                        unimportant: true,
+                        label: {
+                            // reuse string
+                            content: ncc.get('texts.modals.createAccount.wallet')
+                        }
+                    },
+                    {
+                        name: 'account',
+                        type: 'text',
+                        readonly: true,
+                        unimportant: true,
+                        label: {
+                            content: ncc.get('texts.common.address')
+                        },
+                        sublabel: accountLabel ?
+                        {
+                            content: accountLabel
+                        } :
+                        {
+                            // reuse string
+                            content: ncc.get('texts.modals.bootLocalNode.noLabel'),
+                            nullContent: true
+                        }
+                    },
+                    {
+                        name: 'password',
+                        type: 'password',
+                        label: {
+                            content: ncc.get('texts.common.password')
+                        }
+                    }
+                ],
+                {
+                    wallet: wallet,
+                    account: Utils.format.address.format(account),
+                },
+                function(values, closeModal) {
+                    var values = {
+                        wallet: values.wallet,
+                        account: account,
+                        password: values.password
+                    };
+                    ncc.postRequest(requestPath, values, function(data) {
+                        // 2st modal - call results
+                        ncc.showInputForm(
+                            ncc.get(title),
+                            ncc.get(message),
+                            [
+                                {
+                                    name: 'address',
+                                    type: 'text',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.common.address')
+                                    }
+                                },
+                                {
+                                    name: 'publicKey',
+                                    type: 'textarea',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.showPrivateKey.publicKey')
+                                    }
+                                },
+                                {
+                                    name: 'privateKey',
+                                    type: 'textarea',
+                                    readonly: true,
+                                    label: {
+                                        content: ncc.get('texts.modals.showPrivateKey.privateKey')
+                                    }
+                                }
+                            ],
+                            {
+                                address: Utils.format.address.format(data.address),
+                                publicKey: data.publicKey,
+                                privateKey: data.privateKey
+                            },
+                            function(values, closeModal) {
+                                closeModal();
+                            },
+                            ncc.get('texts.common.closeButton')
+                        );
+                    });
+                },
+                ncc.get('texts.modals.showPrivateKey.show')
+            );
+        },
         globalSetup: function() {
             require(['draggable'], function() {
                 $('.modal').draggable({

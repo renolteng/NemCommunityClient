@@ -153,9 +153,6 @@
                         {{texts.wallet.actions.copyClipboard}}
                     </li>
                     {{/if}}
-                    <li class="dropdownMenu-item" on-click="signToken">
-                        Sign token
-                    </li>
                     <li class="dropdownMenu-item" on-click="viewCurrentAccount">
                         {{texts.wallet.actions.viewDetails}}
                     </li>
@@ -177,12 +174,6 @@
 					<li class="dropdownMenu-item" on-click="addAccount">
 						{{texts.wallet.actions.addAccount}}
 					</li>
-                    <li class="dropdownMenu-item" on-click="showPrivateKey">
-                        {{texts.wallet.actions.showPrivateKey}}
-                    </li>
-                    <li class="dropdownMenu-item" on-click="showRemotePrivateKey">
-                        {{texts.wallet.actions.showRemotePrivateKey}}
-                    </li>
 				</ul>
 			</div>
 			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}}" id="accountSelect">
@@ -1370,6 +1361,51 @@
 					{{/if}}
 				</td>
 			</tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .publicKey}}
+                    {{.publicKey}}
+                    {{else}}
+                    <span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
+                    {{/if}}
+                </td>
+            </tr>
+            {{#.wallet}}
+            <tr>
+                <td class="table-cell table-cell--label">&nbsp;</td>
+                <td class="table-cell table-cell--content">
+                    <button type="button" class="modal-button modal-button--neutral" on-click="showPrivateKey(.address)">{{texts.wallet.actions.showPrivateKey}}</button>
+                    <button type="button" class="modal-button modal-button--neutral" on-click="signToken(.address)">{{texts.modals.signToken.title}}</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.activateDelegated.delegatedAccount}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .remotePublicKey}}
+                    {{.remotePublicKey}}
+                    {{else}}
+                    <span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">(R) {{texts.common.address}}</td>
+                <td class="table-cell table-cell--content">{{remoteAddress}}</td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">&nbsp;</td>
+                <td class="table-cell table-cell--content">
+                    <button type="button" class="modal-button modal-button--neutral" on-click="showRemotePrivateKey(.address)">{{texts.wallet.actions.showRemotePrivateKey}}</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+            {{/}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.balance}}</td>
 				<td class="table-cell table-cell--content">{{formattedBalance}} XEM ({{texts.modals.accountDetails.vested}}: {{formattedVestedBalance}})</td>
@@ -1377,16 +1413,6 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.importance}}</td>
 				<td class="table-cell table-cell--content">{{Math.round(.importance * 1000000) / 100}} &#8241;</td>
-			</tr>
-			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
-				<td class="table-cell table-cell--content">
-					{{#if .publicKey}}
-						{{.publicKey}}
-					{{else}}
-						<span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
-					{{/if}}
-				</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.harvestedBlocks}}</td>

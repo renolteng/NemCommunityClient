@@ -939,6 +939,14 @@ $sigConfirm-label-width: 130px;
 	}
 }
 
+.accDetailsModal {
+	.table-cell--label {
+	    width: 120px;
+	    white-space: normal;
+	    word-break: normal;
+	}
+}
+
 .table-cell {
 	$padding: 2px;
 	padding-top: $padding;
