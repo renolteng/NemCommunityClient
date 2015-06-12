@@ -3113,8 +3113,36 @@
         }
       }
     },
-    "TransferTransactionViewModel":{
-
+    "TransferTransactionViewModel": {
+      "description": "A transfer transaction view model.",
+      "required": [
+        "recipient", "amount", "direction"
+      ],
+      "properties": {
+        "recipient": {
+          "type": "string",
+          "description": "The recipient address."
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The amount."
+        },
+        "message": {
+          "type": "string",
+          "description": "The message."
+        },
+        "encrypted": {
+          "type": "integer",
+          "format": "int32",
+          "description": "A value indicating whether or not the message is encrypted.\n* 0 - not encrypted\n* 1 - encrypted."
+        },
+        "direction": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The transaction direction.\n* 1 - Incoming\n* 2 outgoing\n* 3 self"
+        }
+      }
     },
     "MultisigSignatureRequest": {
       "description": "A request containing all information necessary to create a transfer.",
@@ -3228,6 +3256,14 @@
       }
     },
     "MultisigMinCosignatoriesModification": {
+      "description": "Represents a multisig minimum cosignatories modification.",
+      "properties": {
+        "relativeChange": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The relative change in the minimum number of cosignatories."
+        }
+      }
     },
     "MultisigTransactionViewModel": {
       "description": "",
@@ -3250,20 +3286,19 @@
             "signatures": {
               "type": "array",
               "items": {
-                "$ref":"#/definitions/"
+                "$ref": "#/definitions/"
               }
             },
-            "requiresSignature":{
-              "type":"integer",
-              "format":"int32",
-              "description":"* 0 - does not require signature.\n* 1 - requires signature."
+            "requiresSignature": {
+              "type": "integer",
+              "format": "int32",
+              "description": "* 0 - does not require signature.\n* 1 - requires signature."
             }
           }
         }
       ]
     },
     "SignatureViewModel": {
-
       "description": "A Signature view model.",
       "properties": {
         "signature": {
