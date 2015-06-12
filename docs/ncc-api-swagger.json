@@ -2072,7 +2072,7 @@
           "200": {
             "description": "The validation information.",
             "schema": {
-              "$ref": "#/responses/PartialTransferInformationViewModel"
+              "$ref": "#/definitions/PartialTransferInformationViewModel"
             }
           },
           "400": {
@@ -3116,7 +3116,9 @@
     "TransferTransactionViewModel": {
       "description": "A transfer transaction view model.",
       "required": [
-        "recipient", "amount", "direction"
+        "recipient",
+        "amount",
+        "direction"
       ],
       "properties": {
         "recipient": {
@@ -3198,9 +3200,7 @@
           "type": "array",
           "description": "The multi signature address.",
           "items": {
-            "address": {
-              "type": "string"
-            }
+            "$ref": "#/definitions/Address"
           }
         },
         "minCosignatories": {
@@ -3235,7 +3235,7 @@
               "description": "The multisig account id. Maybe null."
             },
             "minCosignatories": {
-              "$ref": "#/definitions/",
+              "$ref": "#/definitions/MultisigMinCosignatoriesModification",
               "description": "The type of transfer (multisig or normal)."
             }
           }
@@ -3282,11 +3282,13 @@
               "description": ""
             },
             "innerHash": {
+              "$ref": "#/definitions/Hash",
+              "description": ""
             },
             "signatures": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/"
+                "$ref": "#/definitions/TransactionViewModel"
               }
             },
             "requiresSignature": {
@@ -3374,9 +3376,7 @@
           "type": "array",
           "description": "The list of cosignatory address.",
           "items": {
-            "address": {
-              "type": "string"
-            }
+            "$ref": "#/definitions/Address"
           }
         },
         "minCosignatories": {
@@ -3434,6 +3434,24 @@
           }
         }
       ]
+    },
+    "Address": {
+      "description": "An address.",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "The address of an account."
+        }
+      }
+    },
+    "Hash": {
+      "description": "A Hash code",
+      "properties": {
+        "data": {
+          "type": "string",
+          "description": "The hash code."
+        }
+      }
     },
     "BootNodeRequest": {
       "description": "A request containing all information necessary to create importance transfer.",
