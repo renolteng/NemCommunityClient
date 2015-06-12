@@ -1073,7 +1073,9 @@
       "post": {
         "description": "Reveals details about an account including the private key.",
         "tags": [
-          "Wallet", "Account", "Information"
+          "Wallet",
+          "Account",
+          "Information"
         ],
         "consumes": [
           "application/json"
@@ -1115,7 +1117,9 @@
       "post": {
         "description": "Reveals details about an account including the remote key.",
         "tags": [
-          "Wallet", "Account", "Information"
+          "Wallet",
+          "Account",
+          "Information"
         ],
         "consumes": [
           "application/json"
@@ -1136,6 +1140,50 @@
             "description": "Details about the account.",
             "schema": {
               "$ref": "#/definitions/KeyPairViewModel"
+            }
+          },
+          "400": {
+            "description": "A bad request was sent.",
+            "schema": {
+              "$ref": "#/responses/BadRequest"
+            }
+          },
+          "default": {
+            "description": "Any other exception occured.",
+            "schema": {
+              "$ref": "#/responses/Error"
+            }
+          }
+        }
+      }
+    },
+    "/wallet/account/signToken": {
+      "post": {
+        "description": "Signs the token specified by the request.",
+        "tags": [
+          "Wallet",
+          "Account",
+          "Multi-Signature"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "wallet",
+            "in": "body",
+            "description": "The wallet name, password, and account. The attributes \"account\" and \"token\" are required.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WalletNamePasswordBag"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about the account.",
+            "schema": {
+              "$ref": "#/definitions/SignatureViewModel"
             }
           },
           "400": {
@@ -1625,7 +1673,8 @@
         "description": "Checks if account is unlocked on remote server.",
         "tags": [
           "Wallet",
-          "Account", "Information"
+          "Account",
+          "Information"
         ],
         "consumes": [
           "application/json"
@@ -1707,7 +1756,8 @@
         "description": "ends a new multisig signature.",
         "tags": [
           "Wallet",
-          "Account", "Multi-Signature"
+          "Account",
+          "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1747,7 +1797,8 @@
         "description": "Sends a new multisig modification",
         "tags": [
           "Wallet",
-          "Account", "Multi-Signature"
+          "Account",
+          "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1830,7 +1881,8 @@
         "description": "Request inspecting the multisig signature transaction for validation purposes. The returned result will include:\n* A minimum fee for creating the transaction.",
         "tags": [
           "Wallet",
-          "Account", "Multi-Signature"
+          "Account",
+          "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1873,7 +1925,8 @@
         "description": "Request inspecting the multisig modification transaction for validation purposes. The returned result will include:\n* A minimum fee for creating modification transaction.",
         "tags": [
           "Wallet",
-          "Account", "Multi-Signature"
+          "Account",
+          "Multi-Signature"
         ],
         "consumes": [
           "application/json"
@@ -1915,7 +1968,9 @@
       "post": {
         "description": "Announces activation of delegated harvesting account to the network (FEE: 1)",
         "tags": [
-          "Wallet", "Account", "Harvest"
+          "Wallet",
+          "Account",
+          "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1954,7 +2009,9 @@
       "post": {
         "description": "Announces deactivation of delegated harvesting account to the network (FEE: 1)",
         "tags": [
-          "Wallet", "Account", "Harvest"
+          "Wallet",
+          "Account",
+          "Harvest"
         ],
         "consumes": [
           "application/json"
@@ -1973,6 +2030,50 @@
         "responses": {
           "200": {
             "description": "Deactivation was successfull."
+          },
+          "400": {
+            "description": "A bad request was sent.",
+            "schema": {
+              "$ref": "#/responses/BadRequest"
+            }
+          },
+          "default": {
+            "description": "Any other exception occured.",
+            "schema": {
+              "$ref": "#/responses/Error"
+            }
+          }
+        }
+      }
+    },
+    "/wallet/account/remote/validate": {
+      "post": {
+        "description": "Requests inspecting the importance transfer transaction for validation purposes. The returned result will include:\n* The minimum fee for sending the transaction.",
+        "tags": [
+          "Wallet",
+          "Account",
+          "Multi-Signature"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transaction",
+            "in": "body",
+            "description": "The transaction information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PartialTransferInformationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The validation information.",
+            "schema": {
+              "$ref": "#/responses/PartialTransferInformationViewModel"
+            }
           },
           "400": {
             "description": "A bad request was sent.",
@@ -2616,6 +2717,10 @@
             "accountKey": {
               "type": "string",
               "description": "The private key of an account."
+            },
+            "token": {
+              "type": "string",
+              "description": "The token if it was specified."
             }
           }
         }
@@ -2698,6 +2803,14 @@
             "$ref": "#/definitions/AccountInfo"
           },
           "description": "List of accounts (info) that are cosignatories of this account."
+        },
+        "remotePublicKey": {
+          "type": "string",
+          "description": "The account's remote public key (optional)."
+        },
+        "remoteAddress": {
+          "type": "string",
+          "description": "The account's remote address (optional)."
         }
       },
       "description": "The content of the wallet."
@@ -2806,7 +2919,7 @@
       "description": "A view model representing a transfer transaction.",
       "properties": {
         "type": {
-          "description": "The transactions.\n* 0 - Unknown\n* 1 - Transfer\n* 2 - Importance_Transfer\n* 3 - Multisig_Modification\n* 4 - Multisig_Transfer\n* 5 - Multisig_Signature\n* 6 - Multisig_Multisig_Modification",
+          "description": "The transactions.\n* 0 - Unknown\n* 1 - Transfer\n* 2 - Importance_Transfer\n* 3 - Multisig_Modification\n* 4 - Multisig_Transfer\n* 5 - Multisig_Signature\n* 6 - Multisig_Multisig_Modification\n* 7 - Multisig_Importance_Transfer",
           "type": "integer",
           "format": "int32"
         },
@@ -3000,6 +3113,9 @@
         }
       }
     },
+    "TransferTransactionViewModel":{
+
+    },
     "MultisigSignatureRequest": {
       "description": "A request containing all information necessary to create a transfer.",
       "properties": {
@@ -3032,6 +3148,127 @@
           "type": "integer",
           "format": "int64",
           "description": "The fee."
+        }
+      }
+    },
+    "MultisigModificationRequest": {
+      "description": "A request containing all information necessary to create a multisig aggregate modification transaction.",
+      "properties": {
+        "wallet": {
+          "type": "string",
+          "description": "The wallet name."
+        },
+        "password": {
+          "type": "string",
+          "description": "The password."
+        },
+        "account": {
+          "type": "string",
+          "description": "The sender address."
+        },
+        "cosignatories": {
+          "type": "array",
+          "description": "The multi signature address.",
+          "items": {
+            "address": {
+              "type": "string"
+            }
+          }
+        },
+        "minCosignatories": {
+          "$ref": "#/definitions/MultisigMinCosignatoriesModification",
+          "description": "The min cosignatories modification."
+        },
+        "hoursDue": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The hours due."
+        },
+        "fee": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The fee."
+        }
+      }
+    },
+    "MultisigAggregateViewModel": {
+      "description": "A multisig aggregate view model around a multisig aggregate modification transaction.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TransactionViewModel"
+        },
+        {
+          "properties": {
+            "modifications": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ModificationWrapper"
+              },
+              "description": "The multisig account id. Maybe null."
+            },
+            "minCosignatories": {
+              "$ref": "#/definitions/",
+              "description": "The type of transfer (multisig or normal)."
+            }
+          }
+        }
+      ]
+    },
+    "ModificationWrapper": {
+      "description": "A modification wrapper around a cosignatory modification.",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "The co-signers address."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of modification.\n* Add - When adding cosignatory to multisig account.\n* Del - Removal summary:\n# Removal will only be allowed in multisig transactions\n# There can be only one Del per MultisigAggregateModificationTransaction\n# There will be N-2 signatures required. (1 that gets removed, and 1 for person issuing MultisigTransaction)"
+        }
+      }
+    },
+    "MultisigMinCosignatoriesModification": {
+    },
+    "MultisigTransactionViewModel": {
+      "description": "",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TransactionViewModel"
+        },
+        {
+          "properties": {
+            "issuer": {
+              "type": "string",
+              "description": ""
+            },
+            "inner": {
+              "$ref": "#/definitions/TransactionViewModel",
+              "description": ""
+            },
+            "innerHash": {
+            },
+            "signatures": {
+              "type": "array",
+              "items": {
+                "$ref":"#/definitions/"
+              }
+            },
+            "requiresSignature":{
+              "type":"integer",
+              "format":"int32",
+              "description":"* 0 - does not require signature.\n* 1 - requires signature."
+            }
+          }
+        }
+      ]
+    },
+    "SignatureViewModel": {
+
+      "description": "A Signature view model.",
+      "properties": {
+        "signature": {
+          "type": "string",
+          "description": "The signature."
         }
       }
     },
@@ -3091,6 +3328,28 @@
         }
       }
     },
+    "PartialModificationInformationRequest": {
+      "description": "A request to get information about a partially created multisig modification.",
+      "properties": {
+        "multisig": {
+          "type": "string",
+          "description": "The multisig address."
+        },
+        "cosignatories": {
+          "type": "array",
+          "description": "The list of cosignatory address.",
+          "items": {
+            "address": {
+              "type": "string"
+            }
+          }
+        },
+        "minCosignatories": {
+          "$ref": "#/definitions/MultisigMinCosignatoriesModification",
+          "description": "The min cosignatories modification."
+        }
+      }
+    },
     "PartialFeeInformationViewModel": {
       "description": "A request containing all information necessary to create a transfer.",
       "properties": {
@@ -3109,10 +3368,33 @@
         },
         {
           "properties": {
+            "multisigAddress": {
+              "type": "string",
+              "description": "The multisig account id. Maybe null."
+            },
+            "type": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The type of transfer (multisig or normal)."
+            },
             "hoursDue": {
               "type": "integer",
               "format": "int64",
               "description": "The hours due."
+            },
+            "fee": {
+              "type": "integer",
+              "format": "int64",
+              "description": "The fee."
+            },
+            "multisigFee": {
+              "type": "integer",
+              "format": "int64",
+              "description": "the multisig transaction fee."
+            },
+            "publicKey": {
+              "type": "string",
+              "description": "The (delegated account) public key. Maybe null."
             }
           }
         }
