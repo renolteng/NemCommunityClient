@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Julkinen merkintä',
 			noCharge: 'Olemassa olevaa tiliä <b>ei</b> veloiteta, se katetaan multisig-tililtä.',
 			fee: 'Palkkio',
+			multisigFee: 'Multisig-palkkio',
+			useMinimumFee: 'Käytä minimipalkkiota',
+			feeValidation: 'Palkkio ei voi olla minimipalkkiota pienempi.',
 			justUse: 'Käytä',
 			dueBy: 'Maksettava',
+			minutes: 'minute(s)',
 			hours: 'Tunnit',
 			hoursDue: 'Erääntyy (tunneissa)',
 			hoursDueExplanation: 'Siirto hylätään, jos sitä ei tehdä ennen erääntymistä.',
-			closeButton: 'Sulje'
+			closeButton: 'Sulje',
+			cancelButton: 'Peruuta',
+			sendButton: 'Lähetä',
+			account: 'Tili',
+			thisAccount: 'Tämä tili',
+			warning: 'Varoitus',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'SIIRTO LÄHETYS',
 			'IMPORTANCE LÄHETYS',
 			'MULTISIG TILIN MUOKKAUS',
-			'MULTISIG SIIRTO'
+			'MULTISIG SIIRTO',
+			'MULTISIG SIGNATURE',
+			'MULTISIG SIIRTO',
+			'MULTISIG SIIRTO',
+			
 		],
 		transactionDirections: {
 			pending: 'Vireillä oleva siirto',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-boot',
 					name: 'Noden nimi',
-					account: 'Tili',
 					primaryAccount: 'Ensisijainen tili',
 					auto: 'Automaattinen uudelleenkäynnistys, kun lompakko on avattu'
 				},
 				save: 'Tallenna',
 				saveSuccess: 'Asetukset on tallennettu onnistuneesti'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Muunna tili multisig-tiliksi',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Tämä tili on nimetty {{1}}',
 				nullLabelDesc: 'Tällä tilillä ei ole nimeä',
 				addCosignatory: '+ Lisää allekirjoittaja',
-				cancel: 'Peruuta',
 				convert: 'Muunna',
-				fee: 'Palkkio',
-				feeValidation: 'Palkkio ei voi olla minimipalkkiota pienempi',
-				useMinimumFee: 'Käytä minimipalkkiota',
 				txConfirm: {
 					title: 'Vahvista multisig-tilin muunto',
 					total: 'Yhteensä',
 
 				},
-				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukkiutumisen ja estää pääsyn varoihin. Todennäköisesti <b>ET</b> halua tehdä sitä!'
+				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukkiutumisen ja estää pääsyn varoihin. Todennäköisesti <b>ET</b> halua tehdä sitä!',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Allekirjoita multisig-siirto',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig-palkkiot',
 				multisigTotal: 'Yhteensä',
 				sender: 'Allekirjoittaja',
-				fee: 'Palkkio',
-				feeValidation: 'Palkkio ei voi olla minimipalkkiota pienempi',
-				useMinimumFee: 'Käytä minimipalkkiota',
-				password: 'Salasana',
 				passwordValidation: 'Salasanakenttä ei voi olla tyhjä',
-				send: 'Lähetä',
-				cancel: 'Peruuta',
 				sending: 'Lähetetään...',
-				successMessage: 'Siirto on suoritettu onnistuneesti!',
 				txConfirm: {
 					title: 'Vahvista multisig-siirto',
 					message: 'Viesti',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Tilin osoite on oltava 40 merkkiä pitkä (viivoja ei lasketa merkeiksi)',
 				message: 'Viesti',
 				encrypt: 'Salaa viesti',
-				fee: 'Palkkio',
-				multisigFee: 'Multisig-palkkio',
-				feeValidation: 'Palkkio ei voi olla minimipalkkiota pienempi.',
-				useMinimumFee: 'Käytä minimipalkkiota',
-				password: 'Salasana',
-				passwordValidation: 'Salasanakenttä ei voi olla tyhjä',
-				send: 'Lähetä',
-				cancel: 'Peruuta',
 				sending: 'Lähetetään...',
-				successMessage: 'Siirto on lähetetty onnistuneesti!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Vahvista siirto',
 					amount: 'Summa',
@@ -245,7 +251,6 @@ define({
 					message: 'Viesti',
 					encrypted: 'Viesti on salattu',
 					noMessage: 'Ei viestiä',
-					cancel: 'Peruuta',
 					confirm: 'Vahvista',
 					sending: 'Lähetetään...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Vahvistuksia',
 				confirmationsUnknown: 'Tuntemaon',
 				amount: 'Summa',
-				fee: 'Palkkio',
 				innerFee: 'Sisäinen palkkio',
 				multisigFees: 'Multisig-palkkio',
 				cosignatory: 'Allekirjoittaja'
 			},
 			accountDetails: {
 				title: 'Tilin tiedot',
-				address: 'Osoite',
 				label: 'Merkki',
 				noLabel: 'Ei merkkiä',
 				add: 'Lisää osoitekirjaan',
@@ -313,8 +316,7 @@ define({
 				importance: 'Merkitys',
 				publicKey: 'Julkinen avain',
 				noPublicKey: 'Ei julkista avainta',
-				harvestedBlocks: 'Louhitut lohkot',
-				close: 'Sulje'
+				harvestedBlocks: 'Louhitut lohkot'
 			},
 			bootLocalNode: {
 				title: 'Käynnistä local node uudelleen',
@@ -337,7 +339,6 @@ define({
 				title: 'Luo uusi lompakko',
 				label: 'Yksityinen merkintä',
 				wallet: 'Lompakko',
-				password: 'Lompakon salasana',
 				successMessage: 'Tili {{1}} {{#2}}({{2}}){{/2}} on luotu!',
 				create: 'Luo'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Lisää olemassaoleva tili',
 				privateKey: 'Tilin Private Key',
 				wallet: 'Lompakko',
-				password: 'Lompakon salasana',
 				successMessage: 'Tili {{1}} {{#2}}({{2}}){{/2}} on lisätty lompakkoon!',
 				add: 'Lisää',
 				label: 'Merkki'
@@ -367,7 +367,6 @@ define({
 				account: 'Tili on asetettu ensisijaiseksi',
 				noLabel: '<span class=\'null\'>&lt;Ei merkkiä&gt;</span>',
 				wallet: 'Lompakko',
-				password: 'Lompakon salasana',
 				successMessage: 'Tili {{1}} {{#2}}({{2}}){{/2}} on asetettu ensisijaiseksi!',
 				set: 'Aseta ensisijaiseksi'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Vaihda lompakon nimi',
 				wallet: 'Nykyisen lompakon nimi',
 				newName: 'Uusi lompakon nimi',
-				password: 'Lompakon salasana',
 				successMessage: 'Lompakon nimi on vaihdetttu onnistuneesti<em>{{1}}</em> - <em>{{2}}</em>',
 				change: 'Vaihda'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Vaihda tilin nimi',
 				label: 'Tilin nimi',
 				wallet: 'Lompakko',
-				password: 'Lompakon salasana',
 				successMessage: 'Tili {{1}} on nimetty {{2}}',
 				change: 'Vaihda'
 			},
 			removeAccount: {
 				title: 'Poista tili',
-				account: 'Tili',
 				label: 'Tilin nimi',
 				wallet: 'Lompakko',
-				password: 'Lompakon salasana',
 				warning: 'Varmista, että tilisi on tyhjä ennen kuin poistat sen, tai muuten menetät kaikki tilille jääneet XEM:t.',
 				successMessage: 'Tili {{1}} {{#2}}({{2}}){{/2}} on poistettu',
 				remove: 'Poista'
@@ -416,36 +411,29 @@ define({
 				title: 'Sulje ohjelma',
 				message: 'Haluatko varmasti sulkea NEM Community Client -sovelluksen?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Aktivoi valtuutettu louhinta',
 				wallet: 'Lompakko',
-				account: 'Tili',
-				password: 'Lompakon salasana',
 				activate: 'Aktivoi',
-				warning: 'Varoitus',
-				warningText: 'Aktivointi kestää 6 tuntia (360 lohkoa). Aktivointi EI aloita louhintaa automaattisesti.'
+				warningText: 'Aktivointi kestää 6 tuntia (360 lohkoa). Aktivointi EI aloita louhintaa automaattisesti.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deaktivoi valtuutettu louhinta',
 				wallet: 'Lompakko',
-				account: 'Tili',
-				password: 'Lompakon salasana',
 				deactivate: 'Katkaise yhteys',
-				warning: 'Varoitus',
 				warningText: 'Deaktivointi kestää 6 tuntia (360 lohkoa).'
 			},
 			startRemote: {
 				title: 'Käynnistä valtuutettu louhinta',
 				wallet: 'Lompakko',
-				account: 'Tili',
-				password: 'Lompakon salasana',
 				start: 'Käynnistä'
 			},
 			stopRemote: {
 				title: 'Lopeta valtuutettu louhinta',
 				wallet: 'Lompakko',
-				account: 'Tili',
-				password: 'Lompakon salasana',
 				stop: 'Pysäytä'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Lopeta paikallinen louhinta',
 				description: 'Tilin merkitys NEM-cloud -palvelussa',
 				remoteHarvest: {
+					title: 'Valtuutettu louhinta',
 					activate: 'Aktivoi valtuutettu louhinta',
 					activating: 'Aktivoidaan valtuutettua louhintaa...',
 					active: 'Valtuutettu louhinta on aktiivinen',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deaktivoidaan valtuutettua louhintaa...',
 					startRemoteHarvesting: 'Aloita valtuutettu louhinta',
 					remotelyHarvesting: 'Etälouhinta',
-					stopRemoteHarvesting: 'Lopeta valtuutettu louhinta'
+					stopRemoteHarvesting: 'Lopeta valtuutettu louhinta',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

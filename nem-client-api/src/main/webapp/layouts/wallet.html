@@ -153,9 +153,6 @@
                         {{texts.wallet.actions.copyClipboard}}
                     </li>
                     {{/if}}
-                    <li class="dropdownMenu-item" on-click="signToken">
-                        Sign token
-                    </li>
                     <li class="dropdownMenu-item" on-click="viewCurrentAccount">
                         {{texts.wallet.actions.viewDetails}}
                     </li>
@@ -177,12 +174,6 @@
 					<li class="dropdownMenu-item" on-click="addAccount">
 						{{texts.wallet.actions.addAccount}}
 					</li>
-                    <li class="dropdownMenu-item" on-click="showPrivateKey">
-                        {{texts.wallet.actions.showPrivateKey}}
-                    </li>
-                    <li class="dropdownMenu-item" on-click="showRemotePrivateKey">
-                        {{texts.wallet.actions.showRemotePrivateKey}}
-                    </li>
 				</ul>
 			</div>
 			<div class="account-select scrollable {{^active.accountSelect}}hidden{{/}}" id="accountSelect">
@@ -533,24 +524,27 @@
             <p class="form-label">{{texts.common.account}}</p>
             <div class="form-dropdownbox">
                 <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
-                    {{#if sender}}
-                    {{#if (privateLabels[.sender])}}
-                    {{privateLabels[.sender]}}
+                    {{#if sender === activeAccount.address}}
+                        {{texts.common.thisAccount}}
                     {{else}}
-                    {{sender}}
-                    {{/if}}
-                    {{else}}
-                    {{texts.common.thisAccount}}
+                        {{#if (privateLabels[.sender])}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{sender}}
+                        {{/if}}
                     {{/if}}
                 </div>
                 <ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
-                    <li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.common.thisAccount}}</li>
-                    {{#each multisigAccounts}}
+                    {{#each availAccounts}}
                     <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
-                        {{#if (privateLabels[.address])}}
-                        {{privateLabels[.address]}}
+                        {{#if .address === activeAccount.address}}
+                            {{texts.common.thisAccount}}
                         {{else}}
-                        {{.address}}
+                            {{#if (privateLabels[.address])}}
+                                {{privateLabels[.address]}}
+                            {{else}}
+                                {{.address}}
+                            {{/if}}
                         {{/if}}
                     </li>
                     {{/each}}
@@ -566,12 +560,12 @@
         <div class="form-field">
             <p class="form-label">
                 {{texts.modals.activateDelegated.delegatedAccount}}
-                {{^sender}}
+                {{#if sender === activeAccount.address}}
                 ({{texts.modals.activateDelegated.builtIn}})
-                {{/sender}}
+                {{/if}}
             </p>
-            <input type="text" class="form-input  form-input--textbox {{^sender}}form-input--unimportant{{/}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{^sender}}disabled{{/}}" {{^sender}}readonly{{/}} on-keypress="sendFormKeypress" value="{{remote.publicKey.value}}" />
-            {{^sender}}
+            <input type="text" class="form-input  form-input--textbox {{#if sender === activeAccount.address}}form-input--unimportant{{/if}} {{#if remoteError}}form-input--error{{/if}} js-activateDelegated-remote-textbox {{#if sender === activeAccount.address}}disabled{{/if}}" {{#if sender === activeAccount.address}}readonly{{/if}} on-keypress="sendFormKeypress" value="{{remote.publicKey}}" />
+            {{#if sender === activeAccount.address}}
             <p class="form-sublabel">
                 {{#if (privateLabels[remote.address])}}
                 {{privateLabels[remote.address]}}
@@ -579,7 +573,7 @@
                 {{remote.formattedAddress}}
                 {{/if}}
             </p>
-            {{/}}
+            {{/if}}
         </div>
         <div class="form-field">
             <input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
@@ -616,7 +610,7 @@
                     </div>
                 </div>
             </div>
-            {{#if sender}}
+            {{#if sender !== activeAccount.address}}
             <div class="form-row">
                 <p class="form-label">
                     {{texts.common.multisigFee}}
@@ -657,24 +651,27 @@
             <p class="form-label">{{texts.common.account}}</p>
             <div class="form-dropdownbox">
                 <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
-                    {{#if sender}}
-                    {{#if (privateLabels[.sender])}}
-                    {{privateLabels[.sender]}}
+                    {{#if sender === activeAccount.address}}
+                        {{texts.common.thisAccount}}
                     {{else}}
-                    {{sender}}
-                    {{/if}}
-                    {{else}}
-                    {{texts.common.thisAccount}}
+                        {{#if (privateLabels[.sender])}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{sender}}
+                        {{/if}}
                     {{/if}}
                 </div>
                 <ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
-                    <li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.common.thisAccount}}</li>
-                    {{#each multisigAccounts}}
+                    {{#each availAccounts}}
                     <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
-                        {{#if (privateLabels[.address])}}
-                        {{privateLabels[.address]}}
+                        {{#if .address === activeAccount.address}}
+                            {{texts.common.thisAccount}}
                         {{else}}
-                        {{.address}}
+                            {{#if (privateLabels[.address])}}
+                            {{privateLabels[.address]}}
+                            {{else}}
+                            {{.address}}
+                            {{/if}}
                         {{/if}}
                     </li>
                     {{/each}}
@@ -722,7 +719,7 @@
                     </div>
                 </div>
             </div>
-            {{#if sender}}
+            {{#if sender !== activeAccount.address}}
             <div class="form-row">
                 <p class="form-label">
                     {{texts.common.multisigFee}}
@@ -1024,7 +1021,7 @@
         <div class="txConfirm-line">
             <div class="txConfirm-label">{{texts.modals.activateDelegated.delegatedAccount}}</div>
 			<div class="txConfirm-value">
-				<span class="txConfirm-recipient">{{requestData.publicKey.value}}</span>
+				<span class="txConfirm-recipient">{{requestData.publicKey}}</span>
 			</div>
         </div>
         {{/}}
@@ -1154,7 +1151,7 @@
                     {{/}}
 			</tr>
 			<tr>
-				{{#if (.type === TransactionType.Multisig_Transfer)}}
+				{{#if (.isMultisig)}}
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigAccount}}</td>
 					<td class="table-cell table-cell--content">
 						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">
@@ -1179,7 +1176,7 @@
 				{{/if}}
 			</tr>
 
-			{{#if (.type === TransactionType.Multisig_Transfer)}}
+			{{#if (.isMultisig)}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
 				<td class="table-cell table-cell--content">
@@ -1194,10 +1191,10 @@
 			</tr>
 			{{/if}}
 
-			{{#if (.type !== TransactionType.Aggregate_Modification)}}
+			{{#if (.type !== TransactionType.Aggregate_Modification && .type !== TransactionType.Multisig_Aggregate_Modification)}}
 			<tr>
 				<td class="table-cell table-cell--label">
-					{{#if (.type === TransactionType.Importance_Transfer)}}
+					{{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Multisig_Importance_Transfer)}}
 					{{texts.modals.transactionDetails.remote}}
 					{{else}}
 					{{texts.modals.transactionDetails.recipient}}
@@ -1244,7 +1241,7 @@
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
 				<td class="table-cell table-cell--content">{{.formattedDate}}</td>
 			</tr>
-            {{#if (.type === TransactionType.Multisig_Transfer)}}
+            {{#if (.isMultisig)}}
             <tr>
                 <td class="table-cell table-cell--label">{{texts.common.dueBy}}</td>
                 <td class="table-cell table-cell--content">{{multisig.validMinutes}} {{texts.common.minutes}} <span class="dimmed">({{.multisig.formattedDeadline}})</span></td>
@@ -1264,13 +1261,13 @@
 					{{/if}}
 				</td>
 			</tr>
-			{{#if (.type !== TransactionType.Aggregate_Modification && .type !== TransactionType.Importance_Transfer)}}
+			{{#if (.type === TransactionType.Transfer || .type === TransactionType.Multisig_Transfer)}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
 				<td class="table-cell table-cell--content">{{{.formattedFullAmount}}} XEM</td>
 			</tr>
 			{{/if}}
-			{{#if (.type === TransactionType.Multisig_Transfer)}}
+			{{#if (.isMultisig)}}
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
 					<td class="table-cell table-cell--content">{{{.multisig.formattedInnerFee}}} XEM</td>
@@ -1285,14 +1282,22 @@
 					<td class="table-cell table-cell--content">{{{.formattedFee}}} XEM</td>
 				</tr>
 			{{/if}}
-			{{#if (.type === TransactionType.Aggregate_Modification)}}
+			{{#if (.type === TransactionType.Aggregate_Modification || .type === TransactionType.Multisig_Aggregate_Modification)}}
             <tr>
                 <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
-                <td class="table-cell table-cell--content">{{.minCosignatories.relativeChange}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .type === TransactionType.Aggregate_Modification}}
+                        {{.minCosignatories.relativeChange}}
+                    {{else}}
+                        {{.inner.minCosignatories.relativeChange}}
+                    {{/if}}
+                </td>
             </tr>
 			{{#each .modifications}}
 			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}} {{.type}}</td>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}}
+                    {{.type}}
+                </td>
 				<td class="table-cell table-cell--content">
 					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
                         {{#if privateLabels[.address]}}
@@ -1356,6 +1361,51 @@
 					{{/if}}
 				</td>
 			</tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .publicKey}}
+                    {{.publicKey}}
+                    {{else}}
+                    <span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
+                    {{/if}}
+                </td>
+            </tr>
+            {{#.wallet}}
+            <tr>
+                <td class="table-cell table-cell--label">&nbsp;</td>
+                <td class="table-cell table-cell--content">
+                    <button type="button" class="modal-button modal-button--neutral" on-click="showPrivateKey(.address)">{{texts.wallet.actions.showPrivateKey}}</button>
+                    <button type="button" class="modal-button modal-button--neutral" on-click="signToken(.address)">{{texts.modals.signToken.title}}</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.activateDelegated.delegatedAccount}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .remotePublicKey}}
+                    {{.remotePublicKey}}
+                    {{else}}
+                    <span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
+                    {{/if}}
+                </td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">(R) {{texts.common.address}}</td>
+                <td class="table-cell table-cell--content">{{remoteAddress}}</td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">&nbsp;</td>
+                <td class="table-cell table-cell--content">
+                    <button type="button" class="modal-button modal-button--neutral" on-click="showRemotePrivateKey(.address)">{{texts.wallet.actions.showRemotePrivateKey}}</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+            {{/}}
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.balance}}</td>
 				<td class="table-cell table-cell--content">{{formattedBalance}} XEM ({{texts.modals.accountDetails.vested}}: {{formattedVestedBalance}})</td>
@@ -1363,16 +1413,6 @@
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.importance}}</td>
 				<td class="table-cell table-cell--content">{{Math.round(.importance * 1000000) / 100}} &#8241;</td>
-			</tr>
-			<tr>
-				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.publicKey}}</td>
-				<td class="table-cell table-cell--content">
-					{{#if .publicKey}}
-						{{.publicKey}}
-					{{else}}
-						<span class="dimmed">{{texts.modals.accountDetails.noPublicKey}}</span>
-					{{/if}}
-				</td>
 			</tr>
 			<tr>
 				<td class="table-cell table-cell--label">{{texts.modals.accountDetails.harvestedBlocks}}</td>

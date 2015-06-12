@@ -1,8 +1,7 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.crypto.Signature;
-import org.nem.core.serialization.SerializableEntity;
-import org.nem.core.serialization.Serializer;
+import org.nem.core.serialization.*;
 
 public class SignatureViewModel implements SerializableEntity {
 	private final Signature signature;

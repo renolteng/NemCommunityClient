@@ -20,11 +20,22 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	private final Hash innerTransactionHash;
 	private final Address issuer;
 
+	private static Type innerTypeToViewModelType(final int innerType) {
+		switch (innerType) {
+			case TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION:
+				return Type.Multisig_Multisig_Modification;
+			case TransactionTypes.IMPORTANCE_TRANSFER:
+				return Type.Multisig_Importance_Transfer;
+			case TransactionTypes.TRANSFER:
+				return Type.Multisig_Transfer;
+			default:
+				return Type.Unknown;
+		}
+	}
+
 	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccountData, final BlockHeight lastBlockHeight) {
 
-		super(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION ?
-						Type.Multisig_Multisig_Modification :
-						Type.Multisig_Transfer,
+		super(innerTypeToViewModelType(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType()),
 				metaDataPair,
 				lastBlockHeight);
 		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();

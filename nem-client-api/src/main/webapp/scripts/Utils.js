@@ -9,16 +9,7 @@ define(['TransactionType'], function(TransactionType) {
             nemDivisibility: 1000000,
             txesPerPage: 25,
             blocksPerPage: 25,
-            defaultLanguage: 'en',
-            STATUS_UNKNOWN: 0,
-            STATUS_STOPPED: 1,
-            STATUS_STARTING: 2,
-            STATUS_RUNNING: 3,
-            STATUS_BOOTING: 4,
-            STATUS_BOOTED: 5,
-            STATUS_SYNCHRONIZED: 6,
-            STATUS_NO_REMOTE_NIS_AVAILABLE: 7,
-            STATUS_LOADING: 8
+            defaultLanguage: 'en'
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);
@@ -681,7 +672,7 @@ define(['TransactionType'], function(TransactionType) {
             tx.mainType = tx.type;
 
             // multisig
-            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification) {
+            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification || tx.type === TransactionType.Multisig_Importance_Transfer) {
                 tx.isMultisig = true;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.innerType = tx.inner.type;
@@ -698,6 +689,11 @@ define(['TransactionType'], function(TransactionType) {
                     transferTransaction = tx.inner;
                     tx.recipient = transferTransaction.recipient
                     tx.message = tx.inner.message;
+
+                } else if (tx.type === TransactionType.Multisig_Importance_Transfer) {
+                    tx.remote = tx.inner.remote;
+                } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
+                    tx.modifications = tx.inner.modifications;
                 }
 
                 var mutltisigFees = tx.fee + tx.signatures
@@ -723,7 +719,7 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             // importance transfer
-            if (tx.type == TransactionType.Importance_Transfer) {
+            if (tx.type == TransactionType.Importance_Transfer || tx.type == TransactionType.Multisig_Importance_Transfer) {
                 tx.recipient = tx.remote;
                 tx.isIncoming = false;
                 tx.isOutgoing = false;

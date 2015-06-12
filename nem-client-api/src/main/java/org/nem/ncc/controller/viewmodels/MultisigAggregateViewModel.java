@@ -9,13 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * TODO 20150131 J-G: fix empty comments
  * TODO 20150131 J-G: some basic tests
  */
 public class MultisigAggregateViewModel extends TransactionViewModel {
 	private class ModificationWrapper implements SerializableEntity {
-		final MultisigModificationType modificationType;
-		final Address address;
+		private final MultisigModificationType modificationType;
+		private final Address address;
 
 		/**
 		 * Creates a new modification wrapper around a cosignatory modification.
@@ -34,8 +33,8 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 		}
 	}
 
-	final List<ModificationWrapper> cosignatoryModifications;
-	final MultisigMinCosignatoriesModification minCosignatoriesModification;
+	private final List<ModificationWrapper> cosignatoryModifications;
+	private final MultisigMinCosignatoriesModification minCosignatoriesModification;
 
 	/**
 	 * Creates a new multisig aggregate view model around a multisig aggregate modification transaction.

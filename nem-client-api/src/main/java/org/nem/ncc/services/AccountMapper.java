@@ -1,7 +1,6 @@
 package org.nem.ncc.services;
 
-import org.nem.core.crypto.KeyPair;
-import org.nem.core.crypto.PublicKey;
+import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
 import org.nem.ncc.controller.viewmodels.AccountViewModel;
 import org.nem.ncc.wallet.WalletAccount;

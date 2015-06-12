@@ -1,8 +1,6 @@
 package org.nem.ncc.controller;
 
-import org.nem.core.crypto.KeyPair;
-import org.nem.core.crypto.Signature;
-import org.nem.core.crypto.Signer;
+import org.nem.core.crypto.*;
 import org.nem.core.model.*;
 import org.nem.core.utils.HexEncoder;
 import org.nem.ncc.addressbook.*;

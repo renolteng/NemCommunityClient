@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Javna oznaka',
 			noCharge: 'Naknada <b>neće</b> biti naplaćena sa trenutnog računa. Višepotpisnički račun to pokriva.',
 			fee: 'Naknada',
+			multisigFee: 'Višepotpisnička naknada',
+			useMinimumFee: 'Koristi najmanju naknadu',
+			feeValidation: 'Naknada nemože biti manja od najniže naknade',
 			justUse: 'Samo u koristi',
 			dueBy: 'Trajanje',
+			minutes: 'minute(s)',
 			hours: 'sat(i)',
 			hoursDue: 'Vremensko razdoblje (sati)',
 			hoursDueExplanation: 'Transakcija se odbacuje ako nije uključena u vremenski rok.',
-			closeButton: 'Zatvori'
+			closeButton: 'Zatvori',
+			cancelButton: 'Odustani',
+			sendButton: 'Šalji',
+			account: 'Račun',
+			thisAccount: 'Ovaj račun',
+			warning: 'Upozorenje',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSAKCIJA PRIJENOSA',
 			'PRIJENOS VAŽNOSTI',
 			'PROMJENA MULTISIG RAČUNA',
-			'VIŠEPOTPISNIČKA TRANSAKCIJA'
+			'VIŠEPOTPISNIČKA TRANSAKCIJA',
+			'MULTISIG SIGNATURE',
+			'VIŠEPOTPISNIČKA TRANSAKCIJA',
+			'VIŠEPOTPISNIČKA TRANSAKCIJA',
+			
 		],
 		transactionDirections: {
 			pending: 'Transakcija na čekanju',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Automatsko pokretanje',
 					name: 'Naziv čvora',
-					account: 'Račun',
 					primaryAccount: 'Primarni račun',
 					auto: 'Samostalno pokretanje prilikom otvaranja novčanika'
 				},
 				save: 'Spremi',
 				saveSuccess: 'Postavke su uspješno spremljene'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Pretvori račun u višepotpisnički',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Ovaj račun je označen kao {{1}}',
 				nullLabelDesc: 'Ovaj račun nema oznake',
 				addCosignatory: '+ Dodaj potpisnika',
-				cancel: 'Poništi',
 				convert: 'Pretvori',
-				fee: 'Naknada',
-				feeValidation: 'Naknade ne može biti manja od minimalne naknade',
-				useMinimumFee: 'Koristi minimalnu naknadu',
 				txConfirm: {
 					title: 'Potvrdi pretvaranje u Multisig račun',
 					total: 'Ukupno',
 
 				},
-				warning: 'Višepotpisnički račun se nalazi u listi supotpisnika što može imati za posljedicu zaključavanje računa i zabranu pristupa sredstvima na istom. Vjerojatno <b>NE</b> želite to učiniti.'
+				warning: 'Višepotpisnički račun se nalazi u listi supotpisnika što može imati za posljedicu zaključavanje računa i zabranu pristupa sredstvima na istom. Vjerojatno <b>NE</b> želite to učiniti.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Potpiši višepotpisničku transakciju',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Višepotpisničke naknade',
 				multisigTotal: 'Ukupno',
 				sender: 'Potpisnik',
-				fee: 'Naknada',
-				feeValidation: 'Naknade ne može biti manja od minimalne naknade',
-				useMinimumFee: 'Koristi najmanju naknadu',
-				password: 'Lozinka',
 				passwordValidation: 'Lozinka ne smije biti prazna',
-				send: 'Šalji',
-				cancel: 'Poništi',
 				sending: 'Slanje...',
-				successMessage: 'Transakcije je uspiješno provedena',
 				txConfirm: {
 					title: 'Potvrdi Multisig transakciju',
 					message: 'Poruka',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Adresa računa mora sadržavati 40 karaktera bez crtica',
 				message: 'Poruka',
 				encrypt: 'Šifriraj poruku',
-				fee: 'Naknada',
-				multisigFee: 'Višepotpisnička naknada',
-				feeValidation: 'Naknada nemože biti manja od najniže naknade',
-				useMinimumFee: 'Koristi najmanju naknadu',
-				password: 'Lozinka',
-				passwordValidation: 'Lozinka mora biti unešena',
-				send: 'Šalji',
-				cancel: 'Poništi',
 				sending: 'Slanje...',
-				successMessage: 'Transakcija je uspješno provedena!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Potvrdi transakciju',
 					amount: 'Iznos',
@@ -245,7 +251,6 @@ define({
 					message: 'Poruka',
 					encrypted: 'Poruka je šifrirana',
 					noMessage: 'Nema poruke',
-					cancel: 'Odustani',
 					confirm: 'Potvrdi',
 					sending: 'Šaljem...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Potvrde',
 				confirmationsUnknown: 'Nepoznato',
 				amount: 'Iznos',
-				fee: 'Naknada',
 				innerFee: 'Interna naknada',
 				multisigFees: 'Višepotpisničke naknade',
 				cosignatory: 'Potpisnik'
 			},
 			accountDetails: {
 				title: 'Detalji računa',
-				address: 'Adresa',
 				label: 'Oznaka',
 				noLabel: 'Nema oznake',
 				add: 'Dodaj u adresar',
@@ -313,8 +316,7 @@ define({
 				importance: 'Važnost',
 				publicKey: 'Javni ključ',
 				noPublicKey: 'Nema javnog ključa',
-				harvestedBlocks: 'Harvested blocks',
-				close: 'Zatvori'
+				harvestedBlocks: 'Harvested blocks'
 			},
 			bootLocalNode: {
 				title: 'Pokreni lokalni čvor',
@@ -337,7 +339,6 @@ define({
 				title: 'Stvori novi račun',
 				label: 'Privatna oznaka',
 				wallet: 'Novčanik',
-				password: 'Lozinka novčanika',
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno stvoren!',
 				create: 'Stvori'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Dodaj postojeći račun',
 				privateKey: 'Privatni ključ računa',
 				wallet: 'Novčanik',
-				password: 'Lozinka novčanika',
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno dodan u novčanik!',
 				add: 'Dodaj',
 				label: 'Oznaka'
@@ -367,7 +367,6 @@ define({
 				account: 'Račun koji će biti postavljen kao primarni',
 				noLabel: '<span class=\'null\'>&lt;Nema oznake&gt;</span>',
 				wallet: 'Novčanik',
-				password: 'Lozinka novčanika',
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je postavljen kao primarni!',
 				set: 'Postavi kao primarni'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Izmijeni naziv novčanika',
 				wallet: 'Trenutni naziv novčanika',
 				newName: 'Novi naziv novčanika',
-				password: 'Lozinka novčanika',
 				successMessage: 'Naziv novčanika je uspješno izmijenjen iz <em>{{1}}</em> u <em>{{2}}</em>',
 				change: 'Izmijeni'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Izmijeni oznaku računa',
 				label: 'Oznaka računa',
 				wallet: 'Novčanik',
-				password: 'Lozinka novčanika',
 				successMessage: 'Račun {{1}} je sad označen kao {{2}}',
 				change: 'Izmijeni'
 			},
 			removeAccount: {
 				title: 'Ukloni račun',
-				account: 'Račun',
 				label: 'Oznaka računa',
 				wallet: 'Pridruženi novčanik',
-				password: 'Lozinka novčanika',
 				warning: 'Molim Vas da prije uklanjanja računa provjerite da isti ne sadrži XEM ili će iznos biti izgubljen zauvijek nakon uklanjanja računa.',
 				successMessage: 'Račun {{1}} {{#2}}({{2}}){{/2}} je uspješno uklonjen!',
 				remove: 'Ukloni'
@@ -416,36 +411,29 @@ define({
 				title: 'Zatvori program',
 				message: 'Jeste li sigurni za želite zatvoriti NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Aktiviraj povjereno ubiranje',
 				wallet: 'Novčanik',
-				account: 'Račun',
-				password: 'Lozinka novčanika',
 				activate: 'Pokreni',
-				warning: 'Upozoranje',
-				warningText: 'Za aktivaciju je potrebno 6 sati (360 blokova). Aktivacija neće automatski započeti ubiranje.'
+				warningText: 'Za aktivaciju je potrebno 6 sati (360 blokova). Aktivacija neće automatski započeti ubiranje.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Prekini povjereno ubiranje',
 				wallet: 'Novčanik',
-				account: 'Račun',
-				password: 'Lozinka novčanika',
 				deactivate: 'Deaktiviraj',
-				warning: 'Upozorenje',
 				warningText: 'Deaktivacija će trajati 6 sati (360 blokova).'
 			},
 			startRemote: {
 				title: 'Pokreni povjereno ubiranje',
 				wallet: 'Novčanik',
-				account: 'Račun',
-				password: 'Lozinka novčanika',
 				start: 'Start'
 			},
 			stopRemote: {
 				title: 'Prekini povjereno ubiranje',
 				wallet: 'Novčanik',
-				account: 'Račun',
-				password: 'Lozinka novčanika',
 				stop: 'Stop'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Prekini ubiranje',
 				description: 'Važnost računa u NEM oblaku',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Aktiviraj povjereno ubiranje',
 					activating: 'Aktivacija povjerenog ubiranja...',
 					active: 'Povjereno ubiranje je aktivno',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deaktivacija povjerenog ubiranja...',
 					startRemoteHarvesting: 'Pokreni povjereno ubiranje',
 					remotelyHarvesting: 'Udaljeno ubiranje',
-					stopRemoteHarvesting: 'Prekini povjereno ubiranje'
+					stopRemoteHarvesting: 'Prekini povjereno ubiranje',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

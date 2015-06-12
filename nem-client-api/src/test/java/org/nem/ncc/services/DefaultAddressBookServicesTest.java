@@ -11,7 +11,6 @@ import org.nem.ncc.test.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.zip.ZipOutputStream;
 
 public class DefaultAddressBookServicesTest {
 	private static final AddressBookFileExtension FILE_EXTENSION = new AddressBookFileExtension();

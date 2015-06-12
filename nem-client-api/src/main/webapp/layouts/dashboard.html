@@ -14,27 +14,19 @@
 			<li class="tile tile--importance" data-row="1" data-col="2" data-sizex="2" data-sizey="1">
 				<article>
 					<h1 class="tile-title">{{texts.dashboard.importance.title}}</h1>
-					{{#activeAccount.remoteStatus === 'INACTIVE'}}
-						<button type="button" class="importanceTile-activateButton icon-link" on-click="openActivateDelegated('activate')">{{texts.dashboard.importance.remoteHarvest.activate}}</button>
-					{{/}}
-					{{#activeAccount.remoteStatus === 'ACTIVATING'}}
-						<button type="button" disabled class="importanceTile-activateButton icon-clock">{{texts.dashboard.importance.remoteHarvest.activating}}</button>
-					{{/}}
-					{{#activeAccount.remoteStatus === 'ACTIVE'}}
-						<button class="importanceTile-activateButton hoverTarget icon-unlink" on-click="openActivateDelegated('deactivate')">
-							<span class="hideOnHover">
-								{{texts.dashboard.importance.remoteHarvest.active}}
-							</span>
-							<span class="showOnHover">
-								{{texts.dashboard.importance.remoteHarvest.deactivate}}
-							</span>
-						</button>
-					{{/}}
-					{{#activeAccount.remoteStatus === 'DEACTIVATING'}}
-						<button type="button" disabled class="importanceTile-activateButton">{{texts.dashboard.importance.remoteHarvest.deactivating}}</button>
-					{{/}}
 
-					<div class="importanceTile-harvest">
+                    <button type="button" class="importanceTile-activateButton icon-link" on-click="openActivateDelegated()">{{texts.dashboard.importance.remoteHarvest.title}}</button>
+                    {{#activeAccount.remoteStatus === 'ACTIVATING'}}
+                    <span class="importanceTile-activateStatus icon-clock">{{texts.dashboard.importance.remoteHarvest.activating}}</span>
+                    {{/}}
+                    {{#activeAccount.remoteStatus === 'DEACTIVATING'}}
+                    <span class="importanceTile-activateStatus icon-clock">{{texts.dashboard.importance.remoteHarvest.deactivating}}</span>
+                    {{/}}
+                    {{#activeAccount.remoteStatus === 'ACTIVE'}}
+                    <span class="importanceTile-activateStatus">{{texts.dashboard.importance.remoteHarvest.active}}</span>
+                    {{/}}
+
+                    <div class="importanceTile-harvest">
 						{{#if activeAccount.remoteStatus === 'ACTIVE'}}
 							{{#if walletPage.remoteUnlocked}}
 								<button type="button" class="importanceTile-harvestButton importanceTile-harvestButton--harvesting icon-pause-circled" on-click="stopRemoteHarvesting" disabled="{{walletPage.harvestButtonProcessing}}">

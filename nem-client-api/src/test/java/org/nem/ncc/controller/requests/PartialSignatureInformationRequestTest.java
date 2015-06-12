@@ -81,15 +81,23 @@ public class PartialSignatureInformationRequestTest {
 
 		// Assert:
 		Assert.assertThat(request.getMultisigAddress(), null == expectedMultisigAddress ? IsNull.nullValue() : IsEqual.equalTo(expectedMultisigAddress));
-		Assert.assertThat(request.getCosignatoryAddress(), null == expectedCosignatoryAddress ? IsNull.nullValue() : IsEqual.equalTo(expectedCosignatoryAddress));
+		Assert.assertThat(
+				request.getCosignatoryAddress(),
+				null == expectedCosignatoryAddress ? IsNull.nullValue() : IsEqual.equalTo(expectedCosignatoryAddress));
 	}
 
 	private static Deserializer createDeserializer(
 			final Address multisigAddress,
 			final Address cosignatoryAddress) {
 		final JSONObject jsonObject = new JSONObject();
-		jsonObject.put("multisig", null == multisigAddress ? null : multisigAddress.toString());
-		jsonObject.put("cosignatory",  null == cosignatoryAddress ? null : cosignatoryAddress.toString());
+		if (null != multisigAddress) {
+			jsonObject.put("multisig", multisigAddress.toString());
+		}
+
+		if (null != cosignatoryAddress) {
+			jsonObject.put("cosignatory", cosignatoryAddress.toString());
+		}
+
 		return new JsonDeserializer(jsonObject, null);
 	}
 }

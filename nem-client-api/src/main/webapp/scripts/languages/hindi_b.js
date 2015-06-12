@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Public label',
 			noCharge: 'करेंट अकाउंट से कोई फ़ीस <b> नहीं </ b > लिया जाएगा. Multisig अकाउंट में उन्हें शामिल किया गया है.',
 			fee: 'Fee',
+			multisigFee: 'Multisig फ़ीस',
+			useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें.',
+			feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
 			justUse: 'महज प्रयोग करें',
 			dueBy: 'Due by',
+			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Hours due',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Cancel',
+			sendButton: 'भेजें',
+			account: 'अकाउंट',
+			thisAccount: 'This account',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'ट्रान्सफर ट्रांजैक्शन',
 			'इंपॉर्टेन्स ट्रान्सफर',
 			'Multisig अकाउंट में परिवर्तन',
-			'MULTISIG ट्रांजैक्शन'
+			'MULTISIG ट्रांजैक्शन',
+			'MULTISIG SIGNATURE',
+			'MULTISIG ट्रांजैक्शन',
+			'MULTISIG ट्रांजैक्शन',
+			
 		],
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'ऑटो-बूट',
 					name: 'नोड नेम',
-					account: 'अकाउंट',
 					primaryAccount: 'प्राइमरी अकाउंट',
 					auto: 'वॉलेट खोलने पर ऑटो-बूट करें.'
 				},
 				save: 'Save',
 				saveSuccess: 'सेटिंग्स सफलतापूर्वक बचा लिया गया है.'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'अकाउंट को Multisig अकाउंट में परिवर्तित करें',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'इस अकाउंट का लेबल {{1}} हे',
 				nullLabelDesc: 'इस अकाउंट का लेबल मौजूद नही हे',
 				addCosignatory: '+ Cosignatory जोड़ें',
-				cancel: 'Cancel',
 				convert: 'परिवर्तित करें',
-				fee: 'फ़ीस',
-				feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
-				useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें',
 				txConfirm: {
 					title: 'Multisig अकाउंट में परिवर्तन की पुष्टि करें.',
 					total: 'Total',
 
 				},
-				warning: 'Multisig अकाउंट cosignatories की सूची में है.</b>इससे आपका अकाउंट लॉक हो जाएगा और आप अपने सारे XEM गंवा देंगें. कृपया Multisig अकाउंट को cosignatories की सूची में से हटाए</b>.'
+				warning: 'Multisig अकाउंट cosignatories की सूची में है.</b>इससे आपका अकाउंट लॉक हो जाएगा और आप अपने सारे XEM गंवा देंगें. कृपया Multisig अकाउंट को cosignatories की सूची में से हटाए</b>.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig फ़ीस',
 				multisigTotal: 'Total',
 				sender: 'Cosignatory',
-				fee: 'फ़ीस',
-				feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
-				useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें.',
-				password: 'पासवर्ड',
 				passwordValidation: 'पासवर्ड खाली नहीं होना चाहिए.',
-				send: 'भेजें',
-				cancel: 'Cancel',
 				sending: 'भेजा जा रहा है...',
-				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
 				txConfirm: {
 					title: 'Multisig ट्रांजैक्शन की पुष्टि करें',
 					message: 'मेसेज',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'अकाउंट अड्रेसस \'-\' को छोड़कर 40 चरित्र लंबे होना चाहिए',
 				message: 'मेसेज',
 				encrypt: 'एन्क्रिप्टेड मेसेज',
-				fee: 'फ़ीस',
-				multisigFee: 'Multisig फ़ीस',
-				feeValidation: 'फ़ीस \'न्यूनतम फ़ीस\' से कम नहीं होना चाहिए.',
-				useMinimumFee: 'न्यूनतम फ़ीस का प्रयोग करें.',
-				password: 'पासवर्ड',
-				passwordValidation: 'पासवर्ड खाली नहीं होना चाहिए.',
-				send: 'भेजें',
-				cancel: 'Cancel',
 				sending: 'भेजा जा रहा है...',
-				successMessage: 'ट्रांजैक्शन सफलतापूर्वक भेज दिया गया है',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'ट्रांजैक्शन की पुष्टि करें',
 					amount: 'अमाउंट',
@@ -245,7 +251,6 @@ define({
 					message: 'मेसेज',
 					encrypted: 'मेसेज एन्क्रिप्टेड है',
 					noMessage: 'नो मेसेज',
-					cancel: 'Cancel',
 					confirm: 'Confirm',
 					sending: 'भेजा जा रहा है...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'कन्फर्मेशन्स',
 				confirmationsUnknown: 'Unknown',
 				amount: 'अमाउंट',
-				fee: 'फ़ीस',
 				innerFee: 'इनर फ़ीस',
 				multisigFees: 'Multisig फ़ीस',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: 'Account details',
-				address: 'अड्रेस',
 				label: 'लेबल',
 				noLabel: 'नो लेबल',
 				add: 'अड्रेस बुक में जोड़ें',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importance',
 				publicKey: 'Public key',
 				noPublicKey: 'No public key',
-				harvestedBlocks: 'हारवेस्टेड ब्लॉक्स',
-				close: 'Close'
+				harvestedBlocks: 'हारवेस्टेड ब्लॉक्स'
 			},
 			bootLocalNode: {
 				title: 'लोकल नोड बूट कीजिए',
@@ -337,7 +339,6 @@ define({
 				title: 'नया अकाउंट बनाएँ',
 				label: 'निजी लेबल',
 				wallet: 'वॉलेट',
-				password: 'वॉलेट का पासवर्ड',
 				successMessage: 'अकाउंट {{1}} {{#2}}({{2}}){{/2}} बना दिया गया है!',
 				create: 'बनाएँ'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'कोई मौजूदा अकाउंट जोड़ें',
 				privateKey: 'अकाउंट का Private Key',
 				wallet: 'वॉलेट',
-				password: 'वॉलेट का पासवर्ड',
 				successMessage: 'अकाउंट {{1}} {{#2}}({{2}}){{/2}} वॉलेट में जोड़ दिया गया है!',
 				add: 'जोड़ें',
 				label: 'लेबल'
@@ -367,7 +367,6 @@ define({
 				account: 'प्राइमरी स्थापित होने वाला अकाउंट',
 				noLabel: '<span class=\'null\'>&lt;No label&gt;</span>',
 				wallet: 'वॉलेट',
-				password: 'वॉलेट का पासवर्ड',
 				successMessage: 'अकाउंट {{1}} {{#2}}({{2}}){{/2}} प्राइमरी सेट हो चुका है!',
 				set: 'प्राइमरी सेट करें'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'वॉलेट का नाम बदलें',
 				wallet: 'मौजूदा वॉलेट का नाम',
 				newName: 'नये वॉलेट का नाम',
-				password: 'वॉलेट का पासवर्ड ',
 				successMessage: 'वॉलेट का नाम <em>{{1}}</em> से <em>{{2}}</em> सफलतापूर्वक बदल दिया गया है',
 				change: 'बदलें'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'अकाउंट लेबल बदल',
 				label: 'अकाउंट लेबल',
 				wallet: 'वॉलेट',
-				password: 'वॉलेट का पासवर्ड',
 				successMessage: 'अकाउंट {{1}} अब {{2}} के रूप में चिह्नित है',
 				change: 'बदलें'
 			},
 			removeAccount: {
 				title: 'Remove account',
-				account: 'अकाउंट',
 				label: 'अकाउंट लेबल',
 				wallet: 'वॉलेट',
-				password: 'वॉलेट का पासवर्ड',
 				warning: 'कृपया हटाने से पहले यह सुनिश्चित करें कि अकाउंट में कोई भी XEM ना हो, अथवा वे हमेशा के लिए खो जाएँगे.',
 				successMessage: 'अकाउंट {{1}} {{# 2}} ({{2}}) {{/ 2}} हटा दिया गया है!',
 				remove: 'हटाएँ'
@@ -416,36 +411,29 @@ define({
 				title: 'Close program',
 				message: 'क्या आप NEM समुदाय क्लाइंट को बंद करना चाहते हैं?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'वॉलेट',
-				account: 'अकाउंट',
-				password: 'वॉलेट का पासवर्ड',
 				activate: 'सक्रिय करें',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'वॉलेट',
-				account: 'अकाउंट',
-				password: 'वॉलेट का पासवर्ड',
 				deactivate: 'निष्क्रिय करें',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'वॉलेट',
-				account: 'अकाउंट',
-				password: 'वॉलेट का पासवर्ड',
 				start: 'सक्रिय करें'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'वॉलेट',
-				account: 'अकाउंट',
-				password: 'वॉलेट का पासवर्ड',
 				stop: 'निष्क्रिय करें'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'स्टॉप हार्वेस्टिंग',
 				description: 'NEM क्लाउड के लिए अकाउंट का महत्व',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'रीमोट हार्वेस्टिंग चल रही है',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

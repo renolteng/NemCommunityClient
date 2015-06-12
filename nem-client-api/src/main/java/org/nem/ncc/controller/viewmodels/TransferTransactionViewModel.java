@@ -4,8 +4,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
-import org.nem.core.utils.HexEncoder;
-import org.nem.core.utils.StringEncoder;
+import org.nem.core.utils.*;
 
 import java.util.Arrays;
 
@@ -126,7 +125,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		}
 
 		final byte[] payload = message.getDecodedPayload();
-		if (payload.length>1 && payload[0] == (byte)0xfe) {
+		if (payload.length > 1 && payload[0] == (byte)0xfe) {
 			return HexEncoder.getString(Arrays.copyOfRange(payload, 1, payload.length));
 		} else {
 			return StringEncoder.getString(payload);
@@ -142,7 +141,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 			return false;
 		}
 		final byte[] payload = message.getDecodedPayload();
-		return (payload.length>1 && payload[0] == (byte)0xfe);
+		return (payload.length > 1 && payload[0] == (byte)0xfe);
 	}
 	//endregion
 }

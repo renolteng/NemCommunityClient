@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			fee: 'Taxă',
+			multisigFee: 'Multisig fee',
+			useMinimumFee: 'Use minimum fee',
+			feeValidation: 'Fee must not be less than the minimum fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
+			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Scadență',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Cancel',
+			sendButton: 'Trimite',
+			account: 'Cont',
+			thisAccount: 'This account',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'MULTISIG TRANSACTION',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSACTION',
+			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: 'Tranzacție în așteptare',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Auto-pornire',
 					name: 'Numele nodului',
-					account: 'Cont',
 					primaryAccount: 'Primar Cont',
 					auto: 'Pornește automat când un portofel a fost deschis'
 				},
 				save: 'Salvează',
 				saveSuccess: 'Setările au fost salvate cu succes'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convert account to multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'Eticheta contului este <strong>{{1}}</strong>',
 				nullLabelDesc: 'Acest cont nu are o etichetă',
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
 				convert: 'Convert',
-				fee: 'Taxă',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig Fees',
 				multisigTotal: 'Total',
 				sender: 'Cosignatory',
-				fee: 'Taxă',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: 'Parola',
 				passwordValidation: 'Password must not be blank',
-				send: 'Trimite',
-				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: 'Tranzacția a fost efectuată cu succes!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
 					message: 'Mesaj',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: 'Mesaj',
 				encrypt: 'Mesaj encriptat',
-				fee: 'Taxă',
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: 'Parola',
-				passwordValidation: 'Password must not be blank',
-				send: 'Trimite',
-				cancel: 'Cancel',
 				sending: 'Se trimite...',
-				successMessage: 'Tranzacția a fost efectuată cu succes!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
@@ -245,7 +251,6 @@ define({
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
-					cancel: 'Cancel',
 					confirm: 'Confirm',
 					sending: 'Sending...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: 'Confirmări',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Sumă',
-				fee: 'Taxă',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: 'Account details',
-				address: 'Address',
 				label: 'Label',
 				noLabel: 'No label',
 				add: 'Add to address book',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importance',
 				publicKey: 'Public key',
 				noPublicKey: 'No public key',
-				harvestedBlocks: 'Harvested blocks',
-				close: 'Close'
+				harvestedBlocks: 'Harvested blocks'
 			},
 			bootLocalNode: {
 				title: 'Pornește nodul local',
@@ -337,7 +339,6 @@ define({
 				title: 'Crează portofel nou',
 				label: 'Etichetă privată',
 				wallet: 'Portofel',
-				password: 'Parola portofelului',
 				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost creat!',
 				create: 'Crează'
 			},
@@ -357,7 +358,6 @@ define({
 				title: 'Adaugă un cont existent',
 				privateKey: 'Cheia privată a contului',
 				wallet: 'Portofel',
-				password: 'Parola portofelului',
 				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost adăugat în portofel!',
 				add: 'Adaugă',
 				label: 'Etichetă'
@@ -367,7 +367,6 @@ define({
 				account: 'Cont pentru a fi stabilit ca primar',
 				noLabel: '<span class=\'null\'><Fără etichetă></span>',
 				wallet: 'Portofel',
-				password: 'Parola portofelului',
 				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost stabilit ca primar!',
 				set: 'Stabilește ca primar'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'Schimbă numele portofelului',
 				wallet: 'Numele actual al portofelului',
 				newName: 'Numele nou al portofelului',
-				password: 'Parola portofelului',
 				successMessage: 'Numele portofelului a fost schimbat cu succes de la <em>{{1}}</em> la <em>{{2}}</em>',
 				change: 'Schimbă'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'Schimbă eticheta contului',
 				label: 'Eticheta contului',
 				wallet: 'Portofel',
-				password: 'Parola contului',
 				successMessage: 'Contul {{1}} este etichetat {{2}}',
 				change: 'Schimbă'
 			},
 			removeAccount: {
 				title: 'Înlătură contul',
-				account: 'Cont',
 				label: 'Eticheta contului',
 				wallet: 'Portofel',
-				password: 'Parola portofelului',
 				warning: 'Te rog să asigură-te că contul tău nu mai are nici un XEM în el înainte să îl înlături, în caz contrar aceștia vor fi pierduți pentru totdeauna.',
 				successMessage: 'Contul {{1}} {{#2}}({{2}}){{/2}} a fost înlăturat!',
 				remove: 'Înlătură'
@@ -416,36 +411,29 @@ define({
 				title: 'Închide programul',
 				message: 'Ești sigur că dorești să închizi NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'Portofel',
-				account: 'Cont',
-				password: 'Parola portofelului',
 				activate: 'Activează',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Portofel',
-				account: 'Cont',
-				password: 'Parola portofelului',
 				deactivate: 'Dezactivează',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'Portofel',
-				account: 'Cont',
-				password: 'Parola portofelului',
 				start: 'Pornește'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Portofel',
-				account: 'Cont',
-				password: 'Parola portofelului',
 				stop: 'Oprește'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'Oprește recoltarea',
 				description: 'Importanța contului pentru NEM cloud',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Se recoltează de la distanță',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

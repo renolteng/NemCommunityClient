@@ -27,7 +27,7 @@ define({
 			125: 'No password was provided for the address book.',
 			127: 'Address book does not contain this address.',
 			128: 'The address provided is not valid.',
-			129: 'Another address book with the same name exists already. Please choose an other address book name.',
+			129: 'Another address book with the same name exists already. Please choose another address book name.',
 			130: 'Address book already contains this address.',
 			131: 'The address book name is a directory.',
 			132: 'The extension of the address book file is incorrect.',
@@ -116,12 +116,17 @@ define({
 			account: 'Account',
 			thisAccount: 'This account',
 			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'MULTISIG TRANSACTION',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSACTION',
+			'MULTISIG TRANSACTION',
 		],
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -234,7 +239,7 @@ define({
 				message: 'Message',
 				encrypt: 'Encrypt message',
 				sending: 'Sending...',
-				successMessage: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
@@ -581,6 +586,7 @@ define({
 				stop: 'Stop local harvesting',
 				description: 'Importance of account to the NEM cloud',
 				remoteHarvest: {
+				    title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -588,7 +594,8 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
 				}
 			},
 			transactions: {

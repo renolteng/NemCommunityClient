@@ -101,18 +101,34 @@ define({
 			publicLabel: 'Public label',
 			noCharge: 'Current account will <b>NOT</b> be charged any fees, multisig account covers them',
 			fee: '手数料',
+			multisigFee: 'Multisig fee',
+			useMinimumFee: 'Use minimum fee',
+			feeValidation: 'Fee must not be less than the minimum fee',
 			justUse: 'Just use',
 			dueBy: 'Due by',
+			minutes: 'minute(s)',
 			hours: 'hour(s)',
 			hoursDue: 'Due by (hours)',
 			hoursDueExplanation: 'If the transaction isn\'t included by the deadline, it is rejected.',
-			closeButton: 'Close'
+			closeButton: 'Close',
+			cancelButton: 'Cancel',
+			sendButton: '送る',
+			account: 'アカウント',
+			thisAccount: 'This account',
+			warning: 'Warning',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: [
 			'TRANSFER TRANSACTION',
 			'IMPORTANCE TRANSFER',
 			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION'
+			'MULTISIG TRANSACTION',
+			'MULTISIG SIGNATURE',
+			'MULTISIG TRANSACTION',
+			'MULTISIG TRANSACTION',
+			
 		],
 		transactionDirections: {
 			pending: '未処理（未検証）の取引',
@@ -161,12 +177,17 @@ define({
 				autoBoot: {
 					tabTitle: '自動起動',
 					name: 'ノード名',
-					account: 'アカウント',
 					primaryAccount: '主要アカウント',
 					auto: 'ウォレットを開く時に自動起動'
 				},
 				save: '保存',
 				saveSuccess: '設定は保存されました。'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convert account to multisig',
@@ -175,17 +196,17 @@ define({
 				labelDesc: 'このアカウントのラベルは {{1}}',
 				nullLabelDesc: 'このアカウントにラベルはありません。',
 				addCosignatory: '+ Add Cosignatory',
-				cancel: 'Cancel',
 				convert: 'Convert',
-				fee: '手数料',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
 
 				},
-				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.'
+				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Sign multisig transaction',
@@ -199,15 +220,8 @@ define({
 				multisigFees: 'Multisig Fees',
 				multisigTotal: 'Total',
 				sender: 'Cosignatory',
-				fee: '手数料',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: 'パスワード',
 				passwordValidation: 'Password must not be blank',
-				send: '送る',
-				cancel: 'Cancel',
 				sending: 'Sending...',
-				successMessage: '送信に成功しました!!',
 				txConfirm: {
 					title: 'Confirm Multisig Transaction',
 					message: 'メッセージ',
@@ -227,16 +241,8 @@ define({
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: 'メッセージ',
 				encrypt: 'メッセージを暗号化する。',
-				fee: '手数料',
-				multisigFee: 'Multisig fee',
-				feeValidation: 'Fee must not be less than the minimum fee',
-				useMinimumFee: 'Use minimum fee',
-				password: 'パスワード',
-				passwordValidation: 'Password must not be blank',
-				send: '送る',
-				cancel: 'Cancel',
 				sending: '送信中…',
-				successMessage: '送信に成功しました!!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirm Transaction',
 					amount: 'Amount',
@@ -245,7 +251,6 @@ define({
 					message: 'Message',
 					encrypted: 'Message is encrypted',
 					noMessage: 'No message',
-					cancel: 'Cancel',
 					confirm: 'Confirm',
 					sending: 'Sending...'
 				},
@@ -296,14 +301,12 @@ define({
 				confirmations: '承認数',
 				confirmationsUnknown: '承認数不明',
 				amount: '量',
-				fee: '手数料',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory'
 			},
 			accountDetails: {
 				title: 'Account details',
-				address: 'Address',
 				label: 'Label',
 				noLabel: 'No label',
 				add: 'Add to address book',
@@ -313,8 +316,7 @@ define({
 				importance: 'Importance',
 				publicKey: 'Public key',
 				noPublicKey: 'No public key',
-				harvestedBlocks: 'Harvested blocks',
-				close: 'Close'
+				harvestedBlocks: 'Harvested blocks'
 			},
 			bootLocalNode: {
 				title: 'ローカルノードを起動する',
@@ -337,7 +339,6 @@ define({
 				title: '新しいアカウントを作成する',
 				label: 'プライベートラベル',
 				wallet: 'ウォレット',
-				password: 'ウォレットのパスワード',
 				successMessage: 'アカウント: {{1}} {{#2}}({{2}}){{/2}} が作成されました。',
 				create: '作成'
 			},
@@ -357,7 +358,6 @@ define({
 				title: '既存のアカウントを追加します。',
 				privateKey: 'アカウントのプライベートキー',
 				wallet: 'ウォレット',
-				password: 'ウォレットパスワード',
 				successMessage: 'アカウント: {{1}} {{#2}}({{2}}){{/2}} はウォレットに追加されました!',
 				add: '追加',
 				label: 'プライベートラベル'
@@ -367,7 +367,6 @@ define({
 				account: 'プライマリーとして設定するアカウント',
 				noLabel: '<span class=\"null\">&lt;ラベルなし&gt;</span>',
 				wallet: 'ウォレット',
-				password: 'ウォレットのパスワード',
 				successMessage: 'アカウント: {{1}} {{#2}}({{2}}){{/2}} はプライマリーに設定されました!',
 				set: 'プライマリに設定'
 			},
@@ -375,7 +374,6 @@ define({
 				title: 'ウォレットの名前の変更する',
 				wallet: '現在のウォレットの名前',
 				newName: '新しいウォレットの名前',
-				password: 'ウォレットのパスワード',
 				successMessage: 'ウォレットの名前が <em>{{1}}</em> から <em>{{2}}</em> に変更されました。',
 				change: '変更'
 			},
@@ -394,16 +392,13 @@ define({
 				title: 'アカウントのラベルを変更する',
 				label: 'アカウントラベル',
 				wallet: 'ウォレット',
-				password: 'ウォレットのパスワード',
 				successMessage: 'アカウント: {{1}} は {{2}} に変更されました。',
 				change: '変更'
 			},
 			removeAccount: {
 				title: 'アカウントを削除',
-				account: 'アカウント',
 				label: 'アカウントラベル',
 				wallet: 'ウォレット',
-				password: 'ウォレットのパスワード',
 				warning: 'アカウントを削除する前にXEMが残っていないか確認してください。削除が完了したら、一旦削除したXEMは復元できません。',
 				successMessage: 'アカウント: {{1}} {{#2}}({{2}}){{/2}} は削除されました。',
 				remove: '削除'
@@ -416,36 +411,29 @@ define({
 				title: 'ウォレットを終了',
 				message: 'NEM Community Clientを閉じますか。'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activate Delegated Harvesting',
 				wallet: 'ウォレット',
-				account: 'アカウント',
-				password: 'ウォレットのパスワード',
 				activate: 'Activate',
-				warning: 'Warning',
-				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'ウォレット',
-				account: 'アカウント',
-				password: 'ウォレットのパスワード',
 				deactivate: 'Deactivate',
-				warning: 'Warning',
 				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
 				wallet: 'ウォレット',
-				account: 'アカウント',
-				password: 'ウォレットのパスワード',
 				start: '開始'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'ウォレット',
-				account: 'アカウント',
-				password: 'ウォレットのパスワード',
 				stop: '停止'
 			},
 			logoutWarning: {
@@ -607,6 +595,7 @@ define({
 				stop: 'ハーベスティングを中断する',
 				description: 'NEMクラウドのアカウントの重要性',
 				remoteHarvest: {
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -614,7 +603,9 @@ define({
 					deactivating: 'Deactivating delegated harvesting...',
 					startRemoteHarvesting: 'Start delegated harvesting',
 					remotelyHarvesting: 'Remotely harvesting',
-					stopRemoteHarvesting: 'Stop delegated harvesting'
+					stopRemoteHarvesting: 'Stop delegated harvesting',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {
