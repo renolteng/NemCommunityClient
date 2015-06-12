@@ -3,7 +3,7 @@
   "info": {
     "title": "NCC - Client API",
     "description": "The NEM Community Client (NCC) provides an RESTful API to the wallet functionality. Thus enabling alternative front-end implementations be provided by the community.",
-    "version": "0.6.31"
+    "version": "0.6.36-BETA"
   },
   "host": "localhost:8989",
   "schemes": [
