@@ -69,7 +69,11 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             );
         },
 		addCosignatory: function() {
-            this.get('cosignatories').push({formattedAddress:''});
+            this.get('cosignatories').push({
+                formattedAddress:'',
+                readOnly:false,
+                canRemoveRow: true
+            });
             $('.js-cosignatory').last().focus().typeahead({
                 hint: false,
                 highlight: true
@@ -95,13 +99,45 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.get('cosignatories').splice(index, 1);
             this.resetMinCosignatories();
         },
+        deleteCosignatory: function(index) {
+            var e = this.get('cosignatories')[index];
+            e['deleted'] = !e['deleted'];
+            this.update('cosignatories'); // trigger cosignatories observers
+        },
+        resetCosignatories: function() {
+            var multisigAccount = this.get('multisigAccount');
+            var correspondingWalletAccount = this.get('allAccounts').filter(function(a){return a.address === multisigAccount;})[0];
+            if (correspondingWalletAccount && correspondingWalletAccount.isMultisig) {
+                var cosigs = correspondingWalletAccount.cosignatories.map(function(a){ return {
+                    formattedAddress: Utils.format.address.format(a.address),
+                    readOnly: true,
+                    canRemoveRow: false,
+                    canDeleteCosig: true,
+                    deleted: false
+                };});
+                this.set('cosignatories', cosigs);
+
+            } else {
+                var activeFormattedAddress = Utils.format.address.format(ncc.get('activeAccount.address'));
+                this.set('cosignatories', [{
+                    formattedAddress:activeFormattedAddress,
+                    readOnly: false,
+                    canRemoveRow: false
+                }]);
+            }
+
+            // add empty
+            this.addCosignatory();
+
+            // since we've changed val(), we need a typeahead hack
+            $('.js-cosignatory').each(function(i){
+                $(this).typeahead('val', $(this).val());
+            });
+        },
         resetDefaultData: function() {
             this.set('allAccounts', ncc.get('allAccounts'));
             this.set('privateLabels', ncc.get('privateLabels'));
-            var activeFormattedAddress = Utils.format.address.format(ncc.get('activeAccount.address'));
-        	this.set('cosignatories', [{formattedAddress:activeFormattedAddress}, {formattedAddress:''}]);
-        	$('.js-cosignatory').first().typeahead('val', activeFormattedAddress);
-        	$('.js-cosignatory').last().typeahead('val', '');
+            this.resetCosignatories();
 
             this.set('cosignatoriesValid', false);
             this.set('warningShown', false);
@@ -140,6 +176,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         doCosignatoryCheck: function() {
             var multisigAccount = this.get('multisigAccount');
             var cosignatories = this.get('cosignatories');
+
             //if (! multisigAccount) {
             //    return;
             //}
@@ -236,6 +273,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                     this.set('passwordChanged', true);
                 },
                 multisigAccount: function() {
+                    this.resetCosignatories();
                     this.doCosignatoryCheck();
                 }
             },
@@ -286,7 +324,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                     feeTxb.value = Utils.format.nem.reformat(feeTxb.value, null, null, oldProp, newProp);
                 }
             }));
-
             // Cosignatory fields
 
             $('.js-cosignatory').typeahead({

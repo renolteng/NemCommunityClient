@@ -170,6 +170,10 @@ $bulletTab-hoverBgColor: #f0f0f0;
 	}
 }
 
+.neutral {
+	color: #f1c40f;
+}
+
 .encryptedIcon {
 	color: #f1c40f;
 }
@@ -260,6 +264,10 @@ $form-input-hPadding: 12px;
 
 	&.form-input--error {
 		border-color: #c0392b;
+	}
+
+	&.form-input--strike {
+	    text-decoration:line-through;
 	}
 }
 

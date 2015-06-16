@@ -267,6 +267,7 @@
                 <ul class="form-dropdownbox-dropdown {{^active['settingsModal-multisigAccount']}}hidden{{/}}">
                     {{#allAccounts}}
                     <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('multisigAccount', .address)">
+                        <span class="neutral">{{#if .isMultisig}}M{{else}}&nbsp;{{/if}}</span>
                         {{#if (privateLabels[.address])}}
                             {{privateLabels[.address]}}
                         {{else}}
@@ -277,93 +278,116 @@
                 </ul>
             </div>
 		</div>
-		<div class="form-field">
-            <hr/>
-			<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
-			{{#each cosignatories : i}}
-				<div class="{{#i !== 0}}form-field{{/}}">
-					<div class="form-row multisig-cosignatory">
-						<div class="form-input-end form-input-remove">
-							{{#i !== 0}}<button type="button" class="icon-cancel" on-click="removeCosignatory(i)"></button>{{/}}
-						</div>
-						<input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} js-cosignatory" value="{{.formattedAddress}}" on-keypress="sendFormKeypress" />
-					</div>
-					<p class="form-sublabel">
-						{{#if (privateLabels[.address])}}
-							{{{fill(true, texts.modals.multisig.labelDesc, '<strong>' + privateLabels[.address] + '</strong>')}}}
-						{{else}}
-							{{texts.modals.multisig.nullLabelDesc}}
-						{{/if}}
-					</p>
-				</div>
-			{{/each}}
-			<div>
-				<button type="button" class="multisig-addCosignatory" on-click="addCosignatory()">{{texts.modals.multisig.addCosignatory}}</button>
-			</div>
-		</div>
-        <div class="form-field">
-        </div>
-        <div class="form-field">
-            <div class="form-row">
-                <div class="form-half form-half--left">
-                    <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
-                    <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
-                        {{texts.modals.multisig.minCosignatoriesDefaultLabel}}
-                    </label>
+        <div id="convertMultisigModalContent" {{^multisigAccount}}style="visibility:hidden;"{{/}}>
+            <div class="form-field">
+                <hr/>
+                <p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
+                {{#each cosignatories : i}}
+                    <div class="{{#i !== 0}}form-field{{/}}">
+                        <div class="form-row multisig-cosignatory">
+                            <div class="form-input-end form-input-remove">
+                                {{#.canRemoveRow}}<button type="button" class="icon-cancel" on-click="removeCosignatory(i)"></button>{{/}}
+                                {{#.canDeleteCosig}}
+                                <button type="button" class="{{#if .deleted}}icon-plus-circled{{else}}icon-minus-circled{{/if}}" on-click="deleteCosignatory(i)"></button>
+                                {{/}}
+                            </div>
+                            <input class="form-input form-input--textbox {{#.error}}form-input--error{{/}} {{#.readOnly}}form-input--unimportant{{/}} {{#.deleted}}form-input--strike{{/}} js-cosignatory" value="{{.formattedAddress}}" readonly="{{.readOnly}}" on-keypress="sendFormKeypress" />
+                        </div>
+                        <p class="form-sublabel">
+                            {{#if (privateLabels[.address])}}
+                                {{{fill(true, texts.modals.multisig.labelDesc, '<strong>' + privateLabels[.address] + '</strong>')}}}
+                            {{else}}
+                                {{texts.modals.multisig.nullLabelDesc}}
+                            {{/if}}
+                        </p>
+                    </div>
+                {{/each}}
+                <div>
+                    <button type="button" class="multisig-addCosignatory" on-click="addCosignatory()">{{texts.modals.multisig.addCosignatory}}</button>
                 </div>
-                <div class="form-half form-half--right">
-                    <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
-                        {{texts.modals.multisig.minCosignatoriesLabel}}
-                        {{#if minCosignatoriesZero}}
-                        <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
-                        {{/if}}
-                        {{#if minCosignatoriesOverflow}}
-                        <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesOverflow}}" on-mouseover="registerToolTip"></span>
-                        {{/if}}
-                    </p>
-                    <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}} {{#if minCosignatoriesError}}form-input--error{{/if}}">
-                        <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
+            </div>
+            <div class="form-field">
+            </div>
+            <div class="form-field">
+                <div class="form-row">
+                    <div class="form-half form-half--left">
+                        <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
+                        <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
+                            {{texts.modals.multisig.minCosignatoriesDefaultLabel}}
+                        </label>
+                    </div>
+                    <div class="form-half form-half--right">
+                        <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
+                            {{texts.modals.multisig.minCosignatoriesLabel}}
+                            {{#if minCosignatoriesZero}}
+                            <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
+                            {{/if}}
+                            {{#if minCosignatoriesOverflow}}
+                            <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesOverflow}}" on-mouseover="registerToolTip"></span>
+                            {{/if}}
+                        </p>
+                        <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}} {{#if minCosignatoriesError}}form-input--error{{/if}}">
+                            <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-		<div class="form-field">
-			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
-			<label class="form-checkbox-label" for="chk-useMinimumFee">
-				{{texts.common.useMinimumFee}}
-				{{#if !useMinimumFee}}
-					({{formattedMinimumFee}} XEM)
-				{{/if}}
-			</label>
-		</div>
-		<div class="form-field">
-			<div class="form-row">
-				<div class="form-half form-half--left">
-					<p class="form-label">
-						{{texts.common.fee}}
-						{{#if feeError}}
-							<span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
-						{{/if}}
-					</p>
-					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
-						<span class="form-input-end unit">XEM</span>
-						<div class="restOfWidth">
-							<input class="form-input-inner js-multisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
-						</div>
-					</div>
-				</div>
-				<div class="form-half form-half--right">
-                    <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
-					<div class="form-input">
-						<span class="form-input-end unit">{{texts.common.hours}}</span>
-						<div class="restOfWidth">
-							<input class="form-input-inner js-multisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="form-field">
+            <div class="form-field">
+                <input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+                <label class="form-checkbox-label" for="chk-useMinimumFee">
+                    {{texts.common.useMinimumFee}}
+                    {{#if !useMinimumFee}}
+                        ({{formattedMinimumFee}} XEM)
+                    {{/if}}
+                </label>
+            </div>
+            <div class="form-field">
+                <div class="form-row">
+                    <div class="form-half form-half--left">
+                        <p class="form-label">
+                            {{texts.common.fee}}
+                            {{#if feeError}}
+                                <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+                            {{/if}}
+                        </p>
+                        <div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+                            <span class="form-input-end unit">XEM</span>
+                            <div class="restOfWidth">
+                                <input class="form-input-inner js-multisig-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-half form-half--right">
+                        <p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+                        <div class="form-input">
+                            <span class="form-input-end unit">{{texts.common.hours}}</span>
+                            <div class="restOfWidth">
+                                <input class="form-input-inner js-multisig-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#if sender}}
+                <div class="form-row">
+                    <p class="form-label">
+                        {{texts.common.multisigFee}}
+                        {{#if multisigFeeError}}
+                        <span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+                        {{/if}}
+                    </p>
+                    <div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
+                        <span class="form-input-end unit">XEM</span>
+                        <div class="restOfWidth">
+                            <input class="form-input-inner js-sendNem-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <p>{{{texts.common.noCharge}}}</p>
+                </div>
+                {{/if}}
+            </div>
+            <div class="form-field">
 			<p class="form-label">
 				{{texts.common.password}}
 				{{#if passwordError}}
@@ -372,6 +396,7 @@
 			</p>
 			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
 		</div>
+        </div>
 	</div>
 	<div class="modal-buttons sendNem-buttons">
 		<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
