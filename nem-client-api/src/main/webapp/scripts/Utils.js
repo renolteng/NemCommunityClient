@@ -793,6 +793,24 @@ define(['TransactionType'], function(TransactionType) {
                 Utils.processAccount(wallet.otherAccounts[i]);
             }
 
+            var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var allMultisigs = {};
+            allAccounts.forEach(function(a){a.multisigAccounts.forEach(function(m){ allMultisigs[m.address] = true;}); });
+
+            var allMultisigAccounts = {};
+            for (var key in allMultisigs) {
+                ncc.postRequest(
+                    'account/find',
+                    {account: key},
+                    function(data) {
+                        if (!(data.address in allMultisigAccounts)) {
+                            allMultisigAccounts[data.address] = Utils.processAccount(data);
+                        }
+                    }
+                );
+            }
+            wallet.allMultisigAccounts = allMultisigAccounts;
+
             return wallet;
         },
         processContacts: function(ab) {

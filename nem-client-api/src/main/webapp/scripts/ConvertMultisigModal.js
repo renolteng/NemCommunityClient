@@ -135,7 +135,23 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             });
         },
         resetDefaultData: function() {
-            this.set('allAccounts', ncc.get('allAccounts'));
+            // get all non-multisig from the wallet
+            var usableAccounts = ncc.get('allAccounts').filter(function(a){ return !a.isMultisig; });
+            // and get multisig of a current account
+            var multisigsOfCurrent = [];
+            ncc.get('activeAccount').multisigAccounts.forEach(function(a){
+                if (a.address in wallet.allMultisigAccounts) {
+                    var acct = wallet.allMultisigAccounts[a.address];
+                    var t = {
+                        address: acct.address,
+                        isMultisig: true,
+                        cosignatories: acct.cosignatories
+                    };
+                    multisigsOfCurrent.push(t);
+                }
+            });
+
+            this.set('allAccounts', usableAccounts.concat(multisigsOfCurrent));
             this.set('privateLabels', ncc.get('privateLabels'));
             this.resetCosignatories();
 
@@ -161,7 +177,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 type: 3, // multisig aggregate
                 cosignatories: this.get('cosignatories')
                     .filter(function(e){ return (!!e.address); })
-                    .map(function(e){ return {'address':e.address}}),
+                    .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
                 minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
                 password: this.get('password'),
                 fee: this.get('fee'),
