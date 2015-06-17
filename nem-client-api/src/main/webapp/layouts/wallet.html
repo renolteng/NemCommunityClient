@@ -255,10 +255,10 @@
             <div class="form-dropdownbox">
                 <div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-multisigAccount']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-multisigAccount')">
                     {{#if multisigAccount}}
-                        {{#if (privateLabels[multisigAccount])}}
-                            {{privateLabels[multisigAccount]}}
+                        {{#if (privateLabels[multisigAccount.address])}}
+                            {{privateLabels[multisigAccount.address]}}
                         {{else}}
-                            {{multisigAccount}}
+                            {{multisigAccount.address}}
                         {{/if}}
                     {{else}}
                     <span style="color:#c00">Choose account to convert</span>
@@ -266,7 +266,7 @@
                 </div>
                 <ul class="form-dropdownbox-dropdown {{^active['settingsModal-multisigAccount']}}hidden{{/}}">
                     {{#allAccounts}}
-                    <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('multisigAccount', .address)">
+                    <li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('multisigAccount', .)">
                         <span class="neutral">{{#if .isMultisig}}M{{else}}&nbsp;{{/if}}</span>
                         {{#if (privateLabels[.address])}}
                             {{privateLabels[.address]}}
@@ -367,7 +367,7 @@
                         </div>
                     </div>
                 </div>
-                {{#if sender}}
+                {{#if multisigAccount.isMultisig}}
                 <div class="form-row">
                     <p class="form-label">
                         {{texts.common.multisigFee}}
@@ -947,20 +947,56 @@
             <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{requestData.minCosignatories.relativeChange}}</span>
         </div>
 		<hr>
-		<p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
+        <p class="form-label">Existing {{texts.modals.multisig.cosignatories}}</p>
+        {{#each requestData.cosignatories : i}}
+            {{#if (.deleted === false)}}
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-label">{{i}}</span>
+                <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
+                    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                        {{#if (privateLabels[.address])}}
+                        {{privateLabels[.address]}}
+                        {{else}}
+                        {{.address}}
+                        {{/if}}
+                    </a>
+                </span></span>
+            </div>
+            {{/if}}
+        {{/each}}
+        <p class="form-label">Removed {{texts.modals.multisig.cosignatories}}</p>
+        {{#each requestData.cosignatories : i}}
+        {{#if (.deleted === true)}}
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-label">{{i}}</span>
+                <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
+                    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                        {{#if (privateLabels[.address])}}
+                        {{privateLabels[.address]}}
+                        {{else}}
+                        {{.address}}
+                        {{/if}}
+                    </a>
+                </span></span>
+            </div>
+        {{/if}}
+        {{/each}}
+		<p class="form-label">Added {{texts.modals.multisig.cosignatories}}</p>
 		{{#each requestData.cosignatories : i}}
-		<div class="modificationConfirm-line">
-			<span class="modificationConfirm-label">{{i}}</span>
-			<span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
-                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
-                    {{#if (privateLabels[.address])}}
-                    {{privateLabels[.address]}}
-                    {{else}}
-                    {{.address}}
-                    {{/if}}
-                </a>
-            </span></span>
-		</div>
+        {{#if (.deleted === undefined)}}
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-label">{{i}}</span>
+                <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
+                    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.address)">
+                        {{#if (privateLabels[.address])}}
+                        {{privateLabels[.address]}}
+                        {{else}}
+                        {{.address}}
+                        {{/if}}
+                    </a>
+                </span></span>
+            </div>
+        {{/if}}
 		{{/each}}
 		<hr>
 		<div class="modificationConfirm-line">

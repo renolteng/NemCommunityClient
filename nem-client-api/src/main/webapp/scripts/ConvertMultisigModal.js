@@ -106,9 +106,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         },
         resetCosignatories: function() {
             var multisigAccount = this.get('multisigAccount');
-            var correspondingWalletAccount = this.get('allAccounts').filter(function(a){return a.address === multisigAccount;})[0];
-            if (correspondingWalletAccount && correspondingWalletAccount.isMultisig) {
-                var cosigs = correspondingWalletAccount.cosignatories.map(function(a){ return {
+            if (multisigAccount && multisigAccount.isMultisig) {
+                var cosigs = multisigAccount.cosignatories.map(function(a){ return {
                     formattedAddress: Utils.format.address.format(a.address),
                     readOnly: true,
                     canRemoveRow: false,
@@ -139,13 +138,15 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             var usableAccounts = ncc.get('allAccounts').filter(function(a){ return !a.isMultisig; });
             // and get multisig of a current account
             var multisigsOfCurrent = [];
+            var wallet = ncc.get('wallet');
             ncc.get('activeAccount').multisigAccounts.forEach(function(a){
                 if (a.address in wallet.allMultisigAccounts) {
                     var acct = wallet.allMultisigAccounts[a.address];
                     var t = {
                         address: acct.address,
                         isMultisig: true,
-                        cosignatories: acct.cosignatories
+                        cosignatories: acct.cosignatories,
+                        minCosignatories: a.multisigInfo.minCosignatories
                     };
                     multisigsOfCurrent.push(t);
                 }
@@ -157,7 +158,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
 
             this.set('cosignatoriesValid', false);
             this.set('warningShown', false);
-            this.set('multisigAccount', '');
+            this.set('multisigAccount', null);
             this.set('fee', 0);
             this.set('minimumFee', 0);
             this.set('dueBy', '1');
@@ -210,7 +211,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             //}
             if (this.get('cosignatoriesValid') === true) {
                 for (var i=0; i<cosignatories.length; ++i) {
-                    if ((cosignatories[i].address === multisigAccount)) {
+                    if ((cosignatories[i].address === multisigAccount.address)) {
                         this.set('cosignatoriesValid', false);
                         this.set('cosignatories['+i+'].error', true);
                     } else {
