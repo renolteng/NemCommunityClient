@@ -74,17 +74,18 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 readOnly:false,
                 canRemoveRow: true
             });
-            $('.js-cosignatory').last().focus().typeahead({
-                hint: false,
-                highlight: true
-            }, {
-                name: 'address-book',
-                source: Utils.typeahead.addressBookMatcher,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
-                }
-            });
+            $('.js-cosignatory')
+                .last()
+                .typeahead(this.typeaheadSettings, this.typeaheadData);
+                /* this does not work neither .on nor .bind
+                .on('typeahead:select', function(ev, suggestion) {
+                    console.log('Selection: ' + suggestion);
+                })
+                .on('typeahead:autocomplete', function(ev, suggestion) {
+                    console.log('autocomplete: ' + suggestion);
+                });
+                */
+
             $('.js-cosignatory').last().focus();
 
             this.resetMinCosignatories();
@@ -103,6 +104,8 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             var e = this.get('cosignatories')[index];
             e['deleted'] = !e['deleted'];
             this.update('cosignatories'); // trigger cosignatories observers
+
+            this.resetMinCosignatories();
         },
         resetCosignatories: function() {
             var multisigAccount = this.get('multisigAccount');
@@ -158,14 +161,14 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
 
             this.set('cosignatoriesValid', false);
             this.set('warningShown', false);
-            this.set('multisigAccount', null);
+            this.set('multisigAccount', '');
             this.set('fee', 0);
             this.set('minimumFee', 0);
             this.set('dueBy', '1');
             this.set('password', '');
             this.set('useMinimumFee', true);
             this.set('useDefaultMinCosignatories', true);
-            this.set('minCosignatories', this.get('cosignatories').length);
+            this.set('minCosignatories', 0);
 
             this.set('feeChanged', false);
             this.set('passwordChanged', true);
@@ -226,7 +229,33 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         },
         resetMinCosignatories: function() {
             if (this.get('useDefaultMinCosignatories')) {
-                this.set('minCosignatories', this.get('cosignatories').length);
+                var c = this.get('cosignatories');
+                if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
+                    if (this.get('multisigAccount').minCosignatories || 1) {
+                        console.log("COSIGS min", c);
+                        var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
+                        var removed = c.filter(function(a){return a.deleted === true;}).length;
+                        var added = c.filter(function(a){return a.deleted === undefined && a.address;}).length;
+                        this.set('minCosignatories', existing - removed + added);
+
+                    } else {
+                        this.set('minCosignatories', 0);
+                    }
+                } else {
+                    this.set('minCosignatories', c.length);
+                }
+            }
+        },
+        typeaheadSettings: {
+            hint: false,
+            highlight: true
+        },
+        typeaheadData: {
+            name: 'address-book',
+            source: Utils.typeahead.addressBookMatcher,
+            displayKey: 'formattedAddress',
+            templates: {
+                suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
             }
         },
         onrender: function() {
@@ -342,18 +371,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }
             }));
             // Cosignatory fields
-
-            $('.js-cosignatory').typeahead({
-                hint: false,
-                highlight: true
-            }, {
-                name: 'address-book',
-                source: Utils.typeahead.addressBookMatcher,
-                displayKey: 'formattedAddress',
-                templates: {
-                    suggestion: Handlebars.compile('<span class="abSuggestion-label">{{privateLabel}}</span>')
-                }
-            });
         }
 	});
 });
