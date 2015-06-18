@@ -1,6 +1,6 @@
 "use strict";
 
-define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Utils, Handlebars) {
+define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], function(NccModal, Utils, TransactionType, Handlebars) {
 	return NccModal.extend({
 	    data: {
             isFeeAutofilled: true,
@@ -205,20 +205,46 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.resetFee({ silent: true });
         },
         sendTransaction: function() {
-            var requestData = {
-                wallet: ncc.get('wallet.wallet'),
-                account: this.get('multisigAccount'),
-                type: 3, // multisig aggregate
-                cosignatories: this.get('cosignatories')
-                    .filter(function(e){ return (!!e.address); })
-                    .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
-                minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
-                password: this.get('password'),
-                fee: this.get('fee'),
-                hoursDue: this.get('hoursDue')
-            };
+            var requestData;
+            if (! this.get('multisigAccount').isMultisig) {
+                requestData = {
+                    wallet: ncc.get('wallet.wallet'),
+                    type: TransactionType.Aggregate_Modification,
+                    account: this.get('multisigAccount'),
+                    password: this.get('password'),
+
+                    cosignatories: this.get('cosignatories')
+                        .filter(function(e){ return (!!e.address); })
+                        .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
+                    minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
+
+                    fee: this.get('fee'),
+                    multisigFee: 0,
+                    hoursDue: this.get('hoursDue')
+                };
+            } else {
+                requestData = {
+                    wallet: ncc.get('wallet.wallet'),
+                    type: TransactionType.Multisig_Aggregate_Modification,
+                    account: this.get('multisigAccount'),
+                    issuer: ncc.get('activeAccount'),
+                    password: this.get('password'),
+
+                    cosignatories: this.get('cosignatories')
+                        .filter(function(e){ return (!!e.address); })
+                        .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
+                    minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
+
+                    fee: this.get('fee'),
+                    multisigFee: this.get('multisigFee'),
+                    hoursDue: this.get('hoursDue')
+                };
+            }
+
+            console.log(requestData);
 
             var txConfirm = ncc.getModal('modificationConfirm');
+            txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
             txConfirm.open();

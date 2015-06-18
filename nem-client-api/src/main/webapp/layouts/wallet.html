@@ -952,10 +952,30 @@
                 </a>
             </span></span>
 		</div>
+        {{#if (requestData.type === TransactionType.Multisig_Aggregate_Modification)}}
+        <div class="modificationConfirm-line">
+            <span class="modificationConfirm-label">{{texts.modals.transactionDetails.issuer}}</span>
+			<span class="modificationConfirm-value"><span class="modificationConfirm-account">
+                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(requestData.issuer)">
+                    {{#if (privateLabels[requestData.issuer.address])}}
+                    {{privateLabels[requestData.issuer.address]}}
+                    {{else}}
+                    {{requestData.issuer.address}}
+                    {{/if}}
+                </a>
+            </span></span>
+        </div>
+        {{/if}}
 		<div class="modificationConfirm-line">
 			<span class="modificationConfirm-label">{{texts.common.fee}}</span>
 			<span class="modificationConfirm-value modificationConfirm-fee">{{txData.formattedFee}} XEM</span>
 		</div>
+        {{#if (requestData.type === TransactionType.Multisig_Aggregate_Modification)}}
+        <div class="txConfirm-line">
+            <span class="txConfirm-label">{{texts.common.multisigFee}}</span>
+            <span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} XEM</span></span>
+        </div>
+        {{/if}}
         <div class="modificationConfirm-line">
             <span class="modificationConfirm-value">{{texts.modals.multisig.minCosignatoriesLabel}}:</span>
         </div>
