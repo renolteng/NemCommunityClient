@@ -283,7 +283,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                         m.set('account', data);
                         if (walletAccount.length > 0) {
                             m.set('account.wallet', walletAccount[0]);
-                            console.log(m);
                         }
                         m.open();
                     });

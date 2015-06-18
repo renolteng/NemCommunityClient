@@ -241,8 +241,6 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 };
             }
 
-            console.log(requestData);
-
             var txConfirm = ncc.getModal('modificationConfirm');
             txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
