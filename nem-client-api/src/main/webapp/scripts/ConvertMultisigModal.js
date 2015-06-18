@@ -206,6 +206,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
         },
         sendTransaction: function() {
             var requestData;
+            // TODO 20150618 J-G: i think you can refactor and just update the type and multisigFee in the else
             if (! this.get('multisigAccount').isMultisig) {
                 requestData = {
                     wallet: ncc.get('wallet.wallet'),
