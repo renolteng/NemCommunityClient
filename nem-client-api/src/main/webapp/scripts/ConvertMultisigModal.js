@@ -19,6 +19,15 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                     this.update('fee'); // so that stupid Ractive trigger fee observers
                 }
             },
+            multisigFee: {
+                get: function() {
+                    return Utils.format.nem.getNemValue(Utils.format.nem.stringToNem(this.get('formattedMultisigFee')));
+                },
+                set: function(fee) {
+                    this.set('formattedMultisigFee', Utils.format.nem.formatNemAmount(fee));
+                    this.update('multisigFee'); // so that stupid Ractive trigger fee observers
+                }
+            },
             minCosignatoriesNumber: {
                 get: function() {
                     return parseInt(this.get('minCosignatories'), 10);
@@ -61,6 +70,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             ncc.postRequest('wallet/account/modification/validate', requestData,
                 function(data) {
                     self.set('minimumFee', data.fee);
+                    self.set('multisigFee', data.multisigFee);
                 },
                 {
                     altFailCb: function(faultId, error) {
@@ -72,7 +82,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             if (this.get('useDefaultMinCosignatories')) {
                 var c = this.get('cosignatories');
                 if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
-                    if (this.get('multisigAccount').minCosignatories) {
+                    if (this.get('multisigAccount').minCosignatories || 1) {
                         var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
                         var removed = c.filter(function(a){return a.deleted === true;}).length;
                         var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
@@ -173,6 +183,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }
             });
 
+            this.set('activeAccount', ncc.get('activeAccount'));
             this.set('allAccounts', usableAccounts.concat(multisigsOfCurrent));
             this.set('privateLabels', ncc.get('privateLabels'));
             this.resetCosignatories();
@@ -181,6 +192,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             this.set('warningShown', false);
             this.set('multisigAccount', '');
             this.set('fee', 0);
+            this.set('multisigFee', 0);
             this.set('minimumFee', 0);
             this.set('dueBy', '1');
             this.set('password', '');

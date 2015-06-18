@@ -137,7 +137,9 @@ public class TransactionMapper {
 		);
 	}
 
-	public PartialFeeInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
+	public PartialTransferInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
+		// use a fake accounts so that encryption and signing are always possible
+		final Account dummyAccount = new Account(new KeyPair());
 		final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
 
 		final List<MultisigCosignatoryModification> modifications = request.getCosignatoriesAddresses().stream()
@@ -147,7 +149,10 @@ public class TransactionMapper {
 
 		// TODO 20150201 J-G: quick and bit dirty hack for UI...
 		if (modifications.isEmpty()) {
-			return new PartialFeeInformationViewModel(Amount.ZERO);
+			return new PartialTransferInformationViewModel(
+					Amount.ZERO,
+					Amount.ZERO,
+					false);
 		}
 
 		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
@@ -156,7 +161,15 @@ public class TransactionMapper {
 				modifications,
 				request.getMinCosignatoriesModification());
 
-		return new PartialFeeInformationViewModel(transaction.getFee());
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				transaction);
+
+		return new PartialTransferInformationViewModel(
+				transaction.getFee(),
+				multisigTransaction.getFee(),
+				false);
 	}
 
 	/**

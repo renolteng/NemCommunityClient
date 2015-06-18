@@ -279,11 +279,28 @@
             </div>
 		</div>
         <div id="convertMultisigModalContent" {{^multisigAccount}}style="visibility:hidden;"{{/}}>
+            {{#if multisigAccount.isMultisig}}
+            <div class="form-field">
+                <p class="form-label">{{texts.modals.sendNem.sender}}</p>
+                <div class="form-field">
+                    <div class="form-row multisig-cosignatory">
+                        <input class="form-input form-input--textbox form-input--unimportant js-issuer" value="{{activeAccount.formattedAddress}}" readonly="true" />
+                    </div>
+                    <p class="form-sublabel">
+                        {{#if (privateLabels[activeAccount.address])}}
+                        {{{fill(true, texts.modals.multisig.labelDesc, '<strong>' + privateLabels[activeAccount.address] + '</strong>')}}}
+                        {{else}}
+                        {{texts.modals.multisig.nullLabelDesc}}
+                        {{/if}}
+                    </p>
+                </div>
+            </div>
+            {{/if}}
             <div class="form-field">
                 <hr/>
                 <p class="form-label">{{texts.modals.multisig.cosignatories}}</p>
                 {{#each cosignatories : i}}
-                    <div class="{{#i !== 0}}form-field{{/}}">
+                    <div class="form-field">
                         <div class="form-row multisig-cosignatory">
                             <div class="form-input-end form-input-remove">
                                 {{#.canRemoveRow}}<button type="button" class="icon-cancel" on-click="removeCosignatory(i)"></button>{{/}}
@@ -927,10 +944,10 @@
 			<span class="modificationConfirm-label">{{texts.modals.multisig.multisigAccount}}</span>
 			<span class="modificationConfirm-value"><span class="modificationConfirm-account">
                 <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(requestData.account)">
-                {{#if (privateLabels[requestData.account])}}
-                    {{privateLabels[requestData.account]}}
+                {{#if (privateLabels[requestData.account.address])}}
+                    {{privateLabels[requestData.account.address]}}
                 {{else}}
-                    {{requestData.account}}
+                    {{requestData.account.address}}
                 {{/if}}
                 </a>
             </span></span>
