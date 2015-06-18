@@ -68,33 +68,49 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }, options.silent
             );
         },
+        resetMinCosignatories: function() {
+            if (this.get('useDefaultMinCosignatories')) {
+                var c = this.get('cosignatories');
+                if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
+                    if (this.get('multisigAccount').minCosignatories) {
+                        var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
+                        var removed = c.filter(function(a){return a.deleted === true;}).length;
+                        var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
+                        this.set('minCosignatories', existing - removed + added);
+
+                    } else {
+                        this.set('minCosignatories', 0);
+                    }
+                } else {
+                    this.set('minCosignatories', c.length);
+                }
+            }
+        },
 		addCosignatory: function() {
             this.get('cosignatories').push({
                 formattedAddress:'',
                 readOnly:false,
                 canRemoveRow: true
             });
-            $('.js-cosignatory')
-                .last()
-                .typeahead(this.typeaheadSettings, this.typeaheadData);
-                /* this does not work neither .on nor .bind
-                .on('typeahead:select', function(ev, suggestion) {
-                    console.log('Selection: ' + suggestion);
+            var $cosignatory = $('.js-cosignatory').last();
+
+            var self = this;
+            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); self.typeaheadHack(); self.resetMinCosignatories(); });
+            $cosignatory.on('keyup', function(e) {
+                self.resetMinCosignatories();
+            });
+
+            $cosignatory
+                .typeahead(this.typeaheadSettings, this.typeaheadData)
+                .bind('typeahead:selected', function(ev, suggestion) {
+                    self.resetMinCosignatories();
+
                 })
-                .on('typeahead:autocomplete', function(ev, suggestion) {
-                    console.log('autocomplete: ' + suggestion);
+                .bind('typeahead:autocompleted', function(ev, suggestion) {
+                    self.resetMinCosignatories();
                 });
-                */
-
-            $('.js-cosignatory').last().focus();
-
+            $cosignatory.focus();
             this.resetMinCosignatories();
-
-//            var self = this;
-//            var $cosignatory = $('.js-cosignatory').last();
-//            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-//            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-//            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
         },
         removeCosignatory: function(index) {
             this.get('cosignatories').splice(index, 1);
@@ -110,13 +126,15 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
         resetCosignatories: function() {
             var multisigAccount = this.get('multisigAccount');
             if (multisigAccount && multisigAccount.isMultisig) {
-                var cosigs = multisigAccount.cosignatories.map(function(a){ return {
-                    formattedAddress: Utils.format.address.format(a.address),
-                    readOnly: true,
-                    canRemoveRow: false,
-                    canDeleteCosig: true,
-                    deleted: false
-                };});
+                var cosigs = multisigAccount.cosignatories.map(function(a){
+                    return {
+                        formattedAddress: Utils.format.address.format(a.address),
+                        readOnly: true,
+                        canRemoveRow: false,
+                        canDeleteCosig: true,
+                        deleted: false
+                    };
+                });
                 this.set('cosignatories', cosigs);
 
             } else {
@@ -227,25 +245,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                 }
             }
         },
-        resetMinCosignatories: function() {
-            if (this.get('useDefaultMinCosignatories')) {
-                var c = this.get('cosignatories');
-                if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
-                    if (this.get('multisigAccount').minCosignatories || 1) {
-                        console.log("COSIGS min", c);
-                        var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
-                        var removed = c.filter(function(a){return a.deleted === true;}).length;
-                        var added = c.filter(function(a){return a.deleted === undefined && a.address;}).length;
-                        this.set('minCosignatories', existing - removed + added);
-
-                    } else {
-                        this.set('minCosignatories', 0);
-                    }
-                } else {
-                    this.set('minCosignatories', c.length);
-                }
-            }
-        },
         typeaheadSettings: {
             hint: false,
             highlight: true
@@ -333,7 +332,7 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                     }
                 },
                 modalOpened: function() {
-                    $('.js-cosignatory').focus();
+                    $('.js-cosignatory').last().focus();
                     this.resetDefaultData();
                 },
                 modalClosed: function() {
@@ -351,11 +350,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
             $minCosignatories.on('paste', function(e) { Utils.mask.paste(e, 'number', self); });
             $minCosignatories.on('keydown', function(e) { Utils.mask.keydown(e, 'number', self); });
 
-//            var $cosignatory = $('.js-cosignatory');
-//            $cosignatory.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });
-//            $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); });
-//            $cosignatory.on('keydown', function(e) { Utils.mask.keydown(e, 'address', self); });
-
             var $fee = $('.js-multisig-fee-textbox');
             var feeTxb = $fee[0];
             $fee.on('keypress', function(e) { Utils.mask.keypress(e, 'nem', self); });
@@ -370,7 +364,6 @@ define(['NccModal', 'Utils', 'handlebars', 'typeahead'], function(NccModal, Util
                     feeTxb.value = Utils.format.nem.reformat(feeTxb.value, null, null, oldProp, newProp);
                 }
             }));
-            // Cosignatory fields
         }
 	});
 });
