@@ -217,56 +217,41 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this.resetFee({ silent: true });
         },
         sendTransaction: function() {
-            var requestData;
-            // TODO 20150618 J-G: i think you can refactor and just update the type and multisigFee in the else
-            if (! this.get('multisigAccount').isMultisig) {
-                requestData = {
-                    wallet: ncc.get('wallet.wallet'),
-                    type: TransactionType.Aggregate_Modification,
-                    account: this.get('multisigAccount').address,
-                    password: this.get('password'),
+            var requestData = {
+                wallet: ncc.get('wallet.wallet'),
+                type: TransactionType.Aggregate_Modification,
+                account: this.get('multisigAccount').address,
+                password: this.get('password'),
 
-                    addedCosignatories: this.get('cosignatories')
-                        .filter(function(e){ return (!!e.address); })
-                        .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
+                existingCosignatories: this.get('cosignatories')
+                    .filter(function(e){ return (!!e.address) && (e.deleted === false || e.deleted === true); })
+                    .map(function(e){ return {'address':e.address}}),
 
-                    minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
+                removedCosignatories: this.get('cosignatories')
+                    .filter(function(e){ return (!!e.address) && (e.deleted === true); })
+                    .map(function(e){ return {'address':e.address}}),
 
-                    fee: this.get('fee'),
-                    multisigFee: 0,
-                    hoursDue: this.get('hoursDue')
-                };
-            } else {
+                addedCosignatories: this.get('cosignatories')
+                    .filter(function(e){ return (!!e.address); })
+                    .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
+
+                minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
+
+                fee: this.get('fee'),
+                multisigFee: 0,
+                hoursDue: this.get('hoursDue')
+            };
+            if (this.get('multisigAccount').isMultisig) {
                 var relativeChange = 0;
                 if (this.get('realMinCosignatories') !== 0) {
                     var existing = this.getExistingCount();
                     relativeChange = this.get('realMinCosignatories') - existing;
                 }
-                requestData = {
-                    wallet: ncc.get('wallet.wallet'),
-                    type: TransactionType.Multisig_Aggregate_Modification,
-                    account: this.get('multisigAccount').address,
-                    issuer: ncc.get('activeAccount').address,
-                    password: this.get('password'),
 
-                    existingCosignatories: this.get('cosignatories')
-                        .filter(function(e){ return (!!e.address) && (e.deleted === false || e.deleted === true); })
-                        .map(function(e){ return {'address':e.address}}),
-
-                    removedCosignatories: this.get('cosignatories')
-                        .filter(function(e){ return (!!e.address) && (e.deleted === true); })
-                        .map(function(e){ return {'address':e.address}}),
-
-                    addedCosignatories: this.get('cosignatories')
-                        .filter(function(e){ return (!!e.address) && (e.deleted === undefined); })
-                        .map(function(e){ return {'address':e.address}}),
-
-                    minCosignatories: {'relativeChange': relativeChange },
-
-                    fee: this.get('fee'),
-                    multisigFee: this.get('multisigFee'),
-                    hoursDue: this.get('hoursDue')
-                };
+                requestData.type = TransactionType.Multisig_Aggregate_Modification;
+                requestData.issuer: ncc.get('activeAccount').address,
+                requestData.minCosignatories: {'relativeChange': relativeChange },
+                requestData.multisigFee: this.get('multisigFee'),
             }
 
             var txConfirm = ncc.getModal('modificationConfirm');
