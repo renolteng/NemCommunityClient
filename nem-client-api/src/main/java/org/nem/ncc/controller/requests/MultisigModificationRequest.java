@@ -14,38 +14,50 @@ import java.util.List;
 public class MultisigModificationRequest {
 	private final WalletName walletName;
 	private final WalletPassword password;
-	private final Address senderAddress;
-	private final List<Address> cosignatoriesAddresses;
+	private final Address multisigAddress;
+	private final Address issuerAddress;
+	private final List<Address> addedCosignatories;
+	private final List<Address> removedCosignatories;
 	private final MultisigMinCosignatoriesModification minCosignatoriesModification;
 	private final int hoursDue;
 	private final Amount fee;
+	private final Amount multisigFee;
+	private final int type;
 
 	/**
 	 * Creates a new multisig modification request.
 	 *
 	 * @param walletName The wallet name.
 	 * @param password The wallet password.
-	 * @param senderAddress The sender address.
-	 * @param cosignatoriesAddresses The list of cosignatory addresses.
+	 * @param issuerAddress The sender address.
+	 * @param addedCosignatories The list of cosignatory addresses.
 	 * @param minCosignatoriesModification The minimum cosignatories modification.
 	 * @param hoursDue The number of hours for the transaction to be valid.
 	 * @param fee The fee.
 	 */
 	public MultisigModificationRequest(
 			final WalletName walletName,
+			final int type,
 			final WalletPassword password,
-			final Address senderAddress,
-			final List<Address> cosignatoriesAddresses,
+			final Address multisigAddress,
+			final Address issuerAddress,
+			final List<Address> addedCosignatories,
+			final List<Address> removedCosignatories,
 			final MultisigMinCosignatoriesModification minCosignatoriesModification,
 			final int hoursDue,
-			final Amount fee) {
+			final Amount fee,
+			final Amount multisigFee) {
 		this.walletName = walletName;
+		this.type = type;
 		this.password = password;
-		this.senderAddress = senderAddress;
-		this.cosignatoriesAddresses = cosignatoriesAddresses;
+		this.multisigAddress = multisigAddress;
+		this.issuerAddress = issuerAddress;
+		this.addedCosignatories = addedCosignatories;
+		this.removedCosignatories = removedCosignatories;
 		this.minCosignatoriesModification = minCosignatoriesModification;
 		this.hoursDue = hoursDue;
 		this.fee = fee;
+		this.multisigFee = multisigFee;
 	}
 
 	/**
@@ -55,12 +67,16 @@ public class MultisigModificationRequest {
 	 */
 	public MultisigModificationRequest(final Deserializer deserializer) {
 		this.walletName = WalletName.readFrom(deserializer, "wallet");
+		this.type = deserializer.readInt("type");
 		this.password = WalletPassword.readFrom(deserializer, "password");
-		this.senderAddress = Address.readFrom(deserializer, "account");
-		this.cosignatoriesAddresses = deserializer.readObjectArray("cosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
+		this.multisigAddress = Address.readFrom(deserializer, "account");
+		this.issuerAddress = Address.readFromOptional(deserializer, "issuer", AddressEncoding.COMPRESSED);
+		this.addedCosignatories = deserializer.readObjectArray("addedCosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
+		this.removedCosignatories =  deserializer.readObjectArray("removedCosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
 		this.minCosignatoriesModification = deserializer.readObject("minCosignatories", MultisigMinCosignatoriesModification::new);
 		this.hoursDue = deserializer.readInt("hoursDue");
 		this.fee = Amount.readFrom(deserializer, "fee");
+		this.multisigFee = Amount.readFrom(deserializer, "multisigFee");
 	}
 
 	/**
@@ -77,8 +93,8 @@ public class MultisigModificationRequest {
 	 *
 	 * @return The sender account id.
 	 */
-	public Address getSenderAddress() {
-		return this.senderAddress;
+	public Address getIssuerAddress() {
+		return this.issuerAddress;
 	}
 
 	/**
@@ -86,8 +102,17 @@ public class MultisigModificationRequest {
 	 *
 	 * @return The list of cosignatories.
 	 */
-	public List<Address> getCosignatoriesAddresses() {
-		return this.cosignatoriesAddresses;
+	public List<Address> getAddedCosignatories() {
+		return this.addedCosignatories;
+	}
+
+	/**
+	 * Gets list of cosignatories.
+	 *
+	 * @return The list of cosignatories.
+	 */
+	public List<Address> getRemovedCosignatories() {
+		return this.removedCosignatories;
 	}
 
 	/**

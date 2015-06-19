@@ -49,7 +49,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 return !this.get('passwordValid') && this.get('passwordChanged');
             },
             minCosignatoriesError: function() {
-                return this.get('minCosignatoriesOverflow') || this.get('minCosignatoriesZero');
+                return this.get('minCosignatoriesOverflow');
             },
             formValid: function() {
                 return this.get('feeValid') && this.get('passwordValid') && this.get('multisigAccount') && this.get('cosignatoriesValid') && !this.get('minCosignatoriesError');
@@ -78,21 +78,32 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 }, options.silent
             );
         },
+        getExistingCount: function() {
+            var c = this.get('cosignatories');
+            var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
+            if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig && this.get('multisigAccount').minCosignatories) {
+                existing = this.get('multisigAccount').minCosignatories;
+            }
+            return existing;
+        },
         resetMinCosignatories: function() {
             if (this.get('useDefaultMinCosignatories')) {
+                var existing = this.getExistingCount();
                 var c = this.get('cosignatories');
+                var removed = c.filter(function(a){return a.deleted === true;}).length;
+                var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
                 if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
-                    if (this.get('multisigAccount').minCosignatories || 1) {
-                        var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
-                        var removed = c.filter(function(a){return a.deleted === true;}).length;
-                        var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
+                    if (this.get('multisigAccount').minCosignatories) {
                         this.set('minCosignatories', existing - removed + added);
+                        this.set('realMinCosignatories', existing - removed + added);
 
                     } else {
-                        this.set('minCosignatories', 0);
+                        this.set('minCosignatories', existing - removed + added);
+                        this.set('realMinCosignatories', 0);
                     }
                 } else {
                     this.set('minCosignatories', c.length);
+                    this.set('realMinCosignatories', 0);
                 }
             }
         },
@@ -199,6 +210,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this.set('useMinimumFee', true);
             this.set('useDefaultMinCosignatories', true);
             this.set('minCosignatories', 0);
+            this.set('realMinCosignatories', 0);
 
             this.set('feeChanged', false);
             this.set('passwordChanged', true);
@@ -211,12 +223,13 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 requestData = {
                     wallet: ncc.get('wallet.wallet'),
                     type: TransactionType.Aggregate_Modification,
-                    account: this.get('multisigAccount'),
+                    account: this.get('multisigAccount').address,
                     password: this.get('password'),
 
-                    cosignatories: this.get('cosignatories')
+                    addedCosignatories: this.get('cosignatories')
                         .filter(function(e){ return (!!e.address); })
                         .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
+
                     minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
 
                     fee: this.get('fee'),
@@ -224,17 +237,31 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     hoursDue: this.get('hoursDue')
                 };
             } else {
+                var relativeChange = 0;
+                if (this.get('realMinCosignatories') !== 0) {
+                    var existing = this.getExistingCount();
+                    relativeChange = this.get('realMinCosignatories') - existing;
+                }
                 requestData = {
                     wallet: ncc.get('wallet.wallet'),
                     type: TransactionType.Multisig_Aggregate_Modification,
-                    account: this.get('multisigAccount'),
-                    issuer: ncc.get('activeAccount'),
+                    account: this.get('multisigAccount').address,
+                    issuer: ncc.get('activeAccount').address,
                     password: this.get('password'),
 
-                    cosignatories: this.get('cosignatories')
-                        .filter(function(e){ return (!!e.address); })
-                        .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
-                    minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
+                    existingCosignatories: this.get('cosignatories')
+                        .filter(function(e){ return (!!e.address) && (e.deleted === false || e.deleted === true); })
+                        .map(function(e){ return {'address':e.address}}),
+
+                    removedCosignatories: this.get('cosignatories')
+                        .filter(function(e){ return (!!e.address) && (e.deleted === true); })
+                        .map(function(e){ return {'address':e.address}}),
+
+                    addedCosignatories: this.get('cosignatories')
+                        .filter(function(e){ return (!!e.address) && (e.deleted === undefined); })
+                        .map(function(e){ return {'address':e.address}}),
+
+                    minCosignatories: {'relativeChange': relativeChange },
 
                     fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
@@ -246,6 +273,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
             txConfirm.set('requestData', requestData);
+
             txConfirm.open();
         },
         doCosignatoryCheck: function() {
@@ -318,20 +346,26 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 })()
             },
             {
-                init: false
+                init: true
             });
             this.observe({
                 minCosignatories: function() {
-                    if (this.get('minCosignatories')==null || this.get('minCosignatories')==='' || parseInt(this.get('minCosignatories'),10)===0) {
-                        this.set('minCosignatoriesZero', true);
-                    } else {
-                        this.set('minCosignatoriesZero', false);
-                    }
-                    if (parseInt(this.get('minCosignatories'), 10) > this.get('cosignatories').length) {
+                    var c = this.get('cosignatories');
+
+                    // this sux, it relies on the fact that observer for cosignatories will be fired before this one :/
+                    var existing = self.getExistingCount();
+                    var removed = c.filter(function(a){return a.deleted === true;}).length;
+                    var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
+
+                    if (parseInt(this.get('minCosignatories'), 10) > (existing-removed+added)) {
                         this.set('minCosignatoriesOverflow', true);
                     } else {
                          this.set('minCosignatoriesOverflow', false);
-                     }
+                    }
+
+                    if (! this.get('useDefaultMinCosignatories')) {
+                        this.set('realMinCosignatories', existing - removed + added);
+                    }
                 },
                 useDefaultMinCosignatories: function() {
                     self.resetMinCosignatories();

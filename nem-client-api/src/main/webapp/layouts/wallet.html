@@ -981,12 +981,11 @@
         </div>
         <div class="modificationConfirm-line">
             <span class="modificationConfirm-label">&nbsp;</span>
-            <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{requestData.minCosignatories.relativeChange}}</span>
+            <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{txData.minCosignatories}} (relative change: {{requestData.minCosignatories.relativeChange}})</span>
         </div>
 		<hr>
         <p class="form-label">Existing {{texts.modals.multisig.cosignatories}}</p>
-        {{#each requestData.cosignatories : i}}
-            {{#if (.deleted === false)}}
+        {{#each requestData.existingCosignatories : i}}
             <div class="modificationConfirm-line">
                 <span class="modificationConfirm-label">{{i}}</span>
                 <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
@@ -999,11 +998,9 @@
                     </a>
                 </span></span>
             </div>
-            {{/if}}
         {{/each}}
         <p class="form-label">Removed {{texts.modals.multisig.cosignatories}}</p>
-        {{#each requestData.cosignatories : i}}
-        {{#if (.deleted === true)}}
+        {{#each requestData.removedCosignatories : i}}
             <div class="modificationConfirm-line">
                 <span class="modificationConfirm-label">{{i}}</span>
                 <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
@@ -1016,11 +1013,9 @@
                     </a>
                 </span></span>
             </div>
-        {{/if}}
         {{/each}}
 		<p class="form-label">Added {{texts.modals.multisig.cosignatories}}</p>
-		{{#each requestData.cosignatories : i}}
-        {{#if (.deleted === undefined)}}
+		{{#each requestData.addedCosignatories : i}}
             <div class="modificationConfirm-line">
                 <span class="modificationConfirm-label">{{i}}</span>
                 <span class="modificationConfirm-value"><span class="modificationConfirm-cosignatory">
@@ -1033,7 +1028,6 @@
                     </a>
                 </span></span>
             </div>
-        {{/if}}
 		{{/each}}
 		<hr>
 		<div class="modificationConfirm-line">

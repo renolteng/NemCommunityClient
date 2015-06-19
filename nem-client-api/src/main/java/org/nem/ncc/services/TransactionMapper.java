@@ -270,16 +270,16 @@ public class TransactionMapper {
 	}
 
 	private Transaction toModel(final MultisigModificationRequest request, final WalletPassword password) {
-		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
+		final Account signer = this.getSenderAccount(request.getWalletName(), request.getIssuerAddress(), password);
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
-		final List<MultisigCosignatoryModification> modifications = request.getCosignatoriesAddresses().stream()
+		final List<MultisigCosignatoryModification> modifications = request.getAddedCosignatories().stream()
 				.map(this.accountLookup::findByAddress)
 				.filter(a -> null != a.getAddress().getPublicKey())
 				.map(o -> new MultisigCosignatoryModification(MultisigModificationType.AddCosignatory, o))
 				.collect(Collectors.toList());
 
-		if (modifications.size() != request.getCosignatoriesAddresses().size()) {
+		if (modifications.size() != request.getAddedCosignatories().size()) {
 			throw new NccException(NccException.Code.COSIGNATORY_NO_PUBLIC_KEY);
 		}
 

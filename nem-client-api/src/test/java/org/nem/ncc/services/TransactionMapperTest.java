@@ -369,7 +369,7 @@ public class TransactionMapperTest {
 		// Arrange:
 		final TestContext context = new TestContext();
 		context.addCosignatoriesWithPubKey(3);
-		context.cosignatories.stream()
+		context.addedCosignatories.stream()
 				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
 		context.addMinCosignatoriesModification(minCosignatoriesModification);
 
@@ -377,7 +377,7 @@ public class TransactionMapperTest {
 		final MultisigModificationRequest request = createModificationRequest(context);
 		final MultisigAggregateModificationTransaction model
 				= (MultisigAggregateModificationTransaction)context.mapper.toModel(request);
-		final List<Address> expectedAddresses = context.cosignatories.stream()
+		final List<Address> expectedAddresses = context.addedCosignatories.stream()
 				.map(Account::getAddress)
 				.collect(Collectors.toList());
 		final List<Address> addresses = model.getCosignatoryModifications().stream()
@@ -402,7 +402,7 @@ public class TransactionMapperTest {
 		final TestContext context = new TestContext();
 		context.addCosignatoriesWithPubKey(3);
 		context.addCosignatoryWithoutPubKey();
-		context.cosignatories.stream()
+		context.addedCosignatories.stream()
 				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
 		final MultisigModificationRequest request = createModificationRequest(context);
 
@@ -465,12 +465,16 @@ public class TransactionMapperTest {
 	private static MultisigModificationRequest createModificationRequest(final TestContext context) {
 		return new MultisigModificationRequest(
 				new WalletName("w"),
+				TransactionViewModel.Type.Multisig_Modification.getValue(),
 				new WalletPassword("p"),
 				context.signer.getAddress(), // must be a valid address
-				context.cosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				null,
+				context.addedCosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				null,
 				context.minCosignatoriesModification,
 				1,
-				Amount.fromNem(7));
+				Amount.fromNem(7),
+				Amount.ZERO);
 	}
 
 	private static class TestContext {
@@ -486,7 +490,7 @@ public class TransactionMapperTest {
 		private final Account signer = new Account(this.signerKeyPair);
 		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
 		private final Account recipient;
-		private final List<Account> cosignatories = new ArrayList<>();
+		private final List<Account> addedCosignatories = new ArrayList<>();
 		private MultisigMinCosignatoriesModification minCosignatoriesModification = null;
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 
@@ -509,11 +513,11 @@ public class TransactionMapperTest {
 		}
 
 		private void addCosignatoriesWithPubKey(final int count) {
-			IntStream.range(0, count).forEach(i -> this.cosignatories.add(Utils.generateRandomAccount()));
+			IntStream.range(0, count).forEach(i -> this.addedCosignatories.add(Utils.generateRandomAccount()));
 		}
 
 		private void addCosignatoryWithoutPubKey() {
-			this.cosignatories.add(new Account(Utils.generateRandomAddress()));
+			this.addedCosignatories.add(new Account(Utils.generateRandomAddress()));
 		}
 
 		private void addMinCosignatoriesModification(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
