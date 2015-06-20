@@ -232,8 +232,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     .map(function(e){ return {'address':e.address}}),
 
                 addedCosignatories: this.get('cosignatories')
-                    .filter(function(e){ return (!!e.address); })
-                    .map(function(e){ return {'address':e.address, 'deleted':e.deleted}}),
+                    .filter(function(e){ return (!!e.address)  && (e.deleted === undefined); })
+                    .map(function(e){ return {'address':e.address}}),
 
                 minCosignatories: {'relativeChange': this.get('minCosignatoriesNumber') },
 
@@ -249,9 +249,9 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 }
 
                 requestData.type = TransactionType.Multisig_Aggregate_Modification;
-                requestData.issuer: ncc.get('activeAccount').address,
-                requestData.minCosignatories: {'relativeChange': relativeChange },
-                requestData.multisigFee: this.get('multisigFee'),
+                requestData.issuer =  ncc.get('activeAccount').address;
+                requestData.minCosignatories = {'relativeChange': relativeChange };
+                requestData.multisigFee = this.get('multisigFee');
             }
 
             var txConfirm = ncc.getModal('modificationConfirm');
