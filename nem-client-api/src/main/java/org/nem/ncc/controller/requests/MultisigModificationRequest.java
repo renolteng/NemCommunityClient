@@ -89,9 +89,19 @@ public class MultisigModificationRequest {
 	}
 
 	/**
-	 * Gets the sender account id.
+	 * Gets an account that is supposed to be multisig
+	 * or is an existing multisig account that needs to be modified
 	 *
-	 * @return The sender account id.
+	 * @return The multisig account
+	 */
+	public Address getMultisigAccount() {
+		return this.multisigAddress;
+	}
+
+	/**
+	 * Gets the issuear account id (can be null).
+	 *
+	 * @return The issuer account id.
 	 */
 	public Address getIssuerAddress() {
 		return this.issuerAddress;
@@ -149,5 +159,23 @@ public class MultisigModificationRequest {
 	 */
 	public Amount getFee() {
 		return this.fee;
+	}
+
+	/**
+	 * Gets the multisig fee
+	 *
+	 * @return The multisig fee.
+	 */
+	public Amount getMultisigFee() {
+		return this.multisigFee;
+	}
+
+	/**
+	 * Gets the type of transfer.
+	 *
+	 * @return The type of transfer (multisig or normal).
+	 */
+	public int getType() {
+		return this.type;
 	}
 }

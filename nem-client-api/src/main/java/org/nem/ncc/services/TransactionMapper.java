@@ -270,7 +270,7 @@ public class TransactionMapper {
 	}
 
 	private Transaction toModel(final MultisigModificationRequest request, final WalletPassword password) {
-		final Account signer = this.getSenderAccount(request.getWalletName(), request.getIssuerAddress(), password);
+		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Multisig_Modification.getValue();
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
 		final List<MultisigCosignatoryModification> modifications = request.getAddedCosignatories().stream()
@@ -279,17 +279,42 @@ public class TransactionMapper {
 				.map(o -> new MultisigCosignatoryModification(MultisigModificationType.AddCosignatory, o))
 				.collect(Collectors.toList());
 
-		if (modifications.size() != request.getAddedCosignatories().size()) {
+		request.getRemovedCosignatories().stream()
+				.map(this.accountLookup::findByAddress)
+				.filter(a -> null != a.getAddress().getPublicKey())
+				.map(o -> new MultisigCosignatoryModification(MultisigModificationType.DelCosignatory, o))
+				.forEachOrdered(modifications::add);
+
+		if (modifications.size() != request.getAddedCosignatories().size() + request.getRemovedCosignatories().size()) {
 			throw new NccException(NccException.Code.COSIGNATORY_NO_PUBLIC_KEY);
 		}
 
-		final MultisigAggregateModificationTransaction multisigTransaction = new MultisigAggregateModificationTransaction(
+		final Account sender = isMultisig ?
+				this.accountLookup.findByAddress(request.getMultisigAccount()) :
+				this.getSenderAccount(request.getWalletName(), request.getMultisigAccount(), password);
+
+		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
 				timeStamp,
-				signer,
+				sender,
 				modifications,
 				request.getMinCosignatoriesModification());
+
+		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+		transaction.setFee(request.getFee());
+
+		if (! isMultisig) {
+			return transaction;
+		}
+
+		// wrap in a multisig
+
+		final Account issuer = this.getSenderAccount(request.getWalletName(), request.getIssuerAddress(), password);
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				timeStamp,
+				issuer,
+				transaction);
 		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
-		multisigTransaction.setFee(request.getFee());
+		multisigTransaction.setFee(request.getMultisigFee());
 		return multisigTransaction;
 	}
 
