@@ -458,7 +458,7 @@ public class TransactionMapperTest {
 				model.getMinCosignatoriesModification(),
 				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
 
-		Assert.assertThat(outerModel.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
+		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
 	}
 
 	@Test
