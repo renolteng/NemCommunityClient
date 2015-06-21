@@ -1416,7 +1416,7 @@
 			</tr>
 			{{/each}}
 			{{/if}}
-			{{#if (.type === TransactionType.Multisig_Transfer)}}
+			{{#if (.isMultisig)}}
 				<tr><td colspan="2"><hr></td></tr>
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
@@ -1431,19 +1431,35 @@
 					</td>
 				</tr>
 				<tr><td colspan="2">Signatures present:</td></tr>
-				{{#each .signatures}}
-					<tr>
-						<td colspan="2" class="table-cell table-cell--content">
-							<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                {{#if .confirmed}}
+                    {{#each .signatures}}
+                        <tr>
+                            <td colspan="2" class="table-cell table-cell--content">
+                                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                    {{#if privateLabels[.sender]}}
+                                        {{privateLabels[.sender]}}
+                                    {{else}}
+                                        {{.sender}}
+                                    {{/if}}
+                                </a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    {{#each .signaturesData}}
+                    <tr>
+                        <td colspan="2" class="table-cell table-cell--content">
+                            <a class="hyperlink--default {{#if .present}}icon-ok-circled2{{else}}icon-circle-empty{{/if}}" href="javascript:;" on-click="viewAccount(.address)">
                                 {{#if privateLabels[.sender]}}
-                                    {{privateLabels[.sender]}}
+                                {{privateLabels[.sender]}}
                                 {{else}}
-                                    {{.sender}}
+                                {{.sender}}
                                 {{/if}}
                             </a>
-						</td>
-					</tr>
-				{{/each}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                {{/if}}
 			{{/if}}
 		</table>
 	{{/}}

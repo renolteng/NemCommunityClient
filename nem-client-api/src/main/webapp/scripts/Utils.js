@@ -691,10 +691,28 @@ define(['TransactionType'], function(TransactionType) {
                     tx.message = tx.inner.message;
 
                 } else if (tx.type === TransactionType.Multisig_Importance_Transfer) {
-                    tx.remote = tx.inner.remote;
-                } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
-                    tx.modifications = tx.inner.modifications;
                     realTransaction = tx.inner;
+                    tx.remote = realTransaction.remote;
+
+                } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
+                    realTransaction = tx.inner;
+                    tx.modifications = realTransaction.modifications;
+                }
+
+                // for all unconfirmed multisig transactions get all cosignatories that are needed
+                // and mark the ones that already cosigned
+                if (!tx.confirmed) {
+                    ncc.get('activeAccount').multisigAccounts.forEach(function(a){
+                        var allMultisigAccounts = ncc.get('wallet.allMultisigAccounts');
+                        if ((a.address === realTransaction.sender) && (a.address in allMultisigAccounts)) {
+                            var curMultisigAccount = allMultisigAccounts[a.address];
+
+                            var isPresent = function(addr) {
+                                return (tx.signatures.filter(function(a){return a.sender === addr}).length !== 0) || (tx.issuer === addr);
+                            };
+                            tx.signaturesData = curMultisigAccount.cosignatories.map(function(a){ return {sender:a.address, present:isPresent(a.address)}; });
+                        }
+                    });
                 }
 
                 var mutltisigFees = tx.fee + tx.signatures
@@ -727,9 +745,10 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = true;
             }
 
+            // for aggregate modifications, and only if it's unconfirmed, calculate what is previous and
+            // NEW min cosignatories count
             if (realTransaction.type == TransactionType.Aggregate_Modification) {
-                if (!realTransaction.confirmed) {
-                    // we can try to display what were values before
+                if (!tx.confirmed) {
                     ncc.get('activeAccount').multisigAccounts.forEach(function(a){
                         if (a.address === realTransaction.sender) {
                             if (a.multisigInfo.minCosignatories) {
@@ -746,8 +765,8 @@ define(['TransactionType'], function(TransactionType) {
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
 
             } else if (realTransaction.type == TransactionType.Transfer) {
                 tx.isIncoming = realTransaction.direction === 1; //  || realTransaction.direction === 0;
@@ -763,6 +782,7 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedRecipient = Utils.format.address.format(realTransaction.recipient);
             tx.formattedAmount = Utils.format.nem.formatNemAmount(realTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullAmount = Utils.format.nem.formatNemAmount(realTransaction.amount);
+
             return tx;
         },
         processTransactions: function(transactions) {

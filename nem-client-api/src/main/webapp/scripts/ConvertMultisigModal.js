@@ -94,11 +94,11 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
                 if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
                     if (this.get('multisigAccount').minCosignatories) {
-                        this.set('minCosignatories', existing - removed + added);
-                        this.set('minCosignatoriesRelative', removed + added);
+                        this.set('minCosignatories', existing + added - removed);
+                        this.set('minCosignatoriesRelative', added - removed);
 
                     } else {
-                        this.set('minCosignatories', existing - removed + added);
+                        this.set('minCosignatories', existing + added - removed);
                         this.set('minCosignatoriesRelative', 0);
                     }
                 } else {
@@ -245,6 +245,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 var relativeChange = 0;
                 if (this.get('minCosignatoriesRelative') !== 0) {
                     relativeChange = this.get('minCosignatoriesRelative');
+                    console.log("relativeChange: ", relativeChange);
                 }
 
                 requestData.type = TransactionType.Multisig_Aggregate_Modification;
