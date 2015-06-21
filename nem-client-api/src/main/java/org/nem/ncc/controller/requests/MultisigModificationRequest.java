@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class MultisigModificationRequest {
 	private final WalletName walletName;
+	private final int type; // TODO 20150621 J-G: probably can be boolean?
 	private final WalletPassword password;
 	private final Address multisigAddress;
 	private final Address issuerAddress;
@@ -22,18 +23,21 @@ public class MultisigModificationRequest {
 	private final int hoursDue;
 	private final Amount fee;
 	private final Amount multisigFee;
-	private final int type;
 
 	/**
 	 * Creates a new multisig modification request.
 	 *
 	 * @param walletName The wallet name.
+	 * @param type The modification type (multisig or not).
 	 * @param password The wallet password.
-	 * @param issuerAddress The sender address.
-	 * @param addedCosignatories The list of cosignatory addresses.
+	 * @param multisigAddress The multisig address.
+	 * @param issuerAddress The issuer address.
+	 * @param addedCosignatories The list of cosignatory addresses to add.
+	 * @param removedCosignatories The list of cosignatory addresses to remove.
 	 * @param minCosignatoriesModification The minimum cosignatories modification.
 	 * @param hoursDue The number of hours for the transaction to be valid.
 	 * @param fee The fee.
+	 * @param fee The multisig fee.
 	 */
 	public MultisigModificationRequest(
 			final WalletName walletName,
@@ -89,37 +93,37 @@ public class MultisigModificationRequest {
 	}
 
 	/**
-	 * Gets an account that is supposed to be multisig
-	 * or is an existing multisig account that needs to be modified
+	 * Gets an account that should be converted to multisig
+	 * or an existing multisig account that needs to be modified.
 	 *
-	 * @return The multisig account
+	 * @return The multisig account.
 	 */
 	public Address getMultisigAccount() {
 		return this.multisigAddress;
 	}
 
 	/**
-	 * Gets the issuear account id (can be null).
+	 * Gets the issuer account id (can be null).
 	 *
-	 * @return The issuer account id.
+	 * @return The issuer account.
 	 */
 	public Address getIssuerAddress() {
 		return this.issuerAddress;
 	}
 
 	/**
-	 * Gets list of cosignatories.
+	 * Gets list of cosignatories to add.
 	 *
-	 * @return The list of cosignatories.
+	 * @return The cosignatories.
 	 */
 	public List<Address> getAddedCosignatories() {
 		return this.addedCosignatories;
 	}
 
 	/**
-	 * Gets list of cosignatories.
+	 * Gets list of cosignatories to remove.
 	 *
-	 * @return The list of cosignatories.
+	 * @return The cosignatories.
 	 */
 	public List<Address> getRemovedCosignatories() {
 		return this.removedCosignatories;
@@ -171,9 +175,9 @@ public class MultisigModificationRequest {
 	}
 
 	/**
-	 * Gets the type of transfer.
+	 * Gets the type of transfer (multisig or normal).
 	 *
-	 * @return The type of transfer (multisig or normal).
+	 * @return The type of transfer.
 	 */
 	public int getType() {
 		return this.type;

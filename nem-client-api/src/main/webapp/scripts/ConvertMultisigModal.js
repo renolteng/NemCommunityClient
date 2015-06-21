@@ -78,7 +78,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 }, options.silent
             );
         },
-        getExisitingMinCosigs: function() {
+        getExistingMinCosigs: function() {
             var c = this.get('cosignatories');
             var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
             if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig && this.get('multisigAccount').minCosignatories) {
@@ -88,7 +88,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
         },
         resetMinCosignatories: function() {
             if (this.get('useDefaultMinCosignatories')) {
-                var existing = this.getExisitingMinCosigs();
+                var existing = this.getExistingMinCosigs();
                 var c = this.get('cosignatories');
                 var removed = c.filter(function(a){return a.deleted === true;}).length;
                 var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
@@ -338,7 +338,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     var c = this.get('cosignatories');
 
                     // this sux, it relies on the fact that observer for cosignatories will be fired before this one :/
-                    var existing = self.getExisitingMinCosigs();
+                    var existing = self.getExistingMinCosigs();
                     var removed = c.filter(function(a){return a.deleted === true;}).length;
                     var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
 

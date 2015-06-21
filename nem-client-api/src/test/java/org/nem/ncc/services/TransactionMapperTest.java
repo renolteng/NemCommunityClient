@@ -389,13 +389,11 @@ public class TransactionMapperTest {
 				.collect(Collectors.toList());
 
 		// Assert:
-		Assert.assertThat(model.getCosignatoryModifications().stream()
-						.filter(m -> m.getModificationType() == MultisigModificationType.AddCosignatory)
-						.count(),
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.AddCosignatory),
 				IsEqual.equalTo(5L));
-		Assert.assertThat(model.getCosignatoryModifications().stream()
-						.filter(m -> m.getModificationType() == MultisigModificationType.DelCosignatory)
-						.count(),
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.DelCosignatory),
 				IsEqual.equalTo(3L));
 		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
 		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
@@ -404,6 +402,11 @@ public class TransactionMapperTest {
 				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
 		Assert.assertThat(model.getSigner().getAddress(), IsEqual.equalTo(context.signer.getAddress()));
 		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
+	}
+
+	@Test
+	public void canMapFromMultisigMultisigModificationRequestToModelWithNullMinCosignatoriesModification() {
+		this.assertCanBeMappedFromMultisigMultisigModificationRequestToModel(null);
 	}
 
 	@Test
@@ -443,13 +446,11 @@ public class TransactionMapperTest {
 				.collect(Collectors.toList());
 
 		// Assert:
-		Assert.assertThat(model.getCosignatoryModifications().stream()
-						.filter(m -> m.getModificationType() == MultisigModificationType.AddCosignatory)
-						.count(),
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.AddCosignatory),
 				IsEqual.equalTo(5L));
-		Assert.assertThat(model.getCosignatoryModifications().stream()
-						.filter(m -> m.getModificationType() == MultisigModificationType.DelCosignatory)
-						.count(),
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.DelCosignatory),
 				IsEqual.equalTo(3L));
 
 		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
@@ -459,6 +460,12 @@ public class TransactionMapperTest {
 				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
 
 		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
+	}
+
+	private static long countModifications(final MultisigAggregateModificationTransaction model, final MultisigModificationType type) {
+		return model.getCosignatoryModifications().stream()
+				.filter(m -> m.getModificationType() == type)
+				.count();
 	}
 
 	@Test
@@ -612,10 +619,6 @@ public class TransactionMapperTest {
 
 		private void delCosignatoriesWithPubKey(final int count) {
 			IntStream.range(0, count).forEach(i -> this.removedCosignatories.add(Utils.generateRandomAccount()));
-		}
-
-		private void delCosignatoryWithoutPubKey() {
-			this.removedCosignatories.add(new Account(Utils.generateRandomAddress()));
 		}
 
 		private void addMinCosignatoriesModification(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
