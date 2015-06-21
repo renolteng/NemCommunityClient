@@ -728,9 +728,10 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             if (realTransaction.type == TransactionType.Aggregate_Modification) {
-                ncc.get('activeAccount').multisigAccounts.forEach(function(a){
-                    if (a.address === realTransaction.sender) {
-                        if (!realTransaction.confirmed) {
+                if (!realTransaction.confirmed) {
+                    // we can try to display what were values before
+                    ncc.get('activeAccount').multisigAccounts.forEach(function(a){
+                        if (a.address === realTransaction.sender) {
                             if (a.multisigInfo.minCosignatories) {
                                 realTransaction.minCosignatories.oldMin = a.multisigInfo.minCosignatories;
                                 realTransaction.minCosignatories.newMin = a.multisigInfo.minCosignatories + realTransaction.minCosignatories.relativeChange;
