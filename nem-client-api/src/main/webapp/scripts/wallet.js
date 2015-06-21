@@ -18,7 +18,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 if (!wallet) wallet = ncc.get('wallet.wallet');
 
                 ncc.postRequest('wallet/info', { wallet: wallet }, function(data) {
-                    ncc.set('wallet', Utils.processWallet(data));
+                    Utils.processWallet(data);
                 }, null, silent);
 
                 ncc.refreshAddressBook(wallet, silent);
@@ -742,7 +742,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                             values.account = account;
                             ncc.postRequest('wallet/account/primary', values, function(data) {
                                 ncc.showMessage(ncc.get('texts.common.success'), ncc.fill(ncc.get('texts.modals.setPrimary.successMessage'), Utils.format.address.format(account), accountLabel));
-                                ncc.set('wallet', Utils.processWallet(data));
+                                Utils.processWallet(data);
                                 closeModal();
                             });
                         },
@@ -989,7 +989,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                                     ncc.get('texts.common.success'), 
                                     ncc.fill(ncc.get('texts.modals.removeAccount.successMessage'), Utils.format.address.format(account), accountLabel)
                                 );
-                                ncc.set('wallet', Utils.processWallet(data));
+                                Utils.processWallet(data);
                                 ncc.fire('switchAccount', null, data.primaryAccount.address);
                                 closeModal();
                             });

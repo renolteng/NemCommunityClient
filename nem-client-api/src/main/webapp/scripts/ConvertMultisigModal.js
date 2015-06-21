@@ -78,7 +78,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 }, options.silent
             );
         },
-        getExistingCount: function() {
+        getExisitingMinCosigs: function() {
             var c = this.get('cosignatories');
             var existing = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
             if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig && this.get('multisigAccount').minCosignatories) {
@@ -88,7 +88,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
         },
         resetMinCosignatories: function() {
             if (this.get('useDefaultMinCosignatories')) {
-                var existing = this.getExistingCount();
+                var existing = this.getExisitingMinCosigs();
                 var c = this.get('cosignatories');
                 var removed = c.filter(function(a){return a.deleted === true;}).length;
                 var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
@@ -244,7 +244,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             if (this.get('multisigAccount').isMultisig) {
                 var relativeChange = 0;
                 if (this.get('realMinCosignatories') !== 0) {
-                    var existing = this.getExistingCount();
+                    var existing = this.getExisitingMinCosigs();
                     relativeChange = this.get('realMinCosignatories') - existing;
                 }
 
@@ -338,18 +338,20 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     var c = this.get('cosignatories');
 
                     // this sux, it relies on the fact that observer for cosignatories will be fired before this one :/
-                    var existing = self.getExistingCount();
+                    var existing = self.getExisitingMinCosigs();
                     var removed = c.filter(function(a){return a.deleted === true;}).length;
                     var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
 
-                    if (parseInt(this.get('minCosignatories'), 10) > (existing-removed+added)) {
+                    var existingCosigs = c.filter(function(a){return a.deleted === false || a.deleted === true;}).length;
+                    if (parseInt(this.get('minCosignatories'), 10) > (existingCosigs-removed+added)) {
                         this.set('minCosignatoriesOverflow', true);
                     } else {
                          this.set('minCosignatoriesOverflow', false);
                     }
 
                     if (! this.get('useDefaultMinCosignatories')) {
-                        this.set('realMinCosignatories', existing - removed + added);
+                        // TODO, this needs fixing
+                        this.set('realMinCosignatories', 0);
                     }
                 },
                 useDefaultMinCosignatories: function() {

@@ -662,7 +662,7 @@ define(['TransactionType'], function(TransactionType) {
 
         // PROCESSING
         processTransaction: function(tx) {
-            var transferTransaction = tx;
+            var realTransaction = tx;
             var currentFee = 0;
 
             // there are three types now, to make ui templates simpler:
@@ -686,14 +686,15 @@ define(['TransactionType'], function(TransactionType) {
                     tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
                     tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
 
-                    transferTransaction = tx.inner;
-                    tx.recipient = transferTransaction.recipient
+                    realTransaction = tx.inner;
+                    tx.recipient = realTransaction.recipient
                     tx.message = tx.inner.message;
 
                 } else if (tx.type === TransactionType.Multisig_Importance_Transfer) {
                     tx.remote = tx.inner.remote;
                 } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
                     tx.modifications = tx.inner.modifications;
+                    realTransaction = tx.inner;
                 }
 
                 var mutltisigFees = tx.fee + tx.signatures
@@ -726,11 +727,31 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = true;
             }
 
-            if (transferTransaction.type == TransactionType.Transfer)
-            {
-                tx.isIncoming = transferTransaction.direction === 1; //  || transferTransaction.direction === 0;
-                tx.isOutgoing = transferTransaction.direction === 2;
-                tx.isSelf = transferTransaction.direction === 3;
+            if (realTransaction.type == TransactionType.Aggregate_Modification) {
+                ncc.get('activeAccount').multisigAccounts.forEach(function(a){
+                    if (a.address === realTransaction.sender) {
+                        if (!realTransaction.confirmed) {
+                            if (a.multisigInfo.minCosignatories) {
+                                realTransaction.minCosignatories.oldMin = a.multisigInfo.minCosignatories;
+                                realTransaction.minCosignatories.newMin = a.multisigInfo.minCosignatories + realTransaction.minCosignatories.relativeChange;
+                            } else {
+                                realTransaction.minCosignatories.oldMin = a.multisigInfo.cosignatoriesCount;
+                                if (realTransaction.minCosignatories.relativeChange) {
+                                    realTransaction.minCosignatories.newMin = realTransaction.minCosignatories.relativeChange;
+                                } else {
+                                    var removed = realTransaction.modifications.filter(function(m){return m.type === "del";}).length;
+                                    var added = realTransaction.modifications.filter(function(m){return m.type === "add";}).length;;
+                                    realTransaction.minCosignatories.newMin += (added - removed);
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } else if (realTransaction.type == TransactionType.Transfer) {
+                tx.isIncoming = realTransaction.direction === 1; //  || realTransaction.direction === 0;
+                tx.isOutgoing = realTransaction.direction === 2;
+                tx.isSelf = realTransaction.direction === 3;
             }
 
             tx.formattedSender = Utils.format.address.format(tx.sender);
@@ -738,9 +759,9 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
-            tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
+            tx.formattedRecipient = Utils.format.address.format(realTransaction.recipient);
+            tx.formattedAmount = Utils.format.nem.formatNemAmount(realTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(realTransaction.amount);
             return tx;
         },
         processTransactions: function(transactions) {
@@ -784,14 +805,8 @@ define(['TransactionType'], function(TransactionType) {
 
             return account;
         },
-        processWallet: function(wallet) {
-            wallet.lastRefreshDate = new Date(wallet.lastRefresh).toString();
-            wallet.daysPassed = Utils.daysPassed(wallet.lastRefresh);
-
-            Utils.processAccount(wallet.primaryAccount);
-            for (var i = 0; i < wallet.otherAccounts.length; i++) {
-                Utils.processAccount(wallet.otherAccounts[i]);
-            }
+        processMultisigs: function() {
+            var wallet = ncc.get('wallet');
 
             var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
             var allMultisigs = {};
@@ -809,8 +824,19 @@ define(['TransactionType'], function(TransactionType) {
                     }
                 );
             }
-            wallet.allMultisigAccounts = allMultisigAccounts;
+            ncc.set('wallet.allMultisigAccounts', allMultisigAccounts);
+        },
+        processWallet: function(wallet) {
+            wallet.lastRefreshDate = new Date(wallet.lastRefresh).toString();
+            wallet.daysPassed = Utils.daysPassed(wallet.lastRefresh);
 
+            Utils.processAccount(wallet.primaryAccount);
+            for (var i = 0; i < wallet.otherAccounts.length; i++) {
+                Utils.processAccount(wallet.otherAccounts[i]);
+            }
+
+            ncc.set('wallet', wallet);
+            this.processMultisigs();
             return wallet;
         },
         processContacts: function(ab) {
