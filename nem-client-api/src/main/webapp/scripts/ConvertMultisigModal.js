@@ -95,15 +95,15 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
                     if (this.get('multisigAccount').minCosignatories) {
                         this.set('minCosignatories', existing - removed + added);
-                        this.set('realMinCosignatories', existing - removed + added);
+                        this.set('minCosignatoriesRelative', removed + added);
 
                     } else {
                         this.set('minCosignatories', existing - removed + added);
-                        this.set('realMinCosignatories', 0);
+                        this.set('minCosignatoriesRelative', 0);
                     }
                 } else {
                     this.set('minCosignatories', c.length);
-                    this.set('realMinCosignatories', 0);
+                    this.set('minCosignatoriesRelative', 0);
                 }
             }
         },
@@ -210,7 +210,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this.set('useMinimumFee', true);
             this.set('useDefaultMinCosignatories', true);
             this.set('minCosignatories', 0);
-            this.set('realMinCosignatories', 0);
+            this.set('minCosignatoriesRelative', 0);
 
             this.set('feeChanged', false);
             this.set('passwordChanged', true);
@@ -243,9 +243,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             };
             if (this.get('multisigAccount').isMultisig) {
                 var relativeChange = 0;
-                if (this.get('realMinCosignatories') !== 0) {
-                    var existing = this.getExisitingMinCosigs();
-                    relativeChange = this.get('realMinCosignatories') - existing;
+                if (this.get('minCosignatoriesRelative') !== 0) {
+                    relativeChange = this.get('minCosignatoriesRelative');
                 }
 
                 requestData.type = TransactionType.Multisig_Aggregate_Modification;
@@ -350,8 +349,12 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     }
 
                     if (! this.get('useDefaultMinCosignatories')) {
-                        // TODO, this needs fixing
-                        this.set('realMinCosignatories', 0);
+                        var newMin = this.get('minCosignatoriesNumber');
+                        if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
+                            this.set('minCosignatoriesRelative', newMin - this.get('multisigAccount').minCosignatories);
+                        } else {
+                            this.set('minCosignatoriesRelative', newMin);
+                        }
                     }
                 },
                 useDefaultMinCosignatories: function() {
