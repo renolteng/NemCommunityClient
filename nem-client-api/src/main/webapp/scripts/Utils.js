@@ -738,16 +738,19 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             // importance transfer
-            if (tx.type == TransactionType.Importance_Transfer || tx.type == TransactionType.Multisig_Importance_Transfer) {
+            if (realTransaction.type === TransactionType.Importance_Transfer) {
                 tx.recipient = tx.remote;
                 tx.isIncoming = false;
                 tx.isOutgoing = false;
                 tx.isSelf = true;
-            }
 
             // for aggregate modifications, and only if it's unconfirmed, calculate what is previous and
             // NEW min cosignatories count
-            if (realTransaction.type == TransactionType.Aggregate_Modification) {
+            } else if (realTransaction.type === TransactionType.Aggregate_Modification) {
+                tx.isIncoming = false;
+                tx.isOutgoing = false;
+                tx.isSelf = false;
+
                 if (!tx.confirmed) {
                     ncc.get('activeAccount').multisigAccounts.forEach(function(a){
                         if (a.address === realTransaction.sender) {
@@ -768,7 +771,7 @@ define(['TransactionType'], function(TransactionType) {
                     });
                 }
 
-            } else if (realTransaction.type == TransactionType.Transfer) {
+            } else if (realTransaction.type === TransactionType.Transfer) {
                 tx.isIncoming = realTransaction.direction === 1; //  || realTransaction.direction === 0;
                 tx.isOutgoing = realTransaction.direction === 2;
                 tx.isSelf = realTransaction.direction === 3;
