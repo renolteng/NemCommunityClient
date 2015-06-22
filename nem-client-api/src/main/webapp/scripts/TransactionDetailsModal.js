@@ -1,17 +1,20 @@
 "use strict";
 
-define(['jquery', 'NccModal', 'Utils'], function($, NccModal, Utils) {
+define(['jquery', 'ractive', 'NccModal', 'Utils',
+    'rv!layout/partialTransferTransaction', 'rv!layout/partialImportanceTransaction', 'rv!layout/partialAggregateModification'],
+    function($, Ractive, NccModal, Utils,
+        partialTransferTransaction, partialImportanceTransaction, partialAggregateModification )
+{
 	return NccModal.extend({
+	    partials: {
+            transferTransactionPartial: partialTransferTransaction,
+            importanceTransactionPartial: partialImportanceTransaction,
+            aggregateModificationPartial: partialAggregateModification
+        },
 	    onrender: function() {
             this.set('privateLabels', ncc.get('privateLabels'));
 
             this.viewAccount = ncc.viewAccount;
-
-            // rather ugly way to make partials visible
-            this.partials['transferTransactionPartial'] = $('transferTransactionPartial').html();
-            this.partials['importanceTransactionPartial'] = $('importanceTransactionPartial').html();
-            this.partials['aggregateModificationPartial'] = $('aggregateModificationPartial').html();
-
 		}
 	});
 });

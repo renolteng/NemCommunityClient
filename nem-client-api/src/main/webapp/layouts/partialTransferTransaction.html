@@ -1,0 +1,48 @@
+{{#transaction}}
+    <tr>
+        <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.direction}}</td>
+        <td class="table-cell table-cell--content">
+            {{#if .isPending}}
+                {{texts.modals.transactionDetails.pending}}
+            {{else}}
+                {{#if (.isSelf || .isOutgoing || .isIncoming)}}
+                    {{#.isSelf}}{{texts.transactionDirections.self}}{{/}}
+                    {{#.isOutgoing}}{{texts.transactionDirections.incoming}}{{/}}
+                    {{#.isIncoming}}{{texts.transactionDirections.outgoing}}{{/}}
+                {{else}}
+                    Multisig
+                {{/if}}
+            {{/if}}
+        </td>
+    </tr>
+    <tr>
+        <td class="table-cell table-cell--label">
+            {{texts.modals.transactionDetails.recipient}}
+        </td>
+        <td class="table-cell table-cell--content">
+            <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
+                {{#if privateLabels[.recipient]}}
+                    {{privateLabels[.recipient]}}
+                {{else}}
+                    {{.formattedRecipient}}
+                {{/if}}
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td class="table-cell table-cell--label">
+            {{texts.modals.transactionDetails.message}}
+        </td>
+        <td class="table-cell table-cell--content">
+            {{.message}}
+            {{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
+            {{#.encrypted}}
+            &nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
+            {{/}}
+        </td>
+    </tr>
+    <tr>
+        <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
+        <td class="table-cell table-cell--content">{{{.formattedFullAmount}}} XEM</td>
+    </tr>
+{{/}}
