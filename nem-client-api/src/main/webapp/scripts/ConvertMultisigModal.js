@@ -175,12 +175,17 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 $(this).typeahead('val', $(this).val());
             });
         },
-        resetDefaultData: function() {
+        resetDefaultData: function(retrieveAccountData) {
             // get all non-multisig from the wallet
             var usableAccounts = ncc.get('allAccounts').filter(function(a){ return !a.isMultisig; });
             // and get multisig of a current account
             var multisigsOfCurrent = [];
             var wallet = ncc.get('wallet');
+
+            if (retrieveAccountData) {
+                Utils.updateAccount();
+            }
+
             ncc.get('activeAccount').multisigAccounts.forEach(function(a){
                 if (a.address in wallet.allMultisigAccounts) {
                     var acct = wallet.allMultisigAccounts[a.address];
@@ -311,7 +316,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             this._super();
             var self = this;
 
-            this.resetDefaultData();
+            this.resetDefaultData(true);
 
             this.observe({
                 'cosignatories': (function() {
@@ -395,10 +400,10 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 },
                 modalOpened: function() {
                     $('.js-cosignatory').last().focus();
-                    this.resetDefaultData();
+                    this.resetDefaultData(true);
                 },
                 modalClosed: function() {
-                    this.resetDefaultData();
+                    this.resetDefaultData(false);
                 }
             });
 

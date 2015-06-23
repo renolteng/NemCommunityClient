@@ -834,7 +834,7 @@ define(['TransactionType'], function(TransactionType) {
 
             var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
             var allMultisigs = {};
-            allAccounts.forEach(function(a){a.multisigAccounts.forEach(function(m){ allMultisigs[m.address] = true;}); });
+            allAccounts.forEach(function(a){ a.multisigAccounts.forEach(function(m){allMultisigs[m.address] = true;}); });
 
             var allMultisigAccounts = {};
             for (var key in allMultisigs) {
@@ -849,6 +849,27 @@ define(['TransactionType'], function(TransactionType) {
                 );
             }
             ncc.set('wallet.allMultisigAccounts', allMultisigAccounts);
+        },
+        updateAccount: function() {
+            var acct = ncc.get('activeAccount');
+            var wallet = ncc.get('wallet');
+            var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var walletAccount = allAccounts.filter(function (a){ return (a.address == acct.address);})[0];
+
+            ncc.postRequest(
+                'account/find',
+                {account: acct.address},
+                function(data) {
+                    // js-part keeps things in multiple places, it's quite messy :/
+                    for (var key in data) {
+                        walletAccount[key] = data[key];
+                        acct[key] = data[key];
+                    }
+                    Utils.processAccount(walletAccount);
+                    Utils.processAccount(acct);
+                    Utils.processMultisigs();
+                }
+            );
         },
         processWallet: function(wallet) {
             wallet.lastRefreshDate = new Date(wallet.lastRefresh).toString();
