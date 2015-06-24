@@ -181,7 +181,7 @@
 					{{#allAccounts}}
 						<li class="account account--others" on-click="switchAccount:{{.address}}">
 							<div class="account-info">
-								{{#if (privateLabels[.address])}}
+								{{#if (privateLabels && privateLabels[.address])}}
 									<p class="account-info-line--darken">
 										{{.formattedAddress}}
 									</p>
@@ -857,7 +857,7 @@
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.transactionDetails.issuer}}</span>
 			<span class="txConfirm-value">
-				<p class="">{{privateLabels[txData.issuer] ? privateLabels[txData.issuer] : texts.wallet.noLabel}}</p>
+				<p class="">{{privateLabels && (privateLabels[txData.issuer] ? privateLabels[txData.issuer] : texts.wallet.noLabel)}}</p>
 				- {{txData.issuer}}
 			</span>
 		</div>
@@ -865,7 +865,7 @@
 		<tr><td colspan="2">Signatures present</td></tr>
 		<tr>
 			<td colspan="2" class="table-cell table-cell--content">
-				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel}} - {{.sender}} </p>
+				<p class="account-info-line account-label fullSidebarOnly">{{privateLabels && (privateLabels[.sender] ? privateLabels[.sender] : texts.wallet.noLabel)}} - {{.sender}} </p>
 			</td>
 		</tr>
 		{{/each}}
@@ -882,7 +882,7 @@
 		</div>
 		<div class="form-field">
 			<p class="form-label">{{texts.modals.signMultisig.sender}}</p>
-            {{privateLabels[activeAccount.address] ? privateLabels[activeAccount.address] : sender}}
+            {{privateLabels && (privateLabels[activeAccount.address] ? privateLabels[activeAccount.address] : sender)}}
 		</div>
 		<div class="form-field">
 			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />

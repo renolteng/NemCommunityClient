@@ -105,7 +105,7 @@
 											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{wallet}}</label>
 											<div class="openWalletList-passwordPrompt">
 												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}" />
-                                                <input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openExistingWallet(.wallet)" value="{{texts.landing.main.openButton}}" disabled="{{!landingPage.openWalletPasswords[.wallet]}}"/>
+                                                <input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openExistingWallet(.wallet)" value="{{texts.landing.main.openButton}}" disabled="{{landingPage.openWalletPasswords && !landingPage.openWalletPasswords[.wallet]}}"/>
 											</div>
 										</li>
 									{{/wallets}}
