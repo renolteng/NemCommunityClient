@@ -1,8 +1,8 @@
 "use strict";
 
-define(['jquery', 'ractive', 'NccModal', 'Utils',
+define(['NccModal', 'Utils',
     'rv!layout/partialTransferTransaction', 'rv!layout/partialImportanceTransaction', 'rv!layout/partialAggregateModification'],
-    function($, Ractive, NccModal, Utils,
+    function(NccModal, Utils,
         partialTransferTransaction, partialImportanceTransaction, partialAggregateModification )
 {
 	return NccModal.extend({
