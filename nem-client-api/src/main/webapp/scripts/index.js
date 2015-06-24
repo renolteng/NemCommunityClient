@@ -81,7 +81,7 @@ define(['ncc'], function(ncc) {
     ncc.refreshVersionStatus = function(complete) {
         ncc.jsonpRequest('http://bob.nem.ninja/version_p.js', function(d){
             var nisData = ncc.get('nis');
-            var currentVersion = ('nodeInfo' in nisData) ? nisData.nodeInfo.nisInfo.version.match(/(\d+)\.(\d+)\.(\d+)/) : null;
+            var currentVersion = (nisData && 'nodeInfo' in nisData) ? nisData.nodeInfo.nisInfo.version.match(/(\d+)\.(\d+)\.(\d+)/) : null;
             if ('stable' in d) {
                 var remoteVersion = d['stable'].match(/(\d+)\.(\d+)\.(\d+)/);
                 if (remoteVersion) {

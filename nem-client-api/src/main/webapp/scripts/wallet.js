@@ -861,6 +861,9 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 },
                 copyClipboardHtml: function(e,address)
                 {
+                    if (! ncc.get('walletPage.copyDisabled')) {
+                        return;
+                    }
                     ncc.showInputForm(ncc.get('texts.wallet.actions.copyClipboard'), 'Press Ctrl+C/⌘+C to copy',
                         [
                             {

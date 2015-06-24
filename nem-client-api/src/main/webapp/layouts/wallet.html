@@ -144,15 +144,9 @@
 					<span class="account-actionsButton--gear icon-cog"></span>
 				</button>
 				<ul class="account-actionsDropdown dropdownMenu {{^active.accountActions}}hidden{{/}}">
-                    {{#if (walletPage.copyDisabled)}}
-                    <li class="dropdownMenu-item" on-click="copyClipboardHtml:{{activeAccount.formattedAddress}}">
-                        {{texts.wallet.actions.copyClipboard}} (html)
+                    <li class="dropdownMenu-item" on-click="copyClipboardHtml:{{activeAccount.formattedAddress}}" id="addressClipboard" data-clipboard-target="activeAccountAddress">
+                        {{texts.wallet.actions.copyClipboard}} {{#if (walletPage.copyDisabled)}}(html){{/if}}
                     </li>
-                    {{else}}
-                    <li class="dropdownMenu-item" id="addressClipboard" data-clipboard-target="activeAccountAddress">
-                        {{texts.wallet.actions.copyClipboard}}
-                    </li>
-                    {{/if}}
                     <li class="dropdownMenu-item" on-click="viewCurrentAccount">
                         {{texts.wallet.actions.viewDetails}}
                     </li>
