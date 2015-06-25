@@ -861,6 +861,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 },
                 copyClipboardHtml: function(e,address)
                 {
+                	// TODO 20150624 J-G: is this check right? i assume you don't want to show the copy dialog when copy is disabled?
                     if (! ncc.get('walletPage.copyDisabled')) {
                         return;
                     }

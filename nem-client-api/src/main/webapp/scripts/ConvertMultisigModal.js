@@ -182,6 +182,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             var multisigsOfCurrent = [];
             var wallet = ncc.get('wallet');
 
+			// TODO 20150624 J-G: i guess you needed this because the data was stale when the modal was reopened?
             if (retrieveAccountData) {
                 Utils.updateAccount();
             }
