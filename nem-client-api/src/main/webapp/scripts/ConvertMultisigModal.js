@@ -183,6 +183,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             var wallet = ncc.get('wallet');
 
 			// TODO 20150624 J-G: i guess you needed this because the data was stale when the modal was reopened?
+			// G-J: it's here, as there could be multisig aggregate transaction in the meantime, that changes current account cosignatories
             if (retrieveAccountData) {
                 Utils.updateAccount();
             }

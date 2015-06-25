@@ -862,6 +862,7 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 copyClipboardHtml: function(e,address)
                 {
                 	// TODO 20150624 J-G: is this check right? i assume you don't want to show the copy dialog when copy is disabled?
+                	// G-J: no, naming is far from good, but copyDisabled means FLASH copying is disabled and we should go on with html one
                     if (! ncc.get('walletPage.copyDisabled')) {
                         return;
                     }
