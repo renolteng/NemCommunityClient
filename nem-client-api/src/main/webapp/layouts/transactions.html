@@ -59,7 +59,7 @@
                                             {{#if (.mainType === TransactionType.Importance_Transfer)}}
                                                 <td class="txList-cell txList-col--type transactionsPage-leftMost txList-col--type--incoming icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                             {{else}}
-                                                <td class="txList-cell txList-col--type transactionsPage-leftMost encryptedIcon icon-magic" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                                <td class="txList-cell txList-col--type transactionsPage-leftMost neutral icon-magic" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
                                             {{/if}}
 										{{else}}
                                             {{#if (.isSelf || .isOutgoing || .isIncoming)}}
@@ -75,7 +75,7 @@
                                             {{else}}
                                                 {{! NOTE: mind it's a .type not .mainType }}
                                                 {{#if (.type === TransactionType.Multisig_Transfer)}}
-                                                    <td class="txList-cell txList-col--type encryptedIcon transactionsPage-leftMost" title="">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type neutral transactionsPage-leftMost" title="">{{#.isMultisig}}M{{/}}</td>
                                                 {{/if}}
                                             {{/if}}
 										{{/if}}

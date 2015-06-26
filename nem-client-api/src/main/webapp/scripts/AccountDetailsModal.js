@@ -29,7 +29,6 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             ncc.showKey(address, 'texts.modals.showRemotePrivateKey.title', 'texts.modals.showRemotePrivateKey.message', 'wallet/account/remote/reveal');
         },
 		onrender: function() {
-            this.set('privateLabels', ncc.get('privateLabels'));
             this.viewAccount = ncc.viewAccount;
         }
 	});

@@ -12,7 +12,7 @@ import org.nem.ncc.controller.viewmodels.*;
 import org.nem.ncc.exceptions.NccException;
 import org.nem.ncc.wallet.*;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -137,7 +137,9 @@ public class TransactionMapper {
 		);
 	}
 
-	public PartialFeeInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
+	public PartialTransferInformationViewModel toViewModel(final PartialModificationInformationRequest request) {
+		// use a fake accounts so that encryption and signing are always possible
+		final Account dummyAccount = new Account(new KeyPair());
 		final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
 
 		final List<MultisigCosignatoryModification> modifications = request.getCosignatoriesAddresses().stream()
@@ -147,7 +149,10 @@ public class TransactionMapper {
 
 		// TODO 20150201 J-G: quick and bit dirty hack for UI...
 		if (modifications.isEmpty()) {
-			return new PartialFeeInformationViewModel(Amount.ZERO);
+			return new PartialTransferInformationViewModel(
+					Amount.ZERO,
+					Amount.ZERO,
+					false);
 		}
 
 		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
@@ -156,7 +161,15 @@ public class TransactionMapper {
 				modifications,
 				request.getMinCosignatoriesModification());
 
-		return new PartialFeeInformationViewModel(transaction.getFee());
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				TimeInstant.ZERO,
+				dummyAccount,
+				transaction);
+
+		return new PartialTransferInformationViewModel(
+				transaction.getFee(),
+				multisigTransaction.getFee(),
+				false);
 	}
 
 	/**
@@ -257,27 +270,51 @@ public class TransactionMapper {
 	}
 
 	private Transaction toModel(final MultisigModificationRequest request, final WalletPassword password) {
-		final Account signer = this.getSenderAccount(request.getWalletName(), request.getSenderAddress(), password);
+		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Multisig_Modification.getValue();
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
-		final List<MultisigCosignatoryModification> modifications = request.getCosignatoriesAddresses().stream()
-				.map(this.accountLookup::findByAddress)
-				.filter(a -> null != a.getAddress().getPublicKey())
-				.map(o -> new MultisigCosignatoryModification(MultisigModificationType.AddCosignatory, o))
-				.collect(Collectors.toList());
+		final List<MultisigCosignatoryModification> modifications = new ArrayList<>();
+		modifications.addAll(this.mapToModifications(request.getAddedCosignatories(), MultisigModificationType.AddCosignatory));
+		modifications.addAll(this.mapToModifications(request.getRemovedCosignatories(), MultisigModificationType.DelCosignatory));
 
-		if (modifications.size() != request.getCosignatoriesAddresses().size()) {
+		if (modifications.size() != request.getAddedCosignatories().size() + request.getRemovedCosignatories().size()) {
 			throw new NccException(NccException.Code.COSIGNATORY_NO_PUBLIC_KEY);
 		}
 
-		final MultisigAggregateModificationTransaction multisigTransaction = new MultisigAggregateModificationTransaction(
+		final Account sender = isMultisig
+				? this.accountLookup.findByAddress(request.getMultisigAccount())
+				: this.getSenderAccount(request.getWalletName(), request.getMultisigAccount(), password);
+
+		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
 				timeStamp,
-				signer,
+				sender,
 				modifications,
 				request.getMinCosignatoriesModification());
+
+		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
+		transaction.setFee(request.getFee());
+
+		if (!isMultisig) {
+			return transaction;
+		}
+
+		// wrap in a multisig
+		final Account issuer = this.getSenderAccount(request.getWalletName(), request.getIssuerAddress(), password);
+		final MultisigTransaction multisigTransaction = new MultisigTransaction(
+				timeStamp,
+				issuer,
+				transaction);
 		multisigTransaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
-		multisigTransaction.setFee(request.getFee());
+		multisigTransaction.setFee(request.getMultisigFee());
 		return multisigTransaction;
+	}
+
+	private Collection<MultisigCosignatoryModification> mapToModifications(final Collection<Address> addresses, final MultisigModificationType type) {
+		return addresses.stream()
+				.map(this.accountLookup::findByAddress)
+				.filter(a -> null != a.getAddress().getPublicKey())
+				.map(o -> new MultisigCosignatoryModification(type, o))
+				.collect(Collectors.toList());
 	}
 
 	private Account getSenderAccount(final WalletName walletName, final Address accountId, final WalletPassword password) {

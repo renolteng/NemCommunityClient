@@ -70,6 +70,7 @@
 				<article>
 					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
 					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane-empty" disabled="{{sendNemDisabled}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
+                    <button type="button" class="transactionsTile-convertMultisigButton icon-magic" disabled="{{sendNemDisabled}}" on-click="openModal('convertMultisig')">{{texts.wallet.actions.convertMultisig}}</button>
 					<div class="transactionsTile-overview">
 						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}
                             {{#activeAccount.isMultisig}}
@@ -110,7 +111,7 @@
 											{{#if (.mainType === TransactionType.Importance_Transfer)}}
 												<td class="txList-cell txList-col--type txList-col--type--incoming icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 											{{else}}
-												<td class="txList-cell txList-col--type encryptedIcon icon-magic" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+												<td class="txList-cell txList-col--type neutral icon-magic" title="{{texts.transactionDirections.modification}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 											{{/if}}
 										{{else}}
                                             {{#if (.isSelf || .isOutgoing || .isIncoming)}}
@@ -126,7 +127,7 @@
                                             {{else}}
                                                 {{! NOTE: mind it's a .type not .mainType }}
                                                 {{#if (.type === TransactionType.Multisig_Transfer)}}
-                                                    <td class="txList-cell txList-col--type encryptedIcon" title="">{{#.isMultisig}}M{{/}}</td>
+                                                    <td class="txList-cell txList-col--type neutral" title="">{{#.isMultisig}}M{{/}}</td>
                                                 {{/if}}
                                             {{/if}}
 										{{/if}}

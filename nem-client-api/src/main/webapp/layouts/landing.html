@@ -12,7 +12,7 @@
 				<a href="javascript:;" on-click="openModal('settings')"><strong>{{texts.landing.nav.settings}}</strong></a>
 			</li>
 			<li class="scrollHeader-nav-item">
-				<a href="javascript:;" on-click="toggleOn('landing-languageDropdown')">
+				<a href="javascript:;" on-click="toggleOn('landingLanguageDropdown')">
 					{{#languages}}
 						{{# .id === settings.language}}
 							{{.name}}
@@ -20,7 +20,7 @@
 					{{/}}
 					<span class="icon-down-open"></span>
 				</a>
-				<ul class="scrollHeader-languageDropdown {{# active['landing-languageDropdown'] && landingPage.scrollHeader}}active{{/}}">
+				<ul class="scrollHeader-languageDropdown {{# active.landingLanguageDropdown && landingPage.scrollHeader}}active{{/}}">
 					{{#languages}}
 						<li class="scrollHeader-languageDropdown-item" on-click="switchLanguage:{{.id}}">{{.name}}</li>
 					{{/}}
@@ -105,7 +105,7 @@
 											<label class="openWalletList-label" for="openWallet-wallet{{i}}" on-click="walletSelected">{{wallet}}</label>
 											<div class="openWalletList-passwordPrompt">
 												<input class="openWalletList-password" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.openWalletPasswords[.wallet]}}" on-keypress="passwordKeypress:{{.wallet}}" />
-                                                <input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openExistingWallet(.wallet)" value="{{texts.landing.main.openButton}}" disabled="{{!landingPage.openWalletPasswords[.wallet]}}"/>
+                                                <input class="openWalletList-submitButton landing-submitButton" type="button" on-click="openExistingWallet(.wallet)" value="{{texts.landing.main.openButton}}" disabled="{{landingPage.openWalletPasswords && !landingPage.openWalletPasswords[.wallet]}}"/>
 											</div>
 										</li>
 									{{/wallets}}
@@ -140,7 +140,7 @@
 							<a href="javascript:;" on-click="openModal('settings')">{{texts.landing.nav.settings}}</a>
 						</li>
 						<li class="staticHeader-nav-item">
-							<a href="javascript:;" on-click="toggleOn('landing-languageDropdown')">
+							<a href="javascript:;" on-click="toggleOn('landingLanguageDropdown')">
 								{{#languages}}
 									{{# .id === settings.language}}
 										{{.name}}
@@ -148,7 +148,7 @@
 								{{/}}
 								<span class="icon-down-open"></span>
 							</a>
-							<ul class="staticHeader-languageDropdown {{# active['landing-languageDropdown'] && !landingPage.scrollHeader}}active{{/}}">
+							<ul class="staticHeader-languageDropdown {{# active.landingLanguageDropdown && !landingPage.scrollHeader}}active{{/}}">
 								{{#languages}}
 									<li class="staticHeader-languageDropdown-item" on-click="switchLanguage:{{.id}}">{{.name}}</li>
 								{{/}}

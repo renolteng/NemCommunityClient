@@ -368,8 +368,11 @@ public class TransactionMapperTest {
 	private void assertCanBeMappedFromMultisigModificationRequestToModel(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
 		// Arrange:
 		final TestContext context = new TestContext();
-		context.addCosignatoriesWithPubKey(3);
-		context.cosignatories.stream()
+		context.addCosignatoriesWithPubKey(5);
+		context.addedCosignatories.stream()
+				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
+		context.delCosignatoriesWithPubKey(3);
+		context.removedCosignatories.stream()
 				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
 		context.addMinCosignatoriesModification(minCosignatoriesModification);
 
@@ -377,7 +380,8 @@ public class TransactionMapperTest {
 		final MultisigModificationRequest request = createModificationRequest(context);
 		final MultisigAggregateModificationTransaction model
 				= (MultisigAggregateModificationTransaction)context.mapper.toModel(request);
-		final List<Address> expectedAddresses = context.cosignatories.stream()
+
+		final List<Address> expectedAddresses = context.cosignatories()
 				.map(Account::getAddress)
 				.collect(Collectors.toList());
 		final List<Address> addresses = model.getCosignatoryModifications().stream()
@@ -385,15 +389,83 @@ public class TransactionMapperTest {
 				.collect(Collectors.toList());
 
 		// Assert:
-		model.getCosignatoryModifications().stream()
-				.forEach(m -> Assert.assertThat(m.getModificationType(), IsEqual.equalTo(MultisigModificationType.AddCosignatory)));
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.AddCosignatory),
+				IsEqual.equalTo(5L));
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.DelCosignatory),
+				IsEqual.equalTo(3L));
 		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
 		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
 		Assert.assertThat(
 				model.getMinCosignatoriesModification(),
 				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
 		Assert.assertThat(model.getSigner().getAddress(), IsEqual.equalTo(context.signer.getAddress()));
-		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(7)));
+		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
+	}
+
+	@Test
+	public void canMapFromMultisigMultisigModificationRequestToModelWithNullMinCosignatoriesModification() {
+		this.assertCanBeMappedFromMultisigMultisigModificationRequestToModel(null);
+	}
+
+	@Test
+	public void canMapFromMultisigMultisigModificationRequestToModelWithNonNullMinCosignatoriesModification() {
+		this.assertCanBeMappedFromMultisigMultisigModificationRequestToModel(new MultisigMinCosignatoriesModification(3));
+	}
+
+	private void assertCanBeMappedFromMultisigMultisigModificationRequestToModel(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
+		// Arrange:
+		final TestContext context = new TestContext();
+		context.addCosignatoriesWithPubKey(5);
+		context.addedCosignatories.stream()
+				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
+		context.delCosignatoriesWithPubKey(3);
+		context.removedCosignatories.stream()
+				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
+		context.addMinCosignatoriesModification(minCosignatoriesModification);
+
+		Mockito.when(context.accountLookup.findByAddress(context.signer.getAddress())).thenReturn(context.signer);
+
+		// Act:
+		final MultisigModificationRequest request = createMultisigModificationRequest(context);
+		final MultisigTransaction outerModel = (MultisigTransaction)context.mapper.toModel(request);
+		final MultisigAggregateModificationTransaction model = (MultisigAggregateModificationTransaction)outerModel.getOtherTransaction();
+
+		// multisig transaction fields
+		Assert.assertThat(outerModel.getSigner().getAddress(), IsEqual.equalTo(context.issuer.getAddress()));
+		Assert.assertThat(outerModel.getFee(), IsEqual.equalTo(Amount.fromNem(35)));
+
+		// inner transaction
+
+		final List<Address> expectedAddresses = context.cosignatories()
+				.map(Account::getAddress)
+				.collect(Collectors.toList());
+		final List<Address> addresses = model.getCosignatoryModifications().stream()
+				.map(m -> m.getCosignatory().getAddress())
+				.collect(Collectors.toList());
+
+		// Assert:
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.AddCosignatory),
+				IsEqual.equalTo(5L));
+		Assert.assertThat(
+				countModifications(model, MultisigModificationType.DelCosignatory),
+				IsEqual.equalTo(3L));
+
+		model.getCosignatoryModifications().stream().forEach(m -> Assert.assertThat(m.getCosignatory().getAddress().getPublicKey(), IsNull.notNullValue()));
+		Assert.assertThat(expectedAddresses, IsEquivalent.equivalentTo(addresses));
+		Assert.assertThat(
+				model.getMinCosignatoriesModification(),
+				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
+
+		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
+	}
+
+	private static long countModifications(final MultisigAggregateModificationTransaction model, final MultisigModificationType type) {
+		return model.getCosignatoryModifications().stream()
+				.filter(m -> m.getModificationType() == type)
+				.count();
 	}
 
 	@Test
@@ -402,7 +474,7 @@ public class TransactionMapperTest {
 		final TestContext context = new TestContext();
 		context.addCosignatoriesWithPubKey(3);
 		context.addCosignatoryWithoutPubKey();
-		context.cosignatories.stream()
+		context.addedCosignatories.stream()
 				.forEach(c -> Mockito.when(context.accountLookup.findByAddress(c.getAddress())).thenReturn(c));
 		final MultisigModificationRequest request = createModificationRequest(context);
 
@@ -465,12 +537,31 @@ public class TransactionMapperTest {
 	private static MultisigModificationRequest createModificationRequest(final TestContext context) {
 		return new MultisigModificationRequest(
 				new WalletName("w"),
+				TransactionViewModel.Type.Multisig_Modification.getValue(),
 				new WalletPassword("p"),
 				context.signer.getAddress(), // must be a valid address
-				context.cosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				null,
+				context.addedCosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				context.removedCosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
 				context.minCosignatoriesModification,
 				1,
-				Amount.fromNem(7));
+				Amount.fromNem(71),
+				Amount.fromNem(35));
+	}
+
+	private static MultisigModificationRequest createMultisigModificationRequest(final TestContext context) {
+		return new MultisigModificationRequest(
+				new WalletName("w"),
+				TransactionViewModel.Type.Multisig_Multisig_Modification.getValue(),
+				new WalletPassword("p"),
+				context.signer.getAddress(),
+				context.issuer.getAddress(),
+				context.addedCosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				context.removedCosignatories.stream().map(Account::getAddress).collect(Collectors.toList()),
+				context.minCosignatoriesModification,
+				1,
+				Amount.fromNem(71),
+				Amount.fromNem(35));
 	}
 
 	private static class TestContext {
@@ -484,9 +575,14 @@ public class TransactionMapperTest {
 
 		private final KeyPair signerKeyPair = new KeyPair();
 		private final Account signer = new Account(this.signerKeyPair);
-		private final WalletAccount account = new WalletAccount(new KeyPair().getPrivateKey());
+		private final WalletAccount signerAccount = new WalletAccount(new KeyPair().getPrivateKey());
+		private final KeyPair issuerKeyPair = new KeyPair();
+		private final Account issuer = new Account(this.issuerKeyPair);
+		private final WalletAccount issuerAccount = new WalletAccount(new KeyPair().getPrivateKey());
+
 		private final Account recipient;
-		private final List<Account> cosignatories = new ArrayList<>();
+		private final List<Account> addedCosignatories = new ArrayList<>();
+		private final List<Account> removedCosignatories = new ArrayList<>();
 		private MultisigMinCosignatoriesModification minCosignatoriesModification = null;
 		private final Wallet wallet = Mockito.mock(Wallet.class);
 
@@ -502,22 +598,35 @@ public class TransactionMapperTest {
 			Mockito.when(this.wallet.getAccountPrivateKey(this.signer.getAddress()))
 					.thenReturn(this.signerKeyPair.getPrivateKey());
 			Mockito.when(this.wallet.tryGetWalletAccount(this.signer.getAddress()))
-					.thenReturn(this.account);
+					.thenReturn(this.signerAccount);
+
+			Mockito.when(this.wallet.getAccountPrivateKey(this.issuer.getAddress()))
+					.thenReturn(this.issuerKeyPair.getPrivateKey());
+			Mockito.when(this.wallet.tryGetWalletAccount(this.issuer.getAddress()))
+					.thenReturn(this.issuerAccount);
 
 			final WalletNamePasswordPair pair = new WalletNamePasswordPair("w", "p");
 			Mockito.when(this.walletServices.open(pair)).thenReturn(this.wallet);
 		}
 
 		private void addCosignatoriesWithPubKey(final int count) {
-			IntStream.range(0, count).forEach(i -> this.cosignatories.add(Utils.generateRandomAccount()));
+			IntStream.range(0, count).forEach(i -> this.addedCosignatories.add(Utils.generateRandomAccount()));
 		}
 
 		private void addCosignatoryWithoutPubKey() {
-			this.cosignatories.add(new Account(Utils.generateRandomAddress()));
+			this.addedCosignatories.add(new Account(Utils.generateRandomAddress()));
+		}
+
+		private void delCosignatoriesWithPubKey(final int count) {
+			IntStream.range(0, count).forEach(i -> this.removedCosignatories.add(Utils.generateRandomAccount()));
 		}
 
 		private void addMinCosignatoriesModification(final MultisigMinCosignatoriesModification minCosignatoriesModification) {
 			this.minCosignatoriesModification = minCosignatoriesModification;
+		}
+
+		public Stream<Account> cosignatories() {
+			return Stream.concat(this.removedCosignatories.stream(), this.addedCosignatories.stream());
 		}
 	}
 }

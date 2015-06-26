@@ -1,0 +1,16 @@
+{{#transaction}}
+    <tr>
+        <td class="table-cell table-cell--label">
+            {{texts.modals.transactionDetails.remote}}
+        </td>
+        <td class="table-cell table-cell--content">
+            <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
+                {{#if privateLabels[.recipient]}}
+                {{privateLabels[.recipient]}}
+                {{else}}
+                {{.formattedRecipient}}
+                {{/if}}
+            </a>
+        </td>
+    </tr>
+{{/}}

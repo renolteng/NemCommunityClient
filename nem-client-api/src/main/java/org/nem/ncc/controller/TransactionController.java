@@ -120,7 +120,7 @@ public class TransactionController {
 	 * @return The validation information.
 	 */
 	@RequestMapping(value = "/wallet/account/modification/validate", method = RequestMethod.POST)
-	public PartialFeeInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
+	public PartialTransferInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
 		return this.transactionMapper.toViewModel(request);
 	}
 

@@ -150,7 +150,7 @@
 					<img src="images/sad-face.png" alt="Sadly"/>
 				</div>
 				<h1 class="errorModal-title">{{texts.modals.error.title}}</h1>
-				<p class="errorModal-caption"><em>{{fill(texts.modals.error.caption, errorId)}}</em></p>
+				<p class="errorModal-caption"><em>{{fill && fill(texts.modals.error.caption, errorId)}}</em></p>
 				<p class="errorModal-message">{{message}}</p>
 			</errorModal>
 
@@ -159,7 +159,7 @@
 					<img src="images/happy-face.png" alt="Happy"/>
 				</div>
 				<h1 class="yikesModal-title">{{texts.modals.yikes.title}}</h1>
-				<p class="yikesModal-caption"><em>{{fill(texts.modals.yikes.caption, errorId)}}</em></p>
+				<p class="yikesModal-caption"><em>{{fill && fill(texts.modals.yikes.caption, errorId)}}</em></p>
 				<p class="yikesModal-message">{{message}}</p>
 			</yikesModal>
 		</script>
