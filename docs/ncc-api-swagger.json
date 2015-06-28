@@ -1946,7 +1946,7 @@
           "200": {
             "description": "Modification was successfull.",
             "schema": {
-              "$ref": "#/definitions/PartialFeeInformationViewModel"
+              "$ref": "#/definitions/PartialTransferInformationViewModel"
             }
           },
           "400": {
@@ -3188,6 +3188,11 @@
           "type": "string",
           "description": "The wallet name."
         },
+        "type": {
+          "type":"integer",
+          "format":"int32",
+          "description": "The modification type (multisig or not)."
+        },
         "password": {
           "type": "string",
           "description": "The password."
@@ -3196,11 +3201,25 @@
           "type": "string",
           "description": "The sender address."
         },
-        "cosignatories": {
+        "issuer": {
           "type": "array",
           "description": "The multi signature address.",
           "items": {
             "$ref": "#/definitions/Address"
+          }
+        },
+        "addedCosignatories": {
+          "description":"The list of cosignatory addresses to add.",
+          "type":"array",
+          "items":{
+            "$ref":"#definitions/Address"
+          }
+        },
+        "removedCosignatories": {
+          "description":"The list of cosignatory addresses to remove.",
+          "type":"array",
+          "items":{
+            "$ref":"#definitions/Address"
           }
         },
         "minCosignatories": {
@@ -3216,6 +3235,11 @@
           "type": "integer",
           "format": "int64",
           "description": "The fee."
+        },
+        "multisigFee": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The multisig fee."
         }
       }
     },
