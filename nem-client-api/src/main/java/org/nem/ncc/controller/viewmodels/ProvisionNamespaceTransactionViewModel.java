@@ -30,4 +30,31 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 		Amount.writeTo(serializer, "amount", this.rentalFee);
 		serializer.writeString("namespace", this.namespaceName);
 	}
+
+	/**
+	 * Gets the namespace lessor account
+	 *
+	 * @return The lessor account.
+	 */
+	public Address getLessor() {
+		return lessor;
+	}
+
+	/**
+	 * Gets the namespace rental fee.
+	 *
+	 * @return The rental fee.
+	 */
+	public Amount getRentalFee() {
+		return rentalFee;
+	}
+
+	/**
+	 * Gets the namespace expressed as a string.
+	 *
+	 * @return The namespace name.
+	 */
+	public String getNamespaceName() {
+		return namespaceName;
+	}
 }
