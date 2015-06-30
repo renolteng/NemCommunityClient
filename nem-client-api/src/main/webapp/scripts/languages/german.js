@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'XEM-Überweisung',
-			'Wichtigkeitsübertragung',
-			'Multisig-Konto-Modifikation',
-			'Multisig-Überweisung',
-			'MULTISIG SIGNATURE',
-			'Multisig-Überweisung',
-			'Multisig-Überweisung',
-			
-		],
+		transactionTypes: {
+			20: 'XEM-Überweisung',
+			21: 'Wichtigkeitsübertragung',
+			22: 'Multisig-Konto-Modifikation',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'Multisig-Überweisung',
+			51: 'Multisig-Überweisung',
+			52: 'Multisig-Überweisung',
+
+		},
 		transactionDirections: {
 			pending: 'Ausstehende Transaktion',
 			outgoing: 'Ausgehende Transaktion',
 			incoming: 'Eingehende Transaktion',
 			self: 'Transaktion zu sich selbst',
 			importance: 'Wichtigkeitsübertragung',
-			modification: 'Multisig-Konto-Modifikation'
+			modification: 'Multisig-Konto-Modifikation',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Das Multisig-Konto ist selbst in der Liste der Mitsignierer. Das bedeutet, dass über das Vermögen auf diesem Konto nicht mehr verfügt werden kann. Es ist höchstwahrscheinlich, dass du das <b>NICHT</b> tun möchtest.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Betrag',
 				innerFee: 'Gebühr',
 				multisigFees: 'Signierungs-Gebühren',
-				cosignatory: 'Mitsignierer'
+				cosignatory: 'Mitsignierer',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Kontodetails',

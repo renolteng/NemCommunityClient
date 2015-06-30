@@ -503,4 +503,39 @@ translated texts.dashboard.importance.remoteHarvest.title
 	      to: '委托收获'
 	based on: texts.landing.carousel.items.[2].title
 
+-----translated texts.transactionTypes.20
+	    from: 'TRANSFER TRANSACTION'
+	      to: '传输交互'
+	based on: texts.transactionTypes.[0]
+
+translated texts.transactionTypes.21
+	    from: 'IMPORTANCE TRANSFER'
+	      to: '重要性传输'
+	based on: texts.transactionTypes.[1]
+
+translated texts.transactionTypes.22
+	    from: 'MODIFICATION OF MULTISIG ACCOUNT'
+	      to: '多重签名账户变更'
+	based on: texts.transactionTypes.[2]
+
+translated texts.transactionTypes.40
+	    from: 'MULTISIG SIGNATURE'
+	      to: 'MULTISIG SIGNATURE'
+	based on: texts.transactionTypes.[4]
+
+translated texts.transactionTypes.50
+	    from: 'MULTISIG TRANSACTION'
+	      to: '多重签名交互'
+	based on: texts.transactionTypes.[6]
+
+translated texts.transactionTypes.51
+	    from: 'MULTISIG TRANSACTION'
+	      to: '多重签名交互'
+	based on: texts.transactionTypes.[6]
+
+translated texts.transactionTypes.52
+	    from: 'MULTISIG TRANSACTION'
+	      to: '多重签名交互'
+	based on: texts.transactionTypes.[6]
+
 -----

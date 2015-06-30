@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			'MULTISIG SIGNATURE',
-			'MULTISIG TRANSACTION',
-			'MULTISIG TRANSACTION',
-			
-		],
+		transactionTypes: {
+			20: 'TRANSFER TRANSACTION',
+			21: 'IMPORTANCE TRANSFER',
+			22: 'MODIFICATION OF MULTISIG ACCOUNT',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'MULTISIG TRANSACTION',
+			51: 'MULTISIG TRANSACTION',
+			52: 'MULTISIG TRANSACTION',
+
+		},
 		transactionDirections: {
 			pending: 'Tranzacție în așteptare',
 			outgoing: 'Tranzacție de trimis',
 			incoming: 'Tranzacție de primit',
 			self: 'Tranzacție proprie',
 			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			modification: 'Aggregate Modification of Multisig',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Sumă',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				cosignatory: 'Cosignatory'
+				cosignatory: 'Cosignatory',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Account details',

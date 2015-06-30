@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'TRASFERIMENTO FONDI',
-			'TRASFERIMENTO IMPORTANZA',
-			'MODIFICA INDIRIZZO MULTIFIRMATO',
-			'TRANSAZIONE MULTIFIRMA',
-			'MULTISIG SIGNATURE',
-			'TRANSAZIONE MULTIFIRMA',
-			'TRANSAZIONE MULTIFIRMA',
-			
-		],
+		transactionTypes: {
+			20: 'TRASFERIMENTO FONDI',
+			21: 'TRASFERIMENTO IMPORTANZA',
+			22: 'MODIFICA INDIRIZZO MULTIFIRMATO',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'TRANSAZIONE MULTIFIRMA',
+			51: 'TRANSAZIONE MULTIFIRMA',
+			52: 'TRANSAZIONE MULTIFIRMA',
+
+		},
 		transactionDirections: {
 			pending: 'Transazione in attesa',
 			outgoing: 'Transazione in uscita',
 			incoming: 'Transazione in entrata',
 			self: 'Transazione a te stesso',
 			importance: 'Trasferimento di importanza',
-			modification: 'Modifica cofirmatari'
+			modification: 'Modifica cofirmatari',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'L\'indirizzo multifirma è nella lista dei cofirmatari. Questo porterebbe all\'impossibilità di accesso ai fondi. Probabilmente <b>non è</b> questo quello che vuoi.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Importo',
 				innerFee: 'Commissioni interne',
 				multisigFees: 'Commissioni multifirma',
-				cosignatory: 'Cofirmatario'
+				cosignatory: 'Cofirmatario',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Informazioni sull\'indirizzo',

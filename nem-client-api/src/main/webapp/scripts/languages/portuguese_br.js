@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'TRANSAÇÕES DE VALORES',
-			'ITRANSFERENCIAS DE IMPORTANCIA',
-			'MODIFICAÇÃO DE UMA CONTA MULTISIG',
-			'TRANSAÇÃO MULTISIG',
-			'MULTISIG SIGNATURE',
-			'TRANSAÇÃO MULTISIG',
-			'TRANSAÇÃO MULTISIG',
-			
-		],
+		transactionTypes: {
+			20: 'TRANSAÇÕES DE VALORES',
+			21: 'ITRANSFERENCIAS DE IMPORTANCIA',
+			22: 'MODIFICAÇÃO DE UMA CONTA MULTISIG',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'TRANSAÇÃO MULTISIG',
+			51: 'TRANSAÇÃO MULTISIG',
+			52: 'TRANSAÇÃO MULTISIG',
+
+		},
 		transactionDirections: {
 			pending: 'Pendente',
 			outgoing: 'Enviada',
 			incoming: 'Recebida',
 			self: 'Enviada para si mesmo',
 			importance: 'Transação de importância',
-			modification: 'Agregação de modificação Multisig'
+			modification: 'Agregação de modificação Multisig',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'A conta do tipo Multisig está na lista dos consignatários. Isso resultará no corte de acesso ao dinheiro da conta. Muito provavelmente você <b>NÃO QUER</b> fazer isso.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Quantidade',
 				innerFee: 'Taxas internas',
 				multisigFees: 'Taxas Multisig',
-				cosignatory: 'Cosignatário'
+				cosignatory: 'Cosignatário',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Account details',

@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'ट्रान्सफर ट्रांजैक्शन',
-			'इंपॉर्टेन्स ट्रान्सफर',
-			'Multisig अकाउंट में परिवर्तन',
-			'MULTISIG ट्रांजैक्शन',
-			'MULTISIG SIGNATURE',
-			'MULTISIG ट्रांजैक्शन',
-			'MULTISIG ट्रांजैक्शन',
-			
-		],
+		transactionTypes: {
+			20: 'ट्रान्सफर ट्रांजैक्शन',
+			21: 'इंपॉर्टेन्स ट्रान्सफर',
+			22: 'Multisig अकाउंट में परिवर्तन',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'MULTISIG ट्रांजैक्शन',
+			51: 'MULTISIG ट्रांजैक्शन',
+			52: 'MULTISIG ट्रांजैक्शन',
+
+		},
 		transactionDirections: {
 			pending: 'Pending transaction',
 			outgoing: 'Outgoing transaction',
 			incoming: 'Incoming transaction',
 			self: 'Self transaction',
 			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			modification: 'Aggregate Modification of Multisig',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Multisig अकाउंट cosignatories की सूची में है.</b>इससे आपका अकाउंट लॉक हो जाएगा और आप अपने सारे XEM गंवा देंगें. कृपया Multisig अकाउंट को cosignatories की सूची में से हटाए</b>.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'अमाउंट',
 				innerFee: 'इनर फ़ीस',
 				multisigFees: 'Multisig फ़ीस',
-				cosignatory: 'Cosignatory'
+				cosignatory: 'Cosignatory',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Account details',

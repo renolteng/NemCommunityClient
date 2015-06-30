@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'TRANSFERT DE TRANSACTION',
-			'TRANSFERT D\'IMPORTANCE ',
-			'MODIFICATION DE COMPTE MULTISIG',
-			'TRANSACTION MULTISIG ',
-			'MULTISIG SIGNATURE',
-			'TRANSACTION MULTISIG ',
-			'TRANSACTION MULTISIG ',
-			
-		],
+		transactionTypes: {
+			20: 'TRANSFERT DE TRANSACTION',
+			21: 'TRANSFERT D\'IMPORTANCE ',
+			22: 'MODIFICATION DE COMPTE MULTISIG',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'TRANSACTION MULTISIG ',
+			51: 'TRANSACTION MULTISIG ',
+			52: 'TRANSACTION MULTISIG ',
+
+		},
 		transactionDirections: {
 			pending: 'Transaction en attente',
 			outgoing: 'Transaction sortante',
 			incoming: 'Transaction entrante',
 			self: 'Faire une transaction vers sois même.',
 			importance: 'Transaction d\'importance',
-			modification: 'Modification globale de Multisig'
+			modification: 'Modification globale de Multisig',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Montant',
 				innerFee: 'Frais interne',
 				multisigFees: 'Frais Multisig',
-				cosignatory: 'Cosignataire'
+				cosignatory: 'Cosignataire',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Détails du compte',
