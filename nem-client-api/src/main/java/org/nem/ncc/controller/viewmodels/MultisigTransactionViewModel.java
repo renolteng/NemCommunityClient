@@ -23,7 +23,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	private static Type innerTypeToViewModelType(final int innerType) {
 		switch (innerType) {
 			case TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION:
-				return Type.Multisig_Multisig_Modification;
+				return Type.Multisig_Aggregate_Modification;
 			case TransactionTypes.IMPORTANCE_TRANSFER:
 				return Type.Multisig_Importance_Transfer;
 			case TransactionTypes.TRANSFER:

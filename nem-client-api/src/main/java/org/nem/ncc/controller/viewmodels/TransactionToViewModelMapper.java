@@ -32,6 +32,8 @@ public class TransactionToViewModelMapper {
 				return new MultisigTransactionViewModel(metaDataPair, accountData, blockHeight);
 			case TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION:
 				return new MultisigAggregateViewModel(metaDataPair, blockHeight);
+			case TransactionTypes.PROVISION_NAMESPACE:
+				return new ProvisionNamespaceTransactionViewModel(metaDataPair, blockHeight);
 			default:
 				throw new IllegalArgumentException("transaction type is not handled inside TransactionToViewModelMapper");
 		}

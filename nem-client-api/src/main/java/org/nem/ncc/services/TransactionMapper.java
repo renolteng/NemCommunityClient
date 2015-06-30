@@ -270,7 +270,7 @@ public class TransactionMapper {
 	}
 
 	private Transaction toModel(final MultisigModificationRequest request, final WalletPassword password) {
-		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Multisig_Modification.getValue();
+		final boolean isMultisig = request.getType() == TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue();
 		final TimeInstant timeStamp = this.timeProvider.getCurrentTime();
 
 		final List<MultisigCosignatoryModification> modifications = new ArrayList<>();

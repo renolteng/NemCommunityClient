@@ -43,7 +43,7 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 	 * @param blockHeight The last block height (for calculating confirmations).
 	 */
 	public MultisigAggregateViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight blockHeight) {
-		super(Type.Multisig_Modification, metaDataPair, blockHeight);
+		super(Type.Aggregate_Modification, metaDataPair, blockHeight);
 
 		final MultisigAggregateModificationTransaction transaction = (MultisigAggregateModificationTransaction)metaDataPair.getTransaction();
 		this.cosignatoryModifications = transaction.getCosignatoryModifications().stream()

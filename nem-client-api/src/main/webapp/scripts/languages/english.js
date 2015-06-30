@@ -119,22 +119,26 @@ define({
 			newBuild: 'NEW BUILD',
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 		},
-		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			'MULTISIG SIGNATURE',
-			'MULTISIG TRANSACTION',
-			'MULTISIG TRANSACTION',
-		],
+		transactionTypes: {
+			20: 'TRANSFER TRANSACTION',
+			21: 'IMPORTANCE TRANSFER',
+			22: 'MODIFICATION OF MULTISIG ACCOUNT',
+			23: 'PROVISION NAMESPACE',
+
+			40: 'MULTISIG SIGNATURE',
+
+			50: 'MULTISIG TRANSACTION',
+			51: 'MULTISIG TRANSACTION',
+			52: 'MULTISIG TRANSACTION',
+		},
 		transactionDirections: {
 			pending: 'Pending transaction',
 			outgoing: 'Outgoing transaction',
 			incoming: 'Incoming transaction',
 			self: 'Self transaction',
 			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			modification: 'Aggregate Modification of Multisig',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -301,7 +305,9 @@ define({
 				amount: 'Amount',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				cosignatory: 'Cosignatory'
+				cosignatory: 'Cosignatory',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: "Account details",
