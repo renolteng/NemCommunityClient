@@ -1,0 +1,141 @@
+changed texts.faults.129
+	from: 'Another address book with the same name exists already. Please choose an other address book name.'
+	  to: 'Another address book with the same name exists already. Please choose another address book name.'
+	 was: 'Een adresboek met dezelfde naam bestaat reeds, kies een andere naam.'
+
+changed texts.modals.sendNem.successMessage
+	from: 'Transaction has been sent successfully! <br><span class="dimmed">tx hash {{1}}</span>'
+	  to: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}'
+	 was: 'Transactie is succesvol verzonden!'
+
+translated texts.common.multisigFee
+	    from: 'Multisig fee'
+	      to: 'Multisig toeslag'
+	based on: texts.modals.sendNem.multisigFee
+
+translated texts.common.useMinimumFee
+	    from: 'Use minimum fee'
+	      to: 'Gebruik minimale toeslag'
+	based on: texts.modals.sendNem.useMinimumFee
+
+translated texts.common.feeValidation
+	    from: 'Fee must not be less than the minimum fee'
+	      to: 'Toeslag mag niet lager zijn dan het minimum'
+	based on: texts.modals.sendNem.feeValidation
+
+translated texts.common.cancelButton
+	    from: 'Cancel'
+	      to: 'Annuleer'
+	based on: texts.modals.sendNem.txConfirm.cancel
+
+translated texts.common.sendButton
+	    from: 'Send'
+	      to: 'Verstuur'
+	based on: texts.modals.sendNem.send
+
+translated texts.common.account
+	    from: 'Account'
+	      to: 'Rekening'
+	based on: texts.modals.stopRemote.account
+
+translated texts.common.thisAccount
+	    from: 'This account'
+	      to: 'Deze rekening'
+	based on: texts.modals.sendNem.thisAccount
+
+translated texts.common.warning
+	    from: 'Warning'
+	      to: 'Waarschuwing'
+	based on: texts.modals.deactivateRemote.warning
+
+translated texts.transactionTypes.[5]
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[3]
+
+translated texts.transactionTypes.[6]
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[3]
+
+translated texts.modals.activateDelegated.title
+	    from: 'Activate Delegated Harvesting'
+	      to: 'Activeren van gedelegeerd oogsten'
+	based on: texts.modals.activateRemote.title
+
+translated texts.modals.activateDelegated.wallet
+	    from: 'Wallet'
+	      to: 'Portefeuille'
+	based on: texts.modals.stopRemote.wallet
+
+translated texts.modals.activateDelegated.activate
+	    from: 'Activate'
+	      to: 'Activeren'
+	based on: texts.modals.activateRemote.activate
+
+translated texts.modals.activateDelegated.warningText
+	    from: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.'
+	      to: 'Activeren zal ongeveer 6 uur duren (360 blokken).  Activeren zal oogsten NIET automatisch laten starten.'
+	based on: texts.modals.activateRemote.warningText
+
+translated texts.modals.deactivateDelegated.title
+	    from: 'Deactivate Delegated Harvesting'
+	      to: 'Deactiveren Gedelegeerd Oogsten'
+	based on: texts.modals.deactivateRemote.title
+
+translated texts.modals.deactivateDelegated.wallet
+	    from: 'Wallet'
+	      to: 'Portefeuille'
+	based on: texts.modals.stopRemote.wallet
+
+translated texts.modals.deactivateDelegated.deactivate
+	    from: 'Deactivate'
+	      to: 'Deactiveer'
+	based on: texts.modals.deactivateRemote.deactivate
+
+translated texts.modals.deactivateDelegated.warningText
+	    from: 'Deactivation will take 6 hours (360 blocks).'
+	      to: 'Deactiveren zal 6 uur duren (360 blokken).'
+	based on: texts.modals.deactivateRemote.warningText
+
+translated texts.dashboard.importance.remoteHarvest.title
+	    from: 'Delegated harvesting'
+	      to: 'Delegated harvesting'
+	based on: texts.landing.carousel.items.[2].title
+
+-----translated texts.transactionTypes.20
+	    from: 'TRANSFER TRANSACTION'
+	      to: 'NORMALE TRANSACTIE'
+	based on: texts.transactionTypes.[0]
+
+translated texts.transactionTypes.21
+	    from: 'IMPORTANCE TRANSFER'
+	      to: 'BELANGRIJKE TRANSACTIE'
+	based on: texts.transactionTypes.[1]
+
+translated texts.transactionTypes.22
+	    from: 'MODIFICATION OF MULTISIG ACCOUNT'
+	      to: 'AANPASSING VAN EEN MULTISIG REKENING'
+	based on: texts.transactionTypes.[2]
+
+translated texts.transactionTypes.40
+	    from: 'MULTISIG SIGNATURE'
+	      to: 'MULTISIG SIGNATURE'
+	based on: texts.transactionTypes.[4]
+
+translated texts.transactionTypes.50
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[6]
+
+translated texts.transactionTypes.51
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[6]
+
+translated texts.transactionTypes.52
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.[6]
+
+-----
