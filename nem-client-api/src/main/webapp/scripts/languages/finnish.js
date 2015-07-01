@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'SIIRTO LÄHETYS',
-			'IMPORTANCE LÄHETYS',
-			'MULTISIG TILIN MUOKKAUS',
-			'MULTISIG SIIRTO',
-			'MULTISIG SIGNATURE',
-			'MULTISIG SIIRTO',
-			'MULTISIG SIIRTO',
-			
-		],
+		transactionTypes: {
+			20: 'SIIRTO LÄHETYS',
+			21: 'IMPORTANCE LÄHETYS',
+			22: 'MULTISIG TILIN MUOKKAUS',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'MULTISIG SIIRTO',
+			51: 'MULTISIG SIIRTO',
+			52: 'MULTISIG SIIRTO',
+
+		},
 		transactionDirections: {
 			pending: 'Vireillä oleva siirto',
 			outgoing: 'Lähtevä siirto',
 			incoming: 'Tuleva siirto',
 			self: 'Siirto itselle',
 			importance: 'Importance siirto',
-			modification: 'Multisig-tilin muokkaus'
+			modification: 'Multisig-tilin muokkaus',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Multisig-tili on allekirjoittajien listalla. Tämä aiheuttaa tilin lukkiutumisen ja estää pääsyn varoihin. Todennäköisesti <b>ET</b> halua tehdä sitä!',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Summa',
 				innerFee: 'Sisäinen palkkio',
 				multisigFees: 'Multisig-palkkio',
-				cosignatory: 'Allekirjoittaja'
+				cosignatory: 'Allekirjoittaja',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Tilin tiedot',

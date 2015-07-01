@@ -118,23 +118,27 @@ define({
 			warning: 'Warning',
 			newBuild: 'NEW BUILD',
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
-		transactionTypes: [
-			'TRANSFER TRANSACTION',
-			'IMPORTANCE TRANSFER',
-			'MODIFICATION OF MULTISIG ACCOUNT',
-			'MULTISIG TRANSACTION',
-			'MULTISIG SIGNATURE',
-			'MULTISIG TRANSACTION',
-			'MULTISIG TRANSACTION',
-		],
+		transactionTypes: {
+			20: 'TRANSFER TRANSACTION',
+			21: 'IMPORTANCE TRANSFER',
+			22: 'MODIFICATION OF MULTISIG ACCOUNT',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'MULTISIG TRANSACTION',
+			51: 'MULTISIG TRANSACTION',
+			52: 'MULTISIG TRANSACTION',
+
+		},
 		transactionDirections: {
 			pending: 'Pending transaction',
 			outgoing: 'Outgoing transaction',
 			incoming: 'Incoming transaction',
 			self: 'Self transaction',
 			importance: 'Importance transaction',
-			modification: 'Aggregate Modification of Multisig'
+			modification: 'Aggregate Modification of Multisig',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -150,12 +154,12 @@ define({
 				no: 'No'
 			},
 			initialTy: {
-			    title: "WELCOME to NEM",
-			    content: "<p>Founded on the strong principles of egalitarian and equality in distribution, the New Economy Movement, NEM, has now finally come to fruition after close to 14 months of intensive development. In addition to 5 core developers and 7 core marketers, we have a host of community members who have helped us in one way or another, without whom, this would never have come together so well as being one of the few crypto initiatives with such a big team. Special mention is given to the following:</p><hr/><p><b>Technical and Marketing input:</b><br/> Amy, andme, averagejoe, BrainOfMasses, dzarmusch, EFFV, Elana82, erkki, freigeist, happy4209, instacash, jadedjack, KevinLi, KkotNem, kooream, Krysto, Loi Tran, lyka, mixmaster, MrPortMan, nembit, nxkoil, owon, Panther03, pheromone, renoteng.li, rigel, SaulGray, shawnleary, solix, stone, thilon, unvoidpl, zhankaiwen, zoata87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</p><hr/><p><b>NCC User Interface translation:</b><br/>apex, boestin, Chaos514, DIMKAZDS, filchef, freigeist, Guliver, iaminitnow06, Janea4pda, kuppalahti, Lcharles, martismartis, mess-lelouch, Parana, rigel, Shawn, Spider, 楊 輝彦</p><p><br/>In addition to the above 67 team members, we also have other members who  contributed, whether in technical, marketing or stress testing the system during the alpha and beta phase. We would like to additionally thank all those individuals not listed here and the greater NEM community because without them, we would have not ever come so far.</p><hr/><p>And most importantly<br/><b>Thank YOU!</b><br/><br/>New Economy starts with YOU!</p>"
+				title: "WELCOME to NEM",
+				content: "<p>Founded on the strong principles of egalitarian and equality in distribution, the New Economy Movement, NEM, has now finally come to fruition after close to 14 months of intensive development. In addition to 5 core developers and 7 core marketers, we have a host of community members who have helped us in one way or another, without whom, this would never have come together so well as being one of the few crypto initiatives with such a big team. Special mention is given to the following:</p><hr/><p><b>Technical and Marketing input:</b><br/> Amy, andme, averagejoe, BrainOfMasses, dzarmusch, EFFV, Elana82, erkki, freigeist, happy4209, instacash, jadedjack, KevinLi, KkotNem, kooream, Krysto, Loi Tran, lyka, mixmaster, MrPortMan, nembit, nxkoil, owon, Panther03, pheromone, renoteng.li, rigel, SaulGray, shawnleary, solix, stone, thilon, unvoidpl, zhankaiwen, zoata87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</p><hr/><p><b>NCC User Interface translation:</b><br/>apex, boestin, Chaos514, DIMKAZDS, filchef, freigeist, Guliver, iaminitnow06, Janea4pda, kuppalahti, Lcharles, martismartis, mess-lelouch, Parana, rigel, Shawn, Spider, 楊 輝彦</p><p><br/>In addition to the above 67 team members, we also have other members who  contributed, whether in technical, marketing or stress testing the system during the alpha and beta phase. We would like to additionally thank all those individuals not listed here and the greater NEM community because without them, we would have not ever come so far.</p><hr/><p>And most importantly<br/><b>Thank YOU!</b><br/><br/>New Economy starts with YOU!</p>"
 			},
 			initialBackup: {
-			    title: "Welcome to NEM",
-			    content: "You can create wallet backup from menu in upper right corner."
+				title: "Welcome to NEM",
+				content: "You can create wallet backup from menu in upper right corner."
 			},
 			settings: {
 				title: 'Settings',
@@ -182,10 +186,10 @@ define({
 				saveSuccess: 'Settings have been saved successfully'
 			},
 			signToken: {
-			    title: "Sign a token using account",
-			    label: "Token (url, string, anything)",
-			    signature: "Signed token",
-			    sign: "Sign"
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convert account to multisig',
@@ -198,6 +202,7 @@ define({
 				txConfirm: {
 					title: 'Confirm Conversion to Multisig Account',
 					total: 'Total',
+
 				},
 				warning: 'Multisig account is on the list of cosignatories. This will result in locking down the account cutting off access to the fund. Most likely you <b>DO NOT</b> want to do that.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
@@ -301,7 +306,9 @@ define({
 				amount: 'Amount',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
-				cosignatory: 'Cosignatory'
+				cosignatory: 'Cosignatory',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: "Account details",
@@ -341,15 +348,16 @@ define({
 				create: 'Create'
 			},
 			showPrivateKey: {
-			    title: 'Show Account\'s PRIVATE Key',
-			    message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Show Account\'s PRIVATE Key',
+				message: 'This will display account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
 				publicKey: 'Public key',
 				privateKey: 'Private key',
-			    show: 'Show the key'
+				show: 'Show the key'
 			},
 			showRemotePrivateKey: {
-			    title: 'Show Remote Account\'s PRIVATE Key',
-			    message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+				title: 'Show Remote Account\'s PRIVATE Key',
+				message: 'This will display remote account\'s private key on the screen, as a text. In case of any malware present in the system, this might be hazardous operation. Are you sure you want to do that?',
+
 			},
 			addAccount: {
 				title: 'Add an Existing Account',
@@ -415,12 +423,13 @@ define({
 				warningText: 'Activation will take 6 hours (360 blocks). Activation will NOT start harvesting automatically.',
 				delegatedAccount: 'Delegated account public key',
 				builtIn: 'built into the wallet',
+
 			},
 			deactivateDelegated: {
 				title: 'Deactivate Delegated Harvesting',
 				wallet: 'Wallet',
 				deactivate: 'Deactivate',
-                warningText: 'Deactivation will take 6 hours (360 blocks).'
+				warningText: 'Deactivation will take 6 hours (360 blocks).'
 			},
 			startRemote: {
 				title: 'Start Delegated Harvesting',
@@ -479,23 +488,27 @@ define({
 					{
 						title: 'Remote NEM Infrastructure Server',
 						description: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.',
+
 					},
-                    {
-                        title: 'Delegated harvesting',
-                        description: 'With delegated harvesting you can harvest on remote NIS nodes!',
-                    },
-                    {
-                        title: 'Multisignature transactions',
-                        description: 'Secure your XEM and assets via in-blockchain multi-signature transactions.',
-                    },
-                    {
-                        title: 'Native language support',
-                        description: 'NEM user interface supports multiple languages. See "Settings".'
-                    },
-                    {
-                        title: 'Got any questions or feedback ?',
-                        description: '<a href="http://forum.ournem.com">forum.ournem.com</a> | #ournem on freenode.org | Telegram',
-                    }
+					{
+						title: 'Delegated harvesting',
+						description: 'With delegated harvesting you can harvest on remote NIS nodes!',
+
+					},
+					{
+						title: 'Multisignature transactions',
+						description: 'Secure your XEM and assets via in-blockchain multi-signature transactions.',
+
+					},
+					{
+						title: 'Native language support',
+						description: 'NEM user interface supports multiple languages. See "Settings".'
+					},
+					{
+						title: 'Got any questions or feedback ?',
+						description: '<a href="http://forum.ournem.com">forum.ournem.com</a> | #ournem on freenode.org | Telegram',
+
+					}
 				]
 			},
 			about: {
@@ -587,7 +600,7 @@ define({
 				stop: 'Stop local harvesting',
 				description: 'Importance of account to the NEM cloud',
 				remoteHarvest: {
-				    title: 'Delegated harvesting',
+					title: 'Delegated harvesting',
 					activate: 'Activate delegated harvesting',
 					activating: 'Activating delegated harvesting...',
 					active: 'Delegated harvesting is active',
@@ -597,6 +610,7 @@ define({
 					remotelyHarvesting: 'Remotely harvesting',
 					stopRemoteHarvesting: 'Stop delegated harvesting',
 					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

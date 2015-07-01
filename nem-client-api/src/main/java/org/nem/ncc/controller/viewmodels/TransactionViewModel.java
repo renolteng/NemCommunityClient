@@ -13,14 +13,18 @@ import org.nem.core.time.UnixTime;
 public class TransactionViewModel implements SerializableEntity {
 	// This enum needs to be kept in sync with JS TransactionType
 	public enum Type {
-		Unknown(0),
-		Transfer(1),
-		Importance_Transfer(2),
-		Multisig_Modification(3),
-		Multisig_Transfer(4),
-		Multisig_Signature(5),
-		Multisig_Multisig_Modification(6),
-		Multisig_Importance_Transfer(7);
+		Unknown(0)
+		, Transfer(20)
+		, Importance_Transfer(21)
+		, Aggregate_Modification(22)
+		, Provision_Namespace(23)
+
+		, Multisig_Signature(40)
+
+		, Multisig_Transfer(50)
+		, Multisig_Importance_Transfer(51)
+		, Multisig_Aggregate_Modification(52)
+		;
 
 		private final int value;
 
@@ -64,11 +68,14 @@ public class TransactionViewModel implements SerializableEntity {
 			final BlockHeight lastBlockHeight) {
 		final Transaction transaction = metaDataPair.getTransaction();
 		// TODO 20150131 J-G: do we really need this check?
+		// 20150630 G-J: we do, as this way it's much easier to spot new txes,
+		// that are handled by nis and should be handled by ncc
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
 				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
 				TransactionTypes.MULTISIG != transaction.getType() &&
 				TransactionTypes.MULTISIG_SIGNATURE != transaction.getType() &&
-				TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION != transaction.getType()) {
+				TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION != transaction.getType() &&
+				TransactionTypes.PROVISION_NAMESPACE != transaction.getType()) {
 			throw new IllegalArgumentException("TransactionViewModel cannot be created around passed transaction");
 		}
 

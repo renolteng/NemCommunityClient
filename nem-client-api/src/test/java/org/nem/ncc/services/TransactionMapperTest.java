@@ -537,7 +537,7 @@ public class TransactionMapperTest {
 	private static MultisigModificationRequest createModificationRequest(final TestContext context) {
 		return new MultisigModificationRequest(
 				new WalletName("w"),
-				TransactionViewModel.Type.Multisig_Modification.getValue(),
+				TransactionViewModel.Type.Aggregate_Modification.getValue(),
 				new WalletPassword("p"),
 				context.signer.getAddress(), // must be a valid address
 				null,
@@ -552,7 +552,7 @@ public class TransactionMapperTest {
 	private static MultisigModificationRequest createMultisigModificationRequest(final TestContext context) {
 		return new MultisigModificationRequest(
 				new WalletName("w"),
-				TransactionViewModel.Type.Multisig_Multisig_Modification.getValue(),
+				TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue(),
 				new WalletPassword("p"),
 				context.signer.getAddress(),
 				context.issuer.getAddress(),

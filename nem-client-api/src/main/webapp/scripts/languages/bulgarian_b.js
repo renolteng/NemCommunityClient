@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'ПРЕХВЪРЛИ ТРАНЗАКЦИЯТА',
-			'ВАЖНО ПРЕХВЪРЛЯНЕ',
-			'МОДИФИКАЦИЯ НА МУЛТИСИГНАТУРНИЯ АКАУНТ',
-			'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
-			'MULTISIG SIGNATURE',
-			'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
-			'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
-			
-		],
+		transactionTypes: {
+			20: 'ПРЕХВЪРЛИ ТРАНЗАКЦИЯТА',
+			21: 'ВАЖНО ПРЕХВЪРЛЯНЕ',
+			22: 'МОДИФИКАЦИЯ НА МУЛТИСИГНАТУРНИЯ АКАУНТ',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
+			51: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
+			52: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
+
+		},
 		transactionDirections: {
 			pending: 'Чакаща транзакция',
 			outgoing: 'Изходяща транзакция',
 			incoming: 'Входяща транзакция',
 			self: 'Собственна транзакция',
 			importance: 'Важна транзакция',
-			modification: 'Сумарна Модификация на Мултисигнатурата'
+			modification: 'Сумарна Модификация на Мултисигнатурата',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Мултисигнатурния акаунт е в списъка на косигнатурите.Това ще предизвика блокиране на акаунта и прекъсване досъпа до фонда му.Вие навярно <b>НЕ ИСКАТЕ </b> да направите това.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Сума',
 				innerFee: 'Вътрешна такса',
 				multisigFees: 'Мултисигнатурни такси',
-				cosignatory: 'Косигнатура'
+				cosignatory: 'Косигнатура',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Детайли на акаунта',

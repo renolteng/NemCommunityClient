@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'PERVEDIMO TRANSAKCIJA',
-			'\'SVARBUMO\' PERKĖLIMAS',
-			'MULTISIG SĄSKAITOS MODIFIKACIJA',
-			'MULTISIG TRANSAKCIJA',
-			'MULTISIG SIGNATURE',
-			'MULTISIG TRANSAKCIJA',
-			'MULTISIG TRANSAKCIJA',
-			
-		],
+		transactionTypes: {
+			20: 'PERVEDIMO TRANSAKCIJA',
+			21: '\'SVARBUMO\' PERKĖLIMAS',
+			22: 'MULTISIG SĄSKAITOS MODIFIKACIJA',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: 'MULTISIG TRANSAKCIJA',
+			51: 'MULTISIG TRANSAKCIJA',
+			52: 'MULTISIG TRANSAKCIJA',
+
+		},
 		transactionDirections: {
 			pending: 'Atliekama transakcija',
 			outgoing: 'Išeinanti transakcija',
 			incoming: 'Įeinanti transakcija',
 			self: 'Transakcija sau',
 			importance: '\'Svarbumo\' perkėlimas',
-			modification: 'Multisig modifikacija'
+			modification: 'Multisig modifikacija',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: 'Multisig sąskaita yra parašo teisės turėtojų sąraše. Tai \'užrakins\' Jūsų pinigus joje. Tikriausia Jūs <b>NENORITE</b> to daryti.',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: 'Suma',
 				innerFee: 'Vidinis mokestis',
 				multisigFees: 'Multisig mokesčiai',
-				cosignatory: 'Parašo teisės turėtojas'
+				cosignatory: 'Parašo teisės turėtojas',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: 'Sąskaitos informacija',

@@ -1205,7 +1205,7 @@
 			<tr>
 				<td class="table-cell table-cell--label"><strong>{{texts.modals.transactionDetails.type}}</strong></td>
 				<td class="table-cell table-cell--content">
-					{{texts.transactionTypes[.type - 1]}} {{#innerType}}({{texts.transactionTypes[.innerType - 1]}}){{/innerType}}
+					{{texts.transactionTypes[.type]}} {{#innerType}}({{texts.transactionTypes[.innerType]}}){{/innerType}}
 				</td>
 			</tr>
 
@@ -1323,6 +1323,11 @@
 
             {{#if (.type === TransactionType.Aggregate_Modification || .type === TransactionType.Multisig_Aggregate_Modification)}}
             {{>aggregateModificationPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Provision_Namespace || .type === TransactionType.Multisig_Provision_Namespace)}}
+            <tr><td colspan="2"> hooray</td></tr>
+            {{>provisionNamespacePartial}}
             {{/if}}
 
 			{{#if (.isMultisig)}}

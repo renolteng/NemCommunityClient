@@ -120,23 +120,25 @@ define({
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
 
 		},
-		transactionTypes: [
-			'传输交互',
-			'重要性传输',
-			'多重签名账户变更',
-			'多重签名交互',
-			'MULTISIG SIGNATURE',
-			'多重签名交互',
-			'多重签名交互',
-			
-		],
+		transactionTypes: {
+			20: '传输交互',
+			21: '重要性传输',
+			22: '多重签名账户变更',
+			23: 'PROVISION NAMESPACE',
+			40: 'MULTISIG SIGNATURE',
+			50: '多重签名交互',
+			51: '多重签名交互',
+			52: '多重签名交互',
+
+		},
 		transactionDirections: {
 			pending: '等待中交互',
 			outgoing: '发送交互',
 			incoming: '接受交互',
 			self: '自我交互',
 			importance: '重要性交互',
-			modification: '多重签名账户协同变更'
+			modification: '多重签名账户协同变更',
+			provision: 'Provision Namespace'
 		},
 		modals: {
 			error: {
@@ -204,6 +206,7 @@ define({
 				},
 				warning: '多重签名账户本身不可以作为共同签署人。这样做会把账户彻底锁死无法发出交互。估计您<b>不会</b>想要这么做。',
 				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
 				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
 				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
@@ -303,7 +306,9 @@ define({
 				amount: '金额',
 				innerFee: '内部费用',
 				multisigFees: '多重签名费用',
-				cosignatory: '共同签署人'
+				cosignatory: '共同签署人',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee'
 			},
 			accountDetails: {
 				title: '账户细节',

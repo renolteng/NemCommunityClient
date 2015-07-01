@@ -2,13 +2,17 @@
 
 define(function() {
     var TransactionType = {
-        Transfer: 1
-        , Importance_Transfer: 2
-        , Aggregate_Modification: 3
-        , Multisig_Transfer: 4
-        , Multisig_Signature: 5
-        , Multisig_Aggregate_Modification: 6
-        , Multisig_Importance_Transfer: 7
+        Transfer: 20
+        , Importance_Transfer: 21
+        , Aggregate_Modification: 22
+        , Provision_Namespace: 23
+
+        , Multisig_Signature: 40
+
+        , Multisig_Transfer: 50
+        , Multisig_Importance_Transfer: 51
+        , Multisig_Aggregate_Modification: 52
+        , Multisig_Provision_Namespace: 53
     };
 
     return TransactionType;

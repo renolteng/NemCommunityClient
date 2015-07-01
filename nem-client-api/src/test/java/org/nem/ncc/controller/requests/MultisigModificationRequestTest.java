@@ -26,7 +26,7 @@ public class MultisigModificationRequestTest {
 		// Act:
 		final MultisigModificationRequest request = new MultisigModificationRequest(
 				new WalletName("wlt"),
-				TransactionViewModel.Type.Multisig_Modification.getValue(),
+				TransactionViewModel.Type.Aggregate_Modification.getValue(),
 				new WalletPassword("pwd"),
 				initiator,
 				null,
@@ -40,7 +40,7 @@ public class MultisigModificationRequestTest {
 		// Assert:
 		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("wlt")));
 		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("pwd")));
-		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Multisig_Modification.getValue()));
+		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Aggregate_Modification.getValue()));
 		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(initiator));
 		Assert.assertThat(request.getIssuerAddress(), IsNull.nullValue());
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(cosignatoryAddAddresses));
@@ -62,7 +62,7 @@ public class MultisigModificationRequestTest {
 		// Act:
 		final MultisigModificationRequest request = new MultisigModificationRequest(
 				new WalletName("wlt"),
-				TransactionViewModel.Type.Multisig_Multisig_Modification.getValue(),
+				TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue(),
 				new WalletPassword("pwd"),
 				initiator,
 				issuer,
@@ -76,7 +76,7 @@ public class MultisigModificationRequestTest {
 		// Assert:
 		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("wlt")));
 		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("pwd")));
-		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Multisig_Multisig_Modification.getValue()));
+		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue()));
 		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(initiator));
 		Assert.assertThat(request.getIssuerAddress(),IsEqual.equalTo(issuer));
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(cosignatoryAddAddresses));
@@ -94,7 +94,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Multisig_Modification.getValue();
+		int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type);
 
 		// Act:
@@ -117,7 +117,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithEmptyCosignatoryAddressList() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Multisig_Modification.getValue();
+		int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type);
 
 		// Act:
@@ -140,7 +140,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithZeroMultisigFee() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Multisig_Modification.getValue();
+		int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 0L, type);
 
 		// Act:
@@ -163,7 +163,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithMultisigMultisigType() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Multisig_Multisig_Modification.getValue();
+		int type = TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type);
 
 		// Act:
@@ -186,7 +186,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
-		final int type = TransactionViewModel.Type.Multisig_Modification.getValue();
+		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final List<Deserializer> deserializers = Arrays.asList(
 				createDeserializer(null, "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type),
 				createDeserializer("w", null, "s", "i", "a", "d", 5, 12, 123L, 10L, type),
