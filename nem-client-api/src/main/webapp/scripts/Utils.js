@@ -562,6 +562,7 @@ define(['TransactionType'], function(TransactionType) {
 
                 // Perform transformations (if any)
                 var target = e.target;
+                if (target.hasAttribute("readonly")) return;
                 var transform = this.transform[type];
                 if (typeof transform === 'function') {
                     char = transform(char);
@@ -572,6 +573,9 @@ define(['TransactionType'], function(TransactionType) {
             },
             paste: function(e, type, ractive) {
                 e.preventDefault();
+                var target = e.target;
+                if (target.hasAttribute("readonly")) return;
+
                 var pastedText = Utils.getClipboardText(e);
                 this.insertInput(pastedText, e.target, type, ractive);
             },
@@ -579,6 +583,8 @@ define(['TransactionType'], function(TransactionType) {
                 var target = e.target;
                 var oldText = target.value;
                 var caret = target.selectionStart;
+                if (target.hasAttribute("readonly")) return;
+
                 var token = this.skippedToken[type];
                 if (typeof token === 'function') {
                     token = token();
