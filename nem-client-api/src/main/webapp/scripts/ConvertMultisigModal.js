@@ -91,7 +91,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 var existing = this.getExistingMinCosigs();
                 var c = this.get('cosignatories');
                 var removed = c.filter(function(a){return a.deleted === true;}).length;
-                var added = c.filter(function(a){ return a.deleted === undefined && a.address.length;}).length;
+                var added = c.filter(function(a){ return a.deleted === undefined && a.address.length === 40;}).length;
+
                 if (this.get('multisigAccount') && this.get('multisigAccount').isMultisig) {
                     if (this.get('multisigAccount').minCosignatories) {
                         this.set('minCosignatories', existing + added - removed);
@@ -102,7 +103,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                         this.set('minCosignatoriesRelative', 0);
                     }
                 } else {
-                    this.set('minCosignatories', c.length);
+                    this.set('minCosignatories', added);
                     this.set('minCosignatoriesRelative', 0);
                 }
             }
@@ -117,17 +118,18 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
 
             var self = this;
             $cosignatory.on('paste', function(e) { Utils.mask.paste(e, 'address', self); self.typeaheadHack(); self.resetMinCosignatories(); });
-            $cosignatory.on('keyup', function(e) {
+            $cosignatory.on('keyup blur focus', function(e) {
                 self.resetMinCosignatories();
             });
-
             $cosignatory
                 .typeahead(this.typeaheadSettings, this.typeaheadData)
                 .bind('typeahead:selected', function(ev, suggestion) {
                     self.resetMinCosignatories();
-
                 })
                 .bind('typeahead:autocompleted', function(ev, suggestion) {
+                    self.resetMinCosignatories();
+                })
+                .bind('typeahead:closed', function(ev, suggestion) {
                     self.resetMinCosignatories();
                 });
             $cosignatory.focus();
@@ -252,7 +254,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 var relativeChange = 0;
                 if (this.get('minCosignatoriesRelative') !== 0) {
                     relativeChange = this.get('minCosignatoriesRelative');
-                    console.log("relativeChange: ", relativeChange);
+                    //console.log("relativeChange: ", relativeChange);
                 }
 
                 requestData.type = TransactionType.Multisig_Aggregate_Modification;
@@ -277,7 +279,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             //}
             this.set('cosignatoriesValid', true);
             for (var i=0; i<cosignatories.length; ++i) {
-                if (cosignatories[i].address.length !== 40) {
+                if (cosignatories[i].address.length !== 0 && cosignatories[i].address.length !== 40) {
                     this.set('cosignatoriesValid', false);
                     this.set('cosignatories['+i+'].error', true);
                 } else {
