@@ -502,6 +502,9 @@ function(languages,
                         type: 'text',
                         label: {
                             content: ncc.get('texts.modals.signToken.label')
+                        },
+                        isValid: function() {
+                            return Utils.valid.notEmpty(this.get("values")['token']);
                         }
                     },
                     {
@@ -527,6 +530,9 @@ function(languages,
                         type: 'password',
                         label: {
                             content: ncc.get('texts.common.password')
+                        },
+                        isValid: function() {
+                            return Utils.valid.notEmpty(this.get("values")['password']);
                         }
                     }
                 ],
@@ -638,6 +644,9 @@ function(languages,
                         type: 'password',
                         label: {
                             content: ncc.get('texts.common.password')
+                        },
+                        isValid: function() {
+                            return Utils.valid.notEmpty(this.get("values")['password']);
                         }
                     }
                 ],

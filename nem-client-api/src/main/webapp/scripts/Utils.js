@@ -641,6 +641,12 @@ define(['TransactionType'], function(TransactionType) {
                 }
             },
         },
+        valid: {
+            notEmpty: function(data) { return !!data; },
+            address: function(data) { return !!data && !!data.match(/^[TtNn][2-7a-zA-Z]{39}$/); },
+            walletName: function(data) { return !!data && !data.match(/[\\/.:*?"<>|]/); },
+            privateKey: function(data) { return !!data && !!data.match(/^[0-9a-fA-F]+$/); }
+        },
         typeahead: {
             addressBookMatcher: function(query, cb) {
                 var matches = Utils.addressBook.query(query);
