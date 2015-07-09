@@ -208,7 +208,8 @@ function(languages,
                 return this.get('nisStatus.code') === this.Status.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             },
             lcwNameValid: function() {
-                return !!this.get('landingPage.createWalletForm.wallet');
+                var walletName = this.get('landingPage.createWalletForm.wallet');
+                return !!walletName && !walletName.match(/[\\/.:*?"<>|]/);
             },
             lcwPasswordValid: function() {
                 return !!this.get('landingPage.createWalletForm.password');

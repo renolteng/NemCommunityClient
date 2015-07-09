@@ -58,7 +58,7 @@
 					<button class="ctaButton ctaButton-createWallet {{#landingPage.activeSection === 'left'}}ctaButton--active{{/}}" on-click="switchLeft">{{texts.landing.main.leftButton}}</button>
 					<div class="ctaSection-form createWalletForm expandable">
 						<div class="js-expand-content createWalletForm-content">
-							<input class="createWalletForm-textbox {{#lcwNameValid}}createWalletForm-textbox--valid{{/}} js-textbox-createWallet-name" type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{landingPage.createWalletForm.wallet}}" on-keypress="createWalletKeypress" />
+							<input class="createWalletForm-textbox {{^lcwNameValid}}createWalletForm-textbox--invalid{{/}}{{#lcwNameValid}}createWalletForm-textbox--valid{{/}} js-textbox-createWallet-name" type="text" placeholder="{{texts.landing.main.walletNamePlh}}" value="{{landingPage.createWalletForm.wallet}}" on-keypress="createWalletKeypress" />
 							<input class="createWalletForm-textbox {{^lcwPasswordValid}}createWalletForm-textbox--invalid{{/}}{{#lcwPasswordValid}}createWalletForm-textbox--valid{{/}} createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.passwordPlh}}" value="{{landingPage.createWalletForm.password}}" on-keypress="createWalletKeypress" />
 							<input class="createWalletForm-textbox {{^lcwConfirmPasswordValid}}createWalletForm-textbox--invalid{{/}}{{#lcwConfirmPasswordValid}}createWalletForm-textbox--valid{{/}} createWalletForm-textbox" type="password" placeholder="{{texts.landing.main.confirmPasswordPlh}}" value="{{landingPage.confirmPassword}}" on-keypress="createWalletKeypress" />
 							<div class="createWalletForm-submit">
