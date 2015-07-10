@@ -52,7 +52,7 @@ public class TransferSendRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L, 3L, 1);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L, 3L, 20);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
