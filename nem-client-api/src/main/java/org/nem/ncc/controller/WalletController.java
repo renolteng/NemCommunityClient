@@ -1,5 +1,6 @@
 package org.nem.ncc.controller;
 
+import org.eclipse.jetty.util.UrlEncoded;
 import org.nem.core.utils.ExceptionUtils;
 import org.nem.ncc.addressbook.*;
 import org.nem.ncc.controller.requests.WalletNamePasswordBag;
@@ -128,7 +129,7 @@ public class WalletController {
 			final String extension,
 			final BiConsumer<TEntityNamePasswordPair, OutputStream> copyTo,
 			final Function<String, TEntityNamePasswordPair> nameToPair) throws IOException {
-		final ZipEntry zipEntry = new ZipEntry(name + extension);
+		final ZipEntry zipEntry = new ZipEntry(UrlEncoded.encodeString(name) + extension);
 		zipOutputStream.putNextEntry(zipEntry);
 		copyTo.accept(nameToPair.apply(name), zipOutputStream);
 		zipOutputStream.closeEntry();
