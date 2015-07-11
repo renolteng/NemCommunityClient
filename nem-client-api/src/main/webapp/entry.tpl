@@ -104,7 +104,6 @@
 						<div class="form-field">
 							<p class="form-label">{{.label.content}}</p>
 							{{#.type === 'text' || .type === 'password'}}
-
 								<input type="{{.type}}" id="{{.name}}" class="form-input form-input--textbox {{#if (!!isValid && !isValid()) }}form-input--error{{/if}} {{#unimportant}}form-input--unimportant{{/}}" readonly="{{.readonly}}" value="{{values[.name]}}" on-keyup="inputKeyup" />
 							{{/}}
 							{{#.type === 'textarea'}}

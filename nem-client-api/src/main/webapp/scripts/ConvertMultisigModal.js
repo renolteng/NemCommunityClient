@@ -184,8 +184,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             var multisigsOfCurrent = [];
             var wallet = ncc.get('wallet');
 
-			// TODO 20150624 J-G: i guess you needed this because the data was stale when the modal was reopened?
-			// G-J: it's here, as there could be multisig aggregate transaction in the meantime, that changes current account cosignatories
+			// refresh because in the meantime the current account cosignatories could have changed
             if (retrieveAccountData) {
                 Utils.updateAccount();
             }
@@ -254,7 +253,6 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 var relativeChange = 0;
                 if (this.get('minCosignatoriesRelative') !== 0) {
                     relativeChange = this.get('minCosignatoriesRelative');
-                    //console.log("relativeChange: ", relativeChange);
                 }
 
                 requestData.type = TransactionType.Multisig_Aggregate_Modification;
@@ -274,11 +272,10 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             var multisigAccount = this.get('multisigAccount');
             var cosignatories = this.get('cosignatories');
 
-            //if (! multisigAccount) {
-            //    return;
-            //}
+
             this.set('cosignatoriesValid', true);
             for (var i=0; i<cosignatories.length; ++i) {
+            	// TODO 20150711 J-G: could you use Utils.valid.address()?
                 if (cosignatories[i].address.length !== 0 && cosignatories[i].address.length !== 40) {
                     this.set('cosignatoriesValid', false);
                     this.set('cosignatories['+i+'].error', true);
@@ -286,9 +283,7 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     this.set('cosignatories['+i+'].error', false);
                 }
             }
-            //if (! multisigAccount) {
-            //    return;
-            //}
+
             if (this.get('cosignatoriesValid') === true) {
                 for (var i=0; i<cosignatories.length; ++i) {
                     if ((cosignatories[i].address === multisigAccount.address)) {

@@ -7,11 +7,20 @@ import org.nem.core.model.primitive.Amount;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.Serializer;
 
+/**
+ * A provision namespace transaction view model.
+ */
 public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel {
 	private final Address lessor;
 	private final Amount rentalFee;
 	private final String namespaceName;
 
+	/**
+	 * Creates a new provision namespace transaction view model.
+	 *
+	 * @param metaDataPair The metadata pair.
+	 * @param lastBlockHeight The last block height.
+	 */
 	public ProvisionNamespaceTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Provision_Namespace, metaDataPair, lastBlockHeight);
 

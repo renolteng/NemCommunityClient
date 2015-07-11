@@ -208,6 +208,7 @@ function(languages,
                 return this.get('nisStatus.code') === this.Status.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             },
             lcwNameValid: function() {
+            	// TODO 20150711 J-G: could you use Utils.valid.walletName()?
                 var walletName = this.get('landingPage.createWalletForm.wallet');
                 return !!walletName && !walletName.match(/[\\/.:*?"<>|]/);
             },

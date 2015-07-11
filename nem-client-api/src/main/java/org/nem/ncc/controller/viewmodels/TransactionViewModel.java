@@ -70,6 +70,7 @@ public class TransactionViewModel implements SerializableEntity {
 		// TODO 20150131 J-G: do we really need this check?
 		// 20150630 G-J: we do, as this way it's much easier to spot new txes,
 		// that are handled by nis and should be handled by ncc
+		// TODO 20150711 J-G: fix with TransactionTypes.getBlockEmbeddableTypes when that makes it into testnet2
 		if (TransactionTypes.TRANSFER != transaction.getType() &&
 				TransactionTypes.IMPORTANCE_TRANSFER != transaction.getType() &&
 				TransactionTypes.MULTISIG != transaction.getType() &&

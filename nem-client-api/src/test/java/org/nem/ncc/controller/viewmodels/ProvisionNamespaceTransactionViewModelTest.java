@@ -185,18 +185,14 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		return (ProvisionNamespaceTransactionViewModel)TransactionToViewModelMapper.map(transaction, address);
 	}
 
-	private static ProvisionNamespaceTransactionViewModel map(final TransactionMetaDataPair metaDataPair, final Address address, final BlockHeight height) {
-		return (ProvisionNamespaceTransactionViewModel)TransactionToViewModelMapper.map(metaDataPair, address, height);
-	}
-
 	private static class Context
 	{
-		final Account sender = Utils.generateRandomAccount();
-		final Account lessor = Utils.generateRandomAccount();
-		final Transaction transaction;
-		Hash transactionHash;
+		private final Account sender = Utils.generateRandomAccount();
+		private final Account lessor = Utils.generateRandomAccount();
+		private final Transaction transaction;
+		private Hash transactionHash;
 
-		Context(final NamespaceIdPart current, final NamespaceId parent)
+		public Context(final NamespaceIdPart current, final NamespaceId parent)
 		{
 			 this.transaction = new ProvisionNamespaceTransaction(
 					new TimeInstant(125),
