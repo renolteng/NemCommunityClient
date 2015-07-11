@@ -38,17 +38,17 @@ public class MultisigModificationRequestTest {
 				Amount.ZERO);
 
 		// Assert:
-		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("wlt")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("pwd")));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("wlt")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("pwd")));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Aggregate_Modification.getValue()));
-		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(initiator));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(initiator));
 		Assert.assertThat(request.getIssuerAddress(), IsNull.nullValue());
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(cosignatoryAddAddresses));
 		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(cosignatoryDelAddresses));
 		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(5));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
-		Assert.assertThat(request.getFee(),IsEqual.equalTo(Amount.fromNem(123)));
-		Assert.assertThat(request.getMultisigFee(),IsEqual.equalTo(Amount.ZERO));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromNem(123)));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.ZERO));
 	}
 
 	@Test
@@ -74,17 +74,17 @@ public class MultisigModificationRequestTest {
 				Amount.fromNem(321));
 
 		// Assert:
-		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("wlt")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("pwd")));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("wlt")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("pwd")));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue()));
-		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(initiator));
-		Assert.assertThat(request.getIssuerAddress(),IsEqual.equalTo(issuer));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(initiator));
+		Assert.assertThat(request.getIssuerAddress(), IsEqual.equalTo(issuer));
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(cosignatoryAddAddresses));
 		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(cosignatoryDelAddresses));
 		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(5));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
-		Assert.assertThat(request.getFee(),IsEqual.equalTo(Amount.fromNem(123)));
-		Assert.assertThat(request.getMultisigFee(),IsEqual.equalTo(Amount.fromNem(321)));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromNem(123)));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromNem(321)));
 	}
 
 	//endregion
@@ -101,16 +101,16 @@ public class MultisigModificationRequestTest {
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
 
 		// Assert:
-		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("p")));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(type));
-		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(Address.fromEncoded("s")));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(Address.fromEncoded("s")));
 		Assert.assertThat(request.getIssuerAddress(), IsEqual.equalTo(Address.fromEncoded("i")));
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(Collections.singletonList(Address.fromEncoded("a"))));
 		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(Collections.singletonList(Address.fromEncoded("d"))));
 		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(5));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
-		Assert.assertThat(request.getFee(),IsEqual.equalTo(Amount.fromMicroNem(123)));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(123)));
 		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(10)));
 	}
 
@@ -124,15 +124,15 @@ public class MultisigModificationRequestTest {
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
 
 		// Assert:
-		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("p")));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(type));
-		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(Address.fromEncoded("s")));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(Address.fromEncoded("s")));
 		Assert.assertThat(request.getIssuerAddress(), IsEqual.equalTo(Address.fromEncoded("i")));
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(Collections.emptyList()));
 		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(Collections.emptyList()));
 		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(5));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(123)));
 		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(10)));
 	}
@@ -147,15 +147,15 @@ public class MultisigModificationRequestTest {
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
 
 		// Assert:
-		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("p")));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(type));
-		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(Address.fromEncoded("s")));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(Address.fromEncoded("s")));
 		Assert.assertThat(request.getIssuerAddress(), IsEqual.equalTo(Address.fromEncoded("i")));
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(Collections.emptyList()));
 		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(Collections.emptyList()));
 		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(5));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(123)));
 		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(0)));
 	}
@@ -170,15 +170,15 @@ public class MultisigModificationRequestTest {
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
 
 		// Assert:
-		Assert.assertThat(request.getWalletName(),IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("p")));
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(type));
-		Assert.assertThat(request.getMultisigAccount(),IsEqual.equalTo(Address.fromEncoded("s")));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(Address.fromEncoded("s")));
 		Assert.assertThat(request.getIssuerAddress(), IsEqual.equalTo(Address.fromEncoded("i")));
 		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(Collections.emptyList()));
 		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(Collections.emptyList()));
 		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(5));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(123)));
 		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(10L)));
 	}

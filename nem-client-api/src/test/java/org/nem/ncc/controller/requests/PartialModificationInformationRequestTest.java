@@ -119,8 +119,9 @@ public class PartialModificationInformationRequestTest {
 		// Assert:
 		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(multisigAddress));
 		Assert.assertThat(request.getCosignatoriesAddresses(), IsEquivalent.equivalentTo(expectedCosignatoryAddresses));
-		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(expectedMinCosignatoriesModification.getRelativeChange()));
-
+		Assert.assertThat(
+				request.getMinCosignatoriesModification().getRelativeChange(),
+				IsEqual.equalTo(expectedMinCosignatoriesModification.getRelativeChange()));
 	}
 
 	private static void assertRequestCannotBeCreatedFromArguments(
@@ -147,7 +148,9 @@ public class PartialModificationInformationRequestTest {
 		// Assert:
 		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(expectedMultisigAddress));
 		Assert.assertThat(request.getCosignatoriesAddresses(), IsEquivalent.equivalentTo(expectedCosignatoryAddresses));
-		Assert.assertThat(request.getMinCosignatoriesModification().getRelativeChange(), IsEqual.equalTo(expectedMinCosignatoriesModification.getRelativeChange()));
+		Assert.assertThat(
+				request.getMinCosignatoriesModification().getRelativeChange(),
+				IsEqual.equalTo(expectedMinCosignatoriesModification.getRelativeChange()));
 	}
 
 	private static void assertRequestCannotBeDeserialized(

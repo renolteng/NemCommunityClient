@@ -35,12 +35,12 @@ public class MultisigSignatureRequestTest {
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("wlt")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("pwd")));
-		Assert.assertThat(request.getSenderAddress(),IsEqual.equalTo(senderAddress));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("pwd")));
+		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(senderAddress));
 		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(multisigAddress));
 		Assert.assertThat(request.getInnerTransactionHash(), IsEqual.equalTo(innerTransactionHash));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
-		Assert.assertThat(request.getFee(),IsEqual.equalTo(Amount.fromNem(123)));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromNem(123)));
 	}
 
 	//endregion
@@ -58,12 +58,12 @@ public class MultisigSignatureRequestTest {
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
-		Assert.assertThat(request.getPassword(),IsEqual.equalTo(new WalletPassword("p")));
-		Assert.assertThat(request.getSenderAddress(),IsEqual.equalTo(Address.fromEncoded("a")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
+		Assert.assertThat(request.getSenderAddress(), IsEqual.equalTo(Address.fromEncoded("a")));
 		Assert.assertThat(request.getMultisigAddress(), IsEqual.equalTo(Address.fromEncoded("m")));
 		Assert.assertThat(request.getInnerTransactionHash(), IsEqual.equalTo(innerTransactionHash));
-		Assert.assertThat(request.getHoursDue(),IsEqual.equalTo(12));
-		Assert.assertThat(request.getFee(),IsEqual.equalTo(Amount.fromMicroNem(123)));
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(123)));
 	}
 
 	@Test

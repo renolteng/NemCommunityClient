@@ -13,18 +13,15 @@ import org.nem.core.time.UnixTime;
 public class TransactionViewModel implements SerializableEntity {
 	// This enum needs to be kept in sync with JS TransactionType
 	public enum Type {
-		Unknown(0)
-		, Transfer(20)
-		, Importance_Transfer(21)
-		, Aggregate_Modification(22)
-		, Provision_Namespace(23)
-
-		, Multisig_Signature(40)
-
-		, Multisig_Transfer(50)
-		, Multisig_Importance_Transfer(51)
-		, Multisig_Aggregate_Modification(52)
-		;
+		Unknown(0),
+		Transfer(20),
+		Importance_Transfer(21),
+		Aggregate_Modification(22),
+		Provision_Namespace(23),
+		Multisig_Signature(40),
+		Multisig_Transfer(50),
+		Multisig_Importance_Transfer(51),
+		Multisig_Aggregate_Modification(52);
 
 		private final int value;
 

@@ -2,21 +2,15 @@ package org.nem.ncc.controller.viewmodels;
 
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
-import org.nem.core.model.namespace.NamespaceId;
-import org.nem.core.model.namespace.NamespaceIdPart;
-import org.nem.core.model.ncc.TransactionMetaData;
-import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.Amount;
-import org.nem.core.model.primitive.BlockHeight;
+import org.nem.core.model.namespace.*;
+import org.nem.core.model.ncc.*;
+import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.JsonSerializer;
-import org.nem.core.time.SystemTimeProvider;
-import org.nem.core.time.TimeInstant;
-import org.nem.ncc.test.MockTransaction;
-import org.nem.ncc.test.Utils;
+import org.nem.core.time.*;
+import org.nem.ncc.test.*;
 
 public class ProvisionNamespaceTransactionViewModelTest {
 
@@ -185,19 +179,17 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		return (ProvisionNamespaceTransactionViewModel)TransactionToViewModelMapper.map(transaction, address);
 	}
 
-	private static class Context
-	{
+	private static class Context {
 		private final Account sender = Utils.generateRandomAccount();
 		private final Account lessor = Utils.generateRandomAccount();
 		private final Transaction transaction;
 		private Hash transactionHash;
 
-		public Context(final NamespaceIdPart current, final NamespaceId parent)
-		{
-			 this.transaction = new ProvisionNamespaceTransaction(
+		public Context(final NamespaceIdPart current, final NamespaceId parent) {
+			this.transaction = new ProvisionNamespaceTransaction(
 					new TimeInstant(125),
-					 this.sender,
-					 this.lessor,
+					this.sender,
+					this.lessor,
 					Amount.fromNem(576),
 					current,
 					parent);

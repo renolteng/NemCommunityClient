@@ -76,7 +76,7 @@ public class MultisigModificationRequest {
 		this.multisigAddress = Address.readFrom(deserializer, "account");
 		this.issuerAddress = Address.readFromOptional(deserializer, "issuer", AddressEncoding.COMPRESSED);
 		this.addedCosignatories = deserializer.readObjectArray("addedCosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
-		this.removedCosignatories =  deserializer.readObjectArray("removedCosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
+		this.removedCosignatories = deserializer.readObjectArray("removedCosignatories", obj -> Address.readFrom(obj, "address", AddressEncoding.COMPRESSED));
 		this.minCosignatoriesModification = deserializer.readObject("minCosignatories", MultisigMinCosignatoriesModification::new);
 		this.hoursDue = deserializer.readInt("hoursDue");
 		this.fee = Amount.readFrom(deserializer, "fee");
