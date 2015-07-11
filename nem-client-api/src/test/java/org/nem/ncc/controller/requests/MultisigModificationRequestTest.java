@@ -94,7 +94,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
+		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type);
 
 		// Act:
@@ -117,7 +117,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithEmptyCosignatoryAddressList() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
+		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type);
 
 		// Act:
@@ -140,7 +140,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithZeroMultisigFee() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
+		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 0L, type);
 
 		// Act:
@@ -163,7 +163,7 @@ public class MultisigModificationRequestTest {
 	@Test
 	public void requestCanBeDeserializedWithMultisigMultisigType() {
 		// Arrange:
-		int type = TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue();
+		final int type = TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue();
 		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type);
 
 		// Act:

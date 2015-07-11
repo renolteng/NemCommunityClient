@@ -196,17 +196,17 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		{
 			 this.transaction = new ProvisionNamespaceTransaction(
 					new TimeInstant(125),
-					sender,
-					lessor,
+					 this.sender,
+					 this.lessor,
 					Amount.fromNem(576),
 					current,
 					parent);
-			transaction.setFee(Amount.fromNem(23));
+			this.transaction.setFee(Amount.fromNem(23));
 			this.recalculateHash();
 		}
 
 		public void recalculateHash() {
-			this.transactionHash = HashUtils.calculateHash(transaction);
+			this.transactionHash = HashUtils.calculateHash(this.transaction);
 		}
 
 		public ProvisionNamespaceTransactionViewModel map(final Address address) {
@@ -215,11 +215,11 @@ public class ProvisionNamespaceTransactionViewModelTest {
 
 		public void assertViewModel(final ProvisionNamespaceTransactionViewModel viewModel) {
 			Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(this.transactionHash));
-			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(sender.getAddress()));
+			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(this.sender.getAddress()));
 			Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
 
-			Assert.assertThat(viewModel.getLessor(), IsEqual.equalTo(lessor.getAddress()));
+			Assert.assertThat(viewModel.getLessor(), IsEqual.equalTo(this.lessor.getAddress()));
 			Assert.assertThat(viewModel.getRentalFee(), IsEqual.equalTo(Amount.fromNem(576)));
 		}
 

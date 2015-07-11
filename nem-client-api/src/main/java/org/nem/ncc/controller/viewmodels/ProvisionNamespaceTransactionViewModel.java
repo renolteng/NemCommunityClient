@@ -45,7 +45,7 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	 * @return The lessor account.
 	 */
 	public Address getLessor() {
-		return lessor;
+		return this.lessor;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	 * @return The rental fee.
 	 */
 	public Amount getRentalFee() {
-		return rentalFee;
+		return this.rentalFee;
 	}
 
 	/**
@@ -63,6 +63,6 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	 * @return The namespace name.
 	 */
 	public String getNamespaceName() {
-		return namespaceName;
+		return this.namespaceName;
 	}
 }
