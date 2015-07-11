@@ -17,6 +17,7 @@ install:
   -
   - git clone https://github.com/NewEconomyMovement/nem.deploy.git
   - cd nem.deploy
+  - git checkout testnet2
   - mvn install -DskipTests=true
   -
   - popd
