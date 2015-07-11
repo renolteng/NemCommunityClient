@@ -1,5 +1,5 @@
 logfile=$1
 
-echo " [+] building ncc"
+echo " [+] BUILDING NCC"
 mvn clean package -Dmaven.test.skip=true >> $logfile
 
