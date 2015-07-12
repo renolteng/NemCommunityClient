@@ -782,6 +782,10 @@ define(['TransactionType'], function(TransactionType) {
                         }
                     });
                 }
+            } else if (realTransaction.type === TransactionType.Mosaic_Creation) {
+                tx.isIncoming = false;
+                tx.isOutgoing = false;
+                tx.isSelf = false;
 
             } else if (realTransaction.type === TransactionType.Transfer) {
                 tx.isIncoming = realTransaction.direction === 1; //  || realTransaction.direction === 0;

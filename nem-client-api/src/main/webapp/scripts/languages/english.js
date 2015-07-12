@@ -138,7 +138,8 @@ define({
 			self: 'Self transaction',
 			importance: 'Importance transaction',
 			modification: 'Aggregate Modification of Multisig',
-			provision: 'Provision Namespace'
+			provision: 'Provision Namespace',
+			mosaicCreation: 'Mosaic Creation'
 		},
 		modals: {
 			error: {
@@ -308,7 +309,16 @@ define({
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory',
 				namespace: 'Namespace',
-				rentalFee: 'Rental fee'
+				rentalFee: 'Rental fee',
+				mosaicName: 'Mosaic Name',
+				description: 'Description',
+				propertiesLabel: 'Properties',
+				properties: {
+				    'divisibility': 'Divisibility',
+				    'quantity': 'Maximal quantity',
+				    'mutablequantity': 'Is quantity mutable',
+				    'transferable': 'Is transferable'
+				}
 			},
 			accountDetails: {
 				title: "Account details",

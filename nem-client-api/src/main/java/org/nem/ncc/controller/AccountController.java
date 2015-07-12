@@ -4,6 +4,7 @@ import org.nem.core.connect.HttpJsonPostRequest;
 import org.nem.core.connect.client.NisApiId;
 import org.nem.core.crypto.*;
 import org.nem.core.model.Address;
+import org.nem.core.model.TransactionTypes;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.*;
@@ -159,6 +160,7 @@ public class AccountController {
 		final Address address = ahRequest.getAddress();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
 		return this.accountServices.getTransactions(direction, address, ahRequest.getDatabaseId()).stream()
+				.filter(p -> p.getTransaction().getType() != TransactionTypes.SMART_TILE_SUPPLY_CHANGE)
 				.map(p -> TransactionToViewModelMapper.map(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}
