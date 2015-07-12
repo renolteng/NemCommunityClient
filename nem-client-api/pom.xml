@@ -185,9 +185,11 @@
             </plugins>
         </pluginManagement>
         <resources>
+            <!--
             <resource>
                 <directory>${project.basedir}/src/main/webapp</directory>
             </resource>
+            -->
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
             </resource>
