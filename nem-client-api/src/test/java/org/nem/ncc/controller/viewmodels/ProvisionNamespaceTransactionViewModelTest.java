@@ -143,7 +143,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("namespace"), IsEqual.equalTo("root"));
 
 		Assert.assertThat(jsonObject.get("confirmed"), IsEqual.equalTo(1));
-		Assert.assertThat(jsonObject.get("confirmations"), IsEqual.equalTo(6L));
+		Assert.assertThat(jsonObject.get("confirmations"), IsEqual.equalTo(12L - 7L + 1));
 		Assert.assertThat(jsonObject.get("blockHeight"), IsEqual.equalTo(7L));
 		Assert.assertThat(jsonObject.get("deadline"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 222 * 1000));
 	}

@@ -34,6 +34,8 @@ public class TransactionToViewModelMapper {
 				return new MultisigAggregateViewModel(metaDataPair, blockHeight);
 			case TransactionTypes.PROVISION_NAMESPACE:
 				return new ProvisionNamespaceTransactionViewModel(metaDataPair, blockHeight);
+			case TransactionTypes.MOSAIC_CREATION:
+				return new MosaicCreationTransactionViewModel(metaDataPair, blockHeight);
 			default:
 				throw new IllegalArgumentException("transaction type is not handled inside TransactionToViewModelMapper");
 		}
