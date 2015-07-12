@@ -116,7 +116,9 @@
 											{{/if}}
                                         {{elseif (.mainType === TransactionType.Provision_Namespace)}}
                                             <td class="txList-cell txList-col--type neutral icon-fork" title="{{texts.transactionDirections.provision}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
-										{{else}}
+                                        {{elseif (.mainType === TransactionType.Mosaic_Creation)}}
+                                            <td class="txList-cell txList-col--type neutral icon-diamond" title="{{texts.transactionDirections.mosaicCreation}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+                                        {{else}}
                                             {{#if (.isSelf || .isOutgoing || .isIncoming)}}
                                                 {{#.isSelf}}
                                                     <td class="txList-cell txList-col--type icon-ccw" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
@@ -141,7 +143,8 @@
                                     {{! FIELD DATE }}
 									<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
 
-                                    {{#if (.isSelf || .isOutgoing || .isIncoming || .mainType === TransactionType.Aggregate_Modification || .mainType === TransactionType.Provision_Namespace)}}
+                                    {{! FIELD SENDER OR RECIPIENT }}
+                                    {{#if (.isSelf || .isOutgoing || .isIncoming || (.mainType !== TransactionType.Transfer && .mainType !== TransactionType.Importance_Transfer))}}
                                         {{#if (.isSelf || .isOutgoing)}}
                                             <td class="txList-cell txList-col--sender" title="{{formattedRecipient}}" on-mouseover="registerToolTip">
                                                 <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
@@ -183,8 +186,12 @@
                                         <span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
                                     </td>
                                     {{elseif (.mainType === TransactionType.Provision_Namespace)}}
-                                    <td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
+                                    <td class="txList-cell txList-col--message" title="{{.namespace}}" on-mouseover="registerToolTip">
                                         /{{.namespace}}
+                                    </td>
+                                    {{elseif (.mainType === TransactionType.Mosaic_Creation)}}
+                                    <td class="txList-cell txList-col--message" title="{{.mosaicName}}" on-mouseover="registerToolTip">
+                                        {{.mosaicName}}
                                     </td>
                                     {{else}}
                                     <td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
@@ -201,9 +208,13 @@
 											<span class="icon-lock" title="{{texts.dashboard.transactions.encrypted}}" on-mouseover="registerToolTip"></span>
 										{{/}}
 									</td>
+
+                                    {{! FIELD DETAILS }}
 									<td class="txList-cell txList-col--details">
 										<a class="hyperlink--default" href="javascript:;" on-click="viewTransaction(.)">{{texts.dashboard.transactions.view}}</a>
 									</td>
+
+                                    {{! FIELD CONFIRMATIONS }}
 									<td class="txList-col--confirmations">
 										{{#if .confirmed}}
 											{{#if blockchainHeight}}
@@ -215,6 +226,8 @@
 											{{texts.dashboard.transactions.pending}}
 										{{/if}}
 									</td>
+
+                                    {{! FIELD FEES }}
                                     <td class="txList-cell txList-col--fee">
 										{{#if .isMultisig}}
                                             {{#if .confirmed}}
@@ -226,6 +239,8 @@
 											{{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
 										{{/if}}
 									</td>
+
+                                    {{! FIELD FEES }}
                                     <td class="txList-cell txList-col--amount">
 										{{#if .isMultisig}}
 											{{#if .requiresSignature}}

@@ -1,0 +1,48 @@
+{{#transaction}}
+    <tr>
+        <td class="table-cell table-cell--label">
+            <strong>{{texts.modals.transactionDetails.mosaicName}}</strong>
+        </td>
+        <td class="table-cell table-cell--content">
+            {{{.mosaicName}}}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="table-cell table-cell--label">
+            {{texts.modals.transactionDetails.namespace}}
+        </td>
+        <td class="table-cell table-cell--content">
+            /{{.namespace}}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="table-cell table-cell--label">
+            {{texts.modals.transactionDetails.description}}
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="table-cell table-cell--content" colspan="2" style="">
+            {{{.description}}}
+        </td>
+    </tr>
+
+    <tr>
+        <td class="table-cell table-cell--label" style="text-align:left">
+            {{texts.modals.transactionDetails.propertiesLabel}}:
+        </td>
+        <td></td>
+    </tr>
+    {{#properties}}
+        <tr>
+            <td class="table-cell table-cell--label" style="font-weight: normal">
+                {{texts.modals.transactionDetails.properties[.name]}}
+            </td>
+            <td class="table-cell table-cell--content">
+                {{.value}}
+            </td>
+        </tr>
+    {{/}}
+{{/}}

@@ -25,7 +25,6 @@ import java.util.Arrays;
 public class MosaicCreationTransactionViewModelTest {
 	private final static String MOSAIC_NAME = "paddle";
 	private final static NamespaceId MOSAIC_NS = new NamespaceId("nem.games.pong");
-	private final static String MOSAIC_FQN = "nem.games.pong * paddle";
 	private final static String MOSAIC_DESC = "Paddles for pong game";
 
 	// region constructor
@@ -50,7 +49,8 @@ public class MosaicCreationTransactionViewModelTest {
 		// Assert:
 		context.assertViewModel(viewModel);
 
-		Assert.assertThat(viewModel.getMosaicName(), IsEqual.equalTo(MOSAIC_FQN));
+		Assert.assertThat(viewModel.getMosaicName(), IsEqual.equalTo(MOSAIC_NAME));
+		Assert.assertThat(viewModel.getNamespaceName(), IsEqual.equalTo(MOSAIC_NS.toString()));
 		Assert.assertThat(viewModel.getDescription(), IsEqual.equalTo(MOSAIC_DESC));
 		Assert.assertThat(viewModel.getMosaicProperties(), IsEqual.equalTo(mosaicProperties));
 
@@ -75,7 +75,8 @@ public class MosaicCreationTransactionViewModelTest {
 		// Assert:
 		context.assertViewModel(viewModel);
 
-		Assert.assertThat(viewModel.getMosaicName(), IsEqual.equalTo(MOSAIC_FQN));
+		Assert.assertThat(viewModel.getMosaicName(), IsEqual.equalTo(MOSAIC_NAME));
+		Assert.assertThat(viewModel.getNamespaceName(), IsEqual.equalTo(MOSAIC_NS.toString()));
 		Assert.assertThat(viewModel.getDescription(), IsEqual.equalTo(MOSAIC_DESC));
 		Assert.assertThat(viewModel.getMosaicProperties(), IsEqual.equalTo(mosaicProperties));
 
@@ -100,7 +101,7 @@ public class MosaicCreationTransactionViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(13));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(14));
 		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Mosaic_Creation.getValue()));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(context.transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(context.sender.getAddress().toString()));
@@ -108,7 +109,8 @@ public class MosaicCreationTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(23000000L));
 
 		Assert.assertThat(jsonObject.get("description"), IsEqual.equalTo(MOSAIC_DESC));
-		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_FQN));
+		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_NAME));
+		Assert.assertThat(jsonObject.get("namespaceName"), IsEqual.equalTo(MOSAIC_NS.toString()));
 		Assert.assertThat(jsonObject.get("properties"), IsNot.not(IsNull.nullValue()));
 
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(context.transactionHash.getShortId()));
@@ -134,7 +136,7 @@ public class MosaicCreationTransactionViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(13));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(14));
 		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Mosaic_Creation.getValue()));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(context.transactionHash.toString()));
 		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(context.sender.getAddress().toString()));
@@ -142,7 +144,8 @@ public class MosaicCreationTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(23000000L));
 
 		Assert.assertThat(jsonObject.get("description"), IsEqual.equalTo(MOSAIC_DESC));
-		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_FQN));
+		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_NAME));
+		Assert.assertThat(jsonObject.get("namespaceName"), IsEqual.equalTo(MOSAIC_NS.toString()));
 		Assert.assertThat(jsonObject.get("properties"), IsNot.not(IsNull.nullValue()));
 
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(33L));

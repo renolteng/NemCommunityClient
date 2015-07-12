@@ -8,6 +8,7 @@ import org.nem.core.serialization.Serializer;
 
 public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 	private final String description;
+	private final String namespaceName;
 	private final String mosaicName;
 	private final MosaicProperties mosaicProperties;
 
@@ -16,7 +17,8 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 
 		final MosaicCreationTransaction transaction = (MosaicCreationTransaction)metaDataPair.getTransaction();
 		this.description = transaction.getMosaic().getDescriptor().toString();
-		this.mosaicName = transaction.getMosaic().getId().toString();
+		this.namespaceName = transaction.getMosaic().getId().getNamespaceId().toString();
+		this.mosaicName = transaction.getMosaic().getId().getName();
 		this.mosaicProperties = transaction.getMosaic().getProperties();
 	}
 
@@ -26,6 +28,7 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 
 		serializer.writeString("description", this.description);
 		serializer.writeString("mosaicName", this.mosaicName);
+		serializer.writeString("namespace", this.namespaceName);
 		serializer.writeObjectArray("properties", this.mosaicProperties.asCollection());
 	}
 
@@ -35,16 +38,24 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 	 * @return The description.
 	 */
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
+	/**
+	 * Gets namespace in which mosaic resides.
+	 *
+	 * @return The namespace name.
+	 */
+	public String getNamespaceName() {
+		return this.namespaceName;
+	}
 	/**
 	 * Gets the mosaic expressed as a string.
 	 *
 	 * @return The mosaic name.
 	 */
 	public String getMosaicName() {
-		return mosaicName;
+		return this.mosaicName;
 	}
 
 	/**
@@ -53,6 +64,6 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 	 * @return The mosaic properties.
 	 */
 	public MosaicProperties getMosaicProperties() {
-		return mosaicProperties;
+		return this.mosaicProperties;
 	}
 }
