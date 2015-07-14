@@ -674,21 +674,18 @@ define(['TransactionType'], function(TransactionType) {
 
         // PROCESSING
         processTransaction: function(tx) {
-            var realTransaction = tx;
             var currentFee = 0;
 
-            // there are three types now, to make ui templates simpler:
-            // tx.type - this is type of transaction
-            // tx.maintype - this is either type of transaction or in case of multisig type of inner transaction
-            // tx.innerType - only avail for multisig transactions, this is shortcut for tx.inner.type
-            tx.mainType = tx.type;
+            // real is for new templates, it should later also be used by transaction details
+            tx.real = tx;
 
             // multisig
             if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification || tx.type === TransactionType.Multisig_Importance_Transfer) {
                 tx.isMultisig = true;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.innerType = tx.inner.type;
-                tx.mainType = tx.inner.type;
+
+                tx.real = tx.inner;
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
@@ -698,17 +695,10 @@ define(['TransactionType'], function(TransactionType) {
                     tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
                     tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
 
-                    realTransaction = tx.inner;
-                    tx.recipient = realTransaction.recipient
-                    tx.message = tx.inner.message;
-
                 } else if (tx.type === TransactionType.Multisig_Importance_Transfer) {
-                    realTransaction = tx.inner;
-                    tx.remote = realTransaction.remote;
 
                 } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
-                    realTransaction = tx.inner;
-                    tx.modifications = realTransaction.modifications;
+                    tx.modifications = tx.real.modifications;
                 }
 
                 // for all unconfirmed multisig transactions get all cosignatories that are needed
@@ -716,7 +706,7 @@ define(['TransactionType'], function(TransactionType) {
                 if (!tx.confirmed) {
                     ncc.get('activeAccount').multisigAccounts.forEach(function(a){
                         var allMultisigAccounts = ncc.get('wallet.allMultisigAccounts');
-                        if ((a.address === realTransaction.sender) && (a.address in allMultisigAccounts)) {
+                        if ((a.address === tx.real.sender) && (a.address in allMultisigAccounts)) {
                             var curMultisigAccount = allMultisigAccounts[a.address];
 
                             var isPresent = function(addr) {
@@ -750,19 +740,12 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             // importance transfer
-            if (realTransaction.type === TransactionType.Importance_Transfer) {
-                tx.recipient = tx.remote;
-                tx.isIncoming = false;
-                tx.isOutgoing = false;
-                tx.isSelf = true;
+            if (tx.real.type === TransactionType.Importance_Transfer) {
+                tx.real.formattedRemote = Utils.format.address.format(tx.real.remote);
 
             // for aggregate modifications, and only if it's unconfirmed, calculate what is previous and
             // NEW min cosignatories count
-            } else if (realTransaction.type === TransactionType.Aggregate_Modification) {
-                tx.isIncoming = false;
-                tx.isOutgoing = false;
-                tx.isSelf = false;
-
+            } else if (tx.real.type === TransactionType.Aggregate_Modification) {
                 if (!tx.confirmed) {
                     ncc.get('activeAccount').multisigAccounts.forEach(function(a){
                         if (a.address === realTransaction.sender) {
@@ -782,26 +765,29 @@ define(['TransactionType'], function(TransactionType) {
                         }
                     });
                 }
-            } else if (realTransaction.type === TransactionType.Mosaic_Creation) {
-                tx.isIncoming = false;
-                tx.isOutgoing = false;
-                tx.isSelf = false;
+            } else if (tx.real.type === TransactionType.Provision_Namespace) {
+                tx.real.formattedLessor = Utils.format.address.format(tx.real.lessor);
 
-            } else if (realTransaction.type === TransactionType.Transfer) {
-                tx.isIncoming = realTransaction.direction === 1; //  || realTransaction.direction === 0;
-                tx.isOutgoing = realTransaction.direction === 2;
-                tx.isSelf = realTransaction.direction === 3;
+            } else if (tx.real.type === TransactionType.Mosaic_Creation) {
+
+            } else if (tx.real.type === TransactionType.Transfer) {
+                tx.isIncoming = tx.real.direction === 1; //  || realTransaction.direction === 0;
+                tx.isOutgoing = tx.real.direction === 2;
+                tx.isSelf = tx.real.direction === 3;
+
+                tx.real.formattedRecipient = Utils.format.address.format(tx.real.recipient);
             }
 
-            tx.formattedSender = Utils.format.address.format(tx.sender);
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedRecipient = Utils.format.address.format(realTransaction.recipient);
-            tx.formattedAmount = Utils.format.nem.formatNemAmount(realTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(realTransaction.amount);
+            tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.real.amount);
 
+            tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
+
+            tx.formattedSender = Utils.format.address.format(tx.sender);
             return tx;
         },
         processTransactions: function(transactions) {

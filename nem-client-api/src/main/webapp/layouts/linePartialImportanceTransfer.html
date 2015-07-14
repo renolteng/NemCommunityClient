@@ -1,0 +1,32 @@
+{{! FIELD ICON }}
+{{#if .confirmed}}
+    <td class="txList-cell txList-col--type txList-col--type--incoming icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+{{else}}
+	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+{{/if}}
+
+{{! FIELD DATE }}
+<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
+
+{{! FIELD SENDER OR RECIPIENT }}
+{{! for aggregate modification we always show remote }}
+<td class="txList-cell txList-col--sender" title="{{.real.formattedRemote}}" on-mouseover="registerToolTip">
+    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.remote)">
+        {{#if privateLabels[.real.remote]}}
+            {{privateLabels[.real.remote]}}
+        {{else}}
+            {{.real.formattedRemote}}
+        {{/if}}
+    </a>
+</td>
+
+{{! FIELD MESSAGE }}
+{{#if .isMultisig}}
+<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
+	<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
+</td>
+{{else}}
+<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
+	<span class="dimmed">n/a</span>
+</td>
+{{/if}}

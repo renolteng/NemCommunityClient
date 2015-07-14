@@ -1,0 +1,31 @@
+{{! FIELD ICON }}
+{{#if .confirmed}}
+    <td class="txList-cell txList-col--type neutral icon-fork" title="{{texts.transactionDirections.provision}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+{{else}}
+	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+{{/if}}
+
+{{! FIELD DATE }}
+<td class="txList-cell txList-col--date">{{.formattedDate}}</td>
+
+{{! FIELD SENDER OR RECIPIENT }}
+<td class="txList-cell txList-col--sender" title="{{.real.formattedSender}}" on-mouseover="registerToolTip">
+    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.lessor)">
+        {{#if privateLabels[.real.lessor]}}
+            {{privateLabels[.real.lessor]}}
+        {{else}}
+            {{.real.formattedLessor}}
+        {{/if}}
+    </a>
+</td>
+
+{{! FIELD MESSAGE }}
+{{#if .isMultisig}}
+<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
+	<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
+</td>
+{{else}}
+<td class="txList-cell txList-col--message" title="{{.namespace}}" on-mouseover="registerToolTip">
+	/{{.namespace}}
+</td>
+{{/if}}
