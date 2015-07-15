@@ -36,6 +36,8 @@ public class TransactionToViewModelMapper {
 				return new ProvisionNamespaceTransactionViewModel(metaDataPair, blockHeight);
 			case TransactionTypes.MOSAIC_CREATION:
 				return new MosaicCreationTransactionViewModel(metaDataPair, blockHeight);
+			case TransactionTypes.SMART_TILE_SUPPLY_CHANGE:
+				return new MosaicSupplyTransactionViewModel(metaDataPair, blockHeight);
 			default:
 				throw new IllegalArgumentException("transaction type is not handled inside TransactionToViewModelMapper");
 		}

@@ -7,7 +7,8 @@
         'rv!layout/linePartialImportanceTransfer',
         'rv!layout/linePartialAggregateModification',
         'rv!layout/linePartialProvisionNamespace',
-        'rv!layout/linePartialMosaicCreation'
+        'rv!layout/linePartialMosaicCreation',
+        'rv!layout/linePartialMosaicSupply'
     ],
     function(
         $, ncc, NccLayout, Utils,
@@ -15,7 +16,8 @@
         linePartialImportanceTransfer,
         linePartialAggregateModification,
         linePartialProvisionNamespace,
-        linePartialMosaicCreation
+        linePartialMosaicCreation,
+        linePartialMosaicSupply
     ) {
     return $.extend(true, {}, NccLayout, {
         name: 'dashboard',
@@ -26,7 +28,8 @@
             importanceTransferLinePartial: linePartialImportanceTransfer,
             aggregateModificationLinePartial: linePartialAggregateModification,
             provisionNamespaceLinePartial: linePartialProvisionNamespace,
-            mosaicCreationLinePartial: linePartialMosaicCreation
+            mosaicCreationLinePartial: linePartialMosaicCreation,
+            mosaicSupplyLinePartial: linePartialMosaicSupply
         },
         parent: 'wallet',
         setupOnce: function() {

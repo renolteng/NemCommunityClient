@@ -213,6 +213,25 @@ define(['TransactionType'], function(TransactionType) {
                     nem.decimalPart = decimalPart;
                     return nem;
                 },
+                xQuantityToQuantity: function(xQuantity, decimalPlaces) {
+                    var q = {
+                        intPart: '',
+                        decimalPart: ''
+                    };
+                    if (typeof xQuantity !== 'number') return q;
+
+                    var divisibility = Math.pow(10, decimalPlaces);
+                    q.intPart = Math.floor(xQuantity / divisibility).toString();
+
+                    var decimalPart = (Math.floor(xQuantity) % divisibility).toString();
+                    // Add leading zeroes
+                    if (decimalPart.length < decimalPlaces) {
+                        decimalPart = new Array(decimalPlaces - decimalPart.length + 1).join('0') + decimalPart;
+                    }
+
+                    q.decimalPart = decimalPart;
+                    return q;
+                },
                 /**
                  * @param {object} nem NEM Amount object
                  * @param {boolean} options.fixedDecimalPlaces apply a fixed number of decimal places
@@ -317,6 +336,10 @@ define(['TransactionType'], function(TransactionType) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.uNemToNem(uNem), options);
                 },
+                formatQuantity: function(quantity, options) {
+                    var t = Utils.format.nem;
+                    return t.formatNem(t.xQuantityToQuantity(quantity, 2), options);
+                }
             },
             address: {
                 format: function(address) {
@@ -782,12 +805,18 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.real.amount);
+            if (tx.real.type === TransactionType.Mosaic_Supply) {
+                tx.formattedAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.formattedFullAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity);
+            } else {
+                tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.real.amount);
+            }
 
             tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
 
             tx.formattedSender = Utils.format.address.format(tx.sender);
+            console.log(tx);
             return tx;
         },
         processTransactions: function(transactions) {

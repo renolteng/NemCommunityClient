@@ -1,6 +1,6 @@
 {{! FIELD ICON }}
 {{#if .confirmed}}
-    <td class="txList-cell txList-col--type neutral icon-globe" title="{{texts.transactionDirections.mosaicCreation}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+    <td class="txList-cell txList-col--type {{#if (.real.supplyType == 1)}}txList-col--type--incoming{{else}}txList-col--type--outgoing{{/if}} icon-diamond" title="{{texts.transactionDirections.mosaicCreation}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 {{else}}
 	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 {{/if}}
@@ -33,12 +33,15 @@
 {{! FIELD AMOUNT }}
 <td class="txList-cell txList-col--amount">
 {{#if .isMultisig}}
-	{{#if .requiresSignature}}
-		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
-	{{else}}
-		sig.ok
-	{{/if}}
+    {{#if .requiresSignature}}
+        <button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
+    {{else}}
+        {{{multisig.formattedAmount}}}
+    {{/if}}
 {{else}}
-	<span class='dimmed'>n/a</span>
+    {{#.isSelf}}&plusmn;{{/}}
+    {{#.isOutgoing}}-{{/}}
+    {{#.isIncoming}}+{{/}}
+    {{{formattedAmount}}}
 {{/if}}
 </td>

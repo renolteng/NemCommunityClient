@@ -29,3 +29,19 @@
 	/{{.namespace}}
 </td>
 {{/if}}
+
+{{! FIELD AMOUNT }}
+<td class="txList-cell txList-col--amount">
+{{#if .isMultisig}}
+	{{#if .requiresSignature}}
+		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
+	{{else}}
+		{{{multisig.formattedAmount}}}
+	{{/if}}
+{{else}}
+	{{#.isSelf}}&plusmn;{{/}}
+	{{#.isOutgoing}}-{{/}}
+	{{#.isIncoming}}+{{/}}
+	{{{formattedAmount}}}
+{{/if}}
+</td>

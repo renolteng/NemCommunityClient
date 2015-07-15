@@ -44,11 +44,11 @@
 								<th class="txList-header txList-col--date">{{texts.transactions.table.columns.1}}</th>
 								<th class="txList-header txList-col--sender">{{texts.transactions.table.columns.2}}</th>
 								<th class="txList-header txList-col--message">{{texts.transactions.table.columns.3}}</th>
+                                <th class="txList-header txList-col--amount transactionsPage-rightMost">{{texts.transactions.table.columns.8}} <span class="dimmed">(XEM)</span></th>
 								<th class="txList-header txList-col--encrypted encryptedIcon">{{texts.transactions.table.columns.4}}</th>
 								<th class="txList-header">{{texts.transactions.table.columns.5}}</th>
 								<th class="txList-header txList-col--confirmations">{{texts.transactions.table.columns.6}}</th>
 								<th class="txList-header txList-col--fee">{{texts.transactions.table.columns.7}} <span class="dimmed">(XEM)</span></th>
-								<th class="txList-header txList-col--amount transactionsPage-rightMost">{{texts.transactions.table.columns.8}} <span class="dimmed">(XEM)</span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,6 +72,10 @@
 
                                     {{#if (.type === TransactionType.Mosaic_Creation || .type === TransactionType.Multisig_Mosaic_Creation)}}
                                     {{>mosaicCreationLinePartial}}
+                                    {{/if}}
+
+                                    {{#if (.type === TransactionType.Mosaic_Supply || .type === TransactionType.Multisig_Mosaic_Supply)}}
+                                    {{>mosaicSupplyLinePartial}}
                                     {{/if}}
 
 									<td class="txList-cell txList-col--encrypted encryptedIcon">
@@ -99,7 +103,7 @@
 									</td>
 
                                     {{! FIELD FEES }}
-                                    <td class="txList-cell txList-col--fee">
+                                    <td class="txList-cell txList-col--fee transactionsPage-rightMost">
 										{{#if .isMultisig}}
                                             {{#if .confirmed}}
                                                 {{{multisig.formattedTotalFees}}}
@@ -111,25 +115,6 @@
 										{{/if}}
 									</td>
 
-                                    {{! FIELD FEES }}
-                                    <td class="txList-cell txList-col--amount transactionsPage-rightMost">
-										{{#if .isMultisig}}
-											{{#if .requiresSignature}}
-												<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
-											{{else}}
-                                                {{#if (.type === TransactionType.Multisig_Transfer)}}
-                                                    {{{multisig.formattedAmount}}}
-												{{else}}
-                                                    n/a
-                                                {{/if}}
-											{{/if}}
-										{{else}}
-											{{#.isSelf}}&plusmn;{{/}}
-											{{#.isOutgoing}}-{{/}}
-											{{#.isIncoming}}+{{/}}
-											{{{formattedAmount}}}
-										{{/if}}
-                                    </td>
 								</tr>
 							{{/each}}
 						</tbody>

@@ -97,11 +97,11 @@
 							<th class="txList-header txList-col--date">{{texts.dashboard.transactions.columns.1}}</th>
 							<th class="txList-header txList-col--sender">{{texts.dashboard.transactions.columns.2}}</th>
 							<th class="txList-header txList-col--message">{{texts.dashboard.transactions.columns.3}}</th>
+                            <th class="txList-header txList-col--amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(XEM)</span></th>
 							<th class="txList-header txList-col--encrypted">{{texts.dashboard.transactions.columns.4}}</th>
 							<th class="txList-header">{{texts.dashboard.transactions.columns.5}}</th>
 							<th class="txList-header txList-col--confirmations">{{texts.dashboard.transactions.columns.6}}</th>
 							<th class="txList-header txList-col--fee">{{texts.dashboard.transactions.columns.7}} <span class="dimmed">(XEM)</span></th>
-							<th class="txList-header txList-col--amount">{{texts.dashboard.transactions.columns.8}} <span class="dimmed">(XEM)</span></th>
 						</tr>
 						{{#each activeAccount.transactions:i}}
 							{{#if i < 4}}
@@ -124,6 +124,10 @@
 
                                     {{#if (.type === TransactionType.Mosaic_Creation || .type === TransactionType.Multisig_Mosaic_Creation)}}
                                     {{>mosaicCreationLinePartial}}
+                                    {{/if}}
+
+                                    {{#if (.type === TransactionType.Mosaic_Supply || .type === TransactionType.Multisig_Mosaic_Supply)}}
+                                    {{>mosaicSupplyLinePartial}}
                                     {{/if}}
 
                                     <td class="txList-cell txList-col--encrypted encryptedIcon">
@@ -160,26 +164,6 @@
                                             {{/if}}
                                         {{else}}
                                             {{#.isOutgoing || .isSelf}}-{{/}}{{{formattedFee}}}
-                                        {{/if}}
-                                    </td>
-
-                                    {{! FIELD FEES }}
-                                    <td class="txList-cell txList-col--amount">
-                                        {{#if .isMultisig}}
-                                            {{#if .requiresSignature}}
-                                                <button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
-                                            {{else}}
-                                                {{#if (.type === TransactionType.Multisig_Transfer)}}
-                                                    {{{multisig.formattedAmount}}}
-                                                {{else}}
-                                                    n/a
-                                                {{/if}}
-                                            {{/if}}
-                                        {{else}}
-                                            {{#.isSelf}}&plusmn;{{/}}
-                                            {{#.isOutgoing}}-{{/}}
-                                            {{#.isIncoming}}+{{/}}
-                                            {{{formattedAmount}}}
                                         {{/if}}
                                     </td>
                                 </tr>
