@@ -28,7 +28,7 @@ public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 		super.serializeImpl(serializer);
 
 		serializer.writeString("mosaicName", this.mosaicName);
-		serializer.writeString("namespace", this.namespaceName);
+		serializer.writeString("namespaceName", this.namespaceName);
 		serializer.writeInt("supplyType", this.supplyType.value());
 		Quantity.writeTo(serializer, "supplyQuantity", this.supplyQuantity);
 	}

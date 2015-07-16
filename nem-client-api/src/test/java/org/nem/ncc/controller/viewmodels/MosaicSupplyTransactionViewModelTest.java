@@ -1,5 +1,6 @@
 package org.nem.ncc.controller.viewmodels;
 
+import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.Amount;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.model.primitive.Quantity;
+import org.nem.core.serialization.JsonSerializer;
 import org.nem.core.time.SystemTimeProvider;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.test.MockTransaction;
@@ -48,6 +50,108 @@ public class MosaicSupplyTransactionViewModelTest {
 		// Assert:
 		context.assertViewModel(viewModel);
 	}
+
+	@Test
+	public void canCreateViewModelAroundConfirmedMosaicSupply() {
+		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.CreateSmartTiles, Quantity.fromValue(100));
+		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.CreateSmartTiles, Quantity.fromValue(1000));
+		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(100));
+		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(1000));
+	}
+
+	private void assertCreateViewModelAroundConfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, createSmartTiles, quantity);
+
+		// Act:
+		final MosaicSupplyTransactionViewModel viewModel = context.map(
+				Address.fromEncoded("foo"),
+				new BlockHeight(654)
+		);
+
+		// Assert:
+		context.assertViewModel(viewModel);
+
+		Assert.assertThat(viewModel.getId(), IsEqual.equalTo(44L));
+		Assert.assertThat(viewModel.isConfirmed(), IsEqual.equalTo(true));
+		Assert.assertThat(viewModel.getConfirmations(), IsEqual.equalTo(654L - 10L + 1));
+		Assert.assertThat(viewModel.getBlockHeight(), IsEqual.equalTo(10L));
+	}
+	//endregion
+
+	//region serialization
+	@Test
+	public void assertSerializeViewModelAroundUnconfirmedTransfer() {
+		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.CreateSmartTiles);
+		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles);
+	}
+
+	private void assertSerializeViewModelAroundUnconfirmedTransfer(final SmartTileSupplyType smartTileSupplyType) {
+		// Arrange:
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
+		context.transaction.setDeadline(new TimeInstant(333));
+		context.recalculateHash();
+
+		// Act:
+		final MosaicSupplyTransactionViewModel viewModel = context.map(context.sender.getAddress());
+		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
+
+		// Assert:
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(14));
+		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Mosaic_Supply.getValue()));
+		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(context.transactionHash.toString()));
+		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(context.sender.getAddress().toString()));
+		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
+		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(34000000L));
+
+		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_NAME));
+		Assert.assertThat(jsonObject.get("namespaceName"), IsEqual.equalTo(MOSAIC_NS.toString()));
+		Assert.assertThat(jsonObject.get("supplyType"), IsEqual.equalTo(smartTileSupplyType.value()));
+		Assert.assertThat(jsonObject.get("supplyQuantity"), IsEqual.equalTo(100L));
+
+		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(context.transactionHash.getShortId()));
+		Assert.assertThat(jsonObject.get("confirmed"), IsEqual.equalTo(0));
+		Assert.assertThat(jsonObject.get("confirmations"), IsEqual.equalTo(0L));
+		Assert.assertThat(jsonObject.get("blockHeight"), IsEqual.equalTo(0L));
+		Assert.assertThat(jsonObject.get("deadline"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 333 * 1000));
+	}
+
+	@Test
+	public void assertSerializeViewModelAroundConfirmedTransfer() {
+		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.CreateSmartTiles);
+		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles);
+	}
+	private void assertSerializeViewModelAroundConfirmedTransfer(final SmartTileSupplyType smartTileSupplyType) {
+		// Arrange:
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
+		context.transaction.setDeadline(new TimeInstant(333));
+		context.recalculateHash();
+
+		// Act:
+		final MosaicSupplyTransactionViewModel viewModel = context.map(
+				context.sender.getAddress(),
+				new BlockHeight(654)
+		);
+		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
+
+		// Assert:
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(14));
+		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Mosaic_Supply.getValue()));
+		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(context.transactionHash.toString()));
+		Assert.assertThat(jsonObject.get("sender"), IsEqual.equalTo(context.sender.getAddress().toString()));
+		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
+		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(34000000L));
+
+		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_NAME));
+		Assert.assertThat(jsonObject.get("namespaceName"), IsEqual.equalTo(MOSAIC_NS.toString()));
+		Assert.assertThat(jsonObject.get("supplyType"), IsEqual.equalTo(smartTileSupplyType.value()));
+		Assert.assertThat(jsonObject.get("supplyQuantity"), IsEqual.equalTo(100L));
+
+		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(44L));
+		Assert.assertThat(jsonObject.get("confirmed"), IsEqual.equalTo(1));
+		Assert.assertThat(jsonObject.get("confirmations"), IsEqual.equalTo(654L - 10L + 1));
+		Assert.assertThat(jsonObject.get("blockHeight"), IsEqual.equalTo(10L));
+		Assert.assertThat(jsonObject.get("deadline"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 333 * 1000));
+	}
 	//endregion
 
 	private static MosaicSupplyTransactionViewModel map(final Transaction transaction, final Address address) {
@@ -77,7 +181,7 @@ public class MosaicSupplyTransactionViewModelTest {
 					smartTileSupplyType,
 					quantity
 			);
-			transaction.setFee(Amount.fromNem(23));
+			transaction.setFee(Amount.fromNem(34));
 			this.recalculateHash();
 		}
 
@@ -93,7 +197,7 @@ public class MosaicSupplyTransactionViewModelTest {
 			Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(this.transactionHash));
 			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(sender.getAddress()));
 			Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
-			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
+			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(34)));
 			Assert.assertThat(viewModel.getNamespaceName(), IsEqual.equalTo(this.namespaceName));
 			Assert.assertThat(viewModel.getMosaicName(), IsEqual.equalTo(this.mosaicName));
 			Assert.assertThat(viewModel.getSupplyType(), IsEqual.equalTo(this.smartTileSupplyType));
@@ -106,7 +210,7 @@ public class MosaicSupplyTransactionViewModelTest {
 
 		public MosaicSupplyTransactionViewModel map(final Address address, final BlockHeight blockHeight) {
 			return (MosaicSupplyTransactionViewModel)TransactionToViewModelMapper.map(
-					new TransactionMetaDataPair(this.transaction, createMetaData(9, 33L)),
+					new TransactionMetaDataPair(this.transaction, createMetaData(10, 44L)),
 					address,
 					blockHeight);
 		}
