@@ -806,7 +806,7 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
             if (tx.real.type === TransactionType.Mosaic_Supply) {
-                tx.formattedAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.formattedAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:3});
                 tx.formattedFullAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity);
             } else {
                 tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});

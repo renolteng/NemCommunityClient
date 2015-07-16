@@ -1333,7 +1333,11 @@
             {{>mosaicCreationPartial}}
             {{/if}}
 
-			{{#if (.isMultisig)}}
+            {{#if (.type === TransactionType.Mosaic_Supply || .type === TransactionType.Multisig_Mosaic_Supply)}}
+            {{>mosaicSupplyPartial}}
+            {{/if}}
+
+            {{#if (.isMultisig)}}
 				<tr><td colspan="2"><hr></td></tr>
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>

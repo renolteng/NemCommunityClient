@@ -118,18 +118,23 @@ define({
 			warning: 'Warning',
 			newBuild: 'NEW BUILD',
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
-
 		},
 		transactionTypes: {
 			20: 'TRANSFER TRANSACTION',
 			21: 'IMPORTANCE TRANSFER',
 			22: 'MODIFICATION OF MULTISIG ACCOUNT',
 			23: 'PROVISION NAMESPACE',
+			24: 'MOSAIC CREATION',
+			25: 'MOSAIC SUPPLY',
+
 			40: 'MULTISIG SIGNATURE',
+
 			50: 'MULTISIG TRANSACTION',
 			51: 'MULTISIG TRANSACTION',
 			52: 'MULTISIG TRANSACTION',
-
+            53: 'MULTISIG TRANSACTION',
+			54: 'MULTISIG TRANSACTION',
+			55: 'MULTISIG TRANSACTION',
 		},
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -139,7 +144,8 @@ define({
 			importance: 'Importance transaction',
 			modification: 'Aggregate Modification of Multisig',
 			provision: 'Provision Namespace',
-			mosaicCreation: 'Mosaic Creation'
+			mosaicCreation: 'Mosaic Creation',
+			mosaicSupply: 'Mosaic Supply'
 		},
 		modals: {
 			error: {
@@ -318,7 +324,9 @@ define({
 				    'quantity': 'Maximal quantity',
 				    'mutablequantity': 'Is quantity mutable',
 				    'transferable': 'Is transferable'
-				}
+				},
+				supplyType: 'Supply type',
+				supplyAmount: 'Supply amountx'
 			},
 			accountDetails: {
 				title: "Account details",
