@@ -22,7 +22,7 @@ public class TransactionToViewModelMapper {
 		return map(metaDataPair, new AccountMetaDataPair(new AccountInfo(address, Amount.ZERO, Amount.ZERO, BlockAmount.ZERO, "", 0.0), null), blockHeight);
 	}
 
-	private static TransactionViewModel map(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair accountData, final BlockHeight blockHeight) {
+	static TransactionViewModel map(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair accountData, final BlockHeight blockHeight) {
 		switch (metaDataPair.getTransaction().getType()) {
 			case TransactionTypes.TRANSFER:
 				return new TransferTransactionViewModel(metaDataPair, accountData.getAccount().getAddress(), blockHeight);
