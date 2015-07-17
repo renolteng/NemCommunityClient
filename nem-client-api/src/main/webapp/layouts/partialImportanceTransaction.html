@@ -4,11 +4,11 @@
             {{texts.modals.transactionDetails.remote}}
         </td>
         <td class="table-cell table-cell--content">
-            <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
-                {{#if privateLabels[.recipient]}}
-                {{privateLabels[.recipient]}}
+            <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.remote)">
+                {{#if privateLabels[.real.remote]}}
+                {{privateLabels[.real.remote]}}
                 {{else}}
-                {{.formattedRecipient}}
+                {{.real.formattedRemote}}
                 {{/if}}
             </a>
         </td>

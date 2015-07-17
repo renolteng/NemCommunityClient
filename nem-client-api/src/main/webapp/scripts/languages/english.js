@@ -326,7 +326,7 @@ define({
 				    'transferable': 'Is transferable'
 				},
 				supplyType: 'Supply type',
-				supplyAmount: 'Supply amountx'
+				supplyAmount: 'Supply amount'
 			},
 			accountDetails: {
 				title: "Account details",

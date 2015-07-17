@@ -4,7 +4,7 @@
             <strong>{{texts.modals.transactionDetails.mosaicName}}</strong>
         </td>
         <td class="table-cell table-cell--content">
-            {{{.mosaicName}}}
+            {{{.real.mosaicName}}}
         </td>
     </tr>
 
@@ -13,7 +13,7 @@
             {{texts.modals.transactionDetails.namespace}}
         </td>
         <td class="table-cell table-cell--content">
-            /{{.namespace}}
+            /{{.real.namespace}}
         </td>
     </tr>
 
@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td class="table-cell table-cell--content" colspan="2" style="">
-            {{{.description}}}
+            {{{.real.description}}}
         </td>
     </tr>
 
@@ -35,7 +35,7 @@
         </td>
         <td></td>
     </tr>
-    {{#properties}}
+    {{#.real.properties}}
         <tr>
             <td class="table-cell table-cell--label" style="font-weight: normal">
                 {{texts.modals.transactionDetails.properties[.name]}}

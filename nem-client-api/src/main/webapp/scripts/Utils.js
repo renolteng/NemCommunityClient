@@ -703,7 +703,12 @@ define(['TransactionType'], function(TransactionType) {
             tx.real = tx;
 
             // multisig
-            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification || tx.type === TransactionType.Multisig_Importance_Transfer) {
+            if (tx.type === TransactionType.Multisig_Transfer ||
+                    tx.type === TransactionType.Multisig_Aggregate_Modification ||
+                    tx.type === TransactionType.Multisig_Importance_Transfer ||
+                    tx.type === TransactionType.Multisig_Provision_Namespace ||
+                    tx.type === TransactionType.Multisig_Mosaic_Creation ||
+                    tx.type === TransactionType.Multisig_Mosaic_Supply) {
                 tx.isMultisig = true;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.innerType = tx.inner.type;

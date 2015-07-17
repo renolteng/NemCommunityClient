@@ -81,11 +81,11 @@ public class MosaicSupplyTransactionViewModelTest {
 	//region serialization
 	@Test
 	public void assertSerializeViewModelAroundUnconfirmedTransfer() {
-		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.CreateSmartTiles);
-		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles);
+		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.CreateSmartTiles, "CreateSmartTiles");
+		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles, "DeleteSmartTiles");
 	}
 
-	private void assertSerializeViewModelAroundUnconfirmedTransfer(final SmartTileSupplyType smartTileSupplyType) {
+	private void assertSerializeViewModelAroundUnconfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
 		// Arrange:
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
 		context.transaction.setDeadline(new TimeInstant(333));
@@ -105,7 +105,7 @@ public class MosaicSupplyTransactionViewModelTest {
 
 		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_NAME));
 		Assert.assertThat(jsonObject.get("namespaceName"), IsEqual.equalTo(MOSAIC_NS.toString()));
-		Assert.assertThat(jsonObject.get("supplyType"), IsEqual.equalTo(smartTileSupplyType.value()));
+		Assert.assertThat(jsonObject.get("supplyType"), IsEqual.equalTo(expectedSmartTileType));
 		Assert.assertThat(jsonObject.get("supplyQuantity"), IsEqual.equalTo(100L));
 
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(context.transactionHash.getShortId()));
@@ -117,10 +117,11 @@ public class MosaicSupplyTransactionViewModelTest {
 
 	@Test
 	public void assertSerializeViewModelAroundConfirmedTransfer() {
-		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.CreateSmartTiles);
-		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles);
+		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.CreateSmartTiles, "CreateSmartTiles");
+		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles, "DeleteSmartTiles");
 	}
-	private void assertSerializeViewModelAroundConfirmedTransfer(final SmartTileSupplyType smartTileSupplyType) {
+
+	private void assertSerializeViewModelAroundConfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
 		// Arrange:
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
 		context.transaction.setDeadline(new TimeInstant(333));
@@ -143,7 +144,7 @@ public class MosaicSupplyTransactionViewModelTest {
 
 		Assert.assertThat(jsonObject.get("mosaicName"), IsEqual.equalTo(MOSAIC_NAME));
 		Assert.assertThat(jsonObject.get("namespaceName"), IsEqual.equalTo(MOSAIC_NS.toString()));
-		Assert.assertThat(jsonObject.get("supplyType"), IsEqual.equalTo(smartTileSupplyType.value()));
+		Assert.assertThat(jsonObject.get("supplyType"), IsEqual.equalTo(expectedSmartTileType));
 		Assert.assertThat(jsonObject.get("supplyQuantity"), IsEqual.equalTo(100L));
 
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(44L));
