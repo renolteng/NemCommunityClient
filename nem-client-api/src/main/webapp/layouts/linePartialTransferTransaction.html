@@ -1,4 +1,5 @@
 {{! FIELD ICON }}
+
 {{#if .confirmed}}
     {{#if (.isSelf)}}
         <td class="txList-cell txList-col--type icon-ccw" title="{{texts.transactionDirections.self}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
@@ -9,7 +10,7 @@
     {{else}}
         {{! IF IT'S NOT ONE OF THE ABOVE, IT HAS TO BE MULTISIG AND WE WEREN'T ABLE TO TELL THE DIRECTION }}
         {{! THAT MEANS THIS IS A COSIGNATORY, AND WE CAN SHOW IT AS NEUTRAL }}
-        <td class="txList-cell txList-col--type neutral" title="">{{#.isMultisig}}M{{/}}</td>
+        <td class="txList-cell txList-col--type neutral icon-minus-circled" title="">{{#.isMultisig}}M{{/}}</td>
     {{/if}}
 {{else}}
 	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
@@ -61,16 +62,15 @@
 
 {{! FIELD AMOUNT }}
 <td class="txList-cell txList-col--amount">
-{{#if .isMultisig}}
-	{{#if .requiresSignature}}
+{{#if (.isMultisig && .requiresSignature)}}
 		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
-	{{else}}
-		{{{multisig.formattedAmount}}}
-	{{/if}}
 {{else}}
-	{{#.isSelf}}&plusmn;{{/}}
-	{{#.isOutgoing}}-{{/}}
-	{{#.isIncoming}}+{{/}}
+    {{! as explained at the top of this partial, last else, covers multisig case}}
+    {{#if (.isSelf)}} &plusmn;
+    {{elseif (.isOutgoing)}} -
+    {{elseif (.isIncoming)}} +
+    {{else}} -
+    {{/if}}
 	{{{formattedAmount}}}
 {{/if}}
 </td>

@@ -20,22 +20,15 @@
 </td>
 
 {{! FIELD MESSAGE }}
-<td class="txList-cell txList-col--message" title="{{.namespace}}" on-mouseover="registerToolTip">
+<td class="txList-cell txList-col--message" title="{{.real.namespace}}" on-mouseover="registerToolTip">
 	/{{.real.namespace}}
 </td>
 
 {{! FIELD AMOUNT }}
 <td class="txList-cell txList-col--amount">
-{{#if .isMultisig}}
-	{{#if .requiresSignature}}
-		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
-	{{else}}
-		{{{.formattedAmount}}}
-	{{/if}}
+{{#if (.isMultisig && .requiresSignature)}}
+    <button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 {{else}}
-	{{#.isSelf}}&plusmn;{{/}}
-	{{#.isOutgoing}}-{{/}}
-	{{#.isIncoming}}+{{/}}
-	{{{formattedAmount}}}
+	-{{{formattedAmount}}}
 {{/if}}
 </td>

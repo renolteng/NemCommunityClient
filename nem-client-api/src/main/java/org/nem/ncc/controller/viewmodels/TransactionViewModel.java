@@ -99,6 +99,15 @@ public class TransactionViewModel implements SerializableEntity {
 	}
 
 	/**
+	 * Gets the transaction type.
+	 *
+	 * @return The transaction type.
+	 */
+	public Type getTransactionViewModelType() {
+		return transactionViewModelType;
+	}
+
+	/**
 	 * Gets the transaction id.
 	 *
 	 * @return The transaction id.

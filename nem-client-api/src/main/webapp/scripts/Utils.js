@@ -799,7 +799,7 @@ define(['TransactionType'], function(TransactionType) {
             } else if (tx.real.type === TransactionType.Mosaic_Creation) {
 
             } else if (tx.real.type === TransactionType.Transfer) {
-                tx.isIncoming = tx.real.direction === 1; //  || realTransaction.direction === 0;
+                tx.isIncoming = tx.real.direction === 1;
                 tx.isOutgoing = tx.real.direction === 2;
                 tx.isSelf = tx.real.direction === 3;
 

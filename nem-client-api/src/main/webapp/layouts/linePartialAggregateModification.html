@@ -23,11 +23,11 @@
 
 {{! FIELD MESSAGE }}
 {{#if .isMultisig}}
-<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
+<td class="txList-cell txList-col--message" title="{{.cosignatoriesCount}}" on-mouseover="registerToolTip">
 	<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
 </td>
 {{else}}
-<td class="txList-cell txList-col--message" title="{{.message}}" on-mouseover="registerToolTip">
+<td class="txList-cell txList-col--message" on-mouseover="registerToolTip">
 	<span class="dimmed">n/a</span>
 </td>
 {{/if}}
