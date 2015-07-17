@@ -133,41 +133,27 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
         },
         sendTransaction: function() {
             var requestData;
-            // TODO 20150618 J-G: i think you can refactor and just update the type, multisigAccount, and multisigFee in the else
-            if (this.get('sender') == null) {
-                requestData = {
-                    wallet: ncc.get('wallet.wallet'),
-                    type: TransactionType.Transfer,
-                    account: ncc.get('activeAccount.address'),
-                    password: this.get('password'),
-                    amount: this.get('amount'),
-                    recipient: this.get('recipient'),
-                    message: this.get('message') || undefined,
-                    hexMessage: this.get('messageHexBased') ? 1 : 0,
+            requestData = {
+                wallet: ncc.get('wallet.wallet'),
+                type: TransactionType.Transfer,
+                account: ncc.get('activeAccount.address'),
+                password: this.get('password'),
+                amount: this.get('amount'),
+                recipient: this.get('recipient'),
+                message: this.get('message') || undefined,
+                hexMessage: this.get('messageHexBased') ? 1 : 0,
 
-                    fee: this.get('fee'),
-                    multisigFee: 0,
-                    encrypt: this.get('encrypt'),
-                    hoursDue: this.get('hoursDue')
-                };
-            } else {
-                requestData = {
-                    wallet: ncc.get('wallet.wallet'),
+                fee: this.get('fee'),
+                multisigFee: 0,
+                encrypt: this.get('encrypt'),
+                hoursDue: this.get('hoursDue')
+            };
+            if (this.get('sender') !== null) {
+                $.extend(requestData, {
                     type: TransactionType.Multisig_Transfer,
                     multisigAccount: this.get('sender'),
-                    account: ncc.get('activeAccount.address'),
-                    password: this.get('password'),
-
-                    amount: this.get('amount'),
-                    recipient: this.get('recipient'),
-                    message: this.get('message') || undefined,
-                    hexMessage: this.get('messageHexBased') ? 1 : 0,
-
-                    fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
-                    encrypt: this.get('encrypt'),
-                    hoursDue: this.get('hoursDue')
-                };
+                });
             }
 
             var txConfirm = ncc.getModal('transactionConfirm');
