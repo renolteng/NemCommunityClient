@@ -8,7 +8,6 @@ import org.nem.ncc.NccConfiguration;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.logging.*;
 
@@ -38,9 +37,10 @@ public class JarFileServlet extends DefaultServlet {
 		}
 
 		final String relativeResource = "web/" + resourceStr;
-		URL url = this.getClass().getClassLoader().getResource(relativeResource);
+		final ClassLoader classLoader = this.getClass().getClassLoader();
+		URL url = classLoader.getResource(relativeResource);
 		if (url == null) {
-			url = this.getClass().getClassLoader().getResource(resourceStr);
+			url = classLoader.getResource(resourceStr);
 			if (url == null) {
 				LOGGER.severe(String.format("Resource not found: <%s>, mapping to welcome page.", resourceStr));
 				return null;
