@@ -821,7 +821,6 @@ define(['TransactionType'], function(TransactionType) {
             tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
 
             tx.formattedSender = Utils.format.address.format(tx.sender);
-            console.log(tx);
             return tx;
         },
         processTransactions: function(transactions) {

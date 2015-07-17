@@ -1,6 +1,6 @@
 {{! FIELD ICON }}
 {{#if .confirmed}}
-    <td class="txList-cell txList-col--type txList-col--type--incoming icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+    <td class="txList-cell txList-col--type {{#if (.real.activationType === 'Deactivate')}}neutral{{else}}txList-col--type--incoming{{/if}} icon-upload" title="{{texts.transactionDirections.importance}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 {{else}}
 	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 {{/if}}
@@ -11,6 +11,7 @@
 {{! FIELD SENDER OR RECIPIENT }}
 {{! for aggregate modification we always show remote }}
 <td class="txList-cell txList-col--sender" title="{{.real.formattedRemote}}" on-mouseover="registerToolTip">
+    {{#if (.real.activationType === 'Activate')}}
     <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.remote)">
         {{#if privateLabels[.real.remote]}}
             {{privateLabels[.real.remote]}}
@@ -18,6 +19,9 @@
             {{.real.formattedRemote}}
         {{/if}}
     </a>
+    {{else}}
+        {{.real.activationType}}
+    {{/if}}
 </td>
 
 {{! FIELD MESSAGE }}
