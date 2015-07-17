@@ -160,7 +160,6 @@ public class AccountController {
 		final Address address = ahRequest.getAddress();
 		final BlockHeight lastBlockHeight = this.nisConnector.forward(this.chainServices::getChainHeightAsync);
 		return this.accountServices.getTransactions(direction, address, ahRequest.getDatabaseId()).stream()
-				.filter(p -> p.getTransaction().getType() != TransactionTypes.SMART_TILE_SUPPLY_CHANGE)
 				.map(p -> TransactionToViewModelMapper.map(p, address, lastBlockHeight))
 				.collect(Collectors.toList());
 	}

@@ -5,13 +5,15 @@ define(['NccModal', 'Utils',
     'rv!layout/partialImportanceTransaction',
     'rv!layout/partialAggregateModification',
     'rv!layout/partialProvisionNamespace',
-    'rv!layout/partialMosaicCreation'],
+    'rv!layout/partialMosaicCreation',
+    'rv!layout/partialMosaicSupply'],
     function(NccModal, Utils,
         partialTransferTransaction,
         partialImportanceTransaction,
         partialAggregateModification,
         partialProvisionNamespace,
-        partialMosaicCreation)
+        partialMosaicCreation,
+        partialMosaicSupply)
 {
 	return NccModal.extend({
 	    partials: {
@@ -19,7 +21,8 @@ define(['NccModal', 'Utils',
             importanceTransactionPartial: partialImportanceTransaction,
             aggregateModificationPartial: partialAggregateModification,
             provisionNamespacePartial: partialProvisionNamespace,
-            mosaicCreationPartial: partialMosaicCreation
+            mosaicCreationPartial: partialMosaicCreation,
+            mosaicSupplyPartial: partialMosaicSupply
         },
 	    onrender: function() {
             this.set('privateLabels', ncc.get('privateLabels'));

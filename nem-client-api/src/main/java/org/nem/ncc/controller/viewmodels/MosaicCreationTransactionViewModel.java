@@ -28,7 +28,7 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 
 		serializer.writeString("description", this.description);
 		serializer.writeString("mosaicName", this.mosaicName);
-		serializer.writeString("namespace", this.namespaceName);
+		serializer.writeString("namespaceName", this.namespaceName);
 		serializer.writeObjectArray("properties", this.mosaicProperties.asCollection());
 	}
 

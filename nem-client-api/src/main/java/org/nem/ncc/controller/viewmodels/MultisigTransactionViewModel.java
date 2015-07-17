@@ -28,6 +28,12 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				return Type.Multisig_Importance_Transfer;
 			case TransactionTypes.TRANSFER:
 				return Type.Multisig_Transfer;
+			case TransactionTypes.PROVISION_NAMESPACE:
+				return Type.Multisig_Provision_Namespace;
+			case TransactionTypes.MOSAIC_CREATION:
+				return Type.Multisig_Mosaic_Creation;
+			case TransactionTypes.SMART_TILE_SUPPLY_CHANGE:
+				return Type.Multisig_Mosaic_Supply;
 			default:
 				return Type.Unknown;
 		}
@@ -47,18 +53,8 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 
 		this.issuer = multisigTransaction.getSigner().getAddress();
 
-		if (other.getType() == TransactionTypes.TRANSFER) {
-			this.otherTransactionViewModel = new TransferTransactionViewModel(
-					new TransactionMetaDataPair(other, innerMetaData), relativeAccountAddress, lastBlockHeight);
-		} else if (other.getType() == TransactionTypes.MULTISIG_AGGREGATE_MODIFICATION) {
-			this.otherTransactionViewModel = new MultisigAggregateViewModel(
-					new TransactionMetaDataPair(other, innerMetaData), lastBlockHeight);
-		} else if (other.getType() == TransactionTypes.IMPORTANCE_TRANSFER) {
-			this.otherTransactionViewModel = new ImportanceTransferTransactionViewModel(
-					new TransactionMetaDataPair(other, innerMetaData), lastBlockHeight);
-		} else {
-			throw new IllegalArgumentException("MultisigTransactionViewModel can't handle that transaction at the moment");
-		}
+		final TransactionMetaDataPair innerMetaDataPair = new TransactionMetaDataPair(other, innerMetaData);
+		this.otherTransactionViewModel = TransactionToViewModelMapper.map(innerMetaDataPair, relativeAccountAddress, lastBlockHeight);
 
 		this.innerTransactionHash = multisigTransaction.getOtherTransactionHash();
 		this.signatureViewModel = multisigTransaction.getCosignerSignatures().stream()

@@ -1,10 +1,36 @@
 "use strict";
 
- define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
+ define(
+    [
+        'jquery', 'ncc', 'NccLayout', 'Utils',
+        'rv!layout/linePartialTransferTransaction',
+        'rv!layout/linePartialImportanceTransfer',
+        'rv!layout/linePartialAggregateModification',
+        'rv!layout/linePartialProvisionNamespace',
+        'rv!layout/linePartialMosaicCreation',
+        'rv!layout/linePartialMosaicSupply'
+    ],
+    function(
+        $, ncc, NccLayout, Utils,
+        linePartialTransferTransaction,
+        linePartialImportanceTransfer,
+        linePartialAggregateModification,
+        linePartialProvisionNamespace,
+        linePartialMosaicCreation,
+        linePartialMosaicSupply
+    ) {
     return $.extend(true, {}, NccLayout, {
         name: 'dashboard',
         url: 'dashboard.html',
         template: 'rv!layout/dashboard',
+        realPartials: {
+            transferTransactionLinePartial: linePartialTransferTransaction,
+            importanceTransferLinePartial: linePartialImportanceTransfer,
+            aggregateModificationLinePartial: linePartialAggregateModification,
+            provisionNamespaceLinePartial: linePartialProvisionNamespace,
+            mosaicCreationLinePartial: linePartialMosaicCreation,
+            mosaicSupplyLinePartial: linePartialMosaicSupply
+        },
         parent: 'wallet',
         setupOnce: function() {
 

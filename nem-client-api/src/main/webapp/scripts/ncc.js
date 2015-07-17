@@ -769,6 +769,7 @@ function(languages,
 
                         self.set(keypath, null);
                         self.partials[i] = template;
+                        $.extend(self.partials, layout.realPartials);
                         self.set(keypath, layout);
 
                         // Setup

@@ -7,8 +7,8 @@
             {{else}}
                 {{#if (.isSelf || .isOutgoing || .isIncoming)}}
                     {{#.isSelf}}{{texts.transactionDirections.self}}{{/}}
-                    {{#.isOutgoing}}{{texts.transactionDirections.incoming}}{{/}}
-                    {{#.isIncoming}}{{texts.transactionDirections.outgoing}}{{/}}
+                    {{#.isOutgoing}}{{texts.transactionDirections.outgoing}}{{/}}
+                    {{#.isIncoming}}{{texts.transactionDirections.incoming}}{{/}}
                 {{else}}
                     Multisig
                 {{/if}}
@@ -20,11 +20,11 @@
             {{texts.modals.transactionDetails.recipient}}
         </td>
         <td class="table-cell table-cell--content">
-            <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.recipient)">
-                {{#if privateLabels[.recipient]}}
-                    {{privateLabels[.recipient]}}
+            <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.recipient)">
+                {{#if privateLabels[.real.recipient]}}
+                    {{privateLabels[.real.recipient]}}
                 {{else}}
-                    {{.formattedRecipient}}
+                    {{.real.formattedRecipient}}
                 {{/if}}
             </a>
         </td>

@@ -802,20 +802,12 @@
                 {{/if}}
 			</span>
 		</div>
-		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.original.to}}</span>
-			<span class="txConfirm-value">
-                {{#if (privateLabels[txData.inner.recipient])}}
-                    <span class="txConfirm-recipientLabel">{{privateLabels[txData.inner.recipient]}}</span>
-                {{else}}
-                    <span class="txConfirm-recipient">{{txData.multisig.formattedTo}}</span>
-				{{/if}}
-			</span>
-		</div>
-		<div class="txConfirm-line">
-			<span class="txConfirm-label">{{texts.modals.signMultisig.original.amount}}</span>
-			<span class="txConfirm-value"><span class="txConfirm-amount">{{{txData.multisig.formattedAmount}}} XEM</span></span>
-		</div>
+        <div class="txConfirm-line">
+                <span class="txConfirm-label">{{texts.modals.transactionDetails.title}}</span>
+                <span class="txConfirm-value">
+                    <a class="hyperlink--default" href="javascript:;" on-click="viewTransaction(txData)">{{texts.transactions.table.view}}</a>
+                </span>
+        </div>
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.fee}}</span>
 			<span class="txConfirm-value"><span class="txConfirm-fee">{{{txData.multisig.formattedInnerFee}}} XEM</span></span>
@@ -831,19 +823,6 @@
 		<div class="txConfirm-line">
 			<span class="txConfirm-label">{{texts.modals.signMultisig.original.deadline}}</span>
 			<span class="txConfirm-value">{{txData.multisig.formattedDeadline}}</span>
-		</div>
-		<div class="txConfirm-line">
-			<span class="txConfirm-label"><span class="txConfirm-messageLabel">{{texts.modals.signMultisig.txConfirm.message}}</span></span>
-			<span class="txConfirm-value">
-				{{#if txData.multisig.rawMessage}}
-					{{txData.multisig.rawMessage}}
-					{{#if txData.multisig.encrypted}}
-						&nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.signMultisig.txConfirm.encrypted}}" on-mouseover="registerToolTip"></span>
-					{{/if}}
-				{{else}}
-					<span class="dimmed">{{texts.modals.signMultisig.txConfirm.noMessage}}</span>
-				{{/if}}
-			</span>
 		</div>
 		<div class="txConfirm-line">
 			<hr>
@@ -1333,7 +1312,11 @@
             {{>mosaicCreationPartial}}
             {{/if}}
 
-			{{#if (.isMultisig)}}
+            {{#if (.type === TransactionType.Mosaic_Supply || .type === TransactionType.Multisig_Mosaic_Supply)}}
+            {{>mosaicSupplyPartial}}
+            {{/if}}
+
+            {{#if (.isMultisig)}}
 				<tr><td colspan="2"><hr></td></tr>
 				<tr>
 					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
