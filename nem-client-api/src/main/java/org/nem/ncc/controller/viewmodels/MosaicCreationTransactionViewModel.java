@@ -6,12 +6,21 @@ import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.serialization.Serializer;
 
+/**
+ * A mosaic creation transaction view model.
+ */
 public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 	private final String description;
 	private final String namespaceName;
 	private final String mosaicName;
 	private final MosaicProperties mosaicProperties;
 
+	/**
+	 * Creates a new mosaic creation transaction view model.
+	 *
+	 * @param metaDataPair The metadata pair.
+	 * @param lastBlockHeight The last block height.
+	 */
 	public MosaicCreationTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Mosaic_Creation, metaDataPair, lastBlockHeight);
 

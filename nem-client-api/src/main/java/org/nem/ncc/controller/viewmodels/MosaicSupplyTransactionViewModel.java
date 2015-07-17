@@ -7,12 +7,21 @@ import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.model.primitive.Quantity;
 import org.nem.core.serialization.Serializer;
 
+/**
+ * A mosaic supply transaction view model.
+ */
 public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 	private final String namespaceName;
 	private final String mosaicName;
 	private final SmartTileSupplyType supplyType;
 	private final Quantity supplyQuantity;
 
+	/**
+	 * Creates a new mosaic supply transaction view model.
+	 *
+	 * @param metaDataPair The metadata pair.
+	 * @param lastBlockHeight The last block height.
+	 */
 	public MosaicSupplyTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Mosaic_Supply, metaDataPair, lastBlockHeight);
 
