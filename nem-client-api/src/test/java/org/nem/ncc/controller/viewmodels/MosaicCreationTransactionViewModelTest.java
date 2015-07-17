@@ -179,21 +179,21 @@ public class MosaicCreationTransactionViewModelTest {
 		Context(final String mosaicName, final NamespaceId parent, final String description, final MosaicProperties mosaicProperties)
 		{
 			this.mosaic = new Mosaic(
-					sender,
+					this.sender,
 					new MosaicId(parent, mosaicName),
 					new MosaicDescriptor(description),
 					mosaicProperties
 			);
 			this.transaction = new MosaicCreationTransaction(
 					new TimeInstant(125),
-					sender,
-					mosaic);
-			transaction.setFee(Amount.fromNem(23));
+					this.sender,
+					this.mosaic);
+			this.transaction.setFee(Amount.fromNem(23));
 			this.recalculateHash();
 		}
 
 		public void recalculateHash() {
-			this.transactionHash = HashUtils.calculateHash(transaction);
+			this.transactionHash = HashUtils.calculateHash(this.transaction);
 		}
 
 		public MosaicCreationTransactionViewModel map(final Address address) {
@@ -202,7 +202,7 @@ public class MosaicCreationTransactionViewModelTest {
 
 		public void assertViewModel(final MosaicCreationTransactionViewModel viewModel) {
 			Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(this.transactionHash));
-			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(sender.getAddress()));
+			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(this.sender.getAddress()));
 			Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
 		}

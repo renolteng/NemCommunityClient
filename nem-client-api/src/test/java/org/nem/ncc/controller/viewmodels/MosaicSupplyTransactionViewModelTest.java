@@ -41,7 +41,7 @@ public class MosaicSupplyTransactionViewModelTest {
 		assertCreateViewModelAroundUnconfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(1000));
 	}
 
-	private void assertCreateViewModelAroundUnconfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
+	private static void assertCreateViewModelAroundUnconfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, createSmartTiles, quantity);
 
 		// Act:
@@ -59,7 +59,7 @@ public class MosaicSupplyTransactionViewModelTest {
 		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(1000));
 	}
 
-	private void assertCreateViewModelAroundConfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
+	private static void assertCreateViewModelAroundConfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, createSmartTiles, quantity);
 
 		// Act:
@@ -85,7 +85,7 @@ public class MosaicSupplyTransactionViewModelTest {
 		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles, "DeleteSmartTiles");
 	}
 
-	private void assertSerializeViewModelAroundUnconfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
+	private static void assertSerializeViewModelAroundUnconfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
 		// Arrange:
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
 		context.transaction.setDeadline(new TimeInstant(333));
@@ -121,7 +121,7 @@ public class MosaicSupplyTransactionViewModelTest {
 		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles, "DeleteSmartTiles");
 	}
 
-	private void assertSerializeViewModelAroundConfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
+	private static void assertSerializeViewModelAroundConfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
 		// Arrange:
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
 		context.transaction.setDeadline(new TimeInstant(333));
@@ -177,17 +177,17 @@ public class MosaicSupplyTransactionViewModelTest {
 			this.quantity = quantity;
 			this.transaction = new SmartTileSupplyChangeTransaction(
 					new TimeInstant(125),
-					sender,
+					this.sender,
 					new MosaicId(parent, mosaicName),
 					smartTileSupplyType,
 					quantity
 			);
-			transaction.setFee(Amount.fromNem(34));
+			this.transaction.setFee(Amount.fromNem(34));
 			this.recalculateHash();
 		}
 
 		public void recalculateHash() {
-			this.transactionHash = HashUtils.calculateHash(transaction);
+			this.transactionHash = HashUtils.calculateHash(this.transaction);
 		}
 
 		public MosaicSupplyTransactionViewModel map(final Address address) {
@@ -196,7 +196,7 @@ public class MosaicSupplyTransactionViewModelTest {
 
 		public void assertViewModel(final MosaicSupplyTransactionViewModel viewModel) {
 			Assert.assertThat(viewModel.getHash(), IsEqual.equalTo(this.transactionHash));
-			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(sender.getAddress()));
+			Assert.assertThat(viewModel.getSigner(), IsEqual.equalTo(this.sender.getAddress()));
 			Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(34)));
 			Assert.assertThat(viewModel.getNamespaceName(), IsEqual.equalTo(this.namespaceName));

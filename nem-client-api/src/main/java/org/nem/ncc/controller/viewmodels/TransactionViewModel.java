@@ -104,7 +104,7 @@ public class TransactionViewModel implements SerializableEntity {
 	 * @return The transaction type.
 	 */
 	public Type getTransactionViewModelType() {
-		return transactionViewModelType;
+		return this.transactionViewModelType;
 	}
 
 	/**
