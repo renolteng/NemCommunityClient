@@ -2,22 +2,16 @@ package org.nem.ncc.controller.viewmodels;
 
 import net.minidev.json.JSONObject;
 import org.hamcrest.core.IsEqual;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
-import org.nem.core.model.mosaic.*;
+import org.nem.core.model.mosaic.MosaicId;
 import org.nem.core.model.namespace.NamespaceId;
-import org.nem.core.model.ncc.TransactionMetaData;
-import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.Amount;
-import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.model.primitive.Quantity;
+import org.nem.core.model.ncc.*;
+import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.JsonSerializer;
-import org.nem.core.time.SystemTimeProvider;
-import org.nem.core.time.TimeInstant;
-import org.nem.ncc.test.MockTransaction;
-import org.nem.ncc.test.Utils;
+import org.nem.core.time.*;
+import org.nem.ncc.test.*;
 
 public class MosaicSupplyTransactionViewModelTest {
 	private final static String MOSAIC_NAME = "paddle";
@@ -159,8 +153,7 @@ public class MosaicSupplyTransactionViewModelTest {
 		return (MosaicSupplyTransactionViewModel)TransactionToViewModelMapper.map(transaction, address);
 	}
 
-	private static class Context
-	{
+	private static class Context {
 		final Account sender = Utils.generateRandomAccount();
 		final Transaction transaction;
 		private final String mosaicName;
@@ -169,8 +162,7 @@ public class MosaicSupplyTransactionViewModelTest {
 		private final String namespaceName;
 		Hash transactionHash;
 
-		Context(final String mosaicName, final NamespaceId parent, final SmartTileSupplyType smartTileSupplyType, final Quantity quantity)
-		{
+		Context(final String mosaicName, final NamespaceId parent, final SmartTileSupplyType smartTileSupplyType, final Quantity quantity) {
 			this.namespaceName = parent.toString();
 			this.mosaicName = mosaicName;
 			this.smartTileSupplyType = smartTileSupplyType;

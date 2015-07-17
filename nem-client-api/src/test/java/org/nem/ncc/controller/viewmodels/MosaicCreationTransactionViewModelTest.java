@@ -1,24 +1,17 @@
 package org.nem.ncc.controller.viewmodels;
 
 import net.minidev.json.JSONObject;
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNot;
-import org.hamcrest.core.IsNull;
-import org.junit.Assert;
-import org.junit.Test;
+import org.hamcrest.core.*;
+import org.junit.*;
 import org.nem.core.crypto.Hash;
 import org.nem.core.model.*;
 import org.nem.core.model.mosaic.*;
 import org.nem.core.model.namespace.NamespaceId;
-import org.nem.core.model.ncc.TransactionMetaData;
-import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.Amount;
-import org.nem.core.model.primitive.BlockHeight;
+import org.nem.core.model.ncc.*;
+import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.JsonSerializer;
-import org.nem.core.time.SystemTimeProvider;
-import org.nem.core.time.TimeInstant;
-import org.nem.ncc.test.MockTransaction;
-import org.nem.ncc.test.Utils;
+import org.nem.core.time.*;
+import org.nem.ncc.test.*;
 
 import java.util.Arrays;
 
@@ -89,7 +82,7 @@ public class MosaicCreationTransactionViewModelTest {
 
 	//region serialization
 	@Test
-		 public void canSerializeViewModelAroundUnconfirmedTransfer() {
+	public void canSerializeViewModelAroundUnconfirmedTransfer() {
 		// Arrange:
 		final MosaicProperties mosaicProperties = Context.createDefaultProperties();
 		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, MOSAIC_DESC, mosaicProperties);
@@ -160,15 +153,13 @@ public class MosaicCreationTransactionViewModelTest {
 		return (MosaicCreationTransactionViewModel)TransactionToViewModelMapper.map(transaction, address);
 	}
 
-	private static class Context
-	{
+	private static class Context {
 		final Account sender = Utils.generateRandomAccount();
 		final Transaction transaction;
 		final Mosaic mosaic;
 		Hash transactionHash;
 
-		public static MosaicProperties createDefaultProperties()
-		{
+		public static MosaicProperties createDefaultProperties() {
 			return new DefaultMosaicProperties(Arrays.asList(
 					new NemProperty("divisibility", "2"),
 					new NemProperty("quantity", "1234"),
@@ -176,8 +167,8 @@ public class MosaicCreationTransactionViewModelTest {
 					new NemProperty("transferable", "true")
 			));
 		}
-		Context(final String mosaicName, final NamespaceId parent, final String description, final MosaicProperties mosaicProperties)
-		{
+
+		Context(final String mosaicName, final NamespaceId parent, final String description, final MosaicProperties mosaicProperties) {
 			this.mosaic = new Mosaic(
 					this.sender,
 					new MosaicId(parent, mosaicName),

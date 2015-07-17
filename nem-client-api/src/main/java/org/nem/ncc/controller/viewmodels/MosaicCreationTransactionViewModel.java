@@ -58,6 +58,7 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 	public String getNamespaceName() {
 		return this.namespaceName;
 	}
+
 	/**
 	 * Gets the mosaic expressed as a string.
 	 *

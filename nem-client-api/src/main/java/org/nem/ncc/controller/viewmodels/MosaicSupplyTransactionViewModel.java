@@ -1,10 +1,8 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.model.SmartTileSupplyChangeTransaction;
-import org.nem.core.model.SmartTileSupplyType;
+import org.nem.core.model.*;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
-import org.nem.core.model.primitive.BlockHeight;
-import org.nem.core.model.primitive.Quantity;
+import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
 
 /**
@@ -50,6 +48,7 @@ public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 	public String getNamespaceName() {
 		return this.namespaceName;
 	}
+
 	/**
 	 * Gets the mosaic expressed as a string.
 	 *
