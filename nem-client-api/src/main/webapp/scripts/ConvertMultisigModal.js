@@ -261,6 +261,10 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 requestData.multisigFee = this.get('multisigFee');
             }
 
+            if (! this.get('isAfterMofNFork')) {
+                delete requestData['minCosignatories'];
+            }
+
             var txConfirm = ncc.getModal('modificationConfirm');
             txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());

@@ -776,18 +776,18 @@ define(['TransactionType'], function(TransactionType) {
             } else if (tx.real.type === TransactionType.Aggregate_Modification) {
                 if (!tx.confirmed) {
                     ncc.get('activeAccount').multisigAccounts.forEach(function(a){
-                        if (a.address === realTransaction.sender) {
+                        if (a.address === tx.real.sender) {
                             if (a.multisigInfo.minCosignatories) {
-                                realTransaction.minCosignatories.oldMin = a.multisigInfo.minCosignatories;
-                                realTransaction.minCosignatories.newMin = a.multisigInfo.minCosignatories + realTransaction.minCosignatories.relativeChange;
+                                tx.real.minCosignatories.oldMin = a.multisigInfo.minCosignatories;
+                                tx.real.minCosignatories.newMin = a.multisigInfo.minCosignatories + tx.real.minCosignatories.relativeChange;
                             } else {
-                                realTransaction.minCosignatories.oldMin = a.multisigInfo.cosignatoriesCount;
-                                if (realTransaction.minCosignatories.relativeChange) {
-                                    realTransaction.minCosignatories.newMin = realTransaction.minCosignatories.relativeChange;
+                                tx.real.minCosignatories.oldMin = a.multisigInfo.cosignatoriesCount;
+                                if (tx.real.minCosignatories.relativeChange) {
+                                    tx.real.minCosignatories.newMin = tx.real.minCosignatories.relativeChange;
                                 } else {
-                                    var removed = realTransaction.modifications.filter(function(m){return m.type === "del";}).length;
-                                    var added = realTransaction.modifications.filter(function(m){return m.type === "add";}).length;;
-                                    realTransaction.minCosignatories.newMin += (added - removed);
+                                    var removed = tx.real.modifications.filter(function(m){return m.type === "del";}).length;
+                                    var added = tx.real.modifications.filter(function(m){return m.type === "add";}).length;;
+                                    tx.real.minCosignatories.newMin += (added - removed);
                                 }
                             }
                         }

@@ -1,28 +1,22 @@
 {{#transaction}}
-    {{#if .confirmed}}
-    <tr>
-        <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
-        <td class="table-cell table-cell--content">
-            {{#if .type === TransactionType.Aggregate_Modification}}
-            {{.minCosignatories.relativeChange}}
-            {{else}}
-            {{.inner.minCosignatories.relativeChange}}
-            {{/if}}
-            ({{texts.modals.multisig.minCosignatoriesRelativeLabel}})
-        </td>
-    </tr>
-    {{else}}
-    <tr>
-        <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
-        <td class="table-cell table-cell--content">
-            {{#if .type === TransactionType.Aggregate_Modification}}
-            {{.minCosignatories.oldMin}} -> {{.minCosignatories.newMin}}
-            {{else}}
-            {{.inner.minCosignatories.oldMin}} -> {{.inner.minCosignatories.newMin}}
-            {{/if}}
-        </td>
-    </tr>
-    {{/if}}
+    {{#.real.minCosignatories.relativeChange}}
+        {{#if .confirmed}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
+                <td class="table-cell table-cell--content">
+                    {{.real.minCosignatories.relativeChange}}
+                    ({{texts.modals.multisig.minCosignatoriesRelativeLabel}})
+                </td>
+            </tr>
+        {{else}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.multisig.minCosignatoriesLabel}}</td>
+                <td class="table-cell table-cell--content">
+                    {{.real.minCosignatories.oldMin}} -> {{.real.minCosignatories.newMin}}
+                </td>
+            </tr>
+        {{/if}}
+    {{/}}
     {{#each .modifications}}
     <tr>
         <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.cosignatory}}
