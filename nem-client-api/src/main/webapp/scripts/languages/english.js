@@ -329,10 +329,10 @@ define({
 				description: 'Description',
 				propertiesLabel: 'Properties',
 				properties: {
-				    'divisibility': 'Divisibility',
-				    'quantity': 'Maximal quantity',
-				    'mutablequantity': 'Is quantity mutable',
-				    'transferable': 'Is transferable'
+				    divisibility: 'Divisibility',
+				    quantity: 'Maximal quantity',
+				    mutablequantity: 'Is quantity mutable',
+				    transferable: 'Is transferable'
 				},
 				supplyType: 'Supply type',
 				supplyAmount: 'Supply amount'
