@@ -400,6 +400,7 @@ public class TransactionMapperTest {
 		Assert.assertThat(
 				model.getMinCosignatoriesModification(),
 				null == minCosignatoriesModification ? IsNull.nullValue() : IsEqual.equalTo(minCosignatoriesModification));
+		Assert.assertThat(model.getEntityVersion(), IsEqual.equalTo(null == minCosignatoriesModification ? 1 : 2));
 		Assert.assertThat(model.getSigner().getAddress(), IsEqual.equalTo(context.signer.getAddress()));
 		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(71)));
 	}

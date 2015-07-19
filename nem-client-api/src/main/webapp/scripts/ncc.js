@@ -273,7 +273,8 @@ function(languages,
                     message += ' (' + propertyName + ')';
                 }
 
-                return showError(data.status, message);
+                var dataMessage = "NIS: " + data.message.replace(/_/g, " ");
+                return showError(data.status, message || dataMessage);
             }
 
             return true;

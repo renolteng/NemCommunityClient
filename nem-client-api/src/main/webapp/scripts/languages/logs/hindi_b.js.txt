@@ -558,4 +558,114 @@ translated texts.transactionTypes.52
 	      to: 'MULTISIG ट्रांजैक्शन'
 	based on: texts.transactionTypes.[6]
 
+-----translated texts.faults.1203
+	    from: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.'
+	      to: 'प्रदान की गई समय सीमा अतीत में है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.'
+	based on: texts.faults.701
+
+translated texts.faults.1204
+	    from: 'The provided deadline is too far in the future. The deadline must be within one day time period.'
+	      to: 'प्रदान की गई समय सीमा भविष्य में बहुत दूर है. समय सीमा 1 दिन की अवधि के अंदर प्रदान की जानी चाहिए.'
+	based on: texts.faults.702
+
+translated texts.faults.1205
+	    from: 'Your account does not have the right balance to make this transaction.'
+	      to: 'Your account does not have the right balance to make this transaction.'
+	based on: texts.faults.703
+
+translated texts.faults.1206
+	    from: 'The provided message text is too large to be sent. Please try to reduce the length of the message.'
+	      to: 'प्रदान की गई मेसेज टेक्स्ट NEM के माध्यम से भेजने के लिए बहुत बड़ी है. कृपया अपने मेसेज की लंबाई कम करने का प्रयास करें.'
+	based on: texts.faults.704
+
+translated texts.faults.1207
+	    from: 'The transaction hash already exists in the database or in the list of unconfirmed transactions.'
+	      to: 'ट्रांजैक्शन हैश पहले से ही डेटाबेस या अपुष्ट ट्रांजैक्शन सूची में मौजूद है.'
+	based on: texts.faults.705
+
+translated texts.faults.1208
+	    from: 'The signature of the transaction could not be verified.'
+	      to: 'ट्रांजैक्शन हस्ताक्षर का जांच नही किया जा सका है.'
+	based on: texts.faults.706
+
+translated texts.faults.1209
+	    from: 'The time stamp of the transaction is too far in the past.'
+	      to: 'ट्रांजैक्शन ID का समय बहुत दूर अतीत में हे.'
+	based on: texts.faults.707
+
+translated texts.faults.1210
+	    from: 'The time stamp of the transaction is too far in the future.'
+	      to: 'ट्रांजैक्शन ID का समय बहुत दूर भविष्य में हे.'
+	based on: texts.faults.708
+
+translated texts.faults.1219
+	    from: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.'
+	      to: 'ट्रांजैक्शन को अस्वीकार कर दिया गया है क्योंकि ट्रांजैक्शन कैश अनुमति से ज़्यादा भर गया है. एक उच्च फ़ीस ट्रांजैक्शन के स्वीकार होने के मौके बेहतर बनाता है.'
+	based on: texts.faults.710
+
+translated texts.faults.1262
+	    from: 'Delegated harvesting account has non zero balance and cannot be used.'
+	      to: 'Delegated harvesting account has non zero balance and cannot be used.'
+	based on: texts.faults.731
+
+translated texts.faults.1263
+	    from: 'Importance transfer rejected. There is already pending importance transfer operation.'
+	      to: 'इंपॉर्टेन्स ट्रान्सफर खारिज कर दिया गया है. एक अपूर्ण इंपॉर्टेन्स ट्रान्सफर ऑपरेशन पहले से ही है.'
+	based on: texts.faults.732
+
+translated texts.faults.1264
+	    from: 'Delegated harvesting is already active.'
+	      to: 'Delegated harvesting is already active.'
+	based on: texts.faults.733
+
+translated texts.faults.1265
+	    from: 'Delegated harvesting is NOT active. Cannot deactivate.'
+	      to: 'Delegated harvesting is NOT active. Cannot deactivate.'
+	based on: texts.faults.734
+
+translated texts.faults.1266
+	    from: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.'
+	      to: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.'
+	based on: texts.faults.730
+
+translated texts.faults.1271
+	    from: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.'
+	      to: 'Multisig हस्ताक्षर ट्रांजैक्शन को अस्वीकार कर दिया गया है. यह अकाउंट Multisig अकाउंट की cosignatory नहीं है.'
+	based on: texts.faults.741
+
+translated texts.faults.1273
+	    from: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network'
+	      to: 'Multisig हस्ताक्षर ट्रांजैक्शन को अस्वीकार कर दिया गया है. एसोसिएटेड Multisig ट्रांजैक्शन NEM नेटवर्क के लिए अज्ञात है.'
+	based on: texts.faults.742
+
+translated texts.faults.1274
+	    from: 'Transaction is not allowed for multisig account.'
+	      to: 'Multisig अकाउंट के लिए ट्रांजैक्शन की अनुमति नहीं है.'
+	based on: texts.faults.740
+
+translated texts.faults.1275
+	    from: 'Multisig account modification rejected. One of added accounts is already a cosignatory.'
+	      to: 'Multisig अकाउंट परिवर्तन को खारिज कर दिया गया है. जोड़े गये अकाउंट्स में से एक अकाउंट पहले से ही cosignatory है.'
+	based on: texts.faults.743
+
+translated texts.faults.1321
+	    from: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.'
+	      to: 'यह अकाउंट अज्ञात है. नेटवर्क को अकाउंट को पहचानने के लिए अकाउंट में कम से कम एक ट्रांजैक्शन (सेनडर/रेसिपईयेंट) का शामिल होना ज़रूरी होता है.'
+	based on: texts.faults.709
+
+translated texts.transactionTypes.53
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG ट्रांजैक्शन'
+	based on: texts.transactionTypes.52
+
+translated texts.transactionTypes.54
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG ट्रांजैक्शन'
+	based on: texts.transactionTypes.52
+
+translated texts.transactionTypes.55
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG ट्रांजैक्शन'
+	based on: texts.transactionTypes.52
+
 -----

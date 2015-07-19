@@ -138,4 +138,114 @@ translated texts.transactionTypes.52
 	      to: 'MULTISIG TRANSACTIE'
 	based on: texts.transactionTypes.[6]
 
+-----translated texts.faults.1203
+	    from: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.'
+	      to: 'Het termijn ligt in het verleden en is alleen geldig binnen het tijdsbestek van 1 dag.'
+	based on: texts.faults.701
+
+translated texts.faults.1204
+	    from: 'The provided deadline is too far in the future. The deadline must be within one day time period.'
+	      to: 'Het termijn ligt te ver in de toekomst en is alleen geldig binnen het tijdsbestek van 1 dag.'
+	based on: texts.faults.702
+
+translated texts.faults.1205
+	    from: 'Your account does not have the right balance to make this transaction.'
+	      to: 'Uw rekening heeft niet genoeg balans om deze transactie te maken.'
+	based on: texts.faults.703
+
+translated texts.faults.1206
+	    from: 'The provided message text is too large to be sent. Please try to reduce the length of the message.'
+	      to: 'De tekst is te groot om het via NEM te verzenden. Reduceer de tekst en probeer het opnieuw te verzenden.'
+	based on: texts.faults.704
+
+translated texts.faults.1207
+	    from: 'The transaction hash already exists in the database or in the list of unconfirmed transactions.'
+	      to: 'De kluts (hash) van de transactie bestaat al in de database van onbevestigde transacties.'
+	based on: texts.faults.705
+
+translated texts.faults.1208
+	    from: 'The signature of the transaction could not be verified.'
+	      to: 'De handtekening van de transactie kon niet worden geverifieerd.'
+	based on: texts.faults.706
+
+translated texts.faults.1209
+	    from: 'The time stamp of the transaction is too far in the past.'
+	      to: 'De tijdsaanduiding van de transactie ligt te ver in het verleden.'
+	based on: texts.faults.707
+
+translated texts.faults.1210
+	    from: 'The time stamp of the transaction is too far in the future.'
+	      to: 'De tijdsaanduiding van de transactie ligt te ver in de toekomst.'
+	based on: texts.faults.708
+
+translated texts.faults.1219
+	    from: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.'
+	      to: 'De transactie is geweigerd omdat het transactie cache vol zit. Een hogere toeslag bevordert de kans dat de transactie geaccepteerd wordt.'
+	based on: texts.faults.710
+
+translated texts.faults.1262
+	    from: 'Delegated harvesting account has non zero balance and cannot be used.'
+	      to: 'De rekening van gedelegeerd oogsten heeft een saldo van nul en kan niet worden gebruikt.'
+	based on: texts.faults.731
+
+translated texts.faults.1263
+	    from: 'Importance transfer rejected. There is already pending importance transfer operation.'
+	      to: 'Prioriteit overdracht geweigerd. Er is al een prioriteit overdracht in afwachting.'
+	based on: texts.faults.732
+
+translated texts.faults.1264
+	    from: 'Delegated harvesting is already active.'
+	      to: 'Gedelegeerd oogsten is al geactiveerd.'
+	based on: texts.faults.733
+
+translated texts.faults.1265
+	    from: 'Delegated harvesting is NOT active. Cannot deactivate.'
+	      to: 'Gedelegeerd oogsten is NIET actief. Kan niet gedeactiveerd worden.'
+	based on: texts.faults.734
+
+translated texts.faults.1266
+	    from: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.'
+	      to: 'Belang overdrachtstransactie (gedelegeerd oogsten) komt in conflict met bestaande transactie.'
+	based on: texts.faults.730
+
+translated texts.faults.1271
+	    from: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.'
+	      to: 'De handtekening van deze multisig transactie is geweigerd. Geselecteerde rekening is geen handtekeninghouder van een multisig rekening.'
+	based on: texts.faults.741
+
+translated texts.faults.1273
+	    from: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network'
+	      to: 'De handtekening van deze multisig transactie is geweigerd. Geassocieerde multisig transactie is niet bekend bij het NEM netwerk.'
+	based on: texts.faults.742
+
+translated texts.faults.1274
+	    from: 'Transaction is not allowed for multisig account.'
+	      to: 'Transactie niet toegestaan voor multisig rekening.'
+	based on: texts.faults.740
+
+translated texts.faults.1275
+	    from: 'Multisig account modification rejected. One of added accounts is already a cosignatory.'
+	      to: 'Aanpassing van multisig rekening is geweigerd. Een van de toegevoegde rekeningen is al handtekeninghouder.'
+	based on: texts.faults.743
+
+translated texts.faults.1321
+	    from: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.'
+	      to: 'Het rekeningnummer is onbekend.  Een rekening wordt pas bekend op het netwerk als dit deel heeft uitgemaakt van een transactie (als verzender of ontvanger).'
+	based on: texts.faults.709
+
+translated texts.transactionTypes.53
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.52
+
+translated texts.transactionTypes.54
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.52
+
+translated texts.transactionTypes.55
+	    from: 'MULTISIG TRANSACTION'
+	      to: 'MULTISIG TRANSACTIE'
+	based on: texts.transactionTypes.52
+
 -----

@@ -156,7 +156,7 @@
 					<li class="dropdownMenu-item {{#activeAccount.address === wallet.primaryAccount.address}}disabled{{/}}" on-click="setCurrentAccountAsPrimary">
 						{{texts.wallet.actions.setPrimary}}
 					</li>
-					<li class="dropdownMenu-item" on-click="openModal('convertMultisig')">
+					<li class="dropdownMenu-item" on-click="openConvertMultisig()">
 						{{texts.wallet.actions.convertMultisig}}
 					</li>
 					<li class="dropdownMenu-item dropdownMenu-item--separator" on-click="removeAccount">
@@ -319,30 +319,32 @@
             </div>
             <div class="form-field">
             </div>
-            <div class="form-field">
-                <div class="form-row">
-                    <div class="form-half form-half--left">
-                        <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
-                        <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
-                            {{texts.modals.multisig.minCosignatoriesDefaultLabel}}
-                        </label>
-                    </div>
-                    <div class="form-half form-half--right">
-                        <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
-                            {{texts.modals.multisig.minCosignatoriesLabel}}
-                            {{#if minCosignatoriesZero}}
-                            <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
-                            {{/if}}
-                            {{#if minCosignatoriesOverflow}}
-                            <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesOverflow}}" on-mouseover="registerToolTip"></span>
-                            {{/if}}
-                        </p>
-                        <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}} {{#if minCosignatoriesError}}form-input--error{{/if}}">
-                            <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
+            {{#.isAfterMofNFork}}
+                <div class="form-field">
+                    <div class="form-row">
+                        <div class="form-half form-half--left">
+                            <input class="form-checkbox" type="checkbox" checked="{{useDefaultMinCosignatories}}" id="chk-useMinCosignatoriesZero" />
+                            <label class="form-checkbox-label" for="chk-useMinCosignatoriesZero">
+                                {{texts.modals.multisig.minCosignatoriesDefaultLabel}}
+                            </label>
+                        </div>
+                        <div class="form-half form-half--right">
+                            <p class="form-label {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}}">
+                                {{texts.modals.multisig.minCosignatoriesLabel}}
+                                {{#if minCosignatoriesZero}}
+                                <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesZero}}" on-mouseover="registerToolTip"></span>
+                                {{/if}}
+                                {{#if minCosignatoriesOverflow}}
+                                <span class="convertMultisig-errorIcon icon-attention-circled" title="{{texts.modals.multisig.minCosignatoriesOverflow}}" on-mouseover="registerToolTip"></span>
+                                {{/if}}
+                            </p>
+                            <div class="form-input {{#if useDefaultMinCosignatories}}form-input--unimportant{{/if}} {{#if minCosignatoriesError}}form-input--error{{/if}}">
+                                <input class="form-input-inner form-input--textbox js-multisig-mincosignatories-textbox" type="text" value="{{minCosignatories}}"  readonly="{{useDefaultMinCosignatories}}" on-keypress="sendFormKeypress"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {{/}}
             <div class="form-field">
                 <input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
                 <label class="form-checkbox-label" for="chk-useMinimumFee">
@@ -949,13 +951,15 @@
             <span class="txConfirm-value"><span class="txConfirm-fee">{{txData.formattedMultisigFee}} XEM</span></span>
         </div>
         {{/if}}
-        <div class="modificationConfirm-line">
-            <span class="modificationConfirm-value">{{texts.modals.multisig.minCosignatoriesLabel}}:</span>
-        </div>
-        <div class="modificationConfirm-line">
-            <span class="modificationConfirm-label">&nbsp;</span>
-            <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{txData.minCosignatories}} (relative change: {{requestData.minCosignatories.relativeChange}})</span>
-        </div>
+        {{#.isAfterMofNFork}}
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-value">{{texts.modals.multisig.minCosignatoriesLabel}}:</span>
+            </div>
+            <div class="modificationConfirm-line">
+                <span class="modificationConfirm-label">&nbsp;</span>
+                <span class="modificationConfirm-value modificationConfirm-minCosignatories">{{txData.minCosignatories}} (relative change: {{requestData.minCosignatories.relativeChange}})</span>
+            </div>
+        {{/}}
 		<hr>
         <p class="form-label">Existing {{texts.modals.multisig.cosignatories}}</p>
         {{#each requestData.existingCosignatories : i}}

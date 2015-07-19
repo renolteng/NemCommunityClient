@@ -70,7 +70,7 @@
 				<article>
 					<h1 class="tile-title" on-click="redirect:'transactions', {{params}}">{{texts.dashboard.transactions.title}}</h1>
 					<button type="button" class="transactionsTile-sendNemButton icon-paper-plane-empty" disabled="{{sendNemDisabled}}" on-click="openSendNem()">{{texts.dashboard.transactions.sendNem}}</button>
-                    <button type="button" class="transactionsTile-convertMultisigButton icon-magic" disabled="{{sendNemDisabled}}" on-click="openModal('convertMultisig')">{{texts.wallet.actions.convertMultisig}}</button>
+                    <button type="button" class="transactionsTile-convertMultisigButton icon-magic" disabled="{{sendNemDisabled}}" on-click="openConvertMultisig()">{{texts.wallet.actions.convertMultisig}}</button>
 					<div class="transactionsTile-overview">
 						<h1 class="transactionsTile-balanceLabel">{{texts.dashboard.transactions.balance}}
                             {{#activeAccount.isMultisig}}

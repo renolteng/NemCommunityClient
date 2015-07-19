@@ -285,11 +285,18 @@ public class TransactionMapper {
 				? this.accountLookup.findByAddress(request.getMultisigAccount())
 				: this.getSenderAccount(request.getWalletName(), request.getMultisigAccount(), password);
 
-		final MultisigAggregateModificationTransaction transaction = new MultisigAggregateModificationTransaction(
-				timeStamp,
-				sender,
-				modifications,
-				request.getMinCosignatoriesModification());
+		final MultisigAggregateModificationTransaction transaction = request.getMinCosignatoriesModification() == null ?
+				new MultisigAggregateModificationTransaction(
+						1,
+						timeStamp,
+						sender,
+						modifications,
+						null) :
+				new MultisigAggregateModificationTransaction(
+						timeStamp,
+						sender,
+						modifications,
+						request.getMinCosignatoriesModification());
 
 		transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 		transaction.setFee(request.getFee());

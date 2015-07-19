@@ -95,7 +95,7 @@ public class MultisigModificationRequestTest {
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Arrange:
 		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
-		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type);
+		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type, true);
 
 		// Act:
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
@@ -118,7 +118,7 @@ public class MultisigModificationRequestTest {
 	public void requestCanBeDeserializedWithEmptyCosignatoryAddressList() {
 		// Arrange:
 		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
-		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type);
+		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type, true);
 
 		// Act:
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
@@ -138,10 +138,33 @@ public class MultisigModificationRequestTest {
 	}
 
 	@Test
+	public void requestCanBeDeserializedWithoutMinCosignatories() {
+		// Arrange:
+		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
+		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type, false);
+
+		// Act:
+		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
+
+		// Assert:
+		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
+		Assert.assertThat(request.getPassword(), IsEqual.equalTo(new WalletPassword("p")));
+		Assert.assertThat(request.getType(), IsEqual.equalTo(type));
+		Assert.assertThat(request.getMultisigAccount(), IsEqual.equalTo(Address.fromEncoded("s")));
+		Assert.assertThat(request.getIssuerAddress(), IsEqual.equalTo(Address.fromEncoded("i")));
+		Assert.assertThat(request.getAddedCosignatories(), IsEquivalent.equivalentTo(Collections.singletonList(Address.fromEncoded("a"))));
+		Assert.assertThat(request.getRemovedCosignatories(), IsEquivalent.equivalentTo(Collections.singletonList(Address.fromEncoded("d"))));
+		Assert.assertThat(request.getMinCosignatoriesModification(), IsNull.nullValue());
+		Assert.assertThat(request.getHoursDue(), IsEqual.equalTo(12));
+		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(123)));
+		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(10)));
+	}
+
+	@Test
 	public void requestCanBeDeserializedWithZeroMultisigFee() {
 		// Arrange:
 		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
-		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 0L, type);
+		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 0L, type, true);
 
 		// Act:
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
@@ -164,7 +187,7 @@ public class MultisigModificationRequestTest {
 	public void requestCanBeDeserializedWithMultisigMultisigType() {
 		// Arrange:
 		final int type = TransactionViewModel.Type.Multisig_Aggregate_Modification.getValue();
-		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type);
+		final Deserializer deserializer = createDeserializer("w", "p", "s", "i", "", "", 5, 12, 123L, 10L, type, true);
 
 		// Act:
 		final MultisigModificationRequest request = new MultisigModificationRequest(deserializer);
@@ -188,17 +211,17 @@ public class MultisigModificationRequestTest {
 		// Arrange:
 		final int type = TransactionViewModel.Type.Aggregate_Modification.getValue();
 		final List<Deserializer> deserializers = Arrays.asList(
-				createDeserializer(null, "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type),
-				createDeserializer("w", null, "s", "i", "a", "d", 5, 12, 123L, 10L, type),
-				createDeserializer("w", "p", null, "i", "a", "d", 5, 12, 123L, 10L, type),
+				createDeserializer(null, "p", "s", "i", "a", "d", 5, 12, 123L, 10L, type, true),
+				createDeserializer("w", null, "s", "i", "a", "d", 5, 12, 123L, 10L, type, true),
+				createDeserializer("w", "p", null, "i", "a", "d", 5, 12, 123L, 10L, type, true),
 				// createDeserializer("w", "p", "s", null, "a", "d", 5, 12, 123L, 10L, type), // issuer is optional
-				createDeserializer("w", "p", "s", "i", null, "d", 5, 12, 123L, 10L, type),
-				createDeserializer("w", "p", "s", "i", "a", null, 5, 12, 123L, 10L, type),
-				createDeserializer("w", "p", "s", "i", "a", "d", null, 12, 123L, 10L, type),
-				createDeserializer("w", "p", "s", "i", "a", "d", 5, null, 123L, 10L, type),
-				createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, null, 10L, type),
-				createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, null, type),
-				createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, null)
+				createDeserializer("w", "p", "s", "i", null, "d", 5, 12, 123L, 10L, type, true),
+				createDeserializer("w", "p", "s", "i", "a", null, 5, 12, 123L, 10L, type, true),
+				createDeserializer("w", "p", "s", "i", "a", "d", null, 12, 123L, 10L, type, true),
+				createDeserializer("w", "p", "s", "i", "a", "d", 5, null, 123L, 10L, type, true),
+				createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, null, 10L, type, true),
+				createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, null, type, true),
+				createDeserializer("w", "p", "s", "i", "a", "d", 5, 12, 123L, 10L, null, true)
 		);
 
 		// Assert:
@@ -220,7 +243,8 @@ public class MultisigModificationRequestTest {
 			final Integer hoursDue,
 			final Long fee,
 			final Long multisigFee,
-			final Integer type) {
+			final Integer type,
+			final boolean hasMinCosignatories) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", walletName);
 		jsonObject.put("password", walletPassword);
@@ -230,9 +254,11 @@ public class MultisigModificationRequestTest {
 		jsonObject.put("addedCosignatories", createCosignatoryArray(addCosignatory));
 		jsonObject.put("removedCosignatories", createCosignatoryArray(delCosignatory));
 
-		final JSONObject minCosignatories = new JSONObject();
-		minCosignatories.put("relativeChange", relativeChange);
-		jsonObject.put("minCosignatories", minCosignatories);
+		if (hasMinCosignatories) {
+			final JSONObject minCosignatories = new JSONObject();
+			minCosignatories.put("relativeChange", relativeChange);
+			jsonObject.put("minCosignatories", minCosignatories);
+		}
 		jsonObject.put("hoursDue", hoursDue);
 		jsonObject.put("fee", fee);
 		jsonObject.put("multisigFee", multisigFee);
