@@ -22,15 +22,9 @@
 </td>
 
 {{! FIELD MESSAGE }}
-{{#if .isMultisig}}
-<td class="txList-cell txList-col--message" title="{{.cosignatoriesCount}}" on-mouseover="registerToolTip">
-	<span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
+<td class="txList-cell txList-col--message">
+    <span class="dimmed">n/a</span>
 </td>
-{{else}}
-<td class="txList-cell txList-col--message" on-mouseover="registerToolTip">
-	<span class="dimmed">n/a</span>
-</td>
-{{/if}}
 
 {{! FIELD AMOUNT }}
 <td class="txList-cell txList-col--amount">
@@ -38,7 +32,7 @@
 	{{#if .requiresSignature}}
 		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 	{{else}}
-		sig.ok
+        <span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
 	{{/if}}
 {{else}}
 	<span class='dimmed'>n/a</span>
