@@ -132,37 +132,28 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
             );
         },
         sendTransaction: function() {
-            if (this.get('sender') == null) {
-                var requestData = {
-                    wallet: ncc.get('wallet.wallet'),
-                    type: TransactionType.Transfer,
-                    account: ncc.get('activeAccount.address'),
-                    password: this.get('password'),
-                    amount: this.get('amount'),
-                    recipient: this.get('recipient'),
-                    message: this.get('message') || undefined,
-                    hexMessage: this.get('messageHexBased') ? 1 : 0,
-                    fee: this.get('fee'),
-                    multisigFee: 0,
-                    encrypt: this.get('encrypt'),
-                    hoursDue: this.get('hoursDue')
-                };
-            } else {
-                var requestData = {
-                    wallet: ncc.get('wallet.wallet'),
+            var requestData;
+            requestData = {
+                wallet: ncc.get('wallet.wallet'),
+                type: TransactionType.Transfer,
+                account: ncc.get('activeAccount.address'),
+                password: this.get('password'),
+                amount: this.get('amount'),
+                recipient: this.get('recipient'),
+                message: this.get('message') || undefined,
+                hexMessage: this.get('messageHexBased') ? 1 : 0,
+
+                fee: this.get('fee'),
+                multisigFee: 0,
+                encrypt: this.get('encrypt'),
+                hoursDue: this.get('hoursDue')
+            };
+            if (this.get('sender') !== null) {
+                $.extend(requestData, {
                     type: TransactionType.Multisig_Transfer,
                     multisigAccount: this.get('sender'),
-                    account: ncc.get('activeAccount.address'),
-                    password: this.get('password'),
-                    amount: this.get('amount'),
-                    recipient: this.get('recipient'),
-                    message: this.get('message') || undefined,
-                    hexMessage: this.get('messageHexBased') ? 1 : 0,
-                    fee: this.get('fee'),
                     multisigFee: this.get('multisigFee'),
-                    encrypt: this.get('encrypt'),
-                    hoursDue: this.get('hoursDue')
-                };
+                });
             }
 
             var txConfirm = ncc.getModal('transactionConfirm');
@@ -200,7 +191,6 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                     this.set('messageValid', true);
                     if (isHex) {
                         var s = this.get('message');
-                        console.log(s);
                         if (s.match(/^[0-9a-fA-F]*$/) && s.length % 2 == 0) {}
                         else {
                             this.set('messageValid', false);
@@ -257,6 +247,8 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
 
             var $dueBy = $('.js-sendNem-dueBy-textbox');
             $dueBy.on('keypress', function(e) { Utils.mask.keypress(e, 'number', self) });
+            $dueBy.on('paste', function(e) { Utils.mask.paste(e, 'number', self); });
+            $dueBy.on('keydown', function(e) { Utils.mask.keydown(e, 'number', self); });
 
             var $recipient = $('.js-sendNem-recipient-textbox');
             $recipient.on('keypress', function(e) { Utils.mask.keypress(e, 'address', self); });

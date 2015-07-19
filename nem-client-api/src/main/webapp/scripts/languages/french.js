@@ -45,29 +45,30 @@ define({
 			602: 'Presque disponible. Le serveur d\'infrastructure NEM charge présentement les blocs. Le portefeuille sera fonctionnel dès que la base de données sera complètement chargée.',
 			699: 'Le nombre maximum de cueilleurs permis sur le serveur a été atteint.',
 			700: 'Le compte fourni ne satisfait pas les critères de base pour la récolte. C\'est généralement lié à la quantité de XEM dans le compte. Le compte doit avoir au minimum 10000 assigneé XEM pour que la récolte débute.',
-			701: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
-			702: 'La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.',
-			703: 'Votre compte n\'a pas les fonds nécessaires pour effectuer cette transaction.',
-			704: 'Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d\'expédier.',
-			705: 'Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.',
-			706: 'La signature de la transaction n\'a pas pu être vérifiée.',
-			707: 'L\'horodatage de la transaction trop loin dans le passé.',
-			708: 'TL\'horodatage de la transaction trop loin dans le futur.',
-			709: 'Ce compte est inconnu. Un compte à besoin de faire partie d\'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.',
-			710: 'La transaction a été rejetée parce que la mémoire tampon dédiée aux transactions est remplie. Des frais plus élevés augmentent les chances que la transaction soit acceptée.',
-			730: 'La transaction de transfert d\'importance (récolte distante) est en conflit avec une transaction existante.',
-			731: 'Le compte de récolte distante à une balance non nulle et ne peut donc pas être utilisé.',
-			732: 'Transaction de transfert d\'importance rejeté. Il y a déjà une transaction de transfert d\'importance en attente.',
-			733: 'La récolte distante est déjà activée.',
-			734: 'La récolte distante n\'est PAS active. Elle ne peut donc pas être désactivée.',
-			740: 'Les transactions multisig ne sont pas permises sur ce compte.',
-			741: 'La transaction multisig a été rejetée. Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig.',
-			742: 'Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig. La transaction multisig associée n\'est pas connue du réseau NEM.',
-			743: 'Modification de compte multisig rejeté. Un des comptes ajoutés est déjà cosignataire.',
 			901: 'Il y a une erreur lors de la mise en place du mode déconnecté.',
 			1000: 'La clé privée et la clé publique que vous avez fournies ne correspondent pas.',
 			1001: 'La clé publique et l\'adresse que vous avez fourni ne correspondent pas.',
-			1002: 'L\'adresse ne fait pas partie du réseau principal.'
+			1002: 'L\'adresse ne fait pas partie du réseau principal.',
+			1203: 'La date limite fournie est dans le passé. La date limite doit être dans un délai dune journée.',
+			1204: 'La date limite fournie est trop dans le futur. La date limite doit être dans un délai dune journée.',
+			1205: 'Votre compte n\'a pas les fonds nécessaires pour effectuer cette transaction.',
+			1206: 'Le message que vous avez inscrit est trop long pour être envoyé via NEM. Essayez de réduire la taille du message que vous tentez d\'expédier.',
+			1207: 'Le hachage de transaction existe déjà dans la base de données ou dans la liste des transactions non confirmées.',
+			1208: 'La signature de la transaction n\'a pas pu être vérifiée.',
+			1209: 'L\'horodatage de la transaction trop loin dans le passé.',
+			1210: 'TL\'horodatage de la transaction trop loin dans le futur.',
+			1219: 'La transaction a été rejetée parce que la mémoire tampon dédiée aux transactions est remplie. Des frais plus élevés augmentent les chances que la transaction soit acceptée.',
+			1262: 'Le compte de récolte distante à une balance non nulle et ne peut donc pas être utilisé.',
+			1263: 'Transaction de transfert d\'importance rejeté. Il y a déjà une transaction de transfert d\'importance en attente.',
+			1264: 'La récolte distante est déjà activée.',
+			1265: 'La récolte distante n\'est PAS active. Elle ne peut donc pas être désactivée.',
+			1266: 'La transaction de transfert d\'importance (récolte distante) est en conflit avec une transaction existante.',
+			1271: 'La transaction multisig a été rejetée. Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig.',
+			1273: 'Le compte utilisé n\'est cosignataire d\'aucun compte de type multisig. La transaction multisig associée n\'est pas connue du réseau NEM.',
+			1274: 'Les transactions multisig ne sont pas permises sur ce compte.',
+			1275: 'Modification de compte multisig rejeté. Un des comptes ajoutés est déjà cosignataire.',
+			1321: 'Ce compte est inconnu. Un compte à besoin de faire partie d\'au moins une transaction (comme expéditeur ou destinataire) pour être connue du réseau.',
+
 		},
 		common: {
 			success: 'Succès',
@@ -101,26 +102,51 @@ define({
 			publicLabel: 'Étiquette publique',
 			noCharge: 'Le compte utilisé ne sera <b>PAS</b> chargé de frais pour cette transaction, il seront chargé au compte multisig.',
 			fee: 'Frais',
+			multisigFee: 'Frais Multisig',
+			useMinimumFee: 'Utiliser les frais minimums',
+			feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
 			justUse: 'Utiliser seulement',
 			dueBy: 'Heure dû',
+			minutes: 'minute(s)',
 			hours: 'heures(s)',
 			hoursDue: 'Heure dû',
 			hoursDueExplanation: 'Si cette transaction n\'est pas incluse avant la date limite elle sera rejetée.',
-			closeButton: 'Fermer'
+			closeButton: 'Fermer',
+			cancelButton: 'Annuler',
+			sendButton: 'Envoyez',
+			account: 'Compte',
+			thisAccount: 'Ce compte',
+			warning: 'Attention',
+			newBuild: 'NEW BUILD',
+			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
-		transactionTypes: [
-			'TRANSFERT DE TRANSACTION',
-			'TRANSFERT D\'IMPORTANCE ',
-			'MODIFICATION DE COMPTE MULTISIG',
-			'TRANSACTION MULTISIG '
-		],
+		transactionTypes: {
+			20: 'TRANSFERT DE TRANSACTION',
+			21: 'TRANSFERT D\'IMPORTANCE ',
+			22: 'MODIFICATION DE COMPTE MULTISIG',
+			23: 'PROVISION NAMESPACE',
+			24: 'MOSAIC CREATION',
+			25: 'MOSAIC SUPPLY',
+			40: 'MULTISIG SIGNATURE',
+			50: 'TRANSACTION MULTISIG ',
+			51: 'TRANSACTION MULTISIG ',
+			52: 'TRANSACTION MULTISIG ',
+			53: 'TRANSACTION MULTISIG ',
+			54: 'TRANSACTION MULTISIG ',
+			55: 'TRANSACTION MULTISIG ',
+
+		},
 		transactionDirections: {
 			pending: 'Transaction en attente',
 			outgoing: 'Transaction sortante',
 			incoming: 'Transaction entrante',
 			self: 'Faire une transaction vers sois même.',
 			importance: 'Transaction d\'importance',
-			modification: 'Modification globale de Multisig'
+			modification: 'Modification globale de Multisig',
+			provision: 'Provision Namespace',
+			mosaicCreation: 'Mosaic Creation',
+			mosaicSupply: 'Mosaic Supply'
 		},
 		modals: {
 			error: {
@@ -161,12 +187,17 @@ define({
 				autoBoot: {
 					tabTitle: 'Démarrage Automatique',
 					name: 'Nom du nœud',
-					account: 'Compte',
 					primaryAccount: 'Compte primaire',
 					auto: 'Démarrage automatiquement quand le portefeuille est ouvert'
 				},
 				save: 'Enregistrer',
 				saveSuccess: 'Les paramètres ont été enregistrés avec succès'
+			},
+			signToken: {
+				title: "Sign a token using account",
+				label: "Token (url, string, anything)",
+				signature: "Signed token",
+				sign: "Sign"
 			},
 			multisig: {
 				title: 'Convertir ce compte en multisig',
@@ -175,17 +206,18 @@ define({
 				labelDesc: 'Ce compte est étiqueté comme {{1}}',
 				nullLabelDesc: 'Ce compte n\'a pas d\'étiquette.',
 				addCosignatory: '+ Ajouter un Cosignataires',
-				cancel: 'Annuler',
 				convert: 'Convertir',
-				fee: 'Frais',
-				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				useMinimumFee: 'Utiliser les frais minimums',
 				txConfirm: {
 					title: 'Confirmez la conversion en compte Multisig',
 					total: 'Total',
 
 				},
-				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.'
+				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.',
+				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesRelativeLabel: 'relative change',
+				minCosignatoriesLabel: 'Minimum number of cosignatories',
+				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
+				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
 			},
 			signMultisig: {
 				title: 'Signer la transaction multisig',
@@ -199,15 +231,8 @@ define({
 				multisigFees: 'Frais Multisig',
 				multisigTotal: 'Total',
 				sender: 'Cosignataire',
-				fee: 'Frais',
-				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				useMinimumFee: 'Utiliser les frais minimums',
-				password: 'Mot de passe',
 				passwordValidation: 'Le mot de passe ne peut pas être vide',
-				send: 'Envoyez',
-				cancel: 'Annuler',
 				sending: 'Envoi...',
-				successMessage: 'La transaction a été envoyé avec succès!',
 				txConfirm: {
 					title: 'Confirmer la transaction Multisig ',
 					message: 'Message',
@@ -227,16 +252,8 @@ define({
 				recipientValidation: 'Account addresses must be 40 character long excluding dashes',
 				message: 'Message',
 				encrypt: 'Chiffrez le message',
-				fee: 'Frais',
-				multisigFee: 'Frais Multisig',
-				feeValidation: 'Les frais ne doivent pas être moins que les frais minimums.',
-				useMinimumFee: 'Utiliser les frais minimums',
-				password: 'Mot de passe',
-				passwordValidation: 'Le mot de passe ne peut pas être vide',
-				send: 'Envoyez',
-				cancel: 'Annuler',
 				sending: 'Envoi...',
-				successMessage: 'La transaction a été envoyé avec succès!',
+				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
 				txConfirm: {
 					title: 'Confirmez la transaction',
 					amount: 'Montant',
@@ -245,7 +262,6 @@ define({
 					message: 'Message',
 					encrypted: 'Le message est chiffré',
 					noMessage: 'Pas de message',
-					cancel: 'Annuler',
 					confirm: 'Confirmer',
 					sending: 'Envoi...'
 				},
@@ -296,14 +312,25 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Inconnu',
 				amount: 'Montant',
-				fee: 'Frais',
 				innerFee: 'Frais interne',
 				multisigFees: 'Frais Multisig',
-				cosignatory: 'Cosignataire'
+				cosignatory: 'Cosignataire',
+				namespace: 'Namespace',
+				rentalFee: 'Rental fee',
+				mosaicName: 'Mosaic Name',
+				description: 'Description',
+				propertiesLabel: 'Properties',
+				properties: {
+					divisibility: 'Divisibility',
+					quantity: 'Maximal quantity',
+					mutablequantity: 'Is quantity mutable',
+					transferable: 'Is transferable'
+				},
+				supplyType: 'Supply type',
+				supplyAmount: 'Supply amount'
 			},
 			accountDetails: {
 				title: 'Détails du compte',
-				address: 'Adresse',
 				label: 'Étiquette',
 				noLabel: 'Pas d\'étiquette',
 				add: 'Ajouter au carnet d\'adresses',
@@ -313,8 +340,7 @@ define({
 				importance: 'Importance',
 				publicKey: 'Clé publique',
 				noPublicKey: 'Pas de clé publique',
-				harvestedBlocks: 'Blocs récoltés',
-				close: 'Fermeture'
+				harvestedBlocks: 'Blocs récoltés'
 			},
 			bootLocalNode: {
 				title: 'Démarrage du nœud local',
@@ -337,7 +363,6 @@ define({
 				title: 'Créer un nouveau compte',
 				label: 'Étiquette privé',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été créé!',
 				create: 'Créer'
 			},
@@ -357,7 +382,6 @@ define({
 				title: 'Ajouter un compte existant',
 				privateKey: 'Clé privé du compte',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été ajouté à votre portefeuille!',
 				add: 'Ajouter',
 				label: 'Étiquette'
@@ -367,7 +391,6 @@ define({
 				account: 'Le compte a été défini comme votre compte principal',
 				noLabel: '<span class=\'null\'>&lt;Aucune étiquette&gt;</span>',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} a été défini comme votre compte principal!',
 				set: 'Définir comme compte principal'
 			},
@@ -375,7 +398,6 @@ define({
 				title: 'Changez le nom du portefeuille',
 				wallet: 'Nom actuel du portefeuille',
 				newName: 'Nouveau nom du portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le nom du portefeuille a été changé avec succès de <em>{{1}}</em> à <em>{{2}}</em>',
 				change: 'Changer'
 			},
@@ -394,16 +416,13 @@ define({
 				title: 'Changer l\'étiquette du compte',
 				label: 'Étiquette du compte',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				successMessage: 'Le compte {{1}} est maintenant étiquetté comme {{2}}',
 				change: 'Changer'
 			},
 			removeAccount: {
 				title: 'Retirer un compte',
-				account: 'Compte',
 				label: 'Étiquette du compte',
 				wallet: 'Portefeuille',
-				password: 'Mot de passe du portefeuille',
 				warning: 'S\'il vous plait, assurez-vous que ce compte ne contient plus de XEMs avant de le retirer, sinon les XEMs qu\'il contient seront perdus pour toujours.',
 				successMessage: 'Le compte {{1}} {{#2}}({{2}}){{/2}} à été retiré!',
 				remove: 'Retirer'
@@ -416,36 +435,29 @@ define({
 				title: 'Fermeture de l\'application',
 				message: 'Êtes-vous certain de vouloir fermer l\'application NEM Community Client?'
 			},
-			activateRemote: {
+			activateDelegated: {
 				title: 'Activer la récolte distante',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				activate: 'Activer',
-				warning: 'Warning',
-				warningText: 'L\'activation va prendre 6 heures (360 blocs). L\'activation ne va PAS démarrer automatiquement la récolte.'
+				warningText: 'L\'activation va prendre 6 heures (360 blocs). L\'activation ne va PAS démarrer automatiquement la récolte.',
+				delegatedAccount: 'Delegated account public key',
+				builtIn: 'built into the wallet',
+
 			},
-			deactivateRemote: {
+			deactivateDelegated: {
 				title: 'Désactiver la récolte distante',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				deactivate: 'Désactiver',
-				warning: 'Attention',
 				warningText: 'La désactivation va prendre 6 heures (360 blocs).'
 			},
 			startRemote: {
 				title: 'Démarrer la récolte distante',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				start: 'Démarrer'
 			},
 			stopRemote: {
 				title: 'Stop Delegated Harvesting',
 				wallet: 'Portefeuille',
-				account: 'Compte',
-				password: 'Mot de passe du portefeuille',
 				stop: 'Arrêtez'
 			},
 			logoutWarning: {
@@ -607,6 +619,7 @@ define({
 				stop: 'Arrêter la récolte locale',
 				description: 'importance de compte dans le nuage NEM',
 				remoteHarvest: {
+					title: 'Récolte Distante',
 					activate: 'Activer la récolte distante',
 					activating: 'Activation de la récolte distante...',
 					active: 'La récolte distante est active',
@@ -614,7 +627,9 @@ define({
 					deactivating: 'Désactivation de la récolte distante...',
 					startRemoteHarvesting: 'Démarrer la récolte distante',
 					remotelyHarvesting: 'Récolte à distance en cours',
-					stopRemoteHarvesting: 'Arrêter la récolte distante'
+					stopRemoteHarvesting: 'Arrêter la récolte distante',
+					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+
 				}
 			},
 			transactions: {

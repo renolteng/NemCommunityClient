@@ -9,16 +9,7 @@ define(['TransactionType'], function(TransactionType) {
             nemDivisibility: 1000000,
             txesPerPage: 25,
             blocksPerPage: 25,
-            defaultLanguage: 'en',
-            STATUS_UNKNOWN: 0,
-            STATUS_STOPPED: 1,
-            STATUS_STARTING: 2,
-            STATUS_RUNNING: 3,
-            STATUS_BOOTING: 4,
-            STATUS_BOOTED: 5,
-            STATUS_SYNCHRONIZED: 6,
-            STATUS_NO_REMOTE_NIS_AVAILABLE: 7,
-            STATUS_LOADING: 8
+            defaultLanguage: 'en'
         },
         getUrlParam: function(name) {
             var qStr = location.search.substring(1, location.search.length);
@@ -222,6 +213,25 @@ define(['TransactionType'], function(TransactionType) {
                     nem.decimalPart = decimalPart;
                     return nem;
                 },
+                xQuantityToQuantity: function(xQuantity, decimalPlaces) {
+                    var q = {
+                        intPart: '',
+                        decimalPart: ''
+                    };
+                    if (typeof xQuantity !== 'number') return q;
+
+                    var divisibility = Math.pow(10, decimalPlaces);
+                    q.intPart = Math.floor(xQuantity / divisibility).toString();
+
+                    var decimalPart = (Math.floor(xQuantity) % divisibility).toString();
+                    // Add leading zeroes
+                    if (decimalPart.length < decimalPlaces) {
+                        decimalPart = new Array(decimalPlaces - decimalPart.length + 1).join('0') + decimalPart;
+                    }
+
+                    q.decimalPart = decimalPart;
+                    return q;
+                },
                 /**
                  * @param {object} nem NEM Amount object
                  * @param {boolean} options.fixedDecimalPlaces apply a fixed number of decimal places
@@ -326,6 +336,10 @@ define(['TransactionType'], function(TransactionType) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.uNemToNem(uNem), options);
                 },
+                formatQuantity: function(quantity, options) {
+                    var t = Utils.format.nem;
+                    return t.formatNem(t.xQuantityToQuantity(quantity, 2), options);
+                }
             },
             address: {
                 format: function(address) {
@@ -571,6 +585,7 @@ define(['TransactionType'], function(TransactionType) {
 
                 // Perform transformations (if any)
                 var target = e.target;
+                if (target.hasAttribute("readonly")) return;
                 var transform = this.transform[type];
                 if (typeof transform === 'function') {
                     char = transform(char);
@@ -581,6 +596,9 @@ define(['TransactionType'], function(TransactionType) {
             },
             paste: function(e, type, ractive) {
                 e.preventDefault();
+                var target = e.target;
+                if (target.hasAttribute("readonly")) return;
+
                 var pastedText = Utils.getClipboardText(e);
                 this.insertInput(pastedText, e.target, type, ractive);
             },
@@ -588,6 +606,8 @@ define(['TransactionType'], function(TransactionType) {
                 var target = e.target;
                 var oldText = target.value;
                 var caret = target.selectionStart;
+                if (target.hasAttribute("readonly")) return;
+
                 var token = this.skippedToken[type];
                 if (typeof token === 'function') {
                     token = token();
@@ -644,6 +664,12 @@ define(['TransactionType'], function(TransactionType) {
                 }
             },
         },
+        valid: {
+            notEmpty: function(data) { return !!data; },
+            address: function(data) { return !!data && !!data.match(/^[TtNn][2-7a-zA-Z]{39}$/); },
+            walletName: function(data) { return !!data && !data.match(/[\\/.:*?"<>|]/); },
+            privateKey: function(data) { return !!data && !!data.match(/^[0-9a-fA-F]+$/); }
+        },
         typeahead: {
             addressBookMatcher: function(query, cb) {
                 var matches = Utils.addressBook.query(query);
@@ -671,21 +697,23 @@ define(['TransactionType'], function(TransactionType) {
 
         // PROCESSING
         processTransaction: function(tx) {
-            var transferTransaction = tx;
             var currentFee = 0;
 
-            // there are three types now, to make ui templates simpler:
-            // tx.type - this is type of transaction
-            // tx.maintype - this is either type of transaction or in case of multisig type of inner transaction
-            // tx.innerType - only avail for multisig transactions, this is shortcut for tx.inner.type
-            tx.mainType = tx.type;
+            // real is for new templates, it should later also be used by transaction details
+            tx.real = tx;
 
             // multisig
-            if (tx.type === TransactionType.Multisig_Transfer || tx.type === TransactionType.Multisig_Aggregate_Modification) {
+            if (tx.type === TransactionType.Multisig_Transfer ||
+                    tx.type === TransactionType.Multisig_Aggregate_Modification ||
+                    tx.type === TransactionType.Multisig_Importance_Transfer ||
+                    tx.type === TransactionType.Multisig_Provision_Namespace ||
+                    tx.type === TransactionType.Multisig_Mosaic_Creation ||
+                    tx.type === TransactionType.Multisig_Mosaic_Supply) {
                 tx.isMultisig = true;
                 tx.cosignatoriesCount = "#cosigs " + tx.signatures.length;
                 tx.innerType = tx.inner.type;
-                tx.mainType = tx.inner.type;
+
+                tx.real = tx.inner;
 
                 tx.multisig={};
                 tx.multisig.formattedFrom = Utils.format.address.format(tx.inner.sender);
@@ -695,9 +723,26 @@ define(['TransactionType'], function(TransactionType) {
                     tx.multisig.formattedTo = Utils.format.address.format(tx.inner.recipient);
                     tx.multisig.formattedAmount = Utils.format.nem.formatNemAmount(tx.inner.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
 
-                    transferTransaction = tx.inner;
-                    tx.recipient = transferTransaction.recipient
-                    tx.message = tx.inner.message;
+                } else if (tx.type === TransactionType.Multisig_Importance_Transfer) {
+
+                } else if (tx.type === TransactionType.Multisig_Aggregate_Modification) {
+                    tx.modifications = tx.real.modifications;
+                }
+
+                // for all unconfirmed multisig transactions get all cosignatories that are needed
+                // and mark the ones that already cosigned
+                if (!tx.confirmed) {
+                    ncc.get('activeAccount').multisigAccounts.forEach(function(a){
+                        var allMultisigAccounts = ncc.get('wallet.allMultisigAccounts');
+                        if ((a.address === tx.real.sender) && (a.address in allMultisigAccounts)) {
+                            var curMultisigAccount = allMultisigAccounts[a.address];
+
+                            var isPresent = function(addr) {
+                                return (tx.signatures.filter(function(a){return a.sender === addr}).length !== 0) || (tx.issuer === addr);
+                            };
+                            tx.signaturesData = curMultisigAccount.cosignatories.map(function(a){ return {sender:a.address, present:isPresent(a.address)}; });
+                        }
+                    });
                 }
 
                 var mutltisigFees = tx.fee + tx.signatures
@@ -723,28 +768,59 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             // importance transfer
-            if (tx.type == TransactionType.Importance_Transfer) {
-                tx.recipient = tx.remote;
-                tx.isIncoming = false;
-                tx.isOutgoing = false;
-                tx.isSelf = true;
+            if (tx.real.type === TransactionType.Importance_Transfer) {
+                tx.real.formattedRemote = Utils.format.address.format(tx.real.remote);
+
+            // for aggregate modifications, and only if it's unconfirmed, calculate what is previous and
+            // NEW min cosignatories count
+            } else if (tx.real.type === TransactionType.Aggregate_Modification) {
+                if (!tx.confirmed) {
+                    ncc.get('activeAccount').multisigAccounts.forEach(function(a){
+                        if (a.address === tx.real.sender) {
+                            if (a.multisigInfo.minCosignatories) {
+                                tx.real.minCosignatories.oldMin = a.multisigInfo.minCosignatories;
+                                tx.real.minCosignatories.newMin = a.multisigInfo.minCosignatories + tx.real.minCosignatories.relativeChange;
+                            } else {
+                                tx.real.minCosignatories.oldMin = a.multisigInfo.cosignatoriesCount;
+                                if (tx.real.minCosignatories.relativeChange) {
+                                    tx.real.minCosignatories.newMin = tx.real.minCosignatories.relativeChange;
+                                } else {
+                                    var removed = tx.real.modifications.filter(function(m){return m.type === "del";}).length;
+                                    var added = tx.real.modifications.filter(function(m){return m.type === "add";}).length;;
+                                    tx.real.minCosignatories.newMin += (added - removed);
+                                }
+                            }
+                        }
+                    });
+                }
+            } else if (tx.real.type === TransactionType.Provision_Namespace) {
+                tx.real.formattedLessor = Utils.format.address.format(tx.real.lessor);
+
+            } else if (tx.real.type === TransactionType.Mosaic_Creation) {
+
+            } else if (tx.real.type === TransactionType.Transfer) {
+                tx.isIncoming = tx.real.direction === 1;
+                tx.isOutgoing = tx.real.direction === 2;
+                tx.isSelf = tx.real.direction === 3;
+
+                tx.real.formattedRecipient = Utils.format.address.format(tx.real.recipient);
             }
 
-            if (transferTransaction.type == TransactionType.Transfer)
-            {
-                tx.isIncoming = transferTransaction.direction === 1; //  || transferTransaction.direction === 0;
-                tx.isOutgoing = transferTransaction.direction === 2;
-                tx.isSelf = transferTransaction.direction === 3;
-            }
-
-            tx.formattedSender = Utils.format.address.format(tx.sender);
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            tx.formattedRecipient = Utils.format.address.format(transferTransaction.recipient);
-            tx.formattedAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
-            tx.formattedFullAmount = Utils.format.nem.formatNemAmount(transferTransaction.amount);
+            if (tx.real.type === TransactionType.Mosaic_Supply) {
+                tx.formattedAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:3});
+                tx.formattedFullAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity);
+            } else {
+                tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
+                tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.real.amount);
+            }
+
+            tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
+
+            tx.formattedSender = Utils.format.address.format(tx.sender);
             return tx;
         },
         processTransactions: function(transactions) {
@@ -773,6 +849,7 @@ define(['TransactionType'], function(TransactionType) {
         },
         processAccount: function(account) {
             account.formattedAddress = Utils.format.address.format(account.address);
+            account.formattedRemoteAddress = Utils.format.address.format(account.remoteAddress);
             var balanceObj = Utils.format.nem.uNemToNem(account.balance);
             account.formattedBalance = Utils.format.nem.formatNem(balanceObj, {fixedDecimalPlaces: true});
             account.formattedVestedBalance = Utils.format.nem.formatNem(Utils.format.nem.uNemToNem(account.vestedBalance), {fixedDecimalPlaces: true});
@@ -787,6 +864,48 @@ define(['TransactionType'], function(TransactionType) {
 
             return account;
         },
+        processMultisigs: function() {
+            var wallet = ncc.get('wallet');
+
+            var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var allMultisigs = {};
+            allAccounts.forEach(function(a){ a.multisigAccounts.forEach(function(m){allMultisigs[m.address] = true;}); });
+
+            var allMultisigAccounts = {};
+            for (var key in allMultisigs) {
+                ncc.postRequest(
+                    'account/find',
+                    {account: key},
+                    function(data) {
+                        if (!(data.address in allMultisigAccounts)) {
+                            allMultisigAccounts[data.address] = Utils.processAccount(data);
+                        }
+                    }
+                );
+            }
+            ncc.set('wallet.allMultisigAccounts', allMultisigAccounts);
+        },
+        updateAccount: function() {
+            var acct = ncc.get('activeAccount');
+            var wallet = ncc.get('wallet');
+            var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var walletAccount = allAccounts.filter(function (a){ return (a.address == acct.address);})[0];
+
+            ncc.postRequest(
+                'account/find',
+                {account: acct.address},
+                function(data) {
+                    // js-part keeps things in multiple places, it's quite messy :/
+                    for (var key in data) {
+                        walletAccount[key] = data[key];
+                        acct[key] = data[key];
+                    }
+                    Utils.processAccount(walletAccount);
+                    Utils.processAccount(acct);
+                    Utils.processMultisigs();
+                }
+            );
+        },
         processWallet: function(wallet) {
             wallet.lastRefreshDate = new Date(wallet.lastRefresh).toString();
             wallet.daysPassed = Utils.daysPassed(wallet.lastRefresh);
@@ -796,6 +915,8 @@ define(['TransactionType'], function(TransactionType) {
                 Utils.processAccount(wallet.otherAccounts[i]);
             }
 
+            ncc.set('wallet', wallet);
+            this.processMultisigs();
             return wallet;
         },
         processContacts: function(ab) {

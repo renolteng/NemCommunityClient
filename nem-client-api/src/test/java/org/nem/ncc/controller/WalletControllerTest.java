@@ -181,20 +181,20 @@ public class WalletControllerTest {
 		final TestContext context = new TestContext();
 
 		Mockito.doAnswer(invocationOnMock -> {
-				final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
-				return ExceptionUtils.propagate(() -> {
-					IOUtils.copy(new ByteArrayInputStream("wallet".getBytes()), outputStream);
-					return null;
-				});
-			}).when(context.walletServices).copyTo(Mockito.any(), Mockito.any());
+			final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
+			return ExceptionUtils.propagate(() -> {
+				IOUtils.copy(new ByteArrayInputStream("wallet".getBytes()), outputStream);
+				return null;
+			});
+		}).when(context.walletServices).copyTo(Mockito.any(), Mockito.any());
 
 		Mockito.doAnswer(invocationOnMock -> {
-				final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
-				return ExceptionUtils.propagate(() -> {
-					IOUtils.copy(new ByteArrayInputStream("addressBook".getBytes()), outputStream);
-					return null;
-				});
-			}).when(context.addressBookServices).copyTo(Mockito.any(), Mockito.any());
+			final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
+			return ExceptionUtils.propagate(() -> {
+				IOUtils.copy(new ByteArrayInputStream("addressBook".getBytes()), outputStream);
+				return null;
+			});
+		}).when(context.addressBookServices).copyTo(Mockito.any(), Mockito.any());
 
 		// Act:
 		final OctetStream octetStream = context.controller.exportWallet(request);
@@ -204,9 +204,9 @@ public class WalletControllerTest {
 		final String[] contents = new String[2];
 		ExceptionUtils.propagateVoid(() -> {
 			entries[0] = zipInputStream.getNextEntry();
-			contents[0] = readString(zipInputStream);
+			contents[0] = this.readString(zipInputStream);
 			entries[1] = zipInputStream.getNextEntry();
-			contents[1] = readString(zipInputStream);
+			contents[1] = this.readString(zipInputStream);
 			entries[2] = zipInputStream.getNextEntry();
 		});
 
@@ -214,6 +214,50 @@ public class WalletControllerTest {
 		Assert.assertThat(entries[0].toString(), IsEqual.equalTo("wal.wlt"));
 		Assert.assertThat(contents[0], IsEqual.equalTo("wallet"));
 		Assert.assertThat(entries[1].toString(), IsEqual.equalTo("wal.adb"));
+		Assert.assertThat(contents[1], IsEqual.equalTo("addressBook"));
+		Assert.assertThat(entries[2], IsNull.nullValue());
+	}
+
+	@Test
+	public void exportWalletProperlyEncodesWalletFileNames() {
+		// Arrange:
+		final WalletName request = new WalletName("ßomething in the 真 way");
+		final TestContext context = new TestContext();
+
+		Mockito.doAnswer(invocationOnMock -> {
+			final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
+			return ExceptionUtils.propagate(() -> {
+				IOUtils.copy(new ByteArrayInputStream("wallet".getBytes()), outputStream);
+				return null;
+			});
+		}).when(context.walletServices).copyTo(Mockito.any(), Mockito.any());
+
+		Mockito.doAnswer(invocationOnMock -> {
+			final OutputStream outputStream = (OutputStream)invocationOnMock.getArguments()[1];
+			return ExceptionUtils.propagate(() -> {
+				IOUtils.copy(new ByteArrayInputStream("addressBook".getBytes()), outputStream);
+				return null;
+			});
+		}).when(context.addressBookServices).copyTo(Mockito.any(), Mockito.any());
+
+		// Act:
+		final OctetStream octetStream = context.controller.exportWallet(request);
+		final InputStream inputStream = new ByteArrayInputStream(octetStream.toByteArray());
+		final ZipInputStream zipInputStream = new ZipInputStream(inputStream);
+		final ZipEntry[] entries = new ZipEntry[3];
+		final String[] contents = new String[2];
+		ExceptionUtils.propagateVoid(() -> {
+			entries[0] = zipInputStream.getNextEntry();
+			contents[0] = this.readString(zipInputStream);
+			entries[1] = zipInputStream.getNextEntry();
+			contents[1] = this.readString(zipInputStream);
+			entries[2] = zipInputStream.getNextEntry();
+		});
+
+		// Assert:
+		Assert.assertThat(entries[0].toString(), IsEqual.equalTo("%C3%9Fomething+in+the+%E7%9C%9F+way.wlt"));
+		Assert.assertThat(contents[0], IsEqual.equalTo("wallet"));
+		Assert.assertThat(entries[1].toString(), IsEqual.equalTo("%C3%9Fomething+in+the+%E7%9C%9F+way.adb"));
 		Assert.assertThat(contents[1], IsEqual.equalTo("addressBook"));
 		Assert.assertThat(entries[2], IsNull.nullValue());
 	}

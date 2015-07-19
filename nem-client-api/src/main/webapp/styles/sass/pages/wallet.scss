@@ -668,7 +668,7 @@ $account-actions-width: 30px;
 }
 
 .sendNem-message {
-	height: 100px;
+	height: 10em;
 }
 
 .sendNem-buttons {
@@ -848,7 +848,8 @@ $modificationConfirm-label-width: 130px;
 
 .modificationConfirm-account,
 .modificationConfirm-fee,
-.modificationConfirm-cosignatory {
+.modificationConfirm-cosignatory,
+.modificationConfirm-minCosignatories {
 	font-weight: $fontWeight-bold;
 }
 
@@ -935,6 +936,14 @@ $sigConfirm-label-width: 130px;
 
 	.modal-body {
 		padding: 15px 20px;
+	}
+}
+
+.accDetailsModal {
+	.table-cell--label {
+	    width: 120px;
+	    white-space: normal;
+	    word-break: normal;
 	}
 }
 

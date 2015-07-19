@@ -75,6 +75,9 @@ define(['NccModal', 'Utils'], function(NccModal, Utils) {
             this.set('passwordChanged', true);
             this.resetFee({ silent: true });
         },
+        viewTransaction: function(txdata) {
+            ncc.viewTransaction(txdata);
+        },
         sendTransaction: function() {
             var requestData = {
                 wallet: ncc.get('wallet.wallet'),

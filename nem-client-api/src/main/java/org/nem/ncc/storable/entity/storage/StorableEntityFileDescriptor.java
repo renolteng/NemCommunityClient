@@ -94,7 +94,7 @@ public abstract class StorableEntityFileDescriptor<
 			throw new IllegalArgumentException("file descriptor cannot decode the stream");
 		}
 
-		return openRead();
+		return this.openRead();
 	}
 
 	@Override

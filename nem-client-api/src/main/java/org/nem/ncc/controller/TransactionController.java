@@ -79,12 +79,26 @@ public class TransactionController {
 	 */
 	@RequestMapping(value = "/wallet/account/transaction/validate", method = RequestMethod.POST)
 	public PartialTransferInformationViewModel validateTransferData(@RequestBody final PartialTransferInformationRequest request) {
-		// TODO 20141005 J-G: should we update this function / add a new function that is able to validate importance transfer transactions?
 		return this.transactionMapper.toViewModel(request);
 	}
 
-	// TODO 20150131 J-G: do we need a validate for importance transfer transactions too?
+	/**
+	 * Requests inspecting the importance transfer transaction for validation purposes. The returned result will include:
+	 * - The minimum fee for sending the transaction.
+	 *
+	 * @param request The transaction information.
+	 * @return The validation information.
+	 */
+	@RequestMapping(value = "/wallet/account/remote/validate", method = RequestMethod.POST)
+	public PartialTransferInformationViewModel validateImportanceTransferData(@RequestBody final PartialTransferInformationRequest request) {
+		return this.transactionMapper.toViewModel(request);
+	}
+
 	// TODO 20150131 J-G: why don't we want to try consolidating into a single transaction/send transaction/validate?
+	// TODO 20150530: G-J: can you describe on trello, how do you imagine that?
+	// TODO 20150601: J-G: not sure if this is a good idea, but this is what i was thinking:
+	// > (1) action methods are passed deserializer and we deserialize that (like the way we deserialze transactions in NIS)
+	// > (2) and then you would dispatch to the appropriate toViewModel / toModel based on type (which would need to be specified in the request)
 
 	/**
 	 * Request inspecting the multisig signature transaction for validation purposes. The returned result will include:
@@ -106,7 +120,7 @@ public class TransactionController {
 	 * @return The validation information.
 	 */
 	@RequestMapping(value = "/wallet/account/modification/validate", method = RequestMethod.POST)
-	public PartialFeeInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
+	public PartialTransferInformationViewModel validateModificationData(@RequestBody final PartialModificationInformationRequest request) {
 		return this.transactionMapper.toViewModel(request);
 	}
 
@@ -116,7 +130,7 @@ public class TransactionController {
 	 * @param request The request parameters.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/activate", method = RequestMethod.POST)
-	public void remoteUnlock(@RequestBody final TransferImportanceRequest request) {
+	public void delegatedActivate(@RequestBody final TransferImportanceRequest request) {
 		this.remoteHarvest(request, ImportanceTransferMode.Activate);
 	}
 
@@ -126,7 +140,7 @@ public class TransactionController {
 	 * @param request The request parameters.
 	 */
 	@RequestMapping(value = "/wallet/account/remote/deactivate", method = RequestMethod.POST)
-	public void remoteLock(@RequestBody final TransferImportanceRequest request) {
+	public void delegatedDeactivate(@RequestBody final TransferImportanceRequest request) {
 		this.remoteHarvest(request, ImportanceTransferMode.Deactivate);
 	}
 
