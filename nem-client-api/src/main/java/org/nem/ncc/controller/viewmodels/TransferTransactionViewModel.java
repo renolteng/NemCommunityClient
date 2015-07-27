@@ -38,7 +38,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	public TransferTransactionViewModel(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final BlockHeight lastBlockHeight) {
 		super(Type.Transfer, metaDataPair, lastBlockHeight);
 
-		final TransferTransaction transfer = (TransferTransaction)metaDataPair.getTransaction();
+		final TransferTransaction transfer = (TransferTransaction)metaDataPair.getEntity();
 		this.recipient = transfer.getRecipient().getAddress();
 		this.amount = transfer.getAmount();
 

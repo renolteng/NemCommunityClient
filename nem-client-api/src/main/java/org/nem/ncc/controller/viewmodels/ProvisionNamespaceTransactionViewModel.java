@@ -22,7 +22,7 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	public ProvisionNamespaceTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Provision_Namespace, metaDataPair, lastBlockHeight);
 
-		final ProvisionNamespaceTransaction transaction = (ProvisionNamespaceTransaction)metaDataPair.getTransaction();
+		final ProvisionNamespaceTransaction transaction = (ProvisionNamespaceTransaction)metaDataPair.getEntity();
 		this.lessor = transaction.getLessor().getAddress();
 		this.rentalFee = transaction.getRentalFee();
 		this.namespaceName = transaction.getResultingNamespaceId().toString();

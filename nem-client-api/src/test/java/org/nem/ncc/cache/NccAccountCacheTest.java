@@ -31,7 +31,7 @@ public class NccAccountCacheTest {
 		final Account account = context.cache.findByAddress(context.address);
 
 		// Assert:
-		assertAreEqual(context.pair1.getAccount(), account);
+		assertAreEqual(context.pair1.getEntity(), account);
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPair(context.address);
 		Mockito.verify(context.timeProvider, Mockito.times(1)).getCurrentTime();
 	}
@@ -59,7 +59,7 @@ public class NccAccountCacheTest {
 		final Account account = context.cache.findByAddress(context.address);
 
 		// Assert:
-		assertAreEqual(context.pair1.getAccount(), account);
+		assertAreEqual(context.pair1.getEntity(), account);
 		Mockito.verify(context.accountServices, Mockito.times(1)).getAccountMetaDataPair(context.address);
 		Mockito.verify(context.timeProvider, Mockito.times(1)).getCurrentTime();
 	}
@@ -209,7 +209,7 @@ public class NccAccountCacheTest {
 		// Assert:
 		for (final AccountInfo account : accounts) {
 			final AccountMetaDataPair pair = context.cache.findPairByAddress(account.getAddress());
-			Assert.assertThat(pair.getAccount(), IsEqual.equalTo(account));
+			Assert.assertThat(pair.getEntity(), IsEqual.equalTo(account));
 		}
 	}
 

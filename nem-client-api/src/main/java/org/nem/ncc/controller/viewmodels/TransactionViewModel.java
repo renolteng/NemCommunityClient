@@ -71,7 +71,7 @@ public class TransactionViewModel implements SerializableEntity {
 			final Type transactionViewModelType,
 			final TransactionMetaDataPair metaDataPair,
 			final BlockHeight lastBlockHeight) {
-		final Transaction transaction = metaDataPair.getTransaction();
+		final Transaction transaction = metaDataPair.getEntity();
 
 		this.transactionViewModelType = transactionViewModelType;
 		this.transactionHash = HashUtils.calculateHash(transaction);

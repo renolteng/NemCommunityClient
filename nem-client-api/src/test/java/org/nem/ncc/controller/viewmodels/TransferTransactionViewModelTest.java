@@ -36,7 +36,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				new PlainMessage(StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(new PlainMessage(StringEncoder.getBytes("hello world"))));
 		transaction.setFee(Amount.fromNem(23));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
@@ -69,7 +69,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				new PlainMessage(StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(new PlainMessage(StringEncoder.getBytes("hello world"))));
 		transaction.setFee(Amount.fromNem(23));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
 
@@ -109,7 +109,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				new PlainMessage(StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(new PlainMessage(StringEncoder.getBytes("hello world"))));
 		transaction.setFee(Amount.fromNem(23));
 		transaction.setDeadline(new TimeInstant(222));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
@@ -147,7 +147,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				new PlainMessage(StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(new PlainMessage(StringEncoder.getBytes("hello world"))));
 		transaction.setFee(Amount.fromNem(23));
 		transaction.setDeadline(new TimeInstant(222));
 		final Hash transactionHash = HashUtils.calculateHash(transaction);
@@ -188,7 +188,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world"))));
 
 		// Act:
 		final TransactionViewModel viewModel = map(transaction, Address.fromEncoded("foo"));
@@ -233,7 +233,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				new PlainMessage(StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(new PlainMessage(StringEncoder.getBytes("hello world"))));
 
 		// Act:
 		final TransferTransactionViewModel viewModel = map(transaction, Address.fromEncoded("foo"));
@@ -253,7 +253,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(SecureMessage.fromDecodedPayload(sender, recipient, StringEncoder.getBytes("hello world"))));
 
 		// Act:
 		final TransferTransactionViewModel viewModel = map(transaction, Address.fromEncoded("foo"));
@@ -277,10 +277,10 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				SecureMessage.fromEncodedPayload(
+				new TransferTransactionAttachment(SecureMessage.fromEncodedPayload(
 						new Account(sender.getAddress()),
 						new Account(recipient.getAddress()),
-						secureMessagePayload));
+						secureMessagePayload)));
 
 		// Act:
 		final TransferTransactionViewModel viewModel = map(transaction, Address.fromEncoded("foo"));
@@ -383,7 +383,7 @@ public class TransferTransactionViewModelTest {
 				sender,
 				recipient,
 				Amount.fromNem(576),
-				new PlainMessage(StringEncoder.getBytes("hello world")));
+				new TransferTransactionAttachment(new PlainMessage(StringEncoder.getBytes("hello world"))));
 
 		// Act:
 		final TransactionViewModel viewModel = map(

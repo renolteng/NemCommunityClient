@@ -156,7 +156,7 @@ public class MosaicCreationTransactionViewModelTest {
 	private static class Context {
 		final Account sender = Utils.generateRandomAccount();
 		final Transaction transaction;
-		final Mosaic mosaic;
+		final MosaicDefinition mosaicDefinition;
 		Hash transactionHash;
 
 		public static MosaicProperties createDefaultProperties() {
@@ -169,16 +169,16 @@ public class MosaicCreationTransactionViewModelTest {
 		}
 
 		Context(final String mosaicName, final NamespaceId parent, final String description, final MosaicProperties mosaicProperties) {
-			this.mosaic = new Mosaic(
+			this.mosaicDefinition = new MosaicDefinition(
 					this.sender,
 					new MosaicId(parent, mosaicName),
 					new MosaicDescriptor(description),
 					mosaicProperties
 			);
-			this.transaction = new MosaicCreationTransaction(
+			this.transaction = new MosaicDefinitionCreationTransaction(
 					new TimeInstant(125),
 					this.sender,
-					this.mosaic);
+					this.mosaicDefinition);
 			this.transaction.setFee(Amount.fromNem(23));
 			this.recalculateHash();
 		}

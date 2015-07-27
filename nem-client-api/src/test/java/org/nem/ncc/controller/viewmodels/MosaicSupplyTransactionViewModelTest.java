@@ -29,14 +29,14 @@ public class MosaicSupplyTransactionViewModelTest {
 
 	@Test
 	public void canCreateViewModelAroundUnconfirmedMosaicSupply() {
-		assertCreateViewModelAroundUnconfirmedMosaicSupply(SmartTileSupplyType.CreateSmartTiles, Quantity.fromValue(100));
-		assertCreateViewModelAroundUnconfirmedMosaicSupply(SmartTileSupplyType.CreateSmartTiles, Quantity.fromValue(1000));
-		assertCreateViewModelAroundUnconfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(100));
-		assertCreateViewModelAroundUnconfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(1000));
+		assertCreateViewModelAroundUnconfirmedMosaicSupply(MosaicSupplyType.Create, Supply.fromValue(100));
+		assertCreateViewModelAroundUnconfirmedMosaicSupply(MosaicSupplyType.Create, Supply.fromValue(1000));
+		assertCreateViewModelAroundUnconfirmedMosaicSupply(MosaicSupplyType.Delete, Supply.fromValue(100));
+		assertCreateViewModelAroundUnconfirmedMosaicSupply(MosaicSupplyType.Delete, Supply.fromValue(1000));
 	}
 
-	private static void assertCreateViewModelAroundUnconfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
-		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, createSmartTiles, quantity);
+	private static void assertCreateViewModelAroundUnconfirmedMosaicSupply(final MosaicSupplyType Create, final Supply supply) {
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, Create, supply);
 
 		// Act:
 		final MosaicSupplyTransactionViewModel viewModel = context.map(Address.fromEncoded("foo"));
@@ -47,14 +47,14 @@ public class MosaicSupplyTransactionViewModelTest {
 
 	@Test
 	public void canCreateViewModelAroundConfirmedMosaicSupply() {
-		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.CreateSmartTiles, Quantity.fromValue(100));
-		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.CreateSmartTiles, Quantity.fromValue(1000));
-		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(100));
-		assertCreateViewModelAroundConfirmedMosaicSupply(SmartTileSupplyType.DeleteSmartTiles, Quantity.fromValue(1000));
+		assertCreateViewModelAroundConfirmedMosaicSupply(MosaicSupplyType.Create, Supply.fromValue(100));
+		assertCreateViewModelAroundConfirmedMosaicSupply(MosaicSupplyType.Create, Supply.fromValue(1000));
+		assertCreateViewModelAroundConfirmedMosaicSupply(MosaicSupplyType.Delete, Supply.fromValue(100));
+		assertCreateViewModelAroundConfirmedMosaicSupply(MosaicSupplyType.Delete, Supply.fromValue(1000));
 	}
 
-	private static void assertCreateViewModelAroundConfirmedMosaicSupply(final SmartTileSupplyType createSmartTiles, final Quantity quantity) {
-		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, createSmartTiles, quantity);
+	private static void assertCreateViewModelAroundConfirmedMosaicSupply(final MosaicSupplyType Create, final Supply supply) {
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, Create, supply);
 
 		// Act:
 		final MosaicSupplyTransactionViewModel viewModel = context.map(
@@ -75,13 +75,13 @@ public class MosaicSupplyTransactionViewModelTest {
 	//region serialization
 	@Test
 	public void assertSerializeViewModelAroundUnconfirmedTransfer() {
-		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.CreateSmartTiles, "CreateSmartTiles");
-		assertSerializeViewModelAroundUnconfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles, "DeleteSmartTiles");
+		assertSerializeViewModelAroundUnconfirmedTransfer(MosaicSupplyType.Create, "Create");
+		assertSerializeViewModelAroundUnconfirmedTransfer(MosaicSupplyType.Delete, "Delete");
 	}
 
-	private static void assertSerializeViewModelAroundUnconfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
+	private static void assertSerializeViewModelAroundUnconfirmedTransfer(final MosaicSupplyType MosaicSupplyType, final String expectedSmartTileType) {
 		// Arrange:
-		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, MosaicSupplyType, new Supply(100));
 		context.transaction.setDeadline(new TimeInstant(333));
 		context.recalculateHash();
 
@@ -111,13 +111,13 @@ public class MosaicSupplyTransactionViewModelTest {
 
 	@Test
 	public void assertSerializeViewModelAroundConfirmedTransfer() {
-		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.CreateSmartTiles, "CreateSmartTiles");
-		assertSerializeViewModelAroundConfirmedTransfer(SmartTileSupplyType.DeleteSmartTiles, "DeleteSmartTiles");
+		assertSerializeViewModelAroundConfirmedTransfer(MosaicSupplyType.Create, "Create");
+		assertSerializeViewModelAroundConfirmedTransfer(MosaicSupplyType.Delete, "Delete");
 	}
 
-	private static void assertSerializeViewModelAroundConfirmedTransfer(final SmartTileSupplyType smartTileSupplyType, final String expectedSmartTileType) {
+	private static void assertSerializeViewModelAroundConfirmedTransfer(final MosaicSupplyType MosaicSupplyType, final String expectedSmartTileType) {
 		// Arrange:
-		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, smartTileSupplyType, new Quantity(100));
+		final Context context = new Context(MOSAIC_NAME, MOSAIC_NS, MosaicSupplyType, new Supply(100));
 		context.transaction.setDeadline(new TimeInstant(333));
 		context.recalculateHash();
 
@@ -157,22 +157,22 @@ public class MosaicSupplyTransactionViewModelTest {
 		final Account sender = Utils.generateRandomAccount();
 		final Transaction transaction;
 		private final String mosaicName;
-		private final SmartTileSupplyType smartTileSupplyType;
-		private final Quantity quantity;
+		private final MosaicSupplyType MosaicSupplyType;
+		private final Supply supply;
 		private final String namespaceName;
 		Hash transactionHash;
 
-		Context(final String mosaicName, final NamespaceId parent, final SmartTileSupplyType smartTileSupplyType, final Quantity quantity) {
+		Context(final String mosaicName, final NamespaceId parent, final MosaicSupplyType MosaicSupplyType, final Supply supply) {
 			this.namespaceName = parent.toString();
 			this.mosaicName = mosaicName;
-			this.smartTileSupplyType = smartTileSupplyType;
-			this.quantity = quantity;
-			this.transaction = new SmartTileSupplyChangeTransaction(
+			this.MosaicSupplyType = MosaicSupplyType;
+			this.supply = supply;
+			this.transaction = new MosaicSupplyChangeTransaction(
 					new TimeInstant(125),
 					this.sender,
 					new MosaicId(parent, mosaicName),
-					smartTileSupplyType,
-					quantity
+					MosaicSupplyType,
+					supply
 			);
 			this.transaction.setFee(Amount.fromNem(34));
 			this.recalculateHash();
@@ -193,8 +193,8 @@ public class MosaicSupplyTransactionViewModelTest {
 			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(34)));
 			Assert.assertThat(viewModel.getNamespaceName(), IsEqual.equalTo(this.namespaceName));
 			Assert.assertThat(viewModel.getMosaicName(), IsEqual.equalTo(this.mosaicName));
-			Assert.assertThat(viewModel.getSupplyType(), IsEqual.equalTo(this.smartTileSupplyType));
-			Assert.assertThat(viewModel.getSupplyQuantity(), IsEqual.equalTo(this.quantity));
+			Assert.assertThat(viewModel.getSupplyType(), IsEqual.equalTo(this.MosaicSupplyType));
+			Assert.assertThat(viewModel.getSupplyDelta(), IsEqual.equalTo(this.supply));
 		}
 
 		private static TransactionMetaData createMetaData(final int height, final long id) {
