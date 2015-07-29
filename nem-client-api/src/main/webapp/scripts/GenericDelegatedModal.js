@@ -29,8 +29,12 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars'], function(NccModal
                 }
             },
             remoteError: function() {
-                var remotePublicKey = this.get('remote.publicKey');
-                return !remotePublicKey || ((remotePublicKey.length % 2) !== 0);
+                if (this.get('activation')) {
+                    var remotePublicKey = this.get('remote.publicKey');
+                    return !remotePublicKey || ((remotePublicKey.length % 2) !== 0);
+                } else {
+                    return false;
+                }
             },
             feeValid: function() {
                 return this.get('fee') >= this.get('minimumFee');

@@ -279,17 +279,6 @@ function(languages,
 
             return true;
         },
-        jsonpRequest: function(url, successCb) {
-            return $.ajax(url, {
-                jsonp: false,
-                jsonpCallback: "callback",
-                async: true,
-                dataType: "jsonp",
-                type: 'GET',
-                error: this.ajaxError,
-                success: successCb
-            });
-        },
         syncRequest: function(url) {
             return $.ajax(url, {
                 async: false,

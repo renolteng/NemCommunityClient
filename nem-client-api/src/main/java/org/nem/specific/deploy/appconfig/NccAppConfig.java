@@ -123,6 +123,17 @@ public class NccAppConfig {
 	}
 
 	@Bean
+	public VersionServices versionServices() {
+		final int CONNECTION_TIMEOUT = 2000;
+		final int SOCKET_TIMEOUT = 2000;
+		final int REQUEST_TIMEOUT = 4000;
+		return new VersionServices(
+				new VersionProvider(new HttpMethodClient<>(CONNECTION_TIMEOUT, SOCKET_TIMEOUT, REQUEST_TIMEOUT)),
+				this.timeProvider()
+		);
+	}
+
+	@Bean
 	public AddressBookLocator addressBookLocator() {
 		return new AddressBookFileLocator(this.getNemFolder());
 	}
