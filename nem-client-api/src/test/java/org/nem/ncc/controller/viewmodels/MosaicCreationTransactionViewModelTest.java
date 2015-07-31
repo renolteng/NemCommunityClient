@@ -162,8 +162,8 @@ public class MosaicCreationTransactionViewModelTest {
 		public static MosaicProperties createDefaultProperties() {
 			return new DefaultMosaicProperties(Arrays.asList(
 					new NemProperty("divisibility", "2"),
-					new NemProperty("quantity", "1234"),
-					new NemProperty("mutableQuantity", "true"),
+					new NemProperty("initialSupply", "1234"),
+					new NemProperty("supplyMutable", "true"),
 					new NemProperty("transferable", "true")
 			));
 		}
