@@ -336,6 +336,10 @@ define(['TransactionType'], function(TransactionType) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.uNemToNem(uNem), options);
                 },
+                formatSupply: function(supply, options) {
+                    var t = Utils.format.nem;
+                    return t.formatNem(t.xQuantityToQuantity(supply, 0), options);
+                },
                 formatQuantity: function(quantity, options) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.xQuantityToQuantity(quantity, 2), options);
@@ -797,6 +801,12 @@ define(['TransactionType'], function(TransactionType) {
                 tx.real.formattedLessor = Utils.format.address.format(tx.real.lessor);
 
             } else if (tx.real.type === TransactionType.Mosaic_Creation) {
+                var properties = tx.real.properties;
+                tx.real.propertiesMap = {}
+                for (var p in properties) {
+                    tx.real.propertiesMap[properties[p].name] = properties[p].value;
+                }
+                tx.real.propertiesMap.initialSupply = parseInt(tx.real.propertiesMap.initialSupply, 10);
 
             } else if (tx.real.type === TransactionType.Transfer) {
                 tx.isIncoming = tx.real.direction === 1;
@@ -810,16 +820,18 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            if (tx.real.type === TransactionType.Mosaic_Supply) {
-                tx.formattedAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:3});
-                tx.formattedFullAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity);
+            if (tx.real.type === TransactionType.Mosaic_Creation) {
+                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1});
+                tx.formattedFullAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply);
+            } else if (tx.real.type === TransactionType.Mosaic_Supply) {
+                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1});
+                tx.formattedFullAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity);
             } else {
                 tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.real.amount);
             }
 
             tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
-
             tx.formattedSender = Utils.format.address.format(tx.sender);
             return tx;
         },
@@ -939,6 +951,7 @@ define(['TransactionType'], function(TransactionType) {
                     Utils.processAccount(walletAccount);
                     Utils.processAccount(acct);
                     Utils.processMultisigs();
+                    Utils.retrieveMosaicDefinitions();
                 }
             );
         },
@@ -953,6 +966,7 @@ define(['TransactionType'], function(TransactionType) {
 
             ncc.set('wallet', wallet);
             this.processMultisigs();
+            this.retrieveMosaicDefinitions();
             return wallet;
         },
         processContacts: function(ab) {

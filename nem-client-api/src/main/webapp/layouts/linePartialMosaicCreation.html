@@ -30,7 +30,7 @@
 	{{#if .requiresSignature}}
 		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 	{{else}}
-        <span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
+        {{{formattedAmount}}}
 	{{/if}}
 {{else}}
 	<span class='dimmed'>n/a</span>
