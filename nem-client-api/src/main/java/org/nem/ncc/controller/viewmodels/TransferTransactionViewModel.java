@@ -1,12 +1,14 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.model.*;
+import org.nem.core.model.mosaic.Mosaic;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * TODO 20150131 J-G: fix empty comments
@@ -21,12 +23,15 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	private final Address recipient;
 	private final Amount amount;
 	private final String message;
+	private final Collection<Mosaic> mosaics;
+
 	private final boolean isEncrypted;
 	private final boolean hexMessage;
 	// TODO 20150524 J-G: you don't appear to be using this, not sure if it's for this release or not
 	// TODO 20150525 G-J: it is used in isHexMessage, not sure why idea shows it as unused,
 	// anyway, you're right that it's currently not used, but I've added it in case we'd like to use it in UI
 	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
+
 
 	/**
 	 * Creates a transfer transaction view model.
@@ -47,6 +52,8 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		this.hexMessage = getMessageHexFlag(message);
 		this.isEncrypted = isEncrypted(message);
 
+		this.mosaics = transfer.getAttachment().getMosaics();
+
 		this.direction = (this.getSigner().equals(relativeAccountAddress) ? OUTGOING_FLAG : 0)
 				+ (this.recipient.equals(relativeAccountAddress) ? INCOMING_FLAG : 0);
 	}
@@ -60,6 +67,10 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		if (this.message != null) {
 			serializer.writeString("message", this.message);
 			serializer.writeInt("encrypted", this.isEncrypted ? 1 : 0);
+		}
+
+		if (this.mosaics != null) {
+			serializer.writeObjectArray("mosaics", this.mosaics);
 		}
 
 		serializer.writeInt("direction", this.direction);

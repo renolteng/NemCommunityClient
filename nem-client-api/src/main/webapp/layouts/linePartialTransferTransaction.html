@@ -72,5 +72,8 @@
     {{else}} -
     {{/if}}
 	{{{formattedAmount}}}
+    {{# .real.mosaics}}
+        + #{{.real.mosaics.length}} mosaic(s)
+    {{/}}
 {{/if}}
 </td>
