@@ -885,6 +885,42 @@ define(['TransactionType'], function(TransactionType) {
             }
             ncc.set('wallet.allMultisigAccounts', allMultisigAccounts);
         },
+        mosaicName(mosaicDesc) {
+            return mosaicDesc.id.namespaceId + '*' + mosaicDesc.id.name;
+        },
+        retrieveMosaicDefinitions() {
+            var wallet = ncc.get('wallet');
+            var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var accountsAndRelatedAccounts = {};
+
+            allAccounts.forEach(function(a){
+                accountsAndRelatedAccounts[a.address] = true;
+                a.multisigAccounts.forEach(function(m){
+                    accountsAndRelatedAccounts[m.address] = true;
+                });
+            });
+
+            var batch = [];
+            for (var e in accountsAndRelatedAccounts) {
+                batch.push({account: e});
+            }
+
+            ncc.postRequest(
+                'account/mosaic-definitions/batch',
+                {data: batch},
+                function(data) {
+                    if ('data' in data) {
+                        var items = data['data'];
+                        var result = {};
+                        for (var idx in items) {
+                            var item = items[idx];
+                            result[Utils.mosaicName(item)] = item;
+                        }
+                        ncc.set('wallet.allMosaics', result);
+                    }
+                }
+            );
+        },
         updateAccount: function() {
             var acct = ncc.get('activeAccount');
             var wallet = ncc.get('wallet');
