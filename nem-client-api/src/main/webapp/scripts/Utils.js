@@ -340,9 +340,9 @@ define(['TransactionType'], function(TransactionType) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.xQuantityToQuantity(supply, 0), options);
                 },
-                formatQuantity: function(quantity, options) {
+                formatQuantity: function(quantity, options, mosaicDecimalPlaces) {
                     var t = Utils.format.nem;
-                    return t.formatNem(t.xQuantityToQuantity(quantity, 2), options);
+                    return t.formatNem(t.xQuantityToQuantity(quantity, mosaicDecimalPlaces), options);
                 }
             },
             address: {
@@ -698,7 +698,14 @@ define(['TransactionType'], function(TransactionType) {
                 roundedDays: roundedDays
             };
         },
-
+        fixProperties(elem) {
+            var properties = elem.properties;
+            elem.propertiesMap = {}
+            for (var p in properties) {
+                elem.propertiesMap[properties[p].name] = properties[p].value;
+            }
+            elem.propertiesMap.initialSupply = parseInt(elem.propertiesMap.initialSupply, 10);
+        },
         // PROCESSING
         processTransaction: function(tx) {
             var currentFee = 0;
@@ -801,12 +808,7 @@ define(['TransactionType'], function(TransactionType) {
                 tx.real.formattedLessor = Utils.format.address.format(tx.real.lessor);
 
             } else if (tx.real.type === TransactionType.Mosaic_Creation) {
-                var properties = tx.real.properties;
-                tx.real.propertiesMap = {}
-                for (var p in properties) {
-                    tx.real.propertiesMap[properties[p].name] = properties[p].value;
-                }
-                tx.real.propertiesMap.initialSupply = parseInt(tx.real.propertiesMap.initialSupply, 10);
+                Utils.fixProperties(tx.real);
 
             } else if (tx.real.type === TransactionType.Transfer) {
                 tx.isIncoming = tx.real.direction === 1;
@@ -814,6 +816,19 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = tx.real.direction === 3;
 
                 tx.real.formattedRecipient = Utils.format.address.format(tx.real.recipient);
+
+                var mosaicAttachment = tx.real.mosaics;
+                for (var e in mosaicAttachment) {
+                    var m = mosaicAttachment[e];
+                    var quantity = m.quantity;
+                    var mosaicDesc = Utils.findMosaic(m.mosaicId);
+                    var decimalPlaces = parseInt(mosaicDesc.propertiesMap.divisibility, 10)
+                    m.formattedQuantity = Utils.format.nem.formatQuantity(
+                        quantity,
+                        {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:decimalPlaces},
+                        decimalPlaces
+                    );
+                }
             }
 
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
@@ -833,6 +848,7 @@ define(['TransactionType'], function(TransactionType) {
 
             tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
             tx.formattedSender = Utils.format.address.format(tx.sender);
+
             return tx;
         },
         processTransactions: function(transactions) {
@@ -897,8 +913,12 @@ define(['TransactionType'], function(TransactionType) {
             }
             ncc.set('wallet.allMultisigAccounts', allMultisigAccounts);
         },
-        mosaicName(mosaicDesc) {
-            return mosaicDesc.id.namespaceId + '*' + mosaicDesc.id.name;
+        findMosaic(mosaicId) {
+            var name = Utils.mosaicName(mosaicId);
+            return ncc.get('wallet.allMosaics')[name];
+        },
+        mosaicName(mosaicId) {
+            return mosaicId.namespaceId + '*' + mosaicId.name;
         },
         retrieveMosaicDefinitions() {
             var wallet = ncc.get('wallet');
@@ -926,7 +946,8 @@ define(['TransactionType'], function(TransactionType) {
                         var result = {};
                         for (var idx in items) {
                             var item = items[idx];
-                            result[Utils.mosaicName(item)] = item;
+                            Utils.fixProperties(item);
+                            result[Utils.mosaicName(item.id)] = item;
                         }
                         ncc.set('wallet.allMosaics', result);
                     }

@@ -59,7 +59,7 @@
             </tr>
             <tr>
                 <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.mosaicQuantity}}</td>
-                <td class="table-cell table-cell--content">{{.quantity}}</td>
+                <td class="table-cell table-cell--content">{{{.formattedQuantity}}} (raw: <span class="dimmed">{{.quantity}}</span>)</td>
             </tr>
         {{/each}}
     {{/}}
