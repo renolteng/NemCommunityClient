@@ -117,18 +117,18 @@ define({
 			account: 'Compte',
 			thisAccount: 'Ce compte',
 			warning: 'Attention',
-			newBuild: 'NEW BUILD',
-			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+			newBuild: 'NOUVELLE VERSION',
+			newBuildNumber: 'Une nouvelle version {{1}} est disponible pour téléchargement. Voir <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> pour tout les détails',
 
 		},
 		transactionTypes: {
 			20: 'TRANSFERT DE TRANSACTION',
 			21: 'TRANSFERT D\'IMPORTANCE ',
 			22: 'MODIFICATION DE COMPTE MULTISIG',
-			23: 'PROVISION NAMESPACE',
-			24: 'MOSAIC CREATION',
-			25: 'MOSAIC SUPPLY',
-			40: 'MULTISIG SIGNATURE',
+			23: 'APPROVISIONNEMENT D\'ESPACE-NOM',
+			24: 'CRÉATION DE MOSAÏQUE',
+			25: 'PROVISION DE MOSAÏQUE',
+			40: 'TRANSACTION MULTISIG',
 			50: 'TRANSACTION MULTISIG ',
 			51: 'TRANSACTION MULTISIG ',
 			52: 'TRANSACTION MULTISIG ',
@@ -144,9 +144,9 @@ define({
 			self: 'Faire une transaction vers sois même.',
 			importance: 'Transaction d\'importance',
 			modification: 'Modification globale de Multisig',
-			provision: 'Provision Namespace',
-			mosaicCreation: 'Mosaic Creation',
-			mosaicSupply: 'Mosaic Supply'
+			provision: 'Approvisionnmenet d\'espace-nom',
+			mosaicCreation: 'Création de Mosaïque',
+			mosaicSupply: 'Provision de Mosaïque'
 		},
 		modals: {
 			error: {
@@ -194,10 +194,10 @@ define({
 				saveSuccess: 'Les paramètres ont été enregistrés avec succès'
 			},
 			signToken: {
-				title: "Sign a token using account",
-				label: "Token (url, string, anything)",
-				signature: "Signed token",
-				sign: "Sign"
+				title: "Signer un a jeton avec un compte",
+				label: "jeton (url, chaîne, n\'importe quoi)",
+				signature: "Jeton signé",
+				sign: "Signer"
 			},
 			multisig: {
 				title: 'Convertir ce compte en multisig',
@@ -213,11 +213,11 @@ define({
 
 				},
 				warning: 'Le compte Multisig est sur la liste de cosignataires. Cette action va barrer l\'accès à ce compte et au fond qu\'il contient. Vous ne voulez probablement <bPAS</b> executer cette action.',
-				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
-				minCosignatoriesRelativeLabel: 'relative change',
-				minCosignatoriesLabel: 'Minimum number of cosignatories',
-				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
-				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
+				minCosignatoriesDefaultLabel: 'Utiliser les nombre de consignataires par default',
+				minCosignatoriesRelativeLabel: 'Changement relatif',
+				minCosignatoriesLabel: 'Nombre minimum de consignataires',
+				minCosignatoriesZero: 'Utiliser zéro causerais que tout les consignataires soient requis',
+				minCosignatoriesOverflow: 'Le nombre spécifier est plus grand que le nombre de consignataires'
 			},
 			signMultisig: {
 				title: 'Signer la transaction multisig',
@@ -253,7 +253,7 @@ define({
 				message: 'Message',
 				encrypt: 'Chiffrez le message',
 				sending: 'Envoi...',
-				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
+				successMessage: 'Votre transaction à été envoyé avec succès! <br><br>Hachage de transaction: {{1}}',
 				txConfirm: {
 					title: 'Confirmez la transaction',
 					amount: 'Montant',
@@ -315,19 +315,19 @@ define({
 				innerFee: 'Frais interne',
 				multisigFees: 'Frais Multisig',
 				cosignatory: 'Cosignataire',
-				namespace: 'Namespace',
-				rentalFee: 'Rental fee',
-				mosaicName: 'Mosaic Name',
+				namespace: 'Espace-Nom',
+				rentalFee: 'Frais de location',
+				mosaicName: 'Nom de la Mosaïque',
 				description: 'Description',
-				propertiesLabel: 'Properties',
+				propertiesLabel: 'Propriétés',
 				properties: {
-					divisibility: 'Divisibility',
-					quantity: 'Maximal quantity',
-					mutablequantity: 'Is quantity mutable',
-					transferable: 'Is transferable'
+					divisibility: 'Divisibilité',
+					quantity: 'Quantité Maximum',
+					mutablequantity: 'La quantité peut évoluer',
+					transferable: 'Est transférable'
 				},
-				supplyType: 'Supply type',
-				supplyAmount: 'Supply amount'
+				supplyType: 'Fournir le type',
+				supplyAmount: 'Fournir le Montant'
 			},
 			accountDetails: {
 				title: 'Détails du compte',
@@ -440,8 +440,8 @@ define({
 				wallet: 'Portefeuille',
 				activate: 'Activer',
 				warningText: 'L\'activation va prendre 6 heures (360 blocs). L\'activation ne va PAS démarrer automatiquement la récolte.',
-				delegatedAccount: 'Delegated account public key',
-				builtIn: 'built into the wallet',
+				delegatedAccount: 'Clef Publique du compte délégué',
+				builtIn: 'Construit à l\'intérieur du portefeuille',
 
 			},
 			deactivateDelegated: {
@@ -628,7 +628,7 @@ define({
 					startRemoteHarvesting: 'Démarrer la récolte distante',
 					remotelyHarvesting: 'Récolte à distance en cours',
 					stopRemoteHarvesting: 'Arrêter la récolte distante',
-					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+					multisigInfo: 'L\'activation ou la déactivation de la récolte distante pour un compte multisyg doit être effectuer à partir d\'un des comptes cosignataire,
 
 				}
 			},
