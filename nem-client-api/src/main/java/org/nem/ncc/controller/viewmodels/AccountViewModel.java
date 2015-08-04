@@ -33,7 +33,7 @@ public class AccountViewModel implements SerializableEntity {
 			final AccountMetaDataPair accountMetaDataPair,
 			final PublicKey remotePublicKey) {
 		this(
-				accountMetaDataPair.getAccount(),
+				accountMetaDataPair.getEntity(),
 				accountMetaDataPair.getMetaData().getStatus(),
 				accountMetaDataPair.getMetaData().getRemoteStatus(),
 				accountMetaDataPair.getMetaData().getCosignatoryOf(),

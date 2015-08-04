@@ -1,6 +1,6 @@
 package org.nem.ncc.controller.viewmodels;
 
-import org.nem.core.model.MosaicCreationTransaction;
+import org.nem.core.model.MosaicDefinitionCreationTransaction;
 import org.nem.core.model.mosaic.MosaicProperties;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.BlockHeight;
@@ -24,11 +24,11 @@ public class MosaicCreationTransactionViewModel extends TransactionViewModel {
 	public MosaicCreationTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Mosaic_Creation, metaDataPair, lastBlockHeight);
 
-		final MosaicCreationTransaction transaction = (MosaicCreationTransaction)metaDataPair.getTransaction();
-		this.description = transaction.getMosaic().getDescriptor().toString();
-		this.namespaceName = transaction.getMosaic().getId().getNamespaceId().toString();
-		this.mosaicName = transaction.getMosaic().getId().getName();
-		this.mosaicProperties = transaction.getMosaic().getProperties();
+		final MosaicDefinitionCreationTransaction transaction = (MosaicDefinitionCreationTransaction)metaDataPair.getEntity();
+		this.description = transaction.getMosaicDefinition().getDescriptor().toString();
+		this.namespaceName = transaction.getMosaicDefinition().getId().getNamespaceId().toString();
+		this.mosaicName = transaction.getMosaicDefinition().getId().getName();
+		this.mosaicProperties = transaction.getMosaicDefinition().getProperties();
 	}
 
 	@Override

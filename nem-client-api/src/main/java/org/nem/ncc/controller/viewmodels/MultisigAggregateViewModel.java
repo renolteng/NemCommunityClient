@@ -45,7 +45,7 @@ public class MultisigAggregateViewModel extends TransactionViewModel {
 	public MultisigAggregateViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight blockHeight) {
 		super(Type.Aggregate_Modification, metaDataPair, blockHeight);
 
-		final MultisigAggregateModificationTransaction transaction = (MultisigAggregateModificationTransaction)metaDataPair.getTransaction();
+		final MultisigAggregateModificationTransaction transaction = (MultisigAggregateModificationTransaction)metaDataPair.getEntity();
 		this.cosignatoryModifications = transaction.getCosignatoryModifications().stream()
 				.map(ModificationWrapper::new)
 				.collect(Collectors.toList());

@@ -336,9 +336,13 @@ define(['TransactionType'], function(TransactionType) {
                     var t = Utils.format.nem;
                     return t.formatNem(t.uNemToNem(uNem), options);
                 },
-                formatQuantity: function(quantity, options) {
+                formatSupply: function(supply, options) {
                     var t = Utils.format.nem;
-                    return t.formatNem(t.xQuantityToQuantity(quantity, 2), options);
+                    return t.formatNem(t.xQuantityToQuantity(supply, 0), options);
+                },
+                formatQuantity: function(quantity, options, mosaicDecimalPlaces) {
+                    var t = Utils.format.nem;
+                    return t.formatNem(t.xQuantityToQuantity(quantity, mosaicDecimalPlaces), options);
                 }
             },
             address: {
@@ -694,7 +698,14 @@ define(['TransactionType'], function(TransactionType) {
                 roundedDays: roundedDays
             };
         },
-
+        fixProperties(elem) {
+            var properties = elem.properties;
+            elem.propertiesMap = {}
+            for (var p in properties) {
+                elem.propertiesMap[properties[p].name] = properties[p].value;
+            }
+            elem.propertiesMap.initialSupply = parseInt(elem.propertiesMap.initialSupply, 10);
+        },
         // PROCESSING
         processTransaction: function(tx) {
             var currentFee = 0;
@@ -797,6 +808,7 @@ define(['TransactionType'], function(TransactionType) {
                 tx.real.formattedLessor = Utils.format.address.format(tx.real.lessor);
 
             } else if (tx.real.type === TransactionType.Mosaic_Creation) {
+                Utils.fixProperties(tx.real);
 
             } else if (tx.real.type === TransactionType.Transfer) {
                 tx.isIncoming = tx.real.direction === 1;
@@ -804,23 +816,39 @@ define(['TransactionType'], function(TransactionType) {
                 tx.isSelf = tx.real.direction === 3;
 
                 tx.real.formattedRecipient = Utils.format.address.format(tx.real.recipient);
+
+                var mosaicAttachment = tx.real.mosaics;
+                for (var e in mosaicAttachment) {
+                    var m = mosaicAttachment[e];
+                    var quantity = m.quantity;
+                    var mosaicDesc = Utils.findMosaic(m.mosaicId);
+                    var decimalPlaces = parseInt(mosaicDesc.propertiesMap.divisibility, 10)
+                    m.formattedQuantity = Utils.format.nem.formatQuantity(
+                        quantity,
+                        {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:decimalPlaces},
+                        decimalPlaces
+                    );
+                }
             }
 
             tx.formattedFee = Utils.format.nem.formatNemAmount(currentFee, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
-            if (tx.real.type === TransactionType.Mosaic_Supply) {
-                tx.formattedAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:3});
-                tx.formattedFullAmount = Utils.format.nem.formatQuantity(tx.real.supplyQuantity);
+            if (tx.real.type === TransactionType.Mosaic_Creation) {
+                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1});
+                tx.formattedFullAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply);
+            } else if (tx.real.type === TransactionType.Mosaic_Supply) {
+                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1});
+                tx.formattedFullAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity);
             } else {
                 tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
                 tx.formattedFullAmount = Utils.format.nem.formatNemAmount(tx.real.amount);
             }
 
             tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
-
             tx.formattedSender = Utils.format.address.format(tx.sender);
+
             return tx;
         },
         processTransactions: function(transactions) {
@@ -885,6 +913,47 @@ define(['TransactionType'], function(TransactionType) {
             }
             ncc.set('wallet.allMultisigAccounts', allMultisigAccounts);
         },
+        findMosaic(mosaicId) {
+            var name = Utils.mosaicName(mosaicId);
+            return ncc.get('wallet.allMosaics')[name];
+        },
+        mosaicName(mosaicId) {
+            return mosaicId.namespaceId + '*' + mosaicId.name;
+        },
+        retrieveMosaicDefinitions() {
+            var wallet = ncc.get('wallet');
+            var allAccounts = [wallet.primaryAccount].concat(wallet.otherAccounts);
+            var accountsAndRelatedAccounts = {};
+
+            allAccounts.forEach(function(a){
+                accountsAndRelatedAccounts[a.address] = true;
+                a.multisigAccounts.forEach(function(m){
+                    accountsAndRelatedAccounts[m.address] = true;
+                });
+            });
+
+            var batch = [];
+            for (var e in accountsAndRelatedAccounts) {
+                batch.push({account: e});
+            }
+
+            ncc.postRequest(
+                'account/mosaic-definitions/batch',
+                {data: batch},
+                function(data) {
+                    if ('data' in data) {
+                        var items = data['data'];
+                        var result = {};
+                        for (var idx in items) {
+                            var item = items[idx];
+                            Utils.fixProperties(item);
+                            result[Utils.mosaicName(item.id)] = item;
+                        }
+                        ncc.set('wallet.allMosaics', result);
+                    }
+                }
+            );
+        },
         updateAccount: function() {
             var acct = ncc.get('activeAccount');
             var wallet = ncc.get('wallet');
@@ -903,6 +972,7 @@ define(['TransactionType'], function(TransactionType) {
                     Utils.processAccount(walletAccount);
                     Utils.processAccount(acct);
                     Utils.processMultisigs();
+                    Utils.retrieveMosaicDefinitions();
                 }
             );
         },
@@ -917,6 +987,7 @@ define(['TransactionType'], function(TransactionType) {
 
             ncc.set('wallet', wallet);
             this.processMultisigs();
+            this.retrieveMosaicDefinitions();
             return wallet;
         },
         processContacts: function(ab) {

@@ -11,8 +11,8 @@ import org.nem.core.serialization.Serializer;
 public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 	private final String namespaceName;
 	private final String mosaicName;
-	private final SmartTileSupplyType supplyType;
-	private final Quantity supplyQuantity;
+	private final MosaicSupplyType supplyType;
+	private final Supply supplyDelta;
 
 	/**
 	 * Creates a new mosaic supply transaction view model.
@@ -23,11 +23,11 @@ public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 	public MosaicSupplyTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Mosaic_Supply, metaDataPair, lastBlockHeight);
 
-		final SmartTileSupplyChangeTransaction transaction = (SmartTileSupplyChangeTransaction)metaDataPair.getTransaction();
+		final MosaicSupplyChangeTransaction transaction = (MosaicSupplyChangeTransaction)metaDataPair.getEntity();
 		this.namespaceName = transaction.getMosaicId().getNamespaceId().toString();
 		this.mosaicName = transaction.getMosaicId().getName();
 		this.supplyType = transaction.getSupplyType();
-		this.supplyQuantity = transaction.getQuantity();
+		this.supplyDelta = transaction.getDelta();
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 		serializer.writeString("mosaicName", this.mosaicName);
 		serializer.writeString("namespaceName", this.namespaceName);
 		serializer.writeString("supplyType", this.supplyType.toString());
-		Quantity.writeTo(serializer, "supplyQuantity", this.supplyQuantity);
+		Supply.writeTo(serializer, "supplyQuantity", this.supplyDelta);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 	 *
 	 * @return The mosaic supply type.
 	 */
-	public SmartTileSupplyType getSupplyType() {
+	public MosaicSupplyType getSupplyType() {
 		return this.supplyType;
 	}
 
@@ -72,7 +72,7 @@ public class MosaicSupplyTransactionViewModel extends TransactionViewModel {
 	 *
 	 * @return The mosaic supply quantity.
 	 */
-	public Quantity getSupplyQuantity() {
-		return this.supplyQuantity;
+	public Supply getSupplyDelta() {
+		return this.supplyDelta;
 	}
 }

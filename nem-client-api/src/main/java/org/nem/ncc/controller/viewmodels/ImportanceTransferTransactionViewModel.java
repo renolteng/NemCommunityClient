@@ -16,7 +16,7 @@ public class ImportanceTransferTransactionViewModel extends TransactionViewModel
 	public ImportanceTransferTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Importance_Transfer, metaDataPair, lastBlockHeight);
 
-		final ImportanceTransferTransaction importanceTransfer = (ImportanceTransferTransaction)metaDataPair.getTransaction();
+		final ImportanceTransferTransaction importanceTransfer = (ImportanceTransferTransaction)metaDataPair.getEntity();
 		this.remote = importanceTransfer.getRemote().getAddress();
 		this.activationType = importanceTransfer.getMode();
 	}

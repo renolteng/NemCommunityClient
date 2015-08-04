@@ -89,7 +89,7 @@ public class TransactionMapper {
 				dummyAccount,
 				dummyAccount,
 				amount,
-				message);
+				new TransferTransactionAttachment(message));
 		final MultisigTransaction multisigTransaction = new MultisigTransaction(
 				TimeInstant.ZERO,
 				dummyAccount,
@@ -231,7 +231,7 @@ public class TransactionMapper {
 					multisig,
 					recipient,
 					request.getAmount(),
-					message);
+					new TransferTransactionAttachment(message));
 			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 			transaction.setFee(request.getFee());
 
@@ -247,7 +247,7 @@ public class TransactionMapper {
 					signer,
 					recipient,
 					request.getAmount(),
-					message);
+					new TransferTransactionAttachment(message));
 			transaction.setDeadline(timeStamp.addHours(request.getHoursDue()));
 			transaction.setFee(request.getFee());
 			return transaction;
