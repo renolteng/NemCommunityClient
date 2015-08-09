@@ -211,7 +211,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 			Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
 
-			Assert.assertThat(viewModel.getLessor(), IsEqual.equalTo(this.lessor.getAddress()));
+			Assert.assertThat(viewModel.getRentalFeeSink(), IsEqual.equalTo(this.lessor.getAddress()));
 			Assert.assertThat(viewModel.getRentalFee(), IsEqual.equalTo(Amount.fromNem(576)));
 		}
 

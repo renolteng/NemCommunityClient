@@ -9,7 +9,7 @@ import org.nem.core.serialization.Serializer;
  * A provision namespace transaction view model.
  */
 public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel {
-	private final Address lessor;
+	private final Address rentalFeeSink;
 	private final Amount rentalFee;
 	private final String namespaceName;
 
@@ -23,7 +23,7 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 		super(Type.Provision_Namespace, metaDataPair, lastBlockHeight);
 
 		final ProvisionNamespaceTransaction transaction = (ProvisionNamespaceTransaction)metaDataPair.getEntity();
-		this.lessor = transaction.getLessor().getAddress();
+		this.rentalFeeSink = transaction.getRentalFeeSink().getAddress();
 		this.rentalFee = transaction.getRentalFee();
 		this.namespaceName = transaction.getResultingNamespaceId().toString();
 	}
@@ -32,18 +32,18 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	protected void serializeImpl(final Serializer serializer) {
 		super.serializeImpl(serializer);
 
-		Address.writeTo(serializer, "lessor", this.lessor);
+		Address.writeTo(serializer, "rentalFeeSink", this.rentalFeeSink);
 		Amount.writeTo(serializer, "amount", this.rentalFee);
 		serializer.writeString("namespace", this.namespaceName);
 	}
 
 	/**
-	 * Gets the namespace lessor account
+	 * Gets the namespace rentalFeeSink account
 	 *
-	 * @return The lessor account.
+	 * @return The rentalFeeSink account.
 	 */
-	public Address getLessor() {
-		return this.lessor;
+	public Address getRentalFeeSink() {
+		return this.rentalFeeSink;
 	}
 
 	/**

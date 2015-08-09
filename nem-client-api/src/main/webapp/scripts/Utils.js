@@ -805,7 +805,7 @@ define(['TransactionType'], function(TransactionType) {
                     });
                 }
             } else if (tx.real.type === TransactionType.Provision_Namespace) {
-                tx.real.formattedLessor = Utils.format.address.format(tx.real.lessor);
+                tx.real.formattedRentalFeeSink = Utils.format.address.format(tx.real.rentalFeeSink);
 
             } else if (tx.real.type === TransactionType.Mosaic_Creation) {
                 Utils.fixProperties(tx.real);

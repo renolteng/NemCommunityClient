@@ -91,7 +91,8 @@ public abstract class TransactionCommand implements Command {
 	}
 
 	private static void prepareAndSign(final Transaction transaction) {
-		transaction.setFee(TransactionFeeCalculator.calculateMinimumFee(transaction, BlockHeight.MAX));
+		final DefaultTransactionFeeCalculator calculator = new DefaultTransactionFeeCalculator();
+		transaction.setFee(calculator.calculateMinimumFee(transaction));
 		transaction.setDeadline(transaction.getTimeStamp().addHours(12));
 		transaction.sign();
 	}
