@@ -173,12 +173,14 @@ public class MosaicCreationTransactionViewModelTest {
 					this.sender,
 					new MosaicId(parent, mosaicName),
 					new MosaicDescriptor(description),
-					mosaicProperties
-			);
+					mosaicProperties,
+					null);
 			this.transaction = new MosaicDefinitionCreationTransaction(
 					new TimeInstant(125),
 					this.sender,
-					this.mosaicDefinition);
+					this.mosaicDefinition,
+					MosaicConstants.MOSAIC_CREATION_FEE_SINK,
+					Amount.fromNem(12345));
 			this.transaction.setFee(Amount.fromNem(23));
 			this.recalculateHash();
 		}
