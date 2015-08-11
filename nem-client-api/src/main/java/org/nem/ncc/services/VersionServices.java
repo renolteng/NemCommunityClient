@@ -1,7 +1,7 @@
 package org.nem.ncc.services;
 
+import org.nem.core.connect.VersionProvider;
 import org.nem.core.time.*;
-import org.nem.ncc.connector.VersionProvider;
 import org.nem.ncc.controller.viewmodels.VersionInformationViewModel;
 
 // TODO 20150810 J-G: add comments + small test?
