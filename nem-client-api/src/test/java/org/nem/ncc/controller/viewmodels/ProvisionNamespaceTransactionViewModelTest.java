@@ -95,7 +95,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		context.recalculateHash();
 
 		// Act:
-		final ProvisionNamespaceTransactionViewModel viewModel = context.map(context.lessor.getAddress());
+		final ProvisionNamespaceTransactionViewModel viewModel = context.map(context.rentalFeeSink.getAddress());
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
@@ -106,7 +106,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(23000000L));
 
-		Assert.assertThat(jsonObject.get("lessor"), IsEqual.equalTo(context.lessor.getAddress().toString()));
+		Assert.assertThat(jsonObject.get("rentalFeeSink"), IsEqual.equalTo(context.rentalFeeSink.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("amount"), IsEqual.equalTo(576000000L));
 		Assert.assertThat(jsonObject.get("namespace"), IsEqual.equalTo("root"));
 
@@ -138,7 +138,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("timeStamp"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 		Assert.assertThat(jsonObject.get("fee"), IsEqual.equalTo(23000000L));
 
-		Assert.assertThat(jsonObject.get("lessor"), IsEqual.equalTo(context.lessor.getAddress().toString()));
+		Assert.assertThat(jsonObject.get("rentalFeeSink"), IsEqual.equalTo(context.rentalFeeSink.getAddress().toString()));
 		Assert.assertThat(jsonObject.get("amount"), IsEqual.equalTo(576000000L));
 		Assert.assertThat(jsonObject.get("namespace"), IsEqual.equalTo("root"));
 
@@ -181,7 +181,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 
 	private static class Context {
 		private final Account sender = Utils.generateRandomAccount();
-		private final Account lessor = Utils.generateRandomAccount();
+		private final Account rentalFeeSink = Utils.generateRandomAccount();
 		private final Transaction transaction;
 		private Hash transactionHash;
 
@@ -189,7 +189,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 			this.transaction = new ProvisionNamespaceTransaction(
 					new TimeInstant(125),
 					this.sender,
-					this.lessor,
+					this.rentalFeeSink,
 					Amount.fromNem(576),
 					current,
 					parent);
@@ -211,7 +211,7 @@ public class ProvisionNamespaceTransactionViewModelTest {
 			Assert.assertThat(viewModel.getTimeStamp(), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 125 * 1000));
 			Assert.assertThat(viewModel.getFee(), IsEqual.equalTo(Amount.fromNem(23)));
 
-			Assert.assertThat(viewModel.getRentalFeeSink(), IsEqual.equalTo(this.lessor.getAddress()));
+			Assert.assertThat(viewModel.getRentalFeeSink(), IsEqual.equalTo(this.rentalFeeSink.getAddress()));
 			Assert.assertThat(viewModel.getRentalFee(), IsEqual.equalTo(Amount.fromNem(576)));
 		}
 

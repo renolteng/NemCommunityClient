@@ -1,6 +1,6 @@
 package org.nem.ncc.controller.viewmodels;
 
-import net.minidev.json.JSONObject;
+import net.minidev.json.*;
 import org.hamcrest.core.*;
 import org.junit.*;
 import org.nem.core.crypto.Hash;
@@ -119,7 +119,7 @@ public class TransferTransactionViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(15));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(16));
 		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(transactionHash.getShortId()));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
@@ -135,6 +135,7 @@ public class TransferTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("blockHeight"), IsEqual.equalTo(0L));
 		Assert.assertThat(jsonObject.get("direction"), IsEqual.equalTo(1));
 		Assert.assertThat(jsonObject.get("deadline"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 222 * 1000));
+		Assert.assertThat(jsonObject.get("mosaics"), IsEqual.equalTo(new JSONArray()));
 	}
 
 	@Test
@@ -160,7 +161,7 @@ public class TransferTransactionViewModelTest {
 		final JSONObject jsonObject = JsonSerializer.serializeToJson(viewModel);
 
 		// Assert:
-		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(15));
+		Assert.assertThat(jsonObject.size(), IsEqual.equalTo(16));
 		Assert.assertThat(jsonObject.get("type"), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
 		Assert.assertThat(jsonObject.get("id"), IsEqual.equalTo(14L));
 		Assert.assertThat(jsonObject.get("hash"), IsEqual.equalTo(transactionHash.toString()));
@@ -176,6 +177,7 @@ public class TransferTransactionViewModelTest {
 		Assert.assertThat(jsonObject.get("blockHeight"), IsEqual.equalTo(7L));
 		Assert.assertThat(jsonObject.get("direction"), IsEqual.equalTo(2));
 		Assert.assertThat(jsonObject.get("deadline"), IsEqual.equalTo(SystemTimeProvider.getEpochTimeMillis() + 222 * 1000));
+		Assert.assertThat(jsonObject.get("mosaics"), IsEqual.equalTo(new JSONArray()));
 	}
 
 	@Test
