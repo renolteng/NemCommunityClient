@@ -5,6 +5,8 @@ import org.nem.core.time.TimeProvider;
 import org.nem.ncc.connector.VersionProvider;
 import org.nem.ncc.controller.viewmodels.VersionInformationViewModel;
 
+// TODO 20150810 J-G: add comments + small test?
+
 public class VersionServices {
 	final VersionProvider versionProvider;
 	final TimeProvider timeProvider;

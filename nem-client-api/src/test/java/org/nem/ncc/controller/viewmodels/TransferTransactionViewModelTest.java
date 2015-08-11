@@ -400,6 +400,8 @@ public class TransferTransactionViewModelTest {
 
 	//endregion
 
+	// TODO 20150810 J-G: i guess we could add a small test for transaction with mosaics
+
 	private static TransactionMetaData createMetaData(final int height, final long id) {
 		return new TransactionMetaData(new BlockHeight(height), id, Hash.ZERO);
 	}

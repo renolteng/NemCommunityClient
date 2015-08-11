@@ -82,11 +82,11 @@ define(['ncc'], function(ncc) {
         ncc.getRequest('version', function(d){
             var nisData = ncc.get('nis');
             var currentVersion = (nisData && 'nodeInfo' in nisData) ? nisData.nodeInfo.nisInfo.version.match(/(\d+)\.(\d+)\.(\d+)/) : null;
-            console.log('d', d);
-            if ('latest' in d) {
-                var remoteVersion = d['latest'].match(/(\d+)\.(\d+)\.(\d+)/);
+            var versionKey = 'latest';
+            if (versionKey in d) {
+                var remoteVersion = d[versionKey].match(/(\d+)\.(\d+)\.(\d+)/);
                 if (remoteVersion) {
-                    ncc.set('latestVersion', d['latest']);
+                    ncc.set('latestVersion', d[versionKey]);
                     if (currentVersion != null) {
                         var r = remoteVersion;
                         var c = currentVersion;

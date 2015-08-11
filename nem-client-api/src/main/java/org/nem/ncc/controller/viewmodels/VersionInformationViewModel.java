@@ -4,6 +4,8 @@ import org.nem.core.node.NodeVersion;
 import org.nem.core.serialization.SerializableEntity;
 import org.nem.core.serialization.Serializer;
 
+// TODO 20150810 J-G: add comments + small test?
+
 public class VersionInformationViewModel implements SerializableEntity {
 	final NodeVersion localVersion;
 	final NodeVersion latestVersion;

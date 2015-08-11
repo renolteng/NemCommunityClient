@@ -38,9 +38,9 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	}
 
 	/**
-	 * Gets the namespace rentalFeeSink account
+	 * Gets the namespace rental fee sink account
 	 *
-	 * @return The rentalFeeSink account.
+	 * @return The rental fee sink account.
 	 */
 	public Address getRentalFeeSink() {
 		return this.rentalFeeSink;

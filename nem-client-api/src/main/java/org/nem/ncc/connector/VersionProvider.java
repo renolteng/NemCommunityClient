@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 /**
  * Helper class for getting version information.
+ * TODO 20150810 J-G: i guess you copied this from NCC? maybe we should move it so it can be shared without copy and paste
  */
 public class VersionProvider {
 	private static final Logger LOGGER = Logger.getLogger(VersionProvider.class.getName());
@@ -26,7 +27,7 @@ public class VersionProvider {
 	/**
 	 * Creates a new version provider.
 	 *
-	 * @param httpClient The http method client to used.
+	 * @param httpClient The http method client to use.
 	 */
 	public VersionProvider(final HttpMethodClient<ErrorResponseDeserializerUnion> httpClient) {
 		this.httpClient = httpClient;

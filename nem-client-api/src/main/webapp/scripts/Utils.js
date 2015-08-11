@@ -699,6 +699,7 @@ define(['TransactionType'], function(TransactionType) {
             };
         },
         fixProperties(elem) {
+            // TODO 20150810 J-G: i don't really understand why this function is needed ^^
             var properties = elem.properties;
             elem.propertiesMap = {}
             for (var p in properties) {
@@ -835,11 +836,12 @@ define(['TransactionType'], function(TransactionType) {
             tx.formattedFullFee = Utils.format.nem.formatNemAmount(currentFee);
             tx.formattedDate = Utils.format.date.format(tx.timeStamp, 'M dd, yyyy hh:mm:ss');
 
+			var supplyFormattingOptions = {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1};
             if (tx.real.type === TransactionType.Mosaic_Creation) {
-                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1});
+                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply, supplyFormattingOptions);
                 tx.formattedFullAmount = Utils.format.nem.formatSupply(tx.real.propertiesMap.initialSupply);
             } else if (tx.real.type === TransactionType.Mosaic_Supply) {
-                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity, {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:1});
+                tx.formattedAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity, supplyFormattingOptions);
                 tx.formattedFullAmount = Utils.format.nem.formatSupply(tx.real.supplyQuantity);
             } else {
                 tx.formattedAmount = Utils.format.nem.formatNemAmount(tx.real.amount, {dimUnimportantTrailing: true, fixedDecimalPlaces: true});
@@ -848,7 +850,6 @@ define(['TransactionType'], function(TransactionType) {
 
             tx.real.formattedSender = Utils.format.address.format(tx.real.sender);
             tx.formattedSender = Utils.format.address.format(tx.sender);
-
             return tx;
         },
         processTransactions: function(transactions) {

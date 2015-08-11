@@ -32,7 +32,6 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	// anyway, you're right that it's currently not used, but I've added it in case we'd like to use it in UI
 	private final int direction; // 1 - incoming, 2 - outgoing, 3 - self
 
-
 	/**
 	 * Creates a transfer transaction view model.
 	 *
@@ -121,7 +120,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		return this.direction;
 	}
 
-	//region helper funcions
+	//region helper functions
 	private static boolean isEncrypted(final Message message) {
 		return null != message && MessageTypes.SECURE == message.getType();
 	}

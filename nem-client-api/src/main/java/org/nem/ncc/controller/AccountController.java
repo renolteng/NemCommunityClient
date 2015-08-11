@@ -73,7 +73,6 @@ public class AccountController {
 
 	//region additional data
 
-	//NIS_REST_ACCOUNT_MOSAICDEFINITIONS_BATCH_LOOK_UP
 	@RequestMapping(value = "/account/mosaic-definitions/batch", method = RequestMethod.POST)
 	public SerializableList<MosaicDefinition> accountMosaicDefinitionsBatch(@RequestBody final Deserializer deserializerIn) {
 		final SerializableList<SerializableAccountId> accountIds = new SerializableList<>(deserializerIn, SerializableAccountId::new);
