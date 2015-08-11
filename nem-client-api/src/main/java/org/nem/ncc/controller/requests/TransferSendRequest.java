@@ -100,20 +100,21 @@ public class TransferSendRequest {
 	}
 
 	/**
-	 * Gets the type of a transfer.
+	 * Gets the transfer type.
 	 *
-	 * @return The type of transfer (multisig or normal).
+	 * @return The transfer type (multisig or normal).
 	 */
 	public int getType() {
 		return this.type;
 	}
 
 	/**
-	 * Gets the version of a transfer.
+	 * Gets the transfer version.
 	 *
-	 * @return The version of a transfer transaction.
+	 * @return The transfer version.
 	 */
 	public int getVersion() { return this.version; }
+
 	/**
 	 * Gets the sender account id.
 	 *
