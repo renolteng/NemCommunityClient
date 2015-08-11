@@ -227,6 +227,7 @@ public class TransactionMapper {
 		if (isMultisig) {
 			final Account multisig = this.accountLookup.findByAddress(request.getMultisigAddress());
 			final TransferTransaction transaction = new TransferTransaction(
+					request.getVersion(),
 					timeStamp,
 					multisig,
 					recipient,
@@ -243,6 +244,7 @@ public class TransactionMapper {
 			return multisigTransaction;
 		} else {
 			final TransferTransaction transaction = new TransferTransaction(
+					request.getVersion(),
 					timeStamp,
 					signer,
 					recipient,

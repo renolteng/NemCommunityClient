@@ -156,6 +156,14 @@ define(['NccModal', 'Utils', 'TransactionType', 'handlebars', 'typeahead'], func
                 });
             }
 
+            // distinguish test net from main net via first char of address
+            var Fork_2_Height = (requestData.recipient && requestData.recipient.length && requestData.recipient[0] === 'T') ? 180000 : 243000;
+            if (ncc.get('blockchainHeight') > Fork_2_Height) {
+                requestData['version'] = 2;
+            } else {
+                requestData['version'] = 1;
+            }
+
             var txConfirm = ncc.getModal('transactionConfirm');
             txConfirm.set('TransactionType', TransactionType);
             txConfirm.set('txData', this.get());
