@@ -37,7 +37,7 @@ public class MultisigModificationRequest {
 	 * @param minCosignatoriesModification The minimum cosignatories modification.
 	 * @param hoursDue The number of hours for the transaction to be valid.
 	 * @param fee The fee.
-	 * @param fee The multisig fee.
+	 * @param multisigFee The multisig fee.
 	 */
 	public MultisigModificationRequest(
 			final WalletName walletName,

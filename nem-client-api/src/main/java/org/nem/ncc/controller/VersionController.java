@@ -20,6 +20,6 @@ public class VersionController {
 
 	@RequestMapping(value = "/version", method = RequestMethod.GET)
 	public VersionInformationViewModel getVersion() {
-		return versionServices.getVersions();
+		return this.versionServices.getVersions();
 	}
 }

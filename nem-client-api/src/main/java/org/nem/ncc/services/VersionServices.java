@@ -24,12 +24,12 @@ public class VersionServices {
 
 	public VersionInformationViewModel getVersions() {
 		final TimeInstant currentTime = this.timeProvider.getCurrentTime();
-		if (currentTime.subtract(refreshTime) > this.REFRESH_IN_SECOND) {
-			versionInformationViewModel = new VersionInformationViewModel(
+		if (currentTime.subtract(this.refreshTime) > this.REFRESH_IN_SECOND) {
+			this.versionInformationViewModel = new VersionInformationViewModel(
 					this.versionProvider.getLocalVersion(),
 					this.versionProvider.getLatestVersion()
 			);
 		}
-		return versionInformationViewModel;
+		return this.versionInformationViewModel;
 	}
 }
