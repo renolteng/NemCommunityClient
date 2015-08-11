@@ -7,8 +7,7 @@ import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.*;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * TODO 20150131 J-G: fix empty comments

@@ -5,7 +5,6 @@ import org.nem.console.models.AliasedKeyPair;
 import org.nem.console.utils.*;
 import org.nem.core.crypto.*;
 import org.nem.core.model.*;
-import org.nem.core.model.primitive.BlockHeight;
 import org.nem.core.time.TimeInstant;
 import org.nem.core.utils.HexEncoder;
 

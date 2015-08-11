@@ -1,7 +1,6 @@
 package org.nem.ncc.services;
 
-import org.nem.core.time.TimeInstant;
-import org.nem.core.time.TimeProvider;
+import org.nem.core.time.*;
 import org.nem.ncc.connector.VersionProvider;
 import org.nem.ncc.controller.viewmodels.VersionInformationViewModel;
 
@@ -10,12 +9,11 @@ import org.nem.ncc.controller.viewmodels.VersionInformationViewModel;
 public class VersionServices {
 	final VersionProvider versionProvider;
 	final TimeProvider timeProvider;
-	final int REFRESH_IN_SECOND = 5*60;
+	final int REFRESH_IN_SECOND = 5 * 60;
 	TimeInstant refreshTime;
 	VersionInformationViewModel versionInformationViewModel;
 
-	public VersionServices(final VersionProvider versionProvider, final TimeProvider timeProvider)
-	{
+	public VersionServices(final VersionProvider versionProvider, final TimeProvider timeProvider) {
 		this.versionProvider = versionProvider;
 		this.timeProvider = timeProvider;
 
