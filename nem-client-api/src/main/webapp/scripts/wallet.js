@@ -256,7 +256,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
 
             ncc.openConvertMultisig = function() {
                 var m = ncc.getModal('convertMultisig');
-                m.set('isAfterMofNFork', ncc.get('blockchainHeight') > 199800);
+                var Fork_1_Height = (ncc.get('activeAccount.address')[0] === 'T') ? 90000 : 199800;
+                m.set('isAfterMofNFork', ncc.get('blockchainHeight') > Fork_1_Height);
                 m.open();
             }
 
