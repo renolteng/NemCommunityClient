@@ -47,9 +47,8 @@
     </tr>
 
 
+    <tr><td colspan="2">Mosaics present:</td></tr>
     {{#.real.mosaics}}
-        <tr><td colspan="2">Mosaics present:</td></tr>
-        {{#each real.mosaics}}
             <tr>
                 <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.mosaicName}}</td>
                 <td class="table-cell table-cell--content">
@@ -61,6 +60,6 @@
                 <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.mosaicQuantity}}</td>
                 <td class="table-cell table-cell--content">{{{.formattedQuantity}}} (raw: <span class="dimmed">{{.quantity}}</span>)</td>
             </tr>
-        {{/each}}
     {{/}}
+
 {{/}}

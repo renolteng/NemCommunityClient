@@ -72,7 +72,8 @@
     {{else}} -
     {{/if}}
 	{{{formattedAmount}}}
-    {{# .real.mosaics}}
+
+    {{# .real.mosaics.length}}
         + #{{.real.mosaics.length}} mosaic(s)
     {{/}}
 {{/if}}
