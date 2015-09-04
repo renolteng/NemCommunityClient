@@ -73,7 +73,7 @@ public class AccountController {
 
 	//region additional data
 
-	@RequestMapping(value = "/account/mosaic-definitions/batch", method = RequestMethod.POST)
+	@RequestMapping(value = "/account/mosaic/owned/definition/batch", method = RequestMethod.POST)
 	public SerializableList<MosaicDefinition> accountMosaicDefinitionsBatch(@RequestBody final Deserializer deserializerIn) {
 		final SerializableList<SerializableAccountId> accountIds = new SerializableList<>(deserializerIn, SerializableAccountId::new);
 		final Deserializer deserializerOut = this.nisConnector.post(

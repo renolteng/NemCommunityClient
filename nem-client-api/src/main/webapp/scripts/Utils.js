@@ -939,7 +939,7 @@ define(['TransactionType'], function(TransactionType) {
             }
 
             ncc.postRequest(
-                'account/mosaic-definitions/batch',
+                'account/mosaic/owned/definition/batch',
                 {data: batch},
                 function(data) {
                     if ('data' in data) {
