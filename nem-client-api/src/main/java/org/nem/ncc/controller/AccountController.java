@@ -77,7 +77,7 @@ public class AccountController {
 	public SerializableList<MosaicDefinition> accountMosaicDefinitionsBatch(@RequestBody final Deserializer deserializerIn) {
 		final SerializableList<SerializableAccountId> accountIds = new SerializableList<>(deserializerIn, SerializableAccountId::new);
 		final Deserializer deserializerOut = this.nisConnector.post(
-				NisApiId.NIS_REST_ACCOUNT_MOSAICDEFINITIONS_BATCH_LOOK_UP,
+				NisApiId.NIS_REST_ACCOUNT_MOSAIC_DEFINITIONS_BATCH_LOOK_UP,
 				new HttpJsonPostRequest(accountIds));
 		return new SerializableList<>(deserializerOut, MosaicDefinition::new);
 	}
