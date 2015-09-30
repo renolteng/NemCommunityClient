@@ -34,9 +34,9 @@
             {{texts.modals.transactionDetails.message}}
         </td>
         <td class="table-cell table-cell--content">
-            {{.message}}
-            {{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
-            {{#.encrypted}}
+            {{.real.message}}
+            {{^.real.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
+            {{#.real.encrypted}}
             &nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
             {{/}}
         </td>
