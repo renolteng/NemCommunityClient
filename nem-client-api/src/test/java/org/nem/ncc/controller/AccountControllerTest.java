@@ -219,7 +219,7 @@ public class AccountControllerTest {
 		// Assert:
 		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
 		Mockito.verify(context.connector, Mockito.only()).post(
-				Mockito.eq(NisApiId.NIS_REST_ACCOUNT_MOSAICDEFINITIONS_BATCH_LOOK_UP), requestCaptor.capture());
+				Mockito.eq(NisApiId.NIS_REST_ACCOUNT_MOSAIC_DEFINITIONS_BATCH_LOOK_UP), requestCaptor.capture());
 		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
 
 		Assert.assertThat(jsonRequest.size(), IsEqual.equalTo(1));
