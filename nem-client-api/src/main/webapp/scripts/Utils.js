@@ -248,7 +248,7 @@ define(['TransactionType'], function(TransactionType) {
                     var lastPart = nem.decimalPart;
 
                     if (options.fixedDecimalPlaces) {
-                        var decimalPlaces = options.decimalPlaces || Utils.config.defaultDecimalPlaces;
+                        var decimalPlaces = (typeof options.decimalPlaces === 'number') ? options.decimalPlaces : Utils.config.defaultDecimalPlaces;
                         if (lastPart.length > decimalPlaces) {
                             lastPart = lastPart.substring(0, decimalPlaces);
                         }
@@ -819,16 +819,42 @@ define(['TransactionType'], function(TransactionType) {
                 tx.real.formattedRecipient = Utils.format.address.format(tx.real.recipient);
 
                 var mosaicAttachment = tx.real.mosaics;
+                var amount = tx.real.amount;
                 for (var e in mosaicAttachment) {
                     var m = mosaicAttachment[e];
                     var quantity = m.quantity;
                     var mosaicDesc = Utils.findMosaic(m.mosaicId);
+                    m.mosaic = mosaicDesc;
+
                     var decimalPlaces = parseInt(mosaicDesc.propertiesMap.divisibility, 10)
                     m.formattedQuantity = Utils.format.nem.formatQuantity(
                         quantity,
                         {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:decimalPlaces},
                         decimalPlaces
                     );
+
+                    m.formattedTotalQuantity = Utils.format.nem.formatQuantity(
+                        quantity * (amount / 1000000),
+                        {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:decimalPlaces},
+                        decimalPlaces
+                    );
+
+                    if (mosaicDesc.levy.mosaicId) {
+                        var levyDesc = mosaicDesc.levy.mosaic;
+                        var levyValue = 0;
+                        var levyDecimalPlaces = parseInt(levyDesc.propertiesMap.divisibility, 10)
+                        if (mosaicDesc.levy.type === 2) {
+                            levyValue = mosaicDesc.levy.fee * (amount / 1000000) * quantity / 10000;
+                        } else if (mosaicDesc.levy.type === 1) {
+                            levyValue = mosaicDesc.levy.fee;
+                        }
+
+                        m.formattedTotalLevy = Utils.format.nem.formatQuantity(
+                            levyValue,
+                            {dimUnimportantTrailing: true, fixedDecimalPlaces: true, decimalPlaces:levyDecimalPlaces},
+                            levyDecimalPlaces
+                        );
+                    }
                 }
             }
 
@@ -951,6 +977,15 @@ define(['TransactionType'], function(TransactionType) {
                             result[Utils.mosaicName(item.id)] = item;
                         }
                         ncc.set('wallet.allMosaics', result);
+
+                        // need to be here, so that we can reuse findMosaic
+                        for (var mosaicId in result) {
+                            var mosaicDesc =  result[mosaicId];
+                            if (mosaicDesc.levy.mosaicId) {
+                                var levyDesc = Utils.findMosaic(mosaicDesc.levy.mosaicId);
+                                mosaicDesc.levy.mosaic = levyDesc;
+                            }
+                        }
                     }
                 }
             );

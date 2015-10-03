@@ -320,6 +320,7 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
+				multiplier: 'Multiplier',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory',
@@ -327,6 +328,7 @@ define({
 				rentalFee: 'Rental fee',
 				mosaicName: 'Mosaic Name',
 				mosaicQuantity: 'Mosaic quantity',
+				mosaicLevy: 'Mosaic levy',
 				description: 'Description',
 				propertiesLabel: 'Properties',
 				properties: {
