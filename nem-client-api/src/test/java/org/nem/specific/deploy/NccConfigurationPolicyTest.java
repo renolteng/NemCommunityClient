@@ -42,7 +42,7 @@ public class NccConfigurationPolicyTest {
 		final NccConfigurationPolicy policy = createPolicy();
 
 		// Assert:
-		Assert.assertThat(policy.getDefaultServletClass(), IsEqual.equalTo(NccDefaultServlet.class));
+		Assert.assertThat(policy.getRootServlet(), IsEqual.equalTo(NccRootServlet.class));
 	}
 
 	//endregion

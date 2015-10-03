@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-public class NccDefaultServlet extends HttpServlet {
+public class NccRootServlet extends HttpServlet {
 	private final NccConfiguration configuration = ServletUtils.getNccConfiguration();
 
 	@Override
