@@ -22,6 +22,11 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 	}
 
 	@Override
+	public Class getWebAppWebsockInitializerClass() {
+		return null;
+	}
+
+	@Override
 	public Class<? extends HttpServlet> getJarFileServletClass() {
 		return JarFileServlet.class;
 	}
