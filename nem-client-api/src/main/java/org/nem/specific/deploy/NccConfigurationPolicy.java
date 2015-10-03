@@ -32,7 +32,7 @@ public class NccConfigurationPolicy implements NemConfigurationPolicy {
 	}
 
 	@Override
-	public Class<? extends HttpServlet> getRootServlet() {
+	public Class<? extends HttpServlet> getRootServletClass() {
 		return NccRootServlet.class;
 	}
 
