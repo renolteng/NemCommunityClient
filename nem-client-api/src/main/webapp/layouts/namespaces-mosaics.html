@@ -1,0 +1,114 @@
+<main class="namespace-mosaic-main">
+	<div class="container">
+		<section class="listingPage">
+			<div class="listingPage-head">
+				<h1 class="listingPage-title">{{texts.namespacesmosaics.title}}</h1>
+				<button type="button" class="listingPage-mainButton button" disabled="true"  on-click="openNewNamespace()">{{texts.namespacesmosaics.newNamespace}}</button>
+				<button type="button" class="listingPage-mainButton button" disabled="true"  on-click="openNewMosaic()">{{texts.namespacesmosaics.newMosaic}}</button>
+				<div class="listingPage-searchArea">
+					<div class="listingPage-search">
+						<input class="listingPage-searchTextbox" type="text" />
+						<button class="listingPage-searchButton" type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
+					</div>
+				</div>
+				
+			</div>
+			<div class="listingPage-body">
+				<div class="listingPage-filterBar"  style="display:none;">
+					<ul class="listingPage-filter">
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-all" name="{{namespaces.filter}}" value="" checked />
+                            <label class="listingPage-filterLabel" for="rad-namespaces-filter-all">{{texts.namespacesmosaics.filters.displayAll}}</label>
+						</li>
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-pending" name="{{namespaces.filter}}" value="/account/mosaic/owned/definition/batch" />
+                            <label class="listingPage-filterLabel" for="rad-namespaces-filter-pending">{{texts.namespacesmosaics.filters.displayMineonly}}</label>
+						</li>
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-incoming" name="{{namespaces.filter}}" value="" />
+                            <label class="listingPage-filterLabel" for="rad-namespaces-filter-incoming">{{texts.namespacesmosaics.filters.filterNamespace}}</label>
+						</li>
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-outgoing" name="{{namespaces.filter}}" value="account/namespacess/outgoing" />
+							<label class="listingPage-filterLabel" for="rad-namespaces-filter-outgoing">{{texts.namespacesmosaics.filters.filterMosaic}}</label>
+						</li>
+					</ul>
+				</div>
+				<div class="listingPage-list listingPage-list--namespacess">
+				Displaying {{namespaces.all.length}} Namespaces
+					<table class="txList">
+						<thead>
+							<tr class="txList-row namespacessPage-row">
+
+								<th>{{texts.namespacesmosaics.table.columns.0}}</th>
+								<th class="txList-header txList-col--date">{{texts.namespacesmosaics.table.columns.1}}</th>
+								<th class="txList-header txList-col--sender">{{texts.namespacesmosaics.table.columns.2}}</th>
+								<th class="txList-header txList-col--message">{{texts.namespacesmosaics.table.columns.3}}</th>
+                               
+							</tr>
+						</thead>
+						<tbody>
+							{{#each namespaces.all}}
+								<tr class="txList-row">
+								<td> </td>
+								
+								<td class="txList-cell txList-col--details">
+                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.fqn}}</a>
+                                       
+                                    </td>
+								<td>{{.height}}</td>
+								<td>{{.owner}}</td>
+								
+
+                     			</tr>
+                     			<tr>
+                     			<td colspan="4">
+                     			
+									
+                                   
+                     			</td>
+                     			</tr>
+							{{/each}}
+
+						</tbody>
+					</table>
+					<h2>Mosaics</h2>
+					Displaying {{mosaics.all.length}} Mosaics
+								<table class="txList">
+						<thead>
+							<tr class="txList-row namespacessPage-row">
+
+								
+								
+								<th class="txList-header txList-col--sender">Mosaic</th>
+								<th class="txList-header txList-col--message">Description</th>
+                               
+							</tr>
+						</thead>
+						<tbody>
+							{{#each mosaics.all}}
+								<tr class="txList-row">
+								
+					
+						<td class="txList-cell txList-col--details">
+                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}.{{.name}}</a>
+                                       
+                                    </td>
+                                        
+                                        <td>
+                                        {{.description}}
+                                        
+                                        </td>
+                                        </tr>
+                     			
+							{{/each}}
+
+						</tbody>
+					</table>		
+
+
+				</div>
+			</div>
+		</section>
+	</div>
+</main>
