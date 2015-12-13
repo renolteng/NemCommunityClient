@@ -104,7 +104,42 @@
 							{{/each}}
 
 						</tbody>
-					</table>		
+					</table>	
+
+						<h2>Owned Mosaics</h2>
+					Displaying {{mosaics.owned.length}} Owned Mosaics
+								<table class="txList">
+						<thead>
+							<tr class="txList-row namespacessPage-row">
+
+								
+								
+								<th class="txList-header txList-col--sender">Mosaic</th>
+								<th class="txList-header txList-col--message">Quantity</th>
+                               
+							</tr>
+						</thead>
+						<tbody>
+							{{#each mosaics.owned}}
+								<tr class="txList-row">
+								
+					
+						<td class="txList-cell txList-col--details">
+                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}.{{.name}}</a>
+                                       
+                                    </td>
+                              
+                                        
+                                        <td>
+                                        {{.quantity}}
+                                        
+                                        </td>
+                                        </tr>
+                     			
+							{{/each}}
+
+						</tbody>
+					</table>			
 
 
 				</div>

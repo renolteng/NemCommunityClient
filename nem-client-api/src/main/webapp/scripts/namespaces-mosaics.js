@@ -56,11 +56,30 @@
   });
          }
 
-
+//http://127.0.0.1:7890/account/mosaic/owned?address=TD3RXTHBLK6J3UD2BH2PXSOFLPWZOTR34WCG4HXH
+var currAccount = ncc.get('activeAccount.address');
+  var url3 = remoteserver + '/account/mosaic/owned?address=' + currAccount;
+                        //alert(url3);
+                        var mosaicOwnedOutputs = [];
+                         $.getJSON(url3, function(data3) {
+        for (var iii in data3.data) {
+            alert(JSON.stringify(data3));
+            //alert(data2.data[ii].mosaic.id.name);
+             mosaicOwnedOutputs.push({
+    "quantity":data3.data[iii].quantity,
+    "namespaceId":data3.data[iii].mosaicId.namespaceId,
+    "name":data3.data[iii].mosaicId.name,
+                            });
+             //{"data":[{"quantity":1099976000000,"mosaicId":{"namespaceId":"nem","name":"xem"}},{"quantity":226,"mosaicId":{"namespaceId":"gimre.games.pong","name":"paddles"}}]}
+                                    }
+                                             });
 ncc.set('mosaics.all', mosaicOutputs);
         ncc.set('namespaces.all', output);
+        ncc.set('mosaics.owned', mosaicOwnedOutputs);
         //alert(JSON.stringify(mosaicOutputs));
         //alert(JSON.stringify(output));
+        
+
   });
     	},
     	leave: [function() {}]
