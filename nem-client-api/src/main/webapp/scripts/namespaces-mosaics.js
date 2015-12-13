@@ -16,71 +16,93 @@
 			
 		},
     	setupEverytime: function() {
-            
-            
-    		var remoteserver = ncc.get('settings.remoteServer.protocol') + "://" + ncc.get('settings.remoteServer.host') + ":" + ncc.get('settings.remoteServer.port');
+                var remoteserver = ncc.get('settings.remoteServer.protocol') + "://" + ncc.get('settings.remoteServer.host') + ":" + ncc.get('settings.remoteServer.port');
                         //alert(remoteserver);
+
+
+            //namespace root
             var url = remoteserver + '/namespace/root/page?';
                         //alert(url);
             ncc.set('namespaces.all', null);
+
             $.getJSON(url, function(data) {
                 var output = [];
+                var mosaicOutputs = [];
                 for (var i in data.data) {
-        	
-         
-            
-       
 
+
+                    //namespaces owned by root owners
 // http://127.0.0.1:7890/namespace/mosaic/definition/page?namespace=jabo38_ltd
-            
-                        var url2 = remoteserver + '/namespace/mosaic/definition/page?namespace=' + data.data[i].namespace.fqn;
+//http://127.0.0.1:7890/account/namespace/page?address=TBGIMRE4SBFRUJXMH7DVF2IBY36L2EDWZ37GVSC4
+
+
+             var url2 = remoteserver + '/account/namespace/page?address=' + data.data[i].namespace.owner;
                         //alert(url2);
-                        var mosaicOutputs = [];
+                        
                          $.getJSON(url2, function(data2) {
-        for (var ii in data2.data) {
-        	//alert(data2.data[ii].mosaic.id.name);
-        	 
+        for (var i2 in data2.data) {
+            //alert(data2.data[ii].mosaic.id.name);
+             //{"owner":"TBGIMRE4SBFRUJXMH7DVF2IBY36L2EDWZ37GVSC4","fqn":"a","height":189256}
+          
+   
+            //"fqn":data2.data[i2].fqn,
+
+            //mosaics lookup 
+            var url3 = remoteserver + '/namespace/mosaic/definition/page?namespace=' + data2.data[i2].fqn;
+                        //alert(url2);
+                        
+                         $.getJSON(url3, function(data3) {
+        for (var i3 in data3.data) {
+            //alert(data2.data[ii].mosaic.id.name);
+             
            mosaicOutputs.push({
-    "namespaceId":data2.data[ii].mosaic.id.namespaceId,
-    "name":data2.data[ii].mosaic.id.name,
-    "description":data2.data[ii].mosaic.description
-  							});
-        									}
-        									 });
-        
+    "namespaceId":data3.data[i3].mosaic.id.namespaceId,
+    "name":data3.data[i3].mosaic.id.name,
+    "description":data3.data[i3].mosaic.description
+                            });
+                                            } //end mosaics lookup for
+                                             }); //end mosaics lookup
 
-   output.push({
-    "fqn":data.data[i].namespace.fqn,
-    "owner":data.data[i].namespace.owner,
-    "height":data.data[i].namespace.height,
+output.push({
+    "fqn":data2.data[i2].fqn,
+    "owner":data2.data[i2].owner,
+    "height":data2.data[i2].height,
   });
-         }
 
+                                     } //end namespaces owned by root owners for
+
+                                 }); //end namespaces owned by root owners
+
+
+             } //end namespace root for
+        ncc.set('namespaces.all', output);
+        ncc.set('mosaics.all', mosaicOutputs);
+            }); //end namespace root
+
+
+//owned mosaics 
 //http://127.0.0.1:7890/account/mosaic/owned?address=TD3RXTHBLK6J3UD2BH2PXSOFLPWZOTR34WCG4HXH
 var currAccount = ncc.get('activeAccount.address');
-  var url3 = remoteserver + '/account/mosaic/owned?address=' + currAccount;
+  var url4 = remoteserver + '/account/mosaic/owned?address=' + currAccount;
                         //alert(url3);
                         var mosaicOwnedOutputs = [];
-                         $.getJSON(url3, function(data3) {
-        for (var iii in data3.data) {
-            alert(JSON.stringify(data3));
+                         $.getJSON(url4, function(data4) {
+        for (var i4 in data4.data) {
+            //alert(JSON.stringify(data4));
             //alert(data2.data[ii].mosaic.id.name);
              mosaicOwnedOutputs.push({
-    "quantity":data3.data[iii].quantity,
-    "namespaceId":data3.data[iii].mosaicId.namespaceId,
-    "name":data3.data[iii].mosaicId.name,
+    "quantity":data4.data[i4].quantity,
+    "namespaceId":data4.data[i4].mosaicId.namespaceId,
+    "name":data4.data[i4].mosaicId.name,
                             });
              //{"data":[{"quantity":1099976000000,"mosaicId":{"namespaceId":"nem","name":"xem"}},{"quantity":226,"mosaicId":{"namespaceId":"gimre.games.pong","name":"paddles"}}]}
-                                    }
-                                             });
-ncc.set('mosaics.all', mosaicOutputs);
-        ncc.set('namespaces.all', output);
-        ncc.set('mosaics.owned', mosaicOwnedOutputs);
-        //alert(JSON.stringify(mosaicOutputs));
-        //alert(JSON.stringify(output));
-        
+                                    } //end owned mosaics for
+                                             }); //end owned mosaics
 
-  });
+        
+        ncc.set('mosaics.owned', mosaicOwnedOutputs);
+
+
     	},
     	leave: [function() {}]
     });
