@@ -221,21 +221,24 @@
 					<span class="sidebar-nav-item-title icon-food"><span class="fullSidebarOnly">{{texts.wallet.nav.4}}</span></span>
 					<!--/*</span><span class="noti-box transactions">2</span>*/-->
 				</a></li>
+				<li class="sidebar-nav-item {{#layout.1.name === 'namespaces-mosaics'}}active{{/}}"><a href="javascript:;" on-click="redirect:'namespaces-mosaics', {{params}}">
+					<span class="sidebar-nav-item-title icon-briefcase"><span class="fullSidebarOnly">{{texts.wallet.nav.11}}</span></span>
+				</a></li>
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'assetExchange'}}active{{/}}"><a href="javascript:;" on-click="redirect:'assetExchange', {{params}}">
-					<span class="sidebar-nav-item-title icon-briefcase"><span class="fullSidebarOnly">{{texts.wallet.nav.5}}</span></span>
+					<span class="sidebar-nav-item-title icon-briefcase"><span class="fullSidebarOnly">{{texts.wallet.nav.6}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item disabled {{#layout.1.name === 'news'}}active{{/}}"><a href="javascript:;" on-click="redirect:'news', {{params}}">
-					<span class="sidebar-nav-item-title icon-megaphone"><span class="fullSidebarOnly">{{texts.wallet.nav.6}}</span></span>
+					<span class="sidebar-nav-item-title icon-megaphone"><span class="fullSidebarOnly">{{texts.wallet.nav.7}}</span></span>
 					<!--/*</span><span class="noti-box news">6</span>*/-->
 				</a></li>
-				<li class="sidebar-nav-item disabled {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
-					<span class="sidebar-nav-item-title icon-user"><span class="fullSidebarOnly">{{texts.wallet.nav.8}}</span></span>
+				<li class="sidebar-nav-item  {{#layout.1.name === 'accounts'}}active{{/}}"><a href="javascript:;" on-click="redirect:'accounts', {{params}}">
+					<span class="sidebar-nav-item-title icon-user"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item {{#layout.1.name === 'settings'}}active{{/}}"><a href="javascript:;" on-click="openModal('settings')">
-					<span class="sidebar-nav-item-title icon-cog-alt"><span class="fullSidebarOnly">{{texts.wallet.nav.9}}</span></span>
+					<span class="sidebar-nav-item-title icon-cog-alt"><span class="fullSidebarOnly">{{texts.wallet.nav.10}}</span></span>
 				</a></li>
 				<li class="sidebar-nav-item"><a href="javascript:;" on-click="shutdown">
-					<span class="sidebar-nav-item-title icon-off"><span class="fullSidebarOnly">{{texts.wallet.nav.10}}</span></span>
+					<span class="sidebar-nav-item-title icon-off"><span class="fullSidebarOnly">{{texts.wallet.nav.11}}</span></span>
 				</a></li>
 			</ul>
 		</nav>
@@ -556,6 +559,460 @@
 		</div>
 	</div>
 </sendNemModal>
+<newNamespaceModal disableEasyClose="true" modalClass="newNamespaceModal modal--medium" modalTitle="{{texts.modals.newNamespace.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+	<div class="form sendNem-form">
+	<div class="form-field">
+			<p class="form-label">{{texts.modals.newNamespace.name}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-newPart-textbox" type="text" value="{{newPart}}"  on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newNamespace.location}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-parent-textbox" type="text" value="{{namespaceParent}}"  on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.sender}}</p>
+			<div class="form-dropdownbox">
+				<div class="form-input form-input--textbox form-dropdownbox-selection {{#active['settingsModal-sender']}}form-dropdownbox-selection--selecting{{/}}" on-click="toggleOn('settingsModal-sender')">
+					{{#if sender}}
+                        {{#if (privateLabels[.sender])}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+						    {{sender}}
+                        {{/if}}
+					{{else}}
+						{{texts.modals.sendNem.thisAccount}}
+					{{/if}}
+				</div>
+				<ul class="form-dropdownbox-dropdown {{^active['settingsModal-sender']}}hidden{{/}}">
+					<li class="form-dropdownbox-item" on-click="set('sender', null)">{{texts.modals.sendNem.thisAccount}}</li>
+					{{#each multisigAccounts}}
+						<li class="form-dropdownbox-item {{#privateLabels[.address]}}form-dropdownbox-black{{/}}" on-click="set('sender', .address)">
+                            {{#if (privateLabels[.address])}}
+                                {{privateLabels[.address]}}
+                            {{else}}
+                                {{.address}}
+                            {{/if}}
+                        </li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">
+				{{texts.modals.sendNem.recipient}}
+				{{#if recipientError}}
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.modals.sendNem.recipientValidation}}" on-mouseover="registerToolTip"></span>
+				{{/if}}
+			</p>
+			<input type="text" class="form-input form-input--textbox {{#if recipientError}}form-input--error{{/if}} js-sendNem-recipient-textbox" on-keypress="sendFormKeypress" value="{{formattedRecipient}}" />
+			<p class="form-sublabel">
+				{{#recipientLabel}}
+					{{{fill(true, texts.modals.sendNem.labelDesc, '<strong>' + recipientLabel + '</strong>')}}}
+				{{/}}
+				{{#recipientLabel === ''}}
+					{{texts.modals.sendNem.nullLabelDesc}}
+				{{/}}
+			</p>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.amount}} <span class="form-help">({{texts.dashboard.transactions.balance}} {{fullBalance}})</span></p>
+			<div class="form-input">
+				<span class="form-input-end unit">XEM</span>
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{useMinimumFee}}" id="chk-useMinimumFee" />
+			<label class="form-checkbox-label" for="chk-useMinimumFee">
+                {{texts.common.useMinimumFee}}
+				{{#if !useMinimumFee}}
+					({{formattedMinimumFee}} XEM)
+				{{/if}}
+			</label>
+		</div>
+		<div class="form-field">
+			<div class="form-row">
+				<div class="form-half form-half--left">
+					<p class="form-label">
+                        {{texts.common.fee}}
+						{{#if feeError}}
+							<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+						{{/if}}
+					</p>
+					<div class="form-input {{#if useMinimumFee}}form-input--unimportant{{/if}} {{#if feeError}}form-input--error{{/if}}">
+						<span class="form-input-end unit">XEM</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-sendNem-fee-textbox" type="text" value="{{formattedFee}}" on-keypress="sendFormKeypress" readonly="{{useMinimumFee}}" />
+						</div>
+					</div>
+				</div>
+				<div class="form-half form-half--right">
+					<p class="form-label">{{texts.common.hoursDue}} <span class="form-help help-question icon-help-circled" title="{{texts.common.hoursDueExplanation}}" on-mouseover="registerToolTip"></span></p>
+					<div class="form-input">
+						<span class="form-input-end unit">{{texts.common.hours}}</span>
+						<div class="restOfWidth">
+							<input class="form-input-inner js-sendNem-dueBy-textbox" type="text" value="{{dueBy}}" on-keypress="sendFormKeypress" maxlength="2" />
+						</div>
+					</div>
+				</div>
+			</div>
+			{{#if sender}}
+			<div class="form-row">
+				<p class="form-label">
+					{{texts.common.multisigFee}}
+					{{#if multisigFeeError}}
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.feeValidation}}" on-mouseover="registerToolTip"></span>
+					{{/if}}
+				</p>
+				<div class="form-input form-input--unimportant {{#if multisigFeeError}}form-input--error{{/if}}">
+					<span class="form-input-end unit">XEM</span>
+					<div class="restOfWidth">
+						<input class="form-input-inner js-sendNem-multisigFee-textbox" type="text" value="{{formattedMultisigFee}}" on-keypress="sendFormKeypress" readonly="true" />
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<p>{{{texts.common.noCharge}}}</p>
+			</div>
+			{{/if}}
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.sendNem.message}}</p>
+            {{^messageValid}}
+            <span class="sendNem-errorIcon icon-attention-circled" title="Hex message can consist only of hexadecimal characters" on-mouseover="registerToolTip"></span>
+            {{/}}
+			<textarea class="form-input form-input--textarea sendNem-message {{^messageValid}}form-input--error{{/}}" value="{{rawMessage}}" maxlength="256"></textarea>
+			<div class="form-subfield">
+                <input class="form-checkbox" type="checkbox" checked="{{messageHexBased}}" id="chk-hex-message"/>
+                <label class="form-checkbox-label" for="chk-hex-message">Hex</label>
+
+				<input class="form-checkbox" type="checkbox" checked="{{encrypted}}" id="chk-encrypt-message" disabled="{{!encryptionPossible}}" />
+				<label class="form-checkbox-label{{^encryptionPossible}} disabled{{/}}" for="chk-encrypt-message">{{texts.modals.sendNem.encrypt}}</label>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">
+                {{texts.common.password}}
+				{{#if passwordError}}
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				{{/if}}
+			</p>
+			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+		</div>
+		<div class="modal-buttons sendNem-buttons">
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" >{{texts.modals.newNamespace.createButton}}</button>
+		</div>
+	</div>
+</newNamespaceModal>
+<namespaceDetailsModal modalClass="namespaceDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}" blockchainHeight="{{blockchainHeight}}">
+    {{#transaction}}
+		<table>
+			<tr>
+				<td class="table-cell table-cell--label"><strong>{{texts.modals.transactionDetails.type}}</strong></td>
+				<td class="table-cell table-cell--content">
+					{{texts.transactionTypes[.type]}} {{#innerType}}({{texts.transactionTypes[.innerType]}}){{/innerType}}
+				</td>
+			</tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.hash}}</td>
+                <td class="table-cell table-cell--content">{{.hash}}</td>
+            </tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
+                <td class="table-cell table-cell--content">{{.formattedDate}}</td>
+            </tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .confirmed}}
+                        {{#if blockchainHeight}}
+                            {{blockchainHeight - .blockHeight + 1}}
+                        {{else}}
+                            {{texts.modals.transactionDetails.confirmationsUnknown}}
+                        {{/if}}
+                    {{else}}
+                        {{texts.modals.transactionDetails.pending}}
+                    {{/if}}
+                </td>
+            </tr>
+
+            {{#if (.isMultisig)}}
+                <tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigAccount}}</td>
+					<td class="table-cell table-cell--content">
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">
+                            {{#if privateLabels[.inner.sender]}}
+                                {{privateLabels[.inner.sender]}}
+                            {{else}}
+                                {{.multisig.formattedFrom}}
+                            {{/if}}
+                        </a>
+					</td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
+                    <td class="table-cell table-cell--content">
+                        <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                            {{#if privateLabels[.sender]}}
+                                {{privateLabels[.sender]}}
+                            {{else}}
+                                {{.formattedSender}}
+                            {{/if}}
+                        </a>
+                    </td>
+                </tr>
+            {{/if}}
+
+			{{#if (.isMultisig)}}
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                        {{#if privateLabels[.sender]}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{.formattedSender}}
+                        {{/if}}
+                    </a>
+				</td>
+			</tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">
+                    {{texts.modals.transactionDetails.multisigMessage}}
+                </td>
+                <td class="table-cell table-cell--content">
+                    {{.cosignatoriesCount}}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.common.dueBy}}</td>
+                <td class="table-cell table-cell--content">{{multisig.validMinutes}} {{texts.common.minutes}} <span class="dimmed">({{.multisig.formattedDeadline}})</span></td>
+            </tr>
+            {{/if}}
+
+            {{#if (.isMultisig)}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
+                <td class="table-cell table-cell--content">{{{.multisig.formattedInnerFee}}} XEM</td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigFees}}</td>
+                <td class="table-cell table-cell--content">{{{.multisig.formattedTotalMultisigFees}}} XEM</td>
+            </tr>
+            {{else}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.common.fee}}</td>
+                <td class="table-cell table-cell--content">{{{.formattedFee}}} XEM</td>
+            </tr>
+            {{/if}}
+
+            <tr>
+                <td colspan="2">
+                    <hr/>
+                </td>
+            </tr>
+
+            {{#if (.type === TransactionType.Transfer || .type === TransactionType.Multisig_Transfer)}}
+            {{>transferTransactionPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Multisig_Importance_Transfer)}}
+            {{>importanceTransactionPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Aggregate_Modification || .type === TransactionType.Multisig_Aggregate_Modification)}}
+            {{>aggregateModificationPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Provision_Namespace || .type === TransactionType.Multisig_Provision_Namespace)}}
+            {{>provisionNamespacePartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Mosaic_Creation || .type === TransactionType.Multisig_Mosaic_Creation)}}
+            {{>mosaicCreationPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Mosaic_Supply || .type === TransactionType.Multisig_Mosaic_Supply)}}
+            {{>mosaicSupplyPartial}}
+            {{/if}}
+
+            {{#if (.isMultisig)}}
+				<tr><td colspan="2"><hr></td></tr>
+				<tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+					<td class="table-cell table-cell--content">
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">
+                            {{#if privateLabels[.issuer]}}
+                                {{privateLabels[.issuer]}}
+                            {{else}}
+                                {{.issuer}}
+                            {{/if}}
+                        </a>
+					</td>
+				</tr>
+				<tr><td colspan="2">Signatures present:</td></tr>
+                {{#if .confirmed}}
+                    {{#each .signatures}}
+                        <tr>
+                            <td colspan="2" class="table-cell table-cell--content">
+                                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                    {{#if privateLabels[.sender]}}
+                                        {{privateLabels[.sender]}}
+                                    {{else}}
+                                        {{.sender}}
+                                    {{/if}}
+                                </a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    {{#each .signaturesData}}
+                    <tr>
+                        <td colspan="2" class="table-cell table-cell--content">
+                            <a class="hyperlink--default {{#if .present}}icon-ok-circled2{{else}}icon-circle-empty{{/if}}" href="javascript:;" on-click="viewAccount(.address)">
+                                {{#if privateLabels[.sender]}}
+                                    {{privateLabels[.sender]}}
+                                {{else}}
+                                    {{.sender}}
+                                {{/if}}
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                {{/if}}
+			{{/if}}
+		</table>
+	{{/}}
+</namespaceDetailsModal>
+<newMosaicModal disableEasyClose="true" modalClass="newMosaicModal modal--medium" modalTitle="{{texts.modals.newMosaic.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
+	<div class="form newMosaic-form">
+		
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.name}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.location}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.description}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<p>{{texts.modals.newMosaic.mosaicProperties}} </p>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.initialSupply}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.decimalPlaces}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{mutableSupply}}" id="chk-mutableSupply" />
+			<label class="form-checkbox-label" for="chk-mutableSupply">
+                {{texts.modals.newMosaic.mutableSupply}}
+			</label>
+		</div>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{transferable}}" id="chk-transferable" />
+			<label class="form-checkbox-label" for="chk-transferable">
+                {{texts.modals.newMosaic.transferable}}
+			</label>
+		</div>
+		<p>{{texts.modals.newMosaic.levySettings}} </p>
+		<div class="form-field">
+			<input class="form-checkbox" type="checkbox" checked="{{useLevy}}" id="chk-useLevy" />
+			<label class="form-checkbox-label" for="chk-useLevy">
+                {{texts.modals.newMosaic.useLevy}}
+			</label>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.recipient}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.levyMosaic}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+		<div class="form-field">
+			<p class="form-label">{{texts.modals.newMosaic.levyAmount}} </p>
+			<div class="form-input">
+				<div class="restOfWidth">
+					<input class="form-input-inner js-sendNem-amount-textbox" type="text" value="{{formattedAmount}}" on-keypress="sendFormKeypress" />
+				</div>
+			</div>
+		</div>
+  		<div class="form-field">
+			<input class="form-checkbox" type="radio" checked="{{absolute}}" id="radio-levyType" />
+			<label class="form-checkbox-label" for="chk-useLevy">
+                {{texts.modals.newMosaic.absolute}}
+			</label>
+			<input class="form-checkbox" type="radio" checked="{{percentage}}" id="radio-levyType" />
+			<label class="form-checkbox-label" for="chk-useLevy">
+               {{texts.modals.newMosaic.percentage}} 
+			</label>
+		</div>
+		<div class="form-field">
+			<p class="form-label">
+                {{texts.common.password}}
+				{{#if passwordError}}
+					<span class="sendNem-errorIcon icon-attention-circled" title="{{texts.common.passwordValidation}}" on-mouseover="registerToolTip"></span>
+				{{/if}}
+			</p>
+			<input type="password" class="form-input form-input--textbox" value="{{password}}" on-keypress="sendFormKeypress" />
+		</div>
+		<div class="modal-buttons sendNem-buttons">
+			<button type="button" class="modal-button modal-button--secondary" on-click="closeModal()">{{texts.common.cancelButton}}</button>
+			<button type="button" class="modal-button modal-button--primary" on-click="sendTransaction()" disabled="{{!formValid}}">{{texts.modals.newMosaic.createButton}}</button>
+		</div>
+	</div>
+</newMosaicModal>
 <activateDelegatedModal disableEasyClose="true" modalClass="activateDelegatedModal modal--medium" modalTitle="{{texts.modals.activateDelegated.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
     <div class="form activateDelegated-form">
         <div class="form-field">

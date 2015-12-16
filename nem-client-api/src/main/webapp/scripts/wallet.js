@@ -253,6 +253,41 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     });
                 }
             },
+            
+            ncc.openNewNamespace = function() {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('newNamespace');
+                    m.open();
+                    
+                } else if (ncc.get('loadingDb')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.loadingWarning.title'), ncc.get('texts.faults.602'));
+
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
+            ncc.openNewMosaic = function() {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('newMosaic');
+                    m.open();
+                    
+                } else if (ncc.get('loadingDb')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.loadingWarning.title'), ncc.get('texts.faults.602'));
+
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
 
             ncc.openConvertMultisig = function() {
                 var m = ncc.getModal('convertMultisig');
@@ -278,6 +313,14 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
 
             ncc.viewTransaction = function(transaction) {
                 var m = ncc.getModal('transactionDetails');
+                m.set('TransactionType', TransactionType);
+                m.set('transaction', transaction);
+                m.set('privateLabels', ncc.get('privateLabels'));
+                m.open();
+            };
+
+            ncc.viewNamespace = function(transaction) {
+                var m = ncc.getModal('namespaceDetails');
                 m.set('TransactionType', TransactionType);
                 m.set('transaction', transaction);
                 m.set('privateLabels', ncc.get('privateLabels'));

@@ -3,13 +3,13 @@
 define([
     'languages',
     'TransactionType', 'jquery', 'ractive', 'mustache', 'tooltipster', 'Utils', 'NccModal',
-    'ConfirmModal', 'InputModal', 'SettingsModal', 'SendNemModal', 'SignMultisigModal',
+    'ConfirmModal', 'InputModal', 'SettingsModal', 'SendNemModal', 'NewNamespaceModal',  'NamespaceDetailsModal', 'NewMosaicModal', 'SignMultisigModal',
     'ModificationConfirmModal', 'SignatureConfirmModal', 'TransactionConfirmModal', 'TransactionDetailsModal', 'AccountDetailsModal', 'ConvertMultisigModal',
     'GenericDelegatedModal', 'GenericDelegatedConfirmModal'
 ],
 function(languages,
     TransactionType, $, Ractive, Mustache, tooltipster, Utils, NccModal,
-    ConfirmModal, InputModal, SettingsModal, SendNemModal, SignMultisigModal,
+    ConfirmModal, InputModal, SettingsModal, SendNemModal, NewNamespaceModal,  NamespaceDetailsModal,  NewMosaicModal, SignMultisigModal,
     ModificationConfirmModal, SignatureConfirmModal, TransactionConfirmModal, TransactionDetailsModal, AccountDetailsModal, ConvertMultisigModal,
     GenericDelegatedModal, GenericDelegatedConfirmModal) {
 
@@ -24,6 +24,9 @@ function(languages,
             inputModal: InputModal,
             settingsModal: SettingsModal,
             sendNemModal: SendNemModal,
+            newNamespaceModal: NewNamespaceModal,
+            namespaceDetailsModal: NamespaceDetailsModal,
+            newMosaicModal: NewMosaicModal,
             signMultisigModal: SignMultisigModal,
             modificationConfirmModal: ModificationConfirmModal,
             signatureConfirmModal: SignatureConfirmModal,
@@ -208,7 +211,7 @@ function(languages,
                 return this.get('nisStatus.code') === this.Status.STATUS_SYNCHRONIZED || this.get('nis.nodeMetaData.lastBlockBehind') === 0;
             },
             lcwNameValid: function() {
-            	// TODO 20150711 J-G: could you use Utils.valid.walletName()?
+                // TODO 20150711 J-G: could you use Utils.valid.walletName()?
                 var walletName = this.get('landingPage.createWalletForm.wallet');
                 return !!walletName && !walletName.match(/[\\/.:*?"<>|]/);
             },
@@ -810,7 +813,7 @@ function(languages,
             require(['languages'], function(languages) {
                 self.set('languages', languages);
                 self.observe('settings.language', function(newValue) {
-					newValue = newValue || Utils.config.defaultLanguage;
+                    newValue = newValue || Utils.config.defaultLanguage;
                     for (var i = 0; i < languages.length; i++) {
                         if (languages[i].id.toLowerCase() === newValue.toLowerCase()) {
                             self.set('texts', languages[i].texts);

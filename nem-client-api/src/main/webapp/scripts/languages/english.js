@@ -614,7 +614,8 @@ define({
 				'Applications',
 				'Accounts',
 				'Settings',
-				'Close Program'
+				'Close Program',
+				'Namespaces & Mosaics'
 			],
 			bootNodeWarning: "A local node needs to be booted before you can fully utilize NCC's features."
 		},
@@ -714,6 +715,28 @@ define({
 				pending: 'Pending',
 				noTransactions: 'No transactions have been performed yet',
 				loading: 'Loading more transactions...'
+			}
+		},
+		namespacesmosaics: {
+			title: 'Namespaces',
+			newNamespace: 'New Namespace',
+			newMosaic: 'New Mosaic',
+			balance: 'Current Balance',
+			filters: {
+				displayAll: 'Display all',
+				displayMineonly: 'Display mine only',
+				filterNamespace: 'Filter Namespace:',
+				filterMosaic: 'Filter Mosaic:'
+			},
+			table: {
+				columns: [
+					'',
+					'Namespace',
+					'Height',
+					'Owner'
+				],
+				loading: 'Loading Namespace & Mosaic...',
+				subNamespace: 'sub-namespace'
 			}
 		},
 		harvestedBlocks: {
