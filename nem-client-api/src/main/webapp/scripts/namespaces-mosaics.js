@@ -23,21 +23,34 @@
             //namespace root
             var url = remoteserver + '/namespace/root/page?';
                         //alert(url);
+                        var outputurls = [];
             ncc.set('namespaces.all', null);
-
+            ncc.set('namespaces.urls', null);
+outputurls.push({
+    "url":url
+                            });
             $.getJSON(url, function(data) {
                 var output = [];
+                var ownerslist = [];
                 var mosaicOutputs = [];
                 for (var i in data.data) {
 
-
+                  
                     //namespaces owned by root owners
 // http://127.0.0.1:7890/namespace/mosaic/definition/page?namespace=jabo38_ltd
 //http://127.0.0.1:7890/account/namespace/page?address=TBGIMRE4SBFRUJXMH7DVF2IBY36L2EDWZ37GVSC4
 
-
+            // do we already know this owner account?
+            var foundit = $.inArray(data.data[i].namespace.owner, ownerslist);
+            //alert("Found it = " + foundit + "Ownerslist-" + ownerslist +  " ");
+              if (foundit < 0) {
+                //alert("Check it");
+              
              var url2 = remoteserver + '/account/namespace/page?address=' + data.data[i].namespace.owner;
                         //alert(url2);
+                        outputurls.push({
+    "url":url2
+                            });
                         
                          $.getJSON(url2, function(data2) {
         for (var i2 in data2.data) {
@@ -49,8 +62,10 @@
 
             //mosaics lookup 
             var url3 = remoteserver + '/namespace/mosaic/definition/page?namespace=' + data2.data[i2].fqn;
-                        //alert(url2);
-                        
+                        //alert(url3);
+                        outputurls.push({
+    "url":url3
+                            });
                          $.getJSON(url3, function(data3) {
         for (var i3 in data3.data) {
             //alert(data2.data[ii].mosaic.id.name);
@@ -63,20 +78,29 @@
                                             } //end mosaics lookup for
                                              }); //end mosaics lookup
 
+//alert("fqn" + data2.data[i2].fqn +
+//    "owner" + data2.data[i2].owner +
+//    "height" +data2.data[i2].height);
+
+
 output.push({
     "fqn":data2.data[i2].fqn,
     "owner":data2.data[i2].owner,
     "height":data2.data[i2].height,
   });
 
+
                                      } //end namespaces owned by root owners for
 
                                  }); //end namespaces owned by root owners
-
-
+} //end check if we already know this owner.
+ownerslist.push(data.data[i].namespace.owner);
              } //end namespace root for
+
+
         ncc.set('namespaces.all', output);
         ncc.set('mosaics.all', mosaicOutputs);
+        ncc.set('namespaces.urls', outputurls);
             }); //end namespace root
 
 

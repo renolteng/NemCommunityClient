@@ -139,9 +139,40 @@
 							{{/each}}
 
 						</tbody>
-					</table>			
+					</table>
+					<div style="display:none;">			
+				Displaying {{namespaces.urls.length}} URLS
+					<table class="txList">
+						<thead>
+							<tr class="txList-row namespacessPage-row">
 
+								<th>URL</th>
+						
+                               
+							</tr>
+						</thead>
+						<tbody>
+							{{#each namespaces.urls}}
+								<tr class="txList-row">
+								<td> </td>
+								
+								
+								<td><a href="{{.url}}" >{{.url}}</a></td>
+								
 
+                     			</tr>
+                     			<tr>
+                     			<td colspan="4">
+                     			
+									
+                                   
+                     			</td>
+                     			</tr>
+							{{/each}}
+
+						</tbody>
+					</table>
+						</div>
 				</div>
 			</div>
 		</section>
