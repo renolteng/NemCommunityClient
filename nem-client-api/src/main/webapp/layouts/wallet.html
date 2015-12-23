@@ -716,40 +716,190 @@
 	</div>
 </newNamespaceModal>
 <namespaceDetailsModal modalClass="namespaceDetailsModal modal--wide" modalTitle="{{texts.modals.transactionDetails.title}}" closeOnEnter="true" on-registerToolTip="registerToolTip" texts="{{texts}}" blockchainHeight="{{blockchainHeight}}">
-<h2>{{.fqn}}</h2>
-	<h3>Mosaics under this Namespace</h3>
-					Displaying {{mosaics.all.length}} Mosaics
-								<table class="txList">
-						<thead>
-							<tr class="txList-row namespacessPage-row">
+    {{#transaction}}
+		<table>
+			<tr>
+				<td class="table-cell table-cell--label"><strong>{{texts.modals.transactionDetails.type}}</strong></td>
+				<td class="table-cell table-cell--content">
+					{{texts.transactionTypes[.type]}} {{#innerType}}({{texts.transactionTypes[.innerType]}}){{/innerType}}
+				</td>
+			</tr>
 
-								
-								
-								<th class="txList-header txList-col--sender">Mosaic</th>
-								<th class="txList-header txList-col--message">Description</th>
-                               
-							</tr>
-						</thead>
-						<tbody>
-							{{#each mosaics.all}}
-								<tr class="txList-row">
-								
-					
-						<td class="txList-cell txList-col--details">
-                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.fqn}}:{{.name}}</a>
-                                       
-                                    </td>
-                                        
-                                        <td>
-                                        {{.description}}
-                                        
-                                        </td>
-                                        </tr>
-                     			
-							{{/each}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.hash}}</td>
+                <td class="table-cell table-cell--content">{{.hash}}</td>
+            </tr>
 
-						</tbody>
-					</table>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.time}}</td>
+                <td class="table-cell table-cell--content">{{.formattedDate}}</td>
+            </tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.confirmations}}</td>
+                <td class="table-cell table-cell--content">
+                    {{#if .confirmed}}
+                        {{#if blockchainHeight}}
+                            {{blockchainHeight - .blockHeight + 1}}
+                        {{else}}
+                            {{texts.modals.transactionDetails.confirmationsUnknown}}
+                        {{/if}}
+                    {{else}}
+                        {{texts.modals.transactionDetails.pending}}
+                    {{/if}}
+                </td>
+            </tr>
+
+            {{#if (.isMultisig)}}
+                <tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigAccount}}</td>
+					<td class="table-cell table-cell--content">
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.inner.sender)">
+                            {{#if privateLabels[.inner.sender]}}
+                                {{privateLabels[.inner.sender]}}
+                            {{else}}
+                                {{.multisig.formattedFrom}}
+                            {{/if}}
+                        </a>
+					</td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.sender}}</td>
+                    <td class="table-cell table-cell--content">
+                        <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                            {{#if privateLabels[.sender]}}
+                                {{privateLabels[.sender]}}
+                            {{else}}
+                                {{.formattedSender}}
+                            {{/if}}
+                        </a>
+                    </td>
+                </tr>
+            {{/if}}
+
+			{{#if (.isMultisig)}}
+			<tr>
+				<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+				<td class="table-cell table-cell--content">
+					<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                        {{#if privateLabels[.sender]}}
+                            {{privateLabels[.sender]}}
+                        {{else}}
+                            {{.formattedSender}}
+                        {{/if}}
+                    </a>
+				</td>
+			</tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">
+                    {{texts.modals.transactionDetails.multisigMessage}}
+                </td>
+                <td class="table-cell table-cell--content">
+                    {{.cosignatoriesCount}}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.common.dueBy}}</td>
+                <td class="table-cell table-cell--content">{{multisig.validMinutes}} {{texts.common.minutes}} <span class="dimmed">({{.multisig.formattedDeadline}})</span></td>
+            </tr>
+            {{/if}}
+
+            {{#if (.isMultisig)}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.innerFee}}</td>
+                <td class="table-cell table-cell--content">{{{.multisig.formattedInnerFee}}} XEM</td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multisigFees}}</td>
+                <td class="table-cell table-cell--content">{{{.multisig.formattedTotalMultisigFees}}} XEM</td>
+            </tr>
+            {{else}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.common.fee}}</td>
+                <td class="table-cell table-cell--content">{{{.formattedFee}}} XEM</td>
+            </tr>
+            {{/if}}
+
+            <tr>
+                <td colspan="2">
+                    <hr/>
+                </td>
+            </tr>
+
+            {{#if (.type === TransactionType.Transfer || .type === TransactionType.Multisig_Transfer)}}
+            {{>transferTransactionPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Importance_Transfer || .type === TransactionType.Multisig_Importance_Transfer)}}
+            {{>importanceTransactionPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Aggregate_Modification || .type === TransactionType.Multisig_Aggregate_Modification)}}
+            {{>aggregateModificationPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Provision_Namespace || .type === TransactionType.Multisig_Provision_Namespace)}}
+            {{>provisionNamespacePartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Mosaic_Creation || .type === TransactionType.Multisig_Mosaic_Creation)}}
+            {{>mosaicCreationPartial}}
+            {{/if}}
+
+            {{#if (.type === TransactionType.Mosaic_Supply || .type === TransactionType.Multisig_Mosaic_Supply)}}
+            {{>mosaicSupplyPartial}}
+            {{/if}}
+
+            {{#if (.isMultisig)}}
+				<tr><td colspan="2"><hr></td></tr>
+				<tr>
+					<td class="table-cell table-cell--label">{{texts.modals.transactionDetails.issuer}}</td>
+					<td class="table-cell table-cell--content">
+						<a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.issuer)">
+                            {{#if privateLabels[.issuer]}}
+                                {{privateLabels[.issuer]}}
+                            {{else}}
+                                {{.issuer}}
+                            {{/if}}
+                        </a>
+					</td>
+				</tr>
+				<tr><td colspan="2">Signatures present:</td></tr>
+                {{#if .confirmed}}
+                    {{#each .signatures}}
+                        <tr>
+                            <td colspan="2" class="table-cell table-cell--content">
+                                <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.sender)">
+                                    {{#if privateLabels[.sender]}}
+                                        {{privateLabels[.sender]}}
+                                    {{else}}
+                                        {{.sender}}
+                                    {{/if}}
+                                </a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    {{#each .signaturesData}}
+                    <tr>
+                        <td colspan="2" class="table-cell table-cell--content">
+                            <a class="hyperlink--default {{#if .present}}icon-ok-circled2{{else}}icon-circle-empty{{/if}}" href="javascript:;" on-click="viewAccount(.address)">
+                                {{#if privateLabels[.sender]}}
+                                    {{privateLabels[.sender]}}
+                                {{else}}
+                                    {{.sender}}
+                                {{/if}}
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                {{/if}}
+			{{/if}}
+		</table>
+	{{/}}
 </namespaceDetailsModal>
 <newMosaicModal disableEasyClose="true" modalClass="newMosaicModal modal--medium" modalTitle="{{texts.modals.newMosaic.title}}" texts="{{texts}}" fill="{{fill}}" on-registerToolTip="registerToolTip" activeAccount="{{activeAccount}}">
 	<div class="form newMosaic-form">
