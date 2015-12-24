@@ -718,7 +718,7 @@ define({
 			}
 		},
 		namespacesmosaics: {
-			title: 'Namespaces',
+			title: 'Namespaces & Mosaics',
 			newNamespace: 'New Namespace',
 			newMosaic: 'New Mosaic',
 			balance: 'Current Balance',
@@ -731,11 +731,11 @@ define({
 			table: {
 				columns: [
 					'',
-					'Namespace',
-					'Height',
-					'Owner'
+					'Namespace & Mosaic',
+					'Creation',
+					'Expiration (est.)'
 				],
-				loading: 'Loading Namespace & Mosaic...',
+				loading: 'Loading Namespaces & Mosaics...',
 				subNamespace: 'sub-namespace'
 			}
 		},
