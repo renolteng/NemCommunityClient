@@ -34,15 +34,48 @@
             {{texts.modals.transactionDetails.message}}
         </td>
         <td class="table-cell table-cell--content">
-            {{.message}}
-            {{^.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
-            {{#.encrypted}}
+            {{.real.message}}
+            {{^.real.message}}<span class="dimmed">{{texts.modals.transactionDetails.noMessage}}</span>{{/}}
+            {{#.real.encrypted}}
             &nbsp;<span class="icon-lock encryptedIcon" title="{{texts.modals.transactionDetails.encrypted}}" on-mouseover="registerToolTip"></span>
             {{/}}
         </td>
     </tr>
+{{#.real.mosaics.length}}
     <tr>
-        <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
-        <td class="table-cell table-cell--content">{{{.formattedFullAmount}}} XEM</td>
+        <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.multiplier}}</td>
+        <td class="table-cell table-cell--content">{{{.formattedFullAmount}}}</td>
     </tr>
+{{/}}
+{{^.real.mosaics.length}}
+<tr>
+    <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.amount}}</td>
+    <td class="table-cell table-cell--content">{{{.formattedFullAmount}}} XEM</td>
+</tr>
+{{/}}
+
+    <tr><td colspan="2">Mosaics present:</td></tr>
+    {{#.real.mosaics}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.mosaicName}}</td>
+                <td class="table-cell table-cell--content">
+                    <span class="dimmed">{{.mosaicId.namespaceId}} * </span>
+                    {{.mosaicId.name}}
+                </td>
+            </tr>
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.mosaicQuantity}}</td>
+                <td class="table-cell table-cell--content">{{{.formattedTotalQuantity}}} ({{{.formattedQuantity}}} * {{{formattedFullAmount}}}, raw: <span class="dimmed">{{.quantity}}</span>)</td>
+            </tr>
+            {{#if .mosaic.levy.mosaicId}}
+            <tr>
+                <td class="table-cell table-cell--label">{{texts.modals.transactionDetails.mosaicLevy}}</td>
+                <td class="table-cell table-cell--content">{{{.formattedTotalLevy}}}
+                    <span class="dimmed">{{.mosaic.levy.mosaicId.namespaceId}} * </span>
+                    {{.mosaic.levy.mosaicId.name}}
+                </td>
+            </tr>
+            {{/if}}
+    {{/}}
+
 {{/}}

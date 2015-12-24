@@ -291,7 +291,8 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
 
             ncc.openConvertMultisig = function() {
                 var m = ncc.getModal('convertMultisig');
-                m.set('isAfterMofNFork', ncc.get('blockchainHeight') > 199800);
+                var Fork_1_Height = (ncc.get('activeAccount.address')[0] === 'T') ? 90000 : 199800;
+                m.set('isAfterMofNFork', ncc.get('blockchainHeight') > Fork_1_Height);
                 m.open();
             }
 
@@ -318,9 +319,11 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                 m.open();
             };
 
-            ncc.viewNamespace = function(fqn) {
+            ncc.viewNamespace = function(transaction) {
                 var m = ncc.getModal('namespaceDetails');
-                m.set('fqn', fqn);
+                m.set('TransactionType', TransactionType);
+                m.set('transaction', transaction);
+                m.set('privateLabels', ncc.get('privateLabels'));
                 m.open();
             };
 

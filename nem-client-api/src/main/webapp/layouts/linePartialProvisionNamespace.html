@@ -10,18 +10,18 @@
 
 {{! FIELD SENDER OR RECIPIENT }}
 <td class="txList-cell txList-col--sender" title="{{.real.formattedSender}}" on-mouseover="registerToolTip">
-    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.lessor)">
-        {{#if privateLabels[.real.lessor]}}
-            {{privateLabels[.real.lessor]}}
+    <a class="hyperlink--default" href="javascript:;" on-click="viewAccount(.real.rentalFeeSink)">
+        {{#if privateLabels[.real.rentalFeeSink]}}
+            {{privateLabels[.real.rentalFeeSink]}}
         {{else}}
-            {{.real.formattedLessor}}
+            {{.real.formattedRentalFeeSink}}
         {{/if}}
     </a>
 </td>
 
 {{! FIELD MESSAGE }}
 <td class="txList-cell txList-col--message" title="{{.real.namespace}}" on-mouseover="registerToolTip">
-	/{{.real.namespace}}
+	{{.real.namespace}}
 </td>
 
 {{! FIELD AMOUNT }}
