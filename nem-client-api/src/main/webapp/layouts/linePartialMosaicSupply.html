@@ -1,6 +1,6 @@
 {{! FIELD ICON }}
 {{#if .confirmed}}
-    <td class="txList-cell txList-col--type {{#if (.real.supplyType === 'Create')}}txList-col--type--incoming{{else}}txList-col--type--outgoing{{/if}} icon-diamond" title="{{texts.transactionDirections.mosaicCreation}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
+    <td class="txList-cell txList-col--type {{#if (.real.supplyType === 'CreateSmartTiles')}}txList-col--type--incoming{{else}}txList-col--type--outgoing{{/if}} icon-diamond" title="{{texts.transactionDirections.mosaicCreation}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 {{else}}
 	<td class="txList-cell txList-col--type txList-col--type--pending icon-clock" title="{{texts.transactionDirections.pending}}" on-mouseover="registerToolTip">{{#.isMultisig}}M{{/}}</td>
 {{/if}}
@@ -20,8 +20,8 @@
 </td>
 
 {{! FIELD MESSAGE }}
-<td class="txList-cell txList-col--message" title="{{.real.namespaceName}} * {{.real.mosaicName}}" on-mouseover="registerToolTip">
-    * {{.real.mosaicName}}
+<td class="txList-cell txList-col--message" title="/{{.real.namespaceName}}:{{.real.mosaicName}}" on-mouseover="registerToolTip">
+    {{.real.mosaicName}}
 </td>
 
 {{! FIELD AMOUNT }}
@@ -29,7 +29,7 @@
 {{#if (.isMultisig && .requiresSignature)}}
         <button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 {{else}}
-    {{#if (.real.supplyType === 'Create')}}+{{else}}-{{/if}}
+    {{#if (.real.supplyType === 'CreateSmartTiles')}}+{{else}}-{{/if}}
     {{{formattedAmount}}}
 {{/if}}
 </td>

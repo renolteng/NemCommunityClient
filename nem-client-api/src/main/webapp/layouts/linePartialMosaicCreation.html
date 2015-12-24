@@ -20,8 +20,8 @@
 </td>
 
 {{! FIELD MESSAGE }}
-<td class="txList-cell txList-col--message" title="{{.real.namespaceName}} * {{.real.mosaicName}}" on-mouseover="registerToolTip">
-	* {{.real.mosaicName}}
+<td class="txList-cell txList-col--message" title="/{{.real.namespaceName}}:{{.real.mosaicName}}" on-mouseover="registerToolTip">
+	{{.real.mosaicName}}
 </td>
 
 {{! FIELD AMOUNT }}
@@ -30,7 +30,7 @@
 	{{#if .requiresSignature}}
 		<button type="button" class="transactionsTile-signMultisigButton icon-paper-plane-empty" disabled="{{nisUnavailable}}" on-click="openSignMultisig(.)">{{texts.dashboard.transactions.signMultisig}}</button>
 	{{else}}
-        {{{formattedAmount}}}
+        <span style='font-style:italic;'>{{.cosignatoriesCount}}</span>
 	{{/if}}
 {{else}}
 	<span class='dimmed'>n/a</span>

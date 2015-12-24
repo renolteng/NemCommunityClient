@@ -320,25 +320,22 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
-				multiplier: 'Multiplier',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory',
 				namespace: 'Namespace',
 				rentalFee: 'Rental fee',
 				mosaicName: 'Mosaic Name',
-				mosaicQuantity: 'Mosaic quantity',
-				mosaicLevy: 'Mosaic levy',
 				description: 'Description',
 				propertiesLabel: 'Properties',
 				properties: {
 				    divisibility: 'Divisibility',
-				    initialSupply: 'Initial supply',
-				    supplyMutable: 'Is supply mutable',
+				    quantity: 'Maximal quantity',
+				    mutablequantity: 'Is quantity mutable',
 				    transferable: 'Is transferable'
 				},
 				supplyType: 'Supply type',
-				supplyAmount: 'Supply amount',
+				supplyAmount: 'Supply amount'
 			},
 			accountDetails: {
 				title: "Account details",

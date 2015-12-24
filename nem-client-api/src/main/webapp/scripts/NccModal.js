@@ -12,17 +12,13 @@ define(['jquery', 'ractive', 'Utils'], function($, Ractive, Utils) {
                 top: 'auto'
             });
             if (this.get('extraModalClass')) {
-                var modalClass = '.modal.' + this.component.name;
-                var modal = $('.modal--active.modal-container').focus().find(modalClass);
-                modal.addClass(this.get('extraModalClass'));
+                $('.modal--active.modal-container').focus().find('.modal').addClass(this.get('extraModalClass'));
             }
             this.fire('modalOpened');
         },
         closeModal: function() {
             if (this.get('extraModalClass')) {
-                var modalClass = '.modal.' + this.component.name;
-                var modal = $('.modal--active.modal-container').focus().find(modalClass);
-                modal.removeClass(this.get('extraModalClass'));
+                $('.modal--active.modal-container').focus().find('.modal').removeClass(this.get('extraModalClass'));
             }
             this.set('isActive', false);
             this.fire('modalClosed');
