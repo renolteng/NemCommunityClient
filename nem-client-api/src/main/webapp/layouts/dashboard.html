@@ -3,18 +3,9 @@
 		<ul class="dashboard js-dashboard">
 			<li class="tile tile--assets" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="tile-title">{{mosaics.owned.length}} {{texts.dashboard.assets.title}}</h1>
+					<h1 class="tile-title">{{texts.dashboard.assets.title}} ({{mosaics.owned.length}})</h1>
 					<table class="txList">
-						<thead>
-							<tr class="txList-row namespacessPage-row">
-
-								
-								
-								<th class="txList-header txList-col--sender">Mosaic</th>
-								<th class="txList-header txList-col--message">Quantity</th>
-                               
-							</tr>
-						</thead>
+					
 						<tbody>
 							{{#each mosaics.owned}}
 								<tr class="txList-row">

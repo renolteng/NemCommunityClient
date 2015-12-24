@@ -621,7 +621,7 @@ define({
 		},
 		dashboard: {
 			assets: {
-				title: 'Your Assets'
+				title: 'Your Mosaics'
 			},
 			importance: {
 				title: 'Importance Score',
