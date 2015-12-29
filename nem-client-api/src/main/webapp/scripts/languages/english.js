@@ -621,7 +621,7 @@ define({
 		},
 		dashboard: {
 			assets: {
-				title: 'Your Assets'
+				title: 'Your Mosaics'
 			},
 			importance: {
 				title: 'Importance Score',
@@ -718,7 +718,7 @@ define({
 			}
 		},
 		namespacesmosaics: {
-			title: 'Namespaces',
+			title: 'Namespaces & Mosaics',
 			newNamespace: 'New Namespace',
 			newMosaic: 'New Mosaic',
 			balance: 'Current Balance',
@@ -731,11 +731,11 @@ define({
 			table: {
 				columns: [
 					'',
-					'Namespace',
-					'Height',
-					'Owner'
+					'Namespace & Mosaic',
+					'Creation',
+					'Expiration (est.)'
 				],
-				loading: 'Loading Namespace & Mosaic...',
+				loading: 'Loading Namespaces & Mosaics...',
 				subNamespace: 'sub-namespace'
 			}
 		},

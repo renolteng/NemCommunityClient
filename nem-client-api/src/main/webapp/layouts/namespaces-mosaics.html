@@ -38,14 +38,17 @@
 				Displaying {{namespaces.all.length}} Namespaces
 					<table class="txList">
 						<thead>
-							<tr class="txList-row namespacessPage-row">
-
+						<tr class="txList-row namespacessPage-row">
 								<th>{{texts.namespacesmosaics.table.columns.0}}</th>
-								<th class="txList-header txList-col--date">{{texts.namespacesmosaics.table.columns.1}}</th>
-								<th class="txList-header txList-col--sender">{{texts.namespacesmosaics.table.columns.2}}</th>
-								<th class="txList-header txList-col--message">{{texts.namespacesmosaics.table.columns.3}}</th>
-                               
+								<th class="sortable
+								 {{#if (contactsSort_formattedAddress===1)}}icon-up-open{{else}}icon-down-open{{/if}} {{#if (contactsSortColumn !== 'formattedAddress')}}sort-inactive{{/if}}
+								 txList-header txList-col--address namespacessPage-leftMost" on-tap='sort:formattedAddress'>{{texts.namespacesmosaics.table.columns.1}}</th>
+								<th class="sortable
+								{{#if (contactsSort_privateLabel===1)}}icon-up-open{{else}}icon-down-open{{/if}} {{#if (contactsSortColumn !== 'privateLabel')}}sort-inactive{{/if}}
+								txList-header txList-col--label"  on-tap='sort:privateLabel'>{{texts.namespacesmosaics.table.columns.2}}</th>
+								<th class="sortable txList-header txList-col--actions namespacessPage-rightMost">{{texts.namespacesmosaics.table.columns.3}}</th>
 							</tr>
+						
 						</thead>
 						<tbody>
 							{{#each namespaces.all}}

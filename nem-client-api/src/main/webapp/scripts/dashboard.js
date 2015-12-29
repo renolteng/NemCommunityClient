@@ -129,6 +129,30 @@
                     animationTime: 700
                 });
             });*/
+
+
+//owned mosaics 
+//http://127.0.0.1:7890/account/mosaic/owned?address=TD3RXTHBLK6J3UD2BH2PXSOFLPWZOTR34WCG4HXH
+ var remoteserver = ncc.get('settings.remoteServer.protocol') + "://" + ncc.get('settings.remoteServer.host') + ":" + ncc.get('settings.remoteServer.port');
+var currAccount = ncc.get('activeAccount.address');
+  var url4 = remoteserver + '/account/mosaic/owned?address=' + currAccount;
+                        //alert(url3);
+                        var mosaicOwnedOutputs = [];
+                         $.getJSON(url4, function(data4) {
+        for (var i4 in data4.data) {
+            //alert(JSON.stringify(data4));
+            //alert(data2.data[ii].mosaic.id.name);
+             mosaicOwnedOutputs.push({
+    "quantity":data4.data[i4].quantity,
+    "namespaceId":data4.data[i4].mosaicId.namespaceId,
+    "name":data4.data[i4].mosaicId.name,
+                            });
+             //{"data":[{"quantity":1099976000000,"mosaicId":{"namespaceId":"nem","name":"xem"}},{"quantity":226,"mosaicId":{"namespaceId":"gimre.games.pong","name":"paddles"}}]}
+                                    } //end owned mosaics for
+                                             }); //end owned mosaics
+
+        
+         ncc.set('mosaics.owned', mosaicOwnedOutputs);
         }
     });
 });
