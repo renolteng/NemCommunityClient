@@ -67,8 +67,7 @@ define({
 			1273: 'Мултисигнатурния подпис на транзакцията е отхвърлен.Асоциираната мултисигнатурна транзакция е неизвестна за NEM мрежата.',
 			1274: 'Транзакцията не е позволена за мултисигнатурен акаунт.',
 			1275: 'Модификацията на мултисигнатурния акаунт е отхвърлена.Един от добавените акаунти е вече косигнатурен.',
-			1321: 'Неизвестен акаунт. Акаунта трябва да е част от поне една транзакция (входяща или изходяща) за да бъде разпознат от мрежата.',
-
+			1321: 'Неизвестен акаунт. Акаунта трябва да е част от поне една транзакция (входяща или изходяща) за да бъде разпознат от мрежата.'
 		},
 		common: {
 			success: 'Успешно',
@@ -107,7 +106,7 @@ define({
 			feeValidation: 'Таксата не трябва да бъде по малка от минималната такса',
 			justUse: 'Просто използвайте',
 			dueBy: 'Време до края',
-			minutes: 'minute(s)',
+			minutes: 'минута(и)',
 			hours: 'час(а)',
 			hoursDue: 'Време до края (часове)',
 			hoursDueExplanation: 'Ако транзакцията не се включи до времето оставащо до края и тя ще бъде отхвърлена.',
@@ -117,25 +116,23 @@ define({
 			account: 'Акаунт',
 			thisAccount: 'Този акаунт',
 			warning: 'Предупреждение',
-			newBuild: 'NEW BUILD',
-			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
-
+			newBuild: 'НОВ РЕЛИЙЗ',
+			newBuildNumber: 'Има нов релийз {{1}} наличен за даунлоуд. Провери <a class=\"hyperlink--default\", href=\"http://blog.nem.io\">blog.nem.io</a> за детайли.'
 		},
 		transactionTypes: {
 			20: 'ПРЕХВЪРЛИ ТРАНЗАКЦИЯТА',
 			21: 'ВАЖНО ПРЕХВЪРЛЯНЕ',
 			22: 'МОДИФИКАЦИЯ НА МУЛТИСИГНАТУРНИЯ АКАУНТ',
-			23: 'PROVISION NAMESPACE',
-			24: 'MOSAIC CREATION',
-			25: 'MOSAIC SUPPLY',
-			40: 'MULTISIG SIGNATURE',
+			23: 'ОСИГУРЯВАНЕ NAMESPACE',
+			24: 'MOSAIC СЪЗДАВАНЕ',
+			25: 'MOSAIC ДОСТАВКА',
+			40: 'МУЛТИСИГНАТУРЕН ПОДПИС',
 			50: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
 			51: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
 			52: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
 			53: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
 			54: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
-			55: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ',
-
+			55: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ'
 		},
 		transactionDirections: {
 			pending: 'Чакаща транзакция',
@@ -144,9 +141,9 @@ define({
 			self: 'Собственна транзакция',
 			importance: 'Важна транзакция',
 			modification: 'Сумарна Модификация на Мултисигнатурата',
-			provision: 'Provision Namespace',
-			mosaicCreation: 'Mosaic Creation',
-			mosaicSupply: 'Mosaic Supply'
+			provision: 'Осигуряване Namespace',
+			mosaicCreation: 'Mosaic Създаване',
+			mosaicSupply: 'Mosaic Доставка'
 		},
 		modals: {
 			error: {
@@ -162,12 +159,12 @@ define({
 				no: 'Не'
 			},
 			initialTy: {
-				title: "WELCOME to NEM",
-				content: "<c>Sbhaqrq ba gur fgebat cevapvcyrf bs rtnyvgnevna naq rdhnyvgl va qvfgevohgvba, gur Arj Rpbabzl Zbirzrag, ARZ, unf abj svanyyl pbzr gb sehvgvba nsgre pybfr gb 14 zbaguf bs vagrafvir qrirybczrag. Va nqqvgvba gb 5 pber qrirybcref naq 7 pber znexrgref, jr unir n ubfg bs pbzzhavgl zrzoref jub unir urycrq hf va bar jnl be nabgure, jvgubhg jubz, guvf jbhyq arire unir pbzr gbtrgure fb jryy nf orvat bar bs gur srj pelcgb vavgvngvirf jvgu fhpu n ovt grnz. Fcrpvny zragvba vf tvira gb gur sbyybjvat:</c><ue/><c><o>Grpuavpny naq Znexrgvat vachg:</o><oe/> Nzl, naqzr, nirentrwbr, OenvaBsZnffrf, qmnezhfpu, RSSI, Rynan82, rexxv, servtrvfg, unccl4209, vafgnpnfu, wnqrqwnpx, XrivaYv, XxbgArz, xbbernz, Xelfgb, Ybv Gena, ylxn, zvkznfgre, ZeCbegZna, arzovg, akxbvy, bjba, Cnagure03, curebzbar, erabgrat.yv, evtry, FnhyTenl, funjayrnel, fbyvk, fgbar, guvyba, haibvqcy, munaxnvjra, mbngn87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</c><ue/><c><o>APP Hfre Vagresnpr genafyngvba:</o><oe/>ncrk, obrfgva, Punbf514, QVZXNMQF, svypurs, servtrvfg, Thyvire, vnzvavgabj06, Wnarn4cqn, xhccnynugv, Ypuneyrf, znegvfznegvf, zrff-yrybhpu, Cnenan, evtry, Funja, Fcvqre, 楊 輝彦</c><c><oe/>Va nqqvgvba gb gur nobir 67 grnz zrzoref, jr nyfb unir bgure zrzoref jub  pbagevohgrq, jurgure va grpuavpny, znexrgvat be fgerff grfgvat gur flfgrz qhevat gur nycun naq orgn cunfr. Jr jbhyq yvxr gb nqqvgvbanyyl gunax nyy gubfr vaqvivqhnyf abg yvfgrq urer naq gur terngre ARZ pbzzhavgl orpnhfr jvgubhg gurz, jr jbhyq unir abg rire pbzr fb sne.</c><ue/><c>Naq zbfg vzcbegnagyl<oe/><o>Gunax LBH!</o><oe/><oe/>Arj Rpbabzl fgnegf jvgu LBH!</c>"
+				title: 'ДОБРЕ ДОШЛИ В NEM',
+				content: '<p>Основан на строгите принципи на егалитаризъм и равенство в разпределението ,New Economy Movement, NEM,сега вече е доведен до успешен край след 14 месечна интензивна разработка.В Допълнение на 5 основни разработчика и 7 основни маркетинг специалиста , ние имаме множество членове на общността ,които ни помагат по един или друг начин ,без които,това никога нямаше да се случитолкова добре ,като една от малкото крипто инициативи с такъв голям отбор. Специално трябва да отбележим следните:</p><hr/><p><b>Технически и Маркетинг сътрудници</b><br/> Amy, andme, averagejoe, BrainOfMasses, dzarmusch, EFFV, Elana82, erkki, freigeist, happy4209, instacash, jadedjack, KevinLi, KkotNem, kooream, Krysto, Loi Tran, lyka, mixmaster, MrPortMan, nembit, nxkoil, owon, Panther03, pheromone, renoteng.li, rigel, SaulGray, shawnleary, solix, stone, thilon, unvoidpl, zhankaiwen, zoata87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</p><hr/><p><b>NCC юзър интерфейс превод:</b><br/>apex, boestin, Chaos514, DIMKAZDS, filchef, freigeist, Guliver, iaminitnow06, Janea4pda, kuppalahti, Lcharles, martismartis, mess-lelouch, Parana, rigel, Shawn, Spider, 楊 輝彦</p><p><br/>В допълнение на над 67 членове на отбора ние имаме също някои които са допринесли дали в техническо отношение,маркетинг или стрес тестинг на системата през алфа и бета фазата.Ние искаме да благодаримна тези които не са упоменати по гореи на прекрасната NEM обшност ,защото без тях ние нямаше да стигнем до тук.</p><hr/><p>И най важното<br/><b>Благодарим ВИ!</b><br/><br/>New Economy стартира с ВАС!</p>'
 			},
 			initialBackup: {
-				title: "Welcome to NEM",
-				content: "You can create wallet backup from menu in upper right corner."
+				title: 'Добре дошли в NEM',
+				content: 'Вие може да създадете бекъп на портфейла си от менюто в горния ляв ъгъл.'
 			},
 			settings: {
 				title: 'Настройки',
@@ -194,10 +191,10 @@ define({
 				saveSuccess: 'Настройките бяха успешно запазени'
 			},
 			signToken: {
-				title: "Sign a token using account",
-				label: "Token (url, string, anything)",
-				signature: "Signed token",
-				sign: "Sign"
+				title: 'Подпиши символите използвайки акаунта',
+				label: 'Символи (url, string, каквото и да е)',
+				signature: 'Подписани символи',
+				sign: 'Подпиши'
 			},
 			multisig: {
 				title: 'Превърни акаунта в мултисигнатурен',
@@ -209,15 +206,14 @@ define({
 				convert: 'Конвертирай',
 				txConfirm: {
 					title: 'Потвърди Преобразуването в Мултисигнатурен Акаунт',
-					total: 'Общо',
-
+					total: 'Общо'
 				},
 				warning: 'Мултисигнатурния акаунт е в списъка на косигнатурите.Това ще предизвика блокиране на акаунта и прекъсване досъпа до фонда му.Вие навярно <b>НЕ ИСКАТЕ </b> да направите това.',
-				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
-				minCosignatoriesRelativeLabel: 'relative change',
-				minCosignatoriesLabel: 'Minimum number of cosignatories',
-				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
-				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
+				minCosignatoriesDefaultLabel: 'Използвай косигнатурния номер по подразбиране.',
+				minCosignatoriesRelativeLabel: 'относителна промяна',
+				minCosignatoriesLabel: 'Минимален номер на косигнатурите',
+				minCosignatoriesZero: 'Използвайки нула ще доведе всички косигнатури да са необходими.',
+				minCosignatoriesOverflow: 'Предоставения номер е по голям от номера на косигнатурите'
 			},
 			signMultisig: {
 				title: 'Подпиши мултисигнатурна транзакция',
@@ -237,8 +233,7 @@ define({
 					title: 'Потвърди Мултисигнатурната Транзакция',
 					message: 'Съобщение',
 					encrypted: 'Съобщението е криптирано',
-					noMessage: 'Няма съобщение',
-
+					noMessage: 'Няма съобщение'
 				}
 			},
 			sendNem: {
@@ -253,7 +248,7 @@ define({
 				message: 'Съобщение',
 				encrypt: 'Криптирано съобщение',
 				sending: 'Изпращам...',
-				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
+				successMessage: 'Вашата транзакция беше изпратена успешно! <br><br>Hash на транзакцията: {{1}}',
 				txConfirm: {
 					title: 'Потвърдете транзакцията',
 					amount: 'Сума',
@@ -316,18 +311,18 @@ define({
 				multisigFees: 'Мултисигнатурни такси',
 				cosignatory: 'Косигнатура',
 				namespace: 'Namespace',
-				rentalFee: 'Rental fee',
-				mosaicName: 'Mosaic Name',
-				description: 'Description',
-				propertiesLabel: 'Properties',
+				rentalFee: 'Такса за наем',
+				mosaicName: 'Mosaic Име',
+				description: 'Описание',
+				propertiesLabel: 'Аксесоари',
 				properties: {
-					divisibility: 'Divisibility',
-					quantity: 'Maximal quantity',
-					mutablequantity: 'Is quantity mutable',
-					transferable: 'Is transferable'
+					divisibility: 'Делимост',
+					quantity: 'Максимално количество',
+					mutablequantity: 'Дали количеството е непостоянно',
+					transferable: 'Може да се прехвърля'
 				},
-				supplyType: 'Supply type',
-				supplyAmount: 'Supply amount'
+				supplyType: 'Снабдяване тип ',
+				supplyAmount: 'Снабдяване количество'
 			},
 			accountDetails: {
 				title: 'Детайли на акаунта',
@@ -375,8 +370,7 @@ define({
 			},
 			showRemotePrivateKey: {
 				title: 'Покажи ЧАСТНИЯТ Ключ на Отдалечения Акаунт',
-				message: 'Това ще покаже частният ключ на отдалечения акаунт на екрана ,като текст.В предвид ,че може да имате някъкъв малуер в системата това може да бъде опасна операция.Сигурни ли сте че искате да го направите?',
-
+				message: 'Това ще покаже частният ключ на отдалечения акаунт на екрана ,като текст.В предвид ,че може да имате някъкъв малуер в системата това може да бъде опасна операция.Сигурни ли сте че искате да го направите?'
 			},
 			addAccount: {
 				title: 'Добавете съществуващ акаунт',
@@ -440,9 +434,8 @@ define({
 				wallet: 'Портфейл',
 				activate: 'Активирай',
 				warningText: 'Активирането ще отнеме 6 часа (360 блока). Активирането НЯМА да стартира генерирането автоматично.',
-				delegatedAccount: 'Delegated account public key',
-				builtIn: 'built into the wallet',
-
+				delegatedAccount: 'Публичен ключ на делегирания акаунт',
+				builtIn: 'вграден в портфейла'
 			},
 			deactivateDelegated: {
 				title: 'Деактивирай Делегираното Генериране',
@@ -505,28 +498,24 @@ define({
 						description: '<em>Сигурността на портфейла </em> е най важна за предотвратяването на кражба на XEM монети и активи.'
 					},
 					{
-						title: 'Remote NEM Infrastructure Server',
-						description: 'By using a remote NIS you don\'t have to synchronise the blockchain at start-up.',
-
+						title: 'Отдалечен NEM Infrastructure Server',
+						description: 'Използвайки отдалечен NIS Вие не трябва да синхронизирате блокчейна при стартирането.'
 					},
 					{
-						title: 'Delegated harvesting',
-						description: 'With delegated harvesting you can harvest on remote NIS nodes!',
-
+						title: 'Делегирано генериране',
+						description: 'С делегираното генериране Вие можете да генерирате на отдалечени NIS възли!'
 					},
 					{
-						title: 'Multisignature transactions',
-						description: 'Secure your XEM and assets via in-blockchain multi-signature transactions.',
-
+						title: 'Мултисигнатурни трансакции',
+						description: 'Защитете Вашите ХЕМ и активи чрез ин-блокчейн мулти-сигнатурни транзакции.'
 					},
 					{
-						title: 'Native language support',
-						description: 'NEM user interface supports multiple languages. See "Settings".'
+						title: 'Поддръжка на роден език',
+						description: 'NEM юзър интерфейса поддържа много езици.Виж \"Настройки\" '
 					},
 					{
-						title: 'Got any questions or feedback ?',
-						description: '<a href="http://forum.ournem.com">forum.ournem.com</a> | #ournem on freenode.org | Telegram',
-
+						title: 'Имаш ли някакви въпроси или коментари ?',
+						description: '<a href=\"http://forum.ournem.com\">forum.ournem.com</a> | #ournem on freenode.org | Telegram'
 					}
 				]
 			},
@@ -628,8 +617,7 @@ define({
 					startRemoteHarvesting: 'Старт на делегираното генериране',
 					remotelyHarvesting: 'Отдалечено генериране',
 					stopRemoteHarvesting: 'Стоп на делегираното генериране',
-					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
-
+					multisigInfo: 'Активацията или деактивацията на делегираното генериране за мултисигнатурния акаунт трябва да се направи от някой от косигнатурните акаунти.'
 				}
 			},
 			transactions: {
