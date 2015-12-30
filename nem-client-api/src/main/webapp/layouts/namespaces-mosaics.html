@@ -29,28 +29,28 @@
                             <label class="listingPage-filterLabel" for="rad-namespaces-filter-incoming">{{texts.namespacesmosaics.filters.filterNamespace}}</label>
 						</li>
 						<li class="listingPage-filterOption">
-                            <input type="radio" class="hidden" id="rad-namespaces-filter-outgoing" name="{{namespaces.filter}}" value="account/namespacess/outgoing" />
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-outgoing" name="{{namespaces.filter}}" value="account/namespaces/outgoing" />
 							<label class="listingPage-filterLabel" for="rad-namespaces-filter-outgoing">{{texts.namespacesmosaics.filters.filterMosaic}}</label>
 						</li>
 					</ul>
 				</div>
-				<div class="listingPage-list listingPage-list--namespacess">
+				<div class="listingPage-list listingPage-list--namespaces">
 					<h2>Owned Mosaics</h2>
 					Displaying {{mosaics.owned.length}} Owned Mosaics
-					<table class="txList">
+					<table class="nsmsList">
 						<thead>
-						<tr class="txList-row namespacessPage-row">
-							<th class="txList-header txList-col--sender">Mosaic</th>
-							<th class="txList-header txList-col--message">Quantity</th>
+						<tr class="nsmsList-row">
+							<th class="nsmsList-header nsmsList-col--mosaic">Mosaic</th>
+							<th class="nsmsList-header nsmsList-col--quantity">Quantity</th>
 						</tr>
 						</thead>
 						<tbody>
 						{{#each mosaics.owned}}
-						<tr class="txList-row">
-							<td class="txList-cell txList-col--details">
+						<tr class="nsmsList-row">
+							<td class="nsmsList-cell nsmsList-col--mosaic">
 								{{.namespaceId}}:{{.name}}
 							</td>
-							<td>
+							<td class="nsmsList-cell nsmsList-col--quantity">
 								{{.quantity}}
 							</td>
 						</tr>
@@ -60,27 +60,29 @@
 
 					<h2>Namespaces</h2>
 					Displaying {{namespaces.all.length}} Namespaces
-					<table class="txList">
+					<table class="nsmsList">
 						<thead>
-						<tr class="txList-row namespacessPage-row">
+						<tr class="nsmsList-row">
 								<th>{{texts.namespacesmosaics.table.columns.0}}</th>
 								<th class="sortable
 								 {{#if (contactsSort_formattedAddress===1)}}icon-up-open{{else}}icon-down-open{{/if}} {{#if (contactsSortColumn !== 'formattedAddress')}}sort-inactive{{/if}}
-								 txList-header txList-col--address namespacessPage-leftMost" on-tap='sort:formattedAddress'>{{texts.namespacesmosaics.table.columns.1}}</th>
+								 nsmsList-header nsmsList-col--name namespacesPage-leftMost" on-tap='sort:formattedAddress'>{{texts.namespacesmosaics.table.columns.1}}</th>
 								<th class="sortable
 								{{#if (contactsSort_privateLabel===1)}}icon-up-open{{else}}icon-down-open{{/if}} {{#if (contactsSortColumn !== 'privateLabel')}}sort-inactive{{/if}}
-								txList-header txList-col--label"  on-tap='sort:privateLabel'>{{texts.namespacesmosaics.table.columns.2}}</th>
-								<th class="sortable txList-header txList-col--actions namespacessPage-rightMost">{{texts.namespacesmosaics.table.columns.3}}</th>
+								nsmsList-header nsmsList-col--height"  on-tap='sort:privateLabel'>{{texts.namespacesmosaics.table.columns.2}}</th>
+								<th class="sortable nsmsList-header nsmsList-col--actions namespacesPage-rightMost">{{texts.namespacesmosaics.table.columns.3}}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{{#each namespaces.all}}
-								<tr class="txList-row">
+								<tr class="nsmsList-row">
 								<td> </td>
-								<td class="txList-cell txList-col--details">
+								<td class="nsmsList-cell nsmsList-col--name">
 									{{.fqn}}
 								</td>
-								<td>{{.height}}</td>
+								<td class="nsmsList-cell nsmsList-col--height">
+									{{.height}}
+								</td>
 								<td></td>
                      			</tr>
 							{{/each}}
@@ -89,17 +91,17 @@
 
 					<h2>Mosaics</h2>
 					Displaying {{mosaics.all.length}} Mosaics
-					<table class="txList">
+					<table class="nsmsList">
 						<thead>
-							<tr class="txList-row namespacessPage-row">
-								<th class="txList-header txList-col--sender">Mosaic</th>
-								<th class="txList-header txList-col--message">Description</th>
+							<tr class="nsmsList-row namespacesPage-row">
+								<th class="nsmsList-header nsmsList-col--sender">Mosaic</th>
+								<th class="nsmsList-header nsmsList-col--message">Description</th>
 							</tr>
 						</thead>
 						<tbody>
 						{{#each mosaics.all}}
-							<tr class="txList-row">
-								<td class="txList-cell txList-col--details">
+							<tr class="nsmsList-row">
+								<td class="nsmsList-cell">
 									{{.id.namespaceId}}:{{.id.name}}
 								</td>
 								<td>
@@ -110,10 +112,10 @@
 						</tbody>
 					</table>
 					<div style="display:none;">			
-				Displaying {{namespaces.urls.length}} URLS
+				    Displaying {{namespaces.urls.length}} URLS
 					<table class="txList">
 						<thead>
-							<tr class="txList-row namespacessPage-row">
+							<tr class="txList-row namespacesPage-row">
 
 								<th>URL</th>
 						
