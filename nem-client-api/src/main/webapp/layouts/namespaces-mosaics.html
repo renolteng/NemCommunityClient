@@ -48,7 +48,7 @@
 						{{#each mosaics.owned}}
 						<tr class="txList-row">
 							<td class="txList-cell txList-col--details">
-								<a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}:{{.name}}</a>
+								{{.namespaceId}}:{{.name}}
 							</td>
 							<td>
 								{{.quantity}}
@@ -78,8 +78,8 @@
 								<tr class="txList-row">
 								<td> </td>
 								<td class="txList-cell txList-col--details">
-                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.fqn}}</a>
-                                    </td>
+									{{.fqn}}
+								</td>
 								<td>{{.height}}</td>
 								<td></td>
                      			</tr>
@@ -100,7 +100,7 @@
 						{{#each mosaics.all}}
 							<tr class="txList-row">
 								<td class="txList-cell txList-col--details">
-									<a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}:{{.name}}</a>
+									{{.id.namespaceId}}:{{.id.name}}
 								</td>
 								<td>
 									{{.description}}

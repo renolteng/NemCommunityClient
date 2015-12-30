@@ -25,61 +25,70 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Util
             outputurls.push({
                 "url":url
             });
-            $.getJSON(url, function(data) {
+
+            // order is as follows:
+            // 1. take owners of root namespaces
+            // 2. take all namespaces owned by rootOwners
+            // 3. take all mosaics from above namespaces
+            $.getJSON(url, function(rootNamespaces) {
                 var output = [];
                 var ownerslist = [];
                 var mosaicOutputs = [];
-                for (var i in data.data) {
+                for (var rootNs of rootNamespaces.data) {
                     //namespaces owned by root owners
                     // http://127.0.0.1:7890/namespace/mosaic/definition/page?namespace=jabo38_ltd
                     //http://127.0.0.1:7890/account/namespace/page?address=TBGIMRE4SBFRUJXMH7DVF2IBY36L2EDWZ37GVSC4
 
                     // do we already know this owner account?
-                    var foundit = $.inArray(data.data[i].namespace.owner, ownerslist);
+                    var foundit = $.inArray(rootNs.namespace.owner, ownerslist);
                     if (foundit < 0) {
-                        var url2 = remoteserver + '/account/namespace/page?address=' + data.data[i].namespace.owner;
+                        var url2 = remoteserver + '/account/namespace/page?address=' + rootNs.namespace.owner;
                         outputurls.push({
                             "url":url2
                         });
 
-                        $.getJSON(url2, function(data2) {
-                            for (var i2 in data2.data) {
-                                //alert(data2.data[ii].mosaic.id.name);
-                                //{"owner":"TBGIMRE4SBFRUJXMH7DVF2IBY36L2EDWZ37GVSC4","fqn":"a","height":189256}
-                                //"fqn":data2.data[i2].fqn,
-
+                        $.getJSON(url2, function(ownerNamespaces) {
+                            for (var curNamespace of ownerNamespaces.data) {
                                 //mosaics lookup
-                                var url3 = remoteserver + '/namespace/mosaic/definition/page?namespace=' + data2.data[i2].fqn;
+                                var url3 = remoteserver + '/namespace/mosaic/definition/page?namespace=' + curNamespace.fqn;
                                 //alert(url3);
                                 outputurls.push({
                                     "url":url3
                                 });
-                                $.getJSON(url3, function(data3) {
-                                    //console.log(data2.data[i2].fqn, data3);
-                                    for (var i3 in data3.data) {
-                                        //alert(data2.data[ii].mosaic.id.name);
+                                $.getJSON(url3, function(ownerMosaics) {
+                                    //console.log(curNamespace.fqn, data3);
+                                    for (var curMosaic of ownerMosaics.data) {
+                                        //console.log(curMosaic);
 
-                                        mosaicOutputs.push({
-                                            "namespaceId":data3.data[i3].mosaic.id.namespaceId,
-                                            "name":data3.data[i3].mosaic.id.name,
-                                            "description":data3.data[i3].mosaic.description
-                                        });
+                                        /*
+                                        creator: "994793ba1c789fa9bdea918afc9b06e2d0309beb1081ac5b6952991e4defd324"
+                                        description: "relies on b"
+                                        id: Object
+                                            name: "d"
+                                            namespaceId: "a"
+                                        levy: Object
+                                            fee: 5
+                                            mosaicId: Object
+                                                name: "b"
+                                                namespaceId: "a"
+                                            recipient: "TAOPATMADWFEPME6GHOJL477SI7D3UT6NFJN4LGB"
+                                            type: 1
+                                        properties: Array[4]
+                                        */
+                                        mosaicOutputs.push(curMosaic.mosaic);
                                     } //end mosaics lookup for
                                 }); //end mosaics lookup
 
-                                //alert("fqn" + data2.data[i2].fqn +
-                                //    "owner" + data2.data[i2].owner +
-                                //    "height" +data2.data[i2].height);
-
-                                output.push({
-                                    "fqn":data2.data[i2].fqn,
-                                    "owner":data2.data[i2].owner,
-                                    "height":data2.data[i2].height,
-                                });
+                                /*
+                                owner: "TCACZPQQZ2R4SJNAAA4ZAUBEFFZGBTQKPNUDAGI5"
+                                fqn: "jetstar"
+                                height: 185747
+                                */
+                                output.push(curNamespace);
                             } //end namespaces owned by root owners for
                         }); //end namespaces owned by root owners
                     } //end check if we already know this owner.
-                    ownerslist.push(data.data[i].namespace.owner);
+                    ownerslist.push(rootNs.namespace.owner);
                 } //end namespace root for
 
                 ncc.set('namespaces.all', output);
