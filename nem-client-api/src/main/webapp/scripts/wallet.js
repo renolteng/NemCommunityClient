@@ -1261,23 +1261,17 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             ncc.refreshAppStatus(function() {
-                if (ncc.get('settings.firstStart') === 0) {
+                console.log("first", ncc.get('settings.firstStart'));
+                if (ncc.get('settings.firstStart') === 0 || ncc.get('settings.firstStart') === 1) {
                     ncc.showMessage(
-                        ncc.get('texts.modals.initialTy.title'),
-                        ncc.get('texts.modals.initialTy.content'),
+                        ncc.get('texts.modals.initialBackup.title'),
+                        ncc.get('texts.modals.initialBackup.content'),
                         function() {
-                            ncc.showMessage(
-                                ncc.get('texts.modals.initialBackup.title'),
-                                ncc.get('texts.modals.initialBackup.content'),
-                                function() {
-                                    var settings = ncc.get('settings');
-                                    settings['firstStart'] = 1;
-                                    ncc.postRequest('configuration/update', settings);
-                                    ncc.set('settings', settings);
-                                }
-                            );
-                        },
-                        'modal--wide'
+                            var settings = ncc.get('settings');
+                            settings['firstStart'] = 2;
+                            ncc.postRequest('configuration/update', settings);
+                            ncc.set('settings', settings);
+                        }
                     );
                 }
                 if (!ncc.get('nodeBooted')) {

@@ -169,10 +169,6 @@ define({
 				yes: 'Yes',
 				no: 'No'
 			},
-			initialTy: {
-				title: "WELCOME to NEM",
-				content: "<p>Founded on the strong principles of egalitarian and equality in distribution, the New Economy Movement, NEM, has now finally come to fruition after close to 14 months of intensive development. In addition to 5 core developers and 7 core marketers, we have a host of community members who have helped us in one way or another, without whom, this would never have come together so well as being one of the few crypto initiatives with such a big team. Special mention is given to the following:</p><hr/><p><b>Technical and Marketing input:</b><br/> Amy, andme, averagejoe, BrainOfMasses, dzarmusch, EFFV, Elana82, erkki, freigeist, happy4209, instacash, jadedjack, KevinLi, KkotNem, kooream, Krysto, Loi Tran, lyka, mixmaster, MrPortMan, nembit, nxkoil, owon, Panther03, pheromone, renoteng.li, rigel, SaulGray, shawnleary, solix, stone, thilon, unvoidpl, zhankaiwen, zoata87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</p><hr/><p><b>NCC User Interface translation:</b><br/>apex, boestin, Chaos514, DIMKAZDS, filchef, freigeist, Guliver, iaminitnow06, Janea4pda, kuppalahti, Lcharles, martismartis, mess-lelouch, Parana, rigel, Shawn, Spider, 楊 輝彦</p><p><br/>In addition to the above 67 team members, we also have other members who  contributed, whether in technical, marketing or stress testing the system during the alpha and beta phase. We would like to additionally thank all those individuals not listed here and the greater NEM community because without them, we would have not ever come so far.</p><hr/><p>And most importantly<br/><b>Thank YOU!</b><br/><br/>New Economy starts with YOU!</p>"
-			},
 			initialBackup: {
 				title: "Welcome to NEM",
 				content: "You can create wallet backup from menu in upper right corner."
