@@ -664,4 +664,19 @@ translated texts.transactionTypes.55
 	      to: 'TRANSAZIONE MULTIFIRMA'
 	based on: texts.transactionTypes.52
 
+-----changed texts.dashboard.assets.title
+	from: 'Your Assets'
+	  to: 'Your Mosaics'
+	 was: 'I tuoi titoli'
+
+translated texts.namespacesmosaics.balance
+	    from: 'Current Balance'
+	      to: 'Bilancio attuale'
+	based on: texts.transactions.balance
+
+translated texts.namespacesmosaics.table.columns.[0]
+	    from: ''
+	      to: ''
+	based on: texts.transactions.table.columns.[4]
+
 -----

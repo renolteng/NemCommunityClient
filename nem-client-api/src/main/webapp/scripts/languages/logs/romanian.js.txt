@@ -673,4 +673,19 @@ translated texts.transactionTypes.55
 	      to: 'MULTISIG TRANSACTION'
 	based on: texts.transactionTypes.52
 
+-----changed texts.dashboard.assets.title
+	from: 'Your Assets'
+	  to: 'Your Mosaics'
+	 was: 'Activele tale'
+
+translated texts.namespacesmosaics.balance
+	    from: 'Current Balance'
+	      to: 'Sold actual'
+	based on: texts.transactions.balance
+
+translated texts.namespacesmosaics.table.columns.[0]
+	    from: ''
+	      to: ''
+	based on: texts.transactions.table.columns.[4]
+
 -----

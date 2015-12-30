@@ -40,20 +40,15 @@ define({
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
 			404: 'The requested resource could not be found.',
 			500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
-
 			600: 'Before sending and receiving transactions, the NEM Infrastructure Server (NIS) needs to be booted. Please use the NCC menu entry for booting the local node.',
 			601: 'The NEM Infrastructure Server (NIS) is already booted.',
 			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
-
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 10000 vested XEM.',
-
 			901: 'There was an error setting up offline mode.',
-
 			1000: 'The private key and the public key you have provided mismatch.',
 			1001: 'The public key and the address you have provided mismatch.',
 			1002: 'The address does not belong to the main network.',
-
 			1203: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
 			1204: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
 			1205: 'Your account does not have the right balance to make this transaction.',
@@ -62,21 +57,18 @@ define({
 			1208: 'The signature of the transaction could not be verified.',
 			1209: 'The time stamp of the transaction is too far in the past.',
 			1210: 'The time stamp of the transaction is too far in the future.',
-
 			1219: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-
 			1262: 'Delegated harvesting account has non zero balance and cannot be used.',
 			1263: 'Importance transfer rejected. There is already pending importance transfer operation.',
 			1264: 'Delegated harvesting is already active.',
 			1265: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			1266: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
-
 			1271: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			1273: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			1274: 'Transaction is not allowed for multisig account.',
 			1275: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
+			1321: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
 
-            1321: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
 		},
 		common: {
 			success: 'Success',
@@ -127,6 +119,7 @@ define({
 			warning: 'Warning',
 			newBuild: 'NEW BUILD',
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: {
 			20: 'TRANSFER TRANSACTION',
@@ -135,15 +128,14 @@ define({
 			23: 'PROVISION NAMESPACE',
 			24: 'MOSAIC CREATION',
 			25: 'MOSAIC SUPPLY',
-
 			40: 'MULTISIG SIGNATURE',
-
 			50: 'MULTISIG TRANSACTION',
 			51: 'MULTISIG TRANSACTION',
 			52: 'MULTISIG TRANSACTION',
-            53: 'MULTISIG TRANSACTION',
+			53: 'MULTISIG TRANSACTION',
 			54: 'MULTISIG TRANSACTION',
 			55: 'MULTISIG TRANSACTION',
+
 		},
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -328,13 +320,14 @@ define({
 				description: 'Description',
 				propertiesLabel: 'Properties',
 				properties: {
-				    divisibility: 'Divisibility',
-				    initialSupply: 'Initial supply',
-				    supplyMutable: 'Is supply mutable',
-				    transferable: 'Is transferable'
+					divisibility: 'Divisibility',
+					initialSupply: 'Initial supply',
+					supplyMutable: 'Is supply mutable',
+					transferable: 'Is transferable'
 				},
 				supplyType: 'Supply type',
 				supplyAmount: 'Supply amount',
+
 			},
 			accountDetails: {
 				title: "Account details",

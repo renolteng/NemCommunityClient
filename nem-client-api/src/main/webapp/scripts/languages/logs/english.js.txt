@@ -1,1 +1,16 @@
-----------
+----------changed texts.dashboard.assets.title
+	from: 'Your Assets'
+	  to: 'Your Mosaics'
+	 was: 'Your Mosaics'
+
+translated texts.namespacesmosaics.balance
+	    from: 'Current Balance'
+	      to: 'Current Balance'
+	based on: texts.transactions.balance
+
+translated texts.namespacesmosaics.table.columns.[0]
+	    from: ''
+	      to: ''
+	based on: texts.transactions.table.columns.[4]
+
+-----

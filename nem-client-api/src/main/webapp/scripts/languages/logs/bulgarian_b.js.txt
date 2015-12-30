@@ -619,4 +619,19 @@ translated texts.transactionTypes.55
 	      to: 'МУЛТИСИГНАТУРНА ТРАНЗАКЦИЯ'
 	based on: texts.transactionTypes.52
 
+-----changed texts.dashboard.assets.title
+	from: 'Your Assets'
+	  to: 'Your Mosaics'
+	 was: 'Вашите активи'
+
+translated texts.namespacesmosaics.balance
+	    from: 'Current Balance'
+	      to: 'Текущ баланс'
+	based on: texts.transactions.balance
+
+translated texts.namespacesmosaics.table.columns.[0]
+	    from: ''
+	      to: ''
+	based on: texts.transactions.table.columns.[4]
+
 -----
