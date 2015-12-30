@@ -35,7 +35,31 @@
 					</ul>
 				</div>
 				<div class="listingPage-list listingPage-list--namespacess">
-				Displaying {{namespaces.all.length}} Namespaces
+					<h2>Owned Mosaics</h2>
+					Displaying {{mosaics.owned.length}} Owned Mosaics
+					<table class="txList">
+						<thead>
+						<tr class="txList-row namespacessPage-row">
+							<th class="txList-header txList-col--sender">Mosaic</th>
+							<th class="txList-header txList-col--message">Quantity</th>
+						</tr>
+						</thead>
+						<tbody>
+						{{#each mosaics.owned}}
+						<tr class="txList-row">
+							<td class="txList-cell txList-col--details">
+								<a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}:{{.name}}</a>
+							</td>
+							<td>
+								{{.quantity}}
+							</td>
+						</tr>
+						{{/each}}
+						</tbody>
+					</table>
+
+					<h2>Namespaces</h2>
+					Displaying {{namespaces.all.length}} Namespaces
 					<table class="txList">
 						<thead>
 						<tr class="txList-row namespacessPage-row">
@@ -48,99 +72,41 @@
 								txList-header txList-col--label"  on-tap='sort:privateLabel'>{{texts.namespacesmosaics.table.columns.2}}</th>
 								<th class="sortable txList-header txList-col--actions namespacessPage-rightMost">{{texts.namespacesmosaics.table.columns.3}}</th>
 							</tr>
-						
 						</thead>
 						<tbody>
 							{{#each namespaces.all}}
 								<tr class="txList-row">
 								<td> </td>
-								
 								<td class="txList-cell txList-col--details">
                                         <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.fqn}}</a>
-                                       
                                     </td>
 								<td>{{.height}}</td>
-								<td>{{.owner}}</td>
-								
-
-                     			</tr>
-                     			<tr>
-                     			<td colspan="4">
-                     			
-									
-                                   
-                     			</td>
+								<td></td>
                      			</tr>
 							{{/each}}
-
 						</tbody>
 					</table>
+
 					<h2>Mosaics</h2>
 					Displaying {{mosaics.all.length}} Mosaics
-								<table class="txList">
+					<table class="txList">
 						<thead>
 							<tr class="txList-row namespacessPage-row">
-
-								
-								
 								<th class="txList-header txList-col--sender">Mosaic</th>
 								<th class="txList-header txList-col--message">Description</th>
-                               
 							</tr>
 						</thead>
 						<tbody>
-							{{#each mosaics.all}}
-								<tr class="txList-row">
-								
-					
-						<td class="txList-cell txList-col--details">
-                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}:{{.name}}</a>
-                                       
-                                    </td>
-                                        
-                                        <td>
-                                        {{.description}}
-                                        
-                                        </td>
-                                        </tr>
-                     			
-							{{/each}}
-
-						</tbody>
-					</table>	
-
-						<h2>Owned Mosaics</h2>
-					Displaying {{mosaics.owned.length}} Owned Mosaics
-								<table class="txList">
-						<thead>
-							<tr class="txList-row namespacessPage-row">
-
-								
-								
-								<th class="txList-header txList-col--sender">Mosaic</th>
-								<th class="txList-header txList-col--message">Quantity</th>
-                               
+						{{#each mosaics.all}}
+							<tr class="txList-row">
+								<td class="txList-cell txList-col--details">
+									<a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}:{{.name}}</a>
+								</td>
+								<td>
+									{{.description}}
+								</td>
 							</tr>
-						</thead>
-						<tbody>
-							{{#each mosaics.owned}}
-								<tr class="txList-row">
-								
-					
-						<td class="txList-cell txList-col--details">
-                                        <a class="hyperlink--default" href="javascript:;" on-click="viewNamespace(.)">{{.namespaceId}}:{{.name}}</a>
-                                       
-                                    </td>
-                              
-                                        
-                                        <td>
-                                        {{.quantity}}
-                                        
-                                        </td>
-                                        </tr>
-                     			
-							{{/each}}
-
+						{{/each}}
 						</tbody>
 					</table>
 					<div style="display:none;">			

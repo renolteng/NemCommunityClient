@@ -1261,7 +1261,6 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             ncc.refreshAppStatus(function() {
-                console.log("first", ncc.get('settings.firstStart'));
                 if (ncc.get('settings.firstStart') === 0 || ncc.get('settings.firstStart') === 1) {
                     ncc.showMessage(
                         ncc.get('texts.modals.initialBackup.title'),
