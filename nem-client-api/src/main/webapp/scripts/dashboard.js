@@ -140,11 +140,11 @@
             $.getJSON(url4, function(data4) {
                 for (var i4 in data4.data) {
                     mosaicOwnedOutputs.push({
-                        "quantity":data4.data[i4].quantity,
-                        "namespaceId":data4.data[i4].mosaicId.namespaceId,
-                        "name":data4.data[i4].mosaicId.name,
+                        "quantity": data4.data[i4].quantity,
+                        "namespaceId": data4.data[i4].mosaicId.namespaceId,
+                        "name": data4.data[i4].mosaicId.name,
+                        "fqn": data4.data[i4].mosaicId.namespaceId + ":" + data4.data[i4].mosaicId.name
                     });
-                    //{"data":[{"quantity":1099976000000,"mosaicId":{"namespaceId":"nem","name":"xem"}},{"quantity":226,"mosaicId":{"namespaceId":"gimre.games.pong","name":"paddles"}}]}
                 } //end owned mosaics for
              }); //end owned mosaics
 
