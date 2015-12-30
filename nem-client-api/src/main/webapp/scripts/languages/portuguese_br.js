@@ -102,33 +102,33 @@ define({
 			publicLabel: 'Identificação pública',
 			noCharge: 'A conta atual <b>NÃO</b> pode receber taxas de transações, uma conta do tipo Multisig a acoberta',
 			fee: 'Taxa',
-			multisigFee: 'Taxa Multisig',
+			multisigFee: 'Taxa do Multisig',
 			useMinimumFee: 'Usar taxa minima',
 			feeValidation: 'A taxa de transação não deve ser inferior a taxa mínima',
 			justUse: 'Usar apenas',
 			dueBy: 'Tempo de espera',
-			minutes: 'minute(s)',
+			minutes: 'minuto(s)',
 			hours: 'hora(s)',
 			hoursDue: 'Tempo para desativar',
 			hoursDueExplanation: 'Se a transação não estiver incluida até a data limite, ela será rejeitada.',
-			closeButton: 'Close',
+			closeButton: 'Fechar',
 			cancelButton: 'Cancelar',
 			sendButton: 'Enviar',
 			account: 'Conta',
 			thisAccount: 'Esta conta',
 			warning: 'Aviso',
-			newBuild: 'NEW BUILD',
-			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+			newBuild: 'Nova BUILD',
+			newBuildNumber: 'Há uma nova versão {{1}} disponivel para download. Acesse <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> para detalhes',
 
 		},
 		transactionTypes: {
 			20: 'TRANSAÇÕES DE VALORES',
-			21: 'ITRANSFERENCIAS DE IMPORTANCIA',
+			21: 'TRANSFERÊNCIAS DE IMPORTÂNCIA',
 			22: 'MODIFICAÇÃO DE UMA CONTA MULTISIG',
 			23: 'PROVISION NAMESPACE',
 			24: 'MOSAIC CREATION',
 			25: 'MOSAIC SUPPLY',
-			40: 'MULTISIG SIGNATURE',
+			40: 'ASSINATURA MULTISIG',
 			50: 'TRANSAÇÃO MULTISIG',
 			51: 'TRANSAÇÃO MULTISIG',
 			52: 'TRANSAÇÃO MULTISIG',
@@ -180,7 +180,7 @@ define({
 					protocolOptions: {
 						http: 'HTTP'
 					},
-					host: 'Endereço Host',
+					host: 'Endereço do NIS',
 					port: 'Porta',
 					defaultPort: 'Usar a porta padrão.'
 				},
@@ -194,10 +194,10 @@ define({
 				saveSuccess: 'As configurações foram salvas!'
 			},
 			signToken: {
-				title: "Sign a token using account",
-				label: "Token (url, string, anything)",
-				signature: "Signed token",
-				sign: "Sign"
+				title: "Registe um token usando a conta",
+				label: "Token (url, frase, etc.)",
+				signature: "Token registrado",
+				sign: "Registrar"
 			},
 			multisig: {
 				title: 'Converter conta para Multisig',
@@ -213,11 +213,11 @@ define({
 
 				},
 				warning: 'A conta do tipo Multisig está na lista dos consignatários. Isso resultará no corte de acesso ao dinheiro da conta. Muito provavelmente você <b>NÃO QUER</b> fazer isso.',
-				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
+				minCosignatoriesDefaultLabel: 'Usar número co-signatários padrão',
 				minCosignatoriesRelativeLabel: 'relative change',
 				minCosignatoriesLabel: 'Minimum number of cosignatories',
-				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
-				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
+				minCosignatoriesZero: 'A utilização de zero fará com que seja registrados todos os co-signatários',
+				minCosignatoriesOverflow: 'O número informado é superior ao máximo existente'
 			},
 			signMultisig: {
 				title: 'Assinar transação Multisig',
@@ -318,19 +318,19 @@ define({
 				namespace: 'Namespace',
 				rentalFee: 'Rental fee',
 				mosaicName: 'Mosaic Name',
-				description: 'Description',
-				propertiesLabel: 'Properties',
+				description: 'descrição',
+				propertiesLabel: 'Propriedades',
 				properties: {
-					divisibility: 'Divisibility',
-					quantity: 'Maximal quantity',
-					mutablequantity: 'Is quantity mutable',
-					transferable: 'Is transferable'
+					divisibility: 'Divisibilidade',
+					quantity: 'Quantidade máxima',
+					mutablequantity: 'A quantidade máxima será alterável',
+					transferable: 'É trasferível'
 				},
 				supplyType: 'Supply type',
 				supplyAmount: 'Supply amount'
 			},
 			accountDetails: {
-				title: 'Account details',
+				title: 'Detalhes da conta',
 				label: 'Identificação',
 				noLabel: 'Sem identificação',
 				add: 'Adicionar ao arquivo de contatos',
@@ -436,27 +436,27 @@ define({
 				message: 'Tem certeza que quer fechar o programa (NCC)?'
 			},
 			activateDelegated: {
-				title: 'Ativar colheita delegada',
+				title: 'Ativar colheita remota',
 				wallet: 'Carteira',
 				activate: 'Ativar',
-				warningText: 'A ativação leverá 6 houras (360 blocos). A ativação não vaiiniciar automaticamente a colheita.',
-				delegatedAccount: 'Delegated account public key',
-				builtIn: 'built into the wallet',
+				warningText: 'A ativação leverá 6 houras (360 blocos). A ativação não vaiiniciar automaticamente à colheita.',
+				delegatedAccount: 'Chave pública da conta remota',
+				builtIn: 'Está agragada à carteira',
 
 			},
 			deactivateDelegated: {
-				title: 'Desativar colheita delegada',
+				title: 'Desativar colheita remota',
 				wallet: 'Carteira',
 				deactivate: 'Desativar',
-				warningText: 'A Desativação levará 6 houras (360 blocos).'
+				warningText: 'A Desativação levará 6 horas (360 blocos).'
 			},
 			startRemote: {
-				title: 'Começar colheita delegada',
+				title: 'Começar colheita remota',
 				wallet: 'Carteira',
 				start: 'Iniciar'
 			},
 			stopRemote: {
-				title: 'Parar colheita delegada',
+				title: 'Parar colheita remota',
 				wallet: 'Carteira',
 				stop: 'Parar'
 			},
@@ -510,8 +510,8 @@ define({
 
 					},
 					{
-						title: 'Colheita Delegada',
-						description: 'Com a colheita delegada, você pode colheitar de servidores NIS remotos!',
+						title: 'Colheita Remota',
+						description: 'Com a colheita Remota, você pode colheitar de servidores NIS remotos!',
 
 					},
 					{
