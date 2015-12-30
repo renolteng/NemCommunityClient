@@ -6,28 +6,21 @@
 					<h1 class="tile-title">{{texts.dashboard.assets.title}} ({{mosaics.owned.length}})</h1>
 					<table class="txList">
 					
-						<tbody>
-							{{#each mosaics.owned}}
-								<tr class="txList-row">
-								
-					
-						<td class="txList-cell txList-col--details">
-                                        <a class="hyperlink--default" href="javascript:;" on-click="redirect:'namespaces-mosaics', {{params}}">{{.namespaceId}}:{{.name}}</a>
-                                       
-                                    </td>
-                              
-                                        
-                                        <td>
-                                        {{.quantity}}
-                                        
-                                        </td>
-                                        </tr>
-                     			
-							{{/each}}
-
-						</tbody>
+					<tbody>
+					{{#each mosaics.owned:i}}
+					{{#if i < 4}}
+						<tr class="txList-row">
+						<td class="txList-cell">
+							<a class="hyperlink--default" href="javascript:;" on-click="redirect:'namespaces-mosaics', {{params}}">{{.namespaceId}}:{{.name}}</a>
+						</td>
+						<td>
+							{{.quantity}}
+						</td>
+						</tr>
+					{{/if}}
+					{{/each}}
+					</tbody>
 					</table>
-					
 				</article>
 			</li>
 
