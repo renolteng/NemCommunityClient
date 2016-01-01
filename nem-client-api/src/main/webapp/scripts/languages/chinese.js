@@ -117,18 +117,18 @@ define({
 			account: '帐户',
 			thisAccount: '本账户',
 			warning: '警告',
-			newBuild: 'NEW BUILD',
-			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+			newBuild: '新版本',
+			newBuildNumber: '新版本{{1}} 已发布可下载， 点击 <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> 查看。',
 
 		},
 		transactionTypes: {
 			20: '传输交互',
 			21: '重要性传输',
 			22: '多重签名账户变更',
-			23: 'PROVISION NAMESPACE',
-			24: 'MOSAIC CREATION',
-			25: 'MOSAIC SUPPLY',
-			40: 'MULTISIG SIGNATURE',
+			23: '部署命名空间',
+			24: '马赛克创建',
+			25: '马赛克提供',
+			40: '多重签名',
 			50: '多重签名交互',
 			51: '多重签名交互',
 			52: '多重签名交互',
@@ -144,9 +144,9 @@ define({
 			self: '自我交互',
 			importance: '重要性交互',
 			modification: '多重签名账户协同变更',
-			provision: 'Provision Namespace',
-			mosaicCreation: 'Mosaic Creation',
-			mosaicSupply: 'Mosaic Supply'
+			provision: '部署命名空间',
+			mosaicCreation: '马赛克创建',
+			mosaicSupply: '马赛克提供'
 		},
 		modals: {
 			error: {
@@ -194,10 +194,10 @@ define({
 				saveSuccess: '设置保存成功'
 			},
 			signToken: {
-				title: "Sign a token using account",
-				label: "Token (url, string, anything)",
-				signature: "Signed token",
-				sign: "Sign"
+				title: "用账户签署一个串码",
+				label: "串码 (地址, 字符串, 任何东西)",
+				signature: "签署码",
+				sign: "签署"
 			},
 			multisig: {
 				title: '转换为多重签名账号',
@@ -213,11 +213,11 @@ define({
 
 				},
 				warning: '多重签名账户本身不可以作为共同签署人。这样做会把账户彻底锁死无法发出交互。估计您<b>不会</b>想要这么做。',
-				minCosignatoriesDefaultLabel: 'Use default cosignatories number',
-				minCosignatoriesRelativeLabel: 'relative change',
-				minCosignatoriesLabel: 'Minimum number of cosignatories',
-				minCosignatoriesZero: 'Using zero would cause all cosignatories to be required',
-				minCosignatoriesOverflow: 'Specified number is larger than number of cosignatories'
+				minCosignatoriesDefaultLabel: '使用默认签署人数量',
+				minCosignatoriesRelativeLabel: '关联变更',
+				minCosignatoriesLabel: '最少共签人数量',
+				minCosignatoriesZero: '使用零将会需要 所有共签人签名',
+				minCosignatoriesOverflow: '指定人数大于所有共签人数'
 			},
 			signMultisig: {
 				title: '签署多重签名交互',
@@ -253,7 +253,7 @@ define({
 				message: '信息',
 				encrypt: '加密',
 				sending: '正在发送...',
-				successMessage: 'Your transaction has been sent successfully! <br><br>Transaction hash: {{1}}',
+				successMessage: '您的交互已经成功发送! <br><br>交互hash: {{1}}',
 				txConfirm: {
 					title: '确认交易',
 					amount: '金额',
@@ -315,19 +315,19 @@ define({
 				innerFee: '内部费用',
 				multisigFees: '多重签名费用',
 				cosignatory: '共同签署人',
-				namespace: 'Namespace',
-				rentalFee: 'Rental fee',
-				mosaicName: 'Mosaic Name',
-				description: 'Description',
-				propertiesLabel: 'Properties',
+				namespace: '命名空间',
+				rentalFee: '租金费用',
+				mosaicName: '马赛克名称',
+				description: '描述',
+				propertiesLabel: '属性',
 				properties: {
-					divisibility: 'Divisibility',
-					quantity: 'Maximal quantity',
-					mutablequantity: 'Is quantity mutable',
-					transferable: 'Is transferable'
+					divisibility: '可分性',
+					quantity: '最大数量',
+					mutablequantity: '可变数量',
+					transferable: '可传输性'
 				},
-				supplyType: 'Supply type',
-				supplyAmount: 'Supply amount'
+				supplyType: '供给类型',
+				supplyAmount: '供给量'
 			},
 			accountDetails: {
 				title: '账户细节',
@@ -628,7 +628,7 @@ define({
 					startRemoteHarvesting: '开启委托收获',
 					remotelyHarvesting: '远程收获',
 					stopRemoteHarvesting: '停止委托收获',
-					multisigInfo: 'Activation or deactivation of a delegated harvesting for a multisig account must be done from one of cosignatory accounts',
+					multisigInfo: '对一个账户激活或反激活委托收货需在一个共同签署人账户执行。',
 
 				}
 			},
@@ -641,7 +641,7 @@ define({
 				accountCosignatories: '多重签名账户',
 				accountCosignatoriesView: '查看共同签署人',
 				vestedBalance: '账户当前余额',
-				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后{{/2}}天)',
+				syncStatus: '(现区块{{1}}{{#2}} : 估计{{3}}落后{{/2}})',
 				notSynced: 'NIS可能尚未完成同步。',
 				unknown: '未知',
 				columns: [
