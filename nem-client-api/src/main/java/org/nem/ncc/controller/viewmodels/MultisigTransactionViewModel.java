@@ -30,9 +30,9 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 				return Type.Multisig_Transfer;
 			case TransactionTypes.PROVISION_NAMESPACE:
 				return Type.Multisig_Provision_Namespace;
-			case TransactionTypes.MOSAIC_CREATION:
+			case TransactionTypes.MOSAIC_DEFINITION_CREATION:
 				return Type.Multisig_Mosaic_Creation;
-			case TransactionTypes.SMART_TILE_SUPPLY_CHANGE:
+			case TransactionTypes.MOSAIC_SUPPLY_CHANGE:
 				return Type.Multisig_Mosaic_Supply;
 			default:
 				return Type.Unknown;
@@ -41,12 +41,12 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 
 	public MultisigTransactionViewModel(final TransactionMetaDataPair metaDataPair, final AccountMetaDataPair relativeAccountData, final BlockHeight lastBlockHeight) {
 
-		super(innerTypeToViewModelType(((MultisigTransaction)metaDataPair.getTransaction()).getOtherTransaction().getType()),
+		super(innerTypeToViewModelType(((MultisigTransaction)metaDataPair.getEntity()).getOtherTransaction().getType()),
 				metaDataPair,
 				lastBlockHeight);
-		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
+		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getEntity();
 		final Transaction other = multisigTransaction.getOtherTransaction();
-		final Address relativeAccountAddress = relativeAccountData.getAccount().getAddress();
+		final Address relativeAccountAddress = relativeAccountData.getEntity().getAddress();
 		final TransactionMetaData innerMetaData = metaDataPair.getMetaData() == null
 				? null
 				: new TransactionMetaData(metaDataPair.getMetaData().getHeight(), 0L, Hash.ZERO);
@@ -65,7 +65,7 @@ public class MultisigTransactionViewModel extends TransactionViewModel {
 	}
 
 	private int requiresSignature(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final AccountMetaDataPair relativeAccoundData) {
-		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getTransaction();
+		final MultisigTransaction multisigTransaction = (MultisigTransaction)metaDataPair.getEntity();
 		if (metaDataPair.getMetaData() != null) {
 			return 0;
 		}

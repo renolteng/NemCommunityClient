@@ -1,12 +1,13 @@
 package org.nem.ncc.controller.viewmodels;
 
 import org.nem.core.model.*;
+import org.nem.core.model.mosaic.Mosaic;
 import org.nem.core.model.ncc.TransactionMetaDataPair;
 import org.nem.core.model.primitive.*;
 import org.nem.core.serialization.Serializer;
 import org.nem.core.utils.*;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * TODO 20150131 J-G: fix empty comments
@@ -21,6 +22,8 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	private final Address recipient;
 	private final Amount amount;
 	private final String message;
+	private final Collection<Mosaic> mosaics;
+
 	private final boolean isEncrypted;
 	private final boolean hexMessage;
 	// TODO 20150524 J-G: you don't appear to be using this, not sure if it's for this release or not
@@ -38,7 +41,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 	public TransferTransactionViewModel(final TransactionMetaDataPair metaDataPair, final Address relativeAccountAddress, final BlockHeight lastBlockHeight) {
 		super(Type.Transfer, metaDataPair, lastBlockHeight);
 
-		final TransferTransaction transfer = (TransferTransaction)metaDataPair.getTransaction();
+		final TransferTransaction transfer = (TransferTransaction)metaDataPair.getEntity();
 		this.recipient = transfer.getRecipient().getAddress();
 		this.amount = transfer.getAmount();
 
@@ -46,6 +49,8 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		this.message = getMessageText(message);
 		this.hexMessage = getMessageHexFlag(message);
 		this.isEncrypted = isEncrypted(message);
+
+		this.mosaics = transfer.getAttachment().getMosaics();
 
 		this.direction = (this.getSigner().equals(relativeAccountAddress) ? OUTGOING_FLAG : 0)
 				+ (this.recipient.equals(relativeAccountAddress) ? INCOMING_FLAG : 0);
@@ -60,6 +65,10 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		if (this.message != null) {
 			serializer.writeString("message", this.message);
 			serializer.writeInt("encrypted", this.isEncrypted ? 1 : 0);
+		}
+
+		if (this.mosaics != null) {
+			serializer.writeObjectArray("mosaics", this.mosaics);
 		}
 
 		serializer.writeInt("direction", this.direction);
@@ -110,7 +119,7 @@ public class TransferTransactionViewModel extends TransactionViewModel {
 		return this.direction;
 	}
 
-	//region helper funcions
+	//region helper functions
 	private static boolean isEncrypted(final Message message) {
 		return null != message && MessageTypes.SECURE == message.getType();
 	}

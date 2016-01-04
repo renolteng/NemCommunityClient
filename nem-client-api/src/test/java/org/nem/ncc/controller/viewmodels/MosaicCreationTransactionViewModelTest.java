@@ -156,29 +156,31 @@ public class MosaicCreationTransactionViewModelTest {
 	private static class Context {
 		final Account sender = Utils.generateRandomAccount();
 		final Transaction transaction;
-		final Mosaic mosaic;
+		final MosaicDefinition mosaicDefinition;
 		Hash transactionHash;
 
 		public static MosaicProperties createDefaultProperties() {
 			return new DefaultMosaicProperties(Arrays.asList(
 					new NemProperty("divisibility", "2"),
-					new NemProperty("quantity", "1234"),
-					new NemProperty("mutableQuantity", "true"),
+					new NemProperty("initialSupply", "1234"),
+					new NemProperty("supplyMutable", "true"),
 					new NemProperty("transferable", "true")
 			));
 		}
 
 		Context(final String mosaicName, final NamespaceId parent, final String description, final MosaicProperties mosaicProperties) {
-			this.mosaic = new Mosaic(
+			this.mosaicDefinition = new MosaicDefinition(
 					this.sender,
 					new MosaicId(parent, mosaicName),
 					new MosaicDescriptor(description),
-					mosaicProperties
-			);
-			this.transaction = new MosaicCreationTransaction(
+					mosaicProperties,
+					null);
+			this.transaction = new MosaicDefinitionCreationTransaction(
 					new TimeInstant(125),
 					this.sender,
-					this.mosaic);
+					this.mosaicDefinition,
+					MosaicConstants.MOSAIC_CREATION_FEE_SINK,
+					Amount.fromNem(12345));
 			this.transaction.setFee(Amount.fromNem(23));
 			this.recalculateHash();
 		}

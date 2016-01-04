@@ -34,7 +34,6 @@ public class NisException extends NccException {
 		 */
 		NODE_LOADING_DB(602),
 
-
 		/**
 		 * Maximum number of allowed harvesters was reached.
 		 */

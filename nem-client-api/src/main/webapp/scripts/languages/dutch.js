@@ -161,10 +161,6 @@ define({
 				yes: 'Ja',
 				no: 'Nee'
 			},
-			initialTy: {
-				title: "WELCOME to NEM",
-				content: "<c>Sbhaqrq ba gur fgebat cevapvcyrf bs rtnyvgnevna naq rdhnyvgl va qvfgevohgvba, gur Arj Rpbabzl Zbirzrag, ARZ, unf abj svanyyl pbzr gb sehvgvba nsgre pybfr gb 14 zbaguf bs vagrafvir qrirybczrag. Va nqqvgvba gb 5 pber qrirybcref naq 7 pber znexrgref, jr unir n ubfg bs pbzzhavgl zrzoref jub unir urycrq hf va bar jnl be nabgure, jvgubhg jubz, guvf jbhyq arire unir pbzr gbtrgure fb jryy nf orvat bar bs gur srj pelcgb vavgvngvirf jvgu fhpu n ovt grnz. Fcrpvny zragvba vf tvira gb gur sbyybjvat:</c><ue/><c><o>Grpuavpny naq Znexrgvat vachg:</o><oe/> Nzl, naqzr, nirentrwbr, OenvaBsZnffrf, qmnezhfpu, RSSI, Rynan82, rexxv, servtrvfg, unccl4209, vafgnpnfu, wnqrqwnpx, XrivaYv, XxbgArz, xbbernz, Xelfgb, Ybv Gena, ylxn, zvkznfgre, ZeCbegZna, arzovg, akxbvy, bjba, Cnagure03, curebzbar, erabgrat.yv, evtry, FnhyTenl, funjayrnel, fbyvk, fgbar, guvyba, haibvqcy, munaxnvjra, mbngn87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</c><ue/><c><o>APP Hfre Vagresnpr genafyngvba:</o><oe/>ncrk, obrfgva, Punbf514, QVZXNMQF, svypurs, servtrvfg, Thyvire, vnzvavgabj06, Wnarn4cqn, xhccnynugv, Ypuneyrf, znegvfznegvf, zrff-yrybhpu, Cnenan, evtry, Funja, Fcvqre, 楊 輝彦</c><c><oe/>Va nqqvgvba gb gur nobir 67 grnz zrzoref, jr nyfb unir bgure zrzoref jub  pbagevohgrq, jurgure va grpuavpny, znexrgvat be fgerff grfgvat gur flfgrz qhevat gur nycun naq orgn cunfr. Jr jbhyq yvxr gb nqqvgvbanyyl gunax nyy gubfr vaqvivqhnyf abg yvfgrq urer naq gur terngre ARZ pbzzhavgl orpnhfr jvgubhg gurz, jr jbhyq unir abg rire pbzr fb sne.</c><ue/><c>Naq zbfg vzcbegnagyl<oe/><o>Gunax LBH!</o><oe/><oe/>Arj Rpbabzl fgnegf jvgu LBH!</c>"
-			},
 			initialBackup: {
 				title: "Welcome to NEM",
 				content: "You can create wallet backup from menu in upper right corner."
@@ -312,22 +308,26 @@ define({
 				confirmations: 'Confirmaties',
 				confirmationsUnknown: 'Onbekend',
 				amount: 'Bedrag',
+				multiplier: 'Multiplier',
 				innerFee: 'Interne toeslagen',
 				multisigFees: 'Multisig toeslagen',
 				cosignatory: 'Handtekeninghouder',
 				namespace: 'Namespace',
 				rentalFee: 'Rental fee',
 				mosaicName: 'Mosaic Name',
+				mosaicQuantity: 'Mosaic quantity',
+				mosaicLevy: 'Mosaic levy',
 				description: 'Description',
 				propertiesLabel: 'Properties',
 				properties: {
 					divisibility: 'Divisibility',
-					quantity: 'Maximal quantity',
-					mutablequantity: 'Is quantity mutable',
+					initialSupply: 'Initial supply',
+					supplyMutable: 'Is supply mutable',
 					transferable: 'Is transferable'
 				},
 				supplyType: 'Supply type',
-				supplyAmount: 'Supply amount'
+				supplyAmount: 'Supply amount',
+
 			},
 			accountDetails: {
 				title: 'Rekening details',
@@ -603,13 +603,14 @@ define({
 				'Applicaties',
 				'Rekeningen',
 				'Instellingen',
-				'Afsluiten'
+				'Afsluiten',
+				'Namespaces & Mosaics'
 			],
 			bootNodeWarning: 'Een lokaal station moet gestart zijn om alle functionaliteiten van de NCC te gebruiken.'
 		},
 		dashboard: {
 			assets: {
-				title: 'Uw Activa'
+				title: 'Your Mosaics'
 			},
 			importance: {
 				title: 'Score',
@@ -703,6 +704,28 @@ define({
 				pending: 'In afwachting',
 				noTransactions: 'Er zijn nog geen transacties uitgevoerd',
 				loading: 'Meer transacties laden...'
+			}
+		},
+		namespacesmosaics: {
+			title: 'Namespaces & Mosaics',
+			newNamespace: 'New Namespace',
+			newMosaic: 'New Mosaic',
+			balance: 'Huidige Balans',
+			filters: {
+				displayAll: 'Display all',
+				displayMineonly: 'Display mine only',
+				filterNamespace: 'Filter Namespace:',
+				filterMosaic: 'Filter Mosaic:'
+			},
+			table: {
+				columns: [
+					'',
+					'Namespace & Mosaic',
+					'Creation',
+					'Expiration (est.)'
+				],
+				loading: 'Loading Namespaces & Mosaics...',
+				subNamespace: 'sub-namespace'
 			}
 		},
 		harvestedBlocks: {

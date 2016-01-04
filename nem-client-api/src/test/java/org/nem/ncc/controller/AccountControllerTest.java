@@ -11,7 +11,7 @@ import org.nem.core.model.*;
 import org.nem.core.model.ncc.*;
 import org.nem.core.model.primitive.*;
 import org.nem.core.node.NodeEndpoint;
-import org.nem.core.serialization.SerializableList;
+import org.nem.core.serialization.*;
 import org.nem.core.time.TimeInstant;
 import org.nem.ncc.connector.PrimaryNisConnector;
 import org.nem.ncc.controller.requests.*;
@@ -195,6 +195,39 @@ public class AccountControllerTest {
 				null);
 	}
 
+	//endregion
+
+	//region mosaics definitions
+	@Test
+	public void accountMosaicDefinitionsBatchDelegatesToConnector() {
+		// Arrange:
+		final TestContext context = new TestContext();
+		final Account account1 = Utils.generateRandomAccount();
+		final Account account2 = Utils.generateRandomAccount();
+
+		final List<SerializableAccountId> accounts = Arrays.asList(
+				new SerializableAccountId(account1.getAddress()),
+				new SerializableAccountId(account2.getAddress()));
+		final Deserializer deserializer = Utils.roundtripSerializableEntity(new SerializableList<>(accounts), null);
+
+		Mockito.when(context.connector.post(Mockito.any(), Mockito.any())).thenReturn(Mockito.mock(Deserializer.class));
+
+		// Act:
+		// TODO 20150810 J-G: i guess result should also be validated
+		context.controller.accountMosaicDefinitionsBatch(deserializer);
+
+		// Assert:
+		final ArgumentCaptor<HttpPostRequest> requestCaptor = ArgumentCaptor.forClass(HttpPostRequest.class);
+		Mockito.verify(context.connector, Mockito.only()).post(
+				Mockito.eq(NisApiId.NIS_REST_ACCOUNT_MOSAIC_DEFINITIONS_BATCH_LOOK_UP), requestCaptor.capture());
+		final JSONObject jsonRequest = (JSONObject)JSONValue.parse(requestCaptor.getValue().getPayload());
+
+		Assert.assertThat(jsonRequest.size(), IsEqual.equalTo(1));
+		final JSONArray elements = (JSONArray)jsonRequest.get("data");
+		Assert.assertThat(elements.size(), IsEqual.equalTo(2));
+		Assert.assertThat(((JSONObject)elements.get(0)).get("account"), IsEqual.equalTo(account1.getAddress().getEncoded()));
+		Assert.assertThat(((JSONObject)elements.get(1)).get("account"), IsEqual.equalTo(account2.getAddress().getEncoded()));
+	}
 	//endregion
 
 	//region transactions/unconfirmed

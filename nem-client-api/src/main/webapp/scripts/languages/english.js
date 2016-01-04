@@ -40,20 +40,15 @@ define({
 			401: 'This operation cannot be completed because it might leak a private key by sending it to a remote NIS.',
 			404: 'The requested resource could not be found.',
 			500: 'An error occurred that the development team did not have foreseen. Apologies for this, maybe a retry might help. Otherwise, please open up an issue within the NEM NIS/NCC community.',
-
 			600: 'Before sending and receiving transactions, the NEM Infrastructure Server (NIS) needs to be booted. Please use the NCC menu entry for booting the local node.',
 			601: 'The NEM Infrastructure Server (NIS) is already booted.',
 			602: 'Almost ready. NEM Infrastructure Server is currently loading blocks. Wallet will be functional when db is fully loaded.',
-
 			699: 'Maximum number of harvesters allowed on server has been reached.',
 			700: 'The provided account does not satisfy the basic criteria for harvesting. Mainly it is related to the amount of XEM within the account. Harvesting starts with at least 10000 vested XEM.',
-
 			901: 'There was an error setting up offline mode.',
-
 			1000: 'The private key and the public key you have provided mismatch.',
 			1001: 'The public key and the address you have provided mismatch.',
 			1002: 'The address does not belong to the main network.',
-
 			1203: 'The provided deadline is in the past. The deadline must be provided within a 1 day period.',
 			1204: 'The provided deadline is too far in the future. The deadline must be within one day time period.',
 			1205: 'Your account does not have the right balance to make this transaction.',
@@ -62,21 +57,18 @@ define({
 			1208: 'The signature of the transaction could not be verified.',
 			1209: 'The time stamp of the transaction is too far in the past.',
 			1210: 'The time stamp of the transaction is too far in the future.',
-
 			1219: 'The transaction was rejected because the transaction cache is too full. A higher fee improves the chance that the transaction gets accepted.',
-
 			1262: 'Delegated harvesting account has non zero balance and cannot be used.',
 			1263: 'Importance transfer rejected. There is already pending importance transfer operation.',
 			1264: 'Delegated harvesting is already active.',
 			1265: 'Delegated harvesting is NOT active. Cannot deactivate.',
 			1266: 'Importance transfer transaction (delegated harvesting) conflicts with existing transaction.',
-
 			1271: 'Multisig signature transaction rejected. Current account is not a cosignatory of a multisig account.',
 			1273: 'Multisig signature transaction rejected. Associated multisig transaction is not known to NEM network',
 			1274: 'Transaction is not allowed for multisig account.',
 			1275: 'Multisig account modification rejected. One of added accounts is already a cosignatory.',
+			1321: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
 
-            1321: 'The account is unknown. An account needs to be part of at least one transaction (sender or recipient) to be known to the network.',
 		},
 		common: {
 			success: 'Success',
@@ -127,6 +119,7 @@ define({
 			warning: 'Warning',
 			newBuild: 'NEW BUILD',
 			newBuildNumber: 'There is new build {{1}} available for download. Check <a class="hyperlink--default", href="http://blog.nem.io">blog.nem.io</a> for details',
+
 		},
 		transactionTypes: {
 			20: 'TRANSFER TRANSACTION',
@@ -135,15 +128,14 @@ define({
 			23: 'PROVISION NAMESPACE',
 			24: 'MOSAIC CREATION',
 			25: 'MOSAIC SUPPLY',
-
 			40: 'MULTISIG SIGNATURE',
-
 			50: 'MULTISIG TRANSACTION',
 			51: 'MULTISIG TRANSACTION',
 			52: 'MULTISIG TRANSACTION',
-            53: 'MULTISIG TRANSACTION',
+			53: 'MULTISIG TRANSACTION',
 			54: 'MULTISIG TRANSACTION',
 			55: 'MULTISIG TRANSACTION',
+
 		},
 		transactionDirections: {
 			pending: 'Pending transaction',
@@ -168,10 +160,6 @@ define({
 			confirmDefault: {
 				yes: 'Yes',
 				no: 'No'
-			},
-			initialTy: {
-				title: "WELCOME to NEM",
-				content: "<p>Founded on the strong principles of egalitarian and equality in distribution, the New Economy Movement, NEM, has now finally come to fruition after close to 14 months of intensive development. In addition to 5 core developers and 7 core marketers, we have a host of community members who have helped us in one way or another, without whom, this would never have come together so well as being one of the few crypto initiatives with such a big team. Special mention is given to the following:</p><hr/><p><b>Technical and Marketing input:</b><br/> Amy, andme, averagejoe, BrainOfMasses, dzarmusch, EFFV, Elana82, erkki, freigeist, happy4209, instacash, jadedjack, KevinLi, KkotNem, kooream, Krysto, Loi Tran, lyka, mixmaster, MrPortMan, nembit, nxkoil, owon, Panther03, pheromone, renoteng.li, rigel, SaulGray, shawnleary, solix, stone, thilon, unvoidpl, zhankaiwen, zoata87, 守望者, 攻陳τч酨鈊, 清风, 福泽天下</p><hr/><p><b>NCC User Interface translation:</b><br/>apex, boestin, Chaos514, DIMKAZDS, filchef, freigeist, Guliver, iaminitnow06, Janea4pda, kuppalahti, Lcharles, martismartis, mess-lelouch, Parana, rigel, Shawn, Spider, 楊 輝彦</p><p><br/>In addition to the above 67 team members, we also have other members who  contributed, whether in technical, marketing or stress testing the system during the alpha and beta phase. We would like to additionally thank all those individuals not listed here and the greater NEM community because without them, we would have not ever come so far.</p><hr/><p>And most importantly<br/><b>Thank YOU!</b><br/><br/>New Economy starts with YOU!</p>"
 			},
 			initialBackup: {
 				title: "Welcome to NEM",
@@ -320,22 +308,26 @@ define({
 				confirmations: 'Confirmations',
 				confirmationsUnknown: 'Unknown',
 				amount: 'Amount',
+				multiplier: 'Multiplier',
 				innerFee: 'Inner Fee',
 				multisigFees: 'Multisig Fees',
 				cosignatory: 'Cosignatory',
 				namespace: 'Namespace',
 				rentalFee: 'Rental fee',
 				mosaicName: 'Mosaic Name',
+				mosaicQuantity: 'Mosaic quantity',
+				mosaicLevy: 'Mosaic levy',
 				description: 'Description',
 				propertiesLabel: 'Properties',
 				properties: {
-				    divisibility: 'Divisibility',
-				    quantity: 'Maximal quantity',
-				    mutablequantity: 'Is quantity mutable',
-				    transferable: 'Is transferable'
+					divisibility: 'Divisibility',
+					initialSupply: 'Initial supply',
+					supplyMutable: 'Is supply mutable',
+					transferable: 'Is transferable'
 				},
 				supplyType: 'Supply type',
-				supplyAmount: 'Supply amount'
+				supplyAmount: 'Supply amount',
+
 			},
 			accountDetails: {
 				title: "Account details",
@@ -611,13 +603,14 @@ define({
 				'Applications',
 				'Accounts',
 				'Settings',
-				'Close Program'
+				'Close Program',
+				'Namespaces & Mosaics'
 			],
 			bootNodeWarning: "A local node needs to be booted before you can fully utilize NCC's features."
 		},
 		dashboard: {
 			assets: {
-				title: 'Your Assets'
+				title: 'Your Mosaics'
 			},
 			importance: {
 				title: 'Importance Score',
@@ -711,6 +704,28 @@ define({
 				pending: 'Pending',
 				noTransactions: 'No transactions have been performed yet',
 				loading: 'Loading more transactions...'
+			}
+		},
+		namespacesmosaics: {
+			title: 'Namespaces & Mosaics',
+			newNamespace: 'New Namespace',
+			newMosaic: 'New Mosaic',
+			balance: 'Current Balance',
+			filters: {
+				displayAll: 'Display all',
+				displayMineonly: 'Display mine only',
+				filterNamespace: 'Filter Namespace:',
+				filterMosaic: 'Filter Mosaic:'
+			},
+			table: {
+				columns: [
+					'',
+					'Namespace & Mosaic',
+					'Creation',
+					'Expiration (est.)'
+				],
+				loading: 'Loading Namespaces & Mosaics...',
+				subNamespace: 'sub-namespace'
 			}
 		},
 		harvestedBlocks: {

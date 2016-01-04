@@ -1,0 +1,151 @@
+<main class="namespace-mosaic-main">
+	<div class="container">
+		<section class="listingPage">
+			<div class="listingPage-head">
+				<h1 class="listingPage-title">{{texts.namespacesmosaics.title}}</h1>
+				<button type="button" class="listingPage-mainButton button" disabled="true"  on-click="openNewNamespace()">{{texts.namespacesmosaics.newNamespace}}</button>
+				<button type="button" class="listingPage-mainButton button" disabled="true"  on-click="openNewMosaic()">{{texts.namespacesmosaics.newMosaic}}</button>
+				<div class="listingPage-searchArea">
+					<div class="listingPage-search">
+						<input class="listingPage-searchTextbox" type="text" />
+						<button class="listingPage-searchButton" type="submit" id="search-btn" class="icon-magnifying-glass-reverse"></button>
+					</div>
+				</div>
+				
+			</div>
+			<div class="listingPage-body">
+				<div class="listingPage-filterBar"  style="display:none;">
+					<ul class="listingPage-filter">
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-all" name="{{namespaces.filter}}" value="" checked />
+                            <label class="listingPage-filterLabel" for="rad-namespaces-filter-all">{{texts.namespacesmosaics.filters.displayAll}}</label>
+						</li>
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-pending" name="{{namespaces.filter}}" value="/account/mosaic/owned/definition/batch" />
+                            <label class="listingPage-filterLabel" for="rad-namespaces-filter-pending">{{texts.namespacesmosaics.filters.displayMineonly}}</label>
+						</li>
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-incoming" name="{{namespaces.filter}}" value="" />
+                            <label class="listingPage-filterLabel" for="rad-namespaces-filter-incoming">{{texts.namespacesmosaics.filters.filterNamespace}}</label>
+						</li>
+						<li class="listingPage-filterOption">
+                            <input type="radio" class="hidden" id="rad-namespaces-filter-outgoing" name="{{namespaces.filter}}" value="account/namespaces/outgoing" />
+							<label class="listingPage-filterLabel" for="rad-namespaces-filter-outgoing">{{texts.namespacesmosaics.filters.filterMosaic}}</label>
+						</li>
+					</ul>
+				</div>
+				<div class="listingPage-list listingPage-list--namespaces">
+					<h2>Owned Mosaics</h2>
+					Displaying {{mosaics.owned.length}} Owned Mosaics
+					<table class="nsmsList">
+						<thead>
+						<tr class="nsmsList-row">
+							<th class="nsmsList-header nsmsList-col--mosaic">Mosaic</th>
+							<th class="nsmsList-header nsmsList-col--quantity">Quantity</th>
+						</tr>
+						</thead>
+						<tbody>
+						{{#each mosaics.owned}}
+						<tr class="nsmsList-row">
+							<td class="nsmsList-cell nsmsList-col--mosaic">
+								{{.namespaceId}}:{{.name}}
+							</td>
+							<td class="nsmsList-cell nsmsList-col--quantity">
+								{{.quantity}}
+							</td>
+						</tr>
+						{{/each}}
+						</tbody>
+					</table>
+
+					<h2>Namespaces</h2>
+					Displaying {{namespaces.all.length}} Namespaces
+					<table class="nsmsList">
+						<thead>
+						<tr class="nsmsList-row">
+								<th>{{texts.namespacesmosaics.table.columns.0}}</th>
+								<th class="sortable
+								 {{#if (contactsSort_formattedAddress===1)}}icon-up-open{{else}}icon-down-open{{/if}} {{#if (contactsSortColumn !== 'formattedAddress')}}sort-inactive{{/if}}
+								 nsmsList-header nsmsList-col--name namespacesPage-leftMost" on-tap='sort:formattedAddress'>{{texts.namespacesmosaics.table.columns.1}}</th>
+								<th class="sortable
+								{{#if (contactsSort_privateLabel===1)}}icon-up-open{{else}}icon-down-open{{/if}} {{#if (contactsSortColumn !== 'privateLabel')}}sort-inactive{{/if}}
+								nsmsList-header nsmsList-col--height"  on-tap='sort:privateLabel'>{{texts.namespacesmosaics.table.columns.2}}</th>
+								<th class="sortable nsmsList-header nsmsList-col--actions namespacesPage-rightMost">{{texts.namespacesmosaics.table.columns.3}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each namespaces.all}}
+								<tr class="nsmsList-row">
+								<td> </td>
+								<td class="nsmsList-cell nsmsList-col--name">
+									{{.fqn}}
+								</td>
+								<td class="nsmsList-cell nsmsList-col--height">
+									{{.height}}
+								</td>
+								<td></td>
+                     			</tr>
+							{{/each}}
+						</tbody>
+					</table>
+
+					<h2>Mosaics</h2>
+					Displaying {{mosaics.all.length}} Mosaics
+					<table class="nsmsList">
+						<thead>
+							<tr class="nsmsList-row namespacesPage-row">
+								<th class="nsmsList-header nsmsList-col--sender">Mosaic</th>
+								<th class="nsmsList-header nsmsList-col--message">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+						{{#each mosaics.all}}
+							<tr class="nsmsList-row">
+								<td class="nsmsList-cell">
+									{{.id.namespaceId}}:{{.id.name}}
+								</td>
+								<td>
+									{{.description}}
+								</td>
+							</tr>
+						{{/each}}
+						</tbody>
+					</table>
+					<div style="display:none;">			
+				    Displaying {{namespaces.urls.length}} URLS
+					<table class="txList">
+						<thead>
+							<tr class="txList-row namespacesPage-row">
+
+								<th>URL</th>
+						
+                               
+							</tr>
+						</thead>
+						<tbody>
+							{{#each namespaces.urls}}
+								<tr class="txList-row">
+								<td> </td>
+								
+								
+								<td><a href="{{.url}}" >{{.url}}</a></td>
+								
+
+                     			</tr>
+                     			<tr>
+                     			<td colspan="4">
+                     			
+									
+                                   
+                     			</td>
+                     			</tr>
+							{{/each}}
+
+						</tbody>
+					</table>
+						</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</main>

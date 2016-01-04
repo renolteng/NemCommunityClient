@@ -32,6 +32,7 @@ public class TransactionMapperTest {
 		final TransferTransaction model = (TransferTransaction)context.mapper.toModel(request);
 
 		// Assert:
+		Assert.assertThat(model.getEntityVersion(), IsEqual.equalTo(1));
 		Assert.assertThat(model.getFee(), IsEqual.equalTo(Amount.fromNem(2)));
 		Assert.assertThat(model.getSigner(), IsEqual.equalTo(context.signer));
 		Assert.assertThat(model.getTimeStamp(), IsEqual.equalTo(new TimeInstant(124)));
@@ -499,7 +500,8 @@ public class TransactionMapperTest {
 				new WalletPassword("p"),
 				Amount.fromNem(2),
 				Amount.ZERO,
-				TransactionViewModel.Type.Transfer.getValue());
+				TransactionViewModel.Type.Transfer.getValue(),
+				1);
 	}
 
 	private static TransferSendRequest createSendRequestWithoutMessage(final TestContext context, final String password) {
@@ -516,7 +518,8 @@ public class TransactionMapperTest {
 				null == password ? null : new WalletPassword(password),
 				Amount.fromNem(2),
 				Amount.ZERO,
-				TransactionViewModel.Type.Transfer.getValue());
+				TransactionViewModel.Type.Transfer.getValue(),
+				1);
 	}
 
 	private static TransferImportanceRequest createRemoteHarvestRequest(

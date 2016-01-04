@@ -43,7 +43,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 	 */
 	public List<AccountInfo> getAccounts() {
 		return this.cache.entrySet().stream()
-				.map(e -> e.getValue().accountMetaDataPair.getAccount())
+				.map(e -> e.getValue().accountMetaDataPair.getEntity())
 				.collect(Collectors.toList());
 	}
 
@@ -138,7 +138,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 			}
 
 			final Collection<AccountMetaDataPair> pairs = this.accountServices.getAccountMetaDataPairs(requests);
-			pairs.stream().forEach(p -> this.cache.put(p.getAccount().getAddress(), new FreshnessPair(p, currentTime)));
+			pairs.stream().forEach(p -> this.cache.put(p.getEntity().getAddress(), new FreshnessPair(p, currentTime)));
 		});
 	}
 
@@ -155,7 +155,7 @@ public class NccAccountCache implements AccountMetaDataPairLookup {
 				final AccountMetaDataPair accountMetaDataPair,
 				final TimeInstant refreshTime) {
 			this.accountMetaDataPair = accountMetaDataPair;
-			this.account = new Account(this.accountMetaDataPair.getAccount().getAddress());
+			this.account = new Account(this.accountMetaDataPair.getEntity().getAddress());
 			this.refreshTime = refreshTime;
 		}
 	}

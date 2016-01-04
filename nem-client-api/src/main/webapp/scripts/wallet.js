@@ -253,10 +253,46 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
                     });
                 }
             },
+            
+            ncc.openNewNamespace = function() {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('newNamespace');
+                    m.open();
+                    
+                } else if (ncc.get('loadingDb')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.loadingWarning.title'), ncc.get('texts.faults.602'));
+
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
+            ncc.openNewMosaic = function() {
+                if (ncc.get('nodeBooted')) {
+                    var m = ncc.getModal('newMosaic');
+                    m.open();
+                    
+                } else if (ncc.get('loadingDb')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.loadingWarning.title'), ncc.get('texts.faults.602'));
+
+                } else if (ncc.get('nodeBooting')) {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.bootingWarning.title'), ncc.get('texts.modals.sendNem.bootingWarning.message'));
+                } else {
+                    ncc.showMessage(ncc.get('texts.modals.sendNem.notBootedWarning.title'), ncc.get('texts.modals.sendNem.notBootedWarning.message'), function() {
+                        ncc.showBootModal();
+                    });
+                }
+            },
+
 
             ncc.openConvertMultisig = function() {
                 var m = ncc.getModal('convertMultisig');
-                m.set('isAfterMofNFork', ncc.get('blockchainHeight') > 199800);
+                var Fork_1_Height = (ncc.get('activeAccount.address')[0] === 'T') ? 90000 : 199800;
+                m.set('isAfterMofNFork', ncc.get('blockchainHeight') > Fork_1_Height);
                 m.open();
             }
 
@@ -1217,23 +1253,16 @@ define(['jquery', 'ncc', 'NccLayout', 'Utils', 'TransactionType', 'filesaver'], 
             local.intervalJobs.push(setInterval(ncc.refreshAccount.bind(null, null, null, true), local.autoRefreshInterval));
 
             ncc.refreshAppStatus(function() {
-                if (ncc.get('settings.firstStart') === 0) {
+                if (ncc.get('settings.firstStart') === 0 || ncc.get('settings.firstStart') === 1) {
                     ncc.showMessage(
-                        ncc.get('texts.modals.initialTy.title'),
-                        ncc.get('texts.modals.initialTy.content'),
+                        ncc.get('texts.modals.initialBackup.title'),
+                        ncc.get('texts.modals.initialBackup.content'),
                         function() {
-                            ncc.showMessage(
-                                ncc.get('texts.modals.initialBackup.title'),
-                                ncc.get('texts.modals.initialBackup.content'),
-                                function() {
-                                    var settings = ncc.get('settings');
-                                    settings['firstStart'] = 1;
-                                    ncc.postRequest('configuration/update', settings);
-                                    ncc.set('settings', settings);
-                                }
-                            );
-                        },
-                        'modal--wide'
+                            var settings = ncc.get('settings');
+                            settings['firstStart'] = 2;
+                            ncc.postRequest('configuration/update', settings);
+                            ncc.set('settings', settings);
+                        }
                     );
                 }
                 if (!ncc.get('nodeBooted')) {

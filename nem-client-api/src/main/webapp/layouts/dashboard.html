@@ -3,11 +3,24 @@
 		<ul class="dashboard js-dashboard">
 			<li class="tile tile--assets" data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 				<article>
-					<h1 class="tile-title">{{texts.dashboard.assets.title}}</h1>
-					<!--/*<div>
-						<p class="assetsTile-assetsCount">0 <span class="unit">assets</span></p>
-					</div>*/-->
-					<p class="notAvailableMessage notAvailableMessage--whole">{{texts.dashboard.notAvailable}}</p>
+					<h1 class="tile-title">{{texts.dashboard.assets.title}} ({{mosaics.owned.length}})</h1>
+					<table class="txList">
+					
+					<tbody>
+					{{#each mosaics.owned:i}}
+					{{#if i < 4}}
+						<tr class="txList-row">
+						<td class="txList-cell">
+							<a class="hyperlink--default" href="javascript:;" on-click="redirect:'namespaces-mosaics', {{params}}">{{.namespaceId}}:{{.name}}</a>
+						</td>
+						<td>
+							{{.quantity}}
+						</td>
+						</tr>
+					{{/if}}
+					{{/each}}
+					</tbody>
+					</table>
 				</article>
 			</li>
 

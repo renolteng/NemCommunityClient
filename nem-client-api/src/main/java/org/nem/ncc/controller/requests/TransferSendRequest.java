@@ -23,6 +23,7 @@ public class TransferSendRequest {
 	private final Amount fee;
 	private final Amount multisigFee;
 	private final int type;
+	private final int version;
 
 	/**
 	 * Creates a new transfer send request.
@@ -40,7 +41,8 @@ public class TransferSendRequest {
 			final WalletPassword password,
 			final Amount fee,
 			final Amount multisigFee,
-			final int type) {
+			final int type,
+			final int version) {
 		this.walletName = walletName;
 		this.multisigAddress = multisigAddress;
 		this.senderAddress = senderAddress;
@@ -54,6 +56,7 @@ public class TransferSendRequest {
 		this.fee = fee;
 		this.multisigFee = multisigFee;
 		this.type = type;
+		this.version = version;
 	}
 
 	/**
@@ -75,6 +78,7 @@ public class TransferSendRequest {
 		this.password = WalletPassword.readFrom(deserializer, "password");
 		this.fee = Amount.readFrom(deserializer, "fee");
 		this.multisigFee = Amount.readFrom(deserializer, "multisigFee");
+		this.version = deserializer.readInt("version");
 	}
 
 	/**
@@ -96,13 +100,20 @@ public class TransferSendRequest {
 	}
 
 	/**
-	 * Gets the type of transfer.
+	 * Gets the transfer type.
 	 *
-	 * @return The type of transfer (multisig or normal).
+	 * @return The transfer type (multisig or normal).
 	 */
 	public int getType() {
 		return this.type;
 	}
+
+	/**
+	 * Gets the transfer version.
+	 *
+	 * @return The transfer version.
+	 */
+	public int getVersion() { return this.version; }
 
 	/**
 	 * Gets the sender account id.

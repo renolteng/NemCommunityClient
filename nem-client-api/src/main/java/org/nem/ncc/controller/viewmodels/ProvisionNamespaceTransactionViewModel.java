@@ -9,7 +9,7 @@ import org.nem.core.serialization.Serializer;
  * A provision namespace transaction view model.
  */
 public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel {
-	private final Address lessor;
+	private final Address rentalFeeSink;
 	private final Amount rentalFee;
 	private final String namespaceName;
 
@@ -22,8 +22,8 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	public ProvisionNamespaceTransactionViewModel(final TransactionMetaDataPair metaDataPair, final BlockHeight lastBlockHeight) {
 		super(Type.Provision_Namespace, metaDataPair, lastBlockHeight);
 
-		final ProvisionNamespaceTransaction transaction = (ProvisionNamespaceTransaction)metaDataPair.getTransaction();
-		this.lessor = transaction.getLessor().getAddress();
+		final ProvisionNamespaceTransaction transaction = (ProvisionNamespaceTransaction)metaDataPair.getEntity();
+		this.rentalFeeSink = transaction.getRentalFeeSink().getAddress();
 		this.rentalFee = transaction.getRentalFee();
 		this.namespaceName = transaction.getResultingNamespaceId().toString();
 	}
@@ -32,18 +32,18 @@ public class ProvisionNamespaceTransactionViewModel extends TransactionViewModel
 	protected void serializeImpl(final Serializer serializer) {
 		super.serializeImpl(serializer);
 
-		Address.writeTo(serializer, "lessor", this.lessor);
+		Address.writeTo(serializer, "rentalFeeSink", this.rentalFeeSink);
 		Amount.writeTo(serializer, "amount", this.rentalFee);
 		serializer.writeString("namespace", this.namespaceName);
 	}
 
 	/**
-	 * Gets the namespace lessor account
+	 * Gets the namespace rental fee sink account
 	 *
-	 * @return The lessor account.
+	 * @return The rental fee sink account.
 	 */
-	public Address getLessor() {
-		return this.lessor;
+	public Address getRentalFeeSink() {
+		return this.rentalFeeSink;
 	}
 
 	/**

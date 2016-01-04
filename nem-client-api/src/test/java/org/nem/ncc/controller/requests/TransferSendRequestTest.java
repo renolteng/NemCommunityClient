@@ -31,7 +31,8 @@ public class TransferSendRequestTest {
 				new WalletPassword("p"),
 				Amount.fromMicroNem(2),
 				Amount.ZERO,
-				TransactionViewModel.Type.Transfer.getValue());
+				TransactionViewModel.Type.Transfer.getValue(),
+				1234);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -47,12 +48,13 @@ public class TransferSendRequestTest {
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(2L)));
 		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.ZERO));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
+		Assert.assertThat(request.getVersion(), IsEqual.equalTo(1234));
 	}
 
 	@Test
 	public void requestCanBeDeserializedWithAllParameters() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L, 3L, 20);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, "m", 6, 3, 5, "p", 2L, 3L, 20, 1234);
 
 		// Assert:
 		Assert.assertThat(request.getWalletName(), IsEqual.equalTo(new WalletName("w")));
@@ -67,12 +69,13 @@ public class TransferSendRequestTest {
 		Assert.assertThat(request.getFee(), IsEqual.equalTo(Amount.fromMicroNem(2L)));
 		Assert.assertThat(request.getMultisigFee(), IsEqual.equalTo(Amount.fromMicroNem(3L)));
 		Assert.assertThat(request.getType(), IsEqual.equalTo(TransactionViewModel.Type.Transfer.getValue()));
+		Assert.assertThat(request.getVersion(), IsEqual.equalTo(1234));
 	}
 
 	@Test
 	public void requestCanBeDeserializedWithoutMessage() {
 		// Act:
-		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 0, 5, "p", 2L, 3L, 1);
+		final TransferSendRequest request = this.createRequestFromJson("w", "a", "r", 7L, null, 0, 0, 5, "p", 2L, 3L, 1, 1);
 
 		// Assert:
 		Assert.assertThat(request.getMessage(), IsNull.nullValue());
@@ -84,17 +87,18 @@ public class TransferSendRequestTest {
 	public void requestCannotBeDeserializedWithMissingRequiredParameters() {
 		// Arrange:
 		final List<Consumer<Void>> actions = Arrays.asList(
-				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 1, 3, 5, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", null, "m", 1, 3, 5, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 3, 5, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, null, 5, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, null, "p", 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, null, 2L, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", null, 3L, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, null, 1),
-				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, null));
+				v -> this.createRequestFromJson(null, "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", null, "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", null, 7L, "m", 1, 3, 5, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", null, "m", 1, 3, 5, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", null, 3, 5, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, null, 5, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, null, "p", 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, null, 2L, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", null, 3L, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, null, 1, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, null, 1),
+				v -> this.createRequestFromJson("w", "a", "r", 7L, "m", 1, 3, 5, "p", 2L, 3L, 1, null));
 
 		// Assert:
 		for (final Consumer<Void> action : actions) {
@@ -114,7 +118,8 @@ public class TransferSendRequestTest {
 			final String password,
 			final Long fee,
 			final Long multisigFee,
-			final Integer type) {
+			final Integer type,
+			final Integer version) {
 		final JSONObject jsonObject = new JSONObject();
 		jsonObject.put("wallet", walletName);
 		jsonObject.put("account", accountId);
@@ -128,6 +133,7 @@ public class TransferSendRequestTest {
 		jsonObject.put("fee", fee);
 		jsonObject.put("multisigFee", multisigFee);
 		jsonObject.put("type", type);
+		jsonObject.put("version", version);
 		return new TransferSendRequest(new JsonDeserializer(jsonObject, null));
 	}
 }

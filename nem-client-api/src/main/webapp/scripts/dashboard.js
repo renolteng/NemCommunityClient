@@ -129,6 +129,26 @@
                     animationTime: 700
                 });
             });*/
+
+
+            //owned mosaics
+            //http://127.0.0.1:7890/account/mosaic/owned?address=TD3RXTHBLK6J3UD2BH2PXSOFLPWZOTR34WCG4HXH
+            var remoteserver = ncc.get('settings.remoteServer.protocol') + "://" + ncc.get('settings.remoteServer.host') + ":" + ncc.get('settings.remoteServer.port');
+            var currAccount = ncc.get('activeAccount.address');
+            var url4 = remoteserver + '/account/mosaic/owned?address=' + currAccount;
+            var mosaicOwnedOutputs = [];
+            $.getJSON(url4, function(data4) {
+                for (var i4 in data4.data) {
+                    mosaicOwnedOutputs.push({
+                        "quantity": data4.data[i4].quantity,
+                        "namespaceId": data4.data[i4].mosaicId.namespaceId,
+                        "name": data4.data[i4].mosaicId.name,
+                        "fqn": data4.data[i4].mosaicId.namespaceId + ":" + data4.data[i4].mosaicId.name
+                    });
+                } //end owned mosaics for
+             }); //end owned mosaics
+
+            ncc.set('mosaics.owned', mosaicOwnedOutputs);
         }
     });
 });
