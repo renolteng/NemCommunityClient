@@ -2,7 +2,7 @@
 
 define(['jquery', 'ncc', 'NccLayout', 'Utils'], function($, ncc, NccLayout, Utils) {
     return $.extend(true, {}, NccLayout, {
-        name: 'namespacesmosaics',
+        name: 'namespaces-mosaics',
         url: 'namespaces-mosaics.html',
         template: 'rv!layout/namespaces-mosaics',
         parent: 'wallet',

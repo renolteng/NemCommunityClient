@@ -628,7 +628,7 @@ define({
 					startRemoteHarvesting: 'Démarrer la récolte distante',
 					remotelyHarvesting: 'Récolte à distance en cours',
 					stopRemoteHarvesting: 'Arrêter la récolte distante',
-					multisigInfo: 'L\'activation ou la déactivation de la récolte distante pour un compte multisyg doit être effectuer à partir d\'un des comptes cosignataire,
+					multisigInfo: 'L\'activation ou la déactivation de la récolte distante pour un compte multisyg doit être effectuer à partir d\'un des comptes cosignataire',
 
 				}
 			},
